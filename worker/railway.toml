@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+buildCommand = "echo 'no build step'"
+
+[deploy]
+startCommand = "node index.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"

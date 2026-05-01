@@ -1,0 +1,41 @@
+'use server'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+
+export async function saveProfile(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const fullName = (formData.get('full_name') as string ?? '').trim() || null
+  const briefingTime = (formData.get('briefing_time') as string) || null
+  const briefingDays = formData.getAll('briefing_days') as string[]
+
+  const parseCsv = (raw: string) =>
+    raw.split(',').map(s => s.trim()).filter(Boolean)
+
+  const targetTitles = parseCsv(formData.get('target_titles') as string ?? '')
+  const targetSectors = parseCsv(formData.get('target_sectors') as string ?? '')
+  const positioningSummary = (formData.get('positioning_summary') as string ?? '').trim() || null
+
+  const { error: upsertError } = await supabase
+    .from('user_profiles')
+    .upsert(
+      {
+        user_id: user.id,
+        full_name: fullName,
+        briefing_time: briefingTime,
+        briefing_days: briefingDays.length > 0 ? briefingDays : null,
+        target_titles: targetTitles.length > 0 ? targetTitles : null,
+        target_sectors: targetSectors.length > 0 ? targetSectors : null,
+        positioning_summary: positioningSummary,
+      },
+      { onConflict: 'user_id' }
+    )
+
+  if (upsertError) redirect('/dashboard/profile?error=save-failed')
+
+  revalidatePath('/dashboard')
+  redirect('/dashboard/profile?saved=1')
+}

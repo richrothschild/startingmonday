@@ -1,0 +1,17 @@
+{
+  "name": "startingmonday-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --env-file=../.env.local index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
+    "@sentry/node": "^8.0.0",
+    "@supabase/supabase-js": "^2.105.1",
+    "cheerio": "^1.0.0",
+    "node-cron": "^3.0.3"
+  }
+}

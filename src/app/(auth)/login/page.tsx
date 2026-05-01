@@ -18,7 +18,7 @@ export default function LoginPage() {
     setError(null)
 
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
       setError(error.message)
@@ -26,59 +26,93 @@ export default function LoginPage() {
       return
     }
 
+    if (data.user) {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+      await supabase.from('user_profiles').upsert(
+        { user_id: data.user.id, briefing_timezone: tz },
+        { onConflict: 'user_id' }
+      )
+    }
+
     router.push('/dashboard')
     router.refresh()
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-sm">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Starting Monday</h1>
-          <p className="mt-1 text-sm text-gray-500">Sign in to your account</p>
+    <div className="min-h-screen bg-slate-100 font-sans">
+
+      <header className="bg-slate-900">
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+            Starting Monday
+          </Link>
         </div>
+      </header>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+      <main className="flex items-center justify-center px-6 py-20">
+        <div className="w-full max-w-sm">
+
+          <div className="mb-8">
+            <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Sign in</h1>
+            <p className="text-[13px] text-slate-500 mt-1.5">Welcome back.</p>
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              id="password"
-              type="password"
-              required
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+          <div className="bg-white border border-slate-200 rounded p-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+
+              <div>
+                <label htmlFor="email" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+
+              {error && (
+                <p className="text-[13px] text-red-600">{error}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Signing in…' : 'Sign in'}
+              </button>
+
+            </form>
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          <p className="text-center text-[13px] text-slate-400 mt-5">
+            No account?{' '}
+            <Link href="/signup" className="text-slate-700 font-semibold hover:text-slate-900">
+              Get early access
+            </Link>
+          </p>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 px-4 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? 'Signing in…' : 'Sign in'}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-gray-500">
-          No account?{' '}
-          <Link href="/signup" className="text-blue-600 hover:underline">Create one</Link>
-        </p>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }
