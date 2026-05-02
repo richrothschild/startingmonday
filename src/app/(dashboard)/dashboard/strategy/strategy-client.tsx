@@ -60,10 +60,18 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const [question, setQuestion] = useState('')
+  const [answer, setAnswer] = useState('')
+  const [answerLoading, setAnswerLoading] = useState(false)
+  const [answerError, setAnswerError] = useState('')
+
   async function handleGenerate() {
     setLoading(true)
     setBrief('')
     setError('')
+    setAnswer('')
+    setAnswerError('')
+    setQuestion('')
     try {
       const res = await fetch('/api/strategy')
       if (!res.ok) {
@@ -81,6 +89,36 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleFollowup(e: React.FormEvent) {
+    e.preventDefault()
+    if (!question.trim() || !brief || answerLoading) return
+    setAnswerLoading(true)
+    setAnswer('')
+    setAnswerError('')
+    try {
+      const res = await fetch('/api/strategy/followup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brief, question: question.trim() }),
+      })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setAnswerError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await streamResponse(res, chunk => { fullText += chunk; setAnswer(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setAnswerError(fullText.slice(9))
+        setAnswer('')
+      }
+    } catch (e) {
+      setAnswerError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setAnswerLoading(false)
     }
   }
 
@@ -159,6 +197,54 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
             {renderBrief(brief)}
             {loading && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+            )}
+          </div>
+        )}
+
+        {brief && !loading && (
+          <div className="mt-6">
+            <form onSubmit={handleFollowup} className="flex gap-3">
+              <input
+                type="text"
+                value={question}
+                onChange={e => setQuestion(e.target.value)}
+                placeholder="Ask a follow-up question about your strategy..."
+                disabled={answerLoading}
+                className="flex-1 border border-slate-200 rounded px-4 py-2.5 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={!question.trim() || answerLoading}
+                className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {answerLoading ? 'Thinking…' : 'Ask'}
+              </button>
+            </form>
+
+            {answerError && (
+              <div className="mt-3 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+                {answerError}
+              </div>
+            )}
+
+            {(answer || answerLoading) && (
+              <div className="mt-4 bg-white border border-slate-200 rounded p-6">
+                {answer && (
+                  <div className="text-[14px] text-slate-700 leading-relaxed whitespace-pre-wrap">
+                    {answer}
+                  </div>
+                )}
+                {answerLoading && !answer && (
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+                  </div>
+                )}
+                {answerLoading && answer && (
+                  <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+                )}
+              </div>
             )}
           </div>
         )}
