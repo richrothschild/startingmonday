@@ -64,4 +64,5 @@ export async function archiveContact(contactId: string) {
     .eq('user_id', user.id)
 
   revalidatePath('/dashboard/contacts')
+  redirect('/dashboard/contacts')
 }
