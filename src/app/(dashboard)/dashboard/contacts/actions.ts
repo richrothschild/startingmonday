@@ -32,23 +32,16 @@ export async function addContact(formData: FormData) {
     companyId = co?.id ?? null
   }
 
-  const { data: inserted, error: insertError } = await supabase
-    .from('contacts')
-    .insert({
-      user_id: user.id,
-      company_id: companyId,
-      name,
-      title,
-      firm,
-      channel,
-      notes,
-      status: 'active',
-    })
-    .select()
-
-  console.log('[addContact] user.id:', user.id)
-  console.log('[addContact] inserted:', JSON.stringify(inserted))
-  console.log('[addContact] insertError:', JSON.stringify(insertError))
+  const { error: insertError } = await supabase.from('contacts').insert({
+    user_id: user.id,
+    company_id: companyId,
+    name,
+    title,
+    firm,
+    channel,
+    notes,
+    status: 'active',
+  })
 
   if (insertError) {
     revalidatePath('/dashboard/contacts')
