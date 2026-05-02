@@ -12,17 +12,23 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
   const encoder = new TextEncoder()
   return new ReadableStream({
     async start(controller) {
-      const stream = anthropic.messages.stream({
-        model: process.env.ANTHROPIC_PREP_MODEL ?? 'claude-sonnet-4-6',
-        max_tokens: maxTokens,
-        system: SYSTEM,
-        messages,
-      })
-      stream.on('text', text => controller.enqueue(encoder.encode(text)))
-      const final = await stream.finalMessage()
-      controller.close()
-      const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-      trackApiUsage(supabase, userId, tokens).catch(() => {})
+      try {
+        const stream = anthropic.messages.stream({
+          model: process.env.ANTHROPIC_PREP_MODEL ?? 'claude-sonnet-4-6',
+          max_tokens: maxTokens,
+          system: SYSTEM,
+          messages,
+        })
+        stream.on('text', text => controller.enqueue(encoder.encode(text)))
+        const final = await stream.finalMessage()
+        controller.close()
+        const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
+        trackApiUsage(supabase, userId, tokens).catch(() => {})
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Unknown error'
+        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.close()
+      }
     },
   })
 }

@@ -18,6 +18,9 @@ export async function saveProfile(formData: FormData) {
   const targetTitles = parseCsv(formData.get('target_titles') as string ?? '')
   const targetSectors = parseCsv(formData.get('target_sectors') as string ?? '')
   const positioningSummary = (formData.get('positioning_summary') as string ?? '').trim() || null
+  const resumeText = (formData.get('resume_text') as string ?? '').trim() || null
+  const beyondResume = (formData.get('beyond_resume') as string ?? '').trim() || null
+  const linkedinUrl = (formData.get('linkedin_url') as string ?? '').trim() || null
 
   const { error: upsertError } = await supabase
     .from('user_profiles')
@@ -30,6 +33,9 @@ export async function saveProfile(formData: FormData) {
         target_titles: targetTitles.length > 0 ? targetTitles : null,
         target_sectors: targetSectors.length > 0 ? targetSectors : null,
         positioning_summary: positioningSummary,
+        resume_text: resumeText,
+        beyond_resume: beyondResume,
+        linkedin_url: linkedinUrl,
       },
       { onConflict: 'user_id' }
     )

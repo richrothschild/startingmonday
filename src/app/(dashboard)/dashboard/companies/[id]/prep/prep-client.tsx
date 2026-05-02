@@ -102,6 +102,7 @@ export function PrepClient({
 }) {
   const [brief, setBrief] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [refineInput, setRefineInput] = useState('')
   const [refining, setRefining] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
@@ -109,10 +110,22 @@ export function PrepClient({
   async function handleGenerate() {
     setLoading(true)
     setBrief('')
+    setError('')
     try {
       const res = await fetch(`/api/prep/${companyId}`)
-      if (!res.ok) throw new Error('Failed')
-      await stream(res, chunk => setBrief(prev => prev + chunk))
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await stream(res, chunk => { fullText += chunk; setBrief(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setError(fullText.slice(9))
+        setBrief('')
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
     }
@@ -123,15 +136,28 @@ export function PrepClient({
     if (!request || refining || loading) return
     setRefining(true)
     setBrief('')
+    setError('')
     try {
       const res = await fetch(`/api/prep/${companyId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ brief, request }),
       })
-      if (!res.ok) throw new Error('Failed')
-      await stream(res, chunk => setBrief(prev => prev + chunk))
-      setRefineInput('')
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await stream(res, chunk => { fullText += chunk; setBrief(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setError(fullText.slice(9))
+        setBrief('')
+      } else {
+        setRefineInput('')
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setRefining(false)
     }
@@ -173,10 +199,24 @@ export function PrepClient({
           </button>
         </div>
 
-        {!brief && !busy && (
+        {error && (
+          <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+            {error}
+          </div>
+        )}
+
+        {!brief && !busy && !error && (
           <div className="bg-white border border-slate-200 rounded p-10 text-center">
             <p className="text-[14px] text-slate-400">
               Generates an elite brief using your pipeline data, company notes, scan results, and known contacts.
+            </p>
+          </div>
+        )}
+
+        {!brief && !busy && error && (
+          <div className="bg-white border border-slate-200 rounded p-10 text-center">
+            <p className="text-[14px] text-slate-400">
+              Click Generate to try again.
             </p>
           </div>
         )}

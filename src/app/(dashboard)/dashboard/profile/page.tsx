@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { saveProfile } from './actions'
+import ProfileResumeUpload from './profile-resume-upload'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -25,7 +26,7 @@ export default async function ProfilePage({
   const [{ data: profile }, { data: usage }] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, positioning_summary')
+      .select('full_name, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, linkedin_url')
       .eq('user_id', user.id)
       .single(),
     supabase
@@ -44,6 +45,9 @@ export default async function ProfilePage({
   const targetTitles = (profile?.target_titles ?? []).join(', ')
   const targetSectors = (profile?.target_sectors ?? []).join(', ')
   const positioningSummary = profile?.positioning_summary ?? ''
+  const resumeText = profile?.resume_text ?? ''
+  const beyondResume = profile?.beyond_resume ?? ''
+  const linkedinUrl = profile?.linkedin_url ?? ''
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -145,6 +149,55 @@ export default async function ProfilePage({
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Used to personalize interview prep briefs and chat context.</p>
+            </div>
+
+            {/* LinkedIn URL */}
+            <div>
+              <label htmlFor="linkedin_url" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                LinkedIn URL
+              </label>
+              <input
+                id="linkedin_url"
+                name="linkedin_url"
+                type="url"
+                defaultValue={linkedinUrl}
+                placeholder="https://www.linkedin.com/in/yourname"
+                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+              />
+            </div>
+
+            {/* Resume */}
+            <div>
+              <label htmlFor="resume_text" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                Resume / career history
+              </label>
+              <ProfileResumeUpload />
+              <textarea
+                id="resume_text"
+                name="resume_text"
+                rows={12}
+                maxLength={100000}
+                defaultValue={resumeText}
+                placeholder="Paste your resume text here, or upload a PDF/DOCX above…"
+                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y leading-relaxed font-mono text-[12px]"
+              />
+              <p className="mt-1.5 text-[12px] text-slate-400">Used in interview prep briefs and AI context.</p>
+            </div>
+
+            {/* Beyond the resume */}
+            <div>
+              <label htmlFor="beyond_resume" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                Beyond the resume
+              </label>
+              <textarea
+                id="beyond_resume"
+                name="beyond_resume"
+                rows={4}
+                defaultValue={beyondResume}
+                placeholder="What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume…"
+                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed"
+              />
+              <p className="mt-1.5 text-[12px] text-slate-400">Gives the AI richer context for cover letters and interview prep.</p>
             </div>
 
             {/* Briefing time */}
