@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import type { UserSubscription } from '@/lib/subscription'
-import { PLANS } from '@/lib/stripe'
+import { PLANS } from '@/lib/plans'
 
 function fmtDate(d: Date | null) {
   if (!d) return null

@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-import { stripe, PLANS, type PlanKey } from '@/lib/stripe'
+import { stripe, PRICE_IDS } from '@/lib/stripe'
+import { PLANS, type PlanKey } from '@/lib/plans'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
-    line_items: [{ price: PLANS[plan].priceId, quantity: 1 }],
+    line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
     success_url: `${baseUrl}/dashboard?upgraded=1`,
     cancel_url: `${baseUrl}/settings/billing`,
     subscription_data: {
