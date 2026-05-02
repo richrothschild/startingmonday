@@ -25,9 +25,9 @@ type Contact = {
 export default async function ContactsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ saved?: string }>
+  searchParams: Promise<{ saved?: string; error?: string }>
 }) {
-  const { saved } = await searchParams
+  const { saved, error: saveError } = await searchParams
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -147,6 +147,11 @@ export default async function ContactsPage({
             {saved && (
               <div className="mb-4 px-3 py-2 bg-green-50 border border-green-200 rounded text-[12px] text-green-700">
                 Contact saved.
+              </div>
+            )}
+            {saveError && (
+              <div className="mb-4 px-3 py-2 bg-red-50 border border-red-200 rounded text-[12px] text-red-700">
+                Save failed: {saveError}
               </div>
             )}
 

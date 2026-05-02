@@ -21,11 +21,21 @@ export default async function ProfilePage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
-    .from('user_profiles')
-    .select('full_name, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, positioning_summary')
-    .eq('user_id', user.id)
-    .single()
+  const monthKey = new Date().toISOString().slice(0, 7)
+  const [{ data: profile }, { data: usage }] = await Promise.all([
+    supabase
+      .from('user_profiles')
+      .select('full_name, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, positioning_summary')
+      .eq('user_id', user.id)
+      .single(),
+    supabase
+      .from('api_usage')
+      .select('token_count, request_count')
+      .eq('user_id', user.id)
+      .eq('service', 'anthropic')
+      .eq('month_key', monthKey)
+      .maybeSingle(),
+  ])
 
   const activeDays: string[] = profile?.briefing_days ?? DEFAULT_DAYS
   const briefingTime = profile?.briefing_time
@@ -194,6 +204,58 @@ export default async function ProfilePage({
 
           </form>
         </div>
+        <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+            LinkedIn profile
+          </p>
+          <p className="text-[13px] text-slate-500 leading-relaxed">
+            A strong LinkedIn profile is often the first thing a hiring team checks before reaching out.{' '}
+            <a
+              href="https://www.linkedin-makeover.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-900 underline underline-offset-2 hover:text-slate-600"
+            >
+              LinkedIn-Makeover.com
+            </a>{' '}
+            is one of the most established services for executive-level profile optimization.
+          </p>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
+            Usage this month
+          </p>
+          {(() => {
+            const tokensUsed = usage?.token_count ?? 0
+            const monthlyLimit = 3_000_000
+            const pct = Math.min(100, Math.round((tokensUsed / monthlyLimit) * 100))
+            return (
+              <div>
+                <div className="flex items-end justify-between mb-2">
+                  <span className="text-[22px] font-bold text-slate-900">
+                    {tokensUsed.toLocaleString()}
+                  </span>
+                  <span className="text-[13px] text-slate-400 mb-0.5">
+                    of {monthlyLimit.toLocaleString()} tokens
+                  </span>
+                </div>
+                <div className="flex gap-1">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-2 flex-1 rounded-full ${i < Math.round(pct / 10) ? (pct > 80 ? 'bg-red-500' : 'bg-slate-900') : 'bg-slate-100'}`}
+                    />
+                  ))}
+                </div>
+                <p className="text-[12px] text-slate-400 mt-2">
+                  {pct}% used — resets {new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+            )
+          })()}
+        </div>
+
       </main>
     </div>
   )

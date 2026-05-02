@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
+import { getRelevantResources, getDefaultResources, type Resource } from '@/lib/resources'
 
 function escapeHtml(str: string): string {
   return str
@@ -42,6 +43,41 @@ function renderBrief(text: string) {
       />
     )
   })
+}
+
+function ResourcePanel({ brief }: { brief: string }) {
+  const resources: Resource[] = brief.length > 0
+    ? getRelevantResources(brief, 3)
+    : getDefaultResources(2)
+
+  if (resources.length === 0) return null
+
+  return (
+    <div className="bg-white border border-slate-200 rounded p-6 mb-4">
+      <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-4">
+        Further Reading — Career Tools
+      </p>
+      <div className="flex flex-col gap-3">
+        {resources.map(r => (
+          <a
+            key={r.url + r.title}
+            href={r.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-start gap-3 no-underline"
+          >
+            <div className="min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-600 transition-colors">
+                {r.title}
+                <span className="ml-1.5 text-[11px] font-normal text-slate-400">{r.source} ↗</span>
+              </div>
+              <div className="text-[12px] text-slate-500 mt-0.5 leading-relaxed">{r.description}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 async function stream(res: Response, onChunk: (text: string) => void) {
@@ -163,6 +199,8 @@ export function PrepClient({
             )}
           </div>
         )}
+
+        {brief && !loading && <ResourcePanel brief={brief} />}
 
         {brief && !loading && (
           <div className="bg-white border border-slate-200 rounded p-6">

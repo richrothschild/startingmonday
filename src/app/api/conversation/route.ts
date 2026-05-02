@@ -22,10 +22,38 @@ export async function PUT(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
-  const { messages, conversationId } = await request.json()
+  let messages: unknown, conversationId: string | null
+  try {
+    const body = await request.json()
+    messages = body?.messages
+    conversationId = body?.conversationId ?? null
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
   const supabase = await createClient()
 
   if (conversationId) {
+    // Rate limit: reject if this conversation was updated within the last 500ms.
+    const { data: existing } = await supabase
+      .from('conversations')
+      .select('updated_at')
+      .eq('id', conversationId)
+      .eq('user_id', auth.userId)
+      .maybeSingle()
+
+    if (existing?.updated_at) {
+      const age = Date.now() - new Date(existing.updated_at).getTime()
+      if (age < 500) {
+        return new Response(JSON.stringify({ error: 'Too many requests' }), {
+          status: 429,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+    }
+
     await supabase
       .from('conversations')
       .update({ messages })
@@ -47,7 +75,13 @@ export async function DELETE(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
-  const { conversationId } = await request.json()
+  let conversationId: string | null
+  try {
+    const body = await request.json()
+    conversationId = body?.conversationId ?? null
+  } catch {
+    return Response.json({ ok: true })
+  }
   if (!conversationId) return Response.json({ ok: true })
 
   const supabase = await createClient()

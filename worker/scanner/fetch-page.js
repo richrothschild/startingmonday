@@ -1,5 +1,22 @@
 const BROWSERLESS_URL = 'https://production-sfo.browserless.io/chromium/content'
 
+// Block private/internal addresses to prevent SSRF attacks.
+function isAllowedUrl(urlStr) {
+  try {
+    const url = new URL(urlStr)
+    if (!['http:', 'https:'].includes(url.protocol)) return false
+    const h = url.hostname.toLowerCase()
+    if (h === 'localhost' || h === '127.0.0.1' || h === '::1') return false
+    if (/^10\./.test(h)) return false
+    if (/^172\.(1[6-9]|2\d|3[01])\./.test(h)) return false
+    if (/^192\.168\./.test(h)) return false
+    if (h === '169.254.169.254') return false // cloud metadata endpoints
+    return true
+  } catch {
+    return false
+  }
+}
+
 const CHROME_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 
 const BROWSER_HEADERS = {
@@ -27,6 +44,10 @@ export class BlockedError extends Error {
 //    If it returns substantial content, use it and skip the Browserless credit.
 // 2. Browserless (JS-rendered) — for SPA career pages or when plain fetch returns sparse HTML.
 export async function fetchPage(url) {
+  if (!isAllowedUrl(url)) {
+    throw new Error(`fetchPage: blocked URL — ${url}`)
+  }
+
   const apiKey = process.env.BROWSERLESS_API_KEY
 
   // Step 1: plain fetch

@@ -27,9 +27,18 @@ async function scanWithRetry(supabase, company, profile) {
   }
 }
 
+const SCAN_LOCK_KEY = 7329841023n // arbitrary stable bigint key for pg_advisory_lock
+
 export async function runScanJob() {
   const supabase = getSupabase()
   logger.info('scan-job: starting')
+
+  // Acquire a Postgres advisory lock so only one worker instance runs at a time.
+  const { data: locked } = await supabase.rpc('try_advisory_lock', { p_key: SCAN_LOCK_KEY })
+  if (!locked) {
+    logger.warn('scan-job: another instance is already running — skipping')
+    return
+  }
 
   const { data: companies, error: companyErr } = await supabase
     .from('companies')
@@ -76,12 +85,15 @@ export async function runScanJob() {
         }
         return result
       } catch (err) {
-        logger.error('scan-job: unhandled error', { company: company.name, error: err.message })
+        const msg = err instanceof Error ? err.message : String(err)
+        logger.error('scan-job: unhandled error', { company: company.name, error: msg })
       }
     })
   )
 
   await Promise.all(tasks)
+
+  await supabase.rpc('advisory_unlock', { p_key: SCAN_LOCK_KEY })
 
   // Track aggregate usage for this scan run
   if (browserlessCalls > 0) {

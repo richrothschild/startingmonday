@@ -3,18 +3,27 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 
+function str(formData: FormData, key: string): string {
+  return String(formData.get(key) ?? '').trim()
+}
+function numOrNull(formData: FormData, key: string): number | null {
+  const raw = formData.get(key)
+  if (!raw) return null
+  const v = Number(raw)
+  return Number.isFinite(v) ? v : null
+}
+
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const name = (formData.get('name') as string ?? '').trim()
-  const sector = (formData.get('sector') as string ?? '').trim() || null
-  const stage = formData.get('stage') as string
-  const fitRaw = formData.get('fit_score') as string
-  const fitScore = fitRaw ? Number(fitRaw) : null
-  const careerPageUrl = (formData.get('career_page_url') as string ?? '').trim() || null
-  const notes = (formData.get('notes') as string ?? '').trim() || null
+  const name = str(formData, 'name')
+  const sector = str(formData, 'sector') || null
+  const stage = str(formData, 'stage') || 'watching'
+  const fitScore = numOrNull(formData, 'fit_score')
+  const careerPageUrl = str(formData, 'career_page_url') || null
+  const notes = str(formData, 'notes') || null
 
   if (!name) redirect(`/dashboard/companies/${id}?error=required`)
 
@@ -51,8 +60,8 @@ export async function addFollowUp(companyId: string, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const action = (formData.get('action') as string ?? '').trim()
-  const dueDate = formData.get('due_date') as string
+  const action = str(formData, 'action')
+  const dueDate = str(formData, 'due_date')
 
   if (!action || !dueDate) redirect(`/dashboard/companies/${companyId}`)
 
@@ -74,11 +83,11 @@ export async function addContact(companyId: string, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const name = (formData.get('name') as string ?? '').trim()
-  const title = (formData.get('title') as string ?? '').trim() || null
-  const firm = (formData.get('firm') as string ?? '').trim() || null
-  const channel = (formData.get('channel') as string) || null
-  const notes = (formData.get('notes') as string ?? '').trim() || null
+  const name = str(formData, 'name')
+  const title = str(formData, 'title') || null
+  const firm = str(formData, 'firm') || null
+  const channel = str(formData, 'channel') || null
+  const notes = str(formData, 'notes') || null
 
   if (!name) redirect(`/dashboard/companies/${companyId}`)
 
@@ -131,8 +140,8 @@ export async function addDocument(companyId: string, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const label = (formData.get('label') as string) || 'other'
-  const content = (formData.get('content') as string ?? '').trim()
+  const label = str(formData, 'label') || 'other'
+  const content = str(formData, 'content')
 
   if (!content) redirect(`/dashboard/companies/${companyId}`)
 

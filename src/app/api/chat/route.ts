@@ -21,7 +21,16 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  const { messages: rawMessages } = await request.json()
+  let rawMessages: unknown[]
+  try {
+    const body = await request.json()
+    rawMessages = Array.isArray(body?.messages) ? body.messages : []
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
   const messages = trimMessages(rawMessages as { role: string; content: string }[])
 
   const { data: profile } = await supabase
@@ -79,7 +88,7 @@ ${actionsLines || 'None.'}`
   const readable = new ReadableStream({
     async start(controller) {
       const stream = anthropic.messages.stream({
-        model: 'claude-sonnet-4-6',
+        model: process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6',
         max_tokens: 1024,
         system: systemPrompt,
         messages: messages.map(m => ({
@@ -90,6 +99,10 @@ ${actionsLines || 'None.'}`
 
       stream.on('text', (text) => {
         controller.enqueue(encoder.encode(text))
+      })
+
+      stream.on('error', (err) => {
+        controller.error(err)
       })
 
       const final = await stream.finalMessage()

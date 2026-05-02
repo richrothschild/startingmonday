@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Starting Monday — AI Career Tools for Executives',
-  description: 'Pipeline tracking, automated opportunity scanning, and elite interview prep for C-suite executives.',
+  description: 'Pipeline tracking, automated opportunity scanning, and elite interview prep for executives.',
 }
 
 const FEATURES = [
@@ -65,7 +65,7 @@ export default function LandingPage() {
       <section className="bg-slate-900 px-6 pt-24 pb-28">
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-500 mb-6">
-            Built for C-suite executives in active search
+            Built for executives in active search
           </p>
           <h1 className="text-[48px] sm:text-[56px] font-bold text-white leading-[1.1] tracking-tight mb-6">
             Walk into every<br />interview owning<br />the room.

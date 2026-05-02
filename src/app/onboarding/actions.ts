@@ -25,6 +25,8 @@ export async function completeOnboarding(formData: FormData) {
   const resumeText          = (formData.get('resume_text') as string ?? '').trim() || null
   const beyondResume        = (formData.get('beyond_resume') as string ?? '').trim() || null
 
+  if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
+
   await supabase.from('user_profiles').upsert(
     {
       user_id:                  user.id,
