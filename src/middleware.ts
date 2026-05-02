@@ -26,16 +26,22 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   const { pathname } = request.nextUrl
 
-  if (!user && pathname.startsWith('/dashboard')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
+  // Server actions are POST requests with a Next-Action header.
+  // They run their own auth checks — don't redirect them here.
+  const isServerAction = request.headers.has('next-action')
 
-  if (user && (pathname === '/login' || pathname === '/signup')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+  if (!isServerAction) {
+    if (!user && pathname.startsWith('/dashboard')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    if (user && (pathname === '/login' || pathname === '/signup')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard'
+      return NextResponse.redirect(url)
+    }
   }
 
   return supabaseResponse
