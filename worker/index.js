@@ -118,6 +118,8 @@ http.createServer((req, res) => {
       const { companyId, userId } = parsed
       if (!companyId || !userId) return
 
+      logger.info('trigger-scan: received', { companyId, userId })
+
       const supabase = getSupabase()
       Promise.all([
         supabase.from('companies').select('*').eq('id', companyId).eq('user_id', userId).single(),
