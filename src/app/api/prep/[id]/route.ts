@@ -14,7 +14,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL ?? 'claude-sonnet-4-6',
+          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
           max_tokens: maxTokens,
           system: SYSTEM,
           messages,

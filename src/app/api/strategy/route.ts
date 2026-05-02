@@ -14,7 +14,7 @@ function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createCl
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL ?? 'claude-sonnet-4-6',
+          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
           max_tokens: 2000,
           system: SYSTEM,
           messages: [{ role: 'user', content: prompt }],
