@@ -118,6 +118,24 @@ test('prep brief generates content', async ({ page }) => {
   await page.waitForURL('**/dashboard', { timeout: 10_000 })
 })
 
+// ─── Strategy Brief ──────────────────────────────────────────────────────────
+
+test('strategy brief generates content', async ({ page }) => {
+  test.setTimeout(180_000)
+
+  await page.goto('/dashboard/strategy')
+  await expect(page.locator('h1')).toContainText('Search Strategy Brief')
+
+  await page.getByRole('button', { name: 'Generate strategy brief' }).click()
+  await expect(page.getByRole('button', { name: /Generating/ })).toBeVisible()
+
+  // Wait for streaming h2 or error banner
+  await page.locator('h2, .bg-red-50').first().waitFor({ state: 'visible', timeout: 90_000 })
+  const errorText = await page.locator('.bg-red-50').textContent().catch(() => '')
+  await expect(page.locator('.bg-red-50'), `Strategy API error: ${errorText}`).not.toBeVisible()
+  await expect(page.locator('h2').first()).toBeVisible()
+})
+
 // ─── API Guards ──────────────────────────────────────────────────────────────
 
 test('resume upload API rejects invalid file type', async ({ page }) => {
@@ -133,6 +151,15 @@ test('resume upload API rejects invalid file type', async ({ page }) => {
   })
   // 415 if auth works and magic bytes rejected; 401 if session not forwarded
   expect([401, 415]).toContain(response.status())
+})
+
+test('strategy API denies unauthenticated access', async ({ browser }) => {
+  const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
+  const ctx = await browser.newContext({ baseURL })
+  const page = await ctx.newPage()
+  const response = await page.request.get('/api/strategy', { failOnStatusCode: false })
+  expect([301, 302, 303, 307, 308, 401, 404]).toContain(response.status())
+  await ctx.close()
 })
 
 test('prep API denies unauthenticated access', async ({ browser }) => {
