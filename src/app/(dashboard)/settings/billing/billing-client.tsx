@@ -1,0 +1,130 @@
+'use client'
+import Link from 'next/link'
+import { useState } from 'react'
+import type { UserSubscription } from '@/lib/subscription'
+import { PLANS } from '@/lib/stripe'
+
+function fmtDate(d: Date | null) {
+  if (!d) return null
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
+
+export function BillingClient({ sub }: { sub: UserSubscription }) {
+  const [loading, setLoading] = useState<string | null>(null)
+
+  async function handleCheckout(plan: 'monitor' | 'active') {
+    setLoading(plan)
+    try {
+      const res = await fetch('/api/billing/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      })
+      const { url, error } = await res.json()
+      if (error) { alert(error); return }
+      window.location.href = url
+    } finally {
+      setLoading(null)
+    }
+  }
+
+  async function handlePortal() {
+    setLoading('portal')
+    try {
+      const res = await fetch('/api/billing/portal', { method: 'POST' })
+      const { url, error } = await res.json()
+      if (error) { alert(error); return }
+      window.location.href = url
+    } finally {
+      setLoading(null)
+    }
+  }
+
+  const trialDaysLeft = sub.trialEndsAt
+    ? Math.max(0, Math.ceil((sub.trialEndsAt.getTime() - Date.now()) / 86_400_000))
+    : null
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <header className="bg-slate-900">
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">Starting Monday</span>
+          <Link href="/dashboard" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">
+            ← Dashboard
+          </Link>
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-6 py-10">
+        <h1 className="text-[26px] font-bold text-slate-900 mb-1">Billing</h1>
+        <p className="text-[13px] text-slate-500 mb-8">Manage your subscription and plan.</p>
+
+        {/* Current status */}
+        <div className="bg-white border border-slate-200 rounded p-6 mb-8">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Current Plan</p>
+          {sub.status === 'trialing' && trialDaysLeft != null && (
+            <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800">
+              You are in your free trial — <strong>{trialDaysLeft} day{trialDaysLeft !== 1 ? 's' : ''} remaining</strong>. Subscribe below to keep access after the trial ends.
+            </div>
+          )}
+          {sub.status === 'past_due' && (
+            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+              Your last payment failed. Update your payment method to restore access.
+            </div>
+          )}
+          {sub.status === 'canceled' && (
+            <div className="mb-4 px-4 py-3 bg-slate-50 border border-slate-200 rounded text-[13px] text-slate-600">
+              Your subscription was canceled.{sub.periodEnd ? ` Access ends ${fmtDate(sub.periodEnd)}.` : ''}
+            </div>
+          )}
+          <div className="flex items-center gap-4">
+            <div>
+              <p className="text-[18px] font-bold text-slate-900 capitalize">
+                {sub.tier === 'free' ? 'Free trial' : sub.tier}
+              </p>
+              <p className="text-[13px] text-slate-500 capitalize">{sub.status.replace('_', ' ')}</p>
+            </div>
+            {sub.isPaid && (
+              <button
+                onClick={handlePortal}
+                disabled={loading === 'portal'}
+                className="ml-auto text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
+              >
+                {loading === 'portal' ? 'Loading…' : 'Manage subscription'}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Plans */}
+        {!sub.isPaid && (
+          <>
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-4">Choose a plan</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(Object.entries(PLANS) as [string, typeof PLANS[keyof typeof PLANS]][]).map(([key, plan]) => (
+                <div key={key} className={`bg-white border rounded p-6 ${key === 'active' ? 'border-slate-900' : 'border-slate-200'}`}>
+                  {key === 'active' && (
+                    <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-900 mb-3">Most popular</p>
+                  )}
+                  <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
+                  <p className="text-[28px] font-bold text-slate-900 mt-1">
+                    ${(plan.amount / 100).toFixed(0)}
+                    <span className="text-[14px] font-normal text-slate-500">/mo</span>
+                  </p>
+                  <p className="text-[13px] text-slate-500 mt-2 mb-5 leading-relaxed">{plan.description}</p>
+                  <button
+                    onClick={() => handleCheckout(key as 'monitor' | 'active')}
+                    disabled={loading === key}
+                    className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${key === 'active' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
+                  >
+                    {loading === key ? 'Redirecting…' : `Subscribe to ${plan.name}`}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  )
+}

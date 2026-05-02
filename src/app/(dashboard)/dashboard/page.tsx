@@ -121,6 +121,12 @@ export default async function DashboardPage({
             >
               {profile?.full_name ?? user.email}
             </Link>
+            <Link
+              href="/settings/billing"
+              className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
+            >
+              Billing
+            </Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
