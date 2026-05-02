@@ -195,6 +195,63 @@ export default async function DashboardPage({
           </div>
         )}
 
+        {/* Day 1 action plan — only shown until first company is added */}
+        {totalCount === 0 && !hasFilters && (
+          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
+            <div className="px-6 py-5 border-b border-slate-100">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
+                Day 1
+              </p>
+              <h2 className="text-[18px] font-bold text-slate-900">
+                Four moves to start strong.
+              </h2>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {[
+                {
+                  href: '/dashboard/companies/new',
+                  label: 'Add your first target company',
+                  sub: 'Include the career page URL — we\'ll scan for openings immediately.',
+                },
+                {
+                  href: '/dashboard/profile',
+                  label: 'Sharpen your positioning',
+                  sub: 'Upload your LinkedIn PDF and set your target titles. Drives every brief and briefing.',
+                },
+                {
+                  href: '/dashboard/contacts',
+                  label: 'Map your key contacts',
+                  sub: 'Who do you know at target companies? Who can warm-connect you?',
+                },
+                {
+                  href: '/dashboard/strategy',
+                  label: 'Get your Search Strategy Brief',
+                  sub: 'Your sector, your narrative, your outreach framework. Takes 60 seconds.',
+                },
+              ].map((action, i) => (
+                <a
+                  key={action.href}
+                  href={action.href}
+                  className="group px-6 py-5 flex items-start gap-4 hover:bg-slate-50 transition-colors block"
+                >
+                  <span className="text-[13px] font-bold text-slate-300 w-5 shrink-0 mt-0.5">
+                    {i + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-700">
+                      {action.label}
+                    </p>
+                    <p className="text-[13px] text-slate-400 mt-0.5 leading-relaxed">
+                      {action.sub}
+                    </p>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-slate-500 shrink-0 mt-0.5">→</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Pipeline */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden">
 
@@ -275,7 +332,7 @@ export default async function DashboardPage({
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="py-12 text-center text-[14px] text-slate-400">
-                    {totalCount === 0 ? 'No companies in pipeline yet.' : 'No companies match your filter.'}
+                    {totalCount === 0 ? 'Add your first company above to get started.' : 'No companies match your filter.'}
                   </td>
                 </tr>
               ) : filtered.map((co, i) => {

@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
   let text: string
   try {
     if (isPdf) {
-      const pdfParse = (await import('pdf-parse')).default
+      // pdf-parse types don't declare a default export — cast to actual shape
+      const pdfParse = (await import('pdf-parse') as unknown as { default: (buf: Buffer) => Promise<{ text: string }> }).default
       const result = await pdfParse(buffer)
       text = result.text
     } else {

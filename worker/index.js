@@ -2,6 +2,8 @@ import http from 'http'
 import cron from 'node-cron'
 import * as Sentry from '@sentry/node'
 import { logger } from './lib/logger.js'
+import { getSupabase } from './lib/supabase.js'
+import { scanCompany } from './scanner/scan-company.js'
 import { runScanJob } from './jobs/scan-job.js'
 import { runBriefingJob } from './jobs/briefing-job.js'
 import { runFollowupJob } from './jobs/followup-job.js'
@@ -94,6 +96,43 @@ http.createServer((req, res) => {
     }))
     return
   }
+
+  // Immediate scan trigger — called by the main app when a company is added.
+  // Returns 202 immediately; scan runs async so the caller isn't blocked.
+  if (req.url === '/trigger-scan' && req.method === 'POST') {
+    const secret = process.env.WORKER_SECRET
+    if (!secret || req.headers['x-worker-secret'] !== secret) {
+      res.writeHead(401)
+      res.end()
+      return
+    }
+
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', () => {
+      res.writeHead(202)
+      res.end()
+
+      let parsed
+      try { parsed = JSON.parse(body) } catch { return }
+      const { companyId, userId } = parsed
+      if (!companyId || !userId) return
+
+      const supabase = getSupabase()
+      Promise.all([
+        supabase.from('companies').select('*').eq('id', companyId).eq('user_id', userId).single(),
+        supabase.from('user_profiles').select('*').eq('user_id', userId).single(),
+      ]).then(([{ data: company }, { data: profile }]) => {
+        if (!company) return
+        return scanCompany(supabase, company, profile ?? {})
+      }).catch(err => {
+        logger.error('trigger-scan: failed', { companyId, error: err.message })
+        Sentry.captureException(err)
+      })
+    })
+    return
+  }
+
   res.writeHead(404)
   res.end()
 }).listen(PORT, () => {

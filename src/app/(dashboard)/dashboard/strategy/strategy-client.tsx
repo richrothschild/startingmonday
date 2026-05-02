@@ -1,0 +1,169 @@
+'use client'
+import Link from 'next/link'
+import { useState } from 'react'
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+function renderInline(str: string): string {
+  return escapeHtml(str).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+}
+
+function renderBrief(text: string) {
+  return text.split('\n').map((line, i) => {
+    if (line.startsWith('# ')) return null
+    if (line.trim() === '---' || line.trim() === '***') return null
+    if (line.startsWith('## ')) {
+      return (
+        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-10 mb-4 first:mt-0 pb-2 border-b border-slate-100">
+          {line.slice(3)}
+        </h2>
+      )
+    }
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      return (
+        <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
+          <span className="text-slate-300 shrink-0 select-none mt-0.5">–</span>
+          <span dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+        </div>
+      )
+    }
+    if (line.trim() === '') return <div key={i} className="h-1.5" />
+    return (
+      <p
+        key={i}
+        className="text-[14px] text-slate-700 leading-relaxed mb-2.5"
+        dangerouslySetInnerHTML={{ __html: renderInline(line) }}
+      />
+    )
+  })
+}
+
+async function streamResponse(res: Response, onChunk: (text: string) => void) {
+  if (!res.body) throw new Error('No body')
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    onChunk(decoder.decode(value, { stream: true }))
+  }
+}
+
+export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
+  const [brief, setBrief] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  async function handleGenerate() {
+    setLoading(true)
+    setBrief('')
+    setError('')
+    try {
+      const res = await fetch('/api/strategy')
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setError(fullText.slice(9))
+        setBrief('')
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+
+      <header className="bg-slate-900">
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+            Starting Monday
+          </span>
+          <Link
+            href="/dashboard"
+            className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
+          >
+            ← Dashboard
+          </Link>
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-6 py-10">
+
+        <div className="mb-8 flex items-start justify-between gap-6">
+          <div>
+            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Search Strategy Brief</h1>
+            <p className="text-[13px] text-slate-500 mt-1.5">
+              Your market position, target profile, outreach framework, and first 30 days.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={handleGenerate}
+            disabled={loading}
+            className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate strategy brief'}
+          </button>
+        </div>
+
+        {!hasProfile && !brief && (
+          <div className="mb-6 px-5 py-4 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800 leading-relaxed">
+            Your profile isn&apos;t complete yet — the brief will be generic without your background.{' '}
+            <Link href="/dashboard/profile" className="font-semibold underline">
+              Add your details
+            </Link>{' '}
+            for a more useful result.
+          </div>
+        )}
+
+        {error && (
+          <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+            {error}
+          </div>
+        )}
+
+        {!brief && !loading && !error && (
+          <div className="bg-white border border-slate-200 rounded p-10 text-center">
+            <p className="text-[14px] text-slate-400 leading-relaxed max-w-md mx-auto">
+              Generates an honest read on your market position and a concrete action framework — based on your profile, target roles, and pipeline.
+            </p>
+          </div>
+        )}
+
+        {loading && !brief && (
+          <div className="bg-white border border-slate-200 rounded p-8">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+            </div>
+          </div>
+        )}
+
+        {brief && (
+          <div className="bg-white border border-slate-200 rounded p-8">
+            {renderBrief(brief)}
+            {loading && (
+              <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+            )}
+          </div>
+        )}
+
+      </main>
+    </div>
+  )
+}
