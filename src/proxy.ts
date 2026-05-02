@@ -25,13 +25,19 @@ export async function proxy(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const publicPaths = ['/', '/login', '/signup', '/optimize']
-  const isPublic = publicPaths.some(p => request.nextUrl.pathname === p || request.nextUrl.pathname.startsWith('/optimize'))
+  // Server actions carry a Next-Action header — they run their own auth checks,
+  // so skip the redirect here to avoid intercepting them.
+  const isServerAction = request.headers.has('next-action')
 
-  if (!user && !isPublic) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  if (!isServerAction) {
+    const publicPaths = ['/', '/login', '/signup', '/optimize']
+    const isPublic = publicPaths.some(p => request.nextUrl.pathname === p || request.nextUrl.pathname.startsWith('/optimize'))
+
+    if (!user && !isPublic) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
   }
 
   return supabaseResponse
