@@ -159,7 +159,7 @@ export default async function ContactsPage({
             )}
             {saveError && (
               <div className="mb-4 px-3 py-2 bg-red-50 border border-red-200 rounded text-[12px] text-red-700">
-                Save failed: {saveError}
+                Could not save contact. Please try again.
               </div>
             )}
 

@@ -25,13 +25,15 @@ export async function POST(request: NextRequest) {
 
   if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
 
-  // Reuse existing Stripe customer or create one
+  // Reuse existing Stripe customer or create one.
+  // Idempotency key on customer creation prevents duplicate customers if two
+  // checkout requests race (both see stripe_customer_id = null simultaneously).
   let customerId = user.stripe_customer_id
   if (!customerId) {
-    const customer = await getStripe().customers.create({
-      email: user.email,
-      metadata: { userId },
-    })
+    const customer = await getStripe().customers.create(
+      { email: user.email, metadata: { userId } },
+      { idempotencyKey: `customer-${userId}` },
+    )
     customerId = customer.id
     await supabase.from('users').update({ stripe_customer_id: customerId }).eq('id', userId)
   }

@@ -25,17 +25,31 @@ export async function POST(request: NextRequest) {
 
   const supabase = createAdminClient()
 
+  // Idempotency: skip events we've already processed (handles Stripe retries)
+  const { error: dupError } = await supabase
+    .from('processed_stripe_events')
+    .insert({ event_id: event.id })
+  if (dupError) {
+    // Unique violation = already processed
+    if (dupError.code === '23505') return NextResponse.json({ received: true })
+    // Any other insert error: fail so Stripe retries
+    return NextResponse.json({ error: 'Database error' }, { status: 500 })
+  }
+
+  let updateError: { message: string } | null = null
+
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
-      const userId = (session.metadata?.userId) as string | undefined
-      const plan = (session.metadata?.plan) as string | undefined
+      const userId = session.metadata?.userId
+      const plan = session.metadata?.plan
       if (userId && plan) {
-        await supabase.from('users').update({
+        const { error } = await supabase.from('users').update({
           subscription_tier: plan,
           subscription_status: 'active',
           trial_ends_at: null,
         }).eq('id', userId)
+        updateError = error
       }
       break
     }
@@ -49,10 +63,11 @@ export async function POST(request: NextRequest) {
         : sub.status === 'canceled' ? 'canceled'
         : 'inactive'
       const plan = (sub.metadata?.plan ?? 'free') as string
-      await supabase.from('users').update({
+      const { error } = await supabase.from('users').update({
         subscription_tier: status === 'active' ? plan : 'free',
         subscription_status: status,
       }).eq('id', userId)
+      updateError = error
       break
     }
 
@@ -60,10 +75,11 @@ export async function POST(request: NextRequest) {
       const sub = event.data.object as Stripe.Subscription
       const userId = sub.metadata?.userId
       if (!userId) break
-      await supabase.from('users').update({
+      const { error } = await supabase.from('users').update({
         subscription_tier: 'free',
         subscription_status: 'canceled',
       }).eq('id', userId)
+      updateError = error
       break
     }
 
@@ -73,11 +89,17 @@ export async function POST(request: NextRequest) {
         ? invoice.customer
         : (invoice.customer as Stripe.Customer | null)?.id
       if (!customerId) break
-      await supabase.from('users').update({
+      const { error } = await supabase.from('users').update({
         subscription_status: 'past_due',
       }).eq('stripe_customer_id', customerId)
+      updateError = error
       break
     }
+  }
+
+  if (updateError) {
+    // Tell Stripe the event wasn't processed so it retries
+    return NextResponse.json({ error: 'Database update failed' }, { status: 500 })
   }
 
   return NextResponse.json({ received: true })

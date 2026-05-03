@@ -68,7 +68,8 @@ export default async function DashboardPage({
       .eq('user_id', user.id)
       .eq('status', 'pending')
       .lte('due_date', todayISO)
-      .order('due_date', { ascending: true }),
+      .order('due_date', { ascending: true })
+      .limit(20),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'

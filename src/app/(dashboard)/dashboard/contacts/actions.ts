@@ -45,7 +45,7 @@ export async function addContact(formData: FormData) {
 
   if (insertError) {
     revalidatePath('/dashboard/contacts')
-    redirect(`/dashboard/contacts?error=${encodeURIComponent(insertError.message)}`)
+    redirect('/dashboard/contacts?error=save-failed')
   }
 
   revalidatePath('/dashboard/contacts')
