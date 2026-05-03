@@ -20,9 +20,12 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan }),
       })
-      const { url, error } = await res.json()
-      if (error) { alert(error); return }
-      window.location.href = url
+      const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
+      if (data.error) { alert(data.error); return }
+      if (!data.url) { alert('No checkout URL returned'); return }
+      window.location.href = data.url
+    } catch (e) {
+      alert(`Checkout failed: ${e}`)
     } finally {
       setLoading(null)
     }
@@ -89,6 +92,7 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
                 onClick={handlePortal}
                 disabled={loading === 'portal'}
                 className="ml-auto text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
+                    type="button"
               >
                 {loading === 'portal' ? 'Loading…' : 'Manage subscription'}
               </button>
@@ -113,6 +117,7 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
                   </p>
                   <p className="text-[13px] text-slate-500 mt-2 mb-5 leading-relaxed">{plan.description}</p>
                   <button
+                    type="button"
                     onClick={() => handleCheckout(key as 'monitor' | 'active')}
                     disabled={loading === key}
                     className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${key === 'active' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}

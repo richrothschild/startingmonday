@@ -38,17 +38,23 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
-  const session = await getStripe().checkout.sessions.create({
-    customer: customerId,
-    mode: 'subscription',
-    line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
-    success_url: `${baseUrl}/dashboard?upgraded=1`,
-    cancel_url: `${baseUrl}/settings/billing`,
-    metadata: { userId, plan },
-    subscription_data: {
+  let session
+  try {
+    session = await getStripe().checkout.sessions.create({
+      customer: customerId,
+      mode: 'subscription',
+      line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
+      success_url: `${baseUrl}/dashboard?upgraded=1`,
+      cancel_url: `${baseUrl}/settings/billing`,
       metadata: { userId, plan },
-    },
-  })
+      subscription_data: {
+        metadata: { userId, plan },
+      },
+    })
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
   return NextResponse.json({ url: session.url })
 }
