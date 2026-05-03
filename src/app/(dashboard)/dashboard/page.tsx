@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { markFollowUpDone } from './actions'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { LogoutButton } from './logout-button'
+import { SuggestionCards } from '@/components/SuggestionCards'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -289,6 +290,9 @@ export default async function DashboardPage({
             </div>
           </div>
         )}
+
+        {/* Suggestions — shown until dismissed or pipeline grows */}
+        {totalCount < 5 && !hasFilters && <SuggestionCards />}
 
         {/* Pipeline */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden">

@@ -86,6 +86,9 @@ ${pipelineSection}
 
 Write the brief with these exact sections, using ## for each header:
 
+## Bottom Line
+Three sentences. The first names this candidate's single decisive advantage in this search right now. The second names the single biggest risk or gap they must get ahead of. The third states the one move that will most accelerate their search in the next 30 days. No hedging. No qualifications. Commit.
+
 ## Your Position
 An honest read on where this person actually stands in the market. What's working in their favor, what's working against them, and what the market looks like for their profile right now. Not encouragement: a real assessment. Include whether the stated target roles are realistic, stretchy, or off-base.
 

@@ -14,13 +14,13 @@ const STAGES = [
 export default async function AddCompanyPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>
+  searchParams: Promise<{ error?: string; name?: string }>
 }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { error } = await searchParams
+  const { error, name: prefillName } = await searchParams
   const errorMsg =
     error === 'duplicate' ? 'A company with that name is already in your pipeline.' :
     error === 'required'  ? 'Company name is required.' :
@@ -69,6 +69,7 @@ export default async function AddCompanyPage({
                 type="text"
                 required
                 autoFocus
+                defaultValue={prefillName ?? ''}
                 placeholder="Acme Corp"
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
               />

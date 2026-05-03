@@ -132,6 +132,9 @@ ${contactSection}${docsSection ? `\n\nDOCUMENTS\n${docsSection}` : ''}
 
 Write the brief with these exact sections, using ## for each header:
 
+## Bottom Line
+Three sentences. The first states the candidate's decisive advantage for this specific role over everyone else being considered. The second names the single most likely objection or risk they will face in the room. The third states the one thing they must do or say in this interview to win the opportunity. No hedging. Commit.
+
 ## The Situation
 What is actually driving this hire? What problem does this organization need solved, and why now? Infer from the sector, pipeline stage, notes, and scan data. Be direct. This sets the frame for everything else.
 
