@@ -31,11 +31,10 @@ export async function POST(request: NextRequest) {
   let text: string
   try {
     if (isPdf) {
-      // Use internal path to avoid pdf-parse loading its test file on require
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const pdfLib = await import('pdf-parse/lib/pdf-parse.js' as any)
-      const pdfParse = (pdfLib.default ?? pdfLib) as (buf: Buffer) => Promise<{ text: string }>
-      const result = await pdfParse(buffer)
+      const { PDFParse } = await import('pdf-parse')
+      const parser = new PDFParse({ data: buffer })
+      const result = await parser.getText()
+      await parser.destroy()
       text = result.text
     } else {
       const mammoth = await import('mammoth')

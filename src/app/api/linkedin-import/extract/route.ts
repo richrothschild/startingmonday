@@ -22,14 +22,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Only PDF files are supported' }, { status: 415 })
 
   try {
-    // Use internal path to avoid pdf-parse loading its test file on require
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const pdfParse = (await import('pdf-parse/lib/pdf-parse.js' as any)).default as (buf: Buffer) => Promise<{ text: string }>
-    const result = await pdfParse(buffer)
+    const { PDFParse } = await import('pdf-parse')
+    const parser = new PDFParse({ data: buffer })
+    const result = await parser.getText()
+    await parser.destroy()
     const text = result.text.trim()
     if (!text) return NextResponse.json({ error: 'No text found in the PDF' }, { status: 422 })
     return NextResponse.json({ text })
-  } catch {
+  } catch (err) {
+    console.error('[linkedin-extract] pdf parse failed:', err)
     return NextResponse.json({ error: 'Failed to read the PDF. Try pasting your profile text instead.' }, { status: 422 })
   }
 }
