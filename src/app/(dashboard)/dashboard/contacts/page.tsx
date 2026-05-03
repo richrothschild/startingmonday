@@ -123,14 +123,22 @@ export default async function ContactsPage({
                           <p className="text-[12px] text-slate-400 mt-1 truncate max-w-sm">{ct.notes}</p>
                         )}
                       </div>
-                      <form action={archiveContact.bind(null, ct.id)}>
-                        <button
-                          type="submit"
-                          className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 shrink-0 mt-0.5"
+                      <div className="flex items-center gap-3 shrink-0 mt-0.5">
+                        <Link
+                          href={`/dashboard/contacts/${ct.id}/outreach`}
+                          className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
                         >
-                          Remove
-                        </button>
-                      </form>
+                          Draft
+                        </Link>
+                        <form action={archiveContact.bind(null, ct.id)}>
+                          <button
+                            type="submit"
+                            className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
+                          >
+                            Remove
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   )
                 })}
