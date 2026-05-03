@@ -97,6 +97,12 @@ export default function LandingPage() {
           </span>
           <div className="flex items-center gap-5">
             <Link
+              href="/optimize"
+              className="text-[13px] text-slate-400 hover:text-white transition-colors"
+            >
+              Profile Grader
+            </Link>
+            <Link
               href="/login"
               className="text-[13px] text-slate-400 hover:text-white transition-colors"
             >
