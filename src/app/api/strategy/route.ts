@@ -3,10 +3,10 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { STRATEGY_SYSTEM } from '@/lib/prompts'
+import { RESUME_CHARS } from '@/lib/ai-limits'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
-const SYSTEM = 'You are a senior executive search consultant — the kind who only takes clients at VP, SVP, and C-suite level. You have placed hundreds of executives. You are blunt, specific, and you do not waste words. Your job is to give the candidate an honest strategic read on their search and a clear action framework. No hedging. No motivational language. No generic advice. No em dashes.'
 
 function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -16,7 +16,7 @@ function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createCl
         const stream = anthropic.messages.stream({
           model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
           max_tokens: 4000,
-          system: SYSTEM,
+          system: STRATEGY_SYSTEM,
           messages: [{ role: 'user', content: prompt }],
         })
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
@@ -77,7 +77,7 @@ CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
 Target roles: ${targetTitles}
 Target sectors: ${targetSectors}
-Target locations: ${targetLocations}${profile?.search_status ? `\nSearch status: ${profile.search_status}` : ''}${profile?.positioning_summary ? `\nSelf-positioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, 5000)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Target locations: ${targetLocations}${profile?.search_status ? `\nSearch status: ${profile.search_status}` : ''}${profile?.positioning_summary ? `\nSelf-positioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
 CURRENT PIPELINE (${(companies ?? []).length} companies)
 ${pipelineSection}

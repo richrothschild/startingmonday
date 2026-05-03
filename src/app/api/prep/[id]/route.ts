@@ -3,10 +3,10 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { PREP_SYSTEM } from '@/lib/prompts'
+import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
-const SYSTEM = 'You are a senior executive coach preparing a C-suite leader for a high-stakes interview. Be ruthlessly specific. Use every piece of data provided. No generic advice, no filler, no motivational language. Every sentence earns its place. No em dashes.'
 
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -16,7 +16,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         const stream = anthropic.messages.stream({
           model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
           max_tokens: maxTokens,
-          system: SYSTEM,
+          system: PREP_SYSTEM,
           messages,
         })
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
@@ -106,7 +106,7 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
   const docsSection = (documents ?? []).length > 0
     ? (documents ?? []).map(d => {
         const labelName = DOC_LABEL_NAMES[d.label] ?? d.label
-        const content = d.content.length > 4000 ? d.content.slice(0, 4000) + '\n[truncated]' : d.content
+        const content = d.content.length > DOC_CHARS ? d.content.slice(0, DOC_CHARS) + '\n[truncated]' : d.content
         return `[${labelName}]\n${content}`
       }).join('\n\n')
     : null
@@ -116,7 +116,7 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
 CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
 Target roles: ${targetTitles}
-Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, 6000)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}

@@ -41,7 +41,7 @@ export default async function DashboardPage({
   // Build filtered company query (server-side) with pagination
   let companyQuery = supabase
     .from('companies')
-    .select('id, name, sector, stage, fit_score, notes, updated_at', { count: 'exact' })
+    .select('id, name, sector, stage, fit_score, notes, updated_at', { count: 'planned' })
     .eq('user_id', user.id)
     .is('archived_at', null)
     .order('fit_score', { ascending: false, nullsFirst: false })
@@ -55,7 +55,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('stage', { count: 'exact' })
+    .select('stage')
     .eq('user_id', user.id)
     .is('archived_at', null)
 

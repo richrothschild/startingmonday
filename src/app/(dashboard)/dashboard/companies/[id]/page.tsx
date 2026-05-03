@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
 import { todayInTz } from '@/lib/date'
+import { PREVIEW_CHARS } from '@/lib/ai-limits'
 
 type RawHit = {
   title: string
@@ -496,7 +497,7 @@ export default async function CompanyPage({
                         </span>
                       </div>
                       <p className="text-[12px] text-slate-400 leading-relaxed line-clamp-2">
-                        {doc.content.slice(0, 220)}{doc.content.length > 220 ? '…' : ''}
+                        {doc.content.slice(0, PREVIEW_CHARS)}{doc.content.length > PREVIEW_CHARS ? '…' : ''}
                       </p>
                     </div>
                     <form action={removeDocument.bind(null, doc.id, id)}>

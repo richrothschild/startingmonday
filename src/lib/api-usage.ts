@@ -1,6 +1,7 @@
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 const USER_DAILY_TOKEN_LIMIT = parseInt(process.env.USER_DAILY_TOKEN_LIMIT ?? '100000')
+const USER_MONTHLY_REQUEST_LIMIT = parseInt(process.env.USER_MONTHLY_REQUEST_LIMIT ?? '200')
 
 function dayKey() {
   return new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
@@ -10,20 +11,21 @@ function monthKey() {
   return new Date().toISOString().slice(0, 7) // 'YYYY-MM'
 }
 
-// Returns true if the user has exceeded their daily token budget.
+// Returns true if the user has hit their monthly token or request cap.
+// Checking both limits means hammering multiple endpoints simultaneously still
+// hits the request ceiling even before token totals become large.
 export async function isRateLimited(supabase: SupabaseClient, userId: string): Promise<boolean> {
   const { data } = await supabase
     .from('api_usage')
-    .select('token_count')
+    .select('token_count, request_count')
     .eq('user_id', userId)
     .eq('service', 'anthropic')
     .eq('month_key', monthKey())
     .maybeSingle()
 
-  // Use monthly total against daily limit * 30 as a simple rolling check.
-  // A proper per-day check would require a day_key column; monthly is sufficient for now.
-  const used = data?.token_count ?? 0
-  return used >= USER_DAILY_TOKEN_LIMIT * 30
+  const tokensUsed   = data?.token_count   ?? 0
+  const requestsUsed = data?.request_count ?? 0
+  return tokensUsed >= USER_DAILY_TOKEN_LIMIT * 30 || requestsUsed >= USER_MONTHLY_REQUEST_LIMIT
 }
 
 // Atomically increment usage via the RPC created in migration 004.
