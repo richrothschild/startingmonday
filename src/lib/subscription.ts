@@ -20,6 +20,7 @@ const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
   strategy_brief:   ['active'],
   outreach_draft:   ['active'],
   daily_briefing:   ['active'],
+  resume_tailor:    ['active'],
 }
 
 export async function getUserSubscription(userId: string): Promise<UserSubscription> {

@@ -205,9 +205,16 @@ export default async function ProfilePage({
 
             {/* Resume */}
             <div>
-              <label htmlFor="resume_text" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
-                Resume / career history
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="resume_text" className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">
+                  Resume / career history
+                </label>
+                {resumeText.length >= 200 && (
+                  <Link href="/dashboard/profile/tailor" className="text-[11px] font-semibold text-slate-500 hover:text-slate-900 transition-colors">
+                    Tailor for a role &rarr;
+                  </Link>
+                )}
+              </div>
               <ProfileResumeUpload />
               <textarea
                 id="resume_text"

@@ -142,12 +142,22 @@ export default async function CompanyPage({
               <p className="text-[13px] text-slate-500 mt-1.5">{company.sector}</p>
             )}
           </div>
-          <Link
-            href={`/dashboard/companies/${id}/prep`}
-            className="shrink-0 text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
-          >
-            Interview prep
-          </Link>
+          <div className="flex items-center gap-3 shrink-0">
+            {(documents ?? []).some(d => d.label === 'job_description') && (
+              <Link
+                href={`/dashboard/profile/tailor?companyId=${id}`}
+                className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+              >
+                Tailor resume
+              </Link>
+            )}
+            <Link
+              href={`/dashboard/companies/${id}/prep`}
+              className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+            >
+              Interview prep
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
