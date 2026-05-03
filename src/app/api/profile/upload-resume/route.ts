@@ -52,9 +52,13 @@ export async function POST(request: NextRequest) {
 
   const { error } = await supabase
     .from('user_profiles')
-    .upsert({ user_id: userId, resume_text: text }, { onConflict: 'user_id' })
+    .update({ resume_text: text })
+    .eq('user_id', userId)
 
-  if (error) return NextResponse.json({ error: 'Failed to save resume text' }, { status: 500 })
+  if (error) {
+    console.error('[upload-resume] supabase error:', JSON.stringify(error))
+    return NextResponse.json({ error: 'Failed to save resume text', detail: error.message }, { status: 500 })
+  }
 
   return NextResponse.json({ ok: true, text })
 }
