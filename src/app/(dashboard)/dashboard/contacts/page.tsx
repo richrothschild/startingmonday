@@ -55,7 +55,7 @@ export default async function ContactsPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             Starting Monday
           </span>
@@ -68,7 +68,7 @@ export default async function ContactsPage({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Contacts</h1>
@@ -77,7 +77,7 @@ export default async function ContactsPage({
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_300px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
           {/* Contact list */}
           <div className="bg-white border border-slate-200 rounded overflow-hidden">

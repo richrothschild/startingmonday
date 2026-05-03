@@ -206,9 +206,9 @@ export function PrepClient({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        <div className="mb-8 flex items-start justify-between gap-6">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">{companyName} · {stageLabel}</p>

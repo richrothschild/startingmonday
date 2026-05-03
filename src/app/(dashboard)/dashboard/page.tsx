@@ -111,41 +111,28 @@ export default async function DashboardPage({
 
       {/* Nav */}
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             Starting Monday
           </span>
-          <div className="flex items-center gap-5">
-            <Link
-              href="/dashboard/chat"
-              className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors"
-            >
-              Chat
-            </Link>
-            <Link
-              href="/dashboard/contacts"
-              className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors"
-            >
-              Contacts
-            </Link>
-            <Link
-              href="/dashboard/profile"
-              className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
-            >
-              {profile?.full_name ?? user.email}
-            </Link>
-            <Link
-              href="/settings/billing"
-              className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
-            >
-              Billing
-            </Link>
+          {/* Desktop nav */}
+          <div className="hidden sm:flex items-center gap-5">
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Contacts</Link>
+            <Link href="/dashboard/profile" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">{profile?.full_name ?? user.email}</Link>
+            <Link href="/settings/billing" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
+          </div>
+          {/* Mobile nav */}
+          <div className="flex sm:hidden items-center gap-4">
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Chat</Link>
+            <Link href="/dashboard/profile" className="text-[12px] text-slate-500 hover:text-slate-300">Profile</Link>
+            <LogoutButton label="Out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Welcome */}
         <div className="mb-8">
@@ -176,10 +163,10 @@ export default async function DashboardPage({
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
           {stats.map(({ value, label, alert }) => (
-            <div key={label} className="bg-white border border-slate-200 rounded p-5">
-              <div className={`text-[28px] font-bold leading-none ${alert ? 'text-red-700' : 'text-slate-900'}`}>
+            <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
+              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : 'text-slate-900'}`}>
                 {value}
               </div>
               <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">
@@ -190,7 +177,7 @@ export default async function DashboardPage({
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
             { href: '/dashboard/companies/new',  label: '+ Add Company',     sub: 'Target company or role' },
@@ -326,21 +313,21 @@ export default async function DashboardPage({
             </div>
           </div>
 
-          <div className="px-6 py-3 border-b border-slate-100 flex items-center gap-2">
-            <form method="get" action="/dashboard" className="flex items-center gap-2 flex-1">
+          <div className="px-4 sm:px-6 py-3 border-b border-slate-100">
+            <form method="get" action="/dashboard" className="flex items-center gap-2 flex-wrap">
               <input type="hidden" name="page" value="0" />
               <input
                 type="text"
                 name="q"
                 defaultValue={q ?? ''}
                 placeholder="Search companies…"
-                className="flex-1 border border-slate-200 rounded px-3 py-1.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                className="flex-1 min-w-[120px] border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
               />
               <select
                 name="stage"
                 defaultValue={stage ?? ''}
                 aria-label="Filter by stage"
-                className="border border-slate-200 rounded px-2.5 py-1.5 text-[13px] text-slate-700 focus:outline-none focus:border-slate-400 bg-white"
+                className="border border-slate-200 rounded px-2.5 py-2 text-[13px] text-slate-700 focus:outline-none focus:border-slate-400 bg-white"
               >
                 <option value="">All stages</option>
                 {Object.entries(STAGE).map(([key, { label }]) => (
@@ -349,7 +336,7 @@ export default async function DashboardPage({
               </select>
               <button
                 type="submit"
-                className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 bg-transparent cursor-pointer"
+                className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-2 hover:border-slate-400 bg-transparent cursor-pointer"
               >
                 Filter
               </button>
@@ -361,13 +348,14 @@ export default async function DashboardPage({
             </form>
           </div>
 
-          <table className="w-full border-collapse">
+          <div className="overflow-x-auto">
+          <table className="w-full border-collapse min-w-[480px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
                 <th className="py-2.5 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
                   Company
                 </th>
-                <th className="py-2.5 px-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
+                <th className="py-2.5 px-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 hidden sm:table-cell">
                   Sector
                 </th>
                 <th className="py-2.5 px-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
@@ -395,12 +383,12 @@ export default async function DashboardPage({
                     <td className="py-3.5 pl-6 pr-4">
                       <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">{co.name}</Link>
                       {co.notes && (
-                        <div className="text-[12px] text-slate-400 mt-0.5 truncate max-w-[340px]">
+                        <div className="text-[12px] text-slate-400 mt-0.5 truncate max-w-[200px] sm:max-w-[340px]">
                           {co.notes}
                         </div>
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-[13px] text-slate-500">
+                    <td className="py-3.5 px-4 text-[13px] text-slate-500 hidden sm:table-cell">
                       {co.sector ?? '—'}
                     </td>
                     <td className="py-3.5 px-4">
@@ -416,6 +404,7 @@ export default async function DashboardPage({
               })}
             </tbody>
           </table>
+          </div>
 
           {totalPages > 1 && (
             <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between">

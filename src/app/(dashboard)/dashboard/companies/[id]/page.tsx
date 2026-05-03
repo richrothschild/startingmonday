@@ -120,7 +120,7 @@ export default async function CompanyPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             Starting Monday
           </span>
@@ -133,7 +133,7 @@ export default async function CompanyPage({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8 flex items-start justify-between gap-6">
           <div>
@@ -150,7 +150,7 @@ export default async function CompanyPage({
           </Link>
         </div>
 
-        <div className="grid grid-cols-[1fr_300px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
           {/* Edit form */}
           <div className="bg-white border border-slate-200 rounded p-8">

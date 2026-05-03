@@ -182,11 +182,11 @@ export default function ChatPage() {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.role === 'user' ? (
-                  <div className="bg-slate-900 text-white text-[14px] px-4 py-3 rounded-2xl rounded-br-sm max-w-[70%] whitespace-pre-wrap leading-relaxed">
+                  <div className="bg-slate-900 text-white text-[14px] px-4 py-3 rounded-2xl rounded-br-sm max-w-[95%] sm:max-w-[85%] sm:max-w-[70%] whitespace-pre-wrap leading-relaxed">
                     {msg.content}
                   </div>
                 ) : (
-                  <div className="text-[14px] text-slate-800 leading-relaxed max-w-[85%] whitespace-pre-wrap">
+                  <div className="text-[14px] text-slate-800 leading-relaxed max-w-[95%] sm:max-w-[85%] whitespace-pre-wrap">
                     {msg.content || (
                       <span className="inline-flex gap-1 items-center h-5">
                         <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0ms]" />
