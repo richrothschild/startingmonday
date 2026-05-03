@@ -68,10 +68,10 @@ export async function GET(request: NextRequest) {
   const targetLocations = (profile?.target_locations ?? []).join(', ') || 'Not specified'
 
   const pipelineSection = (companies ?? []).length > 0
-    ? (companies ?? []).map(c => `- ${c.name}${c.sector ? ` (${c.sector})` : ''} — ${c.stage}`).join('\n')
+    ? (companies ?? []).map(c => `- ${c.name}${c.sector ? ` (${c.sector})` : ''}: ${c.stage}`).join('\n')
     : 'No target companies added yet.'
 
-  const prompt = `Produce a Search Strategy Brief for this executive. This is what you say in the first real meeting — honest, specific, direct.
+  const prompt = `Produce a Search Strategy Brief for this executive. This is what you say in the first real meeting: honest, specific, direct.
 
 CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
@@ -87,16 +87,16 @@ ${pipelineSection}
 Write the brief with these exact sections, using ## for each header:
 
 ## Your Position
-An honest read on where this person actually stands in the market. What's working in their favor, what's working against them, and what the market looks like for their profile right now. Not encouragement — a real assessment. Include whether the stated target roles are realistic, stretchy, or off-base.
+An honest read on where this person actually stands in the market. What's working in their favor, what's working against them, and what the market looks like for their profile right now. Not encouragement: a real assessment. Include whether the stated target roles are realistic, stretchy, or off-base.
 
 ## Target Role Profile
-Primary target titles to pursue. 2–3 adjacent alternatives worth considering that they may not have thought of — explain why each is a legitimate fit and where the opportunity surface is. Flag any titles they listed that are likely to be low-yield and why.
+Primary target titles to pursue. 2–3 adjacent alternatives worth considering that they may not have thought of. Explain why each is a legitimate fit and where the opportunity surface is. Flag any titles they listed that are likely to be low-yield and why.
 
 ## Target Company Profile
 What kinds of organizations are most likely to hire them. Size, stage, ownership structure, sector priorities. Where the realistic opportunity surface actually is at their level versus where candidates at this level typically waste time.
 
 ## Your Narrative
-The core story they need to tell. One clear through-line that explains the arc of their career and why this search makes sense. What to lead with in every conversation, what to compress, what to leave out. Close with one sentence they can open every conversation with — something they can say verbatim.
+The core story they need to tell. One clear through-line that explains the arc of their career and why this search makes sense. What to lead with in every conversation, what to compress, what to leave out. Close with one sentence they can open every conversation with, something they can say verbatim.
 
 ## Outreach Framework
 How to actually work this search. Specific breakdown of where to focus across: warm network, cold outreach, executive recruiters/search firms, and direct approach. What works at this level and what doesn't. One specific tactic for each channel.
@@ -105,7 +105,7 @@ How to actually work this search. Specific breakdown of where to focus across: w
 2–3 objections or gaps they will face repeatedly. For each, state what it is directly and give the specific framing or counter. These are the things that will kill their candidacy if not addressed proactively.
 
 ## First 30 Days
-8–10 concrete actions in priority order. Not strategy — specific moves. Each should be completable in the next month. Format each as an action, not a principle.
+8–10 concrete actions in priority order. Not strategy: specific moves. Each should be completable in the next month. Format each as an action, not a principle.
 
 Tone: direct, senior-to-senior, no hedging. Short paragraphs. No em dashes. No motivational language. No generic advice.`
 

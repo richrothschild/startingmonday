@@ -61,18 +61,18 @@ export async function POST(request: NextRequest) {
 
   const pipelineLines = (companies ?? [])
     .map(c =>
-      `- ${c.name} | ${c.stage}${c.fit_score ? ` | fit: ${c.fit_score}/10` : ''}${c.sector ? ` | ${c.sector}` : ''}${c.notes ? ` — ${c.notes}` : ''}`
+      `- ${c.name} | ${c.stage}${c.fit_score ? ` | fit: ${c.fit_score}/10` : ''}${c.sector ? ` | ${c.sector}` : ''}${c.notes ? ` | ${c.notes}` : ''}`
     )
     .join('\n')
 
   const actionsLines = (followUps ?? [])
     .map(fu => {
       const co = fu.companies as unknown as { name: string } | null
-      return `- ${fu.action}${co ? ` (${co.name})` : ''} — due ${fu.due_date}`
+      return `- ${fu.action}${co ? ` (${co.name})` : ''}, due ${fu.due_date}`
     })
     .join('\n')
 
-  const systemPrompt = `You are a strategic advisor helping ${name} with their executive job search. Speak directly and precisely — senior to senior. No motivational clichés. Short sentences. No em dashes.
+  const systemPrompt = `You are a strategic advisor helping ${name} with their executive job search. Speak directly and precisely, senior to senior. No motivational clichés. Short sentences. No em dashes.
 
 Today is ${today}.
 

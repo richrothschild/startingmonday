@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { BriefRating } from '@/components/BriefRating'
 
 function escapeHtml(str: string): string {
   return str
@@ -55,8 +56,24 @@ async function streamResponse(res: Response, onChunk: (text: string) => void) {
   }
 }
 
+async function saveBrief(type: string, text: string, companyId?: string, contactId?: string): Promise<string | null> {
+  try {
+    const res = await fetch('/api/briefs/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, text, company_id: companyId, contact_id: contactId }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.id ?? null
+  } catch {
+    return null
+  }
+}
+
 export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
   const [brief, setBrief] = useState('')
+  const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -68,6 +85,7 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
   async function handleGenerate() {
     setLoading(true)
     setBrief('')
+    setBriefId(null)
     setError('')
     setAnswer('')
     setAnswerError('')
@@ -84,6 +102,9 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
       if (fullText.startsWith('__ERROR__')) {
         setError(fullText.slice(9))
         setBrief('')
+      } else {
+        const id = await saveBrief('strategy', fullText)
+        setBriefId(id)
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -198,6 +219,12 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
             {loading && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
+          </div>
+        )}
+
+        {briefId && !loading && (
+          <div className="mt-3 flex justify-end">
+            <BriefRating briefId={briefId} />
           </div>
         )}
 

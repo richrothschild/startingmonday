@@ -90,14 +90,14 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
       .filter(h => h.is_match)
     const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
     scanSection = matches.length > 0
-      ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}) — ${h.summary}`).join('\n')
-      : `Career page scanned ${date} — no matching roles detected.`
+      ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
+      : `Career page scanned ${date}, no matching roles detected.`
   }
 
   const contactSection = (contacts ?? []).length > 0
     ? (contacts ?? []).map(c => {
         const parts = [c.title, c.firm].filter(Boolean).join(' at ')
-        return `- ${c.name}${parts ? `, ${parts}` : ''}${c.channel ? ` (via ${c.channel})` : ''}${c.notes ? ` — ${c.notes}` : ''}`
+        return `- ${c.name}${parts ? `, ${parts}` : ''}${c.channel ? ` (via ${c.channel})` : ''}${c.notes ? `: ${c.notes}` : ''}`
       }).join('\n')
     : 'No contacts on file.'
 
@@ -111,7 +111,7 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
       }).join('\n\n')
     : null
 
-  const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces — specific, direct, and grounded in the actual data below.
+  const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
 
 CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
@@ -136,25 +136,25 @@ Write the brief with these exact sections, using ## for each header:
 What is actually driving this hire? What problem does this organization need solved, and why now? Infer from the sector, pipeline stage, notes, and scan data. Be direct. This sets the frame for everything else.
 
 ## Win Thesis
-One paragraph. Written as a conviction, not a summary. Not why the candidate is qualified — why they win this specific role over everyone else being considered. What is the decisive advantage. Make the candidate feel it.
+One paragraph. Written as a conviction, not a summary. Not why the candidate is qualified, but why they win this specific role over everyone else being considered. What is the decisive advantage. Make the candidate feel it.
 
 ## The Narrative
-How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement — ready to say verbatim.
+How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement, ready to say verbatim.
 
 ## Anticipated Pushback
 The 3–4 most likely objections or challenges this candidate will face. For each, state the objection directly and give the exact counter. Format each as:
 **They push:** [the objection]
-**You say:** [specific counter — not defensive, not vague]
+**You say:** [specific counter, not defensive, not vague]
 
 ## Talking Points
-5 specific, story-anchored points to make in the interview. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths — points that land in this room. Format:
+5 specific, story-anchored points to make in the interview. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
 **[Point title]** [2–3 sentences: what to say and exactly why it resonates here]
 
 ## Questions to Ask
 5 questions that signal the candidate is a strategic peer, not an applicant. Each should demonstrate a specific kind of executive intelligence. After each question, one sentence on what it signals to the interviewers.
 
 ## First 90 Days Signal
-2–3 specific observations or priorities to surface naturally in conversation — not as a formal plan, but as proof the candidate has already started thinking like an insider. Phrase each as something they'd actually say in the room, then note why it lands.
+2–3 specific observations or priorities to surface naturally in conversation, not as a formal plan, but as proof the candidate has already started thinking like an insider. Phrase each as something they'd actually say in the room, then note why it lands.
 
 ## What to Leave Out
 3–4 explicit topics, framings, or stories to avoid in this specific conversation, and why each would hurt them here. Be direct.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}

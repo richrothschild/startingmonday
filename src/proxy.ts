@@ -25,7 +25,7 @@ export async function proxy(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Server actions carry a Next-Action header — they run their own auth checks,
+  // Server actions carry a Next-Action header; they run their own auth checks,
   // so skip the redirect here to avoid intercepting them.
   const isServerAction = request.headers.has('next-action')
 

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  if (text.length < 50) return Response.json({ error: 'Paste more of your profile — this is too short to extract from.' }, { status: 400 })
+  if (text.length < 50) return Response.json({ error: 'Paste more of your profile; this is too short to extract from.' }, { status: 400 })
   if (text.length > 60000) text = text.slice(0, 60000)
 
   const message = await anthropic.messages.create({
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     max_tokens: 1500,
     messages: [{
       role: 'user',
-      content: `Extract structured career information from this LinkedIn profile text. Return ONLY a valid JSON object — no explanation, no markdown, no code fences.
+      content: `Extract structured career information from this LinkedIn profile text. Return ONLY a valid JSON object with no explanation, no markdown, no code fences.
 
 Fields (use null for anything that cannot be confidently determined):
 {
@@ -52,11 +52,11 @@ ${text}
 
   const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : ''
   const match = raw.match(/\{[\s\S]*\}/)
-  if (!match) return Response.json({ error: 'Could not extract profile — try pasting more of the page.' }, { status: 500 })
+  if (!match) return Response.json({ error: 'Could not extract profile. Try pasting more of the page.' }, { status: 500 })
 
   try {
     return Response.json(JSON.parse(match[0]))
   } catch {
-    return Response.json({ error: 'Could not extract profile — try pasting more of the page.' }, { status: 500 })
+    return Response.json({ error: 'Could not extract profile. Try pasting more of the page.' }, { status: 500 })
   }
 }

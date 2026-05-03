@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { BriefRating } from '@/components/BriefRating'
 
 const GOALS = [
   'Request a 20-minute exploratory call',
@@ -29,11 +30,27 @@ type Contact = {
   company_name: string | null
 }
 
+async function saveDraft(text: string, contactId: string): Promise<string | null> {
+  try {
+    const res = await fetch('/api/briefs/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'outreach', text, contact_id: contactId }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.id ?? null
+  } catch {
+    return null
+  }
+}
+
 export function OutreachClient({ contact }: { contact: Contact }) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
   const [draft, setDraft] = useState('')
+  const [draftId, setDraftId] = useState<string | null>(null)
   const [loading, setLoading] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -41,6 +58,7 @@ export function OutreachClient({ contact }: { contact: Contact }) {
 
   async function stream(body: Record<string, unknown>, label: string) {
     setLoading(label)
+    setDraftId(null)
     setCopied(false)
     try {
       const res = await fetch('/api/outreach/draft', {
@@ -62,6 +80,10 @@ export function OutreachClient({ contact }: { contact: Contact }) {
         if (done) break
         text += decoder.decode(value, { stream: true })
         setDraft(text)
+      }
+      if (text && !text.startsWith('Error:')) {
+        const id = await saveDraft(text, contact.id)
+        setDraftId(id)
       }
     } finally {
       setLoading(null)
@@ -116,6 +138,7 @@ export function OutreachClient({ contact }: { contact: Contact }) {
               Goal
             </label>
             <select
+              aria-label="Outreach goal"
               value={goal}
               onChange={e => { setGoal(e.target.value); setCustomGoal('') }}
               className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white focus:outline-none focus:border-slate-400"
@@ -171,6 +194,12 @@ export function OutreachClient({ contact }: { contact: Contact }) {
             </div>
 
             <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap mb-5">{draft}</div>
+
+            {draftId && !loading && (
+              <div className="mb-5 flex justify-end">
+                <BriefRating briefId={draftId} />
+              </div>
+            )}
 
             <div className="border-t border-slate-100 pt-4">
               <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Refine</p>

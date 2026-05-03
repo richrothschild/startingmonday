@@ -10,6 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "prepare": "git config core.hooksPath .githooks",
+    "check:auth": "sh scripts/check-auth.sh",
     "test:e2e": "playwright test --project=setup --project=smoke",
     "test:e2e:report": "playwright show-report"
   },

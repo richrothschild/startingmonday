@@ -6,13 +6,13 @@ import Anthropic from '@anthropic-ai/sdk'
 const anthropic = new Anthropic()
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
-  concise: 'more concise — cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
-  warmer: 'warmer and more personable — add genuine human connection, make it feel like it comes from a real relationship',
-  sharper: 'sharper and more direct — remove hedging language, be more confident and decisive in the ask',
-  thoughtful: 'more thoughtful and considered — add more nuance and depth, show you have done your homework on this person',
+  concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
+  warmer: 'warmer and more personable: add genuine human connection, make it feel like it comes from a real relationship',
+  sharper: 'sharper and more direct: remove hedging language, be more confident and decisive in the ask',
+  thoughtful: 'more thoughtful and considered: add more nuance and depth, show you have done your homework on this person',
 }
 
-const STYLE_GUIDELINES = `- Do not use em dashes (—) anywhere in the message
+const STYLE_GUIDELINES = `- Do not use em dashes anywhere in the message
 - Do not use phrases like "I hope this finds you well", "I wanted to reach out", "touch base", or "circle back"
 - Sound like a real human, not a template or AI
 - No subject line needed, just the message body`
@@ -99,7 +99,7 @@ GOAL: ${goal}${additionalContext ? `\n\nADDITIONAL CONTEXT: ${additionalContext}
 
 Write a concise, warm, professional outreach message. Guidelines:
 - 3-5 short paragraphs maximum
-- Open with a specific, genuine reference to the person or how they met — not a generic opener
+- Open with a specific, genuine reference to the person or how they met, not a generic opener
 - State the ask clearly but without pressure
 - End with a clear, low-friction call to action
 ${STYLE_GUIDELINES}`

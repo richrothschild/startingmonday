@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+echo "tsc..."
+./node_modules/.bin/tsc --noEmit
+
+echo "em dash check..."
+EM_DASH=$(printf '\xe2\x80\x94')
+HITS=$(grep -rl "$EM_DASH" src/ 2>/dev/null | grep -E '\.ts$' || true)
+if [ -n "$HITS" ]; then
+  echo ""
+  echo "Error: em dash found in source files (use a hyphen or reword):"
+  echo "$HITS"
+  exit 1
+fi
+
+echo "ok"

@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 
 const MAX_BYTES = 5 * 1024 * 1024
 
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+  const { userId } = auth
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const formData = await request.formData().catch(() => null)
   if (!formData) return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest) {
   let text: string
   try {
     if (isPdf) {
-      // pdf-parse types don't declare a default export — cast to actual shape
+      // pdf-parse types don't declare a default export; cast to actual shape
       const pdfParse = (await import('pdf-parse') as unknown as { default: (buf: Buffer) => Promise<{ text: string }> }).default
       const result = await pdfParse(buffer)
       text = result.text
@@ -48,7 +50,7 @@ export async function POST(request: NextRequest) {
 
   const { error } = await supabase
     .from('user_profiles')
-    .upsert({ user_id: user.id, resume_text: text }, { onConflict: 'user_id' })
+    .upsert({ user_id: userId, resume_text: text }, { onConflict: 'user_id' })
 
   if (error) return NextResponse.json({ error: 'Failed to save resume text' }, { status: 500 })
 

@@ -3,10 +3,9 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { STRATEGY_SYSTEM } from '@/lib/prompts'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
-const SYSTEM = 'You are a senior executive search consultant — the kind who only takes clients at VP, SVP, and C-suite level. You have placed hundreds of executives. You are blunt, specific, and you do not waste words. No hedging. No motivational language. No generic advice. No em dashes.'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -39,7 +38,7 @@ export async function POST(request: NextRequest) {
         const stream = anthropic.messages.stream({
           model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
           max_tokens: 1000,
-          system: SYSTEM,
+          system: STRATEGY_SYSTEM,
           messages: [
             {
               role: 'user',
