@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const parser = new PDFParse({ data: buffer })
     const result = await parser.getText()
     await parser.destroy()
-    const text = result.text.trim()
+    const text = result.text.replace(/\x00/g, '').trim()
     if (!text) return NextResponse.json({ error: 'No text found in the PDF' }, { status: 422 })
     return NextResponse.json({ text })
   } catch (err) {

@@ -46,7 +46,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to extract text from file' }, { status: 422 })
   }
 
-  text = text.trim()
+  // Strip null bytes - PostgreSQL rejects \x00 in text columns (causes 400 from PostgREST)
+  text = text.replace(/\x00/g, '').trim()
   if (!text) return NextResponse.json({ error: 'No text found in file' }, { status: 422 })
   if (text.length > 100000) text = text.slice(0, 100000)
 

@@ -28,7 +28,7 @@ export default function ProfileResumeUpload() {
       router.refresh()
     } else {
       setStatus('error')
-      setMessage(json.error ?? 'Upload failed.')
+      setMessage(json.detail ? `${json.error}: ${json.detail}` : (json.error ?? 'Upload failed.'))
     }
   }
 
