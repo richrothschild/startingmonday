@@ -1,5 +1,9 @@
 @AGENTS.md
 
+## Commit and Deploy Rule
+
+After every code change, immediately commit and push to GitHub. Railway auto-deploys on push — a push equals production. Never leave changes uncommitted at the end of a response. Always confirm with `git log --oneline -3` after pushing so the user can see what went out.
+
 ## Supabase Client Rules
 
 Two clients exist — use the right one:
