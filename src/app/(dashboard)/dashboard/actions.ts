@@ -1,5 +1,4 @@
 'use server'
-import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 
@@ -17,7 +16,7 @@ export async function markFollowUpDone(formData: FormData) {
     .eq('id', id)
     .eq('user_id', user.id)
 
-  redirect('/dashboard')
+  revalidatePath('/dashboard')
 }
 
 export async function updateFollowUp(formData: FormData) {
