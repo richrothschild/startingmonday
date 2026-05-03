@@ -52,20 +52,6 @@ export default async function HelpPage() {
           <p className="text-[13px] text-slate-500 mt-1.5">Everything you need to run a disciplined search.</p>
         </div>
 
-        {/* Video walkthrough */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Walkthrough</span>
-          </div>
-          {/* Replace the div below with your Loom embed once recorded */}
-          <div className="bg-slate-50 flex items-center justify-center" style={{ aspectRatio: '16/9' }}>
-            <div className="text-center px-6">
-              <p className="text-[15px] font-semibold text-slate-500">Video walkthrough coming soon</p>
-              <p className="text-[13px] text-slate-400 mt-1">A 3-minute tour of the full workflow</p>
-            </div>
-          </div>
-        </div>
-
         {/* Quick start */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200">
