@@ -19,6 +19,7 @@ export async function completeOnboarding(formData: FormData) {
   const linkedinUrl         = (formData.get('linkedin_url') as string ?? '').trim() || null
   const targetTitles        = parseCsv(formData.get('target_titles') as string ?? '')
   const targetSectors       = parseCsv(formData.get('target_sectors') as string ?? '')
+  const targetLocations     = parseCsv(formData.get('target_locations') as string ?? '')
   const dreamCompanies      = (formData.get('dream_companies') as string ?? '').trim() || null
   const dreamJob            = (formData.get('dream_job') as string ?? '').trim() || null
   const positioningSummary  = (formData.get('positioning_summary') as string ?? '').trim() || null
@@ -38,6 +39,7 @@ export async function completeOnboarding(formData: FormData) {
       linkedin_url:             linkedinUrl,
       target_titles:            targetTitles.length > 0 ? targetTitles : null,
       target_sectors:           targetSectors.length > 0 ? targetSectors : null,
+      target_locations:         targetLocations.length > 0 ? targetLocations : null,
       dream_companies:          dreamCompanies,
       dream_job:                dreamJob,
       positioning_summary:      positioningSummary,

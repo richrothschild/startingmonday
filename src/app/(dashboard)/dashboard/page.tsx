@@ -59,7 +59,7 @@ export default async function DashboardPage({
     .eq('user_id', user.id)
     .is('archived_at', null)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -70,6 +70,11 @@ export default async function DashboardPage({
       .lte('due_date', todayISO)
       .order('due_date', { ascending: true })
       .limit(20),
+    supabase
+      .from('users')
+      .select('subscription_status, trial_ends_at')
+      .eq('id', user.id)
+      .single(),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -87,6 +92,12 @@ export default async function DashboardPage({
 
   const greeting = greetingInTz(tz)
   const today = fullDateInTz(tz)
+
+  const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
+  const isTrialing = userRow?.subscription_status === 'trialing'
+  const trialDaysLeft = trialEndsAt
+    ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+    : 0
 
   const stats = [
     { value: totalCount,  label: 'Companies',   alert: false },
@@ -142,6 +153,26 @@ export default async function DashboardPage({
           </h1>
           <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
         </div>
+
+        {/* Trial banner */}
+        {isTrialing && (
+          <div className={`mb-6 px-5 py-3 rounded flex items-center justify-between gap-4 text-[13px] ${
+            trialDaysLeft <= 3
+              ? 'bg-red-50 border border-red-200 text-red-800'
+              : trialDaysLeft <= 7
+                ? 'bg-amber-50 border border-amber-200 text-amber-800'
+                : 'bg-slate-100 border border-slate-200 text-slate-600'
+          }`}>
+            <span>
+              {trialDaysLeft > 0
+                ? `Trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
+                : 'Your trial has ended.'}
+            </span>
+            <Link href="/settings/billing" className="font-semibold underline shrink-0">
+              Upgrade
+            </Link>
+          </div>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-8">

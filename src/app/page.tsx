@@ -96,7 +96,7 @@ export default function LandingPage() {
               Log in
             </Link>
             <Link
-              href="/login"
+              href="/signup"
               className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
             >
               Get started
@@ -121,7 +121,7 @@ export default function LandingPage() {
             Named for the day you start your next role. Everything here is built to get you there.
           </p>
           <Link
-            href="/login"
+            href="/signup"
             className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
           >
             Start your search →
@@ -142,7 +142,7 @@ export default function LandingPage() {
             {SITUATIONS.map(s => (
               <Link
                 key={s.id}
-                href={`/login?situation=${s.id}`}
+                href="/signup"
                 className="group border border-slate-200 rounded-lg p-5 hover:border-slate-400 hover:shadow-sm transition-all"
               >
                 <p className="text-[15px] font-semibold text-slate-900 mb-1.5 group-hover:text-slate-700">
@@ -243,7 +243,7 @@ export default function LandingPage() {
             </p>
           </div>
           <Link
-            href="/login"
+            href="/signup"
             className="shrink-0 inline-block bg-slate-900 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-slate-800 transition-colors"
           >
             Get started →
@@ -264,7 +264,7 @@ export default function LandingPage() {
             No credit card required. Takes about 5 minutes to set up.
           </p>
           <Link
-            href="/login"
+            href="/signup"
             className="inline-block bg-white text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-slate-100 transition-colors"
           >
             Start your search →

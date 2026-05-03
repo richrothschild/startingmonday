@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 
 const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400'
@@ -25,6 +25,11 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   const [importing, setImporting]   = useState(false)
   const [importError, setImportError] = useState('')
   const [importDone, setImportDone] = useState(false)
+
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [uploadingResume, setUploadingResume] = useState(false)
+  const [resumeUploadDone, setResumeUploadDone] = useState(false)
+  const [resumeUploadError, setResumeUploadError] = useState('')
 
   async function handleImport() {
     if (!pasteText.trim() || importing) return
@@ -55,6 +60,28 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
       setImportError('Import failed. Please try again.')
     } finally {
       setImporting(false)
+    }
+  }
+
+  async function handleResumeUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingResume(true)
+    setResumeUploadDone(false)
+    setResumeUploadError('')
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/profile/upload-resume', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) { setResumeUploadError(data.error ?? 'Upload failed.'); return }
+      setResumeText(data.text)
+      setResumeUploadDone(true)
+    } catch {
+      setResumeUploadError('Upload failed. Try pasting the text instead.')
+    } finally {
+      setUploadingResume(false)
+      if (fileRef.current) fileRef.current.value = ''
     }
   }
 
@@ -235,6 +262,18 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
         </div>
 
         <div>
+          <label htmlFor="target_locations" className={labelCls}>Target locations</label>
+          <input
+            id="target_locations"
+            name="target_locations"
+            type="text"
+            placeholder="New York, Remote, Dallas, Chicago"
+            className={inputCls}
+          />
+          <p className={hintCls}>Comma-separated. Used in your Search Strategy Brief.</p>
+        </div>
+
+        <div>
           <label htmlFor="dream_companies" className={labelCls}>Dream companies</label>
           <textarea
             id="dream_companies"
@@ -279,6 +318,19 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
 
         <div>
           <label htmlFor="resume_text" className={labelCls}>Resume or career history</label>
+          <div className="flex items-center gap-3 mb-2">
+            <button
+              type="button"
+              onClick={() => fileRef.current?.click()}
+              disabled={uploadingResume}
+              className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:bg-slate-50 cursor-pointer bg-white disabled:opacity-40"
+            >
+              {uploadingResume ? 'Extracting…' : 'Upload PDF or DOCX'}
+            </button>
+            {resumeUploadDone && <span className="text-[12px] text-green-600">Extracted — review below and edit if needed.</span>}
+            {resumeUploadError && <span className="text-[12px] text-red-600">{resumeUploadError}</span>}
+            <input ref={fileRef} type="file" accept=".pdf,.docx" onChange={handleResumeUpload} aria-label="Upload resume file" className="hidden" />
+          </div>
           <textarea
             id="resume_text"
             name="resume_text"
@@ -286,10 +338,10 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
             maxLength={100000}
             value={resumeText}
             onChange={e => setResumeText(e.target.value)}
-            placeholder="Paste your resume here — or summarize your key roles, accomplishments, and experience. The more detail, the sharper your interview prep briefs will be."
+            placeholder="Upload a PDF or DOCX above, or paste your resume text here. The more detail, the sharper your interview prep briefs will be."
             className={inputCls + ' resize-y leading-relaxed'}
           />
-          <p className={hintCls}>Paste plain text. Used by the AI to build your prep briefs and answer search questions.</p>
+          <p className={hintCls}>Used by the AI to build your prep briefs and answer search questions.</p>
         </div>
 
         <div>

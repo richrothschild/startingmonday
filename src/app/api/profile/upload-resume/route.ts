@@ -54,5 +54,5 @@ export async function POST(request: NextRequest) {
 
   if (error) return NextResponse.json({ error: 'Failed to save resume text' }, { status: 500 })
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, text })
 }
