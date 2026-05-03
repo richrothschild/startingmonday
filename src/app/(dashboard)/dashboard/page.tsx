@@ -119,6 +119,7 @@ export default async function DashboardPage({
           <div className="hidden sm:flex items-center gap-5">
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Chat</Link>
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Contacts</Link>
+            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Help</Link>
             <Link href="/dashboard/profile" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">{profile?.full_name ?? user.email}</Link>
             <Link href="/settings/billing" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
@@ -126,7 +127,7 @@ export default async function DashboardPage({
           {/* Mobile nav */}
           <div className="flex sm:hidden items-center gap-4">
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Chat</Link>
-            <Link href="/dashboard/profile" className="text-[12px] text-slate-500 hover:text-slate-300">Profile</Link>
+            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Help</Link>
             <LogoutButton label="Out" />
           </div>
         </div>
