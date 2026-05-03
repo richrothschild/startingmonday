@@ -5,16 +5,28 @@ import Anthropic from '@anthropic-ai/sdk'
 
 const anthropic = new Anthropic()
 
+const STYLE_INSTRUCTIONS: Record<string, string> = {
+  concise: 'more concise — cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
+  warmer: 'warmer and more personable — add genuine human connection, make it feel like it comes from a real relationship',
+  sharper: 'sharper and more direct — remove hedging language, be more confident and decisive in the ask',
+  thoughtful: 'more thoughtful and considered — add more nuance and depth, show you have done your homework on this person',
+}
+
+const STYLE_GUIDELINES = `- Do not use em dashes (—) anywhere in the message
+- Do not use phrases like "I hope this finds you well", "I wanted to reach out", "touch base", or "circle back"
+- Sound like a real human, not a template or AI
+- No subject line needed, just the message body`
+
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
   const { userId } = auth
   const body = await request.json().catch(() => ({}))
-  const { contactId, goal, additionalContext } = body
+  const { contactId, goal, additionalContext, currentDraft, refineStyle } = body
 
-  if (!contactId || !goal) {
-    return NextResponse.json({ error: 'contactId and goal are required' }, { status: 400 })
+  if (!contactId) {
+    return NextResponse.json({ error: 'contactId is required' }, { status: 400 })
   }
 
   const supabase = await createClient()
@@ -28,7 +40,7 @@ export async function POST(request: NextRequest) {
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, positioning_summary, target_titles, target_sectors, resume_text, beyond_resume')
+      .select('full_name, positioning_summary, target_titles, target_sectors, beyond_resume')
       .eq('user_id', userId)
       .single(),
   ])
@@ -37,27 +49,45 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Contact not found' }, { status: 404 })
   }
 
-  const companyName = Array.isArray(contact.companies)
-    ? (contact.companies[0] as { name: string } | undefined)?.name ?? null
-    : (contact.companies as { name: string } | null)?.name ?? null
+  let prompt: string
 
-  const contactDesc = [
-    `Name: ${contact.name}`,
-    contact.title ? `Title: ${contact.title}` : null,
-    contact.firm ? `Firm: ${contact.firm}` : companyName ? `Company: ${companyName}` : null,
-    contact.channel ? `How we met: ${contact.channel}` : null,
-    contact.notes ? `Notes: ${contact.notes}` : null,
-  ].filter(Boolean).join('\n')
+  if (currentDraft && refineStyle && STYLE_INSTRUCTIONS[refineStyle]) {
+    prompt = `Revise this outreach message to be ${STYLE_INSTRUCTIONS[refineStyle]}.
 
-  const senderDesc = [
-    profile?.full_name ? `Name: ${profile.full_name}` : null,
-    profile?.positioning_summary ? `Background: ${profile.positioning_summary}` : null,
-    profile?.target_titles ? `Target roles: ${profile.target_titles}` : null,
-    profile?.target_sectors ? `Target sectors: ${profile.target_sectors}` : null,
-    profile?.beyond_resume ? `Additional context: ${profile.beyond_resume}` : null,
-  ].filter(Boolean).join('\n')
+<draft>
+${currentDraft}
+</draft>
 
-  const prompt = `You are helping a senior executive draft a personalized outreach message.
+Keep the same core goal and content. Additional guidelines:
+${STYLE_GUIDELINES}
+
+Return only the revised message body, nothing else.`
+  } else {
+    if (!goal) {
+      return NextResponse.json({ error: 'goal is required' }, { status: 400 })
+    }
+
+    const companyName = Array.isArray(contact.companies)
+      ? (contact.companies[0] as { name: string } | undefined)?.name ?? null
+      : (contact.companies as { name: string } | null)?.name ?? null
+
+    const contactDesc = [
+      `Name: ${contact.name}`,
+      contact.title ? `Title: ${contact.title}` : null,
+      contact.firm ? `Firm: ${contact.firm}` : companyName ? `Company: ${companyName}` : null,
+      contact.channel ? `How we met: ${contact.channel}` : null,
+      contact.notes ? `Notes: ${contact.notes}` : null,
+    ].filter(Boolean).join('\n')
+
+    const senderDesc = [
+      profile?.full_name ? `Name: ${profile.full_name}` : null,
+      profile?.positioning_summary ? `Background: ${profile.positioning_summary}` : null,
+      profile?.target_titles ? `Target roles: ${profile.target_titles}` : null,
+      profile?.target_sectors ? `Target sectors: ${profile.target_sectors}` : null,
+      profile?.beyond_resume ? `Additional context: ${profile.beyond_resume}` : null,
+    ].filter(Boolean).join('\n')
+
+    prompt = `You are helping a senior executive draft a personalized outreach message.
 
 SENDER:
 ${senderDesc || 'A senior executive in job search'}
@@ -71,10 +101,9 @@ Write a concise, warm, professional outreach message. Guidelines:
 - 3-5 short paragraphs maximum
 - Open with a specific, genuine reference to the person or how they met — not a generic opener
 - State the ask clearly but without pressure
-- Sound like a real human, not a template or AI
-- No subject line needed, just the message body
-- Do not use phrases like "I hope this finds you well", "I wanted to reach out", "touch base", or "circle back"
-- End with a clear, low-friction call to action`
+- End with a clear, low-friction call to action
+${STYLE_GUIDELINES}`
+  }
 
   const stream = await anthropic.messages.stream({
     model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',

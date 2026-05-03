@@ -12,6 +12,13 @@ const GOALS = [
   'Ask for advice or a perspective on my search',
 ]
 
+const REFINE_BUTTONS = [
+  { style: 'concise', label: 'Concise' },
+  { style: 'warmer', label: 'Warmer' },
+  { style: 'sharper', label: 'Sharper' },
+  { style: 'thoughtful', label: 'More Thoughtful' },
+]
+
 type Contact = {
   id: string
   name: string
@@ -27,24 +34,19 @@ export function OutreachClient({ contact }: { contact: Contact }) {
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
   const [draft, setDraft] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   const subtitle = [contact.title, contact.firm ?? contact.company_name].filter(Boolean).join(' · ')
 
-  async function handleGenerate() {
-    setLoading(true)
-    setDraft('')
+  async function stream(body: Record<string, unknown>, label: string) {
+    setLoading(label)
     setCopied(false)
     try {
       const res = await fetch('/api/outreach/draft', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contactId: contact.id,
-          goal: customGoal.trim() || goal,
-          additionalContext: additionalContext.trim() || undefined,
-        }),
+        body: JSON.stringify(body),
       })
       if (!res.ok || !res.body) {
         const text = await res.text()
@@ -54,6 +56,7 @@ export function OutreachClient({ contact }: { contact: Contact }) {
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
       let text = ''
+      setDraft('')
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
@@ -61,8 +64,24 @@ export function OutreachClient({ contact }: { contact: Contact }) {
         setDraft(text)
       }
     } finally {
-      setLoading(false)
+      setLoading(null)
     }
+  }
+
+  function handleGenerate() {
+    return stream({
+      contactId: contact.id,
+      goal: customGoal.trim() || goal,
+      additionalContext: additionalContext.trim() || undefined,
+    }, 'generate')
+  }
+
+  function handleRefine(style: string) {
+    return stream({
+      contactId: contact.id,
+      currentDraft: draft,
+      refineStyle: style,
+    }, style)
   }
 
   async function handleCopy() {
@@ -104,7 +123,7 @@ export function OutreachClient({ contact }: { contact: Contact }) {
               {GOALS.map(g => <option key={g} value={g}>{g}</option>)}
               <option value="custom">Custom goal…</option>
             </select>
-            {(goal === 'custom') && (
+            {goal === 'custom' && (
               <input
                 type="text"
                 value={customGoal}
@@ -131,10 +150,10 @@ export function OutreachClient({ contact }: { contact: Contact }) {
           <button
             type="button"
             onClick={handleGenerate}
-            disabled={loading || (goal === 'custom' && !customGoal.trim())}
+            disabled={!!loading || (goal === 'custom' && !customGoal.trim())}
             className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50"
           >
-            {loading ? 'Drafting…' : draft ? 'Regenerate' : 'Generate draft'}
+            {loading === 'generate' ? 'Drafting…' : draft ? 'Regenerate' : 'Generate draft'}
           </button>
         </div>
 
@@ -150,7 +169,25 @@ export function OutreachClient({ contact }: { contact: Contact }) {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap">{draft}</div>
+
+            <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap mb-5">{draft}</div>
+
+            <div className="border-t border-slate-100 pt-4">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Refine</p>
+              <div className="flex flex-wrap gap-2">
+                {REFINE_BUTTONS.map(({ style, label }) => (
+                  <button
+                    key={style}
+                    type="button"
+                    onClick={() => handleRefine(style)}
+                    disabled={!!loading}
+                    className="text-[12px] font-medium text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:bg-slate-50 hover:border-slate-300 cursor-pointer bg-white disabled:opacity-40"
+                  >
+                    {loading === style ? 'Rewriting…' : label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </main>
