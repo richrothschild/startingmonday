@@ -71,7 +71,7 @@ async function saveBrief(type: string, text: string, companyId?: string, contact
   }
 }
 
-export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
+export function StrategyClient({ missingFields }: { missingFields: string[] }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -179,13 +179,21 @@ export function StrategyClient({ hasProfile }: { hasProfile: boolean }) {
           </button>
         </div>
 
-        {!hasProfile && !brief && (
+        {missingFields.length > 0 && !brief && (
           <div className="mb-6 px-5 py-4 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800 leading-relaxed">
-            Your profile isn&apos;t complete yet — the brief will be generic without your background.{' '}
+            <p className="font-semibold mb-2">Your brief will be generic without these fields:</p>
+            <ul className="mb-2 space-y-0.5">
+              {missingFields.map(f => (
+                <li key={f} className="flex items-center gap-2">
+                  <span className="text-amber-400">–</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
             <Link href="/dashboard/profile" className="font-semibold underline">
-              Add your details
-            </Link>{' '}
-            for a more useful result.
+              Complete your profile
+            </Link>
+            {' '}first for a sharper result. You can generate now and improve it after.
           </div>
         )}
 

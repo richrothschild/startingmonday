@@ -162,6 +162,8 @@ The 3–4 most likely objections or challenges this candidate will face. For eac
 ## What to Leave Out
 3–4 explicit topics, framings, or stories to avoid in this specific conversation, and why each would hurt them here. Be direct.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}
 
+If the candidate's background is thin (no resume, no positioning), name what you cannot assess rather than generating generic advice. Tell them exactly what to provide for a sharper brief. Do not invent specifics or use vague generalities to cover missing data.
+
 Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No motivational language.`
 
   return prompt

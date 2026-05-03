@@ -110,6 +110,8 @@ How to actually work this search. Specific breakdown of where to focus across: w
 ## First 30 Days
 8–10 concrete actions in priority order. Not strategy: specific moves. Each should be completable in the next month. Format each as an action, not a principle.
 
+If critical information is absent (no resume, no current role, no target titles), name the gap explicitly in the relevant section rather than filling it with generic advice. Tell the reader exactly what you cannot assess and what they would need to provide to get a sharper answer. Do not invent details or speak in vague generalities to cover missing data.
+
 Tone: direct, senior-to-senior, no hedging. Short paragraphs. No em dashes. No motivational language. No generic advice.`
 
   const readable = makeStream(prompt, supabase, userId)

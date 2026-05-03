@@ -13,13 +13,19 @@ export default async function StrategyPage() {
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('onboarding_completed_at, positioning_summary, resume_text')
+    .select('onboarding_completed_at, full_name, current_title, current_company, target_titles, positioning_summary, resume_text')
     .eq('user_id', user.id)
     .single()
 
   if (!profile?.onboarding_completed_at) redirect('/onboarding')
 
-  const hasProfile = !!(profile?.positioning_summary || profile?.resume_text)
+  const missing: string[] = []
+  if (!profile?.current_title && !profile?.current_company)
+    missing.push('Current or most recent role')
+  if (!profile?.target_titles?.length)
+    missing.push('Target titles (e.g. CIO, VP of Technology)')
+  if (!profile?.resume_text && !profile?.positioning_summary)
+    missing.push('Resume or positioning summary')
 
-  return <StrategyClient hasProfile={hasProfile} />
+  return <StrategyClient missingFields={missing} />
 }
