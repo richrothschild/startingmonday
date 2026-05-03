@@ -26,7 +26,7 @@ export default async function ProfilePage({
   const [{ data: profile }, { data: usage }] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, linkedin_url')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url')
       .eq('user_id', user.id)
       .single(),
     supabase
@@ -42,8 +42,9 @@ export default async function ProfilePage({
   const briefingTime = profile?.briefing_time
     ? profile.briefing_time.slice(0, 5)
     : '07:00'
-  const targetTitles = (profile?.target_titles ?? []).join(', ')
-  const targetSectors = (profile?.target_sectors ?? []).join(', ')
+  const targetTitles    = (profile?.target_titles    ?? []).join(', ')
+  const targetSectors   = (profile?.target_sectors   ?? []).join(', ')
+  const targetLocations = (profile?.target_locations ?? []).join(', ')
   const positioningSummary = profile?.positioning_summary ?? ''
   const resumeText = profile?.resume_text ?? ''
   const beyondResume = profile?.beyond_resume ?? ''
@@ -103,6 +104,36 @@ export default async function ProfilePage({
               />
             </div>
 
+            {/* Current role */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="current_title" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Current or most recent title
+                </label>
+                <input
+                  id="current_title"
+                  name="current_title"
+                  type="text"
+                  defaultValue={profile?.current_title ?? ''}
+                  placeholder="Chief Information Officer"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+              <div>
+                <label htmlFor="current_company" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Current or most recent company
+                </label>
+                <input
+                  id="current_company"
+                  name="current_company"
+                  type="text"
+                  defaultValue={profile?.current_company ?? ''}
+                  placeholder="Acme Corp"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+            </div>
+
             {/* Target titles */}
             <div>
               <label htmlFor="target_titles" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
@@ -133,6 +164,22 @@ export default async function ProfilePage({
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Comma-separated. Helps refine match scoring.</p>
+            </div>
+
+            {/* Target locations */}
+            <div>
+              <label htmlFor="target_locations" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                Target locations
+              </label>
+              <input
+                id="target_locations"
+                name="target_locations"
+                type="text"
+                defaultValue={targetLocations}
+                placeholder="New York, Remote, Dallas, Chicago"
+                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+              />
+              <p className="mt-1.5 text-[12px] text-slate-400">Comma-separated. Used in your Search Strategy Brief.</p>
             </div>
 
             {/* Positioning summary */}
