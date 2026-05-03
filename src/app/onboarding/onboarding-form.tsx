@@ -26,6 +26,9 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   const [importError, setImportError] = useState('')
   const [importDone, setImportDone] = useState(false)
 
+  const linkedinPdfRef = useRef<HTMLInputElement>(null)
+  const [extracting, setExtracting] = useState(false)
+
   const fileRef = useRef<HTMLInputElement>(null)
   const [uploadingResume, setUploadingResume] = useState(false)
   const [resumeUploadDone, setResumeUploadDone] = useState(false)
@@ -63,6 +66,44 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
     }
   }
 
+  async function handleLinkedInPdf(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setExtracting(true)
+    setImportError('')
+    setImportDone(false)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/linkedin-import/extract', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) { setImportError(data.error ?? 'Could not read the PDF.'); return }
+      // Pass extracted text straight into the import pipeline
+      setImporting(true)
+      const importRes = await fetch('/api/linkedin-import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: data.text }),
+      })
+      const importData = await importRes.json()
+      if (!importRes.ok) { setImportError(importData.error ?? 'Import failed. Please try again.'); return }
+      if (importData.full_name)           setFullName(importData.full_name)
+      if (importData.current_title)       setCurrentTitle(importData.current_title)
+      if (importData.current_company)     setCurrentCompany(importData.current_company)
+      if (importData.positioning_summary) setPositioningSummary(importData.positioning_summary)
+      if (importData.resume_text)         setResumeText(importData.resume_text)
+      if (importData.beyond_resume)       setBeyondResume(importData.beyond_resume)
+      if (importData.target_titles)       setTargetTitles(importData.target_titles)
+      setImportDone(true)
+    } catch {
+      setImportError('Something went wrong. Try pasting your profile text instead.')
+    } finally {
+      setExtracting(false)
+      setImporting(false)
+      if (linkedinPdfRef.current) linkedinPdfRef.current.value = ''
+    }
+  }
+
   async function handleResumeUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
@@ -95,11 +136,11 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
             Import from LinkedIn
           </div>
           <p className="text-[13px] text-slate-500 leading-relaxed">
-            Go to your LinkedIn profile page → press{' '}
-            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-[11px] font-mono">Ctrl+A</kbd>
-            {' '}then{' '}
-            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-[11px] font-mono">Ctrl+C</kbd>
-            {' '}to copy everything → paste below. Starting Monday will extract your career history and pre-fill the form.
+            Go to your LinkedIn profile page, click{' '}
+            <span className="font-medium text-slate-700">More</span>
+            {' '}at the top of your profile, then{' '}
+            <span className="font-medium text-slate-700">Resources → Save to PDF.</span>
+            {' '}Upload that PDF below and Starting Monday will extract your career history and pre-fill the form.
           </p>
         </div>
 
@@ -115,28 +156,53 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
           </div>
         )}
 
-        <textarea
-          value={pasteText}
-          onChange={e => setPasteText(e.target.value)}
-          placeholder="Paste your LinkedIn profile here…"
-          rows={4}
-          disabled={importing}
-          className={inputCls + ' resize-none leading-relaxed disabled:opacity-50'}
-        />
-
         <div className="flex items-center gap-4">
           <button
             type="button"
-            onClick={handleImport}
-            disabled={importing || !pasteText.trim()}
+            onClick={() => linkedinPdfRef.current?.click()}
+            disabled={extracting || importing}
             className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {importing ? 'Extracting…' : 'Extract profile'}
+            {extracting ? 'Reading PDF…' : importing ? 'Extracting…' : 'Upload LinkedIn PDF'}
           </button>
           <span className="text-[12px] text-slate-400">
             Optional — fill in the form below manually instead.
           </span>
+          <input
+            ref={linkedinPdfRef}
+            type="file"
+            accept=".pdf"
+            onChange={handleLinkedInPdf}
+            aria-label="Upload LinkedIn PDF"
+            className="hidden"
+          />
         </div>
+
+        <details className="group">
+          <summary className="text-[12px] text-slate-400 cursor-pointer hover:text-slate-600 list-none">
+            Or paste profile text manually
+          </summary>
+          <div className="mt-3 flex flex-col gap-3">
+            <textarea
+              value={pasteText}
+              onChange={e => setPasteText(e.target.value)}
+              placeholder="Paste your LinkedIn profile text here…"
+              rows={4}
+              disabled={importing}
+              className={inputCls + ' resize-none leading-relaxed disabled:opacity-50'}
+            />
+            <div>
+              <button
+                type="button"
+                onClick={handleImport}
+                disabled={importing || !pasteText.trim()}
+                className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {importing ? 'Extracting…' : 'Extract profile'}
+              </button>
+            </div>
+          </div>
+        </details>
       </div>
 
       {/* About you */}
