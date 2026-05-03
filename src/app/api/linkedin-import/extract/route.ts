@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Only PDF files are supported' }, { status: 415 })
 
   try {
-    const pdfParse = (await import('pdf-parse') as unknown as { default: (buf: Buffer) => Promise<{ text: string }> }).default
+    // Use internal path to avoid pdf-parse loading its test file on require
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pdfParse = (await import('pdf-parse/lib/pdf-parse.js' as any)).default as (buf: Buffer) => Promise<{ text: string }>
     const result = await pdfParse(buffer)
     const text = result.text.trim()
     if (!text) return NextResponse.json({ error: 'No text found in the PDF' }, { status: 422 })

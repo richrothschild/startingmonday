@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { markFollowUpDone } from './actions'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
+import { FollowUpItem } from '@/components/FollowUpItem'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -222,31 +222,20 @@ export default async function DashboardPage({
             <div className="divide-y divide-slate-50">
               {followUps.map(fu => {
                 const isToday = fu.due_date === todayISO
-
                 const co = fu.companies as unknown as { name: string } | null
                 const dateLabel = isToday
                   ? 'Today'
                   : new Date(fu.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                 return (
-                  <div key={fu.id} className="px-6 py-4 flex items-center gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[14px] font-semibold text-slate-900 truncate">{fu.action}</div>
-                      {co && (
-                        <div className="text-[12px] text-slate-400 mt-0.5">{co.name}</div>
-                      )}
-                    </div>
-                    <span className={`text-[12px] font-semibold shrink-0 ${isToday ? 'text-slate-400' : 'text-red-600'}`}>
-                      {dateLabel}
-                    </span>
-                    <form action={markFollowUpDone.bind(null, fu.id)}>
-                      <button
-                        type="submit"
-                        className="text-[12px] text-slate-400 border border-slate-200 rounded px-3 py-1 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent"
-                      >
-                        Done
-                      </button>
-                    </form>
-                  </div>
+                  <FollowUpItem
+                    key={fu.id}
+                    id={fu.id}
+                    action={fu.action}
+                    dueDate={fu.due_date}
+                    dateLabel={dateLabel}
+                    isToday={isToday}
+                    companyName={co?.name}
+                  />
                 )
               })}
             </div>
