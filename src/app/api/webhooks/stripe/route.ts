@@ -59,14 +59,20 @@ export async function POST(request: NextRequest) {
       const userId = sub.metadata?.userId
       if (!userId) break
       const status = sub.status === 'active' ? 'active'
+        : sub.status === 'trialing' ? 'trialing'
         : sub.status === 'past_due' ? 'past_due'
         : sub.status === 'canceled' ? 'canceled'
         : 'inactive'
       const plan = (sub.metadata?.plan ?? 'free') as string
-      const { error } = await supabase.from('users').update({
-        subscription_tier: status === 'active' ? plan : 'free',
+      const update: Record<string, string | null> = {
+        subscription_tier: status === 'active' || status === 'trialing' ? plan : 'free',
         subscription_status: status,
-      }).eq('id', userId)
+      }
+      // Clear trial_ends_at when subscription converts from trial to paid
+      if (status === 'active' && sub.trial_end) {
+        update.trial_ends_at = null
+      }
+      const { error } = await supabase.from('users').update(update).eq('id', userId)
       updateError = error
       break
     }

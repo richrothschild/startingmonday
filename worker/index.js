@@ -10,6 +10,7 @@ import { runFollowupJob } from './jobs/followup-job.js'
 import { runMomentumJob } from './jobs/momentum-job.js'
 import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
+import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -77,8 +78,11 @@ cron.schedule('30 23 * * 0', () => runJob('weekly-report-job', runWeeklyReportJo
 // Usage monitor: daily at 09:00 UTC — checks all services against plan limits
 cron.schedule('0 9 * * *', () => runJob('usage-monitor-job', runUsageMonitorJob))
 
+// Trial reminders: daily at 10:00 UTC — sends T-3 and T-0 emails to trialing users
+cron.schedule('0 10 * * *', () => runJob('trial-reminder-job', runTrialReminderJob))
+
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job'],
+  jobs: ['scan-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
