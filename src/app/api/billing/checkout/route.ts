@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-import { stripe, PRICE_IDS } from '@/lib/stripe'
+import { getStripe, PRICE_IDS } from '@/lib/stripe'
 import { PLANS, type PlanKey } from '@/lib/plans'
 
 export async function POST(request: NextRequest) {
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
   // Reuse existing Stripe customer or create one
   let customerId = user.stripe_customer_id
   if (!customerId) {
-    const customer = await stripe.customers.create({
+    const customer = await getStripe().customers.create({
       email: user.email,
       metadata: { userId },
     })
@@ -38,12 +38,13 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
     line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
     success_url: `${baseUrl}/dashboard?upgraded=1`,
     cancel_url: `${baseUrl}/settings/billing`,
+    metadata: { userId, plan },
     subscription_data: {
       metadata: { userId, plan },
     },

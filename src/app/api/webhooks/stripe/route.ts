@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
 import type Stripe from 'stripe'
 
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   let event: Stripe.Event
   try {
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!)
+    event = getStripe().webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!)
   } catch {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
@@ -20,10 +20,9 @@ export async function POST(request: NextRequest) {
 
   switch (event.type) {
     case 'checkout.session.completed': {
-      const session = event.data.object as Stripe.CheckoutSession
-      const userId = session.subscription_data?.metadata?.userId
-        ?? (session.metadata?.userId as string | undefined)
-      const plan = session.subscription_data?.metadata?.plan as string | undefined
+      const session = event.data.object as Stripe.Checkout.Session
+      const userId = (session.metadata?.userId) as string | undefined
+      const plan = (session.metadata?.plan) as string | undefined
       if (userId && plan) {
         await supabase.from('users').update({
           subscription_tier: plan,
@@ -46,7 +45,6 @@ export async function POST(request: NextRequest) {
       await supabase.from('users').update({
         subscription_tier: status === 'active' ? plan : 'free',
         subscription_status: status,
-        subscription_period_end: new Date(sub.current_period_end * 1000).toISOString(),
       }).eq('id', userId)
       break
     }
@@ -58,14 +56,15 @@ export async function POST(request: NextRequest) {
       await supabase.from('users').update({
         subscription_tier: 'free',
         subscription_status: 'canceled',
-        subscription_period_end: new Date(sub.current_period_end * 1000).toISOString(),
       }).eq('id', userId)
       break
     }
 
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice
-      const customerId = typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id
+      const customerId = typeof invoice.customer === 'string'
+        ? invoice.customer
+        : (invoice.customer as Stripe.Customer | null)?.id
       if (!customerId) break
       await supabase.from('users').update({
         subscription_status: 'past_due',
