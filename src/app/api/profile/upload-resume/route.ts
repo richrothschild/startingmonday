@@ -31,8 +31,10 @@ export async function POST(request: NextRequest) {
   let text: string
   try {
     if (isPdf) {
-      // pdf-parse types don't declare a default export; cast to actual shape
-      const pdfParse = (await import('pdf-parse') as unknown as { default: (buf: Buffer) => Promise<{ text: string }> }).default
+      // Import the internal module to avoid pdf-parse running its test suite on import
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error no types for internal path
+      const pdfParse = (await import('pdf-parse/lib/pdf-parse.js') as unknown as { default: (buf: Buffer) => Promise<{ text: string }> }).default
       const result = await pdfParse(buffer)
       text = result.text
     } else {

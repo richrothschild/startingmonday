@@ -189,6 +189,25 @@ export default async function DashboardPage({
           ))}
         </div>
 
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          {[
+            { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
+            { href: '/dashboard/companies/new',  label: '+ Add Company',     sub: 'Target company or role' },
+            { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
+            { href: '/dashboard/contacts',       label: 'Contacts',          sub: 'Your network map' },
+          ].map(a => (
+            <Link
+              key={a.href}
+              href={a.href}
+              className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
+            >
+              <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">{a.sub}</p>
+            </Link>
+          ))}
+        </div>
+
         {/* Actions Due */}
         {followUps && followUps.length > 0 && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">

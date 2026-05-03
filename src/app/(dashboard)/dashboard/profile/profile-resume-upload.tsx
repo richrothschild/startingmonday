@@ -11,6 +11,8 @@ export default function ProfileResumeUpload() {
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
+    // Clear input now so the same file can be re-selected after an error
+    if (inputRef.current) inputRef.current.value = ''
     setStatus('uploading')
     setMessage('')
 
@@ -28,8 +30,6 @@ export default function ProfileResumeUpload() {
       setStatus('error')
       setMessage(json.error ?? 'Upload failed.')
     }
-
-    if (inputRef.current) inputRef.current.value = ''
   }
 
   return (
