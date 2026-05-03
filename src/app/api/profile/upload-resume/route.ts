@@ -33,7 +33,8 @@ export async function POST(request: NextRequest) {
     if (isPdf) {
       // Use internal path to avoid pdf-parse loading its test file on require
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const pdfParse = (await import('pdf-parse/lib/pdf-parse.js' as any)).default as (buf: Buffer) => Promise<{ text: string }>
+      const pdfLib = await import('pdf-parse/lib/pdf-parse.js' as any)
+      const pdfParse = (pdfLib.default ?? pdfLib) as (buf: Buffer) => Promise<{ text: string }>
       const result = await pdfParse(buffer)
       text = result.text
     } else {
@@ -41,7 +42,8 @@ export async function POST(request: NextRequest) {
       const result = await mammoth.extractRawText({ buffer })
       text = result.value
     }
-  } catch {
+  } catch (err) {
+    console.error('[upload-resume] extraction failed:', err)
     return NextResponse.json({ error: 'Failed to extract text from file' }, { status: 422 })
   }
 
