@@ -35,7 +35,7 @@ export async function runBriefingJob() {
   logger.info('briefing-job: starting')
 
   const [{ data: users, error }, { data: profiles }] = await Promise.all([
-    supabase.from('users').select('id, email'),
+    supabase.from('users').select('id, email').in('subscription_status', ['trialing', 'active']),
     // Only fetch profiles that have a briefing_time set — avoids scanning rows that
     // can never trigger a send, which matters as user count grows.
     supabase.from('user_profiles').select(
