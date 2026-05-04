@@ -1,46 +1,66 @@
 import { type SupabaseClient } from '@supabase/supabase-js'
 
-const USER_MONTHLY_TOKEN_LIMIT = parseInt(process.env.USER_MONTHLY_TOKEN_LIMIT ?? '3000000')
+const USER_MONTHLY_TOKEN_LIMIT   = parseInt(process.env.USER_MONTHLY_TOKEN_LIMIT   ?? '3000000')
 const USER_MONTHLY_REQUEST_LIMIT = parseInt(process.env.USER_MONTHLY_REQUEST_LIMIT ?? '200')
+const USER_DAILY_REQUEST_LIMIT   = parseInt(process.env.USER_DAILY_REQUEST_LIMIT   ?? '30')
 
-function dayKey() {
-  return new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
-}
+function dayKey()   { return new Date().toISOString().slice(0, 10) } // 'YYYY-MM-DD'
+function monthKey() { return new Date().toISOString().slice(0, 7)  } // 'YYYY-MM'
 
-function monthKey() {
-  return new Date().toISOString().slice(0, 7) // 'YYYY-MM'
-}
+function userDayKey(userId: string) { return `user:${userId}` }
 
-// Returns true if the user has hit their monthly token or request cap.
-// Checking both limits means hammering multiple endpoints simultaneously still
-// hits the request ceiling even before token totals become large.
+// Returns true if the user has hit their monthly token/request cap OR their
+// daily request cap. The daily cap catches burst abuse (competitors stress-testing
+// every feature in one session) without punishing normal multi-day usage.
 export async function isRateLimited(supabase: SupabaseClient, userId: string): Promise<boolean> {
-  const { data } = await supabase
-    .from('api_usage')
-    .select('token_count, request_count')
-    .eq('user_id', userId)
-    .eq('service', 'anthropic')
-    .eq('month_key', monthKey())
-    .maybeSingle()
+  const [{ data: monthly }, { data: dailyCount }] = await Promise.all([
+    supabase
+      .from('api_usage')
+      .select('token_count, request_count')
+      .eq('user_id', userId)
+      .eq('service', 'anthropic')
+      .eq('month_key', monthKey())
+      .maybeSingle(),
+    supabase.rpc('get_rate_limit_count', {
+      p_key:    userDayKey(userId),
+      p_window: dayKey(),
+    }),
+  ])
 
-  const tokensUsed   = data?.token_count   ?? 0
-  const requestsUsed = data?.request_count ?? 0
-  return tokensUsed >= USER_MONTHLY_TOKEN_LIMIT || requestsUsed >= USER_MONTHLY_REQUEST_LIMIT
+  if ((monthly?.token_count   ?? 0) >= USER_MONTHLY_TOKEN_LIMIT)   return true
+  if ((monthly?.request_count ?? 0) >= USER_MONTHLY_REQUEST_LIMIT) return true
+  if ((dailyCount             ?? 0) >= USER_DAILY_REQUEST_LIMIT)   return true
+
+  return false
 }
 
-// Atomically increment usage via the RPC created in migration 004.
+// Called after a successful Claude API call.
+// Increments monthly token + request counts AND the daily request counter
+// used for burst detection. The daily entry in rate_limits can be queried
+// to spot accounts hammering multiple endpoints in one session:
+//
+//   select key, window, count from public.rate_limits
+//   where key like 'user:%' and window = current_date::text and count > 10
+//   order by count desc;
 export async function trackApiUsage(
   supabase: SupabaseClient,
   userId: string,
   tokens: number
 ): Promise<void> {
-  await supabase.rpc('increment_api_usage', {
-    p_user_id:   userId,
-    p_service:   'anthropic',
-    p_month_key: monthKey(),
-    p_requests:  1,
-    p_tokens:    tokens,
-  })
+  await Promise.all([
+    supabase.rpc('increment_api_usage', {
+      p_user_id:   userId,
+      p_service:   'anthropic',
+      p_month_key: monthKey(),
+      p_requests:  1,
+      p_tokens:    tokens,
+    }),
+    supabase.rpc('check_and_increment_rate_limit', {
+      p_key:    userDayKey(userId),
+      p_window: dayKey(),
+      p_limit:  999999, // no hard block here; isRateLimited enforces the cap
+    }),
+  ])
 }
 
 // Trim message history to avoid context overflow.

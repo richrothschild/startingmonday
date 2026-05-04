@@ -1,21 +1,8 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { createClient } from '@/lib/supabase/server'
 
-// In-memory rate limiter: 3 uses per IP per 24h window.
-// Works because Railway runs as a persistent process, not serverless.
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now()
-  const entry = rateLimitMap.get(ip)
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + 24 * 60 * 60 * 1000 })
-    return true
-  }
-  if (entry.count >= 3) return false
-  entry.count++
-  return true
-}
+const DAILY_LIMIT = 3
 
 const SYSTEM_PROMPT = `You are an executive LinkedIn profile coach specializing in senior technology and business leaders (CIO, CTO, VP Engineering, COO, CDO). You review LinkedIn profiles and deliver honest, direct, actionable feedback.
 
@@ -53,10 +40,25 @@ Rewrite the 2-3 weakest sections. Be specific - show exactly what to write, not 
 
 Keep the total response under 900 words. Be direct. Executives respond to specificity.`
 
+function dayWindow() {
+  return new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
+}
+
 export async function POST(request: NextRequest) {
+  // Bot detection is handled in middleware.ts (User-Agent check).
+  // Here we enforce the persistent per-IP daily rate limit.
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
 
-  if (!checkRateLimit(ip)) {
+  // Use the Supabase anon client; check_and_increment_rate_limit is
+  // security definer so anon can call it.
+  const supabase = await createClient()
+  const { data: allowed } = await supabase.rpc('check_and_increment_rate_limit', {
+    p_key:    `ip:${ip}`,
+    p_window: dayWindow(),
+    p_limit:  DAILY_LIMIT,
+  })
+
+  if (!allowed) {
     return new Response(
       JSON.stringify({ error: 'Rate limit reached. You can analyze 3 profiles per day.' }),
       { status: 429, headers: { 'Content-Type': 'application/json' } }
@@ -78,9 +80,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  if (text.length > 20000) {
-    text = text.slice(0, 20000)
-  }
+  if (text.length > 20000) text = text.slice(0, 20000)
 
   const stream = await anthropic.messages.stream({
     model: MODELS.sonnet,
@@ -90,7 +90,6 @@ export async function POST(request: NextRequest) {
   })
 
   const encoder = new TextEncoder()
-
   const readableStream = new ReadableStream({
     async start(controller) {
       try {

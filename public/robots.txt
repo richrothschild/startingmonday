@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /onboarding/
+Allow: /
+Allow: /login
+Allow: /signup

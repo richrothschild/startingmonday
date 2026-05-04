@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/require-auth'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
@@ -28,11 +28,11 @@ Missing: [comma-separated list of important JD terms not in the resume - things 
 [3-5 bullets describing what changed and why - concrete, not generic]`
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+  const { userId } = auth
 
-  const sub = await getUserSubscription(user.id)
+  const sub = await getUserSubscription(userId)
   if (!canAccessFeature(sub, 'resume_tailor')) {
     return new Response(
       JSON.stringify({ error: 'Resume tailoring requires an Active plan.' }),

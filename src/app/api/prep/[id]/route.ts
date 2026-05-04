@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
+import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
@@ -193,18 +194,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
-
-  const { userId } = auth
-  const supabase = await createClient()
-
-  if (await isRateLimited(supabase, userId)) {
-    return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
+  const access = await requirePrepAccess(request)
+  if (!access.ok) return access.response
+  const { userId, supabase } = access
 
   const { id: companyId } = await params
   const { company, profile, scanResults, contacts, documents, signals } = await loadContext(supabase, companyId, userId)
@@ -239,18 +231,9 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
-
-  const { userId } = auth
-  const supabase = await createClient()
-
-  if (await isRateLimited(supabase, userId)) {
-    return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
+  const access = await requirePrepAccess(request)
+  if (!access.ok) return access.response
+  const { userId, supabase } = access
 
   const body = await request.json().catch(() => null)
   if (!body?.brief || !body?.request) {
