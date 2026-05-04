@@ -250,6 +250,9 @@ export default function LandingPage() {
             <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
               Privacy Policy
             </Link>
+            <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
+              Terms
+            </Link>
             <span className="text-[12px] text-slate-600">startingmonday.app</span>
           </div>
         </div>
