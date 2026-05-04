@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { BriefRating } from '@/components/BriefRating'
+import { markContactSent } from '../../actions'
 
 const GOALS = [
   'Request a 20-minute exploratory call',
@@ -30,6 +31,12 @@ type Contact = {
   company_name: string | null
 }
 
+type DraftHistory = {
+  id: string
+  text: string
+  createdAt: string
+}
+
 async function saveDraft(text: string, contactId: string): Promise<string | null> {
   try {
     const res = await fetch('/api/briefs/save', {
@@ -45,7 +52,11 @@ async function saveDraft(text: string, contactId: string): Promise<string | null
   }
 }
 
-export function OutreachClient({ contact }: { contact: Contact }) {
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+export function OutreachClient({ contact, history }: { contact: Contact; history: DraftHistory[] }) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
@@ -53,13 +64,18 @@ export function OutreachClient({ contact }: { contact: Contact }) {
   const [draftId, setDraftId] = useState<string | null>(null)
   const [loading, setLoading] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [customRefine, setCustomRefine] = useState('')
+  const [showHistory, setShowHistory] = useState(false)
+  const [expandedHistory, setExpandedHistory] = useState<string | null>(null)
 
   const subtitle = [contact.title, contact.firm ?? contact.company_name].filter(Boolean).join(' · ')
 
-  async function stream(body: Record<string, unknown>, label: string) {
+  async function streamDraft(body: Record<string, unknown>, label: string) {
     setLoading(label)
     setDraftId(null)
     setCopied(false)
+    setSent(false)
     try {
       const res = await fetch('/api/outreach/draft', {
         method: 'POST',
@@ -91,7 +107,7 @@ export function OutreachClient({ contact }: { contact: Contact }) {
   }
 
   function handleGenerate() {
-    return stream({
+    return streamDraft({
       contactId: contact.id,
       goal: customGoal.trim() || goal,
       additionalContext: additionalContext.trim() || undefined,
@@ -99,17 +115,36 @@ export function OutreachClient({ contact }: { contact: Contact }) {
   }
 
   function handleRefine(style: string) {
-    return stream({
+    return streamDraft({
       contactId: contact.id,
       currentDraft: draft,
       refineStyle: style,
     }, style)
   }
 
+  function handleCustomRefine() {
+    if (!customRefine.trim()) return
+    return streamDraft({
+      contactId: contact.id,
+      currentDraft: draft,
+      refineInstruction: customRefine.trim(),
+    }, 'custom')
+  }
+
   async function handleCopy() {
     await navigator.clipboard.writeText(draft)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  async function handleMarkSent() {
+    setLoading('sent')
+    try {
+      const result = await markContactSent(contact.id, contact.name)
+      if (result.ok) setSent(true)
+    } finally {
+      setLoading(null)
+    }
   }
 
   return (
@@ -181,19 +216,39 @@ export function OutreachClient({ contact }: { contact: Contact }) {
         </div>
 
         {draft && (
-          <div className="bg-white border border-slate-200 rounded p-6">
+          <div className="bg-white border border-slate-200 rounded p-6 mb-4">
             <div className="flex items-center justify-between mb-4">
               <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Draft</p>
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 cursor-pointer bg-white"
-              >
-                {copied ? 'Copied!' : 'Copy'}
-              </button>
+              <div className="flex items-center gap-2">
+                {sent ? (
+                  <span className="text-[12px] font-semibold text-emerald-600">Marked as sent</span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleMarkSent}
+                    disabled={!!loading}
+                    className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 cursor-pointer bg-white disabled:opacity-40"
+                  >
+                    {loading === 'sent' ? 'Saving…' : 'Mark as sent'}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 cursor-pointer bg-white"
+                >
+                  {copied ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
             </div>
 
             <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap mb-5">{draft}</div>
+
+            {sent && (
+              <div className="mb-5 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded text-[12px] text-emerald-700">
+                Logged as contacted. A follow-up has been added for 7 days from now.
+              </div>
+            )}
 
             {draftId && !loading && (
               <div className="mb-5 flex justify-end">
@@ -202,8 +257,8 @@ export function OutreachClient({ contact }: { contact: Contact }) {
             )}
 
             <div className="border-t border-slate-100 pt-4">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Refine</p>
-              <div className="flex flex-wrap gap-2">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Refine</p>
+              <div className="flex flex-wrap gap-2 mb-3">
                 {REFINE_BUTTONS.map(({ style, label }) => (
                   <button
                     key={style}
@@ -216,7 +271,64 @@ export function OutreachClient({ contact }: { contact: Contact }) {
                   </button>
                 ))}
               </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customRefine}
+                  onChange={e => setCustomRefine(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') handleCustomRefine() }}
+                  placeholder="Or describe your edit…"
+                  disabled={!!loading}
+                  className="flex-1 border border-slate-200 rounded px-3 py-1.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 disabled:opacity-40"
+                />
+                <button
+                  type="button"
+                  onClick={handleCustomRefine}
+                  disabled={!!loading || !customRefine.trim()}
+                  className="text-[12px] font-medium text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:bg-slate-50 cursor-pointer bg-white disabled:opacity-40 shrink-0"
+                >
+                  {loading === 'custom' ? 'Rewriting…' : 'Apply'}
+                </button>
+              </div>
             </div>
+          </div>
+        )}
+
+        {history.length > 0 && (
+          <div className="bg-white border border-slate-200 rounded overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setShowHistory(h => !h)}
+              className="w-full px-5 py-3.5 flex items-center justify-between text-left cursor-pointer bg-transparent border-0"
+            >
+              <span className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">
+                Previous drafts ({history.length})
+              </span>
+              <span className="text-[11px] text-slate-400">{showHistory ? '▲' : '▼'}</span>
+            </button>
+            {showHistory && (
+              <div className="divide-y divide-slate-50 border-t border-slate-100">
+                {history.map(h => (
+                  <div key={h.id} className="px-5 py-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] text-slate-400">{formatDate(h.createdAt)}</span>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedHistory(expandedHistory === h.id ? null : h.id)}
+                        className="text-[11px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer"
+                      >
+                        {expandedHistory === h.id ? 'Collapse' : 'View'}
+                      </button>
+                    </div>
+                    {expandedHistory === h.id ? (
+                      <div className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{h.text}</div>
+                    ) : (
+                      <p className="text-[13px] text-slate-500 truncate">{h.text.slice(0, 100)}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>

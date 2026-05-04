@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
   const body = await request.json().catch(() => ({}))
-  const { contactId, goal, additionalContext, currentDraft, refineStyle } = body
+  const { contactId, goal, additionalContext, currentDraft, refineStyle, refineInstruction } = body
 
   if (!contactId) {
     return NextResponse.json({ error: 'contactId is required' }, { status: 400 })
@@ -51,7 +51,18 @@ export async function POST(request: NextRequest) {
 
   let prompt: string
 
-  if (currentDraft && refineStyle && STYLE_INSTRUCTIONS[refineStyle]) {
+  if (currentDraft && refineInstruction) {
+    prompt = `Revise this outreach message based on these instructions: ${refineInstruction}
+
+<draft>
+${currentDraft}
+</draft>
+
+Apply the instructions exactly. Keep the same core goal unless the instruction changes it. Additional guidelines:
+${STYLE_GUIDELINES}
+
+Return only the revised message body, nothing else.`
+  } else if (currentDraft && refineStyle && STYLE_INSTRUCTIONS[refineStyle]) {
     prompt = `Revise this outreach message to be ${STYLE_INSTRUCTIONS[refineStyle]}.
 
 <draft>

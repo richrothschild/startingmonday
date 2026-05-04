@@ -10,12 +10,22 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: contact } = await supabase
-    .from('contacts')
-    .select('id, name, title, firm, channel, notes, companies(name)')
-    .eq('id', id)
-    .eq('user_id', user.id)
-    .single()
+  const [{ data: contact }, { data: history }] = await Promise.all([
+    supabase
+      .from('contacts')
+      .select('id, name, title, firm, channel, notes, companies(name)')
+      .eq('id', id)
+      .eq('user_id', user.id)
+      .single(),
+    supabase
+      .from('briefs')
+      .select('id, output_text, created_at')
+      .eq('user_id', user.id)
+      .eq('contact_id', id)
+      .eq('type', 'outreach')
+      .order('created_at', { ascending: false })
+      .limit(3),
+  ])
 
   if (!contact) notFound()
 
@@ -32,6 +42,11 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
         notes: c.notes ?? null,
         company_name: c.companies?.name ?? null,
       }}
+      history={(history ?? []).map(h => ({
+        id: h.id,
+        text: h.output_text,
+        createdAt: h.created_at,
+      }))}
     />
   )
 }

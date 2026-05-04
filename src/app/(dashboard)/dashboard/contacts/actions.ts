@@ -52,6 +52,34 @@ export async function addContact(formData: FormData) {
   redirect('/dashboard/contacts?saved=1')
 }
 
+export async function markContactSent(contactId: string, contactName: string): Promise<{ ok: boolean; error?: string }> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { ok: false, error: 'Not authenticated' }
+
+  const followUpDate = new Date()
+  followUpDate.setDate(followUpDate.getDate() + 7)
+  const followUpDateStr = followUpDate.toISOString().slice(0, 10)
+
+  const [{ error: updateError }, { error: followUpError }] = await Promise.all([
+    supabase
+      .from('contacts')
+      .update({ contacted_at: new Date().toISOString() })
+      .eq('id', contactId)
+      .eq('user_id', user.id),
+    supabase.from('follow_ups').insert({
+      user_id: user.id,
+      contact_id: contactId,
+      action: `Follow up with ${contactName}`,
+      due_date: followUpDateStr,
+      status: 'pending',
+    }),
+  ])
+
+  if (updateError || followUpError) return { ok: false, error: 'Failed to mark as sent' }
+  return { ok: true }
+}
+
 export async function archiveContact(contactId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
