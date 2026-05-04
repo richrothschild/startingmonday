@@ -24,6 +24,7 @@ export async function addCompany(formData: FormData) {
   const sector        = str(formData, 'sector') || null
   const stage         = str(formData, 'stage') || 'watching'
   const fitScore      = numOrNull(formData, 'fit_score')
+  const companyUrl    = str(formData, 'company_url') || null
   const careerPageUrl = str(formData, 'career_page_url') || null
   const notes         = str(formData, 'notes') || null
 
@@ -35,6 +36,7 @@ export async function addCompany(formData: FormData) {
     sector,
     stage,
     fit_score: fitScore,
+    company_url: companyUrl,
     career_page_url: careerPageUrl,
     notes,
   }).select('id').single()

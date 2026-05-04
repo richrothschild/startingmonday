@@ -4,6 +4,7 @@ import { fetchCompanyNews } from '../signals/fetch-company-news.js'
 import { classifySignal } from '../signals/classify-signal.js'
 import { writeSignal } from '../signals/write-signal.js'
 import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-crunchbase-funding.js'
+import { findPressRoomArticles } from '../signals/fetch-press-room.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -41,7 +42,7 @@ export async function runSignalJob() {
     for (const user of users) {
       const { data: companies } = await supabase
         .from('companies')
-        .select('id, name, crunchbase_id')
+        .select('id, name, crunchbase_id, company_url')
         .eq('user_id', user.id)
         .is('archived_at', null)
 
@@ -74,6 +75,30 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: new signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // Press room — scrape company's own newsroom for press releases
+          if (company.company_url) {
+            const pressArticles = await findPressRoomArticles(company.company_url)
+            for (const article of pressArticles) {
+              const result = await classifySignal(company.name, article)
+              if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+              if (!result.signal_type || !result.signal_summary) continue
+
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    result.signal_type,
+                signalSummary: result.signal_summary,
+                sourceUrl:     article.link,
+                signalDate:    new Date().toISOString().split('T')[0],
+                outreachAngle: result.outreach_angle ?? null,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: press room signal', { company: company.name, type: result.signal_type })
+              }
             }
           }
 
