@@ -616,9 +616,15 @@ export default async function CompanyPage({
               <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
               <p className="text-[13px] text-slate-400">This site actively blocks bots (common with government and Cloudflare-protected sites). Paste job listings manually via the Documents section above — they'll be used in your interview prep brief.</p>
             </div>
+          ) : latestScan.status === 'error' && /40[13]|block|access.denied/i.test(latestScan.error_message ?? '') ? (
+            <div className="px-6 py-6">
+              <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
+              <p className="text-[13px] text-slate-400">This site actively blocks bots (common with government and Cloudflare-protected sites). Paste job listings manually via the Documents section above — they&apos;ll be used in your interview prep brief.</p>
+            </div>
           ) : latestScan.status === 'error' ? (
-            <div className="px-6 py-6 text-[13px] text-red-600">
-              Last scan failed: {latestScan.error_message ?? 'Unknown error'}
+            <div className="px-6 py-6">
+              <p className="text-[13px] font-semibold text-slate-600 mb-1">Scan encountered an error</p>
+              <p className="text-[13px] text-slate-400">{latestScan.error_message ?? 'Unknown error'} — this will be retried on the next scheduled run.</p>
             </div>
           ) : (
             <div>
