@@ -60,7 +60,9 @@ export default async function DashboardPage({
     .eq('user_id', user.id)
     .is('archived_at', null)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }] = await Promise.all([
+  const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -76,6 +78,13 @@ export default async function DashboardPage({
       .select('subscription_status, trial_ends_at')
       .eq('id', user.id)
       .single(),
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, companies(id, name)')
+      .eq('user_id', user.id)
+      .gte('signal_date', since7d)
+      .order('signal_date', { ascending: false })
+      .limit(5),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -84,7 +93,9 @@ export default async function DashboardPage({
   const activeCount = allList.filter(c =>
     ['interviewing', 'applied', 'offer'].includes(c.stage)
   ).length
-  const overdueCount = (followUps ?? []).length
+  const overdueCount   = (followUps ?? []).length
+  const signals        = (recentSignals ?? []) as unknown as { id: string; signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string; company_id: string; companies: { id: string; name: string } | null }[]
+  const signalCount    = signals.length
 
   const filtered = companies ?? []
   const totalFiltered = filteredCount ?? 0
@@ -101,9 +112,10 @@ export default async function DashboardPage({
     : 0
 
   const stats = [
-    { value: totalCount,  label: 'Companies',   alert: false },
-    { value: activeCount, label: 'Active',       alert: false },
-    { value: overdueCount, label: 'Actions Due', alert: overdueCount > 0 },
+    { value: totalCount,   label: 'Companies',   alert: false,           amber: false },
+    { value: activeCount,  label: 'Active',       alert: false,           amber: false },
+    { value: signalCount,  label: 'Signals',      alert: false,           amber: signalCount > 0 },
+    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false },
   ]
 
   return (
@@ -164,10 +176,10 @@ export default async function DashboardPage({
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          {stats.map(({ value, label, alert }) => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          {stats.map(({ value, label, alert, amber }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
-              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : 'text-slate-900'}`}>
+              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
                 {value}
               </div>
               <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">
@@ -178,8 +190,9 @@ export default async function DashboardPage({
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[
+            { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
             { href: '/dashboard/companies/new',  label: '+ Add Company',     sub: 'Target company or role' },
             { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
@@ -224,6 +237,44 @@ export default async function DashboardPage({
                     isToday={isToday}
                     companyName={co?.name}
                   />
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Signals */}
+        {signals.length > 0 && (
+          <div className="bg-white border border-amber-200 rounded overflow-hidden mb-8">
+            <div className="px-6 py-[18px] border-b border-amber-100 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600">
+                Company Signals
+              </span>
+              <span className="text-[12px] text-slate-400">Last 7 days</span>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {signals.map(sig => {
+                const co = sig.companies
+                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                const typeLabel = sig.signal_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+                return (
+                  <div key={sig.id} className="px-6 py-4">
+                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                      {co && (
+                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                          {co.name}
+                        </Link>
+                      )}
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
+                        {typeLabel}
+                      </span>
+                      <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
+                    </div>
+                    <p className="text-[13px] text-slate-700 leading-relaxed">{sig.signal_summary}</p>
+                    {sig.outreach_angle && (
+                      <p className="text-[12px] text-slate-400 italic mt-1 leading-relaxed">{sig.outreach_angle}</p>
+                    )}
+                  </div>
                 )
               })}
             </div>
