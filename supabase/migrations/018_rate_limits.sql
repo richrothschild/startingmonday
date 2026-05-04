@@ -7,10 +7,10 @@
 
 create table if not exists public.rate_limits (
   key        text        not null,
-  window     text        not null,
+  period     text        not null,  -- 'YYYY-MM-DD' daily or 'YYYY-MM' monthly
   count      integer     not null default 0,
   updated_at timestamptz not null default now(),
-  primary key (key, window)
+  primary key (key, period)
 );
 
 -- Atomically increment the counter and return whether the caller is still within limit.
@@ -27,9 +27,9 @@ as $$
 declare
   v_count integer;
 begin
-  insert into public.rate_limits (key, window, count, updated_at)
+  insert into public.rate_limits (key, period, count, updated_at)
   values (p_key, p_window, 1, now())
-  on conflict (key, window)
+  on conflict (key, period)
   do update set
     count      = rate_limits.count + 1,
     updated_at = now()
@@ -52,7 +52,7 @@ security definer
 set search_path = public
 as $$
   select coalesce(
-    (select count from public.rate_limits where key = p_key and window = p_window),
+    (select count from public.rate_limits where key = p_key and period = p_window),
     0
   );
 $$;
@@ -60,6 +60,6 @@ $$;
 grant execute on function public.get_rate_limit_count to authenticated;
 
 -- Useful query for abuse investigation (run in Supabase SQL Editor):
--- select key, window, count from public.rate_limits
--- where key like 'user:%' and window = current_date::text and count > 10
+-- select key, period, count from public.rate_limits
+-- where key like 'user:%' and period = current_date::text and count > 10
 -- order by count desc;
