@@ -112,7 +112,7 @@ export default function LandingPage() {
             >
               Start your search &rarr;
             </Link>
-            <p className="text-[12px] text-slate-600 mt-2.5">Free for 30 days. No credit card.</p>
+            <p className="text-[12px] text-slate-400 mt-2.5">Free for 30 days. No credit card.</p>
           </div>
         </div>
       </section>
