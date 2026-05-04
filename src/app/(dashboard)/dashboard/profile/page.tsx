@@ -182,10 +182,16 @@ export default async function ProfilePage({
                 name="positioning_summary"
                 rows={4}
                 defaultValue={positioningSummary}
-                placeholder="e.g. Transformation CIO with 15+ years leading large-scale technology modernization at enterprise retailers. Known for building high-performing teams and delivering ERP and platform migrations under budget."
+                placeholder="2–3 sentences: your title + years of experience, what you're known for, and what you're targeting next."
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Used to personalize interview prep briefs and chat context.</p>
+              {!positioningSummary && (
+                <div className="mt-2 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded text-[12px] text-slate-500 leading-relaxed">
+                  <span className="font-semibold text-slate-400 uppercase tracking-wide text-[10px]">Example</span>
+                  <p className="mt-1">Transformation CIO with 18 years leading enterprise technology modernization in healthcare and financial services. Known for delivering large-scale ERP migrations and building platform engineering teams from scratch. Seeking CIO and VP Technology roles at growth-stage companies where I can drive digital transformation.</p>
+                </div>
+              )}
             </div>
 
             {/* LinkedIn URL */}

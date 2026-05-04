@@ -4,6 +4,31 @@ import { useState, useRef, useEffect } from 'react'
 
 type Message = { role: 'user' | 'assistant'; content: string }
 
+function ActionToast({ message, onDismiss }: { message: string; onDismiss: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDismiss, 6000)
+    return () => clearTimeout(t)
+  }, [onDismiss])
+
+  return (
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-slate-900 text-white text-[13px] font-medium px-5 py-3 rounded-full shadow-lg">
+      <span className="text-amber-400">&#10003;</span>
+      <span>{message}</span>
+      <Link href="/dashboard" className="text-slate-400 hover:text-white underline text-[12px]">
+        View pipeline
+      </Link>
+      <button
+        type="button"
+        onClick={onDismiss}
+        className="text-slate-500 hover:text-white bg-transparent border-0 cursor-pointer ml-1 text-[16px] leading-none"
+        aria-label="Dismiss"
+      >
+        &times;
+      </button>
+    </div>
+  )
+}
+
 const PROMPTS = [
   'What should I prioritize this week?',
   'Which companies should I be most aggressive about?',
@@ -43,6 +68,7 @@ export default function ChatPage() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [loadingHistory, setLoadingHistory] = useState(true)
+  const [actionToast, setActionToast] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -120,6 +146,14 @@ export default function ChatPage() {
       setMessages(finalMessages)
       await save(finalMessages, conversationId)
 
+      // Surface a confirmation toast whenever the AI executed an action
+      const actionMatch = assistantContent.match(/\[ACTION:([^\]]+)\]/)
+      if (actionMatch) {
+        const actionCount = (assistantContent.match(/\[ACTION:/g) ?? []).length
+        const label = actionCount > 1 ? `${actionCount} actions applied` : actionMatch[1].trim()
+        setActionToast(label)
+      }
+
     } finally {
       setLoading(false)
       textareaRef.current?.focus()
@@ -147,6 +181,9 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col font-sans bg-white">
+      {actionToast && (
+        <ActionToast message={actionToast} onDismiss={() => setActionToast(null)} />
+      )}
 
       <header className="bg-slate-900 shrink-0">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">

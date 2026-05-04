@@ -383,7 +383,29 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
             placeholder="Transformation CIO with 20+ years leading enterprise technology modernization. Known for…"
             className={inputCls + ' resize-none leading-relaxed'}
           />
-          <p className={hintCls}>2–3 sentences. Used to personalize your prep briefs and AI chat.</p>
+          <div className="mt-2 flex items-center gap-3 flex-wrap">
+            <p className={hintCls + ' mt-0'}>2–3 sentences. Used to personalize your prep briefs and AI chat.</p>
+            {!positioningSummary && (
+              <button
+                type="button"
+                onClick={() => {
+                  const title = currentTitle || 'Technology executive'
+                  const targets = targetTitles ? targetTitles.split(',')[0].trim() : 'senior technology leadership'
+                  setPositioningSummary(
+                    `${title} with [X]+ years leading [key transformation or discipline]. Known for [signature achievement — one specific, quantified win]. Seeking ${targets} roles where I can [value you bring to the next organization].`
+                  )
+                  setTimeout(() => {
+                    const el = document.getElementById('positioning_summary') as HTMLTextAreaElement | null
+                    el?.focus()
+                    el?.select()
+                  }, 0)
+                }}
+                className="shrink-0 text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1 hover:bg-slate-50 cursor-pointer bg-white"
+              >
+                Build a starter
+              </button>
+            )}
+          </div>
         </div>
 
         <div>

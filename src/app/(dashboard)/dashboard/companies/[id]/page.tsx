@@ -506,7 +506,7 @@ export default async function CompanyPage({
         </div>
 
         {/* Documents */}
-        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <div id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Documents
@@ -614,12 +614,24 @@ export default async function CompanyPage({
           ) : latestScan.status === 'blocked' ? (
             <div className="px-6 py-6">
               <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
-              <p className="text-[13px] text-slate-400">This site actively blocks bots (common with government and Cloudflare-protected sites). Paste job listings manually via the Documents section above — they'll be used in your interview prep brief.</p>
+              <p className="text-[13px] text-slate-400 leading-relaxed">
+                This site actively blocks bots (common with government and Cloudflare-protected sites).{' '}
+                <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
+                  Paste the job listing in the Documents section
+                </a>{' '}
+                below using the <strong>Job Description</strong> type — it will be used in your interview prep brief.
+              </p>
             </div>
           ) : latestScan.status === 'error' && /40[13]|block|access.denied/i.test(latestScan.error_message ?? '') ? (
             <div className="px-6 py-6">
               <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
-              <p className="text-[13px] text-slate-400">This site actively blocks bots (common with government and Cloudflare-protected sites). Paste job listings manually via the Documents section above — they&apos;ll be used in your interview prep brief.</p>
+              <p className="text-[13px] text-slate-400 leading-relaxed">
+                This site actively blocks bots (common with government and Cloudflare-protected sites).{' '}
+                <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
+                  Paste the job listing in the Documents section
+                </a>{' '}
+                below using the <strong>Job Description</strong> type — it will be used in your interview prep brief.
+              </p>
             </div>
           ) : latestScan.status === 'error' ? (
             <div className="px-6 py-6">
