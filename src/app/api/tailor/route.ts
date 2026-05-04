@@ -15,11 +15,13 @@ Rules:
 - Reorder sections and bullets by relevance to this specific role.
 - Cut anything that does not serve this application.
 
-Formatting rules for the resume text:
-- Plain text only. No markdown. No ** bold markers. No --- dividers. No # headers.
-- Use ALL CAPS for section headers (EXPERIENCE, EDUCATION, etc.)
-- Use a hyphen (-) for bullet points, not asterisks or bullets.
-- Separate sections with a blank line.
+Formatting rules (absolute):
+- NEVER use ** or * for bold or italic. The candidate's name is plain text. All text is plain text.
+- NEVER use --- or ___ for horizontal rules.
+- NEVER use # or ## for headers inside the resume body.
+- Section headers (EXPERIENCE, EDUCATION, CORE CAPABILITIES, etc.) in ALL CAPS, nothing else.
+- Bullet points use a hyphen and space: "- " not "* " or "•".
+- Blank line between sections. That is all the formatting there is.
 
 Output format - use these exact headers:
 

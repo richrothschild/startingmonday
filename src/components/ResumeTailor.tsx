@@ -31,8 +31,10 @@ type QualityCheck = {
 function cleanResume(text: string): string {
   return text
     .replace(/\*\*/g, '')
-    .replace(/^#{1,3} .*/gm, line => line.replace(/^#{1,3} /, '').toUpperCase())
-    .replace(/^---+\s*$/gm, '')
+    .replace(/\*/g, '')
+    .replace(/^#{1,3} (.*)/gm, (_, body) => body.toUpperCase())
+    .replace(/^-{3,}\s*$/gm, '')
+    .replace(/_{3,}/g, '')
     .replace(/—/g, ',')
     .replace(/\n{3,}/g, '\n\n')
     .trim()
@@ -310,7 +312,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
             {streaming && <span className="text-[11px] text-slate-400 animate-pulse">Working...</span>}
           </div>
           <div className="px-6 py-6">
-            <pre className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap font-sans">{output}</pre>
+            <pre className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap font-sans">{cleanResume(output)}</pre>
           </div>
         </div>
       )}
