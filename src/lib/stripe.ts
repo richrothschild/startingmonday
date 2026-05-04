@@ -13,8 +13,10 @@ export function getStripe(): Stripe {
 
 // Throws immediately if the env var is missing rather than silently using ''
 // which would produce a cryptic "No such price" error from Stripe.
-export function getPriceId(plan: string): string {
-  const envKey = `STRIPE_PRICE_${plan.toUpperCase()}`
+export function getPriceId(plan: string, interval: 'monthly' | 'quarterly' = 'monthly'): string {
+  const envKey = interval === 'quarterly'
+    ? `STRIPE_PRICE_${plan.toUpperCase()}_QUARTERLY`
+    : `STRIPE_PRICE_${plan.toUpperCase()}`
   const id = process.env[envKey]
   if (!id) throw new Error(`${envKey} is not set`)
   return id

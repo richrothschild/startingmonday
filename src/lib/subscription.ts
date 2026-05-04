@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 
-export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'past_due' | 'canceled'
+export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
 export type SubscriptionTier = 'free' | 'monitor' | 'active'
 
 export interface UserSubscription {
@@ -8,8 +8,9 @@ export interface UserSubscription {
   status: SubscriptionStatus
   trialEndsAt: Date | null
   periodEnd: Date | null
-  isActive: boolean   // trialing or paid active
-  isPaid: boolean     // paid active only (not trial)
+  isActive: boolean   // trialing or paid active (paused users lose feature access)
+  isPaid: boolean     // paid subscription exists (active or paused - hides plan cards)
+  isPaused: boolean
 }
 
 const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
@@ -39,9 +40,10 @@ export async function getUserSubscription(userId: string): Promise<UserSubscript
 
   const trialActive = status === 'trialing' && trialEndsAt != null && trialEndsAt > new Date()
   const paidActive = status === 'active'
+  const isPaused = status === 'paused'
   const isActive = trialActive || paidActive
 
-  return { tier, status, trialEndsAt, periodEnd, isActive, isPaid: paidActive }
+  return { tier, status, trialEndsAt, periodEnd, isActive, isPaid: paidActive || isPaused, isPaused }
 }
 
 export function canAccessFeature(sub: UserSubscription, feature: string): boolean {

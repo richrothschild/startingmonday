@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
   const { userId } = auth
   const body = await request.json().catch(() => ({}))
   const plan = body?.plan as PlanKey | undefined
+  const interval: 'monthly' | 'quarterly' = body?.interval === 'quarterly' ? 'quarterly' : 'monthly'
 
   if (!plan || !(plan in PLANS)) {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
     session = await getStripe().checkout.sessions.create({
       customer: customerId,
       mode: 'subscription',
-      line_items: [{ price: getPriceId(plan), quantity: 1 }],
+      line_items: [{ price: getPriceId(plan, interval), quantity: 1 }],
       success_url: `${baseUrl}/dashboard?upgraded=1`,
       cancel_url: `${baseUrl}/settings/billing`,
       metadata: { userId, plan },

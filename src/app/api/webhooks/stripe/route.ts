@@ -58,7 +58,10 @@ export async function POST(request: NextRequest) {
       const sub = event.data.object as Stripe.Subscription
       const userId = sub.metadata?.userId
       if (!userId) break
-      const status = sub.status === 'active' ? 'active'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const paused = !!(sub as any).pause_collection?.behavior
+      const status = paused ? 'paused'
+        : sub.status === 'active' ? 'active'
         : sub.status === 'trialing' ? 'trialing'
         : sub.status === 'past_due' ? 'past_due'
         : sub.status === 'canceled' ? 'canceled'
