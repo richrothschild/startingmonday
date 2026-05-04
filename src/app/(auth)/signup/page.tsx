@@ -33,8 +33,9 @@ export default function SignupPage() {
 
     if (data.user) {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const ref = new URLSearchParams(window.location.search).get('ref') || null
       await supabase.from('user_profiles').upsert(
-        { user_id: data.user.id, briefing_timezone: tz },
+        { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
         { onConflict: 'user_id' }
       )
     }

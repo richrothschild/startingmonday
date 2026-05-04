@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
+import { LogSignalForm } from '@/components/LogSignalForm'
 
 function getNextScanDate(): string {
   const now = new Date()
@@ -736,12 +737,13 @@ export default async function CompanyPage({
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Signals
             </span>
-            <span className="text-[12px] text-slate-400">Last 90 days</span>
+            <LogSignalForm companyId={company.id} />
           </div>
 
           {!(signals ?? []).length ? (
-            <div className="px-6 py-10 text-center text-[14px] text-slate-400">
-              No signals detected yet. Signals are checked Mon / Wed / Fri.
+            <div className="px-6 py-10 text-center">
+              <p className="text-[14px] text-slate-400 mb-2">No signals logged yet.</p>
+              <p className="text-[12px] text-slate-300">Paste a news headline or LinkedIn post above to log one.</p>
             </div>
           ) : (
             <div className="divide-y divide-slate-50">

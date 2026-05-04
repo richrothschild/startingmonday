@@ -330,26 +330,22 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
 
         <div>
           <label htmlFor="target_sectors" className={labelCls}>Sectors you&apos;re interested in</label>
-          <input
+          <TagInput
             id="target_sectors"
             name="target_sectors"
-            type="text"
-            placeholder="Healthcare, Fintech, SaaS, Public Sector"
-            className={inputCls}
+            placeholder="Type a sector and press Enter — Healthcare, Fintech, SaaS…"
           />
-          <p className={hintCls}>Comma-separated.</p>
+          <p className={hintCls}>Press Enter or comma after each.</p>
         </div>
 
         <div>
           <label htmlFor="target_locations" className={labelCls}>Target locations</label>
-          <input
+          <TagInput
             id="target_locations"
             name="target_locations"
-            type="text"
-            placeholder="New York, Remote, Dallas, Chicago"
-            className={inputCls}
+            placeholder="Type a location and press Enter — Remote, New York, Dallas…"
           />
-          <p className={hintCls}>Comma-separated. Used in your Search Strategy Brief.</p>
+          <p className={hintCls}>Press Enter or comma after each. Used in your Search Strategy Brief.</p>
         </div>
 
         <div>
@@ -469,9 +465,9 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
         <button
           type="submit"
           formAction={skipOnboarding}
-          className="text-[13px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
+          className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
         >
-          Skip for now — I&apos;ll fill this in later
+          Skip for now
         </button>
       </div>
 

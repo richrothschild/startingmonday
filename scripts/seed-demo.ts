@@ -2,9 +2,9 @@
  * Demo account seed script.
  *
  * Creates (or resets) the demo user "Sarah Chen" with a fully populated pipeline.
- * Run with: bun scripts/seed-demo.ts
+ * Run with: npx tsx scripts/seed-demo.ts
  *
- * Requires in .env.local (or environment):
+ * Requires in .env.local:
  *   NEXT_PUBLIC_SUPABASE_URL
  *   SUPABASE_SERVICE_ROLE_KEY
  *   DEMO_USER_EMAIL          (e.g. demo@startingmonday.app)
@@ -15,6 +15,10 @@
  *   NEXT_PUBLIC_DEMO_USER_EMAIL
  *   NEXT_PUBLIC_DEMO_USER_PASSWORD
  */
+
+import { config } from 'dotenv'
+import { resolve } from 'path'
+config({ path: resolve(process.cwd(), '.env.local') })
 
 import { createClient } from '@supabase/supabase-js'
 
