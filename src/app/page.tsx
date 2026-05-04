@@ -248,6 +248,12 @@ export default function LandingPage() {
             Start your search &rarr;
           </Link>
           <p className="text-[12px] text-slate-500 mt-3">Free for 30 days. No credit card. Takes about 2 minutes.</p>
+          <p className="text-[13px] text-slate-600 mt-4">
+            Want to see it first?{' '}
+            <Link href="/demo" className="text-slate-400 hover:text-slate-200 underline transition-colors">
+              Explore a live demo &rarr;
+            </Link>
+          </p>
         </div>
       </section>
 

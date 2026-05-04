@@ -144,6 +144,12 @@ export default function SignupPage() {
                   Sign in
                 </Link>
               </p>
+              <p className="text-center text-[13px] text-slate-400 mt-3">
+                Not ready to commit?{' '}
+                <Link href="/demo" className="text-slate-700 font-semibold hover:text-slate-900">
+                  Explore the demo first &rarr;
+                </Link>
+              </p>
             </>
           )}
 

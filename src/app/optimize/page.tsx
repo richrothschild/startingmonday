@@ -235,6 +235,12 @@ export default function OptimizePage() {
               Start your free 7-day trial &rarr;
             </Link>
             <p className="text-[11px] text-slate-600 mt-3">No credit card required to start.</p>
+            <p className="text-[12px] text-slate-500 mt-4">
+              Want to see the platform first?{' '}
+              <Link href="/demo" className="text-slate-400 hover:text-white underline transition-colors">
+                Explore a live demo &rarr;
+              </Link>
+            </p>
           </div>
         )}
 
