@@ -1,6 +1,6 @@
 import { type SupabaseClient } from '@supabase/supabase-js'
 
-const USER_DAILY_TOKEN_LIMIT = parseInt(process.env.USER_DAILY_TOKEN_LIMIT ?? '100000')
+const USER_MONTHLY_TOKEN_LIMIT = parseInt(process.env.USER_MONTHLY_TOKEN_LIMIT ?? '3000000')
 const USER_MONTHLY_REQUEST_LIMIT = parseInt(process.env.USER_MONTHLY_REQUEST_LIMIT ?? '200')
 
 function dayKey() {
@@ -25,7 +25,7 @@ export async function isRateLimited(supabase: SupabaseClient, userId: string): P
 
   const tokensUsed   = data?.token_count   ?? 0
   const requestsUsed = data?.request_count ?? 0
-  return tokensUsed >= USER_DAILY_TOKEN_LIMIT * 30 || requestsUsed >= USER_MONTHLY_REQUEST_LIMIT
+  return tokensUsed >= USER_MONTHLY_TOKEN_LIMIT || requestsUsed >= USER_MONTHLY_REQUEST_LIMIT
 }
 
 // Atomically increment usage via the RPC created in migration 004.

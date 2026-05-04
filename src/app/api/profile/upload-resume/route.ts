@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 const MAX_BYTES = 5 * 1024 * 1024
 
@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
     if (isPdf) {
       // Use Claude's native PDF support - handles custom fonts and complex layouts
       // that JavaScript PDF parsers garble.
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const content: any[] = [
         {
@@ -47,7 +46,7 @@ export async function POST(request: NextRequest) {
         },
       ]
       const response = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+        model: MODELS.haiku,
         max_tokens: 4096,
         messages: [{ role: 'user', content }],
       })

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 // In-memory rate limiter: 3 uses per IP per 24h window.
 // Works because Railway runs as a persistent process, not serverless.
@@ -82,10 +82,8 @@ export async function POST(request: NextRequest) {
     text = text.slice(0, 20000)
   }
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
   const stream = await anthropic.messages.stream({
-    model: 'claude-sonnet-4-6',
+    model: MODELS.sonnet,
     max_tokens: 1200,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: `Please review this LinkedIn profile:\n\n${text}` }],

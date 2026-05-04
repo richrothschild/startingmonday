@@ -44,6 +44,7 @@ export async function runScanJob() {
     .from('companies')
     .select('*')
     .is('archived_at', null)
+    .limit(5000)
 
   if (companyErr) {
     logger.error('scan-job: failed to fetch companies', { error: companyErr.message })
@@ -91,9 +92,11 @@ export async function runScanJob() {
     })
   )
 
-  await Promise.all(tasks)
-
-  await supabase.rpc('advisory_unlock', { p_key: SCAN_LOCK_KEY })
+  try {
+    await Promise.all(tasks)
+  } finally {
+    await supabase.rpc('advisory_unlock', { p_key: SCAN_LOCK_KEY })
+  }
 
   // Track aggregate usage for this scan run
   if (browserlessCalls > 0) {

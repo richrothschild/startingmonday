@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
@@ -73,10 +73,8 @@ export async function POST(request: NextRequest) {
   const context = companyName ? `Company: ${companyName}\n\n` : ''
   const userMessage = `${context}Job Description:\n${jobDescription.slice(0, 8000)}\n\nTailored Resume:\n${tailoredResume.slice(0, 12000)}`
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
   const stream = await anthropic.messages.stream({
-    model: 'claude-sonnet-4-6',
+    model: MODELS.sonnet,
     max_tokens: 2000,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],

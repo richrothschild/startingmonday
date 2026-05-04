@@ -6,6 +6,8 @@ import { generateBriefing } from '../briefing/generate-briefing.js'
 import { renderBriefingEmail } from '../briefing/email-template.js'
 import { sendBriefing } from '../briefing/send-briefing.js'
 
+const BRIEFING_LOCK_KEY = 7329841024n
+
 function todayStrInTz(tz) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date())
 }
@@ -34,93 +36,103 @@ export async function runBriefingJob() {
   const supabase = getSupabase()
   logger.info('briefing-job: starting')
 
-  const [{ data: users, error }, { data: profiles }] = await Promise.all([
-    supabase.from('users').select('id, email').in('subscription_status', ['trialing', 'active']),
-    // Only fetch profiles that have a briefing_time set — avoids scanning rows that
-    // can never trigger a send, which matters as user count grows.
-    supabase.from('user_profiles').select(
-      'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at'
-    ).not('briefing_time', 'is', null),
-  ])
-
-  if (error) {
-    logger.error('briefing-job: failed to fetch users', { error: error.message })
+  const { data: locked } = await supabase.rpc('try_advisory_lock', { p_key: BRIEFING_LOCK_KEY })
+  if (!locked) {
+    logger.warn('briefing-job: another instance running — skipping')
     return
   }
 
-  if (!users?.length) {
-    logger.info('briefing-job: no users — done')
-    return
-  }
+  try {
+    const [{ data: users, error }, { data: profiles }] = await Promise.all([
+      supabase.from('users').select('id, email').in('subscription_status', ['trialing', 'active']).limit(1000),
+      supabase.from('user_profiles').select(
+        'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at'
+      ).not('briefing_time', 'is', null),
+    ])
 
-  const profileByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
-
-  let sent = 0
-  let skipped = 0
-
-  for (const user of users) {
-    const profile = profileByUserId[user.id]
-    if (!profile) { skipped++; continue }
-
-    const tz = profile.briefing_timezone ?? 'UTC'
-    const briefingTime = profile.briefing_time.slice(0, 5)
-    const briefingDays = profile.briefing_days ?? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-
-    const dayName = dayNameInTz(tz)
-    if (!briefingDays.includes(dayName)) { skipped++; continue }
-
-    const currentHHMM = currentHHMMInTz(tz)
-    if (!isWithinWindow(currentHHMM, briefingTime)) { skipped++; continue }
-
-    const todayStr = todayStrInTz(tz)
-    if (profile.last_briefing_sent_at) {
-      const lastSentDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz })
-        .format(new Date(profile.last_briefing_sent_at))
-      if (lastSentDate === todayStr) { skipped++; continue }
+    if (error) {
+      logger.error('briefing-job: failed to fetch users', { error: error.message, stack: error.stack })
+      return
     }
 
-    try {
-      const context = await assembleContext(supabase, user.id, user.email, tz)
-      if (!context) { skipped++; continue }
+    if (!users?.length) {
+      logger.info('briefing-job: no users — done')
+      return
+    }
 
-      const briefing = await generateBriefing(context)
-      const html = renderBriefingEmail(context, briefing)
+    const profileByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
 
-      await sendBriefing({
-        to: user.email,
-        subject: briefing.subject ?? `Your briefing — ${context.todayStr}`,
-        html,
-      })
+    let sent = 0
+    let skipped = 0
 
-      const now = new Date().toISOString()
-      await supabase
-        .from('user_profiles')
-        .update({ last_briefing_sent_at: now })
-        .eq('user_id', user.id)
+    for (const user of users) {
+      const profile = profileByUserId[user.id]
+      if (!profile) { skipped++; continue }
 
-      // Mark any previously unnotified signals as notified
-      const unnotifiedSignalIds = (context.signals ?? [])
-        .filter(s => !s.notifiedAt)
-        .map(s => s.id)
-      if (unnotifiedSignalIds.length) {
-        await supabase
-          .from('company_signals')
-          .update({ notified_at: now })
-          .in('id', unnotifiedSignalIds)
+      const tz = profile.briefing_timezone ?? 'UTC'
+      const briefingTime = profile.briefing_time.slice(0, 5)
+      const briefingDays = profile.briefing_days ?? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
+      const dayName = dayNameInTz(tz)
+      if (!briefingDays.includes(dayName)) { skipped++; continue }
+
+      const currentHHMM = currentHHMMInTz(tz)
+      if (!isWithinWindow(currentHHMM, briefingTime)) { skipped++; continue }
+
+      const todayStr = todayStrInTz(tz)
+      if (profile.last_briefing_sent_at) {
+        const lastSentDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz })
+          .format(new Date(profile.last_briefing_sent_at))
+        if (lastSentDate === todayStr) { skipped++; continue }
       }
 
-      // Track one Resend request and one Anthropic call (approximate token count)
-      await Promise.all([
-        trackUsage(supabase, { service: 'resend', requests: 1 }),
-        trackUsage(supabase, { service: 'anthropic', requests: 1, tokens: 1500 }),
-      ])
+      try {
+        const context = await assembleContext(supabase, user.id, user.email, tz)
+        if (!context) { skipped++; continue }
 
-      sent++
-      logger.info(`briefing-job: sent to ${user.email}`)
-    } catch (err) {
-      logger.error(`briefing-job: error for ${user.email}`, { error: err.message })
+        const briefing = await generateBriefing(context)
+        const html = renderBriefingEmail(context, briefing)
+
+        await sendBriefing({
+          to: user.email,
+          subject: briefing.subject ?? `Your briefing — ${context.todayStr}`,
+          html,
+        })
+
+        const now = new Date().toISOString()
+
+        // Mark signals notified first — if we crash after this but before updating the
+        // timestamp, the user gets a duplicate email tomorrow rather than missing
+        // signal notifications permanently.
+        const unnotifiedSignalIds = (context.signals ?? [])
+          .filter(s => !s.notifiedAt)
+          .map(s => s.id)
+        if (unnotifiedSignalIds.length) {
+          await supabase
+            .from('company_signals')
+            .update({ notified_at: now })
+            .in('id', unnotifiedSignalIds)
+        }
+
+        await supabase
+          .from('user_profiles')
+          .update({ last_briefing_sent_at: now })
+          .eq('user_id', user.id)
+
+        await Promise.all([
+          trackUsage(supabase, { service: 'resend', requests: 1 }),
+          trackUsage(supabase, { service: 'anthropic', requests: 1, tokens: 1500 }),
+        ])
+
+        sent++
+        logger.info(`briefing-job: sent to ${user.email}`)
+      } catch (err) {
+        logger.error(`briefing-job: error for ${user.email}`, { error: err.message, stack: err.stack })
+      }
     }
-  }
 
-  logger.info('briefing-job: complete', { sent, skipped })
+    logger.info('briefing-job: complete', { sent, skipped })
+  } finally {
+    await supabase.rpc('advisory_unlock', { p_key: BRIEFING_LOCK_KEY })
+  }
 }

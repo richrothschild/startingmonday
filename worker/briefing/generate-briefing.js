@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { HAIKU } from '../lib/models.js'
 
 let _client = null
 function getClient() {
@@ -58,7 +59,7 @@ Output valid JSON only, no markdown fences.`
 
   const client = getClient()
   const message = await client.messages.create({
-    model: process.env.ANTHROPIC_BRIEFING_MODEL ?? 'claude-haiku-4-5-20251001',
+    model: process.env.ANTHROPIC_BRIEFING_MODEL ?? HAIKU,
     max_tokens: 1024,
     messages: [{ role: 'user', content: prompt }],
   })

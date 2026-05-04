@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { getStripe } from '@/lib/stripe'
+import { sendEmail } from '@/lib/email'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
 
@@ -111,6 +112,37 @@ export async function POST(request: NextRequest) {
       const { error } = await supabase.from('users').update({
         subscription_status: 'past_due',
       }).eq('stripe_customer_id', customerId)
+      updateError = error
+
+      // Notify the user their payment failed so they can update their card
+      const { data: userData } = await supabase
+        .from('users')
+        .select('email')
+        .eq('stripe_customer_id', customerId)
+        .single()
+      if (userData?.email) {
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
+        await sendEmail({
+          to: userData.email,
+          subject: 'Action required: your Starting Monday payment failed',
+          html: `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:560px;margin:40px auto;padding:0 16px;color:#334155">
+<p style="font-size:16px;font-weight:700;color:#0f172a">Payment failed</p>
+<p>Your most recent Starting Monday payment could not be processed. Your account has been marked past due and AI features may be restricted.</p>
+<p><a href="${appUrl}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:10px 20px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600">Update payment method</a></p>
+<p style="font-size:13px;color:#64748b">If you believe this is an error, reply to this email and we will sort it out.</p>
+</body></html>`,
+        }).catch(() => {/* non-fatal — DB is already updated */})
+      }
+      break
+    }
+
+    case 'customer.deleted': {
+      const customer = event.data.object as Stripe.Customer
+      const { error } = await supabase.from('users').update({
+        stripe_customer_id: null,
+        subscription_status: 'inactive',
+        subscription_tier: 'free',
+      }).eq('stripe_customer_id', customer.id)
       updateError = error
       break
     }

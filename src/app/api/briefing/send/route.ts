@@ -1,3 +1,6 @@
+// Legacy HTTP-cron endpoint kept for backwards compatibility.
+// The worker (worker/jobs/briefing-job.js) is the active briefing sender.
+// This endpoint requires BRIEFING_CRON_SECRET header to remain secure.
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'

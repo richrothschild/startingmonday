@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { HAIKU } from '../lib/models.js'
 
 let _client = null
 function getClient() {
@@ -30,14 +31,16 @@ Confidence below 60 means you are uncertain this is actually about the named com
 
   try {
     const message = await getClient().messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: HAIKU,
       max_tokens: 256,
       messages: [{ role: 'user', content: prompt }],
     })
     const raw = message.content[0]?.text?.trim() ?? '{}'
     const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
     return JSON.parse(cleaned)
-  } catch {
+  } catch (err) {
+    const logger = (await import('../lib/logger.js')).logger
+    logger.warn('classify-signal: failed', { company: companyName, error: err.message })
     return { is_signal: false }
   }
 }
