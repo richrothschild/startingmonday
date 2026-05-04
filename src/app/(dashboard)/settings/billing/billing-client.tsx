@@ -10,7 +10,7 @@ function fmtDate(d: Date | null) {
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
 }
 
-export function BillingClient({ sub }: { sub: UserSubscription }) {
+export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscription; hasStripeCustomer: boolean }) {
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
 
@@ -126,7 +126,7 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
               <p className="text-[13px] text-slate-500 capitalize">{sub.status.replace('_', ' ')}</p>
             </div>
             <div className="ml-auto flex items-center gap-3">
-              {sub.isPaused && (
+              {sub.isPaused && hasStripeCustomer && (
                 <button
                   type="button"
                   onClick={handleResume}
@@ -136,7 +136,7 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
                   {loading === 'resume' ? 'Resuming…' : 'Resume subscription'}
                 </button>
               )}
-              {sub.isPaid && !sub.isPaused && (
+              {sub.isPaid && !sub.isPaused && hasStripeCustomer && (
                 <>
                   <button
                     type="button"
