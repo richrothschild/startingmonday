@@ -1,11 +1,37 @@
 // Renders the daily briefing as an HTML email string.
 // Uses table-based layout for broad email client compatibility.
+const SIGNAL_LABELS = {
+  funding:       'Funding',
+  exec_departure: 'Exec Departure',
+  exec_hire:     'Exec Hire',
+  acquisition:   'Acquisition',
+  expansion:     'Expansion',
+  layoffs:       'Layoffs',
+  ipo:           'IPO',
+  new_product:   'New Product',
+  award:         'Award',
+}
+
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, todayStr } = context
-  const { intro = '', matchInsights = [], followUpSuggestions = [], closing = '' } = briefing
+  const { userName, totalCompanies, newMatches, followUps, signals = [], todayStr } = context
+  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '' } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
   const firstName = userName.split(' ')[0]
+
+  const signalSection = signalAlerts.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94a3b8; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 18px;">Company Signals</div>
+        ${signalAlerts.map(s => `
+        <div style="margin-bottom: 14px; padding: 18px 20px; background: #fffbeb; border: 1px solid #fde68a; border-left: 3px solid #d97706; border-radius: 0 4px 4px 0;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-weight: 700; font-size: 15px; color: #0f172a;">${esc(s.company)}</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 20px;">${esc(SIGNAL_LABELS[s.signalType] ?? s.signalType)}</span>
+          </div>
+          <div style="font-size: 14px; color: #334155; line-height: 1.65; margin-bottom: 8px;">${esc(s.summary)}</div>
+          ${s.angle ? `<div style="font-size: 13px; color: #78716c; line-height: 1.6; font-style: italic;">${esc(s.angle)}</div>` : ''}
+        </div>`).join('')}
+      </td></tr>` : ''
 
   const matchSection = matchInsights.length ? `
       <tr><td style="padding: 0 0 32px 0;">
@@ -28,7 +54,8 @@ export function renderBriefingEmail(context, briefing) {
         </div>`).join('')}
       </td></tr>` : ''
 
-  const actionsDueColor = followUps.length > 0 ? '#b91c1c' : '#0f172a'
+  const actionsDueColor  = followUps.length > 0 ? '#b91c1c' : '#0f172a'
+  const signalsColor     = signals.length > 0   ? '#b45309' : '#0f172a'
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -53,16 +80,20 @@ export function renderBriefingEmail(context, briefing) {
       <tr><td style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:0;">
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td width="33%" style="padding:20px 16px;text-align:center;border-right:1px solid #e2e8f0;">
-              <div style="font-size:24px;font-weight:700;color:#0f172a;line-height:1;">${totalCompanies}</div>
+            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+              <div style="font-size:22px;font-weight:700;color:#0f172a;line-height:1;">${totalCompanies}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Companies</div>
             </td>
-            <td width="34%" style="padding:20px 16px;text-align:center;border-right:1px solid #e2e8f0;">
-              <div style="font-size:24px;font-weight:700;color:#0f172a;line-height:1;">${newMatches.length}</div>
-              <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">New Matches</div>
+            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+              <div style="font-size:22px;font-weight:700;color:${signalsColor};line-height:1;">${signals.length}</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Signals</div>
             </td>
-            <td width="33%" style="padding:20px 16px;text-align:center;">
-              <div style="font-size:24px;font-weight:700;color:${actionsDueColor};line-height:1;">${followUps.length}</div>
+            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+              <div style="font-size:22px;font-weight:700;color:#0f172a;line-height:1;">${newMatches.length}</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Matches</div>
+            </td>
+            <td width="25%" style="padding:20px 12px;text-align:center;">
+              <div style="font-size:22px;font-weight:700;color:${actionsDueColor};line-height:1;">${followUps.length}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Actions Due</div>
             </td>
           </tr>
@@ -76,6 +107,7 @@ export function renderBriefingEmail(context, briefing) {
           <!-- Intro -->
           <tr><td style="padding:0 0 32px 0;font-size:15px;color:#334155;line-height:1.7;">${esc(intro)}</td></tr>
 
+          ${signalSection}
           ${matchSection}
           ${followUpSection}
 

@@ -92,10 +92,19 @@ export async function runBriefingJob() {
         html,
       })
 
+      const now = new Date().toISOString()
       await supabase
         .from('user_profiles')
-        .update({ last_briefing_sent_at: new Date().toISOString() })
+        .update({ last_briefing_sent_at: now })
         .eq('user_id', user.id)
+
+      // Mark any signals included in this briefing as notified
+      if (context.signals?.length) {
+        await supabase
+          .from('company_signals')
+          .update({ notified_at: now })
+          .in('id', context.signals.map(s => s.id))
+      }
 
       // Track one Resend request and one Anthropic call (approximate token count)
       await Promise.all([

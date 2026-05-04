@@ -23,6 +23,18 @@ type ScanResult = {
   error_message: string | null
 }
 
+const SIGNAL_LABELS: Record<string, { label: string; cls: string }> = {
+  funding:        { label: 'Funding',        cls: 'bg-green-50 text-green-700' },
+  exec_departure: { label: 'Exec Departure', cls: 'bg-amber-50 text-amber-700' },
+  exec_hire:      { label: 'Exec Hire',      cls: 'bg-blue-50 text-blue-700' },
+  acquisition:    { label: 'Acquisition',    cls: 'bg-purple-50 text-purple-700' },
+  expansion:      { label: 'Expansion',      cls: 'bg-blue-50 text-blue-700' },
+  layoffs:        { label: 'Layoffs',        cls: 'bg-red-50 text-red-700' },
+  ipo:            { label: 'IPO',            cls: 'bg-green-50 text-green-700' },
+  new_product:    { label: 'New Product',    cls: 'bg-indigo-50 text-indigo-700' },
+  award:          { label: 'Award',          cls: 'bg-amber-50 text-amber-700' },
+}
+
 const DOC_LABELS: Record<string, { label: string; cls: string }> = {
   job_description: { label: 'Job Description', cls: 'bg-purple-50 text-purple-700' },
   news:            { label: 'News & Press',     cls: 'bg-blue-50 text-blue-700' },
@@ -61,7 +73,9 @@ export default async function CompanyPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: company }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }] = await Promise.all([
+  const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+
+  const [{ data: company }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
       .select('id, name, sector, stage, fit_score, notes, career_page_url')
@@ -101,6 +115,14 @@ export default async function CompanyPage({
       .eq('company_id', id)
       .eq('user_id', user.id)
       .order('created_at', { ascending: true }),
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, outreach_angle, signal_date, source_url')
+      .eq('company_id', id)
+      .eq('user_id', user.id)
+      .gte('signal_date', since90d)
+      .order('signal_date', { ascending: false })
+      .limit(10),
   ])
 
   const scans = (rawScans ?? []) as unknown as ScanResult[]
@@ -657,6 +679,53 @@ export default async function CompanyPage({
                   ))}
                 </div>
               )}
+            </div>
+          )}
+        </div>
+
+        {/* Signals */}
+        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+              Company Signals
+            </span>
+            <span className="text-[12px] text-slate-400">Last 90 days</span>
+          </div>
+
+          {!(signals ?? []).length ? (
+            <div className="px-6 py-10 text-center text-[14px] text-slate-400">
+              No signals detected yet. Signals are checked Mon / Wed / Fri.
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-50">
+              {(signals ?? []).map(sig => {
+                const sl = SIGNAL_LABELS[sig.signal_type] ?? { label: sig.signal_type, cls: 'bg-slate-100 text-slate-500' }
+                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                return (
+                  <div key={sig.id} className="px-6 py-5">
+                    <div className="flex items-center gap-3 mb-2 flex-wrap">
+                      <span className="text-[13px] text-slate-400">{dateLabel}</span>
+                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-[0.04em] ${sl.cls}`}>
+                        {sl.label}
+                      </span>
+                    </div>
+                    <p className="text-[14px] text-slate-900 leading-relaxed mb-1.5">{sig.signal_summary}</p>
+                    {sig.outreach_angle && (
+                      <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>
+                    )}
+                    {sig.source_url && (
+                      <a
+                        href={sig.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block mt-2 text-[12px] text-slate-400 hover:text-slate-700 transition-colors"
+                      >
+                        Source &rarr;
+                      </a>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           )}
         </div>

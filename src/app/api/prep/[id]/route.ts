@@ -34,7 +34,8 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
 }
 
 async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, companyId: string, userId: string) {
-  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }] = await Promise.all([
+  const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
       .select('name, sector, stage, notes')
@@ -66,8 +67,16 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .eq('company_id', companyId)
       .eq('user_id', userId)
       .order('created_at', { ascending: true }),
+    supabase
+      .from('company_signals')
+      .select('signal_type, signal_summary, outreach_angle, signal_date')
+      .eq('company_id', companyId)
+      .eq('user_id', userId)
+      .gte('signal_date', since90d)
+      .order('signal_date', { ascending: false })
+      .limit(5),
   ])
-  return { company, profile, scanResults, contacts, documents }
+  return { company, profile, scanResults, contacts, documents, signals }
 }
 
 const DOC_LABEL_NAMES: Record<string, string> = {
@@ -78,7 +87,9 @@ const DOC_LABEL_NAMES: Record<string, string> = {
   other:           'Other',
 }
 
-function buildContext(company: { name: string; sector?: string | null; stage: string; notes?: string | null }, profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null } | null, scanResults: { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }[] | null, contacts: { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }[] | null, documents: { label: string; content: string }[] | null) {
+type Signal = { signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string }
+
+function buildContext(company: { name: string; sector?: string | null; stage: string; notes?: string | null }, profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null } | null, scanResults: { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }[] | null, contacts: { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }[] | null, documents: { label: string; content: string }[] | null, signals: Signal[] | null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
@@ -93,6 +104,13 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
       ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
       : `Career page scanned ${date}, no matching roles detected.`
   }
+
+  const signalSection = (signals ?? []).length > 0
+    ? (signals ?? []).map(s => {
+        const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+        return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}`
+      }).join('\n')
+    : null
 
   const contactSection = (contacts ?? []).length > 0
     ? (contacts ?? []).map(c => {
@@ -124,6 +142,7 @@ Pipeline stage: ${company.stage}${company.notes ? `\nIntel and notes: ${company.
 
 JOB SCAN DATA
 ${scanSection}
+${signalSection ? `\nCOMPANY SIGNALS (recent news events)\n${signalSection}` : ''}
 
 KNOWN CONTACTS
 ${contactSection}${docsSection ? `\n\nDOCUMENTS\n${docsSection}` : ''}
@@ -187,11 +206,11 @@ export async function GET(
   }
 
   const { id: companyId } = await params
-  const { company, profile, scanResults, contacts, documents } = await loadContext(supabase, companyId, userId)
+  const { company, profile, scanResults, contacts, documents, signals } = await loadContext(supabase, companyId, userId)
 
   if (!company) return new Response('Not found', { status: 404 })
 
-  const userPrompt = buildContext(company, profile, scanResults, contacts, documents)
+  const userPrompt = buildContext(company, profile, scanResults, contacts, documents, signals)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],

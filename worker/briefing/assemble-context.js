@@ -5,9 +5,10 @@ import { logger } from '../lib/logger.js'
 export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const now = new Date()
   const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+  const since7d  = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
   const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles')
@@ -33,6 +34,14 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
       .eq('status', 'pending')
       .lte('due_date', todayStr)
       .order('due_date', { ascending: true }),
+    supabase
+      .from('company_signals')
+      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date')
+      .eq('user_id', userId)
+      .is('notified_at', null)
+      .gte('signal_date', since7d.toISOString().split('T')[0])
+      .order('signal_date', { ascending: false })
+      .limit(5),
   ])
 
   if (profileResult.error) {
@@ -43,6 +52,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const companies = companiesResult.data ?? []
   const recentScans = recentScansResult.data ?? []
   const rawFollowUps = followUpsResult.data ?? []
+  const rawSignals = signalsResult.data ?? []
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -75,7 +85,16 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     contact: f.contact_id ? (contactById[f.contact_id] ?? null) : null,
   }))
 
-  if (!newMatches.length && !followUps.length) return null
+  const signals = rawSignals.map(s => ({
+    id: s.id,
+    companyName: companyById[s.company_id]?.name ?? 'Unknown Company',
+    signalType: s.signal_type,
+    summary: s.signal_summary,
+    outreachAngle: s.outreach_angle,
+    signalDate: s.signal_date,
+  }))
+
+  if (!newMatches.length && !followUps.length && !signals.length) return null
 
   return {
     userEmail,
@@ -84,6 +103,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     totalCompanies: companies.length,
     newMatches,
     followUps,
+    signals,
     todayStr,
   }
 }

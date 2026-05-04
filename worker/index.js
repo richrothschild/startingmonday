@@ -11,6 +11,7 @@ import { runMomentumJob } from './jobs/momentum-job.js'
 import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
 import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
+import { runSignalJob } from './jobs/signal-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -63,6 +64,9 @@ async function runJob(name, fn) {
 // Scan: Mon / Wed / Fri at 08:00
 cron.schedule('0 8 * * 1,3,5', () => runJob('scan-job', runScanJob))
 
+// Signals: Mon / Wed / Fri at 08:30 (after scan)
+cron.schedule('30 8 * * 1,3,5', () => runJob('signal-job', runSignalJob))
+
 // Briefing: every 5 minutes — job checks each user's timezone, time, and days
 cron.schedule('*/5 * * * *', () => runJob('briefing-job', runBriefingJob))
 
@@ -82,7 +86,7 @@ cron.schedule('0 9 * * *', () => runJob('usage-monitor-job', runUsageMonitorJob)
 cron.schedule('0 10 * * *', () => runJob('trial-reminder-job', runTrialReminderJob))
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job'],
+  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

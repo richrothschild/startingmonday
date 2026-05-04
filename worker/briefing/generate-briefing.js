@@ -9,7 +9,7 @@ function getClient() {
 // Calls Claude Sonnet to produce structured briefing content from assembled context.
 // Returns { subject, intro, matchInsights, followUpSuggestions, closing }
 export async function generateBriefing(context) {
-  const { userName, targetTitles, totalCompanies, newMatches, followUps, todayStr } = context
+  const { userName, targetTitles, totalCompanies, newMatches, followUps, signals = [], todayStr } = context
 
   const matchesText = newMatches.length
     ? newMatches.map(m =>
@@ -26,11 +26,18 @@ Summary: ${m.aiSummary}`
       }).join('\n\n')
     : 'No overdue follow-ups.'
 
+  const signalsText = signals.length
+    ? signals.map(s => `Company: ${s.companyName}\nType: ${s.signalType}\nWhat happened: ${s.summary}${s.outreachAngle ? `\nOpening: ${s.outreachAngle}` : ''}`).join('\n\n')
+    : 'No new signals.'
+
   const prompt = `You are writing a morning intelligence briefing for ${userName}, a senior technology executive in active job search.
 Target titles: ${targetTitles.join(', ') || 'CIO and senior technology leadership roles'}
 Companies tracked: ${totalCompanies}
 
 TODAY'S DATA (${todayStr}):
+
+COMPANY SIGNALS (news events that create hiring openings):
+${signalsText}
 
 NEW JOB MATCHES (last 24 hours):
 ${matchesText}
@@ -39,8 +46,9 @@ OVERDUE FOLLOW-UPS:
 ${followUpsText}
 
 Write a morning briefing as JSON with exactly these keys:
-- "subject": email subject line (max 75 chars). Specific and factual — name the company or action. No generic phrases.
+- "subject": email subject line (max 75 chars). Specific and factual — name the company or action. No generic phrases. If there are signals, lead with that.
 - "intro": 1-2 sentences. State what's on the board today and why it matters. No preamble.
+- "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } — only if there are signals.
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } — only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence — what to do and how) } — only if there are follow-ups.
 - "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichés.
@@ -63,8 +71,16 @@ Output valid JSON only, no markdown fences.`
   } catch {
     // Fallback: construct from raw context data without AI narration
     return {
-      subject: `${newMatches.length} new match${newMatches.length !== 1 ? 'es' : ''} found — ${todayStr}`,
-      intro: `Good morning, ${userName}. Here's your job search update for today.`,
+      subject: signals.length
+        ? `Signal: ${signals[0].companyName} — ${signals[0].signalType} — ${todayStr}`
+        : `${newMatches.length} new match${newMatches.length !== 1 ? 'es' : ''} — ${todayStr}`,
+      intro: `Good morning, ${userName}. Here is your search update for ${todayStr}.`,
+      signalAlerts: signals.map(s => ({
+        company: s.companyName,
+        signalType: s.signalType,
+        summary: s.summary,
+        angle: s.outreachAngle ?? '',
+      })),
       matchInsights: newMatches.map(m => ({
         company: m.companyName,
         roles: m.matchingRoles.map(r => r.title),
