@@ -76,14 +76,15 @@ export function BillingClient({ sub }: { sub: UserSubscription }) {
             </div>
           )}
           {sub.status === 'canceled' && (
-            <div className="mb-4 px-4 py-3 bg-slate-50 border border-slate-200 rounded text-[13px] text-slate-600">
-              Your subscription was canceled.{sub.periodEnd ? ` Access ends ${fmtDate(sub.periodEnd)}.` : ''}
+            <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800">
+              Your subscription was canceled.{sub.periodEnd ? ` Access ended ${fmtDate(sub.periodEnd)}.` : ''}{' '}
+              Subscribe below to restore access to AI briefs, outreach drafting, and chat.
             </div>
           )}
           <div className="flex items-center gap-4">
             <div>
               <p className="text-[18px] font-bold text-slate-900 capitalize">
-                {sub.tier === 'free' ? 'Free trial' : sub.tier}
+                {sub.status === 'canceled' ? 'Canceled' : sub.tier === 'free' ? 'Free trial' : sub.tier}
               </p>
               <p className="text-[13px] text-slate-500 capitalize">{sub.status.replace('_', ' ')}</p>
             </div>

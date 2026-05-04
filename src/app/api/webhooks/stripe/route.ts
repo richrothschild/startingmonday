@@ -67,6 +67,11 @@ export async function POST(request: NextRequest) {
       const update: Record<string, string | null> = {
         subscription_tier: status === 'active' || status === 'trialing' ? plan : 'free',
         subscription_status: status,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        subscription_period_end: (sub as any).current_period_end
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ? new Date((sub as any).current_period_end * 1000).toISOString()
+          : null,
       }
       // Clear trial_ends_at when subscription converts from trial to paid
       if (status === 'active' && sub.trial_end) {
@@ -84,6 +89,11 @@ export async function POST(request: NextRequest) {
       const { error } = await supabase.from('users').update({
         subscription_tier: 'free',
         subscription_status: 'canceled',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        subscription_period_end: (sub as any).current_period_end
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ? new Date((sub as any).current_period_end * 1000).toISOString()
+          : null,
       }).eq('id', userId)
       updateError = error
       break
