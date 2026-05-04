@@ -1,53 +1,51 @@
 // Fetches recent news for a company.
-// Uses Bing News Search API when BING_NEWS_API_KEY is set (structured JSON,
-// targeted queries). Falls back to Google News RSS (no key required).
+// Uses GNews.io when GNEWS_API_KEY is set (structured JSON, targeted queries).
+// Falls back to Google News RSS (no key required).
 // Returns up to 8 articles: { title, link, pubDate, description }
 
 export async function fetchCompanyNews(companyName) {
-  return process.env.BING_NEWS_API_KEY
-    ? fetchViaBing(companyName)
+  return process.env.GNEWS_API_KEY
+    ? fetchViaGNews(companyName)
     : fetchViaGoogleRss(companyName)
 }
 
-// ── Bing News Search API v7 ───────────────────────────────────────────────────
+// ── GNews.io ──────────────────────────────────────────────────────────────────
 
-async function fetchViaBing(companyName) {
+async function fetchViaGNews(companyName) {
   const query = `"${companyName}" (funding OR acquisition OR "executive hire" OR "executive departure" OR expansion OR layoffs OR IPO OR "new product" OR award)`
+  const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+
   const params = new URLSearchParams({
-    q:        query,
-    count:    '8',
-    freshness: 'Month',
-    mkt:      'en-US',
-    textDecorations: 'false',
-    textFormat: 'Raw',
+    q:    query,
+    lang: 'en',
+    max:  '8',
+    from,
+    token: process.env.GNEWS_API_KEY,
   })
 
   let data
   try {
     const res = await fetch(
-      `https://api.bing.microsoft.com/v7.0/news/search?${params}`,
-      {
-        headers: { 'Ocp-Apim-Subscription-Key': process.env.BING_NEWS_API_KEY },
-        signal: AbortSignal.timeout(10000),
-      }
+      `https://gnews.io/api/v4/search?${params}`,
+      { signal: AbortSignal.timeout(10000) }
     )
     if (!res.ok) {
       const text = await res.text().catch(() => '')
       const { logger } = await import('../lib/logger.js')
-      logger.warn('fetch-company-news: bing non-200', { company: companyName, status: res.status, body: text.slice(0, 200) })
+      logger.warn('fetch-company-news: gnews non-200', { company: companyName, status: res.status, body: text.slice(0, 200) })
       return []
     }
     data = await res.json()
   } catch (err) {
     const { logger } = await import('../lib/logger.js')
-    logger.warn('fetch-company-news: bing fetch failed', { company: companyName, error: err.message })
+    logger.warn('fetch-company-news: gnews fetch failed', { company: companyName, error: err.message })
     return []
   }
 
-  return (data?.value ?? []).map(article => ({
-    title:       article.name,
+  return (data?.articles ?? []).map(article => ({
+    title:       article.title,
     link:        article.url,
-    pubDate:     article.datePublished,
+    pubDate:     article.publishedAt,
     description: article.description ?? '',
   }))
 }
