@@ -11,8 +11,6 @@ export default async function BillingPage() {
   if (!user) redirect('/login')
 
   const sub = await getUserSubscription(user.id)
-  const { data: userData } = await supabase.from('users').select('stripe_customer_id').eq('id', user.id).single()
-  const hasStripeCustomer = !!userData?.stripe_customer_id
 
-  return <BillingClient sub={sub} hasStripeCustomer={hasStripeCustomer} />
+  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} />
 }

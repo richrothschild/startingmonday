@@ -1,29 +1,18 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
 import { getStripe } from '@/lib/stripe'
+import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
-  const { userId } = auth
-  const supabase = await createClient()
-  const { data: user } = await supabase
-    .from('users')
-    .select('stripe_customer_id')
-    .eq('id', userId)
-    .single()
-
-  if (!user?.stripe_customer_id) {
+  const customerId = await getOrRecoverStripeCustomerId(auth.userId)
+  if (!customerId) {
     return NextResponse.json({ error: 'No billing account found' }, { status: 404 })
   }
 
-  const subs = await getStripe().subscriptions.list({
-    customer: user.stripe_customer_id,
-    limit: 1,
-  })
-
+  const subs = await getStripe().subscriptions.list({ customer: customerId, limit: 1 })
   const subscription = subs.data[0]
   if (!subscription) {
     return NextResponse.json({ error: 'No subscription found' }, { status: 404 })

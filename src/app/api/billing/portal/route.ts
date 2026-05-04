@@ -1,21 +1,14 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
 import { getStripe } from '@/lib/stripe'
+import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
-  const { userId } = auth
-  const supabase = await createClient()
-  const { data: user } = await supabase
-    .from('users')
-    .select('stripe_customer_id')
-    .eq('id', userId)
-    .single()
-
-  if (!user?.stripe_customer_id) {
+  const customerId = await getOrRecoverStripeCustomerId(auth.userId)
+  if (!customerId) {
     return NextResponse.json({ error: 'No billing account found' }, { status: 404 })
   }
 
@@ -24,7 +17,7 @@ export async function POST(request: NextRequest) {
   let session
   try {
     session = await getStripe().billingPortal.sessions.create({
-      customer: user.stripe_customer_id,
+      customer: customerId,
       return_url: `${baseUrl}/settings/billing`,
     })
   } catch (err: unknown) {

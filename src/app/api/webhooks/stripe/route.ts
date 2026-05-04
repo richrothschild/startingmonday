@@ -45,10 +45,14 @@ export async function POST(request: NextRequest) {
       const userId = session.metadata?.userId
       const plan = session.metadata?.plan
       if (userId && plan) {
+        const customerId = typeof session.customer === 'string'
+          ? session.customer
+          : (session.customer as Stripe.Customer | null)?.id ?? null
         const { error } = await supabase.from('users').update({
           subscription_tier: plan,
           subscription_status: 'active',
           trial_ends_at: null,
+          ...(customerId ? { stripe_customer_id: customerId } : {}),
         }).eq('id', userId)
         updateError = error
       }
