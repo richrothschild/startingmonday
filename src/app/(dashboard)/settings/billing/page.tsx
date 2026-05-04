@@ -10,7 +10,12 @@ export default async function BillingPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const sub = await getUserSubscription(user.id)
+  const [sub, profileResult] = await Promise.all([
+    getUserSubscription(user.id),
+    supabase.from('user_profiles').select('full_name').eq('user_id', user.id).single(),
+  ])
 
-  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} />
+  const accountName = profileResult.data?.full_name ?? null
+
+  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} accountEmail={user.email ?? ''} accountName={accountName} />
 }

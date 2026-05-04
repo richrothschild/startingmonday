@@ -10,9 +10,15 @@ function fmtDate(d: Date | null) {
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
 }
 
-export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscription; hasStripeCustomer: boolean }) {
+export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName }: {
+  sub: UserSubscription
+  hasStripeCustomer: boolean
+  accountEmail: string
+  accountName: string | null
+}) {
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
+  const [portalError, setPortalError] = useState('')
 
   async function handleCheckout(plan: 'monitor' | 'active') {
     setLoading(plan)
@@ -35,10 +41,16 @@ export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscriptio
 
   async function handlePortal() {
     setLoading('portal')
+    setPortalError('')
     try {
       const res = await fetch('/api/billing/portal', { method: 'POST' })
       const { url, error } = await res.json()
-      if (error) { alert(error); return }
+      if (error) {
+        setPortalError(res.status === 404
+          ? 'No Stripe billing record found for your account. Email support@startingmonday.app and we will sort it out.'
+          : error)
+        return
+      }
       window.location.href = url
     } finally {
       setLoading(null)
@@ -93,6 +105,15 @@ export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscriptio
       <main className="max-w-4xl mx-auto px-6 py-10">
         <h1 className="text-[26px] font-bold text-slate-900 mb-1">Billing</h1>
         <p className="text-[13px] text-slate-500 mb-8">Manage your subscription and plan.</p>
+
+        {/* Account */}
+        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Account</p>
+          {accountName && (
+            <p className="text-[15px] font-semibold text-slate-900">{accountName}</p>
+          )}
+          <p className="text-[13px] text-slate-500">{accountEmail}</p>
+        </div>
 
         {/* Current status */}
         <div className="bg-white border border-slate-200 rounded p-6 mb-8">
@@ -163,6 +184,11 @@ export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscriptio
               <strong className="font-semibold text-slate-500">Pause</strong> stops billing temporarily &mdash; your data and pipeline stay intact.{' '}
               <strong className="font-semibold text-slate-500">Cancel</strong> (via Manage subscription) ends your subscription entirely.
             </p>
+          )}
+          {portalError && (
+            <div className="mt-3 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+              {portalError}
+            </div>
           )}
         </div>
 
