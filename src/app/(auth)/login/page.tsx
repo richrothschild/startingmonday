@@ -17,25 +17,30 @@ export default function LoginPage() {
     setLoading(true)
     setError(null)
 
-    const supabase = createClient()
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
-    if (error) {
-      setError(error.message)
+      if (error) {
+        setError(error.message)
+        setLoading(false)
+        return
+      }
+
+      if (data.user) {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+        await supabase.from('user_profiles').upsert(
+          { user_id: data.user.id, briefing_timezone: tz },
+          { onConflict: 'user_id' }
+        )
+      }
+
+      router.push('/dashboard')
+      router.refresh()
+    } catch {
+      setError('Something went wrong. Please try again.')
       setLoading(false)
-      return
     }
-
-    if (data.user) {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-      await supabase.from('user_profiles').upsert(
-        { user_id: data.user.id, briefing_timezone: tz },
-        { onConflict: 'user_id' }
-      )
-    }
-
-    router.push('/dashboard')
-    router.refresh()
   }
 
   return (
