@@ -41,19 +41,19 @@ const SITUATIONS = [
 const FEATURES = [
   {
     label: 'Pipeline Command Center',
-    body: 'Every target company, stage, contact, and follow-up in one place. Nothing falls through. Nothing goes cold.',
+    body: 'Every company, contact, and conversation — staged, sequenced, and tracked. Nothing falls through. Nothing goes cold.',
   },
   {
-    label: 'Automated Career Page Scanning',
-    body: 'We check your target companies three times a week and surface matching roles before they hit LinkedIn or Indeed.',
+    label: 'Early Role Intelligence',
+    body: 'Your target companies are being watched. Three times a week, we scan their career pages and flag matching roles before they reach LinkedIn or Indeed.',
   },
   {
     label: 'Elite Interview Prep Brief',
-    body: 'Win thesis. Anticipated pushback with exact counters. Peer-level questions to ask. What to leave out entirely. On demand.',
+    body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Ready in 60 seconds.',
   },
   {
     label: 'Daily Morning Briefing',
-    body: 'New scan matches, pending follow-ups, and company signals in your inbox before the day begins.',
+    body: 'New matches, pending actions, and company signals — assembled overnight and in your inbox before the day starts.',
   },
 ]
 
@@ -100,17 +100,17 @@ export default function LandingPage() {
             Your next role<br />isn&rsquo;t on a<br />job board.
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
-            Starting Monday tracks your pipeline, surfaces openings at target companies before they&rsquo;re posted, and builds your prep brief on demand.
+            The best roles at your level are filled before they&rsquo;re posted. We watch your target companies, surface openings before they go public, and have your brief ready before the first call.
           </p>
           <p className="text-[13px] text-slate-500 mb-8">
-            Paste your LinkedIn profile during setup. Running in 2 minutes.
+            Import your LinkedIn profile during setup. Running in 2 minutes.
           </p>
 
           <div className="flex flex-col gap-2.5 mb-9">
             {[
-              'Add your target companies — we scan their career pages three times a week',
-              'Get alerted when roles matching your profile appear, before they hit LinkedIn',
-              'Walk into every conversation with a prep brief built from your actual pipeline',
+              'Add your target companies — we check their career pages three times a week, before roles go public',
+              'Get alerted the moment a match appears — often days before it reaches LinkedIn or Indeed',
+              'Generate a tailored prep brief in 60 seconds, built from their company and your actual background',
             ].map((step, i) => (
               <div key={i} className="flex items-start gap-3">
                 <span className="text-[11px] font-bold text-slate-600 shrink-0 w-4 mt-0.5">{i + 1}</span>
@@ -162,7 +162,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed">
             Not a job board. Not a $15,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">A system built for this.</span>
+            <span className="text-slate-900 font-semibold">The operating system for your search.</span>
           </p>
         </div>
       </section>
