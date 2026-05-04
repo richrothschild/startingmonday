@@ -7,8 +7,35 @@ type Message = { role: 'user' | 'assistant'; content: string }
 const PROMPTS = [
   'What should I prioritize this week?',
   'Which companies should I be most aggressive about?',
-  'How should I position myself for a CIO role?',
+  'Move [company name] to interviewing',
+  'Add a follow-up to call [name] on [date]',
 ]
+
+function AssistantMessage({ content }: { content: string }) {
+  if (!content.includes('[ACTION:')) {
+    return <span className="whitespace-pre-wrap">{content}</span>
+  }
+  const parts = content.split(/(\[ACTION:[^\]]+\])/g)
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^\[ACTION:(.+)\]$/)
+        if (match) {
+          return (
+            <span
+              key={i}
+              className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-semibold px-2.5 py-1 rounded-full mx-0.5 align-middle"
+            >
+              <span className="text-amber-500">&#10003;</span>
+              {match[1]}
+            </span>
+          )
+        }
+        return <span key={i} className="whitespace-pre-wrap">{part}</span>
+      })}
+    </>
+  )
+}
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -159,7 +186,7 @@ export default function ChatPage() {
               What would you like to work on?
             </p>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-8">
-              Ask about your pipeline, get interview prep, or think through your next move.
+              Ask about your pipeline, or tell me to take action. I can move companies through stages, log follow-ups, and update notes directly.
             </p>
             <div className="flex flex-col gap-2">
               {PROMPTS.map(prompt => (
@@ -186,8 +213,10 @@ export default function ChatPage() {
                     {msg.content}
                   </div>
                 ) : (
-                  <div className="text-[14px] text-slate-800 leading-relaxed max-w-[95%] sm:max-w-[85%] whitespace-pre-wrap">
-                    {msg.content || (
+                  <div className="text-[14px] text-slate-800 leading-relaxed max-w-[95%] sm:max-w-[85%]">
+                    {msg.content ? (
+                      <AssistantMessage content={msg.content} />
+                    ) : (
                       <span className="inline-flex gap-1 items-center h-5">
                         <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0ms]" />
                         <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:150ms]" />
