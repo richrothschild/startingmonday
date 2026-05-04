@@ -15,6 +15,19 @@ type Parsed = {
   changes: string
 }
 
+type QualityCheck = {
+  atsScore: string
+  atsNotes: string
+  recruiterGrade: string
+  recruiterNotes: string
+  hiringManagerGrade: string
+  hiringManagerNotes: string
+  weakBullets: string
+  verbalCover: string
+  sixSecondGrade: string
+  sixSecondNotes: string
+}
+
 function parseOutput(raw: string): Parsed {
   const tailoredMatch = raw.match(/## TAILORED RESUME\s*([\s\S]*?)(?=## KEYWORD ANALYSIS|$)/)
   const keywordsMatch = raw.match(/## KEYWORD ANALYSIS\s*([\s\S]*?)(?=## KEY CHANGES|$)/)
@@ -26,16 +39,62 @@ function parseOutput(raw: string): Parsed {
   }
 }
 
+function parseQualityCheck(raw: string): QualityCheck {
+  const get = (header: string, nextHeader?: string) => {
+    const pattern = nextHeader
+      ? new RegExp(`## ${header}\\s*([\\s\\S]*?)(?=## ${nextHeader}|$)`)
+      : new RegExp(`## ${header}\\s*([\\s\\S]*)$`)
+    return raw.match(pattern)?.[1]?.trim() ?? ''
+  }
+  return {
+    atsScore:            get('ATS SCORE',           'ATS NOTES').replace(/\D/g, ''),
+    atsNotes:            get('ATS NOTES',            'RECRUITER GRADE'),
+    recruiterGrade:      get('RECRUITER GRADE',      'RECRUITER NOTES').slice(0, 1).toUpperCase(),
+    recruiterNotes:      get('RECRUITER NOTES',      'HIRING MANAGER GRADE'),
+    hiringManagerGrade:  get('HIRING MANAGER GRADE', 'HIRING MANAGER NOTES').slice(0, 1).toUpperCase(),
+    hiringManagerNotes:  get('HIRING MANAGER NOTES', 'WEAK BULLETS'),
+    weakBullets:         get('WEAK BULLETS',         'VERBAL COVER'),
+    verbalCover:         get('VERBAL COVER',         'SIX SECOND TEST'),
+    sixSecondGrade:      get('SIX SECOND TEST',      'SIX SECOND NOTES').slice(0, 1).toUpperCase(),
+    sixSecondNotes:      get('SIX SECOND NOTES'),
+  }
+}
+
+function gradeColor(grade: string) {
+  return grade === 'A' ? 'text-green-700 bg-green-50 border-green-200'
+    : grade === 'B'    ? 'text-blue-700 bg-blue-50 border-blue-100'
+    : grade === 'C'    ? 'text-amber-700 bg-amber-50 border-amber-200'
+    : 'text-red-700 bg-red-50 border-red-200'
+}
+
+function atsColor(score: number) {
+  return score >= 85 ? 'text-green-700'
+    : score >= 70    ? 'text-blue-700'
+    : score >= 55    ? 'text-amber-600'
+    : 'text-red-700'
+}
+
+function BulletList({ text }: { text: string }) {
+  const lines = text.split('\n').filter(Boolean)
+  return (
+    <div className="flex flex-col gap-1.5">
+      {lines.map((line, i) => (
+        <div key={i} className="flex items-start gap-2.5">
+          <span className="text-slate-300 shrink-0 mt-0.5 text-[12px]">-</span>
+          <p className="text-[13px] text-slate-700 leading-relaxed">{line.replace(/^[-*•]\s*/, '')}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 async function downloadDocx(text: string, companyName: string) {
   const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('docx')
 
   const lines = text.split('\n')
   const children = lines.map(line => {
     const trimmed = line.trim()
-    if (!trimmed) {
-      return new Paragraph({ children: [new TextRun('')], spacing: { after: 100 } })
-    }
-    // ALL-CAPS section headers (e.g. EXPERIENCE, EDUCATION, SKILLS)
+    if (!trimmed) return new Paragraph({ children: [new TextRun('')], spacing: { after: 100 } })
     if (trimmed === trimmed.toUpperCase() && trimmed.length > 3 && !/^\d/.test(trimmed)) {
       return new Paragraph({
         heading: HeadingLevel.HEADING_2,
@@ -43,7 +102,6 @@ async function downloadDocx(text: string, companyName: string) {
         spacing: { before: 280, after: 120 },
       })
     }
-    // Bullet lines
     if (/^[-*•]/.test(trimmed)) {
       return new Paragraph({
         bullet: { level: 0 },
@@ -68,27 +126,35 @@ async function downloadDocx(text: string, companyName: string) {
 }
 
 export function ResumeTailor({ resumeText, initialJobDescription = '', companyName = '', defaultTargetTitle = '' }: Props) {
-  const [jd, setJd]               = useState(initialJobDescription)
+  const [jd, setJd]                   = useState(initialJobDescription)
   const [targetTitle, setTargetTitle] = useState(defaultTargetTitle)
-  const [output, setOutput]       = useState('')
-  const [streaming, setStreaming] = useState(false)
-  const [done, setDone]           = useState(false)
-  const [error, setError]         = useState('')
-  const [copied, setCopied]       = useState(false)
+  const [output, setOutput]           = useState('')
+  const [streaming, setStreaming]     = useState(false)
+  const [done, setDone]               = useState(false)
+  const [error, setError]             = useState('')
+  const [copied, setCopied]           = useState(false)
+
+  const [checkRaw, setCheckRaw]       = useState('')
+  const [checkStreaming, setCheckStreaming] = useState(false)
+  const [checkDone, setCheckDone]     = useState(false)
+  const [checkError, setCheckError]   = useState('')
+
   const abortRef = useRef<AbortController | null>(null)
 
   const parsed = done ? parseOutput(output) : null
+  const quality = checkDone ? parseQualityCheck(checkRaw) : null
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (streaming) return
-
     setStreaming(true)
     setDone(false)
     setOutput('')
     setError('')
     setCopied(false)
-
+    setCheckRaw('')
+    setCheckDone(false)
+    setCheckError('')
     abortRef.current = new AbortController()
 
     try {
@@ -109,20 +175,53 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
       const reader = res.body!.getReader()
       const decoder = new TextDecoder()
       let isDone = false
-
       while (!isDone) {
         const { value, done: d } = await reader.read()
         isDone = d
         if (value) setOutput(prev => prev + decoder.decode(value, { stream: !isDone }))
       }
-
       setDone(true)
     } catch (err) {
-      if ((err as Error).name !== 'AbortError') {
-        setError('Connection lost. Try again.')
-      }
+      if ((err as Error).name !== 'AbortError') setError('Connection lost. Try again.')
     } finally {
       setStreaming(false)
+    }
+  }
+
+  async function handleQualityCheck() {
+    if (checkStreaming || !parsed?.tailored) return
+    setCheckStreaming(true)
+    setCheckDone(false)
+    setCheckRaw('')
+    setCheckError('')
+
+    try {
+      const res = await fetch('/api/tailor/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tailoredResume: parsed.tailored, jobDescription: jd, companyName }),
+      })
+
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}))
+        setCheckError(json.error ?? 'Quality check failed.')
+        setCheckStreaming(false)
+        return
+      }
+
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+      let isDone = false
+      while (!isDone) {
+        const { value, done: d } = await reader.read()
+        isDone = d
+        if (value) setCheckRaw(prev => prev + decoder.decode(value, { stream: !isDone }))
+      }
+      setCheckDone(true)
+    } catch {
+      setCheckError('Connection lost. Try again.')
+    } finally {
+      setCheckStreaming(false)
     }
   }
 
@@ -192,7 +291,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
         </div>
       )}
 
-      {/* Streaming / output */}
+      {/* Streaming raw output before parse */}
       {(output || streaming) && !done && (
         <div className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
@@ -215,12 +314,14 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
                 <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Tailored Resume</span>
                 <div className="flex items-center gap-3">
                   <button
+                    type="button"
                     onClick={handleCopy}
                     className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 transition-colors cursor-pointer bg-transparent"
                   >
                     {copied ? 'Copied!' : 'Copy text'}
                   </button>
                   <button
+                    type="button"
                     onClick={() => downloadDocx(parsed.tailored, companyName)}
                     className="text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 transition-colors cursor-pointer border-0"
                   >
@@ -267,27 +368,245 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
                 <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Key Changes</span>
               </div>
               <div className="px-6 py-5">
-                {parsed.changes.split('\n').filter(Boolean).map((line, i) => (
-                  <div key={i} className="flex items-start gap-3 mb-3 last:mb-0">
-                    <span className="text-slate-300 shrink-0 mt-0.5">-</span>
-                    <p className="text-[13px] text-slate-700 leading-relaxed">
-                      {line.replace(/^[-*•]\s*/, '')}
-                    </p>
-                  </div>
-                ))}
+                <BulletList text={parsed.changes} />
               </div>
             </div>
           )}
 
-          {/* Retailor */}
-          <div className="flex justify-center pb-2">
-            <button
-              onClick={() => { setDone(false); setOutput('') }}
-              className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors cursor-pointer bg-transparent border-0"
-            >
-              Update job description and retailor
-            </button>
-          </div>
+          {/* Quality check trigger */}
+          {!checkDone && !checkStreaming && (
+            <div className="bg-slate-50 border border-slate-200 rounded p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p className="text-[14px] font-semibold text-slate-900 mb-1">Run quality check</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">
+                  Score this resume from three angles: ATS match, recruiter first impression, and hiring manager fit. Flags weak bullets and gaps to cover verbally.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleQualityCheck}
+                className="shrink-0 text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors cursor-pointer border-0"
+              >
+                Run quality check
+              </button>
+            </div>
+          )}
+
+          {/* Quality check streaming */}
+          {checkStreaming && !checkDone && (
+            <div className="bg-white border border-slate-200 rounded overflow-hidden">
+              <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Quality Check</span>
+                <span className="text-[11px] text-slate-400 animate-pulse">Scoring...</span>
+              </div>
+              <div className="px-6 py-6">
+                <pre className="text-[13px] text-slate-600 leading-relaxed whitespace-pre-wrap font-sans">{checkRaw}</pre>
+              </div>
+            </div>
+          )}
+
+          {/* Quality check error */}
+          {checkError && (
+            <div className="bg-red-50 border border-red-200 rounded px-5 py-3">
+              <p className="text-[13px] text-red-700">{checkError}</p>
+            </div>
+          )}
+
+          {/* Quality check results */}
+          {checkDone && quality && (
+            <>
+              {/* Score summary row */}
+              <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                <div className="px-6 py-[18px] border-b border-slate-200">
+                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Quality Check</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-100">
+                  {/* ATS Score */}
+                  <div className="px-6 py-5 text-center">
+                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">ATS Match</p>
+                    <p className={`text-[36px] font-bold leading-none ${atsColor(parseInt(quality.atsScore || '0'))}`}>
+                      {quality.atsScore || '?'}
+                    </p>
+                    <p className="text-[10px] text-slate-400 mt-1">out of 100</p>
+                  </div>
+                  {/* Recruiter */}
+                  <div className="px-6 py-5 text-center">
+                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Recruiter</p>
+                    {quality.recruiterGrade && (
+                      <span className={`inline-block text-[28px] font-bold leading-none px-3 py-1 rounded border ${gradeColor(quality.recruiterGrade)}`}>
+                        {quality.recruiterGrade}
+                      </span>
+                    )}
+                  </div>
+                  {/* Hiring manager */}
+                  <div className="px-6 py-5 text-center">
+                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Hiring Mgr</p>
+                    {quality.hiringManagerGrade && (
+                      <span className={`inline-block text-[28px] font-bold leading-none px-3 py-1 rounded border ${gradeColor(quality.hiringManagerGrade)}`}>
+                        {quality.hiringManagerGrade}
+                      </span>
+                    )}
+                  </div>
+                  {/* 6-second test */}
+                  <div className="px-6 py-5 text-center">
+                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">6-Second Test</p>
+                    {quality.sixSecondGrade && (
+                      <span className={`inline-block text-[28px] font-bold leading-none px-3 py-1 rounded border ${gradeColor(quality.sixSecondGrade)}`}>
+                        {quality.sixSecondGrade}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* ATS detail */}
+              {quality.atsNotes && (
+                <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                  <div className="px-6 py-[18px] border-b border-slate-200">
+                    <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">ATS Keywords</span>
+                  </div>
+                  <div className="px-6 py-5">
+                    {quality.atsNotes.split('\n').filter(Boolean).map((line, i) => {
+                      const isPresent = line.toLowerCase().startsWith('present:')
+                      const isMissing = line.toLowerCase().startsWith('missing:')
+                      const label = isPresent ? 'Present' : isMissing ? 'Missing' : null
+                      const content = line.replace(/^(present|missing):\s*/i, '').trim()
+                      if (!label) return <p key={i} className="text-[13px] text-slate-600">{line}</p>
+                      return (
+                        <div key={i} className="flex items-start gap-3 mb-3 last:mb-0">
+                          <span className={`text-[11px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded shrink-0 mt-0.5 ${isPresent ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>
+                            {label}
+                          </span>
+                          <p className="text-[13px] text-slate-700 leading-relaxed">{content}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Recruiter + HM notes side by side */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {quality.recruiterNotes && (
+                  <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                    <div className="px-6 py-[18px] border-b border-slate-200 flex items-center gap-3">
+                      <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Recruiter View</span>
+                      {quality.recruiterGrade && (
+                        <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded border ${gradeColor(quality.recruiterGrade)}`}>
+                          {quality.recruiterGrade}
+                        </span>
+                      )}
+                    </div>
+                    <div className="px-6 py-5">
+                      <BulletList text={quality.recruiterNotes} />
+                    </div>
+                  </div>
+                )}
+                {quality.hiringManagerNotes && (
+                  <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                    <div className="px-6 py-[18px] border-b border-slate-200 flex items-center gap-3">
+                      <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Hiring Manager View</span>
+                      {quality.hiringManagerGrade && (
+                        <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded border ${gradeColor(quality.hiringManagerGrade)}`}>
+                          {quality.hiringManagerGrade}
+                        </span>
+                      )}
+                    </div>
+                    <div className="px-6 py-5">
+                      <BulletList text={quality.hiringManagerNotes} />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Weak bullets */}
+              {quality.weakBullets && quality.weakBullets.trim().length > 10 && (
+                <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                  <div className="px-6 py-[18px] border-b border-slate-200">
+                    <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Bullets to Strengthen</span>
+                  </div>
+                  <div className="px-6 py-5 flex flex-col gap-4">
+                    {quality.weakBullets.split(/\n\s*\n/).filter(b => b.trim()).map((block, i) => {
+                      const bulletLine = block.match(/BULLET:\s*(.+)/i)?.[1]?.trim()
+                      const fixLine    = block.match(/FIX:\s*(.+)/i)?.[1]?.trim()
+                      if (!bulletLine && !fixLine) return null
+                      return (
+                        <div key={i} className="border border-slate-100 rounded p-4">
+                          {bulletLine && (
+                            <p className="text-[13px] text-slate-500 italic mb-2">&ldquo;{bulletLine}...&rdquo;</p>
+                          )}
+                          {fixLine && (
+                            <p className="text-[13px] text-slate-900 leading-relaxed">{fixLine}</p>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Verbal cover */}
+              {quality.verbalCover && (
+                <div className="bg-amber-50 border border-amber-200 rounded overflow-hidden">
+                  <div className="px-6 py-[18px] border-b border-amber-200">
+                    <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-700">Cover Verbally in the Room</span>
+                  </div>
+                  <div className="px-6 py-5">
+                    <p className="text-[12px] text-amber-700 mb-3">These gaps cannot be fixed on paper. Address them proactively in the interview.</p>
+                    <BulletList text={quality.verbalCover} />
+                  </div>
+                </div>
+              )}
+
+              {/* 6-second test */}
+              {quality.sixSecondNotes && (
+                <div className="bg-white border border-slate-200 rounded overflow-hidden">
+                  <div className="px-6 py-[18px] border-b border-slate-200 flex items-center gap-3">
+                    <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">6-Second Recruiter Test</span>
+                    {quality.sixSecondGrade && (
+                      <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded border ${gradeColor(quality.sixSecondGrade)}`}>
+                        {quality.sixSecondGrade}
+                      </span>
+                    )}
+                  </div>
+                  <div className="px-6 py-5">
+                    <p className="text-[13px] text-slate-700 leading-relaxed">{quality.sixSecondNotes}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Re-run check */}
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => { setCheckDone(false); setCheckRaw('') }}
+                  className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors cursor-pointer bg-transparent border-0"
+                >
+                  Re-run quality check
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setDone(false); setOutput(''); setCheckDone(false); setCheckRaw('') }}
+                  className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors cursor-pointer bg-transparent border-0"
+                >
+                  Update JD and retailor
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* Retailor (shown when check not yet run) */}
+          {!checkDone && (
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => { setDone(false); setOutput('') }}
+                className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors cursor-pointer bg-transparent border-0"
+              >
+                Update job description and retailor
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>
