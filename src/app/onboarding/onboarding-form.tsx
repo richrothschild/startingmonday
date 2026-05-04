@@ -136,11 +136,15 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
             Import from LinkedIn
           </div>
           <p className="text-[13px] text-slate-500 leading-relaxed">
-            Go to your LinkedIn profile page, click{' '}
+            On desktop: go to your LinkedIn profile, click{' '}
             <span className="font-medium text-slate-700">More</span>
-            {' '}at the top of your profile, then{' '}
-            <span className="font-medium text-slate-700">Resources → Save to PDF.</span>
-            {' '}Upload that PDF below and Starting Monday will extract your career history and pre-fill the form.
+            {' '}then{' '}
+            <span className="font-medium text-slate-700">Save to PDF.</span>
+            {' '}On mobile: tap the{' '}
+            <span className="font-medium text-slate-700">&hellip;</span>
+            {' '}menu and choose{' '}
+            <span className="font-medium text-slate-700">Save to PDF.</span>
+            {' '}Upload that file and Starting Monday will extract your career history and pre-fill the form.
           </p>
         </div>
 
