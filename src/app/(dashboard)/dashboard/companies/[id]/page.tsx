@@ -92,7 +92,7 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: company }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }] = await Promise.all([
+  const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
       .select('id, name, sector, stage, fit_score, notes, company_url, career_page_url, crunchbase_id')
@@ -146,6 +146,11 @@ export default async function CompanyPage({
   const latestScan = scans[0] ?? null
   const scanHistory = scans.slice(1)
 
+  if (companyError && companyError.code !== 'PGRST116') {
+    // PGRST116 = "no rows returned" — that's a real 404; anything else is a schema/query error
+    console.error('[company page] query error:', companyError)
+    throw new Error(`Failed to load company: ${companyError.message}`)
+  }
   if (!company) notFound()
 
   const todayISO = todayInTz(profile?.briefing_timezone ?? 'UTC')
