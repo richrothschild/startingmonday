@@ -98,12 +98,15 @@ export async function runBriefingJob() {
         .update({ last_briefing_sent_at: now })
         .eq('user_id', user.id)
 
-      // Mark any signals included in this briefing as notified
-      if (context.signals?.length) {
+      // Mark any previously unnotified signals as notified
+      const unnotifiedSignalIds = (context.signals ?? [])
+        .filter(s => !s.notifiedAt)
+        .map(s => s.id)
+      if (unnotifiedSignalIds.length) {
         await supabase
           .from('company_signals')
           .update({ notified_at: now })
-          .in('id', context.signals.map(s => s.id))
+          .in('id', unnotifiedSignalIds)
       }
 
       // Track one Resend request and one Anthropic call (approximate token count)

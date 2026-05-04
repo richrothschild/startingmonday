@@ -36,9 +36,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
       .order('due_date', { ascending: true }),
     supabase
       .from('company_signals')
-      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date')
+      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date, notified_at')
       .eq('user_id', userId)
-      .is('notified_at', null)
       .gte('signal_date', since7d.toISOString().split('T')[0])
       .order('signal_date', { ascending: false })
       .limit(5),
@@ -92,9 +91,12 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     summary: s.signal_summary,
     outreachAngle: s.outreach_angle,
     signalDate: s.signal_date,
+    notifiedAt: s.notified_at ?? null,
   }))
 
-  if (!newMatches.length && !followUps.length && !signals.length) return null
+  // Only skip if the user has no companies at all (nothing to brief on).
+  // Always send on configured days so the user gets a pipeline-state email.
+  if (!companies.length) return null
 
   return {
     userEmail,
