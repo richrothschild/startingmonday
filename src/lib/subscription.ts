@@ -16,6 +16,7 @@ const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
   pipeline:         ['free', 'monitor', 'active'],
   contacts:         ['free', 'monitor', 'active'],
   scan:             ['monitor', 'active'],
+  ai_chat:          ['active'],
   prep_brief:       ['active'],
   strategy_brief:   ['active'],
   outreach_draft:   ['active'],

@@ -3,6 +3,7 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 
@@ -39,6 +40,14 @@ export async function GET(request: NextRequest) {
 
   const { userId } = auth
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId)
+  if (!canAccessFeature(sub, 'strategy_brief')) {
+    return new Response(JSON.stringify({ error: 'upgrade_required', plan: 'active' }), {
+      status: 402,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
 
   if (await isRateLimited(supabase, userId)) {
     return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {

@@ -4,6 +4,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { todayInTz, fullDateInTz } from '@/lib/date'
 import { isRateLimited, trackApiUsage, trimMessages } from '@/lib/api-usage'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 const CHAT_MODEL = process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6'
@@ -157,6 +158,14 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId)
+  if (!canAccessFeature(sub, 'ai_chat')) {
+    return new Response(JSON.stringify({ error: 'upgrade_required', plan: 'active' }), {
+      status: 402,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
 
   if (await isRateLimited(supabase, userId)) {
     return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {

@@ -94,9 +94,12 @@ export default function ChatPage() {
       })
 
       if (!res.ok || !res.body) {
+        const errText = res.status === 402
+          ? 'Chat requires an Active plan. Go to Settings → Billing to subscribe.'
+          : 'Something went wrong. Try again.'
         setMessages(prev => {
           const updated = [...prev]
-          updated[updated.length - 1] = { role: 'assistant', content: 'Something went wrong. Try again.' }
+          updated[updated.length - 1] = { role: 'assistant', content: errText }
           return updated
         })
         return

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
 const anthropic = new Anthropic()
 
@@ -30,6 +31,11 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId)
+  if (!canAccessFeature(sub, 'outreach_draft')) {
+    return NextResponse.json({ error: 'upgrade_required', plan: 'active' }, { status: 402 })
+  }
 
   const [{ data: contact }, { data: profile }] = await Promise.all([
     supabase
