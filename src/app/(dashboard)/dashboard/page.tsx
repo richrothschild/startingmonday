@@ -112,10 +112,10 @@ export default async function DashboardPage({
     : 0
 
   const stats = [
-    { value: totalCount,   label: 'Companies',   alert: false,           amber: false },
-    { value: activeCount,  label: 'Active',       alert: false,           amber: false },
-    { value: signalCount,  label: 'Signals',      alert: false,           amber: signalCount > 0 },
-    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false },
+    { value: totalCount,   label: 'Companies',   alert: false,           amber: false,              href: null },
+    { value: activeCount,  label: 'Active',       alert: false,           amber: false,              href: null },
+    { value: signalCount,  label: 'Signals',      alert: false,           amber: signalCount > 0,    href: '/dashboard/signals' },
+    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: null },
   ]
 
   return (
@@ -177,16 +177,27 @@ export default async function DashboardPage({
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          {stats.map(({ value, label, alert, amber }) => (
-            <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
-              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
-                {value}
+          {stats.map(({ value, label, alert, amber, href }) => {
+            const inner = (
+              <>
+                <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
+                  {value}
+                </div>
+                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">
+                  {label}
+                </div>
+              </>
+            )
+            return href ? (
+              <Link key={label} href={href} className="bg-white border border-slate-200 rounded p-3 sm:p-5 hover:border-slate-400 transition-colors">
+                {inner}
+              </Link>
+            ) : (
+              <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
+                {inner}
               </div>
-              <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">
-                {label}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Quick Actions */}
@@ -250,7 +261,9 @@ export default async function DashboardPage({
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600">
                 Company Signals
               </span>
-              <span className="text-[12px] text-slate-400">Last 7 days</span>
+              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
+                See all →
+              </Link>
             </div>
             <div className="divide-y divide-slate-50">
               {signals.map(sig => {
