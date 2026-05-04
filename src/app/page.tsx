@@ -247,6 +247,9 @@ export default function LandingPage() {
             <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
               Free Profile Grade
             </Link>
+            <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
+              Privacy Policy
+            </Link>
             <span className="text-[12px] text-slate-600">startingmonday.app</span>
           </div>
         </div>
