@@ -30,7 +30,7 @@ function renderBrief(text: string) {
     if (line.startsWith('- ') || line.startsWith('* ')) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
-          <span className="text-slate-300 shrink-0 select-none mt-0.5">–</span>
+          <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
           <span dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
         </div>
       )
@@ -56,7 +56,7 @@ function ResourcePanel({ brief }: { brief: string }) {
   return (
     <div className="bg-white border border-slate-200 rounded p-6 mb-4">
       <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-4">
-        Further Reading — Career Tools
+        Further Reading
       </p>
       <div className="flex flex-col gap-3">
         {resources.map(r => (
@@ -81,7 +81,7 @@ function ResourcePanel({ brief }: { brief: string }) {
   )
 }
 
-async function stream(res: Response, onChunk: (text: string) => void) {
+async function streamResponse(res: Response, onChunk: (text: string) => void) {
   if (!res.body) throw new Error('No body')
   const reader = res.body.getReader()
   const decoder = new TextDecoder()
@@ -92,12 +92,12 @@ async function stream(res: Response, onChunk: (text: string) => void) {
   }
 }
 
-async function saveBrief(type: string, text: string, companyId?: string, contactId?: string): Promise<string | null> {
+async function saveBrief(type: string, text: string, companyId?: string): Promise<string | null> {
   try {
     const res = await fetch('/api/briefs/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, text, company_id: companyId, contact_id: contactId }),
+      body: JSON.stringify({ type, text, company_id: companyId }),
     })
     if (!res.ok) return null
     const data = await res.json()
@@ -105,6 +105,38 @@ async function saveBrief(type: string, text: string, companyId?: string, contact
   } catch {
     return null
   }
+}
+
+function useOnDemand(url: string) {
+  const [content, setContent] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  async function generate() {
+    setLoading(true)
+    setContent('')
+    setError('')
+    try {
+      const res = await fetch(url)
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await streamResponse(res, chunk => { fullText += chunk; setContent(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setError(fullText.slice(9))
+        setContent('')
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return { content, loading, error, generate }
 }
 
 function OnDemandPanel({
@@ -181,13 +213,14 @@ export function PrepClient({
   const [refining, setRefining] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
-  const [competitive, setCompetitive] = useState('')
-  const [competitiveLoading, setCompetitiveLoading] = useState(false)
-  const [competitiveError, setCompetitiveError] = useState('')
-
-  const [questions, setQuestions] = useState('')
-  const [questionsLoading, setQuestionsLoading] = useState(false)
-  const [questionsError, setQuestionsError] = useState('')
+  const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`)
+  const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`)
+  const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`)
+  const competitive  = useOnDemand(`/api/prep/${companyId}/competitive`)
+  const wins         = useOnDemand(`/api/prep/${companyId}/wins`)
+  const techStack    = useOnDemand(`/api/prep/${companyId}/tech-stack`)
+  const whyHere      = useOnDemand(`/api/prep/${companyId}/why-here`)
+  const questions    = useOnDemand(`/api/prep/${companyId}/questions`)
 
   async function handleGenerate() {
     setLoading(true)
@@ -202,7 +235,7 @@ export function PrepClient({
         return
       }
       let fullText = ''
-      await stream(res, chunk => { fullText += chunk; setBrief(fullText) })
+      await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
       if (fullText.startsWith('__ERROR__')) {
         setError(fullText.slice(9))
         setBrief('')
@@ -236,7 +269,7 @@ export function PrepClient({
         return
       }
       let fullText = ''
-      await stream(res, chunk => { fullText += chunk; setBrief(fullText) })
+      await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
       if (fullText.startsWith('__ERROR__')) {
         setError(fullText.slice(9))
         setBrief('')
@@ -249,54 +282,6 @@ export function PrepClient({
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setRefining(false)
-    }
-  }
-
-  async function handleCompetitive() {
-    setCompetitiveLoading(true)
-    setCompetitive('')
-    setCompetitiveError('')
-    try {
-      const res = await fetch(`/api/prep/${companyId}/competitive`)
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}))
-        setCompetitiveError(body?.error ?? `Request failed (${res.status})`)
-        return
-      }
-      let fullText = ''
-      await stream(res, chunk => { fullText += chunk; setCompetitive(fullText) })
-      if (fullText.startsWith('__ERROR__')) {
-        setCompetitiveError(fullText.slice(9))
-        setCompetitive('')
-      }
-    } catch (e) {
-      setCompetitiveError(e instanceof Error ? e.message : 'Unknown error')
-    } finally {
-      setCompetitiveLoading(false)
-    }
-  }
-
-  async function handleQuestions() {
-    setQuestionsLoading(true)
-    setQuestions('')
-    setQuestionsError('')
-    try {
-      const res = await fetch(`/api/prep/${companyId}/questions`)
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}))
-        setQuestionsError(body?.error ?? `Request failed (${res.status})`)
-        return
-      }
-      let fullText = ''
-      await stream(res, chunk => { fullText += chunk; setQuestions(fullText) })
-      if (fullText.startsWith('__ERROR__')) {
-        setQuestionsError(fullText.slice(9))
-        setQuestions('')
-      }
-    } catch (e) {
-      setQuestionsError(e instanceof Error ? e.message : 'Unknown error')
-    } finally {
-      setQuestionsLoading(false)
     }
   }
 
@@ -386,20 +371,68 @@ export function PrepClient({
         {brief && !loading && (
           <>
             <OnDemandPanel
-              title="Competitive Intelligence"
+              title="Leadership Team"
+              description="Who is in the room, what they care about, and how to win with each of them."
+              content={leadership.content}
+              loading={leadership.loading}
+              error={leadership.error}
+              onGenerate={leadership.generate}
+            />
+            <OnDemandPanel
+              title="Strategic Priorities"
+              description="What this company is actually focused on right now — and how to align your narrative."
+              content={priorities.content}
+              loading={priorities.loading}
+              error={priorities.error}
+              onGenerate={priorities.generate}
+            />
+            <OnDemandPanel
+              title="Pain Points"
+              description="The real challenges they are dealing with — and how to demonstrate you understand them."
+              content={challenges.content}
+              loading={challenges.loading}
+              error={challenges.error}
+              onGenerate={challenges.generate}
+            />
+            <OnDemandPanel
+              title="Competitive Landscape"
               description="Who they compete with, how they position, and how to use it in the room."
-              content={competitive}
-              loading={competitiveLoading}
-              error={competitiveError}
-              onGenerate={handleCompetitive}
+              content={competitive.content}
+              loading={competitive.loading}
+              error={competitive.error}
+              onGenerate={competitive.generate}
+            />
+            <OnDemandPanel
+              title="Recent Wins"
+              description="What to acknowledge and reference to show you did the homework."
+              content={wins.content}
+              loading={wins.loading}
+              error={wins.error}
+              onGenerate={wins.generate}
+            />
+            <OnDemandPanel
+              title="Tech Stack"
+              description="What systems they are likely running and what to know before you walk in."
+              content={techStack.content}
+              loading={techStack.loading}
+              error={techStack.error}
+              onGenerate={techStack.generate}
+            />
+            <OnDemandPanel
+              title="Why Here"
+              description="A personalized statement for when they ask why you want this role."
+              content={whyHere.content}
+              loading={whyHere.loading}
+              error={whyHere.error}
+              onGenerate={whyHere.generate}
             />
             <OnDemandPanel
               title="Likely Interview Questions"
               description="The questions they will ask you — with coaching on how to answer each."
-              content={questions}
-              loading={questionsLoading}
-              error={questionsError}
-              onGenerate={handleQuestions}
+              content={questions.content}
+              loading={questions.loading}
+              error={questions.error}
+              onGenerate={questions.generate}
             />
           </>
         )}
@@ -415,7 +448,7 @@ export function PrepClient({
               {[
                 'Make the pushback counters more aggressive',
                 'Add a first 30/60/90 day plan',
-                'Assume they\'ll challenge my industry experience',
+                "Assume they'll challenge my industry experience",
               ].map(chip => (
                 <button
                   key={chip}
@@ -435,7 +468,7 @@ export function PrepClient({
                 onKeyDown={e => {
                   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleRefine() }
                 }}
-                placeholder="Or type your own refinement request…"
+                placeholder="Or type your own refinement request..."
                 rows={2}
                 disabled={refining}
                 className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
