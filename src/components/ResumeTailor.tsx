@@ -152,6 +152,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
   const [checkError, setCheckError]   = useState('')
 
   const abortRef = useRef<AbortController | null>(null)
+  const bufRef   = useRef('')
 
   const parsedRaw = done ? parseOutput(output) : null
   const parsed = parsedRaw ? { ...parsedRaw, tailored: cleanResume(parsedRaw.tailored) } : null
@@ -160,6 +161,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (streaming) return
+    bufRef.current = ''
     setStreaming(true)
     setDone(false)
     setOutput('')
@@ -191,8 +193,9 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
       while (!isDone) {
         const { value, done: d } = await reader.read()
         isDone = d
-        if (value) setOutput(prev => prev + decoder.decode(value, { stream: !isDone }))
+        if (value) bufRef.current += decoder.decode(value, { stream: !isDone })
       }
+      setOutput(bufRef.current)
       setDone(true)
     } catch (err) {
       if ((err as Error).name !== 'AbortError') setError('Connection lost. Try again.')
@@ -307,12 +310,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
       {/* Loading state while streaming */}
       {streaming && !done && (
         <div className="bg-white border border-slate-200 rounded p-8">
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
-            <span className="text-[13px] text-slate-400 ml-1">Tailoring your resume...</span>
-          </div>
+          <p className="text-[13px] text-slate-400 animate-pulse">Tailoring your resume...</p>
         </div>
       )}
 
