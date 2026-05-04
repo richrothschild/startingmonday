@@ -21,10 +21,16 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
-  const session = await getStripe().billingPortal.sessions.create({
-    customer: user.stripe_customer_id,
-    return_url: `${baseUrl}/settings/billing`,
-  })
+  let session
+  try {
+    session = await getStripe().billingPortal.sessions.create({
+      customer: user.stripe_customer_id,
+      return_url: `${baseUrl}/settings/billing`,
+    })
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
   return NextResponse.json({ url: session.url })
 }
