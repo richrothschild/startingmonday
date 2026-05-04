@@ -107,6 +107,63 @@ async function saveBrief(type: string, text: string, companyId?: string, contact
   }
 }
 
+function OnDemandPanel({
+  title,
+  description,
+  content,
+  loading,
+  error,
+  onGenerate,
+}: {
+  title: string
+  description: string
+  content: string
+  loading: boolean
+  error: string
+  onGenerate: () => void
+}) {
+  return (
+    <div className="bg-white border border-slate-200 rounded mb-4">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <div>
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">{title}</p>
+          {!content && !loading && (
+            <p className="text-[12px] text-slate-400 mt-0.5">{description}</p>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={onGenerate}
+          disabled={loading}
+          className="shrink-0 text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        >
+          {loading ? 'Generating…' : content ? 'Regenerate' : 'Generate'}
+        </button>
+      </div>
+      {loading && !content && (
+        <div className="px-6 py-5">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+          </div>
+        </div>
+      )}
+      {error && !content && (
+        <div className="px-6 py-4 text-[13px] text-red-600">{error}</div>
+      )}
+      {(content || (loading && content)) && (
+        <div className="px-6 py-5">
+          {renderBrief(content)}
+          {loading && (
+            <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function PrepClient({
   companyId,
   companyName,
@@ -123,6 +180,14 @@ export function PrepClient({
   const [refineInput, setRefineInput] = useState('')
   const [refining, setRefining] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
+
+  const [competitive, setCompetitive] = useState('')
+  const [competitiveLoading, setCompetitiveLoading] = useState(false)
+  const [competitiveError, setCompetitiveError] = useState('')
+
+  const [questions, setQuestions] = useState('')
+  const [questionsLoading, setQuestionsLoading] = useState(false)
+  const [questionsError, setQuestionsError] = useState('')
 
   async function handleGenerate() {
     setLoading(true)
@@ -184,6 +249,54 @@ export function PrepClient({
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setRefining(false)
+    }
+  }
+
+  async function handleCompetitive() {
+    setCompetitiveLoading(true)
+    setCompetitive('')
+    setCompetitiveError('')
+    try {
+      const res = await fetch(`/api/prep/${companyId}/competitive`)
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setCompetitiveError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await stream(res, chunk => { fullText += chunk; setCompetitive(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setCompetitiveError(fullText.slice(9))
+        setCompetitive('')
+      }
+    } catch (e) {
+      setCompetitiveError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setCompetitiveLoading(false)
+    }
+  }
+
+  async function handleQuestions() {
+    setQuestionsLoading(true)
+    setQuestions('')
+    setQuestionsError('')
+    try {
+      const res = await fetch(`/api/prep/${companyId}/questions`)
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setQuestionsError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await stream(res, chunk => { fullText += chunk; setQuestions(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setQuestionsError(fullText.slice(9))
+        setQuestions('')
+      }
+    } catch (e) {
+      setQuestionsError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setQuestionsLoading(false)
     }
   }
 
@@ -268,6 +381,27 @@ export function PrepClient({
           <div className="mb-4 flex justify-end">
             <BriefRating briefId={briefId} />
           </div>
+        )}
+
+        {brief && !loading && (
+          <>
+            <OnDemandPanel
+              title="Competitive Intelligence"
+              description="Who they compete with, how they position, and how to use it in the room."
+              content={competitive}
+              loading={competitiveLoading}
+              error={competitiveError}
+              onGenerate={handleCompetitive}
+            />
+            <OnDemandPanel
+              title="Likely Interview Questions"
+              description="The questions they will ask you — with coaching on how to answer each."
+              content={questions}
+              loading={questionsLoading}
+              error={questionsError}
+              onGenerate={handleQuestions}
+            />
+          </>
         )}
 
         {brief && !loading && <ResourcePanel brief={brief} />}
