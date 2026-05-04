@@ -28,6 +28,16 @@ type QualityCheck = {
   sixSecondNotes: string
 }
 
+function cleanResume(text: string): string {
+  return text
+    .replace(/\*\*/g, '')
+    .replace(/^#{1,3} .*/gm, line => line.replace(/^#{1,3} /, '').toUpperCase())
+    .replace(/^---+\s*$/gm, '')
+    .replace(/—/g, ',')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
 function parseOutput(raw: string): Parsed {
   const tailoredMatch = raw.match(/## TAILORED RESUME\s*([\s\S]*?)(?=## KEYWORD ANALYSIS|$)/)
   const keywordsMatch = raw.match(/## KEYWORD ANALYSIS\s*([\s\S]*?)(?=## KEY CHANGES|$)/)
@@ -141,7 +151,8 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
 
   const abortRef = useRef<AbortController | null>(null)
 
-  const parsed = done ? parseOutput(output) : null
+  const parsedRaw = done ? parseOutput(output) : null
+  const parsed = parsedRaw ? { ...parsedRaw, tailored: cleanResume(parsedRaw.tailored) } : null
   const quality = checkDone ? parseQualityCheck(checkRaw) : null
 
   async function handleSubmit(e: React.FormEvent) {

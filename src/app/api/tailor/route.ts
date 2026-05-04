@@ -15,6 +15,12 @@ Rules:
 - Reorder sections and bullets by relevance to this specific role.
 - Cut anything that does not serve this application.
 
+Formatting rules for the resume text:
+- Plain text only. No markdown. No ** bold markers. No --- dividers. No # headers.
+- Use ALL CAPS for section headers (EXPERIENCE, EDUCATION, etc.)
+- Use a hyphen (-) for bullet points, not asterisks or bullets.
+- Separate sections with a blank line.
+
 Output format - use these exact headers:
 
 ## TAILORED RESUME
