@@ -102,9 +102,23 @@ export default function LandingPage() {
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             Starting Monday tracks your pipeline, surfaces openings at target companies before they&rsquo;re posted, and builds your prep brief on demand.
           </p>
-          <p className="text-[13px] text-slate-500 mb-9">
+          <p className="text-[13px] text-slate-500 mb-8">
             Paste your LinkedIn profile during setup. Running in 2 minutes.
           </p>
+
+          <div className="flex flex-col gap-2.5 mb-9">
+            {[
+              'Add your target companies — we scan their career pages three times a week',
+              'Get alerted when roles matching your profile appear, before they hit LinkedIn',
+              'Walk into every conversation with a prep brief built from your actual pipeline',
+            ].map((step, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <span className="text-[11px] font-bold text-slate-600 shrink-0 w-4 mt-0.5">{i + 1}</span>
+                <p className="text-[13px] text-slate-400 leading-relaxed">{step}</p>
+              </div>
+            ))}
+          </div>
+
           <div>
             <Link
               href="/signup"

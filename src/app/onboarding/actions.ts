@@ -50,7 +50,7 @@ export async function completeOnboarding(formData: FormData) {
     { onConflict: 'user_id' }
   )
 
-  redirect('/dashboard')
+  redirect('/dashboard/start')
 }
 
 export async function skipOnboarding() {
@@ -63,5 +63,5 @@ export async function skipOnboarding() {
     { onConflict: 'user_id' }
   )
 
-  redirect('/dashboard')
+  redirect('/dashboard/start')
 }
