@@ -3,6 +3,7 @@ import { getSupabase } from '../lib/supabase.js'
 import { fetchCompanyNews } from '../signals/fetch-company-news.js'
 import { classifySignal } from '../signals/classify-signal.js'
 import { writeSignal } from '../signals/write-signal.js'
+import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-crunchbase-funding.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -40,7 +41,7 @@ export async function runSignalJob() {
     for (const user of users) {
       const { data: companies } = await supabase
         .from('companies')
-        .select('id, name')
+        .select('id, name, crunchbase_id')
         .eq('user_id', user.id)
         .is('archived_at', null)
 
@@ -49,9 +50,8 @@ export async function runSignalJob() {
       for (const company of companies) {
         companiesScanned++
         try {
+          // Google News — classify articles via Claude Haiku
           const articles = await fetchCompanyNews(company.name)
-          if (!articles.length) continue
-
           for (const article of articles) {
             const result = await classifySignal(company.name, article)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
@@ -74,6 +74,27 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: new signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // Crunchbase — structured funding rounds (no classification needed)
+          if (company.crunchbase_id && process.env.CRUNCHBASE_API_KEY) {
+            const rounds = await fetchCrunchbaseFunding(company.crunchbase_id)
+            for (const round of rounds) {
+              const { signal_summary, outreach_angle } = formatFundingSignal(company.name, round)
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    'funding',
+                signalSummary: signal_summary,
+                sourceUrl:     round.sourceUrl,
+                signalDate:    round.announcedOn,
+                outreachAngle: outreach_angle,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: crunchbase funding signal', { company: company.name, amount: round.amount })
+              }
             }
           }
         } catch (err) {

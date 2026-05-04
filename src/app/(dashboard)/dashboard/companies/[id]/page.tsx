@@ -95,7 +95,7 @@ export default async function CompanyPage({
   const [{ data: company }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, fit_score, notes, career_page_url')
+      .select('id, name, sector, stage, fit_score, notes, career_page_url, crunchbase_id')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -293,6 +293,22 @@ export default async function CompanyPage({
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Crunchbase permalink
+                </label>
+                <input
+                  name="crunchbase_id"
+                  type="text"
+                  defaultValue={company.crunchbase_id ?? ''}
+                  placeholder="e.g. cotiviti"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+                <p className="mt-1.5 text-[12px] text-slate-400">
+                  The slug from crunchbase.com/organization/<strong>cotiviti</strong> &mdash; enables funding round detection
+                </p>
               </div>
 
               <div>

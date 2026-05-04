@@ -25,13 +25,14 @@ export async function updateCompany(id: string, formData: FormData) {
   const stage = str(formData, 'stage') || 'watching'
   const fitScore = numOrNull(formData, 'fit_score')
   const careerPageUrl = str(formData, 'career_page_url') || null
+  const crunchbaseId = str(formData, 'crunchbase_id') || null
   const notes = str(formData, 'notes') || null
 
   if (!name) redirect(`/dashboard/companies/${id}?error=required`)
 
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, career_page_url: careerPageUrl, notes })
+    .update({ name, sector, stage, fit_score: fitScore, career_page_url: careerPageUrl, crunchbase_id: crunchbaseId, notes })
     .eq('id', id)
     .eq('user_id', user.id)
 
