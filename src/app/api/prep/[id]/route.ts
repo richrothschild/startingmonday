@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { PREP_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
+import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -210,6 +211,16 @@ export async function GET(
 
   if (!company) return new Response('Not found', { status: 404 })
 
+  if (isDemoUser(userId)) {
+    const key = company.name.toLowerCase()
+    const demoContent = DEMO_PREP_BRIEFS[key]
+    if (demoContent) {
+      return new Response(streamDemoText(demoContent), {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      })
+    }
+  }
+
   const userPrompt = buildContext(company, profile, scanResults, contacts, documents, signals)
 
   const readable = makeStream(
@@ -247,6 +258,12 @@ export async function POST(
   }
 
   const { brief, request: refinementRequest } = body as { brief: string; request: string }
+
+  if (isDemoUser(userId)) {
+    return new Response(streamDemoText(brief), {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  }
 
   const readable = makeStream(
     [

@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { todayInTz, fullDateInTz } from '@/lib/date'
 import { isRateLimited, trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { isDemoUser } from '@/lib/demo'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 const CHAT_MODEL = process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6'
@@ -245,7 +246,9 @@ export async function POST(request: NextRequest) {
     profile?.positioning_summary ? `Positioning: ${profile.positioning_summary}` : null,
   ].filter(Boolean).join('\n')
 
-  const systemPrompt = `You are a strategic advisor helping ${name} run an executive job search. You have full visibility into their pipeline and can take actions directly. Speak directly, senior to senior. No motivational clichés. Short sentences. No em dashes.
+  const isDemo = isDemoUser(userId)
+
+  const systemPrompt = `You are a strategic advisor helping ${name} run an executive job search. You have full visibility into their pipeline and can take actions directly. Speak directly, senior to senior. No motivational clichés. Short sentences. No em dashes.${isDemo ? '\n\nNote: this is a demo account. Do not offer to update the pipeline or add follow-ups.' : ''}
 
 Today is ${today}.
 ${profileLines ? `\nSEARCH PROFILE:\n${profileLines}\n` : ''}
@@ -276,7 +279,7 @@ When the user asks you to update their pipeline, add a follow-up, or log notes, 
           model: CHAT_MODEL,
           max_tokens: 1024,
           system: systemPrompt,
-          tools: TOOLS,
+          tools: isDemo ? [TOOLS[3]] : TOOLS,
           messages: workingMessages,
         })
 

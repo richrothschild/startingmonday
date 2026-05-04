@@ -6,6 +6,7 @@ import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
+import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -122,6 +123,12 @@ How to actually work this search. Specific breakdown of where to focus across: w
 If critical information is absent (no resume, no current role, no target titles), name the gap explicitly in the relevant section rather than filling it with generic advice. Tell the reader exactly what you cannot assess and what they would need to provide to get a sharper answer. Do not invent details or speak in vague generalities to cover missing data.
 
 Tone: direct, senior-to-senior, no hedging. Short paragraphs. No em dashes. No motivational language. No generic advice.`
+
+  if (isDemoUser(userId)) {
+    return new Response(streamDemoText(DEMO_STRATEGY_BRIEF), {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  }
 
   const readable = makeStream(prompt, supabase, userId)
 

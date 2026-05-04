@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoUser } from '@/lib/demo'
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? '').trim()
@@ -17,6 +18,7 @@ export async function addCompany(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+  if (isDemoUser(user.id)) redirect('/signup?from=demo')
 
   const name          = str(formData, 'name')
   const sector        = str(formData, 'sector') || null

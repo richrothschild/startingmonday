@@ -81,6 +81,12 @@ export default function LandingPage() {
               Log in
             </Link>
             <Link
+              href="/demo"
+              className="text-[13px] text-slate-400 hover:text-white transition-colors"
+            >
+              Try demo
+            </Link>
+            <Link
               href="/signup"
               className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
             >
@@ -119,14 +125,22 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <div>
+          <div className="flex flex-col sm:flex-row items-start gap-3">
+            <div>
+              <Link
+                href="/signup"
+                className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
+              >
+                Start your search &rarr;
+              </Link>
+              <p className="text-[12px] text-slate-400 mt-2.5">Free for 30 days. No credit card.</p>
+            </div>
             <Link
-              href="/signup"
-              className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
+              href="/demo"
+              className="inline-block text-[14px] text-slate-400 hover:text-slate-200 px-4 py-3.5 transition-colors"
             >
-              Start your search &rarr;
+              See a live demo &rarr;
             </Link>
-            <p className="text-[12px] text-slate-400 mt-2.5">Free for 30 days. No credit card.</p>
           </div>
         </div>
       </section>

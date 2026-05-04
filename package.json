@@ -13,7 +13,8 @@
     "prepare": "git rev-parse --git-dir > /dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "check:auth": "sh scripts/check-auth.sh",
     "test:e2e": "playwright test --project=setup --project=smoke",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "seed:demo": "bun --env-file=.env.local scripts/seed-demo.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
