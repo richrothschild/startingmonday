@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
 <p><a href="${appUrl}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:10px 20px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600">Update payment method</a></p>
 <p style="font-size:13px;color:#64748b">If you believe this is an error, reply to this email and we will sort it out.</p>
 </body></html>`,
-        }).catch(() => {/* non-fatal — DB is already updated */})
+        }).catch(() => {/* non-fatal; DB is already updated */})
       }
       break
     }
