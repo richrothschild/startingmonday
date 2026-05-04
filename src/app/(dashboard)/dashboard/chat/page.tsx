@@ -29,11 +29,16 @@ function ActionToast({ message, onDismiss }: { message: string; onDismiss: () =>
   )
 }
 
-const PROMPTS = [
+const ASK_PROMPTS = [
   'What should I prioritize this week?',
   'Which companies should I be most aggressive about?',
+]
+
+const DO_PROMPTS = [
   'Move [company name] to interviewing',
   'Add a follow-up to call [name] on [date]',
+  'Log that I heard back from [company]',
+  'Archive [company] — they went cold',
 ]
 
 function AssistantMessage({ content }: { content: string }) {
@@ -228,17 +233,37 @@ export default function ChatPage() {
             <p className="text-[14px] text-slate-400 leading-relaxed mb-8">
               Ask about your pipeline, or tell me to take action. I can move companies through stages, log follow-ups, and update notes directly.
             </p>
-            <div className="flex flex-col gap-2">
-              {PROMPTS.map(prompt => (
-                <button
-                  key={prompt}
-                  type="button"
-                  onClick={() => { setInput(prompt); textareaRef.current?.focus() }}
-                  className="text-left text-[13px] text-slate-500 border border-slate-200 rounded-lg px-4 py-3 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors"
-                >
-                  {prompt}
-                </button>
-              ))}
+            <div className="flex flex-col gap-6">
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Ask</p>
+                <div className="flex flex-col gap-2">
+                  {ASK_PROMPTS.map(prompt => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => { setInput(prompt); textareaRef.current?.focus() }}
+                      className="text-left text-[13px] text-slate-500 border border-slate-200 rounded-lg px-4 py-3 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Tell me to</p>
+                <div className="flex flex-col gap-2">
+                  {DO_PROMPTS.map(prompt => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => { setInput(prompt); textareaRef.current?.focus() }}
+                      className="text-left text-[13px] text-slate-500 border border-slate-200 rounded-lg px-4 py-3 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ) : (

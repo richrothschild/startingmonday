@@ -1,10 +1,13 @@
 'use client'
 import { useState, useRef } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
+import { TagInput } from '@/components/TagInput'
 
 const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400'
 const labelCls = 'block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5'
 const hintCls  = 'mt-1.5 text-[12px] text-slate-400'
+
+const SECTIONS = ['Import', 'About', 'Situation', 'Targeting', 'Background']
 
 type InitialProfile = {
   full_name?: string | null
@@ -78,7 +81,6 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
       const res = await fetch('/api/linkedin-import/extract', { method: 'POST', body: fd })
       const data = await res.json()
       if (!res.ok) { setImportError(data.error ?? 'Could not read the PDF.'); return }
-      // Pass extracted text straight into the import pipeline
       setImporting(true)
       const importRes = await fetch('/api/linkedin-import', {
         method: 'POST',
@@ -129,22 +131,24 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   return (
     <form action={completeOnboarding} className="flex flex-col gap-6">
 
-      {/* LinkedIn Import */}
+      {/* Section map */}
+      <div className="flex items-center gap-0 text-[11px] font-semibold text-slate-400 overflow-x-auto pb-1">
+        {SECTIONS.map((s, i) => (
+          <span key={s} className="flex items-center gap-0 shrink-0">
+            <span className="px-2 py-0.5">{i + 1}. {s}</span>
+            {i < SECTIONS.length - 1 && <span className="text-slate-200">›</span>}
+          </span>
+        ))}
+      </div>
+
+      {/* LinkedIn Import — two equal tiles */}
       <div className="bg-white border border-slate-200 rounded p-8 flex flex-col gap-4">
         <div>
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1.5">
             Import from LinkedIn
           </div>
           <p className="text-[13px] text-slate-500 leading-relaxed">
-            On desktop: go to your LinkedIn profile, click{' '}
-            <span className="font-medium text-slate-700">More</span>
-            {' '}then{' '}
-            <span className="font-medium text-slate-700">Save to PDF.</span>
-            {' '}On mobile: tap the{' '}
-            <span className="font-medium text-slate-700">&hellip;</span>
-            {' '}menu and choose{' '}
-            <span className="font-medium text-slate-700">Save to PDF.</span>
-            {' '}Upload that file and Starting Monday will extract your career history and pre-fill the form.
+            The fastest way to fill out the form below. Choose whichever method is easier.
           </p>
         </div>
 
@@ -160,53 +164,60 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
           </div>
         )}
 
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            onClick={() => linkedinPdfRef.current?.click()}
-            disabled={extracting || importing}
-            className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {extracting ? 'Reading PDF…' : importing ? 'Extracting…' : 'Upload LinkedIn PDF'}
-          </button>
-          <span className="text-[12px] text-slate-400">
-            Optional — fill in the form below manually instead.
-          </span>
-          <input
-            ref={linkedinPdfRef}
-            type="file"
-            accept=".pdf"
-            onChange={handleLinkedInPdf}
-            aria-label="Upload LinkedIn PDF"
-            className="hidden"
-          />
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* PDF tile */}
+          <div className="border border-slate-200 rounded p-5 flex flex-col gap-3">
+            <div className="text-[12px] font-bold text-slate-600">Upload LinkedIn PDF</div>
+            <div className="text-[12px] text-slate-400 leading-relaxed space-y-1.5">
+              <p><span className="font-medium text-slate-500">Desktop:</span> Go to your profile &rarr; click <span className="font-medium text-slate-600">More</span> &rarr; <span className="font-medium text-slate-600">Save to PDF</span></p>
+              <p><span className="font-medium text-slate-500">Mobile:</span> Tap the <span className="font-medium text-slate-600">&hellip;</span> menu on your profile &rarr; <span className="font-medium text-slate-600">Save to PDF</span></p>
+            </div>
+            <button
+              type="button"
+              onClick={() => linkedinPdfRef.current?.click()}
+              disabled={extracting || importing}
+              className="mt-auto bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed self-start"
+            >
+              {extracting ? 'Reading PDF…' : importing ? 'Extracting…' : 'Upload PDF'}
+            </button>
+            <input
+              ref={linkedinPdfRef}
+              type="file"
+              accept=".pdf"
+              onChange={handleLinkedInPdf}
+              aria-label="Upload LinkedIn PDF"
+              className="hidden"
+            />
+          </div>
 
-        <details className="group">
-          <summary className="text-[12px] text-slate-400 cursor-pointer hover:text-slate-600 list-none">
-            Or paste profile text manually
-          </summary>
-          <div className="mt-3 flex flex-col gap-3">
+          {/* Paste tile */}
+          <div className="border border-slate-200 rounded p-5 flex flex-col gap-3">
+            <div className="text-[12px] font-bold text-slate-600">Paste profile text</div>
+            <p className="text-[12px] text-slate-400 leading-relaxed">
+              On your LinkedIn profile, select all text and copy it, then paste it here.
+            </p>
             <textarea
               value={pasteText}
               onChange={e => setPasteText(e.target.value)}
               placeholder="Paste your LinkedIn profile text here…"
               rows={4}
               disabled={importing}
-              className={inputCls + ' resize-none leading-relaxed disabled:opacity-50'}
+              className={inputCls + ' resize-none leading-relaxed disabled:opacity-50 text-[13px]'}
             />
-            <div>
-              <button
-                type="button"
-                onClick={handleImport}
-                disabled={importing || !pasteText.trim()}
-                className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                {importing ? 'Extracting…' : 'Extract profile'}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleImport}
+              disabled={importing || !pasteText.trim()}
+              className="bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed self-start"
+            >
+              {importing ? 'Extracting…' : 'Extract profile'}
+            </button>
           </div>
-        </details>
+        </div>
+
+        <p className="text-[12px] text-slate-400">
+          Optional — skip this and fill in the form below manually instead.
+        </p>
       </div>
 
       {/* About you */}
@@ -307,16 +318,14 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
 
         <div>
           <label htmlFor="target_titles" className={labelCls}>Roles you&apos;re targeting</label>
-          <input
+          <TagInput
             id="target_titles"
             name="target_titles"
-            type="text"
             value={targetTitles}
-            onChange={e => setTargetTitles(e.target.value)}
-            placeholder="CIO, VP of Technology, Head of IT"
-            className={inputCls}
+            onChange={setTargetTitles}
+            placeholder="Type a title and press Enter — CIO, VP of Technology…"
           />
-          <p className={hintCls}>Comma-separated. Used to score job matches in company scans.</p>
+          <p className={hintCls}>Press Enter or comma after each. Used to score job matches in company scans.</p>
         </div>
 
         <div>

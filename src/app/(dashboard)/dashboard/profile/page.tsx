@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { saveProfile } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
+import { TagInput } from '@/components/TagInput'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -129,15 +130,13 @@ export default async function ProfilePage({
               <label htmlFor="target_titles" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Target titles
               </label>
-              <input
+              <TagInput
                 id="target_titles"
                 name="target_titles"
-                type="text"
                 defaultValue={targetTitles}
-                placeholder="CIO, VP of Technology, Director of IT"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                placeholder="Type a title and press Enter — CIO, VP of Technology…"
               />
-              <p className="mt-1.5 text-[12px] text-slate-400">Comma-separated. Used to score job matches in company scans.</p>
+              <p className="mt-1.5 text-[12px] text-slate-400">Press Enter or comma after each. Used to score job matches in company scans.</p>
             </div>
 
             {/* Target sectors */}
@@ -145,15 +144,13 @@ export default async function ProfilePage({
               <label htmlFor="target_sectors" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Target sectors
               </label>
-              <input
+              <TagInput
                 id="target_sectors"
                 name="target_sectors"
-                type="text"
                 defaultValue={targetSectors}
-                placeholder="Healthcare, Fintech, SaaS"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                placeholder="Healthcare, Fintech, SaaS…"
               />
-              <p className="mt-1.5 text-[12px] text-slate-400">Comma-separated. Helps refine match scoring.</p>
+              <p className="mt-1.5 text-[12px] text-slate-400">Press Enter or comma after each. Helps refine match scoring.</p>
             </div>
 
             {/* Target locations */}
@@ -161,15 +158,13 @@ export default async function ProfilePage({
               <label htmlFor="target_locations" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Target locations
               </label>
-              <input
+              <TagInput
                 id="target_locations"
                 name="target_locations"
-                type="text"
                 defaultValue={targetLocations}
-                placeholder="New York, Remote, Dallas, Chicago"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                placeholder="New York, Remote, Dallas…"
               />
-              <p className="mt-1.5 text-[12px] text-slate-400">Comma-separated. Used in your Search Strategy Brief.</p>
+              <p className="mt-1.5 text-[12px] text-slate-400">Press Enter or comma after each. Used in your Search Strategy Brief.</p>
             </div>
 
             {/* Positioning summary */}

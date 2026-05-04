@@ -19,13 +19,13 @@ export default async function StrategyPage() {
 
   if (!profile?.onboarding_completed_at) redirect('/onboarding')
 
-  const missing: string[] = []
+  const missing: { label: string; anchor: string }[] = []
   if (!profile?.current_title && !profile?.current_company)
-    missing.push('Current or most recent role')
+    missing.push({ label: 'Current or most recent role', anchor: 'current_title' })
   if (!profile?.target_titles?.length)
-    missing.push('Target titles (e.g. CIO, VP of Technology)')
+    missing.push({ label: 'Target titles (e.g. CIO, VP of Technology)', anchor: 'target_titles' })
   if (!profile?.resume_text && !profile?.positioning_summary)
-    missing.push('Resume or positioning summary')
+    missing.push({ label: 'Resume or positioning summary', anchor: 'resume_text' })
 
   return <StrategyClient missingFields={missing} />
 }

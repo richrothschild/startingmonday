@@ -5,6 +5,22 @@ import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContac
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
 
+function getNextScanDate(): string {
+  const now = new Date()
+  const scanDays = [1, 3, 5] // Mon=1, Wed=3, Fri=5 UTC
+  for (let d = 0; d <= 7; d++) {
+    const candidate = new Date(Date.UTC(
+      now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + d, 8, 0, 0, 0
+    ))
+    if (candidate > now && scanDays.includes(candidate.getUTCDay())) {
+      return candidate.toLocaleDateString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC',
+      }) + ' at 8:00 AM UTC'
+    }
+  }
+  return 'Mon, Wed, or Fri at 8:00 AM UTC'
+}
+
 type RawHit = {
   title: string
   score: number
@@ -247,6 +263,7 @@ export default async function CompanyPage({
                     placeholder="—"
                     className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                   />
+                  <p className="mt-1.5 text-[12px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>
                 </div>
               </div>
 
@@ -274,6 +291,7 @@ export default async function CompanyPage({
                   placeholder="https://acme.com/careers"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
+                <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
               </div>
 
               <div>
@@ -508,11 +526,14 @@ export default async function CompanyPage({
         {/* Documents */}
         <div id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-              Documents
-            </span>
-            <span className="text-[12px] text-slate-400">
-              {(documents ?? []).length} {(documents ?? []).length === 1 ? 'document' : 'documents'} · used in interview prep
+            <div>
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                Documents
+              </span>
+              <p className="text-[12px] text-slate-400 mt-0.5">Job descriptions produce the most targeted prep briefs.</p>
+            </div>
+            <span className="text-[12px] text-slate-400 shrink-0">
+              {(documents ?? []).length} {(documents ?? []).length === 1 ? 'document' : 'documents'}
             </span>
           </div>
 
@@ -609,7 +630,9 @@ export default async function CompanyPage({
 
           {!latestScan ? (
             <div className="px-6 py-10 text-center text-[14px] text-slate-400">
-              No scans yet.{company.career_page_url ? ' Results will appear after the next scheduled scan.' : ' Add a career page URL above to enable scanning.'}
+              {company.career_page_url
+                ? <>Results will appear after the next scheduled scan &mdash; <span className="font-medium">{getNextScanDate()}</span>.</>
+                : 'Add a career page URL above to enable scanning.'}
             </div>
           ) : latestScan.status === 'blocked' ? (
             <div className="px-6 py-6">
@@ -642,7 +665,7 @@ export default async function CompanyPage({
             <div>
               {/* Latest scan summary */}
               <div className="px-6 py-5 border-b border-slate-50">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-3 flex-wrap">
                   {latestScan.ai_score >= 60 ? (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
@@ -654,6 +677,7 @@ export default async function CompanyPage({
                       No matches
                     </span>
                   )}
+                  <span className="text-[11px] text-slate-300">60+ = strong match</span>
                 </div>
                 {latestScan.ai_summary && (
                   <p className="text-[13px] text-slate-500">{latestScan.ai_summary}</p>
@@ -684,17 +708,22 @@ export default async function CompanyPage({
 
               {/* Scan history */}
               {scanHistory.length > 0 && (
-                <div className="px-6 py-4 border-t border-slate-50 flex items-center gap-2">
+                <div className="px-6 py-4 border-t border-slate-50 flex items-center gap-2 flex-wrap">
                   <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mr-1">
                     History
                   </span>
-                  {scanHistory.map(s => (
-                    <span
-                      key={s.id}
-                      title={new Date(s.scanned_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      className={`w-2 h-2 rounded-full inline-block ${s.ai_score >= 60 ? 'bg-emerald-400' : s.status === 'error' ? 'bg-red-300' : 'bg-slate-200'}`}
-                    />
-                  ))}
+                  {scanHistory.map(s => {
+                    const dateStr = new Date(s.scanned_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    const scoreStr = s.status === 'error' ? 'Error' : s.ai_score >= 60 ? `Score: ${s.ai_score}` : 'No match'
+                    return (
+                      <span
+                        key={s.id}
+                        title={`${dateStr} · ${scoreStr}`}
+                        className={`w-2.5 h-2.5 rounded-full inline-block cursor-help ${s.ai_score >= 60 ? 'bg-emerald-400' : s.status === 'error' ? 'bg-red-300' : 'bg-slate-200'}`}
+                      />
+                    )
+                  })}
+                  <span className="text-[10px] text-slate-300 ml-1">hover for date &amp; score</span>
                 </div>
               )}
             </div>

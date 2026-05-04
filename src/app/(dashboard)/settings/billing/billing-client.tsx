@@ -158,6 +158,12 @@ export function BillingClient({ sub, hasStripeCustomer }: { sub: UserSubscriptio
               )}
             </div>
           </div>
+          {sub.isPaid && !sub.isPaused && hasStripeCustomer && (
+            <p className="mt-3 text-[12px] text-slate-400">
+              <strong className="font-semibold text-slate-500">Pause</strong> stops billing temporarily &mdash; your data and pipeline stay intact.{' '}
+              <strong className="font-semibold text-slate-500">Cancel</strong> (via Manage subscription) ends your subscription entirely.
+            </p>
+          )}
         </div>
 
         {/* Plans */}

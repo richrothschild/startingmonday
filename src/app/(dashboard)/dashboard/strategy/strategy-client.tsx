@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { BriefRating } from '@/components/BriefRating'
 
 function escapeHtml(str: string): string {
@@ -71,7 +71,9 @@ async function saveBrief(type: string, text: string, companyId?: string, contact
   }
 }
 
-export function StrategyClient({ missingFields }: { missingFields: string[] }) {
+type MissingField = { label: string; anchor: string }
+
+export function StrategyClient({ missingFields }: { missingFields: MissingField[] }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -81,6 +83,7 @@ export function StrategyClient({ missingFields }: { missingFields: string[] }) {
   const [answer, setAnswer] = useState('')
   const [answerLoading, setAnswerLoading] = useState(false)
   const [answerError, setAnswerError] = useState('')
+  const questionRef = useRef<HTMLInputElement>(null)
 
   async function handleGenerate() {
     setLoading(true)
@@ -184,16 +187,18 @@ export function StrategyClient({ missingFields }: { missingFields: string[] }) {
             <p className="font-semibold mb-2">Your brief will be generic without these fields:</p>
             <ul className="mb-2 space-y-0.5">
               {missingFields.map(f => (
-                <li key={f} className="flex items-center gap-2">
+                <li key={f.anchor} className="flex items-center gap-2">
                   <span className="text-amber-400">–</span>
-                  {f}
+                  <Link
+                    href={`/dashboard/profile#${f.anchor}`}
+                    className="underline hover:text-amber-900"
+                  >
+                    {f.label}
+                  </Link>
                 </li>
               ))}
             </ul>
-            <Link href="/dashboard/profile" className="font-semibold underline">
-              Complete your profile
-            </Link>
-            {' '}first for a sharper result. You can generate now and improve it after.
+            <span className="text-amber-700">Add them first for a sharper result. You can generate now and improve it after.</span>
           </div>
         )}
 
@@ -238,12 +243,29 @@ export function StrategyClient({ missingFields }: { missingFields: string[] }) {
 
         {brief && !loading && (
           <div className="mt-6">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {[
+                'Which target companies should I prioritize first?',
+                'How should I handle gaps in my background?',
+                'Draft a 30-second elevator pitch for my search',
+              ].map(chip => (
+                <button
+                  key={chip}
+                  type="button"
+                  onClick={() => { setQuestion(chip); questionRef.current?.focus() }}
+                  className="text-[12px] text-slate-500 border border-slate-200 rounded-full px-3 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors"
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
             <form onSubmit={handleFollowup} className="flex gap-3">
               <input
+                ref={questionRef}
                 type="text"
                 value={question}
                 onChange={e => setQuestion(e.target.value)}
-                placeholder="Ask a follow-up question about your strategy..."
+                placeholder="Ask a follow-up question about your strategy…"
                 disabled={answerLoading}
                 className="flex-1 border border-slate-200 rounded px-4 py-2.5 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:opacity-50"
               />
