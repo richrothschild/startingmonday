@@ -304,15 +304,14 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
         </div>
       )}
 
-      {/* Streaming raw output before parse */}
-      {(output || streaming) && !done && (
-        <div className="bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Tailoring</span>
-            {streaming && <span className="text-[11px] text-slate-400 animate-pulse">Working...</span>}
-          </div>
-          <div className="px-6 py-6">
-            <pre className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap font-sans">{cleanResume(output)}</pre>
+      {/* Loading state while streaming */}
+      {streaming && !done && (
+        <div className="bg-white border border-slate-200 rounded p-8">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+            <span className="text-[13px] text-slate-400 ml-1">Tailoring your resume...</span>
           </div>
         </div>
       )}
