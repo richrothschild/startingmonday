@@ -15,7 +15,29 @@ type InitialProfile = {
   current_company?: string | null
 }
 
-export function OnboardingForm({ profile }: { profile: InitialProfile | null }) {
+type ImportResult = {
+  full_name?: string | null
+  current_title?: string | null
+  current_company?: string | null
+  positioning_summary?: string | null
+  resume_text?: string | null
+  beyond_resume?: string | null
+  target_titles?: string | null
+}
+
+function importSummary(data: ImportResult): string[] {
+  const filled: string[] = []
+  if (data.full_name)           filled.push('Name')
+  if (data.current_title)       filled.push('Title')
+  if (data.current_company)     filled.push('Company')
+  if (data.positioning_summary) filled.push('Positioning summary')
+  if (data.resume_text)         filled.push('Career history')
+  if (data.beyond_resume)       filled.push('Beyond resume')
+  if (data.target_titles)       filled.push('Target titles')
+  return filled
+}
+
+export function OnboardingForm({ profile, errorMessage }: { profile: InitialProfile | null; errorMessage?: string | null }) {
   const [fullName, setFullName]                 = useState(profile?.full_name ?? '')
   const [currentTitle, setCurrentTitle]         = useState(profile?.current_title ?? '')
   const [currentCompany, setCurrentCompany]     = useState(profile?.current_company ?? '')
@@ -28,6 +50,8 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   const [importing, setImporting]   = useState(false)
   const [importError, setImportError] = useState('')
   const [importDone, setImportDone] = useState(false)
+  const [importedFields, setImportedFields] = useState<string[]>([])
+  const [importThin, setImportThin] = useState(false)
 
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
   const [extracting, setExtracting] = useState(false)
@@ -36,6 +60,19 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   const [uploadingResume, setUploadingResume] = useState(false)
   const [resumeUploadDone, setResumeUploadDone] = useState(false)
   const [resumeUploadError, setResumeUploadError] = useState('')
+
+  function applyImport(data: ImportResult, inputLength: number) {
+    if (data.full_name)            setFullName(data.full_name)
+    if (data.current_title)        setCurrentTitle(data.current_title)
+    if (data.current_company)      setCurrentCompany(data.current_company)
+    if (data.positioning_summary)  setPositioningSummary(data.positioning_summary)
+    if (data.resume_text)          setResumeText(data.resume_text)
+    if (data.beyond_resume)        setBeyondResume(data.beyond_resume)
+    if (data.target_titles)        setTargetTitles(data.target_titles)
+    setImportedFields(importSummary(data))
+    setImportThin(inputLength > 500 && (data.resume_text?.length ?? 0) < 300)
+    setImportDone(true)
+  }
 
   async function handleImport() {
     if (!pasteText.trim() || importing) return
@@ -53,14 +90,7 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
         setImportError(data.error ?? 'Import failed. Please try again.')
         return
       }
-      if (data.full_name)            setFullName(data.full_name)
-      if (data.current_title)        setCurrentTitle(data.current_title)
-      if (data.current_company)      setCurrentCompany(data.current_company)
-      if (data.positioning_summary)  setPositioningSummary(data.positioning_summary)
-      if (data.resume_text)          setResumeText(data.resume_text)
-      if (data.beyond_resume)        setBeyondResume(data.beyond_resume)
-      if (data.target_titles)        setTargetTitles(data.target_titles)
-      setImportDone(true)
+      applyImport(data, pasteText.length)
       setPasteText('')
     } catch {
       setImportError('Import failed. Please try again.')
@@ -89,14 +119,7 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
       })
       const importData = await importRes.json()
       if (!importRes.ok) { setImportError(importData.error ?? 'Import failed. Please try again.'); return }
-      if (importData.full_name)           setFullName(importData.full_name)
-      if (importData.current_title)       setCurrentTitle(importData.current_title)
-      if (importData.current_company)     setCurrentCompany(importData.current_company)
-      if (importData.positioning_summary) setPositioningSummary(importData.positioning_summary)
-      if (importData.resume_text)         setResumeText(importData.resume_text)
-      if (importData.beyond_resume)       setBeyondResume(importData.beyond_resume)
-      if (importData.target_titles)       setTargetTitles(importData.target_titles)
-      setImportDone(true)
+      applyImport(importData, 2000)
     } catch {
       setImportError('Something went wrong. Try pasting your profile text instead.')
     } finally {
@@ -131,6 +154,12 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
   return (
     <form action={completeOnboarding} className="flex flex-col gap-6">
 
+      {errorMessage && (
+        <div className="px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+          {errorMessage}
+        </div>
+      )}
+
       {/* Section map */}
       <div className="flex items-center gap-0 text-[11px] font-semibold text-slate-400 overflow-x-auto pb-1">
         {SECTIONS.map((s, i) => (
@@ -153,8 +182,14 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
         </div>
 
         {importDone && (
-          <div className="px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
-            Profile imported. Review the fields below and edit anything before clicking Complete setup.
+          <div className="px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700 flex flex-col gap-1.5">
+            <p className="font-semibold">Profile imported — review and edit before saving.</p>
+            {importedFields.length > 0 && (
+              <p className="text-green-600">Filled in: {importedFields.join(', ')}.</p>
+            )}
+            {importThin && (
+              <p className="text-amber-700 font-medium mt-1">Career history extracted was short. Paste your full profile text or upload your resume in the Background section below for sharper prep briefs.</p>
+            )}
           </div>
         )}
 
@@ -467,7 +502,7 @@ export function OnboardingForm({ profile }: { profile: InitialProfile | null }) 
           formAction={skipOnboarding}
           className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
         >
-          Skip for now
+          Skip for now (AI features will be generic until you complete this)
         </button>
       </div>
 

@@ -2,7 +2,12 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingForm } from './onboarding-form'
 
-export default async function OnboardingPage() {
+export default async function OnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const { error } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -14,6 +19,10 @@ export default async function OnboardingPage() {
     .single()
 
   if (profile?.onboarding_completed_at) redirect('/dashboard')
+
+  const errorMessage = error === 'resume_too_long'
+    ? 'Your resume text is too long (100,000 character limit). Trim it down and try again.'
+    : null
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -35,7 +44,7 @@ export default async function OnboardingPage() {
           </p>
         </div>
 
-        <OnboardingForm profile={profile} />
+        <OnboardingForm profile={profile} errorMessage={errorMessage} />
 
       </main>
     </div>
