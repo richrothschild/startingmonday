@@ -8,8 +8,8 @@ export const metadata = {
 const SITUATIONS = [
   {
     id: 'urgent',
-    headline: 'I just got the call.',
-    sub: 'High urgency. I need a system now.',
+    headline: 'My role was eliminated.',
+    sub: 'I need to land well. Quickly.',
   },
   {
     id: 'executive',
@@ -18,7 +18,7 @@ const SITUATIONS = [
   },
   {
     id: 'level-up',
-    headline: "I'm ready for VP or C-suite.",
+    headline: "I've earned the next level.",
     sub: 'First senior search. I need the playbook.',
   },
   {
@@ -28,8 +28,8 @@ const SITUATIONS = [
   },
   {
     id: 'pivot',
-    headline: "I'm changing direction entirely.",
-    sub: 'My background is strong. The title is different.',
+    headline: "I've outgrown my lane.",
+    sub: 'Same caliber. Different stage.',
   },
   {
     id: 'returning',
@@ -148,7 +148,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed">
             Not a job board. Not a $15,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">A system that runs your search like a professional operation.</span>
+            <span className="text-slate-900 font-semibold">A system built for this.</span>
           </p>
         </div>
       </section>
