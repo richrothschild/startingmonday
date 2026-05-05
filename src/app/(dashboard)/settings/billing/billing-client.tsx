@@ -2,12 +2,21 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import type { UserSubscription } from '@/lib/subscription'
-import { PLANS } from '@/lib/plans'
+import { PLANS, WAITLIST_PLANS } from '@/lib/plans'
 import type { BillingInterval } from '@/lib/plans'
 
 function fmtDate(d: Date | null) {
   if (!d) return null
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
+
+const PLAN_LABEL_MAP: Record<string, string> = {
+  free:      'Free trial',
+  passive:   'Passive',
+  monitor:   'Passive',
+  active:    'Active',
+  executive: 'Executive',
+  campaign:  'Campaign',
 }
 
 export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName }: {
@@ -20,13 +29,13 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   const [interval, setInterval] = useState<BillingInterval>('monthly')
   const [portalError, setPortalError] = useState('')
 
-  async function handleCheckout(plan: 'monitor' | 'active') {
+  async function handleCheckout(plan: 'passive' | 'active') {
     setLoading(plan)
     try {
       const res = await fetch('/api/billing/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, interval }),
+        body: JSON.stringify({ plan: plan === 'passive' ? 'monitor' : plan, interval }),
       })
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
       if (data.error) { alert(data.error); return }
@@ -82,14 +91,17 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
     }
   }
 
+  async function handleWaitlist(plan: string) {
+    window.location.href = `mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`
+  }
+
   const trialDaysLeft = sub.trialEndsAt
     ? Math.max(0, Math.ceil((sub.trialEndsAt.getTime() - Date.now()) / 86_400_000))
     : null
 
   const planLabel = sub.isPaused ? 'Paused'
     : sub.status === 'canceled' ? 'Canceled'
-    : sub.tier === 'free' ? 'Free trial'
-    : sub.tier
+    : PLAN_LABEL_MAP[sub.tier] ?? sub.tier
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -121,7 +133,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 
           {sub.status === 'trialing' && trialDaysLeft != null && (
             <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800">
-              You are in your free trial — <strong>{trialDaysLeft} day{trialDaysLeft !== 1 ? 's' : ''} remaining</strong>. Subscribe below to keep access after the trial ends.
+              You are in your free trial &mdash; <strong>{trialDaysLeft} day{trialDaysLeft !== 1 ? 's' : ''} remaining</strong>. Subscribe below to keep access after the trial ends.
             </div>
           )}
           {sub.isPaused && (
@@ -220,13 +232,15 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {(Object.entries(PLANS) as [string, typeof PLANS[keyof typeof PLANS]][]).map(([key, plan]) => {
+            {/* Subscribable plans */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {(Object.entries(PLANS) as [keyof typeof PLANS, typeof PLANS[keyof typeof PLANS]][]).map(([key, plan]) => {
                 const amount = interval === 'quarterly' ? plan.quarterlyAmount : plan.amount
                 const monthlyEquiv = interval === 'quarterly' ? Math.round(plan.quarterlyAmount / 3) : null
+                const isActive = key === 'active'
                 return (
-                  <div key={key} className={`bg-white border rounded p-6 ${key === 'active' ? 'border-slate-900' : 'border-slate-200'}`}>
-                    {key === 'active' && (
+                  <div key={key} className={`bg-white border rounded p-6 ${isActive ? 'border-slate-900' : 'border-slate-200'}`}>
+                    {isActive && (
                       <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-900 mb-3">Most popular</p>
                     )}
                     <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
@@ -239,18 +253,56 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                     {monthlyEquiv && (
                       <p className="text-[12px] text-slate-400 mt-0.5">${(monthlyEquiv / 100).toFixed(0)}/mo equivalent</p>
                     )}
-                    <p className="text-[13px] text-slate-500 mt-2 mb-5 leading-relaxed">{plan.description}</p>
+                    <p className="text-[13px] text-slate-500 mt-2 mb-4 leading-relaxed">{plan.description}</p>
+                    <ul className="mb-5 flex flex-col gap-1.5">
+                      {plan.features.map(f => (
+                        <li key={f} className="flex items-start gap-2 text-[13px] text-slate-600">
+                          <span className="text-slate-400 shrink-0 mt-0.5">+</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
                     <button
                       type="button"
-                      onClick={() => handleCheckout(key as 'monitor' | 'active')}
+                      onClick={() => handleCheckout(key)}
                       disabled={loading === key}
-                      className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${key === 'active' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
+                      className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${isActive ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
                     >
                       {loading === key ? 'Redirecting…' : `Subscribe to ${plan.name}`}
                     </button>
                   </div>
                 )
               })}
+            </div>
+
+            {/* Waitlist plans */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(Object.entries(WAITLIST_PLANS) as [string, typeof WAITLIST_PLANS[keyof typeof WAITLIST_PLANS]][]).map(([key, plan]) => (
+                <div key={key} className="bg-white border border-slate-200 rounded p-6 opacity-80">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Coming soon</p>
+                  <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
+                  <p className="text-[28px] font-bold text-slate-900 mt-1">
+                    ${(plan.amount / 100).toFixed(0)}
+                    <span className="text-[14px] font-normal text-slate-500">/mo</span>
+                  </p>
+                  <p className="text-[13px] text-slate-500 mt-2 mb-4 leading-relaxed">{plan.description}</p>
+                  <ul className="mb-5 flex flex-col gap-1.5">
+                    {plan.features.map(f => (
+                      <li key={f} className="flex items-start gap-2 text-[13px] text-slate-600">
+                        <span className="text-slate-400 shrink-0 mt-0.5">+</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    type="button"
+                    onClick={() => handleWaitlist(plan.name)}
+                    className="w-full py-2.5 rounded text-[13px] font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 cursor-pointer"
+                  >
+                    {plan.cta}
+                  </button>
+                </div>
+              ))}
             </div>
           </>
         )}

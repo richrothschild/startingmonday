@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 
 export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
-export type SubscriptionTier = 'free' | 'monitor' | 'active'
+export type SubscriptionTier = 'free' | 'passive' | 'active' | 'executive' | 'campaign'
 
 export interface UserSubscription {
   tier: SubscriptionTier
@@ -14,15 +14,15 @@ export interface UserSubscription {
 }
 
 const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
-  pipeline:         ['free', 'monitor', 'active'],
-  contacts:         ['free', 'monitor', 'active'],
-  scan:             ['monitor', 'active'],
-  ai_chat:          ['active'],
-  prep_brief:       ['active'],
-  strategy_brief:   ['active'],
-  outreach_draft:   ['active'],
-  daily_briefing:   ['active'],
-  resume_tailor:    ['active'],
+  pipeline:         ['free', 'passive', 'active', 'executive', 'campaign'],
+  contacts:         ['free', 'passive', 'active', 'executive', 'campaign'],
+  scan:             ['passive', 'active', 'executive', 'campaign'],
+  ai_chat:          ['active', 'executive', 'campaign'],
+  prep_brief:       ['active', 'executive', 'campaign'],
+  strategy_brief:   ['active', 'executive', 'campaign'],
+  outreach_draft:   ['active', 'executive', 'campaign'],
+  daily_briefing:   ['active', 'executive', 'campaign'],
+  resume_tailor:    ['active', 'executive', 'campaign'],
 }
 
 export async function getUserSubscription(userId: string): Promise<UserSubscription> {
@@ -33,7 +33,8 @@ export async function getUserSubscription(userId: string): Promise<UserSubscript
     .eq('id', userId)
     .single()
 
-  const tier = (data?.subscription_tier ?? 'free') as SubscriptionTier
+  const rawTier = data?.subscription_tier ?? 'free'
+  const tier = (rawTier === 'monitor' ? 'passive' : rawTier) as SubscriptionTier
   const status = (data?.subscription_status ?? 'inactive') as SubscriptionStatus
   const trialEndsAt = data?.trial_ends_at ? new Date(data.trial_ends_at) : null
   const periodEnd = data?.subscription_period_end ? new Date(data.subscription_period_end) : null
