@@ -187,7 +187,24 @@ The 4–5 questions this interviewer will almost certainly ask, derived from the
 2–3 specific observations or priorities to surface naturally in conversation, not as a formal plan, but as proof the candidate has already started thinking like an insider. Phrase each as something they'd actually say in the room, then note why it lands.
 
 ## What to Leave Out
-3–4 explicit topics, framings, or stories to avoid in this specific conversation, and why each would hurt them here. Be direct.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}
+3–4 explicit topics, framings, or stories to avoid in this specific conversation, and why each would hurt them here. Be direct.
+
+## How to Close
+What to do and say in the final 3–5 minutes of this specific conversation. Three elements, each ready to use verbatim or near-verbatim:
+
+**Express interest:** One or two sentences that state genuine interest in this role without hedging or desperation. Calibrate to who is in the room: the language a CEO uses closing with a board chair is different from what a VP uses closing with a recruiter.
+
+**Ask about process:** One sentence that asks about next steps as a peer, not an applicant. No anxiety. No "so what are my chances." Phrase it as someone who assumes they are a serious candidate.
+
+**Final impression:** The one thought to leave them with in the last 30 seconds. What to say, reference, or do so they are still thinking about this candidate after the call ends.
+
+## Reading the Room
+How to interpret the signals at the end of this specific conversation. Cover the 3–4 most likely signal patterns given this company, this role, and this candidate's situation. For each:
+**Signal:** [what they observe: specific language, behavior, or energy shift]
+**What it means:** [the real interpretation, one sentence, no hedging]
+**Your move:** [what to do within the next 24 hours in response]
+
+Include at least one strong positive signal and one soft negative signal. Be specific to this type of organization and seniority level, not generic interview advice.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}
 
 If the candidate's background is thin (no resume, no positioning), name what you cannot assess rather than generating generic advice. Tell them exactly what to provide for a sharper brief. Do not invent specifics or use vague generalities to cover missing data.
 
@@ -223,7 +240,7 @@ export async function GET(
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
-    3500,
+    4000,
     supabase,
     userId
   )
