@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
+import { markOfferAccepted, logEvent } from '@/lib/events'
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? '').trim()
@@ -38,6 +39,11 @@ export async function updateCompany(id: string, formData: FormData) {
 
   if (error?.code === '23505') redirect(`/dashboard/companies/${id}?error=duplicate`)
   if (error) throw error
+
+  if (stage === 'offer') {
+    await markOfferAccepted(user.id)
+    await logEvent(user.id, 'offer_accepted', { company_id: id })
+  }
 
   revalidatePath(`/dashboard/companies/${id}`)
   revalidatePath('/dashboard')

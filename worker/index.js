@@ -12,6 +12,8 @@ import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
 import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
 import { runSignalJob } from './jobs/signal-job.js'
+import { runOfferEmailJob } from './jobs/offer-email-job.js'
+import { runReactivationJob } from './jobs/reactivation-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -85,8 +87,14 @@ cron.schedule('0 9 * * *', () => runJob('usage-monitor-job', runUsageMonitorJob)
 // Trial reminders: daily at 10:00 UTC — sends T-3 and T-0 emails to trialing users
 cron.schedule('0 10 * * *', () => runJob('trial-reminder-job', runTrialReminderJob))
 
+// Offer email: daily at 11:00 UTC — sends within 24h of offer_accepted_at being set
+cron.schedule('0 11 * * *', () => runJob('offer-email-job', runOfferEmailJob))
+
+// Annual reactivation: daily at 11:30 UTC — fires on the one-year anniversary of offer acceptance
+cron.schedule('30 11 * * *', () => runJob('reactivation-job', runReactivationJob))
+
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job'],
+  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
