@@ -4,6 +4,7 @@ import { sendEmail } from '@/lib/email'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
+import { mapStripeStatus } from '@/lib/stripe-status'
 
 // current_period_end is present on Stripe.Subscription at runtime but not typed
 // in the SDK version pinned in this project.
@@ -68,13 +69,7 @@ export async function POST(request: NextRequest) {
       const sub = event.data.object as StripeSubWithPeriodEnd
       const userId = sub.metadata?.userId
       if (!userId) break
-      const paused = !!sub.pause_collection?.behavior
-      const status = paused ? 'paused'
-        : sub.status === 'active' ? 'active'
-        : sub.status === 'trialing' ? 'trialing'
-        : sub.status === 'past_due' ? 'past_due'
-        : sub.status === 'canceled' ? 'canceled'
-        : 'inactive'
+      const status = mapStripeStatus(sub.status, sub.pause_collection)
       const plan = (sub.metadata?.plan ?? 'free') as string
       const update: Record<string, string | null> = {
         subscription_tier: status === 'active' || status === 'trialing' ? plan : 'free',

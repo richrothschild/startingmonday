@@ -3,6 +3,7 @@ import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
+import { streamErrorMessage } from '@/lib/stream-error'
 
 export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'strategy_brief')
@@ -39,8 +40,7 @@ export async function POST(request: NextRequest) {
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Unknown error'
-        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
       }
     },

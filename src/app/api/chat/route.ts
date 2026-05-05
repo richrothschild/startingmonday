@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { todayInTz, fullDateInTz } from '@/lib/date'
 import { trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
+import { streamErrorMessage } from '@/lib/stream-error'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS } from '@/lib/anthropic'
 const MAX_TOOL_ROUNDS = 5
@@ -311,8 +312,7 @@ Other platform features you can point users to when relevant:
         controller.close()
         trackApiUsage(supabase, userId, totalTokens).catch(() => {})
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Unknown error'
-        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
       }
     },

@@ -4,8 +4,13 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { PREP_SYSTEM, personaContext } from '@/lib/prompts'
-import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
+import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
+import { streamErrorMessage } from '@/lib/stream-error'
+import {
+  buildScanSection, buildSignalSection, buildContactSection, buildDocSection,
+  type Signal, type ScanRow, type ContactRow, type DocRow,
+} from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
@@ -27,8 +32,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Unknown error'
-        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
       }
     },
@@ -79,54 +83,6 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .limit(5),
   ])
   return { company, profile, scanResults, contacts, documents, signals }
-}
-
-const DOC_LABEL_NAMES: Record<string, string> = {
-  job_description: 'Job Description',
-  news:            'News & Press',
-  annual_report:   'Annual Report',
-  org_notes:       'Org Notes',
-  other:           'Other',
-}
-
-type Signal = { signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string }
-type ScanRow = { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }
-type ContactRow = { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }
-type DocRow = { label: string; content: string }
-
-function buildScanSection(scanResults: ScanRow[] | null): string {
-  if (!scanResults?.[0]) return 'No career page scans on file.'
-  const scan = scanResults[0]
-  const matches = ((scan.raw_hits ?? []) as { title: string; score: number; is_match: boolean; summary: string }[]).filter(h => h.is_match)
-  const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
-  return matches.length > 0
-    ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
-    : `Career page scanned ${date}, no matching roles detected.`
-}
-
-function buildSignalSection(signals: Signal[] | null): string | null {
-  if (!(signals ?? []).length) return null
-  return (signals ?? []).map(s => {
-    const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-    return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}`
-  }).join('\n')
-}
-
-function buildContactSection(contacts: ContactRow[] | null): string {
-  if (!(contacts ?? []).length) return 'No contacts on file.'
-  return (contacts ?? []).map(c => {
-    const parts = [c.title, c.firm].filter(Boolean).join(' at ')
-    return `- ${c.name}${parts ? `, ${parts}` : ''}${c.channel ? ` (via ${c.channel})` : ''}${c.notes ? `: ${c.notes}` : ''}`
-  }).join('\n')
-}
-
-function buildDocSection(documents: DocRow[] | null): string | null {
-  if (!(documents ?? []).length) return null
-  return (documents ?? []).map(d => {
-    const labelName = DOC_LABEL_NAMES[d.label] ?? d.label
-    const content = d.content.length > DOC_CHARS ? d.content.slice(0, DOC_CHARS) + '\n[truncated]' : d.content
-    return `[${labelName}]\n${content}`
-  }).join('\n\n')
 }
 
 type ProfileRow = { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null }

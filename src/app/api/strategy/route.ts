@@ -5,6 +5,7 @@ import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
+import { streamErrorMessage } from '@/lib/stream-error'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
@@ -25,8 +26,7 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Unknown error'
-        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
       }
     },

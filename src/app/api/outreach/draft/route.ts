@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { OUTREACH_SYSTEM } from '@/lib/prompts'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { streamErrorMessage } from '@/lib/stream-error'
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
   concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
@@ -130,8 +131,7 @@ ${STYLE_GUIDELINES}`
           }
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Unknown error'
-        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.enqueue(encoder.encode(streamErrorMessage(err)))
       } finally {
         controller.close()
       }
