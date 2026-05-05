@@ -214,7 +214,7 @@ export default async function CompanyPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
           {/* Edit form */}
-          <div className="bg-white border border-slate-200 rounded p-8">
+          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8">
             <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Company details
             </div>

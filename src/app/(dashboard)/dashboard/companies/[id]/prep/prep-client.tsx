@@ -342,7 +342,7 @@ export function PrepClient({
         )}
 
         {!brief && !busy && !error && (
-          <div className="bg-white border border-slate-200 rounded p-10 text-center">
+          <div className="bg-white border border-slate-200 rounded p-8 sm:p-10 text-center">
             <p className="text-[14px] text-slate-400">
               Generates an elite brief using your pipeline data, company notes, scan results, and known contacts.
             </p>
@@ -350,7 +350,7 @@ export function PrepClient({
         )}
 
         {!brief && !busy && error && (
-          <div className="bg-white border border-slate-200 rounded p-10 text-center">
+          <div className="bg-white border border-slate-200 rounded p-8 sm:p-10 text-center">
             <p className="text-[14px] text-slate-400">
               Click Generate to try again.
             </p>
@@ -358,7 +358,7 @@ export function PrepClient({
         )}
 
         {busy && !brief && (
-          <div className="bg-white border border-slate-200 rounded p-8">
+          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
@@ -368,7 +368,7 @@ export function PrepClient({
         )}
 
         {brief && (
-          <div className="bg-white border border-slate-200 rounded p-8 mb-4">
+          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
             {renderBrief(brief)}
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />

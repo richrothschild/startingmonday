@@ -14,14 +14,14 @@ export default function BriefingLoading() {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Header skeleton */}
-        <div className="bg-slate-900 rounded-t px-8 py-7">
+        <div className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
           <div className="h-2 w-24 bg-slate-700 rounded animate-pulse mb-4" />
           <div className="h-7 w-52 bg-slate-700 rounded animate-pulse mb-3" />
           <div className="h-3 w-36 bg-slate-700 rounded animate-pulse" />
         </div>
 
         {/* Stats bar skeleton */}
-        <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
+        <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
           {[1, 2, 3, 4].map(i => (
             <div key={i} className="py-4 px-3 text-center">
               <div className="h-6 w-8 bg-slate-200 rounded animate-pulse mx-auto mb-2" />
@@ -31,7 +31,7 @@ export default function BriefingLoading() {
         </div>
 
         {/* Body skeleton */}
-        <div className="bg-white border border-slate-200 border-t-0 rounded-b px-8 py-8">
+        <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
 
           {/* Generating message */}
           <div className="flex items-center gap-3 mb-8">

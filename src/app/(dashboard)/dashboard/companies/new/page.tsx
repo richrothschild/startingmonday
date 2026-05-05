@@ -30,7 +30,7 @@ export default async function AddCompanyPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             Starting Monday
           </span>
@@ -43,14 +43,14 @@ export default async function AddCompanyPage({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Add company</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Add a company to your pipeline to track and monitor.</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-8 max-w-xl">
+        <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 max-w-xl">
 
           {errorMsg && (
             <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
@@ -75,7 +75,7 @@ export default async function AddCompanyPage({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Stage

@@ -122,7 +122,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Subscriber summary */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
             { label: 'Total users',   value: totalUsers    ?? 0 },
             { label: 'Active (paid)', value: paidUsers     ?? 0 },

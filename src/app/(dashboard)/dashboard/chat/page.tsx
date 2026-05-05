@@ -191,7 +191,7 @@ export default function ChatPage() {
       )}
 
       <header className="bg-slate-900 shrink-0">
-        <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             Starting Monday
           </span>
@@ -220,13 +220,13 @@ export default function ChatPage() {
 
       <div className="flex-1 overflow-y-auto">
         {loadingHistory ? (
-          <div className="max-w-3xl mx-auto px-6 py-20 flex items-center gap-2 text-slate-300">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 flex items-center gap-2 text-slate-300">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block" />
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:150ms]" />
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:300ms]" />
           </div>
         ) : messages.length === 0 ? (
-          <div className="max-w-3xl mx-auto px-6 py-20">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
             <p className="text-[22px] font-bold text-slate-900 mb-2">
               What would you like to work on?
             </p>
@@ -267,7 +267,7 @@ export default function ChatPage() {
             </div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto px-6 py-8 flex flex-col gap-6">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -298,7 +298,7 @@ export default function ChatPage() {
       </div>
 
       <div className="shrink-0 border-t border-slate-200 bg-white px-6 py-4">
-        <div className="max-w-3xl mx-auto flex gap-3 items-end">
+        <div className="max-w-3xl mx-auto px-4 sm:px-0 flex gap-3 items-end">
           <textarea
             ref={textareaRef}
             value={input}
