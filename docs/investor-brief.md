@@ -1,134 +1,118 @@
 # Starting Monday — Investor Brief
 
-**Confidential** | May 2026
+Confidential | May 2026
 
 ---
 
-## The Opportunity in One Paragraph
+## The Opportunity
 
-Every year, approximately 500,000–800,000 VP and C-suite professionals transition roles in the United States. The tools available to them — job boards, outplacement firms, spreadsheets, and LinkedIn — have not meaningfully changed in 30 years. The most important roles at this level are filled before they are posted, through relationships and reputation, by the candidate who is most prepared and most current. Starting Monday is the platform built to make that candidate. It is the first purpose-built search operating system for senior executives — not a job board, not a resume tool, not career coaching — and it is built by someone who has been through exactly the search it is designed to support.
+Five hundred thousand senior executives change roles in the United States every year. For thirty years, they have done it with the same tools: job boards that index roles after they are filled, outplacement firms that charge fifty thousand dollars for a brief that takes six weeks to produce, spreadsheets that collapse by week five, and LinkedIn. Starting Monday is the first platform built specifically for this search, by someone running one.
 
 ---
 
 ## The Problem
 
-Executive search at the VP and C-suite level is broken in three specific ways:
+The best roles at the VP and C-suite level are filled before they are posted. The candidate who knows that a funding round just closed, that a CIO just departed, that a new transformation initiative was just authorized, gets the first call. The one who finds out when the role appears on LinkedIn does not. There is no consumer tool that monitors a candidate's specific target organizations for these signals. That is the first problem.
 
-**1. Information asymmetry**: The best roles are filled before they appear on LinkedIn. The candidate who knows that a company is about to have a need — because a funding round just closed, because a CIO just departed, because a new transformation initiative was just authorized — is the candidate who gets the first call. There is no consumer tool that monitors a candidate's specific target organizations for these signals.
+The second is preparation. Producing a high-quality brief for a single company conversation requires cross-referencing company strategy, recent leadership changes, financial position, the job description, and the candidate's specific career record. It takes four to five hours. An executive managing twenty target companies cannot sustain this manually and still run the rest of the search.
 
-**2. Preparation gap**: Interview prep at this level requires cross-referencing company strategy, recent leadership changes, financial position, the job description, and the candidate's specific record. Producing a high-quality brief takes 3–5 hours per company. An executive managing 20 target companies cannot sustain this manually.
-
-**3. Campaign collapse**: The search process — tracking companies, managing relationships, maintaining follow-up cadence — requires operational discipline that most executives apply to their work but struggle to apply to their own search. The spreadsheet approach fails within 6 weeks for the majority of candidates.
+The third problem is that most executive candidates build a disciplined process and abandon it by week six. The tracking falls behind. The follow-up does not go out. The contact goes cold. The spreadsheet approach has a known failure rate and no one has fixed it, because no one has built for this user.
 
 ---
 
 ## The Solution
 
-Starting Monday is a campaign management platform for executive search. It runs three functions:
+Starting Monday is a campaign management platform for executive search. It watches, prepares, and manages.
 
-**Watch**: Automated monitoring of career pages (3x/week, before roles go public) and company intelligence signals (funding, exec hires/departures, acquisitions, expansions). Users are alerted before the broader market knows.
+It watches by scanning career pages at up to twenty-five target companies three times a week, before roles appear publicly, and by monitoring company intelligence signals — funding rounds, executive hires and departures, acquisitions, expansions — the moment they are detectable. Users learn before the broader market does.
 
-**Prepare**: A 60-second prep brief generated from the intersection of the company's current data and the candidate's actual record. Not a generic summary — a brief specific to this person at this company at this moment.
+It prepares by generating a sixty-second brief built from the intersection of the company's current data and the candidate's actual record. Not a generic company summary. A brief specific to this person at this company at this moment, drawing on scan results, recent signals, attached documents, and the candidate's resume.
 
-**Manage**: Pipeline tracking, contact management, follow-up reminders, daily briefing, and an AI advisor with full context that can take operational actions directly in conversation.
+It manages by tracking pipeline by stage, logging contacts and conversations, surfacing overdue follow-ups, delivering a daily morning briefing, and providing an AI advisor with full context that can take operational actions directly in conversation.
 
 ---
 
 ## Traction
 
-- Product in production at startingmonday.app
-- 30-day free trial, no credit card; first alpha users onboarded
-- Two tier pricing live: Passive ($49/month), Active ($199/month)
-- Executive ($499) and Campaign ($999) tiers in waitlist with self-identified paying interest
-- Infrastructure: Railway + Supabase + Anthropic, monitoring live (UptimeRobot + Sentry), 44-test automated suite
-- Pending: Wake Forest and Stanford alumni career office introductions; Manager Tools (Mark Horstman) partnership conversation in development
+The product is in production at startingmonday.app. Two pricing tiers are live: Passive at $49 per month and Active at $199. The first alpha users are onboarded on a 30-day free trial with no credit card required. Executive at $499 and Campaign at $999 are in waitlist with self-identified paying interest. The infrastructure stack is Railway, Supabase, and Anthropic, with monitoring live via UptimeRobot and Sentry and a 44-test automated suite in place. Introductions to Wake Forest and Stanford alumni career offices are pending. A partnership conversation with Mark Horstman at Manager Tools, whose audience is the exact target user, is in development.
 
 ---
 
 ## Market Size
 
-**TAM**: VP+ professionals who transition roles annually in the US. ~500K–800K transitions/year. At $199/month average revenue and 8-month average search duration, each candidate represents ~$1,600 LTV. TAM value: $800M–$1.3B annually.
+Approximately 500,000 to 800,000 VP and above professionals transition roles annually in the United States. At $199 per month and an eight-month average search duration, each candidate represents roughly $1,600 in lifetime value. The total addressable market runs to $800 million to $1.3 billion annually in subscription revenue alone.
 
-**SAM**: The 15–20% of VP+ candidates who (a) are in active or latent search and (b) are willing to invest in their own infrastructure. ~75K–160K candidates. SAM value: $120M–$260M.
-
-**SOM (3-year target)**: 5,000 subscribers at $200/month average = $12M ARR. A 3–7% SAM penetration rate. Achievable through referral and institutional channel development.
+The serviceable addressable market is the 15 to 20 percent of those candidates who are in active or latent search and willing to invest in their own search infrastructure: 75,000 to 160,000 candidates, representing $120 to $260 million annually. The three-year target is 5,000 subscribers at $200 per month average, producing $12 million in ARR. That is 3 to 7 percent SAM penetration, achievable through referral and institutional channel development before any significant paid acquisition.
 
 ---
 
 ## Business Model
 
-**Direct subscription (consumer)**:
-- Passive: $49/month ($132/quarter)
-- Active: $199/month ($537/quarter)
-- Executive: $499/month (waitlist)
-- Campaign: $999/month, 3-month minimum (waitlist)
+Consumer subscriptions are the primary revenue stream, with an institutional channel in development.
 
-**Institutional (B2B)**:
-- Outplacement integration: $35–45/seat/month at volume (10+ seats)
-- HR transition benefit: company-funded access for executives being transitioned
-- Recruiter tier: currently in design
+| Plan | Monthly | Quarterly | Status |
+| --- | --- | --- | --- |
+| Passive | $49 | $132 | Live |
+| Active | $199 | $537 | Live |
+| Executive | $499 | — | Waitlist |
+| Campaign | $999 | 3-month min. | Waitlist |
 
-**Unit economics** (at scale):
-- COGS per Active user: ~$8–12/month (Anthropic API + infrastructure)
-- Gross margin: ~85%
-- Target LTV (Active, 8-month avg search): $1,600
-- Target CAC (word-of-mouth / institutional channel): $150–400
-- LTV:CAC target: 5:1+
+The institutional channel adds outplacement firm integrations at $35 to $45 per seat per month at volume, company-funded transition benefits for executives being transitioned, and a recruiter-facing tier currently in design.
 
-**Trial economics**: 30-day full Active trial; target 30%+ conversion to paid. Marginal cost of a trial (Anthropic API usage for a user who generates 2–3 briefs): ~$5–15.
+Unit economics at scale: COGS per active user runs $8 to $12 per month, almost entirely Anthropic API usage. Gross margin is approximately 85 percent. Target lifetime value for an Active subscriber at eight months is $1,600. Target CAC through referral and institutional channels is $150 to $400, producing a 5:1 or better LTV-to-CAC ratio. The marginal cost of a 30-day trial, including the Anthropic usage for a user who generates two or three briefs, is $5 to $15.
 
 ---
 
 ## Competitive Landscape
 
-There is no direct comparable. Starting Monday is creating a category — "executive career platform" — that does not yet have a recognized leader.
+There is no direct comparable. Starting Monday is creating a category — executive career platform — that does not yet have a recognized leader.
 
-| Category | Why It Falls Short |
-|----------|-------------------|
-| Job boards (LinkedIn, Indeed) | Roles are already posted; wrong timing |
-| ATS / candidate tracking | Built for companies, not candidates |
-| Outplacement firms | Expensive ($10K–$50K), slow, generic |
-| Career coaches | Human, valuable, not scalable or continuous |
-| Resume tools (Teal, Jobscan) | Wrong level; volume-search oriented |
+| Category | Why it falls short |
+| --- | --- |
+| Job boards (LinkedIn, Indeed) | Roles are indexed after they are filled |
+| ATS tools | Built for companies, not candidates |
+| Outplacement firms | $10,000 to $50,000; slow and generic |
+| Career coaches | Human and valuable; not continuous or scalable |
+| Resume tools (Teal, Jobscan) | Volume search oriented; wrong level |
 | General AI (ChatGPT, Claude) | No context, no monitoring, no campaign infrastructure |
 
-The moat is not the AI (which any competitor could access) — it is the accumulated company intelligence, the user's career data gravity, and the founder's credibility with the target persona.
+The moat is not the AI, which any competitor could access. It is the accumulated company intelligence, the candidate's career data that grows richer the longer they are on the platform, and the founder's credibility with the target persona.
 
 ---
 
 ## Why Starting Monday Wins
 
-**1. Built by the user.** The founder is an active Transformation CIO in search. Every product decision is made by the target customer. This eliminates the feature-market mismatch that kills most B2C products aimed at executives.
+The founder is the target user. Every product decision is made by someone running exactly the search the platform is designed to support. This eliminates the feature-market mismatch that kills most products aimed at executives, where the builder has never done the thing they are building for.
 
-**2. Intelligence advantage.** Monitoring 25+ target companies' career pages before roles are posted is a unique capability. The candidate who arrives first at the right opportunity wins. No consumer tool delivers this.
+The intelligence advantage is real and defensible. No consumer tool monitors a specific candidate's target company list, at career-page depth, three times a week, before roles are posted. The candidate who arrives first has an advantage that compounds: earlier conversations, earlier positioning, more time to build the relationship before anyone else knows the role exists.
 
-**3. Data gravity.** The longer a user is on the platform, the more valuable it becomes — more company intelligence, richer contact history, a growing accomplishment repository that feeds every brief. Leaving means losing years of curated professional memory.
+Data gravity grows with tenure. The longer a user is on the platform, the more valuable their Starting Monday data becomes — company intelligence accumulated over months, a contact history that reflects a full campaign, an accomplishment repository that makes every brief more accurate. Leaving means losing something that cannot be reconstructed quickly elsewhere.
 
-**4. Network dynamics.** The referral path is unusually high-quality. A CIO who gets an offer and tells three peers about Starting Monday generates three highly motivated, self-qualified leads with zero marketing spend. The endorsement carries the weight of a peer recommendation in a tight professional network.
+The referral path is unusually high quality. A CIO who accepts an offer and tells three peers about Starting Monday generates three self-qualified, high-motivation leads with zero marketing spend. A peer recommendation in a tight professional network converts at rates that paid acquisition cannot approach.
 
-**5. Institutional channel.** Outplacement firms and HR transition programs serve large cohorts of exactly the right users at exactly the right moment. A single partnership with a mid-size outplacement firm delivers 50–100 seats/year. The institutional channel requires almost no CAC per seat.
+The institutional channel is a pull, not a push. Outplacement firms serve large cohorts of exactly the right users at exactly the right moment of motivation. A single partnership with a mid-sized firm delivers 50 to 100 seats per year. That is customer acquisition at near-zero marginal cost.
 
 ---
 
 ## Risks
 
 | Risk | Assessment | Mitigation |
-|------|-----------|-----------|
-| Slow trial conversion | Medium probability, high impact | Improve onboarding to prep brief in <15 min |
-| Anthropic API cost at scale | Low probability | Token budgets in code; model selection per task |
-| Competitor entry | Medium probability, medium impact | Moat is data + founder credibility, not technology |
-| Search market softness | Low probability | Passive tier creates counter-cyclical demand |
-| Churn at offer | Structural, medium impact | Alumni mode retains users between search cycles |
+| --- | --- | --- |
+| Slow trial-to-paid conversion | Medium probability, high impact | Onboarding improved to reach first brief in under 15 minutes |
+| Anthropic API cost increases | Low probability | Token budgets enforced in code; model selection tuned per task |
+| Competitor entry | Medium probability, medium impact | Moat is data and founder credibility, not technology |
+| Executive search market softens | Low probability | Passive tier creates counter-cyclical demand |
+| Churn at offer | Structural | Alumni mode designed to retain users between search cycles |
 
 ---
 
 ## The Ask
 
-**Not currently raising.** The business is capital-efficient — primary costs are API usage (variable) and Railway hosting (minimal). The current phase is customer development and institutional channel development, not paid acquisition.
+Starting Monday is not currently raising. The business is capital-efficient: primary costs are API usage, which scales with revenue, and Railway hosting, which is minimal. The current phase is customer development and institutional channel development, not paid acquisition.
 
-**When we raise**: We will raise to accelerate institutional channel development (outplacement integrations, which require enterprise sales and legal work) and to hire a customer success function (the highest-leverage hire for a product where user success = referral = growth). A seed round of $750K–$1.5M would fund 18–24 months of focused execution.
+When we raise, it will be to accelerate two things. First, institutional channel development — outplacement integrations require enterprise sales and legal work that cannot be bootstrapped indefinitely. Second, the first customer success hire, which is the highest-leverage position in a product where user success is the referral engine.
 
-**What we are looking for**: Patient capital with relevant network. An investor with relationships in executive outplacement, talent management, or professional services acceleration is more valuable than a check alone. An introduction to the CHRO of a Fortune 500 that runs an outplacement program is worth 6 months of cold outreach.
+A seed round of $750,000 to $1.5 million funds 18 to 24 months of focused execution. What matters as much as the capital is the network. An investor with relationships in executive outplacement, talent management, or professional services acceleration is worth more than a check. A single introduction to a CHRO running an outplacement program is worth six months of cold outreach.
 
 ---
 
@@ -136,8 +120,8 @@ The moat is not the AI (which any competitor could access) — it is the accumul
 
 The founder is a Transformation CIO who built Starting Monday because it did not exist and he needed it. The product is not theoretical. It is being used to run the founder's own search, and every feature has been tested against the real experience of a real executive in a real search.
 
-That is not a marketing claim. It is the reason the product is specific where other tools are generic, operational where other tools are aspirational, and built for the search that cannot afford to miss.
+That is not a marketing claim. It is the reason the product is specific where other tools are generic, operational where others are aspirational, and built for the search that cannot afford to miss.
 
 ---
 
-**Confidential. For discussion purposes only.**
+Confidential. For discussion purposes only.

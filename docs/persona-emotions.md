@@ -1,14 +1,14 @@
-# Starting Monday — Persona Emotions & Search Journey
+# Starting Monday — Persona Emotions and Search Journey
 
-**The inner experience of the executive job search** | May 2026
+The inner experience of the executive job search | May 2026
 
 ---
 
 ## Framing
 
-The executive job search is one of the most psychologically demanding professional experiences. It combines loss (of role, identity, structure), uncertainty (outcome, timeline, market), and performance pressure (every conversation is an audition) — while requiring the candidate to appear confident, energized, and not desperate.
+The executive job search is one of the most psychologically demanding professional experiences. It combines loss — of role, identity, structure — with uncertainty about outcome, timeline, and market, and performance pressure in every conversation, while requiring the candidate to appear confident, energized, and not desperate.
 
-The tools that serve this search must understand not just what users need to do, but what they are feeling while they do it. Starting Monday is built for professionals who will not show vulnerability in professional settings — but who experience it privately. That tension is the context for everything.
+The tools that serve this search must understand not just what users need to do, but what they are feeling while they do it. Starting Monday is built for professionals who will not show vulnerability in professional settings but who experience it privately. That tension is the context for everything.
 
 What follows is an honest account of the emotional journey, persona by persona, so the product and its communications can meet users where they actually are.
 
@@ -16,198 +16,180 @@ What follows is an honest account of the emotional journey, persona by persona, 
 
 ## Persona 1: The Executive Who Was Let Go
 
-**Who they are**: A VP or C-suite executive whose role was eliminated — restructuring, acquisition, strategic shift, leadership change above them. This was not their choice. They had a good track record. The exit was not a performance failure, but it does not feel that way.
+A VP or C-suite executive whose role was eliminated: restructuring, acquisition, strategic shift, leadership change above them. This was not their choice. They had a good track record. The exit was not a performance failure, but it does not feel that way.
 
-### The Emotional Arc
+### Weeks One and Two: Shock and Adjustment
 
-**Week 1–2: Shock and Adjustment**
-The announcement was a surprise, or it wasn't — but the reality of it hits differently than expected. There is a strange freedom (no more Sunday dread) combined with a disorienting absence of structure. They spend the first week telling themselves they needed the break. They are not ready to start looking.
+The announcement was a surprise, or it wasn't, but the reality hits differently than expected. There is a strange freedom — no more Sunday dread — combined with a disorienting absence of structure. They spend the first week telling themselves they needed the break. They are not ready to start looking.
 
-*Internal voice*: "I'll take a few weeks. I've earned it. Something will come."
+Internal voice: "I'll take a few weeks. I've earned it. Something will come."
 
-**Week 3–6: First Moves**
-They update LinkedIn. They tell their network. They get encouraging responses — "you'll land somewhere great, let me know how I can help." They have coffee with contacts. They submit a few applications to roles that feel beneath them but seem like "safe floors." Nothing moves quickly. They realize they have no system.
+### Weeks Three Through Six: First Moves
 
-*Internal voice*: "I thought I'd have more incoming. I thought my network would be more activated. Why isn't anything happening?"
+They update LinkedIn. They tell their network. They get encouraging responses: "You'll land somewhere great, let me know how I can help." They have coffee with contacts. They submit a few applications to roles that feel beneath them but seem like safe floors. Nothing moves quickly. They realize they have no system.
 
-**Month 2–3: Reality Sets In**
-The search is taking longer than expected. The public market (LinkedIn, Indeed) yields nothing at their level. Recruiters call occasionally but about roles that don't fit. They are starting to feel the time pressure — financial, identity, and the fear that the longer this takes, the harder it gets.
+Internal voice: "I thought I'd have more incoming. I thought my network would be more activated. Why isn't anything happening?"
 
-*Internal voice*: "How long is this going to take? Am I pitching myself right? What if the market just doesn't have what I need?"
+### Months Two and Three: Reality Sets In
 
-**Month 3–6: Psychological Pressure**
-This is when the search becomes genuinely hard. The candidate is doing everything "right" — networking, applying, meeting recruiters — and is not seeing results at the speed they expected. The absence of control is the dominant experience. They can't make a company create a role. They can't force a recruiter to call back. They can only prepare and wait.
+The search is taking longer than expected. The public market yields nothing at their level. Recruiters call occasionally but about roles that don't fit. Time pressure is building — financial, identity, and the fear that the longer this takes, the harder it gets.
 
-*The fear they don't say out loud*: "What if this takes a year? What if I plateau here? What if my best opportunities were behind me?"
+Internal voice: "How long is this going to take? Am I pitching myself right? What if the market just doesn't have what I need?"
 
-**The Offer and After**
-When the right role comes, the relief is enormous — and often followed by a kind of grief for the search that was its own strange chapter. Many executives describe their search as the most clarifying professional experience of their life, if painful. They finally had to articulate what they actually wanted.
+### Months Three Through Six: Psychological Pressure
 
-### What Starting Monday Solves for This Persona
+This is when the search becomes genuinely hard. The candidate is doing everything right — networking, meeting recruiters, staying visible — and is not seeing results at the speed they expected. The absence of control is the dominant experience. They cannot make a company create a role. They cannot force a recruiter to call back. They can only prepare and wait.
 
-- **Control in the absence of control**: Watching target companies daily, seeing signals, knowing their pipeline is organized — this restores a sense of agency. They are doing something productive even when the market is quiet.
-- **Early intelligence**: A role they found three weeks before it posted is a role they can position for. The candidate who arrives first has an advantage that compounds.
-- **Preparation that reduces the worst moments**: Walking into a call underprepared at this level is humiliating. The prep brief eliminates the worst of that anxiety.
-- **Something that doesn't feel like therapy**: This persona will not admit they are struggling. Starting Monday is a tool, not a support group. It gives them productive work to do.
+The fear they do not say out loud: "What if this takes a year? What if I plateau here? What if my best opportunities were behind me?"
 
-### What Starting Monday Must Not Do
+### The Offer and After
 
-- Sound cheerful or congratulatory. "Great job adding that company!" is the wrong register.
-- Add administrative burden. Every screen must take less time than the manual alternative.
-- Make them feel like a job seeker. The language is "search campaign," not "job hunt."
+When the right role comes, the relief is enormous, and often followed by a kind of grief for the search that was its own strange chapter. Many executives describe their search as the most clarifying professional experience of their life, if painful. They finally had to articulate what they actually wanted.
+
+### What Starting Monday Does for the Executive Who Was Let Go
+
+Watching target companies daily, seeing signals, knowing the pipeline is organized restores a sense of agency when the market is quiet. This is the control-in-the-absence-of-control that every executive in search craves but rarely finds. A role detected three weeks before it posted is a role they can position for, arriving first with an advantage that compounds. The prep brief eliminates the worst anxiety — walking into a call underprepared at this level is humiliating, and the brief makes that impossible. And Starting Monday is a tool, not a support group. It gives them productive work to do without requiring them to admit they are struggling.
+
+What Starting Monday must not do: sound cheerful or congratulatory; add administrative burden (every screen must take less time than the manual alternative); make them feel like a job seeker. The language is "search campaign," not "job hunt."
 
 ---
 
 ## Persona 2: The Passive Monitor
 
-**Who they are**: A senior professional who is stable in their current role but is aware — in a way they don't fully admit — that something has shifted. The job is fine. The compensation is good. But they find themselves reading articles about other companies, thinking about other mandates, noticing when a peer makes a move.
+A senior professional who is stable in their current role but aware — in a way they don't fully admit — that something has shifted. The job is fine. The compensation is good. But they find themselves reading articles about other companies, thinking about other mandates, noticing when a peer makes a move.
 
-### The Emotional Arc
+### The Sunday Night Feeling
 
-**The Sunday Night Feeling**
-This is the defining emotional experience of this persona. Not misery — just a quiet restlessness. They are not unhappy exactly. But they are aware that they are not fully engaged. The work feels smaller than they feel.
+This is the defining emotional experience of this persona. Not misery, just a quiet restlessness. They are not unhappy exactly, but they are aware that they are not fully engaged. The work feels smaller than they feel.
 
-*Internal voice*: "I'm not going anywhere. But if the right thing came along..."
+Internal voice: "I'm not going anywhere. But if the right thing came along..."
 
-**The Rationalization Cycle**
-They tell themselves to wait. The market will improve. Their current role is about to get more interesting. They don't want to seem disloyal. They have too much on their plate right now. Monday comes and they are back in the work and the search thought disappears until the next Sunday night.
+### The Rationalization Cycle
 
-**The Missed Moment**
+They tell themselves to wait. The market will improve. Their current role is about to get more interesting. They don't want to seem disloyal. Monday comes and they are back in the work and the search thought disappears until the next Sunday night.
+
+### The Missed Moment
+
 The most painful experience for this persona is learning that a role at a target company — exactly the role they wanted — was filled three months ago, before they even knew it was open. The opportunity came and went before they had a system to catch it.
 
-*Internal voice*: "If I had just been paying attention..."
+Internal voice: "If I had just been paying attention..."
 
-**The Decision Point**
+### The Decision Point
+
 Something breaks the inertia. An unexpected restructuring announcement at their company. A peer who gets a remarkable offer. A recruiter call that goes unusually well. Suddenly they are serious, and they realize they have no infrastructure for it.
 
-### What Starting Monday Solves for This Persona
+### What Starting Monday Does for the Passive Monitor
 
-- **Passive intelligence that requires no ongoing effort**: Set up 10 target companies, get a weekly digest. If something moves, they know. If nothing moves, they spent zero time on it.
-- **Relationship maintenance with zero overhead**: A contact tracker that surfaces follow-ups when they are due. Relationships don't go cold because life got busy.
-- **Low commitment entry**: Passive plan at $49/month is less than one business dinner. It is easy to justify as "professional hygiene."
-- **Ready when they are**: When the decision point comes, they have context, contacts, and a system already running. The search starts from a position of preparation, not scramble.
+Set up ten target companies, get a weekly digest. If something moves, they know. If nothing moves, they spent zero time on it. A contact tracker surfaces follow-ups when they are due, so relationships do not go cold because life got busy. At $49 per month, the decision is easy — it is less than one business dinner, easy to justify as professional hygiene. And when the decision point comes, they have context, contacts, and a system already running. The search starts from preparation, not scramble.
 
-### What Starting Monday Must Not Do
-
-- Pressure them to be more active than they are. The passive monitor is not ready to commit. Respecting that is what earns the relationship.
-- Send too many notifications. If the weekly digest is the right cadence, honor it.
-- Make them feel like they are "in job search mode." That label carries weight they are not ready to accept.
+What Starting Monday must not do: pressure them to be more active than they are; send too many notifications; make them feel like they are in job search mode. That label carries weight they are not ready to accept.
 
 ---
 
 ## Persona 3: The Level-Up Candidate
 
-**Who they are**: A high-performing Director or VP who has decided — quietly, deliberately — that they are ready for the next level. They are not being pushed out. They are choosing to step into a bigger seat. But they are aware that the next level requires a different kind of search than anything they have done before.
+A high-performing Director or VP who has decided — quietly, deliberately — that they are ready for the next level. They are not being pushed out. They are choosing to step into a bigger seat. But they are aware that this search is different from anything they have done before.
 
-### The Emotional Arc
+### The Confidence Gap
 
-**The Confidence Gap**
-This is the defining tension. They have the record. They have the competence. But they have not held the CIO (or VP, or SVP) title yet, and they know that the people making decisions at that level will have questions. "Have you done this at scale?" "Have you managed a team this large?" "Have you operated in a public company context?" 
+They have the record. They have the competence. But they have not held the CIO — or VP or SVP — title yet, and they know that the people making decisions at that level will have questions. "Have you done this at scale?" "Have you managed a team this large?" "Have you operated in a public company context?"
 
-*Internal voice*: "I've done everything a CIO does. I just don't have the title. How do I make that case?"
+Internal voice: "I've done everything a CIO does. I just don't have the title. How do I make that case?"
 
-**Imposter Syndrome at the Edge**
+### Imposter Syndrome at the Edge
+
 They perform at their best in their current role. They are used to being the expert in the room. The level-up search puts them back in learner mode — navigating a market they are not fluent in, competing against candidates who have the title they are pursuing.
 
-**The Frustration of Being "Almost"**
-Recruiters say encouraging things and then present roles one level below. Hiring managers are interested but want "more of this specific experience." The candidate knows they are close, but "almost" is a hard place to live professionally.
+### The Frustration of Being Almost
 
-**The Story Problem**
-The most common blocker is not competence — it is articulation. They have not had to explain their path to the next level before. Their current boss knows their value. Strangers don't. Learning to tell the story precisely — what they've done, what they're ready for, and why this is the right moment — is the work.
+Recruiters say encouraging things and then present roles one level below. Hiring managers are interested but want more of this specific experience. The candidate knows they are close, but "almost" is a hard place to live professionally.
 
-### What Starting Monday Solves for This Persona
+### The Story Problem
 
-- **The strategy brief** is specifically designed for this moment. It takes their profile and produces a structured positioning narrative — what makes them the hire for the next level, not just a candidate.
-- **Prep briefs that position for the bigger seat**: The brief helps them walk in framing themselves as a CIO who happens to have a VP title, not a VP trying to be a CIO.
-- **The AI chat advisor** as a pressure-tester: "How do I answer the question about whether I've managed a team this large?" — the advisor can role-play the conversation and challenge their framing.
-- **Early intelligence on level-appropriate roles**: These roles are rarely posted. They are created or filled through networks. Watching the right companies for signals that a CIO search might be opening is the edge.
+The most common blocker is not competence — it is articulation. They have not had to explain their path to the next level before. Their current boss knows their value. Strangers don't. Learning to tell the story precisely — what they have done, what they are ready for, and why this is the right moment — is the work.
 
-### What Starting Monday Must Not Do
+### What Starting Monday Does for the Level-Up Candidate
 
-- Condescend. This is a high performer who has earned the confidence to pursue the next level. The product should treat them as capable.
-- Default to generic prep. A prep brief that treats them as a first-time candidate misses what they need.
+The strategy brief is specifically designed for this moment. It takes their profile and produces a structured positioning narrative: what makes them the hire for the next level, not just a candidate. The prep brief helps them walk in framing themselves as a CIO who happens to have a VP title, not a VP trying to be a CIO. The AI chat advisor functions as a pressure-tester — "How do I answer the question about whether I've managed a team this large?" — and can role-play the conversation and challenge the framing. Early intelligence on level-appropriate roles matters because these roles are rarely posted; they are created or filled through networks, and watching the right companies for signals that a search might be opening is the edge.
+
+What Starting Monday must not do: condescend or default to generic prep. A brief that treats them as a first-time candidate misses what they need.
 
 ---
 
 ## Persona 4: The Transformation CIO
 
-**Who they are**: A CIO or senior IT leader whose career has been defined by transformation mandates — ERP, cloud migration, digital transformation, M&A integration. Their value is specific: they do not run steady-state IT. They fix, modernize, and integrate.
+A CIO or senior IT leader whose career has been defined by transformation mandates: ERP, cloud migration, digital transformation, M&A integration. Their value is specific. They do not run steady-state IT. They fix, modernize, and integrate.
 
-### The Emotional Arc
+### The Identity Precision Problem
 
-**The Identity Precision Problem**
-The Transformation CIO's challenge is not a lack of opportunity — it is finding the right opportunity. They have been brought in by PE firms, boards, and turnaround situations because they can operate in chaos and deliver. But they are not interested in stable IT maintenance roles.
+The challenge is not a lack of opportunity — it is finding the right opportunity. They have been brought in by PE firms, boards, and turnaround situations because they can operate in chaos and deliver. But they are not interested in stable IT maintenance roles, and most external audiences cannot tell the difference between a Transformation CIO and a run-rate CIO. The resume looks similar. The title is the same. The candidate has to make the distinction clear, every time.
 
-The frustration is that most external audiences cannot tell the difference between a Transformation CIO and a run-rate CIO. The resume looks similar. The title is the same. The candidate has to make the distinction clear, every time.
+Internal voice: "I've done this four times. Every time was different. How do I convey that without sounding like I'm reading from a script?"
 
-*Internal voice*: "I've done this four times. Every time was different. How do I convey that without sounding like I'm reading from a script?"
+### The Network Problem
 
-**The Network Problem at the Senior Level**
-At this level, the market is a small set of principals: PE operating partners, board members, executive search partners who specialize in technology leadership, HR functions at private companies. This is not a market that responds to cold outreach. It is entirely relationship-driven.
+At this level, the market is a small set of principals: PE operating partners, board members, executive search specialists who focus on technology leadership, HR functions at private companies. This is not a market that responds to cold outreach. It is entirely relationship-driven.
 
-The emotional experience is a kind of strategic loneliness — they know exactly what they are looking for, and they know the people who could make it happen, but the connections are not warm enough to move.
+The emotional experience is a kind of strategic loneliness: they know exactly what they are looking for, they know the people who could make it happen, and the connections are not warm enough to move.
 
-**The Timing Problem**
+### The Timing Problem
+
 Transformation mandates do not come on a predictable schedule. A PE-backed portfolio company needs a transformation CIO when the investment thesis requires it — after a new acquisition, after a failed ERP, after a change in strategic direction. The candidate who is in conversation with the right principals at the right moment gets the call. The one who is not in the network at that moment misses it.
 
-### What Starting Monday Solves for This Persona
+### What Starting Monday Does for the Transformation CIO
 
-- **Signals on the right organizations**: PE portfolio changes, board composition shifts, executive departures at transformation-ready companies. This is intelligence that is not available anywhere else at a per-candidate level.
-- **Positioning that is specific**: The strategy brief, for this persona, is about making the transformation narrative precise and differentiated. Not "I've led IT organizations" but "I've run four transformation programs under PE ownership, all with specific mandates and measurable outcomes."
-- **Relationship management across a small, interconnected network**: Staying warm with 40 principals over 9 months without letting any relationship go cold is the difference between being in the running and not.
-- **The Executive tier** (when launched): Board and PE intelligence is specifically designed for this scenario.
+Signals on the right organizations are the core value: PE portfolio changes, board composition shifts, executive departures at transformation-ready companies. This intelligence is not available anywhere else at a per-candidate level. The strategy brief makes the transformation narrative precise and differentiated — not "I've led IT organizations" but "I've run four transformation programs under PE ownership, each with specific mandates and measurable outcomes." Relationship management across a small, interconnected network of forty principals over nine months is the difference between being in the running and not. When the Executive tier launches, board and PE intelligence is specifically designed for this scenario.
 
 ---
 
 ## Persona 5: The Re-Starter
 
-**Who they are**: A senior professional who has been saying "starting Monday" for months. They were serious in January. Then a family thing. Then a busy quarter. Then summer. The intent is real; the follow-through has not materialized.
+A senior professional who has been saying "starting Monday" for months. They were serious in January. Then a family thing. Then a busy quarter. Then summer. The intent is real; the follow-through has not materialized.
 
-### The Emotional Arc
+### The Weight of Unstarted Work
 
-**The Weight of Unstarted Work**
-This is the most privately painful persona. They know they need to do this. They have started in their head many times. The gap between intention and action has become its own source of shame — a running internal monologue that says "you're not serious enough about this."
+This is the most privately painful persona. They know they need to do this. They have started in their head many times. The gap between intention and action has become its own source of shame — a running internal monologue that says they are not serious enough about this.
 
-*Internal voice*: "I'll really start after this quarter. After the holidays. After the project is done."
+Internal voice: "I'll really start after this quarter. After the holidays. After the project is done."
 
-**The False Start Pattern**
-They have updated their resume three times. They have had two coffees with contacts. They have a LinkedIn profile that is "90% there." But the pipeline is empty, the system is not built, and the follow-up they were supposed to send two weeks ago is still not sent.
+### The False Start Pattern
 
-**The Shame Barrier**
-The longer the delay, the harder it is to start. Reaching back out to a contact after 6 months of silence is uncomfortable. Calling a recruiter who last heard from you eight months ago requires swallowing some pride. The shame of the delay becomes its own obstacle to starting.
+They have updated their resume three times. They have had two coffees with contacts. They have a LinkedIn profile that is ninety percent there. The pipeline is empty, the system is not built, and the follow-up they were supposed to send two weeks ago is still not sent.
 
-**What Finally Breaks the Cycle**
-Usually something external: a peer makes a career move that triggers comparison. A company that was on their list posts the perfect role and they weren't ready. A financial or personal circumstance removes the luxury of delay.
+### The Shame Barrier
 
-### What Starting Monday Solves for This Persona
+The longer the delay, the harder it is to start. Reaching back out to a contact after six months of silence is uncomfortable. Calling a recruiter who last heard from them eight months ago requires swallowing some pride. The shame of the delay becomes its own obstacle to starting.
 
-- **Low-friction start**: "Import your LinkedIn profile during setup. Operational in minutes." This persona does not need another project. They need something that runs in five minutes.
-- **Proof that starting works**: The daily briefing, the scan results, the signal digest — these show up whether the user is "in it" or not. The system starts generating value immediately, which creates momentum.
-- **The name itself**: "Starting Monday" is specifically for this person. The name is a mirror. It is the thing they have been saying to themselves. It is both the joke and the answer.
-- **Removing the first-action barrier**: The onboarding is designed to generate the first brief before the user has done much work. The first prep brief, produced from their LinkedIn profile and one target company, is the "oh, this is real" moment that converts commitment to action.
+### What Finally Breaks the Cycle
+
+Usually something external. A peer makes a career move that triggers comparison. A company on their list posts the perfect role and they were not ready. A financial or personal circumstance removes the luxury of delay.
+
+### What Starting Monday Does for the Re-Starter
+
+The product starts in five minutes. Import LinkedIn, add three companies, and the system is running. This persona does not need another project — they need something that runs quickly and produces something real before they can talk themselves out of it. The daily briefing, the scan results, the signal digest show up whether the user is engaged or not, and the system generating value creates momentum that was not there before. The name is not accidental. "Starting Monday" is the thing this persona has been saying to themselves. It is both the joke and the answer. The first prep brief — produced from their LinkedIn profile and one target company — is the "this is real" moment that converts intention to action.
 
 ---
 
 ## Cross-Persona Emotional Themes
 
-**Control in an uncontrollable process**: The executive job search is one of the few professional experiences where doing everything right does not guarantee the outcome. Every tool, every preparation, every system-building action is a way of asserting control over the controllable. Starting Monday is fundamentally a control-restoration mechanism.
+The executive job search is one of the few professional experiences where doing everything right does not guarantee the outcome. Every tool, every preparation, every system-building action is a way of asserting control over the controllable. Starting Monday is, at its core, a control-restoration mechanism.
 
-**Dignity**: At every level, there is a fear of appearing desperate. Of being seen as someone who needs this. Starting Monday gives users a way to conduct the search with full information and preparation — the opposite of desperation. The user who walks into a first call with a Starting Monday brief walks in as a peer, not a petitioner.
+At every level there is a fear of appearing desperate — of being seen as someone who needs this. Starting Monday gives users a way to conduct the search with full information and preparation. The user who walks into a first call with a Starting Monday brief walks in as a peer, not a petitioner.
 
-**The private search**: The most motivated users are running a confidential search — they are still employed and cannot afford to be visibly in the market. Starting Monday is inherently quiet. There is no public profile, no application history, no activity that surfaces to their current employer.
+The most motivated users are running a confidential search. They are still employed and cannot afford to be visibly in the market. Starting Monday is inherently quiet: no public profile, no application history, no activity that surfaces to their current employer.
 
-**Time compression**: Every candidate wants the search to be shorter. Better preparation, better intelligence, and better positioning all reduce timeline. Starting Monday is, at its core, a time compression tool. The candidate who finds the role three weeks before posting and walks in with the best brief compresses their search by weeks or months.
+Every candidate wants the search to be shorter. Better preparation, better intelligence, and better positioning all reduce timeline. The candidate who finds the role three weeks before posting and walks in with the best brief compresses their search by weeks or months.
 
 ---
 
 ## Implications for Product and Marketing
 
-1. **Never celebrate the search.** The search is a means to an end. Users do not want to be congratulated for managing their pipeline well. They want to get to the offer.
+The search is a means to an end. Users do not want to be congratulated for managing their pipeline well. They want to get to the offer. The product should never celebrate the process.
 
-2. **The product must work when the user is not "in it."** The scanner runs whether the user checks in or not. The briefing arrives whether they opened last week's or not. The system earns trust by working quietly in the background.
+The system earns trust by working quietly in the background. The scanner runs whether the user checks in or not. The briefing arrives whether they opened last week's or not. The product must work when the user is not in it.
 
-3. **The first brief is the conversion moment.** Whatever brings a user to the product, the moment that creates a loyal user is the first prep brief that says something specific and true about the intersection of that company and their background. That is the "this is real" moment. Everything in onboarding should drive to it.
+The first brief is the conversion moment. Whatever brings a user to the product, the moment that creates a loyal user is the first prep brief that says something specific and true about the intersection of that company and their background. Everything in onboarding should drive to that moment.
 
-4. **Respect the silence.** These are professionals who are not in the habit of admitting struggle. The product should never put them in a position of having to acknowledge it. No "how are you feeling about your search?" prompts. No progress celebrations that imply they needed encouragement.
+These are professionals who are not in the habit of admitting struggle. The product should never put them in a position of having to acknowledge it. No "how are you feeling about your search?" prompts. No progress celebrations that imply they needed encouragement.
 
-5. **The name earns permission.** "Starting Monday" is the thing the passive monitor and the re-starter have been saying to themselves. The name creates immediate recognition and implicit permission — this is for people who have been here, and it is okay.
+"Starting Monday" is the thing the passive monitor and the re-starter have been saying to themselves. The name creates immediate recognition and implicit permission — this is for people who have been here, and it is okay.
