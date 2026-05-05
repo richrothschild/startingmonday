@@ -88,21 +88,32 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
     setImporting(true)
     setImportError('')
     setImportDone(false)
+    const inputText = pasteText
     try {
       const res = await fetch('/api/linkedin-import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: pasteText }),
+        body: JSON.stringify({ text: inputText }),
       })
-      const data = await res.json()
       if (!res.ok) {
-        setImportError(data.error ?? 'Import failed. Please try again.')
+        // Non-2xx: fall back gracefully — put the raw text in resume and let user fill the rest
+        setResumeText(inputText.slice(0, 20000))
+        setPasteText('')
+        setImportedFields(['Career history'])
+        setImportThin(true)
+        setImportDone(true)
         return
       }
-      applyImport(data, pasteText.length)
+      const data = await res.json()
+      applyImport(data, inputText.length)
       setPasteText('')
     } catch {
-      setImportError('Import failed. Please try again.')
+      // Network failure — put the raw text in resume so the user's effort isn't lost
+      setResumeText(inputText.slice(0, 20000))
+      setPasteText('')
+      setImportedFields(['Career history'])
+      setImportThin(true)
+      setImportDone(true)
     } finally {
       setImporting(false)
     }
@@ -117,20 +128,44 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
     try {
       const fd = new FormData()
       fd.append('file', file)
-      const res = await fetch('/api/linkedin-import/extract', { method: 'POST', body: fd })
-      const data = await res.json()
-      if (!res.ok) { setImportError(data.error ?? 'Could not read the PDF.'); return }
+      let extractedText = ''
+      try {
+        const res = await fetch('/api/linkedin-import/extract', { method: 'POST', body: fd })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok || !data.text) {
+          setImportError(data.error ?? 'Could not read the PDF. Try pasting your profile text instead.')
+          return
+        }
+        extractedText = data.text
+      } catch {
+        setImportError('Could not read the PDF. Try pasting your profile text instead.')
+        return
+      }
+
       setImporting(true)
-      const importRes = await fetch('/api/linkedin-import', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: data.text }),
-      })
-      const importData = await importRes.json()
-      if (!importRes.ok) { setImportError(importData.error ?? 'Import failed. Please try again.'); return }
-      applyImport(importData, 2000)
-    } catch {
-      setImportError('Something went wrong. Try pasting your profile text instead.')
+      try {
+        const importRes = await fetch('/api/linkedin-import', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: extractedText }),
+        })
+        if (!importRes.ok) {
+          // PDF read fine but structured extraction failed — save the text and move on
+          setResumeText(extractedText.slice(0, 20000))
+          setImportedFields(['Career history'])
+          setImportThin(true)
+          setImportDone(true)
+          return
+        }
+        const importData = await importRes.json()
+        applyImport(importData, 2000)
+      } catch {
+        // Network error on the import call — save what we have
+        setResumeText(extractedText.slice(0, 20000))
+        setImportedFields(['Career history'])
+        setImportThin(true)
+        setImportDone(true)
+      }
     } finally {
       setExtracting(false)
       setImporting(false)
@@ -232,7 +267,7 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
               <p className="text-green-600">Filled in: {importedFields.join(', ')}.</p>
             )}
             {importThin && (
-              <p className="text-amber-700 font-medium mt-1">Career history extracted was short. Paste your full profile text or upload your resume in the Background section below for sharper prep briefs.</p>
+              <p className="text-amber-700 font-medium mt-1">Auto-fill was partial. Review the fields below, add your name and title, and check Career History in the Background section.</p>
             )}
           </div>
         )}

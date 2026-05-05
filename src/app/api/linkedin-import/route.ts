@@ -52,11 +52,24 @@ ${text}
 
   const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : ''
   const match = raw.match(/\{[\s\S]*\}/)
-  if (!match) return Response.json({ error: 'Could not extract profile. Try pasting more of the page.' }, { status: 500 })
 
-  try {
-    return Response.json(JSON.parse(match[0]))
-  } catch {
-    return Response.json({ error: 'Could not extract profile. Try pasting more of the page.' }, { status: 500 })
+  if (match) {
+    try {
+      return Response.json(JSON.parse(match[0]))
+    } catch {
+      // fall through to raw-text fallback
+    }
   }
+
+  // Claude returned something unparseable. Return the paste text itself as resume_text
+  // so the user's input is never lost. The frontend detects importThin and shows a soft notice.
+  return Response.json({
+    full_name: null,
+    current_title: null,
+    current_company: null,
+    positioning_summary: null,
+    resume_text: text.slice(0, 20000),
+    beyond_resume: null,
+    target_titles: null,
+  })
 }
