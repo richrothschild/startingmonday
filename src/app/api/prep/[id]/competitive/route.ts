@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { COMPETITIVE_SYSTEM } from '@/lib/prompts'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 export async function GET(
   request: NextRequest,
@@ -89,7 +89,7 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 1200,
-          temperature: TEMP.factual,
+
           system: COMPETITIVE_SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })

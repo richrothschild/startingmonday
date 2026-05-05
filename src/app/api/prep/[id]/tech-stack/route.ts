@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
@@ -83,7 +83,7 @@ Tone: technology executive voice. Distinguish clearly between confirmed and infe
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 800,
-          temperature: TEMP.factual,
+
           system: SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })

@@ -2,7 +2,7 @@ import { type NextRequest } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
 
 const SYSTEM =
@@ -84,7 +84,7 @@ Tone: coach voice. Specific. No em dashes. No filler.`
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 900,
-          temperature: TEMP.analytical,
+
           system: SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })

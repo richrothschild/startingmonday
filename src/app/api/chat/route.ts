@@ -6,7 +6,7 @@ import { isRateLimited, trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { isDemoUser } from '@/lib/demo'
 import Anthropic from '@anthropic-ai/sdk'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -277,7 +277,7 @@ When the user asks you to update their pipeline, add a follow-up, or log notes, 
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 1024,
-          temperature: TEMP.balanced,
+
           system: systemPrompt,
           tools: isDemo ? [TOOLS[3]] : TOOLS,
           messages: workingMessages,

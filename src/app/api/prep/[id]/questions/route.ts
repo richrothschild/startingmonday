@@ -4,7 +4,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { QUESTIONS_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
   job_description: 'Job Description',
@@ -116,7 +116,7 @@ Tone: direct coaching voice. Talk to the candidate directly in the coaching note
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 1500,
-          temperature: TEMP.analytical,
+
           system: QUESTIONS_SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })

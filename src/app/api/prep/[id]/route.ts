@@ -7,7 +7,7 @@ import { PREP_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import Anthropic from '@anthropic-ai/sdk'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -17,7 +17,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: maxTokens,
-          temperature: TEMP.analytical,
+
           system: PREP_SYSTEM,
           messages,
         })

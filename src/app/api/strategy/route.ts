@@ -3,7 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
@@ -16,7 +16,7 @@ function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createCl
         const stream = anthropic.messages.stream({
           model: MODELS.opus,
           max_tokens: 4000,
-          temperature: TEMP.structured,
+
           system: STRATEGY_SYSTEM,
           messages: [{ role: 'user', content: prompt }],
         })

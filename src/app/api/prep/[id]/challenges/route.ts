@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
@@ -94,7 +94,7 @@ Tone: operating advisor voice. Honest. No filler. No em dashes.`
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 1000,
-          temperature: TEMP.analytical,
+
           system: SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })

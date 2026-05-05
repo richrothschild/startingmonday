@@ -2,7 +2,7 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 
 export async function POST(request: NextRequest) {
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         const stream = anthropic.messages.stream({
           model: MODELS.sonnet,
           max_tokens: 1000,
-          temperature: TEMP.analytical,
+
           system: STRATEGY_SYSTEM,
           messages: [
             {
