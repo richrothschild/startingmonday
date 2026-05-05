@@ -77,7 +77,7 @@ Product work to drive completion of all six:
 - [ ] Build a persistent "Getting Started" progress tracker visible on the dashboard until all six are complete (not a gamification badge — a functional checklist with links to each action)
 - [ ] Replace empty dashboard state with a guided first-session card that leads directly to action 1
 - [ ] Add smart prompts: after resume upload, immediately surface "Add your first target company" with a single-click entry point; after first company is added, prompt to generate the brief; after brief is read, prompt to add a contact
-- [ ] Build a day-3 and day-7 email trigger for users who have not completed all six actions — surfacing which specific actions remain with direct links (not generic "come back" messaging)
+- [x] Build a day-3 and day-7 email trigger for users who have not completed all six actions — surfacing which specific actions remain with direct links (not generic "come back" messaging)
 - [ ] Track completion of each of the six actions per user in the database with timestamps — this is the primary activation metric going forward
 - [ ] Dashboard: internal view of six-actions completion rate by signup cohort
 
@@ -110,7 +110,7 @@ Events to capture (minimum viable set):
 Implementation:
 
 - [ ] Extend PostHog custom event tracking for all actions above — PostHog already initialized; add `posthog.capture()` calls at each action point
-- [ ] Add `user_events` table to Supabase for server-side event logging (action, user_id, metadata JSONB, timestamp) — server events as source of truth, PostHog as visualization layer
+- [x] Add `user_events` table to Supabase for server-side event logging (action, user_id, metadata JSONB, timestamp) — server events as source of truth, PostHog as visualization layer
 - [ ] Capture referral_source on signup and propagate through all events for cohort analysis
 - [ ] Add six-actions completion status to user record (bitmask or individual boolean columns)
 
@@ -122,20 +122,19 @@ Replace alumni mode with a lightweight email sequence triggered by offer accepta
 
 Offer acceptance email (triggered when user marks a company as "Offer"):
 
-- [ ] Detect pipeline stage change to "Offer" in the worker
-- [ ] Send within 24 hours: brief, private, acknowledging the outcome without celebrating the tool
-- [ ] Two asks: (1) "Who else in your network is in search?" with a referral link, (2) a sentence they would share as a testimonial (direct link to a feedback form)
-- [ ] No promotional offer. No alumni mode upsell. Two sentences, two asks, done.
+- [x] Detect pipeline stage change to "Offer" in the worker
+- [x] Send within 24 hours: brief, private, acknowledging the outcome without celebrating the tool
+- [x] Two asks: (1) "Who else in your network is in search?" with a referral link, (2) a sentence they would share as a testimonial (direct link to a feedback form)
 
 Annual reactivation email (triggered by anniversary of offer date):
 
-- [ ] Worker cron: daily job checking for users whose offer_accepted_date was exactly 365 days ago
-- [ ] Send one short email: one piece of genuinely relevant industry or market information, one sentence reminder that Starting Monday exists for anyone in their network
-- [ ] Unsubscribe link. No urgency. No offer.
+- [x] Worker cron: daily job checking for users whose offer_accepted_date was exactly 365 days ago
+- [x] Send one short email: one piece of genuinely relevant industry or market information, one sentence reminder that Starting Monday exists for anyone in their network
+- [x] Unsubscribe link. No urgency. No offer.
 
-- [ ] Add offer_accepted_date column to users table, populated when pipeline stage reaches "Offer"
+- [x] Add offer_accepted_at column to users table, populated when pipeline stage reaches "Offer"
 - [ ] Add referral_source tracking for signups coming through the completion email referral link
-- [ ] Build the feedback form (simple Supabase form: one text field, submit)
+- [x] Build the feedback form (testimonials table + /feedback route)
 
 Success metric: 20% referral rate from offer acceptance email within 90 days of launch. Testimonial capture rate: 15%.
 
@@ -143,11 +142,11 @@ Success metric: 20% referral rate from offer acceptance email within 90 days of 
 
 Collect at the most granular level now. The schema must be rich enough to answer questions three years from now that are not yet being asked.
 
-- [ ] Design and implement `user_events` table (action, user_id, session_id, metadata JSONB, created_at) — server-side source of truth
+- [x] Design and implement `user_events` table (action, user_id, session_id, metadata JSONB, created_at) — server-side source of truth
 - [ ] Design and implement `company_watch_events` table (user_id, company_id, industry, company_size_est, stage, geography, created_at) — captures target company demographics for aggregate intelligence
-- [ ] Design and implement `signal_action_events` table (signal_id, user_id, signal_type, days_to_action, action_type, created_at) — tracks which signal types produce action and how quickly
-- [ ] Design and implement `brief_quality_log` table (brief_id, user_id, context_richness_score, sections_generated, user_rating, time_to_read_est, created_at) — measures brief quality relative to context depth
-- [ ] Add cohort columns to users table: signup_source, acquisition_channel, persona_self_identified, plan_at_trial_end
+- [x] Design and implement `signal_action_events` table (signal_id, user_id, signal_type, days_to_action, action_type, created_at) — tracks which signal types produce action and how quickly
+- [x] Design and implement `brief_quality_log` table (brief_id, user_id, context_richness_score, sections_generated, user_rating, time_to_read_est, created_at) — measures brief quality relative to context depth
+- [x] Add cohort columns to users table: signup_source, acquisition_channel, persona_self_identified, plan_at_trial_end
 - [ ] Build internal admin page showing event volume, six-actions completion rate by cohort, and signal-to-action conversion rate — viewable only by admin role
 
 Note: No data is shared externally. The collection infrastructure is built now so the asset exists. Visualization and analysis tooling is a separate sprint (see backlog).
@@ -156,7 +155,7 @@ Success metric: All four event tables live and receiving data within 45 days. Ze
 
 ### Immediate Scan on Company Add
 
-- [ ] Trigger a scan immediately when a user adds a new company (instead of waiting for the next scheduled run)
+- [x] Trigger a scan immediately when a user adds a new company (instead of waiting for the next scheduled run)
 - [ ] Show the scan result within the company workspace as soon as it completes
 
 ### Brief Quality Improvements

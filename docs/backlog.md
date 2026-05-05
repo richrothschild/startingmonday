@@ -6,6 +6,20 @@ Items here are validated ideas deferred from the active roadmap. Each entry incl
 
 ---
 
+## Known Technical Limitations
+
+### Google OAuth Consent Screen Shows Supabase Domain
+
+When users sign in with Google, the OAuth consent screen shows the Supabase project domain (`mytnhoxcgvnzxhgcumkf.supabase.co`) rather than `startingmonday.app`. This is a Supabase free-tier limitation — the OAuth callback is routed through Supabase's own domain. Login works correctly; only the branding on the Google consent screen is affected.
+
+The app name "Starting Monday" is set in Google Cloud Console, which partially mitigates the visual. The domain shown is outside our control without a plan upgrade.
+
+Deferred because: login functions correctly, and the Supabase Pro plan required for a custom domain costs ~$25/month with additional setup overhead.
+
+Move forward when: user feedback or drop-off data suggests the Supabase domain is causing trust concerns that affect signup conversion.
+
+---
+
 ## Data Gravity
 
 ### Career Accomplishment Repository

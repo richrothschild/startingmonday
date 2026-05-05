@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Starting Monday
 
-## Getting Started
+AI-powered career search platform for VP and C-suite executives. [startingmonday.app](https://startingmonday.app)
 
-First, run the development server:
+## What It Does
+
+Starting Monday helps senior executives run a structured, intelligent job search:
+
+- **Pipeline tracking** — 5-stage pipeline (Watching, Researching, Applied, Interviewing, Offer) with company notes, fit scoring, and full audit log
+- **Career page scanning** — automated monitoring of target company career pages for relevant roles, 3x/week via Browserless
+- **Company intelligence** — signals on funding rounds, exec hires/departures, acquisitions, and expansions
+- **AI prep briefs** — tailored interview preparation for each company, streaming in ~60 seconds
+- **Search Strategy Brief** — one-time AI synthesis of full positioning, gaps, and recommended outreach sequence
+- **AI chat advisor** — persistent conversation with full pipeline context and tool use (stage updates, follow-ups, notes)
+- **Resume tailoring** — paste a job description, get a tailored resume with ATS quality check, DOCX export
+- **Outreach drafts** — context-aware email drafts written at the executive level
+- **Daily briefings** — morning email + in-app briefing at the user's configured time and timezone
+
+## Architecture
+
+Two Railway services: Next.js 16 web application + Node.js worker for background jobs.
+
+- **Database**: Supabase / PostgreSQL (25 migrations, RLS-enforced on all user tables)
+- **Auth**: Supabase Auth with email/password and Google OAuth
+- **AI**: Anthropic Claude (Opus for strategy briefs, Sonnet for prep/chat/tailoring, Haiku for classification)
+- **Billing**: Stripe (checkout, portal, pause/resume, idempotent webhooks)
+- **Email**: Resend (`briefing@startingmonday.app`)
+- **Scanning**: Browserless (headless Chrome for career page parsing)
+- **Monitoring**: Sentry, UptimeRobot, PostHog, Railway logs
+
+Full system architecture: [docs/architecture.md](docs/architecture.md)
+
+## Development
+
+**Prerequisites**: Node.js >= 20.9.0
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev       # http://localhost:3000
+
+# Type check
+npm run typecheck
+
+# Run tests
+npm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Worker** (separate process, separate Railway service in production):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd worker
+npm install
+node index.js
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Environment variables: see the Environment Variables section in [docs/architecture.md](docs/architecture.md).
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Both services deploy to Railway automatically on push to `main`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Web**: nixpacks detects Next.js; `npm run build && npm run start`
+- **Worker**: `node worker/index.js`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Health check: `GET /api/health` (returns uptime, timestamp, version)
 
-## Deploy on Vercel
+## Docs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Architecture](docs/architecture.md) — infrastructure, schema, API patterns, environment variables
+- [Product Roadmap](docs/product-roadmap.md) — what is built and what is planned
+- [Backlog](docs/backlog.md) — validated ideas deferred from the active roadmap

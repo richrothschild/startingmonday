@@ -12,7 +12,7 @@ Starting Monday is a Next.js 16 application deployed on Railway, backed by Supab
 
 ## Infrastructure Map
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                         Railway                              │
 │                                                             │
@@ -62,6 +62,8 @@ Request middleware (`src/middleware.ts`):
 
 A separate Railway service that runs scheduled jobs and handles background processing. Communicates with the web service via HTTP using a shared secret.
 
+Immediate scan trigger: `POST /trigger-scan` — called by the web app when a user adds a new company. Authenticated via `x-worker-secret` header. Returns 202 immediately; scan runs async so the caller is not blocked.
+
 Cron Schedule:
 
 | Job | Schedule (UTC) | Purpose |
@@ -74,6 +76,10 @@ Cron Schedule:
 | Weekly report | Sunday 23:30 | Weekly digest email |
 | Usage monitor | Daily 09:00 | Token usage tracking |
 | Trial reminders | Daily 10:00 | T-3 and T-0 trial expiration emails |
+| Activation reminder | Daily 10:30 | Day-3 and day-7 nudge for incomplete setup |
+| Offer email | Daily 11:00 | Sends within 24h of offer_accepted_at being set |
+| Reactivation | Daily 11:30 | Annual reactivation email on offer anniversary |
+| Cleanup | Sunday 02:00 | Deletes signals >90d and stale conversations >180d |
 
 AI Models in Worker:
 
@@ -96,22 +102,28 @@ Auth: Supabase Auth (email/password). Row Level Security (RLS) enforced on all u
 | `scan_results` | Career page scan output: raw role hits (JSONB), AI score, AI summary, notification state |
 | `contacts` | Contacts at target companies: title, firm, channel, follow-up date, status |
 | `follow_ups` | Action items: due date, action text, status (pending/done/snoozed) |
-| `conversations` | AI chat history: messages as JSONB, token count |
+| `conversations` | AI chat history: messages as JSONB, capped at 300 messages by trigger |
 | `drafts` | Generated email/cover letter/LinkedIn drafts |
 | `company_signals` | Intelligence signals: funding, exec hire/departure, acquisition, expansion, layoffs, IPO, new product |
 | `briefs` | Brief generation logs: type, output text, user rating |
-| `momentum_scores` | Weekly engagement score (0–100) with component breakdown |
 | `pipeline_audit_log` | Full change log: old/new values, initiator (user/worker/system) |
 | `api_usage` | Token and request counts by user, service, and month (rate limiting) |
 | `processed_stripe_events` | Stripe webhook idempotency (unique constraint on event_id) |
+| `user_events` | Server-side behavior event log: event name, metadata JSONB, session ID, timestamp |
+| `signal_action_events` | Tracks which signals lead to downstream action (outreach, brief, contact) within 48h |
+| `brief_quality_log` | Context richness score alongside every brief generation (has_resume, has_contacts, etc.) |
+| `testimonials` | One-sentence testimonials submitted via the offer-completion email feedback link |
+| `staff_members` | Internal admin access: email, role (owner/admin/viewer), created_at |
 
-19 migrations applied from initial schema through search persona support (migration 019).
+25 migrations applied, from initial schema through tech debt indexes and retention (migration 025).
 
 ---
 
 ## Auth Architecture
 
 Flow: Supabase Auth (JWT-based). Tokens stored in cookies via `@supabase/ssr`.
+
+Providers: email/password and Google OAuth. Google OAuth callback routes through Supabase's auth handler at `/auth/v1/callback`. The Next.js callback handler at `/auth/callback` reads `x-forwarded-host` and `x-forwarded-proto` headers to construct the correct public redirect URL — Railway's internal routing means `request.url` resolves to `localhost:8080`, not the public domain. Note: on the Supabase free tier, the Google OAuth consent screen shows the Supabase project domain rather than startingmonday.app; fixing this requires Supabase Pro with a custom domain.
 
 Route guards:
 
@@ -148,9 +160,9 @@ Context limits:
 - Resume: 6,000 chars (`RESUME_CHARS`)
 - Documents (JD, annual report, etc.): 4,000 chars each (`DOC_CHARS`)
 
-Streaming: All major AI routes stream `text/event-stream` responses. Errors are written as `__ERROR__<message>` sentinel strings and caught by the client.
+Streaming: All major AI routes stream `text/plain` responses. Errors are written as `__ERROR__<message>` sentinel strings and caught by the client. All streaming routes use `withStreamTimeout(ms, fn)` from `src/lib/anthropic.ts` — an AbortController wrapper that cancels the Anthropic SDK stream after the configured timeout (chat: 90s).
 
-Chat tool use: The AI chat route uses Anthropic tool use to give the assistant ability to update company pipeline stage, add follow-up reminders, and update company notes — directly from conversation.
+Chat tool use: The AI chat route uses Anthropic tool use to give the assistant ability to update company pipeline stage, add follow-up reminders, update company notes, and look up contacts — directly from conversation. Tool calls are bounded by `MAX_TOOL_ROUNDS = 5`.
 
 ---
 
@@ -225,6 +237,8 @@ Worker calls Browserless API to fetch and parse target company career pages. Res
 | `NEXT_PUBLIC_APP_URL` | Web | Canonical URL for links |
 | `WORKER_URL` | Web | Worker service base URL |
 | `WORKER_SECRET` | Web + Worker | Worker authentication |
+| `NEXT_PUBLIC_POSTHOG_KEY` | Web | PostHog analytics key |
+| `NEXT_PUBLIC_POSTHOG_HOST` | Web | PostHog host URL |
 
 ---
 
