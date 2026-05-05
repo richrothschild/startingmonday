@@ -170,6 +170,12 @@ The 3–4 most likely objections or challenges this candidate will face. Order b
 **They push:** [the objection]
 **You say:** [specific counter, not defensive, not vague]
 
+## Likely Questions
+The 4–5 questions this interviewer will almost certainly ask, derived from the intersection of this specific role, this company's situation, and this candidate's background. Not generic behavioral questions: questions that arise because of who this person is and what this company needs right now. For each:
+**They ask:** [the question, phrased as they would actually say it]
+**What they're probing:** [what is actually being tested underneath the question, one sentence]
+**Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
+
 ## Talking Points
 5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
 **[Point title]** [2–3 sentences: what to say and exactly why it resonates here]
@@ -217,7 +223,7 @@ export async function GET(
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
-    2500,
+    3500,
     supabase,
     userId
   )
