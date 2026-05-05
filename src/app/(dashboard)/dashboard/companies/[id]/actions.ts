@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { markOfferAccepted, logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? '').trim()
@@ -43,7 +44,10 @@ export async function updateCompany(id: string, formData: FormData) {
   if (stage === 'offer') {
     await markOfferAccepted(user.id)
     await logEvent(user.id, 'offer_accepted', { company_id: id })
+    captureServerEvent(user.id, 'offer_accepted', { company_id: id })
   }
+
+  captureServerEvent(user.id, 'pipeline_stage_changed', { company_id: id, stage })
 
   revalidatePath(`/dashboard/companies/${id}`)
   revalidatePath('/dashboard')
@@ -81,6 +85,9 @@ export async function addFollowUp(companyId: string, formData: FormData) {
     due_date: dueDate,
     status: 'pending',
   })
+
+  await logEvent(user.id, 'follow_up_set', { company_id: companyId })
+  captureServerEvent(user.id, 'follow_up_set', { company_id: companyId })
 
   revalidatePath(`/dashboard/companies/${companyId}`)
   revalidatePath('/dashboard')

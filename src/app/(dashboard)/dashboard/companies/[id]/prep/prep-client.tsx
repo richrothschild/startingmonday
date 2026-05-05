@@ -212,10 +212,12 @@ export function PrepClient({
   companyId,
   companyName,
   stageLabel,
+  hasContacts,
 }: {
   companyId: string
   companyName: string
   stageLabel: string
+  hasContacts: boolean
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -503,6 +505,20 @@ export function PrepClient({
               </button>
             </div>
             <p className="mt-2 text-[11px] text-slate-300">Enter to submit · Shift+Enter for new line</p>
+          </div>
+        )}
+
+        {brief && !hasContacts && (
+          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
+            <p className="text-[13px] text-slate-300">
+              Add a contact at {companyName} to track your outreach alongside this brief.
+            </p>
+            <Link
+              href={`/dashboard/companies/${companyId}`}
+              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+            >
+              Add contact
+            </Link>
           </div>
         )}
 

@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { saveProfile } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
 import { TagInput } from '@/components/TagInput'
+import { getActivationStatus } from '@/lib/activation'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -23,11 +24,14 @@ export default async function ProfilePage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
-    .from('user_profiles')
-    .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
-    .eq('user_id', user.id)
-    .single()
+  const [{ data: profile }, activation] = await Promise.all([
+    supabase
+      .from('user_profiles')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
+      .eq('user_id', user.id)
+      .single(),
+    getActivationStatus(user.id),
+  ])
 
   const activeDays: string[] = profile?.briefing_days ?? DEFAULT_DAYS
   const briefingTime = profile?.briefing_time
@@ -70,6 +74,14 @@ export default async function ProfilePage({
           {saved && (
             <div className="mb-6 px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
               Profile saved.
+            </div>
+          )}
+          {saved && activation.a1_resume && !activation.a2_company && (
+            <div className="mb-6 px-4 py-3 bg-slate-900 rounded flex items-center justify-between gap-4">
+              <p className="text-[13px] text-slate-300">Next: add your first target company to start building your pipeline.</p>
+              <Link href="/dashboard/companies/new" className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors">
+                Add company
+              </Link>
             </div>
           )}
           {saveError && (

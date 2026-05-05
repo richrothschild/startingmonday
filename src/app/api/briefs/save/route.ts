@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -46,6 +47,7 @@ export async function POST(request: NextRequest) {
   if (type === 'prep' || type === 'strategy_brief_generated') {
     const eventName = type === 'prep' ? 'prep_brief_generated' : 'strategy_brief_generated'
     await logEvent(userId, eventName, { type, company_id: company_id ?? null })
+    captureServerEvent(userId, eventName, { type, company_id: company_id ?? null })
   }
 
   return NextResponse.json({ id: data.id })

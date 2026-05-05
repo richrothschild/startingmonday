@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function addContact(formData: FormData) {
   const supabase = await createClient()
@@ -50,6 +51,7 @@ export async function addContact(formData: FormData) {
   }
 
   await logEvent(user.id, 'contact_added', { channel: channel ?? '' })
+  captureServerEvent(user.id, 'contact_added', { channel: channel ?? '' })
   revalidatePath('/dashboard/contacts')
   redirect('/dashboard/contacts?saved=1')
 }

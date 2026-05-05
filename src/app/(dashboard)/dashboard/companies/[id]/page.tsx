@@ -94,7 +94,7 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }] = await Promise.all([
+  const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
       .select('id, name, sector, stage, fit_score, notes, company_url, career_page_url')
@@ -142,6 +142,12 @@ export default async function CompanyPage({
       .gte('signal_date', since90d)
       .order('signal_date', { ascending: false })
       .limit(10),
+    supabase
+      .from('briefs')
+      .select('id', { count: 'exact', head: true })
+      .eq('company_id', id)
+      .eq('user_id', user.id)
+      .eq('type', 'prep'),
   ])
 
   const scans = (rawScans ?? []) as unknown as ScanResult[]
@@ -426,6 +432,21 @@ export default async function CompanyPage({
 
           </div>
         </div>
+        {/* Smart prompt: generate prep brief */}
+        {(prepBriefCount ?? 0) === 0 && (
+          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
+            <p className="text-[13px] text-slate-300">
+              You have not generated a prep brief for {company.name} yet.
+            </p>
+            <Link
+              href={`/dashboard/companies/${id}/prep`}
+              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+            >
+              Generate brief
+            </Link>
+          </div>
+        )}
+
         {/* Contacts */}
         <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">

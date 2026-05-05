@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function saveProfile(formData: FormData) {
   const supabase = await createClient()
@@ -51,8 +52,14 @@ export async function saveProfile(formData: FormData) {
 
   if (upsertError) redirect('/dashboard/profile?error=save-failed')
 
+  if (resumeText) {
+    await logEvent(user.id, 'resume_uploaded', {})
+    captureServerEvent(user.id, 'resume_uploaded', {})
+  }
+
   if (briefingTime) {
     await logEvent(user.id, 'briefing_configured', { briefing_time: briefingTime })
+    captureServerEvent(user.id, 'briefing_configured', { briefing_time: briefingTime })
   }
 
   revalidatePath('/dashboard')

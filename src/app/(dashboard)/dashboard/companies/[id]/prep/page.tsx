@@ -20,13 +20,21 @@ export default async function PrepPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: company } = await supabase
-    .from('companies')
-    .select('name, stage')
-    .eq('id', id)
-    .eq('user_id', user.id)
-    .is('archived_at', null)
-    .single()
+  const [{ data: company }, { count: contactCount }] = await Promise.all([
+    supabase
+      .from('companies')
+      .select('name, stage')
+      .eq('id', id)
+      .eq('user_id', user.id)
+      .is('archived_at', null)
+      .single(),
+    supabase
+      .from('contacts')
+      .select('id', { count: 'exact', head: true })
+      .eq('company_id', id)
+      .eq('user_id', user.id)
+      .eq('status', 'active'),
+  ])
 
   if (!company) notFound()
 
@@ -35,6 +43,7 @@ export default async function PrepPage({
       companyId={id}
       companyName={company.name}
       stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
+      hasContacts={(contactCount ?? 0) > 0}
     />
   )
 }
