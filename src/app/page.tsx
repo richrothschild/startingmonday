@@ -27,9 +27,9 @@ const SITUATIONS = [
     sub: 'Not ready to commit. But not at peace either.',
   },
   {
-    id: 'pivot',
-    headline: "I've outgrown my lane.",
-    sub: 'Same caliber. Different stage.',
+    id: 'vp-up',
+    headline: "I'm ready for the next seat.",
+    sub: 'VP to CIO. Director to VP. I have the record. Now I need the campaign.',
   },
   {
     id: 'returning',
@@ -125,7 +125,7 @@ export default function LandingPage() {
             The best roles at your level are filled before they&rsquo;re posted. We watch your target companies, surface roles before they go public, and have your brief ready before the first call.
           </p>
           <p className="text-[13px] text-slate-500 mb-8">
-            Import your LinkedIn profile during setup. Running in 2 minutes.
+            Import your LinkedIn profile during setup. Operational in minutes.
           </p>
 
           <div className="flex flex-col gap-2.5 mb-9">
@@ -147,7 +147,7 @@ export default function LandingPage() {
                 href="/signup"
                 className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
               >
-                Start your search &rarr;
+                Start your campaign &rarr;
               </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">Free for 30 days. No credit card.</p>
             </div>
@@ -216,7 +216,7 @@ export default function LandingPage() {
               href="/signup"
               className="inline-block bg-slate-900 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-slate-800 transition-colors"
             >
-              Start your search &rarr;
+              Start your campaign &rarr;
             </Link>
             <p className="text-[12px] text-slate-400 mt-2">Free for 30 days. No credit card.</p>
           </div>
@@ -249,6 +249,14 @@ export default function LandingPage() {
               {
                 heading: 'You can delete everything',
                 body: 'At any time, from Settings, you can permanently delete your account and all associated data. No friction. No waiting period.',
+              },
+              {
+                heading: 'The output sounds like you, not like AI',
+                body: 'Before writing a word, the AI reads your original resume for sentence rhythm, vocabulary, and formality. Every tailored output calibrates to your voice. You review everything before it leaves your desk.',
+              },
+              {
+                heading: 'Search firms and recruiters cannot find you here',
+                body: 'We have no data-sharing relationships with executive search firms, staffing agencies, or recruiters. We do not sell leads. Your search activity is invisible to anyone you have not chosen to contact.',
               },
             ].map(item => (
               <div key={item.heading} className="border-t border-slate-100 pt-5">
@@ -292,6 +300,78 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="bg-white px-6 py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+            What it costs
+          </p>
+          <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
+            Less than one hour with an executive coach. Every month.
+          </h2>
+          <p className="text-[14px] text-slate-500 mb-12 max-w-2xl leading-relaxed">
+            Executive coaches charge $10,000&ndash;$25,000 for a search engagement. LinkedIn Premium runs $70/mo and gets you better job board access. Starting Monday is the infrastructure between those two &mdash; the campaign operating system you run yourself.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+            <div className="border border-slate-200 rounded-lg p-6">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
+              <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
+                $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
+              </p>
+              <p className="text-[12px] text-slate-400 mb-6">30-day free trial. No credit card.</p>
+              <ul className="space-y-2.5">
+                {[
+                  'Pipeline tracking for up to 25 companies',
+                  'Career page scanning 3x per week',
+                  'Weekly signal digest',
+                  'Contact tracker',
+                ].map(f => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <span className="text-slate-300 shrink-0 mt-0.5 text-[12px]">+</span>
+                    <span className="text-[13px] text-slate-500 leading-snug">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 inline-block w-full text-center border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors"
+              >
+                Try free &rarr;
+              </Link>
+            </div>
+            <div className="border border-slate-900 rounded-lg p-6 bg-slate-900">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
+              <p className="text-[32px] font-bold text-white leading-none mb-1">
+                $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
+              </p>
+              <p className="text-[12px] text-slate-500 mb-6">30-day free trial. No credit card.</p>
+              <ul className="space-y-2.5">
+                {[
+                  'Everything in Passive',
+                  'AI Interview Prep Briefs',
+                  'Search Strategy Brief',
+                  'AI Chat advisor',
+                  'Outreach drafting',
+                  'Resume tailoring + quality check',
+                  'Daily morning briefing',
+                ].map(f => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <span className="text-slate-600 shrink-0 mt-0.5 text-[12px]">+</span>
+                    <span className="text-[13px] text-slate-300 leading-snug">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 inline-block w-full text-center bg-white text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-slate-100 transition-colors"
+              >
+                Start your campaign &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-slate-900 px-6 py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
@@ -305,7 +385,7 @@ export default function LandingPage() {
             href="/signup"
             className="inline-block bg-white text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-slate-100 transition-colors"
           >
-            Start your search &rarr;
+            Start your campaign &rarr;
           </Link>
           <p className="text-[12px] text-slate-500 mt-3">Free for 30 days. No credit card. Takes about 2 minutes.</p>
           <p className="text-[13px] text-slate-600 mt-4">
