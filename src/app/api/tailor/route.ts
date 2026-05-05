@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { requireAuth } from '@/lib/require-auth'
-import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
 
@@ -36,17 +35,8 @@ Missing: [comma-separated list of important JD terms not in the resume - things 
 [3-5 bullets describing what changed and why - concrete, not generic]`
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
-  const { userId } = auth
-
-  const sub = await getUserSubscription(userId)
-  if (!canAccessFeature(sub, 'resume_tailor')) {
-    return new Response(
-      JSON.stringify({ error: 'Resume tailoring requires an Active plan.' }),
-      { status: 403, headers: { 'Content-Type': 'application/json' } }
-    )
-  }
+  const access = await requireFeatureAccess(request, 'resume_tailor')
+  if (!access.ok) return access.response
 
   let resumeText: string, jobDescription: string, companyName: string, targetTitle: string
   try {

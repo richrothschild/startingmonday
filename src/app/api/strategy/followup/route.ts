@@ -1,30 +1,18 @@
-import { type NextRequest } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
-import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { type NextRequest, NextResponse } from 'next/server'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
+import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
+  const access = await requireFeatureAccess(request, 'strategy_brief')
+  if (!access.ok) return access.response
 
-  const { userId } = auth
-  const supabase = await createClient()
-
-  if (await isRateLimited(supabase, userId)) {
-    return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
+  const { userId, supabase } = access
 
   const body = await request.json().catch(() => null)
   if (!body?.brief || !body?.question) {
-    return new Response(JSON.stringify({ error: 'Missing brief or question' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return NextResponse.json({ error: 'Missing brief or question' }, { status: 400 })
   }
 
   const { brief, question } = body as { brief: string; question: string }

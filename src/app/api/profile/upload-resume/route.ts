@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 const MAX_BYTES = 5 * 1024 * 1024
@@ -10,6 +11,10 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
   const { userId } = auth
   const supabase = await createClient()
+
+  if (await isRateLimited(supabase, userId)) {
+    return NextResponse.json({ error: 'Monthly token limit reached.' }, { status: 429 })
+  }
 
   const formData = await request.formData().catch(() => null)
   if (!formData) return NextResponse.json({ error: 'Invalid request' }, { status: 400 })

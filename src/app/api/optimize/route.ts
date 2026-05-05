@@ -44,10 +44,22 @@ function dayWindow() {
   return new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
 }
 
+// This endpoint is intentionally unauthenticated. It powers the landing page
+// LinkedIn optimizer for visitors who have not signed up. Rate limiting is
+// enforced server-side via a security_definer RPC so the anon key cannot bypass it.
+function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get('cf-connecting-ip') ??
+    request.headers.get('x-real-ip') ??
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown'
+  )
+}
+
 export async function POST(request: NextRequest) {
   // Bot detection is handled in middleware.ts (User-Agent check).
   // Here we enforce the persistent per-IP daily rate limit.
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  const ip = getClientIp(request)
 
   // Use the Supabase anon client; check_and_increment_rate_limit is
   // security definer so anon can call it.

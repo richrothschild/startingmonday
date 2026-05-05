@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStripe, getPriceId } from '@/lib/stripe'
 import { PLANS, type PlanKey } from '@/lib/plans'
+import { APP_URL } from '@/lib/config'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     await supabase.from('users').update({ stripe_customer_id: customerId }).eq('id', userId)
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
+  const baseUrl = APP_URL
 
   let session
   try {

@@ -3,6 +3,11 @@ import { getStripe } from '@/lib/stripe'
 import { sendEmail } from '@/lib/email'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
+import { APP_URL } from '@/lib/config'
+
+// current_period_end is present on Stripe.Subscription at runtime but not typed
+// in the SDK version pinned in this project.
+type StripeSubWithPeriodEnd = Stripe.Subscription & { current_period_end: number }
 
 function createAdminClient() {
   return createSupabaseClient(
@@ -60,11 +65,10 @@ export async function POST(request: NextRequest) {
     }
 
     case 'customer.subscription.updated': {
-      const sub = event.data.object as Stripe.Subscription
+      const sub = event.data.object as StripeSubWithPeriodEnd
       const userId = sub.metadata?.userId
       if (!userId) break
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const paused = !!(sub as any).pause_collection?.behavior
+      const paused = !!sub.pause_collection?.behavior
       const status = paused ? 'paused'
         : sub.status === 'active' ? 'active'
         : sub.status === 'trialing' ? 'trialing'
@@ -75,10 +79,8 @@ export async function POST(request: NextRequest) {
       const update: Record<string, string | null> = {
         subscription_tier: status === 'active' || status === 'trialing' ? plan : 'free',
         subscription_status: status,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        subscription_period_end: (sub as any).current_period_end
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ? new Date((sub as any).current_period_end * 1000).toISOString()
+        subscription_period_end: sub.current_period_end
+          ? new Date(sub.current_period_end * 1000).toISOString()
           : null,
       }
       // Clear trial_ends_at when subscription converts from trial to paid
@@ -91,16 +93,14 @@ export async function POST(request: NextRequest) {
     }
 
     case 'customer.subscription.deleted': {
-      const sub = event.data.object as Stripe.Subscription
+      const sub = event.data.object as StripeSubWithPeriodEnd
       const userId = sub.metadata?.userId
       if (!userId) break
       const { error } = await supabase.from('users').update({
         subscription_tier: 'free',
         subscription_status: 'canceled',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        subscription_period_end: (sub as any).current_period_end
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ? new Date((sub as any).current_period_end * 1000).toISOString()
+        subscription_period_end: sub.current_period_end
+          ? new Date(sub.current_period_end * 1000).toISOString()
           : null,
       }).eq('id', userId)
       updateError = error
@@ -125,14 +125,13 @@ export async function POST(request: NextRequest) {
         .eq('stripe_customer_id', customerId)
         .single()
       if (userData?.email) {
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
         await sendEmail({
           to: userData.email,
           subject: 'Action required: your Starting Monday payment failed',
           html: `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:560px;margin:40px auto;padding:0 16px;color:#334155">
 <p style="font-size:16px;font-weight:700;color:#0f172a">Payment failed</p>
 <p>Your most recent Starting Monday payment could not be processed. Your account has been marked past due and AI features may be restricted.</p>
-<p><a href="${appUrl}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:10px 20px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600">Update payment method</a></p>
+<p><a href="${APP_URL}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:10px 20px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600">Update payment method</a></p>
 <p style="font-size:13px;color:#64748b">If you believe this is an error, reply to this email and we will sort it out.</p>
 </body></html>`,
         }).catch(() => {/* non-fatal; DB is already updated */})

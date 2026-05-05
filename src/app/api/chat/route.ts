@@ -1,9 +1,8 @@
 import { type NextRequest } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { createClient } from '@/lib/supabase/server'
 import { todayInTz, fullDateInTz } from '@/lib/date'
-import { isRateLimited, trackApiUsage, trimMessages } from '@/lib/api-usage'
-import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -152,31 +151,21 @@ async function runTool(
 }
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
+  const access = await requireFeatureAccess(request, 'ai_chat')
+  if (!access.ok) return access.response
 
-  const { userId } = auth
-  const supabase = await createClient()
-
-  const sub = await getUserSubscription(userId)
-  if (!canAccessFeature(sub, 'ai_chat')) {
-    return new Response(JSON.stringify({ error: 'upgrade_required', plan: 'active' }), {
-      status: 402,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
-  if (await isRateLimited(supabase, userId)) {
-    return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
+  const { userId, supabase } = access
 
   let rawMessages: unknown[]
   try {
     const body = await request.json()
-    rawMessages = Array.isArray(body?.messages) ? body.messages : []
+    if (!Array.isArray(body?.messages) || body.messages.length === 0) {
+      return new Response(JSON.stringify({ error: 'messages array is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+    rawMessages = body.messages
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
@@ -273,58 +262,59 @@ Other platform features you can point users to when relevant:
 
   const readable = new ReadableStream({
     async start(controller) {
-      type WorkingMessage = Anthropic.MessageParam
-      let workingMessages: WorkingMessage[] = trimmed.map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content,
-      }))
+      try {
+        type WorkingMessage = Anthropic.MessageParam
+        let workingMessages: WorkingMessage[] = trimmed.map(m => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        }))
 
-      for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
-        const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
-          max_tokens: 1024,
+        for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
+          const stream = anthropic.messages.stream({
+            model: MODELS.sonnet,
+            max_tokens: 1024,
 
-          system: systemPrompt,
-          tools: isDemo ? [TOOLS[3]] : TOOLS,
-          messages: workingMessages,
-        })
+            system: systemPrompt,
+            tools: isDemo ? [TOOLS[3]] : TOOLS,
+            messages: workingMessages,
+          })
 
-        stream.on('text', text => {
-          controller.enqueue(encoder.encode(text))
-        })
+          stream.on('text', text => {
+            controller.enqueue(encoder.encode(text))
+          })
 
-        stream.on('error', err => {
-          controller.error(err)
-        })
+          const response = await stream.finalMessage()
+          totalTokens += (response.usage.input_tokens ?? 0) + (response.usage.output_tokens ?? 0)
 
-        const response = await stream.finalMessage()
-        totalTokens += (response.usage.input_tokens ?? 0) + (response.usage.output_tokens ?? 0)
+          if (response.stop_reason !== 'tool_use') {
+            controller.close()
+            trackApiUsage(supabase, userId, totalTokens).catch(() => {})
+            return
+          }
 
-        if (response.stop_reason !== 'tool_use') {
-          controller.close()
-          trackApiUsage(supabase, userId, totalTokens).catch(() => {})
-          return
+          const toolResults: Anthropic.ToolResultBlockParam[] = []
+
+          for (const block of response.content) {
+            if (block.type !== 'tool_use') continue
+            const { result, label } = await runTool(supabase, userId, block.name, block.input as ToolInput)
+            toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: result })
+            controller.enqueue(encoder.encode(`[ACTION:${label}]\n`))
+          }
+
+          workingMessages = [
+            ...workingMessages,
+            { role: 'assistant', content: response.content as unknown as Anthropic.MessageParam['content'] },
+            { role: 'user', content: toolResults },
+          ]
         }
 
-        const toolResults: Anthropic.ToolResultBlockParam[] = []
-
-        for (const block of response.content) {
-          if (block.type !== 'tool_use') continue
-          const { result, label } = await runTool(supabase, userId, block.name, block.input as ToolInput)
-          toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: result })
-          controller.enqueue(encoder.encode(`[ACTION:${label}]\n`))
-        }
-
-        workingMessages = [
-          ...workingMessages,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { role: 'assistant', content: response.content as any },
-          { role: 'user', content: toolResults },
-        ]
+        controller.close()
+        trackApiUsage(supabase, userId, totalTokens).catch(() => {})
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Unknown error'
+        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+        controller.close()
       }
-
-      controller.close()
-      trackApiUsage(supabase, userId, totalTokens).catch(() => {})
     },
   })
 

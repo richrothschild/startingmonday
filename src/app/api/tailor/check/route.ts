@@ -1,7 +1,6 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { createClient } from '@/lib/supabase/server'
-import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
 
 const SYSTEM_PROMPT = `You are a senior executive recruiter and hiring manager with 20 years placing C-suite and VP-level technology leaders. You evaluate resumes with ruthless precision.
 
@@ -44,17 +43,8 @@ FIX: [one sentence on what specifically to add or change]
 [What does a recruiter see in the first 6 seconds - name, current title, first 2 bullets of most recent role. Does it earn the call? One short paragraph.]`
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
-
-  const sub = await getUserSubscription(user.id)
-  if (!canAccessFeature(sub, 'resume_tailor')) {
-    return new Response(
-      JSON.stringify({ error: 'Resume tailoring requires an Active plan.' }),
-      { status: 403, headers: { 'Content-Type': 'application/json' } }
-    )
-  }
+  const access = await requireFeatureAccess(request, 'resume_tailor')
+  if (!access.ok) return access.response
 
   let tailoredResume: string, jobDescription: string, companyName: string
   try {
@@ -63,11 +53,11 @@ export async function POST(request: NextRequest) {
     jobDescription = (body.jobDescription ?? '').trim()
     companyName    = (body.companyName    ?? '').trim()
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 
   if (!tailoredResume || !jobDescription) {
-    return new Response(JSON.stringify({ error: 'Missing resume or job description.' }), { status: 400 })
+    return NextResponse.json({ error: 'Missing resume or job description.' }, { status: 400 })
   }
 
   const context = companyName ? `Company: ${companyName}\n\n` : ''

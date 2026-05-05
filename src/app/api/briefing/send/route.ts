@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { todayInTz, fullDateInTz } from '@/lib/date'
+import { APP_URL } from '@/lib/config'
 
 // Returns true if the user is due a briefing today (not already sent in last 20h)
 function isDue(profile: { briefing_days?: string[] | null; briefing_timezone?: string | null; last_briefing_sent_at?: string | null }, tz: string): boolean {
@@ -161,7 +162,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error?.message ?? 'Query failed' }, { status: 500 })
   }
 
-  const dashboardUrl = `https://${process.env.NEXT_PUBLIC_APP_URL ?? 'startingmonday.app'}/dashboard`
+  const dashboardUrl = `${APP_URL}/dashboard`
   let sent = 0
   let skipped = 0
 

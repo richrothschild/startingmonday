@@ -1,14 +1,13 @@
 import { type NextRequest } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
-import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
+import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
+import { type SupabaseClient } from '@supabase/supabase-js'
 
-function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
+function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
   const encoder = new TextEncoder()
   return new ReadableStream({
     async start(controller) {
@@ -35,26 +34,10 @@ function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createCl
 }
 
 export async function GET(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
+  const access = await requireFeatureAccess(request, 'strategy_brief')
+  if (!access.ok) return access.response
 
-  const { userId } = auth
-  const supabase = await createClient()
-
-  const sub = await getUserSubscription(userId)
-  if (!canAccessFeature(sub, 'strategy_brief')) {
-    return new Response(JSON.stringify({ error: 'upgrade_required', plan: 'active' }), {
-      status: 402,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
-  if (await isRateLimited(supabase, userId)) {
-    return new Response(JSON.stringify({ error: 'Monthly token limit reached.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
+  const { userId, supabase } = access
 
   const [{ data: profile }, { data: companies }] = await Promise.all([
     supabase

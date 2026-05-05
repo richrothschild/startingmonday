@@ -90,46 +90,58 @@ const DOC_LABEL_NAMES: Record<string, string> = {
 }
 
 type Signal = { signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string }
+type ScanRow = { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }
+type ContactRow = { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }
+type DocRow = { label: string; content: string }
 
-function buildContext(company: { name: string; sector?: string | null; stage: string; notes?: string | null }, profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null } | null, scanResults: { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }[] | null, contacts: { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }[] | null, documents: { label: string; content: string }[] | null, signals: Signal[] | null) {
+function buildScanSection(scanResults: ScanRow[] | null): string {
+  if (!scanResults?.[0]) return 'No career page scans on file.'
+  const scan = scanResults[0]
+  const matches = ((scan.raw_hits ?? []) as { title: string; score: number; is_match: boolean; summary: string }[]).filter(h => h.is_match)
+  const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+  return matches.length > 0
+    ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
+    : `Career page scanned ${date}, no matching roles detected.`
+}
+
+function buildSignalSection(signals: Signal[] | null): string | null {
+  if (!(signals ?? []).length) return null
+  return (signals ?? []).map(s => {
+    const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}`
+  }).join('\n')
+}
+
+function buildContactSection(contacts: ContactRow[] | null): string {
+  if (!(contacts ?? []).length) return 'No contacts on file.'
+  return (contacts ?? []).map(c => {
+    const parts = [c.title, c.firm].filter(Boolean).join(' at ')
+    return `- ${c.name}${parts ? `, ${parts}` : ''}${c.channel ? ` (via ${c.channel})` : ''}${c.notes ? `: ${c.notes}` : ''}`
+  }).join('\n')
+}
+
+function buildDocSection(documents: DocRow[] | null): string | null {
+  if (!(documents ?? []).length) return null
+  return (documents ?? []).map(d => {
+    const labelName = DOC_LABEL_NAMES[d.label] ?? d.label
+    const content = d.content.length > DOC_CHARS ? d.content.slice(0, DOC_CHARS) + '\n[truncated]' : d.content
+    return `[${labelName}]\n${content}`
+  }).join('\n\n')
+}
+
+type ProfileRow = { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null }
+type CompanyRow = { name: string; sector?: string | null; stage: string; notes?: string | null }
+
+function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
 
-  let scanSection = 'No career page scans on file.'
-  if (scanResults?.[0]) {
-    const scan = scanResults[0]
-    const matches = ((scan.raw_hits ?? []) as { title: string; score: number; is_match: boolean; summary: string }[])
-      .filter(h => h.is_match)
-    const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
-    scanSection = matches.length > 0
-      ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
-      : `Career page scanned ${date}, no matching roles detected.`
-  }
-
-  const signalSection = (signals ?? []).length > 0
-    ? (signals ?? []).map(s => {
-        const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-        return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}`
-      }).join('\n')
-    : null
-
-  const contactSection = (contacts ?? []).length > 0
-    ? (contacts ?? []).map(c => {
-        const parts = [c.title, c.firm].filter(Boolean).join(' at ')
-        return `- ${c.name}${parts ? `, ${parts}` : ''}${c.channel ? ` (via ${c.channel})` : ''}${c.notes ? `: ${c.notes}` : ''}`
-      }).join('\n')
-    : 'No contacts on file.'
-
+  const scanSection = buildScanSection(scanResults)
+  const signalSection = buildSignalSection(signals)
+  const contactSection = buildContactSection(contacts)
   const hasContacts = (contacts ?? []).length > 0
-
-  const docsSection = (documents ?? []).length > 0
-    ? (documents ?? []).map(d => {
-        const labelName = DOC_LABEL_NAMES[d.label] ?? d.label
-        const content = d.content.length > DOC_CHARS ? d.content.slice(0, DOC_CHARS) + '\n[truncated]' : d.content
-        return `[${labelName}]\n${content}`
-      }).join('\n\n')
-    : null
+  const docsSection = buildDocSection(documents)
 
   const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
 

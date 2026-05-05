@@ -1,7 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
-import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { OUTREACH_SYSTEM } from '@/lib/prompts'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
@@ -18,22 +16,15 @@ const STYLE_GUIDELINES = `- Do not use em dashes anywhere in the message
 - No subject line needed, just the message body`
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
+  const access = await requireFeatureAccess(request, 'outreach_draft')
+  if (!access.ok) return access.response
 
-  const { userId } = auth
+  const { userId, supabase } = access
   const body = await request.json().catch(() => ({}))
   const { contactId, goal, additionalContext, currentDraft, refineStyle, refineInstruction } = body
 
   if (!contactId) {
     return NextResponse.json({ error: 'contactId is required' }, { status: 400 })
-  }
-
-  const supabase = await createClient()
-
-  const sub = await getUserSubscription(userId)
-  if (!canAccessFeature(sub, 'outreach_draft')) {
-    return NextResponse.json({ error: 'upgrade_required', plan: 'active' }, { status: 402 })
   }
 
   const [{ data: contact }, { data: profile }] = await Promise.all([
@@ -132,12 +123,18 @@ ${STYLE_GUIDELINES}`
   const encoder = new TextEncoder()
   const readable = new ReadableStream({
     async start(controller) {
-      for await (const chunk of stream) {
-        if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
-          controller.enqueue(encoder.encode(chunk.delta.text))
+      try {
+        for await (const chunk of stream) {
+          if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+            controller.enqueue(encoder.encode(chunk.delta.text))
+          }
         }
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Unknown error'
+        controller.enqueue(encoder.encode(`__ERROR__${msg}`))
+      } finally {
+        controller.close()
       }
-      controller.close()
     },
   })
 
