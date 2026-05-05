@@ -55,6 +55,22 @@ const FEATURES = [
     label: 'Daily Morning Briefing',
     body: 'New matches, pending actions, and company signals — assembled overnight and in your inbox before the day starts.',
   },
+  {
+    label: 'AI Career Advisor',
+    body: 'A strategic advisor with full visibility into your pipeline. Ask anything — how to frame a gap, what to say to a contact, which companies to prioritize. It takes action when you ask it to.',
+  },
+  {
+    label: 'Search Strategy Brief',
+    body: 'One AI synthesis of your full positioning — target roles, sectors, narrative, and outreach approach. Built from your background and the companies you are tracking. Regenerate when your focus shifts.',
+  },
+  {
+    label: 'Resume Tailoring',
+    body: 'Paste the job description. Get a tailored resume that matches their language without keyword stuffing. Run the quality check for an ATS score, recruiter grade, and a list of weak bullets to fix before you send it.',
+  },
+  {
+    label: 'Level-Calibrated AI',
+    body: 'Set your search level — C-Suite, VP/SVP, or Board/Advisor — and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
+  },
 ]
 
 export default function LandingPage() {

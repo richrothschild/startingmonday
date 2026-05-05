@@ -260,7 +260,13 @@ ${contactLines || 'No contacts yet.'}
 OVERDUE OR DUE TODAY:
 ${actionsLines || 'None.'}
 
-When the user asks you to update their pipeline, add a follow-up, or log notes, use the available tools to take action immediately rather than just advising them to do it.`
+When the user asks you to update their pipeline, add a follow-up, or log notes, use the available tools to take action immediately rather than just advising them to do it.
+
+Other platform features you can point users to when relevant:
+- Interview Prep Brief: available on any company detail page. Generates a tailored brief in 60 seconds.
+- Search Strategy Brief: in the nav. One-time AI synthesis of full positioning and outreach approach.
+- Resume Tailor: in the nav. Paste a job description, get a tailored resume, then run Quality Check for ATS score and recruiter/hiring manager grades.
+- Search Level: set on Profile. Calibrates all AI output to C-Suite, VP/SVP, or Board/Advisor tier.`
 
   const encoder = new TextEncoder()
   let totalTokens = 0
