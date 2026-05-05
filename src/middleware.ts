@@ -6,19 +6,34 @@ const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scra
 
 const NOINDEX = { 'X-Robots-Tag': 'noindex, nofollow' }
 
+function logRequest(request: NextRequest) {
+  console.log(JSON.stringify({
+    ts: new Date().toISOString(),
+    method: request.method,
+    path: request.nextUrl.pathname,
+    ip: request.headers.get('cf-connecting-ip')
+      ?? request.headers.get('x-real-ip')
+      ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      ?? '-',
+  }))
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // --- API routes: early return after header/bot handling ---
   if (pathname.startsWith('/api/')) {
-    // Item 8: Block automated clients from the public LinkedIn review tool
+    // Skip logging for healthcheck to avoid noise
+    if (pathname !== '/api/health') logRequest(request)
+
+    // Block automated clients from the public LinkedIn review tool
     if (pathname === '/api/optimize') {
       const ua = request.headers.get('user-agent') ?? ''
       if (!ua || BOT_UA_RE.test(ua)) {
         return new NextResponse('Forbidden', { status: 403 })
       }
     }
-    // Item 6: Tell crawlers not to index API responses
+    // Tell crawlers not to index API responses
     const res = NextResponse.next()
     res.headers.set('X-Robots-Tag', 'noindex, nofollow')
     return res
@@ -62,7 +77,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/api/:path*',
+    '/api/((?!health$).*)',
     '/dashboard/:path*',
   ],
 }
