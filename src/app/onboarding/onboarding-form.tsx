@@ -7,7 +7,15 @@ const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px]
 const labelCls = 'block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5'
 const hintCls  = 'mt-1.5 text-[12px] text-slate-400'
 
-const SECTIONS = ['Import', 'About', 'Situation', 'Targeting', 'Background']
+const SECTIONS = ['Level', 'Import', 'About', 'Situation', 'Targeting', 'Background']
+
+type SearchPersona = 'csuite' | 'vp' | 'board'
+
+const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = [
+  { value: 'csuite', label: 'C-Suite',            sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
+  { value: 'vp',     label: 'VP / SVP',           sub: 'VP, SVP, or EVP targeting C-suite or a larger VP role' },
+  { value: 'board',  label: 'Board / Advisor',    sub: 'Board seat, operating partner, or advisory role' },
+]
 
 type InitialProfile = {
   full_name?: string | null
@@ -38,6 +46,7 @@ function importSummary(data: ImportResult): string[] {
 }
 
 export function OnboardingForm({ profile, errorMessage }: { profile: InitialProfile | null; errorMessage?: string | null }) {
+  const [searchPersona, setSearchPersona]       = useState<SearchPersona | ''>('')
   const [fullName, setFullName]                 = useState(profile?.full_name ?? '')
   const [currentTitle, setCurrentTitle]         = useState(profile?.current_title ?? '')
   const [currentCompany, setCurrentCompany]     = useState(profile?.current_company ?? '')
@@ -168,6 +177,41 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
             {i < SECTIONS.length - 1 && <span className="text-slate-200">›</span>}
           </span>
         ))}
+      </div>
+
+      {/* Level */}
+      <div className="bg-white border border-slate-200 rounded p-8 flex flex-col gap-5">
+        <div>
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1.5">
+            Your level
+          </div>
+          <p className="text-[13px] text-slate-500">
+            This shapes how every brief is written. Pick the option that best matches where you are now.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {PERSONA_OPTIONS.map(opt => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => setSearchPersona(opt.value)}
+              className={[
+                'text-left border rounded p-4 flex flex-col gap-1 transition-colors cursor-pointer',
+                searchPersona === opt.value
+                  ? 'border-slate-900 bg-slate-900 text-white'
+                  : 'border-slate-200 hover:border-slate-400',
+              ].join(' ')}
+            >
+              <span className={['text-[14px] font-semibold', searchPersona === opt.value ? 'text-white' : 'text-slate-900'].join(' ')}>
+                {opt.label}
+              </span>
+              <span className={['text-[12px] leading-relaxed', searchPersona === opt.value ? 'text-slate-300' : 'text-slate-400'].join(' ')}>
+                {opt.sub}
+              </span>
+            </button>
+          ))}
+        </div>
+        <input type="hidden" name="search_persona" value={searchPersona} />
       </div>
 
       {/* LinkedIn Import — two equal tiles */}

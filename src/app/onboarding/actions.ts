@@ -11,6 +11,7 @@ export async function completeOnboarding(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const searchPersona       = (formData.get('search_persona') as string) || null
   const fullName            = (formData.get('full_name') as string ?? '').trim() || null
   const currentTitle        = (formData.get('current_title') as string ?? '').trim() || null
   const currentCompany      = (formData.get('current_company') as string ?? '').trim() || null
@@ -31,6 +32,7 @@ export async function completeOnboarding(formData: FormData) {
   await supabase.from('user_profiles').upsert(
     {
       user_id:                  user.id,
+      search_persona:           searchPersona,
       full_name:                fullName,
       current_title:            currentTitle,
       current_company:          currentCompany,
