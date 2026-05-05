@@ -17,9 +17,9 @@ const SITUATIONS = [
     sub: 'Targeted search. I just need to move faster.',
   },
   {
-    id: 'level-up',
-    headline: "I've earned the next level.",
-    sub: 'First senior search. I need the playbook.',
+    id: 'restructured',
+    headline: "My role was restructured.",
+    sub: "I know my worth. I want to land at the right level, not just the next one.",
   },
   {
     id: 'passive',
@@ -116,13 +116,13 @@ export default function LandingPage() {
       <section className="bg-slate-900 px-6 pt-20 pb-24">
         <div className="max-w-3xl mx-auto">
           <p className="text-[19px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-7">
-            The search is harder than the job.
+            At this level, the search is a campaign, not an application.
           </p>
           <h1 className="text-[44px] sm:text-[54px] font-bold text-white leading-[1.1] tracking-tight mb-5">
             Your next role<br />isn&rsquo;t on a<br />job board.
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
-            The best roles at your level are filled before they&rsquo;re posted. We watch your target companies, surface openings before they go public, and have your brief ready before the first call.
+            The best roles at your level are filled before they&rsquo;re posted. We watch your target companies, surface roles before they go public, and have your brief ready before the first call.
           </p>
           <p className="text-[13px] text-slate-500 mb-8">
             Import your LinkedIn profile during setup. Running in 2 minutes.
@@ -131,7 +131,7 @@ export default function LandingPage() {
           <div className="flex flex-col gap-2.5 mb-9">
             {[
               'Add your target companies — we check their career pages three times a week, before roles go public',
-              'Get alerted the moment a match appears — often days before it reaches LinkedIn or Indeed',
+              'Build your intelligence picture — track contacts, log every conversation, watch for signals before a role is even authorized',
               'Generate a tailored prep brief in 60 seconds, built from their company and your actual background',
             ].map((step, i) => (
               <div key={i} className="flex items-start gap-3">
