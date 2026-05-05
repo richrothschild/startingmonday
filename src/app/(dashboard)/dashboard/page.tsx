@@ -133,6 +133,9 @@ export default async function DashboardPage({
           <div className="hidden sm:flex items-center gap-5">
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Chat</Link>
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Contacts</Link>
+            <Link href="/dashboard/kanban" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Kanban</Link>
+            <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Calendar</Link>
+            <Link href="/optimize" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Help</Link>
             <Link href="/dashboard/profile" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">{profile?.full_name ?? user.email}</Link>
@@ -226,13 +229,14 @@ export default async function DashboardPage({
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
             { href: '/dashboard/companies/new',  label: '+ Add Company',     sub: 'Target company or role' },
+            { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
+            { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
             { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
-            { href: '/dashboard/contacts',       label: 'Contacts',          sub: 'Your network map' },
           ].map(a => (
             <Link
               key={a.href}
