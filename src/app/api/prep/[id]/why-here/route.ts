@@ -3,6 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { personaContext } from '@/lib/prompts'
 
 const SYSTEM =
   'You are a senior executive coach who helps leaders articulate why a specific opportunity genuinely matters to them. ' +
@@ -23,7 +24,7 @@ export async function GET(
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const [{ data: company }, { data: profile }, { data: signals }] = await Promise.all([
     supabase.from('companies').select('name, sector, stage, notes').eq('id', companyId).eq('user_id', userId).single(),
-    supabase.from('user_profiles').select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, beyond_resume').eq('user_id', userId).single(),
+    supabase.from('user_profiles').select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, beyond_resume, search_persona').eq('user_id', userId).single(),
     supabase.from('company_signals').select('signal_type, signal_summary, signal_date').eq('company_id', companyId).eq('user_id', userId).gte('signal_date', since90d).order('signal_date', { ascending: false }).limit(5),
   ])
 
@@ -49,7 +50,7 @@ export async function GET(
   const userPrompt = `Build a "why I want to work here" statement for an executive interviewing at ${company.name}.
 
 CANDIDATE
-Name: ${profile?.full_name ?? 'the candidate'}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
+Name: ${profile?.full_name ?? 'the candidate'}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}
 Target roles: ${targetTitles || 'Not specified'}
 Target sectors: ${targetSectors || 'Not specified'}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 

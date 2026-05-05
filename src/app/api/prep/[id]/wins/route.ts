@@ -3,6 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { personaContext } from '@/lib/prompts'
 
 const SYSTEM =
   'You are a senior executive coach who helps candidates demonstrate they have done real homework on a company. ' +
@@ -21,9 +22,10 @@ export async function GET(
   const { id: companyId } = await params
 
   const since180d = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const [{ data: company }, { data: signals }] = await Promise.all([
+  const [{ data: company }, { data: signals }, { data: profile }] = await Promise.all([
     supabase.from('companies').select('name, sector, stage, notes').eq('id', companyId).eq('user_id', userId).single(),
     supabase.from('company_signals').select('signal_type, signal_summary, outreach_angle, signal_date, source_url').eq('company_id', companyId).eq('user_id', userId).gte('signal_date', since180d).order('signal_date', { ascending: false }).limit(12),
+    supabase.from('user_profiles').select('search_persona').eq('user_id', userId).single(),
   ])
 
   if (!company) return new Response('Not found', { status: 404 })
@@ -48,7 +50,7 @@ export async function GET(
   }).join('\n')
 
   const userPrompt = `Identify recent wins and positive developments at ${company.name} that an executive candidate should reference in their interview.
-
+${personaContext(profile?.search_persona)}
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}
 Pipeline stage: ${company.stage}${company.notes ? `\nIntel / notes: ${company.notes}` : ''}

@@ -25,7 +25,7 @@ export default async function ProfilePage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url')
+    .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
     .eq('user_id', user.id)
     .single()
 
@@ -79,6 +79,40 @@ export default async function ProfilePage({
           )}
 
           <form action={saveProfile} className="flex flex-col gap-6">
+
+            {/* Search level */}
+            <div>
+              <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Search level
+              </p>
+              <div className="flex flex-col gap-2">
+                {[
+                  { value: 'csuite', label: 'C-Suite',         sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
+                  { value: 'vp',     label: 'VP / SVP',        sub: 'VP, SVP, or EVP targeting C-suite or a larger VP role' },
+                  { value: 'board',  label: 'Board / Advisor', sub: 'Board seat, operating partner, or advisory role' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className="flex items-start gap-3 p-3 rounded border cursor-pointer transition-colors border-slate-200 hover:border-slate-400 has-[:checked]:bg-slate-900 has-[:checked]:border-slate-900"
+                  >
+                    <input
+                      type="radio"
+                      name="search_persona"
+                      value={opt.value}
+                      defaultChecked={profile?.search_persona === opt.value}
+                      className="sr-only"
+                    />
+                    <div>
+                      <p className="text-[13px] font-semibold leading-none mb-0.5">
+                        <span className="[label:has(:checked)_&]:text-white text-slate-900 font-semibold">{opt.label}</span>
+                      </p>
+                      <p className="text-[12px] text-slate-400 [label:has(:checked)_&]:text-slate-400 mt-0.5">{opt.sub}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-1.5 text-[12px] text-slate-400">Calibrates interview prep briefs and AI coaching to your actual level.</p>
+            </div>
 
             {/* Name */}
             <div>

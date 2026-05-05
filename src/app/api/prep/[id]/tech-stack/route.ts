@@ -4,6 +4,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { personaContext } from '@/lib/prompts'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
   job_description: 'Job Description',
@@ -29,9 +30,10 @@ export async function GET(
 
   const { id: companyId } = await params
 
-  const [{ data: company }, { data: documents }] = await Promise.all([
+  const [{ data: company }, { data: documents }, { data: profile }] = await Promise.all([
     supabase.from('companies').select('name, sector, stage, notes').eq('id', companyId).eq('user_id', userId).single(),
     supabase.from('company_documents').select('label, content').eq('company_id', companyId).eq('user_id', userId).order('created_at', { ascending: true }),
+    supabase.from('user_profiles').select('search_persona').eq('user_id', userId).single(),
   ])
 
   if (!company) return new Response('Not found', { status: 404 })
@@ -52,7 +54,7 @@ export async function GET(
     : ''
 
   const userPrompt = `Identify the likely technology stack and key systems at ${company.name}.
-
+${personaContext(profile?.search_persona)}
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}
 Pipeline stage: ${company.stage}${company.notes ? `\nIntel / notes: ${company.notes}` : ''}${docsSection}
