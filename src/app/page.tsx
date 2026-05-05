@@ -207,6 +207,50 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Trust */}
+      <section className="bg-white px-6 py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+            Your search is confidential
+          </p>
+          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
+            You&rsquo;re sharing your real situation. You should know exactly how we handle it.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+            {[
+              {
+                heading: 'We never train AI on your data',
+                body: 'Your resume, pipeline, and notes are yours. We use them to generate your briefs and nothing else. They are never used to train or fine-tune AI models.',
+              },
+              {
+                heading: 'Your employer will not find out',
+                body: 'We have no relationship with employers and no way for them to search our platform. Your account and activity are entirely private.',
+              },
+              {
+                heading: 'We do not sell or share your data',
+                body: 'We sell subscriptions, not data. Your profile, targets, and career information are never shared with third parties, recruiters, or anyone else.',
+              },
+              {
+                heading: 'You can delete everything',
+                body: 'At any time, from Settings, you can permanently delete your account and all associated data. No friction. No waiting period.',
+              },
+            ].map(item => (
+              <div key={item.heading} className="border-t border-slate-100 pt-5">
+                <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.heading}</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-[12px] text-slate-400">
+            Full details in our{' '}
+            <a href="/privacy" className="underline hover:text-slate-600 transition-colors">
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       {/* Social proof + stats */}
       <section className="bg-slate-900 px-6 py-20">
         <div className="max-w-4xl mx-auto">

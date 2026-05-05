@@ -452,8 +452,13 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
 
       {/* Background */}
       <div className="bg-white border border-slate-200 rounded p-8 flex flex-col gap-5">
-        <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 -mb-1">
-          Your background
+        <div className="flex items-start justify-between gap-6">
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            Your background
+          </div>
+          <p className="text-[12px] text-slate-400 text-right leading-relaxed shrink-0 max-w-xs">
+            Not shared. Not used to train AI. Only used to build your briefs.
+          </p>
         </div>
 
         <div>
