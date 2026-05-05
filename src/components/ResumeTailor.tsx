@@ -41,13 +41,15 @@ function cleanResume(text: string): string {
 }
 
 function parseOutput(raw: string): Parsed {
-  const tailoredMatch = raw.match(/## TAILORED RESUME\s*([\s\S]*?)(?=## KEYWORD ANALYSIS|$)/)
-  const keywordsMatch = raw.match(/## KEYWORD ANALYSIS\s*([\s\S]*?)(?=## KEY CHANGES|$)/)
-  const changesMatch  = raw.match(/## KEY CHANGES\s*([\s\S]*)$/)
+  const tailoredMatch = raw.match(/## TAILORED RESUME\s*([\s\S]*?)(?=## KEYWORD ANALYSIS|$)/i)
+  const keywordsMatch = raw.match(/## KEYWORD ANALYSIS\s*([\s\S]*?)(?=## KEY CHANGES|$)/i)
+  const changesMatch  = raw.match(/## KEY CHANGES\s*([\s\S]*)$/i)
+  // If headers are missing, treat the whole response as the tailored resume
+  const tailored = tailoredMatch?.[1]?.trim() ?? (!keywordsMatch && !changesMatch ? raw.trim() : '')
   return {
-    tailored:  tailoredMatch?.[1]?.trim() ?? '',
-    keywords:  keywordsMatch?.[1]?.trim() ?? '',
-    changes:   changesMatch?.[1]?.trim()  ?? '',
+    tailored,
+    keywords: keywordsMatch?.[1]?.trim() ?? '',
+    changes:  changesMatch?.[1]?.trim()  ?? '',
   }
 }
 
@@ -205,7 +207,11 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
   }
 
   async function handleQualityCheck() {
-    if (checkStreaming || !parsed?.tailored) return
+    if (checkStreaming) return
+    if (!parsed?.tailored) {
+      setCheckError('Could not find the tailored resume in the output. Try tailoring again.')
+      return
+    }
     setCheckStreaming(true)
     setCheckDone(false)
     setCheckRaw('')
