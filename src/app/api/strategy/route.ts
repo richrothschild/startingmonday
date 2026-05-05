@@ -96,10 +96,10 @@ ${pipelineSection}
 Write the brief with these exact sections, using ## for each header:
 
 ## Bottom Line
-Three sentences. The first names this candidate's single decisive advantage in this search right now. The second names the single biggest risk or gap they must get ahead of. The third states the one move that will most accelerate their search in the next 30 days. No hedging. No qualifications. Commit.
+Three sentences only. No preamble. The first names this candidate's single decisive advantage in this search right now: what specifically makes them a compelling hire at this moment. The second names the single biggest risk or gap: the thing that, if unaddressed, will cost them the best opportunities. The third states the one move that will most accelerate their search in the next 30 days. If they read only this section, these three sentences are everything. No hedging. No qualifications. Commit.
 
 ## Your Position
-An honest read on where this person actually stands in the market. What's working in their favor, what's working against them, and what the market looks like for their profile right now. Not encouragement: a real assessment. Include whether the stated target roles are realistic, stretchy, or off-base.
+Open with a single verdict sentence: where this person actually stands in the market right now, stated plainly. Then the supporting evidence: what's working in their favor, what's working against them, and what the market looks like for their profile. Include whether the stated target roles are realistic, stretchy, or off-base. Not encouragement: a real assessment.
 
 ## Target Role Profile
 Primary target titles to pursue. 2–3 adjacent alternatives worth considering that they may not have thought of. Explain why each is a legitimate fit and where the opportunity surface is. Flag any titles they listed that are likely to be low-yield and why.
@@ -114,10 +114,10 @@ The core story they need to tell. One clear through-line that explains the arc o
 How to actually work this search. Specific breakdown of where to focus across: warm network, cold outreach, executive recruiters/search firms, and direct approach. What works at this level and what doesn't. One specific tactic for each channel.
 
 ## Gaps to Get Ahead Of
-2–3 objections or gaps they will face repeatedly. For each, state what it is directly and give the specific framing or counter. These are the things that will kill their candidacy if not addressed proactively.
+2–3 objections or gaps they will face repeatedly. Order by severity: the gap most likely to cost them the best opportunity goes first. For each, state what it is directly and give the specific framing or counter. These are the things that will kill their candidacy if not addressed proactively.
 
 ## First 30 Days
-8–10 concrete actions in priority order. Not strategy: specific moves. Each should be completable in the next month. Format each as an action, not a principle.
+8–10 concrete actions in priority order. The first action is the single highest-leverage move available right now. Not strategy: specific moves. Each should be completable in the next month. Format each as an action, not a principle.
 
 If critical information is absent (no resume, no current role, no target titles), name the gap explicitly in the relevant section rather than filling it with generic advice. Tell the reader exactly what you cannot assess and what they would need to provide to get a sharper answer. Do not invent details or speak in vague generalities to cover missing data.
 

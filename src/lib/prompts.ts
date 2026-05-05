@@ -30,6 +30,12 @@ Before writing any sentence, ask: could this have been written about any executi
 If yes, either rewrite it using a specific detail from what you know about this person, or cut it.
 Name specific companies, roles, dynamics, objections, or actions. Generality is waste.`
 
+const BLUF_RULE = `
+Structure every output so the most important insight leads. Never build toward a conclusion: state the conclusion, then support it.
+In every section, the first sentence carries the key finding. In every list, the highest-impact item is first.
+Order objections by lethality, not frequency. Order talking points by differentiation, not chronology. Order actions by leverage, not ease.
+If a reader stops after the first sentence of any section, they still have the most important thing in that section.`
+
 const PERSONA_CALIBRATION = `
 When candidate level is provided, calibrate every section to that specific level. Generic executive advice is not enough.
 C-Suite: Probe for board dynamics, CEO tenure and relationship, P&L ownership scope, culture stewardship, and transformation at enterprise scale. Questions the candidate asks should signal governance and strategic awareness.
@@ -61,7 +67,8 @@ export const STRATEGY_SYSTEM =
   '\n\n' + QUALITY_BAR +
   '\n\n' + ANTI_PATTERNS +
   '\n\n' + SPECIFICITY_RULE +
-  '\n\n' + PERSONA_CALIBRATION
+  '\n\n' + PERSONA_CALIBRATION +
+  '\n\n' + BLUF_RULE
 
 export const PREP_SYSTEM =
   'You are a senior executive coach who has prepared C-suite candidates for high-stakes interviews ' +
@@ -74,7 +81,8 @@ export const PREP_SYSTEM =
   '\n\n' + QUALITY_BAR +
   '\n\n' + ANTI_PATTERNS +
   '\n\n' + SPECIFICITY_RULE +
-  '\n\n' + PERSONA_CALIBRATION
+  '\n\n' + PERSONA_CALIBRATION +
+  '\n\n' + BLUF_RULE
 
 export const COMPETITIVE_SYSTEM =
   'You are a strategy partner who advises executives at the VP and C-suite level on market positioning. ' +

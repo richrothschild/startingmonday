@@ -154,7 +154,7 @@ ${contactSection}${docsSection ? `\n\nDOCUMENTS\n${docsSection}` : ''}
 Write the brief with these exact sections, using ## for each header:
 
 ## Bottom Line
-Three sentences. The first states the candidate's decisive advantage for this specific role over everyone else being considered. The second names the single most likely objection or risk they will face in the room. The third states the one thing they must do or say in this interview to win the opportunity. No hedging. Commit.
+Three sentences only. No preamble, no company context, no hedging. The first states the candidate's single decisive advantage for this role: what specifically makes them the hire over everyone else being considered. The second names the most dangerous objection they will face: the one that, if not addressed, loses them the offer. The third states the single thing they must do or say in this conversation to close it. If they read nothing else, these three sentences are everything they need to walk in. Commit fully.
 
 ## The Situation
 What is actually driving this hire? What problem does this organization need solved, and why now? Infer from the sector, pipeline stage, notes, and scan data. Be direct. This sets the frame for everything else.
@@ -166,16 +166,16 @@ One paragraph. Written as a conviction, not a summary. Not why the candidate is 
 How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement, ready to say verbatim.
 
 ## Anticipated Pushback
-The 3–4 most likely objections or challenges this candidate will face. For each, state the objection directly and give the exact counter. Format each as:
+The 3–4 most likely objections or challenges this candidate will face. Order by lethality: the objection most likely to kill the candidacy goes first. For each, state the objection directly and give the exact counter. Format each as:
 **They push:** [the objection]
 **You say:** [specific counter, not defensive, not vague]
 
 ## Talking Points
-5 specific, story-anchored points to make in the interview. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
+5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
 **[Point title]** [2–3 sentences: what to say and exactly why it resonates here]
 
 ## Questions to Ask
-5 questions that signal the candidate is a strategic peer, not an applicant. Each should demonstrate a specific kind of executive intelligence. After each question, one sentence on what it signals to the interviewers.
+5 questions that signal the candidate is a strategic peer, not an applicant. Lead with the single question most likely to distinguish this candidate from everyone else in the room. Each should demonstrate a specific kind of executive intelligence. After each question, one sentence on what it signals to the interviewers.
 
 ## First 90 Days Signal
 2–3 specific observations or priorities to surface naturally in conversation, not as a formal plan, but as proof the candidate has already started thinking like an insider. Phrase each as something they'd actually say in the room, then note why it lands.
