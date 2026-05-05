@@ -106,18 +106,18 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
 
       {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
             Starting Monday
           </span>
-          <div className="flex items-center gap-5">
-            <Link href="/optimize" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+          <div className="flex items-center gap-4 sm:gap-5">
+            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               Free Profile Grade
             </Link>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Log in
             </Link>
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               Try demo
             </Link>
             <Link
@@ -131,12 +131,12 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </nav>
 
       {/* Hero */}
-      <section className="bg-slate-900 px-6 pt-20 pb-24">
+      <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[19px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-7">
+          <p className="text-[16px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-5 sm:mb-7">
             {hero.eyebrow}
           </p>
-          <h1 className="text-[44px] sm:text-[54px] font-bold text-white leading-[1.1] tracking-tight mb-5">
+          <h1 className="text-[38px] sm:text-[54px] font-bold text-white leading-[1.1] tracking-tight mb-5">
             {hero.h1Lines.map((line, i) => (
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
@@ -191,7 +191,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Persona self-selection */}
-      <section className="bg-slate-50 px-6 py-16 border-b border-slate-100">
+      <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
             Which of these sounds like you?
@@ -217,7 +217,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Differentiation */}
-      <section className="bg-white px-6 py-10 border-b border-slate-100">
+      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed">
             Not a job board. Not a $15,000 coaching engagement.{' '}
@@ -227,14 +227,14 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Features */}
-      <section className="bg-slate-50 px-6 py-20 border-b border-slate-100">
+      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-10">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-8 sm:mb-10">
             What it does
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-lg overflow-hidden">
             {FEATURES.map(f => (
-              <div key={f.label} className="bg-white p-8">
+              <div key={f.label} className="bg-white p-5 sm:p-8">
                 <p className="text-[13px] font-bold text-slate-900 mb-3">{f.label}</p>
                 <p className="text-[14px] text-slate-500 leading-relaxed">{f.body}</p>
               </div>
@@ -253,7 +253,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Trust */}
-      <section className="bg-white px-6 py-20 border-b border-slate-100">
+      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
             Your search is confidential
@@ -280,32 +280,32 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Social proof + stats */}
-      <section className="bg-slate-900 px-6 py-20">
+      <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto">
-          <blockquote className="text-[20px] sm:text-[23px] font-semibold text-white leading-relaxed mb-3 max-w-2xl">
+          <blockquote className="text-[18px] sm:text-[23px] font-semibold text-white leading-relaxed mb-3 max-w-2xl">
             &ldquo;I had a recruiter call at 7am. The brief was ready. I walked in knowing exactly what to say and what to leave out.&rdquo;
           </blockquote>
-          <p className="text-[13px] text-slate-500 mb-14">Senior technology executive, active search</p>
+          <p className="text-[13px] text-slate-500 mb-10 sm:mb-14">Senior technology executive, active search</p>
 
-          <div className="grid grid-cols-3 gap-8 text-center border-t border-slate-800 pt-12">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center border-t border-slate-800 pt-10 sm:pt-12">
             <div>
-              <p className="text-[34px] font-bold text-white leading-none mb-2">3&times;</p>
-              <p className="text-[13px] text-slate-400 leading-relaxed">Career page checks per week at every target company you add</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">3&times;</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Career page checks per week at every target company you add</p>
             </div>
             <div>
-              <p className="text-[34px] font-bold text-white leading-none mb-2">60s</p>
-              <p className="text-[13px] text-slate-400 leading-relaxed">To generate the prep brief an executive coach takes days to produce</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">60s</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To generate the prep brief an executive coach takes days to produce</p>
             </div>
             <div>
-              <p className="text-[34px] font-bold text-white leading-none mb-2">$0</p>
-              <p className="text-[13px] text-slate-400 leading-relaxed">To start. 30-day trial, no credit card, cancel any time</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">$0</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To start. 30-day trial, no credit card, cancel any time</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Pricing */}
-      <section className="bg-white px-6 py-20 border-b border-slate-100">
+      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
             What it costs
@@ -317,7 +317,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
             Executive coaches charge $10,000&ndash;$25,000 for a search engagement. LinkedIn Premium runs $70/mo and gets you better job board access. Starting Monday is the infrastructure between those two &mdash; the campaign operating system you run yourself.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
-            <div className="border border-slate-200 rounded-lg p-6">
+            <div className="border border-slate-200 rounded-lg p-5 sm:p-6">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
@@ -338,7 +338,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
                 Try free &rarr;
               </Link>
             </div>
-            <div className="border border-slate-900 rounded-lg p-6 bg-slate-900">
+            <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
               <p className="text-[32px] font-bold text-white leading-none mb-1">
                 $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
@@ -381,7 +381,7 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Final CTA */}
-      <section className="bg-slate-900 px-6 py-24 border-t border-slate-800">
+      <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[30px] sm:text-[36px] font-bold text-white mb-4 leading-tight">
             The call will come.<br />Be ready when it does.
@@ -406,12 +406,12 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-6 py-6">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-6">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
           <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600">
             Starting Monday
           </span>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
             <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
               Free Profile Grade
             </Link>
