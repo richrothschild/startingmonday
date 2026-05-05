@@ -5,6 +5,7 @@ import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContac
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
 import { LogSignalForm } from '@/components/LogSignalForm'
+import { ScanPoller } from '@/components/ScanPoller'
 
 function getNextScanDate(): string {
   const now = new Date()
@@ -81,10 +82,11 @@ export default async function CompanyPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ error?: string; saved?: string }>
+  searchParams: Promise<{ error?: string; saved?: string; scanning?: string }>
 }) {
   const { id } = await params
-  const { error, saved } = await searchParams
+  const { error, saved, scanning } = await searchParams
+  const isScanning = scanning === '1' && true
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -177,6 +179,7 @@ export default async function CompanyPage({
         </div>
       </header>
 
+      <ScanPoller active={isScanning && !latestScan} />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
@@ -648,9 +651,18 @@ export default async function CompanyPage({
 
           {!latestScan ? (
             <div className="px-6 py-10 text-center text-[14px] text-slate-400">
-              {company.career_page_url
-                ? <>Results will appear after the next scheduled scan &mdash; <span className="font-medium">{getNextScanDate()}</span>.</>
-                : 'Add a career page URL above to enable scanning.'}
+              {isScanning && company.career_page_url ? (
+                <div className="flex items-center justify-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+                  <span className="ml-1 text-[13px] text-slate-400">Scanning career page now...</span>
+                </div>
+              ) : company.career_page_url ? (
+                <>Results will appear after the next scheduled scan &mdash; <span className="font-medium">{getNextScanDate()}</span>.</>
+              ) : (
+                'Add a career page URL above to enable scanning.'
+              )}
             </div>
           ) : latestScan.status === 'blocked' ? (
             <div className="px-6 py-6">

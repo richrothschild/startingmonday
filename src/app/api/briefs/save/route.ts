@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     contact_id?: string
   }
 
-  if (!['strategy', 'prep', 'outreach'].includes(type)) {
+  if (!['strategy', 'prep', 'prep_section', 'outreach'].includes(type)) {
     return NextResponse.json({ error: 'Invalid type' }, { status: 400 })
   }
 
@@ -43,8 +43,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to save brief' }, { status: 500 })
   }
 
-  const eventName = type === 'prep' ? 'prep_brief_generated' : 'strategy_brief_generated'
-  await logEvent(userId, eventName, { type, company_id: company_id ?? null })
+  if (type === 'prep' || type === 'strategy_brief_generated') {
+    const eventName = type === 'prep' ? 'prep_brief_generated' : 'strategy_brief_generated'
+    await logEvent(userId, eventName, { type, company_id: company_id ?? null })
+  }
 
   return NextResponse.json({ id: data.id })
 }

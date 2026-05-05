@@ -63,5 +63,5 @@ export async function addCompany(formData: FormData) {
     })
   }
 
-  redirect('/dashboard')
+  redirect(`/dashboard/companies/${inserted.id}?scanning=1`)
 }

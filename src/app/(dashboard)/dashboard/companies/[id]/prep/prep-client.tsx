@@ -107,14 +107,16 @@ async function saveBrief(type: string, text: string, companyId?: string): Promis
   }
 }
 
-function useOnDemand(url: string) {
+function useOnDemand(url: string, companyId: string) {
   const [content, setContent] = useState('')
+  const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   async function generate() {
     setLoading(true)
     setContent('')
+    setBriefId(null)
     setError('')
     try {
       const res = await fetch(url)
@@ -128,6 +130,9 @@ function useOnDemand(url: string) {
       if (fullText.startsWith('__ERROR__')) {
         setError(fullText.slice(9))
         setContent('')
+      } else {
+        const id = await saveBrief('prep_section', fullText, companyId)
+        setBriefId(id)
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -136,13 +141,14 @@ function useOnDemand(url: string) {
     }
   }
 
-  return { content, loading, error, generate }
+  return { content, briefId, loading, error, generate }
 }
 
 function OnDemandPanel({
   title,
   description,
   content,
+  briefId,
   loading,
   error,
   onGenerate,
@@ -150,6 +156,7 @@ function OnDemandPanel({
   title: string
   description: string
   content: string
+  briefId: string | null
   loading: boolean
   error: string
   onGenerate: () => void
@@ -192,6 +199,11 @@ function OnDemandPanel({
           )}
         </div>
       )}
+      {briefId && !loading && content && (
+        <div className="px-6 pb-4 flex justify-end">
+          <BriefRating briefId={briefId} />
+        </div>
+      )}
     </div>
   )
 }
@@ -213,14 +225,14 @@ export function PrepClient({
   const [refining, setRefining] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
-  const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`)
-  const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`)
-  const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`)
-  const competitive  = useOnDemand(`/api/prep/${companyId}/competitive`)
-  const wins         = useOnDemand(`/api/prep/${companyId}/wins`)
-  const techStack    = useOnDemand(`/api/prep/${companyId}/tech-stack`)
-  const whyHere      = useOnDemand(`/api/prep/${companyId}/why-here`)
-  const questions    = useOnDemand(`/api/prep/${companyId}/questions`)
+  const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
+  const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`,  companyId)
+  const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`,  companyId)
+  const competitive  = useOnDemand(`/api/prep/${companyId}/competitive`, companyId)
+  const wins         = useOnDemand(`/api/prep/${companyId}/wins`,        companyId)
+  const techStack    = useOnDemand(`/api/prep/${companyId}/tech-stack`,  companyId)
+  const whyHere      = useOnDemand(`/api/prep/${companyId}/why-here`,    companyId)
+  const questions    = useOnDemand(`/api/prep/${companyId}/questions`,   companyId)
 
   async function handleGenerate() {
     setLoading(true)
@@ -374,6 +386,7 @@ export function PrepClient({
               title="Leadership Team"
               description="Who is in the room, what they care about, and how to win with each of them."
               content={leadership.content}
+              briefId={leadership.briefId}
               loading={leadership.loading}
               error={leadership.error}
               onGenerate={leadership.generate}
@@ -382,6 +395,7 @@ export function PrepClient({
               title="Strategic Priorities"
               description="What this company is actually focused on right now — and how to align your narrative."
               content={priorities.content}
+              briefId={priorities.briefId}
               loading={priorities.loading}
               error={priorities.error}
               onGenerate={priorities.generate}
@@ -390,6 +404,7 @@ export function PrepClient({
               title="Pain Points"
               description="The real challenges they are dealing with — and how to demonstrate you understand them."
               content={challenges.content}
+              briefId={challenges.briefId}
               loading={challenges.loading}
               error={challenges.error}
               onGenerate={challenges.generate}
@@ -398,6 +413,7 @@ export function PrepClient({
               title="Competitive Landscape"
               description="Who they compete with, how they position, and how to use it in the room."
               content={competitive.content}
+              briefId={competitive.briefId}
               loading={competitive.loading}
               error={competitive.error}
               onGenerate={competitive.generate}
@@ -406,6 +422,7 @@ export function PrepClient({
               title="Recent Wins"
               description="What to acknowledge and reference to show you did the homework."
               content={wins.content}
+              briefId={wins.briefId}
               loading={wins.loading}
               error={wins.error}
               onGenerate={wins.generate}
@@ -414,6 +431,7 @@ export function PrepClient({
               title="Tech Stack"
               description="What systems they are likely running and what to know before you walk in."
               content={techStack.content}
+              briefId={techStack.briefId}
               loading={techStack.loading}
               error={techStack.error}
               onGenerate={techStack.generate}
@@ -422,6 +440,7 @@ export function PrepClient({
               title="Why Here"
               description="A personalized statement for when they ask why you want this role."
               content={whyHere.content}
+              briefId={whyHere.briefId}
               loading={whyHere.loading}
               error={whyHere.error}
               onGenerate={whyHere.generate}
@@ -430,6 +449,7 @@ export function PrepClient({
               title="Likely Interview Questions"
               description="The questions they will ask you — with coaching on how to answer each."
               content={questions.content}
+              briefId={questions.briefId}
               loading={questions.loading}
               error={questions.error}
               onGenerate={questions.generate}
