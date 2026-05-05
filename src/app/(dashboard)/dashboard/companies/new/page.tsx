@@ -6,7 +6,7 @@ import { addCompany } from './actions'
 const STAGES = [
   { value: 'watching',     label: 'Watching' },
   { value: 'researching',  label: 'Researching' },
-  { value: 'applied',      label: 'Applied' },
+  { value: 'applied',      label: 'In Process' },
   { value: 'interviewing', label: 'Interviewing' },
   { value: 'offer',        label: 'Offer' },
 ]

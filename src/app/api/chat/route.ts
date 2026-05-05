@@ -22,7 +22,7 @@ const TOOLS: Anthropic.Tool[] = [
         stage: {
           type: 'string',
           enum: ['watching', 'researching', 'applied', 'interviewing', 'offer'],
-          description: 'New pipeline stage',
+          description: "New pipeline stage. 'applied' displays as 'In Process' in the UI.",
         },
       },
       required: ['company_name', 'stage'],

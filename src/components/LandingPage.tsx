@@ -360,6 +360,23 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
               </Link>
             </div>
           </div>
+
+          <div className="mt-8 max-w-2xl border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-[13px] font-semibold text-slate-700">
+                Executive &mdash; $499/mo <span className="text-[11px] font-normal text-slate-400 ml-1">Coming soon</span>
+              </p>
+              <p className="text-[12px] text-slate-400 mt-0.5 leading-relaxed">
+                Unlimited pipeline, board and PE firm intelligence, priority brief generation, dedicated account review.
+              </p>
+            </div>
+            <Link
+              href="/signup"
+              className="shrink-0 text-[12px] font-semibold text-slate-500 border border-slate-200 px-4 py-2 rounded hover:border-slate-400 hover:text-slate-700 transition-colors"
+            >
+              Join waitlist &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 

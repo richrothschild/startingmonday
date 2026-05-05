@@ -5,7 +5,7 @@ import { PrepClient } from './prep-client'
 const STAGE_LABEL: Record<string, string> = {
   watching:     'Watching',
   researching:  'Researching',
-  applied:      'Applied',
+  applied:      'In Process',
   interviewing: 'Interviewing',
   offer:        'Offer',
 }

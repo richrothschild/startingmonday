@@ -38,9 +38,9 @@ export default async function OnboardingPage({
       <main className="max-w-2xl mx-auto px-6 py-12">
 
         <div className="mb-10">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Set up your profile</h1>
+          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Set up your campaign</h1>
           <p className="text-[14px] text-slate-500 mt-2 leading-relaxed max-w-lg">
-            Takes about 5 minutes. Everything here feeds your interview prep briefs, daily briefing, and AI assistant. You can edit any of this later.
+            Takes about 5 minutes. Everything here shapes your prep briefs, strategy, and AI advisor — the more context you give, the sharper the output. You can edit any of this later.
           </p>
         </div>
 

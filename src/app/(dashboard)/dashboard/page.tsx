@@ -10,7 +10,7 @@ import { FollowUpItem } from '@/components/FollowUpItem'
 const STAGE: Record<string, { label: string; cls: string }> = {
   watching:     { label: 'Watching',     cls: 'bg-slate-100 text-slate-500' },
   researching:  { label: 'Researching',  cls: 'bg-blue-50 text-blue-700' },
-  applied:      { label: 'Applied',      cls: 'bg-indigo-50 text-indigo-700' },
+  applied:      { label: 'In Process',   cls: 'bg-indigo-50 text-indigo-700' },
   interviewing: { label: 'Interviewing', cls: 'bg-amber-50 text-amber-700' },
   offer:        { label: 'Offer',        cls: 'bg-green-50 text-green-700' },
 }

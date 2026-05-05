@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'What do the pipeline stages mean?',
-    a: 'Watching: tracking but not yet active. Researching: actively learning, likely reaching out soon. Applied: application submitted. Interviewing: at least one interview scheduled or completed. Offer: offer received. Move companies through stages as your search progresses.',
+    a: 'Watching: tracking but not yet active. Researching: actively learning, likely reaching out soon. In Process: active conversations underway. Interviewing: at least one interview scheduled or completed. Offer: offer received. Move companies through stages as your search progresses.',
   },
   {
     q: 'How do Actions Due work?',
