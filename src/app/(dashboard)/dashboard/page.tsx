@@ -415,7 +415,7 @@ export default async function DashboardPage({
           </div>
 
           <div className="overflow-x-auto">
-          <table className="w-full border-collapse min-w-[480px]">
+          <table className="w-full border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
                 <th className="py-2.5 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">

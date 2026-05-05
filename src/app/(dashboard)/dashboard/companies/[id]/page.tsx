@@ -179,14 +179,14 @@ export default async function CompanyPage({
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        <div className="mb-8 flex items-start justify-between gap-6">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">{company.name}</h1>
             {company.sector && (
               <p className="text-[13px] text-slate-500 mt-1.5">{company.sector}</p>
             )}
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 flex-wrap">
             <Link
               href={`/dashboard/profile/tailor?companyId=${id}`}
               className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
@@ -237,7 +237,7 @@ export default async function CompanyPage({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="stage" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                     Stage
@@ -476,7 +476,7 @@ export default async function CompanyPage({
               Add person
             </div>
             <form id="add-contact-form" action={addContact.bind(null, id)} className="flex flex-col gap-3">
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                     Name <span className="text-red-500">*</span>

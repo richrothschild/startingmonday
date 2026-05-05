@@ -249,7 +249,7 @@ export default async function BriefingPage() {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Header */}
-        <div className="bg-slate-900 rounded-t px-8 py-7">
+        <div className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
           <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 mb-4">
             Starting Monday
           </div>
@@ -260,7 +260,7 @@ export default async function BriefingPage() {
         </div>
 
         {/* Stats bar */}
-        <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
+        <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
           {[
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
             { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
@@ -277,7 +277,7 @@ export default async function BriefingPage() {
         </div>
 
         {/* Body */}
-        <div className="bg-white border border-slate-200 border-t-0 rounded-b px-8 py-8">
+        <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
 
           {!context.hasContent ? (
             <div className="text-center py-8">
