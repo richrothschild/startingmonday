@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { requireAuth } from '@/lib/require-auth'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
@@ -86,6 +86,7 @@ export async function POST(request: NextRequest) {
   const stream = await anthropic.messages.stream({
     model: MODELS.sonnet,
     max_tokens: 3000,
+    temperature: TEMP.structured,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],
   })

@@ -1,14 +1,12 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -16,8 +14,9 @@ function makeStream(prompt: string, supabase: Awaited<ReturnType<typeof createCl
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+          model: MODELS.opus,
           max_tokens: 4000,
+          temperature: TEMP.structured,
           system: STRATEGY_SYSTEM,
           messages: [{ role: 'user', content: prompt }],
         })

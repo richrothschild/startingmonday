@@ -1,4 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
@@ -6,9 +5,8 @@ import { todayInTz, fullDateInTz } from '@/lib/date'
 import { isRateLimited, trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { isDemoUser } from '@/lib/demo'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-const CHAT_MODEL = process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6'
+import Anthropic from '@anthropic-ai/sdk'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -276,8 +274,9 @@ When the user asks you to update their pipeline, add a follow-up, or log notes, 
 
       for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
         const stream = anthropic.messages.stream({
-          model: CHAT_MODEL,
+          model: MODELS.sonnet,
           max_tokens: 1024,
+          temperature: TEMP.balanced,
           system: systemPrompt,
           tools: isDemo ? [TOOLS[3]] : TOOLS,
           messages: workingMessages,

@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-import Anthropic from '@anthropic-ai/sdk'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
-
-const anthropic = new Anthropic()
+import { OUTREACH_SYSTEM } from '@/lib/prompts'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
   concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
@@ -123,8 +122,10 @@ ${STYLE_GUIDELINES}`
   }
 
   const stream = await anthropic.messages.stream({
-    model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+    model: MODELS.sonnet,
     max_tokens: 800,
+    temperature: TEMP.creative,
+    system: OUTREACH_SYSTEM,
     messages: [{ role: 'user', content: prompt }],
   })
 

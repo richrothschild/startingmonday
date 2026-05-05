@@ -1,4 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
@@ -7,8 +6,8 @@ import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { PREP_SYSTEM } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+import Anthropic from '@anthropic-ai/sdk'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -16,8 +15,9 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+          model: MODELS.sonnet,
           max_tokens: maxTokens,
+          temperature: TEMP.analytical,
           system: PREP_SYSTEM,
           messages,
         })

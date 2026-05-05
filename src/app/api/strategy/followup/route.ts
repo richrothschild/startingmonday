@@ -1,11 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -36,8 +34,9 @@ export async function POST(request: NextRequest) {
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+          model: MODELS.sonnet,
           max_tokens: 1000,
+          temperature: TEMP.analytical,
           system: STRATEGY_SYSTEM,
           messages: [
             {

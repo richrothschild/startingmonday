@@ -1,10 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 
 const SYSTEM =
   'You are a senior executive coach who helps leaders articulate why a specific opportunity genuinely matters to them. ' +
@@ -86,8 +84,9 @@ Tone: coaching voice, direct, human. No em dashes. No corporate language. No mot
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+          model: MODELS.sonnet,
           max_tokens: 800,
+          temperature: TEMP.analytical,
           system: SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],
         })
