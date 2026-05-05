@@ -57,34 +57,107 @@ Everything currently live at startingmonday.app.
 
 ---
 
-## Phase 1: Retention and Depth (Next 60 Days)
+## Phase 1: Acquisition and Activation (Next 60 Days)
 
-Theme: Make the product stickier and more accurate before acquiring more users. Every user who churns before experiencing the product's full value is a wasted acquisition.
+Theme: Get users to the six actions that predict retention. Every user who does all six within the first session or first two days converts and stays. Every user who does two or three does not.
+
+### Sprint: Six Actions Activation Framework
+
+The six actions, in order, that predict trial-to-paid conversion and long-term retention:
+
+1. Upload resume or import LinkedIn profile
+2. Add first target company with career page URL
+3. Generate first prep brief and read it
+4. Add first contact at a target company
+5. Set up daily briefing time and timezone
+6. Log first conversation note on a company or contact
+
+Product work to drive completion of all six:
+
+- [ ] Build a persistent "Getting Started" progress tracker visible on the dashboard until all six are complete (not a gamification badge — a functional checklist with links to each action)
+- [ ] Replace empty dashboard state with a guided first-session card that leads directly to action 1
+- [ ] Add smart prompts: after resume upload, immediately surface "Add your first target company" with a single-click entry point; after first company is added, prompt to generate the brief; after brief is read, prompt to add a contact
+- [ ] Build a day-3 and day-7 email trigger for users who have not completed all six actions — surfacing which specific actions remain with direct links (not generic "come back" messaging)
+- [ ] Track completion of each of the six actions per user in the database with timestamps — this is the primary activation metric going forward
+- [ ] Dashboard: internal view of six-actions completion rate by signup cohort
+
+Success metric: 50% of trial users complete all six actions within 7 days of signup. Current baseline to be established on first cohort.
+
+### Sprint: User Behavior Event Logging
+
+Track every meaningful user action in the product — not just page views but in-product behaviors. This is the foundational data layer for all future product decisions.
+
+Events to capture (minimum viable set):
+
+- [ ] Resume uploaded / LinkedIn imported (with source)
+- [ ] Company added (with career page URL present or absent)
+- [ ] Scan result viewed (company, roles detected, time spent)
+- [ ] Signal viewed and whether outreach action followed within 48 hours
+- [ ] Brief generated (which sections, context richness score: documents attached, contacts present, signals available)
+- [ ] Brief section rated by user
+- [ ] Contact added (channel type)
+- [ ] Outreach draft generated, copied to clipboard
+- [ ] Conversation note logged
+- [ ] Follow-up reminder set and whether completed
+- [ ] Pipeline stage changed (from/to)
+- [ ] Strategy brief generated and time spent reading
+- [ ] Chat session started, messages sent
+- [ ] Daily briefing opened (email open vs. in-app view)
+- [ ] Referral link clicked or shared
+- [ ] Subscription upgraded or downgraded
+- [ ] Trial ended without conversion (capture last action taken)
+
+Implementation:
+
+- [ ] Extend PostHog custom event tracking for all actions above — PostHog already initialized; add `posthog.capture()` calls at each action point
+- [ ] Add `user_events` table to Supabase for server-side event logging (action, user_id, metadata JSONB, timestamp) — server events as source of truth, PostHog as visualization layer
+- [ ] Capture referral_source on signup and propagate through all events for cohort analysis
+- [ ] Add six-actions completion status to user record (bitmask or individual boolean columns)
+
+Success metric: All six activation actions logged with timestamp within 30 days. Full event schema live within 45 days.
+
+### Sprint: Post-Completion Email Sequence
+
+Replace alumni mode with a lightweight email sequence triggered by offer acceptance. Two emails, both sent by the worker.
+
+Offer acceptance email (triggered when user marks a company as "Offer"):
+
+- [ ] Detect pipeline stage change to "Offer" in the worker
+- [ ] Send within 24 hours: brief, private, acknowledging the outcome without celebrating the tool
+- [ ] Two asks: (1) "Who else in your network is in search?" with a referral link, (2) a sentence they would share as a testimonial (direct link to a feedback form)
+- [ ] No promotional offer. No alumni mode upsell. Two sentences, two asks, done.
+
+Annual reactivation email (triggered by anniversary of offer date):
+
+- [ ] Worker cron: daily job checking for users whose offer_accepted_date was exactly 365 days ago
+- [ ] Send one short email: one piece of genuinely relevant industry or market information, one sentence reminder that Starting Monday exists for anyone in their network
+- [ ] Unsubscribe link. No urgency. No offer.
+
+- [ ] Add offer_accepted_date column to users table, populated when pipeline stage reaches "Offer"
+- [ ] Add referral_source tracking for signups coming through the completion email referral link
+- [ ] Build the feedback form (simple Supabase form: one text field, submit)
+
+Success metric: 20% referral rate from offer acceptance email within 90 days of launch. Testimonial capture rate: 15%.
+
+### Sprint: Data Product Infrastructure
+
+Collect at the most granular level now. The schema must be rich enough to answer questions three years from now that are not yet being asked.
+
+- [ ] Design and implement `user_events` table (action, user_id, session_id, metadata JSONB, created_at) — server-side source of truth
+- [ ] Design and implement `company_watch_events` table (user_id, company_id, industry, company_size_est, stage, geography, created_at) — captures target company demographics for aggregate intelligence
+- [ ] Design and implement `signal_action_events` table (signal_id, user_id, signal_type, days_to_action, action_type, created_at) — tracks which signal types produce action and how quickly
+- [ ] Design and implement `brief_quality_log` table (brief_id, user_id, context_richness_score, sections_generated, user_rating, time_to_read_est, created_at) — measures brief quality relative to context depth
+- [ ] Add cohort columns to users table: signup_source, acquisition_channel, persona_self_identified, plan_at_trial_end
+- [ ] Build internal admin page showing event volume, six-actions completion rate by cohort, and signal-to-action conversion rate — viewable only by admin role
+
+Note: No data is shared externally. The collection infrastructure is built now so the asset exists. Visualization and analysis tooling is a separate sprint (see backlog).
+
+Success metric: All four event tables live and receiving data within 45 days. Zero PII in any event metadata field.
 
 ### Immediate Scan on Company Add
 
 - [ ] Trigger a scan immediately when a user adds a new company (instead of waiting for the next scheduled run)
 - [ ] Show the scan result within the company workspace as soon as it completes
-
-### Day 1 Action Plan
-
-- [ ] Replace empty dashboard state with a guided first-session card
-- [ ] Clear sequence: add companies, import LinkedIn, generate first brief
-- [ ] Goal: time-to-first-brief under 15 minutes from signup
-
-### Accomplishment Repository (Phase 1 Foundation)
-
-- [ ] Add a structured "Accomplishments" section to the user profile
-- [ ] Schema: role, company, date range, outcome, metric, context tags
-- [ ] Import seed data from resume parsing (auto-extract candidate accomplishments)
-- [ ] UI: add/edit accomplishments in profile
-- [ ] Feed accomplishments as additional context to all brief and strategy prompts
-
-### Resume Version Library (follows Accomplishment Repository)
-
-- [ ] Allow multiple named resume versions (e.g., "PE-backed transformation," "Public company CIO," "Board-track")
-- [ ] Each version is generated from the accomplishment repository with different emphasis
-- [ ] AI generates the tailored version; user edits inline; export to DOCX
 
 ### Brief Quality Improvements
 

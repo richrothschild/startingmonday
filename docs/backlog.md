@@ -128,6 +128,35 @@ Move forward when: Recruiter Relationship Layer (candidate-side) is live and rec
 
 ---
 
+## Analytics and Visualization
+
+### Internal Analytics Dashboard
+
+A founder-facing dashboard that visualizes the event data collected by the data product infrastructure. Not a third-party analytics tool — a purpose-built internal view that answers the specific questions the product team needs to make decisions.
+
+Key views needed:
+
+- Six-actions completion rate by cohort (signup month, acquisition channel, plan type)
+- Trial-to-paid conversion funnel with drop-off at each step
+- Signal-to-action conversion rate by signal type (which signals produce outreach within 48 hours)
+- Brief quality score distribution over time (does context richness correlate with user rating?)
+- Company watch demographics — which industries, company sizes, and geographies are most watched
+- Referral source attribution — which acquisition channels produce users who complete all six actions
+- Churn prediction signals — what does the event history of a churned user look like vs. a retained user in the first 14 days?
+
+Deferred because: the event logging infrastructure must be live and collecting data before visualization adds value. Building the dashboard before the data exists produces nothing useful.
+
+Move forward when: data product infrastructure sprint is complete and at least 30 days of event data is in the system. At that point, the dashboard is the next sprint.
+
+Implementation notes when built:
+
+- Build as an authenticated admin-only route within the existing Next.js application — not a separate tool
+- Use a charting library (Recharts or similar — already common in Next.js stacks) for visualizations
+- Source from Supabase directly via server-side queries — no intermediate data warehouse needed at this scale
+- PostHog provides supplemental session-level data; the internal dashboard provides cohort and business-level views that PostHog's free tier does not support cleanly
+
+---
+
 ## Adjacent Product Candidates
 
 These ideas are strong enough to build but belong in a separate product rather than Starting Monday's core. Starting Monday's data and user relationships provide distribution advantage for launching them.
