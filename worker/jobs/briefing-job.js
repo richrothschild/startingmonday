@@ -43,17 +43,32 @@ export async function runBriefingJob() {
   }
 
   try {
-    const [{ data: users, error }, { data: profiles }] = await Promise.all([
-      supabase.from('users').select('id, email').in('subscription_status', ['trialing', 'active']).limit(1000),
-      supabase.from('user_profiles').select(
-        'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at'
-      ).not('briefing_time', 'is', null),
-    ])
-
-    if (error) {
-      logger.error('briefing-job: failed to fetch users', { error: error.message, stack: error.stack })
-      return
+    // Fetch all active/trialing users with cursor-based pagination to avoid the 1000-row limit
+    const PAGE_SIZE = 500
+    let allUsers = []
+    let lastId = null
+    while (true) {
+      let query = supabase.from('users').select('id, email')
+        .in('subscription_status', ['trialing', 'active'])
+        .order('id')
+        .limit(PAGE_SIZE)
+      if (lastId) query = query.gt('id', lastId)
+      const { data: page, error: pageError } = await query
+      if (pageError) {
+        logger.error('briefing-job: failed to fetch users', { error: pageError.message })
+        return
+      }
+      if (!page?.length) break
+      allUsers = allUsers.concat(page)
+      if (page.length < PAGE_SIZE) break
+      lastId = page[page.length - 1].id
     }
+    const users = allUsers
+    const error = null
+
+    const { data: profiles } = await supabase.from('user_profiles').select(
+      'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at'
+    ).not('briefing_time', 'is', null)
 
     if (!users?.length) {
       logger.info('briefing-job: no users — done')

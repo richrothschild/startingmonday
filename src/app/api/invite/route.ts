@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   let code = profile?.invite_code
 
   if (!code) {
-    code = randomBytes(6).toString('hex')
+    code = randomBytes(16).toString('hex')
     await supabase
       .from('user_profiles')
       .update({ invite_code: code })

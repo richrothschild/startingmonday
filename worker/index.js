@@ -15,6 +15,7 @@ import { runSignalJob } from './jobs/signal-job.js'
 import { runOfferEmailJob } from './jobs/offer-email-job.js'
 import { runReactivationJob } from './jobs/reactivation-job.js'
 import { runActivationReminderJob } from './jobs/activation-reminder-job.js'
+import { runCleanupJob } from './jobs/cleanup-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -97,8 +98,11 @@ cron.schedule('30 11 * * *', () => runJob('reactivation-job', runReactivationJob
 // Activation reminder: daily at 10:30 UTC — day-3 and day-7 nudge for incomplete setup
 cron.schedule('30 10 * * *', () => runJob('activation-reminder-job', runActivationReminderJob))
 
+// Cleanup: Sunday at 02:00 UTC — delete signals >90d and conversations stale >180d
+cron.schedule('0 2 * * 0', () => runJob('cleanup-job', runCleanupJob))
+
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job'],
+  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

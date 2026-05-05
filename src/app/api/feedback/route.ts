@@ -1,7 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
   const body = await request.json().catch(() => null)
   const text = (body?.text ?? '').toString().trim()
   const inviteCode = (body?.invite_code ?? '').toString().trim() || null

@@ -17,3 +17,15 @@ export const TEMP = {
   creative:   0.7,  // outreach drafts - creative writing benefits from variety
   extract:    0.1,  // classification, extraction - needs deterministic output
 } as const
+
+// Wraps a streaming promise with an AbortController timeout.
+// If the stream doesn't resolve within ms, the abort signal fires and
+// the Anthropic SDK cancels the in-flight request.
+export function withStreamTimeout<T>(
+  ms: number,
+  fn: (signal: AbortSignal) => Promise<T>
+): Promise<T> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), ms)
+  return fn(controller.signal).finally(() => clearTimeout(timer))
+}

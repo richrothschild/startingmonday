@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 
@@ -28,11 +28,25 @@ export async function PUT(request: NextRequest) {
     messages = body?.messages
     conversationId = body?.conversationId ?? null
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
+
+  if (!Array.isArray(messages)) {
+    return NextResponse.json({ error: 'messages must be an array' }, { status: 400 })
+  }
+  if (messages.length > 200) {
+    return NextResponse.json({ error: 'Too many messages' }, { status: 400 })
+  }
+  for (const msg of messages) {
+    if (typeof msg !== 'object' || msg === null || !('role' in msg) || !('content' in msg)) {
+      return NextResponse.json({ error: 'Invalid message structure' }, { status: 400 })
+    }
+    if (typeof (msg as Record<string, unknown>).content === 'string' &&
+        ((msg as Record<string, unknown>).content as string).length > 20_000) {
+      return NextResponse.json({ error: 'Message too large' }, { status: 400 })
+    }
+  }
+
   const supabase = await createClient()
 
   if (conversationId) {
@@ -47,10 +61,7 @@ export async function PUT(request: NextRequest) {
     if (existing?.updated_at) {
       const age = Date.now() - new Date(existing.updated_at).getTime()
       if (age < 500) {
-        return new Response(JSON.stringify({ error: 'Too many requests' }), {
-          status: 429,
-          headers: { 'Content-Type': 'application/json' },
-        })
+        return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
       }
     }
 

@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { createClient } from '@/lib/supabase/server'
 import { todayInTz, fullDateInTz } from '@/lib/date'
@@ -6,7 +6,8 @@ import { trackApiUsage, trimMessages } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { streamErrorMessage } from '@/lib/stream-error'
 import Anthropic from '@anthropic-ai/sdk'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, MODELS, withStreamTimeout } from '@/lib/anthropic'
+import { buildChatSystemPrompt } from '@/lib/prompts'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -161,17 +162,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     if (!Array.isArray(body?.messages) || body.messages.length === 0) {
-      return new Response(JSON.stringify({ error: 'messages array is required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return NextResponse.json({ error: 'messages array is required' }, { status: 400 })
+    }
+    if (body.messages.length > 200) {
+      return NextResponse.json({ error: 'Too many messages' }, { status: 400 })
     }
     rawMessages = body.messages
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
   const trimmed = trimMessages(rawMessages as { role: string; content: string }[])
 
@@ -237,26 +235,17 @@ export async function POST(request: NextRequest) {
 
   const isDemo = isDemoUser(userId)
 
-  const systemPrompt = `You are a strategic advisor helping ${name} run an executive job search. You have full visibility into their pipeline and can take actions directly. Speak directly, senior to senior. No motivational clichés. Short sentences. No em dashes.${isDemo ? '\n\nNote: this is a demo account. Do not offer to update the pipeline or add follow-ups.' : ''}
-
-Today is ${today}.
-${profileLines ? `\nSEARCH PROFILE:\n${profileLines}\n` : ''}
-PIPELINE (${(companies ?? []).length} companies):
-${pipelineLines || 'No companies yet.'}
-
-CONTACTS (${(contacts ?? []).length} active):
-${contactLines || 'No contacts yet.'}
-
-OVERDUE OR DUE TODAY:
-${actionsLines || 'None.'}
-
-When the user asks you to update their pipeline, add a follow-up, or log notes, use the available tools to take action immediately rather than just advising them to do it.
-
-Other platform features you can point users to when relevant:
-- Interview Prep Brief: available on any company detail page. Generates a tailored brief in 60 seconds.
-- Search Strategy Brief: in the nav. One-time AI synthesis of full positioning and outreach approach.
-- Resume Tailor: in the nav. Paste a job description, get a tailored resume, then run Quality Check for ATS score and recruiter/hiring manager grades.
-- Search Level: set on Profile. Calibrates all AI output to C-Suite, VP/SVP, or Board/Advisor tier.`
+  const systemPrompt = buildChatSystemPrompt({
+    name,
+    today,
+    isDemo,
+    profileLines,
+    pipelineLines,
+    contactLines,
+    actionsLines,
+    companiesCount: (companies ?? []).length,
+    contactsCount: (contacts ?? []).length,
+  })
 
   const encoder = new TextEncoder()
   let totalTokens = 0
@@ -270,15 +259,15 @@ Other platform features you can point users to when relevant:
           content: m.content,
         }))
 
+        await withStreamTimeout(90_000, async (signal) => {
         for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
           const stream = anthropic.messages.stream({
             model: MODELS.sonnet,
             max_tokens: 1024,
-
             system: systemPrompt,
             tools: isDemo ? [TOOLS[3]] : TOOLS,
             messages: workingMessages,
-          })
+          }, { signal })
 
           stream.on('text', text => {
             controller.enqueue(encoder.encode(text))
@@ -311,6 +300,7 @@ Other platform features you can point users to when relevant:
 
         controller.close()
         trackApiUsage(supabase, userId, totalTokens).catch(() => {})
+        }) // end withStreamTimeout
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
