@@ -2,6 +2,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { logEvent } from '@/lib/events'
 
 export async function saveProfile(formData: FormData) {
   const supabase = await createClient()
@@ -49,6 +50,10 @@ export async function saveProfile(formData: FormData) {
     )
 
   if (upsertError) redirect('/dashboard/profile?error=save-failed')
+
+  if (briefingTime) {
+    await logEvent(user.id, 'briefing_configured', { briefing_time: briefingTime })
+  }
 
   revalidatePath('/dashboard')
   redirect('/dashboard/profile?saved=1')

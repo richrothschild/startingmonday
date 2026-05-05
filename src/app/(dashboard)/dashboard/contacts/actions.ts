@@ -2,6 +2,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { logEvent } from '@/lib/events'
 
 export async function addContact(formData: FormData) {
   const supabase = await createClient()
@@ -48,6 +49,7 @@ export async function addContact(formData: FormData) {
     redirect('/dashboard/contacts?error=save-failed')
   }
 
+  await logEvent(user.id, 'contact_added', { channel: channel ?? '' })
   revalidatePath('/dashboard/contacts')
   redirect('/dashboard/contacts?saved=1')
 }

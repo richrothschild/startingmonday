@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
+import { getActivationStatus } from '@/lib/activation'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { FollowUpItem } from '@/components/FollowUpItem'
@@ -62,7 +63,7 @@ export default async function DashboardPage({
 
   const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, activation] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -85,6 +86,7 @@ export default async function DashboardPage({
       .gte('signal_date', since7d)
       .order('signal_date', { ascending: false })
       .limit(5),
+    getActivationStatus(user.id),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -172,6 +174,28 @@ export default async function DashboardPage({
             </span>
             <Link href="/settings/billing" className="font-semibold underline shrink-0">
               Upgrade
+            </Link>
+          </div>
+        )}
+
+        {/* Activation progress */}
+        {!activation.isComplete && (
+          <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div className="flex items-center gap-1 shrink-0">
+                {Array.from({ length: 6 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 w-5 rounded-full ${i < activation.completedCount ? 'bg-slate-900' : 'bg-slate-200'}`}
+                  />
+                ))}
+              </div>
+              <span className="text-[12px] text-slate-500 font-semibold shrink-0">
+                {activation.completedCount} of 6 steps complete
+              </span>
+            </div>
+            <Link href="/dashboard/start" className="text-[12px] font-semibold text-slate-900 hover:underline shrink-0">
+              Finish setup →
             </Link>
           </div>
         )}

@@ -14,7 +14,7 @@ export default async function StartPage() {
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, resume_text, positioning_summary, onboarding_completed_at')
+    .select('full_name, resume_text, positioning_summary, briefing_time, onboarding_completed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -23,7 +23,8 @@ export default async function StartPage() {
   const [
     { count: companyCount },
     { count: contactCount },
-    { count: briefCount },
+    { count: prepBriefCount },
+    { count: followUpCount },
   ] = await Promise.all([
     supabase
       .from('companies')
@@ -38,20 +39,26 @@ export default async function StartPage() {
       .from('briefs')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', user.id)
-      .eq('type', 'strategy'),
+      .eq('type', 'prep'),
+    supabase
+      .from('follow_ups')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id),
   ])
 
-  const hasResume = (profile?.resume_text?.length ?? 0) >= 200 || (profile?.positioning_summary?.length ?? 0) >= 100
+  const hasResume    = (profile?.resume_text?.length ?? 0) >= 200 || (profile?.positioning_summary?.length ?? 0) >= 100
   const hasCompanies = (companyCount ?? 0) >= 1
-  const hasContacts = (contactCount ?? 0) >= 1
-  const hasBrief = (briefCount ?? 0) >= 1
+  const hasPrepBrief = (prepBriefCount ?? 0) >= 1
+  const hasContacts  = (contactCount ?? 0) >= 1
+  const hasBriefing  = !!profile?.briefing_time
+  const hasFollowUp  = (followUpCount ?? 0) >= 1
 
   const tasks = [
     {
       num: 1,
       done: hasResume,
-      title: 'Complete your profile',
-      body: 'Paste your LinkedIn profile text or resume. This drives every brief, every briefing, and every AI response you get.',
+      title: 'Upload your resume or import LinkedIn',
+      body: 'Paste your LinkedIn profile text or upload your resume. This drives every brief, every briefing, and every AI response you get.',
       cta: 'Go to profile',
       href: '/dashboard/profile',
       doneNote: 'Profile complete',
@@ -59,7 +66,7 @@ export default async function StartPage() {
     {
       num: 2,
       done: hasCompanies,
-      title: 'Add your first target companies',
+      title: 'Add your first target company',
       body: 'Add the companies you want to work for. Include the career page URL — we\'ll scan it within minutes and alert you when something matching your profile appears.',
       cta: 'Add a company',
       href: '/dashboard/companies/new',
@@ -67,21 +74,39 @@ export default async function StartPage() {
     },
     {
       num: 3,
+      done: hasPrepBrief,
+      title: 'Generate your first prep brief',
+      body: 'Open a target company and generate the prep brief. It surfaces leadership signals, likely objections, and your best outreach angle — specific to that company and your background.',
+      cta: 'Go to companies',
+      href: '/dashboard/companies',
+      doneNote: 'Prep brief generated',
+    },
+    {
+      num: 4,
       done: hasContacts,
-      title: 'Map your key contacts',
+      title: 'Add your first contact',
       body: 'Who do you know at target companies? Who can make a warm introduction? Roles at this level are filled through relationships, not applications.',
       cta: 'Add a contact',
       href: '/dashboard/contacts',
       doneNote: `${contactCount ?? 0} ${(contactCount ?? 0) === 1 ? 'contact' : 'contacts'} added`,
     },
     {
-      num: 4,
-      done: hasBrief,
-      title: 'Run your Search Strategy Brief',
-      body: 'One page. Your sector, your narrative, your outreach framework. Takes 60 seconds and sets the direction for everything else.',
-      cta: 'Get your brief',
-      href: '/dashboard/strategy',
-      doneNote: 'Strategy brief complete',
+      num: 5,
+      done: hasBriefing,
+      title: 'Set up your daily briefing',
+      body: 'Choose a time and timezone for your morning briefing. Every day: signals from your target companies, actions due, and your momentum score — in your inbox before you start work.',
+      cta: 'Configure briefing',
+      href: '/dashboard/profile',
+      doneNote: 'Briefing configured',
+    },
+    {
+      num: 6,
+      done: hasFollowUp,
+      title: 'Log your first follow-up reminder',
+      body: 'Set a follow-up on a company or contact. The difference between an active search and a passive one is whether the next action is scheduled.',
+      cta: 'Go to contacts',
+      href: '/dashboard/contacts',
+      doneNote: 'Follow-up set',
     },
   ]
 
@@ -126,7 +151,7 @@ export default async function StartPage() {
                 Your first 15 minutes.
               </h1>
               <p className="text-[14px] text-slate-500 leading-relaxed">
-                Four moves that make everything else work. Start at the top — each one builds on the last.
+                Six moves that make everything else work. Start at the top — each one builds on the last.
               </p>
             </>
           )}
@@ -134,11 +159,13 @@ export default async function StartPage() {
 
         {/* Progress */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="flex-1 bg-slate-200 rounded-full h-1.5">
-            <div
-              className="bg-slate-900 h-1.5 rounded-full transition-all"
-              style={{ width: `${(doneCount / tasks.length) * 100}%` }}
-            />
+          <div className="flex items-center gap-1 shrink-0">
+            {tasks.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 w-7 rounded-full ${i < doneCount ? 'bg-slate-900' : 'bg-slate-200'}`}
+              />
+            ))}
           </div>
           <span className="text-[12px] font-semibold text-slate-500 shrink-0">
             {doneCount} of {tasks.length} complete

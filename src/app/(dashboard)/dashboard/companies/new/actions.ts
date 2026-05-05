@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
+import { logEvent, logCompanyWatch } from '@/lib/events'
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? '').trim()
@@ -50,6 +51,16 @@ export async function addCompany(formData: FormData) {
       headers: { 'Content-Type': 'application/json', 'x-worker-secret': process.env.WORKER_SECRET },
       body: JSON.stringify({ companyId: inserted.id, userId: user.id }),
     }).catch(() => {})
+  }
+
+  await logEvent(user.id, 'company_added', { career_page_url_present: !!careerPageUrl, sector: sector ?? '' })
+  if (inserted?.id) {
+    await logCompanyWatch(user.id, inserted.id, {
+      sector,
+      careerPageUrlPresent: !!careerPageUrl,
+      fitScore,
+      stage,
+    })
   }
 
   redirect('/dashboard')
