@@ -30,6 +30,25 @@ Before writing any sentence, ask: could this have been written about any executi
 If yes, either rewrite it using a specific detail from what you know about this person, or cut it.
 Name specific companies, roles, dynamics, objections, or actions. Generality is waste.`
 
+const PERSONA_CALIBRATION = `
+When candidate level is provided, calibrate every section to that specific level. Generic executive advice is not enough.
+C-Suite: Probe for board dynamics, CEO tenure and relationship, P&L ownership scope, culture stewardship, and transformation at enterprise scale. Questions the candidate asks should signal governance and strategic awareness.
+VP/SVP: Probe for functional depth, team scale managed, cross-functional influence, and the readiness-to-step-up narrative. Questions should signal operator maturity and credible upward trajectory.
+Board/Advisor: Probe for governance experience, fiduciary judgment, sector-specific pattern recognition, and value-add without operational control. Questions should signal cross-company perspective and network leverage.
+Objections, talking points, and coaching notes must reflect the actual dynamics at that level, not a generic version of executive difficulty.`
+
+// ── Persona context helper ────────────────────────────────────────────────────
+
+export function personaContext(persona: string | null | undefined): string {
+  if (!persona) return ''
+  const labels: Record<string, string> = {
+    csuite: 'C-Suite (targeting CEO, COO, CTO, CIO, CFO, or equivalent)',
+    vp:     'VP / SVP (targeting VP, SVP, or EVP; may be stepping to C-suite)',
+    board:  'Board / Advisor (targeting board seat, operating partner, or senior advisory role)',
+  }
+  return labels[persona] ? `\nCandidate level: ${labels[persona]}` : ''
+}
+
 // ── Feature system prompts ────────────────────────────────────────────────────
 
 export const STRATEGY_SYSTEM =
@@ -41,7 +60,8 @@ export const STRATEGY_SYSTEM =
   'an accurate picture of where they actually stand and a clear sequence of moves. ' +
   '\n\n' + QUALITY_BAR +
   '\n\n' + ANTI_PATTERNS +
-  '\n\n' + SPECIFICITY_RULE
+  '\n\n' + SPECIFICITY_RULE +
+  '\n\n' + PERSONA_CALIBRATION
 
 export const PREP_SYSTEM =
   'You are a senior executive coach who has prepared C-suite candidates for high-stakes interviews ' +
@@ -53,7 +73,8 @@ export const PREP_SYSTEM =
   'Use every piece of data provided. Nothing generic. ' +
   '\n\n' + QUALITY_BAR +
   '\n\n' + ANTI_PATTERNS +
-  '\n\n' + SPECIFICITY_RULE
+  '\n\n' + SPECIFICITY_RULE +
+  '\n\n' + PERSONA_CALIBRATION
 
 export const COMPETITIVE_SYSTEM =
   'You are a strategy partner who advises executives at the VP and C-suite level on market positioning. ' +

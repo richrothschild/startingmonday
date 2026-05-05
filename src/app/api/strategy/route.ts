@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
-import { STRATEGY_SYSTEM } from '@/lib/prompts'
+import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
 
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
   const [{ data: profile }, { data: companies }] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, search_status')
+      .select('full_name, current_title, current_company, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, search_status, search_persona')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
   const prompt = `Produce a Search Strategy Brief for this executive. This is what you say in the first real meeting: honest, specific, direct.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}
 Target roles: ${targetTitles}
 Target sectors: ${targetSectors}
 Target locations: ${targetLocations}${profile?.search_status ? `\nSearch status: ${profile.search_status}` : ''}${profile?.positioning_summary ? `\nSelf-positioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}

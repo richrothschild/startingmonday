@@ -188,7 +188,7 @@ export async function POST(request: NextRequest) {
   const [{ data: profile }, { data: companies }, { data: contacts }] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, briefing_timezone, current_title, target_titles, target_sectors, positioning_summary')
+      .select('full_name, briefing_timezone, current_title, target_titles, target_sectors, positioning_summary, search_persona')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -242,6 +242,7 @@ export async function POST(request: NextRequest) {
     profile?.target_titles?.length ? `Target roles: ${(profile.target_titles as string[]).join(', ')}` : null,
     profile?.target_sectors?.length ? `Target sectors: ${(profile.target_sectors as string[]).join(', ')}` : null,
     profile?.positioning_summary ? `Positioning: ${profile.positioning_summary}` : null,
+    profile?.search_persona === 'csuite' ? 'Level: C-Suite' : profile?.search_persona === 'vp' ? 'Level: VP / SVP' : profile?.search_persona === 'board' ? 'Level: Board / Advisor' : null,
   ].filter(Boolean).join('\n')
 
   const isDemo = isDemoUser(userId)

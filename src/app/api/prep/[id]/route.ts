@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { PREP_SYSTEM } from '@/lib/prompts'
+import { PREP_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import Anthropic from '@anthropic-ai/sdk'
@@ -46,7 +46,7 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume')
+      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -91,7 +91,7 @@ const DOC_LABEL_NAMES: Record<string, string> = {
 
 type Signal = { signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string }
 
-function buildContext(company: { name: string; sector?: string | null; stage: string; notes?: string | null }, profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null } | null, scanResults: { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }[] | null, contacts: { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }[] | null, documents: { label: string; content: string }[] | null, signals: Signal[] | null) {
+function buildContext(company: { name: string; sector?: string | null; stage: string; notes?: string | null }, profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null } | null, scanResults: { scanned_at: string; ai_score?: number | null; ai_summary?: string | null; raw_hits?: unknown }[] | null, contacts: { name: string; title?: string | null; firm?: string | null; channel?: string | null; notes?: string | null }[] | null, documents: { label: string; content: string }[] | null, signals: Signal[] | null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
@@ -134,7 +134,7 @@ function buildContext(company: { name: string; sector?: string | null; stage: st
   const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}
 Target roles: ${targetTitles}
 Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
