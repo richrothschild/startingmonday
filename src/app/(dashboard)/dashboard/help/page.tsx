@@ -15,14 +15,6 @@ export default async function HelpPage() {
     .eq('user_id', user.id)
     .single()
 
-  const STEPS = [
-    { href: '/dashboard/profile',       label: 'Upload your resume and set target titles', sub: 'Drives all AI context' },
-    { href: '/dashboard/companies/new', label: 'Add your first target company',            sub: 'Include the career page URL' },
-    { href: '/dashboard/strategy',      label: 'Run your Strategy Brief',                  sub: 'Your narrative and outreach playbook' },
-    { href: '/dashboard/profile',       label: 'Set your briefing time',                   sub: 'Daily email when things change' },
-    { href: '/dashboard/contacts',      label: 'Map your key contacts',                    sub: 'Who do you know at target companies?' },
-  ]
-
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
 
@@ -52,28 +44,17 @@ export default async function HelpPage() {
           <p className="text-[13px] text-slate-500 mt-1.5">Everything you need to run a disciplined search.</p>
         </div>
 
-        {/* Quick start */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Quick Start — 5 steps</span>
+        {/* Setup checklist */}
+        <Link
+          href="/dashboard/start"
+          className="group flex items-center justify-between bg-white border border-slate-200 rounded px-6 py-5 mb-6 hover:border-slate-300 hover:bg-slate-50 transition-colors"
+        >
+          <div>
+            <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-700">New here? Start with the setup checklist.</p>
+            <p className="text-[12px] text-slate-400 mt-0.5">Six moves that make everything else work. Takes about 15 minutes.</p>
           </div>
-          <div className="divide-y divide-slate-50">
-            {STEPS.map((s, i) => (
-              <Link
-                key={s.href + i}
-                href={s.href}
-                className="group px-6 py-4 flex items-start gap-4 hover:bg-slate-50 transition-colors block"
-              >
-                <span className="text-[13px] font-bold text-slate-300 w-5 shrink-0 mt-0.5">{i + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-700">{s.label}</p>
-                  <p className="text-[12px] text-slate-400 mt-0.5">{s.sub}</p>
-                </div>
-                <span className="text-slate-300 group-hover:text-slate-500 shrink-0 mt-0.5">→</span>
-              </Link>
-            ))}
-          </div>
-        </div>
+          <span className="text-slate-300 group-hover:text-slate-500 shrink-0 ml-4 text-lg">→</span>
+        </Link>
 
         {/* FAQ */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">

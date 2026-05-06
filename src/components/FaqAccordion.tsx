@@ -7,6 +7,22 @@ const FAQS = [
     a: 'Add your first target company, upload your resume, and set your target titles on the Profile page. That gives the AI enough context to generate useful briefings and prep briefs. Set your Search Level (C-Suite, VP/SVP, or Board) so every AI output is calibrated to your tier. Then set your daily briefing time so you get a morning email whenever something changes.',
   },
   {
+    q: 'My briefing hasn\'t arrived — what\'s wrong?',
+    a: 'Check three things. First, confirm your delivery time and timezone are set in Profile — if they\'re blank, nothing sends. Second, check your spam or promotions folder, especially on first delivery. Third, briefings only send when there\'s something worth sending — if your pipeline is empty or your companies have had no recent activity, the briefing may skip that day. Add at least two target companies with career page URLs to start seeing consistent delivery.',
+  },
+  {
+    q: 'My scan shows no results — is something broken?',
+    a: 'Not necessarily. Three reasons a scan returns no results: (1) No job titles matching yours were found on the career page that day — the most common reason. The scanner checks your target titles against the page; if nothing matches, it\'s silent. (2) The career page blocked our scanner — some companies use Cloudflare or similar bot protection. We flag this if it persists. (3) The scan hasn\'t run yet — we scan each company shortly after you add it, then every few days. Check the "Last scanned" date on the company detail page.',
+  },
+  {
+    q: 'Is my search confidential?',
+    a: 'Yes. Starting Monday has no employer network. Nothing you add — your resume, your pipeline, your target companies — is ever visible to any employer unless you initiate contact. There is no matching marketplace. No employer sees your profile. Your data is stored in your account only and is never used to train AI models.',
+  },
+  {
+    q: 'How does the AI know my situation?',
+    a: 'Every AI feature — the daily briefing, prep briefs, strategy brief, and the chat advisor — reads your profile before responding: your resume, target titles, target sectors, current pipeline with stages, active contacts, and overdue follow-ups. The more complete your profile, the more specific and useful the output. A half-filled profile produces generic advice. A complete one produces advice about your actual situation.',
+  },
+  {
     q: 'What is Search Level?',
     a: 'Search Level tells the AI what tier of role you are targeting: C-Suite, VP/SVP, or Board/Advisor. Set it on your Profile page. Every AI feature — prep briefs, strategy, outreach drafting, and the advisor — calibrates to that level. A CISO brief reads differently than a VP of Engineering brief.',
   },
@@ -43,8 +59,8 @@ const FAQS = [
     a: 'When you add a follow-up action to a company (e.g. "Send thank you note — Friday"), it appears in Actions Due on the dashboard when the date arrives. Click the action text to edit it. Click Done to dismiss it.',
   },
   {
-    q: 'What is the difference between Passive and Active?',
-    a: 'Passive ($49/mo) includes pipeline tracking for up to 25 companies, career page scanning three times a week, a weekly signal digest, and contact tracking. Active ($199/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
+    q: 'What is the difference between Monitor and Active?',
+    a: 'Monitor ($49/mo) includes pipeline tracking for up to 25 companies, career page scanning three times a week, a weekly signal digest, and contact tracking. Active ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
   },
   {
     q: 'How do I manage my subscription?',
