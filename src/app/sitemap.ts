@@ -105,6 +105,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: 'https://startingmonday.app/blog/cio-board-presentation',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/pe-backed-cio',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/executive-resume-gaps',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/retained-search-firms',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://startingmonday.app/optimize',
       lastModified: new Date(),
       changeFrequency: 'monthly',

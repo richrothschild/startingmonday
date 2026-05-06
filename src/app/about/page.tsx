@@ -169,6 +169,10 @@ export default function AboutPage() {
           </p>
           <div className="space-y-4">
             {[
+              { href: '/blog/cio-board-presentation', label: 'How to Prepare for a Board Presentation as a New CIO' },
+              { href: '/blog/pe-backed-cio', label: 'What PE-Backed Companies Look for in a CIO' },
+              { href: '/blog/executive-resume-gaps', label: 'The Executive Resume Gaps That Kill CIO Candidacies' },
+              { href: '/blog/retained-search-firms', label: 'How to Work with Retained Search Firms Without Losing Leverage' },
               { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from CIO Candidates' },
               { href: '/blog/cio-job-search-timeline', label: 'How Long Does a CIO Job Search Really Take?' },
               { href: '/blog/vp-to-cio-transition', label: 'How VPs of Technology Make the Move to CIO' },
