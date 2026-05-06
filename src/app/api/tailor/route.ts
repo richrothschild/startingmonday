@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
+import { appendWatermarkToStream } from '@/lib/watermark'
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
 
@@ -37,6 +38,7 @@ Missing: [comma-separated list of important JD terms not in the resume - things 
 export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'resume_tailor')
   if (!access.ok) return access.response
+  const { userId } = access
 
   let resumeText: string, jobDescription: string, companyName: string, targetTitle: string
   try {
@@ -96,5 +98,5 @@ export async function POST(request: NextRequest) {
     },
   })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  return new Response(appendWatermarkToStream(readable, userId), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

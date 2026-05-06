@@ -5,6 +5,7 @@ import { trackUsage } from '../lib/usage-tracker.js'
 import { logger } from '../lib/logger.js'
 import { HAIKU } from '../lib/models.js'
 import { shouldSuppressNudge } from './momentum-job.js'
+import { watermarkEmailHtml } from '../lib/watermark.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
@@ -272,7 +273,7 @@ export async function runWeeklyReportJob() {
       await sendEmail({
         to: user.email,
         subject: `Your weekly search snapshot — Starting Monday`,
-        html,
+        html: watermarkEmailHtml(html, user.id),
       })
       await trackUsage(supabase, { service: 'resend', requests: 1 })
       sent++

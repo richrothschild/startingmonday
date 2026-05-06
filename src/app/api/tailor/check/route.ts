@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { TailorCheckBodySchema, firstZodError } from '@/lib/schemas'
+import { appendWatermarkToStream } from '@/lib/watermark'
 
 const SYSTEM_PROMPT = `You are a senior executive recruiter and hiring manager with 20 years placing C-suite and VP-level technology leaders. You evaluate resumes with ruthless precision.
 
@@ -46,6 +47,7 @@ FIX: [one sentence on what specifically to add or change]
 export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'resume_tailor')
   if (!access.ok) return access.response
+  const { userId } = access
 
   let raw: unknown
   try { raw = await request.json() } catch {
@@ -82,5 +84,5 @@ export async function POST(request: NextRequest) {
     },
   })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  return new Response(appendWatermarkToStream(readable, userId), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

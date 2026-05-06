@@ -30,7 +30,7 @@ jobs:
         run: |
           TODAY=$(date +%Y-%m-%d)
           mkdir -p docs/audits
-          claude --print "
+          claude --allowedTools "Read,Write,Glob,Grep" --print "
           You are running a monthly documentation audit for the Starting Monday watermarking system.
           Your job is to flag discrepancies between the documentation and the current code.
           Do NOT edit any documentation files. Write a report only.

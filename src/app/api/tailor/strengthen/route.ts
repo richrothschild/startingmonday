@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { TailorStrengthenBodySchema, firstZodError } from '@/lib/schemas'
+import { appendWatermarkToStream } from '@/lib/watermark'
 
 const SYSTEM_PROMPT = `You are an expert executive resume writer. You will rewrite specific weak bullets in a resume to be stronger, more specific, and metrics-driven.
 
@@ -16,6 +17,7 @@ Instructions:
 export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'resume_tailor')
   if (!access.ok) return access.response
+  const { userId } = access
 
   let raw: unknown
   try { raw = await request.json() } catch {
@@ -59,5 +61,5 @@ ${tailoredResume.slice(0, 12000)}`
     },
   })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  return new Response(appendWatermarkToStream(readable, userId), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }
