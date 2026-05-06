@@ -175,7 +175,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start gap-3">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
               <Link
                 href="/signup"
@@ -183,14 +183,18 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               >
                 Start your campaign &rarr;
               </Link>
-              <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
+              <p className="text-[12px] text-slate-500 mt-2.5">{hero.trialNote}</p>
+              <p className="text-[11px] text-slate-600 mt-1">Your data is never shared with employers or recruiters.</p>
             </div>
-            <Link
-              href="/demo"
-              className="inline-block text-[14px] text-slate-400 hover:text-slate-200 px-4 py-3.5 transition-colors"
-            >
-              See a live demo &rarr;
-            </Link>
+            <div>
+              <Link
+                href="/demo"
+                className="inline-block text-[14px] text-slate-300 border border-slate-600 px-7 py-3.5 rounded hover:border-slate-400 hover:text-white transition-colors"
+              >
+                See a live demo &rarr;
+              </Link>
+              <p className="text-[12px] text-slate-600 mt-2.5">No signup required</p>
+            </div>
           </div>
 
           {showPersonaSelector && (
