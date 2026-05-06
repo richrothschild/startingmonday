@@ -294,6 +294,15 @@ export default function OptimizePage() {
           </div>
         )}
 
+      <footer className="mt-12 pb-8 text-center">
+        <p className="text-[11px] text-slate-400">
+          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved. &mdash;{' '}
+          <Link href="/privacy" className="hover:text-slate-600 transition-colors">Privacy</Link>
+          {' '}&middot;{' '}
+          <Link href="/terms" className="hover:text-slate-600 transition-colors">Terms</Link>
+        </p>
+      </footer>
+
       </main>
     </div>
   )

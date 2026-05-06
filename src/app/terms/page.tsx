@@ -34,6 +34,9 @@ export default function TermsPage() {
             Back to home
           </Link>
         </div>
+        <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-400">
+          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+        </p>
       </footer>
     </div>
   )

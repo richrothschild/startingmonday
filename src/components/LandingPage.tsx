@@ -424,6 +424,9 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
             <span className="text-[12px] text-slate-600">startingmonday.app</span>
           </div>
         </div>
+        <p className="max-w-5xl mx-auto mt-4 text-[11px] text-slate-700">
+          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+        </p>
       </footer>
 
     </div>

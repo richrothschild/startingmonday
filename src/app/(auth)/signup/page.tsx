@@ -187,6 +187,10 @@ export default function SignupPage() {
           )}
 
         </div>
+
+        <p className="text-center text-[11px] text-slate-300 mt-8 pb-6">
+          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+        </p>
       </main>
     </div>
   )
