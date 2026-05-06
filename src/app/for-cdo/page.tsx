@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -66,6 +66,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How do I find CDO roles where the digital mandate is real and not just a rebrand?',
+    answer: 'The indicators of a genuine CDO mandate are specific: direct CEO reporting line rather than through the CIO, board-level sponsorship of the digital initiative, digital P&L with revenue accountability rather than just cost center ownership, and evidence that the company has made a sustained multi-year investment. Organizations with a meaningful digital revenue line, a dedicated board committee, or a transformation initiated by the CEO rather than the IT function are the ones worth pursuing. The rest are technology leadership roles with a modern title.',
+  },
+  {
+    question: 'What is the difference between a CDO and a CIO search at the executive level?',
+    answer: 'A CIO search is a technical infrastructure and delivery mandate. A CDO search is a customer-facing and revenue-linked digital mandate. The candidate who wins a CDO role speaks the language of customer experience, digital product, and revenue growth — not IT delivery and cost management. Where those mandates overlap varies by company. The CDO who can articulate both conversations clearly is the one who makes short lists at organizations where the mandate is still being defined.',
+  },
+  {
+    question: 'How do I position myself for both CDO and CIO roles at the same time?',
+    answer: 'Build two distinct narratives from the same record, not one blended narrative that fits neither audience. The CDO narrative leads with customer outcomes and digital revenue. The CIO narrative leads with technology capability and business enablement. Candidates who try to hedge — presenting themselves as both in the same conversation — come across as lacking conviction about what they are built for. Know which version a specific opportunity requires, and enter that conversation with the right frame.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -107,6 +122,7 @@ export default function ForCdoPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

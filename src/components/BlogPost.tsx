@@ -120,6 +120,7 @@ export function BlogPost({ title, description, date, readTime, children }: BlogP
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/blog" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Blog</Link>
               <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">LinkedIn</a>
               <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Terms</Link>
             </div>

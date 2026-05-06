@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -67,6 +67,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'What events typically trigger a CISO search?',
+    answer: 'Most CISO searches are event-driven, not planned. A breach or near-miss, an SEC disclosure obligation, an IPO requiring formal security governance, a regulatory action, an acquisition creating a security integration mandate, or a board cybersecurity committee formation that exposes the gap in executive-level security leadership. These events create urgency and compress the search timeline. The CISO who is already known to the right search firm partners when the event occurs is the candidate who gets the call.',
+  },
+  {
+    question: 'How do I position my security record for a board audience?',
+    answer: 'The board hears security in the language of business risk, not technical risk. Every significant outcome in your record should be framed as a risk management decision with a financial or reputational dimension — not a technical problem you solved. How much exposure did you remove, at what cost, and how does the organization operate differently now? The CISO who can present their record in those terms is the candidate a board can evaluate. The one who leads with frameworks and certifications is the one they have trouble distinguishing from the last person in the role.',
+  },
+  {
+    question: 'How long does a CISO job search typically take?',
+    answer: 'CISO searches at enterprise scale typically run five to twelve months in active market. Event-driven searches at companies with urgent mandates can compress to six to ten weeks when the candidate is already known to the placing firm. The variables are the same as any C-suite search: how warm your search firm relationships are, whether your narrative is already calibrated for the specific type of mandate you are pursuing, and whether you are in market before or after the event that created the opening.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -108,6 +123,7 @@ export default function ForCisoPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

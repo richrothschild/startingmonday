@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -66,6 +66,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How do I position my CIO or CTO background for a COO role?',
+    answer: 'The gap most technology executives fail to close is operational credibility. A technology leader who has owned P&L, led cross-functional initiatives with accountability for revenue or cost outcomes, and managed non-technology teams has the foundation. The positioning work is translating that record into operational language — specific cost savings, revenue outcomes, and decision rights that a CEO or board would recognize as operating leadership, not technology leadership. The narrative has to cross the functional boundary before the first conversation.',
+  },
+  {
+    question: 'What kinds of companies hire COOs with technology backgrounds?',
+    answer: 'Three segments are the most active: digital-native companies scaling past the point where the CEO can manage everything directly, PE-backed businesses with an operational improvement mandate that requires someone who understands the technology platform, and companies in the middle of a digital transformation where the CEO needs a COO who can close the gap between the technology investment and the business outcome. Each requires a different version of your narrative, because the mandate they are filling is different.',
+  },
+  {
+    question: 'How long does a CIO-to-COO search typically take?',
+    answer: 'Longer than a lateral CIO search, because you are asking a company to bet on a functional transition. Most CIO-to-COO moves take nine to fifteen months in active search. The searches that move fastest are the ones where the candidate has operational evidence in their record that is hard to dispute — P&L ownership, cross-functional scope beyond technology, measurable cost or revenue outcomes — and where they are already known to search firm partners who place operations leadership, not just technology leadership.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -107,6 +122,7 @@ export default function ForCooPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

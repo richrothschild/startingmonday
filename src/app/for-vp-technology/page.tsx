@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -65,6 +65,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How long does a VP Technology job search typically take?',
+    answer: 'Most VP Technology searches run four to nine months in active market. The range depends on whether you are pursuing a lateral move at a higher-caliber organization or a step up in scope, and how warm your search firm relationships are before you start. The fastest searches belong to executives who have been in contact with the right search firm partners in the last twelve months and who have a clear answer to what mandate they are built for.',
+  },
+  {
+    question: 'Do VP Technology candidates need a formal title change to move to a better role?',
+    answer: 'Not necessarily. Many of the most valuable VP Technology moves are lateral in title and significant in scope — moving from a company where technology is treated as a cost center to one where it is a strategic priority, or from a constrained budget to a mandate with real resources. The title matters less than the mandate, the reporting line, and the organization. Starting Monday helps you identify companies that are actively building or restructuring their technology function, which is where the real scope is.',
+  },
+  {
+    question: 'How do executive search firms evaluate VP Technology candidates?',
+    answer: 'Search firms filling VP Technology mandates are looking for candidates who can answer one question: what did the technology function look like before you got there, and what was measurably different after? They are not looking for a list of systems implemented or teams managed. They want a clean narrative of scope, constraint, and outcome. Candidates who lead with their team size or their stack do not make short lists. Candidates who lead with the business problem and the measurable result do.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -106,6 +121,7 @@ export default function ForVpTechnologyPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

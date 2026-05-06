@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -66,6 +66,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How do I find organizations where the Chief Data Officer mandate is genuinely strategic?',
+    answer: 'Three signals separate a real Chief Data Officer mandate from a senior technical role with a C-suite title: the position reports directly to the CEO rather than through the CIO, the data function has measurable revenue or competitive advantage accountability rather than just infrastructure ownership, and the board has made a visible, multi-year commitment to AI or data strategy. Organizations with a formal AI governance committee, a data products line that contributes to revenue, or a regulatory mandate in financial services or healthcare are the most consistent sources of genuine CDO mandates.',
+  },
+  {
+    question: 'What is the practical difference between a VP of Data and a Chief Data Officer?',
+    answer: 'A VP of Data typically owns data infrastructure, quality, and analytical capability within a function. A Chief Data Officer owns data as an enterprise asset — governance, strategy, competitive positioning, and the relationship between data investment and business outcome at board level. The difference is not just seniority. It is scope, reporting line, and the kind of decisions the role is accountable for. The VP who makes the jump to CDO has to demonstrate that they have operated at the enterprise level, not just led a strong team.',
+  },
+  {
+    question: 'How is AI investment changing the Chief Data Officer search market?',
+    answer: 'AI investment is creating genuine CDO mandates at companies that previously treated data as a back-office function. Organizations that have committed to AI at board level quickly discover they need an executive accountable for data quality, governance, and the foundation the AI initiative sits on. This has expanded the CDO search market and increased the velocity of searches in sectors that were previously slow — manufacturing, logistics, and mid-market financial services. It has also increased the noise: more companies are creating CDO roles to signal AI seriousness rather than to fill a real mandate. The ability to tell the difference before the first call is the most important preparation.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -107,6 +122,7 @@ export default function ForDataOfficerPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )
