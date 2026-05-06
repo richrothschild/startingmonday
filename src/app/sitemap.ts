@@ -75,6 +75,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: 'https://startingmonday.app/blog/vp-to-cio-transition',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/ciso-interview-preparation',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/what-companies-want-chief-data-officer',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/cio-compensation-negotiation',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://startingmonday.app/optimize',
       lastModified: new Date(),
       changeFrequency: 'monthly',
