@@ -57,7 +57,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .order('ai_score', { ascending: false }),
     supabase
       .from('follow_ups')
-      .select('id, due_date, action, contact_id')
+      .select('id, due_date, action, contact_id, contacts(id, name, title)')
       .eq('user_id', userId)
       .eq('status', 'pending')
       .lte('due_date', todayStr)
@@ -92,21 +92,11 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
     })
     .filter(m => m.matchingRoles.length > 0)
 
-  const contactIds = rawFollowUps.filter(f => f.contact_id).map(f => f.contact_id as string)
-  let contactById: Record<string, { id: string; name: string; title?: string | null }> = {}
-  if (contactIds.length) {
-    const { data: contacts } = await supabase
-      .from('contacts')
-      .select('id, name, title')
-      .in('id', contactIds)
-    if (contacts) contactById = Object.fromEntries(contacts.map(c => [c.id, c]))
-  }
-
   const followUps = rawFollowUps.map(f => ({
     id: f.id,
     dueDate: f.due_date,
     action: f.action as string | null,
-    contact: f.contact_id ? (contactById[f.contact_id] ?? null) : null,
+    contact: (f.contacts as unknown as { id: string; name: string; title: string | null } | null) ?? null,
   }))
 
   const signals = rawSignals.map(s => ({

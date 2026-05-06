@@ -13,7 +13,7 @@ export default async function StrategyPage() {
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('onboarding_completed_at, full_name, current_title, current_company, target_titles, positioning_summary, resume_text')
+    .select('onboarding_completed_at, current_title, current_company, target_titles, positioning_summary, resume_text')
     .eq('user_id', user.id)
     .single()
 
