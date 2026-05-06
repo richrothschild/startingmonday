@@ -56,6 +56,17 @@ const FEATURES = [
   },
 ]
 
+const PERSONA_LINKS = [
+  { href: '/for-cio', label: 'CIO and CTO search' },
+  { href: '/for-vp', label: 'VP to CIO transition' },
+  { href: '/for-vp-technology', label: 'VP of Technology' },
+  { href: '/for-cpo', label: 'Chief Product Officer' },
+  { href: '/for-data-officer', label: 'Chief Data Officer' },
+  { href: '/for-cdo', label: 'Chief Digital Officer' },
+  { href: '/for-ciso', label: 'CISO' },
+  { href: '/for-coo', label: 'COO' },
+]
+
 const TRUST_ITEMS = [
   {
     heading: 'We never train AI on your data',
@@ -380,6 +391,26 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
         </div>
       </section>
 
+      {/* Persona cross-links */}
+      <section className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-5">
+            Also built for
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {PERSONA_LINKS.map(p => (
+              <Link
+                key={p.href}
+                href={p.href}
+                className="text-[13px] text-slate-500 hover:text-slate-900 transition-colors"
+              >
+                {p.label} &rarr;
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
@@ -406,27 +437,35 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-6">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600">
-            Starting Monday
-          </span>
-          <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
-            <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
-              Free Profile Grade
-            </Link>
-            <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
-              Terms
-            </Link>
-            <span className="text-[12px] text-slate-600">startingmonday.app</span>
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-slate-800">
+            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600">
+              Starting Monday
+            </span>
+            <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
+              <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
+                Free Profile Grade
+              </Link>
+              <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5">
+            {PERSONA_LINKS.map(p => (
+              <Link key={p.href} href={p.href} className="text-[11px] text-slate-700 hover:text-slate-500 transition-colors">
+                {p.label}
+              </Link>
+            ))}
+          </div>
+          <p className="text-[11px] text-slate-700">
+            &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+          </p>
         </div>
-        <p className="max-w-5xl mx-auto mt-4 text-[11px] text-slate-700">
-          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
-        </p>
       </footer>
 
     </div>
