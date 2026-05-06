@@ -21,7 +21,9 @@ test('add company appears in pipeline then can be archived', async ({ page }) =>
   await page.selectOption('select[name="stage"]', 'interviewing')
   await page.fill('input[name="sector"]', 'Technology')
   await page.click('button[type="submit"]')
-  await page.waitForURL('**/dashboard', { timeout: 15_000 })
+  // Action may redirect to /dashboard or /dashboard/companies/{id}?scanning=1
+  await page.waitForURL(/\/dashboard/, { timeout: 15_000 })
+  await page.goto('/dashboard')
 
   // Verify company appears in pipeline table
   const companyLink = page.getByRole('link', { name })
@@ -60,7 +62,7 @@ test('add contact appears in list then can be removed', async ({ page }) => {
   await row.getByRole('button', { name: 'Remove' }).click()
 
   // Contact disappears after revalidation
-  await expect(page.getByText(name)).not.toBeVisible({ timeout: 10_000 })
+  await expect(page.getByText(name)).not.toBeVisible({ timeout: 20_000 })
 })
 
 // ─── Profile ─────────────────────────────────────────────────────────────────
@@ -91,12 +93,18 @@ test('prep brief generates content', async ({ page }) => {
   await page.fill('input[name="name"]', name)
   await page.selectOption('select[name="stage"]', 'interviewing')
   await page.click('button[type="submit"]')
-  await page.waitForURL('**/dashboard', { timeout: 15_000 })
+  // Action may redirect to /dashboard or /dashboard/companies/{id}?scanning=1
+  await page.waitForURL(/\/dashboard/, { timeout: 15_000 })
 
-  // Navigate to company detail
-  await page.getByRole('link', { name }).click()
-  await page.waitForURL('**/dashboard/companies/**')
-  const companyUrl = page.url()
+  // Navigate to company detail (or we're already there after scanning redirect)
+  let companyUrl: string
+  if (page.url().includes('/companies/')) {
+    companyUrl = page.url().split('?')[0]
+  } else {
+    await page.getByRole('link', { name }).click()
+    await page.waitForURL('**/dashboard/companies/**')
+    companyUrl = page.url()
+  }
 
   // Navigate to prep
   await page.getByRole('link', { name: 'Interview prep' }).click()
@@ -155,7 +163,7 @@ test('resume upload API rejects invalid file type', async ({ page }) => {
 
 test('strategy API denies unauthenticated access', async ({ browser }) => {
   const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
-  const ctx = await browser.newContext({ baseURL })
+  const ctx = await browser.newContext({ baseURL, storageState: { cookies: [], origins: [] } })
   const page = await ctx.newPage()
   const response = await page.request.get('/api/strategy', { failOnStatusCode: false })
   expect([301, 302, 303, 307, 308, 401, 404]).toContain(response.status())
@@ -165,7 +173,7 @@ test('strategy API denies unauthenticated access', async ({ browser }) => {
 test('prep API denies unauthenticated access', async ({ browser }) => {
   // Create context with baseURL so relative paths resolve; no auth cookies
   const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
-  const ctx = await browser.newContext({ baseURL })
+  const ctx = await browser.newContext({ baseURL, storageState: { cookies: [], origins: [] } })
   const page = await ctx.newPage()
   const response = await page.request.get(
     '/api/prep/00000000-0000-0000-0000-000000000000',

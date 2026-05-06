@@ -14,7 +14,7 @@ test.describe('Signup and onboarding', () => {
 
   test('unauthenticated user is redirected to login from dashboard', async ({ browser }) => {
     const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
-    const ctx = await browser.newContext({ baseURL }) // no storageState — no auth cookies
+    const ctx = await browser.newContext({ baseURL, storageState: { cookies: [], origins: [] } })
     const page = await ctx.newPage()
     await page.goto('/dashboard')
     await expect(page).toHaveURL(/\/login/, { timeout: 15_000 })
