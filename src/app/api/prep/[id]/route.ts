@@ -13,6 +13,7 @@ import {
 } from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { PrepRefineBodySchema, firstZodError } from '@/lib/schemas'
 
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
   const encoder = new TextEncoder()
@@ -226,12 +227,15 @@ export async function POST(
   if (!access.ok) return access.response
   const { userId, supabase } = access
 
-  const body = await request.json().catch(() => null)
-  if (!body?.brief || !body?.request) {
-    return new Response('Missing brief or request', { status: 400 })
+  let raw: unknown
+  try { raw = await request.json() } catch {
+    return new Response('Invalid JSON', { status: 400 })
   }
-
-  const { brief, request: refinementRequest } = body as { brief: string; request: string }
+  const parsed = PrepRefineBodySchema.safeParse(raw)
+  if (!parsed.success) {
+    return new Response(firstZodError(parsed.error), { status: 400 })
+  }
+  const { brief, request: refinementRequest } = parsed.data
 
   if (isDemoUser(userId)) {
     return new Response(streamDemoText(brief), {

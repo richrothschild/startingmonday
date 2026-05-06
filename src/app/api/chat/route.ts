@@ -8,6 +8,7 @@ import { streamErrorMessage } from '@/lib/stream-error'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS, withStreamTimeout } from '@/lib/anthropic'
 import { buildChatSystemPrompt } from '@/lib/prompts'
+import { ChatBodySchema, firstZodError } from '@/lib/schemas'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -158,20 +159,15 @@ export async function POST(request: NextRequest) {
 
   const { userId, supabase } = access
 
-  let rawMessages: unknown[]
-  try {
-    const body = await request.json()
-    if (!Array.isArray(body?.messages) || body.messages.length === 0) {
-      return NextResponse.json({ error: 'messages array is required' }, { status: 400 })
-    }
-    if (body.messages.length > 200) {
-      return NextResponse.json({ error: 'Too many messages' }, { status: 400 })
-    }
-    rawMessages = body.messages
-  } catch {
+  let body: unknown
+  try { body = await request.json() } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
-  const trimmed = trimMessages(rawMessages as { role: string; content: string }[])
+  const parsed = ChatBodySchema.safeParse(body)
+  if (!parsed.success) {
+    return NextResponse.json({ error: firstZodError(parsed.error) }, { status: 400 })
+  }
+  const trimmed = trimMessages(parsed.data.messages)
 
   const [{ data: profile }, { data: companies }, { data: contacts }] = await Promise.all([
     supabase

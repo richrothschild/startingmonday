@@ -3,6 +3,7 @@ import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { OUTREACH_SYSTEM } from '@/lib/prompts'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { OutreachDraftBodySchema, firstZodError } from '@/lib/schemas'
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
   concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
@@ -21,12 +22,16 @@ export async function POST(request: NextRequest) {
   if (!access.ok) return access.response
 
   const { userId, supabase } = access
-  const body = await request.json().catch(() => ({}))
-  const { contactId, goal, additionalContext, currentDraft, refineStyle, refineInstruction } = body
 
-  if (!contactId) {
-    return NextResponse.json({ error: 'contactId is required' }, { status: 400 })
+  let raw: unknown
+  try { raw = await request.json() } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
+  const parsed = OutreachDraftBodySchema.safeParse(raw)
+  if (!parsed.success) {
+    return NextResponse.json({ error: firstZodError(parsed.error) }, { status: 400 })
+  }
+  const { contactId, goal, additionalContext, currentDraft, refineStyle, refineInstruction } = parsed.data
 
   const [{ data: contact }, { data: profile }] = await Promise.all([
     supabase

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
+import { TailorStrengthenBodySchema, firstZodError } from '@/lib/schemas'
 
 const SYSTEM_PROMPT = `You are an expert executive resume writer. You will rewrite specific weak bullets in a resume to be stronger, more specific, and metrics-driven.
 
@@ -16,20 +17,15 @@ export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'resume_tailor')
   if (!access.ok) return access.response
 
-  let tailoredResume: string, weakBullets: string, jobDescription: string, companyName: string
-  try {
-    const body = await request.json()
-    tailoredResume = (body.tailoredResume ?? '').trim()
-    weakBullets    = (body.weakBullets    ?? '').trim()
-    jobDescription = (body.jobDescription ?? '').trim()
-    companyName    = (body.companyName    ?? '').trim()
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+  let raw: unknown
+  try { raw = await request.json() } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
-
-  if (!tailoredResume || !weakBullets) {
-    return NextResponse.json({ error: 'Missing resume or weak bullets.' }, { status: 400 })
+  const parsed = TailorStrengthenBodySchema.safeParse(raw)
+  if (!parsed.success) {
+    return NextResponse.json({ error: firstZodError(parsed.error) }, { status: 400 })
   }
+  const { tailoredResume, weakBullets, jobDescription = '', companyName = '' } = parsed.data
 
   const context = companyName ? `Company: ${companyName}\n\n` : ''
   const userMessage = `${context}WEAK BULLETS TO STRENGTHEN:

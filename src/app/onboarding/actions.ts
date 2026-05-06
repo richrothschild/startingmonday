@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { OnboardingFormSchema } from '@/lib/schemas'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -26,6 +27,12 @@ export async function completeOnboarding(formData: FormData) {
   const positioningSummary  = (formData.get('positioning_summary') as string ?? '').trim() || null
   const resumeText          = (formData.get('resume_text') as string ?? '').trim() || null
   const beyondResume        = (formData.get('beyond_resume') as string ?? '').trim() || null
+
+  const validation = OnboardingFormSchema.safeParse({ full_name: fullName, search_persona: searchPersona })
+  if (!validation.success) {
+    const msg = validation.error.issues[0]?.message ?? 'Required fields missing'
+    redirect(`/onboarding?error=${encodeURIComponent(msg)}`)
+  }
 
   if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
 

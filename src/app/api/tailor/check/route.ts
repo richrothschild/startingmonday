@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
+import { TailorCheckBodySchema, firstZodError } from '@/lib/schemas'
 
 const SYSTEM_PROMPT = `You are a senior executive recruiter and hiring manager with 20 years placing C-suite and VP-level technology leaders. You evaluate resumes with ruthless precision.
 
@@ -46,19 +47,15 @@ export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'resume_tailor')
   if (!access.ok) return access.response
 
-  let tailoredResume: string, jobDescription: string, companyName: string
-  try {
-    const body = await request.json()
-    tailoredResume = (body.tailoredResume ?? '').trim()
-    jobDescription = (body.jobDescription ?? '').trim()
-    companyName    = (body.companyName    ?? '').trim()
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+  let raw: unknown
+  try { raw = await request.json() } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
-
-  if (!tailoredResume || !jobDescription) {
-    return NextResponse.json({ error: 'Missing resume or job description.' }, { status: 400 })
+  const parsed = TailorCheckBodySchema.safeParse(raw)
+  if (!parsed.success) {
+    return NextResponse.json({ error: firstZodError(parsed.error) }, { status: 400 })
   }
+  const { tailoredResume, jobDescription, companyName } = parsed.data
 
   const context = companyName ? `Company: ${companyName}\n\n` : ''
   const userMessage = `${context}Job Description:\n${jobDescription.slice(0, 8000)}\n\nTailored Resume:\n${tailoredResume.slice(0, 12000)}`
