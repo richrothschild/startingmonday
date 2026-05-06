@@ -12,6 +12,10 @@ const DAY_ABBR: Record<string, string> = {
   Friday: 'Fri', Saturday: 'Sat', Sunday: 'Sun',
 }
 const DEFAULT_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+const ABBR_TO_FULL: Record<string, string> = {
+  Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday',
+  Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday',
+}
 
 export default async function ProfilePage({
   searchParams,
@@ -33,7 +37,7 @@ export default async function ProfilePage({
     getActivationStatus(user.id),
   ])
 
-  const activeDays: string[] = profile?.briefing_days ?? DEFAULT_DAYS
+  const activeDays: string[] = (profile?.briefing_days ?? DEFAULT_DAYS).map((d: string) => ABBR_TO_FULL[d] ?? d)
   const briefingTime = profile?.briefing_time
     ? profile.briefing_time.slice(0, 5)
     : '07:00'

@@ -8,6 +8,8 @@ import { sendBriefing } from '../briefing/send-briefing.js'
 
 const BRIEFING_LOCK_KEY = 7329841024n
 
+const ABBR_TO_FULL = { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday' }
+
 function todayStrInTz(tz) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date())
 }
@@ -89,7 +91,8 @@ export async function runBriefingJob() {
 
       const tz = profile.briefing_timezone ?? 'UTC'
       const briefingTime = profile.briefing_time.slice(0, 5)
-      const briefingDays = profile.briefing_days ?? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+      const briefingDays = (profile.briefing_days ?? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+        .map(d => ABBR_TO_FULL[d] ?? d)
 
       const dayName = dayNameInTz(tz)
       if (!briefingDays.includes(dayName)) {
