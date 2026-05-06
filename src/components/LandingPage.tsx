@@ -305,9 +305,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto">
           <blockquote className="text-[18px] sm:text-[23px] font-semibold text-white leading-relaxed mb-3 max-w-2xl">
-            &ldquo;I had a recruiter call at 7am. The brief was ready. I walked in knowing exactly what to say and what to leave out.&rdquo;
+            &ldquo;StartingMonday helped me stop chasing roles and start targeting the right one. It sharpened how I presented my leadership, clarified where I could create the most impact, and ultimately helped me land a Fortune 500 CTO role. It was the difference between searching and arriving.&rdquo;
           </blockquote>
-          <p className="text-[13px] text-slate-500 mb-10 sm:mb-14">Senior technology executive, active search</p>
+          <p className="text-[13px] text-slate-500 mb-10 sm:mb-14">Travis, CTO</p>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center border-t border-slate-800 pt-10 sm:pt-12">
             <div>
