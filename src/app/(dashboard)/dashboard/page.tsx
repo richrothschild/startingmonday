@@ -32,7 +32,7 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, momentum_score, momentum_computed_at')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -64,7 +64,7 @@ export default async function DashboardPage({
 
   const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, activation] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, activation, { data: momentumData }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -88,6 +88,12 @@ export default async function DashboardPage({
       .order('signal_date', { ascending: false })
       .limit(5),
     getActivationStatus(user.id),
+    // Separate query — columns added in migration 022; returns { data: null } gracefully if not yet applied
+    supabase
+      .from('user_profiles')
+      .select('momentum_score, momentum_computed_at')
+      .eq('user_id', user.id)
+      .single(),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -240,26 +246,26 @@ export default async function DashboardPage({
           })}
         </div>
 
-        {/* Momentum Score */}
-        {profile?.momentum_score !== null && profile?.momentum_score !== undefined && (
+        {/* Momentum Score — only renders after migration 022 is applied and worker has run */}
+        {momentumData?.momentum_score != null && (
           <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
             <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-              profile.momentum_score >= 70 ? 'text-green-600' :
-              profile.momentum_score >= 40 ? 'text-amber-500' :
+              momentumData.momentum_score >= 70 ? 'text-green-600' :
+              momentumData.momentum_score >= 40 ? 'text-amber-500' :
               'text-red-600'
             }`}>
-              {profile.momentum_score}
+              {momentumData.momentum_score}
             </div>
             <div>
               <div className="text-[13px] font-semibold text-slate-900">
-                {profile.momentum_score >= 70 ? 'Strong search cadence' :
-                 profile.momentum_score >= 40 ? 'Moderate activity' :
+                {momentumData.momentum_score >= 70 ? 'Strong search cadence' :
+                 momentumData.momentum_score >= 40 ? 'Moderate activity' :
                  'Search needs attention'}
               </div>
               <div className="text-[11px] text-slate-400 mt-0.5">
                 Momentum score
-                {profile.momentum_computed_at && (
-                  <> &middot; Updated {Math.floor((Date.now() - new Date(profile.momentum_computed_at).getTime()) / 86400000)}d ago</>
+                {momentumData.momentum_computed_at && (
+                  <> &middot; Updated {Math.floor((Date.now() - new Date(momentumData.momentum_computed_at).getTime()) / 86400000)}d ago</>
                 )}
               </div>
             </div>

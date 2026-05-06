@@ -20,8 +20,8 @@ export default function DashboardLoading() {
         </div>
 
         {/* Stats skeleton */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {[1, 2, 3].map(i => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          {[1, 2, 3, 4].map(i => (
             <div key={i} className="bg-white border border-slate-200 rounded p-5">
               <div className="h-8 w-10 bg-slate-100 rounded animate-pulse mb-2" />
               <div className="h-2.5 w-20 bg-slate-100 rounded animate-pulse" />
