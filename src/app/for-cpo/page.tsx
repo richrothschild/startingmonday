@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -65,6 +65,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How long does a CPO job search typically take?',
+    answer: 'A CPO search typically runs six to twelve months for VP of Product candidates making the step up, and three to nine months for experienced CPOs in active transition. The searches that move fastest are those where the candidate has an existing relationship with the hiring CEO or a search firm that has already flagged their name. The best CPO mandates are rarely posted publicly — they are filled from the networks of CEOs and board members who define the role.',
+  },
+  {
+    question: 'What do companies look for when hiring a Chief Product Officer?',
+    answer: 'The CPO evaluation centers on three questions: Does this person understand our market and users as well as we do? Have they shipped at the scale and complexity we need? And can they build a product organization that will outlast their tenure? The CPO who wins in competitive searches has a point of view on the company\'s product strategy before the first conversation — and can articulate specifically where the opportunity is and how they would approach it.',
+  },
+  {
+    question: 'How do I make the move from VP of Product to Chief Product Officer?',
+    answer: 'The VP to CPO move requires demonstrating you have already been operating at CPO scope — board-level exposure, full ownership of product strategy and roadmap, and experience hiring and developing product leaders beneath you. The candidates who make the move fastest identify companies where their specific record maps to what the company needs to build next, and position themselves for those conversations before the role is defined.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -106,6 +121,7 @@ export default function ForCpoPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

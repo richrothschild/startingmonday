@@ -1,9 +1,15 @@
 import Link from 'next/link'
+import { JsonLd } from '@/components/JsonLd'
 
 export interface SituationCard {
   id: string
   headline: string
   sub: string
+}
+
+export interface FAQ {
+  question: string
+  answer: string
 }
 
 export interface LandingHero {
@@ -18,6 +24,7 @@ export interface LandingHero {
 export interface LandingPageProps {
   hero: LandingHero
   situations: SituationCard[]
+  faqs?: FAQ[]
   showPersonaSelector?: boolean
 }
 
@@ -111,7 +118,7 @@ const ACTIVE_FEATURES = [
   'Daily morning briefing',
 ]
 
-export function LandingPage({ hero, situations, showPersonaSelector }: LandingPageProps) {
+export function LandingPage({ hero, situations, faqs, showPersonaSelector }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-white font-sans">
 
@@ -390,6 +397,39 @@ export function LandingPage({ hero, situations, showPersonaSelector }: LandingPa
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      {faqs && faqs.length > 0 && (
+        <>
+          <JsonLd data={{
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map(f => ({
+              '@type': 'Question',
+              name: f.question,
+              acceptedAnswer: { '@type': 'Answer', text: f.answer },
+            })),
+          }} />
+          <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+                Common questions
+              </p>
+              <h2 className="text-[22px] font-bold text-slate-900 mb-10 leading-snug">
+                What executives ask before they start.
+              </h2>
+              <dl className="space-y-8">
+                {faqs.map((faq, i) => (
+                  <div key={i} className="border-t border-slate-100 pt-7">
+                    <dt className="text-[15px] font-semibold text-slate-900 mb-3">{faq.question}</dt>
+                    <dd className="text-[14px] text-slate-500 leading-relaxed">{faq.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* Persona cross-links */}
       <section className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">

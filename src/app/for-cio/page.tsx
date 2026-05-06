@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -67,6 +67,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How long does a CIO job search typically take?',
+    answer: 'Most CIO searches run six to eighteen months from the point of active engagement. The range depends on target sector, compensation level, and whether you are pursuing an active transition or positioning passively for the right mandate. Searches at Fortune 500 companies run longer than growth-stage or PE-backed mandates. The executives who land fastest started building relationships with search firms and target organizations six to twelve months before they needed to be in market.',
+  },
+  {
+    question: 'Should I work with executive search firms for a CIO role?',
+    answer: 'Most CIO mandates above $300K are filled through retained executive search firms before they are posted publicly. The firms that specialize in technology leadership — Korn Ferry, Spencer Stuart, Heidrick and Struggles, and boutique technology practices — maintain short lists of known candidates. Getting on those short lists before a search opens is the most valuable thing a CIO candidate can do. Starting Monday tracks the organizational signals that tend to precede CIO searches, so you can build search firm relationships at the right moment.',
+  },
+  {
+    question: 'What do companies look for when hiring a CIO?',
+    answer: 'The CIO evaluation centers on three things: a track record of technology-enabled business outcomes (not just successful IT delivery), the ability to communicate at board level in business terms rather than technical language, and evidence of organizational leadership — building teams and capabilities that outlasted your tenure. The CIO who wins in competitive searches has positioned each role as a business decision, not a technical one.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -108,6 +123,7 @@ export default function ForCioPage() {
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -66,6 +66,21 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'What is the typical timeline for a VP of Technology to move into a CIO role?',
+    answer: 'The VP to CIO transition typically takes one to three years of deliberate positioning, depending on how close your current scope is to a full CIO mandate. The candidates who move fastest have already led enterprise-wide programs, built board-level communication skills, and developed relationships with executive search firms before they need them. The transition is rarely about credentials — it is about demonstrating you can operate at the level before the role is offered.',
+  },
+  {
+    question: 'Do I need an existing CIO or CTO title to be considered for a CIO role?',
+    answer: 'No. Many successful CIO placements come from VP Technology, VP IT, and SVP Technology candidates who have the scope and business outcomes without the title. What matters is the evidence: enterprise-scale responsibility, budget ownership, and a track record of technology enabling business strategy rather than just supporting it. The title matters less than the mandate you held.',
+  },
+  {
+    question: 'How do executive search firms evaluate VP Technology candidates for CIO roles?',
+    answer: 'Search firms look for candidates who have operated above their title. This means board-level communication experience, leadership through major transformation or M&A, and evidence that the technology function under your leadership drove measurable business outcomes. The caliber of the organizations you have led at also matters — a VP at a $5B company often has broader scope than a CIO at a $500M company.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -107,6 +122,7 @@ export default function ForVpPage() {
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
       />
     </>
   )
