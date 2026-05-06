@@ -110,17 +110,83 @@ This is the only adjacent product that does not require a separate acquisition s
 
 ---
 
+---
+
+## Product 4: Starting Monday for Finance (CFO vertical)
+
+### CFO — The Problem
+
+The CFO search has the same structural problems as the CIO search — the best roles are filled before they are posted, search firm relationships determine access, and interview preparation is highly specialized — but no tool exists that is built for it. Finance executives piece together the same inadequate stack as technology executives: LinkedIn job alerts, generic ATS trackers, and interview prep that was not written for a CFO conversation.
+
+The signals that matter for a CFO search are fundamentally different from those that matter for a CIO search. Earnings calls, CFO departure announcements, PE recapitalizations, SPAC filings, M&A integration mandates, and SEC disclosures are the intelligence layer for a finance executive in search. The interview prep is different: capital allocation decisions, earnings guidance philosophy, M&A integration experience, investor relations, and audit committee dynamics. None of this is in Starting Monday's current intelligence or prep layer.
+
+### CFO — The Buyer
+
+A CFO, VP of Finance, Controller positioning for CFO, or Treasurer at a company with $100M or more in revenue. Active search or passive but open. Compensation $300,000 or above. The same buyer psychology as Starting Monday's core user: confidential, time-constrained, under-served by generic tools, and willing to pay meaningfully for something built specifically for their situation.
+
+### CFO — How It Differs from Starting Monday
+
+This is the same product architecture applied to a different professional vertical. The pipeline tracker, contact manager, and briefing engine port directly. The work is entirely in the intelligence and prep layers: finance-specific signal classification (earnings announcements, CFO departures, regulatory filings, PE recapitalizations), finance-specific prep brief prompts (capital structure, earnings guidance, M&A integration, audit committee), and finance-specific onboarding (what a CFO's target company list looks like vs. a CIO's).
+
+The right structure is a parallel brand — "Starting Monday for Finance" or a distinct product name — rather than a persona page inside Starting Monday. Positioning it inside Starting Monday creates confusion about who the product is for. A separate product, built on the same infrastructure, can be positioned cleanly for the finance audience without diluting the technology executive brand.
+
+### CFO — Market Size
+
+Approximately 500,000 finance executives at VP and above in the US. At any given time, 3 to 5 percent are in active search — roughly 15,000 to 25,000 potential users. The willingness to pay is equivalent to or higher than technology executives. At $129 per month average, that is $23M to $39M in addressable annual revenue for the active-search segment alone, before the employed and alumni segments.
+
+### CFO — Starting Monday's Infrastructure Advantage
+
+The core product — pipeline tracking, contact management, AI briefing, email delivery — requires no material rebuild. The total engineering work is the intelligence signal layer (finance event types) and the prep brief prompt library (CFO-specific sections). Estimated build time once triggered: one sprint for the signal layer adaptation, two sprints for the prep content, one sprint for the finance-specific onboarding flow. The brand and marketing are separate work.
+
+### CFO — Build Trigger
+
+Starting Monday at 200 paying users with a validated briefing and prep product. The finance vertical should not be attempted while the core product is still being refined. The signal is a CFO or finance executive attempting to use Starting Monday and finding the intelligence irrelevant to their search — that friction, documented by a handful of users, is the proof that the market exists and that Starting Monday's infrastructure is ready to serve it.
+
+---
+
+## Product 5: CEO Succession Preparation Platform
+
+### CEO — The Problem
+
+The path to a CEO seat is not a job search — it is a multi-year positioning campaign that the candidate cannot run visibly without damaging their current role. A COO, CFO, or Division President who wants to position for CEO in the next three to five years has no infrastructure for it. They need to know which companies are in succession planning discussions, which boards are open to external candidates versus grooming internal ones, and which relationships with sitting directors and institutional investors need to be built now. None of this intelligence is available through any existing product, and the timeline is too long for any manual approach to be sustainable.
+
+The executive who wants to become a CEO also has a specific positioning problem that is different from any other executive search. They cannot appear to be searching — the visibility of an active campaign signals to their current board and CEO that they are a flight risk. The search must be invisible, relationship-driven, and calibrated to a multi-year horizon.
+
+### CEO — The Buyer
+
+A COO, CFO, President, or Division CEO with a credible path to a public company or large private company CEO seat. 15 or more years of executive experience, probably 45 to 58 years old. The motivation is not urgency — it is legacy and ambition on a long horizon. This buyer does not respond to the same messaging as an executive in active search. They are not in a crisis. They are making a calculated long-term move. Willingness to pay: $299 to $599 per month for the right product.
+
+### CEO — How It Differs from Starting Monday
+
+The product architecture is closer to the Board Positioning Platform (Product 2) than to Starting Monday. The intelligence layer monitors board succession signals — proxy filings, board composition changes, CEO tenure patterns, institutional investor activism, and PE portfolio company CEO transitions. The relationship management layer tracks relationships with sitting directors, institutional investors, and governance search specialists over a three to five year horizon, not a six to twelve month search. The prep layer focuses on board-level interviews, investor narratives, and CEO-candidate positioning rather than the functional interview prep that Starting Monday provides.
+
+Building this as a Starting Monday feature is not possible — the positioning, timeline, and buyer psychology are incompatible with a search management product. Built as a standalone product, potentially in coordination with the Board Positioning Platform, it addresses a market with very high willingness to pay and almost no existing competition.
+
+### CEO — Market Size
+
+At any given time, approximately 30,000 to 50,000 US executives are realistically positioned for and actively pursuing a CEO seat at a company with more than $100M in revenue. The market is small but the willingness to pay is extremely high — executive coaching for CEO preparation runs $500 to $2,000 per hour, and governance search firms charge $100,000 to $300,000 per placement. A well-positioned product at $400 per month captures $4,800 per year from a buyer who spends many multiples of that on coaching and search firm relationships.
+
+### CEO — Starting Monday's Distribution Advantage
+
+The Board Positioning Platform (Product 2) and the CEO Succession Platform share roughly 60 percent of their intelligence infrastructure. If the board positioning product is built first, the CEO succession product is an extension of it with a different buyer persona and a longer time horizon. The distribution path is through the Board Positioning Platform's user base — executives who are already tracking board composition and building governance relationships are the exact population who needs CEO succession preparation.
+
+### CEO — Build Trigger
+
+Do not build before the Board Positioning Platform is live and has validated the board intelligence infrastructure. The CEO succession product is the premium tier of that product, not an independent build. Estimated additional build time once the Board Positioning Platform exists: one to two sprints for the CEO-specific intelligence layer and one sprint for the positioning and onboarding differences.
+
+---
+
 ## Comparative Summary
 
-| | Market Intelligence | Board Positioning | Peer Network |
-| --- | --- | --- | --- |
-| Buyer | Employed executives | Board-track CIOs/CFOs | Active search users |
-| Price point | $99–149/month | $199–499/month | Included in Active |
-| Revenue model | Subscription | Subscription | Retention/LTV |
-| Build trigger | 500 SM users, 100 alumni | Executive tier live | 500 active users |
-| Infrastructure overlap | High (signals, monitoring) | Very high (Executive tier) | High (matching data) |
-| Primary risk | Positioning confusion | Wrong tier vs. product | Trust failure |
-| Timeline | Year 2 | Year 2–3 | Year 2 |
+| | Market Intelligence | Board Positioning | Peer Network | Finance (CFO) | CEO Succession |
+| --- | --- | --- | --- | --- | --- |
+| Buyer | Employed executives | Board-track CIOs/CFOs | Active search users | CFOs in search | COOs/CFOs positioning for CEO |
+| Price point | $99–149/month | $199–499/month | Included in Active | $99–149/month | $299–599/month |
+| Revenue model | Subscription | Subscription | Retention/LTV | Subscription | Subscription |
+| Build trigger | 500 SM users, 100 alumni | Executive tier live | 500 active users | 200 SM users, core validated | Board Positioning live |
+| Infrastructure overlap | High (signals, monitoring) | Very high (Executive tier) | High (matching data) | High (pipeline, briefing) | High (Board Positioning) |
+| Primary risk | Positioning confusion | Wrong tier vs. product | Trust failure | Finance signal build | Long sales cycle |
+| Timeline | Year 2 | Year 2–3 | Year 2 | Year 2 | Year 3+ |
 
 ---
 
