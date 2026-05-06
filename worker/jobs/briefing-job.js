@@ -25,7 +25,7 @@ function currentHHMMInTz(tz) {
   return `${h.padStart(2, '0')}:${m.padStart(2, '0')}`
 }
 
-function isWithinWindow(currentHHMM, targetHHMM, windowMinutes = 5) {
+function isWithinWindow(currentHHMM, targetHHMM, windowMinutes = 10) {
   const [ch, cm] = currentHHMM.split(':').map(Number)
   const [th, tm] = targetHHMM.split(':').map(Number)
   const diff = Math.abs(ch * 60 + cm - (th * 60 + tm))
@@ -82,28 +82,43 @@ export async function runBriefingJob() {
 
     for (const user of users) {
       const profile = profileByUserId[user.id]
-      if (!profile) { skipped++; continue }
+      if (!profile) {
+        logger.info(`briefing-job: skip ${user.email} — no profile or briefing_time not set`)
+        skipped++; continue
+      }
 
       const tz = profile.briefing_timezone ?? 'UTC'
       const briefingTime = profile.briefing_time.slice(0, 5)
       const briefingDays = profile.briefing_days ?? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
       const dayName = dayNameInTz(tz)
-      if (!briefingDays.includes(dayName)) { skipped++; continue }
+      if (!briefingDays.includes(dayName)) {
+        logger.info(`briefing-job: skip ${user.email} — today is ${dayName}, not in briefing_days ${JSON.stringify(briefingDays)}`)
+        skipped++; continue
+      }
 
       const currentHHMM = currentHHMMInTz(tz)
-      if (!isWithinWindow(currentHHMM, briefingTime)) { skipped++; continue }
+      if (!isWithinWindow(currentHHMM, briefingTime)) {
+        logger.info(`briefing-job: skip ${user.email} — current ${currentHHMM} not within window of ${briefingTime} (tz: ${tz})`)
+        skipped++; continue
+      }
 
       const todayStr = todayStrInTz(tz)
       if (profile.last_briefing_sent_at) {
         const lastSentDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz })
           .format(new Date(profile.last_briefing_sent_at))
-        if (lastSentDate === todayStr) { skipped++; continue }
+        if (lastSentDate === todayStr) {
+          logger.info(`briefing-job: skip ${user.email} — already sent today (${todayStr})`)
+          skipped++; continue
+        }
       }
 
       try {
         const context = await assembleContext(supabase, user.id, user.email, tz)
-        if (!context) { skipped++; continue }
+        if (!context) {
+          logger.info(`briefing-job: skip ${user.email} — no companies in pipeline`)
+          skipped++; continue
+        }
 
         const briefing = await generateBriefing(context)
         const html = renderBriefingEmail(context, briefing)
