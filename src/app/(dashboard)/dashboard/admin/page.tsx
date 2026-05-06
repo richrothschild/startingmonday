@@ -66,11 +66,19 @@ export default async function AdminPage() {
   const userIdList = [...activeUserIds]
   const [
     { count: a2Count }, { count: a3Count }, { count: a4Count }, { count: a6Count },
+    { data: endedTrials },
+    { data: allSignals },
+    { data: signalActions },
+    { data: qualityLogs },
   ] = await Promise.all([
     adminClient.from('companies').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList).is('archived_at', null),
     adminClient.from('briefs').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList).eq('type', 'prep'),
     adminClient.from('contacts').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList),
     adminClient.from('follow_ups').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList),
+    adminClient.from('users').select('subscription_status, plan_at_trial_end').not('trial_ends_at', 'is', null).lt('trial_ends_at', new Date().toISOString()),
+    adminClient.from('company_signals').select('id, signal_type').limit(2000),
+    adminClient.from('signal_action_events').select('signal_id, action_type').limit(2000),
+    adminClient.from('brief_quality_log').select('context_score, has_resume, has_scan_result, has_contacts, word_count').gte('created_at', since30d).limit(500),
   ])
 
   const denominator = activeUserIds.size || 1
@@ -86,6 +94,43 @@ export default async function AdminPage() {
   const eventCounts7d  = (events7d  ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
+
+  // Trial conversion
+  const trialsEnded = endedTrials ?? []
+  const totalEnded = trialsEnded.length
+  const totalConverted = trialsEnded.filter(u => u.subscription_status === 'active').length
+  const conversionRate = totalEnded > 0 ? Math.round((totalConverted / totalEnded) * 100) : null
+
+  // Signal → action rate by signal type
+  const actedSignalIds = new Set((signalActions ?? []).map((a: { signal_id: string }) => a.signal_id).filter(Boolean))
+  const signalTypeCounts: Record<string, { total: number; acted: number }> = {}
+  for (const s of (allSignals ?? []) as { id: string; signal_type: string }[]) {
+    if (!signalTypeCounts[s.signal_type]) signalTypeCounts[s.signal_type] = { total: 0, acted: 0 }
+    signalTypeCounts[s.signal_type].total++
+    if (actedSignalIds.has(s.id)) signalTypeCounts[s.signal_type].acted++
+  }
+  const signalRows = Object.entries(signalTypeCounts)
+    .sort((a, b) => b[1].total - a[1].total)
+    .map(([type, counts]) => ({
+      type,
+      label: type.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
+      total: counts.total,
+      acted: counts.acted,
+      rate: counts.total > 0 ? Math.round((counts.acted / counts.total) * 100) : 0,
+    }))
+
+  // Brief quality
+  const logs = qualityLogs ?? []
+  const avgContextScore = logs.length > 0
+    ? Math.round(logs.reduce((sum: number, l: { context_score: number | null }) => sum + (l.context_score ?? 0), 0) / logs.length)
+    : null
+  const pctResume   = logs.length > 0 ? Math.round(logs.filter((l: { has_resume: boolean }) => l.has_resume).length / logs.length * 100) : null
+  const pctScan     = logs.length > 0 ? Math.round(logs.filter((l: { has_scan_result: boolean }) => l.has_scan_result).length / logs.length * 100) : null
+  const pctContacts = logs.length > 0 ? Math.round(logs.filter((l: { has_contacts: boolean }) => l.has_contacts).length / logs.length * 100) : null
+  const wordCountLogs = logs.filter((l: { word_count: number | null }) => l.word_count)
+  const avgWords = wordCountLogs.length > 0
+    ? Math.round(wordCountLogs.reduce((sum: number, l: { word_count: number | null }) => sum + (l.word_count ?? 0), 0) / wordCountLogs.length)
+    : null
 
   const roleBadge = (role: string) =>
     role === 'owner' ? 'bg-amber-50 text-amber-700' :
@@ -207,7 +252,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Event volume */}
-        <div className="bg-white border border-slate-200 rounded p-6">
+        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</div>
           <p className="text-[12px] text-slate-400 mb-6">7d counts in right column</p>
           {eventVolumeData.length === 0 ? (
@@ -234,6 +279,90 @@ export default async function AdminPage() {
                 </tbody>
               </table>
             </>
+          )}
+        </div>
+
+        {/* Trial conversion */}
+        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</div>
+          <p className="text-[12px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
+          {totalEnded === 0 ? (
+            <p className="text-[13px] text-slate-400">No ended trials yet.</p>
+          ) : (
+            <div className="grid grid-cols-3 gap-6">
+              {[
+                { label: 'Trials ended', value: String(totalEnded), highlight: false },
+                { label: 'Converted to paid', value: String(totalConverted), highlight: false },
+                { label: 'Conversion rate', value: conversionRate !== null ? `${conversionRate}%` : '—', highlight: true, rate: conversionRate },
+              ].map(({ label, value, highlight, rate }) => (
+                <div key={label}>
+                  <div className={`text-[28px] font-bold ${
+                    highlight && rate !== null && rate !== undefined
+                      ? rate >= 40 ? 'text-green-600' : rate >= 20 ? 'text-amber-600' : 'text-red-600'
+                      : 'text-slate-900'
+                  }`}>{value}</div>
+                  <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Signal → action rate */}
+        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</div>
+          <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
+          {signalRows.length === 0 ? (
+            <p className="text-[13px] text-slate-400">No signals yet.</p>
+          ) : (
+            <table className="w-full text-[12px]">
+              <thead>
+                <tr className="text-left text-slate-400 border-b border-slate-100">
+                  <th className="py-2 font-semibold">Signal type</th>
+                  <th className="py-2 font-semibold text-right">Total</th>
+                  <th className="py-2 font-semibold text-right">Acted</th>
+                  <th className="py-2 font-semibold text-right">Rate</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {signalRows.map(row => (
+                  <tr key={row.type}>
+                    <td className="py-2.5 text-slate-700">{row.label}</td>
+                    <td className="py-2.5 text-right text-slate-400">{row.total}</td>
+                    <td className="py-2.5 text-right font-semibold text-slate-900">{row.acted}</td>
+                    <td className="py-2.5 text-right">
+                      <span className={`font-bold ${row.rate >= 50 ? 'text-green-600' : row.rate >= 25 ? 'text-amber-600' : 'text-slate-400'}`}>
+                        {row.rate}%
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        {/* Brief quality */}
+        <div className="bg-white border border-slate-200 rounded p-6">
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</div>
+          <p className="text-[12px] text-slate-400 mb-5">Context richness at generation time (n={logs.length})</p>
+          {logs.length === 0 ? (
+            <p className="text-[13px] text-slate-400">No briefs logged yet.</p>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
+              {[
+                { label: 'Avg context score', value: avgContextScore !== null ? `${avgContextScore}/100` : '—' },
+                { label: '% with resume',     value: pctResume   !== null ? `${pctResume}%`   : '—' },
+                { label: '% with scan',       value: pctScan     !== null ? `${pctScan}%`     : '—' },
+                { label: '% with contacts',   value: pctContacts !== null ? `${pctContacts}%` : '—' },
+                { label: 'Avg word count',    value: avgWords    !== null ? avgWords.toLocaleString() : '—' },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <div className="text-[22px] font-bold text-slate-900">{value}</div>
+                  <div className="text-[11px] text-slate-400 mt-1 leading-snug">{label}</div>
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
