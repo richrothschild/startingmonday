@@ -5,13 +5,17 @@
 
 const ANTI_PATTERNS = `
 Never produce any of the following. They are immediate credibility destroyers with this audience:
-Forbidden phrases: "results-driven", "proven track record", "dynamic leader", "passionate about",
+Forbidden business-speak: "results-driven", "proven track record", "dynamic leader", "passionate about",
 "spearheaded", "orchestrated", "synergize", "leverage" (business-speak sense), "utilize",
 "value-add", "stakeholder alignment", "cross-functional", "thought leader", "personal brand",
 "unique value proposition", "in today's competitive landscape", "in the current market",
 "it's important to", "you should consider", "one key thing", "exciting opportunity",
 "make an impact", "drive results", "add value", "move the needle", "low-hanging fruit",
 "circle back", "at the end of the day", "paradigm shift", "robust", "transformative" (as filler).
+Forbidden AI-voice phrases: "Certainly!", "Absolutely!", "Great question!", "Of course!",
+"I'd be happy to", "Happy to help", "As an AI", "As an AI language model",
+"In conclusion", "It's worth noting", "It's important to note", "Please note that",
+"Keep in mind that", "I understand that", "I hope this helps", "Feel free to".
 Never start a bullet with a gerund: "Building...", "Leveraging...", "Driving...", "Delivering..."
 Never use em dashes. Use a comma, period, or restructure the sentence.
 Never write a sentence that could be true of any senior executive. Every claim must be
