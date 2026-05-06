@@ -32,7 +32,7 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, momentum_score, momentum_computed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -120,6 +120,17 @@ export default async function DashboardPage({
     { value: signalCount,  label: 'Signals',      alert: false,           amber: signalCount > 0,    href: '/dashboard/signals' },
     { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: null },
   ]
+
+  const setupSteps = [
+    { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
+    { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL — we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
+    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard/companies',      cta: 'Go to companies' },
+    { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Add a contact' },
+    { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
+    { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Go to contacts' },
+  ]
+  const nextSetupStep    = setupSteps.find(s => !s.done) ?? null
+  const remainingSetups  = setupSteps.filter(s => !s.done).slice(1)
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -229,6 +240,32 @@ export default async function DashboardPage({
           })}
         </div>
 
+        {/* Momentum Score */}
+        {profile?.momentum_score !== null && profile?.momentum_score !== undefined && (
+          <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
+            <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
+              profile.momentum_score >= 70 ? 'text-green-600' :
+              profile.momentum_score >= 40 ? 'text-amber-500' :
+              'text-red-600'
+            }`}>
+              {profile.momentum_score}
+            </div>
+            <div>
+              <div className="text-[13px] font-semibold text-slate-900">
+                {profile.momentum_score >= 70 ? 'Strong search cadence' :
+                 profile.momentum_score >= 40 ? 'Moderate activity' :
+                 'Search needs attention'}
+              </div>
+              <div className="text-[11px] text-slate-400 mt-0.5">
+                Momentum score
+                {profile.momentum_computed_at && (
+                  <> &middot; Updated {Math.floor((Date.now() - new Date(profile.momentum_computed_at).getTime()) / 86400000)}d ago</>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[
@@ -324,60 +361,45 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Day 1 action plan — only shown until first company is added */}
-        {totalCount === 0 && !hasFilters && (
+        {/* Smart activation guide — adapts to what's been completed */}
+        {!activation.isComplete && !hasFilters && nextSetupStep && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-5 border-b border-slate-100">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
-                Day 1
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1.5">
+                Next move
               </p>
-              <h2 className="text-[18px] font-bold text-slate-900">
-                Four moves to start strong.
+              <h2 className="text-[17px] font-bold text-slate-900 mb-1.5">
+                {nextSetupStep.label}
               </h2>
+              <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
+                {nextSetupStep.sub}
+              </p>
+              <Link
+                href={nextSetupStep.href}
+                className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              >
+                {nextSetupStep.cta} &rarr;
+              </Link>
             </div>
-            <div className="divide-y divide-slate-50">
-              {[
-                {
-                  href: '/dashboard/companies/new',
-                  label: 'Add your first target company',
-                  sub: 'Include the career page URL — we\'ll scan for openings immediately.',
-                },
-                {
-                  href: '/dashboard/profile',
-                  label: 'Sharpen your positioning',
-                  sub: 'Upload your LinkedIn PDF and set your target titles. Drives every brief and briefing.',
-                },
-                {
-                  href: '/dashboard/contacts',
-                  label: 'Map your key contacts',
-                  sub: 'Who do you know at target companies? Who can warm-connect you?',
-                },
-                {
-                  href: '/dashboard/strategy',
-                  label: 'Get your Search Strategy Brief',
-                  sub: 'Your sector, your narrative, your outreach framework. Takes 60 seconds.',
-                },
-              ].map((action, i) => (
-                <a
-                  key={action.href}
-                  href={action.href}
-                  className="group px-6 py-5 flex items-start gap-4 hover:bg-slate-50 transition-colors block"
-                >
-                  <span className="text-[13px] font-bold text-slate-300 w-5 shrink-0 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-700">
-                      {action.label}
-                    </p>
-                    <p className="text-[13px] text-slate-400 mt-0.5 leading-relaxed">
-                      {action.sub}
-                    </p>
-                  </div>
-                  <span className="text-slate-300 group-hover:text-slate-500 shrink-0 mt-0.5">→</span>
-                </a>
-              ))}
-            </div>
+            {remainingSetups.length > 0 && (
+              <div className="px-6 py-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-3">
+                  Also left to do
+                </p>
+                <div className="flex flex-col gap-2.5">
+                  {remainingSetups.map((step, i) => (
+                    <Link
+                      key={i}
+                      href={step.href}
+                      className="flex items-center gap-3 text-[13px] text-slate-500 hover:text-slate-800 transition-colors"
+                    >
+                      <span className="w-4 h-4 rounded-full border border-slate-200 shrink-0" />
+                      {step.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
