@@ -6,6 +6,48 @@ Items here are validated ideas deferred from the active roadmap. Each entry incl
 
 ---
 
+## Engineering Infrastructure
+
+### Test Environments and Staging Pipeline
+
+CI is live (GitHub Actions runs type check + Vitest on every push and PR). The Supabase staging project is the next piece — run every migration there before production. Full staging environment deferred.
+
+What's in place:
+
+- GitHub Actions CI: type check + 44 Vitest tests on every push/PR
+- Stripe: test mode vs live mode already separated
+- Branch workflow: feature branches → PR → merge to main (Railway auto-deploys main)
+
+What's deferred and why:
+
+**Supabase staging project** — A second free Supabase project (`startingmonday-staging`) where migrations are applied and tested before production. Deferred because schema changes have been simple so far; move forward before any migration that touches billing, auth, or pipeline data.
+
+**Railway staging environment** — A second Railway service pointing at the staging Supabase project and Stripe test mode, auto-deployed from a `staging` branch. Deferred because maintaining two environments slows a solo builder materially and the risk is manageable at small user count.
+
+Move forward when: 25+ paying users. At that point, a bad production deploy has real consequences and the overhead is justified.
+
+**Seed data script** — A script that creates a realistic test user: full profile, 5 companies at different pipeline stages, 3 contacts, one prep brief, briefing time set. Without this, staging tests nothing meaningful.
+
+Move forward when: Railway staging environment exists. Seed data and staging are built together.
+
+**Resend staging routing** — Staging emails go to a test inbox (e.g., Mailtrap or a dedicated Gmail) rather than real user addresses. Required before staging environment can test email flows safely.
+
+Move forward when: Railway staging environment exists.
+
+**Migration rollback scripts** — Every schema migration should have a documented reverse operation. Currently migrations are forward-only with no written rollback path.
+
+Move forward when: Before any migration that drops a column, renames a table, or changes a constraint on a table with production data.
+
+**Feature flags** — Deploy code without activating it for all users. Useful for gradual rollouts and A/B testing. Not needed until multiple users would be affected differently by the same release.
+
+Move forward when: 100+ active users or first A/B test need.
+
+**Secret management per environment** — Staging needs its own Anthropic, Resend, and Browserless keys so staging load doesn't count against production rate limits or billing.
+
+Move forward when: Railway staging environment exists.
+
+---
+
 ## Known Technical Limitations
 
 ### Google OAuth Consent Screen Shows Supabase Domain
