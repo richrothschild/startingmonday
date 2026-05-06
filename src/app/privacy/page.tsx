@@ -18,6 +18,77 @@ export default function PrivacyPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
+
+        {/* Google API Data Disclosure — required for Google OAuth verification */}
+        <section className="mb-12 pb-12 border-b border-slate-200">
+          <h1 className="text-[22px] font-bold text-slate-900 mb-6">Privacy Policy</h1>
+
+          <h2 className="text-[17px] font-bold text-slate-900 mb-3">Google User Data</h2>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Starting Monday uses Google Sign-In to allow users to create an account and authenticate.
+            The following describes how we access, use, store, and share Google user data.
+          </p>
+
+          <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Data Accessed</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            When you sign in with Google, Starting Monday requests access to the following data via
+            standard OAuth 2.0 scopes:
+          </p>
+          <ul className="list-disc pl-5 mb-4 space-y-1.5 text-[14px] text-slate-600">
+            <li><strong>Email address</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">email</code>) — used to identify your account and send you product communications.</li>
+            <li><strong>Basic profile information</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">profile</code>) — your name and profile picture, used to personalize your account.</li>
+            <li><strong>OpenID Connect identity token</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">openid</code>) — used to verify your identity during sign-in.</li>
+          </ul>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Starting Monday does not access Google Calendar, Gmail, Google Drive, Google Contacts,
+            or any other Google service. No data beyond the scopes listed above is requested or collected.
+          </p>
+
+          <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Data Usage</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Google user data is used solely for the following purposes:
+          </p>
+          <ul className="list-disc pl-5 mb-4 space-y-1.5 text-[14px] text-slate-600">
+            <li>Creating and authenticating your Starting Monday account</li>
+            <li>Displaying your name within the product interface</li>
+            <li>Sending transactional emails (such as your daily briefing) to your email address</li>
+          </ul>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Google user data is never used to train AI models, sold to third parties, shared with
+            recruiters or employers, or used for advertising purposes.
+          </p>
+
+          <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Data Storage</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Your email address and basic profile information are stored securely in our authentication
+            provider (Supabase), hosted on AWS infrastructure. Data is encrypted at rest and in transit.
+            We retain your data for as long as your account is active. You may permanently delete your
+            account and all associated data at any time from your account settings.
+          </p>
+
+          <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Data Sharing</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Starting Monday does not sell, share, or transfer Google user data to any third party,
+            except as required to operate the service (such as storing data with our infrastructure
+            provider, Supabase). We do not share Google user data with advertisers, data brokers,
+            executive search firms, or any other external parties.
+          </p>
+
+          <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Compliance</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed">
+            Starting Monday&rsquo;s use of Google user data complies with the{' '}
+            <a
+              href="https://developers.google.com/terms/api-services-user-data-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-slate-900 transition-colors"
+            >
+              Google API Services User Data Policy
+            </a>
+            , including the Limited Use requirements.
+          </p>
+        </section>
+
         <script
           src="https://app.termly.io/embed-policy.min.js"
           data-auto-block="on"
