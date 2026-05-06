@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 export const metadata = {
   title: 'Terms of Service — Starting Monday',
@@ -12,7 +12,7 @@ export default function TermsPage() {
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
         </div>
       </header>
@@ -30,7 +30,7 @@ export default function TermsPage() {
       <footer className="border-t border-slate-100 px-6 py-6 mt-12">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
             Back to home

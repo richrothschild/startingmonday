@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
@@ -174,7 +174,7 @@ export default async function CompanyPage({
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"

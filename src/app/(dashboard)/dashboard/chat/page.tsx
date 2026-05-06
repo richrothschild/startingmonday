@@ -215,7 +215,7 @@ export default function ChatPage() {
       <header className="bg-slate-900 shrink-0">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-6">
             {messages.length > 0 && !loading && !loadingHistory && (

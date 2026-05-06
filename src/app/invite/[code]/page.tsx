@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 
 export const metadata = { title: 'Join Starting Monday' }
@@ -29,7 +29,7 @@ export default async function InvitePage({
 
       <header className="px-6 h-14 flex items-center">
         <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
-          Starting Monday
+          <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
       </header>
 

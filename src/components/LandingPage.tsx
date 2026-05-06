@@ -126,7 +126,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4 sm:gap-5">
             <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
@@ -507,7 +507,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-slate-800">
             <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
-              Starting Monday
+              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">

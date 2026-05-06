@@ -21,7 +21,7 @@ export default async function KanbanPage() {
       <header className="bg-slate-900">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
-            Starting Monday
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-5">
             <Link

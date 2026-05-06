@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og'
+﻿import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
 export const alt = 'Starting Monday — AI career platform for senior technology executives'
@@ -44,7 +44,7 @@ export default function Image() {
             color: '#475569',
           }}
         >
-          Starting Monday
+          <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </span>
       </div>
       <div
