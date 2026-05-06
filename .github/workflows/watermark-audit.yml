@@ -1,0 +1,101 @@
+name: Monthly Watermark Documentation Audit
+
+on:
+  schedule:
+    - cron: '17 9 1 * *'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit watermark docs against source
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run watermark audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          mkdir -p docs/audits
+          claude --print "
+          You are running a monthly documentation audit for the Starting Monday watermarking system.
+          Your job is to flag discrepancies between the documentation and the current code.
+          Do NOT edit any documentation files. Write a report only.
+
+          Working directory is the repo root. Use relative paths for all file operations.
+
+          ## What to audit
+
+          Read these documentation files:
+          - docs/watermarking.md
+          - docs/watermark-ops.md
+          - docs/watermark-test-log.md
+
+          Read these source files:
+          - src/lib/watermark.ts
+          - worker/lib/watermark.js
+          - src/components/WatermarkOverlay.tsx
+          - src/app/api/strategy/route.ts
+          - src/app/api/outreach/draft/route.ts
+          - src/app/api/briefs/save/route.ts
+          - src/app/(dashboard)/layout.tsx
+          - worker/jobs/briefing-job.js
+
+          Also scan for any new API routes or worker jobs not yet covered:
+          - Glob all files matching: src/app/api/**/route.ts
+          - Glob all files matching: worker/jobs/*.js
+
+          ## What to check
+
+          1. Do the Unicode codepoints in watermarking.md (U+200C, U+200B, U+200D) still match watermark.ts and watermark.js?
+          2. Does the encoding scheme description still match the actual encodeUserId implementation?
+          3. Does the surface table in watermarking.md still match which routes/jobs call encodeUserId / watermarkText / appendWatermarkToStream / watermarkEmailHtml?
+          4. Are there new API routes that stream or save AI-generated text and do NOT call a watermark function?
+          5. Are there new worker jobs that send emails and do NOT call watermarkEmailHtml?
+          6. Does the visual overlay section still match WatermarkOverlay.tsx (angle range, opacity range, geometry)?
+          7. Does the decode function in watermark-ops.md still match the actual decodeWatermark in watermark.ts?
+          8. Is the survival matrix in watermark-test-log.md consistent with current surfaces?
+
+          ## Output
+
+          Write a markdown report to: docs/audits/${TODAY}-watermark-audit.md
+
+          Use this exact structure:
+
+          # Watermark Documentation Audit — ${TODAY}
+
+          ## Summary
+          One sentence: everything is current / N items need attention.
+
+          ## Must Fix
+          Issues where documentation is factually wrong or a surface is missing watermark coverage.
+
+          ## Should Fix
+          Documentation that is outdated, imprecise, or where a test is overdue.
+
+          ## No Action Needed
+          Confirm what you checked and found correct.
+          "
+
+      - name: Commit audit report
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/audits/
+          git diff --staged --quiet && echo "No audit report generated — skipping commit" && exit 0
+          git commit -m "docs: watermark audit ${TODAY} [skip ci]"
+          git push
