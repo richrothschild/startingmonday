@@ -57,6 +57,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://startingmonday.app/blog',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://startingmonday.app/blog/cio-job-search-timeline',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://startingmonday.app/blog/executive-search-firms-cio',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://startingmonday.app/optimize',
       lastModified: new Date(),
       changeFrequency: 'monthly',
