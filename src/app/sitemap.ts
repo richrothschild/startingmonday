@@ -21,6 +21,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://startingmonday.app/for-vp-technology',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://startingmonday.app/for-cpo',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://startingmonday.app/for-data-officer',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: 'https://startingmonday.app/for-coo',
       lastModified: new Date(),
       changeFrequency: 'monthly',

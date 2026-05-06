@@ -1,0 +1,113 @@
+import type { Metadata } from 'next'
+import { LandingPage } from '@/components/LandingPage'
+import type { SituationCard } from '@/components/LandingPage'
+import { JsonLd } from '@/components/JsonLd'
+
+export const metadata: Metadata = {
+  title: 'Starting Monday for Chief Data Officers — Find the Companies Where Data Is Genuinely Strategic',
+  description: 'Campaign infrastructure for Chief Data Officers and senior data executives in active search. Identify organizations with real data mandates, watch the signals that precede CDO searches, and position data leadership as competitive advantage. Free 30-day trial.',
+  keywords: [
+    'Chief Data Officer job search',
+    'CDO job search',
+    'data executive career',
+    'chief data officer career',
+    'head of data job search',
+    'data analytics executive',
+    'CDO interview preparation',
+    'chief data officer search strategy',
+    'data leader career transition',
+  ],
+  openGraph: {
+    title: 'Starting Monday for Chief Data Officers',
+    description: 'Most Chief Data Officer titles are not C-suite mandates. Campaign infrastructure to find the ones that are.',
+    url: 'https://startingmonday.app/for-data-officer',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Starting Monday for Chief Data Officers',
+    description: 'Most Chief Data Officer titles are not C-suite mandates. Campaign infrastructure to find the ones that are.',
+  },
+  alternates: {
+    canonical: 'https://startingmonday.app/for-data-officer',
+  },
+}
+
+const SITUATIONS: SituationCard[] = [
+  {
+    id: 'absorbed',
+    headline: 'My data mandate was absorbed into the CIO function.',
+    sub: 'Data became infrastructure. I need an organization that still treats it as strategy.',
+  },
+  {
+    id: 'real-mandate',
+    headline: 'I need to find companies where data is genuinely strategic.',
+    sub: 'Not a rebranded IT role. Board-level investment, revenue impact, and a real seat at the table.',
+  },
+  {
+    id: 'ai-wave',
+    headline: 'The AI investment at my company has made data the priority.',
+    sub: 'My moment is now. I need to find the organization where this record matters most.',
+  },
+  {
+    id: 'vp-to-cdo',
+    headline: 'I am ready to move from VP of Data to Chief Data Officer.',
+    sub: 'I have led the function. Now I need the mandate, the board access, and the full scope.',
+  },
+  {
+    id: 'passive',
+    headline: "I am not looking, but my mandate keeps getting reframed as IT infrastructure.",
+    sub: 'Data governance is not data warehousing. I need a company that knows the difference.',
+  },
+  {
+    id: 'returning',
+    headline: "I've been saying 'starting Monday' for months.",
+    sub: 'This is the one that sticks.',
+  },
+]
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://startingmonday.app/for-data-officer/#webpage',
+  url: 'https://startingmonday.app/for-data-officer',
+  name: 'Starting Monday for Chief Data Officers — Find the Companies Where Data Is Genuinely Strategic',
+  description: 'Campaign infrastructure for Chief Data Officers. Identify organizations with real data mandates, watch signals that precede CDO searches, and position data leadership as competitive advantage.',
+  isPartOf: {
+    '@type': 'WebSite',
+    url: 'https://startingmonday.app',
+    name: 'Starting Monday',
+  },
+  about: {
+    '@type': 'SoftwareApplication',
+    name: 'Starting Monday',
+    applicationCategory: 'BusinessApplication',
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Chief Data Officer, CDO, VP of Data, Head of Data, Chief Analytics Officer, CAO',
+    },
+  },
+}
+
+export default function ForDataOfficerPage() {
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <LandingPage
+        hero={{
+          eyebrow: 'Most Chief Data Officer titles are not C-suite mandates. Find the ones that are.',
+          h1Lines: ['Data is the', 'strategy.', 'Own the seat.'],
+          body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. The executive who builds a career at the right altitude knows the difference before the first conversation — and positions themselves only for organizations where the mandate is real.',
+          note: 'Import your LinkedIn profile during setup. Operational in minutes.',
+          steps: [
+            'Identify organizations where data is a genuine strategic priority: board-level AI and data governance committees, data products that drive measurable revenue, and reporting structures where the Chief Data Officer has direct CEO access rather than a dotted line through the CIO',
+            'Watch the signals that create CDO mandates: AI investment announcements requiring a data foundation, privacy incidents triggering governance leadership searches, regulatory compliance mandates in financial services and healthcare, and analytics transformation initiatives authorized at board level',
+            'Build the brief that positions your data leadership record at the right altitude — not as data infrastructure management, but as the executive who built the capability that gave the business a measurable competitive advantage',
+          ],
+          trialNote: '30-day pilot. No credit card. Cancel any time.',
+        }}
+        situations={SITUATIONS}
+      />
+    </>
+  )
+}
