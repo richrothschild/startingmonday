@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
 type Status = 'idle' | 'uploading' | 'streaming' | 'done' | 'error'
@@ -51,6 +51,53 @@ function renderOutput(text: string) {
       </p>
     )
   })
+}
+
+function HelpPopover() {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="w-5 h-5 rounded-full border border-slate-300 text-[11px] font-bold text-slate-400 hover:border-slate-500 hover:text-slate-600 transition-colors flex items-center justify-center leading-none"
+        aria-label="How to get your LinkedIn profile"
+      >
+        ?
+      </button>
+      {open && (
+        <div className="absolute right-0 top-7 z-50 w-72 bg-white border border-slate-200 rounded shadow-lg p-4 text-[12px] text-slate-600 leading-relaxed">
+          <p className="font-semibold text-slate-800 mb-3">How to get your LinkedIn profile text</p>
+
+          <p className="font-semibold text-slate-700 mb-1">Easiest — works on every LinkedIn version:</p>
+          <ol className="space-y-0.5 mb-3 pl-0 list-none">
+            <li>1. Open your LinkedIn profile in a browser</li>
+            <li>2. Press <span className="font-semibold">Ctrl+A</span> (Mac: <span className="font-semibold">Cmd+A</span>) — select all</li>
+            <li>3. Press <span className="font-semibold">Ctrl+C</span> (Mac: <span className="font-semibold">Cmd+C</span>) — copy</li>
+            <li>4. Paste into the text box</li>
+          </ol>
+
+          <p className="font-semibold text-slate-700 mb-1">Or export as PDF — button location varies:</p>
+          <ul className="space-y-0.5 list-none pl-0 mb-0">
+            <li><span className="font-medium text-slate-600">Resources</span> button &rarr; Save to PDF</li>
+            <li><span className="font-medium text-slate-600">More</span> button &rarr; Save to PDF</li>
+            <li><span className="font-medium text-slate-600">&hellip;</span> menu &rarr; Save to PDF</li>
+          </ul>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default function OptimizePage() {
@@ -155,26 +202,29 @@ export default function OptimizePage() {
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</span>
-            <label className="cursor-pointer">
-              <span className="text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 transition-colors">
-                {status === 'uploading' ? 'Reading PDF…' : 'Upload PDF'}
-              </span>
-              <input
-                ref={inputRef}
-                type="file"
-                accept=".pdf"
-                className="sr-only"
-                disabled={status === 'uploading' || status === 'streaming'}
-                onChange={handlePdfUpload}
-              />
-            </label>
+            <div className="flex items-center gap-2">
+              <HelpPopover />
+              <label className="cursor-pointer">
+                <span className="text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 transition-colors">
+                  {status === 'uploading' ? 'Reading PDF…' : 'Upload PDF'}
+                </span>
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept=".pdf"
+                  className="sr-only"
+                  disabled={status === 'uploading' || status === 'streaming'}
+                  onChange={handlePdfUpload}
+                />
+              </label>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit}>
             <textarea
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder={'Paste your LinkedIn profile text here — About section, Experience, Skills, Headline...\n\nOn LinkedIn: click "More" on your profile → "Save to PDF" → open the PDF → select all text → paste here.'}
+              placeholder={'Paste your LinkedIn profile text here — About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu → Save to PDF → open the PDF → select all text → paste here.'}
               rows={12}
               disabled={status === 'streaming'}
               className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"

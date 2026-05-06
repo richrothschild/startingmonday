@@ -284,8 +284,13 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
           <div className="border border-slate-200 rounded p-5 flex flex-col gap-3">
             <div className="text-[12px] font-bold text-slate-600">Upload LinkedIn PDF</div>
             <div className="text-[12px] text-slate-400 leading-relaxed space-y-1.5">
-              <p><span className="font-medium text-slate-500">Desktop:</span> Go to your profile &rarr; click <span className="font-medium text-slate-600">More</span> &rarr; <span className="font-medium text-slate-600">Save to PDF</span></p>
-              <p><span className="font-medium text-slate-500">Mobile:</span> Tap the <span className="font-medium text-slate-600">&hellip;</span> menu on your profile &rarr; <span className="font-medium text-slate-600">Save to PDF</span></p>
+              <p>On your LinkedIn profile, find the export option — it appears in different places depending on your LinkedIn version:</p>
+              <ul className="list-none space-y-1 pl-0">
+                <li><span className="font-medium text-slate-500">Resources button</span> &rarr; <span className="font-medium text-slate-600">Save to PDF</span></li>
+                <li><span className="font-medium text-slate-500">More button</span> &rarr; <span className="font-medium text-slate-600">Save to PDF</span></li>
+                <li><span className="font-medium text-slate-500">&hellip; menu</span> &rarr; <span className="font-medium text-slate-600">Save to PDF</span></li>
+              </ul>
+              <p className="text-slate-300">Then upload the downloaded PDF below.</p>
             </div>
             <button
               type="button"
@@ -308,9 +313,15 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
           {/* Paste tile */}
           <div className="border border-slate-200 rounded p-5 flex flex-col gap-3">
             <div className="text-[12px] font-bold text-slate-600">Paste profile text</div>
-            <p className="text-[12px] text-slate-400 leading-relaxed">
-              On your LinkedIn profile, select all text and copy it, then paste it here.
-            </p>
+            <div className="text-[12px] text-slate-400 leading-relaxed space-y-1.5">
+              <p>Works on any LinkedIn version — no export needed:</p>
+              <ol className="list-none space-y-1 pl-0">
+                <li><span className="font-medium text-slate-500">1.</span> Open your LinkedIn profile in a browser</li>
+                <li><span className="font-medium text-slate-500">2.</span> Press <span className="font-medium text-slate-600">Ctrl+A</span> (or <span className="font-medium text-slate-600">Cmd+A</span> on Mac) to select all</li>
+                <li><span className="font-medium text-slate-500">3.</span> Press <span className="font-medium text-slate-600">Ctrl+C</span> (or <span className="font-medium text-slate-600">Cmd+C</span>) to copy</li>
+                <li><span className="font-medium text-slate-500">4.</span> Paste into the box below</li>
+              </ol>
+            </div>
             <textarea
               value={pasteText}
               onChange={e => setPasteText(e.target.value)}
