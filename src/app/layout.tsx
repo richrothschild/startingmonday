@@ -14,8 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Starting Monday",
-  description: "Your AI-powered job search command center.",
+  title: {
+    default: 'Starting Monday — AI Career Platform for Senior Technology Executives',
+    template: '%s — Starting Monday',
+  },
+  description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives in active search.',
+  keywords: [
+    'executive job search',
+    'CIO job search',
+    'CTO job search',
+    'AI career platform',
+    'executive search tools',
+    'technology executive career',
+    'job search tracker executives',
+    'VP CIO transition',
+    'executive interview prep',
+    'senior technology executive',
+  ],
   metadataBase: new URL('https://startingmonday.app'),
   openGraph: {
     siteName: 'Starting Monday',
@@ -23,7 +38,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     site: '@startingmonday',
   },
   robots: {

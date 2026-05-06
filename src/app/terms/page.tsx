@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Terms of Service — Starting Monday',
+  description: 'Terms and conditions for using the Starting Monday platform.',
+  robots: { index: false, follow: false },
 }
 
 export default function TermsPage() {

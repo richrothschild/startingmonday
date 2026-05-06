@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Privacy Policy — Starting Monday',
+  description: 'How Starting Monday collects, uses, and protects your personal information.',
+  robots: { index: false, follow: false },
 }
 
 export default function PrivacyPage() {
