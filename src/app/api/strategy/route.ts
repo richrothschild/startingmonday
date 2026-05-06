@@ -6,6 +6,7 @@ import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { encodeUserId } from '@/lib/watermark'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
@@ -22,6 +23,7 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
         })
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
+        controller.enqueue(encoder.encode(encodeUserId(userId)))
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})

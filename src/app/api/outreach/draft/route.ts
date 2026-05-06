@@ -4,6 +4,7 @@ import { OUTREACH_SYSTEM } from '@/lib/prompts'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
 import { OutreachDraftBodySchema, firstZodError } from '@/lib/schemas'
+import { appendWatermarkToStream } from '@/lib/watermark'
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
   concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
@@ -143,7 +144,7 @@ ${STYLE_GUIDELINES}`
     },
   })
 
-  return new NextResponse(readable, {
+  return new NextResponse(appendWatermarkToStream(readable, userId), {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }

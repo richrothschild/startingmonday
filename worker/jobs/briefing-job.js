@@ -5,6 +5,7 @@ import { assembleContext } from '../briefing/assemble-context.js'
 import { generateBriefing } from '../briefing/generate-briefing.js'
 import { renderBriefingEmail } from '../briefing/email-template.js'
 import { sendBriefing } from '../briefing/send-briefing.js'
+import { watermarkEmailHtml } from '../lib/watermark.js'
 
 const BRIEFING_LOCK_KEY = 7329841024n
 
@@ -124,7 +125,7 @@ export async function runBriefingJob() {
         }
 
         const briefing = await generateBriefing(context)
-        const html = renderBriefingEmail(context, briefing)
+        const html = watermarkEmailHtml(renderBriefingEmail(context, briefing), user.id)
 
         await sendBriefing({
           to: user.email,

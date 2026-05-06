@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { DemoBanner } from '@/components/DemoBanner'
 import { PersonalEmailNudge } from '@/components/PersonalEmailNudge'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -12,6 +13,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     <>
       {isDemo && <DemoBanner />}
       {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
+      {!isDemo && user?.email && <WatermarkOverlay email={user.email} />}
       {children}
     </>
   )

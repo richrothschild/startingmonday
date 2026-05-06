@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { watermarkText } from '@/lib/watermark'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
     .insert({
       user_id: userId,
       type,
-      output_text: text,
+      output_text: watermarkText(text, userId),
       company_id: company_id ?? null,
       contact_id: contact_id ?? null,
     })

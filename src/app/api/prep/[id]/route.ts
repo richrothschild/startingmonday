@@ -6,6 +6,7 @@ import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
 import { PREP_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
+import { encodeUserId } from '@/lib/watermark'
 import { streamErrorMessage } from '@/lib/stream-error'
 import {
   buildScanSection, buildSignalSection, buildContactSection, buildDocSection,
@@ -29,6 +30,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         })
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
+        controller.enqueue(encoder.encode(encodeUserId(userId)))
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
