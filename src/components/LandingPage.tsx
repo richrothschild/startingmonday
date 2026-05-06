@@ -510,26 +510,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
-              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">
-                Free Profile Grade
-              </Link>
-              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">
-                LinkedIn
-              </a>
-              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">
-                Terms
-              </Link>
+              <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
+              <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
+              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">LinkedIn</a>
+              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5">
-            {PERSONA_LINKS.map(p => (
-              <Link key={p.href} href={p.href} className="text-[11px] text-slate-500 hover:text-slate-400 transition-colors">
-                {p.label}
-              </Link>
-            ))}
           </div>
           <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.

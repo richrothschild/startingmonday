@@ -1,17 +1,6 @@
 ﻿import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 
-const PERSONA_LINKS = [
-  { href: '/for-cio', label: 'CIO and CTO search' },
-  { href: '/for-vp', label: 'VP to CIO transition' },
-  { href: '/for-vp-technology', label: 'VP of Technology' },
-  { href: '/for-cpo', label: 'Chief Product Officer' },
-  { href: '/for-data-officer', label: 'Chief Data Officer' },
-  { href: '/for-cdo', label: 'Chief Digital Officer' },
-  { href: '/for-ciso', label: 'CISO' },
-  { href: '/for-coo', label: 'COO' },
-]
-
 interface BlogPostProps {
   title: string
   description: string
@@ -148,13 +137,6 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
               <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5">
-            {PERSONA_LINKS.map(p => (
-              <Link key={p.href} href={p.href} className="text-[11px] text-slate-500 hover:text-slate-400 transition-colors">
-                {p.label}
-              </Link>
-            ))}
           </div>
           <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
