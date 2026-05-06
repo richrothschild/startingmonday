@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
+import { PipelineFilter } from './PipelineFilter'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { FollowUpItem } from '@/components/FollowUpItem'
@@ -144,8 +145,8 @@ export default async function DashboardPage({
           </div>
           {/* Mobile nav */}
           <div className="flex sm:hidden items-center gap-4">
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Contacts</Link>
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Chat</Link>
-            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Help</Link>
             <LogoutButton label="Out" />
           </div>
         </div>
@@ -407,40 +408,11 @@ export default async function DashboardPage({
             </div>
           </div>
 
-          <div className="px-4 sm:px-6 py-3 border-b border-slate-100">
-            <form method="get" action="/dashboard" className="flex items-center gap-2 flex-wrap">
-              <input type="hidden" name="page" value="0" />
-              <input
-                type="text"
-                name="q"
-                defaultValue={q ?? ''}
-                placeholder="Search companies…"
-                className="flex-1 min-w-[120px] border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
-              />
-              <select
-                name="stage"
-                defaultValue={stage ?? ''}
-                aria-label="Filter by stage"
-                className="border border-slate-200 rounded px-2.5 py-2 text-[13px] text-slate-700 focus:outline-none focus:border-slate-400 bg-white"
-              >
-                <option value="">All stages</option>
-                {Object.entries(STAGE).map(([key, { label }]) => (
-                  <option key={key} value={key}>{label}</option>
-                ))}
-              </select>
-              <button
-                type="submit"
-                className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-2 hover:border-slate-400 bg-transparent cursor-pointer"
-              >
-                Filter
-              </button>
-              {(q || stage) && (
-                <a href="/dashboard" className="text-[12px] text-slate-400 hover:text-slate-700">
-                  Clear
-                </a>
-              )}
-            </form>
-          </div>
+          <PipelineFilter
+            q={q ?? ''}
+            stage={stage ?? ''}
+            stages={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
+          />
 
           <div className="overflow-x-auto">
           <table className="w-full border-collapse">

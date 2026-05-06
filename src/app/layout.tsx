@@ -16,6 +16,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Starting Monday",
   description: "Your AI-powered job search command center.",
+  metadataBase: new URL('https://startingmonday.app'),
+  openGraph: {
+    siteName: 'Starting Monday',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@startingmonday',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
