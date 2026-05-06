@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+﻿import { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Anthropic from '@anthropic-ai/sdk'
@@ -363,18 +363,18 @@ export default async function BriefingPage() {
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             Starting Monday
           </span>
           <div className="hidden sm:flex items-center gap-5">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Dashboard</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Contacts</Link>
-            <Link href="/dashboard/profile" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">{profile?.full_name ?? user.email}</Link>
+            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Dashboard</Link>
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+            <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
             <LogoutButton label="Sign out" />
           </div>
           <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Dashboard</Link>
+            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
             <LogoutButton label="Out" />
           </div>
         </div>
@@ -384,7 +384,7 @@ export default async function BriefingPage() {
 
         {/* Header — streams immediately after DB queries */}
         <div className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
-          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 mb-4">
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-4">
             Starting Monday
           </div>
           <h1 className="text-[24px] font-bold text-white leading-tight mb-2">

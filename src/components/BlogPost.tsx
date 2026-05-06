@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 
 const PERSONA_LINKS = [
@@ -80,7 +80,7 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-5">
-            <Link href="/blog" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">
+            <Link href="/blog" className="text-[12px] text-slate-300 hover:text-white transition-colors">
               &larr; All posts
             </Link>
             <span className="text-slate-700 text-[12px]">/</span>
@@ -137,26 +137,26 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-slate-800">
-            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
               Starting Monday
             </Link>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
-              <Link href="/blog" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Blog</Link>
-              <Link href="/about" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">About</Link>
-              <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Free Profile Grade</Link>
-              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">LinkedIn</a>
-              <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Terms</Link>
+              <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
+              <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
+              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">LinkedIn</a>
+              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5">
             {PERSONA_LINKS.map(p => (
-              <Link key={p.href} href={p.href} className="text-[11px] text-slate-700 hover:text-slate-500 transition-colors">
+              <Link key={p.href} href={p.href} className="text-[11px] text-slate-500 hover:text-slate-400 transition-colors">
                 {p.label}
               </Link>
             ))}
           </div>
-          <p className="text-[11px] text-slate-700">
+          <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
           </p>
         </div>

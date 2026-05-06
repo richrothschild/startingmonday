@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { KanbanBoard } from './kanban-board'
@@ -20,7 +20,7 @@ export default async function KanbanPage() {
 
       <header className="bg-slate-900">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             Starting Monday
           </span>
           <div className="flex items-center gap-5">
@@ -30,7 +30,7 @@ export default async function KanbanPage() {
             >
               List view
             </Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
               ← Dashboard
             </Link>
           </div>

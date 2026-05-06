@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+﻿import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
@@ -36,9 +36,9 @@ export default async function InvitePage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">Starting Monday</span>
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">Starting Monday</span>
           <div className="flex items-center gap-5">
-            <Link href="/dashboard" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">Dashboard</Link>
+            <Link href="/dashboard" className="text-[12px] text-slate-300 hover:text-white transition-colors">Dashboard</Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>

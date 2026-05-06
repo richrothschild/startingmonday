@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
@@ -58,16 +58,16 @@ export default async function TailorPage({
 
       <header className="bg-slate-900">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/dashboard" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+          <Link href="/dashboard" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             Starting Monday
           </Link>
           <div className="flex items-center gap-4">
             {company ? (
-              <Link href={`/dashboard/companies/${company.id}`} className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">
+              <Link href={`/dashboard/companies/${company.id}`} className="text-[12px] text-slate-300 hover:text-white transition-colors">
                 Back to {company.name}
               </Link>
             ) : (
-              <Link href="/dashboard/profile" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">
+              <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">
                 Back to profile
               </Link>
             )}

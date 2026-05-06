@@ -1,10 +1,10 @@
-export default function ContactsLoading() {
+﻿export default function ContactsLoading() {
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             Starting Monday
           </span>
           <div className="h-3 w-20 bg-slate-700 rounded animate-pulse" />

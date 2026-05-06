@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -47,7 +47,7 @@ export function PersonalEmailNudge({ email }: { email: string }) {
       <button
         type="button"
         onClick={dismiss}
-        className="shrink-0 text-[12px] text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+        className="shrink-0 text-[12px] text-slate-300 hover:text-white transition-colors cursor-pointer"
         aria-label="Dismiss"
       >
         Dismiss

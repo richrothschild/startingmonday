@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -170,11 +170,11 @@ export default function OptimizePage() {
       {/* Nav */}
       <header className="bg-slate-900">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             Starting Monday
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">Sign in</Link>
+            <Link href="/login" className="text-[12px] text-slate-300 hover:text-white transition-colors">Sign in</Link>
             <Link
               href="/signup"
               className="text-[12px] font-semibold text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition-colors"

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -66,7 +66,7 @@ export default function SignupPage() {
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             Starting Monday
           </Link>
         </div>

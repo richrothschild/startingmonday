@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+﻿import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingForm } from './onboarding-form'
 
@@ -29,7 +29,7 @@ export default async function OnboardingPage({
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             Starting Monday
           </span>
         </div>

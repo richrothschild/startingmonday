@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { BriefRating } from '@/components/BriefRating'
@@ -151,12 +151,12 @@ export function StrategyClient({ missingFields }: { missingFields: MissingField[
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             Starting Monday
           </span>
           <Link
             href="/dashboard"
-            className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
+            className="text-[13px] text-slate-300 hover:text-white transition-colors"
           >
             ← Dashboard
           </Link>

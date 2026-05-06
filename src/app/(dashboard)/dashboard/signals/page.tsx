@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
@@ -87,17 +87,17 @@ export default async function SignalsPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">Starting Monday</span>
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">Starting Monday</span>
           <div className="hidden sm:flex items-center gap-5">
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Contacts</Link>
-            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300 transition-colors">Help</Link>
-            <Link href="/dashboard/profile" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">{profile?.full_name ?? user.email}</Link>
-            <Link href="/settings/billing" className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">Billing</Link>
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Help</Link>
+            <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
+            <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
           </div>
           <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-500 hover:text-slate-300">Dashboard</Link>
+            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
             <LogoutButton label="Out" />
           </div>
         </div>

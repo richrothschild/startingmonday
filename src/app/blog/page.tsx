@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BLOG_POSTS } from '@/lib/blog-posts'
 
@@ -99,16 +99,16 @@ export default function BlogIndexPage() {
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-5 border-b border-slate-800">
-            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
               Starting Monday
             </Link>
             <div className="flex items-center gap-5 flex-wrap">
-              <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Free Profile Grade</Link>
-              <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Terms</Link>
+              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
+              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>
           </div>
-          <p className="text-[11px] text-slate-700">
+          <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
           </p>
         </div>
