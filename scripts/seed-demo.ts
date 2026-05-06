@@ -115,7 +115,7 @@ Wharton School, University of Pennsylvania - MBA, 2014
 Cornell University - BS Computer Science, 2010`,
     search_status: 'active',
     briefing_timezone: 'America/New_York',
-    briefing_days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    briefing_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     onboarding_completed_at: searchStarted.toISOString(),
     search_started_at: searchStarted.toISOString(),
   }, { onConflict: 'user_id' })
@@ -280,6 +280,31 @@ Cornell University - BS Computer Science, 2010`,
       channel: 'linkedin',
       status: 'active',
       notes: '15-min intro call last week. Mentioned CTO is actively building the engineering team.',
+    },
+  ])
+
+  // Delete and re-insert momentum_scores for clean reset
+  await admin.from('momentum_scores').delete().eq('user_id', userId)
+
+  const sunday = (offsetWeeks: number) => {
+    const d = new Date(now)
+    const dayOfWeek = d.getUTCDay()
+    d.setUTCDate(d.getUTCDate() - dayOfWeek - offsetWeeks * 7)
+    return d.toISOString().split('T')[0]
+  }
+
+  await admin.from('momentum_scores').insert([
+    {
+      user_id: userId,
+      week_of: sunday(0),
+      score: 72,
+      components: { active: 5, addedLast30: 2, updatedLast7: 3, completedLast30: 0, avgScanScore: 82 },
+    },
+    {
+      user_id: userId,
+      week_of: sunday(1),
+      score: 58,
+      components: { active: 4, addedLast30: 1, updatedLast7: 2, completedLast30: 0, avgScanScore: 74 },
     },
   ])
 
