@@ -140,7 +140,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </Link>
             <Link
               href="/signup"
-              className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
+              className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Try free
             </Link>
@@ -169,7 +169,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="flex flex-col gap-2.5 mb-9">
             {hero.steps.map((step, i) => (
               <div key={i} className="flex items-start gap-3">
-                <span className="text-[11px] font-bold text-slate-600 shrink-0 w-4 mt-0.5">{i + 1}</span>
+                <span className="text-[11px] font-bold text-orange-500 shrink-0 w-4 mt-0.5">{i + 1}</span>
                 <p className="text-[13px] text-slate-400 leading-relaxed">{step}</p>
               </div>
             ))}
@@ -179,7 +179,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div>
               <Link
                 href="/signup"
-                className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
+                className="inline-block bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
@@ -247,7 +247,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Features */}
       <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-8 sm:mb-10">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-8 sm:mb-10">
             What it does
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-lg overflow-hidden">
@@ -261,7 +261,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="mt-8 text-center">
             <Link
               href="/signup"
-              className="inline-block bg-slate-900 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-slate-800 transition-colors"
+              className="inline-block bg-orange-500 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
             >
               Start your campaign &rarr;
             </Link>
@@ -273,7 +273,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Trust */}
       <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Your search is confidential
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
@@ -325,7 +325,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Pricing */}
       <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             What it costs
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
@@ -372,7 +372,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center bg-white text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-slate-100 transition-colors"
+                className="mt-6 inline-block w-full text-center bg-orange-500 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
@@ -412,7 +412,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           }} />
           <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
             <div className="max-w-3xl mx-auto">
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
                 Common questions
               </p>
               <h2 className="text-[22px] font-bold text-slate-900 mb-10 leading-snug">
@@ -434,7 +434,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Persona cross-links */}
       <section className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-5">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
             Also built for
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-3">
@@ -462,7 +462,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <Link
             href="/signup"
-            className="inline-block bg-white text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-slate-100 transition-colors"
+            className="inline-block bg-orange-500 text-white text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
           >
             Start your campaign &rarr;
           </Link>

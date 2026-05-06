@@ -114,7 +114,7 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
       {/* CTA */}
       <section className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-16 border-t border-slate-800">
         <div className="max-w-2xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-500 mb-3">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Starting Monday
           </p>
           <h2 className="text-[24px] sm:text-[28px] font-bold text-white mb-3 leading-snug">
@@ -125,7 +125,7 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
           </p>
           <Link
             href="/signup"
-            className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
+            className="inline-block bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
           >
             Start your campaign &rarr;
           </Link>
