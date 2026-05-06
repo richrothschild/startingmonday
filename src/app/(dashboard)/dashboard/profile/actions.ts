@@ -27,6 +27,7 @@ export async function saveProfile(formData: FormData) {
   const resumeText = (formData.get('resume_text') as string ?? '').trim() || null
   const beyondResume = (formData.get('beyond_resume') as string ?? '').trim() || null
   const linkedinUrl = (formData.get('linkedin_url') as string ?? '').trim() || null
+  const briefingEmail = (formData.get('briefing_email') as string ?? '').trim() || null
 
   const { error: upsertError } = await supabase
     .from('user_profiles')
@@ -38,6 +39,7 @@ export async function saveProfile(formData: FormData) {
         current_company: currentCompany,
         briefing_time: briefingTime,
         briefing_days: briefingDays.length > 0 ? briefingDays : null,
+        briefing_email: briefingEmail,
         target_titles:    targetTitles.length    > 0 ? targetTitles    : null,
         target_sectors:   targetSectors.length   > 0 ? targetSectors   : null,
         target_locations: targetLocations.length > 0 ? targetLocations : null,

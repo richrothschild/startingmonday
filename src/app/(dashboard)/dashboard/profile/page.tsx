@@ -31,7 +31,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -338,6 +338,25 @@ export default async function ProfilePage({
               </div>
               <p className="mt-2 text-[12px] text-slate-400">
                 The daily briefing email will be sent on these days at the time above.
+              </p>
+            </div>
+
+            {/* Briefing delivery email */}
+            <div id="briefing-email">
+              <label htmlFor="briefing_email" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                Briefing delivery email
+              </label>
+              <input
+                id="briefing_email"
+                name="briefing_email"
+                type="email"
+                defaultValue={profile?.briefing_email ?? ''}
+                placeholder={user.email}
+                className="w-full max-w-sm border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+              />
+              <p className="mt-1.5 text-[12px] text-slate-400">
+                Optional. If set, all briefings and system emails are sent here instead of your login address.
+                Use a personal email if an assistant manages your work inbox.
               </p>
             </div>
 
