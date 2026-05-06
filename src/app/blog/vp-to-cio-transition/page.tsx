@@ -33,6 +33,7 @@ export default function VpToCioTransitionPage() {
       description={post.description}
       date={post.date}
       readTime={post.readTime}
+      url="https://startingmonday.app/blog/vp-to-cio-transition"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 

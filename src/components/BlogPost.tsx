@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { JsonLd } from '@/components/JsonLd'
 
 const PERSONA_LINKS = [
   { href: '/for-cio', label: 'CIO and CTO search' },
@@ -16,6 +17,7 @@ interface BlogPostProps {
   description: string
   date: string
   readTime: string
+  url: string
   children: React.ReactNode
 }
 
@@ -23,9 +25,30 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-export function BlogPost({ title, description, date, readTime, children }: BlogPostProps) {
+export function BlogPost({ title, description, date, readTime, url, children }: BlogPostProps) {
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: date,
+    url,
+    author: {
+      '@type': 'Person',
+      name: 'Richard Rothschild',
+      url: 'https://startingmonday.app/about',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Starting Monday',
+      url: 'https://startingmonday.app',
+    },
+  }
+
   return (
     <div className="min-h-screen bg-white font-sans">
+      <JsonLd data={articleJsonLd} />
 
       {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
@@ -72,7 +95,7 @@ export function BlogPost({ title, description, date, readTime, children }: BlogP
             {description}
           </p>
           <div className="flex items-center gap-4 text-[13px] text-slate-600">
-            <span>Richard Rothschild</span>
+            <Link href="/about" className="hover:text-slate-400 transition-colors">Richard Rothschild</Link>
             <span>&middot;</span>
             <time dateTime={date}>{formatDate(date)}</time>
             <span>&middot;</span>
@@ -119,6 +142,7 @@ export function BlogPost({ title, description, date, readTime, children }: BlogP
             </Link>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/blog" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Blog</Link>
+              <Link href="/about" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Free Profile Grade</Link>
               <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">LinkedIn</a>
               <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-400 transition-colors">Privacy Policy</Link>

@@ -33,6 +33,7 @@ export default function ExecutiveSearchFirmsCioPage() {
       description={post.description}
       date={post.date}
       readTime={post.readTime}
+      url="https://startingmonday.app/blog/executive-search-firms-cio"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 

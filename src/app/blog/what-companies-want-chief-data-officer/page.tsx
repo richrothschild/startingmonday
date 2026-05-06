@@ -33,6 +33,7 @@ export default function WhatCompaniesWantChiefDataOfficerPage() {
       description={post.description}
       date={post.date}
       readTime={post.readTime}
+      url="https://startingmonday.app/blog/what-companies-want-chief-data-officer"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
