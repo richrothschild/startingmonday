@@ -48,6 +48,47 @@ Move forward when: Railway staging environment exists.
 
 ---
 
+## Code Quality
+
+### Form Validation (Zod)
+
+API routes have inconsistent input validation. Most routes check for missing fields with basic conditionals; none use a schema validation library. Onboarding allows users to skip required fields and enter the dashboard with an incomplete profile.
+
+What's needed:
+
+- Zod schemas on all AI route handlers (chat, tailor, strategy, prep, signals, outreach)
+- Zod validation on the onboarding form server action to enforce required fields before setting `onboarding_completed_at`
+- Consistent error response shape across all routes
+
+Move forward when: before public marketing push. A user submitting a malformed onboarding and landing in a broken state is a support ticket at best and a refund at worst.
+
+### Playwright E2E Tests (Four Critical Paths)
+
+Test coverage is ~0.2% of codebase (18 Vitest unit tests on library functions). No end-to-end tests exist. A regression in billing, auth, or onboarding would be invisible until a user reports it.
+
+Four paths that must not silently break:
+
+1. Signup → onboarding → dashboard
+2. Trial → paid conversion (Stripe checkout)
+3. Prep brief generation (streaming, full brief)
+4. Daily briefing delivery (worker job + email send)
+
+Move forward when: before any sprint that touches billing logic, auth, or the onboarding flow.
+
+### Accessibility (WCAG 2.1 AA)
+
+Current state: 6 aria attributes in the codebase. No skip-navigation link. No aria-live regions for async updates (chat messages, form submissions, streaming AI). Missing aria-describedby links between inputs and hints. Would fail any automated WCAG 2.1 AA scan.
+
+Move forward when: before the first institutional B2B deal (outplacement firm, university career office). Procurement at those organizations does compliance checks. Individual executive users are not the driver here.
+
+### Performance Optimization
+
+No use of `next/image` for image optimization. No dynamic imports or code splitting beyond Next.js defaults. Dashboard search filter fires on every keystroke (fixed with debounce). No explicit caching strategy beyond Next.js ISR defaults.
+
+Move forward when: 100+ active users. Performance is invisible at current scale. Exception: any image-heavy pages added before then should use `next/image` from the start.
+
+---
+
 ## Known Technical Limitations
 
 ### Google OAuth Consent Screen Shows Supabase Domain
@@ -56,9 +97,9 @@ When users sign in with Google, the OAuth consent screen shows the Supabase proj
 
 The app name "Starting Monday" is set in Google Cloud Console, which partially mitigates the visual. The domain shown is outside our control without a plan upgrade.
 
-Deferred because: login functions correctly, and the Supabase Pro plan required for a custom domain costs ~$25/month with additional setup overhead.
+Status (May 2026): Google Cloud domain ownership verified via Search Console. OAuth branding resubmitted for Google Trust and Safety review. Review takes 4-6 weeks; first response expected within 3-5 days. Existing consent screen remains active during review.
 
-Move forward when: user feedback or drop-off data suggests the Supabase domain is causing trust concerns that affect signup conversion.
+Move forward when: Google approves the branding verification. No further action needed unless they request changes.
 
 ---
 
