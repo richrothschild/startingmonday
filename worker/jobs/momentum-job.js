@@ -92,14 +92,20 @@ export async function runMomentumJob() {
 
       const score = computeScore({ active, addedLast30, updatedLast7, completedLast30, avgScanScore })
       const suppress = shouldSuppressNudge(personaMap[user.id], score, active)
+      const weekOf = new Date().toISOString().split('T')[0]
 
-      await supabase
-        .from('user_profiles')
-        .update({
-          momentum_score: score,
-          momentum_computed_at: new Date().toISOString(),
-        })
-        .eq('user_id', user.id)
+      await Promise.all([
+        supabase
+          .from('user_profiles')
+          .update({ momentum_score: score, momentum_computed_at: new Date().toISOString() })
+          .eq('user_id', user.id),
+        supabase
+          .from('momentum_scores')
+          .upsert(
+            { user_id: user.id, week_of: weekOf, score, components: { active, addedLast30, updatedLast7, completedLast30, avgScanScore } },
+            { onConflict: 'user_id,week_of' }
+          ),
+      ])
 
       logger.info('momentum-job: scored', { userId: user.id, score, suppress, active, addedLast30, completedLast30 })
       updated++
