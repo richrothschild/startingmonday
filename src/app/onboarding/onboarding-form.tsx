@@ -9,12 +9,13 @@ const hintCls  = 'mt-1.5 text-[12px] text-slate-400'
 
 const SECTIONS = ['Level', 'Import', 'About', 'Situation', 'Targeting', 'Background']
 
-type SearchPersona = 'csuite' | 'vp' | 'board'
+type SearchPersona = 'csuite' | 'vp' | 'director' | 'board'
 
 const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = [
-  { value: 'csuite', label: 'C-Suite',            sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
-  { value: 'vp',     label: 'VP / SVP',           sub: 'VP, SVP, or EVP targeting C-suite or a larger VP role' },
-  { value: 'board',  label: 'Board / Advisor',    sub: 'Board seat, operating partner, or advisory role' },
+  { value: 'csuite',   label: 'C-Suite',            sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
+  { value: 'vp',       label: 'VP / SVP',           sub: 'VP, SVP, or EVP targeting C-suite or a larger VP role' },
+  { value: 'director', label: 'Director',            sub: 'Director or Senior Director targeting VP or above' },
+  { value: 'board',    label: 'Board / Advisor',    sub: 'Board seat, operating partner, or advisory role' },
 ]
 
 type InitialProfile = {

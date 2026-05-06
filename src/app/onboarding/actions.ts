@@ -36,6 +36,8 @@ export async function completeOnboarding(formData: FormData) {
 
   if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
 
+  const now = new Date().toISOString()
+
   await supabase.from('user_profiles').upsert(
     {
       user_id:                  user.id,
@@ -54,10 +56,17 @@ export async function completeOnboarding(formData: FormData) {
       positioning_summary:      positioningSummary,
       resume_text:              resumeText,
       beyond_resume:            beyondResume,
-      onboarding_completed_at:  new Date().toISOString(),
+      onboarding_completed_at:  now,
     },
     { onConflict: 'user_id' }
   )
+
+  // Set search_started_at only on first completion; don't overwrite if already set
+  await supabase
+    .from('user_profiles')
+    .update({ search_started_at: now })
+    .eq('user_id', user.id)
+    .is('search_started_at', null)
 
   redirect('/dashboard/start')
 }
@@ -67,10 +76,18 @@ export async function skipOnboarding() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const now = new Date().toISOString()
+
   await supabase.from('user_profiles').upsert(
-    { user_id: user.id, onboarding_completed_at: new Date().toISOString() },
+    { user_id: user.id, onboarding_completed_at: now },
     { onConflict: 'user_id' }
   )
+
+  await supabase
+    .from('user_profiles')
+    .update({ search_started_at: now })
+    .eq('user_id', user.id)
+    .is('search_started_at', null)
 
   redirect('/dashboard/start')
 }

@@ -71,6 +71,9 @@ test('profile saves successfully', async ({ page }) => {
   await page.goto('/dashboard/profile')
   await expect(page.locator('h1')).toContainText('Profile')
 
+  // Capture original so we can restore it — prevents test data leaking into production rows
+  const original = await page.locator('textarea[name="positioning_summary"]').inputValue()
+
   const summary = `E2E test save ${ts()}`
   await page.fill('textarea[name="positioning_summary"]', summary)
   await page.click('button[type="submit"]')
@@ -80,6 +83,11 @@ test('profile saves successfully', async ({ page }) => {
   // Verify persistence
   await page.reload()
   await expect(page.locator('textarea[name="positioning_summary"]')).toHaveValue(summary)
+
+  // Restore original value so production data is not permanently corrupted
+  await page.fill('textarea[name="positioning_summary"]', original)
+  await page.click('button[type="submit"]')
+  await expect(page.getByText('Profile saved.')).toBeVisible({ timeout: 10_000 })
 })
 
 // ─── Prep Brief ──────────────────────────────────────────────────────────────
