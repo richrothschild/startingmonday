@@ -140,11 +140,33 @@ export default function ChatPage() {
       const decoder = new TextDecoder()
       let assistantContent = ''
 
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        assistantContent += decoder.decode(value, { stream: true })
-        setMessages([...newMessages, { role: 'assistant', content: assistantContent }])
+      try {
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          assistantContent += decoder.decode(value, { stream: true })
+          setMessages([...newMessages, { role: 'assistant', content: assistantContent }])
+        }
+      } catch {
+        const errorMsg = assistantContent
+          ? assistantContent + '\n\n[Connection lost. The response may be incomplete.]'
+          : 'Connection lost. Please try again.'
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = { role: 'assistant', content: errorMsg }
+          return updated
+        })
+        return
+      }
+
+      if (assistantContent.startsWith('__ERROR__')) {
+        const errorMsg = assistantContent.slice(9) || 'Something went wrong. Please try again.'
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = { role: 'assistant', content: errorMsg }
+          return updated
+        })
+        return
       }
 
       const finalMessages: Message[] = [...newMessages, { role: 'assistant', content: assistantContent }]

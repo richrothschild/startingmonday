@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { isRateLimited } from '@/lib/api-usage'
+import { checkBurstLimit } from '@/lib/burst-limit'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 type FeatureAccessResult =
@@ -29,6 +30,16 @@ export async function requireFeatureAccess(
       response: NextResponse.json(
         { error: 'upgrade_required', plan: 'active' },
         { status: 402 },
+      ),
+    }
+  }
+
+  if (!checkBurstLimit(userId)) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: 'Too many requests. Please wait a moment.' },
+        { status: 429 },
       ),
     }
   }
