@@ -323,6 +323,28 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To start. 30-day trial, no credit card, cancel any time</p>
             </div>
           </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10 sm:mt-12 border-t border-slate-800 pt-10 sm:pt-12">
+            {[
+              {
+                quote: 'StartingMonday gave me a clearer picture of where I belonged as a technology leader. Instead of sending out resumes blindly, I was able to position myself for the right opportunities and connect my experience to real business impact. That focus helped me land the right CIO role at the right time.',
+                name: 'Melissa, CIO',
+              },
+              {
+                quote: 'Most executive recruiting platforms feel transactional. StartingMonday felt strategic. It helped me refine my story, focus on companies that matched my leadership style, and approach the search with confidence instead of guesswork. I landed a role that was a perfect fit.',
+                name: 'Daniel, COO',
+              },
+              {
+                quote: 'StartingMonday helped me translate years of financial leadership into a compelling executive narrative. The process brought clarity to what I wanted next and helped me stand out in a competitive market. I accepted a CMO role within weeks of using it seriously.',
+                name: 'Priya, CMO',
+              },
+            ].map(t => (
+              <div key={t.name} className="bg-slate-800 rounded-lg p-5">
+                <p className="text-[13px] text-slate-300 leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+                <p className="text-[12px] text-slate-500">{t.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
