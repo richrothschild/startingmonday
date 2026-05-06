@@ -184,7 +184,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 Start your campaign &rarr;
               </Link>
               <p className="text-[12px] text-slate-500 mt-2.5">{hero.trialNote}</p>
-              <p className="text-[11px] text-slate-600 mt-1">Your data is never shared with employers or recruiters.</p>
             </div>
             <div>
               <Link
@@ -196,6 +195,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] text-slate-600 mt-2.5">No signup required</p>
             </div>
           </div>
+          <p className="text-[13px] text-slate-400 mt-5 leading-relaxed max-w-md">
+            <span className="font-semibold text-white">Your search stays invisible.</span>{' '}
+            We never share your identity, your targets, or your activity with employers, recruiters, or anyone else.
+          </p>
 
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">
