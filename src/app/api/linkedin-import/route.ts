@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   const message = await anthropic.messages.create({
     model: process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6',
-    max_tokens: 1500,
+    max_tokens: 3000,
     messages: [{
       role: 'user',
       content: `Extract structured career information from this LinkedIn profile text. Return ONLY a valid JSON object with no explanation, no markdown, no code fences.
@@ -34,14 +34,35 @@ Fields (use null for anything that cannot be confidently determined):
   "positioning_summary": string | null,
   "resume_text": string | null,
   "beyond_resume": string | null,
-  "target_titles": string | null
+  "target_titles": string | null,
+  "career_entries": [
+    {
+      "company": string,
+      "parent_company": string | null,
+      "title": string,
+      "start_year": string,
+      "end_year": string | null,
+      "key_outcome": string,
+      "acquisition_note": string | null,
+      "uncertain": boolean
+    }
+  ]
 }
 
 Rules:
-- positioning_summary: 2–3 sentences, first person, executive-level narrative. What makes this person distinctive as a leader. If insufficient information, return null.
+- positioning_summary: 2-3 sentences, first person, executive-level narrative. What makes this person distinctive as a leader. If insufficient information, return null.
 - resume_text: career history as plain text. Include company names, titles, date ranges, and key accomplishments. Preserve chronological order.
 - beyond_resume: board seats, advisory roles, publications, patents, speaking engagements, community work, awards. Omit if none found.
 - target_titles: comma-separated list of likely next-step executive titles based on career trajectory. Infer if not stated.
+- career_entries: one entry per distinct role. Include all roles found, most recent first.
+  - company: the specific legal entity where they worked
+  - parent_company: if this company was acquired, merged, or is a subsidiary, name the parent or acquirer
+  - title: exact title as listed
+  - start_year: four-digit year (e.g. "2018")
+  - end_year: four-digit year, or null if current role
+  - key_outcome: one specific, quantified achievement from this role. If none stated, infer the most likely outcome from context.
+  - acquisition_note: if the company was acquired, renamed, or merged during or after this tenure, describe it (e.g. "Glu Mobile was acquired by Electronic Arts in 2021")
+  - uncertain: true if the company identity is ambiguous (acquisition in history, subsidiary relationship, company rename, date overlap, or title inconsistent with described scope)
 
 LinkedIn profile text:
 ---

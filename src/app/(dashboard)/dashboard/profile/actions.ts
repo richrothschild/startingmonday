@@ -30,6 +30,11 @@ export async function saveProfile(formData: FormData) {
   const beyondResume = (formData.get('beyond_resume') as string ?? '').trim() || null
   const linkedinUrl = (formData.get('linkedin_url') as string ?? '').trim() || null
   const briefingEmail = (formData.get('briefing_email') as string ?? '').trim() || null
+  const careerHistoryRaw = (formData.get('career_history_json') as string ?? '').trim()
+  let careerHistoryJson: unknown = null
+  if (careerHistoryRaw) {
+    try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
+  }
 
   const { error: upsertError } = await supabase
     .from('user_profiles')
@@ -51,6 +56,7 @@ export async function saveProfile(formData: FormData) {
         linkedin_url: linkedinUrl,
         search_persona: searchPersona,
         role_type: roleType,
+        career_history_json: careerHistoryJson,
       },
       { onConflict: 'user_id' }
     )

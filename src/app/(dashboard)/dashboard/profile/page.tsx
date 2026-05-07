@@ -5,6 +5,8 @@ import { saveProfile } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
 import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
+import CareerVerificationPanel from '@/components/CareerVerificationPanel'
+import type { CareerEntry } from '@/components/CareerVerificationPanel'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -31,7 +33,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -48,6 +50,9 @@ export default async function ProfilePage({
   const resumeText = profile?.resume_text ?? ''
   const beyondResume = profile?.beyond_resume ?? ''
   const linkedinUrl = profile?.linkedin_url ?? ''
+  const careerEntries = Array.isArray(profile?.career_history_json)
+    ? (profile.career_history_json as CareerEntry[])
+    : null
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -318,6 +323,12 @@ export default async function ProfilePage({
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Used in interview prep briefs and AI context.</p>
             </div>
+
+            {/* Career verification */}
+            <CareerVerificationPanel
+              initialEntries={careerEntries}
+              resumeText={resumeText}
+            />
 
             {/* Beyond the resume */}
             <div>

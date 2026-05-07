@@ -2,6 +2,8 @@
 import { useState, useRef } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { TagInput } from '@/components/TagInput'
+import CareerVerificationPanel from '@/components/CareerVerificationPanel'
+import type { CareerEntry } from '@/components/CareerVerificationPanel'
 
 const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400'
 const labelCls = 'block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5'
@@ -32,6 +34,7 @@ type ImportResult = {
   resume_text?: string | null
   beyond_resume?: string | null
   target_titles?: string | null
+  career_entries?: CareerEntry[] | null
 }
 
 function importSummary(data: ImportResult): string[] {
@@ -62,6 +65,7 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
   const [importDone, setImportDone] = useState(false)
   const [importedFields, setImportedFields] = useState<string[]>([])
   const [importThin, setImportThin] = useState(false)
+  const [importedEntries, setImportedEntries] = useState<CareerEntry[] | null>(null)
 
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
   const [extracting, setExtracting] = useState(false)
@@ -79,6 +83,7 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
     if (data.resume_text)          setResumeText(data.resume_text)
     if (data.beyond_resume)        setBeyondResume(data.beyond_resume)
     if (data.target_titles)        setTargetTitles(data.target_titles)
+    if (data.career_entries?.length) setImportedEntries(data.career_entries)
     setImportedFields(importSummary(data))
     setImportThin(inputLength > 500 && (data.resume_text?.length ?? 0) < 300)
     setImportDone(true)
@@ -571,6 +576,11 @@ export function OnboardingForm({ profile, errorMessage }: { profile: InitialProf
           />
           <p className={hintCls}>Used by the AI to build your prep briefs and answer search questions.</p>
         </div>
+
+        <CareerVerificationPanel
+          initialEntries={importedEntries}
+          resumeText={resumeText}
+        />
 
         <div>
           <label htmlFor="beyond_resume" className={labelCls}>Beyond the resume</label>

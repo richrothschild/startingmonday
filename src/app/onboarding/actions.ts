@@ -27,6 +27,11 @@ export async function completeOnboarding(formData: FormData) {
   const positioningSummary  = (formData.get('positioning_summary') as string ?? '').trim() || null
   const resumeText          = (formData.get('resume_text') as string ?? '').trim() || null
   const beyondResume        = (formData.get('beyond_resume') as string ?? '').trim() || null
+  const careerHistoryRaw    = (formData.get('career_history_json') as string ?? '').trim()
+  let careerHistoryJson: unknown = null
+  if (careerHistoryRaw) {
+    try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
+  }
 
   const validation = OnboardingFormSchema.safeParse({ full_name: fullName, search_persona: searchPersona })
   if (!validation.success) {
@@ -56,6 +61,7 @@ export async function completeOnboarding(formData: FormData) {
       positioning_summary:      positioningSummary,
       resume_text:              resumeText,
       beyond_resume:            beyondResume,
+      career_history_json:      careerHistoryJson,
       onboarding_completed_at:  now,
     },
     { onConflict: 'user_id' }
