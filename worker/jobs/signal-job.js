@@ -6,6 +6,7 @@ import { writeSignal } from '../signals/write-signal.js'
 import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-crunchbase-funding.js'
 import { findPressRoomArticles } from '../signals/fetch-press-room.js'
 import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
+import { detectSecTrends } from '../signals/detect-sec-trends.js'
 import { fetchPrWire } from '../signals/fetch-pr-wire.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
@@ -116,7 +117,8 @@ export async function runSignalJob() {
           }
 
           // SEC EDGAR 8-K filings — exec changes, acquisitions, bankruptcy, material events
-          const secArticles = await fetchSecFilings(company.name)
+          // Passing supabase+companyId also indexes all 8-K filings for trend detection below.
+          const secArticles = await fetchSecFilings(company.name, { supabase, companyId: company.id })
           for (const article of secArticles) {
             const result = await classifySignal(company.name, article, roleType)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
@@ -138,6 +140,25 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: SEC filing signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // SEC 8-K trend detection — cross-filing pattern analysis from indexed history
+          const secTrend = await detectSecTrends(supabase, company.id, company.name, roleType)
+          if (secTrend) {
+            const weekSlot = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    'filing_trend',
+              signalSummary: secTrend.signal_summary,
+              sourceUrl:     `sec-trend://${company.id}/${weekSlot}`,
+              signalDate:    new Date().toISOString().split('T')[0],
+              outreachAngle: secTrend.outreach_angle ?? null,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: SEC trend signal', { company: company.name })
             }
           }
 

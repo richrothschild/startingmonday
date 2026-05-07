@@ -52,6 +52,7 @@ const SIGNAL_LABELS: Record<string, { label: string; cls: string }> = {
   new_product:    { label: 'New Product',    cls: 'bg-indigo-50 text-indigo-700' },
   award:          { label: 'Award',          cls: 'bg-amber-50 text-amber-700' },
   pattern_alert:  { label: 'Pattern',        cls: 'bg-orange-50 text-orange-700' },
+  filing_trend:   { label: 'Filing Trend',   cls: 'bg-teal-50 text-teal-700' },
 }
 
 const DOC_LABELS: Record<string, { label: string; cls: string }> = {

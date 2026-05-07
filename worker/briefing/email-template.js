@@ -11,6 +11,7 @@ const SIGNAL_LABELS = {
   new_product:    'New Product',
   award:          'Award',
   pattern_alert:  'Pattern',
+  filing_trend:   'Filing Trend',
 }
 
 export function renderBriefingEmail(context, briefing) {

@@ -20,11 +20,12 @@ const ITEM_LABELS = {
 }
 
 // Returns up to 5 articles: { title, description, link, pubDate }
-export async function fetchSecFilings(companyName) {
+// When { supabase, companyId } provided, also indexes all 8-K filings (12 months) into sec_filings.
+export async function fetchSecFilings(companyName, { supabase, companyId } = {}) {
   try {
     const cikPadded = await findCik(companyName)
     if (!cikPadded) return []
-    return await getRecentFilings(companyName, cikPadded)
+    return await getRecentFilings(companyName, cikPadded, { supabase, companyId })
   } catch (err) {
     logger.warn('fetch-sec-filings: failed', { company: companyName, error: err.message })
     return []
@@ -57,7 +58,7 @@ async function findCik(companyName) {
 }
 
 // Step 2: fetch the submissions JSON for this CIK to get recent 8-K filings with item types.
-async function getRecentFilings(companyName, cikPadded) {
+async function getRecentFilings(companyName, cikPadded, { supabase, companyId } = {}) {
   const cik = cikPadded.replace(/^0+/, '')
   const url = `${EDGAR_SUBS}/CIK${cikPadded}.json`
 
@@ -67,6 +68,11 @@ async function getRecentFilings(companyName, cikPadded) {
   const data = await res.json()
   const f = data.filings?.recent
   if (!f) return []
+
+  // Index all 8-K filings from the past 12 months for trend detection
+  if (supabase && companyId) {
+    await indexAllFilings(supabase, companyId, cik, f)
+  }
 
   const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const articles = []
@@ -115,6 +121,28 @@ async function getRecentFilings(companyName, cikPadded) {
   }
 
   return articles
+}
+
+// Upsert all 8-K filings from the past 12 months into sec_filings for trend analysis.
+async function indexAllFilings(supabase, companyId, cik, f) {
+  const yearAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const toUpsert = []
+
+  for (let i = 0; i < (f.form ?? []).length; i++) {
+    if (f.form[i] !== '8-K') continue
+    const filingDate = f.filingDate?.[i]
+    if (!filingDate || filingDate < yearAgo) continue
+    const accession = f.accessionNumber?.[i]
+    if (!accession) continue
+    const items = (f.items?.[i] ?? '').split(',').map(s => s.trim()).filter(Boolean)
+    toUpsert.push({ company_id: companyId, cik, accession_number: accession, filing_date: filingDate, items })
+  }
+
+  if (toUpsert.length) {
+    await supabase
+      .from('sec_filings')
+      .upsert(toUpsert, { onConflict: 'company_id,accession_number' })
+  }
 }
 
 // Fetch first 1500 chars of a filing document and strip HTML tags.
