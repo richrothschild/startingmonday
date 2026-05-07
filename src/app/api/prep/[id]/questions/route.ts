@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
-import { QUESTIONS_SYSTEM } from '@/lib/prompts'
+import { QUESTIONS_SYSTEM, roleTypeContext } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -34,7 +34,7 @@ export async function GET(
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, positioning_summary, resume_text, beyond_resume')
+      .select('full_name, current_title, current_company, target_titles, positioning_summary, resume_text, beyond_resume, role_type')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -87,7 +87,7 @@ export async function GET(
   const userPrompt = `Generate likely interview questions for ${name}'s interview at ${company.name}.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${roleTypeContext(profile?.role_type)}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}
