@@ -97,7 +97,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, company_url, career_page_url')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, company_url, career_page_url')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -371,6 +371,18 @@ export default async function CompanyPage({
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
                 <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>
+              </div>
+
+              <div className="pt-1 border-t border-slate-100">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
+                <textarea
+                  name="competitive_context"
+                  rows={3}
+                  defaultValue={company.competitive_context ?? ''}
+                  placeholder="Known candidates, internal shortlist, search firm intel, who else they're considering..."
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                />
+                <p className="mt-1.5 text-[11px] text-slate-400">Private. Used to sharpen your Win Thesis and pushback prep.</p>
               </div>
 
               <div>

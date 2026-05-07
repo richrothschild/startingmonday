@@ -48,7 +48,7 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
   const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
-      .select('name, sector, stage, company_size, notes')
+      .select('name, sector, stage, company_size, notes, competitive_context')
       .eq('id', companyId)
       .eq('user_id', userId)
       .single(),
@@ -96,7 +96,7 @@ type ProfileRow = {
   search_persona?: string | null; role_type?: string | null; career_history_json?: unknown | null
   role_context?: Record<string, unknown> | null
 }
-type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null }
+type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null; competitive_context?: string | null }
 
 function buildRoleSpecificContext(profile: ProfileRow | null): string {
   if (!profile?.role_context) return ''
@@ -183,7 +183,13 @@ Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning:
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}${company.company_size ? `\nCompany size: ${companySizeLabel[company.company_size] ?? company.company_size}` : ''}
-Pipeline stage: ${company.stage}${company.notes ? `\nIntel and notes: ${company.notes}` : ''}
+Pipeline stage: ${company.stage}${company.notes ? `\nIntel and notes: ${company.notes}` : ''}${company.competitive_context ? `\nCompetitive field: ${company.competitive_context}` : ''}${company.competitive_context ? `
+
+COMPETITIVE POSITIONING INSTRUCTION
+The candidate is competing against the field described above. Every section of this brief must reflect this.
+Win Thesis: name the decisive advantage over the specific alternatives described. If internal candidates are mentioned, the Win Thesis must explicitly frame what an external perspective provides that an insider cannot. If specific firms or backgrounds are named, the Win Thesis must address why this candidate wins that comparison.
+Anticipated Pushback: the first or second objection must be the competitive comparison most likely to be raised in the room. State it directly and give the exact counter.
+Do not soften or genericize the competitive framing. Write as if the interviewer already has the other candidate's resume in front of them.` : ''}
 
 JOB SCAN DATA
 ${scanSection}
