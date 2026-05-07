@@ -5,6 +5,8 @@ import { classifySignal } from '../signals/classify-signal.js'
 import { writeSignal } from '../signals/write-signal.js'
 import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-crunchbase-funding.js'
 import { findPressRoomArticles } from '../signals/fetch-press-room.js'
+import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
+import { fetchPrWire } from '../signals/fetch-pr-wire.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -107,6 +109,58 @@ export async function runSignalJob() {
                 signalsFound++
                 logger.info('signal-job: press room signal', { company: company.name, type: result.signal_type })
               }
+            }
+          }
+
+          // SEC EDGAR 8-K filings — exec changes, acquisitions, bankruptcy, material events
+          const secArticles = await fetchSecFilings(company.name)
+          for (const article of secArticles) {
+            const result = await classifySignal(company.name, article, roleType)
+            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+            if (!result.signal_type || !result.signal_summary) continue
+
+            const signalDate = article.pubDate
+              ? new Date(article.pubDate).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0]
+
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    result.signal_type,
+              signalSummary: result.signal_summary,
+              sourceUrl:     article.link,
+              signalDate,
+              outreachAngle: result.outreach_angle ?? null,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: SEC filing signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // PR wire — prnewswire, businesswire, globenewswire via Google News RSS
+          const prArticles = await fetchPrWire(company.name)
+          for (const article of prArticles) {
+            const result = await classifySignal(company.name, article, roleType)
+            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+            if (!result.signal_type || !result.signal_summary) continue
+
+            const signalDate = article.pubDate
+              ? new Date(article.pubDate).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0]
+
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    result.signal_type,
+              signalSummary: result.signal_summary,
+              sourceUrl:     article.link,
+              signalDate,
+              outreachAngle: result.outreach_angle ?? null,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: PR wire signal', { company: company.name, type: result.signal_type })
             }
           }
 

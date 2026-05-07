@@ -1,0 +1,136 @@
+import { logger } from '../lib/logger.js'
+
+const EDGAR_SEARCH  = 'https://efts.sec.gov/LATEST/search-index'
+const EDGAR_SUBS    = 'https://data.sec.gov/submissions'
+const EDGAR_ARCHIVE = 'https://www.sec.gov/Archives/edgar/data'
+const UA = 'StartingMonday/1.0 contact@startingmonday.app'
+
+// SEC requires a descriptive User-Agent with contact info.
+const HEADERS = { 'User-Agent': UA }
+
+// Item codes that indicate signals relevant to executive job seekers.
+const SIGNAL_ITEMS = new Set(['5.02', '1.01', '2.01', '1.03', '8.01'])
+
+const ITEM_LABELS = {
+  '5.02': 'Executive Leadership Change (departure or appointment of officers)',
+  '1.01': 'Entry into a Material Definitive Agreement',
+  '2.01': 'Completion of Acquisition or Disposition of Assets',
+  '1.03': 'Bankruptcy or Receivership Filing',
+  '8.01': 'Other Material Events Disclosure',
+}
+
+// Returns up to 5 articles: { title, description, link, pubDate }
+export async function fetchSecFilings(companyName) {
+  try {
+    const cikPadded = await findCik(companyName)
+    if (!cikPadded) return []
+    return await getRecentFilings(companyName, cikPadded)
+  } catch (err) {
+    logger.warn('fetch-sec-filings: failed', { company: companyName, error: err.message })
+    return []
+  }
+}
+
+// Step 1: find the CIK by searching EDGAR for recent 8-K filings mentioning this company.
+async function findCik(companyName) {
+  const since = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const url = `${EDGAR_SEARCH}?q=${encodeURIComponent(`"${companyName}"`)}&forms=8-K&dateRange=custom&startdt=${since}`
+
+  const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(8000) })
+  if (!res.ok) return null
+
+  const data = await res.json()
+  const hits = data.hits?.hits ?? []
+
+  const searchName = companyName.toLowerCase().replace(/[,\.]/g, '').trim()
+
+  for (const hit of hits) {
+    const entityName = (hit._source.entity_name ?? '').toLowerCase().replace(/[,\.]/g, '').trim()
+    // Accept if either name contains the other's first two words (handles "Corp", "Inc" suffix differences)
+    const entityWords = entityName.split(/\s+/).slice(0, 3).join(' ')
+    const searchWords = searchName.split(/\s+/).slice(0, 3).join(' ')
+    if (entityName.includes(searchWords) || searchName.includes(entityWords)) {
+      return hit._id.split('-')[0] // CIK with leading zeros
+    }
+  }
+  return null
+}
+
+// Step 2: fetch the submissions JSON for this CIK to get recent 8-K filings with item types.
+async function getRecentFilings(companyName, cikPadded) {
+  const cik = cikPadded.replace(/^0+/, '')
+  const url = `${EDGAR_SUBS}/CIK${cikPadded}.json`
+
+  const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(8000) })
+  if (!res.ok) return []
+
+  const data = await res.json()
+  const f = data.filings?.recent
+  if (!f) return []
+
+  const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const articles = []
+
+  for (let i = 0; i < (f.form ?? []).length; i++) {
+    if (f.form[i] !== '8-K') continue
+    const filingDate = f.filingDate?.[i]
+    if (!filingDate || filingDate < cutoff) continue
+
+    const items = f.items?.[i] ?? ''
+    const itemList = items.split(',').map(s => s.trim()).filter(s => SIGNAL_ITEMS.has(s))
+    if (itemList.length === 0) continue
+
+    const accession   = f.accessionNumber?.[i] ?? ''
+    const primaryDoc  = f.primaryDocument?.[i] ?? ''
+    if (!accession) continue
+
+    const accFormatted = accession.replace(/-/g, '')
+    const itemDescriptions = itemList.map(item => ITEM_LABELS[item]).filter(Boolean)
+    const itemLabel = itemDescriptions[0] ?? 'Material Event'
+
+    // Try to fetch a snippet of the primary document for richer classification context.
+    let docSnippet = ''
+    if (primaryDoc) {
+      const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accFormatted}/${primaryDoc}`
+      docSnippet = await fetchDocSnippet(docUrl)
+    }
+
+    const baseDescription = `SEC Form 8-K filed ${filingDate} by ${companyName}. Disclosed item: ${itemDescriptions.join('; ')}.`
+    const description = docSnippet
+      ? `${baseDescription} Filing excerpt: ${docSnippet}`
+      : baseDescription
+
+    const link = primaryDoc
+      ? `${EDGAR_ARCHIVE}/${cik}/${accFormatted}/${primaryDoc}`
+      : `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=8-K`
+
+    articles.push({
+      title: `SEC 8-K: ${itemLabel} at ${companyName}`,
+      description,
+      link,
+      pubDate: filingDate,
+    })
+
+    if (articles.length >= 5) break
+  }
+
+  return articles
+}
+
+// Fetch first 1500 chars of a filing document and strip HTML tags.
+async function fetchDocSnippet(url) {
+  try {
+    const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(5000) })
+    if (!res.ok) return ''
+    const html = await res.text()
+    const text = html
+      .replace(/<style[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 1500)
+    return text
+  } catch {
+    return ''
+  }
+}
