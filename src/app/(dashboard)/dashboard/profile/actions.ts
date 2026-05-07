@@ -54,6 +54,20 @@ export async function saveProfile(formData: FormData) {
     try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
   }
 
+  const securityFrameworks   = parseCsv(formData.get('security_frameworks') as string ?? '')
+  const boardSecurityMaturity = (formData.get('board_security_maturity') as string ?? '').trim() || null
+  const productTypeExp        = (formData.get('product_type_exp') as string ?? '').trim() || null
+  const productAchievement    = (formData.get('product_achievement') as string ?? '').trim() || null
+  const productMetric         = (formData.get('product_metric') as string ?? '').trim() || null
+  const cooMandateTypes       = formData.getAll('coo_mandate_types') as string[]
+  const cooCeoPartnership     = (formData.get('coo_ceo_partnership') as string ?? '').trim() || null
+  const ctoTechnicalFlavor    = formData.getAll('cto_technical_flavor') as string[]
+  const ctoArchitectureDecision = (formData.get('cto_architecture_decision') as string ?? '').trim() || null
+  const dataMaturityOrientation = (formData.get('data_maturity_orientation') as string ?? '').trim() || null
+  const dataPlatformBuilt     = (formData.get('data_platform_built') as string ?? '').trim() || null
+  const digitalBackgroundType = (formData.get('digital_background_type') as string ?? '').trim() || null
+  const digitalTransformationDelivered = (formData.get('digital_transformation_delivered') as string ?? '').trim() || null
+
   const { error: upsertError } = await supabase
     .from('user_profiles')
     .upsert(
@@ -75,6 +89,19 @@ export async function saveProfile(formData: FormData) {
         search_persona: searchPersona,
         role_type: roleType,
         career_history_json: careerHistoryJson,
+        security_frameworks:   securityFrameworks.length   > 0 ? securityFrameworks   : null,
+        board_security_maturity: boardSecurityMaturity,
+        product_type_exp:     productTypeExp,
+        product_achievement:  productAchievement,
+        product_metric:       productMetric,
+        coo_mandate_types:    cooMandateTypes.length  > 0 ? cooMandateTypes  : null,
+        coo_ceo_partnership:  cooCeoPartnership,
+        cto_technical_flavor: ctoTechnicalFlavor.length > 0 ? ctoTechnicalFlavor : null,
+        cto_architecture_decision: ctoArchitectureDecision,
+        data_maturity_orientation: dataMaturityOrientation,
+        data_platform_built:  dataPlatformBuilt,
+        digital_background_type: digitalBackgroundType,
+        digital_transformation_delivered: digitalTransformationDelivered,
       },
       { onConflict: 'user_id' }
     )

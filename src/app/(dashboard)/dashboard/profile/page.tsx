@@ -33,7 +33,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json, security_frameworks, board_security_maturity, product_type_exp, product_achievement, product_metric, coo_mandate_types, coo_ceo_partnership, cto_technical_flavor, cto_architecture_decision, data_maturity_orientation, data_platform_built, digital_background_type, digital_transformation_delivered')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -50,6 +50,33 @@ export default async function ProfilePage({
   const resumeText = profile?.resume_text ?? ''
   const beyondResume = profile?.beyond_resume ?? ''
   const linkedinUrl = profile?.linkedin_url ?? ''
+
+  const securityFrameworks    = ((profile?.security_frameworks as string[] | null) ?? []).join(', ')
+  const boardSecurityMaturity = profile?.board_security_maturity ?? ''
+  const productTypeExp        = profile?.product_type_exp ?? ''
+  const productAchievement    = profile?.product_achievement ?? ''
+  const productMetric         = profile?.product_metric ?? ''
+  const cooMandateTypes       = (profile?.coo_mandate_types as string[] | null) ?? []
+  const cooCeoPartnership     = profile?.coo_ceo_partnership ?? ''
+  const ctoTechnicalFlavor    = (profile?.cto_technical_flavor as string[] | null) ?? []
+  const ctoArchitectureDecision = profile?.cto_architecture_decision ?? ''
+  const dataMaturityOrientation = profile?.data_maturity_orientation ?? ''
+  const dataPlatformBuilt     = profile?.data_platform_built ?? ''
+  const digitalBackgroundType = profile?.digital_background_type ?? ''
+  const digitalTransformationDelivered = profile?.digital_transformation_delivered ?? ''
+
+  const BEYOND_RESUME_PLACEHOLDERS: Record<string, string> = {
+    cio:          'What transformation have you driven that does not appear in your title? What is your model for the CIO-CEO relationship? What is the biggest technology decision you made under pressure?',
+    cto:          'What did you actually build? What architectural decision are you most proud of? What technical debt did you inherit and what did you do with it?',
+    cdo_data:     'What was the data maturity of the organization when you joined? What business decision changed because of what you built? What does your data platform actually look like?',
+    cdo_digital:  'What does your background give you that a pure technologist does not have? What business transformation did you drive? What did the customer experience look like before and after?',
+    ciso:         "What frameworks have you implemented? What was the board's security awareness when you started vs when you left? What breach or regulatory event shaped your approach?",
+    cpo:          "What is your product philosophy? What product are you most proud of and why? What metric did you move? What product bet was wrong and what did you learn?",
+    coo:          "What is your model for the CEO-COO relationship? What operational phase have you navigated that does not appear in your title? What broke and how did you fix it?",
+    vp_technology:'What does your scope actually look like beyond your title? What is the largest team you have built or inherited? Where have you had P&L or budget ownership?',
+  }
+  const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
+    ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])
     : null
@@ -340,11 +367,158 @@ export default async function ProfilePage({
                 name="beyond_resume"
                 rows={4}
                 defaultValue={beyondResume}
-                placeholder="What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume…"
+                placeholder={beyondResumePlaceholder}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Gives the AI richer context for cover letters and interview prep.</p>
             </div>
+
+            {/* Role-specific context */}
+            {['ciso', 'cpo', 'coo', 'cto', 'cdo_data', 'cdo_digital'].includes(profile?.role_type ?? '') && (
+              <div className="flex flex-col gap-6 pt-6 border-t border-slate-100">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-orange-500 mb-0.5">Role context</p>
+                  <p className="text-[12px] text-slate-400">These fields give the AI what it cannot infer from your resume. The more specific, the sharper the brief.</p>
+                </div>
+
+                {profile?.role_type === 'ciso' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Security frameworks implemented</label>
+                      <TagInput id="security_frameworks" name="security_frameworks" defaultValue={securityFrameworks} placeholder="SOC2, ISO 27001, NIST CSF, PCI-DSS, HIPAA..." />
+                      <p className="mt-1.5 text-[12px] text-slate-400">Used to match your background to this company's compliance requirements in prep briefs.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="board_security_maturity" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Board security maturity</label>
+                      <textarea id="board_security_maturity" name="board_security_maturity" rows={3} defaultValue={boardSecurityMaturity}
+                        placeholder="What was the board's security awareness when you started? What changed by the time you left?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                    <div className="px-3 py-2.5 bg-amber-50 border border-amber-200 rounded text-[12px] text-amber-700 leading-relaxed">
+                      Do not enter confidential security architecture, active incident details, or client infrastructure information. These notes are used for your prep briefs only.
+                    </div>
+                  </div>
+                )}
+
+                {profile?.role_type === 'cpo' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Product experience type</p>
+                      <div className="flex gap-4">
+                        {(['B2C', 'B2B', 'Both'] as const).map(opt => (
+                          <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="product_type_exp" value={opt} defaultChecked={productTypeExp === opt} className="accent-slate-900" />
+                            <span className="text-[13px] text-slate-700">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="product_achievement" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Key product achievement</label>
+                      <textarea id="product_achievement" name="product_achievement" rows={3} defaultValue={productAchievement}
+                        placeholder="What product are you most proud of and why? What user problem did it solve?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                    <div>
+                      <label htmlFor="product_metric" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Primary metric moved</label>
+                      <input id="product_metric" name="product_metric" type="text" defaultValue={productMetric}
+                        placeholder="+22% retention, 40% MAU growth, $8M ARR from new product line..."
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400" />
+                    </div>
+                  </div>
+                )}
+
+                {profile?.role_type === 'coo' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Mandate type(s) sought</p>
+                      <div className="flex flex-col gap-2">
+                        {(['Scaling', 'Turnaround', 'Post-M&A integration', 'Professionalization'] as const).map(opt => (
+                          <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="coo_mandate_types" value={opt} defaultChecked={cooMandateTypes.includes(opt)} className="accent-slate-900" />
+                            <span className="text-[13px] text-slate-700">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="coo_ceo_partnership" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">CEO partnership model</label>
+                      <textarea id="coo_ceo_partnership" name="coo_ceo_partnership" rows={3} defaultValue={cooCeoPartnership}
+                        placeholder="What is your model for the CEO-COO relationship? Where does the CEO lead and where do you own the execution?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                  </div>
+                )}
+
+                {profile?.role_type === 'cto' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Technical flavor</p>
+                      <div className="flex flex-col gap-2">
+                        {(['Infrastructure', 'Product engineering', 'Platform', 'AI and ML'] as const).map(opt => (
+                          <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="cto_technical_flavor" value={opt} defaultChecked={ctoTechnicalFlavor.includes(opt)} className="accent-slate-900" />
+                            <span className="text-[13px] text-slate-700">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="cto_architecture_decision" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Key architectural decision</label>
+                      <textarea id="cto_architecture_decision" name="cto_architecture_decision" rows={3} defaultValue={ctoArchitectureDecision}
+                        placeholder="What is the architectural decision you are most proud of? What was the problem, what did you decide, and what changed?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                  </div>
+                )}
+
+                {profile?.role_type === 'cdo_data' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Data mandate orientation</p>
+                      <div className="flex gap-4">
+                        {(['Governance-first', 'Products-first'] as const).map(opt => (
+                          <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="data_maturity_orientation" value={opt} defaultChecked={dataMaturityOrientation === opt} className="accent-slate-900" />
+                            <span className="text-[13px] text-slate-700">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <p className="mt-1.5 text-[12px] text-slate-400">Governance-first: compliance, data quality, master data management. Products-first: analytics, ML models, data products for internal or external use.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="data_platform_built" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Data platform built</label>
+                      <textarea id="data_platform_built" name="data_platform_built" rows={3} defaultValue={dataPlatformBuilt}
+                        placeholder="What platform did you build or inherit and transform? What business decisions changed as a result?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                  </div>
+                )}
+
+                {profile?.role_type === 'cdo_digital' && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Professional background</p>
+                      <div className="flex flex-col gap-2">
+                        {(['Consulting', 'Operations', 'Marketing', 'Technology'] as const).map(opt => (
+                          <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="digital_background_type" value={opt} defaultChecked={digitalBackgroundType === opt} className="accent-slate-900" />
+                            <span className="text-[13px] text-slate-700">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <p className="mt-1.5 text-[12px] text-slate-400">Shapes how your brief frames your non-traditional background as an advantage over purely technical candidates.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="digital_transformation_delivered" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Business transformation delivered</label>
+                      <textarea id="digital_transformation_delivered" name="digital_transformation_delivered" rows={3} defaultValue={digitalTransformationDelivered}
+                        placeholder="What business transformation did you drive? What changed for the customer or the business that would not have happened otherwise?"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Briefing time */}
             <div>
