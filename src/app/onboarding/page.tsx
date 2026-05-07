@@ -1,13 +1,8 @@
-﻿import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingForm } from './onboarding-form'
 
-export default async function OnboardingPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>
-}) {
-  const { error } = await searchParams
+export default async function OnboardingPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -20,33 +15,5 @@ export default async function OnboardingPage({
 
   if (profile?.onboarding_completed_at) redirect('/dashboard')
 
-  const errorMessage = error === 'resume_too_long'
-    ? 'Your resume text is too long (100,000 character limit). Trim it down and try again.'
-    : null
-
-  return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-
-      <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
-            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
-          </span>
-        </div>
-      </header>
-
-      <main className="max-w-2xl mx-auto px-6 py-12">
-
-        <div className="mb-10">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Set up your campaign</h1>
-          <p className="text-[14px] text-slate-500 mt-2 leading-relaxed max-w-lg">
-            Takes about 5 minutes. Everything here shapes your prep briefs, strategy, and AI advisor — the more context you give, the sharper the output. You can edit any of this later.
-          </p>
-        </div>
-
-        <OnboardingForm profile={profile} errorMessage={errorMessage} />
-
-      </main>
-    </div>
-  )
+  return <OnboardingForm profile={profile} />
 }
