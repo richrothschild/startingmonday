@@ -1,23 +1,38 @@
 // Renders the daily briefing as an HTML email string.
 // Uses table-based layout for broad email client compatibility.
 const SIGNAL_LABELS = {
-  funding:       'Funding',
+  funding:        'Funding',
   exec_departure: 'Exec Departure',
-  exec_hire:     'Exec Hire',
-  acquisition:   'Acquisition',
-  expansion:     'Expansion',
-  layoffs:       'Layoffs',
-  ipo:           'IPO',
-  new_product:   'New Product',
-  award:         'Award',
+  exec_hire:      'Exec Hire',
+  acquisition:    'Acquisition',
+  expansion:      'Expansion',
+  layoffs:        'Layoffs',
+  ipo:            'IPO',
+  new_product:    'New Product',
+  award:          'Award',
+  pattern_alert:  'Pattern',
 }
 
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, signals = [], todayStr } = context
+  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], todayStr } = context
   const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '' } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
   const firstName = userName.split(' ')[0]
+
+  const patternAlertSection = patternAlerts.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ea580c; padding-bottom: 12px; border-bottom: 1px solid #fed7aa; margin-bottom: 18px;">Pattern Alerts</div>
+        ${patternAlerts.map(p => `
+        <div style="margin-bottom: 14px; padding: 18px 20px; background: #fff7ed; border: 1px solid #fed7aa; border-left: 3px solid #ea580c; border-radius: 0 4px 4px 0;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;">
+            <span style="font-weight: 700; font-size: 15px; color: #0f172a;">${esc(p.companyName)}</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: #ffedd5; color: #c2410c; padding: 2px 8px; border-radius: 20px;">${esc(p.patternName)}</span>
+          </div>
+          <div style="font-size: 14px; color: #334155; line-height: 1.65; margin-bottom: 8px;">${esc(p.patternBody)}</div>
+          ${p.outreachAngle ? `<div style="font-size: 13px; color: #78716c; line-height: 1.6; font-style: italic;">${esc(p.outreachAngle)}</div>` : ''}
+        </div>`).join('')}
+      </td></tr>` : ''
 
   const signalSection = signalAlerts.length ? `
       <tr><td style="padding: 0 0 32px 0;">
@@ -54,8 +69,9 @@ export function renderBriefingEmail(context, briefing) {
         </div>`).join('')}
       </td></tr>` : ''
 
+  const totalSignals     = signals.length + patternAlerts.length
   const actionsDueColor  = followUps.length > 0 ? '#b91c1c' : '#0f172a'
-  const signalsColor     = signals.length > 0   ? '#b45309' : '#0f172a'
+  const signalsColor     = totalSignals > 0      ? '#b45309' : '#0f172a'
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -85,7 +101,7 @@ export function renderBriefingEmail(context, briefing) {
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Companies</div>
             </td>
             <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
-              <div style="font-size:22px;font-weight:700;color:${signalsColor};line-height:1;">${signals.length}</div>
+              <div style="font-size:22px;font-weight:700;color:${signalsColor};line-height:1;">${totalSignals}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Signals</div>
             </td>
             <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
@@ -107,6 +123,7 @@ export function renderBriefingEmail(context, briefing) {
           <!-- Intro -->
           <tr><td style="padding:0 0 32px 0;font-size:15px;color:#334155;line-height:1.7;">${esc(intro)}</td></tr>
 
+          ${patternAlertSection}
           ${signalSection}
           ${matchSection}
           ${followUpSection}

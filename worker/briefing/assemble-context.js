@@ -4,11 +4,12 @@ import { logger } from '../lib/logger.js'
 // Returns null if there is nothing actionable to send.
 export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const now = new Date()
-  const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
-  const since7d  = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const since24h = new Date(now.getTime() -  24 * 60 * 60 * 1000)
+  const since7d  = new Date(now.getTime() -  7 * 24 * 60 * 60 * 1000)
+  const since14d = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
   const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles, role_type, search_persona')
@@ -38,9 +39,18 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
       .from('company_signals')
       .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date, notified_at')
       .eq('user_id', userId)
+      .neq('signal_type', 'pattern_alert')
       .gte('signal_date', since7d.toISOString().split('T')[0])
       .order('signal_date', { ascending: false })
       .limit(5),
+    supabase
+      .from('company_signals')
+      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date, notified_at')
+      .eq('user_id', userId)
+      .eq('signal_type', 'pattern_alert')
+      .gte('signal_date', since14d.toISOString().split('T')[0])
+      .order('signal_date', { ascending: false })
+      .limit(3),
   ])
 
   if (profileResult.error) {
@@ -51,7 +61,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const companies = companiesResult.data ?? []
   const recentScans = recentScansResult.data ?? []
   const rawFollowUps = followUpsResult.data ?? []
-  const rawSignals = signalsResult.data ?? []
+  const rawSignals       = signalsResult.data ?? []
+  const rawPatternAlerts = patternAlertsResult.data ?? []
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -85,14 +96,29 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   }))
 
   const signals = rawSignals.map(s => ({
-    id: s.id,
-    companyName: companyById[s.company_id]?.name ?? 'Unknown Company',
-    signalType: s.signal_type,
-    summary: s.signal_summary,
+    id:           s.id,
+    companyName:  companyById[s.company_id]?.name ?? 'Unknown Company',
+    signalType:   s.signal_type,
+    summary:      s.signal_summary,
     outreachAngle: s.outreach_angle,
-    signalDate: s.signal_date,
-    notifiedAt: s.notified_at ?? null,
+    signalDate:   s.signal_date,
+    notifiedAt:   s.notified_at ?? null,
   }))
+
+  const patternAlerts = rawPatternAlerts.map(s => {
+    const colonIdx  = s.signal_summary.indexOf(': ')
+    const patternName = colonIdx > -1 ? s.signal_summary.slice(0, colonIdx) : 'Pattern Alert'
+    const patternBody = colonIdx > -1 ? s.signal_summary.slice(colonIdx + 2) : s.signal_summary
+    return {
+      id:           s.id,
+      companyName:  companyById[s.company_id]?.name ?? 'Unknown Company',
+      patternName,
+      patternBody,
+      outreachAngle: s.outreach_angle,
+      signalDate:   s.signal_date,
+      notifiedAt:   s.notified_at ?? null,
+    }
+  })
 
   // Only skip if the user has no companies at all (nothing to brief on).
   // Always send on configured days so the user gets a pipeline-state email.
@@ -108,6 +134,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     newMatches,
     followUps,
     signals,
+    patternAlerts,
     todayStr,
   }
 }

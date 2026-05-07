@@ -138,9 +138,10 @@ export async function runBriefingJob() {
         // Mark signals notified first — if we crash after this but before updating the
         // timestamp, the user gets a duplicate email tomorrow rather than missing
         // signal notifications permanently.
-        const unnotifiedSignalIds = (context.signals ?? [])
-          .filter(s => !s.notifiedAt)
-          .map(s => s.id)
+        const unnotifiedSignalIds = [
+          ...(context.signals ?? []).filter(s => !s.notifiedAt).map(s => s.id),
+          ...(context.patternAlerts ?? []).filter(s => !s.notifiedAt).map(s => s.id),
+        ]
         if (unnotifiedSignalIds.length) {
           await supabase
             .from('company_signals')

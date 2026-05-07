@@ -62,9 +62,10 @@ export default async function DashboardPage({
     .eq('user_id', user.id)
     .is('archived_at', null)
 
-  const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, activation, { data: momentumData }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -84,9 +85,18 @@ export default async function DashboardPage({
       .from('company_signals')
       .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, companies(id, name)')
       .eq('user_id', user.id)
+      .neq('signal_type', 'pattern_alert')
       .gte('signal_date', since7d)
       .order('signal_date', { ascending: false })
       .limit(5),
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, companies(id, name)')
+      .eq('user_id', user.id)
+      .eq('signal_type', 'pattern_alert')
+      .gte('signal_date', since14d)
+      .order('signal_date', { ascending: false })
+      .limit(3),
     getActivationStatus(user.id),
     // Separate query — columns added in migration 022; returns { data: null } gracefully if not yet applied
     supabase
@@ -103,8 +113,10 @@ export default async function DashboardPage({
     ['interviewing', 'applied', 'offer'].includes(c.stage)
   ).length
   const overdueCount   = (followUps ?? []).length
-  const signals        = (recentSignals ?? []) as unknown as { id: string; signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string; company_id: string; companies: { id: string; name: string } | null }[]
-  const signalCount    = signals.length
+  type SignalRow = { id: string; signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string; company_id: string; companies: { id: string; name: string } | null }
+  const signals        = (recentSignals ?? []) as unknown as SignalRow[]
+  const patternAlerts  = (recentPatternAlerts ?? []) as unknown as SignalRow[]
+  const signalCount    = signals.length + patternAlerts.length
 
   const filtered = companies ?? []
   const totalFiltered = filteredCount ?? 0
@@ -321,6 +333,50 @@ export default async function DashboardPage({
                     isToday={isToday}
                     companyName={co?.name}
                   />
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Pattern Alerts */}
+        {patternAlerts.length > 0 && (
+          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
+            <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
+                Pattern Alerts
+              </span>
+              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
+                See all →
+              </Link>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {patternAlerts.map(sig => {
+                const co = sig.companies
+                const colonIdx = sig.signal_summary.indexOf(': ')
+                const patternName = colonIdx > -1 ? sig.signal_summary.slice(0, colonIdx) : 'Pattern Alert'
+                const patternBody = colonIdx > -1 ? sig.signal_summary.slice(colonIdx + 2) : sig.signal_summary
+                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                return (
+                  <div key={sig.id} className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {co && (
+                          <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                            {co.name}
+                          </Link>
+                        )}
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
+                          {patternName}
+                        </span>
+                      </div>
+                      <span className="text-[12px] text-slate-400 shrink-0">{dateLabel}</span>
+                    </div>
+                    <p className="text-[13px] text-slate-700 leading-relaxed mb-1.5">{patternBody}</p>
+                    {sig.outreach_angle && (
+                      <p className="text-[12px] text-slate-500 italic leading-relaxed">{sig.outreach_angle}</p>
+                    )}
+                  </div>
                 )
               })}
             </div>
