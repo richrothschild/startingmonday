@@ -51,6 +51,7 @@ const SIGNAL_LABELS: Record<string, { label: string; cls: string }> = {
   ipo:            { label: 'IPO',            cls: 'bg-green-50 text-green-700' },
   new_product:    { label: 'New Product',    cls: 'bg-indigo-50 text-indigo-700' },
   award:          { label: 'Award',          cls: 'bg-amber-50 text-amber-700' },
+  pattern_alert:  { label: 'Pattern',        cls: 'bg-orange-50 text-orange-700' },
 }
 
 const DOC_LABELS: Record<string, { label: string; cls: string }> = {
@@ -97,7 +98,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -357,6 +358,20 @@ export default async function CompanyPage({
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  LinkedIn company URL
+                </label>
+                <input
+                  name="linkedin_url"
+                  type="url"
+                  defaultValue={company.linkedin_url ?? ''}
+                  placeholder="https://www.linkedin.com/company/acme"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+                <p className="mt-1.5 text-[12px] text-slate-400">Used to detect executive hires and departures</p>
               </div>
 
               <div>

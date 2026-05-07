@@ -7,6 +7,9 @@ import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-cr
 import { findPressRoomArticles } from '../signals/fetch-press-room.js'
 import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
 import { fetchPrWire } from '../signals/fetch-pr-wire.js'
+import { fetchProxycurlExecs } from '../signals/fetch-proxycurl-execs.js'
+import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
+import { correlateSignals } from '../signals/correlate-signals.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -52,7 +55,7 @@ export async function runSignalJob() {
       const roleType = roleTypeByUserId[user.id] ?? null
       const { data: companies } = await supabase
         .from('companies')
-        .select('id, name, crunchbase_id, company_url')
+        .select('id, name, crunchbase_id, company_url, linkedin_url')
         .eq('user_id', user.id)
         .is('archived_at', null)
 
@@ -181,6 +184,87 @@ export async function runSignalJob() {
               if (!skipped) {
                 signalsFound++
                 logger.info('signal-job: crunchbase funding signal', { company: company.name, amount: round.amount })
+              }
+            }
+          }
+          // Proxycurl exec snapshot — detect departures and hires by diffing LinkedIn data
+          if (process.env.PROXYCURL_API_KEY) {
+            const today = new Date().toISOString().split('T')[0]
+            const { data: existingSnapshot } = await supabase
+              .from('exec_snapshots')
+              .select('id')
+              .eq('company_id', company.id)
+              .eq('snapshot_date', today)
+              .maybeSingle()
+
+            if (!existingSnapshot) {
+              const currentExecs = await fetchProxycurlExecs(company.name, company.linkedin_url ?? null)
+              if (currentExecs.length > 0) {
+                const { departures, hires } = await diffExecSnapshot(supabase, company.id, currentExecs, today)
+
+                for (const exec of departures) {
+                  const { skipped } = await writeSignal(supabase, {
+                    companyId:     company.id,
+                    userId:        user.id,
+                    signalType:    'exec_departure',
+                    signalSummary: `${exec.name} (${exec.title}) departed ${company.name}.`,
+                    sourceUrl:     exec.linkedin_url ? `${exec.linkedin_url}#departure` : null,
+                    signalDate:    today,
+                    outreachAngle: `The departure of ${exec.name} as ${exec.title} creates an opening for external executive talent. Reach out before the search is formalized.`,
+                  })
+                  if (!skipped) {
+                    signalsFound++
+                    logger.info('signal-job: exec departure', { company: company.name, exec: exec.name })
+                  }
+                }
+
+                for (const exec of hires) {
+                  const { skipped } = await writeSignal(supabase, {
+                    companyId:     company.id,
+                    userId:        user.id,
+                    signalType:    'exec_hire',
+                    signalSummary: `${exec.name} joined ${company.name} as ${exec.title}.`,
+                    sourceUrl:     exec.linkedin_url ? `${exec.linkedin_url}#hire` : null,
+                    signalDate:    today,
+                    outreachAngle: `A new ${exec.title} at ${company.name} often builds new relationships early in tenure. This is a strong moment to introduce yourself.`,
+                  })
+                  if (!skipped) {
+                    signalsFound++
+                    logger.info('signal-job: exec hire', { company: company.name, exec: exec.name })
+                  }
+                }
+              }
+            }
+          }
+
+          // Signal correlation — detect multi-signal patterns across the past 60 days
+          const cutoff60 = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+          const { data: recentSignals } = await supabase
+            .from('company_signals')
+            .select('signal_type, signal_summary, signal_date')
+            .eq('company_id', company.id)
+            .eq('user_id', user.id)
+            .gte('signal_date', cutoff60)
+            .neq('signal_type', 'pattern_alert')
+            .order('signal_date', { ascending: false })
+            .limit(10)
+
+          if ((recentSignals?.length ?? 0) >= 2) {
+            const correlation = await correlateSignals(company.name, recentSignals, roleType)
+            if (correlation.detected && correlation.pattern_name) {
+              const weekSlot = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    'pattern_alert',
+                signalSummary: `${correlation.pattern_name}: ${correlation.pattern_summary}`,
+                sourceUrl:     `pattern://${correlation.pattern_name.toLowerCase().replace(/\s+/g, '_')}/${weekSlot}`,
+                signalDate:    new Date().toISOString().split('T')[0],
+                outreachAngle: correlation.outreach_angle ?? null,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: pattern alert', { company: company.name, pattern: correlation.pattern_name })
               }
             }
           }
