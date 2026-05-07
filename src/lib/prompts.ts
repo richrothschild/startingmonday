@@ -47,7 +47,7 @@ VP/SVP: Probe for functional depth, team scale managed, cross-functional influen
 Board/Advisor: Probe for governance experience, fiduciary judgment, sector-specific pattern recognition, and value-add without operational control. Questions should signal cross-company perspective and network leverage.
 Objections, talking points, and coaching notes must reflect the actual dynamics at that level, not a generic version of executive difficulty.`
 
-// ── Persona context helper ────────────────────────────────────────────────────
+// ── Persona context helpers ───────────────────────────────────────────────────
 
 export function personaContext(persona: string | null | undefined): string {
   if (!persona) return ''
@@ -57,6 +57,22 @@ export function personaContext(persona: string | null | undefined): string {
     board:  'Board / Advisor (targeting board seat, operating partner, or senior advisory role)',
   }
   return labels[persona] ? `\nCandidate level: ${labels[persona]}` : ''
+}
+
+export function roleTypeContext(roleType: string | null | undefined): string {
+  if (!roleType) return ''
+  const contexts: Record<string, string> = {
+    cio: 'Role type: CIO (Chief Information Officer). Frame entirely around business-technology integration, enterprise risk governance, board reporting, transformation mandate, and vendor portfolio. This is a business-leadership role with technology accountability, not a technical architecture role. Every section should reflect that the CIO owns the relationship between technology investment and business outcome.',
+    cto: 'Role type: CTO (Chief Technology Officer). Frame around technical architecture ownership, engineering leadership, product adjacency, and technology vision. The CTO is often the most technical person in the C-suite. Calibrate startup vs enterprise context using company size when provided: startups need scaling decisions and product velocity; enterprises need platform strategy and engineering productivity.',
+    cdo_data: 'Role type: CDO, Chief Data Officer (data and analytics). Frame around data as a strategic asset, data governance, analytics maturity, data products, and data-as-revenue. Do not conflate with Chief Digital Officer. The win for a Chief Data Officer is making the business trust and use data. The mandate ranges from governance-first (compliance, quality) to products-first (revenue from data assets). Use company notes to distinguish which applies here.',
+    cdo_digital: 'Role type: Chief Digital Officer (digital transformation leader). Frame around business transformation, not technology. Many Chief Digital Officers come from consulting, marketing, or operations, not IT. Lead with business outcomes, P&L impact, and customer experience. In the "What to Leave Out" section, address the CIO/CMO power dynamic, as this role is frequently contested internally. The candidate pitch is partly "here is why you need this role" and partly "here is why I am the person for it."',
+    ciso: 'Role type: CISO (Chief Information Security Officer). This is the most critical framing instruction: every section must use risk reduction language, not technical achievement language. The board is asking one question: will this person reduce our liability? The Win Thesis must be written in risk terms. Include a Board Communication Strategy section that explains how this executive frames security risk for a non-technical board. Detect company sector from context: Financial Services = SOX/FFIEC/PCI framing; Healthcare = HIPAA/breach notification; Technology = product security/SDLC/bug bounty.',
+    cpo: 'Role type: CPO (Chief Product Officer). Frame around product philosophy, taste and judgment, product-market fit insight, and roadmap governance. CPOs are hired because a CEO trusts their product instincts. The interview evaluates taste as much as credentials. In the Questions to Ask section, produce at least one question that reveals specific product insight about this company product situation, not a generic strategic question. Detect B2C vs B2B from company sector: consumer/media/retail = engagement and growth framing; enterprise/SaaS = roadmap governance and CS alignment framing.',
+    coo: 'Role type: COO (Chief Operating Officer). This is the most critical framing instruction: do not use technology transformation language anywhere in this brief. The COO competitive advantage is operational execution and CEO partnership, not digital strategy or IT leadership. Frame every section around: operational transformation, organizational design, process improvement, financial discipline, and CEO partnership. COO roles are frequently not publicly posted. If no scan result exists, note that COO mandates are created around specific operational challenges and use signals and notes to infer the mandate.',
+    vp_technology: 'Role type: VP of Technology. If the candidate is targeting a C-suite role, activate transition framing: include a Transition Narrative section (four sentences: what they have delivered at VP scope, how that connects to what a CIO/CTO owns, the specific gap they are positioned to close, and why their next title is a label change not a capability gap). The Anticipated Pushback section must include the seniority gap objection ("you have not been a CIO/CTO before") as the first item, with a specific counter that reframes VP-scope delivery as C-suite-equivalent outcome.',
+    other_csuite: 'Role type: C-Suite executive. Apply full C-suite calibration: probe for board dynamics, P&L ownership scope, culture stewardship, and transformation at enterprise scale.',
+  }
+  return contexts[roleType] ? `\n${contexts[roleType]}` : ''
 }
 
 // ── Feature system prompts ────────────────────────────────────────────────────
@@ -74,6 +90,16 @@ export const STRATEGY_SYSTEM =
   '\n\n' + PERSONA_CALIBRATION +
   '\n\n' + BLUF_RULE
 
+const ROLE_TYPE_INSTRUCTION = `
+When a role type is specified in the candidate section, that instruction overrides the generic C-suite calibration for that dimension.
+A CISO brief must use risk reduction language throughout, not technical achievement.
+A COO brief must not use technology transformation, digital strategy, or IT leadership language anywhere.
+A CPO brief must include at least one product-specific insight question in the Questions to Ask section.
+A Chief Digital Officer brief must lead with business transformation framing, not technology credentials.
+A CDO (data) brief must not conflate data governance with digital transformation.
+A VP of Technology brief targeting C-suite must include transition framing and the seniority gap objection with a specific counter.
+These are not suggestions. They are structural requirements for the brief to be useful to this specific executive.`
+
 export const PREP_SYSTEM =
   'You are a senior executive coach who has prepared C-suite candidates for high-stakes interviews ' +
   'at Fortune 500 companies, PE-backed firms, and government agencies. ' +
@@ -86,6 +112,7 @@ export const PREP_SYSTEM =
   '\n\n' + ANTI_PATTERNS +
   '\n\n' + SPECIFICITY_RULE +
   '\n\n' + PERSONA_CALIBRATION +
+  '\n\n' + ROLE_TYPE_INSTRUCTION +
   '\n\n' + BLUF_RULE
 
 export const COMPETITIVE_SYSTEM =

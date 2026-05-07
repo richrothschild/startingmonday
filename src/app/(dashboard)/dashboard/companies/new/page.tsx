@@ -107,16 +107,34 @@ export default async function AddCompanyPage({
               </div>
             </div>
 
-            <div>
-              <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
-                Sector
-              </label>
-              <input
-                name="sector"
-                type="text"
-                placeholder="e.g. Healthcare, Fintech"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Sector
+                </label>
+                <input
+                  name="sector"
+                  type="text"
+                  placeholder="e.g. Healthcare, Fintech"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+              <div>
+                <label htmlFor="company_size" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Company size
+                </label>
+                <select
+                  id="company_size"
+                  name="company_size"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                >
+                  <option value="">Unknown</option>
+                  <option value="startup">Startup (under 200)</option>
+                  <option value="midmarket">Mid-Market (200-2,000)</option>
+                  <option value="enterprise">Enterprise (2,000+)</option>
+                </select>
+                <p className="mt-1.5 text-[12px] text-slate-400">Used to calibrate CTO prep briefs</p>
+              </div>
             </div>
 
             <div>

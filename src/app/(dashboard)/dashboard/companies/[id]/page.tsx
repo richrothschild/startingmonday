@@ -97,7 +97,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, fit_score, notes, company_url, career_page_url')
+      .select('id, name, sector, stage, company_size, fit_score, notes, company_url, career_page_url')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -280,17 +280,35 @@ export default async function CompanyPage({
                 </div>
               </div>
 
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
-                  Sector
-                </label>
-                <input
-                  name="sector"
-                  type="text"
-                  defaultValue={company.sector ?? ''}
-                  placeholder="e.g. Healthcare, Fintech"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                    Sector
+                  </label>
+                  <input
+                    name="sector"
+                    type="text"
+                    defaultValue={company.sector ?? ''}
+                    placeholder="e.g. Healthcare, Fintech"
+                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="edit_company_size" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                    Company size
+                  </label>
+                  <select
+                    id="edit_company_size"
+                    name="company_size"
+                    defaultValue={company.company_size ?? ''}
+                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                  >
+                    <option value="">Unknown</option>
+                    <option value="startup">Startup (under 200)</option>
+                    <option value="midmarket">Mid-Market (200-2,000)</option>
+                    <option value="enterprise">Enterprise (2,000+)</option>
+                  </select>
+                </div>
               </div>
 
               <div>

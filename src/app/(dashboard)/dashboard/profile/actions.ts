@@ -11,6 +11,8 @@ export async function saveProfile(formData: FormData) {
   if (!user) redirect('/login')
 
   const searchPersona = (['csuite', 'vp', 'board'] as const).find(v => v === formData.get('search_persona')) ?? null
+  const validRoleTypes = ['cio', 'cto', 'cdo_data', 'cdo_digital', 'ciso', 'cpo', 'coo', 'vp_technology', 'other_csuite'] as const
+  const roleType = validRoleTypes.find(v => v === formData.get('role_type')) ?? null
   const fullName      = (formData.get('full_name')      as string ?? '').trim() || null
   const currentTitle  = (formData.get('current_title')  as string ?? '').trim() || null
   const currentCompany = (formData.get('current_company') as string ?? '').trim() || null
@@ -48,6 +50,7 @@ export async function saveProfile(formData: FormData) {
         beyond_resume: beyondResume,
         linkedin_url: linkedinUrl,
         search_persona: searchPersona,
+        role_type: roleType,
       },
       { onConflict: 'user_id' }
     )

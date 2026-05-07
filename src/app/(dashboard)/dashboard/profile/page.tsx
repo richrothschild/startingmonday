@@ -31,7 +31,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -128,6 +128,46 @@ export default async function ProfilePage({
                 ))}
               </div>
               <p className="mt-1.5 text-[12px] text-slate-400">Calibrates interview prep briefs and AI coaching to your actual level.</p>
+            </div>
+
+            {/* Role type */}
+            <div>
+              <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Role type
+              </p>
+              <div className="flex flex-col gap-2">
+                {[
+                  { value: 'cio',          label: 'CIO',                        sub: 'Chief Information Officer' },
+                  { value: 'cto',          label: 'CTO',                        sub: 'Chief Technology Officer' },
+                  { value: 'cdo_data',     label: 'CDO — Data & Analytics',     sub: 'Chief Data Officer, analytics and data products' },
+                  { value: 'cdo_digital',  label: 'CDO — Digital',              sub: 'Chief Digital Officer, digital transformation' },
+                  { value: 'ciso',         label: 'CISO',                       sub: 'Chief Information Security Officer' },
+                  { value: 'cpo',          label: 'CPO',                        sub: 'Chief Product Officer' },
+                  { value: 'coo',          label: 'COO',                        sub: 'Chief Operating Officer' },
+                  { value: 'vp_technology',label: 'VP of Technology',           sub: 'VP, SVP, or EVP of Technology or Engineering' },
+                  { value: 'other_csuite', label: 'Other C-Suite',              sub: 'CEO, CFO, CHRO, or other executive function' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className="flex items-start gap-3 p-3 rounded border cursor-pointer transition-colors border-slate-200 hover:border-slate-400 has-[:checked]:bg-slate-900 has-[:checked]:border-slate-900"
+                  >
+                    <input
+                      type="radio"
+                      name="role_type"
+                      value={opt.value}
+                      defaultChecked={profile?.role_type === opt.value}
+                      className="sr-only"
+                    />
+                    <div>
+                      <p className="text-[13px] font-semibold leading-none mb-0.5">
+                        <span className="[label:has(:checked)_&]:text-white text-slate-900 font-semibold">{opt.label}</span>
+                      </p>
+                      <p className="text-[12px] text-slate-400 [label:has(:checked)_&]:text-slate-400 mt-0.5">{opt.sub}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-1.5 text-[12px] text-slate-400">Tailors every interview prep brief to your specific function and interview dynamics.</p>
             </div>
 
             {/* Name */}

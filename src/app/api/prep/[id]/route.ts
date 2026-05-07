@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { PREP_SYSTEM, personaContext } from '@/lib/prompts'
+import { PREP_SYSTEM, personaContext, roleTypeContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import { encodeUserId } from '@/lib/watermark'
@@ -47,13 +47,13 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
   const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
-      .select('name, sector, stage, notes')
+      .select('name, sector, stage, company_size, notes')
       .eq('id', companyId)
       .eq('user_id', userId)
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona')
+      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona, role_type')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -88,8 +88,8 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
   return { company, profile, scanResults, contacts, documents, signals }
 }
 
-type ProfileRow = { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null }
-type CompanyRow = { name: string; sector?: string | null; stage: string; notes?: string | null }
+type ProfileRow = { full_name?: string | null; current_title?: string | null; current_company?: string | null; target_titles?: string[] | null; target_sectors?: string[] | null; positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null; search_persona?: string | null; role_type?: string | null }
+type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null }
 
 function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null) {
   const name = profile?.full_name ?? 'the candidate'
@@ -102,15 +102,21 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
   const hasContacts = (contacts ?? []).length > 0
   const docsSection = buildDocSection(documents)
 
+  const companySizeLabel: Record<string, string> = {
+    startup: 'Startup (under 200 employees)',
+    midmarket: 'Mid-Market (200-2,000 employees)',
+    enterprise: 'Enterprise (2,000+ employees)',
+  }
+
   const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${roleTypeContext(profile?.role_type)}
 Target roles: ${targetTitles}
 Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
 COMPANY
-Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}
+Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}${company.company_size ? `\nCompany size: ${companySizeLabel[company.company_size] ?? company.company_size}` : ''}
 Pipeline stage: ${company.stage}${company.notes ? `\nIntel and notes: ${company.notes}` : ''}
 
 JOB SCAN DATA

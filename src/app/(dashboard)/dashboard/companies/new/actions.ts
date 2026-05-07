@@ -29,6 +29,8 @@ export async function addCompany(formData: FormData) {
   const companyUrl    = str(formData, 'company_url') || null
   const careerPageUrl = str(formData, 'career_page_url') || null
   const notes         = str(formData, 'notes') || null
+  const validSizes    = ['startup', 'midmarket', 'enterprise'] as const
+  const companySize   = validSizes.find(v => v === str(formData, 'company_size')) ?? null
 
   if (!name) redirect('/dashboard/companies/new?error=required')
 
@@ -41,6 +43,7 @@ export async function addCompany(formData: FormData) {
     company_url: companyUrl,
     career_page_url: careerPageUrl,
     notes,
+    company_size: companySize,
   }).select('id').single()
 
   if (error?.code === '23505') redirect('/dashboard/companies/new?error=duplicate')
