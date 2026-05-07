@@ -16,6 +16,7 @@ export async function deleteNotes() {
       positioning_summary: null,
       beyond_resume: null,
       career_history_json: null,
+      role_context: null,
     })
     .eq('user_id', user.id)
 
@@ -54,19 +55,45 @@ export async function saveProfile(formData: FormData) {
     try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
   }
 
-  const securityFrameworks   = parseCsv(formData.get('security_frameworks') as string ?? '')
-  const boardSecurityMaturity = (formData.get('board_security_maturity') as string ?? '').trim() || null
-  const productTypeExp        = (formData.get('product_type_exp') as string ?? '').trim() || null
-  const productAchievement    = (formData.get('product_achievement') as string ?? '').trim() || null
-  const productMetric         = (formData.get('product_metric') as string ?? '').trim() || null
-  const cooMandateTypes       = formData.getAll('coo_mandate_types') as string[]
-  const cooCeoPartnership     = (formData.get('coo_ceo_partnership') as string ?? '').trim() || null
-  const ctoTechnicalFlavor    = formData.getAll('cto_technical_flavor') as string[]
-  const ctoArchitectureDecision = (formData.get('cto_architecture_decision') as string ?? '').trim() || null
-  const dataMaturityOrientation = (formData.get('data_maturity_orientation') as string ?? '').trim() || null
-  const dataPlatformBuilt     = (formData.get('data_platform_built') as string ?? '').trim() || null
-  const digitalBackgroundType = (formData.get('digital_background_type') as string ?? '').trim() || null
-  const digitalTransformationDelivered = (formData.get('digital_transformation_delivered') as string ?? '').trim() || null
+  const roleCtx: Record<string, unknown> = {}
+  if (roleType === 'ciso') {
+    const sf = parseCsv(formData.get('security_frameworks') as string ?? '')
+    if (sf.length > 0) roleCtx.security_frameworks = sf
+    const bsm = (formData.get('board_security_maturity') as string ?? '').trim()
+    if (bsm) roleCtx.board_security_maturity = bsm
+  }
+  if (roleType === 'cpo') {
+    const pte = (formData.get('product_type_exp') as string ?? '').trim()
+    if (pte) roleCtx.product_type_exp = pte
+    const pa = (formData.get('product_achievement') as string ?? '').trim()
+    if (pa) roleCtx.product_achievement = pa
+    const pm = (formData.get('product_metric') as string ?? '').trim()
+    if (pm) roleCtx.product_metric = pm
+  }
+  if (roleType === 'coo') {
+    const mt = formData.getAll('coo_mandate_types') as string[]
+    if (mt.length > 0) roleCtx.coo_mandate_types = mt
+    const cp = (formData.get('coo_ceo_partnership') as string ?? '').trim()
+    if (cp) roleCtx.coo_ceo_partnership = cp
+  }
+  if (roleType === 'cto') {
+    const tf = formData.getAll('cto_technical_flavor') as string[]
+    if (tf.length > 0) roleCtx.cto_technical_flavor = tf
+    const ad = (formData.get('cto_architecture_decision') as string ?? '').trim()
+    if (ad) roleCtx.cto_architecture_decision = ad
+  }
+  if (roleType === 'cdo_data') {
+    const dmo = (formData.get('data_maturity_orientation') as string ?? '').trim()
+    if (dmo) roleCtx.data_maturity_orientation = dmo
+    const dpb = (formData.get('data_platform_built') as string ?? '').trim()
+    if (dpb) roleCtx.data_platform_built = dpb
+  }
+  if (roleType === 'cdo_digital') {
+    const dbt = (formData.get('digital_background_type') as string ?? '').trim()
+    if (dbt) roleCtx.digital_background_type = dbt
+    const dtd = (formData.get('digital_transformation_delivered') as string ?? '').trim()
+    if (dtd) roleCtx.digital_transformation_delivered = dtd
+  }
 
   const { error: upsertError } = await supabase
     .from('user_profiles')
@@ -89,19 +116,7 @@ export async function saveProfile(formData: FormData) {
         search_persona: searchPersona,
         role_type: roleType,
         career_history_json: careerHistoryJson,
-        security_frameworks:   securityFrameworks.length   > 0 ? securityFrameworks   : null,
-        board_security_maturity: boardSecurityMaturity,
-        product_type_exp:     productTypeExp,
-        product_achievement:  productAchievement,
-        product_metric:       productMetric,
-        coo_mandate_types:    cooMandateTypes.length  > 0 ? cooMandateTypes  : null,
-        coo_ceo_partnership:  cooCeoPartnership,
-        cto_technical_flavor: ctoTechnicalFlavor.length > 0 ? ctoTechnicalFlavor : null,
-        cto_architecture_decision: ctoArchitectureDecision,
-        data_maturity_orientation: dataMaturityOrientation,
-        data_platform_built:  dataPlatformBuilt,
-        digital_background_type: digitalBackgroundType,
-        digital_transformation_delivered: digitalTransformationDelivered,
+        role_context: Object.keys(roleCtx).length > 0 ? roleCtx : null,
       },
       { onConflict: 'user_id' }
     )

@@ -33,7 +33,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json, security_frameworks, board_security_maturity, product_type_exp, product_achievement, product_metric, coo_mandate_types, coo_ceo_partnership, cto_technical_flavor, cto_architecture_decision, data_maturity_orientation, data_platform_built, digital_background_type, digital_transformation_delivered')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json, role_context')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -51,19 +51,20 @@ export default async function ProfilePage({
   const beyondResume = profile?.beyond_resume ?? ''
   const linkedinUrl = profile?.linkedin_url ?? ''
 
-  const securityFrameworks    = ((profile?.security_frameworks as string[] | null) ?? []).join(', ')
-  const boardSecurityMaturity = profile?.board_security_maturity ?? ''
-  const productTypeExp        = profile?.product_type_exp ?? ''
-  const productAchievement    = profile?.product_achievement ?? ''
-  const productMetric         = profile?.product_metric ?? ''
-  const cooMandateTypes       = (profile?.coo_mandate_types as string[] | null) ?? []
-  const cooCeoPartnership     = profile?.coo_ceo_partnership ?? ''
-  const ctoTechnicalFlavor    = (profile?.cto_technical_flavor as string[] | null) ?? []
-  const ctoArchitectureDecision = profile?.cto_architecture_decision ?? ''
-  const dataMaturityOrientation = profile?.data_maturity_orientation ?? ''
-  const dataPlatformBuilt     = profile?.data_platform_built ?? ''
-  const digitalBackgroundType = profile?.digital_background_type ?? ''
-  const digitalTransformationDelivered = profile?.digital_transformation_delivered ?? ''
+  const roleCtx = (profile?.role_context as Record<string, unknown> | null) ?? {}
+  const securityFrameworks      = ((roleCtx.security_frameworks as string[] | null) ?? []).join(', ')
+  const boardSecurityMaturity   = (roleCtx.board_security_maturity as string | null) ?? ''
+  const productTypeExp          = (roleCtx.product_type_exp as string | null) ?? ''
+  const productAchievement      = (roleCtx.product_achievement as string | null) ?? ''
+  const productMetric           = (roleCtx.product_metric as string | null) ?? ''
+  const cooMandateTypes         = (roleCtx.coo_mandate_types as string[] | null) ?? []
+  const cooCeoPartnership       = (roleCtx.coo_ceo_partnership as string | null) ?? ''
+  const ctoTechnicalFlavor      = (roleCtx.cto_technical_flavor as string[] | null) ?? []
+  const ctoArchitectureDecision = (roleCtx.cto_architecture_decision as string | null) ?? ''
+  const dataMaturityOrientation = (roleCtx.data_maturity_orientation as string | null) ?? ''
+  const dataPlatformBuilt       = (roleCtx.data_platform_built as string | null) ?? ''
+  const digitalBackgroundType   = (roleCtx.digital_background_type as string | null) ?? ''
+  const digitalTransformationDelivered = (roleCtx.digital_transformation_delivered as string | null) ?? ''
 
   const BEYOND_RESUME_PLACEHOLDERS: Record<string, string> = {
     cio:          'What transformation have you driven that does not appear in your title? What is your model for the CIO-CEO relationship? What is the biggest technology decision you made under pressure?',

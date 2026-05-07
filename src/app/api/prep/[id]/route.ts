@@ -54,7 +54,7 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona, role_type, career_history_json, security_frameworks, board_security_maturity, product_type_exp, product_achievement, product_metric, coo_mandate_types, coo_ceo_partnership, cto_technical_flavor, cto_architecture_decision, data_maturity_orientation, data_platform_built, digital_background_type, digital_transformation_delivered')
+      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona, role_type, career_history_json, role_context')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -94,61 +94,47 @@ type ProfileRow = {
   target_titles?: string[] | null; target_sectors?: string[] | null
   positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null
   search_persona?: string | null; role_type?: string | null; career_history_json?: unknown | null
-  security_frameworks?: string[] | null; board_security_maturity?: string | null
-  product_type_exp?: string | null; product_achievement?: string | null; product_metric?: string | null
-  coo_mandate_types?: string[] | null; coo_ceo_partnership?: string | null
-  cto_technical_flavor?: string[] | null; cto_architecture_decision?: string | null
-  data_maturity_orientation?: string | null; data_platform_built?: string | null
-  digital_background_type?: string | null; digital_transformation_delivered?: string | null
+  role_context?: Record<string, unknown> | null
 }
 type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null }
 
 function buildRoleSpecificContext(profile: ProfileRow | null): string {
-  if (!profile) return ''
+  if (!profile?.role_context) return ''
+  const ctx = profile.role_context
   const lines: string[] = []
 
   if (profile.role_type === 'ciso') {
-    if ((profile.security_frameworks ?? []).length > 0)
-      lines.push(`Security frameworks implemented: ${profile.security_frameworks!.join(', ')}`)
-    if (profile.board_security_maturity)
-      lines.push(`Board security maturity context: ${profile.board_security_maturity}`)
+    const sf = ctx.security_frameworks as string[] | undefined
+    if (sf?.length) lines.push(`Security frameworks implemented: ${sf.join(', ')}`)
+    if (ctx.board_security_maturity) lines.push(`Board security maturity context: ${ctx.board_security_maturity}`)
   }
 
   if (profile.role_type === 'cpo') {
-    if (profile.product_type_exp)
-      lines.push(`Product experience type: ${profile.product_type_exp}`)
-    if (profile.product_achievement)
-      lines.push(`Key product achievement: ${profile.product_achievement}`)
-    if (profile.product_metric)
-      lines.push(`Primary metric moved: ${profile.product_metric}`)
+    if (ctx.product_type_exp) lines.push(`Product experience type: ${ctx.product_type_exp}`)
+    if (ctx.product_achievement) lines.push(`Key product achievement: ${ctx.product_achievement}`)
+    if (ctx.product_metric) lines.push(`Primary metric moved: ${ctx.product_metric}`)
   }
 
   if (profile.role_type === 'coo') {
-    if ((profile.coo_mandate_types ?? []).length > 0)
-      lines.push(`Mandate types targeted: ${profile.coo_mandate_types!.join(', ')}`)
-    if (profile.coo_ceo_partnership)
-      lines.push(`CEO partnership model: ${profile.coo_ceo_partnership}`)
+    const mt = ctx.coo_mandate_types as string[] | undefined
+    if (mt?.length) lines.push(`Mandate types targeted: ${mt.join(', ')}`)
+    if (ctx.coo_ceo_partnership) lines.push(`CEO partnership model: ${ctx.coo_ceo_partnership}`)
   }
 
   if (profile.role_type === 'cto') {
-    if ((profile.cto_technical_flavor ?? []).length > 0)
-      lines.push(`Technical flavor: ${profile.cto_technical_flavor!.join(', ')}`)
-    if (profile.cto_architecture_decision)
-      lines.push(`Key architectural decision: ${profile.cto_architecture_decision}`)
+    const tf = ctx.cto_technical_flavor as string[] | undefined
+    if (tf?.length) lines.push(`Technical flavor: ${tf.join(', ')}`)
+    if (ctx.cto_architecture_decision) lines.push(`Key architectural decision: ${ctx.cto_architecture_decision}`)
   }
 
   if (profile.role_type === 'cdo_data') {
-    if (profile.data_maturity_orientation)
-      lines.push(`Data mandate orientation: ${profile.data_maturity_orientation}`)
-    if (profile.data_platform_built)
-      lines.push(`Data platform built: ${profile.data_platform_built}`)
+    if (ctx.data_maturity_orientation) lines.push(`Data mandate orientation: ${ctx.data_maturity_orientation}`)
+    if (ctx.data_platform_built) lines.push(`Data platform built: ${ctx.data_platform_built}`)
   }
 
   if (profile.role_type === 'cdo_digital') {
-    if (profile.digital_background_type)
-      lines.push(`Professional background: ${profile.digital_background_type}`)
-    if (profile.digital_transformation_delivered)
-      lines.push(`Business transformation delivered: ${profile.digital_transformation_delivered}`)
+    if (ctx.digital_background_type) lines.push(`Professional background: ${ctx.digital_background_type}`)
+    if (ctx.digital_transformation_delivered) lines.push(`Business transformation delivered: ${ctx.digital_transformation_delivered}`)
   }
 
   return lines.length > 0 ? '\n' + lines.join('\n') : ''
