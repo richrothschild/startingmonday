@@ -208,7 +208,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
               {' · '}
               <Link href="/for-cio" className="text-slate-400 hover:text-slate-200 underline transition-colors">
-                For active CIO/CTO search
+                For the C-Suite
               </Link>
             </p>
           )}
