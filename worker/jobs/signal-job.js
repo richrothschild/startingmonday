@@ -7,7 +7,7 @@ import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-cr
 import { findPressRoomArticles } from '../signals/fetch-press-room.js'
 import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
 import { fetchPrWire } from '../signals/fetch-pr-wire.js'
-import { fetchProxycurlExecs } from '../signals/fetch-proxycurl-execs.js'
+import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
 
@@ -188,7 +188,7 @@ export async function runSignalJob() {
             }
           }
           // Proxycurl exec snapshot — detect departures and hires by diffing LinkedIn data
-          if (process.env.PROXYCURL_API_KEY) {
+          if (process.env.PDL_API_KEY) {
             const today = new Date().toISOString().split('T')[0]
             const { data: existingSnapshot } = await supabase
               .from('exec_snapshots')
@@ -198,7 +198,7 @@ export async function runSignalJob() {
               .maybeSingle()
 
             if (!existingSnapshot) {
-              const currentExecs = await fetchProxycurlExecs(company.name, company.linkedin_url ?? null)
+              const currentExecs = await fetchPdlExecs(company.name, company.company_url ?? null)
               if (currentExecs.length > 0) {
                 const { departures, hires } = await diffExecSnapshot(supabase, company.id, currentExecs, today)
 
