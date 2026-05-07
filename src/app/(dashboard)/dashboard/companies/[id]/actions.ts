@@ -30,6 +30,7 @@ export async function updateCompany(id: string, formData: FormData) {
   const careerPageUrl = str(formData, 'career_page_url') || null
   const notes = str(formData, 'notes') || null
   const competitiveContext = str(formData, 'competitive_context') || null
+  const interviewNotes = str(formData, 'interview_notes') || null
   const validSizes = ['startup', 'midmarket', 'enterprise'] as const
   const companySize = validSizes.find(v => v === str(formData, 'company_size')) ?? null
 
@@ -37,7 +38,7 @@ export async function updateCompany(id: string, formData: FormData) {
 
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, notes, competitive_context: competitiveContext, company_size: companySize })
+    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize })
     .eq('id', id)
     .eq('user_id', user.id)
 

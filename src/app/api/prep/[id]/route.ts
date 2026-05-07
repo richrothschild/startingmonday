@@ -48,7 +48,7 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
   const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }] = await Promise.all([
     supabase
       .from('companies')
-      .select('name, sector, stage, company_size, notes, competitive_context')
+      .select('name, sector, stage, company_size, notes, competitive_context, interview_notes')
       .eq('id', companyId)
       .eq('user_id', userId)
       .single(),
@@ -96,7 +96,7 @@ type ProfileRow = {
   search_persona?: string | null; role_type?: string | null; career_history_json?: unknown | null
   role_context?: Record<string, unknown> | null
 }
-type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null; competitive_context?: string | null }
+type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null; competitive_context?: string | null; interview_notes?: string | null }
 
 function buildRoleSpecificContext(profile: ProfileRow | null): string {
   if (!profile?.role_context) return ''
@@ -191,7 +191,19 @@ Win Thesis: name the decisive advantage over the specific alternatives described
 Anticipated Pushback: the first or second objection must be the competitive comparison most likely to be raised in the room. State it directly and give the exact counter.
 Do not soften or genericize the competitive framing. Write as if the interviewer already has the other candidate's resume in front of them.` : ''}
 
-JOB SCAN DATA
+${company.interview_notes ? `PRIOR INTERVIEW NOTES
+These are the candidate's own notes from prior conversations at this company. Treat as authoritative first-person reporting.
+${company.interview_notes}
+
+PRIOR INTERVIEW NOTES INSTRUCTION
+These notes change the brief in specific ways:
+- Any objection raised in a prior conversation becomes the first item in Anticipated Pushback, with a stronger and more specific counter than whatever they used before.
+- Likely Questions must reflect what was actually asked, weighted ahead of what might be asked.
+- Win Thesis must directly address anything that caused hesitation or uncertainty in a prior conversation.
+- Amplify what landed well. Build more of the brief around it.
+- If the notes mention something the interviewer emphasized or cared about, surface it prominently.
+
+` : ''}JOB SCAN DATA
 ${scanSection}
 ${signalSection ? `\nCOMPANY SIGNALS (recent news events)\n${signalSection}` : ''}
 

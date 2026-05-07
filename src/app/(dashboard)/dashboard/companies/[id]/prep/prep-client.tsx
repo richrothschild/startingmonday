@@ -242,7 +242,11 @@ export function PrepClient({
   stageLabel,
   hasContacts,
   hasNotes,
+  hasInterviewNotes,
   roleType,
+  hasCareerHistory,
+  hasPositioning,
+  hasTargetTitles,
 }: {
   companyId: string
   companyName: string
@@ -250,7 +254,11 @@ export function PrepClient({
   stageLabel: string
   hasContacts: boolean
   hasNotes: boolean
+  hasInterviewNotes: boolean
   roleType: string | null
+  hasCareerHistory: boolean
+  hasPositioning: boolean
+  hasTargetTitles: boolean
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -414,22 +422,53 @@ export function PrepClient({
           </div>
         )}
 
-        {!brief && !busy && !hasNotes && (
-          <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[12px] font-semibold text-amber-700 mb-0.5">No company notes yet</p>
-              <p className="text-[12px] text-amber-600">
-                {(roleType && NO_NOTES_MESSAGES[roleType]) ?? 'Company notes are the single biggest lever for prep brief quality. Add context before generating.'}
-              </p>
+        {!brief && !busy && (() => {
+          const warnings: { key: string; label: string; message: string; href: string; cta: string }[] = []
+          if (!hasCareerHistory) warnings.push({
+            key: 'career',
+            label: 'No career history',
+            message: 'The brief cannot personalize your background. Add verified career history on your profile.',
+            href: '/dashboard/profile',
+            cta: 'Add career history',
+          })
+          if (!hasPositioning) warnings.push({
+            key: 'positioning',
+            label: 'No positioning summary',
+            message: 'Win Thesis will be less differentiated without a positioning statement.',
+            href: '/dashboard/profile',
+            cta: 'Add positioning',
+          })
+          if (!hasTargetTitles) warnings.push({
+            key: 'targets',
+            label: 'No target roles set',
+            message: 'The brief cannot calibrate to your targets without at least one target title.',
+            href: '/dashboard/profile',
+            cta: 'Set targets',
+          })
+          if (!hasNotes) warnings.push({
+            key: 'notes',
+            label: 'No company notes',
+            message: (roleType && NO_NOTES_MESSAGES[roleType]) ?? 'Company notes are the single biggest lever for brief quality.',
+            href: `/dashboard/companies/${companyId}`,
+            cta: 'Add notes',
+          })
+          if (warnings.length === 0) return null
+          return (
+            <div className="mb-4 flex flex-col gap-2">
+              {warnings.map(w => (
+                <div key={w.key} className="px-4 py-3 bg-amber-50 border border-amber-200 rounded flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[12px] font-semibold text-amber-700 mb-0.5">{w.label}</p>
+                    <p className="text-[12px] text-amber-600">{w.message}</p>
+                  </div>
+                  <Link href={w.href} className="shrink-0 text-[11px] font-semibold text-amber-700 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors whitespace-nowrap">
+                    {w.cta}
+                  </Link>
+                </div>
+              ))}
             </div>
-            <Link
-              href={`/dashboard/companies/${companyId}`}
-              className="shrink-0 text-[11px] font-semibold text-amber-700 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors whitespace-nowrap"
-            >
-              Add notes
-            </Link>
-          </div>
-        )}
+          )
+        })()}
 
         {!brief && !busy && !error && (
           <div className="bg-white border border-slate-200 rounded p-8 sm:p-10 text-center">
@@ -471,6 +510,47 @@ export function PrepClient({
             <BriefRating briefId={briefId} />
           </div>
         )}
+
+        {brief && !busy && (() => {
+          const nudges: { href: string; cta: string; message: string }[] = []
+          if (!hasInterviewNotes && (companyStage === 'interviewing' || companyStage === 'offer')) nudges.push({
+            message: 'Add post-interview notes to sharpen the next brief based on what was actually asked.',
+            href: `/dashboard/companies/${companyId}`,
+            cta: 'Add interview notes',
+          })
+          if (!hasCareerHistory) nudges.push({
+            message: 'Verified career history would make the Win Thesis and Talking Points significantly more specific.',
+            href: '/dashboard/profile',
+            cta: 'Add career history',
+          })
+          if (!hasPositioning) nudges.push({
+            message: 'A positioning summary sharpens the Win Thesis and Bottom Line.',
+            href: '/dashboard/profile',
+            cta: 'Add positioning',
+          })
+          if (!hasNotes) nudges.push({
+            message: 'Company notes are the single biggest lever. Add intel before the next regenerate.',
+            href: `/dashboard/companies/${companyId}`,
+            cta: 'Add notes',
+          })
+          const top = nudges.slice(0, 2)
+          if (top.length === 0) return null
+          return (
+            <div className="mb-4 bg-white border border-slate-200 rounded p-5">
+              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">What would sharpen the next brief</p>
+              <div className="flex flex-col gap-2.5">
+                {top.map((n, i) => (
+                  <div key={i} className="flex items-start justify-between gap-4">
+                    <p className="text-[13px] text-slate-600">{n.message}</p>
+                    <Link href={n.href} className="shrink-0 text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 transition-colors whitespace-nowrap">
+                      {n.cta}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        })()}
 
         {brief && !loading && (
           <>

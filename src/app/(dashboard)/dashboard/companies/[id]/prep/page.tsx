@@ -23,7 +23,7 @@ export default async function PrepPage({
   const [{ data: company }, { count: contactCount }, { data: profile }] = await Promise.all([
     supabase
       .from('companies')
-      .select('name, stage, notes')
+      .select('name, stage, notes, interview_notes')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -36,12 +36,16 @@ export default async function PrepPage({
       .eq('status', 'active'),
     supabase
       .from('user_profiles')
-      .select('role_type')
+      .select('role_type, positioning_summary, target_titles, career_history_json')
       .eq('user_id', user.id)
       .single(),
   ])
 
   if (!company) notFound()
+
+  const hasCareerHistory = Array.isArray(profile?.career_history_json) && (profile.career_history_json as unknown[]).length > 0
+  const hasPositioning = !!(profile?.positioning_summary?.trim())
+  const hasTargetTitles = (profile?.target_titles ?? []).length > 0
 
   return (
     <PrepClient
@@ -51,7 +55,11 @@ export default async function PrepPage({
       stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
       hasContacts={(contactCount ?? 0) > 0}
       hasNotes={!!(company.notes?.trim())}
+      hasInterviewNotes={!!(company.interview_notes?.trim())}
       roleType={profile?.role_type ?? null}
+      hasCareerHistory={hasCareerHistory}
+      hasPositioning={hasPositioning}
+      hasTargetTitles={hasTargetTitles}
     />
   )
 }
