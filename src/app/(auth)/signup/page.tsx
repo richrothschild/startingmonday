@@ -72,7 +72,7 @@ export default function SignupPage() {
         </div>
       </header>
 
-      <main className="flex items-center justify-center px-6 py-20">
+      <main className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 py-16">
         <div className="w-full max-w-sm">
 
           {confirmed ? (
@@ -186,11 +186,11 @@ export default function SignupPage() {
             </>
           )}
 
-        </div>
+          <p className="text-center text-[11px] text-slate-300 mt-8">
+            &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+          </p>
 
-        <p className="text-center text-[11px] text-slate-300 mt-8 pb-6">
-          &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
-        </p>
+        </div>
       </main>
     </div>
   )
