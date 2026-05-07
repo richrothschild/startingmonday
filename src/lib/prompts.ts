@@ -222,6 +222,143 @@ FORBIDDEN: Framing the VP experience as "almost C-suite" or "on the path to C-su
   return contexts[roleType] ? `\n${contexts[roleType]}` : ''
 }
 
+// ── Interview stage context ───────────────────────────────────────────────────
+
+export type InterviewStage = 'recruiter_screen' | 'first_interview' | 'executive_interview' | 'board_presentation' | 'final_round'
+
+export function interviewStageContext(stage: InterviewStage | null, roleType: string | null | undefined): string {
+  if (!stage || stage === 'executive_interview') return ''
+
+  if (stage === 'recruiter_screen') {
+    return `\nINTERVIEW STAGE: RECRUITER SCREEN
+
+This brief is for a 30-45 minute conversation with a recruiter or HR professional whose job is filtering, not deciding. Do not write for the hiring manager. Write for this stage.
+
+Replace the standard brief format with these five sections only:
+
+## Bottom Line
+Three sentences. First: the single credential or story that passes the filter. Second: the one thing that might screen them out and how to preempt it. Third: the one impression to leave the recruiter with.
+
+## Filter Survival
+What this recruiter will check: hard requirements (title, years of experience, geography, comp band). Format as a checklist of likely gates with a one-sentence pass response for each. Be specific to what this company and role type require.
+
+## Compensation Frame
+How to handle the comp question (it will come in a recruiter screen). Three specific moves: how to avoid anchoring low, how to redirect if pressed before knowing the band, and what to say if the disclosed band is below expectations.
+
+## Departure Story
+Draft a clean 2-sentence departure or transition story. If currently employed, draft the "why are you looking?" response in 30 seconds or less.
+
+## Questions to Ask
+2-3 questions appropriate for a recruiter screen: questions that signal engagement without exceeding what a recruiter can answer. No questions about strategy, budget authority, or board dynamics.
+
+Omit all other standard sections. Brief must be concise: under 600 words total.`
+  }
+
+  if (stage === 'first_interview') {
+    return `\nINTERVIEW STAGE: FIRST INTERVIEW (HIRING MANAGER)
+
+This brief is for the first substantive conversation with the hiring manager or a key internal stakeholder. Role fit, cultural read, and initial credibility are being assessed. The decision to move forward is made here.
+
+Use the standard brief format with one addition: insert a "First Impression Frame" section immediately after Bottom Line containing:
+1. The single sentence to say when they ask "tell me about yourself": written for this specific role and candidate background. Ready to say verbatim.
+2. The posture calibration: what impression to optimize for in this specific conversation.
+3. The three things to confirm before the call ends that signal this conversation moved forward.`
+  }
+
+  if (stage === 'board_presentation') {
+    if (roleType === 'ciso') {
+      return `\nINTERVIEW STAGE: BOARD PRESENTATION (CISO)
+
+This is not an interview. It is a presentation to a board committee or full board. Replace the standard brief format with a board presentation preparation guide using these exact sections:
+
+## Bottom Line
+Three sentences. First: the risk narrative that will resonate with this specific board. Second: the objection most likely from a board member (audit chair, skeptic, former CIO). Third: the single impression to leave at the end of the session.
+
+## Presentation Outline
+Recommended structure for a 20-30 minute board presentation: opening risk frame, current state assessment, top 3 priorities and rationale, specific ask (budget, team, mandate), Q&A.
+
+## Risk Narrative
+How to open: frame the company's security posture in business risk terms, not technical terms. Write the opening 3-4 sentences the candidate can say verbatim to set the frame.
+
+## The Ask
+What to request, how to frame it in board language (liability reduction, regulatory exposure, ROI), and how to handle pushback on cost.
+
+## Anticipated Board Questions
+The 4-5 questions board members will ask given this company's sector and situation.
+**They ask:** [question]
+**What they're really asking:** [underlying concern]
+**The answer:** [board-level, no jargon, 2-3 sentences]
+
+## How to Close the Session
+What to say in the last 60 seconds. The one thought to leave them with. What to send within 24 hours.
+
+Omit all standard interview sections.`
+    }
+
+    if (roleType === 'cio') {
+      return `\nINTERVIEW STAGE: BOARD PRESENTATION (CIO)
+
+This is not an interview. It is a presentation to a board committee or full board. Replace the standard brief format with a board presentation preparation guide using these exact sections:
+
+## Bottom Line
+Three sentences. First: the technology strategy narrative this board needs to hear. Second: the objection most likely from a board member (CFO skepticism, prior investment failures, digital fatigue). Third: the one impression to leave.
+
+## Presentation Outline
+Recommended structure for a 20-30 minute board presentation: technology strategy aligned to business goals, current state assessment, transformation thesis and sequencing, investment rationale, governance model going forward.
+
+## Technology Strategy Frame
+How to open: connect technology investment to business outcome in language the board already cares about. Write the opening 3-4 sentences the candidate can say verbatim. No technical architecture. Business value only.
+
+## Investment Rationale
+How to frame the budget ask in terms the board recognizes: risk reduced, revenue enabled, cost removed. Write 3 specific framings they can adapt to this company's numbers.
+
+## Anticipated Board Questions
+The 4-5 questions board members will ask at this specific company.
+**They ask:** [question]
+**What they're really asking:** [underlying concern]
+**The answer:** [board-level, jargon-free, 2-3 sentences]
+
+## How to Close the Session
+Last 60 seconds. The one thought to leave them with. What to send within 24 hours.
+
+Omit all standard interview sections.`
+    }
+
+    return `\nINTERVIEW STAGE: BOARD PRESENTATION
+
+This is a presentation to a board or senior leadership committee. Boards evaluate on strategic clarity, governance judgment, and executive presence, not credentials.
+
+Use the standard brief format with these modifications:
+- Add a "How to Open" section before Bottom Line: the 3-4 sentences to say when introducing yourself to a board room, calibrated to this company's sector and stage.
+- Bottom Line and Win Thesis: frame for governance and strategic fit, not operational fit.
+- Anticipated Pushback: replace with board-level objections: governance credibility, strategic alignment, ownership structure fit.
+- Questions to Ask: boardroom-appropriate only. No operational questions. Questions that signal governance awareness and long-term strategic thinking.`
+  }
+
+  if (stage === 'final_round') {
+    return `\nINTERVIEW STAGE: FINAL ROUND
+
+The candidate has already proved their fit. The question is no longer "can they do the job". It is "will they accept and will they be the right long-term bet."
+
+Use the standard brief format with these modifications:
+
+1. Bottom Line: three sentences on closing the offer, not proving fit. First: what is left to prove (if anything). Second: what could still derail an offer at this stage. Third: the exact impression to leave.
+
+2. Compress Win Thesis, Likely Questions, and Talking Points to 2-3 bullets each. These are already established. No need to relitigate.
+
+3. Expand "How to Close" to be the primary section. Include:
+   - The exact language to express conviction about this specific role
+   - How to handle competing offers or deadlines if relevant
+   - Negotiation posture: when and how to raise comp, title, scope, or start date without jeopardizing the offer
+
+4. Add a "Reference Preparation" section. Name the 2-3 reference types most valuable for this role and this candidate's background. For each: what to ask the reference to emphasize, what to brief them on, how to frame the call request.
+
+5. Reading the Room must focus on final-round signals: offer imminent, committee split, internal candidate complication, or deal about to break.`
+  }
+
+  return ''
+}
+
 // ── Feature system prompts ────────────────────────────────────────────────────
 
 export const STRATEGY_SYSTEM =

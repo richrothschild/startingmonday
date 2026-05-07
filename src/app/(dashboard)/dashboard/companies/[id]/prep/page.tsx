@@ -47,6 +47,7 @@ export default async function PrepPage({
     <PrepClient
       companyId={id}
       companyName={company.name}
+      companyStage={company.stage}
       stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
       hasContacts={(contactCount ?? 0) > 0}
       hasNotes={!!(company.notes?.trim())}

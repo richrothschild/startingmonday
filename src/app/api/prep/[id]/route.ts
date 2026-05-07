@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { PREP_SYSTEM, personaContext, roleTypeContext, transitionModeContext } from '@/lib/prompts'
+import { PREP_SYSTEM, personaContext, roleTypeContext, transitionModeContext, interviewStageContext, type InterviewStage } from '@/lib/prompts'
 import type { CareerEntry } from '@/components/CareerVerificationPanel'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
@@ -140,7 +140,7 @@ function buildRoleSpecificContext(profile: ProfileRow | null): string {
   return lines.length > 0 ? '\n' + lines.join('\n') : ''
 }
 
-function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null) {
+function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
@@ -172,7 +172,9 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
     enterprise: 'Enterprise (2,000+ employees)',
   }
 
-  const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
+  const stageCtx = interviewStageContext(interviewStage, profile?.role_type)
+
+  const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.${stageCtx}
 
 CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${roleTypeContext(profile?.role_type)}${transitionModeContext(profile?.search_persona, profile?.target_titles, profile?.role_type)}
@@ -288,6 +290,7 @@ export async function GET(
   }
 
   const postingUrl = request.nextUrl.searchParams.get('posting_url')
+  const interviewStage = (request.nextUrl.searchParams.get('interview_stage') ?? null) as InterviewStage | null
   let allDocuments = documents
   if (postingUrl) {
     try {
@@ -302,7 +305,7 @@ export async function GET(
     } catch { /* ignore fetch errors, fall back to existing docs */ }
   }
 
-  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals)
+  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals, interviewStage)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],

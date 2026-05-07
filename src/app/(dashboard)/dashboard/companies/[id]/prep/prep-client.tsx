@@ -3,6 +3,23 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { getRelevantResources, getDefaultResources, type Resource } from '@/lib/resources'
 import { BriefRating } from '@/components/BriefRating'
+import type { InterviewStage } from '@/lib/prompts'
+
+const STAGE_OPTIONS: { value: InterviewStage; label: string }[] = [
+  { value: 'recruiter_screen',    label: 'Recruiter Screen' },
+  { value: 'first_interview',     label: 'First Interview' },
+  { value: 'executive_interview', label: 'Executive Interview' },
+  { value: 'board_presentation',  label: 'Board Presentation' },
+  { value: 'final_round',         label: 'Final Round' },
+]
+
+const DEFAULT_INTERVIEW_STAGE: Record<string, InterviewStage> = {
+  watching:    'executive_interview',
+  researching: 'executive_interview',
+  applied:     'recruiter_screen',
+  interviewing:'first_interview',
+  offer:       'final_round',
+}
 
 function escapeHtml(str: string): string {
   return str
@@ -221,6 +238,7 @@ const NO_NOTES_MESSAGES: Record<string, string> = {
 export function PrepClient({
   companyId,
   companyName,
+  companyStage,
   stageLabel,
   hasContacts,
   hasNotes,
@@ -228,6 +246,7 @@ export function PrepClient({
 }: {
   companyId: string
   companyName: string
+  companyStage: string
   stageLabel: string
   hasContacts: boolean
   hasNotes: boolean
@@ -240,6 +259,9 @@ export function PrepClient({
   const [refineInput, setRefineInput] = useState('')
   const [refining, setRefining] = useState(false)
   const [postingUrl, setPostingUrl] = useState('')
+  const [interviewStage, setInterviewStage] = useState<InterviewStage>(
+    DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
+  )
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
   const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
@@ -259,6 +281,7 @@ export function PrepClient({
     try {
       const url = new URL(`/api/prep/${companyId}`, window.location.origin)
       if (postingUrl.trim()) url.searchParams.set('posting_url', postingUrl.trim())
+      url.searchParams.set('interview_stage', interviewStage)
       const res = await fetch(url.toString())
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
@@ -337,28 +360,51 @@ export function PrepClient({
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
-          <div>
-            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
-            <p className="text-[13px] text-slate-500 mt-1.5">{companyName} · {stageLabel}</p>
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6 mb-5">
+            <div>
+              <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
+              <p className="text-[13px] text-slate-500 mt-1.5">{companyName} · {stageLabel}</p>
+            </div>
+            <div className="flex flex-col items-stretch sm:items-end gap-2 shrink-0">
+              <input
+                type="url"
+                value={postingUrl}
+                onChange={e => setPostingUrl(e.target.value)}
+                placeholder="Paste job posting URL (optional)"
+                disabled={busy}
+                className="text-[12px] text-slate-700 placeholder-slate-400 border border-slate-200 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
+              />
+              <button
+                type="button"
+                onClick={handleGenerate}
+                disabled={busy}
+                className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
+              </button>
+            </div>
           </div>
-          <div className="flex flex-col items-stretch sm:items-end gap-2 shrink-0">
-            <input
-              type="url"
-              value={postingUrl}
-              onChange={e => setPostingUrl(e.target.value)}
-              placeholder="Paste job posting URL (optional)"
-              disabled={busy}
-              className="text-[12px] text-slate-700 placeholder-slate-400 border border-slate-200 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
-            />
-            <button
-              type="button"
-              onClick={handleGenerate}
-              disabled={busy}
-              className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
-            </button>
+
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Interview stage</p>
+            <div className="flex flex-wrap gap-1.5">
+              {STAGE_OPTIONS.map(opt => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setInterviewStage(opt.value)}
+                  disabled={busy}
+                  className={`text-[12px] font-medium px-3 py-1.5 rounded border transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${
+                    interviewStage === opt.value
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
