@@ -268,7 +268,7 @@ The case against building it now is stronger: Starting Monday has zero paying cu
 | Next Monday at $145K ARR | Q4 2029 | Launch B2B channel with mass-market outplacement firms. |
 | Combined portfolio exit evaluation | Q1 2031 | Sell Starting Monday + Next Monday together. Target: $20-28M. |
 
-**The holding move for today:** Register the domain. Protect the brand. Put a one-sentence waitlist page up if you want to capture signal. Do nothing else until the sequence above says otherwise.
+**The holding move for today:** Domain secured (nextmonday.app, purchased May 7, 2026). Put a one-sentence waitlist page up if you want to capture signal. Do nothing else until the sequence above says otherwise.
 
 ---
 
