@@ -224,34 +224,34 @@ FORBIDDEN: Framing the VP experience as "almost C-suite" or "on the path to C-su
 
 // ── Interview stage context ───────────────────────────────────────────────────
 
-export type InterviewStage = 'recruiter_screen' | 'first_interview' | 'executive_interview' | 'board_presentation' | 'final_round'
+export type InterviewStage = 'informal_meeting' | 'first_interview' | 'executive_interview' | 'board_presentation' | 'final_round'
 
 export function interviewStageContext(stage: InterviewStage | null, roleType: string | null | undefined): string {
   if (!stage || stage === 'executive_interview') return ''
 
-  if (stage === 'recruiter_screen') {
-    return `\nINTERVIEW STAGE: RECRUITER SCREEN
+  if (stage === 'informal_meeting') {
+    return `\nMEETING TYPE: INFORMAL / DISCOVERY
 
-This brief is for a 30-45 minute conversation with a recruiter or HR professional whose job is filtering, not deciding. Do not write for the hiring manager. Write for this stage.
+This is not a formal interview. It is an unstructured or semi-structured conversation: a recruiter check-in, a search firm introduction, a pre-presentation call, a networking coffee with an insider, an informal meeting with a decision-maker, or any conversation that is not a scheduled interview stage. Standard interview prep does not apply here.
 
 Replace the standard brief format with these five sections only:
 
 ## Bottom Line
-Three sentences. First: the single credential or story that passes the filter. Second: the one thing that might screen them out and how to preempt it. Third: the one impression to leave the recruiter with.
+Three sentences. First: the one thing to convey in this conversation that moves the candidacy forward. Second: the one thing that could derail it if mishandled. Third: how to leave this person wanting to advance the process without coming across as overselling.
 
-## Filter Survival
-What this recruiter will check: hard requirements (title, years of experience, geography, comp band). Format as a checklist of likely gates with a one-sentence pass response for each. Be specific to what this company and role type require.
+## Their Likely Agenda
+What this person probably wants to cover, based on who they are and where the candidate is in the process. Be specific to the type of conversation and the role of the person on the other end. Format as 3-4 likely topics, each with one sentence on how to handle it cleanly.
 
-## Compensation Frame
-How to handle the comp question (it will come in a recruiter screen). Three specific moves: how to avoid anchoring low, how to redirect if pressed before knowing the band, and what to say if the disclosed band is below expectations.
+## Intel to Extract
+What the candidate should find out from this conversation. This is as important as what they say. Format as 5-6 specific questions or topics to probe: about the role, the decision-maker, the timeline, the competitive field, the organization's priorities, or what the other person cares about. For each, note in one sentence why it matters to the candidacy.
 
-## Departure Story
-Draft a clean 2-sentence departure or transition story. If currently employed, draft the "why are you looking?" response in 30 seconds or less.
+## How to Handle the Sensitive Topics
+The 2-3 topics most likely to come up that require careful handling: compensation, departure story, availability, current search activity, or other candidates. For each: the exact framing to use, written as something ready to say in 1-2 sentences. No hedging. Specific language.
 
-## Questions to Ask
-2-3 questions appropriate for a recruiter screen: questions that signal engagement without exceeding what a recruiter can answer. No questions about strategy, budget authority, or board dynamics.
+## Follow-Up
+What to do within 24 hours. Specific: what to send, to whom, in what tone, and what one thing to reference from the conversation to show they were paying attention. If nothing needs to be sent, say so and say why.
 
-Omit all other standard sections. Brief must be concise: under 600 words total.`
+Omit all other standard sections. Brief must be direct and concise: under 600 words total.`
   }
 
   if (stage === 'first_interview') {

@@ -6,7 +6,7 @@ import { BriefRating } from '@/components/BriefRating'
 import type { InterviewStage } from '@/lib/prompts'
 
 const STAGE_OPTIONS: { value: InterviewStage; label: string }[] = [
-  { value: 'recruiter_screen',    label: 'Recruiter Screen' },
+  { value: 'informal_meeting',    label: 'Informal Meeting' },
   { value: 'first_interview',     label: 'First Interview' },
   { value: 'executive_interview', label: 'Executive Interview' },
   { value: 'board_presentation',  label: 'Board Presentation' },
@@ -16,7 +16,7 @@ const STAGE_OPTIONS: { value: InterviewStage; label: string }[] = [
 const DEFAULT_INTERVIEW_STAGE: Record<string, InterviewStage> = {
   watching:    'executive_interview',
   researching: 'executive_interview',
-  applied:     'recruiter_screen',
+  applied:     'informal_meeting',
   interviewing:'first_interview',
   offer:       'final_round',
 }
