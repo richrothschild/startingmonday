@@ -350,6 +350,7 @@ export default async function CompanyPage({
                   placeholder="Warm intro through Sarah, strong culture fit…"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
+                <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>
               </div>
 
               <div>

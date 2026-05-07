@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { saveProfile } from './actions'
+import { saveProfile, deleteNotes } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
 import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
@@ -440,6 +440,23 @@ export default async function ProfilePage({
           </p>
         </div>
 
+        <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+            Sensitive notes
+          </p>
+          <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
+            Your positioning summary, beyond-resume notes, and verified career history are stored only in your account and used only to generate your briefs.
+            You can delete them at any time. Your account, email, and pipeline will not be affected.
+          </p>
+          <form action={deleteNotes}>
+            <button
+              type="submit"
+              className="text-[13px] text-red-600 hover:text-red-800 cursor-pointer bg-transparent border-0 p-0 underline underline-offset-2"
+            >
+              Delete sensitive notes
+            </button>
+          </form>
+        </div>
 
       </main>
     </div>

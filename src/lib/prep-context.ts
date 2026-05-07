@@ -30,14 +30,14 @@ export const DOC_LABEL_NAMES: Record<string, string> = {
 }
 
 export function buildScanSection(scanResults: ScanRow[] | null): string {
-  if (!scanResults?.[0]) return 'No career page scans on file.'
+  if (!scanResults?.[0]) return 'No career page scan on file. The role may be unlisted or filled through retained search. Use company notes, signals, and sector context to infer the likely mandate.'
   const scan = scanResults[0]
   const matches = ((scan.raw_hits ?? []) as { title: string; score: number; is_match: boolean; summary: string }[])
     .filter(h => h.is_match)
   const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' })
   return matches.length > 0
     ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
-    : `Career page scanned ${date}, no matching roles detected.`
+    : `Career page scanned ${date}. No matching roles found on the public career page. The role may be unlisted, filled through retained search, or posted under a different title. Use company notes, signals, and sector context to infer the likely mandate.`
 }
 
 export function buildSignalSection(signals: Signal[] | null): string | null {

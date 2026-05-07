@@ -198,6 +198,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[13px] text-slate-400 mt-5 leading-relaxed max-w-md">
             <span className="font-semibold text-white">Your search stays invisible.</span>{' '}
             We never share your identity, your targets, or your activity with employers, recruiters, or anyone else.
+            Your data is stored in an encrypted, isolated database under your account. No other user or employer can access it.{' '}
+            <Link href="/security" className="text-slate-400 underline hover:text-slate-200 transition-colors">Security details</Link>
           </p>
 
           {showPersonaSelector && (
@@ -517,6 +519,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
               <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">LinkedIn</a>
+              <Link href="/security" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Security</Link>
               <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>

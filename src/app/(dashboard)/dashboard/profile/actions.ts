@@ -5,6 +5,24 @@ import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 
+export async function deleteNotes() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  await supabase
+    .from('user_profiles')
+    .update({
+      positioning_summary: null,
+      beyond_resume: null,
+      career_history_json: null,
+    })
+    .eq('user_id', user.id)
+
+  revalidatePath('/dashboard/profile')
+  redirect('/dashboard/profile?saved=1')
+}
+
 export async function saveProfile(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
