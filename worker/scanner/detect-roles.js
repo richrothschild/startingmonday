@@ -1,5 +1,6 @@
 const LEVEL_KEYWORDS = [
-  'vp', 'vice president', 'director', 'head of', 'chief', 'cio', 'cto', 'coo', 'cfo', 'cpo',
+  'vp', 'svp', 'evp', 'vice president', 'director', 'head of', 'chief',
+  'cio', 'cto', 'coo', 'cfo', 'cpo', 'ciso', 'cdo', 'cmo', 'chro',
   'principal', 'staff', 'senior', 'lead', 'manager', 'president', 'fellow',
 ];
 
@@ -7,6 +8,7 @@ const FUNCTION_KEYWORDS = [
   'technology', 'engineering', 'it ', 'information technology', 'infrastructure',
   'digital', 'transformation', 'operations', 'product', 'platform', 'data', 'security',
   'software', 'systems', 'architecture', 'cloud', 'devops', 'ai', 'machine learning',
+  'analytics', 'cybersecurity', 'information security', 'compliance', 'data science', 'marketing',
 ];
 
 const MAX_HITS = 20;

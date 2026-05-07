@@ -7,14 +7,26 @@ function getClient() {
   return _client
 }
 
+const SIGNAL_PRIORITIES = {
+  cio:          'Leadership changes in technology functions, digital transformation announcements, and IT investment decisions are high-priority signals for this candidate.',
+  cto:          'Engineering leadership changes, product launches, funding rounds with engineering buildout, and technical architecture announcements are high-priority signals.',
+  cdo_data:     'Data platform investments, AI and analytics announcements, chief data or AI officer appointments, and data governance changes are high-priority signals.',
+  cdo_digital:  'Digital transformation announcements, customer experience investments, and e-commerce or omnichannel initiatives are high-priority signals.',
+  ciso:         'Security incidents or breach disclosures, regulatory changes, CISO departures, and compliance deadline announcements are the highest-priority signals for this candidate.',
+  cpo:          'Product launches and pivots, competitor feature announcements, product leadership changes, and app store or review rating movements are high-priority signals.',
+  coo:          'M&A announcements, revenue pressure or EBITDA signals, operational leadership changes, and CEO changes are the highest-priority signals for this candidate.',
+  vp_technology:'Technology leadership changes, CIO or CTO role openings, and technology transformation announcements are high-priority signals.',
+}
+
 // Classifies a news article as a hiring-relevant signal using Claude Haiku.
 // Returns { is_signal, signal_type, confidence, signal_summary, outreach_angle }
-export async function classifySignal(companyName, article) {
+export async function classifySignal(companyName, article, roleType = null) {
+  const signalPriority = roleType ? (SIGNAL_PRIORITIES[roleType] ?? '') : ''
   const prompt = `You are analyzing a news article about "${companyName}" to determine if it is a meaningful signal for an executive job seeker targeting this company.
 
 Article title: ${article.title}
 Description: ${article.description || '(none)'}
-Published: ${article.pubDate || 'unknown'}
+Published: ${article.pubDate || 'unknown'}${signalPriority ? `\n\nCandidate context: ${signalPriority}` : ''}
 
 Output JSON only, no markdown fences:
 {

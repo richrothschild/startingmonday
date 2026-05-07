@@ -11,9 +11,21 @@ const SYSTEM_PROMPT =
   'You are an AI assistant that evaluates job posting fit. ' +
   'Respond only with valid JSON. No explanation, no markdown.';
 
+const ROLE_TYPE_HINTS = {
+  cio:          'Also treat as strong matches: VP Technology, VP IT, Head of Technology, SVP Technology.',
+  cto:          'Also treat as strong matches: VP Engineering, SVP Engineering, Head of Engineering, Chief Architect.',
+  cdo_data:     'Also treat as strong matches: Head of Data, SVP Analytics, VP Data Science, Chief AI Officer, VP Data and Analytics.',
+  cdo_digital:  'Also treat as strong matches: VP Digital Transformation, Head of Digital, SVP Digital, VP Digital Strategy.',
+  ciso:         'Also treat as strong matches: VP Information Security, Director of Cybersecurity, Head of Security, Chief Security Officer, VP Cybersecurity.',
+  cpo:          'Also treat as strong matches: VP Product, Head of Product, GM Product, SVP Product, VP Product Management.',
+  coo:          'Also treat as strong matches: President, SVP Operations, Head of Operations, VP Operations (senior scope).',
+  vp_technology:'Also treat as strong matches: Director of Engineering, Head of Engineering, VP IT, Director of Technology.',
+}
+
 // Calls Claude Haiku to score a single detected role hit against the user profile.
 // Returns { score: 0-100, is_match: boolean, summary: string }
 export async function scoreHit(hit, userProfile, companyName) {
+  const roleHint = userProfile.role_type ? (ROLE_TYPE_HINTS[userProfile.role_type] ?? '') : ''
   const userPrompt = `
 Job title detected: "${hit.title}"
 Company: ${companyName}
@@ -21,6 +33,7 @@ Company: ${companyName}
 Candidate profile:
 - Target roles: ${(userProfile.target_titles || []).join(', ') || 'Not specified'}
 - Target sectors: ${(userProfile.target_sectors || []).join(', ') || 'Not specified'}
+- Role type: ${userProfile.role_type || 'Not specified'}${roleHint ? `\n- Role equivalents: ${roleHint}` : ''}
 
 Respond with JSON only:
 {

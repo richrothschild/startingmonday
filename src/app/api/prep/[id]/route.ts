@@ -145,7 +145,7 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
 
-  const scanSection = buildScanSection(scanResults)
+  const scanSection = buildScanSection(scanResults, profile?.role_type)
   const signalSection = buildSignalSection(signals)
   const contactSection = buildContactSection(contacts)
   const hasContacts = (contacts ?? []).length > 0

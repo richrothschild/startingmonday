@@ -29,15 +29,28 @@ export const DOC_LABEL_NAMES: Record<string, string> = {
   other:           'Other',
 }
 
-export function buildScanSection(scanResults: ScanRow[] | null): string {
-  if (!scanResults?.[0]) return 'No career page scan on file. The role may be unlisted or filled through retained search. Use company notes, signals, and sector context to infer the likely mandate.'
+const SCAN_FALLBACKS: Record<string, string> = {
+  cio:          'CIO searches frequently run through retained search and rarely appear on public career pages. Use company notes, signals, and sector context to infer the transformation mandate.',
+  cto:          'CTO searches often post under engineering or technology leadership titles. Use company notes and signals to infer the technical mandate.',
+  cdo_data:     'CDO roles are often titled Head of Data, SVP Analytics, or Chief AI Officer. Use company notes to infer the data mandate and maturity level.',
+  cdo_digital:  'Chief Digital Officer searches are often run confidentially. Use company notes and sector context to infer the digital transformation agenda.',
+  ciso:         'CISO searches frequently run through retained search and may post under VP Information Security or Director of Cybersecurity. Use sector, regulatory context, and signals to infer the mandate.',
+  cpo:          'CPO searches are often unlisted or posted under Head of Product or General Manager. Use company notes and product signals to infer the product mandate.',
+  coo:          'COO mandates are created around specific operational challenges, not posted roles. Add notes describing the operational situation this company is navigating to generate a mandate-specific brief.',
+  vp_technology:'Technology leadership roles may post under VP Engineering, IT Director, or similar titles. Use company notes to confirm the role scope.',
+}
+
+export function buildScanSection(scanResults: ScanRow[] | null, roleType?: string | null): string {
+  const fallback = (roleType ? SCAN_FALLBACKS[roleType] : null)
+    ?? 'The role may be unlisted or filled through retained search. Use company notes, signals, and sector context to infer the likely mandate.'
+  if (!scanResults?.[0]) return `No career page scan on file. ${fallback}`
   const scan = scanResults[0]
   const matches = ((scan.raw_hits ?? []) as { title: string; score: number; is_match: boolean; summary: string }[])
     .filter(h => h.is_match)
   const date = new Date(scan.scanned_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' })
   return matches.length > 0
     ? `Career page scanned ${date}:\n` + matches.map(h => `- ${h.title} (fit score: ${h.score}): ${h.summary}`).join('\n')
-    : `Career page scanned ${date}. No matching roles found on the public career page. The role may be unlisted, filled through retained search, or posted under a different title. Use company notes, signals, and sector context to infer the likely mandate.`
+    : `Career page scanned ${date}. No matching roles found on the public career page. ${fallback}`
 }
 
 export function buildSignalSection(signals: Signal[] | null): string | null {

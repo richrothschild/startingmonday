@@ -118,7 +118,7 @@ export default async function CompanyPage({
       .order('created_at', { ascending: true }),
     supabase
       .from('user_profiles')
-      .select('briefing_timezone, search_persona, target_titles')
+      .select('briefing_timezone, search_persona, target_titles, role_type')
       .eq('user_id', user.id)
       .single(),
     supabase
@@ -162,6 +162,19 @@ export default async function CompanyPage({
   if (!company) notFound()
 
   const todayISO = todayInTz(profile?.briefing_timezone ?? 'UTC')
+
+  const NOTES_PLACEHOLDERS: Record<string, string> = {
+    cio:          'Transformation agenda, current CIO tenure and departure context, CFO relationship dynamic, board technology appetite...',
+    cto:          'Engineering org size and maturity, current tech debt posture, what technical decision triggered this search, founding team dynamics...',
+    cdo_data:     'Current data maturity, governance vs analytics mandate, what business decisions are made without data today, CDO departure context...',
+    cdo_digital:  'Digital transformation agenda, current CIO or CMO dynamic, what customer experience problem is driving this search...',
+    ciso:         'Recent regulatory events in their sector, board security posture, known incidents or audits, why the CISO role opened...',
+    cpo:          'Current product health, engagement vs acquisition problem, what created this CPO opening, B2C or B2B context...',
+    coo:          'What operational phase are they in? What can the CEO not do alone right now? What broke operationally in the last 12 months?',
+    vp_technology:'Engineering team size, reporting structure, what is blocking their technology capability, what the CTO or CIO needs help with...',
+  }
+  const notesPlaceholder = (profile?.role_type ? NOTES_PLACEHOLDERS[profile.role_type] : null)
+    ?? 'Warm intro through Sarah, strong culture fit...'
 
   const isVpUser = profile?.search_persona === 'vp'
   const CSUITE_PATTERNS = ['cio', 'cto', 'coo', 'cpo', 'ciso', 'cdo', 'chief', 'evp']
@@ -354,7 +367,7 @@ export default async function CompanyPage({
                   name="notes"
                   rows={4}
                   defaultValue={company.notes ?? ''}
-                  placeholder="Warm intro through Sarah, strong culture fit…"
+                  placeholder={notesPlaceholder}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
                 <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>

@@ -208,16 +208,30 @@ function OnDemandPanel({
   )
 }
 
+const NO_NOTES_MESSAGES: Record<string, string> = {
+  coo:       'COO briefs require operational context. Add notes on the specific challenge this company is navigating — what phase, what broke, what the CEO cannot do alone.',
+  ciso:      'CISO briefs improve significantly with sector and regulatory context. Add notes on recent events in their space, board security posture, or why the role opened.',
+  cpo:       'CPO briefs improve with product context. Add notes on the current product situation — engagement vs acquisition problem, what created this opening.',
+  cdo_data:  'CDO briefs need data mandate context. Add notes on the company data maturity and whether this is a governance or analytics mandate.',
+  cdo_digital: 'Chief Digital Officer briefs improve with transformation context. Add notes on the digital agenda and internal dynamics.',
+  cto:       'CTO briefs improve with engineering context. Add notes on tech debt posture, team maturity, and what triggered this search.',
+  cio:       'CIO briefs improve with transformation context. Add notes on the agenda, the current CIO situation, and board technology appetite.',
+}
+
 export function PrepClient({
   companyId,
   companyName,
   stageLabel,
   hasContacts,
+  hasNotes,
+  roleType,
 }: {
   companyId: string
   companyName: string
   stageLabel: string
   hasContacts: boolean
+  hasNotes: boolean
+  roleType: string | null
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -351,6 +365,23 @@ export function PrepClient({
         {error && (
           <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
             {error}
+          </div>
+        )}
+
+        {!brief && !busy && !hasNotes && (
+          <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded flex items-start justify-between gap-4">
+            <div>
+              <p className="text-[12px] font-semibold text-amber-700 mb-0.5">No company notes yet</p>
+              <p className="text-[12px] text-amber-600">
+                {(roleType && NO_NOTES_MESSAGES[roleType]) ?? 'Company notes are the single biggest lever for prep brief quality. Add context before generating.'}
+              </p>
+            </div>
+            <Link
+              href={`/dashboard/companies/${companyId}`}
+              className="shrink-0 text-[11px] font-semibold text-amber-700 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors whitespace-nowrap"
+            >
+              Add notes
+            </Link>
           </div>
         )}
 

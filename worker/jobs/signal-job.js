@@ -36,10 +36,18 @@ export async function runSignalJob() {
       return
     }
 
+    const userIds = users.map(u => u.id)
+    const { data: profiles } = await supabase
+      .from('user_profiles')
+      .select('user_id, role_type')
+      .in('user_id', userIds)
+    const roleTypeByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.role_type]))
+
     let companiesScanned = 0
     let signalsFound = 0
 
     for (const user of users) {
+      const roleType = roleTypeByUserId[user.id] ?? null
       const { data: companies } = await supabase
         .from('companies')
         .select('id, name, crunchbase_id, company_url')
@@ -54,7 +62,7 @@ export async function runSignalJob() {
           // Google News — classify articles via Claude Haiku
           const articles = await fetchCompanyNews(company.name)
           for (const article of articles) {
-            const result = await classifySignal(company.name, article)
+            const result = await classifySignal(company.name, article, roleType)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
             if (!result.signal_type || !result.signal_summary) continue
 
@@ -82,7 +90,7 @@ export async function runSignalJob() {
           if (company.company_url) {
             const pressArticles = await findPressRoomArticles(company.company_url)
             for (const article of pressArticles) {
-              const result = await classifySignal(company.name, article)
+              const result = await classifySignal(company.name, article, roleType)
               if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
               if (!result.signal_type || !result.signal_summary) continue
 

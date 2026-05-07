@@ -20,10 +20,10 @@ export default async function PrepPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: company }, { count: contactCount }] = await Promise.all([
+  const [{ data: company }, { count: contactCount }, { data: profile }] = await Promise.all([
     supabase
       .from('companies')
-      .select('name, stage')
+      .select('name, stage, notes')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -34,6 +34,11 @@ export default async function PrepPage({
       .eq('company_id', id)
       .eq('user_id', user.id)
       .eq('status', 'active'),
+    supabase
+      .from('user_profiles')
+      .select('role_type')
+      .eq('user_id', user.id)
+      .single(),
   ])
 
   if (!company) notFound()
@@ -44,6 +49,8 @@ export default async function PrepPage({
       companyName={company.name}
       stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
       hasContacts={(contactCount ?? 0) > 0}
+      hasNotes={!!(company.notes?.trim())}
+      roleType={profile?.role_type ?? null}
     />
   )
 }
