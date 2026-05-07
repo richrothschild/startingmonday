@@ -11,7 +11,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, target_titles')
+      .select('full_name, target_titles, role_type, search_persona')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -102,6 +102,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     userEmail,
     userName: profile.full_name ?? userEmail,
     targetTitles: profile.target_titles ?? [],
+    roleType: profile.role_type ?? null,
+    searchPersona: profile.search_persona ?? null,
     totalCompanies: companies.length,
     newMatches,
     followUps,
