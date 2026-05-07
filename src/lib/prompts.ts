@@ -59,6 +59,33 @@ export function personaContext(persona: string | null | undefined): string {
   return labels[persona] ? `\nCandidate level: ${labels[persona]}` : ''
 }
 
+const CSUITE_PATTERNS = ['cio', 'cto', 'coo', 'cpo', 'ciso', 'cdo', 'chief', 'evp']
+
+export function transitionModeContext(
+  searchPersona: string | null | undefined,
+  targetTitles: string[] | null | undefined,
+  roleType: string | null | undefined,
+): string {
+  // vp_technology role type already injects full transition framing via roleTypeContext
+  if (roleType === 'vp_technology') return ''
+  if (searchPersona !== 'vp') return ''
+  const titles = (targetTitles ?? []).map(t => t.toLowerCase())
+  const isStepUp = titles.some(t => CSUITE_PATTERNS.some(p => t.includes(p)))
+  if (!isStepUp) return ''
+
+  return `\nTRANSITION MODE: This candidate is VP-level targeting a C-suite role. This is a step-up candidacy, not a lateral move.
+
+Include a "Transition Narrative" section immediately after the Win Thesis section. Write four sentences in this arc:
+1. What they have delivered at VP scope, in business outcome terms.
+2. How that VP-scope delivery maps directly to what the C-suite role owns.
+3. The specific gap this organization needs closed that they are positioned to address.
+4. The closing: the difference between their current title and their next one is a label change, not a capability gap.
+
+The Anticipated Pushback section must include the seniority gap objection as the first item: "You have not been a [CIO/CTO/COO/etc.] before." The counter must reframe VP-scope delivery as C-suite-equivalent in outcome and accountability. It must not be defensive.
+
+The Narrative section must frame the VP story as a C-suite story: which chapters to lead with (VP scope that operated at C-suite level), which to compress (execution work that signals operator not strategist), and which to leave out entirely.`
+}
+
 export function roleTypeContext(roleType: string | null | undefined): string {
   if (!roleType) return ''
   const contexts: Record<string, string> = {

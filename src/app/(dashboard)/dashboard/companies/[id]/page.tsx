@@ -118,7 +118,7 @@ export default async function CompanyPage({
       .order('created_at', { ascending: true }),
     supabase
       .from('user_profiles')
-      .select('briefing_timezone')
+      .select('briefing_timezone, search_persona, target_titles')
       .eq('user_id', user.id)
       .single(),
     supabase
@@ -162,6 +162,13 @@ export default async function CompanyPage({
   if (!company) notFound()
 
   const todayISO = todayInTz(profile?.briefing_timezone ?? 'UTC')
+
+  const isVpUser = profile?.search_persona === 'vp'
+  const CSUITE_PATTERNS = ['cio', 'cto', 'coo', 'cpo', 'ciso', 'cdo', 'chief', 'evp']
+  function isStepUpRole(title: string): boolean {
+    const lower = title.toLowerCase()
+    return CSUITE_PATTERNS.some(p => lower.includes(p))
+  }
 
   const errorMsg =
     error === 'duplicate' ? 'A company with that name is already in your pipeline.' :
@@ -765,6 +772,11 @@ export default async function CompanyPage({
                         {hit.is_new && (
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
                             New
+                          </span>
+                        )}
+                        {isVpUser && isStepUpRole(hit.title) && (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
+                            Step-Up Opportunity
                           </span>
                         )}
                       </div>

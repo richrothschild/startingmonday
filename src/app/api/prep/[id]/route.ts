@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited, trackApiUsage } from '@/lib/api-usage'
-import { PREP_SYSTEM, personaContext, roleTypeContext } from '@/lib/prompts'
+import { PREP_SYSTEM, personaContext, roleTypeContext, transitionModeContext } from '@/lib/prompts'
 import type { CareerEntry } from '@/components/CareerVerificationPanel'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
@@ -127,7 +127,7 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
   const prompt = `Prepare an elite pre-interview brief for the following situation. This is the level of preparation a top executive coach produces: specific, direct, and grounded in the actual data below.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${roleTypeContext(profile?.role_type)}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${roleTypeContext(profile?.role_type)}${transitionModeContext(profile?.search_persona, profile?.target_titles, profile?.role_type)}
 Target roles: ${targetTitles}
 Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${careerSection(profile)}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
 
