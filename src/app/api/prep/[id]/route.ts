@@ -184,6 +184,16 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No m
   return prompt
 }
 
+function extractTextFromHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -207,11 +217,26 @@ export async function GET(
     }
   }
 
-  const userPrompt = buildContext(company, profile, scanResults, contacts, documents, signals)
+  const postingUrl = request.nextUrl.searchParams.get('posting_url')
+  let allDocuments = documents
+  if (postingUrl) {
+    try {
+      const html = await fetch(postingUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0' },
+        signal: AbortSignal.timeout(8000),
+      }).then(r => r.text())
+      const text = extractTextFromHtml(html).slice(0, 6000)
+      if (text.length > 100) {
+        allDocuments = [{ label: 'job_description', content: text }, ...(documents ?? [])]
+      }
+    } catch { /* ignore fetch errors, fall back to existing docs */ }
+  }
+
+  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
-    4000,
+    8000,
     supabase,
     userId
   )
@@ -252,7 +277,7 @@ export async function POST(
         content: `Here is the current interview prep brief:\n\n${brief}\n\n---\n\nModification request: ${refinementRequest}\n\nReturn the complete updated brief incorporating this change precisely. Keep all ## section headers. Maintain the same direct, senior-to-senior tone. No em dashes. No motivational language.`,
       },
     ],
-    2500,
+    6000,
     supabase,
     userId
   )

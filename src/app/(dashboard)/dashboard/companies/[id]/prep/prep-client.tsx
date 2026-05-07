@@ -225,6 +225,7 @@ export function PrepClient({
   const [error, setError] = useState('')
   const [refineInput, setRefineInput] = useState('')
   const [refining, setRefining] = useState(false)
+  const [postingUrl, setPostingUrl] = useState('')
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
   const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
@@ -242,7 +243,9 @@ export function PrepClient({
     setBriefId(null)
     setError('')
     try {
-      const res = await fetch(`/api/prep/${companyId}`)
+      const url = new URL(`/api/prep/${companyId}`, window.location.origin)
+      if (postingUrl.trim()) url.searchParams.set('posting_url', postingUrl.trim())
+      const res = await fetch(url.toString())
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         setError(body?.error ?? `Request failed (${res.status})`)
@@ -325,14 +328,24 @@ export function PrepClient({
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">{companyName} · {stageLabel}</p>
           </div>
-          <button
-            type="button"
-            onClick={handleGenerate}
-            disabled={busy}
-            className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
-          </button>
+          <div className="flex flex-col items-stretch sm:items-end gap-2 shrink-0">
+            <input
+              type="url"
+              value={postingUrl}
+              onChange={e => setPostingUrl(e.target.value)}
+              placeholder="Paste job posting URL (optional)"
+              disabled={busy}
+              className="text-[12px] text-slate-700 placeholder-slate-400 border border-slate-200 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
+            />
+            <button
+              type="button"
+              onClick={handleGenerate}
+              disabled={busy}
+              className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
+            </button>
+          </div>
         </div>
 
         {error && (
