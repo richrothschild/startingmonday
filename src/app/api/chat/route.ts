@@ -9,6 +9,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS, withStreamTimeout } from '@/lib/anthropic'
 import { buildChatSystemPrompt } from '@/lib/prompts'
 import { ChatBodySchema, firstZodError } from '@/lib/schemas'
+import { recordTrace } from '@/lib/trace'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -245,6 +246,7 @@ export async function POST(request: NextRequest) {
 
   const encoder = new TextEncoder()
   let totalTokens = 0
+  const startMs = Date.now()
 
   const readable = new ReadableStream({
     async start(controller) {
@@ -275,6 +277,13 @@ export async function POST(request: NextRequest) {
           if (response.stop_reason !== 'tool_use') {
             controller.close()
             trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
+            recordTrace({
+              supabase, userId, feature: 'chat', model: MODELS.sonnet,
+              promptTokens: response.usage.input_tokens ?? 0,
+              completionTokens: response.usage.output_tokens ?? 0,
+              latencyMs: Date.now() - startMs,
+              inputSnapshot: { message_count: trimmed.length, rounds: round + 1 },
+            })
             return
           }
 

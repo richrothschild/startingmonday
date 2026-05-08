@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { recordTrace } from '@/lib/trace'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -50,14 +51,30 @@ For recruiters: name actual executive search firms known for this function/secto
 Return only the JSON object. No explanation. No markdown fences.`
 
   try {
+    const model = process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6'
+    const startMs = Date.now()
     const message = await anthropic.messages.create({
-      model: process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6',
+      model,
       max_tokens: 600,
       messages: [{ role: 'user', content: prompt }],
     })
 
     const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : ''
     const parsed: SuggestionsResult = JSON.parse(raw)
+
+    recordTrace({
+      supabase, userId,
+      feature: 'suggestions',
+      model,
+      promptTokens: message.usage.input_tokens ?? 0,
+      completionTokens: message.usage.output_tokens ?? 0,
+      latencyMs: Date.now() - startMs,
+      inputSnapshot: {
+        current_title: profile.current_title,
+        target_count: (profile.target_titles ?? []).length,
+      },
+      outputSnapshot: raw,
+    })
 
     return NextResponse.json({
       companies: Array.isArray(parsed.companies) ? parsed.companies.slice(0, 8) : [],

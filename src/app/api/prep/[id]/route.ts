@@ -16,9 +16,13 @@ import {
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { PrepRefineBodySchema, firstZodError } from '@/lib/schemas'
+import { recordTrace } from '@/lib/trace'
 
-function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string) {
+type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
+
+function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string, traceOpts?: TraceOpts) {
   const encoder = new TextEncoder()
+  const startMs = Date.now()
   return new ReadableStream({
     async start(controller) {
       try {
@@ -29,12 +33,26 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
           system: PREP_SYSTEM,
           messages,
         })
-        stream.on('text', text => controller.enqueue(encoder.encode(text)))
+        let outputBuffer = ''
+        stream.on('text', text => {
+          controller.enqueue(encoder.encode(text))
+          if (traceOpts && outputBuffer.length < 2000) outputBuffer += text
+        })
         const final = await stream.finalMessage()
         controller.enqueue(encoder.encode(encodeUserId(userId)))
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
+        if (traceOpts) {
+          recordTrace({
+            supabase, userId, feature: traceOpts.feature, model: MODELS.sonnet,
+            promptTokens: final.usage.input_tokens ?? 0,
+            completionTokens: final.usage.output_tokens ?? 0,
+            latencyMs: Date.now() - startMs,
+            inputSnapshot: traceOpts.inputSnapshot,
+            outputSnapshot: outputBuffer,
+          })
+        }
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()
@@ -329,7 +347,17 @@ export async function GET(
     [{ role: 'user', content: userPrompt }],
     8000,
     supabase,
-    userId
+    userId,
+    {
+      feature: 'prep_brief',
+      inputSnapshot: {
+        company_name: company.name,
+        company_stage: company.stage,
+        interview_stage: interviewStage,
+        has_resume: (profile?.resume_text?.length ?? 0) > 0,
+        has_scan: (scanResults?.length ?? 0) > 0,
+      },
+    }
   )
 
   return new Response(readable, {
@@ -370,7 +398,8 @@ export async function POST(
     ],
     6000,
     supabase,
-    userId
+    userId,
+    { feature: 'prep_refine', inputSnapshot: { refine_request: refinementRequest.slice(0, 100) } }
   )
 
   return new Response(readable, {

@@ -34,13 +34,17 @@ export default async function DashboardPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
     .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title')
     .eq('user_id', user.id)
     .single()
 
-  if (!profile?.onboarding_completed_at) redirect('/onboarding')
+  if (profileError && profileError.code !== 'PGRST116') {
+    console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'dashboard_profile_error', code: profileError.code, message: profileError.message, userId: user.id }))
+  } else if (!profile?.onboarding_completed_at) {
+    redirect('/onboarding')
+  }
 
   const tz = profile?.briefing_timezone ?? 'UTC'
   const todayISO = todayInTz(tz)
