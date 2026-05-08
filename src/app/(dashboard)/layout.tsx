@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       {isDemo && <DemoBanner />}
       {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
       {!isDemo && user?.email && <WatermarkOverlay email={user.email} />}
-      <div className="pb-16 md:pb-0">
+      <div className="nav-content-spacer">
         {children}
       </div>
       <BottomNav />

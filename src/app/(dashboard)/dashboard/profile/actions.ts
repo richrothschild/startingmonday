@@ -121,7 +121,7 @@ export async function saveProfile(formData: FormData) {
       { onConflict: 'user_id' }
     )
 
-  if (upsertError) redirect('/dashboard/profile?error=save-failed')
+  if (upsertError) redirect(`/dashboard/profile?error=${encodeURIComponent(upsertError.message)}`)
 
   if (resumeText) {
     await logEvent(user.id, 'resume_uploaded', {})

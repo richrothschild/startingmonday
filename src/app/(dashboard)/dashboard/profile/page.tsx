@@ -123,7 +123,7 @@ export default async function ProfilePage({
           )}
           {saveError && (
             <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
-              Save failed. Please try again.
+              Save failed: {decodeURIComponent(saveError)}
             </div>
           )}
 
