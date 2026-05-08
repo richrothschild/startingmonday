@@ -14,7 +14,7 @@ export default async function StartPage() {
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, resume_text, positioning_summary, briefing_time, onboarding_completed_at')
+    .select('full_name, resume_text, positioning_summary, briefing_time, briefing_timezone, onboarding_completed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -118,6 +118,18 @@ export default async function StartPage() {
   const allDone = doneCount === tasks.length
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
 
+  function formatBriefingTime(t: string | null | undefined) {
+    if (!t) return null
+    const [h, m] = t.split(':').map(Number)
+    if (isNaN(h)) return null
+    const ampm = h >= 12 ? 'PM' : 'AM'
+    const hour = h % 12 || 12
+    return `${hour}:${String(m ?? 0).padStart(2, '0')} ${ampm}`
+  }
+
+  const briefingDisplay = formatBriefingTime(profile?.briefing_time)
+  const tz = profile?.briefing_timezone ?? null
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
 
@@ -152,14 +164,34 @@ export default async function StartPage() {
           ) : (
             <>
               <h1 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
-                Your first 15 minutes.
+                {firstName}, your search is live.
               </h1>
               <p className="text-[14px] text-slate-500 leading-relaxed">
-                Six moves that make everything else work. Start at the top — each one builds on the last.
+                A few more things to finish. Each one makes the platform measurably more useful.
               </p>
             </>
           )}
         </div>
+
+        {/* Next scheduled events */}
+        {(briefingDisplay || (companyCount ?? 0) > 0) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+            {briefingDisplay && (
+              <div className="bg-white border border-slate-200 rounded p-4">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">First briefing</p>
+                <p className="text-[16px] font-bold text-slate-900">Tomorrow at {briefingDisplay}</p>
+                {tz && <p className="text-[11px] text-slate-400 mt-0.5">{tz}</p>}
+              </div>
+            )}
+            {(companyCount ?? 0) > 0 && (
+              <div className="bg-white border border-slate-200 rounded p-4">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Companies watching</p>
+                <p className="text-[16px] font-bold text-slate-900">{companyCount} {(companyCount ?? 0) === 1 ? 'company' : 'companies'}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Add career page URLs to start scanning</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Progress */}
         <div className="flex items-center gap-3 mb-8">

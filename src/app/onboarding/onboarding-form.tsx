@@ -21,7 +21,14 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
   { value: 'board',    label: 'Board / Advisor',  sub: 'Board seat or advisory role' },
 ]
 
-const STEP_COUNT = 4
+const STEP_COUNT = 7
+
+const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
+  csuite:   ['Microsoft', 'Salesforce', 'ServiceNow', 'Oracle', 'Workday'],
+  vp:       ['Stripe', 'Snowflake', 'Databricks', 'Figma', 'Anthropic'],
+  director: ['HubSpot', 'Okta', 'Crowdstrike', 'MongoDB', 'Datadog'],
+  board:    ['KKR', 'Blackstone', 'General Atlantic', 'Vista Equity', 'Thoma Bravo'],
+}
 
 function Dots({ current }: { current: number }) {
   return (
@@ -55,6 +62,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [beyondResume, setBeyondResume]       = useState('')
   const [targetTitles, setTargetTitles]       = useState('')
   const [linkedinUrl, setLinkedinUrl]         = useState('')
+
+  const [companyNames, setCompanyNames] = useState<string[]>(['', '', ''])
+  const [briefingTime, setBriefingTime] = useState('07:00')
+
+  const firstName = fullName.trim().split(' ')[0] || 'there'
 
   const [pasteText, setPasteText]     = useState('')
   const [importing, setImporting]     = useState(false)
@@ -187,6 +199,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="beyond_resume"       value={beyondResume} />
         <input type="hidden" name="target_titles"       value={targetTitles} />
         <input type="hidden" name="linkedin_url"        value={linkedinUrl} />
+        <input type="hidden" name="company_names"       value={JSON.stringify(companyNames.filter(n => n.trim()))} />
+        <input type="hidden" name="briefing_time"       value={briefingTime} />
       </form>
 
       <div className="w-full max-w-lg">
@@ -246,6 +260,29 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onTitle={setCurrentTitle}
               onCompany={setCurrentCompany}
               onLinkedinUrl={setLinkedinUrl}
+            />
+          )}
+
+          {step === 4 && (
+            <StepCompanies
+              names={companyNames}
+              onChange={setCompanyNames}
+              persona={searchPersona}
+            />
+          )}
+
+          {step === 5 && (
+            <StepBriefingTime
+              value={briefingTime}
+              onChange={setBriefingTime}
+            />
+          )}
+
+          {step === 6 && (
+            <StepDone
+              firstName={firstName}
+              companies={companyNames.filter(n => n.trim())}
+              briefingTime={briefingTime}
             />
           )}
         </div>
@@ -311,6 +348,33 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             )}
             {step === 3 && (
               <button
+                type="button"
+                onClick={advance}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+              >
+                Continue
+              </button>
+            )}
+            {step === 4 && (
+              <button
+                type="button"
+                onClick={advance}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+              >
+                Continue
+              </button>
+            )}
+            {step === 5 && (
+              <button
+                type="button"
+                onClick={advance}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+              >
+                Continue
+              </button>
+            )}
+            {step === 6 && (
+              <button
                 type="submit"
                 form="onboarding-form"
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
@@ -330,6 +394,217 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         aria-label="Upload LinkedIn PDF"
         className="hidden"
       />
+    </div>
+  )
+}
+
+function StepCompanies({
+  names,
+  onChange,
+  persona,
+}: {
+  names: string[]
+  onChange: (v: string[]) => void
+  persona: string
+}) {
+  const suggestions = SUGGESTIONS_BY_PERSONA[persona] ?? []
+  const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
+  const filled = names.filter(n => n.trim()).length
+
+  function update(i: number, val: string) {
+    const next = [...names]
+    next[i] = val
+    if (i === names.length - 1 && val.trim() && names.length < 8) next.push('')
+    onChange(next)
+  }
+
+  function addSuggestion(name: string) {
+    if (names.some(n => n.trim().toLowerCase() === name.toLowerCase())) return
+    const emptyIdx = names.findIndex(n => !n.trim())
+    if (emptyIdx >= 0) {
+      const next = [...names]
+      next[emptyIdx] = name
+      onChange(next)
+    } else {
+      onChange([...names, name])
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+          Which companies are you targeting?
+        </h1>
+        <p className="text-[15px] text-slate-500">
+          Add at least one. We scan their career pages and alert you when a matching role appears.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-2.5">
+        {names.map((name, i) => (
+          <input
+            key={i}
+            type="text"
+            value={name}
+            onChange={e => update(i, e.target.value)}
+            placeholder={i === 0 ? 'Company name' : i < 3 ? 'Add another' : 'Add more'}
+            className={inputCls}
+          />
+        ))}
+      </div>
+
+      {suggestions.length > 0 && (
+        <div>
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Quick add</p>
+          <div className="flex flex-wrap gap-2">
+            {suggestions.map(s => {
+              const added = names.some(n => n.trim().toLowerCase() === s.toLowerCase())
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => !added && addSuggestion(s)}
+                  className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
+                    added
+                      ? 'border-slate-900 bg-slate-900 text-white cursor-default'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                  }`}
+                >
+                  {added ? '✓ ' : '+ '}{s}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      <p className="text-[12px] text-slate-400">
+        {filled === 0
+          ? 'Add at least one company to continue.'
+          : filled === 1
+          ? 'Good start. Add 2 more for the best coverage.'
+          : filled >= 3
+          ? `${filled} companies added. You can add more after setup.`
+          : `${filled} added. One more recommended.`}
+      </p>
+    </div>
+  )
+}
+
+function StepBriefingTime({
+  value,
+  onChange,
+}: {
+  value: string
+  onChange: (v: string) => void
+}) {
+  const TIMES = [
+    { label: '6:00 AM', value: '06:00' },
+    { label: '6:30 AM', value: '06:30' },
+    { label: '7:00 AM', value: '07:00' },
+    { label: '7:30 AM', value: '07:30' },
+    { label: '8:00 AM', value: '08:00' },
+    { label: '8:30 AM', value: '08:30' },
+    { label: '9:00 AM', value: '09:00' },
+  ]
+
+  const tz = typeof window !== 'undefined'
+    ? Intl.DateTimeFormat().resolvedOptions().timeZone
+    : 'your local time'
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+          When do you want your daily briefing?
+        </h1>
+        <p className="text-[15px] text-slate-500">
+          Each morning: signals from your target companies, actions due, and your search momentum — assembled overnight.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+        {TIMES.map(t => (
+          <button
+            key={t.value}
+            type="button"
+            onClick={() => onChange(t.value)}
+            className={[
+              'border rounded-lg px-4 py-3.5 text-[15px] font-semibold transition-all cursor-pointer',
+              value === t.value
+                ? 'border-slate-900 bg-slate-900 text-white'
+                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400',
+            ].join(' ')}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <p className="text-[12px] text-slate-400">
+        Delivered in {tz}. You can change this anytime from your profile.
+      </p>
+    </div>
+  )
+}
+
+function StepDone({
+  firstName,
+  companies,
+  briefingTime,
+}: {
+  firstName: string
+  companies: string[]
+  briefingTime: string
+}) {
+  function formatTime(val: string) {
+    const [h, m] = val.split(':').map(Number)
+    const ampm = h >= 12 ? 'PM' : 'AM'
+    const hour = h % 12 || 12
+    return `${hour}:${String(m).padStart(2, '0')} ${ampm}`
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+          {firstName}, your search starts now.
+        </h1>
+        <p className="text-[15px] text-slate-500">
+          Everything is set. Here is what happens next.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Companies being watched</p>
+          {companies.length === 0 ? (
+            <p className="text-[14px] text-slate-500">None yet — add them from your dashboard.</p>
+          ) : (
+            <p className="text-[15px] font-semibold text-slate-900">{companies.join(', ')}</p>
+          )}
+          <p className="text-[12px] text-slate-400 mt-1.5">
+            Add their career page URLs after setup to start scanning.
+          </p>
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
+          <p className="text-[15px] font-semibold text-slate-900">Tomorrow at {formatTime(briefingTime)}</p>
+          <p className="text-[12px] text-slate-400 mt-1.5">
+            New role matches, company signals, and your next actions — every morning.
+          </p>
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First career page scan</p>
+          <p className="text-[15px] font-semibold text-slate-900">Next Monday, Wednesday, or Friday at 8 AM UTC</p>
+          <p className="text-[12px] text-slate-400 mt-1.5">
+            We scan career pages 3x per week and flag matching roles before they reach LinkedIn.
+          </p>
+        </div>
+      </div>
     </div>
   )
 }

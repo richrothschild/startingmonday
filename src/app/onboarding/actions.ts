@@ -33,6 +33,16 @@ export async function completeOnboarding(formData: FormData) {
     try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
   }
 
+  const briefingTime        = (formData.get('briefing_time') as string ?? '').trim() || null
+  const companyNamesRaw     = (formData.get('company_names') as string ?? '').trim()
+  let companyNamesList: string[] = []
+  if (companyNamesRaw) {
+    try {
+      const parsed = JSON.parse(companyNamesRaw)
+      if (Array.isArray(parsed)) companyNamesList = parsed.filter((s): s is string => typeof s === 'string' && s.trim().length > 0).slice(0, 8)
+    } catch { /* ignore */ }
+  }
+
   const validation = OnboardingFormSchema.safeParse({ full_name: fullName, search_persona: searchPersona })
   if (!validation.success) {
     const msg = validation.error.issues[0]?.message ?? 'Required fields missing'
@@ -62,10 +72,21 @@ export async function completeOnboarding(formData: FormData) {
       resume_text:              resumeText,
       beyond_resume:            beyondResume,
       career_history_json:      careerHistoryJson,
+      briefing_time:            briefingTime,
       onboarding_completed_at:  now,
     },
     { onConflict: 'user_id' }
   )
+
+  // Create basic company records from wizard. No career page URL yet; user adds those from the dashboard.
+  if (companyNamesList.length > 0) {
+    const rows = companyNamesList.map(name => ({
+      user_id: user.id,
+      name: name.trim(),
+      stage: 'target',
+    }))
+    await supabase.from('companies').upsert(rows, { onConflict: 'user_id,name', ignoreDuplicates: true })
+  }
 
   // Set search_started_at only on first completion; don't overwrite if already set
   await supabase
