@@ -15,6 +15,7 @@ import { runSignalJob } from './jobs/signal-job.js'
 import { runOfferEmailJob } from './jobs/offer-email-job.js'
 import { runReactivationJob } from './jobs/reactivation-job.js'
 import { runActivationReminderJob } from './jobs/activation-reminder-job.js'
+import { runMarketDigestJob } from './jobs/market-digest-job.js'
 import { runCleanupJob } from './jobs/cleanup-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 
@@ -81,6 +82,9 @@ cron.schedule('0 6 * * *', () => runJob('followup-job', runFollowupJob))
 // Momentum score: Sunday at 23:00 (not yet implemented)
 cron.schedule('0 23 * * 0', () => runJob('momentum-job', runMomentumJob))
 
+// Market intelligence digest: Sunday at 22:30 — Monitor/passive tier users only
+cron.schedule('30 22 * * 0', () => runJob('market-digest-job', runMarketDigestJob))
+
 // Weekly progress report: Sunday at 23:30 (not yet implemented)
 cron.schedule('30 23 * * 0', () => runJob('weekly-report-job', runWeeklyReportJob))
 
@@ -108,7 +112,7 @@ cron.schedule('0 2 * * 0', () => runJob('cleanup-job', runCleanupJob))
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job'],
+  jobs: ['scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

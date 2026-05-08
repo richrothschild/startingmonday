@@ -11,6 +11,8 @@ export function SuggestionCards() {
   const [data, setData]       = useState<Suggestions | null>(null)
   const [loading, setLoading] = useState(true)
   const [dismissed, setDismissed] = useState(false)
+  const [added, setAdded]     = useState<Set<string>>(new Set())
+  const [adding, setAdding]   = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined' && localStorage.getItem(DISMISS_KEY)) {
@@ -36,10 +38,27 @@ export function SuggestionCards() {
     setDismissed(true)
   }
 
+  async function quickAdd(name: string) {
+    if (adding || added.has(name)) return
+    setAdding(name)
+    try {
+      const res = await fetch('/api/companies/quick-add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name }),
+      })
+      if (res.ok || res.status === 409) {
+        setAdded(prev => new Set([...prev, name]))
+      }
+    } catch {
+      // silent — user can still use the link fallback
+    } finally {
+      setAdding(null)
+    }
+  }
+
   if (dismissed || (!loading && !data)) return null
-
   if (loading) return null
-
   if (!data) return null
 
   return (
@@ -68,17 +87,39 @@ export function SuggestionCards() {
               Companies to add to your pipeline
             </p>
             <div className="flex flex-wrap gap-2">
-              {data.companies.map(name => (
-                <Link
-                  key={name}
-                  href={`/dashboard/companies/new?name=${encodeURIComponent(name)}`}
-                  className="inline-flex items-center gap-1.5 text-[13px] text-slate-700 border border-slate-200 rounded-full px-3.5 py-1.5 hover:border-slate-400 hover:bg-slate-50 transition-colors"
-                >
-                  <span className="text-slate-300 text-[11px]">+</span>
-                  {name}
-                </Link>
-              ))}
+              {data.companies.map(name => {
+                const isAdded   = added.has(name)
+                const isAdding  = adding === name
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => quickAdd(name)}
+                    disabled={isAdded || isAdding}
+                    className={[
+                      'inline-flex items-center gap-1.5 text-[13px] border rounded-full px-3.5 py-1.5 transition-colors cursor-pointer',
+                      isAdded
+                        ? 'border-emerald-300 bg-emerald-50 text-emerald-700 cursor-default'
+                        : isAdding
+                        ? 'border-slate-200 bg-slate-50 text-slate-400 cursor-wait'
+                        : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50',
+                    ].join(' ')}
+                  >
+                    <span className="text-[11px]">{isAdded ? '✓' : isAdding ? '...' : '+'}</span>
+                    {name}
+                  </button>
+                )
+              })}
             </div>
+            {added.size > 0 && (
+              <p className="text-[12px] text-slate-400 mt-3">
+                Added to your pipeline.{' '}
+                <Link href="/dashboard/companies" className="text-slate-600 underline underline-offset-2">
+                  View companies
+                </Link>
+                {' '}to add their career page URLs.
+              </p>
+            )}
           </div>
         )}
 

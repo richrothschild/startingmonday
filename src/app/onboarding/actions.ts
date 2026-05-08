@@ -34,6 +34,7 @@ export async function completeOnboarding(formData: FormData) {
   }
 
   const briefingTime        = (formData.get('briefing_time') as string ?? '').trim() || null
+  const briefingFrequency   = (formData.get('briefing_frequency') as string ?? '').trim() || 'daily'
   const companyNamesRaw     = (formData.get('company_names') as string ?? '').trim()
   let companyNamesList: string[] = []
   if (companyNamesRaw) {
@@ -73,6 +74,7 @@ export async function completeOnboarding(formData: FormData) {
       beyond_resume:            beyondResume,
       career_history_json:      careerHistoryJson,
       briefing_time:            briefingTime,
+      briefing_frequency:       briefingFrequency,
       onboarding_completed_at:  now,
     },
     { onConflict: 'user_id' }

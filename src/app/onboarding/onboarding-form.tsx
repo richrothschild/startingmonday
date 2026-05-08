@@ -65,8 +65,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   const [companyNames, setCompanyNames] = useState<string[]>(['', '', ''])
   const [briefingTime, setBriefingTime] = useState('07:00')
+  const [briefingFrequency, setBriefingFrequency] = useState<'daily' | 'weekly'>('daily')
 
   const firstName = fullName.trim().split(' ')[0] || 'there'
+
+  const isPassive = employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic'
 
   const [pasteText, setPasteText]     = useState('')
   const [importing, setImporting]     = useState(false)
@@ -94,6 +97,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
+    if (isPassive && step === 2) { goTo(4); return }
+    if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
@@ -199,8 +204,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="beyond_resume"       value={beyondResume} />
         <input type="hidden" name="target_titles"       value={targetTitles} />
         <input type="hidden" name="linkedin_url"        value={linkedinUrl} />
-        <input type="hidden" name="company_names"       value={JSON.stringify(companyNames.filter(n => n.trim()))} />
-        <input type="hidden" name="briefing_time"       value={briefingTime} />
+        <input type="hidden" name="company_names"        value={JSON.stringify(companyNames.filter(n => n.trim()))} />
+        <input type="hidden" name="briefing_time"        value={briefingTime} />
+        <input type="hidden" name="briefing_frequency"   value={briefingFrequency} />
       </form>
 
       <div className="w-full max-w-lg">
@@ -283,6 +289,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               firstName={firstName}
               companies={companyNames.filter(n => n.trim())}
               briefingTime={briefingTime}
+              isPassive={isPassive}
             />
           )}
         </div>
@@ -553,10 +560,12 @@ function StepDone({
   firstName,
   companies,
   briefingTime,
+  isPassive,
 }: {
   firstName: string
   companies: string[]
   briefingTime: string
+  isPassive: boolean
 }) {
   function formatTime(val: string) {
     const [h, m] = val.split(':').map(Number)
@@ -569,10 +578,12 @@ function StepDone({
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
-          {firstName}, your search starts now.
+          {firstName}, your watchlist is live.
         </h1>
         <p className="text-[15px] text-slate-500">
-          Everything is set. Here is what happens next.
+          {isPassive
+            ? 'We will watch your companies and send you a digest every Sunday. Nothing to do until an opportunity appears.'
+            : 'Everything is set. Here is what happens next.'}
         </p>
       </div>
 
@@ -589,13 +600,23 @@ function StepDone({
           </p>
         </div>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
-          <p className="text-[15px] font-semibold text-slate-900">Tomorrow at {formatTime(briefingTime)}</p>
-          <p className="text-[12px] text-slate-400 mt-1.5">
-            New role matches, company signals, and your next actions — every morning.
-          </p>
-        </div>
+        {isPassive ? (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Weekly digest</p>
+            <p className="text-[15px] font-semibold text-slate-900">Every Sunday morning</p>
+            <p className="text-[12px] text-slate-400 mt-1.5">
+              Scan matches, exec moves, funding signals — delivered once a week. No daily noise.
+            </p>
+          </div>
+        ) : (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
+            <p className="text-[15px] font-semibold text-slate-900">Tomorrow at {formatTime(briefingTime)}</p>
+            <p className="text-[12px] text-slate-400 mt-1.5">
+              New role matches, company signals, and your next actions — every morning.
+            </p>
+          </div>
+        )}
 
         <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First career page scan</p>
