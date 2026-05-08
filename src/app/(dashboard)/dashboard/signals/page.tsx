@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
+import { addSignalFollowUp } from './actions'
 
 const PAGE_SIZE = 25
 
@@ -57,6 +58,24 @@ export default async function SignalsPage({
   query = query.range(start, start + PAGE_SIZE - 1)
 
   const { data: signals, count } = await query
+
+  // Fetch first active contact per company for "Draft outreach" links
+  const signalCompanyIds = [...new Set((signals ?? []).map(s => s.company_id).filter(Boolean))]
+  const contactByCompany = new Map<string, { id: string; name: string }>()
+  if (signalCompanyIds.length > 0) {
+    const { data: contactRows } = await supabase
+      .from('contacts')
+      .select('id, name, company_id')
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .in('company_id', signalCompanyIds)
+      .order('name')
+    for (const c of (contactRows ?? [])) {
+      if (c.company_id && !contactByCompany.has(c.company_id)) {
+        contactByCompany.set(c.company_id, { id: c.id, name: c.name })
+      }
+    }
+  }
 
   const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE)
   const hasFilters = !!(companyFilter || typeFilter)
@@ -174,6 +193,8 @@ export default async function SignalsPage({
                 })
                 const typeLabel = SIGNAL_TYPE_LABELS[sig.signal_type] ?? sig.signal_type.replace(/_/g, ' ')
 
+                const contact = contactByCompany.get(sig.company_id)
+
                 return (
                   <div key={sig.id} className="px-6 py-5">
                     <div className="flex items-start gap-2 flex-wrap mb-2">
@@ -209,6 +230,33 @@ export default async function SignalsPage({
                         Source →
                       </a>
                     )}
+                    <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-50">
+                      {contact ? (
+                        <Link
+                          href={`/dashboard/contacts/${contact.id}/outreach`}
+                          className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
+                        >
+                          Draft outreach → {contact.name}
+                        </Link>
+                      ) : co ? (
+                        <Link
+                          href={`/dashboard/contacts/new?company_id=${co.id}`}
+                          className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
+                        >
+                          + Add contact at {co.name}
+                        </Link>
+                      ) : null}
+                      <form action={addSignalFollowUp}>
+                        <input type="hidden" name="company_name" value={co?.name ?? ''} />
+                        <input type="hidden" name="signal_summary" value={sig.signal_summary} />
+                        <button
+                          type="submit"
+                          className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors bg-white cursor-pointer"
+                        >
+                          + Follow up in 5 days
+                        </button>
+                      </form>
+                    </div>
                   </div>
                 )
               })}

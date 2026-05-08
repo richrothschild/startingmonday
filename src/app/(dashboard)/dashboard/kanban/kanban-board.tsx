@@ -45,21 +45,35 @@ const STAGE_HEADER: Record<string, string> = {
   offer:        'text-green-600',
 }
 
+const PREP_STAGES = new Set(['interviewing', 'applied', 'offer'])
+
 function CompanyCard({ company, isDragging = false }: { company: Company; isDragging?: boolean }) {
+  const showPrep = !isDragging && PREP_STAGES.has(company.stage)
   return (
-    <Link
-      href={`/dashboard/companies/${company.id}`}
-      onClick={e => { if (isDragging) e.preventDefault() }}
-      className={`block bg-white border rounded p-3.5 shadow-sm hover:shadow-md transition-shadow ${isDragging ? 'opacity-50 rotate-1 shadow-lg' : 'border-slate-200'}`}
-    >
-      <p className="text-[13px] font-semibold text-slate-900 leading-tight truncate">{company.name}</p>
-      {company.sector && (
-        <p className="text-[11px] text-slate-400 mt-0.5 truncate">{company.sector}</p>
+    <div className={`bg-white border rounded p-3.5 shadow-sm hover:shadow-md transition-shadow ${isDragging ? 'opacity-50 rotate-1 shadow-lg' : 'border-slate-200'}`}>
+      <Link
+        href={`/dashboard/companies/${company.id}`}
+        onClick={e => { if (isDragging) e.preventDefault() }}
+        className="block"
+      >
+        <p className="text-[13px] font-semibold text-slate-900 leading-tight truncate">{company.name}</p>
+        {company.sector && (
+          <p className="text-[11px] text-slate-400 mt-0.5 truncate">{company.sector}</p>
+        )}
+        {company.fit_score !== null && (
+          <p className="text-[12px] font-bold text-slate-700 mt-2">Fit: {company.fit_score}</p>
+        )}
+      </Link>
+      {showPrep && (
+        <Link
+          href={`/dashboard/companies/${company.id}/prep`}
+          onClick={e => e.stopPropagation()}
+          className="mt-2.5 block text-[11px] font-semibold text-amber-700 hover:text-amber-900 border-t border-slate-100 pt-2.5"
+        >
+          Prep brief →
+        </Link>
       )}
-      {company.fit_score !== null && (
-        <p className="text-[12px] font-bold text-slate-700 mt-2">Fit: {company.fit_score}</p>
-      )}
-    </Link>
+    </div>
   )
 }
 

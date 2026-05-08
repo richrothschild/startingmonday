@@ -11,6 +11,7 @@ import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { saveQuickProfile } from './profile/actions'
+import { addSignalFollowUp } from './signals/actions'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -600,6 +601,13 @@ export default async function DashboardPage({
                     {sig.outreach_angle && (
                       <p className="text-[12px] text-slate-500 italic leading-relaxed">{sig.outreach_angle}</p>
                     )}
+                    <form action={addSignalFollowUp} className="mt-2">
+                      <input type="hidden" name="company_name" value={co?.name ?? ''} />
+                      <input type="hidden" name="signal_summary" value={patternBody} />
+                      <button type="submit" className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0">
+                        + Follow up in 5 days
+                      </button>
+                    </form>
                   </div>
                 )
               })}
@@ -640,6 +648,13 @@ export default async function DashboardPage({
                     {sig.outreach_angle && (
                       <p className="text-[12px] text-slate-400 italic mt-1 leading-relaxed">{sig.outreach_angle}</p>
                     )}
+                    <form action={addSignalFollowUp} className="mt-2">
+                      <input type="hidden" name="company_name" value={co?.name ?? ''} />
+                      <input type="hidden" name="signal_summary" value={sig.signal_summary} />
+                      <button type="submit" className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0">
+                        + Follow up in 5 days
+                      </button>
+                    </form>
                   </div>
                 )
               })}
