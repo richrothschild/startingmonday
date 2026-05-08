@@ -31,6 +31,23 @@ export async function addCompany(formData: FormData) {
 
   if (!name) redirect('/dashboard/companies/new?error=required')
 
+  const { data: userRow } = await supabase
+    .from('users')
+    .select('subscription_tier')
+    .eq('id', user.id)
+    .single()
+  const tier = userRow?.subscription_tier ?? 'free'
+  const hasUnlimitedPipeline = tier === 'executive' || tier === 'campaign'
+
+  if (!hasUnlimitedPipeline) {
+    const { count: currentCount } = await supabase
+      .from('companies')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .is('archived_at', null)
+    if ((currentCount ?? 0) >= 25) redirect('/dashboard/companies/new?error=limit')
+  }
+
   const { data: inserted, error } = await supabase.from('companies').insert({
     user_id: user.id,
     name,

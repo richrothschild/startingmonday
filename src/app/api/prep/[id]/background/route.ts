@@ -2,7 +2,7 @@ import { type NextRequest } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
 import type { CareerEntry } from '@/components/CareerVerificationPanel'
 
@@ -37,7 +37,7 @@ export async function GET(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
 
   const { id: companyId } = await params
 
@@ -108,7 +108,7 @@ Tone: coaching voice, direct, concrete. No em dashes. No corporate filler.`
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
+          model: getModelForTier(tier),
           max_tokens: 900,
           system: SYSTEM,
           messages: [{ role: 'user', content: userPrompt }],

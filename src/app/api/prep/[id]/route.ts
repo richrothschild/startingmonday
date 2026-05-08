@@ -14,20 +14,20 @@ import {
   type Signal, type ScanRow, type ContactRow, type DocRow,
 } from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, MODELS, getModelForTier } from '@/lib/anthropic'
 import { PrepRefineBodySchema, firstZodError } from '@/lib/schemas'
 import { recordTrace } from '@/lib/trace'
 
 type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
 
-function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string, traceOpts?: TraceOpts) {
+function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string, model: string, traceOpts?: TraceOpts) {
   const encoder = new TextEncoder()
   const startMs = Date.now()
   return new ReadableStream({
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
+          model,
           max_tokens: maxTokens,
 
           system: PREP_SYSTEM,
@@ -45,7 +45,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         trackApiUsage(supabase, userId, tokens).catch(() => {})
         if (traceOpts) {
           recordTrace({
-            supabase, userId, feature: traceOpts.feature, model: MODELS.sonnet,
+            supabase, userId, feature: traceOpts.feature, model,
             promptTokens: final.usage.input_tokens ?? 0,
             completionTokens: final.usage.output_tokens ?? 0,
             latencyMs: Date.now() - startMs,
@@ -308,7 +308,8 @@ export async function GET(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
+  const model = getModelForTier(tier)
 
   const { id: companyId } = await params
   const { company, profile, scanResults, contacts, documents, signals } = await loadContext(supabase, companyId, userId)
@@ -348,6 +349,7 @@ export async function GET(
     8000,
     supabase,
     userId,
+    model,
     {
       feature: 'prep_brief',
       inputSnapshot: {
@@ -371,7 +373,8 @@ export async function POST(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
+  const model = getModelForTier(tier)
 
   let raw: unknown
   try { raw = await request.json() } catch {
@@ -399,6 +402,7 @@ export async function POST(
     6000,
     supabase,
     userId,
+    model,
     { feature: 'prep_refine', inputSnapshot: { refine_request: refinementRequest.slice(0, 100) } }
   )
 

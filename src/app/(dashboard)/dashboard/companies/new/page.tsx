@@ -24,6 +24,7 @@ export default async function AddCompanyPage({
   const errorMsg =
     error === 'duplicate' ? 'A company with that name is already in your pipeline.' :
     error === 'required'  ? 'Company name is required.' :
+    error === 'limit'     ? 'You have reached the 25-company limit. Upgrade to Executive for an unlimited pipeline, or archive a company to make room.' :
     null
 
   return (

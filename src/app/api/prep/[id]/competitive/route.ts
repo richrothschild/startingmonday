@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { COMPETITIVE_SYSTEM } from '@/lib/prompts'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, getModelForTier } from '@/lib/anthropic'
 
 export async function GET(
   request: NextRequest,
@@ -11,7 +11,7 @@ export async function GET(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
 
   const { id: companyId } = await params
 
@@ -87,7 +87,7 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
+          model: getModelForTier(tier),
           max_tokens: 1200,
 
           system: COMPETITIVE_SYSTEM,

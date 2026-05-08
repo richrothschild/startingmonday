@@ -355,7 +355,7 @@ export function PrepClient({
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
 
-      <header className="bg-slate-900">
+      <header className="bg-slate-900 no-print">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -371,7 +371,7 @@ export function PrepClient({
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-6 sm:mb-8 no-print">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6 mb-5">
             <div>
               <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
@@ -386,14 +386,26 @@ export function PrepClient({
                 disabled={busy}
                 className="text-[12px] text-slate-700 placeholder-slate-400 border border-slate-200 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
               />
-              <button
-                type="button"
-                onClick={handleGenerate}
-                disabled={busy}
-                className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={handleGenerate}
+                  disabled={busy}
+                  className="flex-1 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
+                </button>
+                {brief && !busy && (
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
+                    title="Save as PDF"
+                  >
+                    PDF
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -528,7 +540,7 @@ export function PrepClient({
         )}
 
         {briefId && !busy && (
-          <div className="mb-4 flex justify-end">
+          <div className="mb-4 flex justify-end no-print">
             <BriefRating briefId={briefId} />
           </div>
         )}
@@ -558,7 +570,7 @@ export function PrepClient({
           const top = nudges.slice(0, 2)
           if (top.length === 0) return null
           return (
-            <div className="mb-4 bg-white border border-slate-200 rounded p-5">
+            <div className="mb-4 bg-white border border-slate-200 rounded p-5 no-print">
               <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">What would sharpen the next brief</p>
               <div className="flex flex-col gap-2.5">
                 {top.map((n, i) => (
@@ -575,7 +587,7 @@ export function PrepClient({
         })()}
 
         {brief && !loading && (
-          <>
+          <div className="no-print">
             <OnDemandPanel
               title="Your Background Match"
               description="How your specific experience connects to this company's challenges. Generate this before you walk in."
@@ -657,13 +669,13 @@ export function PrepClient({
               error={questions.error}
               onGenerate={questions.generate}
             />
-          </>
+          </div>
         )}
 
-        {brief && !loading && <ResourcePanel brief={brief} />}
+        {brief && !loading && <div className="no-print"><ResourcePanel brief={brief} /></div>}
 
         {brief && !loading && (
-          <div className="bg-white border border-slate-200 rounded p-6">
+          <div className="bg-white border border-slate-200 rounded p-6 no-print">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-3">
               Refine this brief
             </p>
@@ -710,7 +722,7 @@ export function PrepClient({
         )}
 
         {brief && !hasContacts && (
-          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
+          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4 no-print">
             <p className="text-[13px] text-slate-300">
               Add a contact at {companyName} to track your outreach alongside this brief.
             </p>

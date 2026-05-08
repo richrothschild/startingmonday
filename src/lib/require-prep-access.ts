@@ -6,7 +6,7 @@ import { isRateLimited } from '@/lib/api-usage'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 type PrepAccessResult =
-  | { ok: true; userId: string; supabase: SupabaseClient }
+  | { ok: true; userId: string; tier: string; supabase: SupabaseClient }
   | { ok: false; response: Response }
 
 // Single guard used by all /api/prep/[id]/* routes.
@@ -39,5 +39,5 @@ export async function requirePrepAccess(request: NextRequest): Promise<PrepAcces
     }
   }
 
-  return { ok: true, userId, supabase }
+  return { ok: true, userId, tier: sub.tier, supabase }
 }

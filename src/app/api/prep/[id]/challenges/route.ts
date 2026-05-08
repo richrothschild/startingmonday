@@ -3,7 +3,7 @@ import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
@@ -26,7 +26,7 @@ export async function GET(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
 
   const { id: companyId } = await params
 
@@ -92,7 +92,7 @@ Tone: operating advisor voice. Honest. No filler. No em dashes.`
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
+          model: getModelForTier(tier),
           max_tokens: 1000,
 
           system: SYSTEM,

@@ -18,6 +18,11 @@ export const TEMP = {
   extract:    0.1,  // classification, extraction - needs deterministic output
 } as const
 
+// Executive tier gets Opus; all others get Sonnet.
+export function getModelForTier(tier: string): string {
+  return tier === 'executive' || tier === 'campaign' ? MODELS.opus : MODELS.sonnet
+}
+
 // Wraps a streaming promise with an AbortController timeout.
 // If the stream doesn't resolve within ms, the abort signal fires and
 // the Anthropic SDK cancels the in-flight request.

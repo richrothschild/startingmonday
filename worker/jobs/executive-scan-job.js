@@ -3,6 +3,7 @@ import { logger } from '../lib/logger.js'
 import { trackUsage } from '../lib/usage-tracker.js'
 import { createLimiter } from '../lib/concurrency.js'
 import { scanCompany } from '../scanner/scan-company.js'
+import { sendRoleFitAlert } from '../lib/signal-alert.js'
 
 const MAX_CONCURRENT_SCANS = 5
 
@@ -39,7 +40,7 @@ export async function runExecutiveScanJob() {
   // Only scan companies for executive tier users
   const { data: execUsers, error: userErr } = await supabase
     .from('users')
-    .select('id')
+    .select('id, email')
     .eq('subscription_tier', 'executive')
     .eq('subscription_status', 'active')
 
@@ -56,6 +57,7 @@ export async function runExecutiveScanJob() {
   }
 
   const execUserIds = execUsers.map(u => u.id)
+  const userEmailById = Object.fromEntries(execUsers.map(u => [u.id, u.email]))
 
   const { data: companies, error: companyErr } = await supabase
     .from('companies')
@@ -97,6 +99,15 @@ export async function runExecutiveScanJob() {
         if (!result.skipped && !result.blocked) {
           browserlessCalls++
           anthropicCalls += result.hits ?? 0
+          const email = userEmailById[company.user_id]
+          if (email && result.newMatchTitles?.length > 0) {
+            sendRoleFitAlert({
+              to: email,
+              companyName: company.name,
+              companyId: company.id,
+              matchTitles: result.newMatchTitles,
+            }).catch(err => logger.error('executive-scan-job: role fit alert failed', { company: company.name, error: err.message }))
+          }
         }
         return result
       } catch (err) {

@@ -1,5 +1,6 @@
 import { logger } from '../lib/logger.js'
 import { getSupabase } from '../lib/supabase.js'
+import { sendSignalAlert } from '../lib/signal-alert.js'
 import { fetchCompanyNews } from '../signals/fetch-company-news.js'
 import { classifySignal } from '../signals/classify-signal.js'
 import { writeSignal } from '../signals/write-signal.js'
@@ -28,7 +29,7 @@ export async function runSignalJob() {
   try {
     const { data: users, error } = await supabase
       .from('users')
-      .select('id')
+      .select('id, email, subscription_tier')
       .in('subscription_status', ['active', 'trialing'])
       .limit(1000)
 
@@ -224,6 +225,7 @@ export async function runSignalJob() {
                 const { departures, hires } = await diffExecSnapshot(supabase, company.id, currentExecs, today)
 
                 for (const exec of departures) {
+                  const outreachAngle = `The departure of ${exec.name} as ${exec.title} creates an opening for external executive talent. Reach out before the search is formalized.`
                   const { skipped } = await writeSignal(supabase, {
                     companyId:     company.id,
                     userId:        user.id,
@@ -231,11 +233,20 @@ export async function runSignalJob() {
                     signalSummary: `${exec.name} (${exec.title}) departed ${company.name}.`,
                     sourceUrl:     exec.linkedin_url ? `${exec.linkedin_url}#departure` : null,
                     signalDate:    today,
-                    outreachAngle: `The departure of ${exec.name} as ${exec.title} creates an opening for external executive talent. Reach out before the search is formalized.`,
+                    outreachAngle,
                   })
                   if (!skipped) {
                     signalsFound++
                     logger.info('signal-job: exec departure', { company: company.name, exec: exec.name })
+                    if (user.subscription_tier === 'executive' && user.email) {
+                      sendSignalAlert({
+                        to: user.email,
+                        companyName: company.name,
+                        patternName: 'Exec Departure',
+                        summary: `${exec.name} (${exec.title}) has departed ${company.name}. No replacement announced yet.`,
+                        outreachAngle,
+                      }).catch(err => logger.error('signal-job: exec departure alert failed', { error: err.message }))
+                    }
                   }
                 }
 
@@ -286,6 +297,15 @@ export async function runSignalJob() {
               if (!skipped) {
                 signalsFound++
                 logger.info('signal-job: pattern alert', { company: company.name, pattern: correlation.pattern_name })
+                if (user.subscription_tier === 'executive' && user.email) {
+                  sendSignalAlert({
+                    to: user.email,
+                    companyName: company.name,
+                    patternName: correlation.pattern_name,
+                    summary: correlation.pattern_summary,
+                    outreachAngle: correlation.outreach_angle ?? null,
+                  }).catch(err => logger.error('signal-job: pattern alert email failed', { error: err.message }))
+                }
               }
             }
           }

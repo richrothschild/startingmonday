@@ -74,6 +74,9 @@ cron.schedule('0 8 * * 1,3,5', () => runJob('scan-job', runScanJob))
 // Executive daily scan: Tue / Thu / Sat / Sun at 08:00 — executive tier only
 cron.schedule('0 8 * * 0,2,4,6', () => runJob('executive-scan-job', runExecutiveScanJob))
 
+// Executive evening scan: daily at 20:00 UTC — second scan for executive tier (2x daily)
+cron.schedule('0 20 * * *', () => runJob('executive-evening-scan', runExecutiveScanJob))
+
 // Signals: Mon / Wed / Fri at 08:30 (after scan)
 cron.schedule('30 8 * * 1,3,5', () => runJob('signal-job', runSignalJob))
 
@@ -116,7 +119,7 @@ cron.schedule('0 2 * * 0', () => runJob('cleanup-job', runCleanupJob))
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

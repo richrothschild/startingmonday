@@ -4,7 +4,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { QUESTIONS_SYSTEM, roleTypeContext } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, getModelForTier } from '@/lib/anthropic'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
   job_description: 'Job Description',
@@ -20,7 +20,7 @@ export async function GET(
 ) {
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
-  const { userId, supabase } = access
+  const { userId, tier, supabase } = access
 
   const { id: companyId } = await params
 
@@ -114,7 +114,7 @@ Tone: direct coaching voice. Talk to the candidate directly in the coaching note
     async start(controller) {
       try {
         const stream = anthropic.messages.stream({
-          model: MODELS.sonnet,
+          model: getModelForTier(tier),
           max_tokens: 1500,
 
           system: QUESTIONS_SYSTEM,

@@ -64,8 +64,9 @@ export async function scanCompany(supabase, company, userProfile) {
     await writeScanResult(supabase, { companyId, userId, hits: scoredHits, aiScore, aiSummary })
     await updateCompanyScanTime(supabase, companyId)
 
+    const newMatchTitles = newHits.filter(h => h.is_match).map(h => h.title)
     console.log(`[scanner] ${name}: done — ${matches.length} match(es), ${newHits.length} new`)
-    return { hits: scoredHits.length, matches: matches.length, newHits: newHits.length }
+    return { hits: scoredHits.length, matches: matches.length, newHits: newHits.length, newMatchTitles }
   } catch (error) {
     if (error instanceof BlockedError) {
       console.log(`[scanner] ${name}: blocked by site`)

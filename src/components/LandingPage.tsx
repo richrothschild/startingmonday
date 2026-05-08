@@ -109,7 +109,10 @@ const ACTIVE_FEATURES = [
 
 const EXECUTIVE_FEATURES = [
   'Everything in Active',
-  'Daily career page scanning (7x per week)',
+  'Unlimited company pipeline',
+  'Career page scanning 2x daily',
+  'Immediate pattern and exec departure alerts',
+  'Opus AI for interview prep briefs',
   'Salary intelligence and negotiation scripts',
   'Recruiter tracker with firm grouping',
   'Priority contact flagging and CSV export',

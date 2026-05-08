@@ -34,10 +34,13 @@ export const PLANS = {
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
       'Everything in Search',
-      'Daily career page scanning (7x/week)',
+      'Unlimited company pipeline',
+      'Daily career page scanning (2x/day)',
       'Salary intelligence and negotiation scripts',
       'Recruiter tracker with firm grouping',
       'Priority contact flagging and CSV export',
+      'Immediate pattern and exec departure alerts',
+      'Opus AI for interview prep briefs',
     ],
   },
 } as const
