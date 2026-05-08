@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+﻿import { type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -112,13 +112,17 @@ Do not use: transform, leverage, robust, seamlessly, innovative, cutting-edge, g
 
 Do not open a paragraph with "At [Company Name]" or "For [Company Name]." Do not use throat-clearing phrases like "The fact is," "It is worth noting," or "Ultimately."
 
-Headers should be substantive statements, not category labels. "## The Problem" is a category label. "## When the Search Runs Without Support, the Search Runs Slowly" is a statement. Write headers at that level of specificity.
-
-Use bold sparingly -- only where a term or number needs to stand out for a reader scanning. No horizontal rules. No decorative separators.
+Headers should be substantive statements, not category labels. "The Problem" is a category label. "When the Search Runs Without Support, the Search Runs Slowly" is a statement. Write headers at that level of specificity.
 
 The document should be indistinguishable from something a McKinsey partner would hand to a client. Specific. Peer-level. No startup enthusiasm.
 
-Format: use ## for section headers. Bold key terms and figures where it adds clarity. This will be rendered as markdown.`
+FORMAT RULES -- follow exactly:
+- Plain text only. No markdown. No # signs. No ** asterisks. No bullet dashes. No horizontal rules.
+- Section headers: write them as a short ALL-CAPS label on its own line, followed by a blank line. Example: "WHEN THE SEARCH LOSES MOMENTUM"
+- Capability list: write each item as a short bold-free paragraph starting on a new line with a number and period (1. 2. 3.). No dashes. No asterisks.
+- Do not use em dashes anywhere. Use a comma, a period, or rewrite the sentence. This is a hard rule.
+- Do not use parentheses for asides. Rewrite as a sentence.
+- Blank line between every paragraph and every section.`
 
   const stream = await anthropic.messages.stream({
     model: MODELS.sonnet,
@@ -132,7 +136,8 @@ Format: use ## for section headers. Bold key terms and figures where it adds cla
       try {
         for await (const chunk of stream) {
           if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(chunk.delta.text))
+            const text = chunk.delta.text.replace(/\\u2014/g, ',').replace(/#+\s?/g, '').replace(/\*\*/g, '')
+            controller.enqueue(encoder.encode(text))
           }
         }
       } catch (err) {
