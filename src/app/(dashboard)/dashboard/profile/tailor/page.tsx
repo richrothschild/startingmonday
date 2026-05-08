@@ -92,18 +92,18 @@ export default async function TailorPage({
         {/* Upgrade gate */}
         {!canTailor && (
           <div className="bg-slate-900 rounded p-6 sm:p-8 text-center">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Active plan required</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Search plan required</p>
             <h2 className="text-[20px] font-bold text-white leading-tight mb-3">
-              Resume tailoring is an Active feature.
+              Resume tailoring is a Search feature.
             </h2>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
-              Upgrade to Active ($129/mo) to tailor your resume for any role, with keyword analysis and .docx export.
+              Upgrade to Search to tailor your resume for any role, with keyword analysis and .docx export.
             </p>
             <Link
               href="/settings/billing"
               className="inline-block text-[14px] font-semibold text-slate-900 bg-white hover:bg-slate-100 px-6 py-3 rounded transition-colors"
             >
-              Upgrade to Active
+              Upgrade to Search
             </Link>
           </div>
         )}

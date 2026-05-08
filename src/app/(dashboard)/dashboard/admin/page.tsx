@@ -15,9 +15,10 @@ const STEP_LABELS: Record<string, string> = {
 }
 
 const INTERNAL_PAGES = [
-  { path: '/dashboard/admin',        label: 'Admin Hub',           owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin/team',   label: 'Team Management',     owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin',        label: 'Analytics',           owner: 'rw', admin: 'rw', viewer: 'r' },
+  { path: '/dashboard/admin',                  label: 'Admin Hub',           owner: 'rw', admin: 'r',  viewer: '-' },
+  { path: '/dashboard/admin/team',             label: 'Team Management',     owner: 'rw', admin: 'r',  viewer: '-' },
+  { path: '/dashboard/admin',                  label: 'Analytics',           owner: 'rw', admin: 'rw', viewer: 'r' },
+  { path: '/dashboard/admin/intelligence',     label: 'Intelligence (B2B)',  owner: 'rw', admin: 'rw', viewer: '-' },
 ]
 
 export default async function AdminPage() {

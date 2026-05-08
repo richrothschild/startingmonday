@@ -23,7 +23,7 @@ export async function requirePrepAccess(request: NextRequest): Promise<PrepAcces
     return {
       ok: false,
       response: new Response(
-        JSON.stringify({ error: 'Interview prep requires an Active plan.' }),
+        JSON.stringify({ error: 'Interview prep requires a Search plan.' }),
         { status: 403, headers: { 'Content-Type': 'application/json' } }
       ),
     }

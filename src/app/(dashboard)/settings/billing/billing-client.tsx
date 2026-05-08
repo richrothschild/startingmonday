@@ -12,9 +12,9 @@ function fmtDate(d: Date | null) {
 
 const PLAN_LABEL_MAP: Record<string, string> = {
   free:      'Free trial',
-  passive:   'Passive',
-  monitor:   'Passive',
-  active:    'Active',
+  passive:   'Intelligence',
+  monitor:   'Intelligence',
+  active:    'Search',
   executive: 'Executive',
   campaign:  'Campaign',
 }

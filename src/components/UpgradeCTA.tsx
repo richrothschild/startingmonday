@@ -3,9 +3,9 @@ import Link from 'next/link'
 export function UpgradeCTA({ feature }: { feature: string }) {
   return (
     <div className="rounded border border-slate-200 bg-white px-6 py-8 text-center">
-      <p className="text-[15px] font-semibold text-slate-900 mb-1">Active plan required</p>
+      <p className="text-[15px] font-semibold text-slate-900 mb-1">Search plan required</p>
       <p className="text-[13px] text-slate-500 mb-5">
-        {feature} is included in the Active plan at $129/month.
+        {feature} is included in the Search plan. Upgrade to unlock.
       </p>
       <Link
         href="/settings/billing"

@@ -1,23 +1,24 @@
 export const PLANS = {
   passive: {
-    name: 'Passive',
+    name: 'Intelligence',
     amount: 4900,
     quarterlyAmount: 13200,
-    description: 'Career page scanning at your target companies, weekly digest, pipeline tracking',
+    description: 'Company signal monitoring, exec moves, funding rounds, and weekly digest',
     features: [
       'Pipeline tracking for up to 25 companies',
-      'Career page scans 3x per week',
+      'Signal scans 3x per week',
+      'Exec move and funding alerts',
       'Weekly signal digest',
       'Contact tracker',
     ],
   },
   active: {
-    name: 'Active',
+    name: 'Search',
     amount: 19900,
     quarterlyAmount: 53700,
-    description: 'Full search operating system with AI briefs, strategy, and daily briefing',
+    description: 'Full search operating system with AI briefs, daily briefing, and outreach',
     features: [
-      'Everything in Passive',
+      'Everything in Intelligence',
       'AI Interview Prep Briefs',
       'Search Strategy Brief',
       'AI Chat advisor',

@@ -1,8 +1,8 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-// Obvious non-browser clients to block from the public /api/optimize endpoint
-const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scrapy|httpx|aiohttp|libwww-perl|okhttp|axios\/|node-fetch)/i
+// Obvious non-browser clients: blocked on /api/optimize and /intelligence/* routes
+const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scrapy|httpx|aiohttp|libwww-perl|okhttp|axios\/|node-fetch|python\/|go\/|ruby|perl|php\/|spider|crawler|bot\/|bot$|scraper|HeadlessChrome)/i
 
 const NOINDEX = { 'X-Robots-Tag': 'noindex, nofollow' }
 
@@ -37,6 +37,16 @@ export async function middleware(request: NextRequest) {
     const res = NextResponse.next()
     res.headers.set('X-Robots-Tag', 'noindex, nofollow')
     return res
+  }
+
+  // --- Intelligence routes: bot detection only, no auth required ---
+  if (pathname.startsWith('/intelligence/')) {
+    logRequest(request)
+    const ua = request.headers.get('user-agent') ?? ''
+    if (!ua || BOT_UA_RE.test(ua)) {
+      return new NextResponse('Forbidden', { status: 403 })
+    }
+    return NextResponse.next()
   }
 
   // --- Dashboard routes: session refresh + redirect guard ---
@@ -79,5 +89,6 @@ export const config = {
   matcher: [
     '/api/((?!health$).*)',
     '/dashboard/:path*',
+    '/intelligence/:path*',
   ],
 }
