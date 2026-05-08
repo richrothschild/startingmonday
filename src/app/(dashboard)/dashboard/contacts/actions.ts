@@ -67,7 +67,7 @@ export async function markContactSent(contactId: string, contactName: string): P
   if (!user) return { ok: false, error: 'Not authenticated' }
 
   const followUpDate = new Date()
-  followUpDate.setDate(followUpDate.getDate() + 7)
+  followUpDate.setDate(followUpDate.getDate() + 5)
   const followUpDateStr = followUpDate.toISOString().slice(0, 10)
 
   const [{ error: updateError }, { error: followUpError }] = await Promise.all([
@@ -109,6 +109,26 @@ export async function updateOutreachStatus(contactId: string, status: string): P
 
   revalidatePath(`/dashboard/contacts/${contactId}`)
   revalidatePath('/dashboard/contacts')
+}
+
+export async function remindLater(contactId: string, contactName: string): Promise<{ ok: boolean }> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { ok: false }
+
+  const due = new Date()
+  due.setDate(due.getDate() + 1)
+  const dueDate = due.toISOString().slice(0, 10)
+
+  const { error } = await supabase.from('follow_ups').insert({
+    user_id: user.id,
+    contact_id: contactId,
+    action: `Send outreach to ${contactName}`,
+    due_date: dueDate,
+    status: 'pending',
+  })
+
+  return { ok: !error }
 }
 
 export async function archiveContact(contactId: string) {

@@ -13,7 +13,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
   const [{ data: contact }, { data: history }, { data: profileData }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, companies(name)')
+      .select('id, name, title, firm, channel, notes, email, linkedin_url, companies(name)')
       .eq('id', id)
       .eq('user_id', user.id)
       .single(),
@@ -43,7 +43,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
   ]
   const profileScore = Math.round((profileSections.filter(Boolean).length / 5) * 100)
 
-  const c = contact as typeof contact & { companies?: { name: string } | null }
+  const c = contact as typeof contact & { companies?: { name: string } | null; email?: string | null; linkedin_url?: string | null }
 
   return (
     <OutreachClient
@@ -55,6 +55,8 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
         channel: c.channel ?? null,
         notes: c.notes ?? null,
         company_name: c.companies?.name ?? null,
+        email: c.email ?? null,
+        linkedin_url: c.linkedin_url ?? null,
       }}
       history={(history ?? []).map(h => ({
         id: h.id,

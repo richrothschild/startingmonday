@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { BriefRating } from '@/components/BriefRating'
-import { markContactSent } from '../../actions'
+import { markContactSent, remindLater } from '../../actions'
 
 const GOALS = [
   'Request a 20-minute exploratory call',
@@ -29,6 +29,8 @@ type Contact = {
   channel: string | null
   notes: string | null
   company_name: string | null
+  email: string | null
+  linkedin_url: string | null
 }
 
 type DraftHistory = {
@@ -73,6 +75,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
   const [draftId, setDraftId] = useState<string | null>(null)
   const [loading, setLoading] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [showCopyPrompt, setShowCopyPrompt] = useState(false)
   const [sent, setSent] = useState(false)
   const [customRefine, setCustomRefine] = useState('')
   const [showHistory, setShowHistory] = useState(false)
@@ -85,6 +88,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
     setLoading(label)
     setDraftId(null)
     setCopied(false)
+    setShowCopyPrompt(false)
     setSent(false)
     try {
       const res = await fetch('/api/outreach/draft', {
@@ -144,6 +148,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
   async function handleCopy() {
     await navigator.clipboard.writeText(draft)
     setCopied(true)
+    setShowCopyPrompt(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -151,7 +156,17 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
     setLoading('sent')
     try {
       const result = await markContactSent(contact.id, contact.name)
-      if (result.ok) setSent(true)
+      if (result.ok) { setSent(true); setShowCopyPrompt(false) }
+    } finally {
+      setLoading(null)
+    }
+  }
+
+  async function handleRemindLater() {
+    setLoading('remind')
+    try {
+      await remindLater(contact.id, contact.name)
+      setShowCopyPrompt(false)
     } finally {
       setLoading(null)
     }
@@ -271,11 +286,56 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
               </div>
             </div>
 
-            <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap mb-5">{draft}</div>
+            <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap mb-4">{draft}</div>
+
+            {!loading && (
+              <div className="flex gap-2 mb-4">
+                <a
+                  href={contact.email
+                    ? `mailto:${contact.email}?subject=Introduction&body=${encodeURIComponent(draft)}`
+                    : `mailto:?subject=Introduction&body=${encodeURIComponent(draft)}`}
+                  className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 transition-colors"
+                >
+                  Draft email ↗
+                </a>
+                {contact.linkedin_url && (
+                  <a
+                    href={contact.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 transition-colors"
+                  >
+                    Open LinkedIn ↗
+                  </a>
+                )}
+              </div>
+            )}
+
+            {showCopyPrompt && !sent && !loading && (
+              <div className="mb-4 px-4 py-3 bg-slate-50 border border-slate-200 rounded flex items-center justify-between gap-4">
+                <p className="text-[13px] text-slate-600">Paste this into LinkedIn or email, then mark it sent here.</p>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={handleMarkSent}
+                    className="text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1 cursor-pointer border-0"
+                  >
+                    Mark as sent
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRemindLater}
+                    className="text-[12px] font-semibold text-slate-500 hover:text-slate-900 border border-slate-200 rounded px-3 py-1 cursor-pointer bg-white"
+                  >
+                    Remind me later
+                  </button>
+                </div>
+              </div>
+            )}
 
             {sent && (
               <div className="mb-5 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded text-[12px] text-emerald-700">
-                Logged as contacted. A follow-up has been added for 7 days from now.
+                Logged as contacted. A follow-up has been added for 5 days from now.
               </div>
             )}
 
