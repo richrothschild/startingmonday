@@ -201,10 +201,10 @@ export default async function DashboardPage({
     : '/dashboard/profile'
 
   const stats = [
-    { value: totalCount,   label: 'Companies',   alert: false,           amber: false,              href: null },
-    { value: activeCount,  label: 'Active',       alert: false,           amber: false,              href: null },
-    { value: signalCount,  label: 'Signals',      alert: false,           amber: signalCount > 0,    href: '/dashboard/signals' },
-    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: null },
+    { value: totalCount,   label: 'Companies',   alert: false,            amber: false,              href: '#pipeline' },
+    { value: activeCount,  label: 'Active',       alert: false,            amber: activeCount > 0,    href: '#pipeline' },
+    { value: signalCount,  label: 'Signals',      alert: false,            amber: signalCount > 0,    href: '/dashboard/signals' },
+    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
   ]
 
   const setupSteps = [
@@ -245,7 +245,7 @@ export default async function DashboardPage({
           <div className="flex sm:hidden items-center gap-4">
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white">Chat</Link>
-            <LogoutButton label="Out" />
+            <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
@@ -707,7 +707,7 @@ export default async function DashboardPage({
         {totalCount < 5 && !hasFilters && <SuggestionCards />}
 
         {/* Pipeline */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden">
+        <div id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
 
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">

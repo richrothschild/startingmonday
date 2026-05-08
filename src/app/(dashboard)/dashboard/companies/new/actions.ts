@@ -6,6 +6,13 @@ import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { str, numOrNull } from '@/lib/form-utils'
 
+function normalizeUrl(raw: string | null): string | null {
+  if (!raw) return null
+  const t = raw.trim()
+  if (!t) return null
+  return /^https?:\/\//i.test(t) ? t : `https://${t}`
+}
+
 export async function addCompany(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -16,8 +23,8 @@ export async function addCompany(formData: FormData) {
   const sector        = str(formData, 'sector') || null
   const stage         = str(formData, 'stage') || 'watching'
   const fitScore      = numOrNull(formData, 'fit_score')
-  const companyUrl    = str(formData, 'company_url') || null
-  const careerPageUrl = str(formData, 'career_page_url') || null
+  const companyUrl    = normalizeUrl(str(formData, 'company_url'))
+  const careerPageUrl = normalizeUrl(str(formData, 'career_page_url'))
   const notes         = str(formData, 'notes') || null
   const validSizes    = ['startup', 'midmarket', 'enterprise'] as const
   const companySize   = validSizes.find(v => v === str(formData, 'company_size')) ?? null

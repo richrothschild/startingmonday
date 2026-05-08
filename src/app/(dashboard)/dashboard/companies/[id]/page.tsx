@@ -347,9 +347,9 @@ export default async function CompanyPage({
                 </label>
                 <input
                   name="company_url"
-                  type="url"
+                  type="text"
                   defaultValue={company.company_url ?? ''}
-                  placeholder="https://acme.com"
+                  placeholder="acme.com or https://acme.com"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Main URL &mdash; used to discover press room and leadership page</p>
@@ -361,9 +361,9 @@ export default async function CompanyPage({
                 </label>
                 <input
                   name="career_page_url"
-                  type="url"
+                  type="text"
                   defaultValue={company.career_page_url ?? ''}
-                  placeholder="https://acme.com/careers"
+                  placeholder="acme.com/careers or https://acme.com/careers"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
@@ -375,9 +375,9 @@ export default async function CompanyPage({
                 </label>
                 <input
                   name="linkedin_url"
-                  type="url"
+                  type="text"
                   defaultValue={company.linkedin_url ?? ''}
-                  placeholder="https://www.linkedin.com/company/acme"
+                  placeholder="linkedin.com/company/acme"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Used to detect executive hires and departures</p>
@@ -436,7 +436,7 @@ export default async function CompanyPage({
               <form action={archiveCompany.bind(null, id)}>
                 <button
                   type="submit"
-                  className="text-[13px] text-slate-400 hover:text-red-600 cursor-pointer bg-transparent border-0 p-0"
+                  className="text-[13px] font-semibold text-slate-500 hover:text-red-600 hover:border-red-200 border border-slate-200 rounded px-4 py-2 cursor-pointer bg-white transition-colors"
                 >
                   Archive company
                 </button>

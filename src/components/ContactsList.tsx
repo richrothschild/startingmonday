@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
-import { archiveContact } from '@/app/(dashboard)/dashboard/contacts/actions'
+import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { archiveContactSilent } from '@/app/(dashboard)/dashboard/contacts/actions'
 import { STATUS_STEPS, STATUS_CLS } from '@/components/ContactStatusStepper'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
@@ -31,13 +32,17 @@ export type ContactListItem = {
 }
 
 export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
+  const router = useRouter()
   const [search, setSearch] = useState('')
   const [channelFilter, setChannelFilter] = useState('')
+  const [removedIds, setRemovedIds] = useState<Set<string>>(new Set())
+  const [, startRemove] = useTransition()
 
   const usedChannels = new Set(contacts.map(c => c.channel).filter(Boolean) as string[])
   const activeChannelFilters = CHANNEL_VALUES.filter(v => usedChannels.has(v))
 
   const filtered = contacts.filter(ct => {
+    if (removedIds.has(ct.id)) return false
     const q = search.toLowerCase()
     const matchesSearch = !q ||
       ct.name.toLowerCase().includes(q) ||
@@ -165,14 +170,19 @@ export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
                   >
                     Draft
                   </Link>
-                  <form action={archiveContact.bind(null, ct.id)}>
-                    <button
-                      type="submit"
-                      className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
-                    >
-                      Remove
-                    </button>
-                  </form>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRemovedIds(prev => new Set([...prev, ct.id]))
+                      startRemove(async () => {
+                        await archiveContactSilent(ct.id)
+                        router.refresh()
+                      })
+                    }}
+                    className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 min-h-[32px] min-w-[44px]"
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             )

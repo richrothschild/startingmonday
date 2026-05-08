@@ -15,6 +15,7 @@ interface Props {
 export function FollowUpItem({ id, action, dueDate, dateLabel, isToday, companyName }: Props) {
   const router = useRouter()
   const [editing, setEditing] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [donePending, startDone] = useTransition()
   const [savePending, startSave] = useTransition()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -25,6 +26,7 @@ export function FollowUpItem({ id, action, dueDate, dateLabel, isToday, companyN
   }
 
   function handleDone() {
+    setHidden(true)
     const fd = new FormData()
     fd.append('id', id)
     startDone(async () => {
@@ -40,6 +42,8 @@ export function FollowUpItem({ id, action, dueDate, dateLabel, isToday, companyN
       router.refresh()
     })
   }
+
+  if (hidden) return null
 
   if (editing) {
     return (

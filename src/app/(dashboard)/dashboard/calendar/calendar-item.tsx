@@ -1,0 +1,56 @@
+'use client'
+import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { markFollowUpDone } from '@/app/(dashboard)/dashboard/actions'
+
+type Props = {
+  id: string
+  action: string
+  dueDate: string
+  today: string
+  overdue: boolean
+  label: string
+}
+
+export function CalendarItemClient({ id, action, dueDate, today, overdue, label }: Props) {
+  const router = useRouter()
+  const [hidden, setHidden] = useState(false)
+  const [pending, startTransition] = useTransition()
+
+  if (hidden) return null
+
+  const isToday = dueDate === today
+  const dateLabel = isToday
+    ? 'Today'
+    : new Date(dueDate + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
+
+  function handleDone() {
+    setHidden(true)
+    const fd = new FormData()
+    fd.append('id', id)
+    startTransition(async () => {
+      await markFollowUpDone(fd)
+      router.refresh()
+    })
+  }
+
+  return (
+    <div className="px-5 py-3.5 flex items-start gap-3">
+      <div className="flex-1 min-w-0">
+        <p className="text-[14px] font-semibold text-slate-900 leading-tight">{action}</p>
+        {label && <p className="text-[12px] text-slate-400 mt-0.5">{label}</p>}
+      </div>
+      <span className={`shrink-0 text-[11px] font-semibold mt-0.5 ${overdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
+        {dateLabel}
+      </span>
+      <button
+        type="button"
+        onClick={handleDone}
+        disabled={pending}
+        className="shrink-0 text-[12px] text-slate-400 border border-slate-200 rounded px-3 py-1 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent disabled:opacity-50 min-h-[32px]"
+      >
+        {pending ? '…' : 'Done'}
+      </button>
+    </div>
+  )
+}

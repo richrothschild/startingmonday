@@ -18,6 +18,8 @@ export async function markFollowUpDone(formData: FormData) {
     .eq('user_id', user.id)
 
   revalidatePath('/dashboard')
+  revalidatePath('/dashboard/calendar')
+  revalidatePath('/dashboard/contacts', 'layout')
 }
 
 export async function updateFollowUp(formData: FormData) {

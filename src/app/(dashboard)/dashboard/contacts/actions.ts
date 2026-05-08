@@ -145,3 +145,18 @@ export async function archiveContact(contactId: string) {
   revalidatePath('/dashboard/contacts')
   redirect('/dashboard/contacts')
 }
+
+export async function archiveContactSilent(contactId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('contacts')
+    .update({ status: 'archived' })
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+
+  revalidatePath('/dashboard/contacts')
+  revalidatePath('/dashboard')
+}

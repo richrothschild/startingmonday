@@ -16,10 +16,14 @@ export async function GET(request: NextRequest) {
   if (code) {
     const cookieStore = await cookies()
 
-    // Pre-build the redirect response so we can write session cookies directly
-    // onto it. We also dual-write via cookieStore to handle any Next.js version
-    // differences in how cookies are flushed to the outgoing response.
-    const response = NextResponse.redirect(`${publicOrigin}${next}`)
+    // Use a JS redirect (location.replace) instead of an HTTP 302 so the
+    // OAuth callback URL is replaced in browser history rather than pushed.
+    // Pressing Back will skip past the Google account chooser entirely.
+    const destination = `${publicOrigin}${next}`
+    const response = new NextResponse(
+      `<!DOCTYPE html><html><head><meta charset="utf-8"><script>location.replace(${JSON.stringify(destination)})</script></head><body></body></html>`,
+      { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+    )
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { CalendarItemClient } from './calendar-item'
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -154,7 +155,15 @@ export default async function CalendarPage({
             </div>
             <div className="divide-y divide-red-100">
               {overdue.map(fu => (
-                <CalendarItem key={fu.id} fu={fu} today={todayISO} overdue />
+                <CalendarItemClient
+                  key={fu.id}
+                  id={fu.id}
+                  action={fu.action}
+                  dueDate={fu.due_date}
+                  today={todayISO}
+                  overdue
+                  label={fu.companies?.name ?? fu.contacts?.name ?? ''}
+                />
               ))}
             </div>
           </div>
@@ -209,7 +218,15 @@ export default async function CalendarPage({
                 {items.length > 0 && (
                   <div className="divide-y divide-slate-50">
                     {items.map(fu => (
-                      <CalendarItem key={fu.id} fu={fu} today={todayISO} overdue={false} />
+                      <CalendarItemClient
+                        key={fu.id}
+                        id={fu.id}
+                        action={fu.action}
+                        dueDate={fu.due_date}
+                        today={todayISO}
+                        overdue={false}
+                        label={fu.companies?.name ?? fu.contacts?.name ?? ''}
+                      />
                     ))}
                   </div>
                 )}
@@ -256,27 +273,3 @@ function CalendarChip({ fu }: { fu: FollowUp }) {
   )
 }
 
-function CalendarItem({ fu, today, overdue }: { fu: FollowUp; today: string; overdue: boolean }) {
-  const href = fu.companies?.id
-    ? `/dashboard/companies/${fu.companies.id}`
-    : `/dashboard/contacts`
-  const label = fu.companies?.name ?? fu.contacts?.name ?? ''
-  const isToday = fu.due_date === today
-  const dateLabel = isToday
-    ? 'Today'
-    : new Date(fu.due_date + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
-
-  return (
-    <Link href={href} className="group px-5 py-3.5 flex items-start gap-4 hover:bg-slate-50 transition-colors block">
-      <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-700 leading-tight">{fu.action}</p>
-        {label && (
-          <p className="text-[12px] text-slate-400 mt-0.5">{label}</p>
-        )}
-      </div>
-      <span className={`shrink-0 text-[11px] font-semibold mt-0.5 ${overdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
-        {dateLabel}
-      </span>
-    </Link>
-  )
-}

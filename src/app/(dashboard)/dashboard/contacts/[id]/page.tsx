@@ -127,21 +127,21 @@ export default async function ContactDetailPage({
 
         {/* Contact header */}
         <div className="bg-white border border-slate-200 rounded-lg p-6 mb-5">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div className="flex items-center gap-4">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="flex items-center gap-4 flex-1 min-w-0">
               <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white text-[16px] font-bold shrink-0">
                 {contact.name[0].toUpperCase()}
               </div>
-              <div>
-                <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{contact.name}</h1>
+              <div className="min-w-0">
+                <h1 className="text-[22px] font-bold text-slate-900 leading-tight truncate">{contact.name}</h1>
                 {(contact.title || companyName) && (
-                  <p className="text-[14px] text-slate-500 mt-0.5">
+                  <p className="text-[14px] text-slate-500 mt-0.5 truncate">
                     {[contact.title, companyName].filter(Boolean).join(' at ')}
                   </p>
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex flex-col items-end gap-2 shrink-0">
               {ch && (
                 <span className={`text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full ${ch.cls}`}>
                   {ch.label}
@@ -149,7 +149,7 @@ export default async function ContactDetailPage({
               )}
               <Link
                 href={`/dashboard/contacts/${id}/edit`}
-                className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 border border-slate-200 hover:border-slate-400 rounded px-2.5 py-1 transition-colors"
+                className="text-[12px] font-semibold text-slate-500 hover:text-slate-800 border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors min-h-[32px] flex items-center"
               >
                 Edit
               </Link>

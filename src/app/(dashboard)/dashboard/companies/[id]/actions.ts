@@ -7,6 +7,13 @@ import { markOfferAccepted, logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { str, numOrNull } from '@/lib/form-utils'
 
+function normalizeUrl(raw: string | null): string | null {
+  if (!raw) return null
+  const t = raw.trim()
+  if (!t) return null
+  return /^https?:\/\//i.test(t) ? t : `https://${t}`
+}
+
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -17,9 +24,9 @@ export async function updateCompany(id: string, formData: FormData) {
   const sector = str(formData, 'sector') || null
   const stage = str(formData, 'stage') || 'watching'
   const fitScore = numOrNull(formData, 'fit_score')
-  const companyUrl = str(formData, 'company_url') || null
-  const careerPageUrl = str(formData, 'career_page_url') || null
-  const linkedinUrl = str(formData, 'linkedin_url') || null
+  const companyUrl = normalizeUrl(str(formData, 'company_url'))
+  const careerPageUrl = normalizeUrl(str(formData, 'career_page_url'))
+  const linkedinUrl = normalizeUrl(str(formData, 'linkedin_url'))
   const notes = str(formData, 'notes') || null
   const competitiveContext = str(formData, 'competitive_context') || null
   const interviewNotes = str(formData, 'interview_notes') || null
