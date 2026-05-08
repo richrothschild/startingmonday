@@ -10,6 +10,7 @@ import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
+import { saveQuickProfile } from './profile/actions'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -25,9 +26,9 @@ const PAGE_SIZE = 50
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string }>
 }) {
-  const { q, stage, page: pageParam } = await searchParams
+  const { q, stage, page: pageParam, profile_saved } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -35,7 +36,7 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, role_type, target_titles, resume_text, positioning_summary, briefing_time, current_title')
     .eq('user_id', user.id)
     .single()
 
@@ -181,6 +182,19 @@ export default async function DashboardPage({
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
 
+  const profileSections = [
+    { label: 'Identity',    done: !!(profile?.role_type && profile?.full_name),                        anchor: 'section-identity' },
+    { label: 'Targets',     done: ((profile?.target_titles as string[] | null)?.length ?? 0) > 0,     anchor: 'section-targets' },
+    { label: 'Resume',      done: (profile?.resume_text?.length ?? 0) >= 200,                          anchor: 'section-resume' },
+    { label: 'Positioning', done: (profile?.positioning_summary?.length ?? 0) >= 50,                   anchor: 'section-positioning' },
+    { label: 'Briefing',    done: !!profile?.briefing_time,                                             anchor: 'section-briefing' },
+  ]
+  const profileScore = Math.round((profileSections.filter(s => s.done).length / 5) * 100)
+  const nextProfileSection = profileSections.find(s => !s.done)
+  const profileHref = nextProfileSection
+    ? `/dashboard/profile#${nextProfileSection.anchor}`
+    : '/dashboard/profile'
+
   const stats = [
     { value: totalCount,   label: 'Companies',   alert: false,           amber: false,              href: null },
     { value: activeCount,  label: 'Active',       alert: false,           amber: false,              href: null },
@@ -241,6 +255,16 @@ export default async function DashboardPage({
           <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
         </div>
 
+        {/* Profile quick-save confirmation */}
+        {profile_saved && (
+          <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">
+            <span>Profile updated. Your briefs and coaching will reflect this now.</span>
+            <Link href="/dashboard/profile" className="font-semibold underline shrink-0">
+              Finish profile
+            </Link>
+          </div>
+        )}
+
         {/* Trial banner */}
         {isTrialing && (
           <div className={`mb-6 px-5 py-3 rounded flex items-center justify-between gap-4 text-[13px] ${
@@ -280,6 +304,84 @@ export default async function DashboardPage({
             <Link href="/dashboard/start" className="text-[12px] font-semibold text-slate-900 hover:underline shrink-0">
               Finish setup →
             </Link>
+          </div>
+        )}
+
+        {/* Profile completeness score */}
+        {profileScore < 100 && (
+          <Link
+            href={profileHref}
+            className="mb-6 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
+          >
+            <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
+              profileScore >= 80 ? 'text-emerald-600' :
+              profileScore >= 40 ? 'text-amber-500' :
+              'text-slate-400'
+            }`}>
+              {profileScore}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">
+                {profileScore >= 80 ? 'Profile nearly complete' :
+                 profileScore >= 40 ? 'Profile in progress' :
+                 'Complete your profile to unlock better briefs'}
+              </div>
+              <div className="text-[11px] text-slate-400 mt-0.5">
+                Profile score &middot; {nextProfileSection ? `${nextProfileSection.label} is next` : 'All sections done'}
+              </div>
+            </div>
+            <span className="text-[12px] font-semibold text-slate-500 shrink-0">
+              {nextProfileSection ? `Complete ${nextProfileSection.label} →` : 'View profile →'}
+            </span>
+          </Link>
+        )}
+
+        {/* Quick profile shortcut — shown when profile is very thin */}
+        {profileScore < 40 && (
+          <div className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
+            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
+              Quick start
+            </div>
+            <p className="text-[13px] text-slate-300 mb-4">
+              3 fields. Unlocks your first prep brief in under 3 minutes.
+            </p>
+            <form action={saveQuickProfile} className="flex flex-col gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input
+                  name="full_name"
+                  type="text"
+                  required
+                  defaultValue={profile?.full_name ?? ''}
+                  placeholder="Your full name"
+                  className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
+                />
+                <input
+                  name="current_title"
+                  type="text"
+                  defaultValue={profile?.current_title ?? ''}
+                  placeholder="Current or most recent title"
+                  className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
+                />
+              </div>
+              <input
+                name="positioning_summary"
+                type="text"
+                defaultValue={profile?.positioning_summary ?? ''}
+                placeholder="One sentence: what you do and what you're targeting next"
+                className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
+              />
+              <div className="flex items-center gap-3">
+                <button
+                  type="submit"
+                  className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-5 py-2 rounded transition-colors cursor-pointer border-0"
+                >
+                  Save and continue
+                </button>
+                <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-200">
+                  Full profile →
+                </Link>
+              </div>
+            </form>
           </div>
         )}
 

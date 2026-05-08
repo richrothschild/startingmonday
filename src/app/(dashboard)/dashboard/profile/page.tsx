@@ -164,7 +164,7 @@ export default async function ProfilePage({
           <form id="profile-form" action={saveProfile} className="flex flex-col gap-6">
 
             {/* Search level */}
-            <div>
+            <div id="section-identity">
               <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
                 Search level
               </p>
@@ -283,7 +283,7 @@ export default async function ProfilePage({
             </div>
 
             {/* Target titles */}
-            <div>
+            <div id="section-targets">
               <label htmlFor="target_titles" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Target titles
               </label>
@@ -325,7 +325,7 @@ export default async function ProfilePage({
             </div>
 
             {/* Positioning summary */}
-            <div>
+            <div id="section-positioning">
               <label htmlFor="positioning_summary" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Positioning summary
               </label>
@@ -362,7 +362,7 @@ export default async function ProfilePage({
             </div>
 
             {/* Resume */}
-            <div>
+            <div id="section-resume">
               <div className="flex items-center justify-between mb-1.5">
                 <label htmlFor="resume_text" className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">
                   Resume / career history
@@ -556,7 +556,7 @@ export default async function ProfilePage({
             )}
 
             {/* Briefing time */}
-            <div>
+            <div id="section-briefing">
               <label htmlFor="briefing_time" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Daily briefing time
               </label>

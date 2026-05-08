@@ -56,7 +56,7 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
-export function OutreachClient({ contact, history }: { contact: Contact; history: DraftHistory[] }) {
+export function OutreachClient({ contact, history, profileScore }: { contact: Contact; history: DraftHistory[]; profileScore: number }) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
@@ -159,6 +159,25 @@ export function OutreachClient({ contact, history }: { contact: Contact; history
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-10">
+        {profileScore < 50 && (
+          <div className="mb-6 px-5 py-4 bg-amber-50 border border-amber-200 rounded flex items-start gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] font-semibold text-amber-900">
+                Your draft quality is limited by an incomplete profile.
+              </p>
+              <p className="text-[12px] text-amber-700 mt-1 leading-relaxed">
+                The AI is working with partial information. A complete profile (resume, positioning, targets) produces outreach that reads as if you wrote it yourself instead of generic templates.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/profile#section-resume"
+              className="shrink-0 text-[12px] font-semibold text-amber-900 border border-amber-300 hover:border-amber-500 px-3 py-1.5 rounded transition-colors"
+            >
+              Complete profile →
+            </Link>
+          </div>
+        )}
+
         <div className="mb-6">
           <h1 className="text-[26px] font-bold text-slate-900">Draft outreach</h1>
           <p className="text-[13px] text-slate-500 mt-1">

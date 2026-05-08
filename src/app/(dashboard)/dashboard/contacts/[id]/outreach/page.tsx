@@ -10,7 +10,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: contact }, { data: history }] = await Promise.all([
+  const [{ data: contact }, { data: history }, { data: profileData }] = await Promise.all([
     supabase
       .from('contacts')
       .select('id, name, title, firm, channel, notes, companies(name)')
@@ -25,9 +25,23 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
       .eq('type', 'outreach')
       .order('created_at', { ascending: false })
       .limit(3),
+    supabase
+      .from('user_profiles')
+      .select('role_type, full_name, target_titles, resume_text, positioning_summary, briefing_time')
+      .eq('user_id', user.id)
+      .single(),
   ])
 
   if (!contact) notFound()
+
+  const profileSections = [
+    !!(profileData?.role_type && profileData?.full_name),
+    ((profileData?.target_titles as string[] | null)?.length ?? 0) > 0,
+    (profileData?.resume_text?.length ?? 0) >= 200,
+    (profileData?.positioning_summary?.length ?? 0) >= 50,
+    !!profileData?.briefing_time,
+  ]
+  const profileScore = Math.round((profileSections.filter(Boolean).length / 5) * 100)
 
   const c = contact as typeof contact & { companies?: { name: string } | null }
 
@@ -47,6 +61,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
         text: h.output_text,
         createdAt: h.created_at,
       }))}
+      profileScore={profileScore}
     />
   )
 }

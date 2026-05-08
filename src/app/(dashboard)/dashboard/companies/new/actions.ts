@@ -58,5 +58,14 @@ export async function addCompany(formData: FormData) {
     })
   }
 
+  const { count: companyCount } = await supabase
+    .from('companies')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+    .is('archived_at', null)
+
+  if (companyCount === 1) {
+    redirect(`/dashboard/companies/${inserted.id}/prep?first=1`)
+  }
   redirect(`/dashboard/companies/${inserted.id}?scanning=1`)
 }

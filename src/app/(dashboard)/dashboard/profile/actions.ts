@@ -5,6 +5,23 @@ import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 
+export async function saveQuickProfile(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const fullName         = (formData.get('full_name')          as string ?? '').trim() || null
+  const currentTitle     = (formData.get('current_title')      as string ?? '').trim() || null
+  const positioningSummary = (formData.get('positioning_summary') as string ?? '').trim() || null
+
+  await supabase
+    .from('user_profiles')
+    .upsert({ user_id: user.id, full_name: fullName, current_title: currentTitle, positioning_summary: positioningSummary }, { onConflict: 'user_id' })
+
+  revalidatePath('/dashboard')
+  redirect('/dashboard?profile_saved=1')
+}
+
 export async function deleteNotes() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
