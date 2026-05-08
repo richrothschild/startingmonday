@@ -34,21 +34,11 @@ export default async function DashboardPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile, error: profileError } = await supabase
+  const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, role_type, target_titles, resume_text, positioning_summary, briefing_time, current_title')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title')
     .eq('user_id', user.id)
     .single()
-
-  console.log(JSON.stringify({
-    ts: new Date().toISOString(),
-    event: 'dashboard_render',
-    userId: user.id,
-    profileFound: !!profile,
-    onboardingCompleted: profile?.onboarding_completed_at ?? null,
-    profileError: profileError?.message ?? null,
-    profileErrorCode: profileError?.code ?? null,
-  }))
 
   if (!profile?.onboarding_completed_at) redirect('/onboarding')
 
@@ -193,7 +183,7 @@ export default async function DashboardPage({
     : 0
 
   const profileSections = [
-    { label: 'Identity',    done: !!(profile?.role_type && profile?.full_name),                        anchor: 'section-identity' },
+    { label: 'Identity',    done: !!profile?.full_name,                                                anchor: 'section-identity' },
     { label: 'Targets',     done: ((profile?.target_titles as string[] | null)?.length ?? 0) > 0,     anchor: 'section-targets' },
     { label: 'Resume',      done: (profile?.resume_text?.length ?? 0) >= 200,                          anchor: 'section-resume' },
     { label: 'Positioning', done: (profile?.positioning_summary?.length ?? 0) >= 50,                   anchor: 'section-positioning' },
