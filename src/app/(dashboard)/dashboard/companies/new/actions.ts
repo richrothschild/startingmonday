@@ -4,17 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
-
-function str(formData: FormData, key: string): string {
-  return String(formData.get(key) ?? '').trim()
-}
-
-function numOrNull(formData: FormData, key: string): number | null {
-  const raw = formData.get(key)
-  if (!raw) return null
-  const v = Number(raw)
-  return Number.isFinite(v) ? v : null
-}
+import { str, numOrNull } from '@/lib/form-utils'
 
 export async function addCompany(formData: FormData) {
   const supabase = await createClient()
@@ -54,7 +44,7 @@ export async function addCompany(formData: FormData) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-worker-secret': process.env.WORKER_SECRET },
       body: JSON.stringify({ companyId: inserted.id, userId: user.id }),
-    }).catch(() => {})
+    }).catch(err => console.error('[scan-trigger] failed to reach worker:', err))
   }
 
   await logEvent(user.id, 'company_added', { career_page_url_present: !!careerPageUrl, sector: sector ?? '' })

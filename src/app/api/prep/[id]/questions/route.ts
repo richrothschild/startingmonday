@@ -124,7 +124,7 @@ Tone: direct coaching voice. Talk to the candidate directly in the coaching note
         const final = await stream.finalMessage()
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(() => {})
+        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] prep-questions', err))
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
         controller.enqueue(encoder.encode(`__ERROR__${msg}`))

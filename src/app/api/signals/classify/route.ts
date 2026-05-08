@@ -1,10 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { SignalsClassifyBodySchema, firstZodError } from '@/lib/schemas'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+import { anthropic, MODELS } from '@/lib/anthropic'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 const SIGNAL_TYPES = ['funding', 'exec_departure', 'exec_hire', 'acquisition', 'expansion', 'layoffs', 'ipo', 'new_product', 'award']
 
@@ -58,7 +57,7 @@ Extract the following as valid JSON with no markdown fences:
 
   try {
     const msg = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: MODELS.haiku,
       max_tokens: 512,
       messages: [{ role: 'user', content: prompt }],
     })
@@ -83,6 +82,8 @@ Extract the following as valid JSON with no markdown fences:
   })
 
   if (error) return NextResponse.json({ error: 'Failed to save signal.' }, { status: 500 })
+
+  captureServerEvent(userId, 'signal_classified', { company_id: companyId, signal_type: parsed.signal_type })
 
   return NextResponse.json({ ok: true, signal: parsed })
 }

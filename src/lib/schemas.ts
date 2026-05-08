@@ -30,6 +30,13 @@ export const SignalsClassifyBodySchema = z.object({
   sourceUrl: z.string().optional(),
 })
 
+export const TailorBodySchema = z.object({
+  resumeText: z.string().min(200, 'Resume text is too short. Update your profile first.').max(50_000),
+  jobDescription: z.string().min(100, 'Paste the full job description (at least a few paragraphs).').max(20_000),
+  companyName: z.string().max(200).optional().default(''),
+  targetTitle: z.string().max(200).optional().default(''),
+})
+
 export const TailorCheckBodySchema = z.object({
   tailoredResume: z.string().min(100).max(30_000),
   jobDescription: z.string().min(50).max(20_000),

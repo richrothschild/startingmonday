@@ -274,7 +274,7 @@ export async function POST(request: NextRequest) {
 
           if (response.stop_reason !== 'tool_use') {
             controller.close()
-            trackApiUsage(supabase, userId, totalTokens).catch(() => {})
+            trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
             return
           }
 
@@ -295,7 +295,7 @@ export async function POST(request: NextRequest) {
         }
 
         controller.close()
-        trackApiUsage(supabase, userId, totalTokens).catch(() => {})
+        trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
         }) // end withStreamTimeout
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err)))

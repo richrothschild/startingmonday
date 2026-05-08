@@ -2,22 +2,23 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { str } from '@/lib/form-utils'
 
 export async function updateContact(contactId: string, formData: FormData): Promise<void> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const name = (formData.get('name') as string ?? '').trim()
+  const name = str(formData, 'name')
   if (!name) return
 
-  const title       = (formData.get('title') as string ?? '').trim() || null
-  const firm        = (formData.get('firm') as string ?? '').trim() || null
-  const channel     = (formData.get('channel') as string) || null
-  const email       = (formData.get('email') as string ?? '').trim() || null
-  const linkedin_url = (formData.get('linkedin_url') as string ?? '').trim() || null
-  const notes       = (formData.get('notes') as string ?? '').trim() || null
-  const rawCompanyId = (formData.get('company_id') as string ?? '').trim() || null
+  const title        = str(formData, 'title') || null
+  const firm         = str(formData, 'firm') || null
+  const channel      = str(formData, 'channel') || null
+  const email        = str(formData, 'email') || null
+  const linkedin_url = str(formData, 'linkedin_url') || null
+  const notes        = str(formData, 'notes') || null
+  const rawCompanyId = str(formData, 'company_id') || null
 
   let companyId: string | null = null
   if (rawCompanyId) {

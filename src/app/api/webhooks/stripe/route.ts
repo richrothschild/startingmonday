@@ -109,17 +109,15 @@ export async function POST(request: NextRequest) {
         ? invoice.customer
         : (invoice.customer as Stripe.Customer | null)?.id
       if (!customerId) break
-      const { error } = await supabase.from('users').update({
-        subscription_status: 'past_due',
-      }).eq('stripe_customer_id', customerId)
+      const { data: userData, error } = await supabase
+        .from('users')
+        .update({ subscription_status: 'past_due' })
+        .eq('stripe_customer_id', customerId)
+        .select('email')
+        .single()
       updateError = error
 
       // Notify the user their payment failed so they can update their card
-      const { data: userData } = await supabase
-        .from('users')
-        .select('email')
-        .eq('stripe_customer_id', customerId)
-        .single()
       if (userData?.email) {
         await sendEmail({
           to: userData.email,

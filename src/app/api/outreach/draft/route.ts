@@ -5,6 +5,8 @@ import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
 import { OutreachDraftBodySchema, firstZodError } from '@/lib/schemas'
 import { appendWatermarkToStream } from '@/lib/watermark'
+import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 const STYLE_INSTRUCTIONS: Record<string, string> = {
   concise: 'more concise: cut every unnecessary word, tighten each sentence, aim for half the length while keeping all the substance',
@@ -143,6 +145,10 @@ ${STYLE_GUIDELINES}`
       }
     },
   })
+
+  const isRefinement = !!(parsed.data.currentDraft && (parsed.data.refineStyle || parsed.data.refineInstruction))
+  logEvent(userId, 'outreach_draft_generated', { contact_id: contactId, is_refinement: isRefinement }).catch(() => {})
+  captureServerEvent(userId, 'outreach_draft_generated', { contact_id: contactId, is_refinement: isRefinement })
 
   return new NextResponse(appendWatermarkToStream(readable, userId), {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
         const final = await stream.finalMessage()
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(() => {})
+        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] strategy-followup', err))
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err)))
         controller.close()

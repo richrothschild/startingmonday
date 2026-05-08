@@ -97,7 +97,7 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
         const final = await stream.finalMessage()
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(() => {})
+        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] prep-competitive', err))
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
         controller.enqueue(encoder.encode(`__ERROR__${msg}`))

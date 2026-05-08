@@ -5,16 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { markOfferAccepted, logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
-
-function str(formData: FormData, key: string): string {
-  return String(formData.get(key) ?? '').trim()
-}
-function numOrNull(formData: FormData, key: string): number | null {
-  const raw = formData.get(key)
-  if (!raw) return null
-  const v = Number(raw)
-  return Number.isFinite(v) ? v : null
-}
+import { str, numOrNull } from '@/lib/form-utils'
 
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()

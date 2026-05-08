@@ -101,7 +101,7 @@ Tone: strategy advisor voice. Evidence-based. No em dashes. No generic observati
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
         controller.close()
-        trackApiUsage(supabase, userId, (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)).catch(() => {})
+        trackApiUsage(supabase, userId, (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)).catch(err => console.error('[api-usage] prep-priorities', err))
       } catch (err) {
         controller.enqueue(encoder.encode(`__ERROR__${err instanceof Error ? err.message : 'Unknown error'}`))
         controller.close()

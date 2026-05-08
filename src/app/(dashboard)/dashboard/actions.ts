@@ -1,9 +1,10 @@
 'use server'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { str } from '@/lib/form-utils'
 
 export async function markFollowUpDone(formData: FormData) {
-  const id = formData.get('id') as string
+  const id = str(formData, 'id')
   if (!id) return
 
   const supabase = await createClient()
@@ -20,9 +21,9 @@ export async function markFollowUpDone(formData: FormData) {
 }
 
 export async function updateFollowUp(formData: FormData) {
-  const id = formData.get('id') as string
-  const action = (formData.get('action') as string)?.trim()
-  const due_date = formData.get('due_date') as string
+  const id = str(formData, 'id')
+  const action = str(formData, 'action')
+  const due_date = str(formData, 'due_date')
 
   if (!id || !action) return
 

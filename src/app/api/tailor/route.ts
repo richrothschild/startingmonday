@@ -1,7 +1,8 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { appendWatermarkToStream } from '@/lib/watermark'
+import { TailorBodySchema, firstZodError } from '@/lib/schemas'
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
 
@@ -40,29 +41,15 @@ export async function POST(request: NextRequest) {
   if (!access.ok) return access.response
   const { userId } = access
 
-  let resumeText: string, jobDescription: string, companyName: string, targetTitle: string
-  try {
-    const body = await request.json()
-    resumeText    = (body.resumeText    ?? '').trim()
-    jobDescription = (body.jobDescription ?? '').trim()
-    companyName   = (body.companyName   ?? '').trim()
-    targetTitle   = (body.targetTitle   ?? '').trim()
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
+  let raw: unknown
+  try { raw = await request.json() } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
-
-  if (!resumeText || resumeText.length < 200) {
-    return new Response(
-      JSON.stringify({ error: 'Resume text is too short. Update your profile first.' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    )
+  const parsed = TailorBodySchema.safeParse(raw)
+  if (!parsed.success) {
+    return NextResponse.json({ error: firstZodError(parsed.error) }, { status: 400 })
   }
-  if (!jobDescription || jobDescription.length < 100) {
-    return new Response(
-      JSON.stringify({ error: 'Paste the full job description (at least a few paragraphs).' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    )
-  }
+  const { resumeText, jobDescription, companyName, targetTitle } = parsed.data
 
   const contextLines = [
     companyName  && `Company: ${companyName}`,
