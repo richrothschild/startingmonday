@@ -3,7 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
-import { updateProspectStage } from './actions'
+import StageSelect from './stage-select'
 
 export const metadata = { title: 'B2B Sales Pipeline — Starting Monday Admin' }
 
@@ -152,19 +152,12 @@ export default async function B2BPipelinePage() {
                         {TYPE_LABELS[r.type] ?? r.type}
                       </td>
                       <td className="px-4 py-3.5">
-                        <form action={updateProspectStage}>
-                          <input type="hidden" name="id" value={r.id} />
-                          <select
-                            name="stage"
-                            defaultValue={r.stage}
-                            onChange={e => (e.target.form as HTMLFormElement).requestSubmit()}
-                            className={`text-[11px] font-semibold rounded-full px-2.5 py-1 border-0 cursor-pointer appearance-none ${stage?.cls ?? 'bg-slate-100 text-slate-500'}`}
-                          >
-                            {STAGES.map(s => (
-                              <option key={s.key} value={s.key}>{s.label}</option>
-                            ))}
-                          </select>
-                        </form>
+                        <StageSelect
+                          id={r.id}
+                          stage={r.stage}
+                          stages={STAGES}
+                          cls={stage?.cls ?? 'bg-slate-100 text-slate-500'}
+                        />
                       </td>
                       <td className="px-4 py-3.5 hidden sm:table-cell text-right text-[13px] font-semibold text-slate-700">
                         {r.estimated_arr ? fmt(r.estimated_arr) : <span className="text-slate-300">—</span>}
