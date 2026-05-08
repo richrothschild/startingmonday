@@ -260,14 +260,21 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Intelligence Scanner
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
               <h2 className="text-[26px] sm:text-[32px] font-bold text-white leading-tight mb-4">
-                Know before the<br />role is even posted.
+                We watch for the signals<br />that come before the<br />search begins.
               </h2>
-              <p className="text-[15px] text-slate-400 leading-relaxed mb-6">
-                The right seat will not find you. You have to be watching when it opens. We scan the career page of every company you add, automatically, and alert you the moment a matching role appears &mdash; before LinkedIn, before the first recruiter call.
+              <p className="text-[15px] text-slate-400 leading-relaxed mb-5">
+                Executive departures. 8-K filings. Funding rounds. Acquisition announcements. We monitor all of it for every company you are tracking. When signals cluster into a pattern, we name it and tell you: this company is ripe. Reach out now, before the formal search begins.
               </p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {['News', '8-K Filings', 'Exec Snapshots', 'Funding Rounds', 'PR Wire', 'Career Pages'].map(src => (
+                  <span key={src} className="text-[10px] font-semibold text-slate-500 border border-slate-700 rounded px-2 py-1">
+                    {src}
+                  </span>
+                ))}
+              </div>
               <Link
                 href="/signup"
                 className="inline-block text-[13px] font-semibold text-white bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
@@ -276,27 +283,35 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[13px] font-bold text-slate-200">Salesforce</span>
-                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-900 px-2 py-0.5 rounded-full">Watching</span>
-                </div>
-                <p className="text-[13px] text-slate-500">No senior technology role posted yet. We&apos;ll tell you the moment that changes.</p>
-              </div>
+              {/* Card 1 — pattern alert: before search exists */}
               <div className="bg-slate-800 border border-orange-500 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[13px] font-bold text-slate-200">ServiceNow</span>
-                  <span className="text-[10px] font-semibold text-orange-400 bg-slate-900 px-2 py-0.5 rounded-full">New role</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[13px] font-bold text-slate-200">Accenture</span>
+                  <span className="text-[10px] font-semibold text-orange-400 bg-slate-900 px-2 py-0.5 rounded-full">Pattern Alert</span>
                 </div>
-                <p className="text-[14px] font-semibold text-white mb-1">VP, Enterprise Technology</p>
-                <p className="text-[12px] text-slate-500">Detected 6 hours ago &mdash; before LinkedIn, before any recruiter.</p>
+                <p className="text-[13px] font-semibold text-white mb-1">Leadership Transition Window</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed mb-2">CIO departed last week. Combined with a digital transformation announcement, this is a high-probability window for external technology leadership.</p>
+                <p className="text-[11px] text-orange-400 font-semibold">Reach out before the search is formalized.</p>
               </div>
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+              {/* Card 2 — exec departure: before search is announced */}
+              <div className="bg-slate-800 border border-amber-600 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-bold text-slate-200">Workday</span>
-                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-900 px-2 py-0.5 rounded-full">Watching</span>
+                  <span className="text-[10px] font-semibold text-amber-400 bg-slate-900 px-2 py-0.5 rounded-full">Exec Departure</span>
                 </div>
-                <p className="text-[13px] text-slate-500">No senior technology role posted yet. We&apos;ll tell you the moment that changes.</p>
+                <p className="text-[13px] font-semibold text-white mb-1">Chief Information Officer departed</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed mb-2">No replacement announced. No active search posted. The vacancy is open.</p>
+                <p className="text-[11px] text-slate-500">Detected via exec snapshot &mdash; yesterday.</p>
+              </div>
+              {/* Card 3 — role posted: before LinkedIn */}
+              <div className="bg-slate-800 border border-slate-600 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[13px] font-bold text-slate-200">ServiceNow</span>
+                  <span className="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-0.5 rounded-full">Role Posted</span>
+                </div>
+                <p className="text-[13px] font-semibold text-white mb-1">VP, Enterprise Technology</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed mb-2">Posted to their career page 4 hours ago.</p>
+                <p className="text-[11px] text-slate-500">Before LinkedIn, before any recruiter.</p>
               </div>
             </div>
           </div>
