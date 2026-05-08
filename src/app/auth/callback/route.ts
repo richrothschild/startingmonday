@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
@@ -13,10 +14,11 @@ export async function GET(request: NextRequest) {
   const publicOrigin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : origin
 
   if (code) {
-    // Pre-build the redirect response before exchangeCodeForSession so Supabase
-    // can write Set-Cookie headers directly onto it. Returning a different
-    // NextResponse.redirect() after the exchange drops those headers, leaving
-    // the browser with no session cookie and causing /dashboard -> /login flashing.
+    const cookieStore = await cookies()
+
+    // Pre-build the redirect response so we can write session cookies directly
+    // onto it. We also dual-write via cookieStore to handle any Next.js version
+    // differences in how cookies are flushed to the outgoing response.
     const response = NextResponse.redirect(`${publicOrigin}${next}`)
 
     const supabase = createServerClient(
@@ -24,11 +26,14 @@ export async function GET(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          getAll() { return request.cookies.getAll() },
+          getAll() { return cookieStore.getAll() },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) =>
+            cookiesToSet.forEach(({ name, value, options }) => {
+              // Write to both the Next.js cookie store and directly onto the
+              // redirect response; whichever Railway/Next.js uses wins.
+              try { cookieStore.set(name, value, options) } catch {}
               response.cookies.set(name, value, options)
-            )
+            })
           },
         },
       }

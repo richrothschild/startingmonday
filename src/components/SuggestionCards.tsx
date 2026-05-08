@@ -38,15 +38,7 @@ export function SuggestionCards() {
 
   if (dismissed || (!loading && !data)) return null
 
-  if (loading) {
-    return (
-      <div className="bg-white border border-slate-200 rounded p-6 mb-8 animate-pulse">
-        <div className="h-3 bg-slate-100 rounded w-48 mb-4" />
-        <div className="h-3 bg-slate-100 rounded w-full mb-2" />
-        <div className="h-3 bg-slate-100 rounded w-5/6" />
-      </div>
-    )
-  }
+  if (loading) return null
 
   if (!data) return null
 
@@ -60,6 +52,7 @@ export function SuggestionCards() {
           <p className="text-[12px] text-slate-400 mt-0.5">Based on your profile. Dismiss when you no longer need this.</p>
         </div>
         <button
+          type="button"
           onClick={dismiss}
           className="text-[12px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
         >
