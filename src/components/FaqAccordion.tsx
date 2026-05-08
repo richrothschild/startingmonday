@@ -60,7 +60,7 @@ const FAQS = [
   },
   {
     q: 'What is the difference between Intelligence and Search?',
-    a: 'Intelligence ($49/mo) includes pipeline tracking for up to 25 companies, career page scanning three times a week, a weekly signal digest, and contact tracking. Search ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
+    a: 'Intelligence ($49/mo) includes pipeline tracking for up to 25 companies, company signal intelligence across news, 8-K filings, executive moves, funding rounds, and career pages, plus a weekly signal digest and contact tracker. Search ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
   },
   {
     q: 'How do I manage my subscription?',

@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 const MONITOR_FEATURES = [
   'Pipeline tracking for up to 25 companies',
-  'Signal scans 3x per week',
-  'Exec move and funding alerts',
+  'Company intelligence: news, 8-Ks, exec moves, funding, career pages',
+  'Pattern alerts before roles are posted',
   'Weekly signal digest',
   'Contact tracker',
 ]

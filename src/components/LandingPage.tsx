@@ -35,7 +35,7 @@ const FEATURES = [
   },
   {
     label: 'Early Role Intelligence',
-    body: 'Your target companies are being watched. Three times a week, we scan their career pages and flag matching roles before they reach LinkedIn or Indeed.',
+    body: 'We monitor news, 8-K filings, funding rounds, executive moves, and career pages for every company you track. When signals cluster into a pattern, we name it and alert you before the search is formalized and before the posting exists.',
   },
   {
     label: 'Elite Interview Prep Brief',
@@ -91,7 +91,8 @@ const TRUST_ITEMS = [
 
 const PASSIVE_FEATURES = [
   'Pipeline tracking for up to 25 companies',
-  'Career page scanning 3x per week',
+  'Company intelligence: news, 8-Ks, exec moves, funding, career pages',
+  'Pattern alerts before roles are posted',
   'Weekly signal digest',
   'Contact tracker',
 ]
@@ -376,8 +377,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
             <div>
-              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">3&times;</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Career page checks per week at every target company you add</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">6</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Intelligence sources per target company: news, 8-K filings, exec moves, funding, PR wire, and career pages</p>
             </div>
             <div>
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">60s</p>
