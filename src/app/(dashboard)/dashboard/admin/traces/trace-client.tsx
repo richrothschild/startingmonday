@@ -1,0 +1,241 @@
+'use client'
+import { useState, useTransition } from 'react'
+import Link from 'next/link'
+import { rateTrace } from './actions'
+
+export type Trace = {
+  id: string
+  created_at: string
+  user_id: string | null
+  feature: string
+  model: string
+  prompt_tokens: number | null
+  completion_tokens: number | null
+  latency_ms: number | null
+  input_snapshot: Record<string, unknown> | null
+  output_snapshot: string | null
+  eval_pass: boolean | null
+  eval_notes: string | null
+}
+
+const FEATURES = ['', 'prep_brief', 'prep_refine', 'chat', 'suggestions']
+const FEATURE_LABELS: Record<string, string> = {
+  '':           'All features',
+  prep_brief:   'Prep brief',
+  prep_refine:  'Prep refine',
+  chat:         'Chat',
+  suggestions:  'Suggestions',
+}
+
+function buildUrl(params: { feature?: string; unrated?: string; page?: string }) {
+  const sp = new URLSearchParams()
+  if (params.feature) sp.set('feature', params.feature)
+  if (params.unrated === '1') sp.set('unrated', '1')
+  if (params.page && params.page !== '0') sp.set('page', params.page)
+  const qs = sp.toString()
+  return `/dashboard/admin/traces${qs ? '?' + qs : ''}`
+}
+
+function TraceRow({ trace }: { trace: Trace }) {
+  const [evalPass, setEvalPass]   = useState(trace.eval_pass)
+  const [evalNotes, setEvalNotes] = useState(trace.eval_notes ?? '')
+  const [expanded, setExpanded]   = useState(false)
+  const [, startTransition]       = useTransition()
+
+  function rate(pass: boolean) {
+    const next = evalPass === pass ? null : pass
+    setEvalPass(next)
+    startTransition(async () => { await rateTrace(trace.id, next, evalNotes) })
+  }
+
+  function saveNotes() {
+    startTransition(async () => { await rateTrace(trace.id, evalPass, evalNotes) })
+  }
+
+  const tokens = (trace.prompt_tokens ?? 0) + (trace.completion_tokens ?? 0)
+  const dateStr = new Date(trace.created_at).toLocaleString('en-US', {
+    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+  })
+
+  const featureLabel = FEATURE_LABELS[trace.feature] ?? trace.feature.replace(/_/g, ' ')
+
+  return (
+    <div className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''}`}>
+      <div className="px-5 py-4 flex items-start gap-4">
+
+        {/* Pass / Fail column */}
+        <div className="flex flex-col gap-1.5 shrink-0 pt-0.5">
+          <button
+            type="button"
+            onClick={() => rate(true)}
+            className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
+              evalPass === true
+                ? 'bg-emerald-500 text-white'
+                : 'bg-slate-100 text-slate-400 hover:bg-emerald-50 hover:text-emerald-700'
+            }`}
+          >
+            Pass
+          </button>
+          <button
+            type="button"
+            onClick={() => rate(false)}
+            className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
+              evalPass === false
+                ? 'bg-red-500 text-white'
+                : 'bg-slate-100 text-slate-400 hover:bg-red-50 hover:text-red-700'
+            }`}
+          >
+            Fail
+          </button>
+        </div>
+
+        {/* Content column */}
+        <div className="flex-1 min-w-0">
+
+          {/* Metadata row */}
+          <div className="flex items-center gap-3 flex-wrap mb-2.5">
+            <span className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-600">
+              {featureLabel}
+            </span>
+            <span className="text-[11px] text-slate-400">{dateStr}</span>
+            {trace.latency_ms != null && (
+              <span className="text-[11px] text-slate-300">{(trace.latency_ms / 1000).toFixed(1)}s</span>
+            )}
+            {tokens > 0 && (
+              <span className="text-[11px] text-slate-300">{tokens.toLocaleString()} tok</span>
+            )}
+            {trace.user_id && (
+              <span className="text-[11px] font-mono text-slate-200">{trace.user_id.slice(0, 8)}</span>
+            )}
+          </div>
+
+          {/* Input snapshot */}
+          {trace.input_snapshot && Object.keys(trace.input_snapshot).length > 0 && (
+            <div className="mb-2 flex flex-wrap gap-x-4 gap-y-0.5">
+              {Object.entries(trace.input_snapshot).map(([k, v]) => (
+                <span key={k} className="text-[11px] font-mono text-slate-300">
+                  {k}: <span className="text-slate-400">{String(v)}</span>
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Output snapshot */}
+          {trace.output_snapshot && (
+            <div className="mb-3">
+              <button
+                type="button"
+                onClick={() => setExpanded(v => !v)}
+                className="text-[11px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0 mb-1.5"
+              >
+                Output {expanded ? '▲' : '▼'}
+              </button>
+              {expanded ? (
+                <pre className="text-[12px] text-slate-700 whitespace-pre-wrap leading-relaxed bg-white border border-slate-100 rounded p-3 max-h-[500px] overflow-y-auto">
+                  {trace.output_snapshot}
+                </pre>
+              ) : (
+                <p className="text-[12px] text-slate-600 leading-relaxed">
+                  {trace.output_snapshot.slice(0, 220)}{trace.output_snapshot.length > 220 ? '…' : ''}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Notes */}
+          <textarea
+            value={evalNotes}
+            onChange={e => setEvalNotes(e.target.value)}
+            onBlur={saveNotes}
+            placeholder="Open coding: what is wrong (or strong) about this output?"
+            rows={2}
+            className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function TraceViewer({
+  traces,
+  currentFeature,
+  unratedOnly,
+  page,
+  totalPages,
+  totalCount,
+}: {
+  traces: Trace[]
+  currentFeature: string
+  unratedOnly: boolean
+  page: number
+  totalPages: number
+  totalCount: number
+}) {
+  return (
+    <>
+      {/* Filter bar */}
+      <div className="flex flex-wrap items-center gap-3 mb-5">
+        {FEATURES.map(f => (
+          <Link
+            key={f}
+            href={buildUrl({ feature: f || undefined, unrated: unratedOnly ? '1' : undefined })}
+            className={`text-[12px] font-semibold px-3 py-1.5 rounded transition-colors ${
+              currentFeature === f
+                ? 'bg-slate-900 text-white'
+                : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-400'
+            }`}
+          >
+            {FEATURE_LABELS[f]}
+          </Link>
+        ))}
+        <div className="ml-auto">
+          <Link
+            href={buildUrl({ feature: currentFeature || undefined, unrated: unratedOnly ? undefined : '1' })}
+            className={`text-[12px] font-semibold px-3 py-1.5 rounded transition-colors ${
+              unratedOnly
+                ? 'bg-amber-500 text-white'
+                : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-400'
+            }`}
+          >
+            Unrated only
+          </Link>
+        </div>
+      </div>
+
+      {/* Trace list */}
+      {totalCount === 0 ? (
+        <div className="bg-white border border-slate-200 rounded p-10 text-center">
+          <p className="text-[14px] text-slate-400">
+            No traces yet. Traces are written on every Claude API call once migration 040 is applied.
+          </p>
+        </div>
+      ) : (
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-5">
+          {traces.map(t => <TraceRow key={t.id} trace={t} />)}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <Link
+            href={page > 0 ? buildUrl({ feature: currentFeature || undefined, unrated: unratedOnly ? '1' : undefined, page: String(page - 1) }) : '#'}
+            className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page === 0 ? 'opacity-40 pointer-events-none' : ''}`}
+          >
+            Previous
+          </Link>
+          <span className="text-[12px] text-slate-400">
+            Page {page + 1} of {totalPages} &middot; {totalCount} total
+          </span>
+          <Link
+            href={page < totalPages - 1 ? buildUrl({ feature: currentFeature || undefined, unrated: unratedOnly ? '1' : undefined, page: String(page + 1) }) : '#'}
+            className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page >= totalPages - 1 ? 'opacity-40 pointer-events-none' : ''}`}
+          >
+            Next
+          </Link>
+        </div>
+      )}
+    </>
+  )
+}

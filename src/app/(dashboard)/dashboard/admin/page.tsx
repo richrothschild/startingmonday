@@ -19,6 +19,7 @@ const INTERNAL_PAGES = [
   { path: '/dashboard/admin/team',             label: 'Team Management',     owner: 'rw', admin: 'r',  viewer: '-' },
   { path: '/dashboard/admin',                  label: 'Analytics',           owner: 'rw', admin: 'rw', viewer: 'r' },
   { path: '/dashboard/admin/intelligence',     label: 'Intelligence (B2B)',  owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/dashboard/admin/traces',           label: 'LLM Traces / Evals',  owner: 'rw', admin: 'rw', viewer: '-' },
 ]
 
 export default async function AdminPage() {
@@ -144,6 +145,7 @@ export default async function AdminPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
+            <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
           </div>
