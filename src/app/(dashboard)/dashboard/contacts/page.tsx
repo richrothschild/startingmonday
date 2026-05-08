@@ -1,26 +1,8 @@
 ﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { addContact, archiveContact } from './actions'
-
-const CHANNEL: Record<string, { label: string; cls: string }> = {
-  linkedin: { label: 'LinkedIn',  cls: 'bg-blue-50 text-blue-700' },
-  referral: { label: 'Referral',  cls: 'bg-green-50 text-green-700' },
-  cold:     { label: 'Cold',      cls: 'bg-slate-100 text-slate-500' },
-  inbound:  { label: 'Inbound',   cls: 'bg-indigo-50 text-indigo-700' },
-  event:    { label: 'Event',     cls: 'bg-amber-50 text-amber-700' },
-  recruiter:{ label: 'Recruiter', cls: 'bg-purple-50 text-purple-700' },
-}
-
-type Contact = {
-  id: string
-  name: string
-  title: string | null
-  firm: string | null
-  channel: string | null
-  notes: string | null
-  companies: { name: string } | null
-}
+import { addContact } from './actions'
+import { ContactsList, type ContactListItem } from '@/components/ContactsList'
 
 export default async function ContactsPage({
   searchParams,
@@ -36,7 +18,7 @@ export default async function ContactsPage({
   const [{ data: rawContacts }, { data: companies }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, companies(name)')
+      .select('id, name, title, firm, channel, notes, outreach_status, companies(name)')
       .eq('user_id', user.id)
       .eq('status', 'active')
       .order('created_at', { ascending: false }),
@@ -48,7 +30,7 @@ export default async function ContactsPage({
       .order('name', { ascending: true }),
   ])
 
-  const contacts = (rawContacts ?? []) as unknown as Contact[]
+  const contacts = (rawContacts ?? []) as unknown as ContactListItem[]
   const companyList = companies ?? []
 
   return (
@@ -79,74 +61,7 @@ export default async function ContactsPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
-          {/* Contact list */}
-          <div className="bg-white border border-slate-200 rounded overflow-hidden">
-            <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                All contacts
-              </span>
-              <span className="text-[12px] text-slate-400">
-                {contacts.length} {contacts.length === 1 ? 'contact' : 'contacts'}
-              </span>
-            </div>
-
-            {contacts.length === 0 ? (
-              <div className="px-6 py-12 text-center text-[14px] text-slate-400">
-                No contacts yet. Add your first one.
-              </div>
-            ) : (
-              <div className="divide-y divide-slate-50">
-                {contacts.map(ct => {
-                  const ch = ct.channel
-                    ? (CHANNEL[ct.channel] ?? { label: ct.channel, cls: 'bg-slate-100 text-slate-500' })
-                    : null
-                  const companyName = ct.companies?.name ?? null
-                  const subtitle = [ct.title, ct.firm ?? companyName]
-                    .filter(Boolean)
-                    .join(' · ')
-
-                  return (
-                    <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                            {ct.name}
-                          </Link>
-                          {ch && (
-                            <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${ch.cls}`}>
-                              {ch.label}
-                            </span>
-                          )}
-                        </div>
-                        {subtitle && (
-                          <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
-                        )}
-                        {ct.notes && (
-                          <p className="text-[12px] text-slate-400 mt-1 truncate max-w-sm">{ct.notes}</p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-3 shrink-0 mt-0.5">
-                        <Link
-                          href={`/dashboard/contacts/${ct.id}/outreach`}
-                          className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
-                        >
-                          Draft
-                        </Link>
-                        <form action={archiveContact.bind(null, ct.id)}>
-                          <button
-                            type="submit"
-                            className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
-                          >
-                            Remove
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-          </div>
+          <ContactsList contacts={contacts} />
 
           {/* Add contact form */}
           <div className="bg-white border border-slate-200 rounded p-5">

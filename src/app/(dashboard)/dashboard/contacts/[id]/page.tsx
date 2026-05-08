@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { FollowUpItem } from '@/components/FollowUpItem'
+import { ContactStatusStepper } from '@/components/ContactStatusStepper'
 import { markContactSentForm } from '../actions'
 import { addContactFollowUp } from './actions'
 
@@ -49,7 +50,7 @@ export default async function ContactDetailPage({
   const [{ data: rawContact }, { data: followUps }, { data: recentBriefs }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, company_id, companies(id, name)')
+      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, outreach_status, company_id, companies(id, name)')
       .eq('id', id)
       .eq('user_id', user.id)
       .eq('status', 'active')
@@ -77,6 +78,7 @@ export default async function ContactDetailPage({
   type ContactRow = typeof rawContact & {
     email?: string | null
     linkedin_url?: string | null
+    outreach_status?: string | null
     companies: { id: string; name: string } | null
   }
   const contact = rawContact as unknown as ContactRow
@@ -184,6 +186,15 @@ export default async function ContactDetailPage({
               {contact.notes}
             </p>
           )}
+
+          {/* Outreach status stepper */}
+          <div className="mb-4">
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Status</p>
+            <ContactStatusStepper
+              contactId={id}
+              currentStatus={contact.outreach_status ?? 'prospect'}
+            />
+          </div>
 
           {/* Action buttons */}
           <div className="flex items-center gap-3 flex-wrap">

@@ -95,6 +95,21 @@ export async function markContactSentForm(contactId: string, contactName: string
   redirect(`/dashboard/contacts/${contactId}?sent=1`)
 }
 
+export async function updateOutreachStatus(contactId: string, status: string): Promise<void> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('contacts')
+    .update({ outreach_status: status })
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+
+  revalidatePath(`/dashboard/contacts/${contactId}`)
+  revalidatePath('/dashboard/contacts')
+}
+
 export async function archiveContact(contactId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
