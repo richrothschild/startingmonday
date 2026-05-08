@@ -1,0 +1,197 @@
+import Link from 'next/link'
+import { redirect, notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { getStaffMember } from '@/lib/staff'
+import { updateProspectStage } from './actions'
+
+export const metadata = { title: 'B2B Sales Pipeline — Starting Monday Admin' }
+
+export const STAGES: { key: string; label: string; cls: string }[] = [
+  { key: 'identified',     label: 'Identified',    cls: 'bg-slate-100 text-slate-500' },
+  { key: 'contacted',      label: 'Contacted',     cls: 'bg-blue-50 text-blue-700' },
+  { key: 'demo_scheduled', label: 'Demo',          cls: 'bg-amber-50 text-amber-700' },
+  { key: 'proposal_sent',  label: 'Proposal',      cls: 'bg-orange-50 text-orange-700' },
+  { key: 'negotiating',    label: 'Negotiating',   cls: 'bg-purple-50 text-purple-700' },
+  { key: 'closed_won',     label: 'Won',           cls: 'bg-emerald-50 text-emerald-700' },
+  { key: 'closed_lost',    label: 'Lost',          cls: 'bg-red-50 text-red-600' },
+]
+
+export const TYPE_LABELS: Record<string, string> = {
+  outplacement: 'Outplacement',
+  mba_program:  'MBA / Exec Ed',
+  vc_pe:        'VC / PE',
+  other:        'Other',
+}
+
+function fmt(n: number) {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `$${Math.round(n / 1_000)}K`
+  return `$${n}`
+}
+
+export default async function B2BPipelinePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const staff = await getStaffMember(user.email ?? '')
+  if (!staff) notFound()
+
+  const admin = createAdminClient()
+
+  const { data: prospects } = await admin
+    .from('b2b_prospects')
+    .select(`
+      id, name, type, stage, estimated_seats, estimated_arr, notes, updated_at,
+      b2b_activities(id, next_action, next_action_due, occurred_at)
+    `)
+    .is('archived_at', null)
+    .order('updated_at', { ascending: false })
+
+  const rows = (prospects ?? []) as {
+    id: string; name: string; type: string; stage: string
+    estimated_seats: number | null; estimated_arr: number | null
+    notes: string | null; updated_at: string
+    b2b_activities: { id: string; next_action: string | null; next_action_due: string | null; occurred_at: string }[]
+  }[]
+
+  const activeRows = rows.filter(r => r.stage !== 'closed_lost')
+  const totalArr = activeRows.reduce((s, r) => s + (r.estimated_arr ?? 0), 0)
+  const totalSeats = activeRows.reduce((s, r) => s + (r.estimated_seats ?? 0), 0)
+
+  const today = new Date().toISOString().split('T')[0]
+  const stageCounts = STAGES.reduce<Record<string, number>>((acc, s) => {
+    acc[s.key] = rows.filter(r => r.stage === s.key).length
+    return acc
+  }, {})
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <header className="bg-slate-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </span>
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200">Admin</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white">Dashboard</Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-[26px] font-bold text-slate-900">B2B Sales Pipeline</h1>
+            <p className="text-[13px] text-slate-500 mt-1">
+              {activeRows.length} active prospect{activeRows.length !== 1 ? 's' : ''}
+              {totalArr > 0 && <> &middot; {fmt(totalArr)} estimated ARR</>}
+              {totalSeats > 0 && <> &middot; {totalSeats} seats</>}
+            </p>
+          </div>
+          <Link
+            href="/dashboard/admin/b2b/new"
+            className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-4 py-2 rounded transition-colors shrink-0"
+          >
+            + Add prospect
+          </Link>
+        </div>
+
+        {/* Stage summary */}
+        <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-6">
+          {STAGES.map(s => (
+            <div key={s.key} className="bg-white border border-slate-200 rounded p-3 text-center">
+              <div className="text-[20px] font-bold text-slate-900">{stageCounts[s.key] ?? 0}</div>
+              <div className={`text-[10px] font-bold tracking-[0.06em] uppercase mt-1 ${s.cls.split(' ')[1]}`}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Prospect list */}
+        {rows.length === 0 ? (
+          <div className="bg-white border border-slate-200 rounded p-12 text-center">
+            <p className="text-[14px] text-slate-400">No prospects yet.</p>
+            <Link href="/dashboard/admin/b2b/new" className="mt-3 inline-block text-[13px] font-semibold text-slate-900 underline">
+              Add your first prospect
+            </Link>
+          </div>
+        ) : (
+          <div className="bg-white border border-slate-200 rounded overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200 text-left">
+                  <th className="px-5 py-3 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">Prospect</th>
+                  <th className="px-4 py-3 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 hidden sm:table-cell">Type</th>
+                  <th className="px-4 py-3 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">Stage</th>
+                  <th className="px-4 py-3 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 hidden sm:table-cell text-right">ARR</th>
+                  <th className="px-4 py-3 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 hidden md:table-cell">Next action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r, i) => {
+                  const stage = STAGES.find(s => s.key === r.stage)
+                  const activities = r.b2b_activities ?? []
+                  const latestWithAction = activities.find(a => a.next_action && a.next_action_due)
+                  const nextActionDue = latestWithAction?.next_action_due
+                  const isOverdue = nextActionDue && nextActionDue < today
+                  return (
+                    <tr key={r.id} className={i < rows.length - 1 ? 'border-b border-slate-50' : ''}>
+                      <td className="px-5 py-3.5">
+                        <Link href={`/dashboard/admin/b2b/${r.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                          {r.name}
+                        </Link>
+                        {r.notes && (
+                          <p className="text-[12px] text-slate-400 mt-0.5 truncate max-w-[240px]">{r.notes}</p>
+                        )}
+                      </td>
+                      <td className="px-4 py-3.5 hidden sm:table-cell text-[13px] text-slate-500">
+                        {TYPE_LABELS[r.type] ?? r.type}
+                      </td>
+                      <td className="px-4 py-3.5">
+                        <form action={updateProspectStage}>
+                          <input type="hidden" name="id" value={r.id} />
+                          <select
+                            name="stage"
+                            defaultValue={r.stage}
+                            onChange={e => (e.target.form as HTMLFormElement).requestSubmit()}
+                            className={`text-[11px] font-semibold rounded-full px-2.5 py-1 border-0 cursor-pointer appearance-none ${stage?.cls ?? 'bg-slate-100 text-slate-500'}`}
+                          >
+                            {STAGES.map(s => (
+                              <option key={s.key} value={s.key}>{s.label}</option>
+                            ))}
+                          </select>
+                        </form>
+                      </td>
+                      <td className="px-4 py-3.5 hidden sm:table-cell text-right text-[13px] font-semibold text-slate-700">
+                        {r.estimated_arr ? fmt(r.estimated_arr) : <span className="text-slate-300">—</span>}
+                      </td>
+                      <td className="px-4 py-3.5 hidden md:table-cell">
+                        {latestWithAction ? (
+                          <div>
+                            <p className="text-[12px] text-slate-700 truncate max-w-[180px]">{latestWithAction.next_action}</p>
+                            {nextActionDue && (
+                              <p className={`text-[11px] mt-0.5 ${isOverdue ? 'text-red-600 font-semibold' : 'text-slate-400'}`}>
+                                {isOverdue ? 'Overdue: ' : ''}{nextActionDue}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-[12px] text-slate-300">None set</span>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+      </main>
+    </div>
+  )
+}
