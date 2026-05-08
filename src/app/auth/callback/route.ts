@@ -36,7 +36,15 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
-    if (!error && data.user) {
+    console.log(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'auth_callback',
+      ok: !error && !!data.session,
+      userId: data.user?.id ?? null,
+      error: error?.message ?? null,
+    }))
+
+    if (!error && data.session && data.user) {
       await supabase.from('user_profiles').upsert(
         { user_id: data.user.id },
         { onConflict: 'user_id', ignoreDuplicates: true }

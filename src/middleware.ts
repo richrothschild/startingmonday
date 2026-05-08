@@ -89,6 +89,8 @@ export const config = {
   matcher: [
     '/api/((?!health$).*)',
     '/dashboard/:path*',
+    '/onboarding',
+    '/onboarding/:path*',
     '/intelligence/:path*',
   ],
 }
