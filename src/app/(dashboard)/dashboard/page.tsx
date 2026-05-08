@@ -356,18 +356,27 @@ export default async function DashboardPage({
         </div>
 
         {/* Actions Due */}
-        {followUps && followUps.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                Actions Due
-              </span>
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
+          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+              Actions Due
+            </span>
+            {(followUps ?? []).length > 0 && (
               <span className="text-[12px] font-semibold text-red-600">
-                {followUps.length} {followUps.length === 1 ? 'item' : 'items'}
+                {followUps!.length} {followUps!.length === 1 ? 'item' : 'items'}
               </span>
+            )}
+          </div>
+          {(followUps ?? []).length === 0 ? (
+            <div className="px-6 py-5">
+              <p className="text-[13px] text-slate-400">No actions due. Your pipeline is current.</p>
+              <p className="text-[12px] text-slate-300 mt-1">
+                Follow-ups you set on companies and contacts appear here when they come due.
+              </p>
             </div>
+          ) : (
             <div className="divide-y divide-slate-50">
-              {followUps.map(fu => {
+              {(followUps ?? []).map(fu => {
                 const isToday = fu.due_date === todayISO
                 const co = fu.companies as unknown as { name: string } | null
                 const dateLabel = isToday
@@ -386,8 +395,8 @@ export default async function DashboardPage({
                 )
               })}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Warm Paths */}
         {warmPaths.length > 0 && (
@@ -532,45 +541,44 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Smart activation guide — adapts to what's been completed */}
-        {!activation.isComplete && !hasFilters && nextSetupStep && (
+        {/* Setup checklist — visible until all 6 steps are complete */}
+        {!activation.isComplete && !hasFilters && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-5 border-b border-slate-100">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1.5">
-                Next move
-              </p>
-              <h2 className="text-[17px] font-bold text-slate-900 mb-1.5">
-                {nextSetupStep.label}
-              </h2>
-              <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
-                {nextSetupStep.sub}
-              </p>
-              <Link
-                href={nextSetupStep.href}
-                className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
-              >
-                {nextSetupStep.cta} &rarr;
+            <div className="px-6 py-[18px] border-b border-slate-100 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                Setup checklist
+              </span>
+              <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+                View details &rarr;
               </Link>
             </div>
-            {remainingSetups.length > 0 && (
-              <div className="px-6 py-4">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-3">
-                  Also left to do
-                </p>
-                <div className="flex flex-col gap-2.5">
-                  {remainingSetups.map((step, i) => (
+            <div className="divide-y divide-slate-50">
+              {setupSteps.map((step, i) => (
+                <div
+                  key={i}
+                  className={`px-6 py-3.5 flex items-center gap-4 ${step.done ? 'opacity-50' : ''}`}
+                >
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
+                    step.done ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    {step.done ? '✓' : i + 1}
+                  </div>
+                  <span className={`text-[13px] flex-1 min-w-0 ${
+                    step.done ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-900'
+                  }`}>
+                    {step.label}
+                  </span>
+                  {!step.done && (
                     <Link
-                      key={i}
                       href={step.href}
-                      className="flex items-center gap-3 text-[13px] text-slate-500 hover:text-slate-800 transition-colors"
+                      className="text-[12px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded transition-colors shrink-0"
                     >
-                      <span className="w-4 h-4 rounded-full border border-slate-200 shrink-0" />
-                      {step.label}
+                      {step.cta} &rarr;
                     </Link>
-                  ))}
+                  )}
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         )}
 

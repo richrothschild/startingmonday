@@ -7,6 +7,7 @@ import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
 import CareerVerificationPanel from '@/components/CareerVerificationPanel'
 import type { CareerEntry } from '@/components/CareerVerificationPanel'
+import { ProfileInactivityNudge } from '@/components/ProfileInactivityNudge'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -82,6 +83,15 @@ export default async function ProfilePage({
     ? (profile.career_history_json as CareerEntry[])
     : null
 
+  const progressSections = [
+    { label: 'Identity',    done: !!(profile?.role_type && profile?.full_name) },
+    { label: 'Targets',     done: ((profile?.target_titles as string[] | null)?.length ?? 0) > 0 },
+    { label: 'Resume',      done: (profile?.resume_text?.length ?? 0) >= 200 },
+    { label: 'Positioning', done: (profile?.positioning_summary?.length ?? 0) >= 50 },
+    { label: 'Briefing',    done: !!profile?.briefing_time },
+  ]
+  const completedSections = progressSections.filter(s => s.done).length
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
 
@@ -101,9 +111,33 @@ export default async function ProfilePage({
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Profile</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">{user.email}</p>
+        </div>
+
+        {/* Profile progress bar */}
+        <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3.5 max-w-xl flex items-center gap-4">
+          <div className="flex items-center gap-1.5 shrink-0">
+            {progressSections.map((s, i) => (
+              <div
+                key={i}
+                title={s.label}
+                className={`h-1.5 w-9 rounded-full transition-colors ${s.done ? 'bg-slate-900' : 'bg-slate-200'}`}
+              />
+            ))}
+          </div>
+          <span className="text-[12px] font-semibold text-slate-500">
+            {completedSections} of 5 sections complete
+          </span>
+          {completedSections < 5 && (
+            <span className="text-[11px] text-slate-400 ml-auto">
+              {progressSections.find(s => !s.done)?.label} is next
+            </span>
+          )}
+          {completedSections === 5 && (
+            <span className="text-[11px] font-semibold text-emerald-600 ml-auto">Profile complete</span>
+          )}
         </div>
 
         <div className="bg-white border border-slate-200 rounded p-8 max-w-xl">
@@ -127,7 +161,7 @@ export default async function ProfilePage({
             </div>
           )}
 
-          <form action={saveProfile} className="flex flex-col gap-6">
+          <form id="profile-form" action={saveProfile} className="flex flex-col gap-6">
 
             {/* Search level */}
             <div>
@@ -634,6 +668,8 @@ export default async function ProfilePage({
         </div>
 
       </main>
+
+      <ProfileInactivityNudge formId="profile-form" />
     </div>
   )
 }
