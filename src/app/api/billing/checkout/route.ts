@@ -19,11 +19,10 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createClient()
-  const { data: user } = await supabase
-    .from('users')
-    .select('email, stripe_customer_id')
-    .eq('id', userId)
-    .single()
+  const [{ data: user }, { data: profile }] = await Promise.all([
+    supabase.from('users').select('email, stripe_customer_id').eq('id', userId).single(),
+    supabase.from('user_profiles').select('full_name').eq('user_id', userId).single(),
+  ])
 
   if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
 
@@ -33,11 +32,18 @@ export async function POST(request: NextRequest) {
   let customerId = user.stripe_customer_id
   if (!customerId) {
     const customer = await getStripe().customers.create(
-      { email: user.email, metadata: { userId } },
+      {
+        email: user.email,
+        ...(profile?.full_name ? { name: profile.full_name } : {}),
+        metadata: { userId },
+      },
       { idempotencyKey: `customer-${userId}` },
     )
     customerId = customer.id
     await supabase.from('users').update({ stripe_customer_id: customerId }).eq('id', userId)
+  } else if (profile?.full_name) {
+    // Update name on existing customer so receipt shows their name
+    getStripe().customers.update(customerId, { name: profile.full_name }).catch(() => {})
   }
 
   const baseUrl = APP_URL
@@ -47,6 +53,7 @@ export async function POST(request: NextRequest) {
     session = await getStripe().checkout.sessions.create({
       customer: customerId,
       mode: 'subscription',
+      billing_address_collection: 'required',
       line_items: [{ price: getPriceId(plan, interval), quantity: 1 }],
       success_url: `${baseUrl}/dashboard?upgraded=1`,
       cancel_url: `${baseUrl}/settings/billing`,

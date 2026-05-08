@@ -1,0 +1,131 @@
+'use client'
+import { useState } from 'react'
+
+type SeatStatus = {
+  profileDone: boolean
+  companyAdded: boolean
+  briefGenerated: boolean
+}
+
+type Seat = {
+  id: string
+  member_email: string
+  member_user_id: string | null
+  status: 'pending' | 'accepted'
+  invited_at: string
+  accepted_at: string | null
+  seatStatus: SeatStatus | null
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+function Dot({ done }: { done: boolean }) {
+  return (
+    <span className={`inline-block w-2 h-2 rounded-full shrink-0 ${done ? 'bg-emerald-500' : 'bg-slate-200'}`} />
+  )
+}
+
+export function TeamSettings({ seats }: { seats: Seat[] }) {
+  const [email, setEmail] = useState('')
+  const [sending, setSending] = useState(false)
+  const [sentTo, setSentTo] = useState<string | null>(null)
+  const [error, setError] = useState('')
+
+  async function handleInvite(e: React.FormEvent) {
+    e.preventDefault()
+    setSending(true)
+    setError('')
+    setSentTo(null)
+    try {
+      const res = await fetch('/api/team/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) { setError(data.error ?? 'Invite failed.'); return }
+      setSentTo(email.trim())
+      setEmail('')
+    } catch {
+      setError('Something went wrong.')
+    } finally {
+      setSending(false)
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
+          Invite a member
+        </p>
+        <form onSubmit={handleInvite} className="flex gap-3">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="colleague@company.com"
+            required
+            className="flex-1 border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+          />
+          <button
+            type="submit"
+            disabled={sending || !email.trim()}
+            className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 shrink-0"
+          >
+            {sending ? 'Sending...' : 'Send invite'}
+          </button>
+        </form>
+        {sentTo && <p className="mt-2.5 text-[12px] text-emerald-600">Invite sent to {sentTo}.</p>}
+        {error && <p className="mt-2.5 text-[12px] text-red-600">{error}</p>}
+      </div>
+
+      {seats.length > 0 ? (
+        <div className="bg-white border border-slate-200 rounded overflow-hidden">
+          <div className="px-6 py-3.5 border-b border-slate-100">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">
+              Members ({seats.length})
+            </p>
+          </div>
+          <div className="divide-y divide-slate-50">
+            {seats.map(seat => (
+              <div key={seat.id} className="px-6 py-4 flex items-center gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13px] font-semibold text-slate-900 truncate">{seat.member_email}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    {seat.status === 'accepted' && seat.accepted_at
+                      ? `Joined ${formatDate(seat.accepted_at)}`
+                      : `Invited ${formatDate(seat.invited_at)}`}
+                  </p>
+                </div>
+                {seat.status === 'accepted' && seat.seatStatus ? (
+                  <div className="flex items-center gap-4 shrink-0">
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                      <Dot done={seat.seatStatus.profileDone} />Profile
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                      <Dot done={seat.seatStatus.companyAdded} />Company
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                      <Dot done={seat.seatStatus.briefGenerated} />Brief
+                    </div>
+                  </div>
+                ) : (
+                  <span className="text-[11px] font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded shrink-0">
+                    Pending
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white border border-slate-200 rounded px-6 py-10 text-center">
+          <p className="text-[14px] text-slate-500">No members yet. Invite your first member above.</p>
+        </div>
+      )}
+    </div>
+  )
+}

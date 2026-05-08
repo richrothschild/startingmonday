@@ -57,7 +57,8 @@ export default function SignupPage() {
       return
     }
 
-    router.push('/dashboard')
+    const seatToken = new URLSearchParams(window.location.search).get('seat_token')
+    router.push(seatToken ? `/team/join/${seatToken}` : '/dashboard')
     router.refresh()
   }
 
