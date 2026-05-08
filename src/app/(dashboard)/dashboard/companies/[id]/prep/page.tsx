@@ -36,7 +36,7 @@ export default async function PrepPage({
       .eq('status', 'active'),
     supabase
       .from('user_profiles')
-      .select('role_type, positioning_summary, target_titles, career_history_json')
+      .select('role_type, positioning_summary, target_titles, career_history_json, full_name, resume_text, briefing_time')
       .eq('user_id', user.id)
       .single(),
   ])
@@ -46,6 +46,14 @@ export default async function PrepPage({
   const hasCareerHistory = Array.isArray(profile?.career_history_json) && (profile.career_history_json as unknown[]).length > 0
   const hasPositioning = !!(profile?.positioning_summary?.trim())
   const hasTargetTitles = (profile?.target_titles ?? []).length > 0
+
+  const profileScore = Math.round(([
+    !!(profile?.role_type && profile?.full_name),
+    ((profile?.target_titles as string[] | null)?.length ?? 0) > 0,
+    (profile?.resume_text?.length ?? 0) >= 200,
+    (profile?.positioning_summary?.length ?? 0) >= 50,
+    !!profile?.briefing_time,
+  ].filter(Boolean).length / 5) * 100)
 
   return (
     <PrepClient
@@ -60,6 +68,7 @@ export default async function PrepPage({
       hasCareerHistory={hasCareerHistory}
       hasPositioning={hasPositioning}
       hasTargetTitles={hasTargetTitles}
+      profileScore={profileScore}
     />
   )
 }

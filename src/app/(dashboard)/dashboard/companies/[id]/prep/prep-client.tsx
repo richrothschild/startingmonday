@@ -247,6 +247,7 @@ export function PrepClient({
   hasCareerHistory,
   hasPositioning,
   hasTargetTitles,
+  profileScore,
 }: {
   companyId: string
   companyName: string
@@ -259,6 +260,7 @@ export function PrepClient({
   hasCareerHistory: boolean
   hasPositioning: boolean
   hasTargetTitles: boolean
+  profileScore: number
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -272,6 +274,7 @@ export function PrepClient({
   )
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
+  const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId)
   const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
   const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`,  companyId)
   const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`,  companyId)
@@ -496,6 +499,25 @@ export function PrepClient({
           </div>
         )}
 
+        {brief && profileScore < 50 && !busy && (
+          <div className="mb-4 px-5 py-4 bg-amber-50 border border-amber-200 rounded flex items-start gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] font-semibold text-amber-900">
+                This brief used limited profile data.
+              </p>
+              <p className="text-[12px] text-amber-700 mt-1 leading-relaxed">
+                Adding your resume unlocks significantly more specific talking points, win thesis, and pushback prep. The brief you just generated is a starting point.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/profile#section-resume"
+              className="shrink-0 text-[12px] font-semibold text-amber-900 border border-amber-300 hover:border-amber-500 px-3 py-1.5 rounded transition-colors"
+            >
+              Add resume →
+            </Link>
+          </div>
+        )}
+
         {brief && (
           <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
             {renderBrief(brief)}
@@ -554,6 +576,15 @@ export function PrepClient({
 
         {brief && !loading && (
           <>
+            <OnDemandPanel
+              title="Your Background Match"
+              description="How your specific experience connects to this company's challenges. Generate this before you walk in."
+              content={background.content}
+              briefId={background.briefId}
+              loading={background.loading}
+              error={background.error}
+              onGenerate={background.generate}
+            />
             <OnDemandPanel
               title="Leadership Team"
               description="Who is in the room, what they care about, and how to win with each of them."

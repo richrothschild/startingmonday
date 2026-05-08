@@ -62,6 +62,8 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
         createdAt: h.created_at,
       }))}
       profileScore={profileScore}
+      roleType={profileData?.role_type ?? null}
+      fullName={profileData?.full_name ?? null}
     />
   )
 }

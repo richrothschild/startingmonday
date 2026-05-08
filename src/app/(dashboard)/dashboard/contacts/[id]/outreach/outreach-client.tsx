@@ -56,7 +56,16 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
-export function OutreachClient({ contact, history, profileScore }: { contact: Contact; history: DraftHistory[]; profileScore: number }) {
+const ROLE_TYPE_LABELS: Record<string, string> = {
+  cio: 'CIO', cto: 'CTO', cdo_data: 'CDO (Data)', cdo_digital: 'CDO (Digital)',
+  ciso: 'CISO', cpo: 'CPO', coo: 'COO', vp_technology: 'VP of Technology', other_csuite: 'C-Suite Executive',
+}
+
+const CHANNEL_LABELS: Record<string, string> = {
+  linkedin: 'LinkedIn', referral: 'Referral', cold: 'Cold outreach', inbound: 'Inbound', event: 'Event',
+}
+
+export function OutreachClient({ contact, history, profileScore, roleType, fullName }: { contact: Contact; history: DraftHistory[]; profileScore: number; roleType: string | null; fullName: string | null }) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
@@ -68,6 +77,7 @@ export function OutreachClient({ contact, history, profileScore }: { contact: Co
   const [customRefine, setCustomRefine] = useState('')
   const [showHistory, setShowHistory] = useState(false)
   const [expandedHistory, setExpandedHistory] = useState<string | null>(null)
+  const [showInformed, setShowInformed] = useState(false)
 
   const subtitle = [contact.title, contact.firm ?? contact.company_name].filter(Boolean).join(' · ')
 
@@ -272,6 +282,62 @@ export function OutreachClient({ contact, history, profileScore }: { contact: Co
             {draftId && !loading && (
               <div className="mb-5 flex justify-end">
                 <BriefRating briefId={draftId} />
+              </div>
+            )}
+
+            {!loading && (
+              <div className="mb-4 border border-slate-100 rounded">
+                <button
+                  type="button"
+                  onClick={() => setShowInformed(v => !v)}
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-left bg-transparent cursor-pointer border-0"
+                >
+                  <span className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">
+                    What the AI knew about this draft
+                  </span>
+                  <span className="text-[11px] text-slate-300">{showInformed ? '▲' : '▼'}</span>
+                </button>
+                {showInformed && (
+                  <div className="px-4 pb-3 flex flex-col gap-1.5 border-t border-slate-100">
+                    {(roleType || fullName) && (
+                      <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                        <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                        <span>
+                          Your background{roleType ? ` as ${ROLE_TYPE_LABELS[roleType] ?? roleType}` : ''}{fullName ? ` (${fullName})` : ''}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                      <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                      <span>
+                        {contact.name}{contact.title ? `, ${contact.title}` : ''}{contact.firm ?? contact.company_name ? ` at ${contact.firm ?? contact.company_name}` : ''}
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                      <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                      <span>Goal: {customGoal.trim() || goal}</span>
+                    </div>
+                    {contact.channel && (
+                      <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                        <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                        <span>Channel: {CHANNEL_LABELS[contact.channel] ?? contact.channel}</span>
+                      </div>
+                    )}
+                    {contact.notes && (
+                      <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                        <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                        <span>Contact notes: {contact.notes.slice(0, 120)}{contact.notes.length > 120 ? '…' : ''}</span>
+                      </div>
+                    )}
+                    {additionalContext.trim() && (
+                      <div className="flex items-start gap-2 text-[12px] text-slate-600">
+                        <span className="text-slate-300 shrink-0 mt-0.5">-</span>
+                        <span>Your additional context: {additionalContext.trim().slice(0, 120)}</span>
+                      </div>
+                    )}
+                    <p className="mt-2 text-[11px] text-slate-300">A blank AI window cannot access any of this.</p>
+                  </div>
+                )}
               </div>
             )}
 
