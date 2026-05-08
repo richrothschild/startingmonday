@@ -68,7 +68,7 @@ export default async function DashboardPage({
   const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -107,6 +107,12 @@ export default async function DashboardPage({
       .select('momentum_score, momentum_computed_at')
       .eq('user_id', user.id)
       .single(),
+    supabase
+      .from('contacts')
+      .select('company_id')
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .not('company_id', 'is', null),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -151,6 +157,13 @@ export default async function DashboardPage({
         })
       }
       warmPaths = warmPaths.slice(0, 5)
+    }
+  }
+
+  const contactCountMap = new Map<string, number>()
+  for (const row of (contactRows ?? [])) {
+    if (row.company_id) {
+      contactCountMap.set(row.company_id, (contactCountMap.get(row.company_id) ?? 0) + 1)
     }
   }
 
@@ -638,7 +651,14 @@ export default async function DashboardPage({
                     className={i < filtered.length - 1 ? 'border-b border-slate-50' : ''}
                   >
                     <td className="py-3.5 pl-6 pr-4">
-                      <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">{co.name}</Link>
+                      <div className="flex items-center gap-2">
+                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">{co.name}</Link>
+                        {(contactCountMap.get(co.id) ?? 0) > 0 && (
+                          <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full shrink-0">
+                            {contactCountMap.get(co.id)} {contactCountMap.get(co.id) === 1 ? 'contact' : 'contacts'}
+                          </span>
+                        )}
+                      </div>
                       {co.notes && (
                         <div className="text-[12px] text-slate-400 mt-0.5 truncate max-w-[200px] sm:max-w-[340px]">
                           {co.notes}

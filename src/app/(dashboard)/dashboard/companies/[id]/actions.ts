@@ -104,11 +104,13 @@ export async function addContact(companyId: string, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const name = str(formData, 'name')
-  const title = str(formData, 'title') || null
-  const firm = str(formData, 'firm') || null
-  const channel = str(formData, 'channel') || null
-  const notes = str(formData, 'notes') || null
+  const name         = str(formData, 'name')
+  const title        = str(formData, 'title') || null
+  const firm         = str(formData, 'firm') || null
+  const channel      = str(formData, 'channel') || null
+  const email        = str(formData, 'email') || null
+  const linkedin_url = str(formData, 'linkedin_url') || null
+  const notes        = str(formData, 'notes') || null
 
   if (!name) redirect(`/dashboard/companies/${companyId}`)
 
@@ -119,6 +121,8 @@ export async function addContact(companyId: string, formData: FormData) {
     title,
     firm,
     channel,
+    email,
+    linkedin_url,
     notes,
     status: 'active',
   })

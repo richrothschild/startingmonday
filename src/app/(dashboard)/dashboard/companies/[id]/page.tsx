@@ -71,6 +71,14 @@ const CHANNEL: Record<string, { label: string; cls: string }> = {
   event:    { label: 'Event',     cls: 'bg-amber-50 text-amber-700' },
 }
 
+const OUTREACH_STATUS: Record<string, { label: string; cls: string }> = {
+  prospect:          { label: 'Prospect',        cls: 'bg-slate-100 text-slate-500' },
+  reached_out:       { label: 'Reached Out',     cls: 'bg-blue-50 text-blue-600' },
+  in_conversation:   { label: 'In Conversation', cls: 'bg-amber-50 text-amber-700' },
+  meeting_scheduled: { label: 'Meeting Set',     cls: 'bg-green-50 text-green-700' },
+  closed:            { label: 'Closed',          cls: 'bg-slate-100 text-slate-400' },
+}
+
 const STAGES = [
   { value: 'watching',     label: 'Watching' },
   { value: 'researching',  label: 'Researching' },
@@ -113,7 +121,7 @@ export default async function CompanyPage({
       .order('due_date', { ascending: true }),
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes')
+      .select('id, name, title, firm, channel, notes, outreach_status')
       .eq('company_id', id)
       .eq('user_id', user.id)
       .eq('status', 'active')
@@ -541,11 +549,14 @@ export default async function CompanyPage({
             <div className="divide-y divide-slate-50">
               {contacts.map(ct => {
                 const ch = ct.channel ? (CHANNEL[ct.channel] ?? { label: ct.channel, cls: 'bg-slate-100 text-slate-500' }) : null
+                const os = OUTREACH_STATUS[ct.outreach_status ?? 'prospect'] ?? OUTREACH_STATUS.prospect
                 return (
                   <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[14px] font-semibold text-slate-900">{ct.name}</span>
+                        <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                          {ct.name}
+                        </Link>
                         {ct.title && (
                           <span className="text-[13px] text-slate-400">{ct.title}{ct.firm ? ` · ${ct.firm}` : ''}</span>
                         )}
@@ -554,19 +565,30 @@ export default async function CompanyPage({
                             {ch.label}
                           </span>
                         )}
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${os.cls}`}>
+                          {os.label}
+                        </span>
                       </div>
                       {ct.notes && (
                         <p className="text-[12px] text-slate-400 mt-1 truncate max-w-xl">{ct.notes}</p>
                       )}
                     </div>
-                    <form action={archiveContact.bind(null, ct.id, id)}>
-                      <button
-                        type="submit"
-                        className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 shrink-0"
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Link
+                        href={`/dashboard/contacts/${ct.id}/outreach`}
+                        className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
                       >
-                        Remove
-                      </button>
-                    </form>
+                        Draft
+                      </Link>
+                      <form action={archiveContact.bind(null, ct.id, id)}>
+                        <button
+                          type="submit"
+                          className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
+                        >
+                          Remove
+                        </button>
+                      </form>
+                    </div>
                   </div>
                 )
               })}
@@ -619,6 +641,30 @@ export default async function CompanyPage({
                     <option value="inbound">Inbound</option>
                     <option value="event">Event</option>
                   </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                    Email
+                  </label>
+                  <input
+                    name="email"
+                    type="text"
+                    placeholder="jane@company.com"
+                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                    LinkedIn URL
+                  </label>
+                  <input
+                    name="linkedin_url"
+                    type="text"
+                    placeholder="https://linkedin.com/in/jane"
+                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
+                  />
                 </div>
               </div>
               <div>
