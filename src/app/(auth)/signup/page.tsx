@@ -17,9 +17,15 @@ export default function SignupPage() {
   async function handleGoogle() {
     setGoogleLoading(true)
     const supabase = createClient()
+    const params = new URLSearchParams(window.location.search)
+    const utmSource = params.get('utm_source') || params.get('ref') || null
+    const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
+    if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
+    const utmMedium = params.get('utm_medium')
+    if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo: callbackUrl.toString() },
     })
   }
 
@@ -43,11 +49,25 @@ export default function SignupPage() {
 
     if (data.user) {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-      const ref = new URLSearchParams(window.location.search).get('ref') || null
-      await supabase.from('user_profiles').upsert(
-        { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
-        { onConflict: 'user_id' }
-      )
+      const params = new URLSearchParams(window.location.search)
+      const ref = params.get('ref') || null
+      const utmSource = params.get('utm_source') || null
+      const utmMedium = params.get('utm_medium') || null
+      const utmCampaign = params.get('utm_campaign') || null
+      const signupSource = utmSource ?? ref ?? null
+      await Promise.all([
+        supabase.from('user_profiles').upsert(
+          { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
+          { onConflict: 'user_id' }
+        ),
+        signupSource
+          ? supabase.from('users').update({
+              signup_source: signupSource,
+              acquisition_channel: utmMedium ?? (ref ? 'referral' : null),
+              referral_source: utmCampaign ?? utmSource ?? ref ?? null,
+            }).eq('id', data.user.id)
+          : Promise.resolve(),
+      ])
     }
 
     // If email confirmation is required, the session won't exist yet

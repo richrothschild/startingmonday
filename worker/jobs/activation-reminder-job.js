@@ -142,11 +142,111 @@ function dateDaysAgo(n) {
   return d.toISOString().slice(0, 10)
 }
 
+// Day 1: welcome email with full setup context (sent regardless of company status)
+function buildWelcomeEmail({ firstName }) {
+  const subject = 'Your Starting Monday account is ready'
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f5f9;">
+  <tr><td align="center" style="padding:40px 16px;">
+    <table width="540" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+
+      <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
+        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
+        <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2;">${esc(firstName)}, your account is ready.</div>
+      </td></tr>
+
+      <tr><td style="padding:32px 48px 8px 48px;">
+        <p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 20px 0;">Setup takes about 10 minutes. Here are the six things that unlock the full platform:</p>
+      </td></tr>
+
+      <tr><td style="padding:0 48px 32px 48px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;">
+          ${ACTIONS.map((a, i) => `
+          <tr>
+            <td style="padding:14px 20px;border-bottom:${i < ACTIONS.length - 1 ? '1px solid #f1f5f9' : 'none'};">
+              <a href="${esc(APP_URL + a.href)}" style="font-size:14px;font-weight:600;color:#0f172a;text-decoration:none;">
+                ${i + 1}. ${esc(a.label)} &rarr;
+              </a>
+            </td>
+          </tr>`).join('')}
+        </table>
+      </td></tr>
+
+      <tr><td style="padding:0 48px 40px 48px;">
+        <a href="${esc(APP_URL + '/dashboard')}" style="display:inline-block;background:#0f172a;color:#ffffff;font-size:13px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none;">
+          Go to your dashboard &rarr;
+        </a>
+      </td></tr>
+
+      ${PRIVATE_NOTE}
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`
+
+  return { subject, html }
+}
+
+// Day 3: company nudge — only sent to users with no company yet
+function buildCompanyNudgeEmail({ firstName }) {
+  const subject = 'One thing to do in Starting Monday today'
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f5f9;">
+  <tr><td align="center" style="padding:40px 16px;">
+    <table width="540" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+
+      <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
+        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
+        <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2;">${esc(firstName)}, add your first target company.</div>
+      </td></tr>
+
+      <tr><td style="padding:32px 48px 28px 48px;">
+        <p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 16px 0;">You haven&apos;t added a company yet. That&apos;s the one action that unlocks everything else — career page scanning, interview prep briefs, signal alerts.</p>
+        <p style="font-size:15px;color:#334155;line-height:1.7;margin:0;">It takes 30 seconds. Add the name, paste the career page URL, and the scanner starts on its next run.</p>
+      </td></tr>
+
+      <tr><td style="padding:0 48px 40px 48px;">
+        <a href="${esc(APP_URL + '/dashboard/companies/new')}" style="display:inline-block;background:#f97316;color:#ffffff;font-size:14px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none;">
+          Add your first company &rarr;
+        </a>
+      </td></tr>
+
+      ${PRIVATE_NOTE}
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`
+
+  return { subject, html }
+}
+
 export async function runActivationReminderJob() {
   const supabase = getSupabase()
   logger.info('activation-reminder-job: starting')
 
+  const day1Date = dateDaysAgo(1)
   const day2Date = dateDaysAgo(2)
+  const day3Date = dateDaysAgo(3)
   const day7Date = dateDaysAgo(7)
 
   // Trialing users who signed up between 1 and 8 days ago
@@ -162,10 +262,9 @@ export async function runActivationReminderJob() {
     return
   }
 
-  // Exact day-2 and day-7 targets only
   const targets = (users ?? []).filter(u => {
     const d = u.created_at?.slice(0, 10)
-    return d === day2Date || d === day7Date
+    return d === day1Date || d === day2Date || d === day3Date || d === day7Date
   })
 
   if (!targets.length) {
@@ -175,7 +274,6 @@ export async function runActivationReminderJob() {
 
   const targetIds = targets.map(u => u.id)
 
-  // Batch: profiles — check onboarding status, activation state, and briefing_email override
   const { data: profiles } = await supabase
     .from('user_profiles')
     .select('user_id, full_name, briefing_email, resume_text, positioning_summary, briefing_time, onboarding_completed_at')
@@ -183,7 +281,6 @@ export async function runActivationReminderJob() {
 
   const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
 
-  // Batch: which users have at least one company? These are engaged — suppress all emails.
   const { data: companyRows } = await supabase
     .from('companies')
     .select('user_id')
@@ -197,17 +294,51 @@ export async function runActivationReminderJob() {
 
   for (const user of targets) {
     const signupDate = user.created_at?.slice(0, 10)
-    const dayNumber  = signupDate === day2Date ? 2 : 7
+    const dayNumber  = signupDate === day1Date ? 1
+                     : signupDate === day2Date ? 2
+                     : signupDate === day3Date ? 3
+                     : 7
     const profile    = profileMap[user.id]
+    const firstName  = profile?.full_name?.split(' ')[0] ?? 'there'
+    const deliverTo  = profile?.briefing_email ?? user.email
 
-    // Suppress: user has companies — they are actively using the product
+    // Day 1: welcome email — send regardless of company/activation status
+    if (dayNumber === 1) {
+      if (profile?.onboarding_completed_at) { skipped++; continue }
+      try {
+        const { subject, html } = buildWelcomeEmail({ firstName })
+        await sendEmail({ to: deliverTo, subject, html })
+        logger.info('activation-reminder-job: sent day-1 welcome', { to: deliverTo })
+        sent++
+      } catch (err) {
+        logger.error('activation-reminder-job: send failed', { to: deliverTo, error: err.message })
+        skipped++
+      }
+      continue
+    }
+
+    // Day 3: company nudge — only for users who have NOT added a company
+    if (dayNumber === 3) {
+      if (hasCompany.has(user.id) || profile?.onboarding_completed_at) { skipped++; continue }
+      try {
+        const { subject, html } = buildCompanyNudgeEmail({ firstName })
+        await sendEmail({ to: deliverTo, subject, html })
+        logger.info('activation-reminder-job: sent day-3 company nudge', { to: deliverTo })
+        sent++
+      } catch (err) {
+        logger.error('activation-reminder-job: send failed', { to: deliverTo, error: err.message })
+        skipped++
+      }
+      continue
+    }
+
+    // Days 2 and 7: setup progress emails — suppress if actively engaged
     if (hasCompany.has(user.id)) {
       logger.info('activation-reminder-job: skip — has companies', { to: user.email, day: dayNumber })
       skipped++
       continue
     }
 
-    // Suppress: user completed onboarding
     if (profile?.onboarding_completed_at) {
       logger.info('activation-reminder-job: skip — onboarding complete', { to: user.email, day: dayNumber })
       skipped++
@@ -219,9 +350,7 @@ export async function runActivationReminderJob() {
 
     if (completedCount === 6) { skipped++; continue }
 
-    const missing    = ACTIONS.filter(a => !activation[a.key])
-    const firstName  = profile?.full_name?.split(' ')[0] ?? 'there'
-    const deliverTo  = profile?.briefing_email ?? user.email
+    const missing = ACTIONS.filter(a => !activation[a.key])
 
     try {
       const { subject, html } = buildEmail({ firstName, dayNumber, missing, completedCount })

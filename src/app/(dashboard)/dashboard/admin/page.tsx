@@ -72,6 +72,7 @@ export default async function AdminPage() {
     { data: allSignals },
     { data: signalActions },
     { data: qualityLogs },
+    { data: activeTrials },
   ] = await Promise.all([
     adminClient.from('companies').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList).is('archived_at', null),
     adminClient.from('briefs').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList).eq('type', 'prep'),
@@ -81,6 +82,7 @@ export default async function AdminPage() {
     adminClient.from('company_signals').select('id, signal_type').limit(2000),
     adminClient.from('signal_action_events').select('signal_id, action_type').limit(2000),
     adminClient.from('brief_quality_log').select('context_score, has_resume, has_scan_result, has_contacts, word_count').gte('created_at', since30d).limit(500),
+    adminClient.from('users').select('id, email, created_at, trial_ends_at, signup_source').eq('subscription_status', 'trialing').gt('trial_ends_at', new Date().toISOString()).order('created_at', { ascending: false }).limit(50),
   ])
 
   const denominator = activeUserIds.size || 1
@@ -96,6 +98,15 @@ export default async function AdminPage() {
   const eventCounts7d  = (events7d  ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
+
+  // Active trial users: enrich with company status
+  const trialUsers = activeTrials ?? []
+  const trialUserIds = trialUsers.map(u => u.id)
+  let trialCompanySet = new Set<string>()
+  if (trialUserIds.length > 0) {
+    const { data: trialCompanyRows } = await adminClient.from('companies').select('user_id').in('user_id', trialUserIds).is('archived_at', null)
+    trialCompanySet = new Set((trialCompanyRows ?? []).map(r => r.user_id))
+  }
 
   // Trial conversion
   const trialsEnded = endedTrials ?? []
@@ -308,6 +319,56 @@ export default async function AdminPage() {
                 </div>
               ))}
             </div>
+          )}
+        </div>
+
+        {/* Active trial users */}
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <div className="px-6 py-[18px] border-b border-slate-200">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Active Trials ({trialUsers.length})</span>
+          </div>
+          {trialUsers.length === 0 ? (
+            <p className="px-6 py-5 text-[13px] text-slate-400">No active trials.</p>
+          ) : (
+            <table className="w-full text-[12px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                  <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Started</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Days left</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Companies</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Source</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {trialUsers.map(u => {
+                  const daysLeft = u.trial_ends_at
+                    ? Math.max(0, Math.round((new Date(u.trial_ends_at).getTime() - Date.now()) / 86400000))
+                    : null
+                  const daysIn = u.created_at
+                    ? Math.round((Date.now() - new Date(u.created_at).getTime()) / 86400000)
+                    : null
+                  const hasCompanies = trialCompanySet.has(u.id)
+                  return (
+                    <tr key={u.id}>
+                      <td className="px-6 py-3 font-semibold text-slate-900">{u.email}</td>
+                      <td className="px-4 py-3 text-slate-500">{daysIn !== null ? `Day ${daysIn}` : '—'}</td>
+                      <td className="px-4 py-3">
+                        <span className={`font-bold ${daysLeft !== null && daysLeft <= 3 ? 'text-red-600' : daysLeft !== null && daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>
+                          {daysLeft !== null ? `${daysLeft}d` : '—'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${hasCompanies ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
+                          {hasCompanies ? 'Yes' : 'No'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">{u.signup_source ?? '—'}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
           )}
         </div>
 

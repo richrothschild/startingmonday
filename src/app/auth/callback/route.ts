@@ -54,10 +54,20 @@ export async function GET(request: NextRequest) {
     }))
 
     if (!error && data.session && data.user) {
-      await supabase.from('user_profiles').upsert(
-        { user_id: data.user.id },
-        { onConflict: 'user_id', ignoreDuplicates: true }
-      )
+      const utmSource = searchParams.get('utm_source')
+      const utmMedium = searchParams.get('utm_medium')
+      await Promise.all([
+        supabase.from('user_profiles').upsert(
+          { user_id: data.user.id },
+          { onConflict: 'user_id', ignoreDuplicates: true }
+        ),
+        utmSource
+          ? supabase.from('users').update({
+              signup_source: utmSource,
+              acquisition_channel: utmMedium ?? null,
+            }).eq('id', data.user.id)
+          : Promise.resolve(),
+      ])
       return response
     }
   }

@@ -162,9 +162,20 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
-          <p className="text-[13px] text-slate-500 mb-8">
+          <p className="text-[13px] text-slate-500 mb-6">
             {hero.note}
           </p>
+
+          {/* Confidentiality promise — above the fold, before any CTA */}
+          <div className="border-l-2 border-slate-700 pl-4 mb-8">
+            <p className="text-[13px] text-slate-400 leading-relaxed">
+              <span className="font-semibold text-slate-200">Your search is completely private.</span>{' '}
+              We store your resume, pipeline, contacts, and briefing preferences — nothing else.
+              We never share your identity, your targets, or your activity with employers, recruiters, or anyone.
+              Your data is never used to train AI models.
+              You can permanently delete your account and all data from Settings at any time.
+            </p>
+          </div>
 
           <div className="flex flex-col gap-2.5 mb-9">
             {hero.steps.map((step, i) => (
@@ -195,12 +206,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] text-slate-600 mt-2.5">No signup required</p>
             </div>
           </div>
-          <p className="text-[13px] text-slate-400 mt-5 leading-relaxed max-w-md">
-            <span className="font-semibold text-white">Your search stays invisible.</span>{' '}
-            We never share your identity, your targets, or your activity with employers, recruiters, or anyone else.
-            Your data is stored in an encrypted, isolated database under your account. No other user or employer can access it.{' '}
-            <Link href="/security" className="text-slate-400 underline hover:text-slate-200 transition-colors">Security details</Link>
-          </p>
 
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">

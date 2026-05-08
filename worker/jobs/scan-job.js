@@ -3,6 +3,7 @@ import { logger } from '../lib/logger.js'
 import { trackUsage } from '../lib/usage-tracker.js'
 import { createLimiter } from '../lib/concurrency.js'
 import { scanCompany } from '../scanner/scan-company.js'
+import { notify } from '../lib/notify.js'
 
 const MAX_CONCURRENT_SCANS = 10
 
@@ -107,5 +108,62 @@ export async function runScanJob() {
     await trackUsage(supabase, { service: 'anthropic', requests: anthropicCalls, tokens: anthropicCalls * 200 })
   }
 
+  // Alert on companies with 3 consecutive non-productive scans (silent failure detection).
+  // "Non-productive" = status is 'error' or 'blocked', or status 'success' with 0 raw_hits.
+  await checkSilentFailures(supabase, companies)
+
   logger.info('scan-job: complete', { browserlessCalls, anthropicCalls })
+}
+
+async function checkSilentFailures(supabase, companies) {
+  const companyIds = companies.map(c => c.id)
+  if (!companyIds.length) return
+
+  // Fetch the last 3 scan results for every company in this batch in one query.
+  // We use a window function approach: fetch all recent results and slice per company in JS.
+  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  const { data: recentScans, error } = await supabase
+    .from('scan_results')
+    .select('company_id, status, raw_hits, scanned_at')
+    .in('company_id', companyIds)
+    .gte('scanned_at', since)
+    .order('scanned_at', { ascending: false })
+    .limit(companyIds.length * 5) // at most 5 recent results per company
+
+  if (error) {
+    logger.warn('scan-job: silent-failure check query failed', { error: error.message })
+    return
+  }
+
+  // Group by company_id, keep latest 3 per company
+  const byCompany = {}
+  for (const row of (recentScans ?? [])) {
+    if (!byCompany[row.company_id]) byCompany[row.company_id] = []
+    if (byCompany[row.company_id].length < 3) byCompany[row.company_id].push(row)
+  }
+
+  const companyMap = Object.fromEntries(companies.map(c => [c.id, c]))
+  const failures = []
+
+  for (const [companyId, scans] of Object.entries(byCompany)) {
+    if (scans.length < 3) continue // not enough history yet
+    const allNonProductive = scans.every(s =>
+      s.status === 'error' ||
+      s.status === 'blocked' ||
+      (s.status === 'success' && (s.raw_hits ?? []).length === 0)
+    )
+    if (allNonProductive) {
+      failures.push(companyMap[companyId])
+    }
+  }
+
+  if (!failures.length) return
+
+  const lines = failures.map(c => `  - ${c.name} (user: ${c.user_id}, url: ${c.career_page_url ?? 'none'})`)
+  await notify({
+    subject: `Silent scan failures: ${failures.length} company${failures.length === 1 ? '' : 's'}`,
+    body: `The following companies have returned 0 results on each of the last 3 scans.\n\nThis may mean the career page URL is stale, the site blocks the scraper, or the page structure changed.\n\n${lines.join('\n')}\n\nCheck the scan_results table or Railway logs for details.`,
+  })
+
+  logger.warn('scan-job: silent failure alert sent', { count: failures.length, companies: failures.map(c => c.name) })
 }
