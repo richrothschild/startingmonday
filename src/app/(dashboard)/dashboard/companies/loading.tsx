@@ -1,0 +1,16 @@
+import { SkeletonTable, Skeleton } from '@/components/Skeleton'
+
+export default function CompaniesLoading() {
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <div className="h-14 bg-slate-900" />
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+        <div className="flex items-center justify-between mb-6">
+          <Skeleton className="h-7 w-32" />
+          <Skeleton className="h-9 w-28 rounded" />
+        </div>
+        <SkeletonTable rows={8} />
+      </main>
+    </div>
+  )
+}

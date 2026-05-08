@@ -7,6 +7,8 @@ import { PipelineFilter } from './PipelineFilter'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { FollowUpItem } from '@/components/FollowUpItem'
+import { CmdKButton } from '@/components/CmdKButton'
+import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -161,6 +163,7 @@ export default async function DashboardPage({
           </span>
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-5">
+            <CmdKButton />
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
             <Link href="/dashboard/kanban" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Kanban</Link>
@@ -519,8 +522,19 @@ export default async function DashboardPage({
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="py-12 text-center text-[14px] text-slate-400">
-                    {totalCount === 0 ? 'Add your first company above to get started.' : 'No companies match your filter.'}
+                  <td colSpan={4}>
+                    {totalCount === 0 ? (
+                      <EmptyState
+                        icon={EMPTY_ICONS.companies}
+                        title="No target companies yet"
+                        body="Add companies you want to work for. We'll scan for signals — exec moves, funding, openings — and alert you when the timing is right."
+                        cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
+                      />
+                    ) : (
+                      <div className="py-10 text-center text-[14px] text-slate-400">
+                        No companies match that filter.
+                      </div>
+                    )}
                   </td>
                 </tr>
               ) : filtered.map((co, i) => {
