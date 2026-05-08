@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { fetchProspectNews } from '@/lib/prospect-news'
 
 const TYPE_CONTEXT: Record<string, string> = {
   outplacement: `The prospect is an executive outplacement firm. Their business is helping organizations transition senior leaders out gracefully -- career coaching, positioning, networking, and job search support for executives at VP level and above. They sell to HR departments and CEOs, and they resell or white-label tools to put in the hands of their executive clients.
@@ -73,6 +74,11 @@ export async function POST(request: NextRequest) {
 
   const typeContext = TYPE_CONTEXT[prospectType] ?? TYPE_CONTEXT.other
 
+  const newsItems = await fetchProspectNews(prospectName, prospectType)
+  const recentSignals = newsItems.length > 0
+    ? newsItems.map(n => `- ${n.title}${n.pubDate ? ` (${n.pubDate.slice(0, 10)})` : ''}${n.description ? ': ' + n.description.replace(/<[^>]+>/g, '').slice(0, 150) : ''}`).join('\n')
+    : ''
+
   const prompt = `You are writing a leave-behind document for a B2B sales meeting. This document will sit on the desk of a decision-maker after Richard Rothschild leaves the room. It should read like material from a top-tier advisory firm: precise, confident, and specific to this organization. Not a pitch deck. Not a startup brochure.
 
 PROSPECT
@@ -81,7 +87,7 @@ Type: ${prospectType.replace(/_/g, ' ')}${estimatedSeats ? `\nEstimated users: $
 
 PROSPECT CONTEXT
 ${typeContext}
-
+${recentSignals ? `\nRECENT SIGNALS (from public news, last 90 days)\nUse one or two of these where they genuinely strengthen the argument -- to show you understand their current situation. Do not force them in. Do not invent details beyond what is stated. Do not cite article titles or URLs.\n${recentSignals}` : ''}
 THE PRODUCT
 Starting Monday is an AI platform built specifically for VP and C-suite executives in active job search. It reads the executive's actual profile before every interaction -- their background, their targets, their voice -- and uses that to run the search with them. Core capabilities: a daily briefing on target companies surfacing signals that indicate timing shifts; interview prep briefs built around the specific company, the specific role, and what the interviewer is actually evaluating; outreach drafting in the executive's voice, not templates; and pipeline tracking that keeps actions moving. It is not a job board. It is not a generic AI chatbot. It is the first platform purpose-built for VP+ search.
 
