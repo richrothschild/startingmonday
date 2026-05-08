@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServerClient } from '@supabase/ssr'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
@@ -13,7 +13,27 @@ export async function GET(request: NextRequest) {
   const publicOrigin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : origin
 
   if (code) {
-    const supabase = await createClient()
+    // Pre-build the redirect response before exchangeCodeForSession so Supabase
+    // can write Set-Cookie headers directly onto it. Returning a different
+    // NextResponse.redirect() after the exchange drops those headers, leaving
+    // the browser with no session cookie and causing /dashboard -> /login flashing.
+    const response = NextResponse.redirect(`${publicOrigin}${next}`)
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() { return request.cookies.getAll() },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            )
+          },
+        },
+      }
+    )
+
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error && data.user) {
@@ -21,8 +41,7 @@ export async function GET(request: NextRequest) {
         { user_id: data.user.id },
         { onConflict: 'user_id', ignoreDuplicates: true }
       )
-
-      return NextResponse.redirect(`${publicOrigin}${next}`)
+      return response
     }
   }
 

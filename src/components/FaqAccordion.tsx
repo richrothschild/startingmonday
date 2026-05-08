@@ -59,8 +59,8 @@ const FAQS = [
     a: 'When you add a follow-up action to a company (e.g. "Send thank you note — Friday"), it appears in Actions Due on the dashboard when the date arrives. Click the action text to edit it. Click Done to dismiss it.',
   },
   {
-    q: 'What is the difference between Monitor and Active?',
-    a: 'Monitor ($49/mo) includes pipeline tracking for up to 25 companies, career page scanning three times a week, a weekly signal digest, and contact tracking. Active ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
+    q: 'What is the difference between Intelligence and Search?',
+    a: 'Intelligence ($49/mo) includes pipeline tracking for up to 25 companies, career page scanning three times a week, a weekly signal digest, and contact tracking. Search ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Both plans include a 30-day free trial.',
   },
   {
     q: 'How do I manage my subscription?',

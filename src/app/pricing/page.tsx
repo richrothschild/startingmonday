@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Pricing — Starting Monday',
-  description: 'Simple pricing for senior executive job searches. Monitor at $49/mo and Active at $129/mo. Teams and enterprise available.',
+  description: 'Simple pricing for senior executive job searches. Intelligence at $49/mo and Search at $129/mo. Teams and enterprise available.',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
     title: 'Pricing — Starting Monday',
@@ -21,7 +21,7 @@ const MONITOR_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Monitor',
+  'Everything in Intelligence',
   'AI interview prep briefs',
   'Search strategy brief',
   'AI chat advisor',
@@ -67,10 +67,10 @@ export default function PricingPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          {/* Monitor */}
+          {/* Intelligence */}
           <div className="border border-slate-200 rounded-lg p-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-              Monitor
+              Intelligence
             </p>
             <div className="mb-5">
               <span className="text-[44px] font-bold text-slate-900 leading-none">$49</span>
@@ -95,13 +95,13 @@ export default function PricingPage() {
             </Link>
           </div>
 
-          {/* Active */}
+          {/* Search */}
           <div className="border-2 border-slate-900 rounded-lg p-8 relative">
             <span className="absolute top-4 right-4 text-[10px] font-bold tracking-[0.1em] uppercase bg-orange-500 text-white px-2.5 py-1 rounded">
               Most popular
             </span>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-              Active
+              Search
             </p>
             <div className="mb-5">
               <span className="text-[44px] font-bold text-slate-900 leading-none">$129</span>
