@@ -50,7 +50,7 @@ function renderTrialEmail({ firstName, daysLeft, email }) {
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:36px;">
           <tr>
             <td width="33%" style="padding:20px 16px;text-align:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px 0 0 4px;">
-              <div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">Monitor</div>
+              <div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">Intelligence</div>
               <div style="font-size:22px;font-weight:700;color:#0f172a;line-height:1;">$49</div>
               <div style="font-size:11px;color:#64748b;margin-top:4px;">/month</div>
               <div style="font-size:12px;color:#64748b;margin-top:10px;line-height:1.5;">Daily briefings<br>Company scanner<br>Pipeline tracking</div>
@@ -58,10 +58,10 @@ function renderTrialEmail({ firstName, daysLeft, email }) {
             <td width="4px"></td>
             <td width="33%" style="padding:20px 16px;text-align:center;background:#0f172a;border:1px solid #0f172a;border-radius:0;position:relative;">
               <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;margin-bottom:4px;">Most Popular</div>
-              <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;">Active</div>
+              <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;">Search</div>
               <div style="font-size:22px;font-weight:700;color:#ffffff;line-height:1;">$129</div>
               <div style="font-size:11px;color:#64748b;margin-top:4px;">/month</div>
-              <div style="font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.5;">Everything in Monitor<br>Interview prep briefs<br>AI chat + outreach drafts</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.5;">Everything in Intelligence<br>Interview prep briefs<br>AI chat + outreach drafts</div>
             </td>
             <td width="4px"></td>
             <td width="33%" style="padding:20px 16px;text-align:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:0 4px 4px 0;">

@@ -109,7 +109,7 @@ const PASSIVE_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Monitor',
+  'Everything in Intelligence',
   'AI Interview Prep Briefs',
   'Search Strategy Brief',
   'AI Chat advisor',
@@ -364,7 +364,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
             <div className="border border-slate-200 rounded-lg p-5 sm:p-6">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Monitor</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Intelligence</p>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
@@ -385,7 +385,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
             <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Search</p>
               <p className="text-[32px] font-bold text-white leading-none mb-1">
                 $129<span className="text-[16px] font-normal text-slate-500">/mo</span>
               </p>
