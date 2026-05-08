@@ -223,28 +223,30 @@ export default async function DashboardPage({
 
       {/* Nav */}
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           {/* Desktop nav */}
-          <div className="hidden sm:flex items-center gap-5">
+          <div className="hidden sm:flex items-center gap-4 flex-1">
             <CmdKButton />
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
-            <Link href="/dashboard/kanban" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Kanban</Link>
-            <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Calendar</Link>
-            <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">LinkedIn</Link>
-            <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Invite</Link>
-            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Help</Link>
-            <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
-            <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
-            <LogoutButton label="Sign out" />
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
+            <Link href="/dashboard/kanban" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Kanban</Link>
+            <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
+            <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
+            <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
+            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
+            <div className="ml-auto flex items-center gap-4 shrink-0">
+              <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
+              <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Billing</Link>
+              <LogoutButton label="Sign out" />
+            </div>
           </div>
           {/* Mobile nav */}
-          <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white">Chat</Link>
+          <div className="flex sm:hidden items-center gap-4 ml-auto">
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Contacts</Link>
+            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
