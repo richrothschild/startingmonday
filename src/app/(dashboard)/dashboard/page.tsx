@@ -448,7 +448,7 @@ export default async function DashboardPage({
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
-            { href: '/dashboard/companies/new',  label: '+ Add Company',     sub: 'Target company or role' },
+            { href: '/dashboard/discover',       label: 'Discover',          sub: 'AI-suggested targets' },
             { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
             { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
             { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
