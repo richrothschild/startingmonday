@@ -84,6 +84,13 @@ export async function markContactSent(contactId: string, contactName: string): P
   return { ok: true }
 }
 
+export async function markContactSentForm(contactId: string, contactName: string): Promise<void> {
+  const result = await markContactSent(contactId, contactName)
+  if (!result.ok) return
+  revalidatePath(`/dashboard/contacts/${contactId}`)
+  redirect(`/dashboard/contacts/${contactId}?sent=1`)
+}
+
 export async function archiveContact(contactId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

@@ -9,6 +9,7 @@ import { SuggestionCards } from '@/components/SuggestionCards'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
+import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -119,6 +120,39 @@ export default async function DashboardPage({
   const signals        = (recentSignals ?? []) as unknown as SignalRow[]
   const patternAlerts  = (recentPatternAlerts ?? []) as unknown as SignalRow[]
   const signalCount    = signals.length + patternAlerts.length
+
+  // Warm paths: contacts at companies with recent signals
+  const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
+  type WarmPath = { contactId: string; contactName: string; contactTitle: string | null; companyId: string; companyName: string; signal: SignalRow }
+  let warmPaths: WarmPath[] = []
+  if (signalCompanyIds.length > 0) {
+    const { data: warmContacts } = await supabase
+      .from('contacts')
+      .select('id, name, title, company_id')
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .in('company_id', signalCompanyIds)
+      .limit(10)
+    if (warmContacts && warmContacts.length > 0) {
+      const seen = new Set<string>()
+      for (const ct of warmContacts) {
+        const sig = [...signals, ...patternAlerts].find(s => s.company_id === ct.company_id)
+        if (!sig || !sig.companies) continue
+        const key = `${ct.id}-${sig.id}`
+        if (seen.has(key)) continue
+        seen.add(key)
+        warmPaths.push({
+          contactId:   ct.id,
+          contactName: ct.name,
+          contactTitle: ct.title,
+          companyId:   ct.company_id,
+          companyName: sig.companies.name,
+          signal:      sig,
+        })
+      }
+      warmPaths = warmPaths.slice(0, 5)
+    }
+  }
 
   const filtered = companies ?? []
   const totalFiltered = filteredCount ?? 0
@@ -336,6 +370,65 @@ export default async function DashboardPage({
                     isToday={isToday}
                     companyName={co?.name}
                   />
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Warm Paths */}
+        {warmPaths.length > 0 && (
+          <div className="bg-white border border-green-200 rounded overflow-hidden mb-8">
+            <div className="px-6 py-[18px] border-b border-green-100 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-700">
+                  Warm Paths
+                </span>
+                <span className="text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-semibold">
+                  {warmPaths.length} {warmPaths.length === 1 ? 'opportunity' : 'opportunities'}
+                </span>
+              </div>
+              <Link href="/dashboard/contacts" className="text-[12px] text-slate-400 hover:text-slate-600">
+                All contacts
+              </Link>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {warmPaths.map(wp => {
+                const dateLabel = new Date(wp.signal.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                return (
+                  <div key={`${wp.contactId}-${wp.signal.id}`} className="px-6 py-4 flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-700 text-[12px] font-bold shrink-0 mt-0.5">
+                      {wp.contactName[0].toUpperCase()}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <Link href={`/dashboard/contacts/${wp.contactId}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                          {wp.contactName}
+                        </Link>
+                        {wp.contactTitle && (
+                          <span className="text-[12px] text-slate-400">{wp.contactTitle}</span>
+                        )}
+                        <span className="text-[12px] text-slate-400">at</span>
+                        <Link href={`/dashboard/companies/${wp.companyId}`} className="text-[12px] font-semibold text-slate-600 hover:text-slate-900">
+                          {wp.companyName}
+                        </Link>
+                        <span className={[
+                          'text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
+                          SIGNAL_COLORS[wp.signal.signal_type] ?? 'bg-slate-100 text-slate-600',
+                        ].join(' ')}>
+                          {signalLabel(wp.signal.signal_type)}
+                        </span>
+                        <span className="text-[11px] text-slate-400">{dateLabel}</span>
+                      </div>
+                      <p className="text-[13px] text-slate-500 leading-relaxed truncate">{wp.signal.signal_summary}</p>
+                    </div>
+                    <Link
+                      href={`/dashboard/contacts/${wp.contactId}/outreach`}
+                      className="shrink-0 text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
+                    >
+                      Draft
+                    </Link>
+                  </div>
                 )
               })}
             </div>

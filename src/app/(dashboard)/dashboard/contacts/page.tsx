@@ -109,7 +109,9 @@ export default async function ContactsPage({
                     <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[14px] font-semibold text-slate-900">{ct.name}</span>
+                          <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+                            {ct.name}
+                          </Link>
                           {ch && (
                             <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${ch.cls}`}>
                               {ch.label}
