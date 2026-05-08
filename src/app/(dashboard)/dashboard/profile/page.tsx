@@ -34,7 +34,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json, role_context')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, search_persona, role_type, career_history_json, role_context, updated_at')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -83,6 +83,10 @@ export default async function ProfilePage({
     ? (profile.career_history_json as CareerEntry[])
     : null
 
+  const updatedAtLabel = profile?.updated_at
+    ? new Date(profile.updated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : null
+
   const progressSections = [
     { label: 'Identity',    done: !!(profile?.role_type && profile?.full_name) },
     { label: 'Targets',     done: ((profile?.target_titles as string[] | null)?.length ?? 0) > 0 },
@@ -113,7 +117,12 @@ export default async function ProfilePage({
 
         <div className="mb-6">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Profile</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">{user.email}</p>
+          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+            <p className="text-[13px] text-slate-500">{user.email}</p>
+            {updatedAtLabel && (
+              <span className="text-[12px] text-slate-400">· Last updated {updatedAtLabel}</span>
+            )}
+          </div>
         </div>
 
         {/* Profile progress bar */}
@@ -138,6 +147,20 @@ export default async function ProfilePage({
           {completedSections === 5 && (
             <span className="text-[11px] font-semibold text-emerald-600 ml-auto">Profile complete</span>
           )}
+        </div>
+
+        <div className="mb-4 max-w-xl px-5 py-4 bg-slate-50 border border-slate-200 rounded flex items-start gap-3">
+          <div className="shrink-0 mt-0.5 text-slate-400">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5C5.567 1.5 4 3.067 4 5v1H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V5c0-1.933-1.567-3.5-3.5-3.5Zm2.5 4.5V5a2.5 2.5 0 0 0-5 0v1h5Z" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <p className="text-[12px] text-slate-700 leading-relaxed">
+              Your resume and career notes are stored only in your account.
+              They are used only to generate your briefs.
+              They are never used to train AI models.
+              You can delete them at any time.
+            </p>
+          </div>
         </div>
 
         <div className="bg-white border border-slate-200 rounded p-8 max-w-xl">
@@ -650,21 +673,40 @@ export default async function ProfilePage({
         </div>
 
         <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
-            Sensitive notes
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
+            Data and privacy
           </p>
-          <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
-            Your positioning summary, beyond-resume notes, and verified career history are stored only in your account and used only to generate your briefs.
-            You can delete them at any time. Your account, email, and pipeline will not be affected.
-          </p>
-          <form action={deleteNotes}>
-            <button
-              type="submit"
-              className="text-[13px] text-red-600 hover:text-red-800 cursor-pointer bg-transparent border-0 p-0 underline underline-offset-2"
+
+          <div className="mb-5">
+            <p className="text-[12px] font-semibold text-slate-700 mb-1">Download your data</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-2">
+              Export everything stored in your account as a JSON file: profile, companies, contacts, follow-ups, signals, and brief history.
+            </p>
+            <a
+              href="/api/profile/export"
+              className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-300 hover:border-slate-500 px-4 py-2 rounded transition-colors"
             >
-              Delete sensitive notes
-            </button>
-          </form>
+              Download your data
+            </a>
+          </div>
+
+          <div className="border-t border-slate-100 pt-5">
+            <p className="text-[12px] font-semibold text-slate-700 mb-1">Delete sensitive data</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-1">
+              Removes your positioning summary, beyond-resume notes, and verified career history.
+            </p>
+            <p className="text-[12px] text-slate-400 leading-relaxed mb-3">
+              Does not affect your account, login, companies, contacts, or follow-ups.
+            </p>
+            <form action={deleteNotes}>
+              <button
+                type="submit"
+                className="text-[13px] font-semibold text-red-600 hover:text-red-700 border border-red-200 hover:border-red-400 px-4 py-2 rounded cursor-pointer bg-white transition-colors"
+              >
+                Delete sensitive data
+              </button>
+            </form>
+          </div>
         </div>
 
       </main>
