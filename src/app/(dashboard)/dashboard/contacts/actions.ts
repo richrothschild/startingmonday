@@ -16,11 +16,13 @@ export async function addContact(formData: FormData) {
     return
   }
 
-  const title = (formData.get('title') as string ?? '').trim() || null
-  const firm = (formData.get('firm') as string ?? '').trim() || null
+  const title        = (formData.get('title') as string ?? '').trim() || null
+  const firm         = (formData.get('firm') as string ?? '').trim() || null
   const rawCompanyId = (formData.get('company_id') as string ?? '').trim() || null
-  const channel = (formData.get('channel') as string) || null
-  const notes = (formData.get('notes') as string ?? '').trim() || null
+  const channel      = (formData.get('channel') as string) || null
+  const email        = (formData.get('email') as string ?? '').trim() || null
+  const linkedin_url = (formData.get('linkedin_url') as string ?? '').trim() || null
+  const notes        = (formData.get('notes') as string ?? '').trim() || null
 
   // Verify the company belongs to this user before associating the contact.
   let companyId: string | null = null
@@ -41,6 +43,8 @@ export async function addContact(formData: FormData) {
     title,
     firm,
     channel,
+    email,
+    linkedin_url,
     notes,
     status: 'active',
   })

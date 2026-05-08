@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
+import { FollowUpItem } from '@/components/FollowUpItem'
 import { markContactSentForm } from '../actions'
+import { addContactFollowUp } from './actions'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
   linkedin:  { label: 'LinkedIn',  cls: 'bg-blue-50 text-blue-700' },
@@ -16,6 +18,10 @@ const CHANNEL: Record<string, { label: string; cls: string }> = {
 function fmtDate(iso: string | null) {
   if (!iso) return null
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+function fmtShort(iso: string) {
+  return new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
 function daysSince(iso: string | null): number | null {
@@ -36,6 +42,8 @@ export default async function ContactDetailPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const todayISO = new Date().toISOString().split('T')[0]
+  const tomorrowISO = new Date(Date.now() + 86400_000).toISOString().split('T')[0]
   const since30d = new Date(Date.now() - 30 * 86400_000).toISOString().split('T')[0]
 
   const [{ data: rawContact }, { data: followUps }, { data: recentBriefs }] = await Promise.all([
@@ -51,7 +59,8 @@ export default async function ContactDetailPage({
       .select('id, due_date, action, status')
       .eq('user_id', user.id)
       .eq('contact_id', id)
-      .order('due_date', { ascending: false })
+      .order('status', { ascending: true })
+      .order('due_date', { ascending: true })
       .limit(10),
     supabase
       .from('briefs')
@@ -93,7 +102,10 @@ export default async function ContactDetailPage({
   const companyName = (contact.companies as { name: string } | null)?.name ?? contact.firm ?? null
   const daysSinceContacted = daysSince(contact.contacted_at)
   const mostRecentSignal = companySignals[0] ?? null
-  const pendingFollowUps = (followUps ?? []).filter(f => f.status === 'pending')
+
+  const allFollowUps = followUps ?? []
+  const pendingFollowUps = allFollowUps.filter(f => f.status === 'pending')
+  const doneFollowUps = allFollowUps.filter(f => f.status === 'done')
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -127,11 +139,19 @@ export default async function ContactDetailPage({
                 )}
               </div>
             </div>
-            {ch && (
-              <span className={`shrink-0 text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full ${ch.cls}`}>
-                {ch.label}
-              </span>
-            )}
+            <div className="flex items-center gap-2 shrink-0">
+              {ch && (
+                <span className={`text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full ${ch.cls}`}>
+                  {ch.label}
+                </span>
+              )}
+              <Link
+                href={`/dashboard/contacts/${id}/edit`}
+                className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 border border-slate-200 hover:border-slate-400 rounded px-2.5 py-1 transition-colors"
+              >
+                Edit
+              </Link>
+            </div>
           </div>
 
           {/* Contact details row */}
@@ -232,7 +252,7 @@ export default async function ContactDetailPage({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-          {/* Pending follow-ups */}
+          {/* Follow-ups */}
           <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Follow-ups</span>
@@ -240,29 +260,75 @@ export default async function ContactDetailPage({
                 <span className="text-[11px] font-semibold text-red-600">{pendingFollowUps.length} pending</span>
               )}
             </div>
-            {followUps && followUps.length > 0 ? (
+
+            {/* Pending — interactive (mark done / edit) */}
+            {pendingFollowUps.length > 0 && (
               <div className="divide-y divide-slate-50">
-                {followUps.slice(0, 5).map(fu => (
-                  <div key={fu.id} className="px-5 py-3">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className={[
-                        'text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
-                        fu.status === 'done' ? 'bg-green-50 text-green-600' :
-                        new Date(fu.due_date) < new Date() ? 'bg-red-50 text-red-600' :
-                        'bg-slate-100 text-slate-500',
-                      ].join(' ')}>
-                        {fu.status === 'done' ? 'Done' : fmtDate(fu.due_date)}
-                      </span>
-                    </div>
-                    <p className="text-[13px] text-slate-700">{fu.action}</p>
+                {pendingFollowUps.map(fu => {
+                  const isToday = fu.due_date === todayISO
+                  const dateLabel = isToday ? 'Today' : fmtShort(fu.due_date)
+                  return (
+                    <FollowUpItem
+                      key={fu.id}
+                      id={fu.id}
+                      action={fu.action}
+                      dueDate={fu.due_date}
+                      dateLabel={dateLabel}
+                      isToday={isToday}
+                    />
+                  )
+                })}
+              </div>
+            )}
+
+            {/* Done — static */}
+            {doneFollowUps.length > 0 && (
+              <div className="divide-y divide-slate-50 border-t border-slate-50">
+                {doneFollowUps.slice(0, 3).map(fu => (
+                  <div key={fu.id} className="px-5 py-3 flex items-center gap-3 opacity-60">
+                    <span className="text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full bg-green-50 text-green-600 shrink-0">
+                      Done
+                    </span>
+                    <p className="text-[13px] text-slate-500 truncate">{fu.action}</p>
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="px-5 py-8 text-center text-[13px] text-slate-400">
-                No follow-ups yet. Draft an outreach to create one.
+            )}
+
+            {allFollowUps.length === 0 && (
+              <div className="px-5 py-5 text-center text-[13px] text-slate-400">
+                No follow-ups yet.
               </div>
             )}
+
+            {/* Add follow-up form */}
+            <div className="border-t border-slate-100 px-5 py-4">
+              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Add follow-up</p>
+              <form action={addContactFollowUp.bind(null, id)} className="flex flex-col gap-2">
+                <input
+                  name="action"
+                  required
+                  placeholder="Send follow-up email"
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+                />
+                <div className="flex items-center gap-2">
+                  <input
+                    name="due_date"
+                    type="date"
+                    required
+                    aria-label="Due date"
+                    defaultValue={tomorrowISO}
+                    className="border border-slate-200 rounded px-3 py-1.5 text-[13px] text-slate-700 focus:outline-none focus:border-slate-400"
+                  />
+                  <button
+                    type="submit"
+                    className="ml-auto text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
+                  >
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
 
           {/* Company signals */}

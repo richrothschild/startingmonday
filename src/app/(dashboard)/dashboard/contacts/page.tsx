@@ -245,6 +245,32 @@ export default async function ContactsPage({
               )}
 
               <div>
+                <label htmlFor="contact-email" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                  Email
+                </label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="text"
+                  placeholder="jane@company.com"
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="contact-linkedin" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                  LinkedIn URL
+                </label>
+                <input
+                  id="contact-linkedin"
+                  name="linkedin_url"
+                  type="text"
+                  placeholder="https://linkedin.com/in/jane"
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+              </div>
+
+              <div>
                 <label htmlFor="contact-notes" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Notes
                 </label>
