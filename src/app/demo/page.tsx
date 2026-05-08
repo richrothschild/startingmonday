@@ -172,10 +172,10 @@ export default function DemoPage() {
         <div className="mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Live demo</p>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
-            See a real prep brief
+            Know the room before you walk in.
           </h1>
           <p className="text-[14px] text-slate-500 leading-relaxed">
-            Enter a company and a role. We generate an executive prep brief in real time — the same analysis Starting Monday users get before every interview.
+            Enter any company and role. See the same prep brief Starting Monday generates before every interview in your search &mdash; live, in real time, from your actual target.
           </p>
         </div>
 
@@ -239,10 +239,10 @@ export default function DemoPage() {
                 {/* Gate panel */}
                 <div className="bg-slate-50 border border-slate-200 border-t-0 rounded-b px-6 sm:px-8 py-8">
                   <p className="text-[15px] font-semibold text-slate-900 mb-1.5">
-                    That's the first section.
+                    The brief continues.
                   </p>
                   <p className="text-[13px] text-slate-500 mb-6 leading-relaxed">
-                    Enter your email to see the full brief — plus what Starting Monday generates for every company in your pipeline.
+                    See what they will actually ask, how to open the conversation, and the five questions only a peer would think to raise. Enter your email to unlock the full brief.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
                     <input
@@ -272,10 +272,10 @@ export default function DemoPage() {
               <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <p className="text-[14px] font-semibold text-white mb-0.5">
-                    Get this for every company in your search.
+                    Get this before every interview. Know when your targets start hiring.
                   </p>
                   <p className="text-[12px] text-slate-400">
-                    Daily scans, pipeline tracking, outreach drafting, and a brief like this before every interview.
+                    Starting Monday watches your target companies automatically. When a role opens, you know before it reaches LinkedIn or any recruiter&apos;s desk.
                   </p>
                 </div>
                 <Link

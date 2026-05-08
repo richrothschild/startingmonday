@@ -113,10 +113,10 @@ export default function HomePage() {
         hero={{
           eyebrow: 'At this level, the search is a campaign, not an application.',
           h1Lines: ["Your next role", "isn't on a", "job board."],
-          body: "The best roles at your level are filled before they're posted. We watch your target companies, surface roles before they go public, and have your brief ready before the first call.",
+          body: "Starting Monday is like having a 24/7 executive recruiter focused solely on you. We watch your target companies and alert you when a role opens — before it reaches LinkedIn, before recruiters are briefed. When the call comes, your brief is already ready.",
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Add your target companies — we check their career pages three times a week, before roles go public',
+            'Add your target companies — we watch their career pages automatically and alert you before roles ever reach a job board',
             'Build your intelligence picture — track contacts, log every conversation, watch for signals before a role is even authorized',
             'Generate a tailored prep brief in 60 seconds, built from their company and your actual background',
           ],

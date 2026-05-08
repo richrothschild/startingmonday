@@ -81,23 +81,11 @@ const TRUST_ITEMS = [
   },
   {
     heading: 'Your employer will not find out',
-    body: 'We have no relationship with employers and no way for them to search our platform. Your account and activity are entirely private.',
-  },
-  {
-    heading: 'We do not sell or share your data',
-    body: 'We sell subscriptions, not data. Your profile, targets, and career information are never shared with third parties, recruiters, or anyone else.',
+    body: 'We have no relationship with employers, search firms, or recruiters. Your account, your targets, and your activity are entirely private. We do not sell leads.',
   },
   {
     heading: 'You can delete everything',
     body: 'At any time, from Settings, you can permanently delete your account and all associated data. No friction. No waiting period.',
-  },
-  {
-    heading: 'The output sounds like you, not like AI',
-    body: 'Before writing a word, the AI reads your original resume for sentence rhythm, vocabulary, and formality. Every tailored output calibrates to your voice. You review everything before it leaves your desk.',
-  },
-  {
-    heading: 'Search firms and recruiters cannot find you here',
-    body: 'We have no data-sharing relationships with executive search firms, staffing agencies, or recruiters. We do not sell leads. Your search activity is invisible to anyone you have not chosen to contact.',
   },
 ]
 
@@ -266,6 +254,55 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
+      {/* Intelligence Scanner spotlight */}
+      <section className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-800">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
+            Intelligence Scanner
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-[26px] sm:text-[32px] font-bold text-white leading-tight mb-4">
+                Know before the<br />role is even posted.
+              </h2>
+              <p className="text-[15px] text-slate-400 leading-relaxed mb-6">
+                The right seat will not find you. You have to be watching when it opens. We scan the career page of every company you add, automatically, and alert you the moment a matching role appears &mdash; before LinkedIn, before the first recruiter call.
+              </p>
+              <Link
+                href="/signup"
+                className="inline-block text-[13px] font-semibold text-white bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+              >
+                Start watching &rarr;
+              </Link>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[13px] font-bold text-slate-200">Salesforce</span>
+                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-900 px-2 py-0.5 rounded-full">Watching</span>
+                </div>
+                <p className="text-[13px] text-slate-500">No senior technology role posted yet. We&apos;ll tell you the moment that changes.</p>
+              </div>
+              <div className="bg-slate-800 border border-orange-500 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[13px] font-bold text-slate-200">ServiceNow</span>
+                  <span className="text-[10px] font-semibold text-orange-400 bg-slate-900 px-2 py-0.5 rounded-full">New role</span>
+                </div>
+                <p className="text-[14px] font-semibold text-white mb-1">VP, Enterprise Technology</p>
+                <p className="text-[12px] text-slate-500">Detected 6 hours ago &mdash; before LinkedIn, before any recruiter.</p>
+              </div>
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[13px] font-bold text-slate-200">Workday</span>
+                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-900 px-2 py-0.5 rounded-full">Watching</span>
+                </div>
+                <p className="text-[13px] text-slate-500">No senior technology role posted yet. We&apos;ll tell you the moment that changes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -338,7 +375,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
 
           <div className="mt-12 sm:mt-14 border-t border-slate-800 pt-10 sm:pt-12 text-center">
-            <p className="text-[13px] text-slate-500 mb-5">Currently in alpha with senior technology executives.</p>
+            <p className="text-[13px] text-slate-500 mb-5">Built for senior technology executives in active search.</p>
             <Link
               href="/demo"
               className="inline-block text-[14px] text-slate-300 border border-slate-600 px-7 py-3 rounded hover:border-slate-400 hover:text-white transition-colors"
