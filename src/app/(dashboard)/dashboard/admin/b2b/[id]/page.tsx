@@ -20,7 +20,9 @@ const ACTIVITY_TYPES = [
   { value: 'other',     label: 'Other' },
 ]
 
-export default async function ProspectDetailPage({ params }: { params: { id: string } }) {
+export default async function ProspectDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -33,15 +35,15 @@ export default async function ProspectDetailPage({ params }: { params: { id: str
   const { data: prospect } = await admin
     .from('b2b_prospects')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (!prospect) notFound()
 
   const [{ data: contacts }, { data: activities }, { data: materials }] = await Promise.all([
-    admin.from('b2b_contacts').select('*').eq('prospect_id', params.id).order('created_at', { ascending: true }),
-    admin.from('b2b_activities').select('*').eq('prospect_id', params.id).order('occurred_at', { ascending: false }),
-    admin.from('b2b_materials').select('*').eq('prospect_id', params.id).order('created_at', { ascending: false }),
+    admin.from('b2b_contacts').select('*').eq('prospect_id', id).order('created_at', { ascending: true }),
+    admin.from('b2b_activities').select('*').eq('prospect_id', id).order('occurred_at', { ascending: false }),
+    admin.from('b2b_materials').select('*').eq('prospect_id', id).order('created_at', { ascending: false }),
   ])
 
   const stage = STAGES.find(s => s.key === prospect.stage)
