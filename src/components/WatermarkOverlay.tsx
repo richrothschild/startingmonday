@@ -13,7 +13,7 @@ export function WatermarkOverlay({ email }: { email: string }) {
 
   // Geometry varies per user: rotation, opacity, tile size, tile offset
   const angle   = -(22 + (h % 12))          // -22° to -33°
-  const opacity = (28 + (h % 18)) / 1000    // 0.028 – 0.045
+  const opacity = (14 + (h % 8)) / 1000     // 0.014 – 0.021
   const offsetX = h % 80
   const offsetY = (h >> 8) % 60
   const tileW   = 380 + (h % 80)
@@ -21,22 +21,12 @@ export function WatermarkOverlay({ email }: { email: string }) {
   const cx = tileW / 2
   const cy = tileH / 2
 
-  const safe = email
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-
   const svg = [
     `<svg xmlns='http://www.w3.org/2000/svg' width='${tileW}' height='${tileH}'>`,
-    `<text x='${cx}' y='${cy - 8}'`,
+    `<text x='${cx}' y='${cy}'`,
     ` transform='rotate(${angle} ${cx} ${cy})'`,
     ` text-anchor='middle' font-family='system-ui,sans-serif'`,
-    ` font-size='11' fill='rgba(0,0,0,${opacity})'>${safe}</text>`,
-    `<text x='${cx}' y='${cy + 10}'`,
-    ` transform='rotate(${angle} ${cx} ${cy})'`,
-    ` text-anchor='middle' font-family='system-ui,sans-serif'`,
-    ` font-size='10' fill='rgba(0,0,0,${(opacity * 0.75).toFixed(4)})'>Starting Monday · Confidential</text>`,
+    ` font-size='11' fill='rgba(0,0,0,${opacity})'>Starting Monday · Confidential</text>`,
     `</svg>`,
   ].join('')
 
