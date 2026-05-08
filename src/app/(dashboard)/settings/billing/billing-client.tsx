@@ -29,13 +29,13 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   const [interval, setInterval] = useState<BillingInterval>('monthly')
   const [portalError, setPortalError] = useState('')
 
-  async function handleCheckout(plan: 'passive' | 'active') {
+  async function handleCheckout(plan: 'passive' | 'active' | 'executive') {
     setLoading(plan)
     try {
       const res = await fetch('/api/billing/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: plan === 'passive' ? 'monitor' : plan, interval }),
+        body: JSON.stringify({ plan: plan === 'passive' ? 'monitor' : plan, interval: plan === 'executive' ? interval : interval }),
       })
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
       if (data.error) { alert(data.error); return }
@@ -234,14 +234,14 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 
             {/* Subscribable plans */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              {(Object.entries(PLANS) as [keyof typeof PLANS, typeof PLANS[keyof typeof PLANS]][]).map(([key, plan]) => {
+              {(Object.entries(PLANS) as [keyof typeof PLANS, (typeof PLANS)[keyof typeof PLANS]][]).map(([key, plan]) => {
                 const amount = interval === 'quarterly' ? plan.quarterlyAmount : plan.amount
                 const monthlyEquiv = interval === 'quarterly' ? Math.round(plan.quarterlyAmount / 3) : null
-                const isActive = key === 'active'
+                const isFeatured = key === 'executive'
                 return (
-                  <div key={key} className={`bg-white border rounded p-6 ${isActive ? 'border-slate-900' : 'border-slate-200'}`}>
-                    {isActive && (
-                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-900 mb-3">Most popular</p>
+                  <div key={key} className={`bg-white border rounded p-6 ${isFeatured ? 'border-slate-900' : 'border-slate-200'}`}>
+                    {isFeatured && (
+                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-3">Best for active search</p>
                     )}
                     <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
                     <p className="text-[28px] font-bold text-slate-900 mt-1">
@@ -264,9 +264,9 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                     </ul>
                     <button
                       type="button"
-                      onClick={() => handleCheckout(key)}
+                      onClick={() => handleCheckout(key as 'passive' | 'active' | 'executive')}
                       disabled={loading === key}
-                      className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${isActive ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
+                      className={`w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 ${isFeatured ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
                     >
                       {loading === key ? 'Redirecting…' : `Subscribe to ${plan.name}`}
                     </button>

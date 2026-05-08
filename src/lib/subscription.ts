@@ -14,15 +14,18 @@ export interface UserSubscription {
 }
 
 const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
-  pipeline:         ['free', 'passive', 'active', 'executive', 'campaign'],
-  contacts:         ['free', 'passive', 'active', 'executive', 'campaign'],
-  scan:             ['passive', 'active', 'executive', 'campaign'],
-  ai_chat:          ['active', 'executive', 'campaign'],
-  prep_brief:       ['active', 'executive', 'campaign'],
-  strategy_brief:   ['active', 'executive', 'campaign'],
-  outreach_draft:   ['active', 'executive', 'campaign'],
-  daily_briefing:   ['active', 'executive', 'campaign'],
-  resume_tailor:    ['active', 'executive', 'campaign'],
+  pipeline:                ['free', 'passive', 'active', 'executive', 'campaign'],
+  contacts:                ['free', 'passive', 'active', 'executive', 'campaign'],
+  scan:                    ['passive', 'active', 'executive', 'campaign'],
+  ai_chat:                 ['active', 'executive', 'campaign'],
+  prep_brief:              ['active', 'executive', 'campaign'],
+  strategy_brief:          ['active', 'executive', 'campaign'],
+  outreach_draft:          ['active', 'executive', 'campaign'],
+  daily_briefing:          ['active', 'executive', 'campaign'],
+  resume_tailor:           ['active', 'executive', 'campaign'],
+  daily_scan:              ['executive', 'campaign'],
+  salary_intelligence:     ['executive', 'campaign'],
+  recruiter_enhancements:  ['executive', 'campaign'],
 }
 
 export async function getUserSubscription(userId: string): Promise<UserSubscription> {

@@ -146,6 +146,23 @@ export async function archiveContact(contactId: string) {
   redirect('/dashboard/contacts')
 }
 
+export async function toggleContactPriority(contactId: string, current: boolean): Promise<{ ok: boolean }> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { ok: false }
+
+  const { error } = await supabase
+    .from('contacts')
+    .update({ is_priority: !current })
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+
+  if (!error) {
+    revalidatePath('/dashboard/contacts')
+  }
+  return { ok: !error }
+}
+
 export async function archiveContactSilent(contactId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

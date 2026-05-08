@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { KanbanBoard } from './kanban-board'
 
 export default async function KanbanPage() {
@@ -8,12 +9,16 @@ export default async function KanbanPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: companies } = await supabase
-    .from('companies')
-    .select('id, name, sector, fit_score, stage')
-    .eq('user_id', user.id)
-    .is('archived_at', null)
-    .order('fit_score', { ascending: false, nullsFirst: false })
+  const [{ data: companies }, sub] = await Promise.all([
+    supabase
+      .from('companies')
+      .select('id, name, sector, fit_score, stage')
+      .eq('user_id', user.id)
+      .is('archived_at', null)
+      .order('fit_score', { ascending: false, nullsFirst: false }),
+    getUserSubscription(user.id),
+  ])
+  const hasSalaryIntel = canAccessFeature(sub, 'salary_intelligence')
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -62,7 +67,7 @@ export default async function KanbanPage() {
             </Link>
           </div>
         ) : (
-          <KanbanBoard initialCompanies={companies} />
+          <KanbanBoard initialCompanies={companies} hasSalaryIntel={hasSalaryIntel} />
         )}
 
       </main>

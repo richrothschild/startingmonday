@@ -27,22 +27,22 @@ export const PLANS = {
       'Daily morning briefing',
     ],
   },
+  executive: {
+    name: 'Executive',
+    amount: 24900,
+    quarterlyAmount: 67200,
+    description: 'For C-suite candidates who need daily intelligence and salary leverage',
+    features: [
+      'Everything in Search',
+      'Daily career page scanning (7x/week)',
+      'Salary intelligence and negotiation scripts',
+      'Recruiter tracker with firm grouping',
+      'Priority contact flagging and CSV export',
+    ],
+  },
 } as const
 
 export const WAITLIST_PLANS = {
-  executive: {
-    name: 'Executive',
-    amount: 49900,
-    description: 'For C-suite candidates managing a high-stakes search with board-level targets',
-    features: [
-      'Everything in Active',
-      'Unlimited company pipeline',
-      'Priority brief generation',
-      'Board and PE firm intelligence',
-      'Dedicated account review (coming)',
-    ],
-    cta: 'Join waitlist',
-  },
   campaign: {
     name: 'Campaign',
     amount: 99900,

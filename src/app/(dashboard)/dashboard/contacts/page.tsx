@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { addContact } from './actions'
 import { ContactsList, type ContactListItem } from '@/components/ContactsList'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 
 export default async function ContactsPage({
   searchParams,
@@ -15,12 +16,13 @@ export default async function ContactsPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: rawContacts }, { data: companies }] = await Promise.all([
+  const [{ data: rawContacts }, { data: companies }, sub] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, outreach_status, companies(name)')
+      .select('id, name, title, firm, channel, notes, outreach_status, is_priority, companies(name)')
       .eq('user_id', user.id)
       .eq('status', 'active')
+      .order('is_priority', { ascending: false })
       .order('created_at', { ascending: false }),
     supabase
       .from('companies')
@@ -28,10 +30,12 @@ export default async function ContactsPage({
       .eq('user_id', user.id)
       .is('archived_at', null)
       .order('name', { ascending: true }),
+    getUserSubscription(user.id),
   ])
 
   const contacts = (rawContacts ?? []) as unknown as ContactListItem[]
   const companyList = companies ?? []
+  const isExecutive = canAccessFeature(sub, 'recruiter_enhancements')
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -61,7 +65,7 @@ export default async function ContactsPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
-          <ContactsList contacts={contacts} />
+          <ContactsList contacts={contacts} isExecutive={isExecutive} />
 
           {/* Add contact form */}
           <div className="bg-white border border-slate-200 rounded p-5">

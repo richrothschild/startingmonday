@@ -47,8 +47,9 @@ const STAGE_HEADER: Record<string, string> = {
 
 const PREP_STAGES = new Set(['interviewing', 'applied', 'offer'])
 
-function CompanyCard({ company, isDragging = false }: { company: Company; isDragging?: boolean }) {
+function CompanyCard({ company, isDragging = false, hasSalaryIntel = false }: { company: Company; isDragging?: boolean; hasSalaryIntel?: boolean }) {
   const showPrep = !isDragging && PREP_STAGES.has(company.stage)
+  const showSalary = !isDragging && company.stage === 'offer'
   return (
     <div className={`bg-white border rounded p-3.5 shadow-sm hover:shadow-md transition-shadow ${isDragging ? 'opacity-50 rotate-1 shadow-lg' : 'border-slate-200'}`}>
       <Link
@@ -64,20 +65,35 @@ function CompanyCard({ company, isDragging = false }: { company: Company; isDrag
           <p className="text-[12px] font-bold text-slate-700 mt-2">Fit: {company.fit_score}</p>
         )}
       </Link>
-      {showPrep && (
-        <Link
-          href={`/dashboard/companies/${company.id}/prep`}
-          onClick={e => e.stopPropagation()}
-          className="mt-2.5 block text-[11px] font-semibold text-amber-700 hover:text-amber-900 border-t border-slate-100 pt-2.5"
-        >
-          Prep brief →
-        </Link>
+      {(showPrep || showSalary) && (
+        <div className="mt-2.5 border-t border-slate-100 pt-2.5 flex items-center gap-3">
+          {showPrep && (
+            <Link
+              href={`/dashboard/companies/${company.id}/prep`}
+              onClick={e => e.stopPropagation()}
+              className="text-[11px] font-semibold text-amber-700 hover:text-amber-900"
+            >
+              Prep brief →
+            </Link>
+          )}
+          {showSalary && (
+            <Link
+              href={hasSalaryIntel
+                ? `/dashboard/salary?company=${encodeURIComponent(company.name)}`
+                : '/settings/billing'}
+              onClick={e => e.stopPropagation()}
+              className="text-[11px] font-semibold text-green-700 hover:text-green-900"
+            >
+              Salary intel →
+            </Link>
+          )}
+        </div>
       )}
     </div>
   )
 }
 
-function DraggableCard({ company }: { company: Company }) {
+function DraggableCard({ company, hasSalaryIntel }: { company: Company; hasSalaryIntel: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: company.id,
     data: { company },
@@ -89,7 +105,7 @@ function DraggableCard({ company }: { company: Company }) {
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="touch-none">
-      <CompanyCard company={company} isDragging={isDragging} />
+      <CompanyCard company={company} isDragging={isDragging} hasSalaryIntel={hasSalaryIntel} />
     </div>
   )
 }
@@ -98,10 +114,12 @@ function DroppableColumn({
   stage,
   companies,
   isOver,
+  hasSalaryIntel,
 }: {
   stage: { key: string; label: string }
   companies: Company[]
   isOver: boolean
+  hasSalaryIntel: boolean
 }) {
   const { setNodeRef } = useDroppable({ id: stage.key })
   const accent = STAGE_ACCENT[stage.key] ?? 'border-slate-200'
@@ -120,7 +138,7 @@ function DroppableColumn({
       </div>
       <div className="flex flex-col gap-2.5 p-3 flex-1">
         {companies.map(co => (
-          <DraggableCard key={co.id} company={co} />
+          <DraggableCard key={co.id} company={co} hasSalaryIntel={hasSalaryIntel} />
         ))}
         {companies.length === 0 && (
           <div className="flex-1 flex items-center justify-center">
@@ -132,7 +150,7 @@ function DroppableColumn({
   )
 }
 
-export function KanbanBoard({ initialCompanies }: { initialCompanies: Company[] }) {
+export function KanbanBoard({ initialCompanies, hasSalaryIntel = false }: { initialCompanies: Company[]; hasSalaryIntel?: boolean }) {
   const [companies, setCompanies] = useState<Company[]>(initialCompanies)
   const [activeId, setActiveId] = useState<string | null>(null)
   const [overColumn, setOverColumn] = useState<string | null>(null)
@@ -189,12 +207,13 @@ export function KanbanBoard({ initialCompanies }: { initialCompanies: Company[] 
             stage={stage}
             companies={byStage(stage.key)}
             isOver={overColumn === stage.key}
+            hasSalaryIntel={hasSalaryIntel}
           />
         ))}
       </div>
 
       <DragOverlay>
-        {activeCompany ? <CompanyCard company={activeCompany} /> : null}
+        {activeCompany ? <CompanyCard company={activeCompany} hasSalaryIntel={hasSalaryIntel} /> : null}
       </DragOverlay>
     </DndContext>
   )

@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { archiveContactSilent } from '@/app/(dashboard)/dashboard/contacts/actions'
+import { archiveContactSilent, toggleContactPriority } from '@/app/(dashboard)/dashboard/contacts/actions'
 import { STATUS_STEPS, STATUS_CLS } from '@/components/ContactStatusStepper'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
@@ -28,15 +28,41 @@ export type ContactListItem = {
   channel: string | null
   notes: string | null
   outreach_status: string | null
+  is_priority: boolean
   companies: { name: string } | null
 }
 
-export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
+function exportContactsCsv(contacts: ContactListItem[]) {
+  const headers = ['Name', 'Title', 'Firm', 'Company', 'Channel', 'Status', 'Priority', 'Notes']
+  const rows = contacts.map(ct => [
+    ct.name,
+    ct.title ?? '',
+    ct.firm ?? '',
+    ct.companies?.name ?? '',
+    ct.channel ?? '',
+    ct.outreach_status ?? 'prospect',
+    ct.is_priority ? 'Yes' : '',
+    ct.notes ?? '',
+  ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
+  const csv = [headers.join(','), ...rows].join('\n')
+  const blob = new Blob([csv], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `contacts-${new Date().toISOString().slice(0, 10)}.csv`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+export function ContactsList({ contacts, isExecutive = false }: { contacts: ContactListItem[]; isExecutive?: boolean }) {
   const router = useRouter()
   const [search, setSearch] = useState('')
   const [channelFilter, setChannelFilter] = useState('')
   const [removedIds, setRemovedIds] = useState<Set<string>>(new Set())
-  const [, startRemove] = useTransition()
+  const [priorities, setPriorities] = useState<Record<string, boolean>>(
+    Object.fromEntries(contacts.map(c => [c.id, c.is_priority]))
+  )
+  const [, startTransition] = useTransition()
 
   const usedChannels = new Set(contacts.map(c => c.channel).filter(Boolean) as string[])
   const activeChannelFilters = CHANNEL_VALUES.filter(v => usedChannels.has(v))
@@ -52,6 +78,34 @@ export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
     const matchesChannel = !channelFilter || ct.channel === channelFilter
     return matchesSearch && matchesChannel
   })
+
+  // For executive: group recruiters by firm, non-recruiters flat
+  function buildRows() {
+    if (!isExecutive) return { grouped: null, flat: filtered }
+
+    const recruiters = filtered.filter(ct => ct.channel === 'recruiter' && ct.firm)
+    const others = filtered.filter(ct => !(ct.channel === 'recruiter' && ct.firm))
+
+    const byFirm: Record<string, ContactListItem[]> = {}
+    for (const ct of recruiters) {
+      const firm = ct.firm!
+      if (!byFirm[firm]) byFirm[firm] = []
+      byFirm[firm].push(ct)
+    }
+
+    return { grouped: byFirm, flat: others }
+  }
+
+  const { grouped, flat } = buildRows()
+
+  function togglePriority(ct: ContactListItem) {
+    const next = !priorities[ct.id]
+    setPriorities(prev => ({ ...prev, [ct.id]: next }))
+    startTransition(async () => {
+      await toggleContactPriority(ct.id, !next)
+      router.refresh()
+    })
+  }
 
   if (contacts.length === 0) {
     return (
@@ -74,15 +128,90 @@ export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
     )
   }
 
+  function ContactRow({ ct }: { ct: ContactListItem }) {
+    const ch = ct.channel ? (CHANNEL[ct.channel] ?? null) : null
+    const companyName = ct.companies?.name ?? null
+    const subtitle = [ct.title, ct.firm ?? companyName].filter(Boolean).join(' · ')
+    const status = ct.outreach_status ?? 'prospect'
+    const statusLabel = STATUS_LABELS[status] ?? status
+    const statusCls = STATUS_CLS[status] ?? 'bg-slate-100 text-slate-500'
+    const isPriority = priorities[ct.id] ?? ct.is_priority
+
+    return (
+      <div className="px-6 py-4 flex items-start gap-3">
+        {isExecutive && (
+          <button
+            type="button"
+            title={isPriority ? 'Remove priority' : 'Mark as priority'}
+            onClick={() => togglePriority(ct)}
+            className={`shrink-0 mt-0.5 text-[16px] leading-none cursor-pointer bg-transparent border-0 p-0 transition-opacity ${isPriority ? 'opacity-100' : 'opacity-20 hover:opacity-60'}`}
+          >
+            ★
+          </button>
+        )}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+              {ct.name}
+            </Link>
+            {ch && (
+              <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${ch.cls}`}>
+                {ch.label}
+              </span>
+            )}
+            <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${statusCls}`}>
+              {statusLabel}
+            </span>
+          </div>
+          {subtitle && (
+            <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
+          )}
+        </div>
+        <div className="flex items-center gap-3 shrink-0 mt-0.5">
+          <Link
+            href={`/dashboard/contacts/${ct.id}/outreach`}
+            className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
+          >
+            Draft
+          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setRemovedIds(prev => new Set([...prev, ct.id]))
+              startTransition(async () => {
+                await archiveContactSilent(ct.id)
+                router.refresh()
+              })
+            }}
+            className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 min-h-[32px] min-w-[44px]"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-white border border-slate-200 rounded overflow-hidden">
       <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
         <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">All contacts</span>
-        <span className="text-[12px] text-slate-400">
-          {filtered.length !== contacts.length
-            ? `${filtered.length} of ${contacts.length}`
-            : `${contacts.length} ${contacts.length === 1 ? 'contact' : 'contacts'}`}
-        </span>
+        <div className="flex items-center gap-3">
+          {isExecutive && filtered.length > 0 && (
+            <button
+              type="button"
+              onClick={() => exportContactsCsv(filtered)}
+              className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 cursor-pointer bg-transparent border-0 p-0"
+            >
+              Export CSV
+            </button>
+          )}
+          <span className="text-[12px] text-slate-400">
+            {filtered.length !== contacts.length
+              ? `${filtered.length} of ${contacts.length}`
+              : `${contacts.length} ${contacts.length === 1 ? 'contact' : 'contacts'}`}
+          </span>
+        </div>
       </div>
 
       {/* Search */}
@@ -135,58 +264,21 @@ export function ContactsList({ contacts }: { contacts: ContactListItem[] }) {
         </div>
       ) : (
         <div className="divide-y divide-slate-50">
-          {filtered.map(ct => {
-            const ch = ct.channel ? (CHANNEL[ct.channel] ?? null) : null
-            const companyName = ct.companies?.name ?? null
-            const subtitle = [ct.title, ct.firm ?? companyName].filter(Boolean).join(' · ')
-            const status = ct.outreach_status ?? 'prospect'
-            const statusLabel = STATUS_LABELS[status] ?? status
-            const statusCls = STATUS_CLS[status] ?? 'bg-slate-100 text-slate-500'
 
-            return (
-              <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                      {ct.name}
-                    </Link>
-                    {ch && (
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${ch.cls}`}>
-                        {ch.label}
-                      </span>
-                    )}
-                    <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${statusCls}`}>
-                      {statusLabel}
-                    </span>
-                  </div>
-                  {subtitle && (
-                    <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
-                  )}
-                </div>
-                <div className="flex items-center gap-3 shrink-0 mt-0.5">
-                  <Link
-                    href={`/dashboard/contacts/${ct.id}/outreach`}
-                    className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
-                  >
-                    Draft
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRemovedIds(prev => new Set([...prev, ct.id]))
-                      startRemove(async () => {
-                        await archiveContactSilent(ct.id)
-                        router.refresh()
-                      })
-                    }}
-                    className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 min-h-[32px] min-w-[44px]"
-                  >
-                    Remove
-                  </button>
-                </div>
+          {/* Executive: firm-grouped recruiters first */}
+          {isExecutive && grouped && Object.entries(grouped).sort(([,a],[,b]) => b.length - a.length).map(([firm, cts]) => (
+            <div key={firm}>
+              <div className="px-6 py-2 bg-purple-50 border-b border-purple-100 flex items-center gap-2">
+                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-purple-600">{firm}</span>
+                <span className="text-[10px] text-purple-400">{cts.length} {cts.length === 1 ? 'contact' : 'contacts'}</span>
               </div>
-            )
-          })}
+              {cts.map(ct => <ContactRow key={ct.id} ct={ct} />)}
+            </div>
+          ))}
+
+          {/* Non-recruiter contacts (or all contacts for non-executive) */}
+          {flat.map(ct => <ContactRow key={ct.id} ct={ct} />)}
+
         </div>
       )}
     </div>
