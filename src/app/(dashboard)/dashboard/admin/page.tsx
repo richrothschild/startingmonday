@@ -99,7 +99,7 @@ export default async function AdminPage() {
     adminClient.from('briefs').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList).eq('type', 'prep'),
     adminClient.from('contacts').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList),
     adminClient.from('follow_ups').select('user_id', { count: 'exact', head: true }).in('user_id', userIdList),
-    adminClient.from('users').select('subscription_status, plan_at_trial_end').not('trial_ends_at', 'is', null).lt('trial_ends_at', new Date().toISOString()),
+    adminClient.from('users').select('subscription_status, plan_at_trial_end, signup_source').not('trial_ends_at', 'is', null).lt('trial_ends_at', new Date().toISOString()),
     adminClient.from('company_signals').select('id, signal_type').limit(2000),
     adminClient.from('signal_action_events').select('signal_id, action_type').limit(2000),
     adminClient.from('brief_quality_log').select('context_score, has_resume, has_scan_result, has_contacts, word_count').gte('created_at', since30d).limit(500),
@@ -190,6 +190,23 @@ export default async function AdminPage() {
   const totalEnded = trialsEnded.length
   const totalConverted = trialsEnded.filter(u => u.subscription_status === 'active').length
   const conversionRate = totalEnded > 0 ? Math.round((totalConverted / totalEnded) * 100) : null
+
+  // Conversion by signup_source channel
+  const channelMap: Record<string, { ended: number; converted: number }> = {}
+  for (const u of trialsEnded) {
+    const ch = u.signup_source ?? 'direct'
+    if (!channelMap[ch]) channelMap[ch] = { ended: 0, converted: 0 }
+    channelMap[ch].ended++
+    if (u.subscription_status === 'active') channelMap[ch].converted++
+  }
+  const channelRows = Object.entries(channelMap)
+    .sort((a, b) => b[1].ended - a[1].ended)
+    .map(([ch, { ended, converted }]) => ({
+      channel: ch,
+      ended,
+      converted,
+      rate: ended > 0 ? Math.round((converted / ended) * 100) : 0,
+    }))
 
   // Signal → action rate by signal type
   const actedSignalIds = new Set((signalActions ?? []).map((a: { signal_id: string }) => a.signal_id).filter(Boolean))
@@ -402,22 +419,51 @@ export default async function AdminPage() {
           {totalEnded === 0 ? (
             <p className="text-[13px] text-slate-400">No ended trials yet.</p>
           ) : (
-            <div className="grid grid-cols-3 gap-6">
-              {[
-                { label: 'Trials ended', value: String(totalEnded), highlight: false },
-                { label: 'Converted to paid', value: String(totalConverted), highlight: false },
-                { label: 'Conversion rate', value: conversionRate !== null ? `${conversionRate}%` : '—', highlight: true, rate: conversionRate },
-              ].map(({ label, value, highlight, rate }) => (
-                <div key={label}>
-                  <div className={`text-[28px] font-bold ${
-                    highlight && rate !== null && rate !== undefined
-                      ? rate >= 40 ? 'text-green-600' : rate >= 20 ? 'text-amber-600' : 'text-red-600'
-                      : 'text-slate-900'
-                  }`}>{value}</div>
-                  <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+            <>
+              <div className="grid grid-cols-3 gap-6 mb-6">
+                {[
+                  { label: 'Trials ended', value: String(totalEnded), highlight: false },
+                  { label: 'Converted to paid', value: String(totalConverted), highlight: false },
+                  { label: 'Conversion rate', value: conversionRate !== null ? `${conversionRate}%` : '—', highlight: true, rate: conversionRate },
+                ].map(({ label, value, highlight, rate }) => (
+                  <div key={label}>
+                    <div className={`text-[28px] font-bold ${
+                      highlight && rate !== null && rate !== undefined
+                        ? rate >= 40 ? 'text-green-600' : rate >= 20 ? 'text-amber-600' : 'text-red-600'
+                        : 'text-slate-900'
+                    }`}>{value}</div>
+                    <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+                  </div>
+                ))}
+              </div>
+              {channelRows.length > 0 && (
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">By channel</p>
+                  <table className="w-full text-[12px]">
+                    <thead>
+                      <tr className="text-left border-b border-slate-100">
+                        <th className="pb-2 font-semibold text-slate-400">Source</th>
+                        <th className="pb-2 font-semibold text-slate-400 text-right">Trials</th>
+                        <th className="pb-2 font-semibold text-slate-400 text-right">Converted</th>
+                        <th className="pb-2 font-semibold text-slate-400 text-right">Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                      {channelRows.map(r => (
+                        <tr key={r.channel}>
+                          <td className="py-2 font-mono text-slate-600">{r.channel}</td>
+                          <td className="py-2 text-right text-slate-500">{r.ended}</td>
+                          <td className="py-2 text-right text-slate-500">{r.converted}</td>
+                          <td className={`py-2 text-right font-semibold ${
+                            r.rate >= 40 ? 'text-green-600' : r.rate >= 20 ? 'text-amber-600' : 'text-red-600'
+                          }`}>{r.rate}%</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
 

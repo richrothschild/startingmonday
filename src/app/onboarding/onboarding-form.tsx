@@ -67,6 +67,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [briefingTime, setBriefingTime] = useState('07:00')
   const [briefingFrequency, setBriefingFrequency] = useState<'daily' | 'weekly'>('daily')
 
+  const [intelContent, setIntelContent] = useState('')
+  const [intelLoading, setIntelLoading] = useState(false)
+
   const firstName = fullName.trim().split(' ')[0] || 'there'
 
   const isPassive = employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic'
@@ -85,6 +88,30 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
+  }, [step])
+
+  useEffect(() => {
+    if (step !== 6) return
+    const firstCompany = companyNames.find(n => n.trim())
+    if (!firstCompany || intelContent || intelLoading) return
+    setIntelLoading(true)
+    fetch('/api/onboarding/intel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ companyName: firstCompany.trim(), persona: searchPersona }),
+    }).then(async res => {
+      if (!res.body) return
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let text = ''
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        text += decoder.decode(value, { stream: true })
+        setIntelContent(text)
+      }
+    }).catch(() => {}).finally(() => setIntelLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
   function goTo(next: number) {
@@ -300,6 +327,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               companies={companyNames.filter(n => n.trim())}
               briefingTime={briefingTime}
               isPassive={isPassive}
+              intelContent={intelContent}
+              intelLoading={intelLoading}
             />
           )}
         </div>
@@ -572,11 +601,15 @@ function StepDone({
   companies,
   briefingTime,
   isPassive,
+  intelContent,
+  intelLoading,
 }: {
   firstName: string
   companies: string[]
   briefingTime: string
   isPassive: boolean
+  intelContent: string
+  intelLoading: boolean
 }) {
   function formatTime(val: string) {
     const [h, m] = val.split(':').map(Number)
@@ -584,6 +617,8 @@ function StepDone({
     const hour = h % 12 || 12
     return `${hour}:${String(m).padStart(2, '0')} ${ampm}`
   }
+
+  const firstCompany = companies[0] ?? ''
 
   return (
     <div className="flex flex-col gap-6">
@@ -637,6 +672,32 @@ function StepDone({
           </p>
         </div>
       </div>
+
+      {firstCompany && (intelLoading || intelContent) && (
+        <div className="bg-slate-900 rounded-lg px-5 py-5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">
+            {firstCompany} — intelligence preview
+          </p>
+          {intelLoading && !intelContent && (
+            <div className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse" />
+              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse [animation-delay:150ms]" />
+              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse [animation-delay:300ms]" />
+            </div>
+          )}
+          {intelContent && (
+            <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">
+              {intelContent}
+              {intelLoading && (
+                <span className="inline-block w-0.5 h-3.5 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+              )}
+            </p>
+          )}
+          <p className="text-[11px] text-slate-600 mt-3">
+            This is a preview. Your first full briefing includes live scan results and signal history.
+          </p>
+        </div>
+      )}
     </div>
   )
 }
