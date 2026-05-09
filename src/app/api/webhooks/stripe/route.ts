@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       }).eq('id', userId)
       updateError = error
 
-      // Downgrade all seat members this owner had granted access to
+      // Downgrade seat members and offer each one an individual subscription
       const { data: seats } = await supabase
         .from('team_seats')
         .select('member_user_id')
@@ -120,10 +120,33 @@ export async function POST(request: NextRequest) {
         .not('member_user_id', 'is', null)
       const memberIds = (seats ?? []).map(s => s.member_user_id as string)
       if (memberIds.length > 0) {
+        const { data: memberUsers } = await supabase
+          .from('users')
+          .select('id, email')
+          .in('id', memberIds)
         await supabase.from('users').update({
           subscription_tier: 'free',
           subscription_status: 'inactive',
         }).in('id', memberIds)
+        for (const member of (memberUsers ?? [])) {
+          if (!member.email) continue
+          sendEmail({
+            to: member.email,
+            subject: 'Your Starting Monday team access has ended',
+            html: `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:560px;margin:40px auto;padding:0 16px;color:#334155;">
+<p style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 12px 0;">Your team access has ended.</p>
+<p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">The organization account that gave you access to Starting Monday has been canceled.</p>
+<p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">Your account is intact. Your companies, contacts, and research history are all still there.</p>
+<p style="font-size:14px;line-height:1.6;margin:0 0 24px 0;">To keep your search moving, you can subscribe directly. The Intelligence plan is $49/mo and includes daily company signals and briefings.</p>
+<p style="margin:0 0 24px 0;">
+  <a href="${APP_URL}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 24px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600;">Keep my subscription</a>
+</p>
+<p style="font-size:13px;color:#64748b;margin:0 0 8px 0;">Reply to this email if you have questions. I read everything.</p>
+<p style="font-size:13px;color:#334155;margin:0;">Rich Rothschild<br>Founder, Starting Monday</p>
+<p style="font-size:12px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:16px;margin-top:24px;">Starting Monday -- startingmonday.app</p>
+</body></html>`,
+          }).catch(() => {})
+        }
       }
       break
     }
