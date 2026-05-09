@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { OfferSynthesis } from './offer-synthesis'
 
 export const metadata = { title: 'Offers — Starting Monday' }
 
@@ -206,6 +207,8 @@ export default async function OffersPage() {
             </div>
           </div>
         )}
+
+        {offers.length > 0 && <OfferSynthesis offers={offers} />}
       </main>
     </div>
   )

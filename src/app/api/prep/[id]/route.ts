@@ -63,7 +63,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
 
 async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, companyId: string, userId: string) {
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }] = await Promise.all([
+  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }, { data: interviewLogs }] = await Promise.all([
     supabase
       .from('companies')
       .select('name, sector, stage, company_size, notes, competitive_context, interview_notes')
@@ -103,8 +103,16 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .gte('signal_date', since90d)
       .order('signal_date', { ascending: false })
       .limit(5),
+    supabase
+      .from('company_interview_logs')
+      .select('interview_date, interview_stage, questions_asked, what_landed, what_surprised, follow_up_needed')
+      .eq('company_id', companyId)
+      .eq('user_id', userId)
+      .order('interview_date', { ascending: false, nullsFirst: false })
+      .order('created_at', { ascending: false })
+      .limit(10),
   ])
-  return { company, profile, scanResults, contacts, documents, signals }
+  return { company, profile, scanResults, contacts, documents, signals, interviewLogs }
 }
 
 type ProfileRow = {
@@ -115,6 +123,7 @@ type ProfileRow = {
   role_context?: Record<string, unknown> | null
 }
 type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null; competitive_context?: string | null; interview_notes?: string | null }
+type InterviewLogRow = { interview_date: string | null; interview_stage: string | null; questions_asked: string | null; what_landed: string | null; what_surprised: string | null; follow_up_needed: string | null }
 
 function buildRoleSpecificContext(profile: ProfileRow | null): string {
   if (!profile?.role_context) return ''
@@ -158,7 +167,19 @@ function buildRoleSpecificContext(profile: ProfileRow | null): string {
   return lines.length > 0 ? '\n' + lines.join('\n') : ''
 }
 
-function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null) {
+function formatInterviewLogs(logs: InterviewLogRow[]): string {
+  return logs.map(log => {
+    const header = [log.interview_stage, log.interview_date].filter(Boolean).join(' - ')
+    const parts: string[] = header ? [header] : []
+    if (log.questions_asked) parts.push(`Questions asked: ${log.questions_asked}`)
+    if (log.what_landed) parts.push(`What landed: ${log.what_landed}`)
+    if (log.what_surprised) parts.push(`What surprised me: ${log.what_surprised}`)
+    if (log.follow_up_needed) parts.push(`Follow-up needed: ${log.follow_up_needed}`)
+    return parts.join('\n')
+  }).join('\n\n')
+}
+
+function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null, interviewLogs: InterviewLogRow[] | null = null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
@@ -209,9 +230,9 @@ Win Thesis: name the decisive advantage over the specific alternatives described
 Anticipated Pushback: the first or second objection must be the competitive comparison most likely to be raised in the room. State it directly and give the exact counter.
 Do not soften or genericize the competitive framing. Write as if the interviewer already has the other candidate's resume in front of them.` : ''}
 
-${company.interview_notes ? `PRIOR INTERVIEW NOTES
+${(company.interview_notes || (interviewLogs ?? []).length > 0) ? `PRIOR INTERVIEW NOTES
 These are the candidate's own notes from prior conversations at this company. Treat as authoritative first-person reporting.
-${company.interview_notes}
+${(interviewLogs ?? []).length > 0 ? `\nSTRUCTURED SESSION LOG\n${formatInterviewLogs(interviewLogs!)}` : ''}${company.interview_notes ? `\nFREE-FORM NOTES\n${company.interview_notes}` : ''}
 
 PRIOR INTERVIEW NOTES INSTRUCTION
 These notes change the brief in specific ways:
@@ -312,7 +333,7 @@ export async function GET(
   const model = getModelForTier(tier)
 
   const { id: companyId } = await params
-  const { company, profile, scanResults, contacts, documents, signals } = await loadContext(supabase, companyId, userId)
+  const { company, profile, scanResults, contacts, documents, signals, interviewLogs } = await loadContext(supabase, companyId, userId)
 
   if (!company) return new Response('Not found', { status: 404 })
 
@@ -342,7 +363,7 @@ export async function GET(
     } catch { /* ignore fetch errors, fall back to existing docs */ }
   }
 
-  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals, interviewStage)
+  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],

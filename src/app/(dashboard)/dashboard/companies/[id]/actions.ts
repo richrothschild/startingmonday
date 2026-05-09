@@ -187,6 +187,46 @@ export async function addDocument(companyId: string, formData: FormData) {
   redirect(`/dashboard/companies/${companyId}`)
 }
 
+export async function addInterviewLog(companyId: string, formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const interviewDate   = str(formData, 'interview_date') || null
+  const interviewStage  = str(formData, 'interview_stage') || null
+  const questionsAsked  = str(formData, 'questions_asked') || null
+  const whatLanded      = str(formData, 'what_landed') || null
+  const whatSurprised   = str(formData, 'what_surprised') || null
+  const followUpNeeded  = str(formData, 'follow_up_needed') || null
+
+  await supabase.from('company_interview_logs').insert({
+    user_id: user.id,
+    company_id: companyId,
+    interview_date: interviewDate,
+    interview_stage: interviewStage,
+    questions_asked: questionsAsked,
+    what_landed: whatLanded,
+    what_surprised: whatSurprised,
+    follow_up_needed: followUpNeeded,
+  })
+
+  revalidatePath(`/dashboard/companies/${companyId}`)
+}
+
+export async function deleteInterviewLog(logId: string, companyId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('company_interview_logs')
+    .delete()
+    .eq('id', logId)
+    .eq('user_id', user.id)
+
+  revalidatePath(`/dashboard/companies/${companyId}`)
+}
+
 export async function removeDocument(documentId: string, companyId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
