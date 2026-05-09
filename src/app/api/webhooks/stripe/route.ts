@@ -6,7 +6,7 @@ import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
 import { mapStripeStatus } from '@/lib/stripe-status'
 
-const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign'])
+const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign', 'coach'])
 
 // current_period_end is present on Stripe.Subscription at runtime but not typed
 // in the SDK version pinned in this project.
