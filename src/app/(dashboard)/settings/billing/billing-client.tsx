@@ -237,11 +237,11 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
               {(Object.entries(PLANS) as [keyof typeof PLANS, (typeof PLANS)[keyof typeof PLANS]][]).map(([key, plan]) => {
                 const amount = interval === 'quarterly' ? plan.quarterlyAmount : plan.amount
                 const monthlyEquiv = interval === 'quarterly' ? Math.round(plan.quarterlyAmount / 3) : null
-                const isFeatured = key === 'executive'
+                const isFeatured = key === 'active'
                 return (
                   <div key={key} className={`bg-white border rounded p-6 ${isFeatured ? 'border-slate-900' : 'border-slate-200'}`}>
                     {isFeatured && (
-                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-3">Best for active search</p>
+                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-3">Most popular</p>
                     )}
                     <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
                     <p className="text-[28px] font-bold text-slate-900 mt-1">
