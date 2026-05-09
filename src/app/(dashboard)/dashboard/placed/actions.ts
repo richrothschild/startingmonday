@@ -16,6 +16,8 @@ export async function markPlaced(formData: FormData) {
   await supabase.from('user_profiles').update({
     placed_at: new Date().toISOString(),
     placement_company: company || null,
+    search_status: 'complete',
+    briefing_frequency: 'weekly',
   }).eq('user_id', user.id)
 
   const { data: profile } = await supabase

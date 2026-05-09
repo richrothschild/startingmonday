@@ -38,7 +38,7 @@ export default async function DashboardPage({
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status')
     .eq('user_id', user.id)
     .single()
 
@@ -229,6 +229,126 @@ export default async function DashboardPage({
   ]
   const nextSetupStep    = setupSteps.find(s => !s.done) ?? null
   const remainingSetups  = setupSteps.filter(s => !s.done).slice(1)
+
+  // Post-placement: Career Intelligence mode
+  if (profile?.placed_at) {
+    const placedCompany = (profile as unknown as { placement_company?: string | null }).placement_company
+    const isPaid = userRow?.subscription_status === 'active'
+    const tier = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier ?? 'free'
+    return (
+      <div className="min-h-screen bg-slate-100 font-sans">
+        <header className="bg-slate-900">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+            <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
+              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            </span>
+            <div className="hidden sm:flex items-center gap-4 flex-1">
+              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+              <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
+              <div className="ml-auto flex items-center gap-4 shrink-0">
+                <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
+                <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors">Billing</Link>
+                <LogoutButton label="Sign out" />
+              </div>
+            </div>
+            <div className="flex sm:hidden items-center gap-4 ml-auto">
+              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
+              <LogoutButton label="Sign out" />
+            </div>
+          </div>
+        </header>
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+          <div className="mb-8">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
+            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
+              {greeting}, {firstName}.
+            </h1>
+            <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
+          </div>
+
+          {/* Placement banner */}
+          <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+            <p className="text-[13px] font-semibold text-slate-900 mb-1">
+              {placedCompany ? `You placed at ${placedCompany}.` : 'Your search is complete.'}
+            </p>
+            <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
+              Your companies, contacts, and research history are all here. Your weekly intelligence digest is running -- you will hear from us every Monday.
+            </p>
+            {isPaid && tier !== 'passive' && tier !== 'free' ? (
+              <div className="flex items-start gap-3 p-4 bg-orange-50 border border-orange-100 rounded mb-4">
+                <div className="flex-1">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-0.5">Stay sharp at $49/mo</p>
+                  <p className="text-[12px] text-slate-600 leading-relaxed">
+                    Switch to Intelligence for ongoing market monitoring without active search tools. Most executives search again within 3 years.
+                  </p>
+                </div>
+                <Link
+                  href="/settings/billing"
+                  className="shrink-0 text-[12px] font-semibold text-white bg-orange-500 hover:bg-orange-600 transition-colors px-4 py-2 rounded"
+                >
+                  Review options
+                </Link>
+              </div>
+            ) : !isPaid ? (
+              <Link
+                href="/settings/billing"
+                className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
+              >
+                Keep your intelligence running -- subscribe to Passive ($49/mo)
+              </Link>
+            ) : null}
+          </div>
+
+          {/* Company watchlist */}
+          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                Your Companies ({totalCount})
+              </span>
+              <Link href="/dashboard/companies" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
+                Manage
+              </Link>
+            </div>
+            {allList.length === 0 ? (
+              <p className="px-6 py-8 text-[13px] text-slate-400">No companies in your list yet.</p>
+            ) : (
+              <ul className="divide-y divide-slate-50">
+                {allList.slice(0, 20).map(c => (
+                  <li key={c.name} className="px-6 py-3 flex items-center justify-between">
+                    <span className="text-[13px] text-slate-700">{c.name}</span>
+                    <span className="text-[11px] text-slate-400 capitalize">{c.stage}</span>
+                  </li>
+                ))}
+                {allList.length > 20 && (
+                  <li className="px-6 py-3 text-[12px] text-slate-400">
+                    +{allList.length - 20} more. <Link href="/dashboard/companies" className="underline">View all</Link>
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+
+          {/* Contacts and chat links */}
+          <div className="grid grid-cols-2 gap-4">
+            <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Contacts</p>
+              <p className="text-[12px] text-slate-400 leading-relaxed">Your network at target companies.</p>
+            </Link>
+            <Link href="/dashboard/chat" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
+              <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
+            </Link>
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+              Update your profile
+            </Link>
+          </div>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">

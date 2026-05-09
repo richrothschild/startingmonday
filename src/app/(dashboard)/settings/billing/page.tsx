@@ -12,10 +12,11 @@ export default async function BillingPage() {
 
   const [sub, profileResult] = await Promise.all([
     getUserSubscription(user.id),
-    supabase.from('user_profiles').select('full_name').eq('user_id', user.id).single(),
+    supabase.from('user_profiles').select('full_name, placed_at').eq('user_id', user.id).single(),
   ])
 
   const accountName = profileResult.data?.full_name ?? null
+  const isPlaced = !!profileResult.data?.placed_at
 
-  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} accountEmail={user.email ?? ''} accountName={accountName} />
+  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} accountEmail={user.email ?? ''} accountName={accountName} isPlaced={isPlaced} />
 }

@@ -19,11 +19,12 @@ const PLAN_LABEL_MAP: Record<string, string> = {
   campaign:  'Campaign',
 }
 
-export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName }: {
+export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName, isPlaced = false }: {
   sub: UserSubscription
   hasStripeCustomer: boolean
   accountEmail: string
   accountName: string | null
+  isPlaced?: boolean
 }) {
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
@@ -126,6 +127,27 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
           )}
           <p className="text-[13px] text-slate-500">{accountEmail}</p>
         </div>
+
+        {/* Maintenance mode: placed user on active/executive tier */}
+        {isPlaced && sub.isPaid && sub.tier !== 'passive' && sub.tier !== 'free' && !sub.isPaused && (
+          <div className="bg-orange-50 border border-orange-200 rounded p-5 mb-6 flex items-start gap-4">
+            <div className="flex-1">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Intelligence.</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Intelligence ($49/mo) keeps your signal monitoring and weekly digest running without the active search tools.
+                Most executives search again within 3 years. When you are ready, everything you built here will be waiting.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handlePortal}
+              disabled={loading === 'portal'}
+              className="shrink-0 text-[13px] font-semibold text-white bg-orange-500 hover:bg-orange-600 transition-colors border-0 rounded px-4 py-2 cursor-pointer disabled:opacity-50"
+            >
+              {loading === 'portal' ? 'Loading...' : 'Manage plan'}
+            </button>
+          </div>
+        )}
 
         {/* Current status */}
         <div className="bg-white border border-slate-200 rounded p-6 mb-8">
