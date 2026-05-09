@@ -82,4 +82,32 @@ describe('canAccessFeature', () => {
   it('returns false for unknown feature name', () => {
     expect(canAccessFeature(makeSub(), 'nonexistent_feature')).toBe(false)
   })
+
+  it('grants executive-only features to executive tier', () => {
+    const sub = makeSub({ tier: 'executive' })
+    expect(canAccessFeature(sub, 'daily_scan')).toBe(true)
+    expect(canAccessFeature(sub, 'salary_intelligence')).toBe(true)
+    expect(canAccessFeature(sub, 'recruiter_enhancements')).toBe(true)
+  })
+
+  it('blocks executive-only features for active tier', () => {
+    const sub = makeSub({ tier: 'active' })
+    expect(canAccessFeature(sub, 'daily_scan')).toBe(false)
+    expect(canAccessFeature(sub, 'salary_intelligence')).toBe(false)
+    expect(canAccessFeature(sub, 'recruiter_enhancements')).toBe(false)
+  })
+
+  it('blocks executive-only features for trialing users (trial grants active-tier, not executive)', () => {
+    const sub = makeSub({ tier: 'free', status: 'trialing', isActive: true })
+    expect(canAccessFeature(sub, 'daily_scan')).toBe(false)
+    expect(canAccessFeature(sub, 'salary_intelligence')).toBe(false)
+    expect(canAccessFeature(sub, 'recruiter_enhancements')).toBe(false)
+  })
+
+  it('maps legacy monitor tier to passive for feature gating', () => {
+    // getUserSubscription converts 'monitor' → 'passive' before returning
+    const sub = makeSub({ tier: 'passive' })
+    expect(canAccessFeature(sub, 'scan')).toBe(true)
+    expect(canAccessFeature(sub, 'ai_chat')).toBe(false)
+  })
 })

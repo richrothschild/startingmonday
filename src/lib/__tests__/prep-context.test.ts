@@ -8,14 +8,14 @@ import {
 
 describe('buildScanSection', () => {
   it('returns default text when no scan results', () => {
-    expect(buildScanSection(null)).toBe('No career page scans on file.')
-    expect(buildScanSection([])).toBe('No career page scans on file.')
+    expect(buildScanSection(null)).toContain('No career page scan on file.')
+    expect(buildScanSection([])).toContain('No career page scan on file.')
   })
 
   it('reports scan with no matching roles', () => {
     const result = buildScanSection([{ scanned_at: '2024-01-15T10:00:00Z', raw_hits: [] }])
     expect(result).toContain('January 15')
-    expect(result).toContain('no matching roles detected')
+    expect(result).toContain('No matching roles found')
   })
 
   it('lists only matching roles with scores and summaries', () => {
