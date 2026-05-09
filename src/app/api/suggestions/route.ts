@@ -1,10 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 type Recruiter = { name: string; focus: string }
 type SuggestionsResult = { companies: string[]; recruiters: Recruiter[] }
@@ -15,6 +14,11 @@ export async function GET(request: NextRequest) {
 
   const { userId } = auth
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId, supabase)
+  if (!canAccessFeature(sub, 'scan')) {
+    return NextResponse.json({ companies: [], recruiters: [] })
+  }
 
   const { data: profile } = await supabase
     .from('user_profiles')
@@ -51,7 +55,7 @@ For recruiters: name actual executive search firms known for this function/secto
 Return only the JSON object. No explanation. No markdown fences.`
 
   try {
-    const model = process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6'
+    const model = MODELS.sonnet
     const startMs = Date.now()
     const message = await anthropic.messages.create({
       model,

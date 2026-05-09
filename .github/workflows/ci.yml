@@ -27,3 +27,20 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  semgrep:
+    name: Semgrep security scan
+    runs-on: ubuntu-latest
+    # Run on PRs and main pushes; skip dependabot to avoid noise
+    if: github.actor != 'dependabot[bot]'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Semgrep (custom rules)
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: .semgrep.yml
+        env:
+          # Optional: set SEMGREP_APP_TOKEN to also post results to semgrep.dev dashboard
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}

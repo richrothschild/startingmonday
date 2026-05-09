@@ -1,0 +1,91 @@
+name: Weekly security audit
+
+on:
+  schedule:
+    # Every Monday at 08:00 UTC
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+jobs:
+  rls-check:
+    name: Supabase RLS coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all public tables have RLS enabled
+        run: |
+          result=$(psql "$SUPABASE_DB_URL" -t -A -c "
+            SELECT tablename
+            FROM pg_tables
+            WHERE schemaname = 'public' AND rowsecurity = false
+            ORDER BY tablename;
+          ")
+          if [[ -n "$result" ]]; then
+            echo "FAIL: These tables are missing RLS:"
+            echo "$result"
+            exit 1
+          else
+            echo "PASS: All public tables have RLS enabled."
+          fi
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+  auth-coverage:
+    name: API route auth coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all POST/PUT/DELETE routes call an auth guard
+        run: |
+          failed=0
+          # Find all route.ts files under src/app/api/
+          while IFS= read -r file; do
+            # Skip known intentionally-public routes
+            case "$file" in
+              *webhooks/stripe*|*health*|*demo-brief*|*demo-email*|*partners*|*optimize*|*admin/health*) continue ;;
+            esac
+            # Check if file has POST/PUT/DELETE but no auth guard
+            if grep -qE 'export async function (POST|PUT|DELETE)' "$file"; then
+              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess' "$file"; then
+                echo "MISSING AUTH: $file"
+                failed=$((failed + 1))
+              fi
+            fi
+          done < <(find src/app/api -name 'route.ts')
+          if [[ $failed -gt 0 ]]; then
+            echo "$failed route(s) missing auth guard."
+            exit 1
+          else
+            echo "PASS: All mutation routes have auth guards."
+          fi
+
+  migration-sequence:
+    name: Migration file sequence check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify migration files have no gaps or duplicates
+        run: |
+          failed=0
+          prev=0
+          while IFS= read -r f; do
+            name=$(basename "$f")
+            num=$(echo "$name" | grep -oE '^[0-9]+')
+            expected=$((prev + 1))
+            if [[ "$num" != "$(printf '%03d' $expected)" ]]; then
+              echo "GAP or DUPLICATE: expected $(printf '%03d' $expected), got $num ($name)"
+              failed=$((failed + 1))
+            fi
+            prev=$expected
+          done < <(ls supabase/migrations/*.sql | sort)
+          if [[ $failed -gt 0 ]]; then
+            exit 1
+          else
+            echo "PASS: Migration sequence is clean (001–$(printf '%03d' $prev))."
+          fi

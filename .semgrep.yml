@@ -1,0 +1,108 @@
+rules:
+
+  # ── Anthropic SDK ──────────────────────────────────────────────────────────
+
+  - id: no-local-anthropic-instance
+    patterns:
+      - pattern: new Anthropic(...)
+    message: >
+      Use the shared `anthropic` singleton from `@/lib/anthropic` instead of
+      creating a new Anthropic() instance. Avoids duplicate API key reads and
+      makes model configuration centrally managed.
+    languages: [typescript]
+    severity: WARNING
+    paths:
+      include:
+        - src/
+      exclude:
+        - src/lib/anthropic.ts
+
+  - id: no-inline-model-string
+    patterns:
+      - pattern: |
+          process.env.$ENV || '$MODEL'
+      - metavariable-regex:
+          metavariable: $MODEL
+          regex: "^claude-"
+    message: >
+      Use MODELS.sonnet / MODELS.haiku from `@/lib/anthropic` instead of
+      a hardcoded model string. Centralises model upgrades.
+    languages: [typescript]
+    severity: WARNING
+    paths:
+      include:
+        - src/
+
+  # ── XSS ───────────────────────────────────────────────────────────────────
+
+  - id: html-template-unescaped-variable
+    patterns:
+      - pattern: |
+          `...<$TAG ...>${$VAR}</$TAG>...`
+      - pattern-not: |
+          `...<$TAG ...>${esc($VAR)}</$TAG>...`
+      - pattern-not: |
+          `...<$TAG ...>${escHtml($VAR)}</$TAG>...`
+    message: >
+      Variable `$VAR` interpolated directly into an HTML template string.
+      Wrap with esc() or escHtml() to prevent XSS if this HTML is sent as email
+      or rendered in a browser.
+    languages: [typescript, javascript]
+    severity: ERROR
+    paths:
+      include:
+        - src/
+        - worker/
+
+  # ── SSRF ──────────────────────────────────────────────────────────────────
+
+  - id: fetch-with-user-variable
+    patterns:
+      - pattern: fetch($URL, ...)
+      - pattern-not: fetch("...", ...)
+      - pattern-not: fetch(`https://...`, ...)
+    message: >
+      `fetch($URL)` with a non-literal URL. If $URL is user-controlled, validate
+      it with isAllowedJobUrl() or equivalent before fetching to prevent SSRF.
+    languages: [typescript, javascript]
+    severity: WARNING
+    paths:
+      include:
+        - src/
+        - worker/
+
+  # ── Auth ──────────────────────────────────────────────────────────────────
+
+  - id: api-route-missing-auth
+    patterns:
+      - pattern: |
+          export async function POST(...) {
+            ...
+          }
+      - pattern-not: |
+          export async function POST(...) {
+            ...
+            requireAuth(...)
+            ...
+          }
+      - pattern-not: |
+          export async function POST(...) {
+            ...
+            requireFeatureAccess(...)
+            ...
+          }
+      - pattern-not: |
+          export async function POST(...) {
+            ...
+            requirePrepAccess(...)
+            ...
+          }
+    message: >
+      POST handler has no call to requireAuth(), requireFeatureAccess(), or
+      requirePrepAccess(). If this is intentionally public, add a comment
+      explaining why (e.g. // public: webhook, demo endpoint).
+    languages: [typescript]
+    severity: WARNING
+    paths:
+      include:
+        - src/app/api/
