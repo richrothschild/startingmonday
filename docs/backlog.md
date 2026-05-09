@@ -254,6 +254,27 @@ Implementation notes when built:
 
 ---
 
+## Communications and Lifecycle Outreach
+
+### Lifecycle Email System
+
+A managed email communications system covering every stage of the user relationship: prospective users who have not activated, current users at key milestones, and former users on a win-back path. Each campaign has its own trigger, sequence, and suppression rules.
+
+What is needed:
+
+- **Campaign library** covering: onboarding activation series (days 1, 3, 7 for trialing users who have not added a company), trial-to-paid conversion nudge, feature adoption (first briefing, first signal acted on), placement congratulations and Alumni tier offer, win-back for churned accounts (30, 60, 90 days post-cancel), B2B seat member onboarding, and institutional renewal reminders
+- **Trigger system** that fires on user events (signup, company added, brief generated, subscription change, inactivity threshold) as well as time-based schedules
+- **Admin send UI** at `/dashboard/admin/communications` to view active campaigns, send one-off batches, pause sequences, and preview email copy before sending
+- **Tracking layer**: per-email delivery confirmation, open rate (via pixel or link parameter), and click-through rate; no third-party email analytics tool required if Resend provides webhook events
+- **Response tracking**: flag replies from users so Rich can see which campaigns generate direct responses and at what rate
+- **Follow-up suppression**: if a user takes the desired action (upgrades, reactivates, adds a company), remove them from the active sequence automatically
+
+Deferred because: one-off email routes (welcome, payment failed, signup notification) cover the highest-priority moments for now. A full system is infrastructure work that does not unlock new revenue at the current user count.
+
+Move forward when: 50+ paying users or the win-back opportunity is measurable. At that point, manual outreach does not scale and the system pays for itself in recovered revenue. Build as a single sprint, not incrementally.
+
+---
+
 ## Adjacent Product Candidates
 
 These ideas are strong enough to build but belong in a separate product rather than Starting Monday's core. Starting Monday's data and user relationships provide distribution advantage for launching them.
