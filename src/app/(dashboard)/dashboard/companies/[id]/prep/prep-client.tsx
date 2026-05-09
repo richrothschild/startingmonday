@@ -272,6 +272,10 @@ export function PrepClient({
   const [interviewStage, setInterviewStage] = useState<InterviewStage>(
     DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
   )
+  const [outreachDraft, setOutreachDraft] = useState('')
+  const [outreachLoading, setOutreachLoading] = useState(false)
+  const [outreachError, setOutreachError] = useState('')
+  const [outreachCopied, setOutreachCopied] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
   const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId)
@@ -348,6 +352,38 @@ export function PrepClient({
     } finally {
       setRefining(false)
     }
+  }
+
+  async function handleGenerateOutreach() {
+    setOutreachLoading(true)
+    setOutreachDraft('')
+    setOutreachError('')
+    setOutreachCopied(false)
+    try {
+      const res = await fetch(`/api/prep/${companyId}/outreach`, { method: 'POST' })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        setOutreachError(body?.error ?? `Request failed (${res.status})`)
+        return
+      }
+      let fullText = ''
+      await streamResponse(res, chunk => { fullText += chunk; setOutreachDraft(fullText) })
+      if (fullText.startsWith('__ERROR__')) {
+        setOutreachError(fullText.slice(9))
+        setOutreachDraft('')
+      }
+    } catch (e) {
+      setOutreachError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setOutreachLoading(false)
+    }
+  }
+
+  function handleCopyOutreach() {
+    navigator.clipboard.writeText(outreachDraft).then(() => {
+      setOutreachCopied(true)
+      setTimeout(() => setOutreachCopied(false), 2000)
+    }).catch(() => {})
   }
 
   const busy = loading || refining
@@ -721,31 +757,71 @@ export function PrepClient({
           </div>
         )}
 
-        {brief && hasContacts && (
-          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4 no-print">
-            <p className="text-[13px] text-slate-300">
-              Ready to reach out? Draft a personalized message to your contact at {companyName}.
-            </p>
-            <Link
-              href={`/dashboard/companies/${companyId}#outreach`}
-              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
-            >
-              Draft outreach →
-            </Link>
-          </div>
-        )}
+        {brief && (
+          <div className="mt-6 bg-slate-900 rounded px-6 py-5 no-print">
+            <div className="flex items-center justify-between gap-4 mb-3">
+              <p className="text-[13px] text-slate-300 font-semibold">
+                Draft outreach from this brief
+              </p>
+              {!outreachDraft && !outreachLoading && (
+                <button
+                  type="button"
+                  onClick={handleGenerateOutreach}
+                  disabled={outreachLoading}
+                  className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
+                >
+                  Generate →
+                </button>
+              )}
+            </div>
 
-        {brief && !hasContacts && (
-          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4 no-print">
-            <p className="text-[13px] text-slate-300">
-              Add a contact at {companyName} to track your outreach alongside this brief.
-            </p>
-            <Link
-              href={`/dashboard/companies/${companyId}`}
-              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
-            >
-              Add contact
-            </Link>
+            {outreachLoading && !outreachDraft && (
+              <p className="text-[13px] text-slate-400 italic">Drafting outreach…</p>
+            )}
+
+            {outreachError && (
+              <p className="text-[13px] text-red-400">{outreachError}</p>
+            )}
+
+            {outreachDraft && (
+              <div>
+                <p className="text-[14px] text-slate-200 leading-relaxed whitespace-pre-wrap mb-4">
+                  {outreachDraft}
+                </p>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleCopyOutreach}
+                    className="text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent"
+                  >
+                    {outreachCopied ? 'Copied!' : 'Copy'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleGenerateOutreach}
+                    disabled={outreachLoading}
+                    className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent border-0 disabled:opacity-50"
+                  >
+                    Regenerate
+                  </button>
+                  {!hasContacts && (
+                    <Link
+                      href={`/dashboard/companies/${companyId}`}
+                      className="text-[12px] text-slate-400 hover:text-slate-200 transition-colors"
+                    >
+                      Add a contact to log this →
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {!outreachDraft && !outreachLoading && !outreachError && (
+              <p className="text-[12px] text-slate-500">
+                Generates a 3-sentence message grounded in this company&apos;s signals and your prep brief.
+                {!hasContacts && ' Add a contact at ' + companyName + ' to log the outreach after.'}
+              </p>
+            )}
           </div>
         )}
 
