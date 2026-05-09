@@ -46,7 +46,7 @@ export async function saveProfile(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const searchPersona = (['csuite', 'vp', 'board'] as const).find(v => v === formData.get('search_persona')) ?? null
+  const searchPersona = (['csuite', 'vp', 'director', 'board'] as const).find(v => v === formData.get('search_persona')) ?? null
   const validRoleTypes = ['cio', 'cto', 'cdo_data', 'cdo_digital', 'ciso', 'cpo', 'coo', 'vp_technology', 'other_csuite'] as const
   const roleType = validRoleTypes.find(v => v === formData.get('role_type')) ?? null
   const fullName      = (formData.get('full_name')      as string ?? '').trim() || null

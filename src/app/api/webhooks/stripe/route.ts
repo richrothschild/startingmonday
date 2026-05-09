@@ -6,6 +6,8 @@ import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
 import { mapStripeStatus } from '@/lib/stripe-status'
 
+const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign'])
+
 // current_period_end is present on Stripe.Subscription at runtime but not typed
 // in the SDK version pinned in this project.
 type StripeSubWithPeriodEnd = Stripe.Subscription & { current_period_end: number }
@@ -51,7 +53,7 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session
       const userId = session.metadata?.userId
       const plan = session.metadata?.plan
-      if (userId && plan) {
+      if (userId && plan && VALID_PLANS.has(plan)) {
         const customerId = typeof session.customer === 'string'
           ? session.customer
           : (session.customer as Stripe.Customer | null)?.id ?? null
@@ -71,7 +73,8 @@ export async function POST(request: NextRequest) {
       const userId = sub.metadata?.userId
       if (!userId) break
       const status = mapStripeStatus(sub.status, sub.pause_collection)
-      const plan = (sub.metadata?.plan ?? 'free') as string
+      const rawPlan = sub.metadata?.plan ?? 'free'
+      const plan = VALID_PLANS.has(rawPlan) ? rawPlan : 'free'
       const update: Record<string, string | null> = {
         subscription_tier: status === 'active' || status === 'trialing' ? plan : 'free',
         subscription_status: status,

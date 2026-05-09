@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
 export type AuthResult =
-  | { ok: true; userId: string }
+  | { ok: true; userId: string; response: NextResponse }
   | { ok: false; response: NextResponse }
 
 // Call at the top of every API route handler.
@@ -12,6 +12,10 @@ export type AuthResult =
 //   const auth = await requireAuth(request)
 //   if (!auth.ok) return auth.response
 //   const { userId } = auth
+//
+// The success result includes `response` with any refreshed session cookies.
+// Pass it to withAuthCookies() when constructing a final NextResponse to ensure
+// the browser receives updated tokens.
 export async function requireAuth(request: NextRequest): Promise<AuthResult> {
   const response = NextResponse.next()
 
@@ -39,5 +43,14 @@ export async function requireAuth(request: NextRequest): Promise<AuthResult> {
     }
   }
 
-  return { ok: true, userId: user.id }
+  return { ok: true, userId: user.id, response }
+}
+
+// Apply refreshed session cookies from requireAuth to a final API response.
+// Use when the auth check may have rotated the refresh token.
+export function withAuthCookies(apiResponse: NextResponse, auth: AuthResult & { ok: true }): NextResponse {
+  auth.response.cookies.getAll().forEach(cookie => {
+    apiResponse.cookies.set(cookie.name, cookie.value, cookie)
+  })
+  return apiResponse
 }

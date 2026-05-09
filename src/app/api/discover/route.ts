@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited } from '@/lib/api-usage'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
 
@@ -18,6 +19,11 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId, supabase)
+  if (!canAccessFeature(sub, 'scan')) {
+    return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
+  }
 
   if (await isRateLimited(supabase, userId)) {
     return NextResponse.json({ error: 'Monthly limit reached.' }, { status: 429 })

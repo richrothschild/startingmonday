@@ -234,7 +234,7 @@ export async function runSignalJob() {
             if (!existingSnapshot) {
               const currentExecs = await fetchPdlExecs(company.name, company.company_url ?? null)
               if (currentExecs.length > 0) {
-                const { departures, hires } = await diffExecSnapshot(supabase, company.id, currentExecs, today)
+                const { departures, hires } = await diffExecSnapshot(supabase, company.id, user.id, currentExecs, today)
 
                 for (const exec of departures) {
                   const outreachAngle = `The departure of ${exec.name} as ${exec.title} creates an opening for external executive talent. Reach out before the search is formalized.`

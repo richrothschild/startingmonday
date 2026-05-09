@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited } from '@/lib/api-usage'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { SignalsClassifyBodySchema, firstZodError } from '@/lib/schemas'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { captureServerEvent } from '@/lib/posthog-server'
@@ -15,6 +16,11 @@ export async function POST(request: NextRequest) {
   const { userId } = auth
 
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(userId, supabase)
+  if (!canAccessFeature(sub, 'scan')) {
+    return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
+  }
 
   let raw: unknown
   try { raw = await request.json() } catch {

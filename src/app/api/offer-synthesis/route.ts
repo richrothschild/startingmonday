@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited } from '@/lib/api-usage'
+import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 type OfferInput = {
@@ -73,6 +74,12 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
+
+  const sub = await getUserSubscription(auth.userId, supabase)
+  if (!canAccessFeature(sub, 'prep_brief')) {
+    return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
+  }
+
   if (await isRateLimited(supabase, auth.userId)) {
     return NextResponse.json({ error: 'Monthly limit reached.' }, { status: 429 })
   }
@@ -83,7 +90,17 @@ export async function POST(request: NextRequest) {
     if (!Array.isArray(body.offers) || body.offers.length === 0) {
       return NextResponse.json({ error: 'offers array required' }, { status: 400 })
     }
-    offers = body.offers
+    offers = body.offers.slice(0, 10).map((o: OfferInput) => ({
+      name:                   String(o.name ?? '').slice(0, 200),
+      sector:                 o.sector    ? String(o.sector).slice(0, 100)    : null,
+      offer_role_title:       o.offer_role_title    ? String(o.offer_role_title).slice(0, 200)    : null,
+      offer_base:             typeof o.offer_base    === 'number' ? o.offer_base    : null,
+      offer_bonus_pct:        typeof o.offer_bonus_pct === 'number' ? o.offer_bonus_pct : null,
+      offer_signing:          typeof o.offer_signing  === 'number' ? o.offer_signing  : null,
+      offer_equity:           o.offer_equity    ? String(o.offer_equity).slice(0, 300)    : null,
+      offer_notes:            o.offer_notes     ? String(o.offer_notes).slice(0, 500)     : null,
+      offer_decision_factors: o.offer_decision_factors ? String(o.offer_decision_factors).slice(0, 500) : null,
+    }))
   } catch {
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
   }

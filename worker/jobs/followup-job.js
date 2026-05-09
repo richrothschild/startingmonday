@@ -5,6 +5,14 @@ import { logger } from '../lib/logger.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
+function esc(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 function todayUTC() {
   return new Date().toISOString().slice(0, 10)
 }
@@ -64,9 +72,9 @@ export async function runFollowupJob() {
       const label = isToday ? 'Today' : `${daysOverdue}d overdue`
       const labelColor = isToday ? '#94a3b8' : '#dc2626'
       return `<tr>
-        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a">${fu.action}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b">${company}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:600;color:${labelColor}">${label}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a">${esc(fu.action)}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b">${esc(company)}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:600;color:${labelColor}">${esc(label)}</td>
       </tr>`
     }).join('')
 

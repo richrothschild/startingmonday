@@ -44,7 +44,7 @@ describe('requireFeatureAccess', () => {
   })
 
   it('returns 402 when feature is not accessible for the subscription tier', async () => {
-    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1' })
+    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1', response: new NextResponse() })
     mockCanAccessFeature.mockReturnValue(false)
 
     const result = await requireFeatureAccess(fakeRequest, 'ai_chat')
@@ -59,7 +59,7 @@ describe('requireFeatureAccess', () => {
   })
 
   it('returns 429 when user is rate limited', async () => {
-    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1' })
+    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1', response: new NextResponse() })
     mockCanAccessFeature.mockReturnValue(true)
     mockIsRateLimited.mockResolvedValue(true)
 
@@ -74,7 +74,7 @@ describe('requireFeatureAccess', () => {
   })
 
   it('returns ok with userId and supabase when all checks pass', async () => {
-    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-abc' })
+    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-abc', response: new NextResponse() })
     mockCanAccessFeature.mockReturnValue(true)
     mockIsRateLimited.mockResolvedValue(false)
 
@@ -88,7 +88,7 @@ describe('requireFeatureAccess', () => {
   })
 
   it('checks the specified feature name against subscription', async () => {
-    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1' })
+    mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1', response: new NextResponse() })
     mockCanAccessFeature.mockReturnValue(true)
 
     await requireFeatureAccess(fakeRequest, 'strategy_brief')

@@ -1,7 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest } from 'next/server'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+import { anthropic, MODELS } from '@/lib/anthropic'
+import { checkBurstLimit } from '@/lib/burst-limit'
 
 const SYSTEM =
   'You are a senior executive coach preparing a candidate for a high-stakes interview. ' +
@@ -10,6 +9,13 @@ const SYSTEM =
   'No filler. No em dashes. No motivational language. This is coaching, not cheerleading.'
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-real-ip')
+    ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    ?? 'unknown'
+  if (!checkBurstLimit(`demo:${ip}`)) {
+    return new Response('Too many requests', { status: 429 })
+  }
+
   let company: string, role: string
   try {
     const body = await request.json()
@@ -42,9 +48,8 @@ Use ## for section headers. Use - for bullets. No em dashes. Write at senior exe
   const readable = new ReadableStream({
     async start(controller) {
       try {
-        const model = process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6'
         const stream = anthropic.messages.stream({
-          model,
+          model: MODELS.sonnet,
           max_tokens: 1400,
           system: SYSTEM,
           messages: [{ role: 'user', content: prompt }],
