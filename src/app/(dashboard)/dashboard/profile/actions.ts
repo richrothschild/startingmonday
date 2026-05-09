@@ -140,6 +140,20 @@ export async function saveProfile(formData: FormData) {
 
   if (upsertError) redirect(`/dashboard/profile?error=${encodeURIComponent(upsertError.message)}`)
 
+  // Snapshot positioning to narrative_versions if it changed
+  if (positioningSummary) {
+    const { data: lastVersion } = await supabase
+      .from('narrative_versions')
+      .select('positioning')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+    if (lastVersion?.positioning !== positioningSummary) {
+      await supabase.from('narrative_versions').insert({ user_id: user.id, positioning: positioningSummary })
+    }
+  }
+
   if (resumeText) {
     await logEvent(user.id, 'resume_uploaded', {})
     captureServerEvent(user.id, 'resume_uploaded', {})
