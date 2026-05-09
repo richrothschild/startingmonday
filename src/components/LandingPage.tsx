@@ -327,7 +327,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed">
             Not a job board. Not a $15,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">The operating system for your search.</span>
+            <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
           </p>
         </div>
       </section>
@@ -668,7 +668,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[30px] sm:text-[36px] font-bold text-white mb-4 leading-tight">
-            The call will come.<br />Be ready when it does.
+            The signal comes before<br />the search begins.<br />Be watching when it does.
           </h2>
           <p className="text-[15px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
             The people who land the best roles aren&rsquo;t luckier. They started sooner, stayed closer to their targets, and walked in prepared.
