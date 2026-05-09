@@ -1,11 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -14,7 +12,7 @@ export async function POST(request: NextRequest) {
   const { userId } = auth
   const supabase = await createClient()
 
-  const sub = await getUserSubscription(userId)
+  const sub = await getUserSubscription(userId, supabase)
   if (!canAccessFeature(sub, 'salary_intelligence')) {
     return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
   }
@@ -69,7 +67,7 @@ Return a JSON object with exactly this structure:
 
 Use real market knowledge. Numbers should be specific, not rounded. Return only the JSON object.`
 
-  const model = process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6'
+  const model = MODELS.sonnet
   const startMs = Date.now()
 
   try {

@@ -313,6 +313,19 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No m
   return prompt
 }
 
+function isAllowedJobUrl(raw: string): boolean {
+  try {
+    const url = new URL(raw)
+    if (url.protocol !== 'https:') return false
+    const host = url.hostname.toLowerCase()
+    // Block RFC-1918, loopback, link-local, and common cloud metadata endpoints
+    if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|::1$|0\.0\.0\.0)/.test(host)) return false
+    return true
+  } catch {
+    return false
+  }
+}
+
 function extractTextFromHtml(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, '')
@@ -350,6 +363,9 @@ export async function GET(
   const postingUrl = request.nextUrl.searchParams.get('posting_url')
   const interviewStage = (request.nextUrl.searchParams.get('interview_stage') ?? null) as InterviewStage | null
   let allDocuments = documents
+  if (postingUrl && !isAllowedJobUrl(postingUrl)) {
+    return new Response('Invalid posting URL', { status: 400 })
+  }
   if (postingUrl) {
     try {
       const html = await fetch(postingUrl, {

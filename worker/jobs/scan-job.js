@@ -41,78 +41,102 @@ export async function runScanJob() {
     return
   }
 
-  const { data: companies, error: companyErr } = await supabase
-    .from('companies')
-    .select('*')
-    .is('archived_at', null)
-    .limit(5000)
-
-  if (companyErr) {
-    logger.error('scan-job: failed to fetch companies', { error: companyErr.message })
-    return
-  }
-
-  if (!companies.length) {
-    logger.info('scan-job: no active companies — done')
-    return
-  }
-
-  const userIds = [...new Set(companies.map(c => c.user_id))]
-  const { data: profiles, error: profileErr } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .in('user_id', userIds)
-
-  if (profileErr) {
-    logger.error('scan-job: failed to fetch profiles', { error: profileErr.message })
-    return
-  }
-
-  const profileByUserId = Object.fromEntries(profiles.map(p => [p.user_id, p]))
-
-  logger.info(`scan-job: ${companies.length} companies across ${userIds.length} user(s)`)
-
+  // Everything after lock acquisition is wrapped in try/finally so the lock
+  // is always released even if a query fails or an early return is hit.
+  let companies = []
   let browserlessCalls = 0
   let anthropicCalls = 0
 
-  const limit = createLimiter(MAX_CONCURRENT_SCANS)
-  const tasks = companies.map(company =>
-    limit(async () => {
-      const profile = profileByUserId[company.user_id] ?? {}
-      try {
-        const result = await scanWithRetry(supabase, company, profile)
-        if (!result.skipped && !result.blocked) {
-          browserlessCalls++
-          anthropicCalls += result.hits ?? 0
-        }
-        return result
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : String(err)
-        logger.error('scan-job: unhandled error', { company: company.name, error: msg })
-      }
-    })
-  )
-
   try {
+    // Only scan companies belonging to active or trialing users — not free/canceled/inactive.
+    const { data: activeUsers, error: userErr } = await supabase
+      .from('users')
+      .select('id')
+      .in('subscription_status', ['active', 'trialing'])
+      .limit(2000)
+
+    if (userErr) {
+      logger.error('scan-job: failed to fetch active users', { error: userErr.message })
+      return
+    }
+
+    const activeUserIds = (activeUsers ?? []).map(u => u.id)
+    if (!activeUserIds.length) {
+      logger.info('scan-job: no active users — done')
+      return
+    }
+
+    const { data: companiesData, error: companyErr } = await supabase
+      .from('companies')
+      .select('id, name, user_id, career_page_url, company_url, linkedin_url, role_watch_description, sector')
+      .in('user_id', activeUserIds)
+      .is('archived_at', null)
+      .limit(5000)
+
+    if (companyErr) {
+      logger.error('scan-job: failed to fetch companies', { error: companyErr.message })
+      return
+    }
+
+    companies = companiesData ?? []
+
+    if (!companies.length) {
+      logger.info('scan-job: no active companies — done')
+      return
+    }
+
+    const userIds = [...new Set(companies.map(c => c.user_id))]
+    const { data: profiles, error: profileErr } = await supabase
+      .from('user_profiles')
+      .select('user_id, full_name, current_title, target_titles, target_sectors, positioning_summary, role_type, search_persona, beyond_resume, resume_text')
+      .in('user_id', userIds)
+
+    if (profileErr) {
+      logger.error('scan-job: failed to fetch profiles', { error: profileErr.message })
+      return
+    }
+
+    const profileByUserId = Object.fromEntries(profiles.map(p => [p.user_id, p]))
+
+    logger.info(`scan-job: ${companies.length} companies across ${userIds.length} user(s)`)
+
+    const limit = createLimiter(MAX_CONCURRENT_SCANS)
+    const tasks = companies.map(company =>
+      limit(async () => {
+        const profile = profileByUserId[company.user_id] ?? {}
+        try {
+          const result = await scanWithRetry(supabase, company, profile)
+          if (!result.skipped && !result.blocked) {
+            browserlessCalls++
+            anthropicCalls += result.hits ?? 0
+          }
+          return result
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : String(err)
+          logger.error('scan-job: unhandled error', { company: company.name, error: msg })
+        }
+      })
+    )
+
     await Promise.all(tasks)
+
+    // Track aggregate usage for this scan run
+    if (browserlessCalls > 0) {
+      await trackUsage(supabase, { service: 'browserless', requests: browserlessCalls })
+    }
+    if (anthropicCalls > 0) {
+      // Each score-hit call uses ~200 tokens (Haiku)
+      await trackUsage(supabase, { service: 'anthropic', requests: anthropicCalls, tokens: anthropicCalls * 200 })
+    }
+
+    // Alert on companies with 3 consecutive non-productive scans (silent failure detection).
+    // "Non-productive" = status is 'error' or 'blocked', or status 'success' with 0 raw_hits.
+    await checkSilentFailures(supabase, companies)
+
+    logger.info('scan-job: complete', { browserlessCalls, anthropicCalls })
   } finally {
     await supabase.rpc('advisory_unlock', { p_key: SCAN_LOCK_KEY })
   }
-
-  // Track aggregate usage for this scan run
-  if (browserlessCalls > 0) {
-    await trackUsage(supabase, { service: 'browserless', requests: browserlessCalls })
-  }
-  if (anthropicCalls > 0) {
-    // Each score-hit call uses ~200 tokens (Haiku)
-    await trackUsage(supabase, { service: 'anthropic', requests: anthropicCalls, tokens: anthropicCalls * 200 })
-  }
-
-  // Alert on companies with 3 consecutive non-productive scans (silent failure detection).
-  // "Non-productive" = status is 'error' or 'blocked', or status 'success' with 0 raw_hits.
-  await checkSilentFailures(supabase, companies)
-
-  logger.info('scan-job: complete', { browserlessCalls, anthropicCalls })
 }
 
 async function checkSilentFailures(supabase, companies) {

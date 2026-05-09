@@ -45,9 +45,9 @@ export default async function AdminPage() {
     teamMembers,
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
-    adminClient.from('user_profiles').select('user_id, resume_text, positioning_summary, briefing_time'),
-    adminClient.from('user_events').select('event_name').gte('created_at', since7d),
-    adminClient.from('user_events').select('event_name').gte('created_at', since30d),
+    adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time'),
+    adminClient.from('user_events').select('event_name').gte('created_at', since7d).limit(5000),
+    adminClient.from('user_events').select('event_name').gte('created_at', since30d).limit(5000),
     adminClient.from('users').select('id', { count: 'exact', head: true }),
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'active'),
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'trialing'),
@@ -61,7 +61,7 @@ export default async function AdminPage() {
   for (const uid of activeUserIds) {
     const p = profileMap[uid]
     if (!p) continue
-    if ((p.resume_text?.length ?? 0) >= 200 || (p.positioning_summary?.length ?? 0) >= 100) a1++
+    if ((p.positioning_summary?.length ?? 0) >= 100) a1++
     if (p.briefing_time) a5++
   }
 

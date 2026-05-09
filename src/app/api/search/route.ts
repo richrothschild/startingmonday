@@ -19,9 +19,9 @@ export async function GET(req: NextRequest) {
       .limit(5),
     supabase
       .from('contacts')
-      .select('id, full_name, title, company_name')
+      .select('id, name, title, firm')
       .eq('user_id', user.id)
-      .ilike('full_name', `%${q}%`)
+      .ilike('name', `%${q}%`)
       .limit(5),
   ])
 

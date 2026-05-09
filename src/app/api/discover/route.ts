@@ -1,10 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { isRateLimited } from '@/lib/api-usage'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 export type DiscoveryCompany = {
   name: string
@@ -19,6 +18,10 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
   const supabase = await createClient()
+
+  if (await isRateLimited(supabase, userId)) {
+    return NextResponse.json({ error: 'Monthly limit reached.' }, { status: 429 })
+  }
 
   let seeds: string[] = []
   let inlineContext: { currentTitle?: string; persona?: string; targetTitles?: string[] } = {}
@@ -105,7 +108,7 @@ Rules:
 - Return only the JSON array, no explanation, no markdown fences`
 
   try {
-    const model = process.env.ANTHROPIC_PREP_MODEL || 'claude-sonnet-4-6'
+    const model = MODELS.sonnet
     const startMs = Date.now()
     const message = await anthropic.messages.create({
       model,

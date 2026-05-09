@@ -52,19 +52,28 @@ export async function runSignalJob() {
     const roleTypeByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.role_type]))
     const profileByUserId  = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
 
+    // Bulk-fetch all companies for all active users in one query, then group by user.
+    // Avoids an N+1 query per user inside the loop.
+    const { data: allCompanies } = await supabase
+      .from('companies')
+      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id')
+      .in('user_id', userIds)
+      .is('archived_at', null)
+
+    const companiesByUser = (allCompanies ?? []).reduce((acc, c) => {
+      ;(acc[c.user_id] ??= []).push(c)
+      return acc
+    }, {})
+
     let companiesScanned = 0
     let signalsFound = 0
 
     for (const user of users) {
       const roleType    = roleTypeByUserId[user.id] ?? null
       const userProfile = profileByUserId[user.id] ?? null
-      const { data: companies } = await supabase
-        .from('companies')
-        .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description')
-        .eq('user_id', user.id)
-        .is('archived_at', null)
+      const companies   = companiesByUser[user.id] ?? []
 
-      if (!companies?.length) continue
+      if (!companies.length) continue
 
       for (const company of companies) {
         companiesScanned++

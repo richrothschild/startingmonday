@@ -1,8 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+import { anthropic, MODELS } from '@/lib/anthropic'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -20,7 +18,7 @@ export async function POST(request: NextRequest) {
   if (text.length > 60000) text = text.slice(0, 60000)
 
   const message = await anthropic.messages.create({
-    model: process.env.ANTHROPIC_CHAT_MODEL ?? 'claude-sonnet-4-6',
+    model: MODELS.sonnet,
     max_tokens: 3000,
     messages: [{
       role: 'user',

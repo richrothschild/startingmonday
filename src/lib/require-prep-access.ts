@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { isRateLimited } from '@/lib/api-usage'
+import { checkBurstLimit } from '@/lib/burst-limit'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
 type PrepAccessResult =
@@ -18,7 +19,17 @@ export async function requirePrepAccess(request: NextRequest): Promise<PrepAcces
   const { userId } = auth
   const supabase = await createClient()
 
-  const sub = await getUserSubscription(userId)
+  if (!checkBurstLimit(userId)) {
+    return {
+      ok: false,
+      response: new Response(
+        JSON.stringify({ error: 'Too many requests. Wait a moment before generating another brief.' }),
+        { status: 429, headers: { 'Content-Type': 'application/json' } }
+      ),
+    }
+  }
+
+  const sub = await getUserSubscription(userId, supabase)
   if (!canAccessFeature(sub, 'prep_brief')) {
     return {
       ok: false,

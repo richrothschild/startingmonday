@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { isRateLimited } from '@/lib/api-usage'
 import { SignalsClassifyBodySchema, firstZodError } from '@/lib/schemas'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { captureServerEvent } from '@/lib/posthog-server'
@@ -13,17 +14,21 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
 
+  const supabase = await createClient()
+
   let raw: unknown
   try { raw = await request.json() } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
+  if (await isRateLimited(supabase, userId)) {
+    return NextResponse.json({ error: 'Monthly limit reached.' }, { status: 429 })
+  }
+
   const bodyParsed = SignalsClassifyBodySchema.safeParse(raw)
   if (!bodyParsed.success) {
     return NextResponse.json({ error: firstZodError(bodyParsed.error) }, { status: 400 })
   }
   const { companyId, text, sourceUrl } = bodyParsed.data
-
-  const supabase = await createClient()
   const { data: company } = await supabase
     .from('companies')
     .select('name')

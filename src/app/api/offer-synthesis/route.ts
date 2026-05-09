@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
+import { createClient } from '@/lib/supabase/server'
+import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 type OfferInput = {
@@ -69,6 +71,11 @@ Do not pick a winner. Do not summarize the numbers back to them. Be specific to 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
+
+  const supabase = await createClient()
+  if (await isRateLimited(supabase, auth.userId)) {
+    return NextResponse.json({ error: 'Monthly limit reached.' }, { status: 429 })
+  }
 
   let offers: OfferInput[]
   try {

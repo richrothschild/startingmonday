@@ -41,6 +41,7 @@ export async function runFollowupJob() {
     .from('users')
     .select('id, email')
     .in('id', userIds)
+    .in('subscription_status', ['active', 'trialing'])
 
   if (!users?.length) {
     logger.info('followup-job: no matching users')

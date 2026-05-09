@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
 export type SubscriptionTier = 'free' | 'passive' | 'active' | 'executive' | 'campaign'
@@ -28,9 +29,9 @@ const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
   recruiter_enhancements:  ['executive', 'campaign'],
 }
 
-export async function getUserSubscription(userId: string): Promise<UserSubscription> {
-  const supabase = await createClient()
-  const { data } = await supabase
+export async function getUserSubscription(userId: string, supabase?: SupabaseClient): Promise<UserSubscription> {
+  const client = supabase ?? await createClient()
+  const { data } = await client
     .from('users')
     .select('subscription_tier, subscription_status, trial_ends_at, subscription_period_end')
     .eq('id', userId)
@@ -54,5 +55,8 @@ export function canAccessFeature(sub: UserSubscription, feature: string): boolea
   if (!sub.isActive) return false
   const allowed = FEATURE_TIERS[feature]
   if (!allowed) return false
-  return allowed.includes(sub.tier) || sub.status === 'trialing'
+  // Trialing users get Active-tier access, not unconditional access to all tiers.
+  // Prevents a trialing user (whose DB tier is 'free') from reaching executive-only features.
+  const effectiveTier = sub.status === 'trialing' ? 'active' : sub.tier
+  return allowed.includes(effectiveTier)
 }
