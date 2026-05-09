@@ -276,6 +276,8 @@ export function PrepClient({
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [outreachError, setOutreachError] = useState('')
   const [outreachCopied, setOutreachCopied] = useState(false)
+  const [outreachLogged, setOutreachLogged] = useState(false)
+  const [outreachLogLoading, setOutreachLogLoading] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
 
   const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId)
@@ -354,11 +356,24 @@ export function PrepClient({
     }
   }
 
+  async function handleLogOutreach() {
+    setOutreachLogLoading(true)
+    try {
+      await fetch(`/api/prep/${companyId}/outreach/log`, { method: 'POST' })
+      setOutreachLogged(true)
+    } catch {
+      // non-critical — silently fail
+    } finally {
+      setOutreachLogLoading(false)
+    }
+  }
+
   async function handleGenerateOutreach() {
     setOutreachLoading(true)
     setOutreachDraft('')
     setOutreachError('')
     setOutreachCopied(false)
+    setOutreachLogged(false)
     try {
       const res = await fetch(`/api/prep/${companyId}/outreach`, { method: 'POST' })
       if (!res.ok) {
@@ -796,6 +811,19 @@ export function PrepClient({
                   >
                     {outreachCopied ? 'Copied!' : 'Copy'}
                   </button>
+                  {hasContacts && !outreachLogged && (
+                    <button
+                      type="button"
+                      onClick={handleLogOutreach}
+                      disabled={outreachLogLoading}
+                      className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
+                    >
+                      {outreachLogLoading ? 'Logging…' : 'Log as sent'}
+                    </button>
+                  )}
+                  {outreachLogged && (
+                    <span className="text-[12px] font-semibold text-green-400">Logged</span>
+                  )}
                   <button
                     type="button"
                     onClick={handleGenerateOutreach}
