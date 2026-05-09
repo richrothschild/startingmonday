@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
   const plan = (body?.plan ?? '').toString().trim().toLowerCase()
   const quantity = Math.max(1, Math.min(20, parseInt(String(body?.quantity ?? '1'), 10)))
 
-  if (!plan || !['intelligence', 'search'].includes(plan)) {
-    return NextResponse.json({ error: 'plan must be intelligence or search' }, { status: 400 })
+  if (!plan || !['passive', 'active'].includes(plan)) {
+    return NextResponse.json({ error: 'plan must be passive or active' }, { status: 400 })
   }
 
   let priceId: string

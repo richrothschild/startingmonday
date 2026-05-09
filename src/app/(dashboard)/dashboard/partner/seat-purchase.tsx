@@ -2,16 +2,16 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-type Plan = 'intelligence' | 'search'
+type Plan = 'passive' | 'active'
 
 const SEAT_PLANS: Record<Plan, { name: string; pricePerSeat: number; description: string }> = {
-  intelligence: {
-    name: 'Intelligence',
+  passive: {
+    name: 'Passive',
     pricePerSeat: 39,
     description: 'Signal monitoring, daily briefing, pipeline tracking',
   },
-  search: {
-    name: 'Search',
+  active: {
+    name: 'Active',
     pricePerSeat: 89,
     description: 'Full AI prep briefs, outreach drafting, chat advisor',
   },
@@ -21,7 +21,7 @@ export function SeatPurchase({ seatsPurchased, seatsUsed }: {
   seatsPurchased: number
   seatsUsed: number
 }) {
-  const [plan, setPlan] = useState<Plan>('intelligence')
+  const [plan, setPlan] = useState<Plan>('passive')
   const [quantity, setQuantity] = useState(3)
   const [loading, setLoading] = useState(false)
 
