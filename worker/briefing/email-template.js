@@ -21,7 +21,7 @@ const SIGNAL_LABELS = {
 }
 
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false } = context
+  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false, coachBrand = null } = context
   const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [], sectorPulse = [] } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
@@ -115,7 +115,7 @@ export function renderBriefingEmail(context, briefing) {
 
       <!-- Header -->
       <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
-        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
+        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">${coachBrand ? `${esc(coachBrand)} <span style="color:#475569">&middot; via Starting Monday</span>` : 'Starting Monday'}</div>
         <div style="color:#ffffff;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:8px;">${isPlaced ? `Good morning, ${esc(firstName)}.` : `Good morning, ${esc(firstName)}.`}</div>
         <div style="color:#64748b;font-size:13px;letter-spacing:0.01em;">${isPlaced ? 'Weekly Career Intelligence &mdash; ' : ''}${formatDate(todayStr)}</div>
       </td></tr>

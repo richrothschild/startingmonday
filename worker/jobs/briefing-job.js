@@ -131,6 +131,24 @@ export async function runBriefingJob() {
           skipped++; continue
         }
 
+        // Look up coach brand for white-label header (if this user has an accepted coach seat)
+        const { data: coachSeat } = await supabase
+          .from('team_seats')
+          .select('owner_id')
+          .eq('member_user_id', user.id)
+          .eq('status', 'accepted')
+          .limit(1)
+          .single()
+
+        if (coachSeat?.owner_id) {
+          const { data: partnerRow } = await supabase
+            .from('partners')
+            .select('company')
+            .eq('user_id', coachSeat.owner_id)
+            .single()
+          if (partnerRow?.company) context.coachBrand = partnerRow.company
+        }
+
         const briefing = await generateBriefing(context)
         const rawHtml = watermarkEmailHtml(renderBriefingEmail(context, briefing), user.id)
         const html = injectTrackingPixel(rawHtml, user.id, 'briefing', context.todayStr)

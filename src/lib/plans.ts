@@ -45,6 +45,21 @@ export const PLANS = {
   },
 } as const
 
+export const COACH_PLAN = {
+  coach: {
+    name: 'Coach',
+    amount: 59900,
+    description: 'Monitor up to 10 clients. Multi-client dashboard, white-label briefings, Momentum Score tracking.',
+    features: [
+      'Up to 10 client seats',
+      'Multi-client Momentum Score dashboard',
+      'White-label briefings with your firm name',
+      'Overdue and at-risk client alerts',
+      'Client invite flow',
+    ],
+  },
+} as const
+
 export const WAITLIST_PLANS = {
   campaign: {
     name: 'Campaign',

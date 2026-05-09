@@ -8,6 +8,7 @@ import { runScanJob } from './jobs/scan-job.js'
 import { runBriefingJob } from './jobs/briefing-job.js'
 import { runFollowupJob } from './jobs/followup-job.js'
 import { runMomentumJob } from './jobs/momentum-job.js'
+import { runMomentumNudgeJob } from './jobs/momentum-nudge-job.js'
 import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
 import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
@@ -94,6 +95,9 @@ cron.schedule('0 6 * * *', () => runJob('followup-job', runFollowupJob))
 // Momentum score: Sunday at 23:00 (not yet implemented)
 cron.schedule('0 23 * * 0', () => runJob('momentum-job', runMomentumJob))
 
+// Momentum drop nudge: daily at 10:00 UTC — fires email when score drops ≥15 pts
+cron.schedule('0 10 * * *', () => runJob('momentum-nudge-job', runMomentumNudgeJob))
+
 // Market intelligence digest: Sunday at 22:30 — Monitor/passive tier users only
 cron.schedule('30 22 * * 0', () => runJob('market-digest-job', runMarketDigestJob))
 
@@ -139,7 +143,7 @@ cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWat
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

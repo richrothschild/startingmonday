@@ -192,6 +192,7 @@ export default async function DashboardPage({
   const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier === 'executive'
+  const isCoach = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier === 'coach'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -219,6 +220,11 @@ export default async function DashboardPage({
   const offerCompany = !profile?.placed_at
     ? allList.find(c => c.stage === 'offer') ?? null
     : null
+
+  const daysSinceOnboard = profile?.onboarding_completed_at
+    ? Math.floor((Date.now() - new Date(profile.onboarding_completed_at).getTime()) / 86400000)
+    : null
+  const showWeek3Prompt = daysSinceOnboard !== null && daysSinceOnboard >= 18 && daysSinceOnboard <= 28
 
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
@@ -635,6 +641,25 @@ export default async function DashboardPage({
           </div>
         )}
 
+        {/* Week 3 coaching prompt — appears Day 18-28 after onboarding */}
+        {showWeek3Prompt && (
+          <div className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</p>
+            <p className="text-[14px] font-semibold text-slate-900 mb-1">Most searches lose momentum around now.</p>
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+              Three things that keep searches moving: add companies weekly, complete follow-ups within 48 hours, and run a prep brief before any conversation.
+            </p>
+            <div className="flex gap-3 flex-wrap">
+              <Link href="/dashboard/companies/new" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
+                Add a company
+              </Link>
+              <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
+                View actions due
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[
@@ -644,6 +669,7 @@ export default async function DashboardPage({
             { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
             { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
             { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
+            ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients', sub: 'Coach dashboard' }] : []),
           ].map(a => (
             <Link
               key={a.href}
