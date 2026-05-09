@@ -20,6 +20,8 @@ import { runExecutiveScanJob } from './jobs/executive-scan-job.js'
 import { runCleanupJob } from './jobs/cleanup-job.js'
 import { runPulseJob } from './jobs/pulse-job.js'
 import { runBriefingWatchdogJob } from './jobs/briefing-watchdog-job.js'
+import { runIndustryPulseJob } from './jobs/industry-pulse-job.js'
+import { runOpportunityRadarJob } from './jobs/opportunity-radar-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -118,6 +120,12 @@ cron.schedule('0 2 * * 0', () => runJob('cleanup-job', runCleanupJob))
 // Pipeline pulse: daily at 07:00 UTC — Executive tier search health summary email
 cron.schedule('0 7 * * *', () => runJob('pulse-job', runPulseJob))
 
+// Industry pulse: Sunday at 06:00 UTC — sector-level exec movement digest per user
+cron.schedule('0 6 * * 0', () => runJob('industry-pulse-job', runIndustryPulseJob))
+
+// Opportunity radar: Sunday at 06:30 UTC — proactive company suggestions per user
+cron.schedule('30 6 * * 0', () => runJob('opportunity-radar-job', runOpportunityRadarJob))
+
 // Briefing watchdog: daily at 14:00 UTC — alerts Rich if no briefings sent in 36h
 cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWatchdogJob))
 
@@ -127,7 +135,7 @@ cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWat
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

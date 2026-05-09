@@ -31,13 +31,13 @@ Published: ${article.pubDate || 'unknown'}${signalPriority ? `\n\nCandidate cont
 Output JSON only, no markdown fences:
 {
   "is_signal": true or false,
-  "signal_type": one of: funding, exec_departure, exec_hire, acquisition, expansion, layoffs, ipo, new_product, award, breach_disclosure, regulatory_change, data_platform, ai_investment, or null if not a signal,
+  "signal_type": one of: funding, exec_departure, exec_hire, acquisition, expansion, layoffs, ipo, new_product, award, breach_disclosure, regulatory_change, data_platform, ai_investment, board_change, transformation_budget, or null if not a signal,
   "confidence": integer 0-100,
   "signal_summary": "one factual sentence describing what happened - specific, no filler",
   "outreach_angle": "one sentence on how this news creates an opening for an executive candidate - concrete and specific to this signal type"
 }
 
-Strong signals (set is_signal=true): funding rounds, executive departures or new hires, acquisitions, market expansion, layoffs (which often precede leadership restructuring), IPO filings, major product launches, security breaches or data incidents (breach_disclosure), new compliance or regulatory requirements affecting the company's sector (regulatory_change), data infrastructure investments such as Snowflake, Databricks, or data lakehouse announcements (data_platform), AI initiative announcements or AI leadership hires (ai_investment).
+Strong signals (set is_signal=true): funding rounds, executive departures or new hires, acquisitions, market expansion, layoffs (which often precede leadership restructuring), IPO filings, major product launches, security breaches or data incidents (breach_disclosure), new compliance or regulatory requirements affecting the company's sector (regulatory_change), data infrastructure investments such as Snowflake, Databricks, or data lakehouse announcements (data_platform), AI initiative announcements or AI leadership hires (ai_investment), board member additions or departures especially those with technology or transformation backgrounds (board_change), major technology or digital transformation budget commitments and multi-year program launches (transformation_budget).
 Weak or no signal: general earnings coverage, minor partnerships, routine product updates, industry commentary not specific to this company.
 Confidence below 60 means you are uncertain this is actually about the named company or genuinely newsworthy.`
 

@@ -13,6 +13,7 @@ import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { saveQuickProfile } from './profile/actions'
 import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
+import { OpportunityRadar } from './opportunity-radar'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -605,6 +606,8 @@ export default async function DashboardPage({
             <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
           </Link>
         )}
+
+        <OpportunityRadar />
 
         {/* Momentum Score — only renders after migration 022 is applied and worker has run */}
         {momentumData?.momentum_score != null && (

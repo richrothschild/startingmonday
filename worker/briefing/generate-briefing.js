@@ -10,7 +10,7 @@ function getClient() {
 const ROLE_FRAMES = {
   cio: {
     title: 'CIO (Chief Information Officer)',
-    signalFocus: 'When interpreting signals: prioritize leadership changes in technology functions, digital transformation announcements, IT budget or spending signals, vendor technology decisions, and organizational changes that create CIO mandates. A CFO departure or board governance change can also indicate a CIO search is coming.',
+    signalFocus: 'When interpreting signals: prioritize leadership changes in technology functions, digital transformation announcements, IT budget or spending signals, vendor technology decisions, and organizational changes that create CIO mandates. board_change signals are important — a new board member with a technology or transformation background often precedes a mandate change. transformation_budget signals (large IT spend commitments, multi-year digital programs) directly indicate an active CIO mandate forming. A CFO departure or board governance change can also indicate a CIO search is coming.',
   },
   cto: {
     title: 'CTO (Chief Technology Officer)',
@@ -18,7 +18,7 @@ const ROLE_FRAMES = {
   },
   cdo_data: {
     title: 'CDO (Chief Data Officer)',
-    signalFocus: 'When interpreting signals: treat data_platform signals (Snowflake, Databricks, data lakehouse investments) and ai_investment signals (AI initiative launches, Chief AI Officer hires) as the highest-priority events — they directly indicate a data leadership mandate is forming or expanding. Also flag data governance regulatory changes, Chief AI Officer appointments that may signal CDO consolidation, and organizational changes in data or analytics functions.',
+    signalFocus: 'When interpreting signals: treat data_platform signals (Snowflake, Databricks, data lakehouse investments) and ai_investment signals (AI initiative launches, Chief AI Officer hires) as the highest-priority events — they directly indicate a data leadership mandate is forming or expanding. transformation_budget signals involving data, analytics, or AI spend also indicate an expanding CDO mandate. Also flag data governance regulatory changes, Chief AI Officer appointments that may signal CDO consolidation, and organizational changes in data or analytics functions.',
   },
   cdo_digital: {
     title: 'Chief Digital Officer',
@@ -34,7 +34,7 @@ const ROLE_FRAMES = {
   },
   coo: {
     title: 'COO (Chief Operating Officer)',
-    signalFocus: 'When interpreting signals: prioritize M&A announcements (integration challenges create COO mandates), revenue pressure or EBITDA signals that indicate a need for operational discipline, operational announcements such as facility openings or closures and supply chain changes, executive hiring in operations functions, and CEO changes that create COO openings. COO roles are rarely posted publicly — the signal that matters is the operational problem that creates the mandate.',
+    signalFocus: 'When interpreting signals: prioritize M&A announcements (integration challenges create COO mandates), revenue pressure or EBITDA signals that indicate a need for operational discipline, operational announcements such as facility openings or closures and supply chain changes, executive hiring in operations functions, and CEO changes that create COO openings. board_change signals involving PE or operational directors often precede a mandate to install operational discipline. COO roles are rarely posted publicly — the signal that matters is the operational problem that creates the mandate.',
   },
   vp_technology: {
     title: 'VP of Technology',
@@ -52,7 +52,7 @@ function getRoleFrame(roleType) {
 // Calls Claude to produce structured briefing content from assembled context.
 // Returns { subject, intro, matchInsights, followUpSuggestions, closing }
 export async function generateBriefing(context) {
-  const { userName, targetTitles, roleType, totalCompanies, newMatches, followUps, signals = [], todayStr, relationshipNudges = [], networkHealth = null, isPlaced = false } = context
+  const { userName, targetTitles, roleType, totalCompanies, newMatches, followUps, signals = [], todayStr, relationshipNudges = [], networkHealth = null, isPlaced = false, industryPulse = null } = context
   const frame = getRoleFrame(roleType)
 
   const matchesText = newMatches.length
@@ -86,6 +86,10 @@ Summary: ${m.aiSummary}`
   const networkNote = networkHealth
     ? `${networkHealth.companiesWithContacts} of ${networkHealth.totalCompanies} companies have a contact (${networkHealth.coveragePct}% coverage)`
     : ''
+
+  const pulseText = Array.isArray(industryPulse) && industryPulse.length
+    ? industryPulse.map(b => `- ${b}`).join('\n')
+    : null
 
   const prompt = isPlaced
     ? `You are writing a weekly career intelligence digest for ${userName}, a ${frame.title} who has recently placed (landed a new role).
@@ -126,6 +130,8 @@ ${followUpsText}
 
 ${relationshipNudges.length ? `RELATIONSHIP MAINTENANCE (contacts overdue for outreach):\n${nudgesText}` : ''}
 
+${pulseText ? `SECTOR INTELLIGENCE (recent ${frame.title} movement in the market):\n${pulseText}` : ''}
+
 Write a morning briefing as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Specific and factual — name the company or action. No generic phrases. If there are signals, lead with that.
 - "intro": 1-2 sentences. State what's on the board today and why it matters. No preamble.
@@ -133,6 +139,7 @@ Write a morning briefing as JSON with exactly these keys:
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } — only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence — what to do and how) } — only if there are follow-ups.
 - "relationshipNudges": array of { name, context (their role/firm), lastContact (days dormant or "never"), suggestion (one concrete sentence) } — only if there are stale relationships.
+- "sectorPulse": array of 1-3 short strings summarizing what the sector intelligence means for this candidate's search specifically — only if sector intelligence was provided above. If no sector intelligence, return [].
 - "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational cliches.
 
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases ("great opportunity," "don't miss this," "time is of the essence"). Write as a trusted advisor, not a coach.
@@ -179,6 +186,7 @@ Output valid JSON only, no markdown fences.`
         lastContact: n.daysSince === null ? 'never' : `${n.daysSince} days ago`,
         suggestion: `Re-engage ${n.name} to keep this relationship warm.`,
       })),
+      sectorPulse: [],
       closing: `You have ${totalCompanies} companies being tracked. Every day of consistent outreach compounds.`,
     }
   }

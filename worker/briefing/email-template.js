@@ -10,20 +10,31 @@ const SIGNAL_LABELS = {
   ipo:            'IPO',
   new_product:    'New Product',
   award:          'Award',
-  pattern_alert:      'Pattern',
-  filing_trend:       'Filing Trend',
-  breach_disclosure:  'Breach',
-  regulatory_change:  'Regulatory',
-  data_platform:      'Data Platform',
-  ai_investment:      'AI Investment',
+  pattern_alert:       'Pattern',
+  filing_trend:        'Filing Trend',
+  breach_disclosure:   'Breach',
+  regulatory_change:   'Regulatory',
+  data_platform:       'Data Platform',
+  ai_investment:       'AI Investment',
+  board_change:        'Board Change',
+  transformation_budget: 'Transformation',
 }
 
 export function renderBriefingEmail(context, briefing) {
   const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false } = context
-  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [] } = briefing
+  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [], sectorPulse = [] } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
   const firstName = userName.split(' ')[0]
+
+  const sectorPulseSection = sectorPulse.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0891b2; padding-bottom: 12px; border-bottom: 1px solid #e0f2fe; margin-bottom: 18px;">Sector Intelligence</div>
+        <div style="padding: 18px 20px; background: #f0f9ff; border: 1px solid #bae6fd; border-left: 3px solid #0891b2; border-radius: 0 4px 4px 0;">
+          ${sectorPulse.map(bullet => `
+          <div style="font-size: 14px; color: #334155; line-height: 1.65; margin-bottom: 8px; padding-left: 14px; border-left: 2px solid #7dd3fc;">${esc(bullet)}</div>`).join('')}
+        </div>
+      </td></tr>` : ''
 
   const patternAlertSection = patternAlerts.length ? `
       <tr><td style="padding: 0 0 32px 0;">
@@ -144,6 +155,7 @@ export function renderBriefingEmail(context, briefing) {
           <!-- Intro -->
           <tr><td style="padding:0 0 32px 0;font-size:15px;color:#334155;line-height:1.7;">${esc(intro)}</td></tr>
 
+          ${sectorPulseSection}
           ${patternAlertSection}
           ${signalSection}
           ${matchSection}

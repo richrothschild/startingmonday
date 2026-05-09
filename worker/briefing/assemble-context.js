@@ -183,6 +183,20 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     }
   })
 
+  // Pull latest industry pulse (< 8 days old)
+  const since8d = new Date(now.getTime() - 8 * 24 * 60 * 60 * 1000)
+  const { data: pulseRow } = await supabase
+    .from('industry_pulse')
+    .select('bullets, generated_at')
+    .eq('user_id', userId)
+    .gte('generated_at', since8d.toISOString())
+    .order('generated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+  const industryPulse = Array.isArray(pulseRow?.bullets) && pulseRow.bullets.length > 0
+    ? pulseRow.bullets
+    : null
+
   // Only skip if the user has no companies at all (nothing to brief on).
   // Always send on configured days so the user gets a pipeline-state email.
   if (!companies.length) return null
@@ -203,5 +217,6 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     relationshipNudges: topNudges,
     networkHealth,
     isPlaced,
+    industryPulse,
   }
 }
