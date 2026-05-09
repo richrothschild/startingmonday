@@ -110,6 +110,21 @@ export async function POST(request: NextRequest) {
           : null,
       }).eq('id', userId)
       updateError = error
+
+      // Downgrade all seat members this owner had granted access to
+      const { data: seats } = await supabase
+        .from('team_seats')
+        .select('member_user_id')
+        .eq('owner_id', userId)
+        .eq('status', 'accepted')
+        .not('member_user_id', 'is', null)
+      const memberIds = (seats ?? []).map(s => s.member_user_id as string)
+      if (memberIds.length > 0) {
+        await supabase.from('users').update({
+          subscription_tier: 'free',
+          subscription_status: 'inactive',
+        }).in('id', memberIds)
+      }
       break
     }
 

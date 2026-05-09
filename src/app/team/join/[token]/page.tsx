@@ -58,6 +58,8 @@ export default async function TeamJoinPage({
     if (!user) redirect(`/login?next=/team/join/${token}`)
 
     const admin = createAdminClient()
+
+    // Accept the seat
     await admin
       .from('team_seats')
       .update({
@@ -67,6 +69,25 @@ export default async function TeamJoinPage({
       })
       .eq('token', token)
       .eq('status', 'pending')
+
+    // Inherit the owner's subscription tier so the member gets full access
+    if (!seat) redirect('/')
+    const { data: owner } = await admin
+      .from('users')
+      .select('subscription_tier, subscription_status')
+      .eq('id', seat.owner_id)
+      .single()
+
+    if (owner?.subscription_tier && owner.subscription_tier !== 'free' && owner.subscription_status === 'active') {
+      await admin
+        .from('users')
+        .update({
+          subscription_tier: owner.subscription_tier,
+          subscription_status: 'active',
+          trial_ends_at: null,
+        })
+        .eq('id', user.id)
+    }
 
     redirect('/dashboard?team_joined=1')
   }

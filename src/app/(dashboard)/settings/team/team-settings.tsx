@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 type SeatStatus = {
   profileDone: boolean
@@ -27,11 +27,27 @@ function Dot({ done }: { done: boolean }) {
   )
 }
 
-export function TeamSettings({ seats }: { seats: Seat[] }) {
+export function TeamSettings({ seats: initialSeats }: { seats: Seat[] }) {
+  const [seats, setSeats] = useState(initialSeats)
   const [email, setEmail] = useState('')
   const [sending, setSending] = useState(false)
   const [sentTo, setSentTo] = useState<string | null>(null)
   const [error, setError] = useState('')
+  const [removing, setRemoving] = useState<string | null>(null)
+
+  const handleRemove = useCallback(async (seatId: string) => {
+    if (!confirm('Remove this member? They will lose access immediately.')) return
+    setRemoving(seatId)
+    try {
+      const res = await fetch(`/api/team/seat/${seatId}`, { method: 'DELETE' })
+      if (!res.ok) { setError('Failed to remove member.'); return }
+      setSeats(prev => prev.filter(s => s.id !== seatId))
+    } catch {
+      setError('Something went wrong.')
+    } finally {
+      setRemoving(null)
+    }
+  }, [])
 
   async function handleInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -117,6 +133,14 @@ export function TeamSettings({ seats }: { seats: Seat[] }) {
                     Pending
                   </span>
                 )}
+                <button
+                  type="button"
+                  onClick={() => handleRemove(seat.id)}
+                  disabled={removing === seat.id}
+                  className="shrink-0 text-[11px] font-semibold text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors ml-2"
+                >
+                  {removing === seat.id ? 'Removing…' : 'Remove'}
+                </button>
               </div>
             ))}
           </div>

@@ -142,6 +142,32 @@ export default async function AdminPage() {
     }
   }
 
+  // B2B accounts: seat owners and their member counts
+  const { data: allSeatsRows } = await adminClient
+    .from('team_seats')
+    .select('owner_id, status')
+  const seatsByOwner: Record<string, { total: number; accepted: number }> = {}
+  for (const s of (allSeatsRows ?? [])) {
+    if (!seatsByOwner[s.owner_id]) seatsByOwner[s.owner_id] = { total: 0, accepted: 0 }
+    seatsByOwner[s.owner_id].total++
+    if (s.status === 'accepted') seatsByOwner[s.owner_id].accepted++
+  }
+  const seatOwnerIds = Object.keys(seatsByOwner)
+  let b2bAccounts: { id: string; email: string; tier: string; total: number; accepted: number }[] = []
+  if (seatOwnerIds.length > 0) {
+    const { data: ownerData } = await adminClient
+      .from('users')
+      .select('id, email, subscription_tier')
+      .in('id', seatOwnerIds)
+    b2bAccounts = (ownerData ?? []).map((u: { id: string; email: string | null; subscription_tier: string | null }) => ({
+      id: u.id,
+      email: u.email ?? '',
+      tier: u.subscription_tier ?? 'free',
+      total: seatsByOwner[u.id]?.total ?? 0,
+      accepted: seatsByOwner[u.id]?.accepted ?? 0,
+    })).sort((a, b) => b.total - a.total)
+  }
+
   // Trial conversion
   const trialsEnded = endedTrials ?? []
   const totalEnded = trialsEnded.length
@@ -483,6 +509,37 @@ export default async function AdminPage() {
             </table>
           )}
         </div>
+
+        {/* B2B Accounts */}
+        {b2bAccounts.length > 0 && (
+          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <div className="px-6 py-[18px] border-b border-slate-200">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">B2B Accounts ({b2bAccounts.length})</span>
+            </div>
+            <table className="w-full text-[12px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                  <th className="px-6 py-2.5 font-semibold text-slate-400">Owner</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Seats invited</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Accepted</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {b2bAccounts.map(a => (
+                  <tr key={a.id}>
+                    <td className="px-6 py-3 text-slate-900 font-semibold">{a.email}</td>
+                    <td className="px-4 py-3 capitalize">
+                      <span className="text-[11px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded">{a.tier}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right text-slate-700">{a.total}</td>
+                    <td className="px-4 py-3 text-right font-semibold text-slate-900">{a.accepted}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Brief quality */}
         <div className="bg-white border border-slate-200 rounded p-6">

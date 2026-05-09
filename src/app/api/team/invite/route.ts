@@ -43,15 +43,30 @@ export async function POST(request: NextRequest) {
 
   sendEmail({
     to: email,
-    subject: `${inviterName} invited you to Starting Monday`,
-    html: `
-      <p>Hi,</p>
-      <p>${inviterName} has invited you to join their Starting Monday account.</p>
-      <p>Starting Monday is an AI-powered platform for senior executive searches: pipeline tracking, company intelligence, and interview prep briefs.</p>
-      <p><a href="${joinUrl}" style="font-weight:bold;">Accept your invite</a></p>
-      <p>This link will prompt you to create or log in to your account.</p>
-      <p style="color:#94a3b8;font-size:12px;">Starting Monday - startingmonday.app</p>
-    `,
+    subject: `${inviterName} gave you access to Starting Monday`,
+    html: `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:560px;margin:40px auto;padding:0 16px;color:#334155;">
+<p style="font-size:13px;color:#64748b;margin:0 0 20px 0;">
+  <strong style="color:#0f172a;">Starting Monday</strong>
+</p>
+<p style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">
+  You have been given access
+</p>
+<p style="font-size:14px;color:#334155;margin:0 0 16px 0;line-height:1.6;">
+  ${inviterName} has activated a seat for you on Starting Monday -- an AI-powered platform for senior executive job searches.
+</p>
+<p style="font-size:14px;color:#334155;margin:0 0 24px 0;line-height:1.6;">
+  Starting Monday gives you daily company intelligence, interview prep briefs, and a full pipeline view of your search.
+</p>
+<p style="margin:0 0 24px 0;">
+  <a href="${joinUrl}" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 24px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600;">Accept your seat</a>
+</p>
+<p style="font-size:13px;color:#64748b;margin:0 0 8px 0;">
+  You will be asked to create a free account or log in. Your access is already waiting.
+</p>
+<p style="font-size:12px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:16px;margin-top:24px;">
+  Starting Monday -- startingmonday.app
+</p>
+</body></html>`,
   }).catch(() => {})
 
   return NextResponse.json({ ok: true })
