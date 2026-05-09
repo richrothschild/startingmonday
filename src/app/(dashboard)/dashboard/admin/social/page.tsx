@@ -113,12 +113,11 @@ export default async function SocialAdminPage() {
           <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow</p>
           <ol className="flex flex-col gap-2.5">
             {[
-              'Open this page each weekday morning from the calendar invite link.',
-              'Read the draft. Edit any line directly in the text box.',
-              'Option A: Click "Queue to Buffer" to auto-schedule it for 8:30 AM CT. Buffer posts it automatically.',
-              'Option B: Click "Copy to LinkedIn", paste into LinkedIn, and publish manually.',
-              'Return here and click "Mark posted" to record it in the history.',
-              'Note any comments or notable replies in the Notes field for the weekly digest.',
+              'Open this page each weekday morning. The post is auto-generated and waiting.',
+              'Read and edit the draft. Changes save automatically when you click away.',
+              'Click "Post to LinkedIn" to publish immediately via Make.com -- or the cron posts it at 8:30 AM CT automatically.',
+              'If you posted manually outside this page, click "Mark posted (manual)" to record it.',
+              'Note any comments, likes, or notable replies in the Notes field for the weekly digest.',
             ].map((step, i) => (
               <li key={i} className="flex gap-3 text-[13px] text-slate-600">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">

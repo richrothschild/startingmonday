@@ -25,11 +25,6 @@ function formatDate(dateStr: string): string {
   })
 }
 
-function formatScheduled(isoStr: string): string {
-  return new Date(isoStr).toLocaleTimeString('en-US', {
-    hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago',
-  }) + ' CT'
-}
 
 export function SocialClient() {
   const [state, setState] = useState<TodayResponse | null>(null)
@@ -41,7 +36,7 @@ export function SocialClient() {
   const [savingNotes, setSavingNotes] = useState(false)
   const [copied, setCopied] = useState(false)
   const [markingPosted, setMarkingPosted] = useState(false)
-  const [scheduling, setScheduling] = useState(false)
+  const [posting, setPosting] = useState(false)
   const [regenerating, setRegenerating] = useState(false)
 
   useEffect(() => { load() }, [])
@@ -118,22 +113,22 @@ export function SocialClient() {
     }
   }
 
-  async function handleSchedule() {
-    if (!state?.isPostDay || scheduling) return
-    setScheduling(true)
+  async function handlePost() {
+    if (!state?.isPostDay || posting) return
+    setPosting(true)
     setError('')
     try {
       if (draftText !== state.post.draft_text) await handleSave()
       const res = await fetch(`/api/admin/social/${state.post.id}/schedule`, { method: 'POST' })
       if (!res.ok) {
         const body = await res.json().catch(() => ({})) as { error?: string; detail?: string }
-        setError(body.error ?? 'Buffer scheduling failed')
+        setError(body.error ?? 'Failed to post to LinkedIn')
         return
       }
       const data = await res.json()
       setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
     } finally {
-      setScheduling(false)
+      setPosting(false)
     }
   }
 
@@ -200,8 +195,7 @@ export function SocialClient() {
   const { post, pillarLabel, dateStr } = state
   const isDirty = draftText !== post.draft_text
   const isNotesDirty = notesText !== (post.notes ?? '')
-  const busy = saving || savingNotes || markingPosted || scheduling || regenerating
-  const isScheduled = !!post.buffer_scheduled_at
+  const busy = saving || savingNotes || markingPosted || posting || regenerating
 
   return (
     <div className="flex flex-col gap-4">
@@ -214,11 +208,6 @@ export function SocialClient() {
             <span className="text-[11px] font-bold tracking-[0.08em] uppercase bg-orange-50 text-orange-600 px-2 py-0.5 rounded">
               {pillarLabel}
             </span>
-            {isScheduled && (
-              <span className="text-[11px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">
-                Queued to Buffer {formatScheduled(post.buffer_scheduled_at!)}
-              </span>
-            )}
             {post.is_posted && (
               <span className="text-[11px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">
                 Posted {post.posted_at ? new Date(post.posted_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''}
@@ -266,37 +255,31 @@ export function SocialClient() {
         </div>
       )}
 
-      {/* Action buttons -- row 1: primary actions */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Action buttons */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <button
+          type="button"
+          onClick={handlePost}
+          disabled={busy || !draftText.trim() || post.is_posted}
+          className="flex-1 bg-indigo-600 text-white text-[13px] font-semibold px-5 py-3 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed transition-colors hover:bg-indigo-700"
+        >
+          {posting ? 'Posting…' : 'Post to LinkedIn'}
+        </button>
         <button
           type="button"
           onClick={handleCopy}
           disabled={busy || !draftText.trim()}
-          className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-3 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed transition-colors hover:bg-slate-800"
+          className="flex-1 bg-slate-900 text-white text-[13px] font-semibold px-5 py-3 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed transition-colors hover:bg-slate-800"
         >
-          {copied ? 'Copied!' : 'Copy to LinkedIn'}
-        </button>
-        <button
-          type="button"
-          onClick={handleSchedule}
-          disabled={busy || !draftText.trim() || post.is_posted}
-          className={`text-[13px] font-semibold px-5 py-3 rounded border cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors ${
-            isScheduled
-              ? 'bg-blue-50 text-blue-700 border-blue-200 hover:border-blue-400'
-              : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:text-slate-900'
-          }`}
-        >
-          {scheduling ? 'Queuing…' : isScheduled ? 'Reschedule Buffer' : 'Queue to Buffer'}
+          {copied ? 'Copied!' : 'Copy to clipboard'}
         </button>
       </div>
-
-      {/* Action buttons -- row 2: secondary actions */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <a
           href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-center text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-5 py-3 hover:border-slate-400 hover:text-slate-900 transition-colors"
+          className="flex-1 text-center text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-5 py-3 hover:border-slate-400 hover:text-slate-900 transition-colors"
         >
           Open LinkedIn
         </a>
@@ -305,12 +288,12 @@ export function SocialClient() {
             type="button"
             onClick={handleMarkPosted}
             disabled={busy}
-            className="text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 hover:border-green-400 bg-green-50 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="flex-1 text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 hover:border-green-400 bg-green-50 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            {markingPosted ? 'Saving…' : 'Mark posted'}
+            {markingPosted ? 'Saving…' : 'Mark posted (manual)'}
           </button>
         ) : (
-          <div className="text-center text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 bg-green-50">
+          <div className="flex-1 text-center text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 bg-green-50">
             Posted
           </div>
         )}
