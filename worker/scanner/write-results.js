@@ -1,3 +1,6 @@
+import { notify } from '../lib/notify.js'
+import { logger } from '../lib/logger.js'
+
 // scan_results schema: one row per company scan
 // raw_hits: JSONB array of { title, score, is_match, summary }
 // ai_score: highest match score found (0-100)
@@ -47,4 +50,55 @@ export async function writeScanError(supabase, { companyId, userId, error }) {
     ai_score: 0,
     error_message: error.message?.slice(0, 500) ?? 'Unknown error',
   })
+}
+
+// Fires once when 3 consecutive scans all return 0 hits (any status).
+// "Once" is enforced by checking that the 4th-most-recent scan had hits —
+// so the alert only triggers at the exact moment we cross the threshold.
+// Fires once when 3 consecutive scans all return 0 hits (any status).
+// "Once" is enforced by checking that the 4th-most-recent scan had hits —
+// so the alert only triggers at the exact moment we cross the threshold.
+export async function checkAndAlertScanFailures(supabase, { companyId, companyName, userId }) {
+  try {
+    const [{ data: recent }, { data: userRow }] = await Promise.all([
+      supabase
+        .from('scan_results')
+        .select('raw_hits')
+        .eq('company_id', companyId)
+        .order('scanned_at', { ascending: false })
+        .limit(4),
+      supabase
+        .from('users')
+        .select('email')
+        .eq('id', userId)
+        .single(),
+    ])
+
+    if (!recent || recent.length < 3) return
+
+    const last3Empty = recent.slice(0, 3).every(r => !r.raw_hits?.length)
+    if (!last3Empty) return
+
+    // Already past 3 consecutive failures — don't re-alert
+    const fourth = recent[3]
+    if (fourth && !fourth.raw_hits?.length) return
+
+    const userEmail = userRow?.email ?? userId
+    const subject = `Scan failure: ${companyName} — 3 consecutive empty results`
+    const body = [
+      `Company: ${companyName}`,
+      `User: ${userEmail}`,
+      `Company ID: ${companyId}`,
+      '',
+      'The last 3 scans returned 0 results (blocked, error, or no roles detected).',
+      'The career page may be broken, JS-rendered, or blocking the scraper.',
+      '',
+      `Admin: https://startingmonday.app/dashboard/admin`,
+    ].join('\n')
+
+    logger.warn('write-results: 3 consecutive scan failures', { companyId, companyName })
+    await notify({ subject, body })
+  } catch (err) {
+    logger.error('write-results: checkAndAlertScanFailures failed', { error: err.message })
+  }
 }

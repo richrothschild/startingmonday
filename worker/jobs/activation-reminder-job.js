@@ -197,6 +197,159 @@ function buildWelcomeEmail({ firstName }) {
   return { subject, html }
 }
 
+// Day 5: profile completeness — show what's done vs. missing, frame as "recruiter view"
+function buildDay5Email({ firstName, activation }) {
+  const subject = 'A note from Starting Monday'
+
+  const LABELS = {
+    a1: 'Resume or positioning summary',
+    a2: 'Target company added',
+    a3: 'Prep brief generated',
+    a4: 'Contact added',
+    a5: 'Daily briefing configured',
+    a6: 'Follow-up reminder set',
+  }
+
+  const doneRows = Object.entries(activation)
+    .filter(([, done]) => done)
+    .map(([key]) => `
+    <tr>
+      <td style="padding:10px 20px;border-bottom:1px solid #f1f5f9;">
+        <span style="font-size:13px;color:#16a34a;font-weight:600;">&#10003;</span>
+        <span style="font-size:13px;color:#334155;margin-left:8px;">${esc(LABELS[key] ?? key)}</span>
+      </td>
+    </tr>`).join('')
+
+  const missingRows = Object.entries(activation)
+    .filter(([, done]) => !done)
+    .map(([key]) => `
+    <tr>
+      <td style="padding:10px 20px;border-bottom:1px solid #f1f5f9;">
+        <span style="font-size:13px;color:#94a3b8;">&#9675;</span>
+        <span style="font-size:13px;color:#64748b;margin-left:8px;">${esc(LABELS[key] ?? key)}</span>
+      </td>
+    </tr>`).join('')
+
+  const completedCount = Object.values(activation).filter(Boolean).length
+  const allDone = completedCount === 6
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f5f9;">
+  <tr><td align="center" style="padding:40px 16px;">
+    <table width="540" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+
+      <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
+        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
+        <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2;">${esc(firstName)}, here is where your search stands.</div>
+      </td></tr>
+
+      <tr><td style="padding:32px 48px 16px 48px;">
+        ${allDone
+          ? `<p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 20px 0;">Your setup is complete. The platform is running daily scans, monitoring signals, and has everything it needs to generate your prep briefs and outreach. You are set.</p>`
+          : `<p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 20px 0;">You are ${completedCount} of 6 steps in. The items still missing reduce the quality of your briefings and prep work. Here is what the platform can and cannot do for you right now.</p>`
+        }
+      </td></tr>
+
+      <tr><td style="padding:0 48px 32px 48px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;">
+          ${doneRows}
+          ${missingRows}
+        </table>
+      </td></tr>
+
+      ${!allDone ? `
+      <tr><td style="padding:0 48px 40px 48px;">
+        <a href="${esc(APP_URL + '/dashboard')}" style="display:inline-block;background:#0f172a;color:#ffffff;font-size:13px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none;">
+          Finish setup &rarr;
+        </a>
+      </td></tr>` : `
+      <tr><td style="padding:0 48px 40px 48px;">
+        <a href="${esc(APP_URL + '/dashboard')}" style="display:inline-block;background:#0f172a;color:#ffffff;font-size:13px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none;">
+          Go to your dashboard &rarr;
+        </a>
+      </td></tr>`}
+
+      ${PRIVATE_NOTE}
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`
+
+  return { subject, html }
+}
+
+// Day 14: halfway nudge — sent regardless of setup status
+function buildDay14Email({ firstName }) {
+  const subject = 'Two weeks in — a note from Starting Monday'
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f5f9;">
+  <tr><td align="center" style="padding:40px 16px;">
+    <table width="540" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+
+      <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
+        <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
+        <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2;">${esc(firstName)}, you are two weeks in.</div>
+      </td></tr>
+
+      <tr><td style="padding:32px 48px 28px 48px;">
+        <p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 20px 0;">Sixteen days left in your trial. Here is what users who convert to paid do in the first two weeks:</p>
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:28px;">
+          <tr><td style="padding:14px 20px;border-bottom:1px solid #f1f5f9;">
+            <span style="font-size:14px;font-weight:600;color:#0f172a;">Add 5 to 10 target companies</span>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">More companies means more signal. One executive departure or funding event is enough to start a conversation.</div>
+          </td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid #f1f5f9;">
+            <span style="font-size:14px;font-weight:600;color:#0f172a;">Generate a prep brief before every conversation</span>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">Even for informal calls. The brief reads the room better when you give it a specific company and stage.</div>
+          </td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid #f1f5f9;">
+            <span style="font-size:14px;font-weight:600;color:#0f172a;">Check your morning briefing every day</span>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">The signal value compounds. A single exec departure you catch early is worth more than a week of cold applications.</div>
+          </td></tr>
+          <tr><td style="padding:14px 20px;">
+            <span style="font-size:14px;font-weight:600;color:#0f172a;">Draft outreach from the prep brief when a signal appears</span>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">The outreach draft is grounded in your brief. It is specific, not templated. That is the difference between a response and silence.</div>
+          </td></tr>
+        </table>
+
+        <p style="font-size:14px;color:#64748b;line-height:1.7;margin:0;">Sixteen days is enough time to run this cycle three or four times. That is what converts a trial into a tool you keep.</p>
+      </td></tr>
+
+      <tr><td style="padding:0 48px 40px 48px;">
+        <a href="${esc(APP_URL + '/dashboard')}" style="display:inline-block;background:#0f172a;color:#ffffff;font-size:13px;font-weight:700;padding:14px 28px;border-radius:4px;text-decoration:none;">
+          Go to your dashboard &rarr;
+        </a>
+      </td></tr>
+
+      ${PRIVATE_NOTE}
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`
+
+  return { subject, html }
+}
+
 // Day 3: company nudge — only sent to users with no company yet
 function buildCompanyNudgeEmail({ firstName }) {
   const subject = 'One thing to do in Starting Monday today'
@@ -244,17 +397,19 @@ export async function runActivationReminderJob() {
   const supabase = getSupabase()
   logger.info('activation-reminder-job: starting')
 
-  const day1Date = dateDaysAgo(1)
-  const day2Date = dateDaysAgo(2)
-  const day3Date = dateDaysAgo(3)
-  const day7Date = dateDaysAgo(7)
+  const day1Date  = dateDaysAgo(1)
+  const day2Date  = dateDaysAgo(2)
+  const day3Date  = dateDaysAgo(3)
+  const day5Date  = dateDaysAgo(5)
+  const day7Date  = dateDaysAgo(7)
+  const day14Date = dateDaysAgo(14)
 
-  // Trialing users who signed up between 1 and 8 days ago
+  // Trialing users who signed up between 1 and 15 days ago
   const { data: users, error } = await supabase
     .from('users')
     .select('id, email, created_at')
     .eq('subscription_status', 'trialing')
-    .gte('created_at', `${dateDaysAgo(8)}T00:00:00Z`)
+    .gte('created_at', `${dateDaysAgo(15)}T00:00:00Z`)
     .lte('created_at', `${dateDaysAgo(1)}T23:59:59Z`)
 
   if (error) {
@@ -264,7 +419,7 @@ export async function runActivationReminderJob() {
 
   const targets = (users ?? []).filter(u => {
     const d = u.created_at?.slice(0, 10)
-    return d === day1Date || d === day2Date || d === day3Date || d === day7Date
+    return d === day1Date || d === day2Date || d === day3Date || d === day5Date || d === day7Date || d === day14Date
   })
 
   if (!targets.length) {
@@ -294,10 +449,12 @@ export async function runActivationReminderJob() {
 
   for (const user of targets) {
     const signupDate = user.created_at?.slice(0, 10)
-    const dayNumber  = signupDate === day1Date ? 1
-                     : signupDate === day2Date ? 2
-                     : signupDate === day3Date ? 3
-                     : 7
+    const dayNumber  = signupDate === day1Date  ? 1
+                     : signupDate === day2Date  ? 2
+                     : signupDate === day3Date  ? 3
+                     : signupDate === day5Date  ? 5
+                     : signupDate === day7Date  ? 7
+                     : 14
     const profile    = profileMap[user.id]
     const firstName  = profile?.full_name?.split(' ')[0] ?? 'there'
     const deliverTo  = profile?.briefing_email ?? user.email
@@ -329,6 +486,35 @@ export async function runActivationReminderJob() {
         const { subject, html } = buildCompanyNudgeEmail({ firstName })
         await sendEmail({ to: deliverTo, subject, html })
         logger.info('activation-reminder-job: sent day-3 company nudge', { to: deliverTo })
+        sent++
+      } catch (err) {
+        logger.error('activation-reminder-job: send failed', { to: deliverTo, error: err.message })
+        skipped++
+      }
+      continue
+    }
+
+    // Day 5: profile completeness status — always send, shows done vs. missing
+    if (dayNumber === 5) {
+      const activation = await getActivationStatus(supabase, user.id, profile)
+      try {
+        const { subject, html } = buildDay5Email({ firstName, activation })
+        await sendEmail({ to: deliverTo, subject, html })
+        logger.info('activation-reminder-job: sent day-5 profile status', { to: deliverTo })
+        sent++
+      } catch (err) {
+        logger.error('activation-reminder-job: send failed', { to: deliverTo, error: err.message })
+        skipped++
+      }
+      continue
+    }
+
+    // Day 14: halfway nudge — always send, focuses on habits rather than setup
+    if (dayNumber === 14) {
+      try {
+        const { subject, html } = buildDay14Email({ firstName })
+        await sendEmail({ to: deliverTo, subject, html })
+        logger.info('activation-reminder-job: sent day-14 halfway nudge', { to: deliverTo })
         sent++
       } catch (err) {
         logger.error('activation-reminder-job: send failed', { to: deliverTo, error: err.message })

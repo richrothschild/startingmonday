@@ -4,7 +4,7 @@ import { extractText } from './extract-text.js'
 import { detectRoles } from './detect-roles.js'
 import { scoreHit } from './score-hit.js'
 import { wasRecentlyScanned, getPreviousHitTitles } from './deduplicate.js'
-import { writeScanResult, updateCompanyScanTime, writeScanBlocked, writeScanError } from './write-results.js'
+import { writeScanResult, updateCompanyScanTime, writeScanBlocked, writeScanError, checkAndAlertScanFailures } from './write-results.js'
 
 // Scans one company's career page end-to-end and writes a single scan_results row.
 // Returns { skipped?, blocked?, hits, matches, newHits, error? }
@@ -63,6 +63,7 @@ export async function scanCompany(supabase, company, userProfile) {
     // 7. Write one scan_results row
     await writeScanResult(supabase, { companyId, userId, hits: scoredHits, aiScore, aiSummary })
     await updateCompanyScanTime(supabase, companyId)
+    checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
 
     const newMatchTitles = newHits.filter(h => h.is_match).map(h => h.title)
     console.log(`[scanner] ${name}: done — ${matches.length} match(es), ${newHits.length} new`)
@@ -72,10 +73,12 @@ export async function scanCompany(supabase, company, userProfile) {
       console.log(`[scanner] ${name}: blocked by site`)
       await writeScanBlocked(supabase, { companyId, userId, message: error.message })
       await updateCompanyScanTime(supabase, companyId)
+      checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
       return { blocked: true }
     }
     console.error(`[scanner] ${name}: failed — ${error.message}`)
     await writeScanError(supabase, { companyId, userId, error })
+    checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
     return { error: error.message }
   }
 }
