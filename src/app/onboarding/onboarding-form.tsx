@@ -91,6 +91,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step])
 
   useEffect(() => {
+    if (step === 3 && isPassive && !manualMode) setManualMode(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
+  useEffect(() => {
     if (step !== 6) return
     const firstCompany = companyNames.find(n => n.trim())
     if (!firstCompany || intelContent || intelLoading) return
@@ -125,13 +130,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
-    if (isPassive && step === 2) { goTo(4); return }
     if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
-    if (isPassive && step === 4) return 2  // skipped step 3 (import)
     if (isPassive && step === 6) return 4  // skipped step 5 (briefing time)
     return step - 1
   }
@@ -426,7 +429,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 form="onboarding-form"
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Start my search
+                {isPassive ? 'Start monitoring' : 'Start my search'}
               </button>
             )}
           </div>
