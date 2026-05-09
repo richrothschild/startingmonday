@@ -314,6 +314,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               names={companyNames}
               onChange={setCompanyNames}
               persona={searchPersona}
+              currentTitle={currentTitle}
             />
           )}
 
@@ -452,14 +453,44 @@ function StepCompanies({
   names,
   onChange,
   persona,
+  currentTitle,
 }: {
   names: string[]
   onChange: (v: string[]) => void
   persona: string
+  currentTitle: string
 }) {
   const suggestions = SUGGESTIONS_BY_PERSONA[persona] ?? []
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
   const filled = names.filter(n => n.trim()).length
+
+  const [discovering, setDiscovering] = useState(false)
+  const [discovered, setDiscovered] = useState<{ name: string; sector: string; fit: number }[] | null>(null)
+  const [discoverError, setDiscoverError] = useState(false)
+
+  async function discover() {
+    setDiscovering(true)
+    setDiscoverError(false)
+    try {
+      const res = await fetch('/api/discover', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          context: {
+            currentTitle: currentTitle || undefined,
+            persona: persona || undefined,
+          },
+        }),
+      })
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      setDiscovered(Array.isArray(data) ? data.slice(0, 9) : [])
+    } catch {
+      setDiscoverError(true)
+    } finally {
+      setDiscovering(false)
+    }
+  }
 
   function update(i: number, val: string) {
     const next = [...names]
@@ -468,7 +499,7 @@ function StepCompanies({
     onChange(next)
   }
 
-  function addSuggestion(name: string) {
+  function addName(name: string) {
     if (names.some(n => n.trim().toLowerCase() === name.toLowerCase())) return
     const emptyIdx = names.findIndex(n => !n.trim())
     if (emptyIdx >= 0) {
@@ -504,7 +535,7 @@ function StepCompanies({
         ))}
       </div>
 
-      {suggestions.length > 0 && (
+      {suggestions.length > 0 && !discovered && (
         <div>
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Quick add</p>
           <div className="flex flex-wrap gap-2">
@@ -514,7 +545,7 @@ function StepCompanies({
                 <button
                   key={s}
                   type="button"
-                  onClick={() => !added && addSuggestion(s)}
+                  onClick={() => !added && addName(s)}
                   className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
                     added
                       ? 'border-slate-900 bg-slate-900 text-white cursor-default'
@@ -522,6 +553,55 @@ function StepCompanies({
                   }`}
                 >
                   {added ? '✓ ' : '+ '}{s}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* AI Discovery */}
+      {!discovered && !discovering && (
+        <button
+          type="button"
+          onClick={discover}
+          className="text-[13px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
+        >
+          {discoverError ? 'Could not load suggestions — try again →' : 'Not sure where to start? Discover companies with AI →'}
+        </button>
+      )}
+
+      {discovering && (
+        <p className="text-[13px] text-slate-400">Finding companies for you...</p>
+      )}
+
+      {discovered && discovered.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">AI-suggested companies</p>
+            <button
+              type="button"
+              onClick={() => { setDiscovered(null); setDiscoverError(false) }}
+              className="text-[11px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0 transition-colors"
+            >
+              Clear
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {discovered.map(co => {
+              const added = names.some(n => n.trim().toLowerCase() === co.name.toLowerCase())
+              return (
+                <button
+                  key={co.name}
+                  type="button"
+                  onClick={() => !added && addName(co.name)}
+                  className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
+                    added
+                      ? 'border-slate-900 bg-slate-900 text-white cursor-default'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                  }`}
+                >
+                  {added ? '✓ ' : '+ '}{co.name}
                 </button>
               )
             })}

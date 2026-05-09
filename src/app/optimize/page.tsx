@@ -4,6 +4,17 @@ import Link from 'next/link'
 
 type Status = 'idle' | 'uploading' | 'streaming' | 'done' | 'error'
 
+const GRADE_SCORE: Record<string, number> = { A: 4, B: 3, C: 2, D: 1, F: 0 }
+const SCORE_GRADE = ['F', 'D', 'C', 'B', 'A']
+
+function extractOverallGrade(text: string): string | null {
+  const matches = [...text.matchAll(/Grade:\s*\[?([A-F])\]?/g)]
+  if (!matches.length) return null
+  const scores = matches.map(m => GRADE_SCORE[m[1]] ?? 0)
+  const avg = scores.reduce((a, b) => a + b, 0) / scores.length
+  return SCORE_GRADE[Math.round(avg)] ?? null
+}
+
 // Colour-code grades inline: A=green, B=blue, C=amber, D/F=red
 function renderOutput(text: string) {
   const lines = text.split('\n')
@@ -105,6 +116,7 @@ export default function OptimizePage() {
   const [output, setOutput] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
+  const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   async function handlePdfUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -265,6 +277,41 @@ export default function OptimizePage() {
             </div>
           </div>
         )}
+
+        {/* Share card — shown after analysis completes */}
+        {status === 'done' && (() => {
+          const grade = extractOverallGrade(output)
+          const shareText = grade
+            ? `I just graded my LinkedIn profile on Starting Monday and got a ${grade} overall. Check yours free at startingmonday.app/optimize`
+            : 'I just graded my LinkedIn profile on Starting Monday. Free executive career tool at startingmonday.app/optimize'
+          const gradeColor = grade === 'A' ? 'text-green-700 bg-green-50'
+            : grade === 'B' ? 'text-blue-700 bg-blue-50'
+            : grade === 'C' ? 'text-amber-700 bg-amber-50'
+            : grade ? 'text-red-700 bg-red-50'
+            : ''
+          function copyShare() {
+            navigator.clipboard.writeText(shareText).catch(() => {})
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+          }
+          return (
+            <div className="bg-white border border-slate-200 rounded p-5 mb-6 flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <span className="text-[12px] text-slate-500">Share your score</span>
+                {grade && (
+                  <span className={`text-[14px] font-bold px-2.5 py-0.5 rounded ${gradeColor}`}>{grade}</span>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={copyShare}
+                className="text-[13px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded transition-colors cursor-pointer border-0 shrink-0"
+              >
+                {copied ? 'Copied!' : 'Copy to share'}
+              </button>
+            </div>
+          )
+        })()}
 
         {/* CTA — shown after analysis completes */}
         {status === 'done' && (
