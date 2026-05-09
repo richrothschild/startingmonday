@@ -50,9 +50,9 @@ jobs:
               *briefing/send*) continue ;;  # retired endpoint (returns 410)
             esac
             # Check if file has POST/PUT/DELETE but no auth guard
-            # Also accepts: createAdminClient (intelligence/admin routes use staff token check)
+            # Also accepts: createAdminClient or getStaffMember (admin/intelligence routes use staff session check)
             if grep -qE 'export async function (POST|PUT|DELETE)' "$file"; then
-              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess|createAdminClient|staff.*token|token.*staff' "$file"; then
+              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess|createAdminClient|getStaffMember' "$file"; then
                 echo "MISSING AUTH: $file"
                 failed=$((failed + 1))
               fi
