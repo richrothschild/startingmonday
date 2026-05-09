@@ -207,6 +207,10 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         {/* Plans */}
         {!sub.isPaid && (
           <>
+            <p className="text-[13px] text-slate-500 leading-relaxed mb-6">
+              One hour with an executive coach runs $300 to $500. Starting Monday is $129 a month and runs every day.
+            </p>
+
             <div className="flex items-center gap-3 mb-6">
               <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Choose a plan</p>
               <div className="ml-auto flex rounded border border-slate-200 overflow-hidden text-[12px] font-semibold">

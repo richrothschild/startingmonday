@@ -940,6 +940,18 @@ export default async function DashboardPage({
             </div>
           )}
 
+        {/* Search wrap-up link — discreet, for users who found a role outside the pipeline */}
+        {!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active') && (
+          <div className="mt-10 text-center">
+            <Link
+              href="/dashboard/wrap-up"
+              className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              Did your search wrap up? Mark it complete.
+            </Link>
+          </div>
+        )}
+
         </div>
       </main>
     </div>
