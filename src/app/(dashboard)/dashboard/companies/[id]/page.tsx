@@ -108,7 +108,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -421,6 +421,111 @@ export default async function CompanyPage({
                 />
                 <p className="mt-1.5 text-[11px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
               </div>
+
+              {company.stage === 'offer' && (() => {
+                const co = company as unknown as {
+                  offer_role_title?: string | null
+                  offer_base?: number | null
+                  offer_bonus_pct?: number | null
+                  offer_signing?: number | null
+                  offer_equity?: string | null
+                  offer_notes?: string | null
+                }
+                const base   = co.offer_base ?? 0
+                const bonusPct = co.offer_bonus_pct ?? 0
+                const bonusEst = base > 0 && bonusPct > 0 ? Math.round(base * bonusPct / 100) : null
+                const totalCash = base > 0 ? base + (bonusEst ?? 0) : null
+                const fmt = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+                return (
+                  <div className="pt-1 border-t-2 border-green-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-green-700">Offer in Hand</p>
+                      {co.offer_role_title && (
+                        <a
+                          href={`/dashboard/salary?company=${encodeURIComponent(company.name)}&role=${encodeURIComponent(co.offer_role_title)}`}
+                          className="text-[11px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-2.5 py-1 rounded transition-colors"
+                        >
+                          Get negotiation script &rarr;
+                        </a>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Role title offered</label>
+                        <input
+                          name="offer_role_title"
+                          type="text"
+                          defaultValue={co.offer_role_title ?? ''}
+                          placeholder="Chief Information Officer"
+                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Base salary</label>
+                        <input
+                          name="offer_base"
+                          type="number"
+                          defaultValue={co.offer_base ?? ''}
+                          placeholder="380000"
+                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Target bonus %</label>
+                        <input
+                          name="offer_bonus_pct"
+                          type="number"
+                          min="0"
+                          max="200"
+                          defaultValue={co.offer_bonus_pct ?? ''}
+                          placeholder="20"
+                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        />
+                        {bonusEst !== null && (
+                          <p className="mt-1 text-[11px] text-slate-400">{fmt(bonusEst)} at target</p>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Signing bonus</label>
+                        <input
+                          name="offer_signing"
+                          type="number"
+                          defaultValue={co.offer_signing ?? ''}
+                          placeholder="50000"
+                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Equity</label>
+                      <input
+                        name="offer_equity"
+                        type="text"
+                        defaultValue={co.offer_equity ?? ''}
+                        placeholder="0.5% over 4 years, 1-year cliff; or RSUs $800K vesting over 4 years"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Offer notes</label>
+                      <textarea
+                        name="offer_notes"
+                        rows={3}
+                        defaultValue={co.offer_notes ?? ''}
+                        placeholder="Deadline, conditions, what they said about flexibility, PTO, remote policy..."
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                      />
+                    </div>
+                    {totalCash !== null && (
+                      <div className="mt-3 px-4 py-3 bg-green-50 border border-green-200 rounded flex items-center justify-between">
+                        <span className="text-[12px] font-semibold text-green-800">Total cash (base + bonus at target)</span>
+                        <span className="text-[16px] font-bold text-green-800">{fmt(totalCash)}</span>
+                      </div>
+                    )}
+                    <p className="mt-2 text-[11px] text-slate-400">Private. Not shared or used in AI outputs.</p>
+                  </div>
+                )
+              })()}
 
               <div className="pt-1 border-t border-slate-100">
                 <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What I&rsquo;m Looking For Here</p>

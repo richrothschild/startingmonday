@@ -67,7 +67,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('stage')
+    .select('stage, name')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -295,6 +295,23 @@ export default async function DashboardPage({
             </span>
             <Link href="/settings/billing" className="font-semibold underline shrink-0">
               Upgrade
+            </Link>
+          </div>
+        )}
+
+        {/* Offers in flight — shown whenever there's an active offer */}
+        {allList.some(c => c.stage === 'offer') && (
+          <div className="mb-6 px-5 py-3.5 rounded bg-green-50 border border-green-200 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0" />
+              <span className="text-[13px] font-semibold text-green-900">
+                {allList.filter(c => c.stage === 'offer').length === 1
+                  ? `${allList.find(c => c.stage === 'offer')!.name} — offer in hand`
+                  : `${allList.filter(c => c.stage === 'offer').length} offers in flight`}
+              </span>
+            </div>
+            <Link href="/dashboard/offers" className="text-[12px] font-semibold text-green-700 hover:text-green-900 shrink-0">
+              Compare &amp; negotiate →
             </Link>
           </div>
         )}
