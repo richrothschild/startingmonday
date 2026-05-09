@@ -48,7 +48,7 @@ export default async function AdminPage() {
     { data: partnerRows },
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
-    adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time'),
+    adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time, last_briefing_sent_at, placed_at, placement_company, full_name'),
     adminClient.from('user_events').select('event_name').gte('created_at', since7d).limit(5000),
     adminClient.from('user_events').select('event_name').gte('created_at', since30d).limit(5000),
     adminClient.from('users').select('id', { count: 'exact', head: true }),
@@ -68,6 +68,23 @@ export default async function AdminPage() {
     if ((p.positioning_summary?.length ?? 0) >= 100) a1++
     if (p.briefing_time) a5++
   }
+
+  // Briefing health
+  const briefingConfiguredProfiles = (profiles ?? []).filter(p => activeUserIds.has(p.user_id) && p.briefing_time)
+  const lastBriefingSentAt = briefingConfiguredProfiles
+    .map(p => p.last_briefing_sent_at)
+    .filter(Boolean)
+    .sort()
+    .at(-1) ?? null
+  const briefingHoursAgo = lastBriefingSentAt
+    ? Math.round((Date.now() - new Date(lastBriefingSentAt).getTime()) / 3_600_000)
+    : null
+  const briefingStale = briefingConfiguredProfiles.length > 0 && (briefingHoursAgo === null || briefingHoursAgo >= 36)
+
+  // Placements
+  const placements = (profiles ?? [])
+    .filter(p => p.placed_at != null)
+    .sort((a, b) => new Date(b.placed_at!).getTime() - new Date(a.placed_at!).getTime())
 
   const userIdList = [...activeUserIds]
   const [
@@ -243,17 +260,37 @@ export default async function AdminPage() {
         </div>
 
         {/* Subscriber summary */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           {[
             { label: 'Total users',   value: totalUsers    ?? 0 },
             { label: 'Active (paid)', value: paidUsers     ?? 0 },
             { label: 'Trialing',      value: trialingUsers ?? 0 },
+            { label: 'Placed',        value: placements.length },
           ].map(({ label, value }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
               <div className="text-[28px] font-bold text-slate-900">{value}</div>
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
+        </div>
+
+        {/* System health */}
+        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
+          <div className="flex items-center gap-3">
+            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
+            <span className="text-[13px] text-slate-700">
+              Briefing worker{' '}
+              {briefingConfiguredProfiles.length === 0
+                ? '-- no users configured'
+                : briefingHoursAgo !== null
+                  ? `-- last sent ${briefingHoursAgo}h ago`
+                  : '-- never sent'}
+            </span>
+            {briefingStale && (
+              <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
+            )}
+          </div>
         </div>
 
         {/* Team summary */}
@@ -534,6 +571,35 @@ export default async function AdminPage() {
                     </td>
                     <td className="px-4 py-3 text-right text-slate-700">{a.total}</td>
                     <td className="px-4 py-3 text-right font-semibold text-slate-900">{a.accepted}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* Placements */}
+        {placements.length > 0 && (
+          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <div className="px-6 py-[18px] border-b border-slate-200">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Placements ({placements.length})</span>
+            </div>
+            <table className="w-full text-[12px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                  <th className="px-6 py-2.5 font-semibold text-slate-400">Name</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Company</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Date</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {placements.map((p, i) => (
+                  <tr key={i}>
+                    <td className="px-6 py-3 font-semibold text-slate-900">{p.full_name ?? '—'}</td>
+                    <td className="px-4 py-3 text-slate-700">{p.placement_company ?? '—'}</td>
+                    <td className="px-4 py-3 text-slate-400">
+                      {new Date(p.placed_at!).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
                   </tr>
                 ))}
               </tbody>

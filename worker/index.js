@@ -19,6 +19,7 @@ import { runMarketDigestJob } from './jobs/market-digest-job.js'
 import { runExecutiveScanJob } from './jobs/executive-scan-job.js'
 import { runCleanupJob } from './jobs/cleanup-job.js'
 import { runPulseJob } from './jobs/pulse-job.js'
+import { runBriefingWatchdogJob } from './jobs/briefing-watchdog-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -117,13 +118,16 @@ cron.schedule('0 2 * * 0', () => runJob('cleanup-job', runCleanupJob))
 // Pipeline pulse: daily at 07:00 UTC — Executive tier search health summary email
 cron.schedule('0 7 * * *', () => runJob('pulse-job', runPulseJob))
 
+// Briefing watchdog: daily at 14:00 UTC — alerts Rich if no briefings sent in 36h
+cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWatchdogJob))
+
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
 // Logs warnings to Railway for any demo data gaps — does not block startup.
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
