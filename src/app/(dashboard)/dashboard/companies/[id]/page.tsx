@@ -118,7 +118,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -401,6 +401,20 @@ export default async function CompanyPage({
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">Used to detect executive hires and departures</p>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  Crunchbase permalink
+                </label>
+                <input
+                  name="crunchbase_id"
+                  type="text"
+                  defaultValue={company.crunchbase_id ?? ''}
+                  placeholder="e.g. acme-corp"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                />
+                <p className="mt-1.5 text-[12px] text-slate-400">Last segment of the Crunchbase URL &mdash; crunchbase.com/organization/<span className="font-medium text-slate-500">acme-corp</span>. Enables funding round signals.</p>
               </div>
 
               <div>

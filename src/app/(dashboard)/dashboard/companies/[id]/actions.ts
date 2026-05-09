@@ -27,6 +27,7 @@ export async function updateCompany(id: string, formData: FormData) {
   const companyUrl = normalizeUrl(str(formData, 'company_url'))
   const careerPageUrl = normalizeUrl(str(formData, 'career_page_url'))
   const linkedinUrl = normalizeUrl(str(formData, 'linkedin_url'))
+  const crunchbaseId = str(formData, 'crunchbase_id')?.trim().replace(/^https?:\/\/(www\.)?crunchbase\.com\/organization\//i, '').replace(/\/$/, '') || null
   const notes = str(formData, 'notes') || null
   const competitiveContext = str(formData, 'competitive_context') || null
   const interviewNotes = str(formData, 'interview_notes') || null
@@ -45,7 +46,7 @@ export async function updateCompany(id: string, formData: FormData) {
 
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
+    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, crunchbase_id: crunchbaseId, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
     .eq('id', id)
     .eq('user_id', user.id)
 
