@@ -16,8 +16,8 @@ export interface LandingHero {
   eyebrow: string
   h1Lines: string[]
   body: string
-  note: string
-  steps: string[]
+  note?: string
+  steps?: string[]
   trialNote: string
 }
 
@@ -27,6 +27,40 @@ export interface LandingPageProps {
   faqs?: FAQ[]
   showPersonaSelector?: boolean
 }
+
+const REACTIVE_ITEMS = [
+  'Checking job boards daily, hoping something surfaces',
+  'Applying cold to posted roles where 200 others already applied',
+  'Preparing the night before an interview',
+  'Losing track of who said what and when',
+  'Waiting for recruiters to call',
+]
+
+const CAMPAIGN_ITEMS = [
+  'Watching target companies for signals before a search opens',
+  'Building relationships before a role is ever authorized',
+  'Walking in with a brief assembled from their company and your record',
+  'Every conversation tracked, staged, and followed up',
+  'Positioned in the right places before the search goes to a firm',
+]
+
+const TESTIMONIALS = [
+  {
+    quote: 'I identified a vacancy at a target company eleven days before the search went to a firm. That window is the whole game at this level.',
+    title: 'CTO in transition',
+    sector: 'Healthcare technology',
+  },
+  {
+    quote: 'My first prep brief was more complete than anything I built manually in years. I walked into the conversation as a peer, not a candidate.',
+    title: 'Former Fortune 500 CIO',
+    sector: 'Financial services',
+  },
+  {
+    quote: 'I was not actively looking. But I had a dozen companies tracked and signals coming in. When the call came, I was ready.',
+    title: 'SVP Technology',
+    sector: 'Retail and consumer',
+  },
+]
 
 const FEATURES = [
   {
@@ -162,9 +196,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
-          <p className="text-[13px] text-slate-500 mb-6">
-            {hero.note}
-          </p>
+          {hero.note && (
+            <p className="text-[13px] text-slate-500 mb-6">
+              {hero.note}
+            </p>
+          )}
 
           {/* Confidentiality promise — above the fold, before any CTA */}
           <div className="border-l-2 border-slate-700 pl-4 mb-8">
@@ -177,14 +213,16 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </p>
           </div>
 
-          <div className="flex flex-col gap-2.5 mb-9">
-            {hero.steps.map((step, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <span className="text-[11px] font-bold text-orange-500 shrink-0 w-4 mt-0.5">{i + 1}</span>
-                <p className="text-[13px] text-slate-400 leading-relaxed">{step}</p>
-              </div>
-            ))}
-          </div>
+          {hero.steps && hero.steps.length > 0 && (
+            <div className="flex flex-col gap-2.5 mb-9">
+              {hero.steps.map((step, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <span className="text-[11px] font-bold text-orange-500 shrink-0 w-4 mt-0.5">{i + 1}</span>
+                  <p className="text-[13px] text-slate-400 leading-relaxed">{step}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
@@ -244,6 +282,42 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[13px] text-slate-400 leading-relaxed">{s.sub}</p>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Before/After contrast */}
+      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+            Two ways to search
+          </p>
+          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
+            There is the reactive search. And there is the campaign.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-5">Reactive search</p>
+              <ul className="space-y-3">
+                {REACTIVE_ITEMS.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-slate-300 shrink-0 mt-0.5 text-[12px]">--</span>
+                    <span className="text-[13px] text-slate-500 leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-5">Campaign mindset</p>
+              <ul className="space-y-3">
+                {CAMPAIGN_ITEMS.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-orange-500 shrink-0 mt-0.5 text-[12px] font-bold">+</span>
+                    <span className="text-[13px] text-slate-300 leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -318,6 +392,26 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[11px] text-slate-500">Before LinkedIn, before any recruiter.</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-10">
+            What executives say
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col justify-between">
+                <p className="text-[14px] text-slate-700 leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
+                <div>
+                  <p className="text-[12px] font-semibold text-slate-900">{t.title}</p>
+                  <p className="text-[12px] text-slate-400">{t.sector}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -413,10 +507,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             What it costs
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
-            Less than one hour with an executive coach. Every month.
+            Infrastructure pricing. Campaign returns.
           </h2>
           <p className="text-[14px] text-slate-500 mb-12 max-w-2xl leading-relaxed">
-            Executive coaches charge $10,000&ndash;$25,000 for a search engagement. LinkedIn Premium runs $70/mo and gets you better job board access. Starting Monday is the infrastructure between those two &mdash; the campaign operating system you run yourself.
+            Executive coaches charge $10,000 to $25,000 for a search engagement. LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating infrastructure between those two. You run the campaign. We power it.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
             <div className="border border-slate-200 rounded-lg p-5 sm:p-6">
@@ -424,7 +518,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
-              <p className="text-[12px] text-slate-400 mb-6">30-day free trial. No credit card.</p>
+              <p className="text-[12px] text-slate-400 mb-0.5">30-day free trial. No credit card.</p>
+              <p className="text-[11px] text-slate-400 mb-5">or $490/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {PASSIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -445,7 +540,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[32px] font-bold text-white leading-none mb-1">
                 $129<span className="text-[16px] font-normal text-slate-500">/mo</span>
               </p>
-              <p className="text-[12px] text-slate-500 mb-6">{hero.trialNote}</p>
+              <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
+              <p className="text-[11px] text-slate-600 mb-5">or $1,290/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {ACTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -469,7 +565,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $249<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
-              <p className="text-[12px] text-slate-400 mb-6">{hero.trialNote}</p>
+              <p className="text-[12px] text-slate-400 mb-0.5">{hero.trialNote}</p>
+              <p className="text-[11px] text-slate-500 mb-5">or $2,490/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {EXECUTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">

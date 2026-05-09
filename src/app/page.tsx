@@ -4,8 +4,8 @@ import type { SituationCard } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday — AI Career Platform for Senior Technology Executives',
-  description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives in active search. Free 30-day trial.',
+  title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
+  description: 'The career operating system for CIOs, CTOs, and senior technology executives running a campaign. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center. Free 30-day trial.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -17,15 +17,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday — AI Career Platform for Senior Technology Executives',
-    description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives.',
+    title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
+    description: 'The career operating system for CIOs, CTOs, and senior technology executives. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday — AI Career Platform for Senior Technology Executives',
-    description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives.',
+    title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
+    description: 'The career operating system for CIOs, CTOs, and senior technology executives. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -111,15 +111,9 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'At this level, the search is a campaign, not an application.',
-          h1Lines: ["Your next role", "isn't on a", "job board."],
-          body: "Starting Monday is like having a 24/7 executive recruiter focused solely on you. We watch your target companies and alert you when a role opens — before it reaches LinkedIn, before recruiters are briefed. When the call comes, your brief is already ready.",
-          note: 'Import your LinkedIn profile during setup. Operational in minutes.',
-          steps: [
-            'Add your target companies — we watch their career pages automatically and alert you before roles ever reach a job board',
-            'Build your intelligence picture — track contacts, log every conversation, watch for signals before a role is even authorized',
-            'Generate a tailored prep brief in 60 seconds, built from their company and your actual background',
-          ],
+          eyebrow: 'Most executives manage their search the way candidates do. The best ones run a campaign.',
+          h1Lines: ["Run your career", "like the executive", "you are."],
+          body: "Starting Monday is the career infrastructure for senior technology executives. Watch target companies for signals before roles open. Walk in with a tailored brief. Never let a relationship go cold. Run a campaign, not a job search.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
