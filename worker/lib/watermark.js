@@ -45,3 +45,19 @@ export function watermarkEmailHtml(html, userId) {
   const span = `<span style="font-size:0;line-height:0;display:block;height:0;overflow:hidden;" aria-hidden="true">${mark}</span>`
   return html.includes('</body>') ? html.replace('</body>', `${span}</body>`) : html + span
 }
+
+// Generates a base64url token encoding userId, emailType, and sentDate.
+// Matches the parsePixelToken() decoder in src/lib/pixel-token.ts.
+export function generatePixelToken(userId, emailType, sentDate) {
+  const payload = JSON.stringify({ uid: userId, type: emailType, d: sentDate })
+  return Buffer.from(payload).toString('base64url')
+}
+
+// Appends a 1x1 tracking pixel to email HTML.
+// Fires when the recipient's email client loads images, logging IP and user agent.
+export function injectTrackingPixel(html, userId, emailType, sentDate) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
+  const token = generatePixelToken(userId, emailType, sentDate)
+  const img = `<img src="${appUrl}/api/track/open?t=${token}" width="1" height="1" style="display:block;border:0;" alt="" />`
+  return html.includes('</body>') ? html.replace('</body>', `${img}</body>`) : html + img
+}
