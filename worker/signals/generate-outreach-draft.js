@@ -13,24 +13,31 @@ const SYSTEM =
   'No em dashes. No bullet points. No motivational language. ' +
   'Respond only with valid JSON: {"subject": "...", "body": "..."}'
 
-export async function generateOutreachDraft({ companyName, signalType, signalSummary, outreachAngle, userProfile }) {
+export async function generateOutreachDraft({ companyName, signalType, signalSummary, outreachAngle, userProfile, companyContext = null }) {
   const name       = userProfile?.full_name ?? 'the executive'
   const title      = userProfile?.current_title ?? null
   const positioning = userProfile?.positioning_summary ?? null
   const targets    = (userProfile?.target_titles ?? []).join(', ') || null
 
+  const sector       = companyContext?.sector ?? null
+  const notes        = companyContext?.notes ?? null
+  const roleWatch    = companyContext?.roleWatchDescription ?? null
+
   const prompt = `Draft a short cold outreach email for an executive to send after this signal.
 
 SIGNAL
-Company: ${companyName}
+Company: ${companyName}${sector ? ` (${sector})` : ''}
 Type: ${signalType.replace(/_/g, ' ')}
 Summary: ${signalSummary}${outreachAngle ? `\nOutreach angle: ${outreachAngle}` : ''}
+
+COMPANY CONTEXT${notes ? `\nResearch notes: ${notes}` : ''}${roleWatch ? `\nWhat I am targeting here: ${roleWatch}` : ''}${!notes && !roleWatch ? '\nNo additional context available.' : ''}
 
 SENDER
 Name: ${name}${title ? `\nCurrent/recent title: ${title}` : ''}${targets ? `\nTargeting: ${targets}` : ''}${positioning ? `\nPositioning: ${positioning}` : ''}
 
 Write a subject line and 3-4 sentence email body. The email should:
 - Open with direct reference to the specific signal (not a generic opener)
+- Weave in any relevant company context naturally — do not list or quote the research notes verbatim
 - State who the sender is in one clause, not a paragraph
 - Propose a brief conversation, not a job ask
 - Sound like a peer reaching out, not a candidate applying

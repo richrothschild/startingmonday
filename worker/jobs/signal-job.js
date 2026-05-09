@@ -60,7 +60,7 @@ export async function runSignalJob() {
       const userProfile = profileByUserId[user.id] ?? null
       const { data: companies } = await supabase
         .from('companies')
-        .select('id, name, crunchbase_id, company_url, linkedin_url')
+        .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description')
         .eq('user_id', user.id)
         .is('archived_at', null)
 
@@ -248,6 +248,11 @@ export async function runSignalJob() {
                         signalSummary: `${exec.name} (${exec.title}) departed ${company.name}.`,
                         outreachAngle,
                         userProfile,
+                        companyContext: {
+                          sector: company.sector ?? null,
+                          notes: company.notes ?? null,
+                          roleWatchDescription: company.role_watch_description ?? null,
+                        },
                       }).then(draft => {
                         if (draft && signalId) {
                           supabase.from('company_signals').update({ outreach_draft: draft }).eq('id', signalId).then(() => {})
@@ -319,6 +324,11 @@ export async function runSignalJob() {
                     signalSummary: correlation.pattern_summary,
                     outreachAngle: correlation.outreach_angle ?? null,
                     userProfile,
+                    companyContext: {
+                      sector: company.sector ?? null,
+                      notes: company.notes ?? null,
+                      roleWatchDescription: company.role_watch_description ?? null,
+                    },
                   }).then(draft => {
                     if (draft && patternSignalId) {
                       supabase.from('company_signals').update({ outreach_draft: draft }).eq('id', patternSignalId).then(() => {})
