@@ -12,6 +12,7 @@ import { fetchPrWire } from '../signals/fetch-pr-wire.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
+import { generateOutreachDraft } from '../signals/generate-outreach-draft.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -46,15 +47,17 @@ export async function runSignalJob() {
     const userIds = users.map(u => u.id)
     const { data: profiles } = await supabase
       .from('user_profiles')
-      .select('user_id, role_type')
+      .select('user_id, role_type, full_name, current_title, positioning_summary, target_titles')
       .in('user_id', userIds)
     const roleTypeByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.role_type]))
+    const profileByUserId  = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
 
     let companiesScanned = 0
     let signalsFound = 0
 
     for (const user of users) {
-      const roleType = roleTypeByUserId[user.id] ?? null
+      const roleType    = roleTypeByUserId[user.id] ?? null
+      const userProfile = profileByUserId[user.id] ?? null
       const { data: companies } = await supabase
         .from('companies')
         .select('id, name, crunchbase_id, company_url, linkedin_url')
@@ -226,7 +229,7 @@ export async function runSignalJob() {
 
                 for (const exec of departures) {
                   const outreachAngle = `The departure of ${exec.name} as ${exec.title} creates an opening for external executive talent. Reach out before the search is formalized.`
-                  const { skipped } = await writeSignal(supabase, {
+                  const { skipped, signalId } = await writeSignal(supabase, {
                     companyId:     company.id,
                     userId:        user.id,
                     signalType:    'exec_departure',
@@ -239,13 +242,25 @@ export async function runSignalJob() {
                     signalsFound++
                     logger.info('signal-job: exec departure', { company: company.name, exec: exec.name })
                     if (user.subscription_tier === 'executive' && user.email) {
-                      sendSignalAlert({
-                        to: user.email,
+                      generateOutreachDraft({
                         companyName: company.name,
-                        patternName: 'Exec Departure',
-                        summary: `${exec.name} (${exec.title}) has departed ${company.name}. No replacement announced yet.`,
+                        signalType: 'exec_departure',
+                        signalSummary: `${exec.name} (${exec.title}) departed ${company.name}.`,
                         outreachAngle,
-                      }).catch(err => logger.error('signal-job: exec departure alert failed', { error: err.message }))
+                        userProfile,
+                      }).then(draft => {
+                        if (draft && signalId) {
+                          supabase.from('company_signals').update({ outreach_draft: draft }).eq('id', signalId).then(() => {})
+                        }
+                        sendSignalAlert({
+                          to: user.email,
+                          companyName: company.name,
+                          patternName: 'Exec Departure',
+                          summary: `${exec.name} (${exec.title}) has departed ${company.name}. No replacement announced yet.`,
+                          outreachAngle,
+                          outreachDraft: draft ?? null,
+                        }).catch(err => logger.error('signal-job: exec departure alert failed', { error: err.message }))
+                      }).catch(err => logger.error('signal-job: exec departure draft failed', { error: err.message }))
                     }
                   }
                 }
@@ -285,7 +300,7 @@ export async function runSignalJob() {
             const correlation = await correlateSignals(company.name, recentSignals, roleType)
             if (correlation.detected && correlation.pattern_name) {
               const weekSlot = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
-              const { skipped } = await writeSignal(supabase, {
+              const { skipped, signalId: patternSignalId } = await writeSignal(supabase, {
                 companyId:     company.id,
                 userId:        user.id,
                 signalType:    'pattern_alert',
@@ -298,13 +313,25 @@ export async function runSignalJob() {
                 signalsFound++
                 logger.info('signal-job: pattern alert', { company: company.name, pattern: correlation.pattern_name })
                 if (user.subscription_tier === 'executive' && user.email) {
-                  sendSignalAlert({
-                    to: user.email,
+                  generateOutreachDraft({
                     companyName: company.name,
-                    patternName: correlation.pattern_name,
-                    summary: correlation.pattern_summary,
+                    signalType: 'pattern_alert',
+                    signalSummary: correlation.pattern_summary,
                     outreachAngle: correlation.outreach_angle ?? null,
-                  }).catch(err => logger.error('signal-job: pattern alert email failed', { error: err.message }))
+                    userProfile,
+                  }).then(draft => {
+                    if (draft && patternSignalId) {
+                      supabase.from('company_signals').update({ outreach_draft: draft }).eq('id', patternSignalId).then(() => {})
+                    }
+                    sendSignalAlert({
+                      to: user.email,
+                      companyName: company.name,
+                      patternName: correlation.pattern_name,
+                      summary: correlation.pattern_summary,
+                      outreachAngle: correlation.outreach_angle ?? null,
+                      outreachDraft: draft ?? null,
+                    }).catch(err => logger.error('signal-job: pattern alert email failed', { error: err.message }))
+                  }).catch(err => logger.error('signal-job: pattern draft failed', { error: err.message }))
                 }
               }
             }

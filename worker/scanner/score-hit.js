@@ -24,7 +24,7 @@ const ROLE_TYPE_HINTS = {
 
 // Calls Claude Haiku to score a single detected role hit against the user profile.
 // Returns { score: 0-100, is_match: boolean, summary: string }
-export async function scoreHit(hit, userProfile, companyName) {
+export async function scoreHit(hit, userProfile, companyName, roleWatchDescription = null) {
   const roleHint = userProfile.role_type ? (ROLE_TYPE_HINTS[userProfile.role_type] ?? '') : ''
   const userPrompt = `
 Job title detected: "${hit.title}"
@@ -33,7 +33,7 @@ Company: ${companyName}
 Candidate profile:
 - Target roles: ${(userProfile.target_titles || []).join(', ') || 'Not specified'}
 - Target sectors: ${(userProfile.target_sectors || []).join(', ') || 'Not specified'}
-- Role type: ${userProfile.role_type || 'Not specified'}${roleHint ? `\n- Role equivalents: ${roleHint}` : ''}
+- Role type: ${userProfile.role_type || 'Not specified'}${roleHint ? `\n- Role equivalents: ${roleHint}` : ''}${roleWatchDescription ? `\n- What I'm looking for at this company: ${roleWatchDescription}` : ''}
 
 Respond with JSON only:
 {

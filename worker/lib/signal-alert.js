@@ -7,7 +7,7 @@ function esc(str) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
-export async function sendSignalAlert({ to, companyName, patternName, summary, outreachAngle }) {
+export async function sendSignalAlert({ to, companyName, patternName, summary, outreachAngle, outreachDraft }) {
   const subject = `${patternName} &mdash; ${companyName}`.replace(/&mdash;/g, '—')
 
   const html = `<!DOCTYPE html>
@@ -32,9 +32,17 @@ export async function sendSignalAlert({ to, companyName, patternName, summary, o
         <p style="font-size:15px;color:#334155;line-height:1.7;margin:0 0 24px 0;">${esc(summary)}</p>
 
         ${outreachAngle ? `
-        <div style="border-left:3px solid #f97316;padding:14px 16px;margin-bottom:28px;background:#fff7ed;">
+        <div style="border-left:3px solid #f97316;padding:14px 16px;margin-bottom:20px;background:#fff7ed;">
           <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a3412;margin:0 0 6px 0;">Outreach angle</p>
           <p style="font-size:14px;color:#7c2d12;line-height:1.65;margin:0;">${esc(outreachAngle)}</p>
+        </div>` : ''}
+
+        ${outreachDraft ? `
+        <div style="border:1px solid #e2e8f0;border-radius:4px;padding:16px 20px;margin-bottom:28px;background:#f8fafc;">
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;margin:0 0 10px 0;">Draft outreach &mdash; ready to send</p>
+          <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 4px 0;">Subject: ${esc(outreachDraft.subject)}</p>
+          <p style="font-size:14px;color:#334155;line-height:1.7;margin:0 0 10px 0;white-space:pre-wrap;">${esc(outreachDraft.body)}</p>
+          <p style="font-size:11px;color:#94a3b8;margin:0;">Edit and send from the dashboard or your email client.</p>
         </div>` : ''}
 
         <table cellpadding="0" cellspacing="0" border="0">

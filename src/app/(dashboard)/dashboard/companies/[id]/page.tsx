@@ -2,6 +2,7 @@
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
+import { DraftPanel } from '@/components/DraftPanel'
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
 import { LogSignalForm } from '@/components/LogSignalForm'
@@ -107,7 +108,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -146,7 +147,7 @@ export default async function CompanyPage({
       .order('created_at', { ascending: true }),
     supabase
       .from('company_signals')
-      .select('id, signal_type, signal_summary, outreach_angle, signal_date, source_url')
+      .select('id, signal_type, signal_summary, outreach_angle, outreach_draft, signal_date, source_url')
       .eq('company_id', id)
       .eq('user_id', user.id)
       .gte('signal_date', since90d)
@@ -419,6 +420,18 @@ export default async function CompanyPage({
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                 />
                 <p className="mt-1.5 text-[11px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
+              </div>
+
+              <div className="pt-1 border-t border-slate-100">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What I&rsquo;m Looking For Here</p>
+                <textarea
+                  name="role_watch_description"
+                  rows={3}
+                  defaultValue={(company as unknown as { role_watch_description?: string | null }).role_watch_description ?? ''}
+                  placeholder="e.g. A CTO or VP Engineering role overseeing platform, specifically where they need someone to scale the team post-Series B and modernize the data stack..."
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                />
+                <p className="mt-1.5 text-[11px] text-slate-400">Used by the job scanner to match roles semantically, not just by keyword. More specific beats generic.</p>
               </div>
 
               <div>
@@ -941,6 +954,9 @@ export default async function CompanyPage({
                     <p className="text-[14px] text-slate-900 leading-relaxed mb-1.5">{sig.signal_summary}</p>
                     {sig.outreach_angle && (
                       <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>
+                    )}
+                    {(sig as unknown as { outreach_draft?: { subject: string; body: string } | null }).outreach_draft && (
+                      <DraftPanel draft={(sig as unknown as { outreach_draft: { subject: string; body: string } }).outreach_draft} />
                     )}
                     {sig.source_url && (
                       <a

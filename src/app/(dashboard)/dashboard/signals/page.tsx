@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { addSignalFollowUp } from './actions'
+import { DraftPanel } from '@/components/DraftPanel'
 
 const PAGE_SIZE = 25
 
@@ -47,7 +48,7 @@ export default async function SignalsPage({
 
   let query = supabase
     .from('company_signals')
-    .select('id, signal_type, signal_summary, outreach_angle, signal_date, source_url, company_id, companies(id, name)', { count: 'planned' })
+    .select('id, signal_type, signal_summary, outreach_angle, outreach_draft, signal_date, source_url, company_id, companies(id, name)', { count: 'planned' })
     .eq('user_id', user.id)
     .order('signal_date', { ascending: false })
 
@@ -85,6 +86,7 @@ export default async function SignalsPage({
     signal_type: string
     signal_summary: string
     outreach_angle: string | null
+    outreach_draft: { subject: string; body: string } | null
     signal_date: string
     source_url: string | null
     company_id: string
@@ -219,6 +221,9 @@ export default async function SignalsPage({
                         </summary>
                         <p className="text-[12px] text-slate-500 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
                       </details>
+                    )}
+                    {sig.outreach_draft && (
+                      <DraftPanel draft={sig.outreach_draft} />
                     )}
                     {sig.source_url && (
                       <a

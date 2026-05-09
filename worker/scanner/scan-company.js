@@ -42,7 +42,7 @@ export async function scanCompany(supabase, company, userProfile) {
     const previousTitles = await getPreviousHitTitles(supabase, companyId)
     const scoredHits = []
     for (const candidate of candidates) {
-      const score = await scoreHit(candidate, userProfile, name)
+      const score = await scoreHit(candidate, userProfile, name, company.role_watch_description ?? null)
       scoredHits.push({
         title: candidate.title,
         score: score.score,

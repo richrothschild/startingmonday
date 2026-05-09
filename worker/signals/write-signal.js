@@ -10,7 +10,7 @@ export async function writeSignal(supabase, { companyId, userId, signalType, sig
     if (existing) return { skipped: true }
   }
 
-  const { error } = await supabase
+  const { data: inserted, error } = await supabase
     .from('company_signals')
     .insert({
       company_id:    companyId,
@@ -22,7 +22,9 @@ export async function writeSignal(supabase, { companyId, userId, signalType, sig
       outreach_angle: outreachAngle ?? null,
       notified_at:   null,
     })
+    .select('id')
+    .single()
 
   if (error) throw new Error(`writeSignal: ${error.message}`)
-  return { skipped: false }
+  return { skipped: false, signalId: inserted?.id ?? null }
 }

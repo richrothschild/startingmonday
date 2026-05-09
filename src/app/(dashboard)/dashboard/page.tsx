@@ -74,7 +74,7 @@ export default async function DashboardPage({
   const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -87,7 +87,7 @@ export default async function DashboardPage({
       .limit(20),
     supabase
       .from('users')
-      .select('subscription_status, trial_ends_at')
+      .select('subscription_status, trial_ends_at, subscription_tier')
       .eq('id', user.id)
       .single(),
     supabase
@@ -119,6 +119,12 @@ export default async function DashboardPage({
       .eq('user_id', user.id)
       .eq('status', 'active')
       .not('company_id', 'is', null),
+    supabase
+      .from('company_signals')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .not('outreach_draft', 'is', null)
+      .gte('signal_date', since14d),
   ])
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
@@ -183,6 +189,7 @@ export default async function DashboardPage({
 
   const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
   const isTrialing = userRow?.subscription_status === 'trialing'
+  const isExecutive = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier === 'executive'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -707,6 +714,55 @@ export default async function DashboardPage({
 
         {/* Suggestions — shown until dismissed or pipeline grows */}
         {totalCount < 5 && !hasFilters && <SuggestionCards />}
+
+        {/* Pipeline Pulse — Executive only */}
+        {isExecutive && (
+          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
+            <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
+                  Pipeline Pulse
+                </span>
+                <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
+                  Executive
+                </span>
+              </div>
+              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
+                All signals &rarr;
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+              <div className="px-6 py-5 text-center">
+                <div className={`text-[28px] font-bold leading-none ${signalCount > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
+                  {signalCount}
+                </div>
+                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">New Signals</div>
+                <div className="text-[11px] text-slate-400 mt-0.5">last 7 days</div>
+              </div>
+              <div className="px-6 py-5 text-center">
+                <div className={`text-[28px] font-bold leading-none ${(draftReadyCount ?? 0) > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
+                  {draftReadyCount ?? 0}
+                </div>
+                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Drafts Ready</div>
+                <div className="text-[11px] text-slate-400 mt-0.5">last 14 days</div>
+              </div>
+              <div className="px-6 py-5 text-center">
+                <div className={`text-[28px] font-bold leading-none ${overdueCount > 0 ? 'text-red-600' : 'text-slate-300'}`}>
+                  {overdueCount}
+                </div>
+                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Actions Due</div>
+                <div className="text-[11px] text-slate-400 mt-0.5">overdue</div>
+              </div>
+              <div className="px-6 py-5 text-center">
+                <div className={`text-[28px] font-bold leading-none ${activeCount > 0 ? 'text-slate-900' : 'text-slate-300'}`}>
+                  {activeCount}
+                </div>
+                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">In Process</div>
+                <div className="text-[11px] text-slate-400 mt-0.5">active companies</div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Pipeline */}
         <div id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">

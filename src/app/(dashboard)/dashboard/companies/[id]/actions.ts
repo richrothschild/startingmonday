@@ -32,12 +32,13 @@ export async function updateCompany(id: string, formData: FormData) {
   const interviewNotes = str(formData, 'interview_notes') || null
   const validSizes = ['startup', 'midmarket', 'enterprise'] as const
   const companySize = validSizes.find(v => v === str(formData, 'company_size')) ?? null
+  const roleWatchDescription = str(formData, 'role_watch_description') || null
 
   if (!name) redirect(`/dashboard/companies/${id}?error=required`)
 
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize })
+    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription })
     .eq('id', id)
     .eq('user_id', user.id)
 
