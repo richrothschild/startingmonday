@@ -58,11 +58,24 @@ export default async function CustomersPage({
     : 'all'
 
   const admin = createAdminClient()
-  const { data: allUsers } = await admin
-    .from('users')
-    .select('id, email, subscription_status, subscription_tier, created_at, signup_source')
-    .in('subscription_status', ['trialing', 'active', 'past_due'])
-    .order('created_at', { ascending: false })
+  const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
+  const [{ data: allUsers }, { data: outreachRows }] = await Promise.all([
+    admin
+      .from('users')
+      .select('id, email, subscription_status, subscription_tier, created_at, signup_source')
+      .in('subscription_status', ['trialing', 'active', 'past_due'])
+      .order('created_at', { ascending: false }),
+    admin
+      .from('outreach_logs')
+      .select('user_id')
+      .gte('sent_at', since7d),
+  ])
+
+  const outreachByUser: Record<string, number> = {}
+  for (const row of outreachRows ?? []) {
+    outreachByUser[row.user_id] = (outreachByUser[row.user_id] ?? 0) + 1
+  }
 
   const users = (allUsers ?? []) as UserRow[]
 
@@ -159,6 +172,7 @@ export default async function CustomersPage({
                   <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
                   <th className="px-4 py-2.5 font-semibold text-slate-400">Joined</th>
                   <th className="px-4 py-2.5 font-semibold text-slate-400 hidden sm:table-cell">Source</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right hidden sm:table-cell">7d outreach</th>
                   <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Welcome</th>
                 </tr>
               </thead>
@@ -183,6 +197,9 @@ export default async function CustomersPage({
                       </td>
                       <td className="px-4 py-3 text-slate-400 font-mono text-[11px] hidden sm:table-cell">
                         {u.signup_source ?? '—'}
+                      </td>
+                      <td className="px-4 py-3 text-right text-slate-700 tabular-nums font-semibold hidden sm:table-cell">
+                        {outreachByUser[u.id] ?? 0}
                       </td>
                       <td className="px-4 py-3 text-right">
                         {wasSent ? (
