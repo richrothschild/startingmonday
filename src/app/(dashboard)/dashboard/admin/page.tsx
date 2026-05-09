@@ -44,6 +44,7 @@ export default async function AdminPage() {
     { count: paidUsers },
     { count: trialingUsers },
     teamMembers,
+    { data: partnerRows },
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
     adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time'),
@@ -53,6 +54,7 @@ export default async function AdminPage() {
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'active'),
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'trialing'),
     getAllStaff(),
+    adminClient.from('partners').select('id, name, email, referral_code, commission_pct, is_active, created_at').order('created_at', { ascending: false }),
   ])
 
   const activeUserIds = new Set((activeUsers ?? []).map(u => u.id))
@@ -107,6 +109,36 @@ export default async function AdminPage() {
   if (trialUserIds.length > 0) {
     const { data: trialCompanyRows } = await adminClient.from('companies').select('user_id').in('user_id', trialUserIds).is('archived_at', null)
     trialCompanySet = new Set((trialCompanyRows ?? []).map(r => r.user_id))
+  }
+
+  // Partners: attribution counts
+  const partners = (partnerRows ?? []) as { id: string; name: string; email: string; referral_code: string; commission_pct: number; is_active: boolean; created_at: string }[]
+  const partnerIds = partners.map(p => p.id)
+  let attributionsByPartner: Record<string, { total: number; active: number; mrr: number }> = {}
+  if (partnerIds.length > 0) {
+    const { data: attrRows } = await adminClient
+      .from('referral_attributions')
+      .select('partner_id, signup_user_id')
+      .in('partner_id', partnerIds)
+    const attrUserIds = (attrRows ?? []).map(a => a.signup_user_id)
+    let userStatusMap: Record<string, { status: string; tier: string }> = {}
+    if (attrUserIds.length > 0) {
+      const { data: attrUsers } = await adminClient
+        .from('users')
+        .select('id, subscription_status, subscription_tier')
+        .in('id', attrUserIds)
+      userStatusMap = Object.fromEntries((attrUsers ?? []).map(u => [u.id, { status: u.subscription_status, tier: u.subscription_tier ?? '' }]))
+    }
+    const TIER_MRR: Record<string, number> = { passive: 49, active: 129, executive: 249 }
+    for (const attr of (attrRows ?? [])) {
+      if (!attributionsByPartner[attr.partner_id]) attributionsByPartner[attr.partner_id] = { total: 0, active: 0, mrr: 0 }
+      attributionsByPartner[attr.partner_id].total++
+      const u = userStatusMap[attr.signup_user_id]
+      if (u?.status === 'active') {
+        attributionsByPartner[attr.partner_id].active++
+        attributionsByPartner[attr.partner_id].mrr += TIER_MRR[u.tier] ?? 0
+      }
+    }
   }
 
   // Trial conversion
@@ -403,6 +435,48 @@ export default async function AdminPage() {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        {/* Partners */}
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Partners ({partners.length})</span>
+          </div>
+          {partners.length === 0 ? (
+            <p className="px-6 py-5 text-[13px] text-slate-400">No partners yet.</p>
+          ) : (
+            <table className="w-full text-[12px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                  <th className="px-6 py-2.5 font-semibold text-slate-400">Partner</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400">Code</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Referred</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Active</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">MRR</th>
+                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Commission</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {partners.map(p => {
+                  const counts = attributionsByPartner[p.id] ?? { total: 0, active: 0, mrr: 0 }
+                  const commission = Math.round(counts.mrr * p.commission_pct / 100)
+                  return (
+                    <tr key={p.id}>
+                      <td className="px-6 py-3">
+                        <div className="font-semibold text-slate-900">{p.name}</div>
+                        <div className="text-slate-400 text-[11px]">{p.email}</div>
+                      </td>
+                      <td className="px-4 py-3 font-mono text-slate-600">{p.referral_code}</td>
+                      <td className="px-4 py-3 text-right text-slate-700">{counts.total}</td>
+                      <td className="px-4 py-3 text-right font-semibold text-slate-900">{counts.active}</td>
+                      <td className="px-4 py-3 text-right text-slate-700">{counts.mrr > 0 ? `$${counts.mrr}` : '—'}</td>
+                      <td className="px-4 py-3 text-right font-semibold text-green-700">{commission > 0 ? `$${commission}/mo` : '—'}</td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           )}

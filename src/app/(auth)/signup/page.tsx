@@ -67,6 +67,13 @@ export default function SignupPage() {
               referral_source: utmCampaign ?? utmSource ?? ref ?? null,
             }).eq('id', data.user.id)
           : Promise.resolve(),
+        ref
+          ? fetch('/api/partners/attribute', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ referral_code: ref }),
+            }).catch(() => {})
+          : Promise.resolve(),
       ])
     }
 

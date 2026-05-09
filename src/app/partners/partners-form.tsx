@@ -30,6 +30,7 @@ export function PartnersForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: get('name'),
+          email: get('email'),
           company: get('company'),
           role: get('role'),
           interests: get('interests'),
@@ -49,7 +50,7 @@ export function PartnersForm() {
     return (
       <div className="border border-emerald-200 bg-emerald-50 rounded p-6">
         <p className="text-[15px] font-semibold text-emerald-800 mb-1">We received your inquiry.</p>
-        <p className="text-[13px] text-emerald-700">We will be in touch within 2 business days.</p>
+        <p className="text-[13px] text-emerald-700">Check your email for your referral link. We will be in touch within 2 business days.</p>
       </div>
     )
   }
@@ -67,6 +68,10 @@ export function PartnersForm() {
             <label htmlFor="p-company" className={LABEL_CLS}>Company</label>
             <input id="p-company" name="company" type="text" required placeholder="Acme Partners" className={INPUT_CLS} />
           </div>
+        </div>
+        <div>
+          <label htmlFor="p-email" className={LABEL_CLS}>Work email</label>
+          <input id="p-email" name="email" type="email" required placeholder="jane@acmepartners.com" className={INPUT_CLS} />
         </div>
         <div>
           <label htmlFor="p-role" className={LABEL_CLS}>Your role</label>
