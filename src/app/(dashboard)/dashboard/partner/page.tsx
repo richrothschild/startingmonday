@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { SeatPurchase } from './seat-purchase'
 
 const TIER_MRR: Record<string, number> = {
   passive:   49,
@@ -21,14 +22,25 @@ export default async function PartnerDashboardPage() {
   // Check if this user is a registered partner
   const { data: partner } = await admin
     .from('partners')
-    .select('id, name, referral_code, commission_pct, created_at')
+    .select('id, name, referral_code, commission_pct, created_at, seats_purchased, user_id')
     .eq('email', user.email ?? '')
     .eq('is_active', true)
     .maybeSingle()
 
   if (!partner) notFound()
 
+  // Self-register user_id on partner record if not yet set
+  if (!partner.user_id) {
+    await admin.from('partners').update({ user_id: user.id }).eq('id', partner.id)
+  }
+
   const referralLink = `${APP_URL}/signup?ref=${partner.referral_code}`
+
+  // Fetch seat count for coach seat section
+  const { count: seatsUsed } = await admin
+    .from('team_seats')
+    .select('id', { count: 'exact', head: true })
+    .eq('owner_id', user.id)
 
   // Fetch attributions with subscription info
   const { data: attributions } = await admin
@@ -109,6 +121,12 @@ export default async function PartnerDashboardPage() {
             </div>
           ))}
         </div>
+
+        {/* Coach seats */}
+        <SeatPurchase
+          seatsPurchased={partner.seats_purchased ?? 0}
+          seatsUsed={seatsUsed ?? 0}
+        />
 
         {/* Referral link */}
         <div className="bg-white border border-slate-200 rounded p-6 mb-6">

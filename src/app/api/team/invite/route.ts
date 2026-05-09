@@ -25,6 +25,29 @@ export async function POST(request: NextRequest) {
 
   // Use admin client to insert so the owner_id RLS policy applies correctly
   const admin = createAdminClient()
+
+  // Enforce seat limit if this user is a partner who purchased seats
+  const { data: currentUser } = await admin.from('users').select('email').eq('id', userId).single()
+  if (currentUser?.email) {
+    const { data: partner } = await admin
+      .from('partners')
+      .select('seats_purchased')
+      .eq('email', currentUser.email)
+      .eq('is_active', true)
+      .maybeSingle()
+    if (partner && partner.seats_purchased > 0) {
+      const { count: seatCount } = await admin
+        .from('team_seats')
+        .select('id', { count: 'exact', head: true })
+        .eq('owner_id', userId)
+      if ((seatCount ?? 0) >= partner.seats_purchased) {
+        return NextResponse.json(
+          { error: `You have used all ${partner.seats_purchased} purchased seat${partner.seats_purchased !== 1 ? 's' : ''}. Purchase more seats to invite additional clients.` },
+          { status: 403 },
+        )
+      }
+    }
+  }
   const { data: seat, error } = await admin
     .from('team_seats')
     .insert({ owner_id: userId, member_email: email })

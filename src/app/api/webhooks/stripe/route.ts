@@ -53,6 +53,26 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session
       const userId = session.metadata?.userId
       const plan = session.metadata?.plan
+      const type = session.metadata?.type
+
+      if (type === 'coach_seats') {
+        // Coach purchased a seat bundle: credit seats to the partner record
+        const partnerId = session.metadata?.partnerId
+        const quantity = parseInt(session.metadata?.quantity ?? '0', 10)
+        const subId = typeof session.subscription === 'string'
+          ? session.subscription
+          : (session.subscription as Stripe.Subscription | null)?.id ?? null
+        if (partnerId && quantity > 0) {
+          const { error } = await supabase.from('partners').update({
+            seats_purchased: quantity,
+            ...(subId ? { seats_subscription_id: subId } : {}),
+            ...(userId ? { user_id: userId } : {}),
+          }).eq('id', partnerId)
+          updateError = error
+        }
+        break
+      }
+
       if (userId && plan && VALID_PLANS.has(plan)) {
         const customerId = typeof session.customer === 'string'
           ? session.customer
@@ -78,6 +98,22 @@ export async function POST(request: NextRequest) {
     case 'customer.subscription.updated': {
       const sub = event.data.object as StripeSubWithPeriodEnd
       const userId = sub.metadata?.userId
+      const type = sub.metadata?.type
+
+      if (type === 'coach_seats') {
+        // Sync seat quantity when the coach changes their seat count
+        const partnerId = sub.metadata?.partnerId
+        if (partnerId) {
+          const quantity = sub.items?.data?.[0]?.quantity ?? 0
+          const isActive = sub.status === 'active'
+          const { error } = await supabase.from('partners').update({
+            seats_purchased: isActive ? quantity : 0,
+          }).eq('id', partnerId)
+          updateError = error
+        }
+        break
+      }
+
       if (!userId) break
       const status = mapStripeStatus(sub.status, sub.pause_collection)
       const rawPlan = sub.metadata?.plan ?? 'free'
@@ -100,6 +136,20 @@ export async function POST(request: NextRequest) {
 
     case 'customer.subscription.deleted': {
       const sub = event.data.object as StripeSubWithPeriodEnd
+      const type = sub.metadata?.type
+
+      if (type === 'coach_seats') {
+        const partnerId = sub.metadata?.partnerId
+        if (partnerId) {
+          const { error } = await supabase.from('partners').update({
+            seats_purchased: 0,
+            seats_subscription_id: null,
+          }).eq('id', partnerId)
+          updateError = error
+        }
+        break
+      }
+
       const userId = sub.metadata?.userId
       if (!userId) break
       const { error } = await supabase.from('users').update({
