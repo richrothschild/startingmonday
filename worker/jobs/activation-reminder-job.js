@@ -302,9 +302,14 @@ export async function runActivationReminderJob() {
     const firstName  = profile?.full_name?.split(' ')[0] ?? 'there'
     const deliverTo  = profile?.briefing_email ?? user.email
 
-    // Day 1: welcome email — send regardless of company/activation status
+    // Day 1: welcome email — send unless the user already has profile data
+    // (onboarding_completed_at alone doesn't mean they filled out their profile;
+    //  check for actual content so empty-profile users still get the welcome nudge)
     if (dayNumber === 1) {
-      if (profile?.onboarding_completed_at) { skipped++; continue }
+      const hasProfileData = (profile?.resume_text?.length ?? 0) >= 200
+        || (profile?.positioning_summary?.length ?? 0) >= 100
+        || !!profile?.current_title
+      if (hasProfileData && hasCompany.has(user.id)) { skipped++; continue }
       try {
         const { subject, html } = buildWelcomeEmail({ firstName })
         await sendEmail({ to: deliverTo, subject, html })

@@ -74,6 +74,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [pasteText, setPasteText]     = useState('')
   const [importing, setImporting]     = useState(false)
   const [importDone, setImportDone]   = useState(false)
+  const [importThin, setImportThin]   = useState(false)
   const [importError, setImportError] = useState('')
   const [extracting, setExtracting]   = useState(false)
   const [manualMode, setManualMode]   = useState(false)
@@ -102,6 +103,12 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
+  function prevStep() {
+    if (isPassive && step === 4) return 2  // skipped step 3 (import)
+    if (isPassive && step === 6) return 4  // skipped step 5 (briefing time)
+    return step - 1
+  }
+
   function applyImport(data: ImportResult) {
     if (data.full_name)            setFullName(data.full_name)
     if (data.current_title)        setCurrentTitle(data.current_title)
@@ -110,6 +117,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (data.resume_text)          setResumeText(data.resume_text)
     if (data.beyond_resume)        setBeyondResume(data.beyond_resume)
     if (data.target_titles)        setTargetTitles(data.target_titles)
+    // Thin: only raw text was saved — structured fields (title, company) weren't extracted
+    setImportThin(!data.current_title && !data.current_company)
     setImportDone(true)
   }
 
@@ -251,6 +260,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           {step === 3 && (
             <StepImport
               importDone={importDone}
+              importThin={importThin}
               importing={importing}
               extracting={extracting}
               importError={importError}
@@ -301,7 +311,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             {step > 0 && (
               <button
                 type="button"
-                onClick={() => goTo(step - 1)}
+                onClick={() => goTo(prevStep())}
                 className="text-[13px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
               >
                 Back
@@ -366,7 +376,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <button
                 type="button"
                 onClick={advance}
-                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+                disabled={!companyNames.some(n => n.trim())}
+                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
@@ -785,6 +796,7 @@ function StepSituation({
 
 function StepImport({
   importDone,
+  importThin,
   importing,
   extracting,
   importError,
@@ -802,6 +814,7 @@ function StepImport({
   onLinkedinUrl,
 }: {
   importDone: boolean
+  importThin: boolean
   importing: boolean
   extracting: boolean
   importError: string
@@ -821,6 +834,57 @@ function StepImport({
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
 
   if (importDone) {
+    if (importThin) {
+      return (
+        <div className="flex flex-col gap-6">
+          <div>
+            <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+              Background text saved.
+            </h1>
+            <p className="text-[15px] text-slate-500">
+              We saved your profile text but could not automatically extract your title and company. Add them below so briefings and prep briefs are personalized correctly.
+            </p>
+          </div>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 flex items-start gap-3">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0 mt-0.5">
+              <circle cx="10" cy="10" r="10" fill="#fef3c7" />
+              <path d="M10 6v5" stroke="#d97706" strokeWidth="1.8" strokeLinecap="round" />
+              <circle cx="10" cy="14" r="1" fill="#d97706" />
+            </svg>
+            <span className="text-[13px] text-amber-800 leading-relaxed">
+              Title and company not detected. Fill them in now or update your profile later.
+            </span>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div>
+              <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+                Current or most recent title
+              </label>
+              <input
+                type="text"
+                value={currentTitle}
+                onChange={e => onTitle(e.target.value)}
+                placeholder="Chief Information Officer"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+                Current or most recent company
+              </label>
+              <input
+                type="text"
+                value={currentCompany}
+                onChange={e => onCompany(e.target.value)}
+                placeholder="Acme Corp"
+                className={inputCls}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className="flex flex-col gap-6">
         <div>
