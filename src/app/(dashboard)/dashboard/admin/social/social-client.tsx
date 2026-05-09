@@ -1,0 +1,255 @@
+'use client'
+import { useState, useEffect, useRef } from 'react'
+
+type SocialPost = {
+  id: string
+  post_date: string
+  pillar: string
+  draft_text: string
+  is_posted: boolean
+  posted_at: string | null
+}
+
+type TodayResponse =
+  | { isPostDay: false; dateStr: string; nextPostDays: string[] }
+  | { isPostDay: true; dateStr: string; pillar: string; pillarLabel: string; post: SocialPost }
+
+const LINKEDIN_URL = 'https://www.linkedin.com/feed/'
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr + 'T12:00:00Z').toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric',
+  })
+}
+
+export function SocialClient() {
+  const [state, setState] = useState<TodayResponse | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [draftText, setDraftText] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [markingPosted, setMarkingPosted] = useState(false)
+  const [regenerating, setRegenerating] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    load()
+  }, [])
+
+  async function load() {
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/admin/social/today')
+      if (!res.ok) { setError(`Failed to load (${res.status})`); return }
+      const data: TodayResponse = await res.json()
+      setState(data)
+      if (data.isPostDay) setDraftText(data.post.draft_text)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleSave() {
+    if (!state?.isPostDay || saving) return
+    setSaving(true)
+    try {
+      const res = await fetch(`/api/admin/social/${state.post.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draft_text: draftText }),
+      })
+      if (!res.ok) { setError('Save failed'); return }
+      const data = await res.json()
+      setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(draftText)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+    // Save any edits before copying
+    if (state?.isPostDay && draftText !== state.post.draft_text) {
+      await handleSave()
+    }
+  }
+
+  async function handleMarkPosted() {
+    if (!state?.isPostDay || markingPosted) return
+    setMarkingPosted(true)
+    try {
+      // Save edits first
+      if (draftText !== state.post.draft_text) await handleSave()
+      const res = await fetch(`/api/admin/social/${state.post.id}/mark-posted`, { method: 'POST' })
+      if (!res.ok) { setError('Failed to mark posted'); return }
+      const data = await res.json()
+      setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
+    } finally {
+      setMarkingPosted(false)
+    }
+  }
+
+  async function handleRegenerate() {
+    if (!state?.isPostDay || regenerating) return
+    setRegenerating(true)
+    setError('')
+    try {
+      // Delete existing so /today generates fresh
+      await fetch(`/api/admin/social/${state.post.id}`, { method: 'DELETE' }).catch(() => {})
+      const res = await fetch(`/api/admin/social/today?regen=${Date.now()}`)
+      if (!res.ok) { setError('Regeneration failed'); return }
+      const data: TodayResponse = await res.json()
+      setState(data)
+      if (data.isPostDay) setDraftText(data.post.draft_text)
+    } finally {
+      setRegenerating(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-white border border-slate-200 rounded p-8 flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
+        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <p className="text-[13px] text-red-600 mb-3">{error}</p>
+        <button
+          type="button"
+          onClick={load}
+          className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 cursor-pointer bg-transparent transition-colors"
+        >
+          Try again
+        </button>
+      </div>
+    )
+  }
+
+  if (!state) return null
+
+  if (!state.isPostDay) {
+    return (
+      <div className="bg-white border border-slate-200 rounded p-8 text-center">
+        <p className="text-[14px] font-semibold text-slate-900 mb-2">No post scheduled today.</p>
+        <p className="text-[13px] text-slate-500">Posts go out Monday, Wednesday, and Friday.</p>
+        {state.nextPostDays.length > 0 && (
+          <p className="text-[12px] text-slate-400 mt-3">
+            Next: {state.nextPostDays.map(d => formatDate(d)).join(', ')}
+          </p>
+        )}
+      </div>
+    )
+  }
+
+  const { post, pillarLabel, dateStr } = state
+  const isDirty = draftText !== post.draft_text
+  const busy = saving || markingPosted || regenerating
+
+  return (
+    <div className="flex flex-col gap-4">
+
+      {/* Date + pillar header */}
+      <div className="bg-white border border-slate-200 rounded px-6 py-5 flex items-center justify-between gap-4">
+        <div>
+          <p className="text-[13px] font-semibold text-slate-900">{formatDate(dateStr)}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-[11px] font-bold tracking-[0.08em] uppercase bg-orange-50 text-orange-600 px-2 py-0.5 rounded">
+              {pillarLabel}
+            </span>
+            {post.is_posted && (
+              <span className="text-[11px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">
+                Posted {post.posted_at ? new Date(post.posted_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''}
+              </span>
+            )}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={handleRegenerate}
+          disabled={busy}
+          className="shrink-0 text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        >
+          {regenerating ? 'Generating…' : 'Regenerate'}
+        </button>
+      </div>
+
+      {/* Draft editor */}
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400">Post Draft</p>
+          {isDirty && !saving && (
+            <span className="text-[11px] text-amber-600 font-medium">Unsaved edits</span>
+          )}
+          {saving && (
+            <span className="text-[11px] text-slate-400">Saving…</span>
+          )}
+        </div>
+        <textarea
+          ref={textareaRef}
+          value={draftText}
+          onChange={e => setDraftText(e.target.value)}
+          onBlur={isDirty ? handleSave : undefined}
+          disabled={busy}
+          rows={14}
+          className="w-full text-[14px] text-slate-700 leading-relaxed border border-slate-200 rounded px-4 py-3 resize-none focus:outline-none focus:border-slate-400 font-[inherit] disabled:opacity-50"
+          placeholder="Draft will appear here…"
+        />
+        <p className="mt-1.5 text-[11px] text-slate-300">{draftText.length} characters · Edits save on blur</p>
+      </div>
+
+      {/* Character count advisory */}
+      {draftText.length > 3000 && (
+        <div className="px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[12px] text-amber-700">
+          LinkedIn limits posts to 3,000 characters. This draft is {draftText.length} characters — trim before posting.
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <button
+          type="button"
+          onClick={handleCopy}
+          disabled={busy || !draftText.trim()}
+          className="flex-1 bg-slate-900 text-white text-[13px] font-semibold px-5 py-3 rounded cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed transition-colors hover:bg-slate-800"
+        >
+          {copied ? 'Copied!' : 'Copy to LinkedIn'}
+        </button>
+        <a
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 text-center text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-5 py-3 hover:border-slate-400 hover:text-slate-900 transition-colors"
+        >
+          Open LinkedIn ↗
+        </a>
+        {!post.is_posted ? (
+          <button
+            type="button"
+            onClick={handleMarkPosted}
+            disabled={busy}
+            className="flex-1 text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 hover:border-green-400 bg-green-50 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            {markingPosted ? 'Saving…' : 'Mark posted'}
+          </button>
+        ) : (
+          <div className="flex-1 text-center text-[13px] font-semibold text-green-700 border border-green-200 rounded px-5 py-3 bg-green-50">
+            Posted
+          </div>
+        )}
+      </div>
+
+    </div>
+  )
+}
