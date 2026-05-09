@@ -37,14 +37,15 @@ export async function updateCompany(id: string, formData: FormData) {
   const offerBase      = numOrNull(formData, 'offer_base')
   const offerBonusPct  = numOrNull(formData, 'offer_bonus_pct')
   const offerSigning   = numOrNull(formData, 'offer_signing')
-  const offerEquity    = str(formData, 'offer_equity') || null
-  const offerNotes     = str(formData, 'offer_notes') || null
+  const offerEquity           = str(formData, 'offer_equity') || null
+  const offerNotes            = str(formData, 'offer_notes') || null
+  const offerDecisionFactors  = str(formData, 'offer_decision_factors') || null
 
   if (!name) redirect(`/dashboard/companies/${id}?error=required`)
 
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes })
+    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
     .eq('id', id)
     .eq('user_id', user.id)
 

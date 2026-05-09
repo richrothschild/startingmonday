@@ -108,7 +108,7 @@ export default async function CompanyPage({
   const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }] = await Promise.all([
     supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes')
+      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
@@ -430,6 +430,7 @@ export default async function CompanyPage({
                   offer_signing?: number | null
                   offer_equity?: string | null
                   offer_notes?: string | null
+                  offer_decision_factors?: string | null
                 }
                 const base   = co.offer_base ?? 0
                 const bonusPct = co.offer_bonus_pct ?? 0
@@ -515,6 +516,17 @@ export default async function CompanyPage({
                         placeholder="Deadline, conditions, what they said about flexibility, PTO, remote policy..."
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                       />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Decision factors</label>
+                      <textarea
+                        name="offer_decision_factors"
+                        rows={4}
+                        defaultValue={co.offer_decision_factors ?? ''}
+                        placeholder="Relocation required — moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
+                      />
+                      <p className="mt-1 text-[11px] text-slate-400">Everything the numbers do not capture. Private.</p>
                     </div>
                     {totalCash !== null && (
                       <div className="mt-3 px-4 py-3 bg-green-50 border border-green-200 rounded flex items-center justify-between">

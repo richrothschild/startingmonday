@@ -19,6 +19,7 @@ type OfferCompany = {
   offer_signing: number | null
   offer_equity: string | null
   offer_notes: string | null
+  offer_decision_factors: string | null
 }
 
 export default async function OffersPage() {
@@ -28,7 +29,7 @@ export default async function OffersPage() {
 
   const { data: raw } = await supabase
     .from('companies')
-    .select('id, name, sector, fit_score, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes')
+    .select('id, name, sector, fit_score, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
     .eq('user_id', user.id)
     .eq('stage', 'offer')
     .is('archived_at', null)
@@ -54,6 +55,10 @@ export default async function OffersPage() {
     { label: 'Fit score',    render: (o: OfferCompany) => o.fit_score != null ? o.fit_score : <span className="text-slate-300">—</span> },
     { label: 'Notes',        render: (o: OfferCompany) => o.offer_notes
       ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_notes}</span>
+      : <span className="text-slate-300">—</span>
+    },
+    { label: 'Factors',      render: (o: OfferCompany) => o.offer_decision_factors
+      ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_decision_factors}</span>
       : <span className="text-slate-300">—</span>
     },
   ]
@@ -147,8 +152,8 @@ export default async function OffersPage() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-slate-100">
-                    <th className="py-3 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 w-28">
-                      &nbsp;
+                    <th scope="col" className="py-3 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 w-28">
+                      Field
                     </th>
                     {offers.map(o => (
                       <th key={o.id} className="py-3 px-4 text-left">
