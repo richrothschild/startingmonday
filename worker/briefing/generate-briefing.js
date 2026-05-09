@@ -18,7 +18,7 @@ const ROLE_FRAMES = {
   },
   cdo_data: {
     title: 'CDO (Chief Data Officer)',
-    signalFocus: 'When interpreting signals: prioritize data platform investments, AI and analytics announcements, data governance regulatory changes, Chief AI Officer appointments (which can indicate a CDO search or consolidation), and organizational changes in data or analytics functions.',
+    signalFocus: 'When interpreting signals: treat data_platform signals (Snowflake, Databricks, data lakehouse investments) and ai_investment signals (AI initiative launches, Chief AI Officer hires) as the highest-priority events — they directly indicate a data leadership mandate is forming or expanding. Also flag data governance regulatory changes, Chief AI Officer appointments that may signal CDO consolidation, and organizational changes in data or analytics functions.',
   },
   cdo_digital: {
     title: 'Chief Digital Officer',
@@ -26,7 +26,7 @@ const ROLE_FRAMES = {
   },
   ciso: {
     title: 'CISO (Chief Information Security Officer)',
-    signalFocus: 'When interpreting signals: prioritize security incidents or breach disclosures at target companies or sector peers (these create immediate CISO urgency), regulatory changes affecting the target company sector (SEC cybersecurity rules, HIPAA updates, PCI-DSS changes), compliance deadlines, CISO departures, and any board-level governance change that elevates security accountability. A breach at a competitor is as important as one at a target company.',
+    signalFocus: 'When interpreting signals: treat breach_disclosure and regulatory_change signals as the highest priority — these create immediate CISO urgency regardless of whether the event is at a target company or a sector peer. Also prioritize CISO departures, compliance deadlines (SEC cybersecurity rules, HIPAA updates, PCI-DSS changes), and any board-level governance change that elevates security accountability. A breach at a competitor matters as much as one at a target company.',
   },
   cpo: {
     title: 'CPO (Chief Product Officer)',

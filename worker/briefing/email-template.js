@@ -10,8 +10,12 @@ const SIGNAL_LABELS = {
   ipo:            'IPO',
   new_product:    'New Product',
   award:          'Award',
-  pattern_alert:  'Pattern',
-  filing_trend:   'Filing Trend',
+  pattern_alert:      'Pattern',
+  filing_trend:       'Filing Trend',
+  breach_disclosure:  'Breach',
+  regulatory_change:  'Regulatory',
+  data_platform:      'Data Platform',
+  ai_investment:      'AI Investment',
 }
 
 export function renderBriefingEmail(context, briefing) {

@@ -721,6 +721,20 @@ export function PrepClient({
           </div>
         )}
 
+        {brief && hasContacts && (
+          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4 no-print">
+            <p className="text-[13px] text-slate-300">
+              Ready to reach out? Draft a personalized message to your contact at {companyName}.
+            </p>
+            <Link
+              href={`/dashboard/companies/${companyId}#outreach`}
+              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+            >
+              Draft outreach →
+            </Link>
+          </div>
+        )}
+
         {brief && !hasContacts && (
           <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4 no-print">
             <p className="text-[13px] text-slate-300">
