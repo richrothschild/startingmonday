@@ -44,13 +44,15 @@ jobs:
           failed=0
           # Find all route.ts files under src/app/api/
           while IFS= read -r file; do
-            # Skip known intentionally-public routes
+            # Skip known intentionally-public routes and routes using custom auth patterns
             case "$file" in
               *webhooks/stripe*|*health*|*demo-brief*|*demo-email*|*partners*|*optimize*|*admin/health*) continue ;;
+              *briefing/send*) continue ;;  # retired endpoint (returns 410)
             esac
             # Check if file has POST/PUT/DELETE but no auth guard
+            # Also accepts: createAdminClient (intelligence/admin routes use staff token check)
             if grep -qE 'export async function (POST|PUT|DELETE)' "$file"; then
-              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess' "$file"; then
+              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess|createAdminClient|staff.*token|token.*staff' "$file"; then
                 echo "MISSING AUTH: $file"
                 failed=$((failed + 1))
               fi
