@@ -12,6 +12,7 @@ import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { saveQuickProfile } from './profile/actions'
 import { addSignalFollowUp } from './signals/actions'
+import { markPlaced } from './placed/actions'
 
 // Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -37,7 +38,7 @@ export default async function DashboardPage({
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -214,6 +215,10 @@ export default async function DashboardPage({
     { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
   ]
 
+  const offerCompany = !profile?.placed_at
+    ? allList.find(c => c.stage === 'offer') ?? null
+    : null
+
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL — we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
@@ -313,6 +318,28 @@ export default async function DashboardPage({
             <Link href="/dashboard/offers" className="text-[12px] font-semibold text-green-700 hover:text-green-900 shrink-0">
               Compare &amp; negotiate →
             </Link>
+          </div>
+        )}
+
+        {/* Placement prompt -- shown when an offer-stage company exists and not yet placed */}
+        {offerCompany && (
+          <div className="mb-6 bg-green-900 rounded px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-[14px] font-bold text-white">Did you accept the offer?</p>
+              <p className="text-[12px] text-green-300 mt-0.5">Mark your search complete and we will take care of the rest.</p>
+            </div>
+            <form action={markPlaced} className="flex items-center gap-2 shrink-0">
+              <input type="hidden" name="company" value={offerCompany.name} />
+              <button
+                type="submit"
+                className="bg-white text-slate-900 text-[13px] font-bold px-5 py-2 rounded cursor-pointer border-0 hover:bg-slate-100 transition-colors whitespace-nowrap"
+              >
+                Yes, I accepted
+              </button>
+              <Link href="/dashboard" className="text-[12px] text-green-400 hover:text-green-200 transition-colors whitespace-nowrap">
+                Not yet
+              </Link>
+            </form>
           </div>
         )}
 
