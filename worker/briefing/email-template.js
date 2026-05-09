@@ -15,7 +15,7 @@ const SIGNAL_LABELS = {
 }
 
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], todayStr } = context
+  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr } = context
   const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '' } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
@@ -73,6 +73,7 @@ export function renderBriefingEmail(context, briefing) {
   const totalSignals     = signals.length + patternAlerts.length
   const actionsDueColor  = followUps.length > 0 ? '#b91c1c' : '#0f172a'
   const signalsColor     = totalSignals > 0      ? '#b45309' : '#0f172a'
+  const sentColor        = outreachThisWeek > 0  ? '#15803d' : '#0f172a'
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -97,21 +98,25 @@ export function renderBriefingEmail(context, briefing) {
       <tr><td style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:0;">
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+            <td width="20%" style="padding:20px 8px;text-align:center;border-right:1px solid #e2e8f0;">
               <div style="font-size:22px;font-weight:700;color:#0f172a;line-height:1;">${totalCompanies}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Companies</div>
             </td>
-            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+            <td width="20%" style="padding:20px 8px;text-align:center;border-right:1px solid #e2e8f0;">
               <div style="font-size:22px;font-weight:700;color:${signalsColor};line-height:1;">${totalSignals}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Signals</div>
             </td>
-            <td width="25%" style="padding:20px 12px;text-align:center;border-right:1px solid #e2e8f0;">
+            <td width="20%" style="padding:20px 8px;text-align:center;border-right:1px solid #e2e8f0;">
               <div style="font-size:22px;font-weight:700;color:#0f172a;line-height:1;">${newMatches.length}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Matches</div>
             </td>
-            <td width="25%" style="padding:20px 12px;text-align:center;">
+            <td width="20%" style="padding:20px 8px;text-align:center;border-right:1px solid #e2e8f0;">
               <div style="font-size:22px;font-weight:700;color:${actionsDueColor};line-height:1;">${followUps.length}</div>
               <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Actions Due</div>
+            </td>
+            <td width="20%" style="padding:20px 8px;text-align:center;">
+              <div style="font-size:22px;font-weight:700;color:${sentColor};line-height:1;">${outreachThisWeek}</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:5px;letter-spacing:0.07em;text-transform:uppercase;">Sent</div>
             </td>
           </tr>
         </table>

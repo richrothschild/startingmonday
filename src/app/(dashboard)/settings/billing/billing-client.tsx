@@ -35,7 +35,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
       const res = await fetch('/api/billing/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: plan === 'passive' ? 'monitor' : plan, interval: plan === 'executive' ? interval : interval }),
+        body: JSON.stringify({ plan, interval }),
       })
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
       if (data.error) { alert(data.error); return }
@@ -219,15 +219,15 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                 </button>
                 <button
                   type="button"
-                  onClick={() => setInterval('quarterly')}
-                  className={`px-4 py-1.5 transition-colors ${interval === 'quarterly' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+                  onClick={() => setInterval('annual')}
+                  className={`px-4 py-1.5 transition-colors ${interval === 'annual' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
                 >
-                  Quarterly
+                  Annual
                 </button>
               </div>
-              {interval === 'quarterly' && (
+              {interval === 'annual' && (
                 <span className="text-[11px] font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
-                  Save 10%
+                  2 months free
                 </span>
               )}
             </div>
@@ -235,8 +235,8 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
             {/* Subscribable plans */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {(Object.entries(PLANS) as [keyof typeof PLANS, (typeof PLANS)[keyof typeof PLANS]][]).map(([key, plan]) => {
-                const amount = interval === 'quarterly' ? plan.quarterlyAmount : plan.amount
-                const monthlyEquiv = interval === 'quarterly' ? Math.round(plan.quarterlyAmount / 3) : null
+                const amount = interval === 'annual' ? plan.annualAmount : plan.amount
+                const monthlyEquiv = interval === 'annual' ? Math.round(plan.annualAmount / 12) : null
                 const isFeatured = key === 'active'
                 return (
                   <div key={key} className={`bg-white border rounded p-6 ${isFeatured ? 'border-slate-900' : 'border-slate-200'}`}>
@@ -247,11 +247,11 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                     <p className="text-[28px] font-bold text-slate-900 mt-1">
                       ${(amount / 100).toFixed(0)}
                       <span className="text-[14px] font-normal text-slate-500">
-                        {interval === 'quarterly' ? '/quarter' : '/mo'}
+                        {interval === 'annual' ? '/yr' : '/mo'}
                       </span>
                     </p>
                     {monthlyEquiv && (
-                      <p className="text-[12px] text-slate-400 mt-0.5">${(monthlyEquiv / 100).toFixed(0)}/mo equivalent</p>
+                      <p className="text-[12px] text-slate-400 mt-0.5">${(monthlyEquiv / 100).toFixed(0)}/mo billed annually</p>
                     )}
                     <p className="text-[13px] text-slate-500 mt-2 mb-4 leading-relaxed">{plan.description}</p>
                     <ul className="mb-5 flex flex-col gap-1.5">

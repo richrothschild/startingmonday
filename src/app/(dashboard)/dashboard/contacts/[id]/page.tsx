@@ -5,7 +5,7 @@ import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { ContactStatusStepper } from '@/components/ContactStatusStepper'
 import { markContactSentForm } from '../actions'
-import { addContactFollowUp } from './actions'
+import { addContactFollowUp, logOutreach } from './actions'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
   linkedin:  { label: 'LinkedIn',  cls: 'bg-blue-50 text-blue-700' },
@@ -35,10 +35,10 @@ export default async function ContactDetailPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ sent?: string }>
+  searchParams: Promise<{ sent?: string; logged?: string }>
 }) {
   const { id } = await params
-  const { sent } = await searchParams
+  const { sent, logged } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -232,6 +232,13 @@ export default async function ContactDetailPage({
           </div>
         )}
 
+        {/* Log outreach confirmation */}
+        {logged === '1' && (
+          <div className="bg-green-50 border border-green-200 rounded-lg px-5 py-3 mb-5 text-[13px] text-green-700 font-medium">
+            Outreach logged.
+          </div>
+        )}
+
         {/* Warm path alert */}
         {mostRecentSignal && (
           <div className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 mb-5">
@@ -338,6 +345,38 @@ export default async function ContactDetailPage({
                     Add
                   </button>
                 </div>
+              </form>
+            </div>
+
+            {/* Log outreach sent */}
+            <div className="border-t border-slate-100 px-5 py-4">
+              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Log outreach sent</p>
+              <form action={logOutreach.bind(null, id)} className="flex flex-col gap-2">
+                <select
+                  name="channel"
+                  required
+                  aria-label="Channel"
+                  className="border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-700 focus:outline-none focus:border-slate-400 bg-white"
+                >
+                  <option value="">Select channel</option>
+                  <option value="linkedin">LinkedIn</option>
+                  <option value="email">Email</option>
+                  <option value="phone">Phone</option>
+                  <option value="other">Other</option>
+                </select>
+                <textarea
+                  name="message_preview"
+                  placeholder="Paste first lines of your message (optional, 200 chars max)"
+                  maxLength={200}
+                  rows={2}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 resize-none"
+                />
+                <button
+                  type="submit"
+                  className="self-end text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
+                >
+                  Log sent
+                </button>
               </form>
             </div>
           </div>

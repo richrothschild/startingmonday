@@ -2,7 +2,7 @@ export const PLANS = {
   passive: {
     name: 'Intelligence',
     amount: 4900,
-    quarterlyAmount: 13200,
+    annualAmount: 49000,
     description: 'Company signal monitoring, exec moves, funding rounds, and weekly digest',
     features: [
       'Pipeline tracking for up to 25 companies',
@@ -14,8 +14,8 @@ export const PLANS = {
   },
   active: {
     name: 'Search',
-    amount: 19900,
-    quarterlyAmount: 53700,
+    amount: 12900,
+    annualAmount: 129000,
     description: 'Full search operating system with AI briefs, daily briefing, and outreach',
     features: [
       'Everything in Intelligence',
@@ -30,7 +30,7 @@ export const PLANS = {
   executive: {
     name: 'Executive',
     amount: 24900,
-    quarterlyAmount: 67200,
+    annualAmount: 249000,
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
       'Everything in Search',
@@ -62,4 +62,4 @@ export const WAITLIST_PLANS = {
 } as const
 
 export type PlanKey = keyof typeof PLANS
-export type BillingInterval = 'monthly' | 'quarterly'
+export type BillingInterval = 'monthly' | 'annual'

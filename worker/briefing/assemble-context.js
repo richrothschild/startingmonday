@@ -9,7 +9,9 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const since14d = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
   const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult] = await Promise.all([
+  const since7dISO = since7d.toISOString()
+
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles, role_type, search_persona')
@@ -51,6 +53,11 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
       .gte('signal_date', since14d.toISOString().split('T')[0])
       .order('signal_date', { ascending: false })
       .limit(3),
+    supabase
+      .from('outreach_logs')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .gte('sent_at', since7dISO),
   ])
 
   if (profileResult.error) {
@@ -63,6 +70,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
   const rawFollowUps = followUpsResult.data ?? []
   const rawSignals       = signalsResult.data ?? []
   const rawPatternAlerts = patternAlertsResult.data ?? []
+  const outreachThisWeek = outreachResult.count ?? 0
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -135,6 +143,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     followUps,
     signals,
     patternAlerts,
+    outreachThisWeek,
     todayStr,
   }
 }

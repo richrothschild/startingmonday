@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PricingCards } from './pricing-cards'
 
 export const metadata: Metadata = {
   title: 'Pricing — Starting Monday',
@@ -10,39 +11,6 @@ export const metadata: Metadata = {
     description: 'Simple pricing for senior executive job searches.',
     url: 'https://startingmonday.app/pricing',
   },
-}
-
-const MONITOR_FEATURES = [
-  'Pipeline tracking for up to 25 companies',
-  'Company intelligence: news, 8-Ks, exec moves, funding, career pages',
-  'Pattern alerts before roles are posted',
-  'Weekly signal digest',
-  'Contact tracker',
-]
-
-const ACTIVE_FEATURES = [
-  'Everything in Intelligence',
-  'AI interview prep briefs',
-  'Search strategy brief',
-  'AI chat advisor',
-  'Outreach drafting and refinement',
-  'Resume tailoring',
-  'Daily morning briefing email',
-]
-
-const EXECUTIVE_FEATURES = [
-  'Everything in Search',
-  'Unlimited company pipeline',
-  'Career page scanning 2x daily',
-  'Immediate pattern and exec departure alerts',
-  'Opus AI for interview prep briefs',
-  'Salary intelligence and negotiation scripts',
-  'Recruiter tracker with firm grouping',
-  'Priority contact flagging and CSV export',
-]
-
-function Check() {
-  return <span className="text-emerald-500 shrink-0 mt-0.5 font-bold text-[13px]">&#10003;</span>
 }
 
 export default function PricingPage() {
@@ -68,7 +36,7 @@ export default function PricingPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <h1 className="text-[38px] sm:text-[48px] font-bold text-slate-900 leading-tight tracking-tight">
             Pricing
           </h1>
@@ -77,94 +45,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-          {/* Intelligence */}
-          <div className="border border-slate-200 rounded-lg p-8">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-              Intelligence
-            </p>
-            <div className="mb-5">
-              <span className="text-[44px] font-bold text-slate-900 leading-none">$49</span>
-              <span className="text-[15px] text-slate-500 ml-1">/month</span>
-            </div>
-            <p className="text-[14px] text-slate-500 leading-relaxed mb-7">
-              Stay ahead. Know what is happening at your target companies before the posting goes live.
-            </p>
-            <ul className="flex flex-col gap-3 mb-8">
-              {MONITOR_FEATURES.map(f => (
-                <li key={f} className="flex items-start gap-2.5 text-[13px] text-slate-700">
-                  <Check />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/signup"
-              className="block text-center bg-slate-900 text-white text-[14px] font-semibold px-6 py-3 rounded hover:bg-slate-700 transition-colors"
-            >
-              Start free trial
-            </Link>
-          </div>
-
-          {/* Search */}
-          <div className="border-2 border-slate-900 rounded-lg p-8 relative">
-            <span className="absolute top-4 right-4 text-[10px] font-bold tracking-[0.1em] uppercase bg-orange-500 text-white px-2.5 py-1 rounded">
-              Most popular
-            </span>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-              Search
-            </p>
-            <div className="mb-5">
-              <span className="text-[44px] font-bold text-slate-900 leading-none">$129</span>
-              <span className="text-[15px] text-slate-500 ml-1">/month</span>
-            </div>
-            <p className="text-[14px] text-slate-500 leading-relaxed mb-7">
-              The full search operating system. From pipeline to prep to outreach, in one place.
-            </p>
-            <ul className="flex flex-col gap-3 mb-8">
-              {ACTIVE_FEATURES.map(f => (
-                <li key={f} className="flex items-start gap-2.5 text-[13px] text-slate-700">
-                  <Check />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/signup"
-              className="block text-center bg-orange-500 text-white text-[14px] font-semibold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
-            >
-              Start free trial
-            </Link>
-          </div>
-
-          {/* Executive */}
-          <div className="border border-slate-200 rounded-lg p-8">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-              Executive
-            </p>
-            <div className="mb-5">
-              <span className="text-[44px] font-bold text-slate-900 leading-none">$249</span>
-              <span className="text-[15px] text-slate-500 ml-1">/month</span>
-            </div>
-            <p className="text-[14px] text-slate-500 leading-relaxed mb-7">
-              For C-suite candidates who need daily intelligence, unlimited pipeline, and Opus-grade prep briefs.
-            </p>
-            <ul className="flex flex-col gap-3 mb-8">
-              {EXECUTIVE_FEATURES.map(f => (
-                <li key={f} className="flex items-start gap-2.5 text-[13px] text-slate-700">
-                  <Check />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/signup"
-              className="block text-center bg-slate-900 text-white text-[14px] font-semibold px-6 py-3 rounded hover:bg-slate-700 transition-colors"
-            >
-              Start free trial
-            </Link>
-          </div>
-        </div>
+        <PricingCards />
 
         {/* Teams row */}
         <div className="border border-slate-200 rounded-lg px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5">

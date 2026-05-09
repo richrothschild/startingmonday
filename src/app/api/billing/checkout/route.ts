@@ -11,8 +11,10 @@ export async function POST(request: NextRequest) {
 
   const { userId } = auth
   const body = await request.json().catch(() => ({}))
-  const plan = body?.plan as PlanKey | undefined
-  const interval: 'monthly' | 'quarterly' = body?.interval === 'quarterly' ? 'quarterly' : 'monthly'
+  // Normalize legacy 'monitor' to 'passive' (backward compat with old billing client)
+  const rawPlan = body?.plan
+  const plan = (rawPlan === 'monitor' ? 'passive' : rawPlan) as PlanKey | undefined
+  const interval: 'monthly' | 'annual' = body?.interval === 'annual' ? 'annual' : 'monthly'
 
   if (!plan || !(plan in PLANS)) {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
