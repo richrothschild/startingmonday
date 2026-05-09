@@ -57,13 +57,20 @@ export async function POST(request: NextRequest) {
         const customerId = typeof session.customer === 'string'
           ? session.customer
           : (session.customer as Stripe.Customer | null)?.id ?? null
-        const { error } = await supabase.from('users').update({
+        const { data: updatedUser, error } = await supabase.from('users').update({
           subscription_tier: plan,
           subscription_status: 'active',
           trial_ends_at: null,
           ...(customerId ? { stripe_customer_id: customerId } : {}),
-        }).eq('id', userId)
+        }).eq('id', userId).select('email').single()
         updateError = error
+        if (updatedUser?.email) {
+          sendEmail({
+            to: 'rothschild@gmail.com',
+            subject: `New paid subscriber: ${updatedUser.email}`,
+            html: `<p style="font-family:sans-serif;font-size:14px;color:#0f172a;"><strong>${updatedUser.email}</strong> just converted to a paid ${plan} plan.</p>`,
+          }).catch(() => {})
+        }
       }
       break
     }

@@ -56,6 +56,9 @@ export async function GET(request: NextRequest) {
     if (!error && data.session && data.user) {
       const utmSource = searchParams.get('utm_source')
       const utmMedium = searchParams.get('utm_medium')
+      const isNewUser = data.user.created_at
+        ? (Date.now() - new Date(data.user.created_at).getTime()) < 60_000
+        : false
       await Promise.all([
         supabase.from('user_profiles').upsert(
           { user_id: data.user.id },
@@ -66,6 +69,13 @@ export async function GET(request: NextRequest) {
               signup_source: utmSource,
               acquisition_channel: utmMedium ?? null,
             }).eq('id', data.user.id)
+          : Promise.resolve(),
+        isNewUser
+          ? fetch(`${publicOrigin}/api/notify/new-user`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: utmSource }),
+            }).catch(() => {})
           : Promise.resolve(),
       ])
       return response
