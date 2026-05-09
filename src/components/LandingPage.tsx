@@ -583,6 +583,31 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
           </div>
+
+          {/* Concierge band */}
+          <div className="mt-6 max-w-4xl border border-slate-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 mb-1.5">
+                <p className="text-[13px] font-bold text-slate-900">Executive Concierge</p>
+                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">10 seats</span>
+              </div>
+              <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
+                Everything in Search, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
+              </p>
+            </div>
+            <div className="shrink-0 text-right">
+              <p className="text-[22px] font-bold text-slate-900 leading-none mb-0.5">
+                $499<span className="text-[13px] font-normal text-slate-400">/mo</span>
+              </p>
+              <p className="text-[11px] text-slate-400 mb-3">or $4,990/yr</p>
+              <Link
+                href="/concierge"
+                className="inline-block text-[13px] font-semibold text-orange-600 border border-orange-200 bg-orange-50 px-5 py-2 rounded hover:bg-orange-100 transition-colors"
+              >
+                Apply for access &rarr;
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
