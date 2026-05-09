@@ -50,7 +50,7 @@ export default async function ContactDetailPage({
   const [{ data: rawContact }, { data: followUps }, { data: recentBriefs }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, outreach_status, company_id, companies(id, name)')
+      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, outreach_status, company_id, contact_type, last_role_discussed, companies(id, name)')
       .eq('id', id)
       .eq('user_id', user.id)
       .eq('status', 'active')
@@ -79,9 +79,16 @@ export default async function ContactDetailPage({
     email?: string | null
     linkedin_url?: string | null
     outreach_status?: string | null
+    contact_type?: string | null
+    last_role_discussed?: string | null
     companies: { id: string; name: string } | null
   }
   const contact = rawContact as unknown as ContactRow
+
+  const isRecruiterContact = contact.contact_type === 'recruiter' || contact.channel === 'recruiter'
+  const warmth = !contact.contacted_at ? 'cold'
+    : daysSince(contact.contacted_at)! <= 90 ? 'warm'
+    : 'cold'
 
   // Fetch company signals if linked
   let companySignals: { id: string; signal_type: string; signal_summary: string; signal_date: string }[] = []
@@ -179,7 +186,20 @@ export default async function ContactDetailPage({
             {!contact.contacted_at && (
               <span className="text-slate-400">Never contacted</span>
             )}
+            {isRecruiterContact && (
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${warmth === 'warm' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
+                {warmth === 'warm' ? 'Warm' : 'Cold'}
+              </span>
+            )}
           </div>
+
+          {/* Recruiter-specific: last role discussed */}
+          {isRecruiterContact && contact.last_role_discussed && (
+            <div className="flex items-center gap-2 text-[13px] text-slate-500 mb-4">
+              <span className="font-semibold text-slate-600">Last role discussed:</span>
+              <span>{contact.last_role_discussed}</span>
+            </div>
+          )}
 
           {contact.notes && (
             <p className="text-[13px] text-slate-500 bg-slate-50 rounded px-4 py-3 mb-4 leading-relaxed">

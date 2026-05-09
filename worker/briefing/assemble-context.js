@@ -2,14 +2,17 @@ import { logger } from '../lib/logger.js'
 
 // Gathers all data needed for one user's daily briefing.
 // Returns null if there is nothing actionable to send.
-export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
+export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', searchStatus = 'active') {
   const now = new Date()
   const since24h = new Date(now.getTime() -  24 * 60 * 60 * 1000)
   const since7d  = new Date(now.getTime() -  7 * 24 * 60 * 60 * 1000)
   const since14d = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
+  const since30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+  const since90d = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
   const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
   const since7dISO = since7d.toISOString()
+  const isPlaced = searchStatus === 'complete'
 
   const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult] = await Promise.all([
     supabase
@@ -96,6 +99,58 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     if (contacts) contactById = Object.fromEntries(contacts.map(c => [c.id, c]))
   }
 
+  // Relationship cadence nudges: contacts that haven't been touched in threshold days
+  const { data: allActiveContacts } = await supabase
+    .from('contacts')
+    .select('id, name, title, firm, contact_type, channel, outreach_status, contacted_at, last_role_discussed, company_id')
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .neq('outreach_status', 'closed')
+
+  const relationshipNudges = []
+  for (const c of (allActiveContacts ?? [])) {
+    const isRecruiter = c.contact_type === 'recruiter' || c.channel === 'recruiter'
+    const daysSince = c.contacted_at
+      ? Math.floor((now.getTime() - new Date(c.contacted_at).getTime()) / 86400_000)
+      : null
+
+    let threshold = null
+    if (isRecruiter) threshold = 90
+    else if (c.outreach_status === 'in_conversation' || c.outreach_status === 'meeting_scheduled') threshold = 14
+    else if (c.outreach_status === 'reached_out') threshold = 30
+
+    if (threshold && (daysSince === null || daysSince >= threshold)) {
+      relationshipNudges.push({
+        id: c.id,
+        name: c.name,
+        title: c.title ?? null,
+        firm: c.firm ?? null,
+        isRecruiter,
+        lastRole: c.last_role_discussed ?? null,
+        outreachStatus: c.outreach_status,
+        daysSince,
+        threshold,
+      })
+    }
+  }
+  // Cap at 5 most urgent (longest dormant relative to threshold)
+  relationshipNudges.sort((a, b) => {
+    const aScore = a.daysSince === null ? 9999 : a.daysSince - a.threshold
+    const bScore = b.daysSince === null ? 9999 : b.daysSince - b.threshold
+    return bScore - aScore
+  })
+  const topNudges = relationshipNudges.slice(0, 5)
+
+  // Network health: companies with at least one active contact
+  const companiesWithContacts = new Set(
+    (allActiveContacts ?? []).filter(c => c.company_id).map(c => c.company_id)
+  )
+  const networkHealth = {
+    totalCompanies: companies.length,
+    companiesWithContacts: companiesWithContacts.size,
+    coveragePct: companies.length > 0 ? Math.round(companiesWithContacts.size / companies.length * 100) : 0,
+  }
+
   const followUps = rawFollowUps.map(f => ({
     id: f.id,
     dueDate: f.due_date,
@@ -145,5 +200,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC') {
     patternAlerts,
     outreachThisWeek,
     todayStr,
+    relationshipNudges: topNudges,
+    networkHealth,
+    isPlaced,
   }
 }

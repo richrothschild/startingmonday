@@ -588,6 +588,24 @@ export default async function DashboardPage({
           })}
         </div>
 
+        {/* Network health: surfaces coverage gaps when < 50% of companies have a contact */}
+        {totalCount >= 3 && contactCountMap.size < totalCount && (contactCountMap.size / totalCount) < 0.5 && (
+          <Link
+            href="/dashboard/contacts"
+            className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
+          >
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] font-semibold text-slate-900">
+                {contactCountMap.size} of {totalCount} companies have a contact
+              </p>
+              <p className="text-[12px] text-slate-400 mt-0.5">
+                Roles at this level fill through relationships. Add contacts at your top targets.
+              </p>
+            </div>
+            <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
+          </Link>
+        )}
+
         {/* Momentum Score — only renders after migration 022 is applied and worker has run */}
         {momentumData?.momentum_score != null && (
           <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">

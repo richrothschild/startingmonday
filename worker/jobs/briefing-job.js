@@ -70,7 +70,7 @@ export async function runBriefingJob() {
     const error = null
 
     const { data: profiles } = await supabase.from('user_profiles').select(
-      'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at, briefing_frequency, search_status'
+      'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at, briefing_frequency, search_status, placed_at'
     ).not('briefing_time', 'is', null)
 
     if (!users?.length) {
@@ -124,7 +124,8 @@ export async function runBriefingJob() {
       }
 
       try {
-        const context = await assembleContext(supabase, user.id, user.email, tz)
+        const searchStatus = profile.search_status ?? (profile.placed_at ? 'complete' : 'active')
+        const context = await assembleContext(supabase, user.id, user.email, tz, searchStatus)
         if (!context) {
           logger.info(`briefing-job: skip ${user.email} — no companies in pipeline`)
           skipped++; continue

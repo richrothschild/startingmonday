@@ -27,7 +27,7 @@ export default async function EditContactPage({
   const [{ data: rawContact }, { data: companies }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, email, linkedin_url, notes, company_id')
+      .select('id, name, title, firm, channel, email, linkedin_url, notes, company_id, contact_type, last_role_discussed')
       .eq('id', id)
       .eq('user_id', user.id)
       .eq('status', 'active')
@@ -42,7 +42,7 @@ export default async function EditContactPage({
 
   if (!rawContact) notFound()
 
-  type ContactRow = typeof rawContact & { email?: string | null; linkedin_url?: string | null }
+  type ContactRow = typeof rawContact & { email?: string | null; linkedin_url?: string | null; contact_type?: string | null; last_role_discussed?: string | null }
   const contact = rawContact as unknown as ContactRow
   const companyList = companies ?? []
 
@@ -138,6 +138,29 @@ export default async function EditContactPage({
                   </select>
                 </div>
               )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Relationship type</label>
+                <select name="contact_type" defaultValue={contact.contact_type ?? ''} className={inputCls}>
+                  <option value="">—</option>
+                  <option value="recruiter">Recruiter</option>
+                  <option value="hiring_manager">Hiring Manager</option>
+                  <option value="peer">Peer</option>
+                  <option value="coach">Coach</option>
+                  <option value="board">Board</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Last role discussed</label>
+                <input
+                  name="last_role_discussed"
+                  defaultValue={contact.last_role_discussed ?? ''}
+                  placeholder="CIO at Acme Corp"
+                  className={inputCls}
+                />
+              </div>
             </div>
 
             <div>

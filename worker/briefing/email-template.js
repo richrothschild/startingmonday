@@ -19,8 +19,8 @@ const SIGNAL_LABELS = {
 }
 
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr } = context
-  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '' } = briefing
+  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false } = context
+  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [] } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
   const firstName = userName.split(' ')[0]
@@ -64,6 +64,17 @@ export function renderBriefingEmail(context, briefing) {
         </div>`).join('')}
       </td></tr>` : ''
 
+  const relationshipSection = relationshipNudges.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94a3b8; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 18px;">Relationship Maintenance</div>
+        ${relationshipNudges.map(n => `
+        <div style="margin-bottom: 10px; padding: 16px 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #7c3aed; border-radius: 0 4px 4px 0;">
+          <div style="font-weight: 600; font-size: 14px; color: #0f172a; margin-bottom: 4px;">${esc(n.name)} <span style="font-size: 12px; font-weight: 400; color: #64748b;">${esc(n.context ?? '')}</span></div>
+          <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px;">Last contact: ${esc(n.lastContact ?? 'unknown')}</div>
+          <div style="font-size: 13px; color: #475569; line-height: 1.6;">${esc(n.suggestion)}</div>
+        </div>`).join('')}
+      </td></tr>` : ''
+
   const followUpSection = followUpSuggestions.length ? `
       <tr><td style="padding: 0 0 32px 0;">
         <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94a3b8; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 18px;">Open Actions</div>
@@ -94,8 +105,8 @@ export function renderBriefingEmail(context, briefing) {
       <!-- Header -->
       <tr><td style="background:#0f172a;padding:36px 48px 32px 48px;">
         <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:18px;">Starting Monday</div>
-        <div style="color:#ffffff;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:8px;">Good morning, ${esc(firstName)}.</div>
-        <div style="color:#64748b;font-size:13px;letter-spacing:0.01em;">${formatDate(todayStr)}</div>
+        <div style="color:#ffffff;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:8px;">${isPlaced ? `Good morning, ${esc(firstName)}.` : `Good morning, ${esc(firstName)}.`}</div>
+        <div style="color:#64748b;font-size:13px;letter-spacing:0.01em;">${isPlaced ? 'Weekly Career Intelligence &mdash; ' : ''}${formatDate(todayStr)}</div>
       </td></tr>
 
       <!-- Stats bar -->
@@ -136,6 +147,7 @@ export function renderBriefingEmail(context, briefing) {
           ${patternAlertSection}
           ${signalSection}
           ${matchSection}
+          ${relationshipSection}
           ${followUpSection}
 
           <!-- Closing + CTA -->

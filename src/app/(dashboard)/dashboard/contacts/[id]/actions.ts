@@ -12,13 +12,15 @@ export async function updateContact(contactId: string, formData: FormData): Prom
   const name = str(formData, 'name')
   if (!name) return
 
-  const title        = str(formData, 'title') || null
-  const firm         = str(formData, 'firm') || null
-  const channel      = str(formData, 'channel') || null
-  const email        = str(formData, 'email') || null
-  const linkedin_url = str(formData, 'linkedin_url') || null
-  const notes        = str(formData, 'notes') || null
-  const rawCompanyId = str(formData, 'company_id') || null
+  const title              = str(formData, 'title') || null
+  const firm               = str(formData, 'firm') || null
+  const channel            = str(formData, 'channel') || null
+  const email              = str(formData, 'email') || null
+  const linkedin_url       = str(formData, 'linkedin_url') || null
+  const notes              = str(formData, 'notes') || null
+  const rawCompanyId       = str(formData, 'company_id') || null
+  const contact_type       = str(formData, 'contact_type') || null
+  const last_role_discussed = str(formData, 'last_role_discussed') || null
 
   let companyId: string | null = null
   if (rawCompanyId) {
@@ -33,7 +35,7 @@ export async function updateContact(contactId: string, formData: FormData): Prom
 
   await supabase
     .from('contacts')
-    .update({ name, title, firm, channel, email, linkedin_url, notes, company_id: companyId })
+    .update({ name, title, firm, channel, email, linkedin_url, notes, company_id: companyId, contact_type, last_role_discussed })
     .eq('id', contactId)
     .eq('user_id', user.id)
 
