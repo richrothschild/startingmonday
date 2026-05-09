@@ -15,18 +15,19 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check all public tables have RLS enabled
+        env:
+          PGHOST: ${{ secrets.SUPABASE_DB_HOST }}
+          PGPORT: 5432
+          PGUSER: ${{ secrets.SUPABASE_DB_USER }}
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          PGDATABASE: postgres
         run: |
-          result=$(PGPASSWORD="$SUPABASE_DB_PASSWORD" psql \
-            -h "$SUPABASE_DB_HOST" \
-            -p 5432 \
-            -U "$SUPABASE_DB_USER" \
-            -d postgres \
-            -t -A -c "
-              SELECT tablename
-              FROM pg_tables
-              WHERE schemaname = 'public' AND rowsecurity = false
-              ORDER BY tablename;
-            ")
+          result=$(psql -t -A -c "
+            SELECT tablename
+            FROM pg_tables
+            WHERE schemaname = 'public' AND rowsecurity = false
+            ORDER BY tablename;
+          ")
           if [[ -n "$result" ]]; then
             echo "FAIL: These tables are missing RLS:"
             echo "$result"
@@ -34,10 +35,6 @@ jobs:
           else
             echo "PASS: All public tables have RLS enabled."
           fi
-        env:
-          SUPABASE_DB_HOST: ${{ secrets.SUPABASE_DB_HOST }}
-          SUPABASE_DB_USER: ${{ secrets.SUPABASE_DB_USER }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
 
   auth-coverage:
     name: API route auth coverage
