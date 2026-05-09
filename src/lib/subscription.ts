@@ -24,6 +24,7 @@ const FEATURE_TIERS: Record<string, SubscriptionTier[]> = {
   outreach_draft:          ['active', 'executive', 'campaign'],
   daily_briefing:          ['active', 'executive', 'campaign'],
   resume_tailor:           ['active', 'executive', 'campaign'],
+  positioning_coach:       ['active', 'executive', 'campaign'],
   daily_scan:              ['executive', 'campaign'],
   salary_intelligence:     ['executive', 'campaign'],
   recruiter_enhancements:  ['executive', 'campaign'],

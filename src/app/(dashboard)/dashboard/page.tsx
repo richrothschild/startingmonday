@@ -668,6 +668,7 @@ export default async function DashboardPage({
             { href: '/dashboard/discover',       label: 'Discover',          sub: 'AI-suggested targets' },
             { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
             { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
+            { href: '/dashboard/positioning',    label: 'Positioning',       sub: 'Refine your story' },
             { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
             ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients', sub: 'Coach dashboard' }] : []),
           ].map(a => (
