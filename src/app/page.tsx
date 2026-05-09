@@ -111,9 +111,9 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Most executives manage their search the way candidates do. The best ones run a campaign.',
-          h1Lines: ["Run your career", "like the executive", "you are."],
-          body: "Starting Monday is the career infrastructure for senior technology executives. Watch target companies for signals before roles open. Walk in with a tailored brief. Never let a relationship go cold. Run a campaign, not a job search.",
+          eyebrow: 'Detecting organizational motion before formal hiring begins.',
+          h1Lines: ["The Bloomberg Terminal", "for executive", "career intelligence."],
+          body: "Bloomberg tracks market motion before prices move. Starting Monday tracks organizational motion at your target companies. Board changes. Executive departures. Transformation budgets. Funding events. When signals cluster, we name it and tell you. Before the search firm gets the call.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
