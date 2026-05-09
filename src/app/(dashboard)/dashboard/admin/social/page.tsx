@@ -27,7 +27,7 @@ export default async function SocialAdminPage() {
   const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const { data: history } = await admin
     .from('social_posts')
-    .select('id, post_date, pillar, is_posted, posted_at, draft_text')
+    .select('id, post_date, pillar, is_posted, posted_at, buffer_scheduled_at, draft_text')
     .gte('post_date', since30d)
     .order('post_date', { ascending: false })
 
@@ -37,6 +37,7 @@ export default async function SocialAdminPage() {
     pillar: string
     is_posted: boolean
     posted_at: string | null
+    buffer_scheduled_at: string | null
     draft_text: string
   }[]
 
@@ -90,6 +91,8 @@ export default async function SocialAdminPage() {
                       <td className="px-4 py-3">
                         {p.is_posted ? (
                           <span className="text-[11px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">Posted</span>
+                        ) : p.buffer_scheduled_at ? (
+                          <span className="text-[11px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Queued</span>
                         ) : (
                           <span className="text-[11px] font-bold bg-slate-100 text-slate-400 px-2 py-0.5 rounded">Draft</span>
                         )}
@@ -112,10 +115,10 @@ export default async function SocialAdminPage() {
             {[
               'Open this page each weekday morning from the calendar invite link.',
               'Read the draft. Edit any line directly in the text box.',
-              'Click "Copy to LinkedIn" to copy the full post to your clipboard.',
-              'Open LinkedIn, start a new post, paste, and publish.',
-              'Return here and click "Mark posted" to record it.',
-              'Check LinkedIn for replies and comments — respond within 24 hours.',
+              'Option A: Click "Queue to Buffer" to auto-schedule it for 8:30 AM CT. Buffer posts it automatically.',
+              'Option B: Click "Copy to LinkedIn", paste into LinkedIn, and publish manually.',
+              'Return here and click "Mark posted" to record it in the history.',
+              'Note any comments or notable replies in the Notes field for the weekly digest.',
             ].map((step, i) => (
               <li key={i} className="flex gap-3 text-[13px] text-slate-600">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">

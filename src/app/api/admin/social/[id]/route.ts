@@ -31,20 +31,34 @@ export async function PATCH(
   const check = await requireStaff(request)
   if (!check.ok) return check.response
   const { id } = await params
-  let body: unknown
-  try { body = await request.json() } catch {
+  let body: Record<string, unknown>
+  try { body = await request.json() as Record<string, unknown> } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const draftText = (body as Record<string, unknown>)?.draft_text
-  if (typeof draftText !== 'string' || !draftText.trim()) {
-    return NextResponse.json({ error: 'draft_text is required' }, { status: 400 })
+  const updates: Record<string, unknown> = { updated_at: new Date().toISOString() }
+
+  if ('draft_text' in body) {
+    const draftText = body.draft_text
+    if (typeof draftText !== 'string' || !draftText.trim()) {
+      return NextResponse.json({ error: 'draft_text cannot be empty' }, { status: 400 })
+    }
+    updates.draft_text = draftText.trim()
+  }
+
+  if ('notes' in body) {
+    const notes = body.notes
+    updates.notes = typeof notes === 'string' && notes.trim() ? notes.trim() : null
+  }
+
+  if (Object.keys(updates).length === 1) {
+    return NextResponse.json({ error: 'No fields to update' }, { status: 400 })
   }
 
   const admin = createAdminClient()
   const { data, error } = await admin
     .from('social_posts')
-    .update({ draft_text: draftText.trim(), updated_at: new Date().toISOString() })
+    .update(updates)
     .eq('id', id)
     .select()
     .single()
