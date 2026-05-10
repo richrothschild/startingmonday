@@ -65,6 +65,8 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
         </div>
       </nav>
 
+      <main>
+
       {/* Article header */}
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
         <div className="max-w-2xl mx-auto">
@@ -114,13 +116,15 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
           </p>
           <Link
             href="/signup"
-            className="inline-block bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
+            className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
           >
             Start your campaign &rarr;
           </Link>
-          <p className="text-[12px] text-slate-600 mt-3">No credit card. Cancel any time.</p>
+          <p className="text-[12px] text-slate-400 mt-3">No credit card. Cancel any time.</p>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">

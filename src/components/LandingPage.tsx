@@ -174,13 +174,15 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </Link>
             <Link
               href="/signup"
-              className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
+              className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Try free
             </Link>
           </div>
         </div>
       </nav>
+
+      <main>
 
       {/* Hero */}
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
@@ -228,11 +230,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div>
               <Link
                 href="/signup"
-                className="inline-block bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
+                className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
-              <p className="text-[12px] text-slate-500 mt-2.5">{hero.trialNote}</p>
+              <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
             <div>
               <Link
@@ -241,7 +243,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               >
                 See a live demo &rarr;
               </Link>
-              <p className="text-[12px] text-slate-600 mt-2.5">No signup required</p>
+              <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
             </div>
           </div>
 
@@ -266,7 +268,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
             Which of these sounds like you?
           </h2>
-          <p className="text-[14px] text-slate-400 mb-8">
+          <p className="text-[14px] text-slate-500 mb-8">
             Everyone here is in a different place. The platform meets you where you are.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -279,7 +281,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[15px] font-semibold text-slate-900 mb-1.5 group-hover:text-slate-700">
                   {s.headline}
                 </p>
-                <p className="text-[13px] text-slate-400 leading-relaxed">{s.sub}</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">{s.sub}</p>
               </Link>
             ))}
           </div>
@@ -355,7 +357,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </div>
               <Link
                 href="/signup"
-                className="inline-block text-[13px] font-semibold text-white bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                className="inline-block text-[13px] font-semibold text-slate-900 bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start watching &rarr;
               </Link>
@@ -552,7 +554,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center bg-orange-500 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                className="mt-6 inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
@@ -577,7 +579,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center bg-orange-500 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                className="mt-6 inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
@@ -675,12 +677,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <Link
             href="/signup"
-            className="inline-block bg-orange-500 text-white text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
+            className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
           >
             Start your campaign &rarr;
           </Link>
-          <p className="text-[12px] text-slate-500 mt-3">{hero.trialNote}</p>
-          <p className="text-[13px] text-slate-600 mt-4">
+          <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
+          <p className="text-[13px] text-slate-400 mt-4">
             Want to see it first?{' '}
             <Link href="/demo" className="text-slate-400 hover:text-slate-200 underline transition-colors">
               Explore a live demo &rarr;
@@ -688,6 +690,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
