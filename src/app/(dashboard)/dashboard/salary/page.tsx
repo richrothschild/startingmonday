@@ -46,7 +46,7 @@ export default async function SalaryPage({
           <div className="bg-white border border-slate-200 rounded p-8 text-center">
             <p className="text-[15px] font-semibold text-slate-900 mb-2">Executive plan required</p>
             <p className="text-[13px] text-slate-500 mb-6 leading-relaxed">
-              Salary intelligence is available on the Executive plan ($249/mo). It includes daily scanning, recruiter tracker enhancements, and negotiation scripts.
+              Salary intelligence is available on the Executive plan ($499/mo). It includes daily scanning, recruiter tracker enhancements, and negotiation scripts.
             </p>
             <Link
               href="/settings/billing"

@@ -230,7 +230,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         {!sub.isPaid && (
           <>
             <p className="text-[13px] text-slate-500 leading-relaxed mb-6">
-              One hour with an executive coach runs $300 to $500. Starting Monday is $129 a month and runs every day.
+              One hour with an executive coach runs $300 to $500. Starting Monday is $199 a month and runs every day.
             </p>
 
             <div className="flex items-center gap-3 mb-6">

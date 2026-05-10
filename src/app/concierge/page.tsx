@@ -136,10 +136,10 @@ export default function ConciergePage() {
           <div className="border border-slate-900 rounded-lg p-6 sm:p-8 bg-slate-900 max-w-sm">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Executive Concierge</p>
             <p className="text-[38px] font-bold text-white leading-none mb-1">
-              $499<span className="text-[18px] font-normal text-slate-400">/mo</span>
+              $1,299<span className="text-[18px] font-normal text-slate-400">/mo</span>
             </p>
             <p className="text-[12px] text-slate-500 mb-0.5">10 seats. Apply for access.</p>
-            <p className="text-[11px] text-slate-600 mb-6">or $4,990/yr &mdash; 2 months free</p>
+            <p className="text-[11px] text-slate-600 mb-6">or $13,999/yr</p>
             <a
               href="mailto:concierge@startingmonday.app?subject=Executive%20Concierge%20%E2%80%94%20Access%20Request"
               className="inline-block w-full text-center bg-orange-500 text-white text-[13px] font-bold px-5 py-3 rounded hover:bg-orange-600 transition-colors"

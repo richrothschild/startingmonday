@@ -57,7 +57,7 @@ export default async function ConciergeDashboardPage() {
         >
           Apply for access &rarr;
         </a>
-        <p className="text-[12px] text-slate-400 mt-3">$499/mo or $4,990/yr. Currently accepting applications.</p>
+        <p className="text-[12px] text-slate-400 mt-3">$1,299/mo or $13,999/yr. Currently accepting applications.</p>
         <p className="mt-6">
           <Link href="/concierge" className="text-[13px] text-slate-500 hover:text-slate-700 underline transition-colors">
             Learn more about Executive Concierge &rarr;

@@ -1,14 +1,11 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { PRICING } from '@/lib/pricing'
 
 const PLANS = [
   {
-    key: 'intelligence',
-    name: 'Intelligence',
-    monthly: 49,
-    annual: 490,
-    annualMonthly: 41,
+    ...PRICING.passive,
     description: 'Stay ahead. Know what is happening at your target companies before the posting goes live.',
     featured: false,
     features: [
@@ -20,15 +17,11 @@ const PLANS = [
     ],
   },
   {
-    key: 'search',
-    name: 'Search',
-    monthly: 129,
-    annual: 1290,
-    annualMonthly: 108,
+    ...PRICING.active,
     description: 'The full search operating system. From pipeline to prep to outreach, in one place.',
     featured: true,
     features: [
-      'Everything in Intelligence',
+      'Everything in Passive',
       'AI interview prep briefs',
       'Search strategy brief',
       'AI chat advisor',
@@ -38,15 +31,11 @@ const PLANS = [
     ],
   },
   {
-    key: 'executive',
-    name: 'Executive',
-    monthly: 249,
-    annual: 2490,
-    annualMonthly: 208,
+    ...PRICING.executive,
     description: 'For C-suite candidates who need daily intelligence, unlimited pipeline, and Opus-grade prep briefs.',
     featured: false,
     features: [
-      'Everything in Search',
+      'Everything in Active',
       'Unlimited company pipeline',
       'Career page scanning 2x daily',
       'Immediate pattern and exec departure alerts',
@@ -70,7 +59,7 @@ export function PricingCards() {
       {/* Anchor sentence */}
       <p className="text-center text-[14px] text-slate-500 mb-8 max-w-xl mx-auto leading-relaxed">
         One hour with an executive coach runs $300 to $500.
-        Starting Monday is $129 a month and runs every day.
+        Starting Monday is ${PRICING.active.monthly} a month and runs every day.
       </p>
 
       {/* Interval toggle */}
@@ -115,7 +104,7 @@ export function PricingCards() {
             </p>
             <div className="mb-1">
               <span className="text-[44px] font-bold text-slate-900 leading-none">
-                ${annual ? plan.annual : plan.monthly}
+                ${annual ? plan.annual.toLocaleString() : plan.monthly}
               </span>
               <span className="text-[15px] text-slate-500 ml-1">
                 {annual ? '/yr' : '/mo'}

@@ -200,7 +200,7 @@ export default async function PartnerDashboardPage() {
               `When they sign up and start a paid subscription, you earn ${partner.commission_pct}% of their monthly fee.`,
               'Commissions are calculated on the 1st of each month and paid via Stripe.',
               'Intelligence tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
-              'Search tier: $129/mo subscriber = $' + Math.round(129 * partner.commission_pct / 100) + '/mo for you.',
+              'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">{i + 1}</span>

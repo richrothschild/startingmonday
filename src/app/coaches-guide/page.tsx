@@ -159,7 +159,7 @@ export default function CoachesGuidePage() {
               {[
                 'Your clients get a 30-day free trial, no credit card required',
                 'Active plan ($199/month) includes all AI features — prep briefs, strategy brief, advisor chat, resume tailoring',
-                'Intelligence plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
+                'Passive plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
                 'View access for coaches: your client controls who sees their pipeline',
                 'Referral: reach out to Rich Rothschild directly (rothschild@gmail.com) to discuss a referral arrangement for your practice',
               ].map((item, i) => (

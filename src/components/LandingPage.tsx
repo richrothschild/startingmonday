@@ -132,7 +132,7 @@ const PASSIVE_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Intelligence',
+  'Everything in Passive',
   'AI Interview Prep Briefs',
   'Search Strategy Brief',
   'AI Chat advisor',
@@ -510,7 +510,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
             <div className="border border-slate-200 rounded-lg p-5 sm:p-6">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Intelligence</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
@@ -532,9 +532,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
             <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Search</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
               <p className="text-[32px] font-bold text-white leading-none mb-1">
-                $129<span className="text-[16px] font-normal text-slate-500">/mo</span>
+                $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
               </p>
               <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
               <p className="text-[11px] text-slate-600 mb-5">or $1,290/yr &mdash; 2 months free</p>
@@ -559,10 +559,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-500 bg-orange-100 px-2 py-0.5 rounded">New</span>
               </div>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
-                $249<span className="text-[16px] font-normal text-slate-400">/mo</span>
+                $499<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
               <p className="text-[12px] text-slate-400 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[11px] text-slate-500 mb-5">or $2,490/yr &mdash; 2 months free</p>
+              <p className="text-[11px] text-slate-500 mb-5">or $5,000/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {EXECUTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -593,9 +593,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
             <div className="shrink-0 text-right">
               <p className="text-[22px] font-bold text-slate-900 leading-none mb-0.5">
-                $499<span className="text-[13px] font-normal text-slate-400">/mo</span>
+                $1,299<span className="text-[13px] font-normal text-slate-400">/mo</span>
               </p>
-              <p className="text-[11px] text-slate-400 mb-3">or $4,990/yr</p>
+              <p className="text-[11px] text-slate-400 mb-3">or $13,999/yr</p>
               <Link
                 href="/concierge"
                 className="inline-block text-[13px] font-semibold text-orange-600 border border-orange-200 bg-orange-50 px-5 py-2 rounded hover:bg-orange-100 transition-colors"

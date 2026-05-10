@@ -4,7 +4,7 @@ import { PricingCards } from './pricing-cards'
 
 export const metadata: Metadata = {
   title: 'Pricing — Starting Monday',
-  description: 'Simple pricing for senior executive job searches. Intelligence at $49/mo and Search at $129/mo. Teams and enterprise available.',
+  description: 'Simple pricing for senior executive job searches. Passive at $49/mo, Active at $199/mo, Executive at $499/mo. Concierge available by application.',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
     title: 'Pricing — Starting Monday',
