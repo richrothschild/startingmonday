@@ -68,7 +68,7 @@ export default function CoachesGuidePage() {
             Partner Guide
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
-            Starting Monday for Executive Coaches
+            Starting Monday for <span className="whitespace-nowrap">Executive Coaches</span>
           </h1>
           <p className="text-[16px] text-slate-400 leading-relaxed">
             The infrastructure that handles research and accountability so you can focus on the work only you can do.
