@@ -113,7 +113,7 @@ export default function HomePage() {
         hero={{
           eyebrow: 'For senior executives in search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
-          body: "Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know first. The two weeks before a role posts is when short lists form and relationships are made. That is the window. We help you live there.",
+          body: "By the time a role posts, the short list already exists. The two weeks before that moment is when candidates are considered and relationships are made. Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know. That is the window. We help you live there.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}

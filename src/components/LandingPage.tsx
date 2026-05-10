@@ -205,15 +205,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           )}
 
           {/* Confidentiality promise — above the fold, before any CTA */}
-          <div className="border-l-2 border-slate-700 pl-4 mb-8">
-            <p className="text-[13px] text-slate-400 leading-relaxed">
-              <span className="font-semibold text-slate-200">Your search is completely private.</span>{' '}
-              We store your resume, pipeline, contacts, and briefing preferences — nothing else.
-              We never share your identity, your targets, or your activity with employers, recruiters, or anyone.
-              Your data is never used to train AI models.
-              You can permanently delete your account and all data from Settings at any time.
-            </p>
-          </div>
+          <p className="text-[13px] text-slate-500 mb-8">
+            Your search is completely private — we never share your identity, targets, or activity with anyone.
+          </p>
 
           {hero.steps && hero.steps.length > 0 && (
             <div className="flex flex-col gap-2.5 mb-9">
