@@ -302,7 +302,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Two ways to search
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-3 max-w-xl leading-snug">
-            There is the reactive search. And there is the campaign.
+            There is the reactive search.<br />And there is the campaign.
           </h2>
           <p className="text-[14px] text-slate-500 mb-10 max-w-xl leading-relaxed">
             One feels like waiting. The other feels like control. The difference is what you know and when you know it.
