@@ -12,10 +12,14 @@ const STAGE_LABEL: Record<string, string> = {
 
 export default async function PrepPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ first?: string }>
 }) {
   const { id } = await params
+  const { first } = await searchParams
+  const isFirstCompany = first === '1'
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -69,6 +73,7 @@ export default async function PrepPage({
       hasPositioning={hasPositioning}
       hasTargetTitles={hasTargetTitles}
       profileScore={profileScore}
+      firstCompany={isFirstCompany}
     />
   )
 }

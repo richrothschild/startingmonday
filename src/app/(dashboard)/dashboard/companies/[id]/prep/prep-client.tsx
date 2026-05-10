@@ -1,6 +1,6 @@
 ﻿'use client'
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { getRelevantResources, getDefaultResources, type Resource } from '@/lib/resources'
 import { BriefRating } from '@/components/BriefRating'
 import type { InterviewStage } from '@/lib/prompts'
@@ -248,6 +248,7 @@ export function PrepClient({
   hasPositioning,
   hasTargetTitles,
   profileScore,
+  firstCompany = false,
 }: {
   companyId: string
   companyName: string
@@ -261,6 +262,7 @@ export function PrepClient({
   hasPositioning: boolean
   hasTargetTitles: boolean
   profileScore: number
+  firstCompany?: boolean
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -279,6 +281,15 @@ export function PrepClient({
   const [outreachLogged, setOutreachLogged] = useState(false)
   const [outreachLogLoading, setOutreachLogLoading] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
+  const autoStarted = useRef(false)
+
+  useEffect(() => {
+    if (firstCompany && !autoStarted.current) {
+      autoStarted.current = true
+      handleGenerate()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId)
   const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
@@ -481,6 +492,20 @@ export function PrepClient({
             </div>
           </div>
         </div>
+
+        {firstCompany && !brief && (
+          <div className="mb-6 bg-orange-50 border border-orange-200 rounded px-6 py-5">
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Your first intelligence brief</p>
+            <p className="text-[14px] font-semibold text-slate-900 mb-1">
+              {loading ? `Building your brief on ${companyName}...` : `Ready to brief you on ${companyName}.`}
+            </p>
+            <p className="text-[13px] text-slate-600 leading-relaxed">
+              {loading
+                ? 'Scanning public signals, leadership context, strategic priorities, and likely objections. This takes about 20 seconds.'
+                : 'We scanned public signals, leadership context, and strategic priorities. Your brief is ready.'}
+            </p>
+          </div>
+        )}
 
         {error && (
           <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
