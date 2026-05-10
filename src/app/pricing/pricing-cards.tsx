@@ -6,7 +6,7 @@ import { PRICING } from '@/lib/pricing'
 const PLANS = [
   {
     ...PRICING.passive,
-    description: 'Stay ahead. Know what is happening at your target companies before the posting goes live.',
+    description: 'Stay ahead of the search. Know what is changing at your target companies before the role ever posts.',
     featured: false,
     features: [
       'Pipeline tracking for up to 25 companies',
@@ -18,7 +18,7 @@ const PLANS = [
   },
   {
     ...PRICING.active,
-    description: 'The full search operating system. From pipeline to prep to outreach, in one place.',
+    description: 'Stop running a reactive search. Prep briefs, pipeline tracking, intelligence, outreach, and a daily briefing. From one place.',
     featured: true,
     features: [
       'Everything in Passive',

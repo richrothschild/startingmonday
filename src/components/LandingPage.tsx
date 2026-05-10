@@ -259,9 +259,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Differentiation */}
       <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[17px] text-slate-500 leading-relaxed">
+          <p className="text-[17px] text-slate-500 leading-relaxed mb-2">
             Not a job board. Not a $15,000 coaching engagement.{' '}
             <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
+          </p>
+          <p className="text-[14px] text-slate-400 leading-relaxed">
+            LinkedIn Premium gives you a better job board. Starting Monday is the operating layer that runs above it.
           </p>
         </div>
       </section>
@@ -298,9 +301,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Two ways to search
           </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
+          <h2 className="text-[22px] font-bold text-slate-900 mb-3 max-w-xl leading-snug">
             There is the reactive search. And there is the campaign.
           </h2>
+          <p className="text-[14px] text-slate-500 mb-10 max-w-xl leading-relaxed">
+            One feels like waiting. The other feels like control. The difference is what you know and when you know it.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl">
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-5">Reactive search</p>
@@ -398,6 +404,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-10">
             What executives say
           </p>
+          <blockquote className="mb-10 border-l-2 border-orange-500 pl-6 max-w-2xl">
+            <p className="text-[20px] sm:text-[22px] font-bold text-slate-900 leading-snug mb-2">
+              &ldquo;Eleven days before the search went to a firm. That window is the whole game at this level.&rdquo;
+            </p>
+            <footer className="text-[13px] text-slate-500">CTO in transition, Healthcare technology</footer>
+          </blockquote>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col justify-between">
@@ -524,9 +536,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                   </li>
                 ))}
               </ul>
+              <p className="mt-4 text-[12px] text-slate-400 leading-relaxed">
+                Most users move to Active once they see what prep briefs do before an interview.
+              </p>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors"
+                className="mt-4 inline-block w-full text-center border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors"
               >
                 Try free &rarr;
               </Link>
@@ -554,9 +569,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
             <div className="border border-orange-200 rounded-lg p-5 sm:p-6 bg-orange-50">
-              <div className="flex items-center justify-between mb-2">
+              <div className="mb-2">
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600">Executive</p>
-                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-500 bg-orange-100 px-2 py-0.5 rounded">New</span>
               </div>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $499<span className="text-[16px] font-normal text-slate-400">/mo</span>
@@ -666,8 +680,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <h2 className="text-[30px] sm:text-[36px] font-bold text-white mb-4 leading-tight">
             The signal comes before<br />the search begins.<br />Be watching when it does.
           </h2>
-          <p className="text-[15px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-[15px] text-slate-400 mb-4 max-w-xl mx-auto leading-relaxed">
             The people who land the best roles aren&rsquo;t luckier. They started sooner, stayed closer to their targets, and walked in prepared.
+          </p>
+          <p className="text-[13px] text-slate-500 mb-8 max-w-lg mx-auto leading-relaxed">
+            Every week you are not watching your targets is a week another candidate is. The window before a search is posted closes in days, not weeks.
           </p>
           <Link
             href="/signup"
