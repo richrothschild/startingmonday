@@ -183,6 +183,23 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     ],
   },
   {
+    slug: 'target-company-list-cto',
+    title: 'How to Build Your Target Company List for a CTO Search',
+    description: 'The CTO role has no agreed-upon definition. Before you can build a target company list, you have to decide which version of the CTO you are building toward. That decision shapes every other part of the search.',
+    date: '2026-05-10',
+    readTime: '7 min read',
+    keywords: [
+      'CTO job search strategy',
+      'how to find CTO jobs',
+      'target company list CTO search',
+      'chief technology officer job search',
+      'CTO executive search',
+      'technology executive job search',
+      'CTO career transition',
+      'how to become CTO',
+    ],
+  },
+  {
     slug: 'executive-search-operating-system',
     title: 'The Search Has No Manager. Here Is How to Build One.',
     description: 'On the day your CIO role ends, you become your own organization: a one-person company with no revenue, no runway, and no manager. Most executives are not prepared for this. Here is what changes when you treat the search like a business.',
