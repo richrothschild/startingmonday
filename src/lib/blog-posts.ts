@@ -5,6 +5,7 @@ export interface BlogPostMeta {
   date: string
   readTime: string
   keywords: string[]
+  related?: string[]
 }
 
 export const BLOG_POSTS: BlogPostMeta[] = [
@@ -23,6 +24,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'retained executive search',
       'how to get on CIO short list',
     ],
+    related: ['retained-search-firms', 'how-cios-find-jobs', 'cio-job-search-timeline'],
   },
   {
     slug: 'cio-job-search-timeline',
@@ -38,6 +40,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'technology executive search',
       'CIO career transition',
     ],
+    related: ['target-company-list', 'executive-search-firms-cio', 'how-cios-find-jobs'],
   },
   {
     slug: 'vp-to-cio-transition',
@@ -54,6 +57,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'technology executive promotion',
       'VP of technology career',
     ],
+    related: ['cio-vs-cto-which-role', 'executive-resume-gaps', 'cio-job-search-timeline'],
   },
   {
     slug: 'ciso-interview-preparation',
@@ -69,6 +73,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'cybersecurity executive interview',
       'CISO board presentation',
     ],
+    related: ['what-companies-want-chief-data-officer', 'executive-resume-gaps', 'executive-search-operating-system'],
   },
   {
     slug: 'what-companies-want-chief-data-officer',
@@ -84,6 +89,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'chief data officer job search',
       'chief data officer career',
     ],
+    related: ['ciso-interview-preparation', 'executive-resume-gaps', 'linkedin-executive-search-strategy'],
   },
   {
     slug: 'cio-compensation-negotiation',
@@ -100,6 +106,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'technology executive salary',
       'CIO offer negotiation',
     ],
+    related: ['pe-backed-cio', 'retained-search-firms', 'cio-job-search-timeline'],
   },
   {
     slug: 'cio-board-presentation',
@@ -116,6 +123,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'how to present to board as CIO',
       'CIO board communication',
     ],
+    related: ['vp-to-cio-transition', 'pe-backed-cio', 'cio-compensation-negotiation'],
   },
   {
     slug: 'pe-backed-cio',
@@ -132,6 +140,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'private equity technology executive',
       'CIO portfolio company',
     ],
+    related: ['cio-board-presentation', 'cio-compensation-negotiation', 'executive-search-firms-cio'],
   },
   {
     slug: 'executive-resume-gaps',
@@ -148,6 +157,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'CIO resume mistakes',
       'executive resume gaps',
     ],
+    related: ['linkedin-executive-search-strategy', 'retained-search-firms', 'vp-to-cio-transition'],
   },
   {
     slug: 'retained-search-firms',
@@ -164,6 +174,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'executive recruiter tips',
       'how to get on CIO short list',
     ],
+    related: ['executive-search-firms-cio', 'how-cios-find-jobs', 'target-company-list'],
   },
   {
     slug: 'target-company-list',
@@ -181,6 +192,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'technology executive job search',
       'how to build executive job search list',
     ],
+    related: ['executive-search-operating-system', 'retained-search-firms', 'cio-job-search-timeline'],
   },
   {
     slug: 'cio-vs-cto-which-role',
@@ -198,6 +210,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'CIO CTO difference',
       'chief information officer vs chief technology officer',
     ],
+    related: ['cto-vs-vp-engineering-career-path', 'vp-to-cio-transition', 'cto-job-search-timeline'],
   },
   {
     slug: 'cto-vs-vp-engineering-career-path',
@@ -215,6 +228,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'CTO vs VP engineering difference',
       'chief technology officer vs VP engineering',
     ],
+    related: ['cio-vs-cto-which-role', 'cto-job-search-timeline', 'target-company-list-cto'],
   },
   {
     slug: 'cto-job-search-timeline',
@@ -231,6 +245,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'technology executive job search timeline',
       'CTO executive search duration',
     ],
+    related: ['target-company-list-cto', 'cto-vs-vp-engineering-career-path', 'linkedin-executive-search-strategy'],
   },
   {
     slug: 'linkedin-executive-search-strategy',
@@ -247,6 +262,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'CIO CTO LinkedIn active search',
       'technology executive LinkedIn strategy',
     ],
+    related: ['executive-resume-gaps', 'executive-search-operating-system', 'how-cios-find-jobs'],
   },
   {
     slug: 'how-cios-find-jobs',
@@ -264,6 +280,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'chief information officer job search',
       'how executive CIO jobs are filled',
     ],
+    related: ['target-company-list', 'retained-search-firms', 'executive-search-operating-system'],
   },
   {
     slug: 'target-company-list-cto',
@@ -281,6 +298,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'CTO career transition',
       'how to become CTO',
     ],
+    related: ['cto-job-search-timeline', 'target-company-list', 'cto-vs-vp-engineering-career-path'],
   },
   {
     slug: 'executive-search-operating-system',
@@ -298,6 +316,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'how to manage executive job search',
       'executive search campaign strategy',
     ],
+    related: ['target-company-list', 'linkedin-executive-search-strategy', 'executive-coaching-job-search'],
   },
   {
     slug: 'executive-coaching-job-search',
@@ -315,9 +334,16 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'executive transition coaching',
       'tools for executive coaches',
     ],
+    related: ['executive-search-operating-system', 'target-company-list', 'linkedin-executive-search-strategy'],
   },
 ]
 
 export function getPost(slug: string): BlogPostMeta | undefined {
   return BLOG_POSTS.find(p => p.slug === slug)
+}
+
+export function getRelated(slug: string): BlogPostMeta[] {
+  const post = getPost(slug)
+  if (!post?.related) return []
+  return post.related.map(s => getPost(s)).filter(Boolean) as BlogPostMeta[]
 }

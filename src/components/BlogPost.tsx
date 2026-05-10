@@ -1,5 +1,7 @@
 ﻿import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
+import { getRelated } from '@/lib/blog-posts'
+import type { BlogPostMeta } from '@/lib/blog-posts'
 
 interface BlogPostProps {
   title: string
@@ -7,6 +9,7 @@ interface BlogPostProps {
   date: string
   readTime: string
   url: string
+  slug?: string
   children: React.ReactNode
 }
 
@@ -14,10 +17,13 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-export function BlogPost({ title, description, date, readTime, url, children }: BlogPostProps) {
+export function BlogPost({ title, description, date, readTime, url, slug, children }: BlogPostProps) {
+  const derivedSlug = slug ?? url.split('/').pop() ?? ''
+  const relatedPosts: BlogPostMeta[] = derivedSlug ? getRelated(derivedSlug) : []
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: title,
     description,
     datePublished: date,
@@ -101,6 +107,23 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
           {children}
         </div>
       </article>
+
+      {/* Related posts */}
+      {relatedPosts.length > 0 && (
+        <section className="px-4 sm:px-6 py-12 border-t border-slate-100">
+          <div className="max-w-2xl mx-auto">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-6">Continue reading</p>
+            <div className="space-y-6">
+              {relatedPosts.map(p => (
+                <Link key={p.slug} href={`/blog/${p.slug}`} className="block group">
+                  <p className="text-[15px] font-semibold text-slate-900 group-hover:text-orange-600 transition-colors leading-snug mb-1">{p.title}</p>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{p.description}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-16 border-t border-slate-800">
