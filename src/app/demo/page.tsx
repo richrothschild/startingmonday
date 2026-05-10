@@ -242,7 +242,7 @@ export default function DemoPage() {
                     The brief continues.
                   </p>
                   <p className="text-[13px] text-slate-500 mb-6 leading-relaxed">
-                    See what they will actually ask, how to open the conversation, and the five questions only a peer would think to raise. Enter your email to unlock the full brief.
+                    See the questions they'll ask about your track record, the objections to get ahead of, and the five things only a peer would think to raise. Enter your email to unlock the full brief.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
                     <input

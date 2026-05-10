@@ -67,7 +67,7 @@ export function ConciergeWaitlist() {
           </h1>
           <p className="text-[14px] text-slate-500 mb-5">$1,299/mo &middot; or $13,999/yr</p>
           <p className="text-[16px] text-slate-400 leading-relaxed max-w-lg">
-            We are building this program. The first cohort is limited.
+            We are designing this around a small first cohort.
             Join the list and we will reach out when access opens.
           </p>
         </div>

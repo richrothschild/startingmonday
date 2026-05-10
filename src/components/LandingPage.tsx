@@ -263,11 +263,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed mb-2">
-            Not a job board. Not a $15,000 coaching engagement.{' '}
+            Not a job board. Not a $25,000 coaching engagement.{' '}
             <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed">
-            Executive coaches charge $10,000 to $25,000 for a search engagement. LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating infrastructure between those two.
+            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the campaign infrastructure between those two.
           </p>
         </div>
       </section>
@@ -497,7 +497,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             What it costs
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
-            Infrastructure pricing. Campaign returns.
+            Infrastructure pricing. Campaign outcomes.
           </h2>
           <p className="text-[14px] text-slate-500 mb-12 max-w-2xl leading-relaxed">
             You run the campaign. We power it. All plans include a 30-day free trial, no credit card required.

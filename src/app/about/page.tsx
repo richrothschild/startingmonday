@@ -141,21 +141,24 @@ export default function AboutPage() {
 
           <p>
             If you are a senior technology executive in active search or approaching one, the platform is
-            built for you.{' '}
-            <Link href="/signup" className="text-slate-900 underline hover:text-slate-600 transition-colors">
-              The platform is free for 30 days.
-            </Link>
+            built for you.
           </p>
 
-          <div className="pt-4 border-t border-slate-100">
+          <div className="pt-4 border-t border-slate-100 flex flex-col gap-4">
             <a
               href="https://www.linkedin.com/in/richrothschild"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-semibold text-slate-900 hover:text-slate-600 transition-colors"
+              className="text-[13px] text-slate-500 hover:text-slate-700 transition-colors"
             >
               Connect on LinkedIn &rarr;
             </a>
+            <Link
+              href="/signup"
+              className="text-[13px] font-semibold text-slate-900 hover:text-slate-600 transition-colors"
+            >
+              Start your free 30-day trial &rarr;
+            </Link>
           </div>
 
         </div>
