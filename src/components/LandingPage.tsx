@@ -406,7 +406,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <blockquote className="mb-10 border-l-2 border-orange-500 pl-6 max-w-2xl">
             <p className="text-[20px] sm:text-[22px] font-bold text-slate-900 leading-snug mb-2">
-              &ldquo;Eleven days before the search went to a firm. That window is the whole game at this level.&rdquo;
+              &ldquo;Eleven days before the search went to a firm.<br />That window is the whole game at this level.&rdquo;
             </p>
             <footer className="text-[13px] text-slate-500">CTO in transition, Healthcare technology</footer>
           </blockquote>
