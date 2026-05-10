@@ -198,6 +198,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
+          <p className="text-[13px] text-slate-400 mb-3 max-w-xl leading-relaxed">
+            The window between a signal and a search going to a firm is typically under two weeks. Most candidates don&rsquo;t find out until the role posts.
+          </p>
           {hero.note && (
             <p className="text-[13px] text-slate-500 mb-6">
               {hero.note}
@@ -264,7 +267,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed">
-            LinkedIn Premium gives you a better job board. Starting Monday is the operating layer that runs above it.
+            Executive coaches charge $10,000 to $25,000 for a search engagement. LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating infrastructure between those two.
           </p>
         </div>
       </section>
@@ -273,7 +276,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
-            Which of these sounds like you?
+            Where are you in the search?
           </h2>
           <p className="text-[14px] text-slate-500 mb-8">
             Everyone here is in a different place. The platform meets you where you are.
@@ -430,33 +433,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      {/* Trust */}
-      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-            Your search is confidential
-          </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
-            You&rsquo;re sharing your real situation.<br />You should know exactly how we handle it.
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
-            {TRUST_ITEMS.map(item => (
-              <div key={item.heading} className="border-t border-slate-100 pt-5">
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.heading}</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">{item.body}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8 text-[12px] text-slate-400">
-            Full details in our{' '}
-            <a href="/privacy" className="underline hover:text-slate-600 transition-colors">
-              Privacy Policy
-            </a>
-            .
-          </p>
-        </div>
-      </section>
-
       {/* Features */}
       <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -524,7 +500,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Infrastructure pricing. Campaign returns.
           </h2>
           <p className="text-[14px] text-slate-500 mb-12 max-w-2xl leading-relaxed">
-            Executive coaches charge $10,000 to $25,000 for a search engagement. LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating infrastructure between those two. You run the campaign. We power it.
+            You run the campaign. We power it. All plans include a 30-day free trial, no credit card required.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
             <div className="border border-slate-200 rounded-lg p-5 sm:p-6 flex flex-col">
@@ -533,7 +509,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
               <p className="text-[12px] text-slate-400 mb-0.5">30-day free trial. No credit card.</p>
-              <p className="text-[11px] text-slate-400 mb-5">or $490/yr &mdash; 2 months free</p>
+              <p className="text-[12px] text-slate-500 mb-5">or $490/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {PASSIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -558,7 +534,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
               </p>
               <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[11px] text-slate-600 mb-5">or $1,990/yr &mdash; 2 months free</p>
+              <p className="text-[12px] text-slate-500 mb-5">or $1,990/yr &mdash; 2 months free</p>
               <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">Stop running a reactive search.</p>
               <ul className="space-y-2.5">
                 {ACTIVE_FEATURES.map(f => (
@@ -575,7 +551,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 Start your campaign &rarr;
               </Link>
             </div>
-            <div className="border border-orange-200 rounded-lg p-5 sm:p-6 bg-orange-50 flex flex-col">
+            <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col">
               <div className="mb-2">
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600">Executive</p>
               </div>
@@ -583,12 +559,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 $499<span className="text-[16px] font-normal text-slate-400">/mo</span>
               </p>
               <p className="text-[12px] text-slate-400 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[11px] text-slate-500 mb-5">or $5,000/yr &mdash; 2 months free</p>
+              <p className="text-[12px] text-slate-500 mb-5">or $5,000/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {EXECUTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <span className="text-orange-300 shrink-0 mt-0.5 text-[12px]">+</span>
-                    <span className="text-[13px] text-slate-600 leading-snug">{f}</span>
+                    <span className="text-orange-500 shrink-0 mt-0.5 text-[12px]">+</span>
+                    <span className="text-[13px] text-slate-700 leading-snug">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -625,6 +601,33 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Trust */}
+      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+            Your search is confidential
+          </p>
+          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
+            You&rsquo;re sharing your real situation.<br />You should know exactly how we handle it.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+            {TRUST_ITEMS.map(item => (
+              <div key={item.heading} className="border-t border-slate-100 pt-5">
+                <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.heading}</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-[12px] text-slate-400">
+            Full details in our{' '}
+            <a href="/privacy" className="underline hover:text-slate-600 transition-colors">
+              Privacy Policy
+            </a>
+            .
+          </p>
         </div>
       </section>
 
