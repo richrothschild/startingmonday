@@ -256,6 +256,16 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
+      {/* Differentiation */}
+      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-[17px] text-slate-500 leading-relaxed">
+            Not a job board. Not a $15,000 coaching engagement.{' '}
+            <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
+          </p>
+        </div>
+      </section>
+
       {/* Persona self-selection */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -315,16 +325,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Differentiation */}
-      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[17px] text-slate-500 leading-relaxed">
-            Not a job board. Not a $15,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
-          </p>
         </div>
       </section>
 
@@ -412,32 +412,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      {/* Features */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-8 sm:mb-10">
-            What it does
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-lg overflow-hidden">
-            {FEATURES.map(f => (
-              <div key={f.label} className="bg-white p-5 sm:p-8">
-                <p className="text-[13px] font-bold text-slate-900 mb-3">{f.label}</p>
-                <p className="text-[14px] text-slate-500 leading-relaxed">{f.body}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link
-              href="/signup"
-              className="inline-block bg-orange-500 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
-            >
-              Start your campaign &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-400 mt-2">{hero.trialNote}</p>
-          </div>
-        </div>
-      </section>
-
       {/* Trust */}
       <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -462,6 +436,32 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </a>
             .
           </p>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-8 sm:mb-10">
+            What it does
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-lg overflow-hidden">
+            {FEATURES.map(f => (
+              <div key={f.label} className="bg-white p-5 sm:p-8">
+                <p className="text-[13px] font-bold text-slate-900 mb-3">{f.label}</p>
+                <p className="text-[14px] text-slate-500 leading-relaxed">{f.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/signup"
+              className="inline-block bg-orange-500 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+            >
+              Start your campaign &rarr;
+            </Link>
+            <p className="text-[12px] text-slate-400 mt-2">{hero.trialNote}</p>
+          </div>
         </div>
       </section>
 
@@ -537,7 +537,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
               </p>
               <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[11px] text-slate-600 mb-5">or $1,290/yr &mdash; 2 months free</p>
+              <p className="text-[11px] text-slate-600 mb-5">or $1,990/yr &mdash; 2 months free</p>
               <ul className="space-y-2.5">
                 {ACTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -588,7 +588,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">10 seats</span>
               </div>
               <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
-                Everything in Search, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
+                Everything in Active, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
               </p>
             </div>
             <div className="shrink-0 text-right">

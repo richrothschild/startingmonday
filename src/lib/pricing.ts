@@ -16,8 +16,8 @@ export const PRICING = {
     name: 'Active',
     monthly: 199,
     quarterly: 469,
-    annual: 1290,
-    annualMonthly: 108,
+    annual: 1990,
+    annualMonthly: 166,
   },
   executive: {
     key: 'executive' as const,
