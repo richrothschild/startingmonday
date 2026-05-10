@@ -431,7 +431,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Your search is confidential
           </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
-            You&rsquo;re sharing your real situation. You should know exactly how we handle it.
+            You&rsquo;re sharing your real situation.<br />You should know exactly how we handle it.
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
             {TRUST_ITEMS.map(item => (
