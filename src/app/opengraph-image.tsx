@@ -1,7 +1,7 @@
 ﻿import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'Starting Monday — AI career platform for senior technology executives'
+export const alt = 'Starting Monday — Find executive roles before they post'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -16,70 +16,40 @@ export default function Image() {
         justifyContent: 'center',
         alignItems: 'flex-start',
         background: '#0f172a',
-        padding: '80px 96px',
+        padding: '80px 80px 80px 96px',
+        position: 'relative',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          marginBottom: '40px',
-        }}
-      >
-        <div
-          style={{
-            width: '10px',
-            height: '10px',
-            borderRadius: '50%',
-            background: '#38bdf8',
-            marginRight: '14px',
-          }}
-        />
-        <span
-          style={{
-            fontSize: '14px',
-            fontWeight: 700,
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            color: '#475569',
-          }}
-        >
-          <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+      {/* Orange left accent bar */}
+      <div style={{ position: 'absolute', left: 0, top: 0, width: 8, height: '100%', background: '#f97316' }} />
+
+      {/* Brand */}
+      <div style={{ display: 'flex', marginBottom: 40 }}>
+        <span style={{ color: '#ffffff', fontSize: 16, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+          STARTING&nbsp;
+        </span>
+        <span style={{ color: '#f97316', fontSize: 16, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+          MONDAY
         </span>
       </div>
+
+      {/* Headline */}
       <div
         style={{
-          fontSize: '68px',
-          fontWeight: 800,
-          lineHeight: 1.05,
+          fontSize: 68,
+          fontWeight: 700,
+          lineHeight: 1.1,
           color: '#f8fafc',
-          marginBottom: '28px',
-          maxWidth: '900px',
+          marginBottom: 36,
+          maxWidth: 900,
         }}
       >
-        Your executive search, running at full speed.
+        The role was never posted. You found it anyway.
       </div>
-      <div
-        style={{
-          fontSize: '24px',
-          color: '#94a3b8',
-          lineHeight: 1.5,
-          maxWidth: '780px',
-        }}
-      >
-        AI-powered pipeline tracking, company intelligence, and interview prep for senior technology leaders.
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '52px',
-          right: '96px',
-          fontSize: '16px',
-          color: '#334155',
-          letterSpacing: '0.05em',
-        }}
-      >
-        startingmonday.app
+
+      {/* Subline */}
+      <div style={{ fontSize: 24, color: '#94a3b8', lineHeight: 1.5 }}>
+        For CIOs, CTOs, and senior technology executives in search.
       </div>
     </div>,
     size,

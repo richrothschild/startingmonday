@@ -130,12 +130,12 @@ export function BlogPost({ title, description, date, readTime, url, children }: 
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </Link>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
-              <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
-              <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
-              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
-              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">LinkedIn</a>
-              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
+              <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">Blog</Link>
+              <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">About</Link>
+              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">LinkedIn</a>
+              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">Privacy Policy</Link>
+              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors py-2">Terms</Link>
             </div>
           </div>
           <p className="text-[11px] text-slate-500">

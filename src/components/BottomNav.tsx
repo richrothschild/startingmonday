@@ -7,7 +7,7 @@ const NAV_ITEMS = [
     href: '/dashboard',
     label: 'Home',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <path
           d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H14v-5H8v5H4a1 1 0 01-1-1V9.5z"
           stroke={active ? '#0f172a' : '#94a3b8'}
@@ -22,7 +22,7 @@ const NAV_ITEMS = [
     href: '/dashboard/companies',
     label: 'Companies',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <rect
           x="3" y="7" width="16" height="12" rx="1"
           stroke={active ? '#0f172a' : '#94a3b8'}
@@ -42,7 +42,7 @@ const NAV_ITEMS = [
     href: '/dashboard/signals',
     label: 'Signals',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <path
           d="M11 2v2M11 18v2M4.22 4.22l1.42 1.42M16.36 16.36l1.42 1.42M2 11h2M18 11h2M4.22 17.78l1.42-1.42M16.36 5.64l1.42-1.42"
           stroke={active ? '#0f172a' : '#94a3b8'}
@@ -57,7 +57,7 @@ const NAV_ITEMS = [
     href: '/dashboard/contacts',
     label: 'Contacts',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <circle
           cx="11" cy="8" r="4"
           stroke={active ? '#0f172a' : '#94a3b8'}
@@ -77,7 +77,7 @@ const NAV_ITEMS = [
     href: '/dashboard/profile',
     label: 'Profile',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <circle
           cx="11" cy="11" r="9"
           stroke={active ? '#0f172a' : '#94a3b8'}

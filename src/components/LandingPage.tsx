@@ -385,7 +385,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <div className="bg-slate-800 border border-slate-600 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-bold text-slate-200">ServiceNow</span>
-                  <span className="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-0.5 rounded-full">Role Posted</span>
+                  <span className="text-[10px] font-semibold text-slate-300 bg-slate-900 px-2 py-0.5 rounded-full">Role Posted</span>
                 </div>
                 <p className="text-[13px] font-semibold text-white mb-1">VP, Enterprise Technology</p>
                 <p className="text-[12px] text-slate-400 leading-relaxed mb-2">Posted to their career page 4 hours ago.</p>
