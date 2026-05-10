@@ -143,7 +143,7 @@ export default function AboutPage() {
             If you are a senior technology executive in active search or approaching one, the platform is
             built for you.{' '}
             <Link href="/signup" className="text-slate-900 underline hover:text-slate-600 transition-colors">
-              Start your free trial.
+              The platform is free for 30 days.
             </Link>
           </p>
 

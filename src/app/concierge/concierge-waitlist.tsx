@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const INCLUDES = [
   'Everything in Active ($199/mo)',
-  'One 45-minute strategy session each month',
+  'One 45-minute strategy session each month with the founder, a transformation CIO who has run this search',
   'AI prepares the agenda from your live pipeline before every call',
   'Session notes and priorities carry forward',
   'First access to new capabilities as they ship',
@@ -62,11 +62,12 @@ export function ConciergeWaitlist() {
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Executive Concierge
           </p>
-          <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-4">
+          <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-2">
             Not open yet.
           </h1>
+          <p className="text-[14px] text-slate-500 mb-5">$1,299/mo &middot; or $13,999/yr</p>
           <p className="text-[16px] text-slate-400 leading-relaxed max-w-lg">
-            We are building this program. The first cohort is small and by application.
+            We are building this program. The first cohort is limited.
             Join the list and we will reach out when access opens.
           </p>
         </div>

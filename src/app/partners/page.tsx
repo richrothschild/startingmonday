@@ -71,7 +71,7 @@ export default function PartnersPage() {
           <p>
             If you work with executive coaches,{' '}
             <Link href="/coaches-guide" className="text-slate-700 underline hover:text-slate-900 transition-colors">
-              read the coaches guide first
+              read the coaches guide
             </Link>
             . It covers how the platform works in practice and what clients can expect.
           </p>

@@ -323,7 +323,7 @@ export default function OptimizePage() {
               Most candidates don&rsquo;t know<br />they&rsquo;re already behind.
             </h2>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
-              Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is engaged.
+              A stronger profile is the foundation. Knowing where to aim it before the search opens is the rest of the campaign. Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is engaged.
             </p>
             <Link
               href="/signup"

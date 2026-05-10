@@ -199,7 +199,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {hero.body}
           </p>
           <p className="text-[13px] text-slate-400 mb-3 max-w-xl leading-relaxed">
-            The window between a signal and a search going to a firm is typically under two weeks. Most candidates don&rsquo;t find out until the role posts.
+            Most candidates don&rsquo;t find out until the role posts. By then, the short list already exists.
           </p>
           {hero.note && (
             <p className="text-[13px] text-slate-500 mb-6">
