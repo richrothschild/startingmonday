@@ -10,6 +10,7 @@ import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
 import { detectSecTrends } from '../signals/detect-sec-trends.js'
 import { fetchPrWire } from '../signals/fetch-pr-wire.js'
 import { fetchPredictLeadsSignals } from '../signals/fetch-predictleads.js'
+import { fetchProxyBoardChanges } from '../signals/fetch-sec-proxy.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
@@ -57,7 +58,7 @@ export async function runSignalJob() {
     // Avoids an N+1 query per user inside the loop.
     const { data: allCompanies } = await supabase
       .from('companies')
-      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id')
+      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded')
       .in('user_id', userIds)
       .is('archived_at', null)
 
@@ -173,6 +174,27 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: SEC trend signal', { company: company.name })
+            }
+          }
+
+          // DEF 14A proxy — board composition diff (public companies only, 90-day guard)
+          if (company.sec_cik_padded) {
+            const boardChanges = await fetchProxyBoardChanges(company.name, { supabase, companyId: company.id })
+            for (const change of boardChanges) {
+              const today = new Date().toISOString().split('T')[0]
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    'board_change',
+                signalSummary: change.signal_summary,
+                sourceUrl:     null,
+                signalDate:    today,
+                outreachAngle: change.outreach_angle,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: board change', { company: company.name, type: change.changeType, director: change.directorName })
+              }
             }
           }
 
