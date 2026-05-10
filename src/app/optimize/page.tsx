@@ -317,19 +317,19 @@ export default function OptimizePage() {
         {status === 'done' && (
           <div className="bg-slate-900 rounded p-6 sm:p-8 text-center">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">
-              Want to go further?
+              Now fix how you find the roles.
             </p>
             <h2 className="text-[22px] font-bold text-white leading-tight mb-3">
-              Monitor your target companies.<br />Get daily briefings. Land faster.
+              Most candidates don&rsquo;t know<br />they&rsquo;re already behind.
             </h2>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
-              Starting Monday scans your target company career pages, emails you when roles match your profile, and preps you for every interview.
+              Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is engaged.
             </p>
             <Link
               href="/signup"
               className="inline-block text-[14px] font-semibold text-slate-900 bg-white hover:bg-slate-100 px-6 py-3 rounded transition-colors"
             >
-              Start your free 7-day trial &rarr;
+              Start your free 30-day trial &rarr;
             </Link>
             <p className="text-[11px] text-slate-600 mt-3">No credit card required to start.</p>
             <p className="text-[12px] text-slate-500 mt-4">

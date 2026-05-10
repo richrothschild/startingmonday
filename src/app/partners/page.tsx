@@ -64,6 +64,19 @@ export default function PartnersPage() {
           ))}
         </div>
 
+        <div className="mb-12 space-y-4 text-[14px] text-slate-500 leading-relaxed border-t border-slate-100 pt-8">
+          <p>
+            Partnership arrangements vary by type. Outplacement and relocation programs run on bulk seat pricing with centralized billing and activation tracking. Coaching practices use a referral model. Search firms get candidate-facing prep and pipeline tools.
+          </p>
+          <p>
+            If you work with executive coaches,{' '}
+            <Link href="/coaches-guide" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+              read the coaches guide first
+            </Link>
+            . It covers how the platform works in practice and what clients can expect.
+          </p>
+        </div>
+
         <PartnersForm />
       </main>
     </div>

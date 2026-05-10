@@ -200,6 +200,9 @@ export default function SignupPage() {
                   >
                     {loading ? 'Creating account…' : 'Get started'}
                   </button>
+                  <p className="text-center text-[11px] text-slate-400">
+                    Your search is completely private. We never share your activity.
+                  </p>
 
                 </form>
               </div>

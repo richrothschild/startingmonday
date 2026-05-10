@@ -142,8 +142,8 @@ export default function AboutPage() {
           <p>
             If you are a senior technology executive in active search or approaching one, the platform is
             built for you.{' '}
-            <Link href="/for-cio" className="text-slate-900 underline hover:text-slate-600 transition-colors">
-              Start here.
+            <Link href="/signup" className="text-slate-900 underline hover:text-slate-600 transition-colors">
+              Start your free trial.
             </Link>
           </p>
 

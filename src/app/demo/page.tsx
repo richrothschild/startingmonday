@@ -272,10 +272,10 @@ export default function DemoPage() {
               <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <p className="text-[14px] font-semibold text-white mb-0.5">
-                    Get this before every interview. Know when your targets start hiring.
+                    Get this before every interview. Know when the search opens before anyone posts it.
                   </p>
                   <p className="text-[12px] text-slate-400">
-                    Starting Monday watches your target companies automatically. When a role opens, you know before it reaches LinkedIn or any recruiter&apos;s desk.
+                    Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is ever engaged.
                   </p>
                 </div>
                 <Link

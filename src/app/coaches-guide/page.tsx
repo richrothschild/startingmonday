@@ -161,7 +161,7 @@ export default function CoachesGuidePage() {
                 'Active plan ($199/month) includes all AI features — prep briefs, strategy brief, advisor chat, resume tailoring',
                 'Passive plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
                 'View access for coaches: your client controls who sees their pipeline',
-                'Referral: reach out to Rich Rothschild directly (rothschild@gmail.com) to discuss a referral arrangement for your practice',
+                'Referral: reach out to Rich Rothschild directly (contact@startingmonday.app) to discuss a referral arrangement for your practice',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
@@ -203,7 +203,7 @@ export default function CoachesGuidePage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
-            Questions? rothschild@gmail.com
+            Questions? contact@startingmonday.app
           </p>
         </div>
       </footer>
