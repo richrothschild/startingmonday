@@ -165,6 +165,40 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'how to get on CIO short list',
     ],
   },
+  {
+    slug: 'target-company-list',
+    title: 'How to Build Your Target Company List for an Executive Search',
+    description: 'The fastest CIO searches start with a list. Not of job openings. Those are late. A list of forty to sixty companies you would say yes to before the offer is made. Here is how to build it, what to put on it, and what to watch for once you have it.',
+    date: '2026-05-10',
+    readTime: '6 min read',
+    keywords: [
+      'executive job search target company list',
+      'CIO job search strategy',
+      'how to find executive jobs before they post',
+      'target company list executive search',
+      'CIO search campaign',
+      'executive search strategy',
+      'technology executive job search',
+      'how to build executive job search list',
+    ],
+  },
+  {
+    slug: 'executive-search-operating-system',
+    title: 'The Search Has No Manager. Here Is How to Build One.',
+    description: 'On the day your CIO role ends, you become your own organization: a one-person company with no revenue, no runway, and no manager. Most executives are not prepared for this. Here is what changes when you treat the search like a business.',
+    date: '2026-05-10',
+    readTime: '7 min read',
+    keywords: [
+      'executive career transition',
+      'CIO job search system',
+      'executive search operating system',
+      'CIO career transition strategy',
+      'technology executive career transition',
+      'executive job search structure',
+      'how to manage executive job search',
+      'executive search campaign strategy',
+    ],
+  },
 ]
 
 export function getPost(slug: string): BlogPostMeta | undefined {
