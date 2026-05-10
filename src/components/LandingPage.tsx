@@ -521,7 +521,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Executive coaches charge $10,000 to $25,000 for a search engagement. LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating infrastructure between those two. You run the campaign. We power it.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
-            <div className="border border-slate-200 rounded-lg p-5 sm:p-6">
+            <div className="border border-slate-200 rounded-lg p-5 sm:p-6 flex flex-col">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
               <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
                 $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
@@ -536,7 +536,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-[12px] text-slate-400 leading-relaxed">
+              <p className="mt-auto pt-4 text-[12px] text-slate-400 leading-relaxed">
                 Most users move to Active once they see what prep briefs do before an interview.
               </p>
               <Link
@@ -546,7 +546,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 Try free &rarr;
               </Link>
             </div>
-            <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900">
+            <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
               <p className="text-[32px] font-bold text-white leading-none mb-1">
                 $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
@@ -563,12 +563,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
             </div>
-            <div className="border border-orange-200 rounded-lg p-5 sm:p-6 bg-orange-50">
+            <div className="border border-orange-200 rounded-lg p-5 sm:p-6 bg-orange-50 flex flex-col">
               <div className="mb-2">
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600">Executive</p>
               </div>
@@ -587,7 +587,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your campaign &rarr;
               </Link>
