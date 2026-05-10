@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Starting Monday — AI Career Platform for Senior Executives',
+    default: 'Starting Monday — The Operating System for Senior Executives',
     template: '%s — Starting Monday',
   },
   description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
