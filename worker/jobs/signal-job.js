@@ -12,6 +12,7 @@ import { fetchPrWire } from '../signals/fetch-pr-wire.js'
 import { fetchPredictLeadsSignals } from '../signals/fetch-predictleads.js'
 import { fetchProxyBoardChanges } from '../signals/fetch-sec-proxy.js'
 import { fetchActivistFilings } from '../signals/fetch-sec-activist.js'
+import { fetchInsiderSales } from '../signals/fetch-sec-insider.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
@@ -59,7 +60,7 @@ export async function runSignalJob() {
     // Avoids an N+1 query per user inside the loop.
     const { data: allCompanies } = await supabase
       .from('companies')
-      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, activist_checked_at')
+      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, activist_checked_at, insider_checked_at')
       .in('user_id', userIds)
       .is('archived_at', null)
 
@@ -219,6 +220,30 @@ export async function runSignalJob() {
               if (!skipped) {
                 signalsFound++
                 logger.info('signal-job: activist entry', { company: company.name, activist: sig.activist_name })
+              }
+            }
+          }
+
+          // Form 4 insider sales — material open-market share sales by named officers (7-day throttle)
+          if (company.sec_cik_padded) {
+            const insiderSignals = await fetchInsiderSales(company.name, {
+              supabase,
+              companyId:         company.id,
+              insiderCheckedAt:  company.insider_checked_at,
+            })
+            for (const sig of insiderSignals) {
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    'insider_sale',
+                signalSummary: sig.signal_summary,
+                sourceUrl:     null,
+                signalDate:    sig.signalDate,
+                outreachAngle: sig.outreach_angle,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: insider sale', { company: company.name })
               }
             }
           }
