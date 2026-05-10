@@ -299,6 +299,23 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       'executive search campaign strategy',
     ],
   },
+  {
+    slug: 'executive-coaching-job-search',
+    title: "What Executive Coaches Get Wrong About Their Clients' Job Searches",
+    description: 'Most executive coaches underestimate how much of the search happens outside the session. Here is what changes when your clients have the right infrastructure.',
+    date: '2026-05-10',
+    readTime: '6 min read',
+    keywords: [
+      'executive coaching job search',
+      'executive coach career transition',
+      'how executive coaches help job search',
+      'executive coaching tools',
+      'executive job search support',
+      'career coaching executives',
+      'executive transition coaching',
+      'tools for executive coaches',
+    ],
+  },
 ]
 
 export function getPost(slug: string): BlogPostMeta | undefined {

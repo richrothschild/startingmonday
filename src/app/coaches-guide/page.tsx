@@ -1,0 +1,213 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Starting Monday for Executive Coaches — Partner Guide',
+  description: 'How executive coaches use Starting Monday to give clients an intelligence advantage in their search. Features, outcomes, and how to get clients started.',
+  robots: { index: false },
+}
+
+const FEATURES = [
+  {
+    name: 'Intelligence Scanner',
+    forCoach: 'Your client is watching 30 companies. You cannot track 30 companies between sessions. The scanner does it for you. It surfaces executive departures, board changes, funding announcements, and career page postings for every company your client is tracking. When a pattern clusters into a pre-search signal, the platform names it and flags it.',
+    outcome: 'Clients reach out before the search is posted. That window is the whole game at the senior level.',
+  },
+  {
+    name: 'AI Prep Brief',
+    forCoach: 'Before every coaching session where your client has an interview coming up, read their prep brief. It takes 60 seconds to generate. It covers the company situation, the likely objections, the questions only a peer would think to ask, and the narrative your client should lead with. You arrive at the session as a peer, not as someone who needs to be briefed by your client.',
+    outcome: 'Clients walk into interviews prepared at a depth that is hard to achieve manually. Coaches spend session time on strategy, not research.',
+  },
+  {
+    name: 'Pipeline Command Center',
+    forCoach: 'The pipeline shows every company your client is tracking, the stage of each relationship, pending follow-ups, and conversation notes. If your client grants you view access, you see the search exactly as it is between sessions, not as your client remembers it.',
+    outcome: 'Conversations about what to prioritize are grounded in data. You stop hearing "I think I have a few companies in process."',
+  },
+  {
+    name: 'Search Strategy Brief',
+    forCoach: 'The strategy brief is a full AI synthesis of your client\'s background, target roles, sector fit, positioning gaps, and recommended outreach sequence. It is generated from their resume and target list. Read it before your first session.',
+    outcome: 'You walk into session one with a clear view of where your client is competitive, where they are not, and what the narrative needs to accomplish.',
+  },
+  {
+    name: 'Daily Morning Briefing',
+    forCoach: 'The platform sends your client a morning digest of new signals, pending follow-ups, and pipeline actions. It creates the discipline and rhythm you have been trying to install in your client manually.',
+    outcome: 'Clients stay engaged between sessions. The accountability layer moves from you to the platform.',
+  },
+]
+
+export default function CoachesGuidePage() {
+  return (
+    <div className="min-h-screen bg-white font-sans">
+
+      {/* Nav */}
+      <nav className="bg-slate-900 sticky top-0 z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </Link>
+          <div className="flex items-center gap-4 sm:gap-5">
+            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              See a demo
+            </Link>
+            <Link
+              href="/signup"
+              className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
+            >
+              Try free
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      <main>
+
+      {/* Header */}
+      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
+            Partner Guide
+          </p>
+          <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
+            Starting Monday for Executive Coaches
+          </h1>
+          <p className="text-[16px] text-slate-400 leading-relaxed">
+            The infrastructure that handles research and accountability so you can focus on the work only you can do.
+          </p>
+        </div>
+      </header>
+
+      {/* Body */}
+      <div className="px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max-w-2xl mx-auto space-y-14">
+
+          {/* What it is */}
+          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
+            <p>
+              Starting Monday is an AI-powered job search platform built for VP and C-suite executives.
+              It gives them the intelligence infrastructure that senior searches require: monitoring of
+              target companies for pre-search signals, AI-generated prep briefs for every interview,
+              a structured pipeline for tracking relationships and conversations, and a daily briefing
+              that keeps the search moving between sessions.
+            </p>
+            <p>
+              It is not a job board. It is not a coaching tool. It is the research and infrastructure
+              layer that sits underneath the strategic work you do.
+            </p>
+          </section>
+
+          {/* The gap */}
+          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <h2 className="text-[22px] font-bold text-slate-900">The gap it fills</h2>
+            <p>
+              Your clients in transition are spending the majority of their time on tasks that have
+              nothing to do with the quality of their relationships or the strength of their candidacy.
+              Researching companies before interviews. Manually tracking where each conversation stands.
+              Preparing the night before because there was no structured prep process. Waiting for roles
+              to appear on job boards that were filled through informal networks three weeks earlier.
+            </p>
+            <p>
+              The result: they arrive at your sessions with uneven preparation and you spend session
+              time reconstructing context instead of doing strategy work.
+            </p>
+            <p>
+              Starting Monday handles the infrastructure. You handle the human work.
+            </p>
+          </section>
+
+          {/* How coaches use it */}
+          <section className="space-y-6">
+            <h2 className="text-[22px] font-bold text-slate-900">How coaches use it</h2>
+            <div className="space-y-8">
+              {FEATURES.map(f => (
+                <div key={f.name} className="border-l-2 border-orange-500 pl-5">
+                  <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
+                  <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forCoach}</p>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">
+                    <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* What it does not do */}
+          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <h2 className="text-[22px] font-bold text-slate-900">What it does not do</h2>
+            <p>
+              Starting Monday does not provide the strategic judgment, the relationship capital, or the
+              human calibration that executive coaching provides. It does not know when your client
+              is self-sabotaging in interviews. It does not know that they are underselling a specific
+              achievement. It does not have the relationship with the search firm partner that you may
+              have spent years building.
+            </p>
+            <p>
+              It handles the research, the tracking, and the rhythm. You handle everything else.
+            </p>
+          </section>
+
+          {/* For your practice */}
+          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <h2 className="text-[22px] font-bold text-slate-900">For your practice</h2>
+            <p>
+              The simplest way to start: recommend Starting Monday to your next client entering
+              transition and ask them to share view access to their pipeline with you. Within one
+              week you will have a clear picture of their search activity that would have taken three
+              sessions to reconstruct verbally.
+            </p>
+            <ul className="space-y-2 pl-4">
+              {[
+                'Your clients get a 30-day free trial, no credit card required',
+                'Active plan ($199/month) includes all AI features — prep briefs, strategy brief, advisor chat, resume tailoring',
+                'Intelligence plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
+                'View access for coaches: your client controls who sees their pipeline',
+                'Referral: reach out to Rich Rothschild directly (rothschild@gmail.com) to discuss a referral arrangement for your practice',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
+                  <span className="text-slate-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* See it live */}
+          <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+              See it in 10 minutes
+            </p>
+            <h2 className="text-[20px] font-bold text-slate-900 mb-3 leading-snug">
+              Walk through a live demo
+            </h2>
+            <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
+              The demo shows the full platform with a pre-loaded account: pipeline, signals,
+              a generated prep brief, and the daily briefing. No signup required.
+            </p>
+            <Link
+              href="/demo"
+              className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
+            >
+              See the demo &rarr;
+            </Link>
+          </section>
+
+        </div>
+      </div>
+
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </Link>
+          <p className="text-[11px] text-slate-500">
+            Questions? rothschild@gmail.com
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  )
+}
