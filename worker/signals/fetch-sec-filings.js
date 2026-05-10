@@ -23,7 +23,7 @@ const ITEM_LABELS = {
 // When { supabase, companyId } provided, also indexes all 8-K filings (12 months) into sec_filings.
 export async function fetchSecFilings(companyName, { supabase, companyId } = {}) {
   try {
-    const cikPadded = await findCik(companyName)
+    const cikPadded = await findCik(companyName, { supabase, companyId })
     if (!cikPadded) return []
     return await getRecentFilings(companyName, cikPadded, { supabase, companyId })
   } catch (err) {
@@ -32,29 +32,64 @@ export async function fetchSecFilings(companyName, { supabase, companyId } = {})
   }
 }
 
-// Step 1: find the CIK by searching EDGAR for recent 8-K filings mentioning this company.
-async function findCik(companyName) {
+// Step 1: find the CIK — reads from DB cache first, falls back to EDGAR full-text search.
+// Persists the resolved (or confirmed-absent) CIK back to the companies row so subsequent
+// scans skip the network round-trip.
+async function findCik(companyName, { supabase, companyId } = {}) {
+  // DB cache: check if we've already resolved this company's CIK.
+  if (supabase && companyId) {
+    const { data } = await supabase
+      .from('companies')
+      .select('sec_cik_padded, is_public_company')
+      .eq('id', companyId)
+      .maybeSingle()
+
+    if (data?.sec_cik_padded) return data.sec_cik_padded
+    // Explicitly marked non-public on a prior run — don't re-query EDGAR.
+    if (data?.is_public_company === false) return null
+  }
+
+  // EDGAR full-text search — find a recent 8-K filed by this company name.
   const since = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const url = `${EDGAR_SEARCH}?q=${encodeURIComponent(`"${companyName}"`)}&forms=8-K&dateRange=custom&startdt=${since}`
 
   const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(8000) })
   if (!res.ok) return null
 
-  const data = await res.json()
-  const hits = data.hits?.hits ?? []
+  const json = await res.json()
+  const hits = json.hits?.hits ?? []
 
   const searchName = companyName.toLowerCase().replace(/[,\.]/g, '').trim()
 
+  let cikPadded = null
   for (const hit of hits) {
     const entityName = (hit._source.entity_name ?? '').toLowerCase().replace(/[,\.]/g, '').trim()
-    // Accept if either name contains the other's first two words (handles "Corp", "Inc" suffix differences)
+    // Accept if either name contains the other's first three words (handles "Corp", "Inc" suffixes).
     const entityWords = entityName.split(/\s+/).slice(0, 3).join(' ')
     const searchWords = searchName.split(/\s+/).slice(0, 3).join(' ')
     if (entityName.includes(searchWords) || searchName.includes(entityWords)) {
-      return hit._id.split('-')[0] // CIK with leading zeros
+      cikPadded = hit._id.split('-')[0]
+      break
     }
   }
-  return null
+
+  // Persist result so future scans skip this lookup.
+  if (supabase && companyId) {
+    const update = cikPadded
+      ? {
+          sec_cik:             cikPadded.replace(/^0+/, ''),
+          sec_cik_padded:      cikPadded,
+          sec_cik_resolved_at: new Date().toISOString(),
+          is_public_company:   true,
+        }
+      : {
+          sec_cik_resolved_at: new Date().toISOString(),
+          is_public_company:   false,
+        }
+    await supabase.from('companies').update(update).eq('id', companyId)
+  }
+
+  return cikPadded
 }
 
 // Step 2: fetch the submissions JSON for this CIK to get recent 8-K filings with item types.

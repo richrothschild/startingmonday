@@ -9,6 +9,7 @@ import { findPressRoomArticles } from '../signals/fetch-press-room.js'
 import { fetchSecFilings } from '../signals/fetch-sec-filings.js'
 import { detectSecTrends } from '../signals/detect-sec-trends.js'
 import { fetchPrWire } from '../signals/fetch-pr-wire.js'
+import { fetchPredictLeadsSignals } from '../signals/fetch-predictleads.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
@@ -198,6 +199,36 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: PR wire signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // PredictLeads — executive changes and company event signals
+          if (company.company_url && process.env.PREDICTLEADS_API_KEY) {
+            const plArticles = await fetchPredictLeadsSignals(company.company_url, company.name)
+            for (const article of plArticles) {
+              // PredictLeads signals are already typed — use the mapped type directly
+              // and run classify only to generate the signal_summary and outreach_angle.
+              const result = await classifySignal(company.name, article, roleType)
+              if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+              if (!result.signal_summary) continue
+
+              const signalDate = article.pubDate
+                ? new Date(article.pubDate).toISOString().split('T')[0]
+                : new Date().toISOString().split('T')[0]
+
+              const { skipped } = await writeSignal(supabase, {
+                companyId:     company.id,
+                userId:        user.id,
+                signalType:    article._predictleadsType,
+                signalSummary: result.signal_summary,
+                sourceUrl:     article.link,
+                signalDate,
+                outreachAngle: result.outreach_angle ?? null,
+              })
+              if (!skipped) {
+                signalsFound++
+                logger.info('signal-job: predictleads signal', { company: company.name, type: article._predictleadsType })
+              }
             }
           }
 
