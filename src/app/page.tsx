@@ -4,8 +4,8 @@ import type { SituationCard } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
-  description: 'The career operating system for CIOs, CTOs, and senior technology executives running a campaign. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center. Free 30-day trial.',
+  title: 'Starting Monday — Find executive roles before they post',
+  description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search. Free 30-day trial.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -17,15 +17,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
-    description: 'The career operating system for CIOs, CTOs, and senior technology executives. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center.',
+    title: 'Starting Monday — Find executive roles before they post',
+    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday — Career Campaign Infrastructure for Senior Technology Executives',
-    description: 'The career operating system for CIOs, CTOs, and senior technology executives. Intelligence before roles open, prep briefs in 60 seconds, pipeline command center.',
+    title: 'Starting Monday — Find executive roles before they post',
+    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -111,9 +111,9 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Detecting organizational motion before formal hiring begins.',
-          h1Lines: ["The Bloomberg Terminal", "for executive", "career intelligence."],
-          body: "Bloomberg tracks market motion before prices move. Starting Monday tracks organizational motion at your target companies. Board changes. Executive departures. Transformation budgets. Funding events. When signals cluster, we name it and tell you. Before the search firm gets the call.",
+          eyebrow: 'For CIOs, CTOs, and senior technology executives in search.',
+          h1Lines: ["The role was never posted.", "You found it anyway."],
+          body: "Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know first. The two weeks before a role posts is when short lists form and relationships are made. That is the window. We help you live there.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
