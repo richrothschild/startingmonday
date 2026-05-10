@@ -13,6 +13,9 @@ import { fetchPredictLeadsSignals } from '../signals/fetch-predictleads.js'
 import { fetchProxyBoardChanges } from '../signals/fetch-sec-proxy.js'
 import { fetchActivistFilings } from '../signals/fetch-sec-activist.js'
 import { fetchInsiderSales } from '../signals/fetch-sec-insider.js'
+import { fetchBizJournalMentions } from '../signals/fetch-bizjournal.js'
+import { fetchTradePressArticles } from '../signals/fetch-trade-press.js'
+import { checkRegulatoryCalendar } from '../signals/check-regulatory-calendar.js'
 import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
@@ -60,7 +63,7 @@ export async function runSignalJob() {
     // Avoids an N+1 query per user inside the loop.
     const { data: allCompanies } = await supabase
       .from('companies')
-      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, activist_checked_at, insider_checked_at')
+      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, is_public_company, activist_checked_at, insider_checked_at')
       .in('user_id', userIds)
       .is('archived_at', null)
 
@@ -271,6 +274,76 @@ export async function runSignalJob() {
             if (!skipped) {
               signalsFound++
               logger.info('signal-job: PR wire signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // Business journals — Bizjournals.com network (private + mid-market coverage)
+          const bizArticles = await fetchBizJournalMentions(company.name)
+          for (const article of bizArticles) {
+            const result = await classifySignal(company.name, article, roleType)
+            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+            if (!result.signal_type || !result.signal_summary) continue
+
+            const signalDate = article.pubDate
+              ? new Date(article.pubDate).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0]
+
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    result.signal_type,
+              signalSummary: result.signal_summary,
+              sourceUrl:     article.link,
+              signalDate,
+              outreachAngle: result.outreach_angle ?? null,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: bizjournal signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // Tech trade press — CIO/CTO/CISO-focused publications
+          const tradeArticles = await fetchTradePressArticles(company.name)
+          for (const article of tradeArticles) {
+            const result = await classifySignal(company.name, article, roleType)
+            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
+            if (!result.signal_type || !result.signal_summary) continue
+
+            const signalDate = article.pubDate
+              ? new Date(article.pubDate).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0]
+
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    result.signal_type,
+              signalSummary: result.signal_summary,
+              sourceUrl:     article.link,
+              signalDate,
+              outreachAngle: result.outreach_angle ?? null,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: trade press signal', { company: company.name, type: result.signal_type })
+            }
+          }
+
+          // Regulatory calendar — sector-level compliance pressure signals (90-day dedup)
+          const regulatorySignals = await checkRegulatoryCalendar(company, { supabase, userId: user.id })
+          for (const sig of regulatorySignals) {
+            const { skipped } = await writeSignal(supabase, {
+              companyId:     company.id,
+              userId:        user.id,
+              signalType:    'regulatory_change',
+              signalSummary: sig.signal_summary,
+              sourceUrl:     sig.sourceUrl,
+              signalDate:    new Date().toISOString().split('T')[0],
+              outreachAngle: sig.outreach_angle,
+            })
+            if (!skipped) {
+              signalsFound++
+              logger.info('signal-job: regulatory signal', { company: company.name, event: sig.eventName })
             }
           }
 
