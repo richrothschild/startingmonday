@@ -349,7 +349,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 We watch for the signals<br />that come before the<br />search begins.
               </h2>
               <p className="text-[15px] text-slate-400 leading-relaxed mb-5">
-                Executive departures. 8-K filings. Funding rounds. Acquisition announcements. We monitor all of it for every company you are tracking. When signals cluster into a pattern, we name it and tell you: this company is ripe. Reach out now, before the formal search begins.
+                Executive departures. 8-K filings. Funding rounds. Acquisition announcements. We monitor all of it for every company you are tracking. When signals cluster into a pattern, we name it. This company has a transition window. Reach out now, before the formal search begins.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {['News', '8-K Filings', 'Exec Snapshots', 'Funding Rounds', 'PR Wire', 'Career Pages'].map(src => (
@@ -582,7 +582,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 mb-1.5">
                 <p className="text-[13px] font-bold text-slate-900">Executive Concierge</p>
-                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">By application</span>
+                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Waitlist open</span>
               </div>
               <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
                 Everything in Active, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
@@ -597,7 +597,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 href="/concierge"
                 className="inline-block text-[13px] font-semibold text-orange-600 border border-orange-200 bg-orange-50 px-5 py-2 rounded hover:bg-orange-100 transition-colors"
               >
-                Apply for access &rarr;
+                Join the waitlist &rarr;
               </Link>
             </div>
           </div>

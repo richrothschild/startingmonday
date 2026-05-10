@@ -130,7 +130,7 @@ export default function SignupPage() {
             <>
               <div className="mb-8">
                 <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
-                <p className="text-[13px] text-slate-500 mt-1.5">Free to get started.</p>
+                <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
               </div>
 
               <div className="bg-white border border-slate-200 rounded p-8">

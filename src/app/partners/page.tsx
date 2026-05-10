@@ -51,7 +51,7 @@ export default function PartnersPage() {
           </h1>
           <p className="text-[15px] text-slate-500 leading-relaxed">
             Starting Monday works with outplacement firms, relocation firms, executive coaches,
-            and retained search practices to deliver better outcomes for senior candidates in transition.
+            and retained search practices to help senior executives in transition run a faster, more informed search.
           </p>
         </div>
 
