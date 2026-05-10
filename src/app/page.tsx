@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Starting Monday — Find executive roles before they post',
-  description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search. Free 30-day trial.',
+  description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search. Free 30-day trial.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday — Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search.',
+    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday — Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for CIOs, CTOs, and senior technology executives in search.',
+    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -81,7 +81,7 @@ const jsonLd = {
       name: 'Starting Monday',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI-powered career search platform for senior technology executives. Pipeline tracking, company intelligence, and interview prep for CIOs, CTOs, and VPs in active search.',
+      description: 'AI-powered career search platform for senior executives. Pipeline tracking, company intelligence, and interview prep for CIOs, CTOs, VPs, and other senior leaders in active search.',
       url: 'https://startingmonday.app',
       publisher: { '@id': 'https://startingmonday.app/#organization' },
       offers: {
@@ -100,7 +100,7 @@ const jsonLd = {
       url: 'https://startingmonday.app',
       name: 'Starting Monday — AI Career Platform for Senior Technology Executives',
       isPartOf: { '@id': 'https://startingmonday.app/#organization' },
-      description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives in active search.',
+      description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
     },
   ],
 }
@@ -111,7 +111,7 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For CIOs, CTOs, and senior technology executives in search.',
+          eyebrow: 'For senior executives in search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
           body: "Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know first. The two weeks before a role posts is when short lists form and relationships are made. That is the window. We help you live there.",
           trialNote: 'Free for 30 days. No credit card.',

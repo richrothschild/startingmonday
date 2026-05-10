@@ -49,7 +49,7 @@ export default function Image() {
 
       {/* Subline */}
       <div style={{ fontSize: 24, color: '#94a3b8', lineHeight: 1.5 }}>
-        For CIOs, CTOs, and senior technology executives in search.
+        For senior executives in search.
       </div>
     </div>,
     size,

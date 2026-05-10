@@ -490,7 +490,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
 
           <div className="mt-12 sm:mt-14 border-t border-slate-800 pt-10 sm:pt-12 text-center">
-            <p className="text-[13px] text-slate-500 mb-5">Built for senior technology executives in active search.</p>
+            <p className="text-[13px] text-slate-500 mb-5">Built for senior executives in active search.</p>
             <Link
               href="/demo"
               className="inline-block text-[14px] text-slate-300 border border-slate-600 px-7 py-3 rounded hover:border-slate-400 hover:text-white transition-colors"

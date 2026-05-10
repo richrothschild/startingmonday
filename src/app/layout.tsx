@@ -22,10 +22,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Starting Monday — AI Career Platform for Senior Technology Executives',
+    default: 'Starting Monday — AI Career Platform for Senior Executives',
     template: '%s — Starting Monday',
   },
-  description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for CIOs, CTOs, and senior technology executives in active search.',
+  description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
   keywords: [
     'executive job search',
     'CIO job search',
