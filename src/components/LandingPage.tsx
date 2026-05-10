@@ -46,8 +46,8 @@ const CAMPAIGN_ITEMS = [
 
 const TESTIMONIALS = [
   {
-    quote: 'I identified a vacancy at a target company eleven days before the search went to a firm. That window is the whole game at this level.',
-    title: 'CTO in transition',
+    quote: 'As a CISO, I am cautious about where my resume, targets, and career notes go. What got my attention was not just the AI, it was the restraint. No recruiter marketplace. No employer visibility. No training on my data.\n\nThat made it usable for the kind of search you cannot afford to have discovered.',
+    title: 'Chief Information Security Officer',
     sector: 'Healthcare technology',
   },
   {
@@ -63,6 +63,10 @@ const TESTIMONIALS = [
 ]
 
 const FEATURES = [
+  {
+    label: 'Level-Calibrated AI',
+    body: 'Set your search level — C-Suite, VP/SVP, or Board/Advisor — and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
+  },
   {
     label: 'Pipeline Command Center',
     body: 'Every company, contact, and conversation — staged, sequenced, and tracked. Nothing falls through. Nothing goes cold.',
@@ -90,10 +94,6 @@ const FEATURES = [
   {
     label: 'Resume Tailoring',
     body: 'Paste the job description. Get a tailored resume that matches their language without keyword stuffing. Run the quality check for an ATS score, recruiter grade, and a list of weak bullets to fix before you send it.',
-  },
-  {
-    label: 'Level-Calibrated AI',
-    body: 'Set your search level — C-Suite, VP/SVP, or Board/Advisor — and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
   },
 ]
 
@@ -226,7 +226,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 href="/signup"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start your campaign &rarr;
+                Start watching now &rarr;
               </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
@@ -413,7 +413,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col justify-between">
-                <p className="text-[14px] text-slate-700 leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
+                <div className="text-[14px] text-slate-700 leading-relaxed mb-5">
+                  {t.quote.split('\n\n').map((para, i, arr) => (
+                    <p key={i} className={i < arr.length - 1 ? 'mb-2' : ''}>
+                      {i === 0 && <>&ldquo;</>}{para}{i === arr.length - 1 && <>&rdquo;</>}
+                    </p>
+                  ))}
+                </div>
                 <div>
                   <p className="text-[12px] font-semibold text-slate-900">{t.title}</p>
                   <p className="text-[12px] text-slate-400">{t.sector}</p>
@@ -553,6 +559,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </p>
               <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
               <p className="text-[11px] text-slate-600 mb-5">or $1,990/yr &mdash; 2 months free</p>
+              <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">Stop running a reactive search.</p>
               <ul className="space-y-2.5">
                 {ACTIVE_FEATURES.map(f => (
                   <li key={f} className="flex items-start gap-2.5">
@@ -599,7 +606,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 mb-1.5">
                 <p className="text-[13px] font-bold text-slate-900">Executive Concierge</p>
-                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">10 seats</span>
+                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">By application</span>
               </div>
               <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
                 Everything in Active, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
@@ -681,7 +688,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             The signal comes before<br />the search begins.<br />Be watching when it does.
           </h2>
           <p className="text-[15px] text-slate-400 mb-4 max-w-xl mx-auto leading-relaxed">
-            The people who land the best roles aren&rsquo;t luckier. They started sooner, stayed closer to their targets, and walked in prepared.
+            The people who land the best roles aren&rsquo;t luckier. They stopped feeling behind. They started sooner, watched closer, and walked in knowing what everyone else was about to find out.
           </p>
           <p className="text-[13px] text-slate-500 mb-8 max-w-lg mx-auto leading-relaxed">
             Every week you are not watching your targets is a week another candidate is. The window before a search is posted closes in days, not weeks.
