@@ -28,6 +28,13 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Check for em-dashes
+        run: |
+          if grep -rP "\xe2\x80\x94" src/; then
+            echo "Em-dash (—) found in src/. Use a regular hyphen or reword."
+            exit 1
+          fi
+
   semgrep:
     name: Semgrep security scan
     runs-on: ubuntu-latest

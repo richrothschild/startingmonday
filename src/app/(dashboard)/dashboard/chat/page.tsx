@@ -74,8 +74,10 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false)
   const [loadingHistory, setLoadingHistory] = useState(true)
   const [actionToast, setActionToast] = useState<string | null>(null)
+  const [retryError, setRetryError] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const lastSentRef = useRef('')
 
   useEffect(() => {
     fetch('/api/conversation')
@@ -111,6 +113,8 @@ export default function ChatPage() {
     const text = input.trim()
     if (!text || loading) return
 
+    lastSentRef.current = text
+    setRetryError(null)
     const userMessage: Message = { role: 'user', content: text }
     const newMessages: Message[] = [...messages, userMessage]
     setMessages([...newMessages, { role: 'assistant', content: '' }])
@@ -161,11 +165,9 @@ export default function ChatPage() {
 
       if (assistantContent.startsWith('__ERROR__')) {
         const errorMsg = assistantContent.slice(9) || 'Something went wrong. Please try again.'
-        setMessages(prev => {
-          const updated = [...prev]
-          updated[updated.length - 1] = { role: 'assistant', content: errorMsg }
-          return updated
-        })
+        setMessages(newMessages)
+        setInput(lastSentRef.current)
+        setRetryError(errorMsg)
         return
       }
 
@@ -210,6 +212,27 @@ export default function ChatPage() {
     <div className="h-screen flex flex-col font-sans bg-white">
       {actionToast && (
         <ActionToast message={actionToast} onDismiss={() => setActionToast(null)} />
+      )}
+      {retryError && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-red-950 text-white text-[13px] font-medium px-5 py-3 rounded-full shadow-lg">
+          <span className="text-red-400">&#9888;</span>
+          <span>{retryError}</span>
+          <button
+            type="button"
+            onClick={() => { setRetryError(null); send() }}
+            className="text-orange-400 hover:text-orange-300 underline text-[12px] bg-transparent border-0 cursor-pointer"
+          >
+            Try again
+          </button>
+          <button
+            type="button"
+            onClick={() => setRetryError(null)}
+            className="text-slate-500 hover:text-white bg-transparent border-0 cursor-pointer ml-1 text-[16px] leading-none"
+            aria-label="Dismiss"
+          >
+            &times;
+          </button>
+        </div>
       )}
 
       <header className="bg-slate-900 shrink-0">

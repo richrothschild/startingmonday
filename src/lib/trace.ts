@@ -16,6 +16,18 @@ type TraceParams = {
 
 export function recordTrace(params: TraceParams): void {
   const { supabase, userId, feature, model, promptTokens, completionTokens, latencyMs, inputSnapshot, outputSnapshot } = params
+  console.log(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: 'ai_call',
+    feature,
+    model,
+    latency_ms: latencyMs,
+    prompt_tokens: promptTokens,
+    completion_tokens: completionTokens,
+    total_tokens: promptTokens + completionTokens,
+    user_id: userId,
+    success: true,
+  }))
   supabase.from('llm_traces').insert({
     user_id: userId,
     feature,
