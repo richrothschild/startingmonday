@@ -140,21 +140,42 @@ async function run() {
 
       await sleep(DELAY_MS)
 
-      // Primary doc embedded in _id — skip the index fetch entirely
-      const primaryDoc = primaryDocFromId ?? await getFilingPrimaryDoc(cik, accession)
-      if (!primaryDoc) {
-        console.log(`  [skip] ${accession} - could not resolve primary document`)
-        skipped++
-        continue
+      // Primary doc is embedded in EFTS _id; fall back to index fetch if that 404s
+      let primaryDoc = primaryDocFromId
+      let docUrl = primaryDoc
+        ? `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
+        : null
+
+      if (!docUrl) {
+        await sleep(DELAY_MS)
+        primaryDoc = await getFilingPrimaryDoc(cik, accession)
+        if (!primaryDoc) {
+          console.log(`  [skip] ${accession} - could not resolve primary document`)
+          skipped++
+          continue
+        }
+        docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
       }
 
       await sleep(DELAY_MS)
 
-      // Fetch primary document and extract Item 5.02 section
-      const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
+      // Fetch primary document; if 404, retry via filing index
+      let section = await fetchItemSection(docUrl)
+      if (!section && primaryDocFromId) {
+        // Direct URL 404'd — fall back to index lookup
+        await sleep(DELAY_MS)
+        const indexDoc = await getFilingPrimaryDoc(cik, accession)
+        if (indexDoc && indexDoc !== primaryDoc) {
+          docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${indexDoc}`
+          await sleep(DELAY_MS)
+          section = await fetchItemSection(docUrl)
+        }
+      }
+
+      if (!section) {
       const section = await fetchItemSection(docUrl)
       if (!section) {
-        console.log(`  [skip] ${accession} - no Item 5.02 section found`)
+        if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
         skipped++
         continue
       }
