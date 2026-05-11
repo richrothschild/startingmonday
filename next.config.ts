@@ -29,6 +29,16 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['pdf-parse', 'mammoth'],
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.startingmonday.app' }],
+        destination: 'https://startingmonday.app/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }]
   },
