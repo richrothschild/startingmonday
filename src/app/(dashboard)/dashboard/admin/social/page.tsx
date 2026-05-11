@@ -110,26 +110,64 @@ export default async function SocialAdminPage() {
 
         {/* Liz instructions */}
         <div className="mt-10 bg-white border border-slate-200 rounded p-6">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow</p>
-          <ol className="flex flex-col gap-2.5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow — Monday, Wednesday, Friday</p>
+          <ol className="flex flex-col gap-5">
             {[
-              'Open this page each weekday morning. The post is auto-generated and waiting.',
-              'Read and edit the draft. Changes save automatically when you click away.',
-              'Click "Post to LinkedIn" to publish immediately via Make.com -- or the cron posts it at 8:30 AM CT automatically.',
-              'If you posted manually outside this page, click "Mark posted (manual)" to record it.',
-              'Note any comments, likes, or notable replies in the Notes field for the weekly digest.',
+              {
+                title: 'Open this page before 8:30 AM CT on post days.',
+                body: 'Posts go out Monday, Wednesday, and Friday only. The page will say "No post scheduled today" on off days. A cron job auto-posts at 8:30 AM CT if you haven\'t posted first — so if you want to review before it goes out, open this before then. If the status already shows "Posted," the auto-post already fired; just scroll to Notes.',
+              },
+              {
+                title: 'Read the draft carefully. Check three things.',
+                body: '(a) Does it sound like Rich — direct, short sentences, no corporate filler? If it sounds like a press release, regenerate. (b) Is it under 3,000 characters? The count appears below the text box. LinkedIn cuts off anything longer. (c) Does it end on a strong note — a question, a point, or a challenge? Weak endings kill engagement. If the draft is off on any of these, click "Regenerate" in the top-right of the date card. You can regenerate as many times as needed until it\'s right.',
+              },
+              {
+                title: 'Edit anything that needs fixing.',
+                body: 'Click anywhere in the text box and type directly. Changes save automatically when you click somewhere else on the page — you\'ll see "Unsaved edits" in amber if a save is still pending. Do not close the tab while it says that.',
+              },
+              {
+                title: 'Post it. Two options.',
+                body: 'Option A: Click "Post to LinkedIn" — this fires immediately through the LinkedIn API. The status updates to confirm. This is the preferred method. Option B: Click "Copy to clipboard," go to linkedin.com, create a new post, paste the text, and publish it yourself. Then come back here and click "Mark posted (manual)" so the record stays accurate. Use Option B only if Option A throws an error.',
+              },
+              {
+                title: 'Track engagement in the Notes field.',
+                body: 'After the post has been live for a few hours, note: total likes, total comments, any specific people who commented (name and what they said), and anyone Rich should follow up with. Paste notable comments verbatim if they\'re worth keeping. This feeds the weekly digest and helps identify warm leads for outreach.',
+              },
             ].map((step, i) => (
               <li key={i} className="flex gap-3 text-[13px] text-slate-600">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">
                   {i + 1}
                 </span>
-                {step}
+                <div>
+                  <p className="font-semibold text-slate-800 mb-1">{step.title}</p>
+                  <p className="leading-relaxed">{step.body}</p>
+                </div>
               </li>
             ))}
           </ol>
+
+          {/* Pillar legend */}
+          <div className="mt-6 pt-5 border-t border-slate-100">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {[
+                { label: 'Search Craft', desc: 'Practical advice for running a senior executive job search' },
+                { label: 'Market Intelligence', desc: 'Data and signals about the executive hiring market' },
+                { label: 'Behind the Build', desc: 'The process of building Starting Monday' },
+                { label: 'User Story', desc: 'Real experiences from executives in search' },
+                { label: 'Engagement', desc: 'Questions and conversation-starters for the audience' },
+              ].map(p => (
+                <div key={p.label} className="flex gap-2 items-start">
+                  <span className="text-[11px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded shrink-0">{p.label}</span>
+                  <span className="text-[12px] text-slate-500 mt-0.5">{p.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="mt-5 pt-4 border-t border-slate-100">
             <p className="text-[12px] text-slate-400">
-              Calendar invite link: <span className="font-mono text-slate-600">https://startingmonday.app/dashboard/admin/social</span>
+              This page: <span className="font-mono text-slate-600">https://startingmonday.app/dashboard/admin/social</span>
             </p>
           </div>
         </div>
