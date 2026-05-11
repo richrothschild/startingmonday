@@ -38,7 +38,7 @@ const DO_PROMPTS = [
   'Move [company name] to interviewing',
   'Add a follow-up to call [name] on [date]',
   'Log that I heard back from [company]',
-  'Archive [company] — they went cold',
+  'Archive [company] - they went cold',
 ]
 
 function AssistantMessage({ content }: { content: string }) {

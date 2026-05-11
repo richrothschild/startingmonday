@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { StrategyClient } from './strategy-client'
 
 export const metadata = {
-  title: 'Search Strategy Brief — Starting Monday',
+  title: 'Search Strategy Brief - Starting Monday',
 }
 
 export default async function StrategyPage() {

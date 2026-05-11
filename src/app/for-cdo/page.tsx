@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CDOs — Chief Digital Officer Search Campaign Infrastructure',
+  title: 'Starting Monday for CDOs - Chief Digital Officer Search Campaign Infrastructure',
   description: 'Campaign infrastructure for Chief Digital Officers in active search. Know the mandate before the first conversation, track transformation signals, and position yourself precisely for the right organization. Free 30-day trial.',
   keywords: [
     'CDO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     'chief digital officer search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for CDOs — Chief Digital Officer Search',
+    title: 'Starting Monday for CDOs - Chief Digital Officer Search',
     description: 'Digital transformation mandates are being absorbed, restructured, and redefined. The CDO who wins knows exactly which mandate they are walking into.',
     url: 'https://startingmonday.app/for-cdo',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CDOs — Chief Digital Officer Search',
+    title: 'Starting Monday for CDOs - Chief Digital Officer Search',
     description: 'Digital transformation mandates are being absorbed, restructured, and redefined. Know the mandate before the first conversation.',
   },
   alternates: {
@@ -73,11 +73,11 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'What is the difference between a CDO and a CIO search at the executive level?',
-    answer: 'A CIO search is a technical infrastructure and delivery mandate. A CDO search is a customer-facing and revenue-linked digital mandate. The candidate who wins a CDO role speaks the language of customer experience, digital product, and revenue growth — not IT delivery and cost management. Where those mandates overlap varies by company. The CDO who can articulate both conversations clearly is the one who makes short lists at organizations where the mandate is still being defined.',
+    answer: 'A CIO search is a technical infrastructure and delivery mandate. A CDO search is a customer-facing and revenue-linked digital mandate. The candidate who wins a CDO role speaks the language of customer experience, digital product, and revenue growth - not IT delivery and cost management. Where those mandates overlap varies by company. The CDO who can articulate both conversations clearly is the one who makes short lists at organizations where the mandate is still being defined.',
   },
   {
     question: 'How do I position myself for both CDO and CIO roles at the same time?',
-    answer: 'Build two distinct narratives from the same record, not one blended narrative that fits neither audience. The CDO narrative leads with customer outcomes and digital revenue. The CIO narrative leads with technology capability and business enablement. Candidates who try to hedge — presenting themselves as both in the same conversation — come across as lacking conviction about what they are built for. Know which version a specific opportunity requires, and enter that conversation with the right frame.',
+    answer: 'Build two distinct narratives from the same record, not one blended narrative that fits neither audience. The CDO narrative leads with customer outcomes and digital revenue. The CIO narrative leads with technology capability and business enablement. Candidates who try to hedge - presenting themselves as both in the same conversation - come across as lacking conviction about what they are built for. Know which version a specific opportunity requires, and enter that conversation with the right frame.',
   },
 ]
 
@@ -86,7 +86,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-cdo/#webpage',
   url: 'https://startingmonday.app/for-cdo',
-  name: 'Starting Monday for CDOs — Chief Digital Officer Search Campaign Infrastructure',
+  name: 'Starting Monday for CDOs - Chief Digital Officer Search Campaign Infrastructure',
   description: 'Campaign infrastructure for Chief Digital Officers in active search. Know the mandate before the first conversation, track transformation signals, and position yourself precisely.',
   isPartOf: {
     '@type': 'WebSite',
@@ -115,8 +115,8 @@ export default function ForCdoPage() {
           body: 'The Chief Digital Officer search is harder than the CIO search because the mandate varies wildly by organization. At some companies, CDO owns customer-facing digital and the CIO owns infrastructure. At others, CDO is the CIO with a modern title. At others still, it is a transitional role already being absorbed. The candidate who wins is the one who can read which mandate they are walking into and position themselves precisely for it before the first conversation.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Identify companies with authentic digital transformation mandates — board-authorized, revenue-linked, not just a rebrand of the IT function',
-            'Track organizational signals that tell you whether the CDO mandate is growing or being consolidated — board composition, digital P&L ownership, reporting line to CEO vs CIO',
+            'Identify companies with authentic digital transformation mandates - board-authorized, revenue-linked, not just a rebrand of the IT function',
+            'Track organizational signals that tell you whether the CDO mandate is growing or being consolidated - board composition, digital P&L ownership, reporting line to CEO vs CIO',
             'Build two distinct narratives: CDO-to-CIO for organizations consolidating, CDO-as-strategy for organizations where digital remains a separate mandate',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',

@@ -169,7 +169,7 @@ export default async function CalendarPage({
           </div>
         )}
 
-        {/* Week grid — desktop */}
+        {/* Week grid - desktop */}
         <div className="hidden sm:grid sm:grid-cols-7 gap-3">
           {weekDates.map((date, i) => {
             const items = byDate[date] ?? []
@@ -199,7 +199,7 @@ export default async function CalendarPage({
           })}
         </div>
 
-        {/* Week list — mobile */}
+        {/* Week list - mobile */}
         <div className="sm:hidden flex flex-col gap-4">
           {weekDates.map((date, i) => {
             const items = byDate[date] ?? []

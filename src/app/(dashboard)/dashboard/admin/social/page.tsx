@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -23,7 +23,7 @@ export default async function SocialAdminPage() {
 
   const admin = createAdminClient()
 
-  // Post history — last 30 days
+  // Post history - last 30 days
   const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const { data: history } = await admin
     .from('social_posts')
@@ -59,7 +59,7 @@ export default async function SocialAdminPage() {
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">LinkedIn Social</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
-            Today&apos;s draft — review, edit, copy, and mark posted.
+            Today&apos;s draft - review, edit, copy, and mark posted.
           </p>
         </div>
 

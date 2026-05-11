@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CIOs and CTOs — Executive Search Campaign Infrastructure',
+  title: 'Starting Monday for CIOs and CTOs - Executive Search Campaign Infrastructure',
   description: 'Campaign infrastructure for CIOs and CTOs in active search. Intelligence before roles are posted, relationship precision, and preparation that wins the conversation. Free 30-day trial.',
   keywords: [
     'CIO job search',
@@ -52,7 +52,7 @@ const SITUATIONS: SituationCard[] = [
   },
   {
     id: 'passive',
-    headline: "I'm not looking — but Sunday nights feel different.",
+    headline: "I'm not looking - but Sunday nights feel different.",
     sub: 'Not ready to commit. But not at peace either.',
   },
   {
@@ -74,11 +74,11 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'Should I work with executive search firms for a CIO role?',
-    answer: 'Most CIO mandates above $300K are filled through retained executive search firms before they are posted publicly. The firms that specialize in technology leadership — Korn Ferry, Spencer Stuart, Heidrick and Struggles, and boutique technology practices — maintain short lists of known candidates. Getting on those short lists before a search opens is the most valuable thing a CIO candidate can do. Starting Monday tracks the organizational signals that tend to precede CIO searches, so you can build search firm relationships at the right moment.',
+    answer: 'Most CIO mandates above $300K are filled through retained executive search firms before they are posted publicly. The firms that specialize in technology leadership - Korn Ferry, Spencer Stuart, Heidrick and Struggles, and boutique technology practices - maintain short lists of known candidates. Getting on those short lists before a search opens is the most valuable thing a CIO candidate can do. Starting Monday tracks the organizational signals that tend to precede CIO searches, so you can build search firm relationships at the right moment.',
   },
   {
     question: 'What do companies look for when hiring a CIO?',
-    answer: 'The CIO evaluation centers on three things: a track record of technology-enabled business outcomes (not just successful IT delivery), the ability to communicate at board level in business terms rather than technical language, and evidence of organizational leadership — building teams and capabilities that outlasted your tenure. The CIO who wins in competitive searches has positioned each role as a business decision, not a technical one.',
+    answer: 'The CIO evaluation centers on three things: a track record of technology-enabled business outcomes (not just successful IT delivery), the ability to communicate at board level in business terms rather than technical language, and evidence of organizational leadership - building teams and capabilities that outlasted your tenure. The CIO who wins in competitive searches has positioned each role as a business decision, not a technical one.',
   },
 ]
 
@@ -116,9 +116,9 @@ export default function ForCioPage() {
           body: "The best opportunities at your level surface through relationships and reputation, not job boards. The process is quiet, the timeline is compressed, and the candidate who walks in most prepared wins. Starting Monday is the campaign infrastructure for a search that needs to stay invisible until it is done.",
           note: 'Import your profile during setup. Operational in minutes.',
           steps: [
-            'Track your target organizations — board changes, leadership gaps, transformation initiatives — before a search is ever authorized',
-            'Manage every relationship and conversation with precision — nothing forgotten, nothing cold, nothing left to chance',
-            'Walk in fully prepared — brief, positioning, and objection responses assembled in 60 seconds from their company and your actual record',
+            'Track your target organizations - board changes, leadership gaps, transformation initiatives - before a search is ever authorized',
+            'Manage every relationship and conversation with precision - nothing forgotten, nothing cold, nothing left to chance',
+            'Walk in fully prepared - brief, positioning, and objection responses assembled in 60 seconds from their company and your actual record',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

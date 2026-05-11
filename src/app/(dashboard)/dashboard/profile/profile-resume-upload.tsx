@@ -24,7 +24,7 @@ export default function ProfileResumeUpload() {
 
     if (res.ok) {
       setStatus('done')
-      setMessage('Resume extracted — text populated below.')
+      setMessage('Resume extracted - text populated below.')
       router.refresh()
     } else {
       setStatus('error')

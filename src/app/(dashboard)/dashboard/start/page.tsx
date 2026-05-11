@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 
 export const metadata = {
-  title: 'Get Started — Starting Monday',
+  title: 'Get Started - Starting Monday',
 }
 
 export default async function StartPage() {
@@ -71,7 +71,7 @@ export default async function StartPage() {
       num: 2,
       done: hasCompanies,
       title: 'Add your first target company',
-      body: 'Add the companies you want to work for. Include the career page URL — we\'ll scan it within minutes and alert you when something matching your profile appears.',
+      body: 'Add the companies you want to work for. Include the career page URL - we\'ll scan it within minutes and alert you when something matching your profile appears.',
       cta: 'Add a company',
       href: '/dashboard/companies/new',
       doneNote: `${companyCount ?? 0} ${(companyCount ?? 0) === 1 ? 'company' : 'companies'} added`,
@@ -80,7 +80,7 @@ export default async function StartPage() {
       num: 3,
       done: hasPrepBrief,
       title: 'Generate your first prep brief',
-      body: 'Open a target company and generate the prep brief. It surfaces leadership signals, likely objections, and your best outreach angle — specific to that company and your background.',
+      body: 'Open a target company and generate the prep brief. It surfaces leadership signals, likely objections, and your best outreach angle - specific to that company and your background.',
       cta: 'Go to companies',
       href: '/dashboard/companies',
       doneNote: 'Prep brief generated',
@@ -98,7 +98,7 @@ export default async function StartPage() {
       num: 5,
       done: hasBriefing,
       title: 'Set up your daily briefing',
-      body: 'Choose a time and timezone for your morning briefing. Every day: signals from your target companies, actions due, and your momentum score — in your inbox before you start work.',
+      body: 'Choose a time and timezone for your morning briefing. Every day: signals from your target companies, actions due, and your momentum score - in your inbox before you start work.',
       cta: 'Configure briefing',
       href: '/dashboard/profile',
       doneNote: 'Briefing configured',

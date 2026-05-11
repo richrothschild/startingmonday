@@ -43,7 +43,7 @@ function renderOutput(text: string) {
         : grade === 'C' ? 'text-amber-700 bg-amber-50'
         : 'text-red-700 bg-red-50'
 
-      const label = line.replace(/\*\*/g, '').replace(/\s*[-—]\s*Grade:.*/, '').trim()
+      const label = line.replace(/\*\*/g, '').replace(/\s*[--]\s*Grade:.*/, '').trim()
       return (
         <div key={i} className="flex items-center gap-3 mt-5 mb-1">
           <span className="text-[14px] font-bold text-slate-900">{label}</span>
@@ -91,15 +91,15 @@ function HelpPopover() {
         <div className="absolute right-0 top-7 z-50 w-72 bg-white border border-slate-200 rounded shadow-lg p-4 text-[12px] text-slate-600 leading-relaxed">
           <p className="font-semibold text-slate-800 mb-3">How to get your LinkedIn profile text</p>
 
-          <p className="font-semibold text-slate-700 mb-1">Easiest — works on every LinkedIn version:</p>
+          <p className="font-semibold text-slate-700 mb-1">Easiest - works on every LinkedIn version:</p>
           <ol className="space-y-0.5 mb-3 pl-0 list-none">
             <li>1. Open your LinkedIn profile in a browser</li>
-            <li>2. Press <span className="font-semibold">Ctrl+A</span> (Mac: <span className="font-semibold">Cmd+A</span>) — select all</li>
-            <li>3. Press <span className="font-semibold">Ctrl+C</span> (Mac: <span className="font-semibold">Cmd+C</span>) — copy</li>
+            <li>2. Press <span className="font-semibold">Ctrl+A</span> (Mac: <span className="font-semibold">Cmd+A</span>) - select all</li>
+            <li>3. Press <span className="font-semibold">Ctrl+C</span> (Mac: <span className="font-semibold">Cmd+C</span>) - copy</li>
             <li>4. Paste into the text box</li>
           </ol>
 
-          <p className="font-semibold text-slate-700 mb-1">Or export as PDF — button location varies:</p>
+          <p className="font-semibold text-slate-700 mb-1">Or export as PDF - button location varies:</p>
           <ul className="space-y-0.5 list-none pl-0 mb-0">
             <li><span className="font-medium text-slate-600">Resources</span> button &rarr; Save to PDF</li>
             <li><span className="font-medium text-slate-600">More</span> button &rarr; Save to PDF</li>
@@ -236,7 +236,7 @@ export default function OptimizePage() {
             <textarea
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder={'Paste your LinkedIn profile text here — About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu → Save to PDF → open the PDF → select all text → paste here.'}
+              placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu → Save to PDF → open the PDF → select all text → paste here.'}
               rows={12}
               disabled={status === 'streaming'}
               className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"
@@ -278,7 +278,7 @@ export default function OptimizePage() {
           </div>
         )}
 
-        {/* Share card — shown after analysis completes */}
+        {/* Share card - shown after analysis completes */}
         {status === 'done' && (() => {
           const grade = extractOverallGrade(output)
           const shareText = grade
@@ -313,7 +313,7 @@ export default function OptimizePage() {
           )
         })()}
 
-        {/* CTA — shown after analysis completes */}
+        {/* CTA - shown after analysis completes */}
         {status === 'done' && (
           <div className="bg-slate-900 rounded p-6 sm:p-8 text-center">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">

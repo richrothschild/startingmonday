@@ -1,11 +1,11 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { TraceViewer } from './trace-client'
 
-export const metadata = { title: 'LLM Traces — Starting Monday Admin' }
+export const metadata = { title: 'LLM Traces - Starting Monday Admin' }
 
 const PAGE_SIZE = 25
 

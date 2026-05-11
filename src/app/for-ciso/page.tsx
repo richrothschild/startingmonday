@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CISOs — Chief Information Security Officer Search Infrastructure',
+  title: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
   description: 'Campaign infrastructure for CISOs in active search. Monitor the events that open mandates before searches are authorized, position security as business risk management, and build toward a board seat. Free 30-day trial.',
   keywords: [
     'CISO job search',
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     'CISO search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for CISOs — Chief Information Security Officer Search',
+    title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
     description: 'The best CISO mandates open after a wake-up call. Be in position before the search is authorized.',
     url: 'https://startingmonday.app/for-ciso',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CISOs — Chief Information Security Officer Search',
+    title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
     description: 'The best CISO mandates open after a wake-up call. Be in position before the search is authorized.',
   },
   alternates: {
@@ -74,7 +74,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'How do I position my security record for a board audience?',
-    answer: 'The board hears security in the language of business risk, not technical risk. Every significant outcome in your record should be framed as a risk management decision with a financial or reputational dimension — not a technical problem you solved. How much exposure did you remove, at what cost, and how does the organization operate differently now? The CISO who can present their record in those terms is the candidate a board can evaluate. The one who leads with frameworks and certifications is the one they have trouble distinguishing from the last person in the role.',
+    answer: 'The board hears security in the language of business risk, not technical risk. Every significant outcome in your record should be framed as a risk management decision with a financial or reputational dimension - not a technical problem you solved. How much exposure did you remove, at what cost, and how does the organization operate differently now? The CISO who can present their record in those terms is the candidate a board can evaluate. The one who leads with frameworks and certifications is the one they have trouble distinguishing from the last person in the role.',
   },
   {
     question: 'How long does a CISO job search typically take?',
@@ -87,7 +87,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-ciso/#webpage',
   url: 'https://startingmonday.app/for-ciso',
-  name: 'Starting Monday for CISOs — Chief Information Security Officer Search Infrastructure',
+  name: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
   description: 'Campaign infrastructure for CISOs in active search. Monitor breach disclosures, regulatory actions, and compliance events before searches are authorized. Position security as business risk.',
   isPartOf: {
     '@type': 'WebSite',
@@ -113,12 +113,12 @@ export default function ForCisoPage() {
         hero={{
           eyebrow: 'The best CISO mandates open after a wake-up call.',
           h1Lines: ['Security is the', 'business risk.', 'Position yourself there.'],
-          body: 'CISO searches are event-driven. A breach, an IPO, a regulatory action, an acquisition — these create the urgency that turns a budgeted headcount into an authorized search. The candidate who lands the right role is the one who has been watching those events at their target organizations and can walk in as the person who understands not just the technical problem but the board-level exposure. Starting Monday surfaces those signals before the search firm is engaged.',
+          body: 'CISO searches are event-driven. A breach, an IPO, a regulatory action, an acquisition - these create the urgency that turns a budgeted headcount into an authorized search. The candidate who lands the right role is the one who has been watching those events at their target organizations and can walk in as the person who understands not just the technical problem but the board-level exposure. Starting Monday surfaces those signals before the search firm is engaged.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Monitor target organizations for breach disclosures, regulatory actions, IPO filings, and board cybersecurity committee formations — these events precede authorized CISO searches by weeks',
+            'Monitor target organizations for breach disclosures, regulatory actions, IPO filings, and board cybersecurity committee formations - these events precede authorized CISO searches by weeks',
             'Track the single most important signal: does this CISO report to the CIO or directly to the CEO? That reporting line tells you everything about how seriously the board takes security risk',
-            'Build the narrative that positions your security record as business risk management and board-level communication, not technical infrastructure — that is the conversation that gets you in front of the right people',
+            'Build the narrative that positions your security record as business risk management and board-level communication, not technical infrastructure - that is the conversation that gets you in front of the right people',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

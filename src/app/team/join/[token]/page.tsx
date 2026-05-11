@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-export const metadata = { title: 'Accept Invite — Starting Monday' }
+export const metadata = { title: 'Accept Invite - Starting Monday' }
 
 export default async function TeamJoinPage({
   params,

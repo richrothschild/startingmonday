@@ -426,7 +426,7 @@ export default async function AdminPage() {
                 {[
                   { label: 'Trials ended', value: String(totalEnded), highlight: false },
                   { label: 'Converted to paid', value: String(totalConverted), highlight: false },
-                  { label: 'Conversion rate', value: conversionRate !== null ? `${conversionRate}%` : '—', highlight: true, rate: conversionRate },
+                  { label: 'Conversion rate', value: conversionRate !== null ? `${conversionRate}%` : '-', highlight: true, rate: conversionRate },
                 ].map(({ label, value, highlight, rate }) => (
                   <div key={label}>
                     <div className={`text-[28px] font-bold ${
@@ -499,10 +499,10 @@ export default async function AdminPage() {
                   return (
                     <tr key={u.id}>
                       <td className="px-6 py-3 font-semibold text-slate-900">{u.email}</td>
-                      <td className="px-4 py-3 text-slate-500">{daysIn !== null ? `Day ${daysIn}` : '—'}</td>
+                      <td className="px-4 py-3 text-slate-500">{daysIn !== null ? `Day ${daysIn}` : '-'}</td>
                       <td className="px-4 py-3">
                         <span className={`font-bold ${daysLeft !== null && daysLeft <= 3 ? 'text-red-600' : daysLeft !== null && daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>
-                          {daysLeft !== null ? `${daysLeft}d` : '—'}
+                          {daysLeft !== null ? `${daysLeft}d` : '-'}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -510,7 +510,7 @@ export default async function AdminPage() {
                           {hasCompanies ? 'Yes' : 'No'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">{u.signup_source ?? '—'}</td>
+                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">{u.signup_source ?? '-'}</td>
                     </tr>
                   )
                 })}
@@ -585,8 +585,8 @@ export default async function AdminPage() {
                       <td className="px-4 py-3 font-mono text-slate-600">{p.referral_code}</td>
                       <td className="px-4 py-3 text-right text-slate-700">{counts.total}</td>
                       <td className="px-4 py-3 text-right font-semibold text-slate-900">{counts.active}</td>
-                      <td className="px-4 py-3 text-right text-slate-700">{counts.mrr > 0 ? `$${counts.mrr}` : '—'}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-green-700">{commission > 0 ? `$${commission}/mo` : '—'}</td>
+                      <td className="px-4 py-3 text-right text-slate-700">{counts.mrr > 0 ? `$${counts.mrr}` : '-'}</td>
+                      <td className="px-4 py-3 text-right font-semibold text-green-700">{commission > 0 ? `$${commission}/mo` : '-'}</td>
                     </tr>
                   )
                 })}
@@ -643,8 +643,8 @@ export default async function AdminPage() {
               <tbody className="divide-y divide-slate-50">
                 {placements.map((p, i) => (
                   <tr key={i}>
-                    <td className="px-6 py-3 font-semibold text-slate-900">{p.full_name ?? '—'}</td>
-                    <td className="px-4 py-3 text-slate-700">{p.placement_company ?? '—'}</td>
+                    <td className="px-6 py-3 font-semibold text-slate-900">{p.full_name ?? '-'}</td>
+                    <td className="px-4 py-3 text-slate-700">{p.placement_company ?? '-'}</td>
                     <td className="px-4 py-3 text-slate-400">
                       {new Date(p.placed_at!).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
@@ -664,11 +664,11 @@ export default async function AdminPage() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
               {[
-                { label: 'Avg context score', value: avgContextScore !== null ? `${avgContextScore}/100` : '—' },
-                { label: '% with resume',     value: pctResume   !== null ? `${pctResume}%`   : '—' },
-                { label: '% with scan',       value: pctScan     !== null ? `${pctScan}%`     : '—' },
-                { label: '% with contacts',   value: pctContacts !== null ? `${pctContacts}%` : '—' },
-                { label: 'Avg word count',    value: avgWords    !== null ? avgWords.toLocaleString() : '—' },
+                { label: 'Avg context score', value: avgContextScore !== null ? `${avgContextScore}/100` : '-' },
+                { label: '% with resume',     value: pctResume   !== null ? `${pctResume}%`   : '-' },
+                { label: '% with scan',       value: pctScan     !== null ? `${pctScan}%`     : '-' },
+                { label: '% with contacts',   value: pctContacts !== null ? `${pctContacts}%` : '-' },
+                { label: 'Avg word count',    value: avgWords    !== null ? avgWords.toLocaleString() : '-' },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <div className="text-[22px] font-bold text-slate-900">{value}</div>

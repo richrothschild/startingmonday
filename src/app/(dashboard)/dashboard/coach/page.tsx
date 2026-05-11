@@ -17,7 +17,7 @@ type Client = {
 }
 
 function MomentumBadge({ score }: { score: number | null }) {
-  if (score === null) return <span className="text-[12px] text-slate-400">—</span>
+  if (score === null) return <span className="text-[12px] text-slate-400">-</span>
   const color = score >= 70 ? 'text-green-700 bg-green-50' : score >= 40 ? 'text-amber-700 bg-amber-50' : 'text-red-700 bg-red-50'
   return <span className={`text-[12px] font-bold px-2 py-0.5 rounded-full tabular-nums ${color}`}>{score}</span>
 }
@@ -147,7 +147,7 @@ export default function CoachDashboard() {
                       <p className="text-[12px] text-slate-400">{client.email}</p>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="text-[12px] text-slate-500">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '—'}</span>
+                      <span className="text-[12px] text-slate-500">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '-'}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
                       <MomentumBadge score={client.momentumScore} />
@@ -158,7 +158,7 @@ export default function CoachDashboard() {
                     <td className="px-4 py-4 text-center">
                       {client.overdueActions > 0
                         ? <span className="text-[12px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full tabular-nums">{client.overdueActions}</span>
-                        : <span className="text-[12px] text-slate-300">—</span>
+                        : <span className="text-[12px] text-slate-300">-</span>
                       }
                     </td>
                   </tr>

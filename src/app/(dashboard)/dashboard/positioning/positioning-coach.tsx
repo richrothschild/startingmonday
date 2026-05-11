@@ -252,7 +252,7 @@ export function PositioningCoach({ currentPositioning, context }: Props) {
           <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Positioning Coach</span>
         </div>
 
-        {/* Starter prompts — shown only before first message */}
+        {/* Starter prompts - shown only before first message */}
         {messages.length === 0 && (
           <div className="px-6 pt-5 pb-3">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-3">Start here</p>

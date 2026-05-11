@@ -5,7 +5,7 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('how-cios-find-jobs')!
 
 export const metadata: Metadata = {
-  title: `${post.title} — Starting Monday`,
+  title: `${post.title} - Starting Monday`,
   description: post.description,
   keywords: post.keywords,
   alternates: { canonical: 'https://startingmonday.app/blog/how-cios-find-jobs' },

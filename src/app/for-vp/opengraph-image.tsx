@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'Starting Monday for VPs — make the move from VP to CIO with the right infrastructure'
+export const alt = 'Starting Monday for VPs - make the move from VP to CIO with the right infrastructure'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -44,7 +44,7 @@ export default function Image() {
             color: '#475569',
           }}
         >
-          Starting Monday — VP to CIO
+          Starting Monday - VP to CIO
         </span>
       </div>
       <div

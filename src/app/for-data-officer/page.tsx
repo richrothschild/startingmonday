@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Chief Data Officers — Find the Companies Where Data Is Genuinely Strategic',
+  title: 'Starting Monday for Chief Data Officers - Find the Companies Where Data Is Genuinely Strategic',
   description: 'Campaign infrastructure for Chief Data Officers and senior data executives in active search. Identify organizations with real data mandates, watch the signals that precede CDO searches, and position data leadership as competitive advantage. Free 30-day trial.',
   keywords: [
     'Chief Data Officer job search',
@@ -73,11 +73,11 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'What is the practical difference between a VP of Data and a Chief Data Officer?',
-    answer: 'A VP of Data typically owns data infrastructure, quality, and analytical capability within a function. A Chief Data Officer owns data as an enterprise asset — governance, strategy, competitive positioning, and the relationship between data investment and business outcome at board level. The difference is not just seniority. It is scope, reporting line, and the kind of decisions the role is accountable for. The VP who makes the jump to CDO has to demonstrate that they have operated at the enterprise level, not just led a strong team.',
+    answer: 'A VP of Data typically owns data infrastructure, quality, and analytical capability within a function. A Chief Data Officer owns data as an enterprise asset - governance, strategy, competitive positioning, and the relationship between data investment and business outcome at board level. The difference is not just seniority. It is scope, reporting line, and the kind of decisions the role is accountable for. The VP who makes the jump to CDO has to demonstrate that they have operated at the enterprise level, not just led a strong team.',
   },
   {
     question: 'How is AI investment changing the Chief Data Officer search market?',
-    answer: 'AI investment is creating genuine CDO mandates at companies that previously treated data as a back-office function. Organizations that have committed to AI at board level quickly discover they need an executive accountable for data quality, governance, and the foundation the AI initiative sits on. This has expanded the CDO search market and increased the velocity of searches in sectors that were previously slow — manufacturing, logistics, and mid-market financial services. It has also increased the noise: more companies are creating CDO roles to signal AI seriousness rather than to fill a real mandate. The ability to tell the difference before the first call is the most important preparation.',
+    answer: 'AI investment is creating genuine CDO mandates at companies that previously treated data as a back-office function. Organizations that have committed to AI at board level quickly discover they need an executive accountable for data quality, governance, and the foundation the AI initiative sits on. This has expanded the CDO search market and increased the velocity of searches in sectors that were previously slow - manufacturing, logistics, and mid-market financial services. It has also increased the noise: more companies are creating CDO roles to signal AI seriousness rather than to fill a real mandate. The ability to tell the difference before the first call is the most important preparation.',
   },
 ]
 
@@ -86,7 +86,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-data-officer/#webpage',
   url: 'https://startingmonday.app/for-data-officer',
-  name: 'Starting Monday for Chief Data Officers — Find the Companies Where Data Is Genuinely Strategic',
+  name: 'Starting Monday for Chief Data Officers - Find the Companies Where Data Is Genuinely Strategic',
   description: 'Campaign infrastructure for Chief Data Officers. Identify organizations with real data mandates, watch signals that precede CDO searches, and position data leadership as competitive advantage.',
   isPartOf: {
     '@type': 'WebSite',
@@ -112,12 +112,12 @@ export default function ForDataOfficerPage() {
         hero={{
           eyebrow: 'Most Chief Data Officer titles are not C-suite mandates. Find the ones that are.',
           h1Lines: ['Data is the', 'strategy.', 'Own the seat.'],
-          body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. The executive who builds a career at the right altitude knows the difference before the first conversation — and positions themselves only for organizations where the mandate is real.',
+          body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. The executive who builds a career at the right altitude knows the difference before the first conversation - and positions themselves only for organizations where the mandate is real.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
             'Identify organizations where data is a genuine strategic priority: board-level AI and data governance committees, data products that drive measurable revenue, and reporting structures where the Chief Data Officer has direct CEO access rather than a dotted line through the CIO',
             'Watch the signals that create CDO mandates: AI investment announcements requiring a data foundation, privacy incidents triggering governance leadership searches, regulatory compliance mandates in financial services and healthcare, and analytics transformation initiatives authorized at board level',
-            'Build the brief that positions your data leadership record at the right altitude — not as data infrastructure management, but as the executive who built the capability that gave the business a measurable competitive advantage',
+            'Build the brief that positions your data leadership record at the right altitude - not as data infrastructure management, but as the executive who built the capability that gave the business a measurable competitive advantage',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

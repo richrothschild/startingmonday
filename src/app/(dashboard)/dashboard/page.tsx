@@ -15,7 +15,7 @@ import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 
-// Full class strings — must not be constructed dynamically (Tailwind scanner needs to see them)
+// Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
   watching:     { label: 'Watching',     cls: 'bg-slate-100 text-slate-500' },
   researching:  { label: 'Researching',  cls: 'bg-blue-50 text-blue-700' },
@@ -109,7 +109,7 @@ export default async function DashboardPage({
       .order('signal_date', { ascending: false })
       .limit(3),
     getActivationStatus(user.id),
-    // Separate query — columns added in migration 022; returns { data: null } gracefully if not yet applied
+    // Separate query - columns added in migration 022; returns { data: null } gracefully if not yet applied
     supabase
       .from('user_profiles')
       .select('momentum_score, momentum_computed_at')
@@ -228,7 +228,7 @@ export default async function DashboardPage({
 
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
-    { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL — we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
+    { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
     { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard/companies',      cta: 'Go to companies' },
     { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Add a contact' },
     { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
@@ -431,14 +431,14 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Offers in flight — shown whenever there's an active offer */}
+        {/* Offers in flight - shown whenever there's an active offer */}
         {allList.some(c => c.stage === 'offer') && (
           <div className="mb-6 px-5 py-3.5 rounded bg-green-50 border border-green-200 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <span className="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0" />
               <span className="text-[13px] font-semibold text-green-900">
                 {allList.filter(c => c.stage === 'offer').length === 1
-                  ? `${allList.find(c => c.stage === 'offer')!.name} — offer in hand`
+                  ? `${allList.find(c => c.stage === 'offer')!.name} - offer in hand`
                   : `${allList.filter(c => c.stage === 'offer').length} offers in flight`}
               </span>
             </div>
@@ -521,7 +521,7 @@ export default async function DashboardPage({
           </Link>
         )}
 
-        {/* Quick profile shortcut — shown when profile is very thin */}
+        {/* Quick profile shortcut - shown when profile is very thin */}
         {profileScore < 40 && (
           <div className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
             <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
@@ -615,7 +615,7 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
-        {/* Momentum Score — only renders after migration 022 is applied and worker has run */}
+        {/* Momentum Score - only renders after migration 022 is applied and worker has run */}
         {momentumData?.momentum_score != null && (
           <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
             <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
@@ -641,7 +641,7 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Week 3 coaching prompt — appears Day 18-28 after onboarding */}
+        {/* Week 3 coaching prompt - appears Day 18-28 after onboarding */}
         {showWeek3Prompt && (
           <div className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</p>
@@ -883,7 +883,7 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Setup checklist — visible until all 6 steps are complete */}
+        {/* Setup checklist - visible until all 6 steps are complete */}
         {!activation.isComplete && !hasFilters && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-slate-100 flex items-center justify-between">
@@ -924,10 +924,10 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Suggestions — shown until dismissed or pipeline grows */}
+        {/* Suggestions - shown until dismissed or pipeline grows */}
         {totalCount < 5 && !hasFilters && <SuggestionCards />}
 
-        {/* Pipeline Pulse — Executive only */}
+        {/* Pipeline Pulse - Executive only */}
         {isExecutive && (
           <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
@@ -1032,7 +1032,7 @@ export default async function DashboardPage({
                       <EmptyState
                         icon={EMPTY_ICONS.companies}
                         title="No target companies yet"
-                        body="Add companies you want to work for. We'll scan for signals — exec moves, funding, openings — and alert you when the timing is right."
+                        body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right."
                         cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
                       />
                     ) : (
@@ -1065,7 +1065,7 @@ export default async function DashboardPage({
                       )}
                     </td>
                     <td className="py-3.5 px-4 text-[13px] text-slate-500 hidden sm:table-cell">
-                      {co.sector ?? '—'}
+                      {co.sector ?? '-'}
                     </td>
                     <td className="py-3.5 px-4">
                       <span className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-[0.04em] ${s.cls}`}>
@@ -1073,7 +1073,7 @@ export default async function DashboardPage({
                       </span>
                     </td>
                     <td className="py-3.5 pl-4 pr-6 text-right text-[14px] font-bold text-slate-900">
-                      {co.fit_score ?? '—'}
+                      {co.fit_score ?? '-'}
                     </td>
                   </tr>
                 )
@@ -1108,7 +1108,7 @@ export default async function DashboardPage({
             </div>
           )}
 
-        {/* Search wrap-up link — discreet, for users who found a role outside the pipeline */}
+        {/* Search wrap-up link - discreet, for users who found a role outside the pipeline */}
         {!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active') && (
           <div className="mt-10 text-center">
             <Link

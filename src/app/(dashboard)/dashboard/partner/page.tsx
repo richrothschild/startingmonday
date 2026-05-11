@@ -67,7 +67,7 @@ export default async function PartnerDashboardPage() {
   }, 0)
   const estimatedCommission = Math.round(attributedMRR * partner.commission_pct / 100)
 
-  // Build display rows (anonymous — no emails)
+  // Build display rows (anonymous - no emails)
   const attrByUserId = Object.fromEntries(
     (attributions ?? []).map(a => [a.signup_user_id, a.attributed_at])
   )
@@ -181,7 +181,7 @@ export default async function PartnerDashboardPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right text-slate-500">
-                        {commission > 0 ? `$${commission}/mo` : '—'}
+                        {commission > 0 ? `$${commission}/mo` : '-'}
                       </td>
                     </tr>
                   )

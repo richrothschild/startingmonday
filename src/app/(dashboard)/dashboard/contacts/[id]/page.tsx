@@ -299,7 +299,7 @@ export default async function ContactDetailPage({
               )}
             </div>
 
-            {/* Pending — interactive (mark done / edit) */}
+            {/* Pending - interactive (mark done / edit) */}
             {pendingFollowUps.length > 0 && (
               <div className="divide-y divide-slate-50">
                 {pendingFollowUps.map(fu => {
@@ -319,7 +319,7 @@ export default async function ContactDetailPage({
               </div>
             )}
 
-            {/* Done — static */}
+            {/* Done - static */}
             {doneFollowUps.length > 0 && (
               <div className="divide-y divide-slate-50 border-t border-slate-50">
                 {doneFollowUps.slice(0, 3).map(fu => (

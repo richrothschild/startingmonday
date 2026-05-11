@@ -34,7 +34,7 @@ export default function DashboardError({
           </h1>
           <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
             The dashboard failed to load. This is usually a temporary issue.
-            Try refreshing — if it persists, the team has been notified.
+            Try refreshing - if it persists, the team has been notified.
           </p>
           <button
             onClick={reset}

@@ -121,7 +121,7 @@ export default async function EditContactPage({
               <div>
                 <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Channel</label>
                 <select name="channel" defaultValue={contact.channel ?? ''} className={inputCls}>
-                  <option value="">—</option>
+                  <option value="">-</option>
                   {CHANNELS.map(c => (
                     <option key={c.value} value={c.value}>{c.label}</option>
                   ))}
@@ -131,7 +131,7 @@ export default async function EditContactPage({
                 <div>
                   <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Company</label>
                   <select name="company_id" defaultValue={contact.company_id ?? ''} className={inputCls}>
-                    <option value="">— No company —</option>
+                    <option value="">- No company -</option>
                     {companyList.map(co => (
                       <option key={co.id} value={co.id}>{co.name}</option>
                     ))}
@@ -144,7 +144,7 @@ export default async function EditContactPage({
               <div>
                 <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Relationship type</label>
                 <select name="contact_type" defaultValue={contact.contact_type ?? ''} className={inputCls}>
-                  <option value="">—</option>
+                  <option value="">-</option>
                   <option value="recruiter">Recruiter</option>
                   <option value="hiring_manager">Hiring Manager</option>
                   <option value="peer">Peer</option>

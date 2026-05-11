@@ -1,11 +1,11 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { createProspect } from '../actions'
 import { TYPE_LABELS } from '../page'
 
-export const metadata = { title: 'Add Prospect — B2B Sales' }
+export const metadata = { title: 'Add Prospect - B2B Sales' }
 
 export default async function NewProspectPage() {
   const supabase = await createClient()

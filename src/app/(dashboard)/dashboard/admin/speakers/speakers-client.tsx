@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useRef } from 'react'
 
@@ -238,12 +238,12 @@ export function SpeakersClient({ initialSpeakers }: { initialSpeakers: Speaker[]
                         )}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="text-slate-700">{s.company ?? '—'}</div>
+                        <div className="text-slate-700">{s.company ?? '-'}</div>
                         {s.sector && <div className="text-slate-400 text-[11px]">{s.sector}</div>}
                       </td>
                       <td className="px-4 py-3">
                         {appearances.length === 0 ? (
-                          <span className="text-slate-300">—</span>
+                          <span className="text-slate-300">-</span>
                         ) : (
                           <div className="space-y-0.5">
                             {appearances.slice(0, 2).map(a => (
@@ -324,7 +324,7 @@ export function SpeakersClient({ initialSpeakers }: { initialSpeakers: Speaker[]
                                       <tr key={`${a.conference_name}-${a.conference_year}`}>
                                         <td className="py-1.5 text-slate-700">{a.conference_name}</td>
                                         <td className="py-1.5 text-slate-500">{a.conference_year}</td>
-                                        <td className="py-1.5 text-slate-400 capitalize">{a.session_type ?? '—'}</td>
+                                        <td className="py-1.5 text-slate-400 capitalize">{a.session_type ?? '-'}</td>
                                       </tr>
                                     ))}
                                   </tbody>

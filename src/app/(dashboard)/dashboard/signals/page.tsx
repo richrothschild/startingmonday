@@ -19,7 +19,7 @@ const SIGNAL_TYPE_LABELS: Record<string, string> = {
   award:          'Award',
 }
 
-export const metadata = { title: 'Signals — Starting Monday' }
+export const metadata = { title: 'Signals - Starting Monday' }
 
 export default async function SignalsPage({
   searchParams,

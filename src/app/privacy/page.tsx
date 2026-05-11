@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 
 export const metadata = {
-  title: 'Privacy Policy — Starting Monday',
+  title: 'Privacy Policy - Starting Monday',
   description: 'How Starting Monday collects, uses, and protects your personal information.',
   robots: { index: true, follow: true },
 }
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
 
       <main className="max-w-3xl mx-auto px-6 py-12">
 
-        {/* Google API Data Disclosure — required for Google OAuth verification */}
+        {/* Google API Data Disclosure - required for Google OAuth verification */}
         <section className="mb-12 pb-12 border-b border-slate-200">
           <h1 className="text-[22px] font-bold text-slate-900 mb-6">Privacy Policy</h1>
 
@@ -35,9 +35,9 @@ export default function PrivacyPage() {
             standard OAuth 2.0 scopes:
           </p>
           <ul className="list-disc pl-5 mb-4 space-y-1.5 text-[14px] text-slate-600">
-            <li><strong>Email address</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">email</code>) — used to identify your account and send you product communications.</li>
-            <li><strong>Basic profile information</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">profile</code>) — your name and profile picture, used to personalize your account.</li>
-            <li><strong>OpenID Connect identity token</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">openid</code>) — used to verify your identity during sign-in.</li>
+            <li><strong>Email address</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">email</code>) - used to identify your account and send you product communications.</li>
+            <li><strong>Basic profile information</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">profile</code>) - your name and profile picture, used to personalize your account.</li>
+            <li><strong>OpenID Connect identity token</strong> (scope: <code className="text-[13px] bg-slate-100 px-1 rounded">openid</code>) - used to verify your identity during sign-in.</li>
           </ul>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
             Starting Monday does not access Google Calendar, Gmail, Google Drive, Google Contacts,

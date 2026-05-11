@@ -4,7 +4,7 @@ import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { SalaryIntelClient } from './salary-client'
 import Link from 'next/link'
 
-export const metadata = { title: 'Salary Intelligence — Starting Monday' }
+export const metadata = { title: 'Salary Intelligence - Starting Monday' }
 
 export default async function SalaryPage({
   searchParams,
@@ -38,7 +38,7 @@ export default async function SalaryPage({
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Executive</p>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Salary Intelligence</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
-            Compensation range, negotiation script, and pushback responses — specific to the role, company, and location.
+            Compensation range, negotiation script, and pushback responses - specific to the role, company, and location.
           </p>
         </div>
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Executive Coaches — Partner Guide',
+  title: 'Starting Monday for Executive Coaches - Partner Guide',
   description: 'How executive coaches use Starting Monday to give clients an intelligence advantage in their search. Features, outcomes, and how to get clients started.',
   robots: { index: false },
 }
@@ -158,7 +158,7 @@ export default function CoachesGuidePage() {
             <ul className="space-y-2 pl-4">
               {[
                 'Your clients get a 30-day free trial, no credit card required',
-                'Active plan ($199/month) includes all AI features — prep briefs, strategy brief, advisor chat, resume tailoring',
+                'Active plan ($199/month) includes all AI features - prep briefs, strategy brief, advisor chat, resume tailoring',
                 'Passive plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
                 'View access for coaches: your client controls who sees their pipeline',
                 'Referral: reach out to Rich Rothschild directly (contact@startingmonday.app) to discuss a referral arrangement for your practice',

@@ -211,7 +211,7 @@ export function StrategyClient({ missingFields }: { missingFields: MissingField[
         {!brief && !loading && !error && (
           <div className="bg-white border border-slate-200 rounded p-10 text-center">
             <p className="text-[14px] text-slate-400 leading-relaxed max-w-md mx-auto">
-              Generates an honest read on your market position and a concrete action framework — based on your profile, target roles, and pipeline.
+              Generates an honest read on your market position and a concrete action framework - based on your profile, target roles, and pipeline.
             </p>
           </div>
         )}

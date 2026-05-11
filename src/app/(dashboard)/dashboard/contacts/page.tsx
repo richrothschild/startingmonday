@@ -135,7 +135,7 @@ export default async function ContactsPage({
                   name="channel"
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
                 >
-                  <option value="">—</option>
+                  <option value="">-</option>
                   <option value="recruiter">Recruiter</option>
                   <option value="linkedin">LinkedIn</option>
                   <option value="referral">Referral</option>
@@ -155,7 +155,7 @@ export default async function ContactsPage({
                     name="company_id"
                     className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
                   >
-                    <option value="">— No company —</option>
+                    <option value="">- No company -</option>
                     {companyList.map(co => (
                       <option key={co.id} value={co.id}>{co.name}</option>
                     ))}

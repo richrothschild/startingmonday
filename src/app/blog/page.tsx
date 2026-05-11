@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { BLOG_POSTS } from '@/lib/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'Blog — Starting Monday',
+  title: 'Blog - Starting Monday',
   description: 'Practical guidance for senior technology executives in active search. CIO job search strategy, working with executive search firms, interview preparation, and campaign management.',
   keywords: [
     'CIO job search advice',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     canonical: 'https://startingmonday.app/blog',
   },
   openGraph: {
-    title: 'Blog — Starting Monday',
+    title: 'Blog - Starting Monday',
     description: 'Practical guidance for senior technology executives in active search.',
     url: 'https://startingmonday.app/blog',
     type: 'website',

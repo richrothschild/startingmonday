@@ -8,7 +8,7 @@ import { addContact, logActivity, updateProspect, deleteMaterial } from './actio
 import { archiveProspect } from '../actions'
 import MaterialClient from './material-client'
 
-export const metadata = { title: 'Prospect — B2B Sales' }
+export const metadata = { title: 'Prospect - B2B Sales' }
 
 const ACTIVITY_TYPES = [
   { value: 'call',      label: 'Call' },

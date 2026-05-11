@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'About Richard Rothschild — Starting Monday',
+  title: 'About Richard Rothschild - Starting Monday',
   description: 'Richard Rothschild is a transformation CIO and the founder of Starting Monday. He built the platform after running his own executive search and finding the process broken.',
   alternates: {
     canonical: 'https://startingmonday.app/about',
   },
   openGraph: {
-    title: 'About Richard Rothschild — Starting Monday',
+    title: 'About Richard Rothschild - Starting Monday',
     description: 'Transformation CIO. Founder of Starting Monday. Writing about executive search, technology leadership, and what it actually takes to land the right role.',
     url: 'https://startingmonday.app/about',
     type: 'profile',

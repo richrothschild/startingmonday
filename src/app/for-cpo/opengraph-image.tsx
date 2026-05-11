@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'Starting Monday for CPOs — find the company where product is the strategy, not a function'
+export const alt = 'Starting Monday for CPOs - find the company where product is the strategy, not a function'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -22,7 +22,7 @@ export default function Image() {
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
         <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#38bdf8', marginRight: '14px' }} />
         <span style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#475569' }}>
-          Starting Monday — For CPOs
+          Starting Monday - For CPOs
         </span>
       </div>
       <div style={{ fontSize: '64px', fontWeight: 800, lineHeight: 1.05, color: '#f8fafc', marginBottom: '28px', maxWidth: '900px' }}>

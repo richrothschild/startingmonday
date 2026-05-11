@@ -51,7 +51,7 @@ export function SuggestionCards() {
         setAdded(prev => new Set([...prev, name]))
       }
     } catch {
-      // silent — user can still use the link fallback
+      // silent - user can still use the link fallback
     } finally {
       setAdding(null)
     }

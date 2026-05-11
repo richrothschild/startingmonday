@@ -221,7 +221,7 @@ function BriefingBodySkeleton() {
   )
 }
 
-// ─── Async component — triggers the Claude call ───────────────────────────────
+// ─── Async component - triggers the Claude call ───────────────────────────────
 
 type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
@@ -335,7 +335,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
   )
 }
 
-// ─── Page — shell renders immediately, body streams in ────────────────────────
+// ─── Page - shell renders immediately, body streams in ────────────────────────
 
 export default async function BriefingPage() {
   const supabase = await createClient()
@@ -382,7 +382,7 @@ export default async function BriefingPage() {
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
-        {/* Header — streams immediately after DB queries */}
+        {/* Header - streams immediately after DB queries */}
         <div className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
           <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-4">
             Starting Monday
@@ -393,7 +393,7 @@ export default async function BriefingPage() {
           <p className="text-[13px] text-slate-500">{todayLabel}</p>
         </div>
 
-        {/* Stats bar — streams immediately after DB queries */}
+        {/* Stats bar - streams immediately after DB queries */}
         <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
           {[
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
@@ -410,7 +410,7 @@ export default async function BriefingPage() {
           ))}
         </div>
 
-        {/* Briefing body — streams in after Claude call completes */}
+        {/* Briefing body - streams in after Claude call completes */}
         <Suspense fallback={<BriefingBodySkeleton />}>
           <BriefingBody context={context} />
         </Suspense>

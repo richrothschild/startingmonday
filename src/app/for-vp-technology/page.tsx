@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for VP Technology — The Right Mandate at the Right Organization',
+  title: 'Starting Monday for VP Technology - The Right Mandate at the Right Organization',
   description: 'Campaign infrastructure for VP and SVP Technology leaders in active search. Track the organizations building or restructuring their technology function before roles are posted. Free 30-day trial.',
   keywords: [
     'VP technology job search',
@@ -72,7 +72,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'Do VP Technology candidates need a formal title change to move to a better role?',
-    answer: 'Not necessarily. Many of the most valuable VP Technology moves are lateral in title and significant in scope — moving from a company where technology is treated as a cost center to one where it is a strategic priority, or from a constrained budget to a mandate with real resources. The title matters less than the mandate, the reporting line, and the organization. Starting Monday helps you identify companies that are actively building or restructuring their technology function, which is where the real scope is.',
+    answer: 'Not necessarily. Many of the most valuable VP Technology moves are lateral in title and significant in scope - moving from a company where technology is treated as a cost center to one where it is a strategic priority, or from a constrained budget to a mandate with real resources. The title matters less than the mandate, the reporting line, and the organization. Starting Monday helps you identify companies that are actively building or restructuring their technology function, which is where the real scope is.',
   },
   {
     question: 'How do executive search firms evaluate VP Technology candidates?',
@@ -85,7 +85,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-vp-technology/#webpage',
   url: 'https://startingmonday.app/for-vp-technology',
-  name: 'Starting Monday for VP Technology — The Right Mandate at the Right Organization',
+  name: 'Starting Monday for VP Technology - The Right Mandate at the Right Organization',
   description: 'Campaign infrastructure for VP and SVP Technology leaders in active search. Track organizations building or restructuring their technology function before roles are posted.',
   isPartOf: {
     '@type': 'WebSite',
@@ -111,11 +111,11 @@ export default function ForVpTechnologyPage() {
         hero={{
           eyebrow: 'The best VP Technology roles go to the candidates already in the room.',
           h1Lines: ['The right mandate', 'at the right', 'organization.'],
-          body: 'The senior technology leader at VP level faces a search that rewards preparation over application. The best roles are filled through referral networks and search firms who already have you in mind — not through job boards you checked last Tuesday. The VP who lands well is not the one who applies fastest. It is the one who has been watching their target organizations before the headcount was approved, and who walks in already knowing the context.',
+          body: 'The senior technology leader at VP level faces a search that rewards preparation over application. The best roles are filled through referral networks and search firms who already have you in mind - not through job boards you checked last Tuesday. The VP who lands well is not the one who applies fastest. It is the one who has been watching their target organizations before the headcount was approved, and who walks in already knowing the context.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Track organizations where VP Technology roles open at the right scope — companies building out or restructuring their technology function, PE-backed companies adding leadership depth, and growth-stage companies formalizing their first senior technology hire',
-            'Build the search firm relationships that place VP technology leaders before the role is posted publicly — most searches at this level are filled from the firm\'s existing candidate relationships, not from inbound applications',
+            'Track organizations where VP Technology roles open at the right scope - companies building out or restructuring their technology function, PE-backed companies adding leadership depth, and growth-stage companies formalizing their first senior technology hire',
+            'Build the search firm relationships that place VP technology leaders before the role is posted publicly - most searches at this level are filled from the firm\'s existing candidate relationships, not from inbound applications',
             'Prepare the brief that works for both conversations: VP lateral at a higher-caliber organization, and the first CIO step-up where the timing and company are right',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',

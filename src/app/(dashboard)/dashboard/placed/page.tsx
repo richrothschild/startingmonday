@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
-export const metadata = { title: 'Congratulations — Starting Monday' }
+export const metadata = { title: 'Congratulations - Starting Monday' }
 
 export default async function PlacedPage() {
   const supabase = await createClient()

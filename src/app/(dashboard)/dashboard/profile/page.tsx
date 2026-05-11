@@ -233,8 +233,8 @@ export default async function ProfilePage({
                 {[
                   { value: 'cio',          label: 'CIO',                        sub: 'Chief Information Officer' },
                   { value: 'cto',          label: 'CTO',                        sub: 'Chief Technology Officer' },
-                  { value: 'cdo_data',     label: 'CDO — Data & Analytics',     sub: 'Chief Data Officer, analytics and data products' },
-                  { value: 'cdo_digital',  label: 'CDO — Digital',              sub: 'Chief Digital Officer, digital transformation' },
+                  { value: 'cdo_data',     label: 'CDO - Data & Analytics',     sub: 'Chief Data Officer, analytics and data products' },
+                  { value: 'cdo_digital',  label: 'CDO - Digital',              sub: 'Chief Digital Officer, digital transformation' },
                   { value: 'ciso',         label: 'CISO',                       sub: 'Chief Information Security Officer' },
                   { value: 'cpo',          label: 'CPO',                        sub: 'Chief Product Officer' },
                   { value: 'coo',          label: 'COO',                        sub: 'Chief Operating Officer' },
@@ -318,7 +318,7 @@ export default async function ProfilePage({
                 id="target_titles"
                 name="target_titles"
                 defaultValue={targetTitles}
-                placeholder="Type a title and press Enter — CIO, VP of Technology…"
+                placeholder="Type a title and press Enter - CIO, VP of Technology…"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Press Enter or comma after each. Used to score job matches in company scans.</p>
             </div>

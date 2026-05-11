@@ -2,7 +2,7 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OutreachClient } from './outreach-client'
 
-export const metadata = { title: 'Draft Outreach — Starting Monday' }
+export const metadata = { title: 'Draft Outreach - Starting Monday' }
 
 export default async function OutreachPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

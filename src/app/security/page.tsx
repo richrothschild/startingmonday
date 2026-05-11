@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Security & Data — Starting Monday',
+  title: 'Security & Data - Starting Monday',
   description: 'How Starting Monday stores, protects, and handles your search data.',
 }
 

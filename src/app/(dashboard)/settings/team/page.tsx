@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { TeamSettings } from './team-settings'
 
-export const metadata = { title: 'Team — Starting Monday' }
+export const metadata = { title: 'Team - Starting Monday' }
 
 type SeatStatus = {
   profileDone: boolean

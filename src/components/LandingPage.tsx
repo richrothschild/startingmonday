@@ -65,11 +65,11 @@ const TESTIMONIALS = [
 const FEATURES = [
   {
     label: 'Level-Calibrated AI',
-    body: 'Set your search level — C-Suite, VP/SVP, or Board/Advisor — and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
+    body: 'Set your search level - C-Suite, VP/SVP, or Board/Advisor - and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
   },
   {
     label: 'Pipeline Command Center',
-    body: 'Every company, contact, and conversation — staged, sequenced, and tracked. Nothing falls through. Nothing goes cold.',
+    body: 'Every company, contact, and conversation - staged, sequenced, and tracked. Nothing falls through. Nothing goes cold.',
   },
   {
     label: 'Early Role Intelligence',
@@ -81,15 +81,15 @@ const FEATURES = [
   },
   {
     label: 'Daily Morning Briefing',
-    body: 'New matches, pending actions, and company signals — assembled overnight and in your inbox before the day starts.',
+    body: 'New matches, pending actions, and company signals - assembled overnight and in your inbox before the day starts.',
   },
   {
     label: 'AI Career Advisor',
-    body: 'A strategic advisor with full visibility into your pipeline. Ask anything — how to frame a gap, what to say to a contact, which companies to prioritize. It takes action when you ask it to.',
+    body: 'A strategic advisor with full visibility into your pipeline. Ask anything - how to frame a gap, what to say to a contact, which companies to prioritize. It takes action when you ask it to.',
   },
   {
     label: 'Search Strategy Brief',
-    body: 'One AI synthesis of your full positioning — target roles, sectors, narrative, and outreach approach. Built from your background and the companies you are tracking. Regenerate when your focus shifts.',
+    body: 'One AI synthesis of your full positioning - target roles, sectors, narrative, and outreach approach. Built from your background and the companies you are tracking. Regenerate when your focus shifts.',
   },
   {
     label: 'Resume Tailoring',
@@ -207,9 +207,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </p>
           )}
 
-          {/* Confidentiality promise — above the fold, before any CTA */}
+          {/* Confidentiality promise - above the fold, before any CTA */}
           <p className="text-[13px] text-slate-500 mb-8">
-            Your search is completely private — we never share your identity, targets, or activity with anyone.
+            Your search is completely private - we never share your identity, targets, or activity with anyone.
           </p>
 
           {hero.steps && hero.steps.length > 0 && (
@@ -366,7 +366,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             </div>
             <div className="flex flex-col gap-3">
-              {/* Card 1 — pattern alert: before search exists */}
+              {/* Card 1 - pattern alert: before search exists */}
               <div className="bg-slate-800 border border-orange-500 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-bold text-slate-200">Accenture</span>
@@ -376,7 +376,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[12px] text-slate-400 leading-relaxed mb-2">CIO departed last week. Combined with a digital transformation announcement, this is a high-probability window for external technology leadership.</p>
                 <p className="text-[11px] text-orange-400 font-semibold">Reach out before the search is formalized.</p>
               </div>
-              {/* Card 2 — exec departure: before search is announced */}
+              {/* Card 2 - exec departure: before search is announced */}
               <div className="bg-slate-800 border border-amber-600 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-bold text-slate-200">Workday</span>
@@ -386,7 +386,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[12px] text-slate-400 leading-relaxed mb-2">No replacement announced. No active search posted. The vacancy is open.</p>
                 <p className="text-[11px] text-slate-500">Detected via exec snapshot &mdash; yesterday.</p>
               </div>
-              {/* Card 3 — role posted: before LinkedIn */}
+              {/* Card 3 - role posted: before LinkedIn */}
               <div className="bg-slate-800 border border-slate-600 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[13px] font-bold text-slate-200">ServiceNow</span>

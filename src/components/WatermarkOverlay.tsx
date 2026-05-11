@@ -1,7 +1,7 @@
 'use client'
 
 // Deterministic hash so every user gets a slightly different overlay geometry.
-// Same email always produces the same watermark — stable across sessions.
+// Same email always produces the same watermark - stable across sessions.
 function djb2(s: string): number {
   let h = 5381
   for (let i = 0; i < s.length; i++) h = (((h << 5) + h) + s.charCodeAt(i)) | 0

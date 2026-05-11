@@ -1,5 +1,5 @@
 # Prep Brief Rubric v1
-**Status:** Draft — not yet validated against labeled traces
+**Status:** Draft - not yet validated against labeled traces
 **Beachhead feature:** prep_brief
 **Last updated:** 2026-05-08
 
@@ -9,7 +9,7 @@
 
 Open a trace in `/dashboard/admin/traces`. Read the output. Apply each check independently. A brief PASSES only if all 6 checks are true. No partial credit.
 
-Mark the trace Pass in the trace viewer if all 6 pass. Mark Fail if any single check fails. Write the failing check(s) in the notes field — this is the open coding step.
+Mark the trace Pass in the trace viewer if all 6 pass. Mark Fail if any single check fails. Write the failing check(s) in the notes field - this is the open coding step.
 
 ---
 
@@ -31,11 +31,11 @@ The brief includes all required sections: Bottom Line, The Situation, Win Thesis
 The voice is peer-level. The brief reads as if written by a senior executive coach speaking to another senior executive, not as advice to a junior employee. Phrases like "here are some helpful tips," "you should consider," or "this is a great opportunity" are automatic failures.
 
 **[ ] no_factual_errors**
-No claim in the brief is identifiably wrong based on available information. This check only applies to claims you can verify — if you cannot verify a claim, do not mark it as wrong. Common failure: inventing specific revenue figures, headcount, or product names not present in the input data.
+No claim in the brief is identifiably wrong based on available information. This check only applies to claims you can verify - if you cannot verify a claim, do not mark it as wrong. Common failure: inventing specific revenue figures, headcount, or product names not present in the input data.
 
 ---
 
-## Failure Taxonomy (from open coding — update as you find new patterns)
+## Failure Taxonomy (from open coding - update as you find new patterns)
 
 | Category | Description | Example failure |
 |---|---|---|
@@ -54,7 +54,7 @@ No claim in the brief is identifiably wrong based on available information. This
 
 | Date | Change | Before (fail rate) | After (fail rate) | Notes |
 |---|---|---|---|---|
-| — | Rubric created | — | — | Not yet validated |
+| - | Rubric created | - | - | Not yet validated |
 
 ---
 

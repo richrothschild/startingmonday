@@ -296,7 +296,7 @@ export default function DemoPage() {
             <div className="flex flex-col gap-3">
               {[
                 'This brief, auto-generated for every company in your pipeline before every interview',
-                'Signal intelligence on every target company — exec moves, 8-K filings, funding rounds, and career pages, with pattern alerts before roles are ever posted',
+                'Signal intelligence on every target company - exec moves, 8-K filings, funding rounds, and career pages, with pattern alerts before roles are ever posted',
                 'Contact tracker with outreach drafting and recruiter firm grouping',
                 'Daily morning briefing with your signals, open actions, and pending matches',
                 'AI career advisor with full visibility into your pipeline',

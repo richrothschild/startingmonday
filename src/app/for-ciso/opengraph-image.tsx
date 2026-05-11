@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'Starting Monday for CISOs — campaign infrastructure for Chief Information Security Officers in active search'
+export const alt = 'Starting Monday for CISOs - campaign infrastructure for Chief Information Security Officers in active search'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -44,7 +44,7 @@ export default function Image() {
             color: '#475569',
           }}
         >
-          Starting Monday — For CISOs
+          Starting Monday - For CISOs
         </span>
       </div>
       <div

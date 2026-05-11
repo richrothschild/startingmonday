@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for VPs — Make the Move from VP to CIO',
+  title: 'Starting Monday for VPs - Make the Move from VP to CIO',
   description: 'The campaign infrastructure for technology leaders ready to move from VP to CIO. Position yourself at the right altitude, prepare for search firm conversations, and stay ahead of the market. Free 30-day trial.',
   keywords: [
     'VP to CIO',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     'CIO career advice',
   ],
   openGraph: {
-    title: 'Starting Monday for VPs — Make the Move from VP to CIO',
+    title: 'Starting Monday for VPs - Make the Move from VP to CIO',
     description: 'Most VP searches fail at positioning, not credentials. The infrastructure to make the VP-to-CIO move deliberately.',
     url: 'https://startingmonday.app/for-vp',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for VPs — Make the Move from VP to CIO',
+    title: 'Starting Monday for VPs - Make the Move from VP to CIO',
     description: 'Most VP searches fail at positioning, not credentials. The infrastructure to make the VP-to-CIO move deliberately.',
   },
   alternates: {
@@ -56,7 +56,7 @@ const SITUATIONS: SituationCard[] = [
   },
   {
     id: 'passive',
-    headline: "I'm not looking — but Sunday nights feel different.",
+    headline: "I'm not looking - but Sunday nights feel different.",
     sub: 'Not ready to commit. But not at peace either.',
   },
   {
@@ -69,7 +69,7 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'What is the typical timeline for a VP of Technology to move into a CIO role?',
-    answer: 'The VP to CIO transition typically takes one to three years of deliberate positioning, depending on how close your current scope is to a full CIO mandate. The candidates who move fastest have already led enterprise-wide programs, built board-level communication skills, and developed relationships with executive search firms before they need them. The transition is rarely about credentials — it is about demonstrating you can operate at the level before the role is offered.',
+    answer: 'The VP to CIO transition typically takes one to three years of deliberate positioning, depending on how close your current scope is to a full CIO mandate. The candidates who move fastest have already led enterprise-wide programs, built board-level communication skills, and developed relationships with executive search firms before they need them. The transition is rarely about credentials - it is about demonstrating you can operate at the level before the role is offered.',
   },
   {
     question: 'Do I need an existing CIO or CTO title to be considered for a CIO role?',
@@ -77,7 +77,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'How do executive search firms evaluate VP Technology candidates for CIO roles?',
-    answer: 'Search firms look for candidates who have operated above their title. This means board-level communication experience, leadership through major transformation or M&A, and evidence that the technology function under your leadership drove measurable business outcomes. The caliber of the organizations you have led at also matters — a VP at a $5B company often has broader scope than a CIO at a $500M company.',
+    answer: 'Search firms look for candidates who have operated above their title. This means board-level communication experience, leadership through major transformation or M&A, and evidence that the technology function under your leadership drove measurable business outcomes. The caliber of the organizations you have led at also matters - a VP at a $5B company often has broader scope than a CIO at a $500M company.',
   },
 ]
 
@@ -86,7 +86,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-vp/#webpage',
   url: 'https://startingmonday.app/for-vp',
-  name: 'Starting Monday for VPs — Make the Move from VP to CIO',
+  name: 'Starting Monday for VPs - Make the Move from VP to CIO',
   description: 'Campaign infrastructure for technology leaders ready to move from VP to CIO. Right narrative, right altitude, right preparation.',
   isPartOf: {
     '@type': 'WebSite',
@@ -115,9 +115,9 @@ export default function ForVpPage() {
           body: "The gap between VP and CIO is rarely about capability. It is how you are positioned with search firms, how your resume reads in the first six seconds, and whether your story holds under board-level questioning. Starting Monday gives you the infrastructure to make that move deliberately.",
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Map organizations where a CIO mandate is forming — we flag roles before they are authorized, not just before they are posted',
-            'Build your positioning narrative at the right altitude — calibrated to C-suite, not the VP tier you are leaving',
-            'Walk into every search firm conversation prepared — brief, objection responses, and win thesis ready in 60 seconds',
+            'Map organizations where a CIO mandate is forming - we flag roles before they are authorized, not just before they are posted',
+            'Build your positioning narrative at the right altitude - calibrated to C-suite, not the VP tier you are leaving',
+            'Walk into every search firm conversation prepared - brief, objection responses, and win thesis ready in 60 seconds',
           ],
           trialNote: 'Free for 30 days. No credit card.',
         }}

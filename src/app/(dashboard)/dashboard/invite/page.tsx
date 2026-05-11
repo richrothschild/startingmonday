@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { InviteClient } from './invite-client'
 
-export const metadata = { title: 'Invite — Starting Monday' }
+export const metadata = { title: 'Invite - Starting Monday' }
 
 export default async function InvitePage() {
   const supabase = await createClient()
@@ -61,7 +61,7 @@ export default async function InvitePage() {
           <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Why invite people?</p>
           <div className="flex flex-col gap-3">
             {[
-              'The best searches are run in community — peers share intel, warm intros, and honest feedback.',
+              'The best searches are run in community - peers share intel, warm intros, and honest feedback.',
               'When someone in your network lands through your referral, that relationship compounds.',
               'The platform gets better as more of your actual peer group uses it.',
             ].map((s, i) => (

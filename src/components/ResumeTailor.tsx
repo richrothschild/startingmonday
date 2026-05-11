@@ -37,7 +37,7 @@ function cleanResume(text: string): string {
     .replace(/^#{1,3} (.*)/gm, (_, body) => body.toUpperCase())
     .replace(/^-{3,}\s*$/gm, '')
     .replace(/_{3,}/g, '')
-    .replace(/—/g, ',')
+    .replace(/-/g, ',')
     .replace(/\n{3,}/g, '\n\n')
     .trim()
 }
@@ -516,7 +516,7 @@ export function ResumeTailor({ resumeText, initialJobDescription = '', companyNa
             </div>
           )}
 
-          {/* Quality check section — all quality-related cards */}
+          {/* Quality check section - all quality-related cards */}
           {show('quality') && (
             <>
               {/* Quality check trigger */}

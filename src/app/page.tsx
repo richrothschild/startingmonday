@@ -4,7 +4,7 @@ import type { SituationCard } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday — Find executive roles before they post',
+  title: 'Starting Monday - Find executive roles before they post',
   description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search. Free 30-day trial.',
   keywords: [
     'executive job search tools',
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday — Find executive roles before they post',
+    title: 'Starting Monday - Find executive roles before they post',
     description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday — Find executive roles before they post',
+    title: 'Starting Monday - Find executive roles before they post',
     description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
   },
   alternates: {
@@ -50,7 +50,7 @@ const SITUATIONS: SituationCard[] = [
   },
   {
     id: 'passive',
-    headline: "I'm not looking — but Sunday nights feel different.",
+    headline: "I'm not looking - but Sunday nights feel different.",
     sub: 'Not ready to commit. But not at peace either.',
   },
   {
@@ -98,7 +98,7 @@ const jsonLd = {
       '@type': 'WebPage',
       '@id': 'https://startingmonday.app/#webpage',
       url: 'https://startingmonday.app',
-      name: 'Starting Monday — AI Career Platform for Senior Technology Executives',
+      name: 'Starting Monday - AI Career Platform for Senior Technology Executives',
       isPartOf: { '@id': 'https://startingmonday.app/#organization' },
       description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
     },

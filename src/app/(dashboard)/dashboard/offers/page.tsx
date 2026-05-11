@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OfferSynthesis } from './offer-synthesis'
 
-export const metadata = { title: 'Offers — Starting Monday' }
+export const metadata = { title: 'Offers - Starting Monday' }
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -39,28 +39,28 @@ export default async function OffersPage() {
   const offers = (raw ?? []) as unknown as OfferCompany[]
 
   const ROWS = [
-    { label: 'Role',         render: (o: OfferCompany) => o.offer_role_title ?? <span className="text-slate-300">—</span> },
-    { label: 'Base',         render: (o: OfferCompany) => o.offer_base ? fmt(o.offer_base) : <span className="text-slate-300">—</span> },
+    { label: 'Role',         render: (o: OfferCompany) => o.offer_role_title ?? <span className="text-slate-300">-</span> },
+    { label: 'Base',         render: (o: OfferCompany) => o.offer_base ? fmt(o.offer_base) : <span className="text-slate-300">-</span> },
     { label: 'Bonus',        render: (o: OfferCompany) => {
-      if (!o.offer_bonus_pct) return <span className="text-slate-300">—</span>
+      if (!o.offer_bonus_pct) return <span className="text-slate-300">-</span>
       const est = o.offer_base ? ` (${fmt(Math.round(o.offer_base * o.offer_bonus_pct / 100))})` : ''
       return `${o.offer_bonus_pct}%${est}`
     }},
-    { label: 'Signing',      render: (o: OfferCompany) => o.offer_signing ? fmt(o.offer_signing) : <span className="text-slate-300">—</span> },
-    { label: 'Equity',       render: (o: OfferCompany) => o.offer_equity ?? <span className="text-slate-300">—</span> },
+    { label: 'Signing',      render: (o: OfferCompany) => o.offer_signing ? fmt(o.offer_signing) : <span className="text-slate-300">-</span> },
+    { label: 'Equity',       render: (o: OfferCompany) => o.offer_equity ?? <span className="text-slate-300">-</span> },
     { label: 'Total cash',   render: (o: OfferCompany) => {
-      if (!o.offer_base) return <span className="text-slate-300">—</span>
+      if (!o.offer_base) return <span className="text-slate-300">-</span>
       const bonus = o.offer_bonus_pct ? Math.round(o.offer_base * o.offer_bonus_pct / 100) : 0
       return <span className="font-bold text-green-700">{fmt(o.offer_base + bonus)}</span>
     }},
-    { label: 'Fit score',    render: (o: OfferCompany) => o.fit_score != null ? o.fit_score : <span className="text-slate-300">—</span> },
+    { label: 'Fit score',    render: (o: OfferCompany) => o.fit_score != null ? o.fit_score : <span className="text-slate-300">-</span> },
     { label: 'Notes',        render: (o: OfferCompany) => o.offer_notes
       ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_notes}</span>
-      : <span className="text-slate-300">—</span>
+      : <span className="text-slate-300">-</span>
     },
     { label: 'Factors',      render: (o: OfferCompany) => o.offer_decision_factors
       ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_decision_factors}</span>
-      : <span className="text-slate-300">—</span>
+      : <span className="text-slate-300">-</span>
     },
   ]
 
@@ -83,7 +83,7 @@ export default async function OffersPage() {
           <p className="text-[13px] text-slate-500 mt-1.5">
             {offers.length === 0
               ? 'No offers yet. Move a company to the Offer stage to start tracking.'
-              : `${offers.length} offer${offers.length !== 1 ? 's' : ''} — compare compensation, fit, and negotiate.`}
+              : `${offers.length} offer${offers.length !== 1 ? 's' : ''} - compare compensation, fit, and negotiate.`}
           </p>
         </div>
 

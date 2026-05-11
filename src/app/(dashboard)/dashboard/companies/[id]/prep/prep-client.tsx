@@ -226,9 +226,9 @@ function OnDemandPanel({
 }
 
 const NO_NOTES_MESSAGES: Record<string, string> = {
-  coo:       'COO briefs require operational context. Add notes on the specific challenge this company is navigating — what phase, what broke, what the CEO cannot do alone.',
+  coo:       'COO briefs require operational context. Add notes on the specific challenge this company is navigating - what phase, what broke, what the CEO cannot do alone.',
   ciso:      'CISO briefs improve significantly with sector and regulatory context. Add notes on recent events in their space, board security posture, or why the role opened.',
-  cpo:       'CPO briefs improve with product context. Add notes on the current product situation — engagement vs acquisition problem, what created this opening.',
+  cpo:       'CPO briefs improve with product context. Add notes on the current product situation - engagement vs acquisition problem, what created this opening.',
   cdo_data:  'CDO briefs need data mandate context. Add notes on the company data maturity and whether this is a governance or analytics mandate.',
   cdo_digital: 'Chief Digital Officer briefs improve with transformation context. Add notes on the digital agenda and internal dynamics.',
   cto:       'CTO briefs improve with engineering context. Add notes on tech debt posture, team maturity, and what triggered this search.',
@@ -373,7 +373,7 @@ export function PrepClient({
       await fetch(`/api/prep/${companyId}/outreach/log`, { method: 'POST' })
       setOutreachLogged(true)
     } catch {
-      // non-critical — silently fail
+      // non-critical - silently fail
     } finally {
       setOutreachLogLoading(false)
     }
@@ -684,7 +684,7 @@ export function PrepClient({
             />
             <OnDemandPanel
               title="Strategic Priorities"
-              description="What this company is actually focused on right now — and how to align your narrative."
+              description="What this company is actually focused on right now - and how to align your narrative."
               content={priorities.content}
               briefId={priorities.briefId}
               loading={priorities.loading}
@@ -693,7 +693,7 @@ export function PrepClient({
             />
             <OnDemandPanel
               title="Pain Points"
-              description="The real challenges they are dealing with — and how to demonstrate you understand them."
+              description="The real challenges they are dealing with - and how to demonstrate you understand them."
               content={challenges.content}
               briefId={challenges.briefId}
               loading={challenges.loading}
@@ -738,7 +738,7 @@ export function PrepClient({
             />
             <OnDemandPanel
               title="Likely Interview Questions"
-              description="The questions they will ask you — with coaching on how to answer each."
+              description="The questions they will ask you - with coaching on how to answer each."
               content={questions.content}
               briefId={questions.briefId}
               loading={questions.loading}

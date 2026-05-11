@@ -6,7 +6,7 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('cio-job-market-2026')!
 
 export const metadata: Metadata = {
-  title: `${post.title} — Starting Monday`,
+  title: `${post.title} - Starting Monday`,
   description: post.description,
   keywords: post.keywords,
   alternates: {
@@ -49,7 +49,7 @@ export default function CioJobMarket2026Page() {
 
         <p>
           Starting Monday was built to provide that data. Since launching in April, we have scanned more than 600 career
-          pages across the companies our users are watching — technology-intensive businesses across enterprise software,
+          pages across the companies our users are watching - technology-intensive businesses across enterprise software,
           financial services, healthcare, and professional services. Here is what we found.
         </p>
 
@@ -151,7 +151,7 @@ export default function CioJobMarket2026Page() {
 
         <p>
           First: AI implementation experience is now explicitly called out in more than half of postings at companies with
-          more than 1,000 employees. Not &ldquo;familiarity with AI&rdquo; or &ldquo;AI awareness&rdquo; — specific language around deploying AI
+          more than 1,000 employees. Not &ldquo;familiarity with AI&rdquo; or &ldquo;AI awareness&rdquo; - specific language around deploying AI
           tools at scale, managing AI vendor relationships, or building AI governance frameworks. Organizations are done
           with exploratory AI. They are hiring leaders who have executed.
         </p>
@@ -217,13 +217,13 @@ export default function CioJobMarket2026Page() {
 
         <p>
           The most effective approach combines career page scanning with company signal tracking: executive moves, funding
-          announcements, SEC filings, and news — analyzed against your specific background and target criteria.
+          announcements, SEC filings, and news - analyzed against your specific background and target criteria.
         </p>
 
         <p>
           This is what Starting Monday does. You add target companies, we scan their career pages three times per week,
           and we alert you when a role appears that matches your profile. We also track the signals that precede executive
-          searches — executive departures, PE transactions, transformation announcements — and surface those in your daily
+          searches - executive departures, PE transactions, transformation announcements - and surface those in your daily
           or weekly briefing before a role is ever posted.
         </p>
 
@@ -248,7 +248,7 @@ export default function CioJobMarket2026Page() {
           <li>
             <strong>Build a monitored target list.</strong> If you do not have 15 to 25 companies you are actively watching,
             you are leaving signal intelligence on the table. Start with companies where you have a connection or relationship
-            — timing matters most where you have a way in.
+            - timing matters most where you have a way in.
           </li>
           <li>
             <strong>Set up career page alerts for each one.</strong> Even manual monitoring with a simple system beats no

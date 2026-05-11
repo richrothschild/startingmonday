@@ -23,7 +23,7 @@ export default function AppShellError({
           Something went wrong.
         </h1>
         <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-          A temporary error occurred. Try refreshing — if it persists, the team has been notified.
+          A temporary error occurred. Try refreshing - if it persists, the team has been notified.
         </p>
         <button
           onClick={reset}

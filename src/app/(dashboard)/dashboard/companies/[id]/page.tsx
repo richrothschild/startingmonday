@@ -185,7 +185,7 @@ export default async function CompanyPage({
   const interviewLogs = (rawInterviewLogs ?? []) as unknown as InterviewLog[]
 
   if (companyError && companyError.code !== 'PGRST116') {
-    // PGRST116 = "no rows returned" — that's a real 404; anything else is a schema/query error
+    // PGRST116 = "no rows returned" - that's a real 404; anything else is a schema/query error
     console.error('[company page] query error:', companyError)
     throw new Error(`Failed to load company: ${companyError.message}`)
   }
@@ -323,7 +323,7 @@ export default async function CompanyPage({
                     min="1"
                     max="10"
                     defaultValue={company.fit_score ?? ''}
-                    placeholder="—"
+                    placeholder="-"
                     className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                   />
                   <p className="mt-1.5 text-[12px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>
@@ -449,7 +449,7 @@ export default async function CompanyPage({
                   name="interview_notes"
                   rows={5}
                   defaultValue={company.interview_notes ?? ''}
-                  placeholder={'Add notes after each conversation. What was asked, what landed, what surprised you, who was in the room, what you want to prep differently next time.\n\nSeparate entries by stage or date — e.g. "Recruiter screen 5/7:" then "Hiring manager 5/14:"'}
+                  placeholder={'Add notes after each conversation. What was asked, what landed, what surprised you, who was in the room, what you want to prep differently next time.\n\nSeparate entries by stage or date - e.g. "Recruiter screen 5/7:" then "Hiring manager 5/14:"'}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                 />
                 <p className="mt-1.5 text-[11px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
@@ -556,7 +556,7 @@ export default async function CompanyPage({
                         name="offer_decision_factors"
                         rows={4}
                         defaultValue={co.offer_decision_factors ?? ''}
-                        placeholder="Relocation required — moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
+                        placeholder="Relocation required - moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                       />
                       <p className="mt-1 text-[11px] text-slate-400">Everything the numbers do not capture. Private.</p>
@@ -797,7 +797,7 @@ export default async function CompanyPage({
                     name="channel"
                     className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
                   >
-                    <option value="">—</option>
+                    <option value="">-</option>
                     <option value="linkedin">LinkedIn</option>
                     <option value="referral">Referral</option>
                     <option value="cold">Cold</option>
@@ -981,7 +981,7 @@ export default async function CompanyPage({
                 <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
                   Paste the job listing in the Documents section
                 </a>{' '}
-                below using the <strong>Job Description</strong> type — it will be used in your interview prep brief.
+                below using the <strong>Job Description</strong> type - it will be used in your interview prep brief.
               </p>
             </div>
           ) : latestScan.status === 'error' && /40[13]|block|access.denied/i.test(latestScan.error_message ?? '') ? (
@@ -992,13 +992,13 @@ export default async function CompanyPage({
                 <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
                   Paste the job listing in the Documents section
                 </a>{' '}
-                below using the <strong>Job Description</strong> type — it will be used in your interview prep brief.
+                below using the <strong>Job Description</strong> type - it will be used in your interview prep brief.
               </p>
             </div>
           ) : latestScan.status === 'error' ? (
             <div className="px-6 py-6">
               <p className="text-[13px] font-semibold text-slate-600 mb-1">Scan encountered an error</p>
-              <p className="text-[13px] text-slate-400">{latestScan.error_message ?? 'Unknown error'} — this will be retried on the next scheduled run.</p>
+              <p className="text-[13px] text-slate-400">{latestScan.error_message ?? 'Unknown error'} - this will be retried on the next scheduled run.</p>
             </div>
           ) : (
             <div>

@@ -6,7 +6,7 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('retained-search-firms')!
 
 export const metadata: Metadata = {
-  title: `${post.title} — Starting Monday`,
+  title: `${post.title} - Starting Monday`,
   description: post.description,
   keywords: post.keywords,
   alternates: {

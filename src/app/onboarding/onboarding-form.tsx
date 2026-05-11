@@ -149,7 +149,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (data.resume_text)          setResumeText(data.resume_text)
     if (data.beyond_resume)        setBeyondResume(data.beyond_resume)
     if (data.target_titles)        setTargetTitles(data.target_titles)
-    // Thin: only raw text was saved — structured fields (title, company) weren't extracted
+    // Thin: only raw text was saved - structured fields (title, company) weren't extracted
     setImportThin(!data.current_title && !data.current_company)
     setImportDone(true)
   }
@@ -592,7 +592,7 @@ function StepCompanies({
           onClick={discover}
           className="text-[13px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
         >
-          {discoverError ? 'Could not load suggestions — try again →' : 'Not sure where to start? Discover companies with AI →'}
+          {discoverError ? 'Could not load suggestions - try again →' : 'Not sure where to start? Discover companies with AI →'}
         </button>
       )}
 
@@ -675,7 +675,7 @@ function StepBriefingTime({
           When do you want your daily briefing?
         </h1>
         <p className="text-[15px] text-slate-500">
-          Each morning: signals from your target companies, actions due, and your search momentum — assembled overnight.
+          Each morning: signals from your target companies, actions due, and your search momentum - assembled overnight.
         </p>
       </div>
 
@@ -745,7 +745,7 @@ function StepDone({
         <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Companies being watched</p>
           {companies.length === 0 ? (
-            <p className="text-[14px] text-slate-500">None yet — add them from your dashboard.</p>
+            <p className="text-[14px] text-slate-500">None yet - add them from your dashboard.</p>
           ) : (
             <p className="text-[15px] font-semibold text-slate-900">{companies.join(', ')}</p>
           )}
@@ -759,7 +759,7 @@ function StepDone({
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Weekly digest</p>
             <p className="text-[15px] font-semibold text-slate-900">Every Sunday morning</p>
             <p className="text-[12px] text-slate-400 mt-1.5">
-              Scan matches, exec moves, funding signals — delivered once a week. No daily noise.
+              Scan matches, exec moves, funding signals - delivered once a week. No daily noise.
             </p>
           </div>
         ) : (
@@ -767,7 +767,7 @@ function StepDone({
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
             <p className="text-[15px] font-semibold text-slate-900">Tomorrow at {formatTime(briefingTime)}</p>
             <p className="text-[12px] text-slate-400 mt-1.5">
-              New role matches, company signals, and your next actions — every morning.
+              New role matches, company signals, and your next actions - every morning.
             </p>
           </div>
         )}
@@ -784,7 +784,7 @@ function StepDone({
       {firstCompany && (intelLoading || intelContent) && (
         <div className="bg-slate-900 rounded-lg px-5 py-5">
           <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">
-            {firstCompany} — intelligence preview
+            {firstCompany} - intelligence preview
           </p>
           {intelLoading && !intelContent && (
             <div className="flex items-center gap-1.5">

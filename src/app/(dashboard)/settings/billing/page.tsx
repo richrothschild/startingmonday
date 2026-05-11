@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription } from '@/lib/subscription'
 import { BillingClient } from './billing-client'
 
-export const metadata = { title: 'Billing — Starting Monday' }
+export const metadata = { title: 'Billing - Starting Monday' }
 
 export default async function BillingPage() {
   const supabase = await createClient()

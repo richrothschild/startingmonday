@@ -1,11 +1,11 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import StageSelect from './stage-select'
 
-export const metadata = { title: 'B2B Sales Pipeline — Starting Monday Admin' }
+export const metadata = { title: 'B2B Sales Pipeline - Starting Monday Admin' }
 
 export const STAGES: { key: string; label: string; cls: string }[] = [
   { key: 'identified',     label: 'Identified',    cls: 'bg-slate-100 text-slate-500' },
@@ -160,7 +160,7 @@ export default async function B2BPipelinePage() {
                         />
                       </td>
                       <td className="px-4 py-3.5 hidden sm:table-cell text-right text-[13px] font-semibold text-slate-700">
-                        {r.estimated_arr ? fmt(r.estimated_arr) : <span className="text-slate-300">—</span>}
+                        {r.estimated_arr ? fmt(r.estimated_arr) : <span className="text-slate-300">-</span>}
                       </td>
                       <td className="px-4 py-3.5 hidden md:table-cell">
                         {latestWithAction ? (

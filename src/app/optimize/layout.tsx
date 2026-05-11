@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Free Executive Resume Optimizer — Starting Monday',
+  title: 'Free Executive Resume Optimizer - Starting Monday',
   description: 'Paste your LinkedIn profile and a job description. Get an ATS score, recruiter grade, and a fully tailored resume in 60 seconds. Free, no account required.',
   keywords: [
     'executive resume optimizer',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Executive Resume Optimizer — Starting Monday',
+    title: 'Free Executive Resume Optimizer - Starting Monday',
     description: 'ATS score, recruiter grade, and tailored resume in 60 seconds. Free, no account required.',
   },
   alternates: {

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { PartnersForm } from './partners-form'
 
 export const metadata: Metadata = {
-  title: 'Partners — Starting Monday',
+  title: 'Partners - Starting Monday',
   description: 'Partner with Starting Monday to deliver better outcomes for senior executives in transition. Outplacement, relocation, executive coaching, and search firm programs.',
   alternates: { canonical: 'https://startingmonday.app/partners' },
 }

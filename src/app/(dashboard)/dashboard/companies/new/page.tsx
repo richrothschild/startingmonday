@@ -101,7 +101,7 @@ export default async function AddCompanyPage({
                   type="number"
                   min="1"
                   max="10"
-                  placeholder="—"
+                  placeholder="-"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[12px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>

@@ -4,7 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for COOs — Technology Executives Making the Move to Operations',
+  title: 'Starting Monday for COOs - Technology Executives Making the Move to Operations',
   description: 'Campaign infrastructure for CIOs and CTOs moving into COO roles. Identify organizations where a technology-background COO fits, track operational mandate signals, and build the narrative that crosses the functional boundary. Free 30-day trial.',
   keywords: [
     'COO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     'technology executive career transition',
   ],
   openGraph: {
-    title: 'Starting Monday for COOs — Technology Executives in Operations',
+    title: 'Starting Monday for COOs - Technology Executives in Operations',
     description: 'The technology executive who can run the business is the most valuable person in the room. Make the CIO-to-COO move deliberately.',
     url: 'https://startingmonday.app/for-coo',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for COOs — Technology Executives in Operations',
+    title: 'Starting Monday for COOs - Technology Executives in Operations',
     description: 'The technology executive who can run the business is the most valuable person in the room. Make the CIO-to-COO move deliberately.',
   },
   alternates: {
@@ -69,7 +69,7 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'How do I position my CIO or CTO background for a COO role?',
-    answer: 'The gap most technology executives fail to close is operational credibility. A technology leader who has owned P&L, led cross-functional initiatives with accountability for revenue or cost outcomes, and managed non-technology teams has the foundation. The positioning work is translating that record into operational language — specific cost savings, revenue outcomes, and decision rights that a CEO or board would recognize as operating leadership, not technology leadership. The narrative has to cross the functional boundary before the first conversation.',
+    answer: 'The gap most technology executives fail to close is operational credibility. A technology leader who has owned P&L, led cross-functional initiatives with accountability for revenue or cost outcomes, and managed non-technology teams has the foundation. The positioning work is translating that record into operational language - specific cost savings, revenue outcomes, and decision rights that a CEO or board would recognize as operating leadership, not technology leadership. The narrative has to cross the functional boundary before the first conversation.',
   },
   {
     question: 'What kinds of companies hire COOs with technology backgrounds?',
@@ -77,7 +77,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'How long does a CIO-to-COO search typically take?',
-    answer: 'Longer than a lateral CIO search, because you are asking a company to bet on a functional transition. Most CIO-to-COO moves take nine to fifteen months in active search. The searches that move fastest are the ones where the candidate has operational evidence in their record that is hard to dispute — P&L ownership, cross-functional scope beyond technology, measurable cost or revenue outcomes — and where they are already known to search firm partners who place operations leadership, not just technology leadership.',
+    answer: 'Longer than a lateral CIO search, because you are asking a company to bet on a functional transition. Most CIO-to-COO moves take nine to fifteen months in active search. The searches that move fastest are the ones where the candidate has operational evidence in their record that is hard to dispute - P&L ownership, cross-functional scope beyond technology, measurable cost or revenue outcomes - and where they are already known to search firm partners who place operations leadership, not just technology leadership.',
   },
 ]
 
@@ -86,7 +86,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-coo/#webpage',
   url: 'https://startingmonday.app/for-coo',
-  name: 'Starting Monday for COOs — Technology Executives Making the Move to Operations',
+  name: 'Starting Monday for COOs - Technology Executives Making the Move to Operations',
   description: 'Campaign infrastructure for CIOs and CTOs moving into COO roles. Identify where a technology-background COO fits, track operational mandate signals, and build the narrative that crosses the functional boundary.',
   isPartOf: {
     '@type': 'WebSite',
@@ -117,7 +117,7 @@ export default function ForCooPage() {
           steps: [
             'Identify organizations where a technology-background COO fits: digital-native companies scaling rapidly, PE-backed operations with an improvement mandate, and CEO succession contexts where operational credibility is the missing piece',
             'Track the signals that precede COO mandate creation: CEO bandwidth signals, operational complexity outgrowing current leadership structure, PE ownership transitions requiring a disciplined operator',
-            'Build the narrative that bridges your technology leadership record with operational credibility — specific P&L ownership, cross-functional scope, and operational metrics that make you a COO candidate, not just a senior technology executive with broad responsibilities',
+            'Build the narrative that bridges your technology leadership record with operational credibility - specific P&L ownership, cross-functional scope, and operational metrics that make you a COO candidate, not just a senior technology executive with broad responsibilities',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
