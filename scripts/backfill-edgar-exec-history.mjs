@@ -84,13 +84,14 @@ await run()
 async function run() {
   let offset = 0
   let total  = null
-  let processed = 0
+  let fetched   = 0  // total filings attempted (drives --limit)
+  let processed = 0  // filings where Haiku extracted at least one executive
   let skipped   = 0
   let inserted  = 0
   let failed    = 0
 
   while (true) {
-    if (processed >= LIMIT) {
+    if (fetched >= LIMIT) {
       console.log(`Limit of ${LIMIT} reached.`)
       break
     }
@@ -109,7 +110,7 @@ async function run() {
     console.log(`Page offset=${offset}: ${hits.length} hits (total=${total})`)
 
     for (const hit of hits) {
-      if (processed >= LIMIT) break
+      if (fetched >= LIMIT) break
 
       const accession = hit._id  // format: 0001234567-24-123456
       if (!accession) continue
@@ -125,6 +126,8 @@ async function run() {
 
       // Confirm this filing actually has item 5.02
       if (!items.includes('5.02')) { skipped++; continue }
+
+      fetched++
 
       // Extract CIK from accession number (first 10 digits)
       const cikPadded = accession.split('-')[0]  // e.g. "0001234567"
@@ -221,14 +224,31 @@ async function fetchItemSection(docUrl) {
   const html = await fetchText(docUrl)
   if (!html) return null
 
-  // Strip HTML tags for text extraction
-  const text = html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ')
+  // Normalize HTML entities and tags into clean text
+  const text = html
+    .replace(/&#160;/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
 
-  // Find Item 5.02 section
-  const idx = text.search(/item\s+5\.02/i)
+  // Find Item 5.02 section — try several patterns used in real 8-K filings
+  const patterns = [
+    /item\s+5\.02/i,          // "Item 5.02" (most common)
+    /item\s*no\.?\s*5\.02/i,  // "Item No. 5.02"
+    /5\.02\s+departure/i,     // "5.02 Departure of..."
+    /5\.02\s+appointment/i,   // "5.02 Appointment of..."
+  ]
+
+  let idx = -1
+  for (const pat of patterns) {
+    const m = pat.exec(text)
+    if (m) { idx = m.index; break }
+  }
   if (idx === -1) return null
 
-  // Return up to 4000 chars starting from Item 5.02
   return text.slice(idx, idx + 4000).trim()
 }
 
