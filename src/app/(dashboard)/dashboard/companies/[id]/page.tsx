@@ -253,6 +253,12 @@ export default async function CompanyPage({
               Tailor resume
             </Link>
             <Link
+              href={`/dashboard/companies/${id}/prep?stage=informal_meeting`}
+              className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+            >
+              Conversation prep
+            </Link>
+            <Link
               href={`/dashboard/companies/${id}/prep`}
               className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
             >

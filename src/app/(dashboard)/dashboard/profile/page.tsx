@@ -7,6 +7,8 @@ import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
 import CareerVerificationPanel from '@/components/CareerVerificationPanel'
 import type { CareerEntry } from '@/components/CareerVerificationPanel'
+import StarStoriesPanel from '@/components/StarStoriesPanel'
+import type { StarStory } from '@/components/StarStoriesPanel'
 import { ProfileInactivityNudge } from '@/components/ProfileInactivityNudge'
 import { PositioningGeneratorTextarea } from './positioning-generator'
 import { LinkedInGenerator } from './linkedin-generator'
@@ -36,7 +38,7 @@ export default async function ProfilePage({
   const [{ data: profile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, linkedin_headline, linkedin_about, search_persona, role_type, career_history_json, role_context, updated_at')
+      .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, linkedin_headline, linkedin_about, search_persona, role_type, career_history_json, role_context, star_stories, updated_at')
       .eq('user_id', user.id)
       .single(),
     getActivationStatus(user.id),
@@ -83,6 +85,10 @@ export default async function ProfilePage({
   }
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
+  const starStories = Array.isArray((profile as unknown as { star_stories?: unknown })?.star_stories)
+    ? ((profile as unknown as { star_stories: StarStory[] }).star_stories)
+    : [] as StarStory[]
+
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])
     : null
@@ -432,6 +438,15 @@ export default async function ProfilePage({
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Gives the AI richer context for cover letters and interview prep.</p>
+            </div>
+
+            {/* STAR stories */}
+            <div className="pt-6 border-t border-slate-100">
+              <div className="mb-3">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-orange-500 mb-0.5">Interview stories</p>
+                <p className="text-[12px] text-slate-400">Save your best 5-8 STAR stories. The prep brief will map them to specific questions so you know exactly which story to use in the room.</p>
+              </div>
+              <StarStoriesPanel initial={starStories} />
             </div>
 
             {/* Role-specific context */}

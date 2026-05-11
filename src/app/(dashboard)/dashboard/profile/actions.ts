@@ -72,6 +72,12 @@ export async function saveProfile(formData: FormData) {
     try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
   }
 
+  const starStoriesRaw = (formData.get('star_stories_json') as string ?? '').trim()
+  let starStoriesJson: unknown = null
+  if (starStoriesRaw) {
+    try { starStoriesJson = JSON.parse(starStoriesRaw) } catch { /* ignore malformed */ }
+  }
+
   const roleCtx: Record<string, unknown> = {}
   if (roleType === 'ciso') {
     const sf = parseCsv(formData.get('security_frameworks') as string ?? '')
@@ -134,6 +140,7 @@ export async function saveProfile(formData: FormData) {
         role_type: roleType,
         career_history_json: careerHistoryJson,
         role_context: Object.keys(roleCtx).length > 0 ? roleCtx : null,
+        star_stories: starStoriesJson ?? [],
       },
       { onConflict: 'user_id' }
     )

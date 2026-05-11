@@ -1,6 +1,11 @@
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { PrepClient } from './prep-client'
+import type { InterviewStage } from '@/lib/prompts'
+
+const VALID_STAGES: InterviewStage[] = [
+  'informal_meeting', 'first_interview', 'executive_interview', 'board_presentation', 'final_round',
+]
 
 const STAGE_LABEL: Record<string, string> = {
   watching:     'Watching',
@@ -15,10 +20,10 @@ export default async function PrepPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ first?: string }>
+  searchParams: Promise<{ first?: string; stage?: string }>
 }) {
   const { id } = await params
-  const { first } = await searchParams
+  const { first, stage } = await searchParams
   const isFirstCompany = first === '1'
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -74,6 +79,7 @@ export default async function PrepPage({
       hasTargetTitles={hasTargetTitles}
       profileScore={profileScore}
       firstCompany={isFirstCompany}
+      initialStage={VALID_STAGES.includes(stage as InterviewStage) ? (stage as InterviewStage) : undefined}
     />
   )
 }

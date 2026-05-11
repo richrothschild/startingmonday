@@ -650,6 +650,12 @@ export default async function DashboardPage({
                   <> &middot; Updated {Math.floor((Date.now() - new Date(momentumData.momentum_computed_at).getTime()) / 86400000)}d ago</>
                 )}
               </div>
+              <div className="text-[11px] text-slate-400 mt-1.5">
+                Track your activity with{' '}
+                <a href="https://www.manager-tools.com/map-of-the-universe" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Manager Tools</a>
+                {' '}or{' '}
+                <a href="https://www.manager-tools.com/products/career-tools-basics" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Career Tools</a>
+              </div>
             </div>
           </div>
         )}

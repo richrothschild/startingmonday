@@ -2,7 +2,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
-import { addSignalFollowUp } from './actions'
+import { addSignalFollowUp, generateSignalOutreach } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
 
 const PAGE_SIZE = 25
@@ -235,7 +235,7 @@ export default async function SignalsPage({
                         Source →
                       </a>
                     )}
-                    <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-50">
+                    <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-50 flex-wrap">
                       {contact ? (
                         <Link
                           href={`/dashboard/contacts/${contact.id}/outreach`}
@@ -251,6 +251,17 @@ export default async function SignalsPage({
                           + Add contact at {co.name}
                         </Link>
                       ) : null}
+                      {!sig.outreach_draft && (
+                        <form action={generateSignalOutreach}>
+                          <input type="hidden" name="signal_id" value={sig.id} />
+                          <button
+                            type="submit"
+                            className="text-[12px] font-semibold text-orange-600 hover:text-orange-800 border border-orange-200 hover:border-orange-400 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded transition-colors cursor-pointer"
+                          >
+                            Generate outreach
+                          </button>
+                        </form>
+                      )}
                       <form action={addSignalFollowUp}>
                         <input type="hidden" name="company_name" value={co?.name ?? ''} />
                         <input type="hidden" name="signal_summary" value={sig.signal_summary} />

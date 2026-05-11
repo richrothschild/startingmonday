@@ -75,7 +75,7 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona, role_type, career_history_json, role_context')
+      .select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, resume_text, beyond_resume, search_persona, role_type, career_history_json, role_context, star_stories')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -123,7 +123,7 @@ type ProfileRow = {
   target_titles?: string[] | null; target_sectors?: string[] | null
   positioning_summary?: string | null; resume_text?: string | null; beyond_resume?: string | null
   search_persona?: string | null; role_type?: string | null; career_history_json?: unknown | null
-  role_context?: Record<string, unknown> | null
+  role_context?: Record<string, unknown> | null; star_stories?: unknown | null
 }
 type CompanyRow = { name: string; sector?: string | null; stage: string; company_size?: string | null; notes?: string | null; competitive_context?: string | null; interview_notes?: string | null }
 type InterviewLogRow = { interview_date: string | null; interview_stage: string | null; questions_asked: string | null; what_landed: string | null; what_surprised: string | null; follow_up_needed: string | null }
@@ -168,6 +168,18 @@ function buildRoleSpecificContext(profile: ProfileRow | null): string {
   }
 
   return lines.length > 0 ? '\n' + lines.join('\n') : ''
+}
+
+type StarStory = { id?: string; situation: string; action: string; result: string; tags?: string[] }
+
+function buildStarStoriesSection(profile: ProfileRow | null): string {
+  const stories = Array.isArray(profile?.star_stories) ? (profile.star_stories as StarStory[]) : []
+  if (stories.length === 0) return ''
+  const lines = stories.map((s, i) => {
+    const tags = (s.tags ?? []).length > 0 ? ` [applies to: ${s.tags!.join(', ')}]` : ''
+    return `Story ${i + 1}${tags}\n  Situation: ${s.situation}\n  Action: ${s.action}\n  Result: ${s.result}`
+  }).join('\n\n')
+  return `\n\nINTERVIEW STORIES (candidate-verified, treat as authoritative)\nFor each question in Likely Questions, identify which story below best answers it and reference it explicitly in the answer frame.\n${lines}`
 }
 
 function formatInterviewLogs(logs: InterviewLogRow[]): string {
@@ -221,7 +233,7 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
 CANDIDATE
 Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${roleTypeContext(profile?.role_type)}${transitionModeContext(profile?.search_persona, profile?.target_titles, profile?.role_type)}
 Target roles: ${targetTitles}
-Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${careerSection(profile)}${buildRoleSpecificContext(profile)}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Target sectors: ${targetSectors}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${careerSection(profile)}${buildRoleSpecificContext(profile)}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}${buildStarStoriesSection(profile)}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}${company.company_size ? `\nCompany size: ${companySizeLabel[company.company_size] ?? company.company_size}` : ''}

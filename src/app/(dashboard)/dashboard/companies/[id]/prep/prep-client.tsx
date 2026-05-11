@@ -249,6 +249,7 @@ export function PrepClient({
   hasTargetTitles,
   profileScore,
   firstCompany = false,
+  initialStage,
 }: {
   companyId: string
   companyName: string
@@ -263,6 +264,7 @@ export function PrepClient({
   hasTargetTitles: boolean
   profileScore: number
   firstCompany?: boolean
+  initialStage?: InterviewStage
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -272,7 +274,7 @@ export function PrepClient({
   const [refining, setRefining] = useState(false)
   const [postingUrl, setPostingUrl] = useState('')
   const [interviewStage, setInterviewStage] = useState<InterviewStage>(
-    DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
+    initialStage ?? DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
   )
   const [outreachDraft, setOutreachDraft] = useState('')
   const [outreachLoading, setOutreachLoading] = useState(false)
