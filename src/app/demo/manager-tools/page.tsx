@@ -52,7 +52,22 @@ function renderBrief(text: string, isStreaming: boolean) {
   return nodes
 }
 
-async function streamBrief(
+async function streamPreloadedBrief(onChunk: (text: string) => void): Promise<void> {
+  const res = await fetch('/api/demo-brief/manager-tools', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!res.ok || !res.body) throw new Error('Request failed')
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    onChunk(decoder.decode(value, { stream: true }))
+  }
+}
+
+async function streamCustomBrief(
   company: string,
   role: string,
   onChunk: (text: string) => void
@@ -91,7 +106,7 @@ export default function ManagerToolsDemoPage() {
     let cancelled = false
     let full = ''
     setPreLoading(true)
-    streamBrief('Salesforce', 'VP of IT', chunk => {
+    streamPreloadedBrief(chunk => {
       if (cancelled) return
       full += chunk
       if (full.startsWith('__ERROR__')) return
@@ -112,7 +127,7 @@ export default function ManagerToolsDemoPage() {
     setLoading(true)
     let full = ''
     try {
-      await streamBrief(company.trim(), role.trim(), chunk => {
+      await streamCustomBrief(company.trim(), role.trim(), chunk => {
         full += chunk
         setContent(full)
       })
@@ -171,7 +186,7 @@ export default function ManagerToolsDemoPage() {
           <div className="flex items-center gap-3 mb-4">
             <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400">Live example</span>
             <span className="text-slate-200 text-[11px]">|</span>
-            <span className="text-[12px] text-slate-400">Salesforce &mdash; VP of IT</span>
+            <span className="text-[12px] text-slate-400">Michael Torres &mdash; VP of IT candidate at Salesforce</span>
             {preLoading && (
               <span className="text-[11px] text-slate-400 italic">generating...</span>
             )}
