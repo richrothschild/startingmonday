@@ -130,12 +130,14 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
+    if (isPassive && step === 2) { goTo(4); return }
     if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
-    if (isPassive && step === 6) return 4  // skipped step 5 (briefing time)
+    if (isPassive && step === 4) return 2
+    if (isPassive && step === 6) return 4
     return step - 1
   }
 
@@ -315,6 +317,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onChange={setCompanyNames}
               persona={searchPersona}
               currentTitle={currentTitle}
+              isPassive={isPassive}
+              onTitle={setCurrentTitle}
             />
           )}
 
@@ -454,11 +458,15 @@ function StepCompanies({
   onChange,
   persona,
   currentTitle,
+  isPassive,
+  onTitle,
 }: {
   names: string[]
   onChange: (v: string[]) => void
   persona: string
   currentTitle: string
+  isPassive?: boolean
+  onTitle?: (v: string) => void
 }) {
   const suggestions = SUGGESTIONS_BY_PERSONA[persona] ?? []
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
@@ -515,12 +523,29 @@ function StepCompanies({
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
-          Which companies are you targeting?
+          {isPassive ? 'Which companies do you want to monitor?' : 'Which companies are you targeting?'}
         </h1>
         <p className="text-[15px] text-slate-500">
-          Add at least one. We scan their career pages and alert you when a matching role appears.
+          {isPassive
+            ? 'We scan their career pages and alert you when something worth knowing appears.'
+            : 'Add at least one. We scan their career pages and alert you when a matching role appears.'}
         </p>
       </div>
+
+      {isPassive && onTitle && (
+        <div>
+          <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+            Your current title
+          </label>
+          <input
+            type="text"
+            value={currentTitle}
+            onChange={e => onTitle(e.target.value)}
+            placeholder="Chief Information Officer"
+            className={inputCls}
+          />
+        </div>
+      )}
 
       <div className="flex flex-col gap-2.5">
         {names.map((name, i) => (
