@@ -51,7 +51,7 @@ export async function runScanJob() {
     // Only scan companies belonging to active or trialing users — not free/canceled/inactive.
     const { data: activeUsers, error: userErr } = await supabase
       .from('users')
-      .select('id')
+      .select('id, subscription_tier')
       .in('subscription_status', ['active', 'trialing'])
       .limit(2000)
 
@@ -60,16 +60,30 @@ export async function runScanJob() {
       return
     }
 
-    const activeUserIds = (activeUsers ?? []).map(u => u.id)
-    if (!activeUserIds.length) {
+    if (!(activeUsers ?? []).length) {
       logger.info('scan-job: no active users — done')
       return
     }
 
+    // Executive and campaign users scan daily. All others scan Mon/Wed/Fri only.
+    const DAILY_TIERS = new Set(['executive', 'campaign'])
+    const todayUtc = new Date().getUTCDay() // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+    const isMWF = todayUtc === 1 || todayUtc === 3 || todayUtc === 5
+    const eligibleUserIds = isMWF
+      ? (activeUsers ?? []).map(u => u.id)
+      : (activeUsers ?? []).filter(u => DAILY_TIERS.has(u.subscription_tier)).map(u => u.id)
+
+    if (!eligibleUserIds.length) {
+      logger.info(`scan-job: non-MWF day, no executive users to scan — done`)
+      return
+    }
+
+    logger.info(`scan-job: scanning ${eligibleUserIds.length} user(s) (isMWF=${isMWF})`)
+
     const { data: companiesData, error: companyErr } = await supabase
       .from('companies')
       .select('id, name, user_id, career_page_url, company_url, linkedin_url, role_watch_description, sector')
-      .in('user_id', activeUserIds)
+      .in('user_id', eligibleUserIds)
       .is('archived_at', null)
       .limit(5000)
 
