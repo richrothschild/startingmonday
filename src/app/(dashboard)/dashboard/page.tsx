@@ -15,6 +15,8 @@ import { saveQuickProfile } from './profile/actions'
 import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
+import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
+import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -76,6 +78,7 @@ export default async function DashboardPage({
 
   const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const since70d = new Date(Date.now() - 70 * 24 * 60 * 60 * 1000).toISOString()
 
   const adminClient = createAdminClient()
   const isPartnerPromise = Promise.resolve(
@@ -86,7 +89,7 @@ export default async function DashboardPage({
       .eq('is_active', true)
   ).then(r => (r.count ?? 0) > 0).catch(() => false)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -137,7 +140,46 @@ export default async function DashboardPage({
       .eq('user_id', user.id)
       .not('outreach_draft', 'is', null)
       .gte('signal_date', since14d),
+    // Activity chart queries (last 10 weeks)
+    supabase.from('companies').select('created_at').eq('user_id', user.id).is('archived_at', null).gte('created_at', since70d),
+    supabase.from('contacts').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
+    supabase.from('briefs').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
+    supabase.from('follow_ups').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
   ])
+
+  // Build weekly activity chart data (last 10 weeks)
+  function getWeekMonday(date: Date): Date {
+    const d = new Date(date)
+    const day = d.getDay()
+    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
+    d.setHours(0, 0, 0, 0)
+    return d
+  }
+  function weekLabel(d: Date): string {
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  }
+  const weekSlots: WeekActivity[] = []
+  for (let i = 9; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 7 * 24 * 60 * 60 * 1000)
+    weekSlots.push({ week: weekLabel(getWeekMonday(d)), companies: 0, contacts: 0, briefs: 0, followUps: 0 })
+  }
+  function bumpWeek(dateStr: string, key: keyof Omit<WeekActivity, 'week'>) {
+    const label = weekLabel(getWeekMonday(new Date(dateStr)))
+    const slot = weekSlots.find(s => s.week === label)
+    if (slot) slot[key]++
+  }
+  for (const r of (actCompanies ?? [])) bumpWeek(r.created_at, 'companies')
+  for (const r of (actContacts  ?? [])) bumpWeek(r.created_at, 'contacts')
+  for (const r of (actBriefs    ?? [])) bumpWeek(r.created_at, 'briefs')
+  for (const r of (actFollowUps ?? [])) bumpWeek(r.created_at, 'followUps')
+
+  // Pipeline velocity rows (all companies, sorted by staleness)
+  const velocityRows: VelocityRow[] = (companies ?? []).map(c => ({
+    id: c.id,
+    name: c.name,
+    stage: c.stage,
+    updated_at: (c as unknown as { updated_at?: string | null }).updated_at ?? null,
+  }))
 
   // isPartnerPromise was started before the main await above so it ran in parallel
   const isPartner = await isPartnerPromise
@@ -659,6 +701,9 @@ export default async function DashboardPage({
             </div>
           </div>
         )}
+
+        <ActivityChart data={weekSlots} />
+        <PipelineVelocity companies={velocityRows} />
 
         {/* Week 3 coaching prompt - appears Day 18-28 after onboarding */}
         {showWeek3Prompt && (
