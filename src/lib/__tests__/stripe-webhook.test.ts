@@ -31,6 +31,7 @@ vi.mock('@supabase/supabase-js', () => ({
         insert: vi.fn().mockResolvedValue(resolveWith),
         update: vi.fn(),
         eq: vi.fn(),
+        not: vi.fn(),
         select: vi.fn(),
         single: vi.fn().mockResolvedValue(resolveWith),
         // Make chain thenable so `await chain.eq(...)` works without .single()
@@ -40,6 +41,7 @@ vi.mock('@supabase/supabase-js', () => ({
       }
       c.update.mockReturnValue(c)
       c.eq.mockReturnValue(c)
+      c.not.mockReturnValue(c)
       c.select.mockReturnValue(c)
       return c
     },
