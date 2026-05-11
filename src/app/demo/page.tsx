@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 function escapeHtml(str: string): string {
@@ -63,7 +63,7 @@ function secondHeaderIndex(text: string): number {
   return -1
 }
 
-export default function DemoPage() {
+function DemoContent() {
   const searchParams = useSearchParams()
   const noGate = searchParams.get('full') === '1'
 
@@ -325,5 +325,13 @@ export default function DemoPage() {
 
       </main>
     </div>
+  )
+}
+
+export default function DemoPage() {
+  return (
+    <Suspense fallback={null}>
+      <DemoContent />
+    </Suspense>
   )
 }
