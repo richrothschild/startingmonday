@@ -28,7 +28,10 @@ type UserRow = {
   subscription_status: string
   subscription_tier: string | null
   created_at: string
+  trial_ends_at: string | null
   signup_source: string | null
+  onboarding_completed_at: string | null
+  first_company_added_at: string | null
 }
 
 function matchesFilter(u: UserRow, filter: Filter): boolean {
@@ -38,6 +41,14 @@ function matchesFilter(u: UserRow, filter: Filter): boolean {
   if (filter === 'search')       return u.subscription_status === 'active' && u.subscription_tier === 'active'
   if (filter === 'executive')    return u.subscription_status === 'active' && u.subscription_tier === 'executive'
   return true
+}
+
+function daysLeft(trialEndsAt: string | null): string {
+  if (!trialEndsAt) return '--'
+  const diff = Math.ceil((new Date(trialEndsAt).getTime() - Date.now()) / 86_400_000)
+  if (diff < 0) return 'Expired'
+  if (diff === 0) return 'Today'
+  return `${diff}d`
 }
 
 export default async function CustomersPage({
@@ -60,12 +71,17 @@ export default async function CustomersPage({
   const admin = createAdminClient()
   const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
 
-  const [{ data: allUsers }, { data: outreachRows }] = await Promise.all([
+  const [{ data: allUsers }, { data: statsUsers }, { data: outreachRows }] = await Promise.all([
+    // Filtered list for the table (trialing / active / past_due only)
     admin
       .from('users')
-      .select('id, email, subscription_status, subscription_tier, created_at, signup_source')
+      .select('id, email, subscription_status, subscription_tier, created_at, trial_ends_at, signup_source, onboarding_completed_at, first_company_added_at')
       .in('subscription_status', ['trialing', 'active', 'past_due'])
       .order('created_at', { ascending: false }),
+    // All users for conversion stats (includes canceled/inactive)
+    admin
+      .from('users')
+      .select('id, subscription_status, subscription_tier, signup_source, created_at'),
     admin
       .from('outreach_logs')
       .select('user_id')
@@ -78,6 +94,25 @@ export default async function CustomersPage({
   }
 
   const users = (allUsers ?? []) as UserRow[]
+  const allStatUsers = statsUsers ?? []
+
+  // Conversion stats
+  const converted = allStatUsers.filter(u => u.subscription_status === 'active').length
+  const lapsed    = allStatUsers.filter(u => ['canceled', 'inactive'].includes(u.subscription_status)).length
+  const trialing  = allStatUsers.filter(u => u.subscription_status === 'trialing').length
+  const convRate  = (converted + lapsed) > 0
+    ? Math.round((converted / (converted + lapsed)) * 100)
+    : 0
+
+  // Channel attribution (top sources among all users)
+  const sourceMap: Record<string, number> = {}
+  for (const u of allStatUsers) {
+    const src = u.signup_source ?? 'direct'
+    sourceMap[src] = (sourceMap[src] ?? 0) + 1
+  }
+  const topSources = Object.entries(sourceMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
 
   const counts = {
     all:          users.length,
@@ -98,7 +133,7 @@ export default async function CustomersPage({
   }
 
   const cards: { filter: Filter; label: string; sublabel: string; accent: boolean }[] = [
-    { filter: 'all',          label: String(counts.all),          sublabel: 'Total',         accent: false },
+    { filter: 'all',          label: String(counts.all),          sublabel: 'Active',        accent: false },
     { filter: 'trialing',     label: String(counts.trialing),     sublabel: 'Trialing',      accent: false },
     { filter: 'intelligence', label: String(counts.intelligence), sublabel: 'Intelligence',  accent: false },
     { filter: 'search',       label: String(counts.search),       sublabel: 'Search',        accent: true  },
@@ -110,7 +145,7 @@ export default async function CustomersPage({
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -120,15 +155,52 @@ export default async function CustomersPage({
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Customers</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">Active trials and paid subscribers.</p>
+          <p className="text-[13px] text-slate-500 mt-1.5">Trial and paid subscriber overview.</p>
+        </div>
+
+        {/* Conversion stats */}
+        <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
+            <div>
+              <p className="text-[28px] font-bold text-slate-900 leading-none">{trialing}</p>
+              <p className="text-[12px] text-slate-400 mt-1">Active trials</p>
+            </div>
+            <div>
+              <p className="text-[28px] font-bold text-orange-500 leading-none">{converted}</p>
+              <p className="text-[12px] text-slate-400 mt-1">Converted</p>
+            </div>
+            <div>
+              <p className="text-[28px] font-bold text-slate-900 leading-none">{lapsed}</p>
+              <p className="text-[12px] text-slate-400 mt-1">Lapsed</p>
+            </div>
+            <div>
+              <p className="text-[28px] font-bold text-slate-900 leading-none">{convRate}%</p>
+              <p className="text-[12px] text-slate-400 mt-1">Conv. rate</p>
+              <p className="text-[10px] text-slate-300 mt-0.5">of closed trials</p>
+            </div>
+          </div>
+
+          {/* Channel attribution */}
+          <div className="border-t border-slate-100 pt-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Signups by source</p>
+            <div className="flex flex-wrap gap-2">
+              {topSources.map(([src, count]) => (
+                <span key={src} className="inline-flex items-center gap-1.5 text-[12px] bg-slate-50 border border-slate-200 rounded px-3 py-1.5">
+                  <span className="font-semibold text-slate-700">{src}</span>
+                  <span className="text-slate-400">{count}</span>
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
           {cards.map(card => (
             <Link
               key={card.filter}
@@ -144,9 +216,7 @@ export default async function CustomersPage({
               }`}>
                 {card.label}
               </div>
-              <div className={`text-[11px] mt-2 font-semibold tracking-wide ${
-                filter === card.filter ? 'text-slate-400' : 'text-slate-400'
-              }`}>
+              <div className="text-[11px] mt-2 font-semibold tracking-wide text-slate-400">
                 {card.sublabel}
               </div>
             </Link>
@@ -155,7 +225,7 @@ export default async function CustomersPage({
 
         {/* Table */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+          <div className="px-6 py-[18px] border-b border-slate-200">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               {FILTER_LABELS[filter]} ({filteredUsers.length})
             </span>
@@ -164,62 +234,80 @@ export default async function CustomersPage({
           {filteredUsers.length === 0 ? (
             <p className="px-6 py-8 text-[13px] text-slate-400">No customers in this segment yet.</p>
           ) : (
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Joined</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 hidden sm:table-cell">Source</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right hidden sm:table-cell">7d outreach</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Welcome</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {filteredUsers.map(u => {
-                  const wasSent = sent === u.id
-                  return (
-                    <tr key={u.id} className={wasSent ? 'bg-green-50' : undefined}>
-                      <td className="px-6 py-3 font-semibold text-slate-900 max-w-[200px] truncate">
-                        {u.email}
-                      </td>
-                      <td className="px-4 py-3 text-slate-600">
-                        {TIER_NAMES[u.subscription_tier ?? 'free'] ?? 'Free'}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${statusBadge[u.subscription_status] ?? 'bg-slate-100 text-slate-400'}`}>
-                          {u.subscription_status.charAt(0).toUpperCase() + u.subscription_status.slice(1)}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
-                        {new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </td>
-                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px] hidden sm:table-cell">
-                        {u.signup_source ?? '—'}
-                      </td>
-                      <td className="px-4 py-3 text-right text-slate-700 tabular-nums font-semibold hidden sm:table-cell">
-                        {outreachByUser[u.id] ?? 0}
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        {wasSent ? (
-                          <span className="text-[11px] font-bold text-green-700">Sent</span>
-                        ) : (
-                          <form action={sendEmailAction.bind(null, u.id, filter)}>
-                            <button
-                              type="submit"
-                              className="text-[11px] font-semibold text-slate-500 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
-                            >
-                              Send welcome
-                            </button>
-                          </form>
-                        )}
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                    <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Joined</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 hidden lg:table-cell">Source</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Onboard</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Co. added</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 hidden sm:table-cell">Trial ends</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-right hidden sm:table-cell">7d outreach</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Welcome</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {filteredUsers.map(u => {
+                    const wasSent = sent === u.id
+                    return (
+                      <tr key={u.id} className={wasSent ? 'bg-green-50' : undefined}>
+                        <td className="px-6 py-3 font-semibold text-slate-900 max-w-[180px] truncate">
+                          {u.email}
+                        </td>
+                        <td className="px-4 py-3 text-slate-600">
+                          {TIER_NAMES[u.subscription_tier ?? 'free'] ?? 'Free'}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${statusBadge[u.subscription_status] ?? 'bg-slate-100 text-slate-400'}`}>
+                            {u.subscription_status.charAt(0).toUpperCase() + u.subscription_status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
+                          {new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </td>
+                        <td className="px-4 py-3 text-slate-400 font-mono text-[11px] hidden lg:table-cell">
+                          {u.signup_source ?? '--'}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          {u.onboarding_completed_at
+                            ? <span className="text-green-600 font-bold">&#10003;</span>
+                            : <span className="text-slate-200">--</span>}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          {u.first_company_added_at
+                            ? <span className="text-green-600 font-bold">&#10003;</span>
+                            : <span className="text-slate-200">--</span>}
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 hidden sm:table-cell whitespace-nowrap">
+                          {u.subscription_status === 'trialing' ? daysLeft(u.trial_ends_at) : '--'}
+                        </td>
+                        <td className="px-4 py-3 text-right text-slate-700 tabular-nums font-semibold hidden sm:table-cell">
+                          {outreachByUser[u.id] ?? 0}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          {wasSent ? (
+                            <span className="text-[11px] font-bold text-green-700">Sent</span>
+                          ) : (
+                            <form action={sendEmailAction.bind(null, u.id, filter)}>
+                              <button
+                                type="submit"
+                                className="text-[11px] font-semibold text-slate-500 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
+                              >
+                                Send welcome
+                              </button>
+                            </form>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 

@@ -89,6 +89,11 @@ export async function addCompany(formData: FormData) {
     .is('archived_at', null)
 
   if (companyCount === 1) {
+    await supabase
+      .from('users')
+      .update({ first_company_added_at: new Date().toISOString() })
+      .eq('id', user.id)
+      .is('first_company_added_at', null)
     redirect(`/dashboard/companies/${inserted.id}/prep?first=1`)
   }
   redirect(`/dashboard/companies/${inserted.id}?scanning=1`)
