@@ -94,7 +94,10 @@ export default async function SignalsPage({
     companies: { id: string; name: string } | null
   }
 
-  const signalList = (signals ?? []) as unknown as Signal[]
+  // Warm signals (companies with a known contact) float to the top; date order preserved within each group
+  const signalList = ((signals ?? []) as unknown as Signal[]).sort(
+    (a, b) => (contactByCompany.has(a.company_id) ? 0 : 1) - (contactByCompany.has(b.company_id) ? 0 : 1)
+  )
 
   function buildUrl(params: Record<string, string | undefined>) {
     const sp = new URLSearchParams()
