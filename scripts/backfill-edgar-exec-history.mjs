@@ -173,8 +173,6 @@ async function run() {
       }
 
       if (!section) {
-      const section = await fetchItemSection(docUrl)
-      if (!section) {
         if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
         skipped++
         continue
