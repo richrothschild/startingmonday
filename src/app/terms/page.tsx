@@ -3,7 +3,7 @@
 export const metadata = {
   title: 'Terms of Service — Starting Monday',
   description: 'Terms and conditions for using the Starting Monday platform.',
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 }
 
 export default function TermsPage() {

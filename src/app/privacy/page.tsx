@@ -3,7 +3,7 @@
 export const metadata = {
   title: 'Privacy Policy — Starting Monday',
   description: 'How Starting Monday collects, uses, and protects your personal information.',
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 }
 
 export default function PrivacyPage() {
