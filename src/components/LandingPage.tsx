@@ -202,7 +202,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {hero.body}
           </p>
           <p className="text-[13px] text-slate-400 mb-3 max-w-xl leading-relaxed">
-            Most candidates don&rsquo;t find out until the role posts. By then, the short list already exists.
+            The informal market is where most executive roles are decided. The question is whether you are working it before the search is formalized or after.
           </p>
           {hero.note && (
             <p className="text-[13px] text-slate-500 mb-6">
@@ -267,7 +267,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[17px] text-slate-500 leading-relaxed mb-2">
             Not a job board. Not a $25,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">The intelligence layer executives in transition didn&rsquo;t have before.</span>
+            <span className="text-slate-900 font-semibold">The system for working the informal market the way a competitive search requires.</span>
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed">
             LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the campaign infrastructure between those two.

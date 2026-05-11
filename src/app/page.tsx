@@ -4,8 +4,8 @@ import type { SituationCard } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday - Find executive roles before they post',
-  description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search. Free 30-day trial.',
+  title: 'Starting Monday - The executive job search operating system',
+  description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one. Free 30-day trial.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -17,15 +17,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday - Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
+    title: 'Starting Monday - The executive job search operating system',
+    description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday - Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
+    title: 'Starting Monday - The executive job search operating system',
+    description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -111,9 +111,9 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For senior executives in search.',
+          eyebrow: 'For technology executives in active search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
-          body: "By the time a role posts, the short list already exists. The two weeks before that moment is when candidates are considered and relationships are made. Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know. That is the window. We help you live there.",
+          body: "You already know how executive roles get filled. Relationships. PE firm moves. Leadership departures. Quiet conversations before a search is ever authorized. The challenge is not knowing this. It is doing it consistently at the pace a competitive search requires. Starting Monday monitors your target companies every 48 hours. When signals cluster before a search opens, you know. You move first.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
