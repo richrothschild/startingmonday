@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
 import { PipelineFilter } from './PipelineFilter'
@@ -76,6 +77,15 @@ export default async function DashboardPage({
   const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
+  const adminClient = createAdminClient()
+  const isPartnerPromise = Promise.resolve(
+    adminClient
+      .from('partners')
+      .select('id', { count: 'exact', head: true })
+      .eq('email', user.email ?? '')
+      .eq('is_active', true)
+  ).then(r => (r.count ?? 0) > 0).catch(() => false)
+
   const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }] = await Promise.all([
     companyQuery,
     statsQuery,
@@ -129,6 +139,8 @@ export default async function DashboardPage({
       .gte('signal_date', since14d),
   ])
 
+  // isPartnerPromise was started before the main await above so it ran in parallel
+  const isPartner = await isPartnerPromise
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const allList = allCompanies ?? []
   const totalCount = allList.length
@@ -376,6 +388,9 @@ export default async function DashboardPage({
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
+            {isPartner && (
+              <Link href="/dashboard/partner" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
+            )}
             <div className="ml-auto flex items-center gap-4 shrink-0">
               <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
               <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Billing</Link>

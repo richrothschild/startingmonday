@@ -354,6 +354,42 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     ],
     related: ['executive-search-operating-system', 'target-company-list', 'linkedin-executive-search-strategy'],
   },
+  {
+    slug: 'executive-coaching-candidate-infrastructure',
+    title: 'The Infrastructure Gap in Executive Career Coaching',
+    description: 'Most executive coaching practices are strong on strategy and weak on infrastructure. The gap shows up in first-round interviews, stalled pipelines, and sessions that spend too much time on context. Here is what changes when you fix it.',
+    date: '2026-05-11',
+    readTime: '6 min read',
+    keywords: [
+      'executive coaching job search tools',
+      'tools for executive coaches',
+      'executive career coaching infrastructure',
+      'how executive coaches improve client search',
+      'executive job search coaching',
+      'executive coaching practice tools',
+      'executive transition coaching tools',
+      'executive coaching pipeline visibility',
+    ],
+    related: ['executive-coaching-job-search', 'coaches-guide', 'executive-search-operating-system'],
+  },
+  {
+    slug: 'retained-search-candidate-preparation',
+    title: 'Why Technology Executive Candidates Fail the First Round',
+    description: 'The most common reason a technology executive candidate does not advance past the first round is not fit. It is preparation. What adequate preparation looks like at the senior level, and what search firms can do about the gap.',
+    date: '2026-05-11',
+    readTime: '5 min read',
+    keywords: [
+      'technology executive candidate preparation',
+      'why CIO candidates fail interviews',
+      'executive candidate first round interview',
+      'retained search candidate preparation',
+      'technology executive interview preparation',
+      'executive search candidate tools',
+      'CIO interview preparation for search firms',
+      'how to prepare executive candidates for interviews',
+    ],
+    related: ['executive-search-firms-cio', 'retained-search-firms', 'executive-search-operating-system'],
+  },
 ]
 
 export function getPost(slug: string): BlogPostMeta | undefined {
