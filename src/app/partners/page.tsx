@@ -38,16 +38,28 @@ const PARTNER_GUIDES = [
     body: 'The search timeline is a risk to the value creation plan. Equip your executive network with early intelligence on portfolio company signals and prep that compresses the mandate timeline.',
     cta: 'Read the PE partner guide',
   },
+  {
+    label: 'Relocation firms',
+    href: '/for-relocation',
+    body: 'Your clients are executives in motion. Relocation creates a predictable transition window. Starting Monday gives them the search infrastructure to act on it before it closes.',
+    cta: 'Read the relocation guide',
+  },
+  {
+    label: 'CIO and technology associations',
+    href: '/for-cio-associations',
+    body: 'Offer member benefits that give your members a search advantage, not just networking access. Starting Monday is built specifically for the executives in your community.',
+    cta: 'Read the associations guide',
+  },
 ]
 
 const TIERS = [
   {
     name: 'Referral Partner',
     price: 'Free to join',
-    description: 'Recommend Starting Monday to your clients and earn a commission on every subscription that activates through your referral.',
+    description: 'Recommend Starting Monday to your clients and earn a 20% commission on every subscription that activates through your referral.',
     benefits: [
       'Unique referral link with activation tracking',
-      'Commission on every active subscription',
+      'Earn 20% commission on every active subscription',
       'Partner resource kit: one-pager, demo access, talking points',
       'Dedicated partner guide for your category',
       'Direct line to the founder for questions',
@@ -167,7 +179,7 @@ export default function PartnersPage() {
             </p>
             <p>
               Referral partners get a unique link. When a client signs up through your link and activates a paid plan,
-              you earn a commission. You can track activations and see usage from your partner dashboard.
+              you earn 20% commission. You can track activations and see usage from your partner dashboard.
             </p>
             <p>
               Preferred partners get consolidated billing and an activation dashboard. Enroll clients directly,
@@ -187,6 +199,20 @@ export default function PartnersPage() {
               If you run an outplacement program,{' '}
               <Link href="/for-outplacement" className="text-slate-700 underline hover:text-slate-900 transition-colors">
                 read the outplacement guide
+              </Link>
+              .{' '}
+              If you are a PE operating partner,{' '}
+              <Link href="/for-pe-partners" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                read the PE partner guide
+              </Link>
+              .{' '}
+              See also:{' '}
+              <Link href="/for-relocation" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                relocation firms
+              </Link>
+              {' '}and{' '}
+              <Link href="/for-cio-associations" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                CIO and technology associations
               </Link>
               .
             </p>

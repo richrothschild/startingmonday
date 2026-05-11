@@ -152,7 +152,7 @@ export default function ForPePartnersPage() {
                   'Executives get a 30-day free trial, no credit card required',
                   'Active plan ($199/month) includes all AI features: prep briefs, strategy brief, company intelligence',
                   'Executive plan ($499/month) for executives running intensive active searches',
-                  'Partner referral arrangements available - contact Rich Rothschild at contact@startingmonday.app',
+                  'Partner program: apply at startingmonday.app/partners for your referral link and partner resource kit for your executive network',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
@@ -162,24 +162,30 @@ export default function ForPePartnersPage() {
               </ul>
             </section>
 
-            {/* See it live */}
+            {/* Apply CTA */}
             <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-                See it in 10 minutes
+                Ready to partner?
               </p>
               <h2 className="text-[20px] font-bold text-slate-900 mb-3 leading-snug">
-                Walk through a live demo
+                Apply to the partner program
               </h2>
               <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-                The demo shows the full platform with a pre-loaded account: pipeline, signals,
-                a generated prep brief, and the daily briefing. No signup required.
+                Fill out the application and we will follow up within 2 business days with your referral link, commission tracking, and partner resource kit.
               </p>
               <Link
-                href="/demo"
+                href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                See the demo &rarr;
+                Apply now &rarr;
               </Link>
+              <p className="text-[13px] text-slate-400 mt-4">
+                Want to see the platform first?{' '}
+                <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                  Walk through a live demo
+                </Link>
+                .
+              </p>
             </section>
 
           </div>
