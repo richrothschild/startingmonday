@@ -173,6 +173,15 @@ export default async function DashboardPage({
   for (const r of (actBriefs    ?? [])) bumpWeek(r.created_at, 'briefs')
   for (const r of (actFollowUps ?? [])) bumpWeek(r.created_at, 'followUps')
 
+  const allActivityDates = [
+    ...(actCompanies ?? []).map(r => r.created_at),
+    ...(actContacts  ?? []).map(r => r.created_at),
+    ...(actBriefs    ?? []).map(r => r.created_at),
+    ...(actFollowUps ?? []).map(r => r.created_at),
+  ]
+  const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
+  const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
+
   // Pipeline velocity rows (all companies, sorted by staleness)
   const velocityRows: VelocityRow[] = (companies ?? []).map(c => ({
     id: c.id,
@@ -682,9 +691,10 @@ export default async function DashboardPage({
             </div>
             <div>
               <div className="text-[13px] font-semibold text-slate-900">
-                {momentumData.momentum_score >= 70 ? 'Strong search cadence' :
-                 momentumData.momentum_score >= 40 ? 'Moderate activity' :
-                 'Search needs attention'}
+                {momentumData.momentum_score >= 70 ? 'Strong cadence. Keep it moving.' :
+                 momentumData.momentum_score >= 40
+                   ? `Momentum dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
+                   : 'Search at risk. This pace adds months to your timeline.'}
               </div>
               <div className="text-[11px] text-slate-400 mt-0.5">
                 Momentum score
@@ -701,6 +711,25 @@ export default async function DashboardPage({
             </div>
           </div>
         )}
+
+        {/* Social proof benchmarks */}
+        <div className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</p>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
+              <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+            </div>
+            <div>
+              <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
+              <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+            </div>
+            <div>
+              <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
+              <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
+            </div>
+          </div>
+        </div>
 
         <ActivityChart data={weekSlots} />
         <PipelineVelocity companies={velocityRows} />

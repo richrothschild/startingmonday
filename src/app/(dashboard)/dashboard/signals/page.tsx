@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { addSignalFollowUp, generateSignalOutreach } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
+import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 
 const PAGE_SIZE = 25
 
@@ -179,6 +180,11 @@ export default async function SignalsPage({
         </form>
 
         {/* Signal list */}
+        {signalList.length > 0 && (
+          <p className="text-[12px] text-slate-400 italic mb-4 leading-relaxed">
+            Use signals as a reason to reconnect with someone who already knows you. Cold outreach on a signal rarely lands at the executive level.
+          </p>
+        )}
         {signalList.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded p-10 text-center">
             <p className="text-[14px] text-slate-500">
@@ -235,43 +241,49 @@ export default async function SignalsPage({
                         Source →
                       </a>
                     )}
-                    <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-50 flex-wrap">
-                      {contact ? (
-                        <Link
-                          href={`/dashboard/contacts/${contact.id}/outreach`}
-                          className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
-                        >
-                          Draft outreach → {contact.name}
-                        </Link>
-                      ) : co ? (
-                        <Link
-                          href={`/dashboard/contacts/new?company_id=${co.id}`}
-                          className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
-                        >
-                          + Add contact at {co.name}
-                        </Link>
-                      ) : null}
-                      {!sig.outreach_draft && (
-                        <form action={generateSignalOutreach}>
-                          <input type="hidden" name="signal_id" value={sig.id} />
+                    <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-slate-50">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {contact ? (
+                          <Link
+                            href={`/dashboard/contacts/${contact.id}/outreach`}
+                            className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
+                          >
+                            Draft outreach → {contact.name}
+                          </Link>
+                        ) : co ? (
+                          <>
+                            <Link
+                              href={`/dashboard/contacts/new?company_id=${co.id}`}
+                              className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
+                            >
+                              + Add contact at {co.name}
+                            </Link>
+                            <Link
+                              href={`/dashboard/companies/${co.id}/prep?stage=informal_meeting`}
+                              className="text-[12px] font-semibold text-slate-400 hover:text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
+                            >
+                              Prep a conversation
+                            </Link>
+                          </>
+                        ) : null}
+                        <form action={addSignalFollowUp}>
+                          <input type="hidden" name="company_name" value={co?.name ?? ''} />
+                          <input type="hidden" name="signal_summary" value={sig.signal_summary} />
                           <button
                             type="submit"
-                            className="text-[12px] font-semibold text-orange-600 hover:text-orange-800 border border-orange-200 hover:border-orange-400 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded transition-colors cursor-pointer"
+                            className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors bg-white cursor-pointer"
                           >
-                            Generate outreach
+                            + Follow up in 5 days
                           </button>
                         </form>
+                      </div>
+                      {!sig.outreach_draft && (
+                        <SignalOutreachGate
+                          signalId={sig.id}
+                          companyName={co?.name ?? null}
+                          action={generateSignalOutreach}
+                        />
                       )}
-                      <form action={addSignalFollowUp}>
-                        <input type="hidden" name="company_name" value={co?.name ?? ''} />
-                        <input type="hidden" name="signal_summary" value={sig.signal_summary} />
-                        <button
-                          type="submit"
-                          className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors bg-white cursor-pointer"
-                        >
-                          + Follow up in 5 days
-                        </button>
-                      </form>
                     </div>
                   </div>
                 )

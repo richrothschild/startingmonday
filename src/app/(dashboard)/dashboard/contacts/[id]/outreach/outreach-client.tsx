@@ -67,7 +67,9 @@ const CHANNEL_LABELS: Record<string, string> = {
   linkedin: 'LinkedIn', referral: 'Referral', cold: 'Cold outreach', inbound: 'Inbound', event: 'Event',
 }
 
-export function OutreachClient({ contact, history, profileScore, roleType, fullName }: { contact: Contact; history: DraftHistory[]; profileScore: number; roleType: string | null; fullName: string | null }) {
+type RecentSignal = { signalType: string; summary: string; date: string }
+
+export function OutreachClient({ contact, history, profileScore, roleType, fullName, recentSignals = [] }: { contact: Contact; history: DraftHistory[]; profileScore: number; roleType: string | null; fullName: string | null; recentSignals?: RecentSignal[] }) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
@@ -210,6 +212,23 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
             {subtitle ? <span className="text-slate-400"> · {subtitle}</span> : null}
           </p>
         </div>
+
+        {recentSignals.length > 0 && (
+          <div className="mb-5 bg-amber-50 border border-amber-200 rounded px-5 py-4">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700 mb-2">Recent signals at {contact.company_name ?? 'their company'}</p>
+            <ul className="flex flex-col gap-2">
+              {recentSignals.map((s, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="shrink-0 text-[10px] font-bold uppercase text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded mt-0.5">
+                    {s.signalType.replace(/_/g, ' ')}
+                  </span>
+                  <span className="text-[13px] text-slate-700 leading-snug">{s.summary}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-amber-700 mt-2 italic">Use a signal as a natural reason to reconnect, not as the pitch.</p>
+          </div>
+        )}
 
         <div className="bg-white border border-slate-200 rounded p-6 mb-4">
           <div className="mb-4">
