@@ -39,10 +39,9 @@ jobs:
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
-    # Gate on a repository variable so this job only runs when secrets are configured.
-    # To enable: set PLAYWRIGHT_ENABLED = true in GitHub repo Settings > Variables,
-    # then add secrets PLAYWRIGHT_BASE_URL, PLAYWRIGHT_TEST_EMAIL, PLAYWRIGHT_TEST_PASSWORD.
-    if: vars.PLAYWRIGHT_ENABLED == 'true'
+    # Staging branch: always runs against the staging URL.
+    # Main branch: runs when PLAYWRIGHT_ENABLED = true in repo variables.
+    if: github.ref == 'refs/heads/staging' || vars.PLAYWRIGHT_ENABLED == 'true'
 
     steps:
       - uses: actions/checkout@v4.2.2
@@ -61,7 +60,7 @@ jobs:
       - name: Run E2E tests
         run: npx playwright test
         env:
-          PLAYWRIGHT_BASE_URL: ${{ secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
 
