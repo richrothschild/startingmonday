@@ -96,7 +96,7 @@ async function run() {
       break
     }
 
-    const url = `${EDGAR_EFTS}?q=%225.02%22&forms=8-K&dateRange=custom&startdt=${startDate}&enddt=${endDate}&from=${offset}&hits.hits.total.value=true`
+    const url = `${EDGAR_EFTS}?q=%22Item+5.02%22&forms=8-K&dateRange=custom&startdt=${startDate}&enddt=${endDate}&from=${offset}&hits.hits.total.value=true`
     const page = await fetchJSON(url)
     if (!page) {
       console.error('EFTS fetch failed at offset', offset)
