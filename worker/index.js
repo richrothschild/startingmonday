@@ -54,20 +54,40 @@ process.on('unhandledRejection', (reason) => {
 
 const jobStatus = {}
 
+// Jobs that run longer than their timeout are forcibly rejected and logged as
+// { event: 'job_timeout' } so they surface in Railway log queries.
+const JOB_TIMEOUTS_MS = {
+  'scan-job':              10 * 60_000,
+  'executive-scan-job':    10 * 60_000,
+  'executive-evening-scan': 10 * 60_000,
+  'weekly-report-job':     15 * 60_000,
+  'briefing-job':           3 * 60_000,
+}
+const DEFAULT_JOB_TIMEOUT_MS = 5 * 60_000
+
 async function runJob(name, fn) {
   if (jobStatus[name] === 'running') {
-    logger.warn(`${name}: already running — skipping this tick`)
+    logger.warn(`${name}: already running, skipping this tick`)
     return
   }
   jobStatus[name] = 'running'
   const start = Date.now()
+  const timeoutMs = JOB_TIMEOUTS_MS[name] ?? DEFAULT_JOB_TIMEOUT_MS
+  const timeoutErr = Object.assign(new Error('job_timeout'), { isTimeout: true })
   try {
-    await fn()
+    await Promise.race([
+      fn(),
+      new Promise((_, reject) => setTimeout(() => reject(timeoutErr), timeoutMs)),
+    ])
     jobStatus[name] = 'idle'
     logger.info(`${name}: finished`, { ms: Date.now() - start })
   } catch (err) {
     jobStatus[name] = 'idle'
-    logger.error(`${name}: unhandled error`, { error: err.message })
+    if (err.isTimeout) {
+      logger.error(`${name}: timed out`, { event: 'job_timeout', job: name, timeout_ms: timeoutMs })
+    } else {
+      logger.error(`${name}: unhandled error`, { error: err.message })
+    }
     Sentry.captureException(err, { tags: { job: name } })
   }
 }

@@ -112,7 +112,13 @@ export async function runExecutiveScanJob() {
         return result
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err)
-        logger.error('executive-scan-job: unhandled error', { company: company.name, error: msg })
+        logger.error('executive-scan-job: company scan failed', {
+          event: 'scan_failure',
+          company_id: company.id,
+          company_name: company.name,
+          user_id: company.user_id,
+          error: msg,
+        })
       }
     })
   )
