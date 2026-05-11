@@ -8,7 +8,7 @@ function esc(str) {
 }
 
 export async function sendSignalAlert({ to, companyName, patternName, summary, outreachAngle, outreachDraft }) {
-  const subject = `${patternName} &mdash; ${companyName}`.replace(/&mdash;/g, '—')
+  const subject = `${patternName}: ${companyName}`
 
   const html = `<!DOCTYPE html>
 <html lang="en">

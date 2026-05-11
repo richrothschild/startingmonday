@@ -1,6 +1,12 @@
 import { logger } from '../lib/logger.js'
+import { reviewEmail } from '../lib/email-quality.js'
 
 export async function sendBriefing({ to, subject, html }) {
+  const issues = reviewEmail(subject, html)
+  if (issues.length) {
+    logger.warn('send-briefing: quality warning', { event: 'email_quality_warning', to, subject, issues })
+  }
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {

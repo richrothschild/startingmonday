@@ -9,8 +9,8 @@ function esc(str) {
 
 export async function sendPipelinePulse({ to, firstName, newSignals, draftReadyCount, overdueCount, staleCompanyCount, totalCompanies }) {
   const subject = newSignals.length > 0
-    ? `${newSignals.length} new signal${newSignals.length !== 1 ? 's' : ''} this week &mdash; Starting Monday`.replace(/&mdash;/g, '—')
-    : `Your search health this week &mdash; Starting Monday`.replace(/&mdash;/g, '—')
+    ? `${newSignals.length} new signal${newSignals.length !== 1 ? 's' : ''} this week - Starting Monday`
+    : `Your search health this week - Starting Monday`
 
   const html = `<!DOCTYPE html>
 <html lang="en">
