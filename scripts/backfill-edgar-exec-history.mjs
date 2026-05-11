@@ -98,9 +98,14 @@ async function run() {
     }
 
     const url = `${EDGAR_EFTS}?q=%22Item+5.02%22&forms=8-K&dateRange=custom&startdt=${startDate}&enddt=${endDate}&from=${offset}&hits.hits.total.value=true`
-    const page = await fetchJSON(url)
+    let page = await fetchJSON(url)
     if (!page) {
-      console.error('EFTS fetch failed at offset', offset)
+      console.warn('EFTS fetch failed at offset', offset, '— retrying in 10s')
+      await sleep(10000)
+      page = await fetchJSON(url)
+    }
+    if (!page) {
+      console.error('EFTS fetch failed twice at offset', offset, '— stopping')
       break
     }
 
@@ -341,6 +346,9 @@ async function isAlreadyLoaded(accession) {
 async function writeExecutives(executives, { companyName, companyCik, filingDate, accession, sourceUrl }) {
   try {
     for (const ex of executives) {
+      // Skip rows Haiku couldn't fully extract
+      if (!ex.full_name || !ex.title) continue
+
       // Upsert executive profile
       const profilePayload = {
         full_name:  ex.full_name,
