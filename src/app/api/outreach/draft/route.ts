@@ -139,7 +139,7 @@ ${STYLE_GUIDELINES}`
           }
         }
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'outreach_draft', userId })))
       } finally {
         controller.close()
       }

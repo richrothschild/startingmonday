@@ -16,7 +16,7 @@ import {
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS, getModelForTier } from '@/lib/anthropic'
 import { PrepRefineBodySchema, firstZodError } from '@/lib/schemas'
-import { recordTrace } from '@/lib/trace'
+import { recordTrace, recordTraceError } from '@/lib/trace'
 
 type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
 
@@ -54,7 +54,10 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
           })
         }
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        const feature = traceOpts?.feature ?? 'prep_brief'
+        const errStr = err instanceof Error ? err.message : 'Unknown error'
+        recordTraceError({ feature, userId, model, latencyMs: Date.now() - startMs, error: errStr })
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature, userId })))
         controller.close()
       }
     },

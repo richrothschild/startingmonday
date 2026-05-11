@@ -34,6 +34,7 @@ Rules:
 export async function POST(request: NextRequest) {
   const auth = await requireFeatureAccess(request, 'positioning_coach')
   if (!auth.ok) return auth.response
+  const { userId } = auth
 
   const body = await request.json().catch(() => ({}))
   const messages = (body.messages ?? []) as Anthropic.MessageParam[]
@@ -70,7 +71,7 @@ export async function POST(request: NextRequest) {
           }
         }
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'positioning_chat', userId })))
       } finally {
         controller.close()
       }

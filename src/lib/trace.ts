@@ -14,6 +14,19 @@ type TraceParams = {
   outputSnapshot?: string
 }
 
+export function recordTraceError(params: { feature: string; userId: string; model?: string; latencyMs?: number; error: string }): void {
+  console.error(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: 'ai_call_error',
+    feature: params.feature,
+    model: params.model ?? null,
+    latency_ms: params.latencyMs ?? null,
+    user_id: params.userId,
+    success: false,
+    error: params.error,
+  }))
+}
+
 export function recordTrace(params: TraceParams): void {
   const { supabase, userId, feature, model, promptTokens, completionTokens, latencyMs, inputSnapshot, outputSnapshot } = params
   console.log(JSON.stringify({

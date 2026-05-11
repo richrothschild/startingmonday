@@ -28,7 +28,7 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] strategy', err))
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'strategy_brief', userId })))
         controller.close()
       }
     },

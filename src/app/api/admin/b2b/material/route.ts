@@ -147,7 +147,7 @@ FORMAT RULES -- follow exactly:
           }
         }
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'b2b_material' })))
       } finally {
         controller.close()
       }

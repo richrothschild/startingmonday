@@ -9,7 +9,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS, withStreamTimeout } from '@/lib/anthropic'
 import { buildChatSystemPrompt } from '@/lib/prompts'
 import { ChatBodySchema, firstZodError } from '@/lib/schemas'
-import { recordTrace } from '@/lib/trace'
+import { recordTrace, recordTraceError } from '@/lib/trace'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -307,7 +307,9 @@ export async function POST(request: NextRequest) {
         trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
         }) // end withStreamTimeout
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        const errStr = err instanceof Error ? err.message : 'Unknown error'
+        recordTraceError({ feature: 'chat', userId, model: MODELS.sonnet, latencyMs: Date.now() - startMs, error: errStr })
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'chat', userId })))
         controller.close()
       }
     },

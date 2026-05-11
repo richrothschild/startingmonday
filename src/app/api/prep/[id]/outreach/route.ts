@@ -3,7 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
-import { recordTrace } from '@/lib/trace'
+import { recordTrace, recordTraceError } from '@/lib/trace'
 import { encodeUserId } from '@/lib/watermark'
 import { trackApiUsage } from '@/lib/api-usage'
 
@@ -126,7 +126,9 @@ ${STYLE_GUIDELINES}`
         }
         controller.enqueue(encoder.encode(encodeUserId(userId)))
       } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err)))
+        const errStr = err instanceof Error ? err.message : 'Unknown error'
+        recordTraceError({ feature: 'prep_outreach', userId, model: MODELS.sonnet, latencyMs: Date.now() - startMs, error: errStr })
+        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'prep_outreach', userId })))
       } finally {
         controller.close()
         const final = await stream.finalMessage().catch(() => null)
