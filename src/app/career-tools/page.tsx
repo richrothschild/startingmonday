@@ -149,6 +149,30 @@ export default function CareerToolsPage() {
               </p>
             </section>
 
+            {/* Blog links */}
+            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+              <h2 className="text-[22px] font-bold text-slate-900">Start with these</h2>
+              <p className="text-[14px] text-slate-500">
+                The blog covers how the senior executive search actually works. No resume tips.
+                No generic interview advice.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { href: '/blog/how-cios-find-jobs', label: 'How Do CIOs Actually Find New Jobs?' },
+                  { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from CIO Candidates' },
+                  { href: '/blog/cio-job-search-timeline', label: 'How Long Does a CIO Job Search Really Take?' },
+                  { href: '/blog/target-company-list', label: 'How to Build Your Target Company List for an Executive Search' },
+                  { href: '/blog/retained-search-firms', label: 'How to Work with Retained Search Firms Without Losing Leverage' },
+                ].map(link => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-[15px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
+                      {link.label} &rarr;
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
             {/* Promo */}
             <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
@@ -176,30 +200,6 @@ export default function CareerToolsPage() {
                 </Link>
                 .
               </p>
-            </section>
-
-            {/* Blog links */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">Start with these</h2>
-              <p className="text-[14px] text-slate-500">
-                The blog covers how the senior executive search actually works. No resume tips.
-                No generic interview advice.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  { href: '/blog/how-cios-find-jobs', label: 'How Do CIOs Actually Find New Jobs?' },
-                  { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from CIO Candidates' },
-                  { href: '/blog/cio-job-search-timeline', label: 'How Long Does a CIO Job Search Really Take?' },
-                  { href: '/blog/target-company-list', label: 'How to Build Your Target Company List for an Executive Search' },
-                  { href: '/blog/retained-search-firms', label: 'How to Work with Retained Search Firms Without Losing Leverage' },
-                ].map(link => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-[15px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
-                      {link.label} &rarr;
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </section>
 
           </div>
