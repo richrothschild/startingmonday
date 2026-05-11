@@ -246,8 +246,6 @@ export default async function DashboardPage({
     { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
     { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Go to contacts' },
   ]
-  const nextSetupStep    = setupSteps.find(s => !s.done) ?? null
-  const remainingSetups  = setupSteps.filter(s => !s.done).slice(1)
 
   // Post-placement: Career Intelligence mode
   if (profile?.placed_at) {
@@ -1044,12 +1042,21 @@ export default async function DashboardPage({
                 <tr>
                   <td colSpan={4}>
                     {totalCount === 0 ? (
-                      <EmptyState
-                        icon={EMPTY_ICONS.companies}
-                        title="No target companies yet"
-                        body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right."
-                        cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
-                      />
+                      !activation.a1_resume ? (
+                        <EmptyState
+                          icon={EMPTY_ICONS.companies}
+                          title="Start here: upload your resume"
+                          body="Paste your LinkedIn profile text or upload your resume. It's what drives prep briefs, daily briefings, and every AI response you get."
+                          cta={{ label: 'Go to profile →', href: '/dashboard/profile' }}
+                        />
+                      ) : (
+                        <EmptyState
+                          icon={EMPTY_ICONS.companies}
+                          title="No target companies yet"
+                          body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right."
+                          cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
+                        />
+                      )
                     ) : (
                       <div className="py-10 text-center text-[14px] text-slate-400">
                         No companies match that filter.

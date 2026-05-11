@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { addCompany } from './actions'
+import { CompanySearchInput } from './company-search-input'
 
 const STAGES = [
   { value: 'watching',     label: 'Watching' },
@@ -65,15 +66,7 @@ export default async function AddCompanyPage({
               <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Company name <span className="text-red-500">*</span>
               </label>
-              <input
-                name="name"
-                type="text"
-                required
-                autoFocus
-                defaultValue={prefillName ?? ''}
-                placeholder="Acme Corp"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
-              />
+              <CompanySearchInput defaultValue={prefillName} />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
