@@ -163,6 +163,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4 sm:gap-5">
+            <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+              Partners
+            </Link>
             <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               Free Profile Grade
             </Link>

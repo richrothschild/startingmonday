@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Starting Monday for Executive Coaches - Partner Guide',
   description: 'How executive coaches use Starting Monday to give clients an intelligence advantage in their search. Features, outcomes, and how to get clients started.',
-  robots: { index: false },
+  robots: { index: true },
 }
 
 const FEATURES = [
