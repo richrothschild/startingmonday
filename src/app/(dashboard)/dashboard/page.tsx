@@ -11,7 +11,7 @@ import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
-import { saveQuickProfile } from './profile/actions'
+import { saveQuickProfile, saveWeeklyGoal } from './profile/actions'
 import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
@@ -42,7 +42,7 @@ export default async function DashboardPage({
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal')
     .eq('user_id', user.id)
     .single()
 
@@ -79,6 +79,11 @@ export default async function DashboardPage({
   const since7d  = new Date(Date.now() -  7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since70d = new Date(Date.now() - 70 * 24 * 60 * 60 * 1000).toISOString()
+  const thisMonday = (() => {
+    const d = new Date(); const day = d.getDay()
+    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day)); d.setHours(0, 0, 0, 0)
+    return d.toISOString()
+  })()
 
   const adminClient = createAdminClient()
   const isPartnerPromise = Promise.resolve(
@@ -89,7 +94,7 @@ export default async function DashboardPage({
       .eq('is_active', true)
   ).then(r => (r.count ?? 0) > 0).catch(() => false)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -145,6 +150,7 @@ export default async function DashboardPage({
     supabase.from('contacts').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
     supabase.from('briefs').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
     supabase.from('follow_ups').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
+    supabase.from('briefs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('type', 'outreach').gte('created_at', thisMonday),
   ])
 
   // Build weekly activity chart data (last 10 weeks)
@@ -678,6 +684,66 @@ export default async function DashboardPage({
         )}
 
         <OpportunityRadar />
+
+        {/* Weekly commitment device */}
+        {(() => {
+          const goal = (profile as unknown as { weekly_goal?: number | null })?.weekly_goal ?? null
+          const done = outreachThisWeek ?? 0
+          if (goal) {
+            const remaining = Math.max(0, goal - done)
+            return (
+              <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
+                <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
+                  done >= goal ? 'text-green-600' : done > 0 ? 'text-amber-500' : 'text-slate-300'
+                }`}>
+                  {done}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-slate-900">
+                    {done >= goal
+                      ? 'Weekly goal hit. Strong week.'
+                      : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
+                  </div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    Goal: {goal} per week · {done} done since Monday
+                  </div>
+                </div>
+                <form action={saveWeeklyGoal} className="shrink-0">
+                  <input type="hidden" name="weekly_goal" value={goal === 1 ? 1 : goal + 1} />
+                  <button type="submit" className="text-[11px] text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-2.5 py-1 cursor-pointer bg-transparent transition-colors">
+                    Goal: {goal} &uarr;
+                  </button>
+                </form>
+              </div>
+            )
+          }
+          return (
+            <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
+              <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">
+                Executives who land in under 90 days average 2-3 new conversations per week. Committing to a number makes it happen.
+              </p>
+              <form action={saveWeeklyGoal} className="flex items-center gap-3">
+                <select
+                  name="weekly_goal"
+                  aria-label="Weekly outreach goal"
+                  defaultValue="2"
+                  className="border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white focus:outline-none focus:border-slate-400"
+                >
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <option key={n} value={n}>{n} per week</option>
+                  ))}
+                </select>
+                <button
+                  type="submit"
+                  className="bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
+                >
+                  Set goal
+                </button>
+              </form>
+            </div>
+          )
+        })()}
 
         {/* Momentum Score - only renders after migration 022 is applied and worker has run */}
         {momentumData?.momentum_score != null && (
