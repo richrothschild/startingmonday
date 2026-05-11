@@ -59,6 +59,7 @@ function getArg(name, fallback = null) {
   return i !== -1 ? args[i + 1] : fallback
 }
 const DRY_RUN    = args.includes('--dry-run')
+const DEBUG      = args.includes('--debug')
 const LIMIT      = getArg('--limit') ? parseInt(getArg('--limit'), 10) : Infinity
 const BATCH_SIZE = Math.min(100, parseInt(getArg('--batch-size', '50'), 10))
 const DELAY_MS   = parseInt(getArg('--delay-ms', '250'), 10)
@@ -112,8 +113,12 @@ async function run() {
     for (const hit of hits) {
       if (fetched >= LIMIT) break
 
-      const accession = hit._id  // format: 0001234567-24-123456
-      if (!accession) continue
+      // EFTS _id format: "{accession}:{document_filename}" e.g. "0001234567-24-001672:form8-k.htm"
+      const hitId = hit._id ?? ''
+      if (!hitId) continue
+      const colonIdx = hitId.indexOf(':')
+      const accession   = colonIdx !== -1 ? hitId.slice(0, colonIdx) : hitId
+      const primaryDocFromId = colonIdx !== -1 ? hitId.slice(colonIdx + 1) : null
 
       // Dedup: skip filings already in executive_positions
       const alreadyLoaded = await isAlreadyLoaded(accession)
@@ -135,8 +140,8 @@ async function run() {
 
       await sleep(DELAY_MS)
 
-      // Fetch filing index to get primary document filename
-      const primaryDoc = await getFilingPrimaryDoc(cik, accession)
+      // Primary doc embedded in _id — skip the index fetch entirely
+      const primaryDoc = primaryDocFromId ?? await getFilingPrimaryDoc(cik, accession)
       if (!primaryDoc) {
         console.log(`  [skip] ${accession} - could not resolve primary document`)
         skipped++
@@ -221,8 +226,9 @@ async function getFilingPrimaryDoc(cik, accession) {
 }
 
 async function fetchItemSection(docUrl) {
+  if (DEBUG) console.log(`    fetching doc: ${docUrl}`)
   const html = await fetchText(docUrl)
-  if (!html) return null
+  if (!html) { if (DEBUG) console.log('    fetchText returned null'); return null }
 
   // Normalize HTML entities and tags into clean text
   const text = html
@@ -240,6 +246,7 @@ async function fetchItemSection(docUrl) {
     /item\s*no\.?\s*5\.02/i,  // "Item No. 5.02"
     /5\.02\s+departure/i,     // "5.02 Departure of..."
     /5\.02\s+appointment/i,   // "5.02 Appointment of..."
+    /5\.02/,                  // bare "5.02" fallback
   ]
 
   let idx = -1
@@ -247,6 +254,13 @@ async function fetchItemSection(docUrl) {
     const m = pat.exec(text)
     if (m) { idx = m.index; break }
   }
+
+  if (DEBUG) {
+    console.log(`    text length: ${text.length}, idx: ${idx}`)
+    console.log(`    text sample: ${text.slice(0, 300)}`)
+    if (idx !== -1) console.log(`    section start: ${text.slice(idx, idx + 200)}`)
+  }
+
   if (idx === -1) return null
 
   return text.slice(idx, idx + 4000).trim()
@@ -394,9 +408,11 @@ async function fetchText(url) {
       headers: { ...HEADERS, Accept: 'text/html,application/xhtml+xml' },
       signal: AbortSignal.timeout(15000),
     })
+    if (DEBUG) console.log(`    fetchText ${res.status} ${url.slice(-60)}`)
     if (!res.ok) return null
     return await res.text()
-  } catch {
+  } catch (err) {
+    if (DEBUG) console.log(`    fetchText error: ${err.message} — ${url.slice(-60)}`)
     return null
   }
 }
