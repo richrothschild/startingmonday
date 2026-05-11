@@ -50,6 +50,18 @@ const PARTNER_GUIDES = [
     body: 'Offer member benefits that give your members a search advantage, not just networking access. Starting Monday is built specifically for the executives in your community.',
     cta: 'Read the associations guide',
   },
+  {
+    label: 'Executive financial advisors',
+    href: '/for-financial-advisors',
+    body: 'Your client is about to start a search. You know the timeline, the runway, and the compensation target. Starting Monday gives them the infrastructure to execute it as efficiently as the financial plan requires.',
+    cta: 'Read the financial advisors guide',
+  },
+  {
+    label: 'Fractional CIO and CTO networks',
+    href: '/for-fractional-executives',
+    body: 'Fractional executives are always searching. Starting Monday gives your network the infrastructure to track engagements, monitor target companies, and move to full-time when the right opportunity surfaces.',
+    cta: 'Read the fractional networks guide',
+  },
 ]
 
 const TIERS = [
@@ -210,9 +222,17 @@ export default function PartnersPage() {
               <Link href="/for-relocation" className="text-slate-700 underline hover:text-slate-900 transition-colors">
                 relocation firms
               </Link>
-              {' '}and{' '}
+              ,{' '}
               <Link href="/for-cio-associations" className="text-slate-700 underline hover:text-slate-900 transition-colors">
                 CIO and technology associations
+              </Link>
+              ,{' '}
+              <Link href="/for-financial-advisors" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                executive financial advisors
+              </Link>
+              ,{' '}and{' '}
+              <Link href="/for-fractional-executives" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                fractional CIO and CTO networks
               </Link>
               .
             </p>

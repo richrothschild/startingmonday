@@ -373,6 +373,23 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     related: ['executive-coaching-job-search', 'coaches-guide', 'executive-search-operating-system'],
   },
   {
+    slug: 'technology-executive-transition-chro',
+    title: 'What CHROs Should Know About Technology Executive Career Transition',
+    description: 'Technology executive searches run longer and require different support than general executive outplacement. What CHROs can do to improve outcomes for CIOs, CTOs, and VPs of Technology in transition.',
+    date: '2026-05-11',
+    readTime: '6 min read',
+    keywords: [
+      'technology executive outplacement',
+      'CHRO technology executive transition',
+      'CIO career transition support',
+      'chief information officer outplacement',
+      'how to support technology executives in transition',
+      'CHRO executive outplacement strategy',
+      'technology executive career support',
+    ],
+    related: ['executive-coaching-candidate-infrastructure', 'retained-search-candidate-preparation', 'executive-search-operating-system'],
+  },
+  {
     slug: 'retained-search-candidate-preparation',
     title: 'Why Technology Executive Candidates Fail the First Round',
     description: 'The most common reason a technology executive candidate does not advance past the first round is not fit. It is preparation. What adequate preparation looks like at the senior level, and what search firms can do about the gap.',

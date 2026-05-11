@@ -30,6 +30,7 @@ function formatDate(iso: string): string {
 const INTERMEDIARY_SLUGS = new Set([
   'executive-coaching-candidate-infrastructure',
   'retained-search-candidate-preparation',
+  'technology-executive-transition-chro',
 ])
 
 export default function BlogIndexPage() {
