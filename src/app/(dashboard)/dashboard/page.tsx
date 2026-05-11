@@ -11,7 +11,7 @@ import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
-import { saveQuickProfile, saveWeeklyGoal } from './profile/actions'
+import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
 import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
@@ -42,7 +42,7 @@ export default async function DashboardPage({
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at')
     .eq('user_id', user.id)
     .single()
 
@@ -187,6 +187,45 @@ export default async function DashboardPage({
   ]
   const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
+
+  // Stall detection — pattern-specific nudge shown after 14 days of low activity
+  type StallNudge = { headline: string; body: string; action: string; href: string } | null
+  let stallNudge: StallNudge = null
+  const dismissedAt = (profile as unknown as { stall_nudge_dismissed_at?: string | null })?.stall_nudge_dismissed_at
+  const dismissedDaysAgo = dismissedAt ? Math.floor((Date.now() - new Date(dismissedAt).getTime()) / 86400000) : Infinity
+  const searchStartedAt = profile?.search_started_at ? new Date(profile.search_started_at) : null
+  const daysSinceStart = searchStartedAt ? Math.floor((Date.now() - searchStartedAt.getTime()) / 86400000) : null
+  const contactCount = (contactRows ?? []).length
+  const totalCompanies = (allCompanies ?? []).length
+  const hasAdvancedStage = (allCompanies ?? []).some(c => ['interviewing', 'applied', 'offer'].includes(c.stage))
+
+  if (!profile?.placed_at && dismissedDaysAgo > 7 && daysSinceStart !== null && daysSinceStart >= 14) {
+    if (totalCompanies > 0 && contactCount === 0) {
+      stallNudge = {
+        headline: 'Companies tracked. No contacts added.',
+        body: 'Your target list is built. Adding the people you know at these companies is usually what holds the first outreach back. Even one contact changes the shape of the conversation.',
+        action: 'Add a contact',
+        href: '/dashboard/contacts',
+      }
+    } else if (contactCount > 0 && !hasAdvancedStage && daysSinceLastAction !== null && daysSinceLastAction >= 14) {
+      const hasSummary = !!(profile as unknown as { positioning_summary?: string | null })?.positioning_summary
+      stallNudge = {
+        headline: 'No activity in two weeks.',
+        body: hasSummary
+          ? 'You have contacts to work but nothing has moved. Run a strategy brief to see where the gap is.'
+          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back — you are not sure what to say yet.',
+        action: hasSummary ? 'Run strategy brief' : 'Add your positioning',
+        href: hasSummary ? '/dashboard/strategy' : '/dashboard/profile',
+      }
+    } else if (totalCompanies > 0 && !hasAdvancedStage && daysSinceLastAction !== null && daysSinceLastAction >= 21) {
+      stallNudge = {
+        headline: 'Nothing has moved in three weeks.',
+        body: 'Every company is still at watching or researching. Either the target list needs narrowing, or the outreach has not started. Both are diagnosable.',
+        action: 'Run a strategy brief',
+        href: '/dashboard/strategy',
+      }
+    }
+  }
 
   // Pipeline velocity rows (all companies, sorted by staleness)
   const velocityRows: VelocityRow[] = (companies ?? []).map(c => ({
@@ -684,6 +723,31 @@ export default async function DashboardPage({
         )}
 
         <OpportunityRadar />
+
+        {/* Stall nudge */}
+        {stallNudge && (
+          <div className="bg-amber-50 border border-amber-200 rounded p-4 mb-5 flex items-start gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-[13px] font-semibold text-amber-900 mb-1">{stallNudge.headline}</p>
+              <p className="text-[13px] text-amber-800 leading-relaxed mb-3">{stallNudge.body}</p>
+              <Link
+                href={stallNudge.href}
+                className="inline-block text-[12px] font-bold text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1.5 rounded hover:bg-amber-200 transition-colors"
+              >
+                {stallNudge.action} →
+              </Link>
+            </div>
+            <form action={dismissStallNudge} className="shrink-0">
+              <button
+                type="submit"
+                className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </form>
+          </div>
+        )}
 
         {/* Weekly commitment device */}
         {(() => {

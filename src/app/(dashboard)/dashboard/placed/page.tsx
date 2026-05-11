@@ -51,28 +51,41 @@ export default async function PlacedPage() {
             </p>
           )}
 
-          <p className="text-[14px] text-slate-400 leading-relaxed mb-10">
+          <p className="text-[14px] text-slate-400 leading-relaxed mb-8">
             Your account, companies, contacts, and research history are all still here.
-            Most executives search again within 3 years. When you are ready, everything you built will be waiting.
+            Most executives search again within three years. When you are ready, everything you built will be waiting.
           </p>
+
+          {/* Stay in the market quietly */}
+          {isActive && tier !== 'free' && (
+            <div className="bg-slate-800 rounded-lg px-5 py-5 mb-8">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Stay in the market</p>
+              <p className="text-[15px] font-semibold text-white mb-2 leading-snug">
+                Most executives keep one eye on the market after they land.
+              </p>
+              <p className="text-[13px] text-slate-400 leading-relaxed mb-4">
+                Monitor ($49/month) keeps your target companies under surveillance without the pipeline and prep features.
+                No active search required. Just intelligence, delivered weekly.
+              </p>
+              <Link
+                href="/settings/billing"
+                className="inline-block bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+              >
+                Switch to Monitor →
+              </Link>
+            </div>
+          )}
 
           {/* What to do next */}
           <div className="flex flex-col gap-3 mb-10">
-            {(isTrialing || isActive) && tier !== 'free' ? (
+            {isTrialing && tier === 'free' && (
               <Link
                 href="/settings/billing"
                 className="block text-center bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Keep my subscription active
+                Stay sharp — upgrade to Monitor ($49/mo)
               </Link>
-            ) : isTrialing ? (
-              <Link
-                href="/settings/billing"
-                className="block text-center bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
-              >
-                Stay sharp -- upgrade to Intelligence ($49/mo)
-              </Link>
-            ) : null}
+            )}
             <Link
               href="/dashboard"
               className="block text-center border border-slate-600 text-slate-300 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors"

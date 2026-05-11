@@ -52,6 +52,11 @@ export async function completeOnboarding(formData: FormData) {
 
   if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
 
+  const searchPath =
+    (employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic') ? 'watcher' :
+    (employmentStatus === 'between_roles' && searchTimeline === 'immediately') ? 'nurture' :
+    'campaign'
+
   const now = new Date().toISOString()
 
   await supabase.from('user_profiles').upsert(
@@ -63,6 +68,7 @@ export async function completeOnboarding(formData: FormData) {
       current_company:          currentCompany,
       employment_status:        employmentStatus,
       search_timeline:          searchTimeline,
+      search_path:              searchPath,
       linkedin_url:             linkedinUrl,
       target_titles:            targetTitles.length > 0 ? targetTitles : null,
       target_sectors:           targetSectors.length > 0 ? targetSectors : null,

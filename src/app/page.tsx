@@ -44,6 +44,11 @@ const SITUATIONS: SituationCard[] = [
     sub: 'Targeted search. I just need to move faster.',
   },
   {
+    id: 'building',
+    headline: "I'm still in my role. The decision is made.",
+    sub: 'Building my target list and warming up relationships before I announce anything.',
+  },
+  {
     id: 'restructured',
     headline: 'My role was restructured.',
     sub: 'I know my worth. I want to land at the right level, not just the next one.',

@@ -34,6 +34,13 @@ export default function ExecutiveResumeGapsPage() {
       date={post.date}
       readTime={post.readTime}
       url="https://startingmonday.app/blog/executive-resume-gaps"
+      cta={{
+        headline: 'Something is blocking your search. Find out what.',
+        body: 'The AI strategy brief synthesizes your positioning, targets, and pipeline to surface what is holding you back. Run it in 60 seconds.',
+        label: 'Run your strategy brief →',
+        href: '/signup',
+        note: 'Free for 30 days. No credit card.',
+      }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogPost } from '@/components/BlogPost'
+import { BlogCallout } from '@/components/BlogCallout'
 import { getPost } from '@/lib/blog-posts'
 
 const post = getPost('cio-job-search-timeline')!
@@ -34,6 +35,13 @@ export default function CioJobSearchTimelinePage() {
       date={post.date}
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cio-job-search-timeline"
+      cta={{
+        headline: 'Start building before the clock starts.',
+        body: 'Starting Monday monitors your target companies for organizational signals before a search is formalized. Set up your watchlist now and be ready when the call comes.',
+        label: 'Start watching now →',
+        href: '/signup',
+        note: 'Free for 30 days. No credit card.',
+      }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
@@ -105,6 +113,13 @@ export default function CioJobSearchTimelinePage() {
           not have now? Candidates who hedge, cover too many bases, or lead with their title instead of their
           impact stall at the second call.
         </p>
+
+        <BlogCallout
+          headline="The executives who land fastest started building before they needed to."
+          body="Starting Monday monitors your target companies every 48 hours. When signals cluster before a search opens, you know. Set up your watchlist now."
+          label="Start watching now →"
+          href="/signup"
+        />
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What actually speeds it up</h2>
 

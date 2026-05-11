@@ -27,6 +27,13 @@ export default function HowCiosFindJobsPage() {
       date={post.date}
       readTime={post.readTime}
       url="https://startingmonday.app/blog/how-cios-find-jobs"
+      cta={{
+        headline: 'You know how it works. Here is the system for doing it consistently.',
+        body: 'Starting Monday monitors the organizational signals that precede CIO searches and helps you act on them before the role is formalized. Start watching your target companies quietly.',
+        label: 'Start watching now →',
+        href: '/signup',
+        note: 'Free for 30 days. No credit card.',
+      }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
