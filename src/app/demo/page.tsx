@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 function escapeHtml(str: string): string {
   return str
@@ -63,6 +64,9 @@ function secondHeaderIndex(text: string): number {
 }
 
 export default function DemoPage() {
+  const searchParams = useSearchParams()
+  const noGate = searchParams.get('full') === '1'
+
   const [company,  setCompany]  = useState('')
   const [role,     setRole]     = useState('')
   const [content,  setContent]  = useState('')
@@ -76,7 +80,7 @@ export default function DemoPage() {
 
   const gateIdx   = secondHeaderIndex(content)
   const gateReady = gateIdx !== -1
-  const gated     = gateReady && !revealed
+  const gated     = gateReady && !revealed && !noGate
 
   const visibleContent = gated ? content.slice(0, gateIdx).trimEnd() : content
 

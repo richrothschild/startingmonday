@@ -195,7 +195,7 @@ export default function CareerToolsPage() {
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see it first?{' '}
-                <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                <Link href="/demo?full=1" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
                 </Link>
                 .
