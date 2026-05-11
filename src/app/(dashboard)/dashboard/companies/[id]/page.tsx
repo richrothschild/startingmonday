@@ -103,10 +103,10 @@ export default async function CompanyPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ error?: string; saved?: string; scanning?: string }>
+  searchParams: Promise<{ error?: string; saved?: string; scanning?: string; stage_up?: string }>
 }) {
   const { id } = await params
-  const { error, saved, scanning } = await searchParams
+  const { error, saved, scanning, stage_up: stageUp } = await searchParams
   const isScanning = scanning === '1' && true
 
   const supabase = await createClient()
@@ -280,11 +280,26 @@ export default async function CompanyPage({
                 {errorMsg}
               </div>
             )}
-            {saved && (
+            {stageUp ? (
+              <div className="mb-5 px-5 py-4 bg-green-50 border border-green-200 rounded flex items-center gap-4">
+                <span className="text-[22px] leading-none">&#10003;</span>
+                <div>
+                  <p className="text-[14px] font-semibold text-green-900">
+                    {company.name} moved to {
+                      stageUp === 'researching'  ? 'Researching' :
+                      stageUp === 'applied'       ? 'In Process' :
+                      stageUp === 'interviewing'  ? 'Interviewing' :
+                      stageUp === 'offer'         ? 'Offer' : stageUp
+                    }.
+                  </p>
+                  <p className="text-[12px] text-green-700 mt-0.5">That is real progress.</p>
+                </div>
+              </div>
+            ) : saved ? (
               <div className="mb-5 px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
                 Changes saved.
               </div>
-            )}
+            ) : null}
 
             <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5">
 

@@ -34,17 +34,18 @@ export async function generateSignalOutreach(formData: FormData) {
   const positioning = profile?.positioning_summary ? `\nCandidate positioning: ${profile.positioning_summary}` : ''
   const angle = signal.outreach_angle ? `\nSuggested angle: ${signal.outreach_angle}` : ''
 
-  const prompt = `Write a cold outreach message for a senior executive to send to a contact at ${companyName}.
+  const prompt = `Write a brief message a senior executive would send to someone they already know at ${companyName}, using a recent company development as the reason to reconnect now.
 
-Signal that prompted this outreach: [${signal.signal_type.replace(/_/g, ' ').toUpperCase()}] ${signal.signal_summary}${angle}
+Signal (reason to reconnect): [${signal.signal_type.replace(/_/g, ' ').toUpperCase()}] ${signal.signal_summary}${angle}
 Sender: ${candidate || 'senior executive'}${positioning}
 
 Rules:
-- Maximum 3 sentences. Do not exceed this.
+- This is a reconnect to someone the sender knows, not a cold introduction to a stranger.
+- 2-3 sentences maximum. Do not exceed this.
+- Reference the specific signal naturally, not mechanically. It is context, not the pitch.
 - No em dashes, no "I hope this finds you well", no "I wanted to reach out", no "touch base"
-- Sound like a real senior executive, not a template
+- Sound like a real person writing to someone they know.
 - No greeting or sign-off. Body only.
-- Reference the specific signal. Generic outreach is noise.
 - Write as the sender in first person.`
 
   try {
