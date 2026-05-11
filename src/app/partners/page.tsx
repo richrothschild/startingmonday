@@ -62,6 +62,12 @@ const PARTNER_GUIDES = [
     body: 'Fractional executives are always searching. Starting Monday gives your network the infrastructure to track engagements, monitor target companies, and move to full-time when the right opportunity surfaces.',
     cta: 'Read the fractional networks guide',
   },
+  {
+    label: 'Podcast hosts and newsletter writers',
+    href: '/for-media-partners',
+    body: 'Original data, practitioner expertise, and an audience your listeners and readers are already becoming. We are looking for co-creation, not sponsor reads.',
+    cta: 'Read the media partner guide',
+  },
 ]
 
 const TIERS = [
@@ -230,9 +236,13 @@ export default function PartnersPage() {
               <Link href="/for-financial-advisors" className="text-slate-700 underline hover:text-slate-900 transition-colors">
                 executive financial advisors
               </Link>
-              ,{' '}and{' '}
+              ,{' '}
               <Link href="/for-fractional-executives" className="text-slate-700 underline hover:text-slate-900 transition-colors">
                 fractional CIO and CTO networks
+              </Link>
+              ,{' '}and{' '}
+              <Link href="/for-media-partners" className="text-slate-700 underline hover:text-slate-900 transition-colors">
+                podcast hosts and newsletter writers
               </Link>
               .
             </p>
