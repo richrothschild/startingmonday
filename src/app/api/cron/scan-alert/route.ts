@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
   }).join('')
 
   const html = `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:640px;margin:40px auto;padding:0 16px;color:#334155;">
-<p style="font-size:16px;font-weight:700;color:#dc2626;margin:0 0 8px 0;">Scan failure alert: ${failing.length} company${failing.length > 1 ? 'ies' : 'y'} with ${CONSECUTIVE_THRESHOLD} consecutive empty results</p>
+<p style="font-size:16px;font-weight:700;color:#dc2626;margin:0 0 8px 0;">Scan failure alert: ${failing.length} compan${failing.length > 1 ? 'ies' : 'y'} with ${CONSECUTIVE_THRESHOLD} consecutive empty results</p>
 <p style="font-size:14px;color:#64748b;margin:0 0 20px 0;">Each company below has had ${CONSECUTIVE_THRESHOLD} consecutive scans return 0 results. This may mean the career page URL is broken, the page requires JavaScript, or the site structure changed.</p>
 <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;font-size:13px;">
   <thead>
