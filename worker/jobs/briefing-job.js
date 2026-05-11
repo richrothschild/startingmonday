@@ -28,11 +28,12 @@ function currentHHMMInTz(tz) {
   return `${h.padStart(2, '0')}:${m.padStart(2, '0')}`
 }
 
-function isWithinWindow(currentHHMM, targetHHMM, windowMinutes = 10) {
+function isWithinWindow(currentHHMM, targetHHMM, catchUpMinutes = 90) {
   const [ch, cm] = currentHHMM.split(':').map(Number)
   const [th, tm] = targetHHMM.split(':').map(Number)
-  const diff = Math.abs(ch * 60 + cm - (th * 60 + tm))
-  return diff <= windowMinutes
+  const current = ch * 60 + cm
+  const target = th * 60 + tm
+  return current >= target && current < target + catchUpMinutes
 }
 
 export async function runBriefingJob() {
