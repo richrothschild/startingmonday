@@ -50,6 +50,7 @@ export function recordTrace(params: TraceParams): void {
     latency_ms: latencyMs,
     input_snapshot: inputSnapshot ?? null,
     output_snapshot: outputSnapshot ? outputSnapshot.slice(0, 2000) : null,
+    success: true,
   }).then(
     () => {},
     (err) => console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'trace_write_error', feature, error: String(err) }))

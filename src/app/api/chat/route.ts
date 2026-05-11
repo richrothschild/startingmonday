@@ -10,6 +10,7 @@ import { anthropic, MODELS, withStreamTimeout } from '@/lib/anthropic'
 import { buildChatSystemPrompt } from '@/lib/prompts'
 import { ChatBodySchema, firstZodError } from '@/lib/schemas'
 import { recordTrace, recordTraceError } from '@/lib/trace'
+import { checkRateLimit } from '@/lib/rate-limit'
 const MAX_TOOL_ROUNDS = 5
 
 type ToolInput = Record<string, string>
@@ -159,6 +160,14 @@ export async function POST(request: NextRequest) {
   if (!access.ok) return access.response
 
   const { userId, supabase } = access
+
+  const { allowed, retryAfter } = checkRateLimit(userId)
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Too many requests - slow down and try again shortly' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    )
+  }
 
   let body: unknown
   try { body = await request.json() } catch {

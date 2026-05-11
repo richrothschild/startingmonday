@@ -1,0 +1,1 @@
+ALTER TABLE llm_traces ADD COLUMN IF NOT EXISTS success boolean NOT NULL DEFAULT true;
