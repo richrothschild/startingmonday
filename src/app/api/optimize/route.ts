@@ -78,11 +78,20 @@ export async function POST(request: NextRequest) {
   }
 
   let text: string
+  let email: string | null = null
   try {
     const body = await request.json()
     text = (body.text ?? '').trim()
+    const rawEmail = (body.email ?? '').trim().toLowerCase()
+    if (rawEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) {
+      email = rawEmail
+    }
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
+  }
+
+  if (!email) {
+    return new Response(JSON.stringify({ error: 'Email is required.' }), { status: 400 })
   }
 
   if (!text || text.length < 100) {
@@ -93,6 +102,10 @@ export async function POST(request: NextRequest) {
   }
 
   if (text.length > 20000) text = text.slice(0, 20000)
+
+  // Store lead email - fire and forget, do not block the stream on a write failure
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(supabase as any).from('optimize_leads').insert({ email, ip }).then(() => {})
 
   const stream = await anthropic.messages.stream({
     model: MODELS.sonnet,
