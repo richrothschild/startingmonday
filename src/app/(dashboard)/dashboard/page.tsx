@@ -1085,8 +1085,9 @@ export default async function DashboardPage({
           </div>
         )}
 
+
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-2">
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
@@ -1106,6 +1107,15 @@ export default async function DashboardPage({
               <p className="text-[11px] text-slate-400 mt-0.5">{a.sub}</p>
             </Link>
           ))}
+        </div>
+
+        {/* Pause Search (less prominent, but findable) */}
+        <div className="mb-6 sm:mb-8 flex flex-col items-center">
+          <div className="w-full max-w-xs">
+            <div className="text-[11px] text-slate-400 mb-1 text-center">Need a break? Pause your search:</div>
+            {/* @ts-expect-error Async Server Component import in client file */}
+            {typeof window !== 'undefined' && require('@/components/PauseSearchButton').PauseSearchButton()}
+          </div>
         </div>
 
         {/* Today */}
