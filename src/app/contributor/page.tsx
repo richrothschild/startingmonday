@@ -43,6 +43,16 @@ const SECTIONS = [
         description: 'System topology, data model, auth/billing, AI integration, worker jobs and schedules, security posture, key files.',
         href: `${REPO}/ARCHITECTURE.md`,
       },
+      {
+        title: 'Tech Debt — Round 2',
+        description: '7 open items from the May 2026 scan: Sentry gaps in 8 routes, unauthenticated notify endpoint, stale type casts in cron and dashboard pages, Stripe SDK workarounds.',
+        href: `${REPO}/docs/tech-debt-round2.md`,
+      },
+      {
+        title: 'Security Audit Runbook',
+        description: 'Reusable 5-area security checklist: API surface, Supabase RLS, AI prompt security, third-party integrations, headers and infrastructure. Includes grep commands, risk scoring, and findings tracker.',
+        href: `${REPO}/docs/security-audit-runbook.md`,
+      },
     ],
   },
   {
