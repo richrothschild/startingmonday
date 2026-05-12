@@ -101,20 +101,29 @@ async function runForCik(cikRaw) {
   if (!sub) { console.error('Could not fetch submissions JSON'); return }
 
   const entityName = sub.name ?? cik
+  console.log(`Entity: ${entityName}`)
 
   // submissions JSON splits filings into recent + older pages under filings.files
+  const filePages = sub.filings?.files ?? []
+  console.log(`Filing pages in submissions JSON: ${filePages.length + 1} (recent + ${filePages.length} older)`)
+  filePages.forEach(f => console.log(`  page: ${f.name} [${f.filingFrom} to ${f.filingTo}]`))
+
   const pages = [sub.filings?.recent ?? {}]
-  for (const f of (sub.filings?.files ?? [])) {
+  for (const f of filePages) {
     if (!f.name) continue
     // Each file covers a date range — skip pages entirely outside our window
     const pageEnd = f.filingTo ?? ''
-    if (pageEnd && pageEnd < startDate) continue
+    if (pageEnd && pageEnd < startDate) {
+      console.log(`  skipping page ${f.name} (ends ${pageEnd} before ${startDate})`)
+      continue
+    }
     await sleep(DELAY_MS)
     const page = await fetchJSON(`https://data.sec.gov/submissions/${f.name}`)
     if (page) pages.push(page)
   }
 
   let processed = 0, inserted = 0, skipped = 0, failed = 0
+  let diag8k = 0, diagDatePass = 0, diagItemPass = 0
 
   outer: for (const page of pages) {
     const accessions = page.accessionNumber ?? []
@@ -126,6 +135,12 @@ async function runForCik(cikRaw) {
       if (processed >= LIMIT) break outer
 
       if ((forms[i] ?? '') !== '8-K') continue
+      diag8k++
+
+      const fileDate = dates[i] ?? ''
+      if (fileDate >= startDate && fileDate <= endDate) diagDatePass++
+      const itemsStr = itemsList[i] ?? ''
+      if ((!itemsStr || itemsStr.includes('5.02')) && fileDate >= startDate && fileDate <= endDate) diagItemPass++
 
       const itemsStr = itemsList[i] ?? ''
       if (itemsStr && !itemsStr.includes('5.02')) continue
@@ -184,7 +199,8 @@ async function runForCik(cikRaw) {
     }
   }
 
-  console.log(`\nDone. processed=${processed} inserted=${inserted} skipped=${skipped} failed=${failed}`)
+  console.log(`\nDiag: 8-Ks seen=${diag8k} in-date-range=${diagDatePass} item-5.02-candidates=${diagItemPass}`)
+  console.log(`Done. processed=${processed} inserted=${inserted} skipped=${skipped} failed=${failed}`)
 }
 
 // ── EFTS full-scan run (original) ────────────────────────────────────────────
