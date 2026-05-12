@@ -159,7 +159,7 @@ export default async function CompanyPage({
       .single(),
     supabase
       .from('follow_ups')
-      .select('id, action, due_date')
+      .select('id, action, due_date, contact_id')
       .eq('company_id', id)
       .eq('user_id', user.id)
       .eq('status', 'pending')
@@ -228,6 +228,12 @@ export default async function CompanyPage({
   if (!company) notFound()
 
   const todayISO = todayInTz(profile?.briefing_timezone ?? 'UTC')
+  const nextFollowUpByContact = new Map<string, { due_date: string; action: string }>()
+  for (const fu of (followUps ?? [])) {
+    if (fu.contact_id && !nextFollowUpByContact.has(fu.contact_id)) {
+      nextFollowUpByContact.set(fu.contact_id, { due_date: fu.due_date, action: fu.action })
+    }
+  }
 
   const NOTES_PLACEHOLDERS: Record<string, string> = {
     cio:          'Transformation agenda, current CIO tenure and departure context, CFO relationship dynamic, board technology appetite...',
@@ -839,6 +845,16 @@ export default async function CompanyPage({
               {contacts.map(ct => {
                 const ch = ct.channel ? (CHANNEL[ct.channel] ?? { label: ct.channel, cls: 'bg-slate-100 text-slate-500' }) : null
                 const os = OUTREACH_STATUS[ct.outreach_status ?? 'prospect'] ?? OUTREACH_STATUS.prospect
+                const nextFollowUp = nextFollowUpByContact.get(ct.id)
+                const nextAction = nextFollowUp
+                  ? `Follow up ${new Date(nextFollowUp.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                  : ct.outreach_status === 'prospect'
+                    ? 'Draft first outreach'
+                    : ct.outreach_status === 'meeting_scheduled'
+                      ? 'Prep for meeting'
+                      : ct.outreach_status === 'closed'
+                        ? 'Keep warm monthly'
+                        : 'Set next follow-up'
                 return (
                   <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
                     <div className="flex-1 min-w-0">
@@ -861,6 +877,9 @@ export default async function CompanyPage({
                       {ct.notes && (
                         <p className="text-[12px] text-slate-400 mt-1 truncate max-w-xl">{ct.notes}</p>
                       )}
+                      <p className="text-[11px] text-slate-500 mt-1.5">
+                        Next relationship action: <span className="font-semibold text-slate-700">{nextAction}</span>
+                      </p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
                       <Link

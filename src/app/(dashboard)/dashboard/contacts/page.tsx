@@ -19,7 +19,7 @@ export default async function ContactsPage({
   const [{ data: rawContacts }, { data: companies }, sub] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, outreach_status, is_priority, companies(name)')
+      .select('id, name, title, firm, channel, notes, outreach_status, is_priority, companies(id, name)')
       .eq('user_id', user.id)
       .eq('status', 'active')
       .order('is_priority', { ascending: false })

@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
+import { logBriefingAction } from './actions'
 import { LogoutButton } from '../logout-button'
 
 export const metadata = {
@@ -285,12 +286,16 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                 ))}
               </div>
               <div className="mt-4">
-                <Link
-                  href="/dashboard/signals"
-                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
-                >
-                  Open signals and choose a follow-up &rarr;
-                </Link>
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="overnight_changes" />
+                  <input type="hidden" name="target" value="/dashboard/signals" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open signals and choose a follow-up &rarr;
+                  </button>
+                </form>
               </div>
             </div>
           )}
@@ -312,12 +317,16 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                 ))}
               </div>
               <div className="mt-4">
-                <Link
-                  href="/dashboard/companies"
-                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
-                >
-                  Open companies and run next outreach step &rarr;
-                </Link>
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="people_to_reach" />
+                  <input type="hidden" name="target" value="/dashboard/companies" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open companies and run next outreach step &rarr;
+                  </button>
+                </form>
               </div>
             </div>
           )}
@@ -338,12 +347,16 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                 ))}
               </div>
               <div className="mt-4">
-                <Link
-                  href="/dashboard/calendar"
-                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
-                >
-                  Open calendar and complete today&apos;s actions &rarr;
-                </Link>
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="today_do_this" />
+                  <input type="hidden" name="target" value="/dashboard/calendar" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open calendar and complete today&apos;s actions &rarr;
+                  </button>
+                </form>
               </div>
             </div>
           )}

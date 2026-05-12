@@ -138,6 +138,114 @@ export default async function AdminPage() {
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
 
+  // Go/no-go scorecard metrics (best-effort with explicit tracking gaps)
+  const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+  const since60d = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
+  const [
+    { data: users7d },
+    { data: users60d },
+    { data: companies7d },
+    { data: contacts7d },
+    { data: followUps7d },
+    { data: briefingViews7d },
+    { data: briefingViews14d },
+    { data: actionEvents14d },
+  ] = await Promise.all([
+    adminClient.from('users').select('id, created_at').gte('created_at', since7d).limit(5000),
+    adminClient.from('users').select('id, created_at, subscription_tier, subscription_status').gte('created_at', since60d).limit(5000),
+    adminClient.from('companies').select('user_id').gte('created_at', since7d).is('archived_at', null).limit(5000),
+    adminClient.from('contacts').select('user_id').gte('created_at', since7d).limit(5000),
+    adminClient.from('follow_ups').select('user_id').gte('created_at', since7d).limit(5000),
+    adminClient.from('user_events').select('user_id').eq('event_name', 'briefing_viewed').gte('created_at', since7d).limit(5000),
+    adminClient.from('user_events').select('user_id').eq('event_name', 'briefing_viewed').gte('created_at', since14d).limit(5000),
+    adminClient.from('user_events').select('user_id, event_name').in('event_name', ['follow_up_set', 'contact_added', 'company_added', 'outreach_draft_generated', 'briefing_action_clicked']).gte('created_at', since14d).limit(5000),
+  ])
+
+  const cohort7 = users7d ?? []
+  const cohort7UserIds = new Set(cohort7.map(u => u.id))
+  const usersWithCompany7d = new Set((companies7d ?? []).map(r => r.user_id))
+  const usersWithContact7d = new Set((contacts7d ?? []).map(r => r.user_id))
+  const usersWithFollowUp7d = new Set((followUps7d ?? []).map(r => r.user_id))
+  const usersWithBriefing7d = new Set((briefingViews7d ?? []).map(r => r.user_id))
+
+  let activated7dCount = 0
+  for (const uid of cohort7UserIds) {
+    if (usersWithCompany7d.has(uid) && usersWithContact7d.has(uid) && usersWithFollowUp7d.has(uid) && usersWithBriefing7d.has(uid)) {
+      activated7dCount++
+    }
+  }
+  const activationRate7d = cohort7.length > 0 ? Math.round((activated7dCount / cohort7.length) * 100) : null
+
+  const briefingViewers14d = new Set((briefingViews14d ?? []).map(r => r.user_id))
+  const actionUsers14d = new Set((actionEvents14d ?? []).map(r => r.user_id))
+  const convertedUsers14d = [...briefingViewers14d].filter(uid => actionUsers14d.has(uid)).length
+  const briefingToActionRate14d = briefingViewers14d.size > 0 ? Math.round((convertedUsers14d / briefingViewers14d.size) * 100) : null
+
+  const monitorCohort = (users60d ?? []).filter(u => {
+    const created = new Date(u.created_at).getTime()
+    const min = Date.now() - 60 * 24 * 60 * 60 * 1000
+    const max = Date.now() - 30 * 24 * 60 * 60 * 1000
+    return created >= min && created <= max && u.subscription_tier === 'passive'
+  })
+  const monitorRetained = monitorCohort.filter(u => u.subscription_status === 'active').length
+  const monitorRetention30d = monitorCohort.length > 0 ? Math.round((monitorRetained / monitorCohort.length) * 100) : null
+
+  type ScoreStatus = 'green' | 'yellow' | 'red' | 'gray'
+  function statusClass(status: ScoreStatus): string {
+    if (status === 'green') return 'text-green-700 bg-green-50 border-green-200'
+    if (status === 'yellow') return 'text-amber-700 bg-amber-50 border-amber-200'
+    if (status === 'red') return 'text-red-700 bg-red-50 border-red-200'
+    return 'text-slate-500 bg-slate-50 border-slate-200'
+  }
+
+  const scoreRows: { label: string; threshold: string; value: string; status: ScoreStatus; note?: string }[] = [
+    {
+      label: 'Activation completion (7d)',
+      threshold: '>= 45%',
+      value: activationRate7d === null ? 'N/A' : `${activationRate7d}%`,
+      status: activationRate7d === null ? 'gray' : activationRate7d >= 45 ? 'green' : activationRate7d >= 35 ? 'yellow' : 'red',
+      note: cohort7.length > 0 ? `Cohort n=${cohort7.length}` : 'Need more 7-day signups',
+    },
+    {
+      label: 'Briefing to action (14d)',
+      threshold: '>= 35%',
+      value: briefingToActionRate14d === null ? 'N/A' : `${briefingToActionRate14d}%`,
+      status: briefingToActionRate14d === null ? 'gray' : briefingToActionRate14d >= 35 ? 'green' : briefingToActionRate14d >= 25 ? 'yellow' : 'red',
+      note: briefingViewers14d.size > 0 ? `Viewers n=${briefingViewers14d.size}` : 'No briefing viewers in window',
+    },
+    {
+      label: 'Monitor retention (30d)',
+      threshold: '>= 70%',
+      value: monitorRetention30d === null ? 'N/A' : `${monitorRetention30d}%`,
+      status: monitorRetention30d === null ? 'gray' : monitorRetention30d >= 70 ? 'green' : monitorRetention30d >= 60 ? 'yellow' : 'red',
+      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Monitor cohort yet',
+    },
+    {
+      label: 'Upgrade pull (30d)',
+      threshold: '>= 12%',
+      value: 'Tracking gap',
+      status: 'gray',
+      note: 'Need tier-change event history for monitor_to_paid_upgrade.',
+    },
+    {
+      label: 'Reliability floor',
+      threshold: 'briefing fresh + no stale worker',
+      value: briefingConfiguredProfiles.length === 0 ? 'N/A' : briefingStale ? 'Stale' : 'Healthy',
+      status: briefingConfiguredProfiles.length === 0 ? 'gray' : briefingStale ? 'red' : 'green',
+      note: briefingConfiguredProfiles.length === 0 ? 'No briefing configs yet' : `Last briefing ${briefingHoursAgo ?? '-'}h ago`,
+    },
+  ]
+
+  const hardRedCount = scoreRows.filter(r => r.status === 'red').length
+  const measurableCount = scoreRows.filter(r => r.status !== 'gray').length
+  const measurableGreen = scoreRows.filter(r => r.status === 'green').length
+  const decision: { label: 'GO' | 'CONDITIONAL GO' | 'NO-GO'; status: ScoreStatus; reason: string } =
+    hardRedCount > 0
+      ? { label: 'NO-GO', status: 'red', reason: 'One or more hard thresholds are below floor.' }
+      : measurableCount > 0 && measurableGreen === measurableCount
+        ? { label: 'GO', status: 'green', reason: 'All measurable thresholds are on target.' }
+        : { label: 'CONDITIONAL GO', status: 'yellow', reason: 'No hard failures, but missing data or near-threshold metrics remain.' }
+
   // Active trial users: enrich with company status
   const trialUsers = activeTrials ?? []
   const trialUserIds = trialUsers.map(u => u.id)
@@ -309,6 +417,33 @@ export default async function AdminPage() {
               <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
                 <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
                 <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</p>
+              <p className="text-[12px] text-slate-400 mt-1">Auto-evaluated from current measurable thresholds.</p>
+            </div>
+            <div className={`text-[12px] font-bold px-3 py-1.5 rounded border ${statusClass(decision.status)}`}>
+              {decision.label}
+            </div>
+          </div>
+          <p className="text-[12px] text-slate-600 mb-4">{decision.reason}</p>
+          <div className="space-y-2">
+            {scoreRows.map((row) => (
+              <div key={row.label} className="border border-slate-200 rounded px-4 py-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-slate-900 truncate">{row.label}</p>
+                    <p className="text-[11px] text-slate-400">Threshold: {row.threshold}</p>
+                  </div>
+                  <span className={`text-[11px] font-bold px-2.5 py-1 rounded border shrink-0 ${statusClass(row.status)}`}>{row.value}</span>
+                </div>
+                {row.note && <p className="text-[11px] text-slate-500 mt-1.5">{row.note}</p>}
               </div>
             ))}
           </div>
