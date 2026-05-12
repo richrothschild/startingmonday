@@ -575,6 +575,30 @@ export default async function DashboardPage({
             </p>
         </div>
 
+        <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</p>
+            <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+              {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/dashboard/briefing"
+              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+            >
+              Open briefing
+            </Link>
+            <Link
+              href="/dashboard/calendar"
+              className="inline-block border border-slate-200 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+            >
+              View due today
+            </Link>
+          </div>
+        </div>
+
         {/* Profile quick-save confirmation */}
         {profile_saved && (
           <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">

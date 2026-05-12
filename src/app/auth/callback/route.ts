@@ -6,7 +6,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard'
+  const next = searchParams.get('next') ?? '/dashboard/briefing'
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
   // x-forwarded-host contains the real public hostname (startingmonday.app).

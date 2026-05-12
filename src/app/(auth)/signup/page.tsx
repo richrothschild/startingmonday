@@ -81,7 +81,7 @@ export default function SignupPage() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+      options: { emailRedirectTo: `${window.location.origin}/dashboard/briefing` },
     })
 
     if (error) {
@@ -143,7 +143,7 @@ export default function SignupPage() {
     }
 
     const seatToken = new URLSearchParams(window.location.search).get('seat_token')
-    router.push(seatToken ? `/team/join/${seatToken}` : '/dashboard')
+    router.push(seatToken ? `/team/join/${seatToken}` : '/dashboard/briefing')
     router.refresh()
   }
 

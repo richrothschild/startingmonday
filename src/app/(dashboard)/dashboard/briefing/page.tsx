@@ -230,7 +230,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
   const briefing = context.hasContent ? await generateBriefing(context) : null
   const signalAlerts  = briefing?.signalAlerts ?? []
   const matchInsights = briefing?.matchInsights ?? []
-  const followUpItems = briefing?.followUpSuggestions ?? []
+  const followUpItems = (briefing?.followUpSuggestions ?? []).slice(0, 3)
 
   return (
     <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
@@ -283,6 +283,14 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                   </div>
                 ))}
               </div>
+              <div className="mt-4">
+                <Link
+                  href="/dashboard/signals"
+                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
+                >
+                  Open signals and choose a follow-up &rarr;
+                </Link>
+              </div>
             </div>
           )}
 
@@ -302,6 +310,14 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                   </div>
                 ))}
               </div>
+              <div className="mt-4">
+                <Link
+                  href="/dashboard/companies"
+                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
+                >
+                  Open companies and run next outreach step &rarr;
+                </Link>
+              </div>
             </div>
           )}
 
@@ -319,6 +335,14 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                     <p className="text-[13px] text-slate-500 leading-relaxed">{f.suggestion}</p>
                   </div>
                 ))}
+              </div>
+              <div className="mt-4">
+                <Link
+                  href="/dashboard/calendar"
+                  className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
+                >
+                  Open calendar and complete today&apos;s actions &rarr;
+                </Link>
               </div>
             </div>
           )}
