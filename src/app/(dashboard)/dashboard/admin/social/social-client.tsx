@@ -18,6 +18,23 @@ type TodayResponse =
   | { isPostDay: true; dateStr: string; pillar: string; pillarLabel: string; post: SocialPost }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/feed/'
+const LINKEDIN_MESSAGING_URL = 'https://www.linkedin.com/messaging/compose/'
+const LINKEDIN_MYNETWORK_URL = 'https://www.linkedin.com/mynetwork/'
+
+const CONNECTION_TEMPLATES = [
+  {
+    label: 'Cold — exec in search',
+    text: `Hi [Name], I'm building Starting Monday — daily market intelligence for senior tech execs in active search. Thought it might be useful given where you are. Happy to connect.`,
+  },
+  {
+    label: 'Warm — referred or met',
+    text: `Hi [Name], [Referrer] suggested I reach out. I'm building Starting Monday for CIOs and CTOs navigating a search. Would love to stay connected.`,
+  },
+  {
+    label: 'Follow-up — after content',
+    text: `Hi [Name], glad the post resonated. I built Starting Monday for exactly the dynamic you described — would love to connect and hear more about what you're seeing.`,
+  },
+]
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr + 'T12:00:00Z').toLocaleDateString('en-US', {
@@ -38,6 +55,10 @@ export function SocialClient() {
   const [markingPosted, setMarkingPosted] = useState(false)
   const [posting, setPosting] = useState(false)
   const [regenerating, setRegenerating] = useState(false)
+  const [copiedTemplate, setCopiedTemplate] = useState<number | null>(null)
+  const [connectionTexts, setConnectionTexts] = useState<string[]>(
+    CONNECTION_TEMPLATES.map(t => t.text)
+  )
 
   useEffect(() => { load() }, [])
 
@@ -130,6 +151,12 @@ export function SocialClient() {
     } finally {
       setPosting(false)
     }
+  }
+
+  async function handleCopyTemplate(index: number) {
+    await navigator.clipboard.writeText(connectionTexts[index])
+    setCopiedTemplate(index)
+    setTimeout(() => setCopiedTemplate(null), 2000)
   }
 
   async function handleRegenerate() {
@@ -297,6 +324,56 @@ export function SocialClient() {
             Posted
           </div>
         )}
+      </div>
+
+      {/* Connection outreach */}
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400">LinkedIn Connection Messages</p>
+          <div className="flex gap-2">
+            <a
+              href={LINKEDIN_MESSAGING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 hover:text-slate-800 transition-colors"
+            >
+              Open Messaging
+            </a>
+            <a
+              href={LINKEDIN_MYNETWORK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 hover:text-slate-800 transition-colors"
+            >
+              My Network
+            </a>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          {CONNECTION_TEMPLATES.map((template, i) => (
+            <div key={template.label} className="border border-slate-100 rounded p-4 bg-slate-50">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.07em]">{template.label}</span>
+                <button
+                  type="button"
+                  onClick={() => handleCopyTemplate(i)}
+                  className="text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
+                >
+                  {copiedTemplate === i ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <textarea
+                value={connectionTexts[i]}
+                onChange={e => setConnectionTexts(prev => prev.map((t, j) => j === i ? e.target.value : t))}
+                rows={3}
+                title={template.label}
+                placeholder="Edit connection message…"
+                className="w-full text-[13px] text-slate-700 leading-relaxed border border-slate-200 rounded px-3 py-2 resize-none focus:outline-none focus:border-slate-400 font-[inherit] bg-white"
+              />
+              <p className="mt-1 text-[11px] text-slate-300">{connectionTexts[i].length} chars</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Notes */}
