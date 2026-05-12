@@ -9,11 +9,13 @@
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs [options]
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --year 2024
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --start 2024-01-01 --end 2024-06-30
+ *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --cik 29082 --year 2024
  *
  * Options:
  *   --year YYYY         Process a single calendar year (default: current year - 1)
  *   --start YYYY-MM-DD  Custom start date (overrides --year)
  *   --end YYYY-MM-DD    Custom end date (overrides --year)
+ *   --cik CIK           Target a single company via its EDGAR submissions JSON instead of EFTS scan
  *   --limit N           Stop after N filings (useful for testing, default: unlimited)
  *   --dry-run           Fetch + extract but do not write to DB
  *   --batch-size N      EFTS results per page (max 100, default: 50)
@@ -63,6 +65,7 @@ const DEBUG      = args.includes('--debug')
 const LIMIT      = getArg('--limit') ? parseInt(getArg('--limit'), 10) : Infinity
 const BATCH_SIZE = Math.min(100, parseInt(getArg('--batch-size', '50'), 10))
 const DELAY_MS   = parseInt(getArg('--delay-ms', '250'), 10)
+const CIK_FILTER = getArg('--cik')   // target a single company via submissions JSON
 const HAIKU      = 'claude-haiku-4-5-20251001'
 
 let startDate, endDate
@@ -76,11 +79,101 @@ if (getArg('--start') && getArg('--end')) {
   endDate   = `${year}-12-31`
 }
 
-console.log(`EDGAR 8-K 5.02 backfill: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+if (CIK_FILTER) {
+  console.log(`EDGAR 8-K 5.02 backfill [CIK ${CIK_FILTER}]: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+} else {
+  console.log(`EDGAR 8-K 5.02 backfill: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+}
 
 // ── main ──────────────────────────────────────────────────────────────────────
 
-await run()
+await (CIK_FILTER ? runForCik(CIK_FILTER) : run())
+
+// ── CIK-targeted run (uses submissions JSON, not EFTS) ────────────────────────
+
+async function runForCik(cikRaw) {
+  const cik    = cikRaw.replace(/^0+/, '')
+  const padded = cik.padStart(10, '0')
+
+  console.log(`Fetching submissions for CIK ${cik}...`)
+  await sleep(DELAY_MS)
+  const sub = await fetchJSON(`https://data.sec.gov/submissions/CIK${padded}.json`)
+  if (!sub) { console.error('Could not fetch submissions JSON'); return }
+
+  const entityName = sub.name ?? cik
+  const recent     = sub.filings?.recent ?? {}
+  const accessions = recent.accessionNumber ?? []
+  const forms      = recent.form            ?? []
+  const dates      = recent.filingDate      ?? []
+  const itemsList  = recent.items           ?? []
+
+  let processed = 0, inserted = 0, skipped = 0, failed = 0
+
+  for (let i = 0; i < accessions.length; i++) {
+    if (processed >= LIMIT) break
+
+    if ((forms[i] ?? '') !== '8-K') continue
+
+    const itemsStr = itemsList[i] ?? ''
+    if (itemsStr && !itemsStr.includes('5.02')) continue
+
+    const fileDate = dates[i] ?? ''
+    if (fileDate < startDate || fileDate > endDate) continue
+
+    const accession = accessions[i]
+
+    const alreadyLoaded = await isAlreadyLoaded(accession)
+    if (alreadyLoaded) { skipped++; continue }
+
+    processed++
+    await sleep(DELAY_MS)
+
+    const primaryDoc = await getFilingPrimaryDoc(cik, accession)
+    if (!primaryDoc) {
+      console.log(`  [skip] ${accession} - could not resolve primary document`)
+      skipped++
+      continue
+    }
+
+    const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
+    await sleep(DELAY_MS)
+
+    const section = await fetchItemSection(docUrl)
+    if (!section) {
+      if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
+      skipped++
+      continue
+    }
+
+    const executives = await extractWithHaiku(section, entityName, fileDate)
+    if (!executives || executives.length === 0) {
+      console.log(`  [skip] ${accession} - Haiku extracted no executives`)
+      skipped++
+      continue
+    }
+
+    console.log(`  [${processed}] ${entityName} | ${fileDate} | ${executives.length} exec(s) | ${accession}`)
+
+    if (DRY_RUN) {
+      for (const ex of executives) console.log('    ', JSON.stringify(ex))
+      continue
+    }
+
+    const writeOk = await writeExecutives(executives, {
+      companyName: entityName,
+      companyCik:  cik,
+      filingDate:  fileDate,
+      accession,
+      sourceUrl:   docUrl,
+    })
+    if (writeOk) inserted++
+    else failed++
+  }
+
+  console.log(`\nDone. processed=${processed} inserted=${inserted} skipped=${skipped} failed=${failed}`)
+}
+
+// ── EFTS full-scan run (original) ────────────────────────────────────────────
 
 async function run() {
   let offset = 0
