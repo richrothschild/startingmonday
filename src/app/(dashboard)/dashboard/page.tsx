@@ -317,6 +317,7 @@ export default async function DashboardPage({
     if (warmContacts && warmContacts.length > 0) {
       const seen = new Set<string>()
       for (const ct of warmContacts) {
+        if (!ct.company_id) continue
         const sig = [...signals, ...patternAlerts].find(s => s.company_id === ct.company_id)
         if (!sig || !sig.companies) continue
         const key = `${ct.id}-${sig.id}`

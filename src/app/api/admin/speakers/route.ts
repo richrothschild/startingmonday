@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     if (!fullName) continue
 
     // Build speaker upsert payload
-    const speakerPayload: Record<string, unknown> = {
+    const speakerPayload: { full_name: string; [key: string]: unknown } = {
       full_name:   fullName,
       first_name:  (row.first_name ?? '').trim() || splitName(fullName).first || null,
       last_name:   (row.last_name ?? '').trim()  || splitName(fullName).last  || null,

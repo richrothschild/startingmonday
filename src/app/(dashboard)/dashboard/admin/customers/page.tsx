@@ -30,7 +30,6 @@ type UserRow = {
   created_at: string
   trial_ends_at: string | null
   signup_source: string | null
-  onboarding_completed_at: string | null
   first_company_added_at: string | null
 }
 
@@ -75,7 +74,7 @@ export default async function CustomersPage({
     // Filtered list for the table (trialing / active / past_due only)
     admin
       .from('users')
-      .select('id, email, subscription_status, subscription_tier, created_at, trial_ends_at, signup_source, onboarding_completed_at, first_company_added_at')
+      .select('id, email, subscription_status, subscription_tier, created_at, trial_ends_at, signup_source, first_company_added_at')
       .in('subscription_status', ['trialing', 'active', 'past_due'])
       .order('created_at', { ascending: false }),
     // All users for conversion stats (includes canceled/inactive)
@@ -273,7 +272,7 @@ export default async function CustomersPage({
                           {u.signup_source ?? '--'}
                         </td>
                         <td className="px-4 py-3 text-center">
-                          {u.onboarding_completed_at
+                          {u.first_company_added_at
                             ? <span className="text-green-600 font-bold">&#10003;</span>
                             : <span className="text-slate-200">--</span>}
                         </td>

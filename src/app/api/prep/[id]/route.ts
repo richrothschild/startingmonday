@@ -394,7 +394,7 @@ export async function GET(
     } catch { /* ignore fetch errors, fall back to existing docs */ }
   }
 
-  const userPrompt = buildContext(company, profile, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null)
+  const userPrompt = buildContext(company, profile as ProfileRow | null, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],

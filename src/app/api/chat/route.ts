@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { createClient } from '@/lib/supabase/server'
@@ -285,7 +286,7 @@ export async function POST(request: NextRequest) {
 
           if (response.stop_reason !== 'tool_use') {
             controller.close()
-            trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
+            trackApiUsage(supabase, userId, totalTokens).catch(err => Sentry.captureException(err, { extra: { route: 'chat', userId } }))
             recordTrace({
               supabase, userId, feature: 'chat', model: MODELS.sonnet,
               promptTokens: response.usage.input_tokens ?? 0,
@@ -313,7 +314,7 @@ export async function POST(request: NextRequest) {
         }
 
         controller.close()
-        trackApiUsage(supabase, userId, totalTokens).catch(err => console.error('[api-usage] chat', err))
+        trackApiUsage(supabase, userId, totalTokens).catch(err => Sentry.captureException(err, { extra: { route: 'chat', userId } }))
         }) // end withStreamTimeout
       } catch (err) {
         const errStr = err instanceof Error ? err.message : 'Unknown error'

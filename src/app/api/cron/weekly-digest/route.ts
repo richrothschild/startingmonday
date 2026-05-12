@@ -197,7 +197,7 @@ export async function GET(request: NextRequest) {
     // Build matches map
     const matchesByCompany: Record<string, string[]> = {}
     for (const scan of scans ?? []) {
-      const hits: ScanHit[] = Array.isArray(scan.raw_hits) ? scan.raw_hits : []
+      const hits: ScanHit[] = Array.isArray(scan.raw_hits) ? scan.raw_hits as ScanHit[] : []
       const matches = hits
         .filter(h => h.is_match && h.title)
         .map(h => h.title as string)

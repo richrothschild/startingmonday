@@ -211,7 +211,7 @@ export default async function AdminPage() {
     }))
 
   // Signal → action rate by signal type
-  const actedSignalIds = new Set((signalActions ?? []).map((a: { signal_id: string }) => a.signal_id).filter(Boolean))
+  const actedSignalIds = new Set((signalActions ?? []).map(a => a.signal_id).filter((id): id is string => id !== null))
   const signalTypeCounts: Record<string, { total: number; acted: number }> = {}
   for (const s of (allSignals ?? []) as { id: string; signal_type: string }[]) {
     if (!signalTypeCounts[s.signal_type]) signalTypeCounts[s.signal_type] = { total: 0, acted: 0 }
