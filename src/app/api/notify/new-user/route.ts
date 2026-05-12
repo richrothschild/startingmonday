@@ -5,7 +5,7 @@ const OWNER_EMAIL = process.env.OWNER_EMAIL
 
 const TIER_LABELS: Record<string, string> = {
   trialing:  'Free trial',
-  passive:   'Intelligence ($49/mo)',
+  passive:   'Monitor ($49/mo)',
   active:    'Search ($129/mo)',
   executive: 'Executive ($249/mo)',
 }

@@ -12,7 +12,7 @@ const PASSIVE_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Passive',
+  'Everything in Monitor',
   'AI Interview Prep Briefs',
   'Search Strategy Brief',
   'AI Chat advisor',
@@ -84,7 +84,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           <span>8,000+ companies tracked</span>
         </div>
         <p className="text-[12px] text-slate-500 mb-8">
-          Most executives start on Passive, move to Active once they see what prep briefs do. When you&apos;re ready for full depth, Executive is waiting.
+          Most executives start on Monitor, move to Active once they see what prep briefs do. When you&apos;re ready for full depth, Executive is waiting.
         </p>
 
         {/* Billing toggle */}
@@ -110,9 +110,9 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
 
-          {/* Passive */}
+          {/* Monitor */}
           <div className="border border-slate-200 rounded-lg p-5 sm:p-6 flex flex-col">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Monitor</p>
             <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
               ${price('passive')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
             </p>

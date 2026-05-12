@@ -21,7 +21,7 @@ const PLANS = [
     description: 'Stop running a reactive search. Prep briefs, pipeline tracking, intelligence, outreach, and a daily briefing. From one place.',
     featured: true,
     features: [
-      'Everything in Passive',
+      'Everything in Monitor',
       'AI interview prep briefs',
       'Search strategy brief',
       'AI chat advisor',

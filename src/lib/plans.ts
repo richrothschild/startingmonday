@@ -1,6 +1,6 @@
 export const PLANS = {
   passive: {
-    name: 'Intelligence',
+    name: 'Monitor',
     amount: 4900,
     annualAmount: 49000,
     description: 'Company signal monitoring, exec moves, funding rounds, and weekly digest',
@@ -18,7 +18,7 @@ export const PLANS = {
     annualAmount: 199000,
     description: 'Full search operating system with AI briefs, daily briefing, and outreach',
     features: [
-      'Everything in Intelligence',
+      'Everything in Monitor',
       'AI Interview Prep Briefs',
       'Search Strategy Brief',
       'AI Chat advisor',

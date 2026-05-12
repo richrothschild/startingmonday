@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
 <p style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 12px 0;">Your team access has ended.</p>
 <p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">The organization account that gave you access to Starting Monday has been canceled.</p>
 <p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">Your account is intact. Your companies, contacts, and research history are all still there.</p>
-<p style="font-size:14px;line-height:1.6;margin:0 0 24px 0;">To keep your search moving, you can subscribe directly. The Intelligence plan is $49/mo and includes daily company signals and briefings.</p>
+<p style="font-size:14px;line-height:1.6;margin:0 0 24px 0;">To keep your search moving, you can subscribe directly. The Monitor plan is $49/mo and includes daily company signals and briefings.</p>
 <p style="margin:0 0 24px 0;">
   <a href="${APP_URL}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 24px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600;">Keep my subscription</a>
 </p>

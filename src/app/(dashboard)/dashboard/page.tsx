@@ -454,7 +454,7 @@ export default async function DashboardPage({
                 <div className="flex-1">
                   <p className="text-[13px] font-semibold text-slate-900 mb-0.5">Stay sharp at $49/mo</p>
                   <p className="text-[12px] text-slate-600 leading-relaxed">
-                    Switch to Intelligence for ongoing market monitoring without active search tools. Most executives search again within 3 years.
+                    Switch to Monitor for ongoing market monitoring without active search tools. Most executives search again within 3 years.
                   </p>
                 </div>
                 <Link
@@ -469,7 +469,7 @@ export default async function DashboardPage({
                 href="/settings/billing"
                 className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
               >
-                Keep your intelligence running -- subscribe to Passive ($49/mo)
+                Keep your intelligence running -- subscribe to Monitor ($49/mo)
               </Link>
             ) : null}
           </div>
