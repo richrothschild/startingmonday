@@ -145,6 +145,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Partners
             </Link>
+            <Link href="/about" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+              About
+            </Link>
             <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               Free Profile Grade
             </Link>
@@ -251,7 +254,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
           <div className="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
             <Image
-              src="/dashboard-screenshot.png"
+              src="/public.dashboard.screenshot.png.png"
               alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
               width={1262}
               height={932}
