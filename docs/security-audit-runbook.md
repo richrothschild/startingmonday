@@ -294,13 +294,13 @@ This section tracks what was found and fixed so future audits know the baseline.
 | ID | Finding | Status |
 |---|---|---|
 | A2-1 | `staff_members` no RLS — privilege escalation | **Fixed** — migration 082 |
-| A2-2 | `social_posts` no RLS | **Open** |
-| A2-3 | `partners` no RLS | **Open** |
-| A2-4 | `referral_attributions` no RLS | **Open** |
+| A2-2 | `social_posts` no RLS | **Fixed** — migration 083 |
+| A2-3 | `partners` no RLS | **Fixed** — migration 083 |
+| A2-4 | `referral_attributions` no RLS | **Fixed** — migration 083 |
 | A1-1 | 4 AI routes no rate limiting | **Open** |
 | A1-2 | Unbounded resume input to Anthropic | **Open** |
-| A2-5 | `testimonials` no RLS | **Open** |
-| A2-6 | `rate_limits` no RLS | **Open** |
+| A2-5 | `testimonials` no RLS | **Fixed** — migration 083 |
+| A2-6 | `rate_limits` no RLS | **Fixed** — migration 083 |
 | A1-3 | Unsigned unsubscribe tokens | **Open** |
 | A1-4 | `feedback` no rate limit or attribution | **Open** |
 | A1-5 | Forged pixel open events | **Open** |
