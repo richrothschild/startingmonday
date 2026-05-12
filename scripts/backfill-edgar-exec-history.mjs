@@ -385,8 +385,8 @@ async function writeExecutives(executives, { companyName, companyCik, filingDate
         company_cik:          companyCik,
         title:                ex.title,
         title_normalized:     ex.title_normalized ?? null,
-        start_date:           ex.start_date ?? null,
-        end_date:             ex.end_date ?? (ex.event_type !== 'appointment' ? filingDate : null),
+        start_date:           normalizeDate(ex.start_date),
+        end_date:             normalizeDate(ex.end_date) ?? (ex.event_type !== 'appointment' ? filingDate : null),
         is_current:           ex.is_current ?? false,
         departure_type:       ex.departure_type ?? null,
         departure_trigger:    ex.departure_trigger ?? null,
@@ -412,6 +412,23 @@ async function writeExecutives(executives, { companyName, companyCik, filingDate
     console.error('  writeExecutives error:', err.message)
     return false
   }
+}
+
+// ── date normalization ────────────────────────────────────────────────────────
+
+const QUARTER_STARTS = { Q1: '01-01', Q2: '04-01', Q3: '07-01', Q4: '10-01' }
+
+function normalizeDate(value) {
+  if (!value || typeof value !== 'string') return null
+  const v = value.trim()
+  // Already a valid ISO date
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v
+  // "2020-Q1" or "2020Q1"
+  const qMatch = v.match(/^(\d{4})[- ]?Q([1-4])$/i)
+  if (qMatch) return `${qMatch[1]}-${QUARTER_STARTS[`Q${qMatch[2]}`]}`
+  // Year only "2020"
+  if (/^\d{4}$/.test(v)) return `${v}-01-01`
+  return null
 }
 
 // ── fetch utilities ───────────────────────────────────────────────────────────
