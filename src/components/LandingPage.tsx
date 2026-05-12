@@ -142,7 +142,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Partners
             </Link>
             <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
@@ -629,6 +629,36 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
+      {/* Partner channel band */}
+      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-2">For Partners</p>
+              <p className="text-[16px] font-bold text-slate-900 mb-1">Do you work with executives in transition?</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed max-w-xl">
+                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Earn 20% commission on every active referral.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 shrink-0">
+              <Link
+                href="/partners"
+                className="text-[13px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-5 py-2.5 rounded transition-colors whitespace-nowrap text-center"
+              >
+                Partner program &rarr;
+              </Link>
+              <div className="flex items-center gap-3 text-[12px] text-slate-400 justify-center">
+                <Link href="/for-coaches" className="hover:text-slate-700 transition-colors">Coaches</Link>
+                <span>&middot;</span>
+                <Link href="/for-search-firms" className="hover:text-slate-700 transition-colors">Search firms</Link>
+                <span>&middot;</span>
+                <Link href="/for-pe-teams" className="hover:text-slate-700 transition-colors">PE teams</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
@@ -667,6 +697,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
+              <Link href="/partners" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Partners</Link>
               <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
