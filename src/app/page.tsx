@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -75,6 +75,33 @@ const SITUATIONS: SituationCard[] = [
   },
 ]
 
+const FAQS: FAQ[] = [
+  {
+    question: 'How is this different from LinkedIn Premium?',
+    answer: 'LinkedIn Premium gives you a better job board. Starting Monday monitors company signals before roles are posted, builds prep briefs in 60 seconds, and tracks your full pipeline across every conversation. It is the infrastructure between a job board and a $25,000 coaching engagement.',
+  },
+  {
+    question: 'How do you surface signals before a role is posted?',
+    answer: 'We monitor SEC 8-K filings, executive departure news, funding announcements, acquisition activity, PR wire, and company career pages for every company you track. When multiple signals cluster around a company, we flag it as a transition window. In most cases, that is weeks before any formal search begins.',
+  },
+  {
+    question: 'Is my search confidential?',
+    answer: 'Completely. We have no relationship with employers, search firms, or recruiters. Your account, your pipeline, and your activity are private. We do not sell leads. We do not train AI on your data. You can permanently delete your account and all associated data at any time from Settings.',
+  },
+  {
+    question: 'What does the prep brief include?',
+    answer: 'Your win thesis for that specific company. The objections they are likely to raise and how to counter each one. Questions that signal you understand the business at a peer level. What to leave out of the conversation entirely. Generated from your background, the role, and current company intelligence. Ready in 60 seconds.',
+  },
+  {
+    question: 'How long does setup take?',
+    answer: 'Most users are tracking companies and receiving signals within 15 minutes of creating an account. Upload your resume, add target companies, and set your search level. The daily briefing starts the following morning.',
+  },
+  {
+    question: 'Who is this built for?',
+    answer: 'CIOs, CTOs, CISOs, CDOs, CPOs, COOs, and VP-level technology leaders making the move to the C-suite. Every AI output is calibrated to senior roles - the prep briefs, strategy, and advisor all operate at that altitude. It is not built for mid-level managers or general job seekers.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -123,10 +150,11 @@ export default function HomePage() {
         hero={{
           eyebrow: 'For technology executives in active search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
-          body: "You already know how executive roles get filled. Relationships. PE firm moves. Leadership departures. Quiet conversations before a search is ever authorized. The challenge is not knowing this. It is doing it consistently at the pace a competitive search requires. Most executives in your position are refreshing LinkedIn and waiting for recruiters to call. Starting Monday monitors your target companies every 48 hours. When signals cluster before a search opens, you know. You move first.",
+          body: "Most executive roles are filled before they are ever posted. Starting Monday monitors your target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
         showPersonaSelector
       />
     </>

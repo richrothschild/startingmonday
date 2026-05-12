@@ -1,5 +1,6 @@
 ﻿import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
+import { PricingSection } from '@/components/PricingSection'
 
 export interface SituationCard {
   id: string
@@ -123,34 +124,6 @@ const TRUST_ITEMS = [
   },
 ]
 
-const PASSIVE_FEATURES = [
-  'Pipeline tracking for up to 25 companies',
-  'Company intelligence: news, 8-Ks, exec moves, funding, career pages',
-  'Pattern alerts before roles are posted',
-  'Weekly signal digest',
-  'Contact tracker',
-]
-
-const ACTIVE_FEATURES = [
-  'Everything in Passive',
-  'AI Interview Prep Briefs',
-  'Search Strategy Brief',
-  'AI Chat advisor',
-  'Outreach drafting',
-  'Resume tailoring + quality check',
-  'Daily morning briefing',
-]
-
-const EXECUTIVE_FEATURES = [
-  'Everything in Active',
-  'Unlimited company pipeline',
-  'Career page scanning 2x daily',
-  'Immediate pattern and exec departure alerts',
-  'Opus AI for interview prep briefs',
-  'Salary intelligence and negotiation scripts',
-  'Recruiter tracker with firm grouping',
-  'Priority contact flagging and CSV export',
-]
 
 export function LandingPage({ hero, situations, faqs, showPersonaSelector }: LandingPageProps) {
   return (
@@ -159,9 +132,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
-          </span>
+          </Link>
           <div className="flex items-center gap-4 sm:gap-5">
             <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               Partners
@@ -200,9 +173,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
-          </p>
-          <p className="text-[13px] text-slate-400 mb-3 max-w-xl leading-relaxed">
-            The informal market is where most executive roles are decided. The question is whether you are working it before the search is formalized or after.
           </p>
           {hero.note && (
             <p className="text-[13px] text-slate-500 mb-6">
@@ -282,7 +252,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Where are you in the search?
           </h2>
           <p className="text-[14px] text-slate-500 mb-8">
-            Everyone here is in a different place. The platform meets you where you are.
+            Pick the one that fits. The platform adjusts to where you are and what you need to do next.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {situations.map(s => (
@@ -493,119 +463,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-            What it costs
-          </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
-            Infrastructure pricing. Campaign outcomes.
-          </h2>
-          <p className="text-[14px] text-slate-500 mb-12 max-w-2xl leading-relaxed">
-            You run the campaign. We power it. All plans include a 30-day free trial, no credit card required.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
-            <div className="border border-slate-200 rounded-lg p-5 sm:p-6 flex flex-col">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Passive</p>
-              <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
-                $49<span className="text-[16px] font-normal text-slate-400">/mo</span>
-              </p>
-              <p className="text-[12px] text-slate-400 mb-0.5">30-day free trial. No credit card.</p>
-              <p className="text-[12px] text-slate-500 mb-5">or $490/yr &mdash; 2 months free</p>
-              <ul className="space-y-2.5">
-                {PASSIVE_FEATURES.map(f => (
-                  <li key={f} className="flex items-start gap-2.5">
-                    <span className="text-slate-300 shrink-0 mt-0.5 text-[12px]">+</span>
-                    <span className="text-[13px] text-slate-500 leading-snug">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-auto pt-4 text-[12px] text-slate-400 leading-relaxed">
-                Most users move to Active once they see what prep briefs do before an interview.
-              </p>
-              <Link
-                href="/signup"
-                className="mt-4 inline-block w-full text-center border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors"
-              >
-                Try free &rarr;
-              </Link>
-            </div>
-            <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
-              <p className="text-[32px] font-bold text-white leading-none mb-1">
-                $199<span className="text-[16px] font-normal text-slate-500">/mo</span>
-              </p>
-              <p className="text-[12px] text-slate-500 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[12px] text-slate-500 mb-5">or $1,990/yr &mdash; 2 months free</p>
-              <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">Stop running a reactive search.</p>
-              <ul className="space-y-2.5">
-                {ACTIVE_FEATURES.map(f => (
-                  <li key={f} className="flex items-start gap-2.5">
-                    <span className="text-slate-600 shrink-0 mt-0.5 text-[12px]">+</span>
-                    <span className="text-[13px] text-slate-300 leading-snug">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/signup"
-                className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
-              >
-                Start your campaign &rarr;
-              </Link>
-            </div>
-            <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col">
-              <div className="mb-2">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600">Executive</p>
-              </div>
-              <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
-                $499<span className="text-[16px] font-normal text-slate-400">/mo</span>
-              </p>
-              <p className="text-[12px] text-slate-400 mb-0.5">{hero.trialNote}</p>
-              <p className="text-[12px] text-slate-500 mb-5">or $5,000/yr &mdash; 2 months free</p>
-              <ul className="space-y-2.5">
-                {EXECUTIVE_FEATURES.map(f => (
-                  <li key={f} className="flex items-start gap-2.5">
-                    <span className="text-orange-500 shrink-0 mt-0.5 text-[12px]">+</span>
-                    <span className="text-[13px] text-slate-700 leading-snug">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/signup"
-                className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
-              >
-                Start your campaign &rarr;
-              </Link>
-            </div>
-          </div>
-
-          {/* Concierge band */}
-          <div className="mt-6 max-w-4xl border border-slate-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <p className="text-[13px] font-bold text-slate-900">Executive Concierge</p>
-                <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Waitlist open</span>
-              </div>
-              <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
-                Everything in Active, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
-              </p>
-            </div>
-            <div className="shrink-0 text-right">
-              <p className="text-[22px] font-bold text-slate-900 leading-none mb-0.5">
-                $1,299<span className="text-[13px] font-normal text-slate-400">/mo</span>
-              </p>
-              <p className="text-[11px] text-slate-400 mb-3">or $13,999/yr</p>
-              <Link
-                href="/concierge"
-                className="inline-block text-[13px] font-semibold text-orange-600 border border-orange-200 bg-orange-50 px-5 py-2 rounded hover:bg-orange-100 transition-colors"
-              >
-                Join the waitlist &rarr;
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PricingSection trialNote={hero.trialNote} />
 
       {/* Trust */}
       <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
