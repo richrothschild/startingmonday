@@ -10,7 +10,7 @@
 
 **Founder:** Richard Rothschild
 
-**Contributor:** _________________________
+**Contributor:** Chris Goodwin
 
 **Date:** _________________________
 
