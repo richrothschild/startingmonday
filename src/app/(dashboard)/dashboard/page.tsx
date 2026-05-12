@@ -535,9 +535,12 @@ export default async function DashboardPage({
                 : 'bg-slate-100 border border-slate-200 text-slate-600'
           }`}>
             <span>
-              {trialDaysLeft > 0
-                ? `Trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
-                : 'Your trial has ended.'}
+              {trialDaysLeft <= 0
+                ? 'Your trial has ended. The signal history on your companies is paused.'
+                : totalCount > 0
+                  ? `You have built a pipeline of ${totalCount} ${totalCount === 1 ? 'company' : 'companies'}. That signal history disappears in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
+                  : `Trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
+              }
             </span>
             <Link href="/settings/billing" className="font-semibold underline shrink-0">
               Upgrade
@@ -1135,13 +1138,29 @@ export default async function DashboardPage({
         {/* Setup checklist - visible until all 6 steps are complete */}
         {!activation.isComplete && !hasFilters && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-slate-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                Setup checklist
-              </span>
-              <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-                View details &rarr;
-              </Link>
+            <div className="px-6 py-[18px] border-b border-slate-100">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                  Search setup
+                </span>
+                <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+                  View details &rarr;
+                </Link>
+              </div>
+              {(() => {
+                const completed = setupSteps.filter(s => s.done).length
+                const barCls = ['w-0','w-[16.67%]','w-1/3','w-1/2','w-2/3','w-5/6','w-full'][completed] ?? 'w-0'
+                return (
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div className={`h-full bg-orange-500 rounded-full transition-all duration-500 ${barCls}`} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-500 shrink-0">
+                      {completed} of {setupSteps.length} complete
+                    </span>
+                  </div>
+                )
+              })()}
             </div>
             <div className="divide-y divide-slate-50">
               {setupSteps.map((step, i) => (

@@ -123,7 +123,7 @@ export default function HomePage() {
         hero={{
           eyebrow: 'For technology executives in active search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
-          body: "You already know how executive roles get filled. Relationships. PE firm moves. Leadership departures. Quiet conversations before a search is ever authorized. The challenge is not knowing this. It is doing it consistently at the pace a competitive search requires. Starting Monday monitors your target companies every 48 hours. When signals cluster before a search opens, you know. You move first.",
+          body: "You already know how executive roles get filled. Relationships. PE firm moves. Leadership departures. Quiet conversations before a search is ever authorized. The challenge is not knowing this. It is doing it consistently at the pace a competitive search requires. Most executives in your position are refreshing LinkedIn and waiting for recruiters to call. Starting Monday monitors your target companies every 48 hours. When signals cluster before a search opens, you know. You move first.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}
