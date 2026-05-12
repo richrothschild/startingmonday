@@ -1,8 +1,9 @@
 ﻿import { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import Anthropic from '@anthropic-ai/sdk'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
+import { anthropic, MODELS } from '@/lib/anthropic'
 import { LogoutButton } from '../logout-button'
 
 export const metadata = {
@@ -166,9 +167,8 @@ Write a morning briefing as JSON with exactly these keys:
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases. Write as a trusted advisor, not a coach.
 Output valid JSON only, no markdown fences.`
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-  const message = await client.messages.create({
-    model: process.env.ANTHROPIC_BRIEFING_MODEL ?? 'claude-haiku-4-5-20251001',
+  const message = await anthropic.messages.create({
+    model: MODELS.haiku,
     max_tokens: 1024,
     messages: [{ role: 'user', content: prompt }],
   })
@@ -177,7 +177,8 @@ Output valid JSON only, no markdown fences.`
   const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
   try {
     return JSON.parse(cleaned) as BriefingJson
-  } catch {
+  } catch (err) {
+    Sentry.captureException(err, { extra: { model: MODELS.haiku, rawLength: raw.length } })
     return {
       intro: `Here is your search update for ${todayStr}.`,
       signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),

@@ -98,6 +98,40 @@ const STAGES = [
   { value: 'offer',        label: 'Offer' },
 ]
 
+type CompanyDetailRow = {
+  id: string
+  name: string
+  sector: string | null
+  stage: string
+  company_size: string | null
+  fit_score: number | null
+  notes: string | null
+  competitive_context: string | null
+  interview_notes: string | null
+  company_url: string | null
+  career_page_url: string | null
+  linkedin_url: string | null
+  crunchbase_id: string | null
+  role_watch_description: string | null
+  offer_role_title: string | null
+  offer_base: number | null
+  offer_bonus_pct: number | null
+  offer_signing: number | null
+  offer_equity: string | null
+  offer_notes: string | null
+  offer_decision_factors: string | null
+}
+
+type SignalDetailRow = {
+  id: string
+  signal_type: string
+  signal_summary: string
+  outreach_angle: string | null
+  outreach_draft: { subject: string; body: string } | null
+  signal_date: string
+  source_url: string | null
+}
+
 export default async function CompanyPage({
   params,
   searchParams,
@@ -115,7 +149,7 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
+  const [{ data: rawCompany, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: rawSignals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
     supabase
       .from('companies')
       .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
@@ -179,6 +213,8 @@ export default async function CompanyPage({
       .limit(20),
   ])
 
+  const company = rawCompany as CompanyDetailRow | null
+  const signals = (rawSignals ?? []) as unknown as SignalDetailRow[]
   const scans = (rawScans ?? []) as unknown as ScanResult[]
   const latestScan = scans[0] ?? null
   const scanHistory = scans.slice(1)
@@ -477,7 +513,7 @@ export default async function CompanyPage({
               </div>
 
               {company.stage === 'offer' && (() => {
-                const co = company as unknown as {
+                const co = company as {
                   offer_role_title?: string | null
                   offer_base?: number | null
                   offer_bonus_pct?: number | null
@@ -598,7 +634,7 @@ export default async function CompanyPage({
                 <textarea
                   name="role_watch_description"
                   rows={3}
-                  defaultValue={(company as unknown as { role_watch_description?: string | null }).role_watch_description ?? ''}
+                  defaultValue={company.role_watch_description ?? ''}
                   placeholder="e.g. A CTO or VP Engineering role overseeing platform, specifically where they need someone to scale the team post-Series B and modernize the data stack..."
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
@@ -1195,8 +1231,8 @@ export default async function CompanyPage({
                     {sig.outreach_angle && (
                       <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>
                     )}
-                    {(sig as unknown as { outreach_draft?: { subject: string; body: string } | null }).outreach_draft && (
-                      <DraftPanel draft={(sig as unknown as { outreach_draft: { subject: string; body: string } }).outreach_draft} />
+                    {sig.outreach_draft && (
+                      <DraftPanel draft={sig.outreach_draft} />
                     )}
                     {sig.source_url && (
                       <a

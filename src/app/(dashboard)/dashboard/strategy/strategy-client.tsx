@@ -3,16 +3,13 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { BriefRating } from '@/components/BriefRating'
 
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
-
-function renderInline(str: string): string {
-  return escapeHtml(str).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+function BoldText({ text }: { text: string }) {
+  const parts = text.split(/\*\*(.+?)\*\*/g)
+  return (
+    <>
+      {parts.map((part, i) => i % 2 === 1 ? <strong key={i}>{part}</strong> : part)}
+    </>
+  )
 }
 
 function renderBrief(text: string) {
@@ -30,17 +27,15 @@ function renderBrief(text: string) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">–</span>
-          <span dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+          <BoldText text={line.slice(2)} />
         </div>
       )
     }
     if (line.trim() === '') return <div key={i} className="h-1.5" />
     return (
-      <p
-        key={i}
-        className="text-[14px] text-slate-700 leading-relaxed mb-2.5"
-        dangerouslySetInnerHTML={{ __html: renderInline(line) }}
-      />
+      <p key={i} className="text-[14px] text-slate-700 leading-relaxed mb-2.5">
+        <BoldText text={line} />
+      </p>
     )
   })
 }

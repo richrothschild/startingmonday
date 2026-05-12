@@ -86,6 +86,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
+  const step6FetchStarted = useRef(false)
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
@@ -93,13 +94,13 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   useEffect(() => {
     if (step === 3 && isPassive && !manualMode) setManualMode(true)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step])
+  }, [step, isPassive, manualMode])
 
   useEffect(() => {
     if (step !== 6) return
     const firstCompany = companyNames.find(n => n.trim())
-    if (!firstCompany || intelContent || intelLoading) return
+    if (!firstCompany || intelContent || intelLoading || step6FetchStarted.current) return
+    step6FetchStarted.current = true
     setIntelLoading(true)
     fetch('/api/onboarding/intel', {
       method: 'POST',
@@ -117,8 +118,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         setIntelContent(text)
       }
     }).catch(() => {}).finally(() => setIntelLoading(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step])
+  }, [step, companyNames, intelContent, intelLoading, searchPersona])
 
   function goTo(next: number) {
     if (animating) return

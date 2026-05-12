@@ -29,6 +29,50 @@ const STAGE: Record<string, { label: string; cls: string }> = {
 
 const PAGE_SIZE = 50
 
+type ProfileRow = {
+  full_name: string | null
+  search_started_at: string | null
+  briefing_timezone: string | null
+  onboarding_completed_at: string | null
+  target_titles: string[] | null
+  resume_text: string | null
+  positioning_summary: string | null
+  briefing_time: string | null
+  current_title: string | null
+  placed_at: string | null
+  placement_company: string | null
+  search_status: string | null
+  weekly_goal: number | null
+  stall_nudge_dismissed_at: string | null
+  search_path: string | null
+}
+
+type UserRow = {
+  subscription_status: string | null
+  trial_ends_at: string | null
+  subscription_tier: string | null
+}
+
+type SignalRow = {
+  id: string
+  signal_type: string
+  signal_summary: string
+  outreach_angle?: string | null
+  signal_date: string
+  company_id: string
+  companies: { id: string; name: string } | null
+}
+
+type CompanyRow = {
+  id: string
+  name: string
+  sector: string | null
+  stage: string
+  fit_score: number | null
+  notes: string | null
+  updated_at: string | null
+}
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -40,11 +84,12 @@ export default async function DashboardPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile, error: profileError } = await supabase
+  const { data: profileRaw, error: profileError } = await supabase
     .from('user_profiles')
     .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path')
     .eq('user_id', user.id)
     .single()
+  const profile = profileRaw as ProfileRow | null
 
   if (profileError && profileError.code !== 'PGRST116') {
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'dashboard_profile_error', code: profileError.code, message: profileError.message, userId: user.id }))
@@ -94,7 +139,7 @@ export default async function DashboardPage({
       .eq('is_active', true)
   ).then(r => (r.count ?? 0) > 0).catch(() => false)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }, { count: prospectContactCount }, { data: briefedCompanyRows }] = await Promise.all([
+  const [{ data: rawCompanies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: rawUserRow }, { data: rawSignals }, { data: rawPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }, { count: prospectContactCount }, { data: briefedCompanyRows }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -155,6 +200,11 @@ export default async function DashboardPage({
     supabase.from('briefs').select('company_id').eq('user_id', user.id).eq('type', 'prep').not('company_id', 'is', null).limit(500),
   ])
 
+  const companies = rawCompanies as CompanyRow[] | null
+  const userRow   = rawUserRow as UserRow | null
+  const signals   = (rawSignals ?? []) as unknown as SignalRow[]
+  const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
+
   // Build weekly activity chart data (last 10 weeks)
   function getWeekMonday(date: Date): Date {
     const d = new Date(date)
@@ -191,13 +241,13 @@ export default async function DashboardPage({
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
 
   // Nurture path — derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
-  const searchPath = (profile as unknown as { search_path?: string | null })?.search_path ?? null
+  const searchPath = profile?.search_path ?? null
   const isNurturePath = searchPath === 'nurture'
 
   // Stall detection — pattern-specific nudge shown after 14 days of low activity
   type StallNudge = { headline: string; body: string; action: string; href: string } | null
   let stallNudge: StallNudge = null
-  const dismissedAt = (profile as unknown as { stall_nudge_dismissed_at?: string | null })?.stall_nudge_dismissed_at
+  const dismissedAt = profile?.stall_nudge_dismissed_at
   const dismissedDaysAgo = dismissedAt ? Math.floor((Date.now() - new Date(dismissedAt).getTime()) / 86400000) : Infinity
   const searchStartedAt = profile?.search_started_at ? new Date(profile.search_started_at) : null
   const daysSinceStart = searchStartedAt ? Math.floor((Date.now() - searchStartedAt.getTime()) / 86400000) : null
@@ -214,7 +264,7 @@ export default async function DashboardPage({
         href: '/dashboard/contacts',
       }
     } else if (contactCount > 0 && !hasAdvancedStage && daysSinceLastAction !== null && daysSinceLastAction >= 14) {
-      const hasSummary = !!(profile as unknown as { positioning_summary?: string | null })?.positioning_summary
+      const hasSummary = !!profile?.positioning_summary
       stallNudge = {
         headline: 'No activity in two weeks.',
         body: hasSummary
@@ -238,7 +288,7 @@ export default async function DashboardPage({
     id: c.id,
     name: c.name,
     stage: c.stage,
-    updated_at: (c as unknown as { updated_at?: string | null }).updated_at ?? null,
+    updated_at: c.updated_at ?? null,
   }))
 
   // isPartnerPromise was started before the main await above so it ran in parallel
@@ -250,9 +300,6 @@ export default async function DashboardPage({
     ['interviewing', 'applied', 'offer'].includes(c.stage)
   ).length
   const overdueCount   = (followUps ?? []).length
-  type SignalRow = { id: string; signal_type: string; signal_summary: string; outreach_angle?: string | null; signal_date: string; company_id: string; companies: { id: string; name: string } | null }
-  const signals        = (recentSignals ?? []) as unknown as SignalRow[]
-  const patternAlerts  = (recentPatternAlerts ?? []) as unknown as SignalRow[]
   const signalCount    = signals.length + patternAlerts.length
 
   // Warm paths: contacts at companies with recent signals
@@ -310,8 +357,8 @@ export default async function DashboardPage({
 
   const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
   const isTrialing = userRow?.subscription_status === 'trialing'
-  const isExecutive = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier === 'executive'
-  const isCoach = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier === 'coach'
+  const isExecutive = userRow?.subscription_tier === 'executive'
+  const isCoach = userRow?.subscription_tier === 'coach'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -359,9 +406,9 @@ export default async function DashboardPage({
 
   // Post-placement: Career Intelligence mode
   if (profile?.placed_at) {
-    const placedCompany = (profile as unknown as { placement_company?: string | null }).placement_company
+    const placedCompany = profile?.placement_company
     const isPaid = userRow?.subscription_status === 'active'
-    const tier = (userRow as unknown as { subscription_tier?: string } | null)?.subscription_tier ?? 'free'
+    const tier = userRow?.subscription_tier ?? 'free'
     return (
       <div className="min-h-screen bg-slate-100 font-sans">
         <header className="bg-slate-900">
@@ -878,7 +925,7 @@ export default async function DashboardPage({
 
         {/* Weekly commitment device */}
         {(() => {
-          const goal = (profile as unknown as { weekly_goal?: number | null })?.weekly_goal ?? null
+          const goal = profile?.weekly_goal ?? null
           const done = outreachThisWeek ?? 0
           if (goal) {
             const remaining = Math.max(0, goal - done)

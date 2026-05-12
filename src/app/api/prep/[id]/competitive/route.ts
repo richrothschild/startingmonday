@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { COMPETITIVE_SYSTEM } from '@/lib/prompts'
@@ -97,7 +98,7 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
         const final = await stream.finalMessage()
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] prep-competitive', err))
+        trackApiUsage(supabase, userId, tokens).catch(err => Sentry.captureException(err, { extra: { route: 'prep-competitive', userId } }))
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
         controller.enqueue(encoder.encode(`__ERROR__${msg}`))

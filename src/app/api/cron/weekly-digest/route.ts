@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
@@ -115,8 +116,7 @@ function buildDigestEmail(opts: {
 }
 
 export async function GET(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get('secret')
-  if (!secret || secret !== process.env.CRON_SECRET) {
+  if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 

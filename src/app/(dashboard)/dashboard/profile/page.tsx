@@ -35,7 +35,32 @@ export default async function ProfilePage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: profile }, activation] = await Promise.all([
+  type ProfileRow = {
+    full_name: string | null
+    current_title: string | null
+    current_company: string | null
+    briefing_time: string | null
+    briefing_days: string[] | null
+    briefing_timezone: string | null
+    briefing_email: string | null
+    target_titles: string[] | null
+    target_sectors: string[] | null
+    target_locations: string[] | null
+    positioning_summary: string | null
+    resume_text: string | null
+    beyond_resume: string | null
+    linkedin_url: string | null
+    linkedin_headline: string | null
+    linkedin_about: string | null
+    search_persona: string | null
+    role_type: string | null
+    career_history_json: unknown
+    role_context: Record<string, unknown> | null
+    star_stories: StarStory[] | null
+    updated_at: string | null
+  }
+
+  const [{ data: rawProfile }, activation] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, current_title, current_company, briefing_time, briefing_days, briefing_timezone, briefing_email, target_titles, target_sectors, target_locations, positioning_summary, resume_text, beyond_resume, linkedin_url, linkedin_headline, linkedin_about, search_persona, role_type, career_history_json, role_context, star_stories, updated_at')
@@ -43,6 +68,7 @@ export default async function ProfilePage({
       .single(),
     getActivationStatus(user.id),
   ])
+  const profile = rawProfile as ProfileRow | null
 
   const activeDays: string[] = (profile?.briefing_days ?? DEFAULT_DAYS).map((d: string) => ABBR_TO_FULL[d] ?? d)
   const briefingTime = profile?.briefing_time
@@ -55,8 +81,8 @@ export default async function ProfilePage({
   const resumeText = profile?.resume_text ?? ''
   const beyondResume = profile?.beyond_resume ?? ''
   const linkedinUrl = profile?.linkedin_url ?? ''
-  const linkedinHeadline = (profile as unknown as { linkedin_headline?: string | null })?.linkedin_headline ?? ''
-  const linkedinAbout    = (profile as unknown as { linkedin_about?: string | null })?.linkedin_about ?? ''
+  const linkedinHeadline = profile?.linkedin_headline ?? ''
+  const linkedinAbout    = profile?.linkedin_about ?? ''
 
   const roleCtx = (profile?.role_context as Record<string, unknown> | null) ?? {}
   const securityFrameworks      = ((roleCtx.security_frameworks as string[] | null) ?? []).join(', ')
@@ -85,9 +111,7 @@ export default async function ProfilePage({
   }
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
-  const starStories = Array.isArray((profile as unknown as { star_stories?: unknown })?.star_stories)
-    ? ((profile as unknown as { star_stories: StarStory[] }).star_stories)
-    : [] as StarStory[]
+  const starStories = Array.isArray(profile?.star_stories) ? (profile.star_stories as StarStory[]) : [] as StarStory[]
 
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])

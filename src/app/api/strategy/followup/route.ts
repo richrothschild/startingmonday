@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
         const final = await stream.finalMessage()
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] strategy-followup', err))
+        trackApiUsage(supabase, userId, tokens).catch(err => Sentry.captureException(err, { extra: { route: 'strategy-followup', userId } }))
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'strategy_followup', userId })))
         controller.close()
