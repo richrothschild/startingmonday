@@ -63,6 +63,11 @@ const SECTIONS = [
         description: 'How to run a synthetic council review on any content, architecture decision, or feature. Prompt templates for content and technical reviews.',
         href: `${REPO}/docs/content/council-review-process.md`,
       },
+      {
+        title: 'Site Review — May 2026',
+        description: 'Full synthetic council review of the live site. Every council member, current grade, specific feedback, and exactly what it takes to earn an A. 30+ members across 15 councils.',
+        href: `${REPO}/docs/content/site-review-may-2026.md`,
+      },
     ],
   },
   {
