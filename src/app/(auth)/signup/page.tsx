@@ -1,13 +1,31 @@
 ﻿'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
+const SITUATION_COPY: Record<string, { title: string; sub: string }> = {
+  urgent:       { title: 'You need to land well. Quickly.',               sub: 'Your first briefing is ready by morning. Add target companies and Starting Monday starts working tonight.' },
+  executive:    { title: 'Targeted search. Moving faster starts now.',    sub: 'Your pipeline, your signals, your prep briefs — all in one place from day one.' },
+  building:     { title: 'Build your list before you announce anything.', sub: 'Track target companies silently. Your employer will never know you\'re watching.' },
+  restructured: { title: 'You know your worth.',                          sub: 'Land at the right level, not just the next one. Every brief is calibrated to the role you deserve.' },
+  passive:      { title: 'Not ready to commit. That\'s fine.',            sub: 'Monitor your targets in the background. You\'ll know the moment something changes.' },
+  'vp-up':      { title: 'You have the record. Now run the campaign.',    sub: 'Every output — prep briefs, outreach, strategy — calibrated to the altitude you\'re moving toward.' },
+  returning:    { title: 'This is the one that sticks.',                  sub: 'One step at a time. Add your first company and the system starts working.' },
+  'low-energy': { title: 'One thing at a time.',                          sub: 'Set it up once. The briefing comes to you. The system does the heavy lifting.' },
+}
+
 export default function SignupPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const [situation, setSituation] = useState<string | null>(null)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const from = params.get('from')
+    if (from && SITUATION_COPY[from]) setSituation(from)
+  }, [])
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -54,7 +72,8 @@ export default function SignupPage() {
       const utmSource = params.get('utm_source') || null
       const utmMedium = params.get('utm_medium') || null
       const utmCampaign = params.get('utm_campaign') || null
-      const signupSource = utmSource ?? ref ?? null
+      const fromSituation = params.get('from') || null
+      const signupSource = utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
       await Promise.all([
         supabase.from('user_profiles').upsert(
           { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
@@ -129,8 +148,18 @@ export default function SignupPage() {
           ) : (
             <>
               <div className="mb-8">
-                <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
-                <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
+                {situation && SITUATION_COPY[situation] ? (
+                  <>
+                    <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
+                    <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
+                    <p className="text-[12px] text-slate-400 mt-3">Create your account below. 30 days free. No credit card.</p>
+                  </>
+                ) : (
+                  <>
+                    <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
+                    <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
+                  </>
+                )}
               </div>
 
               <div className="bg-white border border-slate-200 rounded p-8">

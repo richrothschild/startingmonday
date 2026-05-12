@@ -113,20 +113,23 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </Link>
           </div>
 
-          {/* Active */}
-          <div className="border border-slate-900 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Active</p>
-            <p className="text-[32px] font-bold text-white leading-none mb-1">
-              ${price('active')}<span className="text-[16px] font-normal text-slate-500">/mo</span>
+          {/* Active — most popular, orange border */}
+          <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col relative">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+              <span className="text-[10px] font-bold tracking-[0.08em] uppercase bg-orange-500 text-slate-900 px-3 py-1 rounded-full whitespace-nowrap">Most popular</span>
+            </div>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-2">Active</p>
+            <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
+              ${price('active')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
             </p>
-            <p className="text-[12px] text-slate-500 mb-0.5">{trialNote}</p>
+            <p className="text-[12px] text-slate-400 mb-0.5">{trialNote}</p>
             <p className="text-[12px] text-slate-500 mb-5">{subline('active')}</p>
-            <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">Stop running a reactive search.</p>
+            <p className="text-[13px] text-slate-600 mb-4 leading-relaxed">Stop running a reactive search.</p>
             <ul className="space-y-2.5">
               {ACTIVE_FEATURES.map(f => (
                 <li key={f} className="flex items-start gap-2.5">
-                  <span className="text-slate-600 shrink-0 mt-0.5 text-[12px]">+</span>
-                  <span className="text-[13px] text-slate-300 leading-snug">{f}</span>
+                  <span className="text-orange-500 shrink-0 mt-0.5 text-[12px]">+</span>
+                  <span className="text-[13px] text-slate-700 leading-snug">{f}</span>
                 </li>
               ))}
             </ul>
@@ -138,19 +141,20 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </Link>
           </div>
 
-          {/* Executive */}
-          <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-2">Executive</p>
-            <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
-              ${price('executive')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
+          {/* Executive — slate-900 authority */}
+          <div className="border border-slate-800 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Executive</p>
+            <p className="text-[32px] font-bold text-white leading-none mb-1">
+              ${price('executive')}<span className="text-[16px] font-normal text-slate-500">/mo</span>
             </p>
-            <p className="text-[12px] text-slate-400 mb-0.5">{trialNote}</p>
+            <p className="text-[12px] text-slate-500 mb-0.5">{trialNote}</p>
             <p className="text-[12px] text-slate-500 mb-5">{subline('executive')}</p>
+            <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">The analysis is done. The brief is written. The intelligence is running at full depth before you wake up.</p>
             <ul className="space-y-2.5">
               {EXECUTIVE_FEATURES.map(f => (
                 <li key={f} className="flex items-start gap-2.5">
                   <span className="text-orange-500 shrink-0 mt-0.5 text-[12px]">+</span>
-                  <span className="text-[13px] text-slate-700 leading-snug">{f}</span>
+                  <span className="text-[13px] text-slate-300 leading-snug">{f}</span>
                 </li>
               ))}
             </ul>

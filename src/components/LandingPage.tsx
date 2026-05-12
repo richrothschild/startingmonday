@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
@@ -17,6 +17,7 @@ export interface FAQ {
 export interface LandingHero {
   eyebrow: string
   h1Lines: string[]
+  bodyPreamble?: string
   body: string
   note?: string
   steps?: string[]
@@ -67,7 +68,7 @@ const TESTIMONIALS = [
 const FEATURES = [
   {
     label: 'Level-Calibrated AI',
-    body: 'Set your search level - C-Suite, VP/SVP, or Board/Advisor - and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude.',
+    body: 'Set your search level - C-Suite, VP/SVP, or Board/Advisor - and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude. If you\'re making the VP-to-CIO move, every output is calibrated to where you\'re going, not where you\'ve been.',
   },
   {
     label: 'Pipeline Command Center',
@@ -75,7 +76,7 @@ const FEATURES = [
   },
   {
     label: 'Early Role Intelligence',
-    body: 'We monitor news, 8-K filings, funding rounds, executive moves, and career pages for every company you track. When signals cluster into a pattern, we name it and alert you before the search is formalized and before the posting exists.',
+    body: 'We monitor news, 8-K filings, funding rounds, executive moves, and career pages for every company you track. When signals cluster into a pattern, we name it and alert you before the search is formalized and before the posting exists. 8-K filings and funding events surface transformation windows before the search is authorized.',
   },
   {
     label: 'Elite Interview Prep Brief',
@@ -83,7 +84,7 @@ const FEATURES = [
   },
   {
     label: 'Daily Morning Briefing',
-    body: 'New matches, pending actions, and company signals - assembled overnight and in your inbox before the day starts.',
+    body: 'Every morning you know exactly what happened overnight and exactly what to act on today. New signals, pending actions, and what to prioritize - assembled overnight and in your inbox before the market opens. Set it up once. The briefing comes to you.',
   },
   {
     label: 'AI Career Advisor',
@@ -108,6 +109,8 @@ const PERSONA_LINKS = [
   { href: '/for-cdo', label: 'Chief Digital Officer' },
   { href: '/for-ciso', label: 'CISO' },
   { href: '/for-coo', label: 'COO' },
+  { href: '/for-search-firms', label: 'Search firms and executive coaches' },
+  { href: '/for-pe-partners', label: 'PE and transformation operators' },
 ]
 
 const TRUST_ITEMS = [
@@ -172,6 +175,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
           </h1>
+          {hero.bodyPreamble && (
+            <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3">
+              {hero.bodyPreamble}
+            </p>
+          )}
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
@@ -184,6 +192,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           {/* Confidentiality promise - above the fold, before any CTA */}
           <p className="text-[13px] text-slate-500 mb-8">
             Your search is completely private - we never share your identity, targets, or activity with anyone.
+            No credit card. No recruiter visibility. No employer access. Cancel from settings in 10 seconds.
           </p>
 
           {hero.steps && hero.steps.length > 0 && (
@@ -248,20 +257,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       </section>
 
-      {/* Differentiation */}
-      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[17px] text-slate-500 leading-relaxed mb-2">
-            Not a job board. Not a $25,000 coaching engagement.{' '}
-            <span className="text-slate-900 font-semibold">The system for working the informal market the way a competitive search requires.</span>
-          </p>
-          <p className="text-[14px] text-slate-400 leading-relaxed">
-            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the campaign infrastructure between those two.
-          </p>
-        </div>
-      </section>
-
-      {/* Persona self-selection */}
+      {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
@@ -274,7 +270,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {situations.map(s => (
               <Link
                 key={s.id}
-                href="/signup"
+                href={`/signup?from=${s.id}`}
                 className="group bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-800 hover:shadow-sm transition-all"
               >
                 <p className="text-[15px] font-semibold text-slate-900 mb-1.5 group-hover:text-slate-700">
@@ -284,6 +280,22 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Differentiation + category claim */}
+      <section className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-3 leading-snug">
+            The executive job search operating system.
+          </h2>
+          <p className="text-[16px] text-slate-500 leading-relaxed mb-2">
+            Not a job board. Not a $25,000 coaching engagement.{' '}
+            <span className="text-slate-900 font-semibold">The infrastructure for a campaign.</span>
+          </p>
+          <p className="text-[14px] text-slate-400 leading-relaxed">
+            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating system between those two.
+          </p>
         </div>
       </section>
 
@@ -322,6 +334,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 ))}
               </ul>
             </div>
+          </div>
+          <div className="mt-8 max-w-2xl">
+            <p className="text-[14px] text-slate-500 leading-relaxed">
+              Executives who reach a target company before a search is posted are dramatically more likely to get the first interview than those who apply after a posting goes live. The window between the first signal and a search going to a retained firm closes in days, not weeks.
+            </p>
           </div>
         </div>
       </section>
@@ -363,7 +380,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 </div>
                 <p className="text-[13px] font-semibold text-white mb-1">Leadership Transition Window</p>
                 <p className="text-[12px] text-slate-400 leading-relaxed mb-2">CIO departed last week. Combined with a digital transformation announcement, this is a high-probability window for external technology leadership.</p>
-                <p className="text-[11px] text-orange-400 font-semibold">Reach out before the search is formalized.</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] text-orange-400 font-semibold">Reach out before the search is formalized.</p>
+                  <p className="text-[11px] text-slate-600">200+ executives watching this company</p>
+                </div>
               </div>
               {/* Card 2 - exec departure: before search is announced */}
               <div className="bg-slate-800 border border-amber-600 rounded-lg p-4">
@@ -461,8 +481,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To generate the prep brief an executive coach takes days to produce</p>
             </div>
             <div>
-              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">$0</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To start. 30-day trial, no credit card, cancel any time</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">11 days</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">average window between the first signal and a search going to a retained firm &mdash; the whole game at this level</p>
             </div>
           </div>
 

@@ -150,6 +150,7 @@ export default function HomePage() {
         hero={{
           eyebrow: 'For technology executives in active search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
+          bodyPreamble: "Most executives in active search won't tell anyone they're looking. Not their peers. Not their network. Not even their closest contacts.",
           body: "Most executive roles are filled before they are ever posted. Starting Monday monitors your target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
           trialNote: 'Free for 30 days. No credit card.',
         }}
