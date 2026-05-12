@@ -1,3 +1,7 @@
+import { redirect, notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { getStaffMember } from '@/lib/staff'
+
 const REPO = 'https://github.com/richrothschild/startingmonday/blob/main'
 
 const SECTIONS = [
@@ -100,7 +104,13 @@ const SECTIONS = [
 
 export const metadata = { title: 'Contributor Hub - Starting Monday' }
 
-export default function ContributorPage() {
+export default async function ContributorPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+  const staff = await getStaffMember(user.email ?? '')
+  if (!staff) notFound()
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
