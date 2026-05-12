@@ -1,6 +1,7 @@
 ﻿'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { usePostHog } from 'posthog-js/react'
 
 type Status = 'idle' | 'uploading' | 'streaming' | 'done' | 'error'
 
@@ -112,6 +113,7 @@ function HelpPopover() {
 }
 
 export default function OptimizePage() {
+  const ph = usePostHog()
   const [text, setText] = useState('')
   const [email, setEmail] = useState('')
   const [output, setOutput] = useState('')
@@ -144,6 +146,10 @@ export default function OptimizePage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!text.trim() || status === 'streaming') return
+
+    try {
+      ph?.capture('profile_grade_submitted', { text_length: text.trim().length })
+    } catch { /* analytics must not block */ }
 
     setStatus('streaming')
     setOutput('')

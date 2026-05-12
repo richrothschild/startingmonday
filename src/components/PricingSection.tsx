@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePostHog } from 'posthog-js/react'
 
 const PASSIVE_FEATURES = [
   'Pipeline tracking for up to 25 companies',
@@ -38,7 +39,14 @@ const YR_MO = { passive: 41,   active: 166,  executive: 417,  concierge: 1167 }
 type Tier = keyof typeof MO
 
 export function PricingSection({ trialNote }: { trialNote: string }) {
+  const ph = usePostHog()
   const [annual, setAnnual] = useState(false)
+
+  function trackPricingCTA(tier: string) {
+    try {
+      ph?.capture('pricing_cta_clicked', { tier, billing: annual ? 'annual' : 'monthly' })
+    } catch { /* analytics must not block */ }
+  }
 
   function price(tier: Tier): string {
     return (annual ? YR_MO[tier] : MO[tier]).toLocaleString()
@@ -123,6 +131,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </p>
             <Link
               href="/signup"
+              onClick={() => trackPricingCTA('passive')}
               className="mt-4 inline-block w-full text-center border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors"
             >
               Try free &rarr;
@@ -154,6 +163,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </p>
             <Link
               href="/signup"
+              onClick={() => trackPricingCTA('active')}
               className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
             >
               Start your campaign &rarr;
@@ -179,6 +189,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </ul>
             <Link
               href="/signup"
+              onClick={() => trackPricingCTA('executive')}
               className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
             >
               Start your campaign &rarr;

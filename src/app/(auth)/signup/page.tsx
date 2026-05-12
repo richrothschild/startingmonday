@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { usePostHog } from 'posthog-js/react'
 
 const SITUATION_COPY: Record<string, { title: string; sub: string }> = {
   urgent:       { title: 'You need to land well. Quickly.',               sub: 'Your first briefing is ready by morning. Add target companies and Starting Monday starts working tonight.' },
@@ -19,6 +20,7 @@ const SITUATION_COPY: Record<string, { title: string; sub: string }> = {
 
 export default function SignupPage() {
   const router = useRouter()
+  const ph = usePostHog()
   const [email, setEmail] = useState('')
   const [situation, setSituation] = useState<string | null>(null)
 
@@ -35,6 +37,9 @@ export default function SignupPage() {
 
   async function handleGoogle() {
     setGoogleLoading(true)
+    try {
+      ph?.capture('signup_completed', { method: 'google' })
+    } catch { /* analytics must not block */ }
     const supabase = createClient()
     const params = new URLSearchParams(window.location.search)
     const utmSource = params.get('utm_source') || params.get('ref') || null
@@ -101,6 +106,15 @@ export default function SignupPage() {
         }).catch(() => {}),
       ])
     }
+
+    try {
+      const phParams = new URLSearchParams(window.location.search)
+      ph?.capture('signup_completed', {
+        method: 'email',
+        situation: phParams.get('from') ?? null,
+        source: phParams.get('utm_source') ?? phParams.get('ref') ?? null,
+      })
+    } catch { /* analytics must not block */ }
 
     // If email confirmation is required, the session won't exist yet
     if (!data.session) {
