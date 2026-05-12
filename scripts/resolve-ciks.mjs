@@ -115,37 +115,59 @@ function bulkMatch(companyName, byName, byFirst) {
 // ── Pass 2: EDGAR company search + Haiku disambiguation ──────────────────────
 
 async function edgarSearch(companyName) {
-  // EFTS full-text search scoped to 10-K filings.
-  // Each hit carries entity_name (the filer) and a CIK-bearing _id.
-  // We deduplicate by CIK and keep only hits whose entity_name
-  // contains the first word of our search term.
-  const encoded = encodeURIComponent(`"${companyName}"`)
-  const url = `https://efts.sec.gov/LATEST/search-index?q=${encoded}&forms=10-K&dateRange=custom&startdt=2020-01-01&enddt=2025-12-31&hits.hits.total.value=true`
+  // Step 1: EDGAR company search HTML to extract candidate CIKs.
+  // The original HTML regex reliably finds CIKs for all company types
+  // (search results pages and single-result redirect pages alike).
+  const encoded = encodeURIComponent(companyName)
+  const url = `https://www.sec.gov/cgi-bin/browse-edgar?company=${encoded}&CIK=&type=10-K&dateb=&owner=include&count=10&search_text=&action=getcompany`
   await sleep(DELAY_MS)
   try {
     const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(12000) })
     if (!res.ok) return []
-    const data = await res.json()
-    const hits = data.hits?.hits ?? []
+    const html = await res.text()
+    const cikCandidates = extractCIKsFromSearch(html)
+    if (!cikCandidates.length) return []
 
-    const searchFirst = normalize(companyName).split(' ')[0]
-    const seen = new Set()
+    // Step 2: look up real company names from SEC submissions JSON.
+    // Avoids parsing HTML names which vary by page type.
     const results = []
-
-    for (const hit of hits) {
-      // _id format: "0000029082-24-000104:filename.htm" — first segment is padded CIK
-      const cikPadded = (hit._id ?? '').split(':')[0].split('-')[0]
-      const cik = cikPadded.replace(/^0+/, '')
-      const name = (hit._source?.entity_name ?? '').trim()
-      if (!cik || !name || seen.has(cik)) continue
-      // Only include filers whose name contains the first word of our search
-      if (!normalize(name).includes(searchFirst)) continue
-      seen.add(cik)
-      results.push({ cik, padded: cikPadded || cik.padStart(10, '0'), title: name })
+    for (const { cik, padded } of cikCandidates) {
+      await sleep(DELAY_MS)
+      const name = await fetchCompanyName(padded)
+      results.push({ cik, padded, title: name ?? cik })
     }
-    return results.slice(0, 8)
+    return results
   } catch {
     return []
+  }
+}
+
+function extractCIKsFromSearch(html) {
+  // Links with action=getcompany&CIK= are specific to company result rows.
+  // Navigation links use action=getcompany without a CIK.
+  const seen = new Set()
+  const results = []
+  const re = /action=getcompany&(?:amp;)?CIK=0*(\d+)/gi
+  let match
+  while ((match = re.exec(html)) !== null) {
+    const cik = match[1]
+    if (cik && !seen.has(cik)) {
+      seen.add(cik)
+      results.push({ cik, padded: cik.padStart(10, '0') })
+    }
+  }
+  return results.slice(0, 8)
+}
+
+async function fetchCompanyName(cikPadded) {
+  const url = `https://data.sec.gov/submissions/CIK${cikPadded}.json`
+  try {
+    const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(12000) })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.name ?? null
+  } catch {
+    return null
   }
 }
 
