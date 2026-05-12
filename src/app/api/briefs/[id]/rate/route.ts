@@ -17,12 +17,17 @@ export async function PATCH(
     return NextResponse.json({ error: 'Invalid rating' }, { status: 400 })
   }
 
+  const feedback = typeof body.feedback === 'string' ? body.feedback.trim().slice(0, 1000) : null
+
   const { id } = await params
   const supabase = await createClient()
 
+  const updatePayload: Record<string, unknown> = { user_rating: body.rating }
+  if (feedback) updatePayload.rating_feedback = feedback
+
   const { data: updated, error } = await supabase
     .from('briefs')
-    .update({ user_rating: body.rating })
+    .update(updatePayload)
     .eq('id', id)
     .eq('user_id', userId)
     .select('type')
@@ -33,7 +38,7 @@ export async function PATCH(
   }
 
   if (body.rating === -1) {
-    captureServerEvent(userId, 'brief_rated_negative', { brief_id: id, brief_type: updated?.type ?? 'unknown' })
+    captureServerEvent(userId, 'brief_rated_negative', { brief_id: id, brief_type: updated?.type ?? 'unknown', has_feedback: !!feedback })
   }
 
   return NextResponse.json({ ok: true })

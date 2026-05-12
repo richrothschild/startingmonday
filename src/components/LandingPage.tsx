@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
+import { SamplePrepBrief } from '@/components/SamplePrepBrief'
 
 export interface SituationCard {
   id: string
@@ -80,7 +81,7 @@ const FEATURES = [
   },
   {
     label: 'Elite Interview Prep Brief',
-    body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Ready in 60 seconds.',
+    body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Ready in 60 seconds. If a brief misses the mark, flag it in one click — we track every report and improve the prompt.',
   },
   {
     label: 'Daily Morning Briefing',
@@ -473,6 +474,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
         </div>
       </section>
+
+      <SamplePrepBrief />
 
       {/* Operating cadence */}
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
