@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
         updateError = error
         if (updatedUser?.email) {
           sendEmail({
-            to: 'rothschild@gmail.com',
+            to: process.env.OWNER_EMAIL ?? '',
             subject: `New paid subscriber: ${updatedUser.email}`,
             html: `<p style="font-family:sans-serif;font-size:14px;color:#0f172a;"><strong>${updatedUser.email}</strong> just converted to a paid ${plan} plan.</p>`,
           }).catch(() => {})

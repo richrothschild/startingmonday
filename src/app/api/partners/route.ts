@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
   // Notify Rich
   sendEmail({
-    to: 'rothschild@gmail.com',
+    to: process.env.OWNER_EMAIL ?? '',
     subject: `Partner inquiry: ${name} at ${company}`,
     html: `
       <p><strong>Name:</strong> ${escHtml(name)}</p>

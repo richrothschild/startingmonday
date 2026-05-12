@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 
-const OWNER_EMAIL = 'rothschild@gmail.com'
+const OWNER_EMAIL = process.env.OWNER_EMAIL
 
 const TIER_LABELS: Record<string, string> = {
   trialing:  'Free trial',
@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
   const source  = (body?.source ?? '').toString().trim() || null
 
   if (!email) return NextResponse.json({ ok: true })
+  if (!OWNER_EMAIL) return NextResponse.json({ ok: true })
 
   const tierLabel = TIER_LABELS[tier] ?? tier
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })

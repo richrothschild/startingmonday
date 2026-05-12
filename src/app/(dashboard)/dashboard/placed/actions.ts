@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
 
-const OWNER_EMAIL = 'rothschild@gmail.com'
+const OWNER_EMAIL = process.env.OWNER_EMAIL
 
 export async function markPlaced(formData: FormData) {
   const supabase = await createClient()
@@ -63,7 +63,7 @@ export async function markPlaced(formData: FormData) {
   }
 
   // Notify Rich
-  if (email) {
+  if (email && OWNER_EMAIL) {
     sendEmail({
       to: OWNER_EMAIL,
       subject: `Placement: ${email}${company ? ` -> ${company}` : ''}`,

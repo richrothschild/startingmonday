@@ -96,7 +96,7 @@ export default async function PlacedPage() {
 
           <p className="text-[12px] text-slate-600 leading-relaxed">
             Questions? Reply to the congratulations email or reach Rich directly at
-            {' '}<a href="mailto:rothschild@gmail.com" className="text-slate-400 hover:text-slate-200">rothschild@gmail.com</a>.
+            {' '}<a href="mailto:richard@startingmonday.app" className="text-slate-400 hover:text-slate-200">richard@startingmonday.app</a>.
           </p>
 
         </div>
