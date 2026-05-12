@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-const VACANCY_WINDOW_DAYS = 180
+const VACANCY_WINDOW_DAYS = 365
 
 const TITLE_LABEL: Record<string, string> = {
   CIO: 'CIO', CTO: 'CTO', CISO: 'CISO',
