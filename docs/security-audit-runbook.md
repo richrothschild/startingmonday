@@ -297,14 +297,14 @@ This section tracks what was found and fixed so future audits know the baseline.
 | A2-2 | `social_posts` no RLS | **Fixed** — migration 083 |
 | A2-3 | `partners` no RLS | **Fixed** — migration 083 |
 | A2-4 | `referral_attributions` no RLS | **Fixed** — migration 083 |
-| A1-1 | 4 AI routes no rate limiting | **Open** |
-| A1-2 | Unbounded resume input to Anthropic | **Open** |
+| A1-1 | 9 AI routes no rate limiting (audit originally counted 4) | **Fixed** — commit 0f4a8ab |
+| A1-2 | Unbounded resume input to Anthropic | **Fixed** — commit 0f4a8ab |
 | A2-5 | `testimonials` no RLS | **Fixed** — migration 083 |
 | A2-6 | `rate_limits` no RLS | **Fixed** — migration 083 |
-| A1-3 | Unsigned unsubscribe tokens | **Open** |
-| A1-4 | `feedback` no rate limit or attribution | **Open** |
-| A1-5 | Forged pixel open events | **Open** |
-| A5-1 | No CSP `report-to` directive | **Open** |
-| A5-2 | Missing COOP/CORP headers | **Open** |
+| A1-3 | Unsigned unsubscribe tokens | **Fixed** — commit 0f4a8ab; requires `UNSUBSCRIBE_SECRET` in Railway |
+| A1-4 | `feedback` no rate limit or attribution | **Fixed** — commit TBD; migration 084 adds user_id |
+| A1-5 | Forged pixel open events | **Fixed** — commit TBD; UUID format validation in parsePixelToken |
+| A5-1 | No CSP `report-to` directive | **Fixed** — commit TBD; derived from SENTRY_DSN at startup |
+| A5-2 | Missing COOP/CORP headers | **Fixed** — commit 0f4a8ab |
 
 Update this table as fixes land. Reference the finding ID in your commit message.

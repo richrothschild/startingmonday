@@ -1,6 +1,26 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from '@sentry/nextjs'
 
+// Derive Sentry's CSP security-report endpoint from the DSN.
+// DSN format:  https://KEY@ORG.ingest.sentry.io/PROJECT_ID
+// Report URI:  https://ORG.ingest.sentry.io/api/PROJECT_ID/security/?sentry_key=KEY
+function sentryReportUri(): string | null {
+  const dsn = process.env.SENTRY_DSN
+  if (!dsn) return null
+  try {
+    const url = new URL(dsn)
+    const key = url.username
+    const host = url.hostname
+    const projectId = url.pathname.replace(/^\//, '')
+    if (!key || !host || !projectId) return null
+    return `https://${host}/api/${projectId}/security/?sentry_key=${key}`
+  } catch {
+    return null
+  }
+}
+
+const SENTRY_REPORT_URI = sentryReportUri()
+
 const CSP = [
   "default-src 'self'",
   // Next.js App Router requires unsafe-inline for hydration scripts.
@@ -15,6 +35,7 @@ const CSP = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
+  ...(SENTRY_REPORT_URI ? [`report-uri ${SENTRY_REPORT_URI}`, "report-to csp-endpoint"] : []),
 ].join('; ')
 
 const securityHeaders = [
@@ -27,6 +48,10 @@ const securityHeaders = [
   { key: 'Content-Security-Policy',    value: CSP },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+  ...(SENTRY_REPORT_URI ? [{
+    key: 'Report-To',
+    value: JSON.stringify({ group: 'csp-endpoint', max_age: 86400, endpoints: [{ url: SENTRY_REPORT_URI }] }),
+  }] : []),
 ]
 
 const nextConfig: NextConfig = {
