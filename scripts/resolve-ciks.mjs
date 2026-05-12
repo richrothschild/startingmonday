@@ -115,32 +115,36 @@ function bulkMatch(companyName, byName, byFirst) {
 // ── Pass 2: EDGAR company search + Haiku disambiguation ──────────────────────
 
 async function edgarSearch(companyName) {
+  // Use output=atom for structured XML instead of scraping HTML
   const encoded = encodeURIComponent(companyName)
-  const url = `https://www.sec.gov/cgi-bin/browse-edgar?company=${encoded}&CIK=&type=10-K&dateb=&owner=include&count=10&search_text=&action=getcompany`
+  const url = `https://www.sec.gov/cgi-bin/browse-edgar?company=${encoded}&CIK=&type=10-K&dateb=&owner=include&count=10&search_text=&action=getcompany&output=atom`
   await sleep(DELAY_MS)
   try {
-    const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(12000) })
+    const res = await fetch(url, { headers: { ...HEADERS, Accept: 'application/atom+xml,text/xml' }, signal: AbortSignal.timeout(12000) })
     if (!res.ok) return []
-    const html = await res.text()
-    return parseEdgarSearchHtml(html)
+    const xml = await res.text()
+    return parseEdgarAtom(xml)
   } catch {
     return []
   }
 }
 
-function parseEdgarSearchHtml(html) {
-  // EDGAR search results: each row has two links with the same CIK.
-  // First link (type=10-K) has the company name as text.
-  // Second link (type=&owner=...) has "0000XXXXXX (see all company filings)" as text.
-  // Match only the first link per CIK by requiring type= in the URL.
+function parseEdgarAtom(xml) {
   const results = []
-  const re = /CIK=0*(\d+)[^>]*type=[^&][^>]*>([^<]{3,80})</gi
-  let match
-  while ((match = re.exec(html)) !== null) {
-    const cik = match[1].replace(/^0+/, '')
-    const name = match[2].trim()
-    if (cik && name && !/see all/i.test(name) && !results.find(r => r.cik === cik)) {
-      results.push({ cik, padded: cik.padStart(10, '0'), title: name })
+  const entryRe = /<entry>([\s\S]*?)<\/entry>/gi
+  let entry
+  while ((entry = entryRe.exec(xml)) !== null) {
+    const block = entry[1]
+    const nameMatch = /<company-info:name>([^<]+)<\/company-info:name>/i.exec(block)
+      ?? /<title[^>]*>([^<]{3,80})<\/title>/i.exec(block)
+    const cikMatch  = /<company-info:cik>0*(\d+)<\/company-info:cik>/i.exec(block)
+      ?? /CIK=0*(\d+)/i.exec(block)
+    if (nameMatch && cikMatch) {
+      const name = nameMatch[1].trim()
+      const cik  = cikMatch[1].replace(/^0+/, '')
+      if (cik && name && !results.find(r => r.cik === cik)) {
+        results.push({ cik, padded: cik.padStart(10, '0'), title: name })
+      }
     }
   }
   return results.slice(0, 8)
