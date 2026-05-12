@@ -467,8 +467,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
             <div>
-              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">6</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Intelligence sources per target company: news, 8-K filings, exec moves, funding, PR wire, and career pages</p>
+              <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">10+</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Intelligence sources per target company: SEC filings, exec moves, news, business journals, PR wire, trade press, and career pages</p>
             </div>
             <div>
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">60s</p>
