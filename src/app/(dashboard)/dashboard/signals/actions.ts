@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { str } from '@/lib/form-utils'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { logEvent } from '@/lib/events'
 
 export async function generateSignalOutreach(formData: FormData) {
   const signalId = str(formData, 'signal_id')
@@ -65,6 +66,7 @@ Rules:
       .eq('user_id', user.id)
 
     captureServerEvent(user.id, 'signal_outreach_generated', { signal_type: signal.signal_type })
+    await logEvent(user.id, 'signal_outreach_generated', { signal_type: signal.signal_type })
   } catch { /* fail silently; user can retry */ }
 
   revalidatePath('/dashboard/signals')

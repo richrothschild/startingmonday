@@ -6,6 +6,7 @@ import { addSignalFollowUp, generateSignalOutreach } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
 import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { logEvent } from '@/lib/events'
 
 const PAGE_SIZE = 25
 
@@ -64,6 +65,7 @@ export default async function SignalsPage({
 
   if ((count ?? 0) > 0) {
     captureServerEvent(user.id, 'signals_page_viewed', { signal_count: count ?? 0, page })
+    await logEvent(user.id, 'signals_page_viewed', { signal_count: count ?? 0, page })
   }
 
   // Fetch first active contact per company for "Draft outreach" links

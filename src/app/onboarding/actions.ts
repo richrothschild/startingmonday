@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingFormSchema } from '@/lib/schemas'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { logEvent } from '@/lib/events'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -107,6 +108,12 @@ export async function completeOnboarding(formData: FormData) {
     .is('search_started_at', null)
 
   captureServerEvent(user.id, 'onboarding_completed', {
+    search_path: searchPath,
+    search_persona: searchPersona ?? '',
+    employment_status: employmentStatus ?? '',
+    company_count: companyNamesList.length,
+  })
+  await logEvent(user.id, 'onboarding_completed', {
     search_path: searchPath,
     search_persona: searchPersona ?? '',
     employment_status: employmentStatus ?? '',
