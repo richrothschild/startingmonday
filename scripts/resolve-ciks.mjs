@@ -129,15 +129,17 @@ async function edgarSearch(companyName) {
 }
 
 function parseEdgarSearchHtml(html) {
-  // EDGAR search results table contains rows like:
-  //   <a href="/cgi-bin/browse-edgar?action=getcompany&CIK=0000320193&...">APPLE INC</a>
+  // EDGAR search results: each row has two links with the same CIK.
+  // First link (type=10-K) has the company name as text.
+  // Second link (type=&owner=...) has "0000XXXXXX (see all company filings)" as text.
+  // Match only the first link per CIK by requiring type= in the URL.
   const results = []
-  const re = /browse-edgar\?action=getcompany&(?:amp;)?CIK=(\d+)[^>]*>([^<]+)</gi
+  const re = /CIK=0*(\d+)[^>]*type=[^&][^>]*>([^<]{3,80})</gi
   let match
   while ((match = re.exec(html)) !== null) {
     const cik = match[1].replace(/^0+/, '')
     const name = match[2].trim()
-    if (cik && name && !results.find(r => r.cik === cik)) {
+    if (cik && name && !/see all/i.test(name) && !results.find(r => r.cik === cik)) {
       results.push({ cik, padded: cik.padStart(10, '0'), title: name })
     }
   }
