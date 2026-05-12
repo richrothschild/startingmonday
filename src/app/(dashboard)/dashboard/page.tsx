@@ -337,7 +337,9 @@ export default async function DashboardPage({
     ? Math.floor((Date.now() - new Date(profile.onboarding_completed_at).getTime()) / 86400000)
     : null
   const showWeek3Prompt = daysSinceOnboard !== null && daysSinceOnboard >= 18 && daysSinceOnboard <= 28
-  const showNurtureWelcome = isNurturePath && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
+  const showNurtureWelcome  = isNurturePath              && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
+  const showCampaignWelcome = searchPath === 'campaign'  && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
+  const showWatcherWelcome  = searchPath === 'watcher'   && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
 
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
@@ -749,6 +751,48 @@ export default async function DashboardPage({
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
               You can come back for the rest. The system will be here.
+            </p>
+          </div>
+        )}
+
+        {/* Campaign path welcome — first 7 days, empty pipeline */}
+        {showCampaignWelcome && (
+          <div className="bg-slate-900 rounded-lg p-6 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</p>
+            <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
+            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
+              Most executive roles never get posted. They get filled through relationships and signals before a search is ever authorized. The executives who land well do not wait for postings. They are already watching the right companies when timing shifts.
+            </p>
+            <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
+            <Link
+              href="/dashboard/companies/new"
+              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
+            >
+              Add your first target company &rarr;
+            </Link>
+            <p className="text-[12px] text-slate-500 mt-4">
+              Aim for 10 to 15 companies. Add career page URLs as you go — we scan for openings before they go public.
+            </p>
+          </div>
+        )}
+
+        {/* Watcher path welcome — first 7 days, empty pipeline */}
+        {showWatcherWelcome && (
+          <div className="bg-slate-900 rounded-lg p-6 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</p>
+            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
+            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
+              The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
+            </p>
+            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to — and let the platform do the watching.</p>
+            <Link
+              href="/dashboard/companies/new"
+              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
+            >
+              Add a company to watch &rarr;
+            </Link>
+            <p className="text-[12px] text-slate-500 mt-4">
+              No pressure to act on anything. You will know when the timing shifts.
             </p>
           </div>
         )}
