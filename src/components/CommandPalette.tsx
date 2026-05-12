@@ -16,7 +16,7 @@ const QUICK_ACTIONS: Result[] = [
   { kind: 'action', label: 'Strategy brief',       sub: 'Your search playbook',       href: '/dashboard/strategy',      icon: '▶' },
   { kind: 'action', label: 'Chat with AI',         sub: 'Ask your advisor',           href: '/dashboard/chat',          icon: '✦' },
   { kind: 'action', label: 'Add contact',          sub: 'Log a relationship',         href: '/dashboard/contacts',      icon: '＋' },
-  { kind: 'action', label: 'Kanban board',         sub: 'Pipeline view',              href: '/dashboard/kanban',        icon: '▦' },
+  { kind: 'action', label: 'Follow-ups',           sub: 'Open actions for today',     href: '/dashboard/calendar',      icon: '◫' },
   { kind: 'action', label: 'Calendar',             sub: 'Upcoming follow-ups',        href: '/dashboard/calendar',      icon: '◫' },
   { kind: 'action', label: 'LinkedIn optimizer',   sub: 'Improve your profile',       href: '/optimize',                icon: '⭡' },
   { kind: 'action', label: 'Profile settings',     sub: 'Titles, sectors, briefing',  href: '/dashboard/profile',       icon: '◌' },

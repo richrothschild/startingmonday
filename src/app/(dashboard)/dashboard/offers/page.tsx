@@ -91,10 +91,10 @@ export default async function OffersPage() {
           <div className="bg-white border border-slate-200 rounded p-16 text-center">
             <p className="text-[14px] text-slate-400 mb-4">No companies at the Offer stage.</p>
             <Link
-              href="/dashboard/kanban"
+              href="/dashboard/briefing"
               className="text-[13px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded transition-colors"
             >
-              Open pipeline →
+              Open daily briefing →
             </Link>
           </div>
         ) : offers.length === 1 ? (

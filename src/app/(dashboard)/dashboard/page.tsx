@@ -381,7 +381,7 @@ export default async function DashboardPage({
     { value: totalCount,   label: 'Companies',   alert: false,            amber: false,              href: '#pipeline' },
     { value: activeCount,  label: 'Active',       alert: false,            amber: activeCount > 0,    href: '#pipeline' },
     { value: signalCount,  label: 'Signals',      alert: false,            amber: signalCount > 0,    href: '/dashboard/signals' },
-    { value: overdueCount, label: 'Actions Due',  alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
+    { value: overdueCount, label: 'Due Today',    alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
   ]
 
   const offerCompany = !profile?.placed_at
@@ -539,7 +539,7 @@ export default async function DashboardPage({
             <CmdKButton />
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/kanban" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Kanban</Link>
+            <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
@@ -570,6 +570,9 @@ export default async function DashboardPage({
             {greeting}, {firstName}.
           </h1>
           <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
+            <p className="text-[13px] text-slate-400 mt-2 leading-relaxed">
+              Start with the briefing, then work the next relationship and the next action.
+            </p>
         </div>
 
         {/* Profile quick-save confirmation */}
@@ -1081,11 +1084,11 @@ export default async function DashboardPage({
           ))}
         </div>
 
-        {/* Actions Due */}
+        {/* Today */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-              Actions Due
+              Today
             </span>
             {(followUps ?? []).length > 0 && (
               <span className="text-[12px] font-semibold text-red-600">
@@ -1376,7 +1379,7 @@ export default async function DashboardPage({
                 <div className={`text-[28px] font-bold leading-none ${overdueCount > 0 ? 'text-red-600' : 'text-slate-300'}`}>
                   {overdueCount}
                 </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Actions Due</div>
+                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Today</div>
                 <div className="text-[11px] text-slate-400 mt-0.5">overdue</div>
               </div>
               <div className="px-6 py-5 text-center">
@@ -1454,7 +1457,7 @@ export default async function DashboardPage({
                         <EmptyState
                           icon={EMPTY_ICONS.companies}
                           title="No target companies yet"
-                          body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right."
+                          body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right. Then use the briefing to decide who to contact first."
                           cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
                         />
                       )

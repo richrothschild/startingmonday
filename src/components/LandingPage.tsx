@@ -73,8 +73,8 @@ const FEATURES = [
     body: 'Set your search level - C-Suite, VP/SVP, or Board/Advisor - and every AI output calibrates to that tier. The prep brief, strategy, outreach, and advisor all speak at the right altitude. If you\'re making the VP-to-CIO move, every output is calibrated to where you\'re going, not where you\'ve been.',
   },
   {
-    label: 'Pipeline Command Center',
-    body: 'Every company, contact, and conversation - staged, sequenced, and tracked. Nothing falls through. Nothing goes cold.',
+    label: 'Relationship Command Center',
+    body: 'Every company, contact, and conversation - staged, sequenced, and tracked. You can see who matters, what changed, and what to do next. Nothing falls through. Nothing goes cold.',
   },
   {
     label: 'Early Role Intelligence',
@@ -85,8 +85,8 @@ const FEATURES = [
     body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Ready in 60 seconds. If a brief misses the mark, flag it in one click — we track every report and improve the prompt.',
   },
   {
-    label: 'Daily Morning Briefing',
-    body: 'Every morning you know exactly what happened overnight and exactly what to act on today. New signals, pending actions, and what to prioritize - assembled overnight and in your inbox before the market opens. Set it up once. The briefing comes to you.',
+    label: 'Daily Accountability Briefing',
+    body: 'Every morning you know exactly what happened overnight, which relationships need attention, and the first action to take today. New signals, pending actions, and what to prioritize - assembled overnight and in your inbox before the market opens. Set it up once. The briefing becomes your check-in.',
   },
   {
     label: 'AI Career Advisor',

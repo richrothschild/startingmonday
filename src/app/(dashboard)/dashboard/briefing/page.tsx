@@ -158,7 +158,7 @@ ${followUpsText}
 
 Write a morning briefing as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Specific and factual - name the company or action. No generic phrases. If there are signals, lead with that.
-- "intro": 1-2 sentences. State what's on the board today and why it matters. No preamble.
+- "intro": 1-2 sentences. State what changed overnight and what matters today. No preamble.
 - "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } - only if there are signals.
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } - only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence - what to do and how) } - only if there are follow-ups.
@@ -251,6 +251,13 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
         </div>
       ) : (
         <>
+          <div className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</p>
+            <p className="text-[14px] text-slate-700 leading-relaxed">
+              Overnight changes show you what shifted. Today's actions show you who to contact first and what to do before the day gets away from you.
+            </p>
+          </div>
+
           {briefing?.intro && (
             <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
           )}
@@ -258,7 +265,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
           {signalAlerts.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Company Signals
+                Overnight Changes
               </div>
               <div className="flex flex-col gap-3">
                 {signalAlerts.map((s, i) => (
@@ -282,7 +289,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
           {matchInsights.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                New Matches
+                People To Reach
               </div>
               <div className="flex flex-col gap-3">
                 {matchInsights.map((m, i) => (
@@ -301,7 +308,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
           {followUpItems.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Open Actions
+                Today, Do This
               </div>
               <div className="flex flex-col gap-2">
                 {followUpItems.map((f, i) => (
@@ -327,7 +334,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
               href="/dashboard"
               className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
             >
-              Open Dashboard
+              Back to dashboard
             </Link>
           </div>
         </>
@@ -392,6 +399,9 @@ export default async function BriefingPage() {
             Good morning, {firstName}.
           </h1>
           <p className="text-[13px] text-slate-500">{todayLabel}</p>
+          <p className="text-[13px] text-slate-300 mt-3 leading-relaxed">
+            Here is what changed overnight and what to act on first today.
+          </p>
         </div>
 
         {/* Stats bar - streams immediately after DB queries */}
@@ -400,7 +410,7 @@ export default async function BriefingPage() {
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
             { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
             { value: context.newMatches.length, label: 'Matches', amber: false, red: false },
-            { value: context.followUps.length, label: 'Actions Due', amber: false, red: context.followUps.length > 0 },
+            { value: context.followUps.length, label: 'Due Today', amber: false, red: context.followUps.length > 0 },
           ].map(({ value, label, amber, red }) => (
             <div key={label} className="py-4 px-3 text-center">
               <div className={`text-[22px] font-bold leading-none ${red ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>

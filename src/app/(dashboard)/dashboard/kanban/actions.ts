@@ -30,7 +30,6 @@ export async function moveCompanyStage(companyId: string, stage: string): Promis
   await logEvent(user.id, 'pipeline_stage_changed', { company_id: companyId, stage })
   captureServerEvent(user.id, 'pipeline_stage_changed', { company_id: companyId, stage })
 
-  revalidatePath('/dashboard/kanban')
   revalidatePath('/dashboard')
   return { ok: true }
 }
