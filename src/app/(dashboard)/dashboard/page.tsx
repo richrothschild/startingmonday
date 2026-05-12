@@ -72,7 +72,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('stage, name')
+    .select('id, stage, name')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -94,7 +94,7 @@ export default async function DashboardPage({
       .eq('is_active', true)
   ).then(r => (r.count ?? 0) > 0).catch(() => false)
 
-  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }] = await Promise.all([
+  const [{ data: companies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: userRow }, { data: recentSignals }, { data: recentPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }, { count: prospectContactCount }, { data: briefedCompanyRows }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -151,6 +151,8 @@ export default async function DashboardPage({
     supabase.from('briefs').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
     supabase.from('follow_ups').select('created_at').eq('user_id', user.id).gte('created_at', since70d),
     supabase.from('briefs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('type', 'outreach').gte('created_at', thisMonday),
+    supabase.from('contacts').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'active').eq('outreach_status', 'prospect'),
+    supabase.from('briefs').select('company_id').eq('user_id', user.id).eq('type', 'prep').not('company_id', 'is', null).limit(500),
   ])
 
   // Build weekly activity chart data (last 10 weeks)
@@ -292,6 +294,11 @@ export default async function DashboardPage({
       contactCountMap.set(row.company_id, (contactCountMap.get(row.company_id) ?? 0) + 1)
     }
   }
+
+  const briefedCompanyIds = new Set((briefedCompanyRows ?? []).map(b => b.company_id).filter(Boolean) as string[])
+  const companiesWithoutContact = (allCompanies ?? []).filter(c => c.id && !contactCountMap.has(c.id))
+  const companiesWithoutBrief   = (allCompanies ?? []).filter(c => c.id && !briefedCompanyIds.has(c.id))
+  const numIntelGaps = [companiesWithoutContact.length > 0, (prospectContactCount ?? 0) > 0, companiesWithoutBrief.length > 0].filter(Boolean).length
 
   const filtered = companies ?? []
   const totalFiltered = filteredCount ?? 0
@@ -730,6 +737,53 @@ export default async function DashboardPage({
             </div>
             <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
           </Link>
+        )}
+
+        {/* Proactive intelligence cards — pipeline gap summary */}
+        {totalCount >= 3 && numIntelGaps > 0 && (
+          <div className="mb-6 sm:mb-8">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</p>
+            <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
+              {companiesWithoutContact.length > 0 && (
+                <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutContact.length}</div>
+                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+                    {companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact
+                  </div>
+                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
+                    {companiesWithoutContact.slice(0, 2).map(c => c.name).join(', ')}
+                    {companiesWithoutContact.length > 2 ? ` +${companiesWithoutContact.length - 2} more` : ''}
+                  </div>
+                  <span className="text-[11px] font-semibold text-slate-500">Add contacts &rarr;</span>
+                </Link>
+              )}
+              {(prospectContactCount ?? 0) > 0 && (
+                <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{prospectContactCount}</div>
+                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+                    {prospectContactCount === 1 ? 'contact' : 'contacts'} not yet reached
+                  </div>
+                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
+                    People you know but have not yet connected with in this search.
+                  </div>
+                  <span className="text-[11px] font-semibold text-slate-500">Draft outreach &rarr;</span>
+                </Link>
+              )}
+              {companiesWithoutBrief.length > 0 && (
+                <Link href="/dashboard/companies" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutBrief.length}</div>
+                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+                    {companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief
+                  </div>
+                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
+                    {companiesWithoutBrief.slice(0, 2).map(c => c.name).join(', ')}
+                    {companiesWithoutBrief.length > 2 ? ` +${companiesWithoutBrief.length - 2} more` : ''}
+                  </div>
+                  <span className="text-[11px] font-semibold text-slate-500">Run prep briefs &rarr;</span>
+                </Link>
+              )}
+            </div>
+          </div>
         )}
 
         <OpportunityRadar />
