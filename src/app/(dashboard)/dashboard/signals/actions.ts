@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { str } from '@/lib/form-utils'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function generateSignalOutreach(formData: FormData) {
   const signalId = str(formData, 'signal_id')
@@ -62,6 +63,8 @@ Rules:
       .update({ outreach_draft: { subject, body } })
       .eq('id', signalId)
       .eq('user_id', user.id)
+
+    captureServerEvent(user.id, 'signal_outreach_generated', { signal_type: signal.signal_type })
   } catch { /* fail silently; user can retry */ }
 
   revalidatePath('/dashboard/signals')

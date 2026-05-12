@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -16,6 +17,8 @@ export async function POST(request: NextRequest) {
     .update({ positioning_summary: positioning })
     .eq('user_id', auth.userId)
   if (error) return NextResponse.json({ error: 'Save failed.' }, { status: 500 })
+
+  captureServerEvent(auth.userId, 'positioning_saved', { length: positioning.length })
 
   return NextResponse.json({ ok: true })
 }

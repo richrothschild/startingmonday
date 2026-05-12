@@ -5,6 +5,7 @@ import { LogoutButton } from '../logout-button'
 import { addSignalFollowUp, generateSignalOutreach } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
 import { SignalOutreachGate } from '@/components/SignalOutreachGate'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 const PAGE_SIZE = 25
 
@@ -60,6 +61,10 @@ export default async function SignalsPage({
   query = query.range(start, start + PAGE_SIZE - 1)
 
   const { data: signals, count } = await query
+
+  if ((count ?? 0) > 0) {
+    captureServerEvent(user.id, 'signals_page_viewed', { signal_count: count ?? 0, page })
+  }
 
   // Fetch first active contact per company for "Draft outreach" links
   const signalCompanyIds = [...new Set((signals ?? []).map(s => s.company_id).filter(Boolean))]

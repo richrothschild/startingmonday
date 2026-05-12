@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to save brief' }, { status: 500 })
   }
 
-  if (type === 'prep' || type === 'strategy_brief_generated') {
+  if (type === 'prep' || type === 'strategy') {
     const eventName = type === 'prep' ? 'prep_brief_generated' : 'strategy_brief_generated'
     await logEvent(userId, eventName, { type, company_id: company_id ?? null })
     captureServerEvent(userId, eventName, { type, company_id: company_id ?? null })
