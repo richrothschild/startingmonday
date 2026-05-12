@@ -115,39 +115,38 @@ function bulkMatch(companyName, byName, byFirst) {
 // ── Pass 2: EDGAR company search + Haiku disambiguation ──────────────────────
 
 async function edgarSearch(companyName) {
-  // Use output=atom for structured XML instead of scraping HTML
-  const encoded = encodeURIComponent(companyName)
-  const url = `https://www.sec.gov/cgi-bin/browse-edgar?company=${encoded}&CIK=&type=10-K&dateb=&owner=include&count=10&search_text=&action=getcompany&output=atom`
+  // EFTS full-text search scoped to 10-K filings.
+  // Each hit carries entity_name (the filer) and a CIK-bearing _id.
+  // We deduplicate by CIK and keep only hits whose entity_name
+  // contains the first word of our search term.
+  const encoded = encodeURIComponent(`"${companyName}"`)
+  const url = `https://efts.sec.gov/LATEST/search-index?q=${encoded}&forms=10-K&dateRange=custom&startdt=2020-01-01&enddt=2025-12-31&hits.hits.total.value=true`
   await sleep(DELAY_MS)
   try {
-    const res = await fetch(url, { headers: { ...HEADERS, Accept: 'application/atom+xml,text/xml' }, signal: AbortSignal.timeout(12000) })
+    const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(12000) })
     if (!res.ok) return []
-    const xml = await res.text()
-    return parseEdgarAtom(xml)
+    const data = await res.json()
+    const hits = data.hits?.hits ?? []
+
+    const searchFirst = normalize(companyName).split(' ')[0]
+    const seen = new Set()
+    const results = []
+
+    for (const hit of hits) {
+      // _id format: "0000029082-24-000104:filename.htm" — first segment is padded CIK
+      const cikPadded = (hit._id ?? '').split(':')[0].split('-')[0]
+      const cik = cikPadded.replace(/^0+/, '')
+      const name = (hit._source?.entity_name ?? '').trim()
+      if (!cik || !name || seen.has(cik)) continue
+      // Only include filers whose name contains the first word of our search
+      if (!normalize(name).includes(searchFirst)) continue
+      seen.add(cik)
+      results.push({ cik, padded: cikPadded || cik.padStart(10, '0'), title: name })
+    }
+    return results.slice(0, 8)
   } catch {
     return []
   }
-}
-
-function parseEdgarAtom(xml) {
-  const results = []
-  const entryRe = /<entry>([\s\S]*?)<\/entry>/gi
-  let entry
-  while ((entry = entryRe.exec(xml)) !== null) {
-    const block = entry[1]
-    const nameMatch = /<company-info:name>([^<]+)<\/company-info:name>/i.exec(block)
-      ?? /<title[^>]*>([^<]{3,80})<\/title>/i.exec(block)
-    const cikMatch  = /<company-info:cik>0*(\d+)<\/company-info:cik>/i.exec(block)
-      ?? /CIK=0*(\d+)/i.exec(block)
-    if (nameMatch && cikMatch) {
-      const name = nameMatch[1].trim()
-      const cik  = cikMatch[1].replace(/^0+/, '')
-      if (cik && name && !results.find(r => r.cik === cik)) {
-        results.push({ cik, padded: cik.padStart(10, '0'), title: name })
-      }
-    }
-  }
-  return results.slice(0, 8)
 }
 
 async function haikuPick(companyName, candidates) {
