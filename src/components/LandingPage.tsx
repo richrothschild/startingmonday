@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 
@@ -230,6 +231,21 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </p>
           )}
         </div>
+
+        {/* Dashboard preview */}
+        <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
+          <div className="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
+            <Image
+              src="/dashboard-screenshot.png"
+              alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
+              width={1262}
+              height={932}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
+
       </section>
 
       {/* Differentiation */}
