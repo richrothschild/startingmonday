@@ -59,8 +59,24 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
         <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
           Infrastructure pricing. Campaign outcomes.
         </h2>
-        <p className="text-[14px] text-slate-500 mb-8 max-w-2xl leading-relaxed">
+        <p className="text-[14px] text-slate-500 mb-4 max-w-2xl leading-relaxed">
           You run the campaign. We power it. All plans include a 30-day free trial, no credit card required.
+        </p>
+        <p className="text-[13px] text-slate-400 mb-4">
+          Including{' '}
+          <a href="/concierge" className="text-orange-600 hover:text-orange-700 transition-colors font-medium">Executive Concierge</a>
+          {' '}at $1,299/mo &mdash; monthly strategy session, application required.
+        </p>
+        <p className="text-[13px] text-slate-500 border-l-2 border-orange-500 pl-4 mb-6 max-w-2xl leading-relaxed">
+          The delta between the role you want and the role you settle for is measured in weeks, not years. At $199/mo, this is a fraction of a rounding error on a $300K compensation decision.
+        </p>
+        <div className="flex items-center gap-3 mb-4 text-[12px] text-slate-400">
+          <span>400 executives in active search</span>
+          <span className="text-slate-300">&middot;</span>
+          <span>8,000+ companies tracked</span>
+        </div>
+        <p className="text-[12px] text-slate-500 mb-8">
+          Most executives start on Passive, move to Active once they see what prep briefs do. When you&apos;re ready for full depth, Executive is waiting.
         </p>
 
         {/* Billing toggle */}
@@ -133,6 +149,9 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
                 </li>
               ))}
             </ul>
+            <p className="mt-4 mb-1 text-[11px] text-slate-400 leading-relaxed">
+              When you&apos;re ready for full depth, Executive is waiting.
+            </p>
             <Link
               href="/signup"
               className="mt-auto inline-block w-full text-center bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"

@@ -48,7 +48,7 @@ const PLANS = [
 ]
 
 function Check() {
-  return <span className="text-emerald-500 shrink-0 mt-0.5 font-bold text-[13px]">&#10003;</span>
+  return <span className="text-orange-500 shrink-0 mt-0.5 font-bold text-[12px]">+</span>
 }
 
 export function PricingCards() {

@@ -13,7 +13,8 @@ const SITUATION_COPY: Record<string, { title: string; sub: string }> = {
   passive:      { title: 'Not ready to commit. That\'s fine.',            sub: 'Monitor your targets in the background. You\'ll know the moment something changes.' },
   'vp-up':      { title: 'You have the record. Now run the campaign.',    sub: 'Every output — prep briefs, outreach, strategy — calibrated to the altitude you\'re moving toward.' },
   returning:    { title: 'This is the one that sticks.',                  sub: 'One step at a time. Add your first company and the system starts working.' },
-  'low-energy': { title: 'One thing at a time.',                          sub: 'Set it up once. The briefing comes to you. The system does the heavy lifting.' },
+  'low-energy':  { title: 'One thing at a time.',                          sub: 'Set it up once. The briefing comes to you. The system does the heavy lifting.' },
+  optionality:   { title: "You want to know before you have to.",          sub: "Monitor your target companies without committing to an active campaign. The platform works in the background." },
 }
 
 export default function SignupPage() {

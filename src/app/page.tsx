@@ -73,6 +73,11 @@ const SITUATIONS: SituationCard[] = [
     headline: "I know I need to do this. I don't have the energy to start.",
     sub: 'One thing at a time. The system does the heavy lifting.',
   },
+  {
+    id: 'optionality',
+    headline: "I'm not searching. I just want to know what's out there.",
+    sub: "Before I have to. Monitor the market without committing to a campaign.",
+  },
 ]
 
 const FAQS: FAQ[] = [
@@ -152,6 +157,11 @@ export default function HomePage() {
           h1Lines: ["The role was never posted.", "You found it anyway."],
           bodyPreamble: "Most executives in active search won't tell anyone they're looking. Not their peers. Not their network. Not even their closest contacts.",
           body: "Most executive roles are filled before they are ever posted. Starting Monday monitors your target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
+          steps: [
+            'Add your target companies.',
+            'Upload your resume.',
+            'Your first briefing is ready by morning.',
+          ],
           trialNote: 'Free for 30 days. No credit card.',
         }}
         situations={SITUATIONS}

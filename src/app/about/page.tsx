@@ -140,6 +140,14 @@ export default function AboutPage() {
           </p>
 
           <p>
+            Starting Monday uses Anthropic Claude to power the prep briefs, strategy documents, and briefings.
+            Not because it was the obvious choice &mdash; because the model calibrates better to executive-level
+            language than the alternatives, and because Anthropic&apos;s data handling policies align with the
+            privacy commitments we make on the security page. Your data is not used to train AI models.
+            Our API agreement with Anthropic enforces it.
+          </p>
+
+          <p>
             If you are a senior technology executive in active search or approaching one, the platform is
             built for you.
           </p>

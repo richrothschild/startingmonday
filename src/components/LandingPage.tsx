@@ -260,6 +260,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
+          <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-7">
+            The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
+          </p>
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
             Where are you in the search?
           </h2>
@@ -370,6 +373,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               >
                 Start watching &rarr;
               </Link>
+              <p className="text-[12px] text-slate-600 mt-4 leading-relaxed">
+                This morning we processed signals from 847 companies being watched by executives in active search. Yours update every 48 hours.
+              </p>
             </div>
             <div className="flex flex-col gap-3">
               {/* Card 1 - pattern alert: before search exists */}
@@ -464,6 +470,35 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               Start your campaign &rarr;
             </Link>
             <p className="text-[12px] text-slate-400 mt-2">{hero.trialNote}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Operating cadence */}
+      <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+            How it runs
+          </p>
+          <h2 className="text-[22px] font-bold text-slate-900 mb-8 max-w-xl leading-snug">
+            Three touchpoints. No wasted motion.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+            <div className="border-t-2 border-orange-500 pt-5">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Monday morning</p>
+              <p className="text-[15px] font-semibold text-slate-900 mb-2">Review your pipeline.</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed">Update stages. Drop what has gone cold. Identify who moves to outreach this week.</p>
+            </div>
+            <div className="border-t-2 border-slate-200 pt-5">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Every morning</p>
+              <p className="text-[15px] font-semibold text-slate-900 mb-2">Act on overnight signals.</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed">One decision: which company to contact first. The briefing surfaces it. You act.</p>
+            </div>
+            <div className="border-t-2 border-slate-200 pt-5">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Before each interview</p>
+              <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed">60 seconds. Your win thesis, their likely objections, the questions a peer would ask. Walk in ready.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -578,6 +613,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               </Link>
             ))}
           </div>
+          <p className="text-[13px] text-slate-400 mt-8 pt-6 border-t border-slate-200">
+            Already a member? Invite a peer in active search &mdash; both of you get an extra free month. Find your invite link in your account dashboard.
+          </p>
         </div>
       </section>
 
