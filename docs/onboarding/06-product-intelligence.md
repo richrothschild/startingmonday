@@ -8,7 +8,7 @@ Read this after `03-project-overview.md`. It covers three things that don't appe
 
 ### What It Is
 
-The intelligence scanner is a background worker (`worker/jobs/signal-job.js`) that runs every 4 hours. For each company a user is tracking, it pulls signals from multiple sources, classifies them with Claude Haiku, and writes the results to `company_signals`.
+The intelligence scanner is a background worker (`worker/jobs/signal-job.js`) that runs Monday, Wednesday, and Friday at 08:30 UTC. For each company a user is tracking, it pulls signals from multiple sources, classifies them with Claude Haiku, and writes the results to `company_signals`.
 
 The goal is to give executives early warning of events that precede technology leadership searches — funding rounds, executive departures, PE acquisitions, board changes, regulatory pressure — before the search is announced publicly and before the role is posted.
 
@@ -61,7 +61,7 @@ The scanner is Phase 1. The intelligence roadmap (`docs/intelligence-roadmap.md`
 - SEC CIK not stored permanently in `companies` table. Every scan re-runs a fuzzy name match against EDGAR. This risks mismatches and adds latency. (E1.1)
 - DEF 14A proxy statements not fetched. Board composition change signals are missing. (E1.2)
 - 13-D activist investor filings not monitored. Activist entry is a strong leading indicator of CIO change. (E1.3)
-- PredictLeads not integrated. Would add job-posting-based executive change signals and fill gaps in PDL coverage. (E1.5)
+- PredictLeads partially integrated (`worker/signals/fetch-predictleads.js` exists, wired into `signal-job.js` conditionally) but `PREDICTLEADS_API_KEY` has not been provisioned yet. (E1.5)
 
 ---
 

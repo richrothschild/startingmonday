@@ -25,27 +25,45 @@ npm install
 
 ## Step 3: Environment Variables
 
-Copy the template and fill in values:
+Rich will share the `.env.local` file directly. Place it in the project root. Never commit this file — it's in `.gitignore`.
 
-```bash
-cp .env.local.example .env.local   # if example exists
-# or ask Rich to share the .env.local file directly
-```
-
-The key variables you need for local development:
+### Web App Variables (`.env.local`)
 
 | Variable | What It Is | Where To Get It |
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase dashboard |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key | Supabase dashboard |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin key | Supabase dashboard (Settings > API) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public anon key | Supabase dashboard > Settings > API |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (bypasses RLS) | Supabase dashboard > Settings > API |
 | `ANTHROPIC_API_KEY` | Claude API key | Rich will share |
-| `RESEND_API_KEY` | Email service key | Rich will share |
+| `RESEND_API_KEY` | Resend email delivery key | Rich will share |
+| `RESEND_FROM_ADDRESS` | Default "from" address for email | Rich will share |
+| `STRIPE_SECRET_KEY` | Stripe secret key | Rich will share |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret | Rich will share |
+| `NEXT_PUBLIC_APP_URL` | Public URL of the app (localhost:3000 for local dev) | Set to `http://localhost:3000` |
+| `CRON_SECRET` | Secret for cron endpoint authentication | Rich will share |
+| `WORKER_SECRET` | Shared secret between web app and worker | Rich will share |
+| `NEXT_PUBLIC_POSTHOG_KEY` | PostHog analytics key | Rich will share |
+| `NEXT_PUBLIC_POSTHOG_HOST` | PostHog host URL | Rich will share |
 | `PAGESPEED_API_KEY` | Google PageSpeed API | Optional for local dev |
+| `SENTRY_DSN` | Sentry error reporting DSN | Rich will share |
 
-Rich will share the `.env.local` file directly. Never commit this file — it's in `.gitignore`.
+### Worker Variables (`worker/.env`)
 
-**Staging note:** When working on the staging environment, you'll use a separate `.env.staging` with staging-specific keys. These will be provided separately.
+The worker is a separate Node.js process. Copy the Supabase, Anthropic, Resend, and Sentry vars from `.env.local`, plus these worker-specific ones:
+
+| Variable | What It Is | Required? |
+|---|---|---|
+| `WORKER_SECRET` | Shared secret with the web app | Yes |
+| `GNEWS_API_KEY` | GNews.io for company news queries | Yes (scanner) |
+| `BROWSERLESS_API_KEY` | Browserless for career page scraping | Yes (scanner) |
+| `PDL_API_KEY` | People Data Labs for exec roster snapshots | Yes (scanner) |
+| `CRUNCHBASE_API_KEY` | Crunchbase for funding round data | Optional (scanner skips if absent) |
+| `PREDICTLEADS_API_KEY` | PredictLeads for exec change signals | Optional (scanner skips if absent) |
+| `SENTRY_DSN` | Sentry DSN (same as web app) | Yes |
+
+Rich will share values for all of these. Never commit either env file.
+
+**Staging note:** When working on the staging environment, you'll use separate env files pointing to staging-specific services. These will be provided separately.
 
 ---
 

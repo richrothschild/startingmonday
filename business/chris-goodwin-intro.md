@@ -32,7 +32,7 @@ Alpha is live. First external users are in. I have two active alpha testers — 
 
 ## Tech stack
 
-- **Next.js 15** (App Router, server actions, TypeScript throughout — no separate API layer for most operations)
+- **Next.js 16** (App Router, server actions, TypeScript throughout — no separate API layer for most operations)
 - **Supabase** (Postgres, row-level security, auth, JSONB for career history and scan data)
 - **Railway** (hosting, auto-deploys on every push to main)
 - **Anthropic Claude API** (claude-sonnet-4-6, streaming and non-streaming, all AI generation)

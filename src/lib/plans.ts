@@ -14,8 +14,8 @@ export const PLANS = {
   },
   active: {
     name: 'Search',
-    amount: 12900,
-    annualAmount: 129000,
+    amount: 19900,
+    annualAmount: 199000,
     description: 'Full search operating system with AI briefs, daily briefing, and outreach',
     features: [
       'Everything in Intelligence',
@@ -29,8 +29,8 @@ export const PLANS = {
   },
   executive: {
     name: 'Executive',
-    amount: 24900,
-    annualAmount: 249000,
+    amount: 49900,
+    annualAmount: 499000,
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
       'Everything in Search',
