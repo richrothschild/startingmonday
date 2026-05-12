@@ -101,73 +101,87 @@ async function runForCik(cikRaw) {
   if (!sub) { console.error('Could not fetch submissions JSON'); return }
 
   const entityName = sub.name ?? cik
-  const recent     = sub.filings?.recent ?? {}
-  const accessions = recent.accessionNumber ?? []
-  const forms      = recent.form            ?? []
-  const dates      = recent.filingDate      ?? []
-  const itemsList  = recent.items           ?? []
+
+  // submissions JSON splits filings into recent + older pages under filings.files
+  const pages = [sub.filings?.recent ?? {}]
+  for (const f of (sub.filings?.files ?? [])) {
+    if (!f.name) continue
+    // Each file covers a date range — skip pages entirely outside our window
+    const pageEnd = f.filingTo ?? ''
+    if (pageEnd && pageEnd < startDate) continue
+    await sleep(DELAY_MS)
+    const page = await fetchJSON(`https://data.sec.gov/submissions/${f.name}`)
+    if (page) pages.push(page)
+  }
 
   let processed = 0, inserted = 0, skipped = 0, failed = 0
 
-  for (let i = 0; i < accessions.length; i++) {
-    if (processed >= LIMIT) break
+  outer: for (const page of pages) {
+    const accessions = page.accessionNumber ?? []
+    const forms      = page.form            ?? []
+    const dates      = page.filingDate      ?? []
+    const itemsList  = page.items           ?? []
 
-    if ((forms[i] ?? '') !== '8-K') continue
+    for (let i = 0; i < accessions.length; i++) {
+      if (processed >= LIMIT) break outer
 
-    const itemsStr = itemsList[i] ?? ''
-    if (itemsStr && !itemsStr.includes('5.02')) continue
+      if ((forms[i] ?? '') !== '8-K') continue
 
-    const fileDate = dates[i] ?? ''
-    if (fileDate < startDate || fileDate > endDate) continue
+      const itemsStr = itemsList[i] ?? ''
+      if (itemsStr && !itemsStr.includes('5.02')) continue
 
-    const accession = accessions[i]
+      const fileDate = dates[i] ?? ''
+      if (fileDate < startDate || fileDate > endDate) continue
 
-    const alreadyLoaded = await isAlreadyLoaded(accession)
-    if (alreadyLoaded) { skipped++; continue }
+      const accession = accessions[i]
 
-    processed++
-    await sleep(DELAY_MS)
+      const alreadyLoaded = await isAlreadyLoaded(accession)
+      if (alreadyLoaded) { skipped++; continue }
 
-    const primaryDoc = await getFilingPrimaryDoc(cik, accession)
-    if (!primaryDoc) {
-      console.log(`  [skip] ${accession} - could not resolve primary document`)
-      skipped++
-      continue
+      processed++
+      await sleep(DELAY_MS)
+
+      const primaryDoc = await getFilingPrimaryDoc(cik, accession)
+      if (!primaryDoc) {
+        console.log(`  [skip] ${accession} - could not resolve primary document`)
+        skipped++
+        continue
+      }
+
+      const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
+      await sleep(DELAY_MS)
+
+      const section = await fetchItemSection(docUrl)
+      if (!section) {
+        if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
+        skipped++
+        continue
+      }
+
+      const executives = await extractWithHaiku(section, entityName, fileDate)
+      if (!executives || executives.length === 0) {
+        console.log(`  [skip] ${accession} - Haiku extracted no executives`)
+        skipped++
+        continue
+      }
+
+      console.log(`  [${processed}] ${entityName} | ${fileDate} | ${executives.length} exec(s) | ${accession}`)
+
+      if (DRY_RUN) {
+        for (const ex of executives) console.log('    ', JSON.stringify(ex))
+        continue
+      }
+
+      const writeOk = await writeExecutives(executives, {
+        companyName: entityName,
+        companyCik:  cik,
+        filingDate:  fileDate,
+        accession,
+        sourceUrl:   docUrl,
+      })
+      if (writeOk) inserted++
+      else failed++
     }
-
-    const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
-    await sleep(DELAY_MS)
-
-    const section = await fetchItemSection(docUrl)
-    if (!section) {
-      if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
-      skipped++
-      continue
-    }
-
-    const executives = await extractWithHaiku(section, entityName, fileDate)
-    if (!executives || executives.length === 0) {
-      console.log(`  [skip] ${accession} - Haiku extracted no executives`)
-      skipped++
-      continue
-    }
-
-    console.log(`  [${processed}] ${entityName} | ${fileDate} | ${executives.length} exec(s) | ${accession}`)
-
-    if (DRY_RUN) {
-      for (const ex of executives) console.log('    ', JSON.stringify(ex))
-      continue
-    }
-
-    const writeOk = await writeExecutives(executives, {
-      companyName: entityName,
-      companyCik:  cik,
-      filingDate:  fileDate,
-      accession,
-      sourceUrl:   docUrl,
-    })
-    if (writeOk) inserted++
-    else failed++
   }
 
   console.log(`\nDone. processed=${processed} inserted=${inserted} skipped=${skipped} failed=${failed}`)
