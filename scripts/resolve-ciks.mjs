@@ -44,9 +44,14 @@ const DELAY_MS = 150  // well under EDGAR's 10 req/sec limit
 // ── arg parsing ───────────────────────────────────────────────────────────────
 
 const args = process.argv.slice(2)
+function getArg(name, fallback = null) {
+  const i = args.indexOf(name)
+  return i !== -1 ? args[i + 1] : fallback
+}
+
 const DRY_RUN = args.includes('--dry-run')
-const USER_ID = args[args.indexOf('--user-id') + 1] ?? null
-const LIMIT   = args.includes('--limit') ? parseInt(args[args.indexOf('--limit') + 1], 10) : Infinity
+const USER_ID = getArg('--user-id')
+const LIMIT   = getArg('--limit') ? parseInt(getArg('--limit'), 10) : Infinity
 
 console.log(`CIK resolver${DRY_RUN ? ' [DRY RUN]' : ''}${USER_ID ? ` [user: ${USER_ID}]` : ''}`)
 
