@@ -32,7 +32,7 @@ const PLANS = [
   },
   {
     ...PRICING.executive,
-    description: 'For C-suite candidates who need daily intelligence, unlimited pipeline, and Opus-grade prep briefs.',
+    description: 'For executives who want the analysis done, the brief written, and the intelligence running at full depth. Not data to work from.',
     featured: false,
     features: [
       'Everything in Active',
@@ -85,6 +85,15 @@ export function PricingCards() {
             2 months free
           </span>
         )}
+      </div>
+
+      {/* Privacy assurance — visible before plan cards for Arc 2 users */}
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <span className="text-green-600 font-bold text-[13px]">&#10003;</span>
+        <p className="text-[13px] text-slate-500">
+          Your employer cannot see your account or your search activity.{' '}
+          <Link href="/privacy#employer" className="underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
+        </p>
       </div>
 
       {/* Plan cards */}

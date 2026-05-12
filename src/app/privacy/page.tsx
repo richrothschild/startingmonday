@@ -19,6 +19,31 @@ export default function PrivacyPage() {
 
       <main className="max-w-3xl mx-auto px-6 py-12">
 
+        {/* Plain-language employer privacy section — visible before legal text */}
+        <div className="bg-slate-900 rounded-lg px-8 py-8 mb-12">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What matters most</p>
+          <h2 className="text-[22px] font-bold text-white mb-4 leading-snug">Your employer cannot see this.</h2>
+          <div className="space-y-3 text-[14px] text-slate-300 leading-relaxed">
+            <p>Starting Monday is a private tool for your career. Here is what your employer, colleagues, and recruiters cannot see:</p>
+            <ul className="space-y-2.5 mt-4">
+              {[
+                'Your account does not appear in any directory, marketplace, or recruiter search.',
+                'Your target companies are visible only to you. We do not share your watchlist with anyone.',
+                'Your resume, positioning summary, and career notes are stored securely and never shared with third parties.',
+                'We do not sell your data. We do not share your data with recruiters, employers, or data brokers.',
+                'We do not use your profile data to train AI models without explicit consent.',
+                'The only people who can see your data are you and Starting Monday\'s founding team, for the purpose of operating the product.',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 list-none">
+                  <span className="text-orange-500 font-bold mt-0.5 shrink-0">&#10003;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-slate-400 text-[13px]">If you use a work email to sign up, that does not give your employer any access. Your account is yours.</p>
+          </div>
+        </div>
+
         {/* Google API Data Disclosure - required for Google OAuth verification */}
         <section className="mb-12 pb-12 border-b border-slate-200">
           <h1 className="text-[22px] font-bold text-slate-900 mb-6">Privacy Policy</h1>

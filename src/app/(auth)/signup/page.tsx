@@ -201,7 +201,8 @@ export default function SignupPage() {
                     {loading ? 'Creating account…' : 'Get started'}
                   </button>
                   <p className="text-center text-[11px] text-slate-400">
-                    Your search is completely private. We never share your activity.
+                    Your employer cannot see this. We never share your data with recruiters, employers, or third parties.{' '}
+                    <Link href="/privacy" className="underline hover:text-slate-600">Privacy policy &rarr;</Link>
                   </p>
 
                 </form>

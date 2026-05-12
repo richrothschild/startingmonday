@@ -42,7 +42,7 @@ export default async function DashboardPage({
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path')
     .eq('user_id', user.id)
     .single()
 
@@ -187,6 +187,10 @@ export default async function DashboardPage({
   ]
   const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
+
+  // Nurture path — derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
+  const searchPath = (profile as unknown as { search_path?: string | null })?.search_path ?? null
+  const isNurturePath = searchPath === 'nurture'
 
   // Stall detection — pattern-specific nudge shown after 14 days of low activity
   type StallNudge = { headline: string; body: string; action: string; href: string } | null
@@ -333,6 +337,7 @@ export default async function DashboardPage({
     ? Math.floor((Date.now() - new Date(profile.onboarding_completed_at).getTime()) / 86400000)
     : null
   const showWeek3Prompt = daysSinceOnboard !== null && daysSinceOnboard >= 18 && daysSinceOnboard <= 28
+  const showNurtureWelcome = isNurturePath && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
 
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
@@ -723,6 +728,27 @@ export default async function DashboardPage({
         )}
 
         <OpportunityRadar />
+
+        {/* Nurture path welcome card — first 7 days, empty pipeline, between-roles user */}
+        {showNurtureWelcome && (
+          <div className="bg-slate-900 rounded-lg p-6 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</p>
+            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
+            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
+              Most executives in transition try to do everything at once and end up paralyzed. The research says differently: one focused action per day compounds faster than a week of scattered effort.
+            </p>
+            <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
+            <Link
+              href="/dashboard/companies/new"
+              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
+            >
+              Add the first company you want to work for &rarr;
+            </Link>
+            <p className="text-[12px] text-slate-500 mt-4">
+              You can come back for the rest. The system will be here.
+            </p>
+          </div>
+        )}
 
         {/* Stall nudge */}
         {stallNudge && (

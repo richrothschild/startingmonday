@@ -68,6 +68,11 @@ const SITUATIONS: SituationCard[] = [
     headline: "I've been saying 'starting Monday' for months.",
     sub: 'This is the one that sticks.',
   },
+  {
+    id: 'low-energy',
+    headline: "I know I need to do this. I don't have the energy to start.",
+    sub: 'One thing at a time. The system does the heavy lifting.',
+  },
 ]
 
 const jsonLd = {
