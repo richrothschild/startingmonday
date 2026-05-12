@@ -138,14 +138,12 @@ async function runForCik(cikRaw) {
       diag8k++
 
       const fileDate = dates[i] ?? ''
-      if (fileDate >= startDate && fileDate <= endDate) diagDatePass++
       const itemsStr = itemsList[i] ?? ''
+
+      if (fileDate >= startDate && fileDate <= endDate) diagDatePass++
       if ((!itemsStr || itemsStr.includes('5.02')) && fileDate >= startDate && fileDate <= endDate) diagItemPass++
 
-      const itemsStr = itemsList[i] ?? ''
       if (itemsStr && !itemsStr.includes('5.02')) continue
-
-      const fileDate = dates[i] ?? ''
       if (fileDate < startDate || fileDate > endDate) continue
 
       const accession = accessions[i]
