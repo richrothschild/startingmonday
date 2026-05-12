@@ -18,6 +18,7 @@ export async function completeOnboarding(formData: FormData) {
   const currentCompany      = (formData.get('current_company') as string ?? '').trim() || null
   const employmentStatus    = (formData.get('employment_status') as string) || null
   const searchTimeline      = (formData.get('search_timeline') as string) || null
+  const searchDriver        = (formData.get('search_driver') as string ?? '').trim() || null
   const linkedinUrl         = (formData.get('linkedin_url') as string ?? '').trim() || null
   const targetTitles        = parseCsv(formData.get('target_titles') as string ?? '')
   const targetSectors       = parseCsv(formData.get('target_sectors') as string ?? '')
@@ -68,6 +69,7 @@ export async function completeOnboarding(formData: FormData) {
       current_company:          currentCompany,
       employment_status:        employmentStatus,
       search_timeline:          searchTimeline,
+      search_driver:            searchDriver,
       search_path:              searchPath,
       linkedin_url:             linkedinUrl,
       target_titles:            targetTitles.length > 0 ? targetTitles : null,

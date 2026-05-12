@@ -57,9 +57,12 @@ export function PricingCards() {
   return (
     <>
       {/* Anchor sentence */}
-      <p className="text-center text-[14px] text-slate-500 mb-8 max-w-xl mx-auto leading-relaxed">
+      <p className="text-center text-[14px] text-slate-500 mb-3 max-w-xl mx-auto leading-relaxed">
         One hour with an executive coach runs $300 to $500.
         Starting Monday is ${PRICING.active.monthly} a month and runs every day.
+      </p>
+      <p className="text-center text-[13px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
+        Missing one signal on a company you are tracking — a leadership departure, a funding event, a quiet job posting — costs more than a year of this subscription.
       </p>
 
       {/* Interval toggle */}

@@ -214,6 +214,11 @@ function OnDemandPanel({
           {loading && (
             <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
           )}
+          {!loading && (
+            <p className="mt-5 pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+              AI-generated — use as input, not advice. Verify facts before any conversation.
+            </p>
+          )}
         </div>
       )}
       {briefId && !loading && content && (
@@ -705,6 +710,11 @@ export function PrepClient({
             {renderBrief(brief)}
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
+            )}
+            {!busy && (
+              <p className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
+                AI-generated — use as input, not advice. Verify facts before any conversation.
+              </p>
             )}
           </div>
         )}

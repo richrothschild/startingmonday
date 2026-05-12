@@ -55,6 +55,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
   const [employmentStatus, setEmploymentStatus] = useState('')
   const [searchTimeline, setSearchTimeline]   = useState('')
+  const [searchDriver, setSearchDriver]       = useState('')
   const [currentTitle, setCurrentTitle]       = useState(profile?.current_title ?? '')
   const [currentCompany, setCurrentCompany]   = useState(profile?.current_company ?? '')
   const [resumeText, setResumeText]           = useState('')
@@ -238,6 +239,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="search_persona"      value={searchPersona} />
         <input type="hidden" name="employment_status"   value={employmentStatus} />
         <input type="hidden" name="search_timeline"     value={searchTimeline} />
+        <input type="hidden" name="search_driver"       value={searchDriver} />
         <input type="hidden" name="current_title"       value={currentTitle} />
         <input type="hidden" name="current_company"     value={currentCompany} />
         <input type="hidden" name="resume_text"         value={resumeText} />
@@ -283,8 +285,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             <StepSituation
               status={employmentStatus}
               timeline={searchTimeline}
+              driver={searchDriver}
               onStatus={setEmploymentStatus}
               onTimeline={setSearchTimeline}
+              onDriver={setSearchDriver}
               onNext={advance}
             />
           )}
@@ -899,14 +903,18 @@ function StepLevel({
 function StepSituation({
   status,
   timeline,
+  driver,
   onStatus,
   onTimeline,
+  onDriver,
   onNext,
 }: {
   status: string
   timeline: string
+  driver: string
   onStatus: (v: string) => void
   onTimeline: (v: string) => void
+  onDriver: (v: string) => void
   onNext: () => void
 }) {
   const selectCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white appearance-none cursor-pointer'
@@ -954,6 +962,18 @@ function StepSituation({
             <option value="6_months">Within the next 6 months</option>
             <option value="opportunistic">Only for the right opportunity</option>
           </select>
+        </div>
+        <div>
+          <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+            What is driving this search? <span className="font-normal normal-case tracking-normal text-slate-300">(one sentence)</span>
+          </label>
+          <input
+            type="text"
+            value={driver}
+            onChange={e => onDriver(e.target.value)}
+            placeholder="e.g. My role was eliminated. / I want to move from VP to CIO."
+            className="w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+          />
         </div>
       </div>
       <p className="text-[12px] text-slate-400">

@@ -4,7 +4,7 @@ import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
 
 // Activation drip schedule: days since trial start -> content key
-const DRIP_DAYS = [0, 3, 5, 7, 10, 14] as const
+const DRIP_DAYS = [0, 3, 5, 7, 10, 14, 28] as const
 type DripDay = (typeof DRIP_DAYS)[number]
 
 // Max days after the scheduled day to still send (catch-up window if cron was down)
@@ -27,7 +27,7 @@ function emailFooter(userId: string): string {
 </td></tr>`
 }
 
-function buildEmail(day: DripDay, firstName: string, userId: string, hasCompany: boolean): { subject: string; html: string } {
+function buildEmail(day: DripDay, firstName: string, userId: string, hasCompany: boolean, companyCount = 0): { subject: string; html: string } {
   const footer = emailFooter(userId)
 
   const header = (title: string) => `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
@@ -93,12 +93,12 @@ function buildEmail(day: DripDay, firstName: string, userId: string, hasCompany:
 
   if (day === 5) {
     return {
-      subject: 'See how your LinkedIn reads to a search committee.',
-      html: header('Your profile is the first thing they see.') +
-        `<p style="margin:0 0 16px 0;">A recruiter spends 30 seconds on a LinkedIn profile before deciding whether to reach out.</p>
-        <p style="margin:0 0 16px 0;">Starting Monday scans for the signals that make them keep reading: specificity on scope, quantified impact, seniority markers that hold up to scrutiny.</p>
-        <p style="margin:0 0 16px 0;">Run your profile through the free grade. It takes 90 seconds. You will get specific feedback, not generic advice.</p>
-        ${cta('Grade my LinkedIn profile', `${APP_URL}/optimize`)}` +
+      subject: 'The narrative a search committee sees. Is it yours?',
+      html: header('What they read before they call.') +
+        `<p style="margin:0 0 16px 0;">A recruiter spends 30 seconds on an executive profile before deciding whether to reach out. What they are looking for is not a job description. It is evidence of scope, decision authority, and results at the level they are hiring for.</p>
+        <p style="margin:0 0 16px 0;">The Starting Monday positioning tool builds your narrative from what you have actually done. Transformation scope. The decisions you owned. The results that prove the level. Not a summary of your resume. A positioning statement that holds up in a search committee conversation.</p>
+        <p style="margin:0 0 16px 0;">It takes two minutes. The output is yours to use anywhere.</p>
+        ${cta('Build my positioning summary', `${APP_URL}/dashboard/positioning`)}` +
         footer_row,
     }
   }
@@ -135,16 +135,45 @@ function buildEmail(day: DripDay, firstName: string, userId: string, hasCompany:
     }
   }
 
-  // day === 14
+  if (day === 14) {
+    return {
+      subject: 'Two weeks in. Here is where things stand.',
+      html: header('Half your trial is gone.') +
+        `<p style="margin:0 0 16px 0;">Two weeks. Your platform has been scanning your companies, tracking signals, and building briefings every morning.</p>
+        <p style="margin:0 0 16px 0;">If you have been reading the briefings, you know more about your target companies right now than most candidates who are already in active conversations with them.</p>
+        <p style="margin:0 0 16px 0;">If you have not logged in this week, this is the moment to decide: is this search serious?</p>
+        <p style="margin:0 0 16px 0;">Starting Monday is $199 per month after the trial. The executives who close at this level use every advantage available. The ones who do not tend to find out why too late.</p>
+        <p style="margin:0 0 16px 0;">If you know someone else in transition, a peer who got restructured or a colleague building toward their next seat, forward this email. The platform works for anyone running a serious search.</p>
+        <p style="margin:0 0 4px 0;">Reply if you have questions. I read everything.</p>
+        ${cta('Continue your search', `${APP_URL}/dashboard`)}` +
+        footer_row,
+    }
+  }
+
+  // day === 28
+  if (hasCompany) {
+    const companyLabel = companyCount === 1 ? '1 company' : `${companyCount} companies`
+    return {
+      subject: 'Your trial ends in 2 days.',
+      html: header('What you built is real.') +
+        `<p style="margin:0 0 16px 0;">${firstName}, you have been running a real search. ${companyLabel} monitored. Signals tracked. Briefings built every morning.</p>
+        <p style="margin:0 0 16px 0;">Research on job search retention is consistent: executives who complete six or more meaningful actions in their first 30 days (companies loaded, contacts added, briefs generated, signals acted on) find their next role in roughly half the time. You are in that window.</p>
+        <p style="margin:0 0 16px 0;">When your trial ends, the signal history disappears. The intelligence built on your target companies does not transfer anywhere else. There is no export. It is gone.</p>
+        <p style="margin:0 0 16px 0;">Starting Monday is $199 a month. One signal, used within 48 hours of a leadership departure at a company you are watching, is worth more than that.</p>
+        <p style="margin:0 0 4px 0;">Reply if you have questions about the platform or the subscription. I read everything.</p>
+        ${cta('Keep your search running', `${APP_URL}/settings/billing`)}` +
+        footer_row,
+    }
+  }
+
   return {
-    subject: 'Two weeks in. Here is where things stand.',
-    html: header('Half your trial is gone.') +
-      `<p style="margin:0 0 16px 0;">Two weeks. Your platform has been scanning your companies, tracking signals, and building briefings every morning.</p>
-      <p style="margin:0 0 16px 0;">If you have been reading the briefings, you know more about your target companies right now than most candidates who are already in active conversations with them.</p>
-      <p style="margin:0 0 16px 0;">If you have not logged in this week, this is the moment to decide: is this search serious?</p>
-      <p style="margin:0 0 16px 0;">Starting Monday is $199 per month after the trial. The executives who close at this level use every advantage available. The ones who do not tend to find out why too late.</p>
-      <p style="margin:0 0 4px 0;">Reply if you have questions. I read everything.</p>
-      ${cta('Continue your search', `${APP_URL}/dashboard`)}` +
+    subject: 'Your trial ends in 2 days.',
+    html: header('Two days left.') +
+      `<p style="margin:0 0 16px 0;">${firstName}, your trial ends in two days. You have not loaded any companies yet.</p>
+      <p style="margin:0 0 16px 0;">That means the scanners have not started. The briefings have not run. No signal has fired.</p>
+      <p style="margin:0 0 16px 0;">If the search is real, two minutes is enough to start. Add three companies where you already have a contact or relationship. Those are the ones where timing matters. The platform does the rest overnight.</p>
+      <p style="margin:0 0 4px 0;">If you are not ready yet, come back when you are. The platform will be here.</p>
+      ${cta('Start before the trial ends', `${APP_URL}/dashboard/companies/new`)}` +
       footer_row,
   }
 }
@@ -191,6 +220,18 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  // Fetch company counts for endowment framing in day-28 email
+  const { data: companyRows } = await admin
+    .from('companies')
+    .select('user_id')
+    .in('user_id', userIds)
+    .is('archived_at', null)
+
+  const companyCountByUser: Record<string, number> = {}
+  for (const c of companyRows ?? []) {
+    companyCountByUser[c.user_id] = (companyCountByUser[c.user_id] ?? 0) + 1
+  }
+
   let sent = 0
   let skipped = 0
   const errors: string[] = []
@@ -199,13 +240,14 @@ export async function GET(request: NextRequest) {
     const daysSinceSignup = Math.floor((now - new Date(u.created_at).getTime()) / 86_400_000)
     const firstName = nameByUser[u.id] ?? u.email.split('@')[0]
     const hasCompany = !!u.first_company_added_at
+    const companyCount = companyCountByUser[u.id] ?? 0
 
     for (const day of DRIP_DAYS) {
       if (sentSet.has(`${u.id}:${day}`)) continue
       if (daysSinceSignup < day) continue
       if (daysSinceSignup > day + CATCHUP_DAYS) continue
 
-      const { subject, html } = buildEmail(day, firstName, u.id, hasCompany)
+      const { subject, html } = buildEmail(day, firstName, u.id, hasCompany, companyCount)
 
       const { error: sendErr } = await sendEmail({ to: u.email, subject, html })
       if (sendErr) {
