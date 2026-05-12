@@ -35,6 +35,7 @@ export default async function AdminPage() {
   if (!staff) notFound()
 
   const adminClient = createAdminClient()
+  const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
   const since7d  = new Date(Date.now() - 7  * 24 * 60 * 60 * 1000).toISOString()
   const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
@@ -48,6 +49,11 @@ export default async function AdminPage() {
     { count: trialingUsers },
     teamMembers,
     { data: partnerRows },
+    { data: users24h },
+    { data: companies24h },
+    { data: contacts24h },
+    { data: followUps24h },
+    { data: briefingViews24h },
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
     adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time, last_briefing_sent_at, placed_at, placement_company, full_name'),
@@ -58,7 +64,17 @@ export default async function AdminPage() {
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'trialing'),
     getAllStaff(),
     adminClient.from('partners').select('id, name, email, referral_code, commission_pct, is_active, created_at').order('created_at', { ascending: false }),
+    adminClient.from('users').select('id').gte('created_at', since24h).limit(5000),
+    adminClient.from('companies').select('user_id').gte('created_at', since24h).is('archived_at', null).limit(5000),
+    adminClient.from('contacts').select('user_id').gte('created_at', since24h).limit(5000),
+    adminClient.from('follow_ups').select('user_id').gte('created_at', since24h).limit(5000),
+    adminClient.from('user_events').select('user_id').eq('event_name', 'briefing_viewed').gte('created_at', since24h).limit(5000),
   ])
+
+  const usersWithCompany24h = new Set((companies24h ?? []).map(r => r.user_id)).size
+  const usersWithContact24h = new Set((contacts24h ?? []).map(r => r.user_id)).size
+  const usersWithFollowUp24h = new Set((followUps24h ?? []).map(r => r.user_id)).size
+  const usersWithBriefingView24h = new Set((briefingViews24h ?? []).map(r => r.user_id)).size
 
   const activeUserIds = new Set((activeUsers ?? []).map(u => u.id))
   const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
@@ -278,6 +294,24 @@ export default async function AdminPage() {
               Manage team
             </Link>
           )}
+        </div>
+
+        <div className="mb-8">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily activation snapshot (24h)</p>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
+            {[
+              { label: 'New users', value: users24h?.length ?? 0 },
+              { label: 'Added company', value: usersWithCompany24h },
+              { label: 'Added contact', value: usersWithContact24h },
+              { label: 'Set follow-up', value: usersWithFollowUp24h },
+              { label: 'Viewed briefing', value: usersWithBriefingView24h },
+            ].map((card) => (
+              <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
+                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Subscriber summary */}

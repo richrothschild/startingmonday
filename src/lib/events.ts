@@ -18,6 +18,8 @@ export type UserEventName =
   | 'positioning_saved'
   | 'signal_outreach_generated'
   | 'signals_page_viewed'
+  | 'briefing_viewed'
+  | 'briefing_action_clicked'
 
 type EventProperties = Record<string, string | number | boolean | null>
 

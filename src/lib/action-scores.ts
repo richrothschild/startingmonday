@@ -32,6 +32,8 @@ export const ACTION_SCORES: Record<string, ActionScore> = {
   // Intelligence
   prep_brief_generated:     { label: 'Prep brief generated',       group: 'intelligence',  emotion: 9, cognitive_load: 2, retention: 10 },
   strategy_brief_generated: { label: 'Strategy brief generated',   group: 'intelligence',  emotion: 8, cognitive_load: 2, retention: 9  },
+  briefing_viewed:          { label: 'Briefing viewed',            group: 'intelligence',  emotion: 6, cognitive_load: 2, retention: 8  },
+  briefing_action_clicked:  { label: 'Briefing action clicked',    group: 'intelligence',  emotion: 7, cognitive_load: 2, retention: 9  },
   brief_rated:              { label: 'Brief rated (feedback)',      group: 'intelligence',  emotion: 3, cognitive_load: 1, retention: 4  },
 
   // Signals

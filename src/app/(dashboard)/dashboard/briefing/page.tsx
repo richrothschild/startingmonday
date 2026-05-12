@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { logEvent } from '@/lib/events'
 import { LogoutButton } from '../logout-button'
 
 export const metadata = {
@@ -384,6 +385,13 @@ export default async function BriefingPage() {
 
   const tz = profile?.briefing_timezone ?? 'UTC'
   const context = await assembleBriefing(supabase, user.id, tz)
+
+  await logEvent(user.id, 'briefing_viewed', {
+    signals: context.signals.length,
+    matches: context.newMatches.length,
+    due_today: context.followUps.length,
+    total_companies: context.totalCompanies,
+  })
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const todayLabel = new Date(context.todayStr + 'T12:00:00Z').toLocaleDateString('en-US', {
