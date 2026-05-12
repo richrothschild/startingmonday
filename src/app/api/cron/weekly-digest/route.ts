@@ -3,14 +3,10 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+import { unsubscribeUrl } from '@/lib/unsubscribe-token'
 
 const SIX_DAYS_MS = 6 * 86_400_000
 const SEVEN_DAYS_MS = 7 * 86_400_000
-
-function unsubscribeUrl(userId: string): string {
-  const token = Buffer.from(userId).toString('base64url')
-  return `${APP_URL}/api/drip/unsubscribe?uid=${token}`
-}
 
 function formatDateLong(d: Date): string {
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })

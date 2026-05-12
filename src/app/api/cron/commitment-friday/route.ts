@@ -3,11 +3,7 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
-
-function unsubscribeUrl(userId: string): string {
-  const token = Buffer.from(userId).toString('base64url')
-  return `${APP_URL}/api/drip/unsubscribe?uid=${token}`
-}
+import { unsubscribeUrl } from '@/lib/unsubscribe-token'
 
 function buildEmail(firstName: string, goal: number, done: number, userId: string): string {
   const unsubUrl = unsubscribeUrl(userId)

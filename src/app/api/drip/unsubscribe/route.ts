@@ -1,22 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+import { verifyUnsubscribeToken } from '@/lib/unsubscribe-token'
 
 export async function GET(request: NextRequest) {
   const uid = request.nextUrl.searchParams.get('uid')
-  if (!uid) return new NextResponse('Invalid link.', { status: 400 })
+  const sig = request.nextUrl.searchParams.get('sig')
 
-  let userId: string
-  try {
-    userId = Buffer.from(uid, 'base64url').toString()
-  } catch {
-    return new NextResponse('Invalid link.', { status: 400 })
-  }
-
-  if (!UUID_RE.test(userId)) {
-    return new NextResponse('Invalid link.', { status: 400 })
-  }
+  const userId = verifyUnsubscribeToken(uid, sig)
+  if (!userId) return new NextResponse('Invalid link.', { status: 400 })
 
   const admin = createAdminClient()
   await admin

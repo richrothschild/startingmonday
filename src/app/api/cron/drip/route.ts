@@ -3,6 +3,7 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+import { unsubscribeUrl } from '@/lib/unsubscribe-token'
 
 // Activation drip schedule: days since trial start -> content key
 const DRIP_DAYS = [0, 3, 5, 7, 10, 14, 28] as const
@@ -10,11 +11,6 @@ type DripDay = (typeof DRIP_DAYS)[number]
 
 // Max days after the scheduled day to still send (catch-up window if cron was down)
 const CATCHUP_DAYS = 3
-
-function unsubscribeUrl(userId: string): string {
-  const token = Buffer.from(userId).toString('base64url')
-  return `${APP_URL}/api/drip/unsubscribe?uid=${token}`
-}
 
 function emailFooter(userId: string): string {
   return `
