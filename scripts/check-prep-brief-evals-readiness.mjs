@@ -149,6 +149,7 @@ async function getGoldenSetStatus() {
 
 async function main() {
   const { json, markdown, strict } = parseArgs(process.argv)
+  const generatedAt = new Date().toISOString()
 
   const [labels, goldenSet] = await Promise.all([
     getLabelProgress(),
@@ -158,6 +159,7 @@ async function main() {
   const overallReady = labels.ready && goldenSet.status.ready
 
   const result = {
+    generatedAt,
     feature: FEATURE,
     targets: {
       pass: PASS_TARGET,
@@ -181,6 +183,7 @@ async function main() {
   if (markdown) {
     console.log('# Prep Brief Evals Readiness')
     console.log('')
+    console.log(`- Generated at: ${generatedAt}`)
     console.log(`- Status: ${overallReady ? 'READY' : 'NOT READY'}`)
     console.log(`- Labels: pass ${labels.pass}/${PASS_TARGET}, fail ${labels.fail}/${FAIL_TARGET}, unrated ${labels.unrated}`)
     console.log(`- Golden set: total ${goldenSet.status.total}/${PASS_TARGET + FAIL_TARGET}, pass ${goldenSet.status.pass}/${PASS_TARGET}, fail ${goldenSet.status.fail}/${FAIL_TARGET}`)
@@ -197,6 +200,7 @@ async function main() {
 
   console.log('Prep brief evals readiness')
   console.log('-------------------------')
+  console.log(`Generated at: ${generatedAt}`)
   console.log(`Labels: pass ${labels.pass}/${PASS_TARGET}, fail ${labels.fail}/${FAIL_TARGET}, unrated ${labels.unrated}`)
   console.log(`Golden set: total ${goldenSet.status.total}/${PASS_TARGET + FAIL_TARGET}, pass ${goldenSet.status.pass}/${PASS_TARGET}, fail ${goldenSet.status.fail}/${FAIL_TARGET}`)
   console.log(`Golden set file: ${goldenSet.path}`)
