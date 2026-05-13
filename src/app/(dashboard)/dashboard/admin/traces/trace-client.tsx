@@ -330,6 +330,7 @@ export function TraceViewer({
   const [copyFormat, setCopyFormat] = useState<'list' | 'table'>('list')
   const [showCopyPreview, setShowCopyPreview] = useState(false)
   const [trimForSlack, setTrimForSlack] = useState(false)
+  const [showCopyActions, setShowCopyActions] = useState(false)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -344,6 +345,7 @@ export function TraceViewer({
     setIncludeZeroCountsInCopy(false)
     setCopyFormat('list')
     setShowCopyPreview(false)
+    setShowCopyActions(false)
     setTrimForSlack(false)
     setLastBulkApply(null)
     setLastAction(null)
@@ -750,31 +752,44 @@ export function TraceViewer({
               </button>
             )}
             {summaryRows.length > 0 && (
-              <button
-                type="button"
-                onClick={copyFailureSummary}
-                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
-              >
-                Copy summary
-              </button>
-            )}
-            {summaryRows.length > 0 && (
-              <button
-                type="button"
-                onClick={copyCompactSummary}
-                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
-              >
-                Copy compact
-              </button>
-            )}
-            {summaryRows.length > 0 && (
-              <button
-                type="button"
-                onClick={copyCompactSummaryTable}
-                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
-              >
-                Copy compact table
-              </button>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowCopyActions((value) => !value)}
+                  className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                    showCopyActions
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                  }`}
+                >
+                  Copy actions
+                </button>
+                {showCopyActions && (
+                  <div className="absolute right-0 top-[calc(100%+4px)] z-10 min-w-[150px] bg-white border border-slate-200 rounded shadow-sm p-1 space-y-1">
+                    <button
+                      type="button"
+                      onClick={() => { setShowCopyActions(false); void copyFailureSummary() }}
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                    >
+                      Copy summary
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setShowCopyActions(false); void copyCompactSummary() }}
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                    >
+                      Copy compact
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setShowCopyActions(false); void copyCompactSummaryTable() }}
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                    >
+                      Copy compact table
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
             {summaryRows.length > 0 && (
               <button
