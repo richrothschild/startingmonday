@@ -331,6 +331,7 @@ export function TraceViewer({
   const [showCopyPreview, setShowCopyPreview] = useState(false)
   const [trimForSlack, setTrimForSlack] = useState(false)
   const [showCopyActions, setShowCopyActions] = useState(false)
+  const [copyMenuAnnouncement, setCopyMenuAnnouncement] = useState('')
   const copyActionsRef = useRef<HTMLDivElement | null>(null)
   const copyActionsToggleRef = useRef<HTMLButtonElement | null>(null)
   const copyActionItemRefs = useRef<Array<HTMLButtonElement | null>>([])
@@ -385,6 +386,14 @@ export function TraceViewer({
       window.clearTimeout(focusTimeout)
       document.removeEventListener('mousedown', onDocumentMouseDown)
       document.removeEventListener('keydown', onDocumentKeyDown)
+    }
+  }, [showCopyActions])
+
+  useEffect(() => {
+    if (showCopyActions) {
+      setCopyMenuAnnouncement('Copy actions menu opened. Use arrow keys or tab to navigate, enter to select, and escape to close.')
+    } else {
+      setCopyMenuAnnouncement('Copy actions menu closed.')
     }
   }, [showCopyActions])
 
@@ -763,6 +772,8 @@ export function TraceViewer({
 
   return (
     <>
+      <div aria-live="polite" className="sr-only">{copyMenuAnnouncement}</div>
+
       {toast && (
         <div className={`mb-4 rounded border px-3 py-2 text-[11px] ${toast.kind === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-red-50 border-red-200 text-red-700'}`}>
           {toast.message}
