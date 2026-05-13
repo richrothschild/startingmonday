@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, useTransition, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Link from 'next/link'
 import { rateTrace } from './actions'
+import { buildFailureSummaryPayload } from './copy-summary'
 
 export type Trace = {
   id: string
@@ -543,39 +544,15 @@ export function TraceViewer({
     return parseEvalNotes(trace.eval_notes).categories.length === 0
   })
 
-  function buildFailureSummaryPayload(): string {
-    if (copyFormat === 'table') {
-      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''}${trimForSlack ? ', trimmed for Slack' : ''})`
-      const tableLines = [
-        '| Tag | Count |',
-        '| --- | ---: |',
-        ...rowsForCopySlack.map(([tag, count]) => `| ${tag} | ${count} |`),
-      ]
-      let payload = [header, '', ...tableLines].join('\n')
-      if (rowsOmittedForSlack > 0) {
-        payload += `\n\n(${rowsOmittedForSlack} additional tag${rowsOmittedForSlack === 1 ? '' : 's'} omitted)`
-      }
-      if (topFailureTheme) {
-        payload += `\n\nTop theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`
-      }
-      return payload
-    }
-
-    const lines = [
-      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''}${trimForSlack ? ', trimmed for Slack' : ''})`,
-      ...rowsForCopySlack.map(([tag, count]) => `- ${tag}: ${count}`),
-    ]
-    if (rowsOmittedForSlack > 0) {
-      lines.push(`(${rowsOmittedForSlack} additional tag${rowsOmittedForSlack === 1 ? '' : 's'} omitted)`)
-    }
-
-    if (topFailureTheme) {
-      lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
-    }
-    return lines.join('\n')
-  }
-
-  const copyPreviewPayload = summaryRows.length > 0 ? buildFailureSummaryPayload() : ''
+  const copyPreviewPayload = summaryRows.length > 0
+    ? buildFailureSummaryPayload(rowsForCopy, {
+      modeLabel,
+      includeZeroCounts: includeZeroCountsInCopy,
+      trimForSlack,
+      copyFormat,
+      topFailureTheme,
+    })
+    : ''
   const copyPreviewChars = copyPreviewPayload.length
   const copyPreviewLines = copyPreviewPayload.length > 0 ? copyPreviewPayload.split('\n').length : 0
   const slackCharLimit = 4000
