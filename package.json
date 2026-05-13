@@ -22,6 +22,7 @@
     "evals:verify-golden-set:strict": "node scripts/verify-prep-brief-golden-set.mjs --strict",
     "evals:readiness": "node scripts/check-prep-brief-evals-readiness.mjs",
     "evals:readiness:strict": "node scripts/check-prep-brief-evals-readiness.mjs --strict",
+    "evals:readiness:md": "node scripts/check-prep-brief-evals-readiness.mjs --markdown",
     "evals:closeout": "node scripts/closeout-prep-brief-evals.mjs",
     "evals:closeout:dry-run": "node scripts/closeout-prep-brief-evals.mjs --dry-run",
     "evals:closeout:force": "node scripts/closeout-prep-brief-evals.mjs --force",

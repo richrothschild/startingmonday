@@ -15,6 +15,7 @@ function parseArgs(argv) {
   const args = new Set(argv.slice(2))
   return {
     json: args.has('--json'),
+    markdown: args.has('--markdown'),
     strict: args.has('--strict'),
   }
 }
@@ -147,7 +148,7 @@ async function getGoldenSetStatus() {
 }
 
 async function main() {
-  const { json, strict } = parseArgs(process.argv)
+  const { json, markdown, strict } = parseArgs(process.argv)
 
   const [labels, goldenSet] = await Promise.all([
     getLabelProgress(),
@@ -173,6 +174,23 @@ async function main() {
 
   if (json) {
     console.log(JSON.stringify(result, null, 2))
+    if (strict && !overallReady) process.exit(1)
+    return
+  }
+
+  if (markdown) {
+    console.log('# Prep Brief Evals Readiness')
+    console.log('')
+    console.log(`- Status: ${overallReady ? 'READY' : 'NOT READY'}`)
+    console.log(`- Labels: pass ${labels.pass}/${PASS_TARGET}, fail ${labels.fail}/${FAIL_TARGET}, unrated ${labels.unrated}`)
+    console.log(`- Golden set: total ${goldenSet.status.total}/${PASS_TARGET + FAIL_TARGET}, pass ${goldenSet.status.pass}/${PASS_TARGET}, fail ${goldenSet.status.fail}/${FAIL_TARGET}`)
+    console.log(`- Golden set file: ${goldenSet.path}`)
+    if (!overallReady) {
+      if (!labels.ready) {
+        console.log(`- Remaining labels: ${labels.passRemaining} pass, ${labels.failRemaining} fail`)
+      }
+      console.log(`- Next action: ${result.nextAction}`)
+    }
     if (strict && !overallReady) process.exit(1)
     return
   }
