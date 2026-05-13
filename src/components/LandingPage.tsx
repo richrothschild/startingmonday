@@ -138,9 +138,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/for-coaches" className="hidden lg:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="For executive coaches" aria-label="Executive coach route">
               Coaches
             </Link>
-            <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1" title="Refer a leader for consideration" aria-label="Refer a leader">
-              Refer a Leader
-            </Link>
             <Link href="/about" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="About the company and commitments" aria-label="About Starting Monday">
               About
             </Link>
@@ -150,8 +147,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" title="Log in to your account" aria-label="Log in">
               Log in
             </Link>
-            <Link href="/demo" className="inline text-[13px] font-semibold text-orange-500 hover:text-orange-600 transition-colors border border-orange-100 bg-orange-50 px-4 py-1.5 rounded ml-2" title="See a live product demo" aria-label="See product demo">
+            <Link href="/demo" className="hidden sm:inline text-[12px] text-slate-500 hover:text-slate-300 transition-colors" title="See a live product demo" aria-label="See product demo">
               See it in action
+            </Link>
+            <Link href="/refer" className="hidden sm:inline text-[12px] text-slate-500 hover:text-slate-300 transition-colors" title="Refer a leader for consideration" aria-label="Refer a leader">
+              Refer a Leader
             </Link>
             <Link
               href="/signup"
