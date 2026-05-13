@@ -79,9 +79,9 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           The delta between the role you want and the role you settle for is measured in weeks, not years. At $199/mo, this is a fraction of a rounding error on a $300K compensation decision.
         </p>
         <div className="flex items-center gap-3 mb-4 text-[12px] text-slate-400">
-          <span>400 executives in active search</span>
+          <span>Built for confidential executive search campaigns</span>
           <span className="text-slate-300">&middot;</span>
-          <span>8,000+ companies tracked</span>
+          <span>No recruiter marketplace</span>
         </div>
         <p className="text-[12px] text-slate-500 mb-8">
           Most executives start on Monitor, move to Active once they see what prep briefs do. When you&apos;re ready for full depth, Executive is waiting.

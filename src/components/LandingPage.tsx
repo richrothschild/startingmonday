@@ -51,19 +51,19 @@ const CAMPAIGN_ITEMS = [
 
 const TESTIMONIALS = [
   {
-    quote: 'I landed my next role before a single recruiter even called. The brief gave me an edge in every conversation.',
-    title: 'Chief Product Officer',
-    sector: 'Enterprise SaaS',
+    quote: 'Pilot case study slot open for a senior technology executive currently in transition. Join the waitlist to be considered.',
+    title: 'Early pilot cohort',
+    sector: 'Waitlist open',
   },
   {
-    quote: 'The intelligence surfaced companies I never would have found on my own. I was prepared for every meeting. It changed my approach to search.',
-    title: 'VP Engineering',
-    sector: 'Fintech',
+    quote: 'We are collecting verified outcomes before publishing named quotes. Request access to the next pilot wave.',
+    title: 'Case studies in progress',
+    sector: 'Verification-first',
   },
   {
-    quote: 'I was not actively looking. But I had a dozen companies tracked and signals coming in. When the call came, I was ready.',
-    title: 'SVP Technology',
-    sector: 'Retail and consumer',
+    quote: 'If you prefer to evaluate first, run the live prep brief demo before starting a trial.',
+    title: 'Live product evaluation',
+    sector: 'No signup required for demo',
   },
 ]
 
@@ -155,7 +155,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               Log in
             </Link>
             <Link href="/demo" className="inline text-[13px] font-semibold text-orange-500 hover:text-orange-600 transition-colors border border-orange-100 bg-orange-50 px-4 py-1.5 rounded ml-2">
-              Try a live demo
+              See it in action
             </Link>
             <Link
               href="/signup"
@@ -230,7 +230,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 properties={{ location: 'hero', label: 'see_demo' }}
                 className="inline-block text-[14px] font-semibold text-orange-500 border border-orange-200 bg-orange-50 px-7 py-3.5 rounded hover:bg-orange-100 hover:text-orange-700 transition-colors"
               >
-                Try a live demo &rarr;
+                See it in action - try a live prep brief &rarr;
               </TrackLink>
               <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
             </div>
@@ -431,13 +431,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-10">
-            What executives say
+            Pilot feedback
           </p>
           <blockquote className="mb-10 border-l-2 border-orange-500 pl-6 max-w-2xl">
             <p className="text-[20px] sm:text-[22px] font-bold text-slate-900 leading-snug mb-2">
-              &ldquo;Eleven days before the search went to a firm.<br />That window is the whole game at this level.&rdquo;
+              &ldquo;We only publish named testimonials after explicit permission and outcome verification.&rdquo;
             </p>
-            <footer className="text-[13px] text-slate-500">CTO in transition, Healthcare technology</footer>
+            <footer className="text-[13px] text-slate-500">Early-access policy</footer>
           </blockquote>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {TESTIMONIALS.map((t, i) => (
@@ -684,7 +684,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[13px] text-slate-400 mt-4">
             Want to see it first?{' '}
             <Link href="/demo" className="text-slate-400 hover:text-slate-200 underline transition-colors">
-              Explore a live demo &rarr;
+              See it in action - try a live prep brief &rarr;
             </Link>
           </p>
         </div>
