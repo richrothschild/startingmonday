@@ -15,6 +15,7 @@
     "test:e2e": "playwright test --project=setup --project=smoke",
     "test:e2e:report": "playwright show-report",
     "seed:demo": "npx tsx scripts/seed-demo.ts",
+    "evals:export-golden-set": "node scripts/export-prep-brief-golden-set.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
