@@ -146,6 +146,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors" title="For partners and alliances" aria-label="Partner entry and info">
               Partners
             </Link>
+            <Link href="/for-search-firms" className="hidden md:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="For executive search firms" aria-label="Search-firm route">
+              Search Firms
+            </Link>
             <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1" title="Refer a leader for consideration" aria-label="Refer a leader">
               Refer a Leader
             </Link>
@@ -249,6 +252,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
             </div>
           </div>
+          <p className="text-[12px] text-slate-300 mt-3 font-medium">
+            Start in 10 minutes: select targets, set your level, and launch your first briefing loop.
+          </p>
 
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">
@@ -795,6 +801,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/partners" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Partners</Link>
+              <Link href="/for-search-firms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Search Firms</Link>
               <Link href="/refer" className="text-[12px] font-semibold text-green-500 hover:text-green-700 transition-colors">Refer a Leader</Link>
               <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
