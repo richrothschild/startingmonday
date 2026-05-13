@@ -37,6 +37,7 @@
     "evals:doctor": "node scripts/evals-doctor.mjs",
     "evals:doctor:strict": "node scripts/evals-doctor.mjs --strict",
     "evals:ci:check": "node scripts/evals-ci-check.mjs",
+    "evals:ci:check:json": "node scripts/evals-ci-check.mjs --json",
     "test": "vitest run",
     "test:watch": "vitest"
   },

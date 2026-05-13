@@ -80,6 +80,10 @@ async function main() {
       'npm run evals:doctor',
       'npm run evals:doctor:strict',
     ],
+    ci: [
+      'npm run evals:ci:check',
+      'npm run evals:ci:check:json',
+    ],
   }
 
   let doctor = null
@@ -128,6 +132,10 @@ async function main() {
     console.log('Prerequisites:')
     console.log('  npm run evals:doctor')
     console.log('  npm run evals:doctor:strict')
+    console.log('')
+    console.log('CI:')
+    console.log('  npm run evals:ci:check')
+    console.log('  npm run evals:ci:check:json')
   }
 
   if (!status) return

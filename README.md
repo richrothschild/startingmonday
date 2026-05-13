@@ -113,6 +113,7 @@ npm run evals:doctor:strict
 
 # CI gate
 npm run evals:ci:check
+npm run evals:ci:check:json
 ```
 
 Primary labeling UI:
