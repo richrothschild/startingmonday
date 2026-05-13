@@ -292,44 +292,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
           </p>
 
-          {/* Persona Selector above signup CTA */}
-          <div className="mb-6">
-            <label htmlFor="persona-select" className="block text-[13px] text-slate-400 mb-1">Where are you in your search?</label>
-            <select
-              id="persona-select"
-              className="text-[13px] px-3 py-2 rounded border border-slate-300 focus:border-orange-500 focus:outline-none"
-              onChange={e => {
-                const val = e.target.value
-                if (val) window.location.href = `/signup?from=${val}`
-              }}
-              defaultValue=""
-            >
-              <option value="" disabled>Select your situation…</option>
-              <option value="urgent">My role was eliminated</option>
-              <option value="building">I am still in my role. The decision is made</option>
-              <option value="vp-up">I am ready for the next seat</option>
-              <option value="monitor">I am not searching yet. I want to monitor the market</option>
-              <option value="selective">I left on my terms. I am being selective</option>
-              <option value="returning">I want to run a better search than last time</option>
-            </select>
-          </div>
-
-          {/* Passive candidate CTA variant */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 mb-6 flex items-center gap-4">
-            <div className="flex-1">
-              <p className="text-[15px] text-blue-900 font-semibold mb-1">Not actively searching?</p>
-              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
-            </div>
-            <TrackLink
-              href="/signup?from=monitor"
-              event="cta_clicked"
-              properties={{ location: 'passive_cta', label: 'join_monitor' }}
-              className="inline-block bg-blue-600 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-blue-700 transition-colors"
-            >
-              Monitor the market
-            </TrackLink>
-          </div>
-
           <h2 className="text-[22px] font-bold text-slate-900 mb-2">
             Where are you in the search?
           </h2>
@@ -373,6 +335,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed sm:whitespace-nowrap">
             LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the signal layer between that and a search firm.
+          </p>
+          <p className="text-[13px] text-slate-500 mt-4">
+            Every prep brief, strategy recommendation, and AI output is calibrated for C-suite altitude — not optimized for mid-level job seekers.
           </p>
         </div>
       </section>

@@ -188,7 +188,8 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </p>
             <p className="text-[12px] text-slate-500 mb-0.5">{trialNote}</p>
             <p className="text-[12px] text-slate-500 mb-5">{subline('executive')}</p>
-            <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">The analysis is done. The brief is written. The intelligence is running at full depth before you wake up.</p>
+            <p className="text-[13px] text-slate-400 mb-2 leading-relaxed">The analysis is done. The brief is written. The intelligence is running at full depth before you wake up.</p>
+            <p className="text-[12px] text-slate-500 mb-4 leading-relaxed">One additional week of negotiation on a C-suite offer typically exceeds the annual cost of this plan.</p>
             <ul className="space-y-2.5">
               {EXECUTIVE_FEATURES.map(f => (
                 <li key={f} className="flex items-start gap-2.5">
