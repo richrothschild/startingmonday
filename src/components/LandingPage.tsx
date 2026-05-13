@@ -272,6 +272,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-7">
             The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
           </p>
+
+          {/* Founder Trust Block - below hero CTA */}
+          <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-2 text-left shadow-md border border-slate-700">
+            <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
+            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions or want to talk before starting, email me directly: <a href="mailto:founder@startingmonday.com" className="underline hover:text-orange-400">founder@startingmonday.com</a> — <span className="italic">Chris Goodwin, Founder</span></p>
+          </div>
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
             Where are you in the search?
           </h2>
