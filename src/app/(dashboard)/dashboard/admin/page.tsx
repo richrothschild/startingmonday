@@ -137,6 +137,10 @@ export default async function AdminPage() {
   const eventCounts7d  = (events7d  ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
+  const searchPaused7d = eventCounts7d.search_paused ?? 0
+  const searchResumed7d = eventCounts7d.search_resumed ?? 0
+  const netPaused7d = searchPaused7d - searchResumed7d
+  const pauseResumeRatio7d = searchResumed7d > 0 ? (searchPaused7d / searchResumed7d).toFixed(2) : null
 
   // Go/no-go scorecard metrics (best-effort with explicit tracking gaps)
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
@@ -413,6 +417,23 @@ export default async function AdminPage() {
               { label: 'Added contact', value: usersWithContact24h },
               { label: 'Set follow-up', value: usersWithFollowUp24h },
               { label: 'Viewed briefing', value: usersWithBriefingView24h },
+            ].map((card) => (
+              <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
+                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Search control telemetry (7d)</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            {[
+              { label: 'Paused events', value: searchPaused7d },
+              { label: 'Resumed events', value: searchResumed7d },
+              { label: 'Net paused', value: netPaused7d },
+              { label: 'Pause/Resume ratio', value: pauseResumeRatio7d ?? 'N/A' },
             ].map((card) => (
               <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
                 <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
