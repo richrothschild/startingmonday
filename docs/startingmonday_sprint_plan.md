@@ -247,7 +247,7 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
     - `npm run evals:verify-golden-set`
     - `npm run evals:verify-golden-set:strict` (non-zero exit until fully valid)
   10. Optional one-command closeout:
-    - `npm run evals:closeout` (readiness -> export -> strict verify)
+    - `npm run evals:closeout` (doctor -> readiness -> export -> strict verify)
     - `npm run evals:closeout:dry-run` (shows sequence without exporting)
     - `npm run evals:closeout:force` (override readiness gate)
     - `npm run evals:closeout:json` (dry-run JSON for automation)
