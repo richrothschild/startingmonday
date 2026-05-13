@@ -74,6 +74,11 @@ const OPERATING_LINKS: ResourceLink[] = [
     body: 'InformationWeek wants a finished article draft, not a pitch. Their constraints are strict: short headline, short summary, exclusive copy, and no AI-written final article.',
     external: true,
   },
+  {
+    label: 'Executive Coach Outreach',
+    href: '/dashboard/admin/coach-outreach',
+    body: 'Complete playbook for finding, messaging, and tracking independent executive coaches who work with VP/CXO clients. Sales Navigator filters, message templates, lead tracking spreadsheet, and success metrics.',
+  },
 ]
 
 const PRIORITIES: PriorityCard[] = [
@@ -84,6 +89,10 @@ const PRIORITIES: PriorityCard[] = [
   {
     title: 'Speaker prospecting',
     body: 'Treat the conference speakers database as a curated lead list for trusted, high-signal introductions on LinkedIn.',
+  },
+  {
+    title: 'Coach partnerships',
+    body: 'Run the Sales Navigator search for independent coaches. One coach with 15 active clients = $597/month recurring commission.',
   },
   {
     title: 'Editorial placement',
@@ -147,6 +156,22 @@ const WORKFLOWS: WorkflowCard[] = [
       'Treat the article itself as a trust asset. The publication outcome matters, but the pitch email, editor relationship, and reusable thesis matter too.',
     ],
     doneWhen: 'Both submission packages are sent with the right format, target, and supporting materials.',
+  },
+  {
+    label: 'Coach outreach',
+    title: 'Run Sales Navigator search for independent executive coaches',
+    owner: 'Founder',
+    outcome: 'Coach pipeline is built, tracked, and actively progressing through discovery and demo stages.',
+    actions: [
+      'Go to /dashboard/admin/coach-outreach for the full playbook: Sales Navigator filters, message templates, tracking spreadsheet, and success metrics.',
+      'Run Sales Navigator search with the exact filters for executive coaches (1-10 person firms, US, active on LinkedIn, coaching VP→CXO transitions).',
+      'Send 10-15 cold connection requests per day max. Use the message templates as guides, but personalize every note with something from their profile or recent post.',
+      'Track every touch in a Google Sheet: name, LinkedIn URL, request sent date, connection status, response, notes.',
+      'Once connected, send follow-up message same day offering a 15-minute demo or use-case walkthrough.',
+      'Follow the decision tree for non-responses: Day 3 (demo video offer), Day 7 (final follow-up), then stop.',
+      'Any positive response moves to scheduling a demo. Track demo completion and post-demo status (trial started, in-progress, passed).',
+    ],
+    doneWhen: 'You have a repeatable daily outreach habit, a tracked pipeline of 20+ coaches, and initial trial sign-ups from the channel.',
   },
 ]
 
