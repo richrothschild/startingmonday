@@ -192,7 +192,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-5 sm:mb-7">
             {hero.eyebrow}
           </p>
-          <h1 className="text-[38px] sm:text-[54px] font-bold text-white leading-[1.1] tracking-tight mb-5">
+          <h1 className="text-[36px] sm:text-[46px] font-bold text-white leading-[1.1] tracking-tight mb-5">
             {hero.h1Lines.map((line, i) => (
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
@@ -229,7 +229,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           {/* Confidentiality promise - above the fold, before any CTA */}
 
-          <p className="text-[13px] font-semibold text-green-700 bg-green-50 rounded px-3 py-2 mb-3 inline-block">
+          <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
             Private by default
           </p>
           <p className="text-[13px] text-slate-500 mb-8">
@@ -341,7 +342,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <option value="urgent">Urgent transition</option>
               <option value="building">Quietly building target list</option>
               <option value="vp-up">Moving to next seat</option>
-              <option value="optionality">Passive market awareness</option>
+              <option value="monitor">Monitoring the market</option>
+              <option value="selective">Left on my terms — being selective</option>
+              <option value="returning">Running a better search than last time</option>
             </select>
           </div>
 
@@ -352,12 +355,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
             </div>
             <TrackLink
-              href="/signup?from=passive"
+              href="/signup?from=monitor"
               event="cta_clicked"
-              properties={{ location: 'passive_cta', label: 'join_passive' }}
+              properties={{ location: 'passive_cta', label: 'join_monitor' }}
               className="inline-block bg-blue-600 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-blue-700 transition-colors"
             >
-              Join as passive
+              Monitor the market
             </TrackLink>
           </div>
 

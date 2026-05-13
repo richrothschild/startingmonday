@@ -39,7 +39,7 @@ export default function MarkReviewPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/mark-demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Demo
             </Link>
             <Link
@@ -87,9 +87,9 @@ export default function MarkReviewPage() {
                 <p className="text-[14px] font-semibold text-slate-900">Public landing page</p>
                 <p className="text-[13px] text-slate-600">https://startingmonday.app</p>
               </Link>
-              <Link href="/demo" className="block border border-slate-300 rounded p-4 hover:bg-slate-50 transition-colors">
-                <p className="text-[14px] font-semibold text-slate-900">Live demo</p>
-                <p className="text-[13px] text-slate-600">https://startingmonday.app/demo</p>
+              <Link href="/mark-demo" className="block border border-slate-300 rounded p-4 hover:bg-slate-50 transition-colors">
+                <p className="text-[14px] font-semibold text-slate-900">Live demo (no email required)</p>
+                <p className="text-[13px] text-slate-600">https://startingmonday.app/mark-demo</p>
               </Link>
             </div>
           </section>

@@ -49,9 +49,19 @@ const SITUATIONS: SituationCard[] = [
     sub: 'VP to CIO. Director to VP. I have the record. Now I need the campaign.',
   },
   {
-    id: 'optionality',
-    headline: "I'm not searching. I just want to know what's out there.",
-    sub: "Before I have to. Monitor the market without committing to a campaign.",
+    id: 'monitor',
+    headline: "I'm not searching yet. I want to monitor the market.",
+    sub: 'Know which opportunities are forming before you need to act. No commitment. No noise.',
+  },
+  {
+    id: 'selective',
+    headline: "I left on my terms. I'm being selective.",
+    sub: 'Finding the right seat, not the first available one. I want early signal and prep rigor.',
+  },
+  {
+    id: 'returning',
+    headline: 'I want to run a better search than last time.',
+    sub: 'Sharper process. Earlier intelligence. Fewer reactive moments.',
   },
 ]
 
@@ -129,11 +139,9 @@ export default function HomePage() {
       <LandingPage
         hero={{
           eyebrow: 'Signal intelligence for C-suite technology searches.',
-          h1Lines: ['Spot executive opportunities', 'often 1-3 weeks before they post.'],
+          h1Lines: ['Spot executive opportunities', '1\u20133 weeks before they post.'],
           claimMethodLabel: 'How we estimate the timing window (method and sources)',
           claimMethodHref: '/blog/how-we-estimate-early-role-signals',
-          claimEvidenceLabel: 'Evidence and references',
-          claimEvidenceHref: '/references',
           body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
           note: 'Monitor $49/mo · Active $199/mo · Executive $499/mo · Free 30-day trial',
           steps: [

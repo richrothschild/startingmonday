@@ -63,9 +63,9 @@ function secondHeaderIndex(text: string): number {
   return -1
 }
 
-function DemoContent() {
+export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate?: boolean }) {
   const searchParams = useSearchParams()
-  const noGate = searchParams.get('full') === '1'
+  const noGate = bypassGateProp || searchParams.get('full') === '1'
 
   const [company,  setCompany]  = useState('')
   const [role,     setRole]     = useState('')
