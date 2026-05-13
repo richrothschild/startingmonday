@@ -465,7 +465,9 @@ export function TraceViewer({
   const copyPreviewChars = copyPreviewPayload.length
   const copyPreviewLines = copyPreviewPayload.length > 0 ? copyPreviewPayload.split('\n').length : 0
   const slackCharLimit = 4000
+  const githubCommentCharLimit = 65000
   const fitsSlack = copyPreviewChars <= slackCharLimit
+  const fitsGithubComment = copyPreviewChars <= githubCommentCharLimit
   const shouldSuggestTrimForSlack = !fitsSlack && !trimForSlack
 
   async function applyTopTagToUntaggedFails() {
@@ -796,6 +798,9 @@ export function TraceViewer({
                 <p className="text-[10px] text-slate-400">{copyPreviewChars} chars · {copyPreviewLines} lines</p>
                 <span className={`text-[10px] px-1.5 py-0.5 rounded border ${fitsSlack ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200'}`}>
                   {fitsSlack ? 'Fits Slack' : 'Over 4k'}
+                </span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded border ${fitsGithubComment ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200'}`}>
+                  {fitsGithubComment ? 'Fits GitHub comment' : 'Over 65k'}
                 </span>
               </div>
             </div>
