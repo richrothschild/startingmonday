@@ -23,11 +23,11 @@ export const metadata: Metadata = {
 const FEATURE_BLOCKS = [
   {
     title: 'Signal Intelligence',
-    body: 'Track organizational moves at 2,000+ target companies so you spot opportunities 2–4 weeks before LinkedIn.',
+    body: 'Track organizational moves at 2,000+ target companies so you often spot opportunities 1–3 weeks before broad-market posting channels.',
   },
   {
     title: 'AI Prep Brief',
-    body: 'Generated in 60 seconds per role: likely objections, talking points, and high-value questions for outreach.',
+    body: 'Usually generated in about a minute per role: likely objections, talking points, and high-value questions for outreach.',
   },
   {
     title: 'Daily Briefing Loop',
@@ -78,7 +78,7 @@ export default function MarkReviewPage() {
             BLUF: Find executive job opportunities before LinkedIn posts them—and move faster than your firm's own recruiters.
           </h1>
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl mb-6">
-            Starting Monday gives VPs and C-suite candidates a signal advantage: intelligence on open searches 2–4 weeks early, prep briefs in 60 seconds, and a daily feed of moves at your target companies.
+            Starting Monday gives VPs and C-suite candidates a signal advantage: intelligence ahead of broad posting channels, prep briefs generated in about a minute, and a daily feed of moves at your target companies.
           </p>
           <div className="bg-slate-800 border border-slate-700 rounded p-4">
             <p className="text-[12px] font-bold text-orange-500 uppercase tracking-[0.1em] mb-2">What we need from you</p>

@@ -45,7 +45,7 @@ export function SamplePrepBrief() {
           {BRIEF.company} &mdash; {BRIEF.role}
         </h2>
         <p className="text-[14px] text-slate-500 mb-6">
-          Generated from a sample executive profile. Ready in 60 seconds. No account required to read this.
+          Generated from a sample executive profile. Usually generated in about a minute. No account required to read this.
         </p>
 
         {/* Always-visible: win thesis */}

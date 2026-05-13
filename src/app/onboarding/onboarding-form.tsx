@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
@@ -46,6 +47,11 @@ function Dots({ current, total = STEP_COUNT }: { current: number; total?: number
       ))}
     </div>
   )
+}
+
+function seededCompaniesFor(persona: SearchPersona | ''): string[] {
+  const picks = SUGGESTIONS_BY_PERSONA[persona || 'csuite'] ?? []
+  return picks.slice(0, 3)
 }
 
 export function OnboardingForm({ profile }: { profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null } | null }) {
@@ -100,6 +106,14 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, isPassive, manualMode])
 
   useEffect(() => {
+    if (step !== 4 || advancedSetup) return
+    if (companyNames.some(n => n.trim())) return
+    const seeded = seededCompaniesFor(searchPersona)
+    if (seeded.length === 0) return
+    setCompanyNames([...seeded, ''])
+  }, [step, advancedSetup, companyNames, searchPersona])
+
+  useEffect(() => {
     if (step !== 6) return
     const firstCompany = companyNames.find(n => n.trim())
     if (!firstCompany || intelContent || intelLoading || step6FetchStarted.current) return
@@ -135,6 +149,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   function advance() {
     if (!advancedSetup && step === 1) { goTo(4); return }
+    if (!advancedSetup && step === 4) {
+      if (isPassive) setBriefingFrequency('weekly')
+      goTo(6)
+      return
+    }
     if (isPassive && step === 2) { goTo(4); return }
     if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
@@ -149,6 +168,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   function quickStart() {
     if (!searchPersona) setSearchPersona('csuite')
+    if (!companyNames.some(n => n.trim())) {
+      const seeded = seededCompaniesFor(searchPersona || 'csuite')
+      setCompanyNames([...seeded, ''])
+    }
     goTo(4)
   }
 
@@ -400,7 +423,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             <Dots current={progressIndex()} total={advancedSetup ? STEP_COUNT : QUICK_PATH_STEP_COUNT} />
             <p className="text-[11px] text-slate-400">
               {step <= 1
-                ? 'About 2 minutes to launch your first watchlist.'
+                ? 'Fast path: launch your first watchlist in about a minute.'
                 : step <= 4
                 ? 'You are one step away from first value.'
                 : 'Next: first briefing preview, then dashboard.'}
@@ -853,6 +876,16 @@ function StepDone({
           </p>
         </div>
       )}
+
+      <div className="border border-slate-200 rounded-lg px-5 py-4 bg-white">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Optional next step</p>
+        <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+          Want better prep quality? Add LinkedIn and profile detail after launch.
+        </p>
+        <Link href="/dashboard/start" className="text-[13px] font-semibold text-slate-800 underline hover:text-slate-600 transition-colors">
+          Complete profile from dashboard start page
+        </Link>
+      </div>
     </div>
   )
 }
@@ -875,7 +908,7 @@ function StepName({
           What do we call you?
         </h1>
         <p className="text-[15px] text-slate-500">
-          Your briefings and prep briefs will use your first name, but you can skip this for now.
+          You are already signed up. Add your name for personalized messaging, or skip and keep moving.
         </p>
       </div>
       <input

@@ -112,7 +112,7 @@ export default function CareerToolsPage() {
                   },
                   {
                     label: 'AI interview prep briefs',
-                    body: 'Before every interview, generate a full brief on the company in 60 seconds: situation, technology posture, your win thesis, the objections you will face, and the questions only a peer would ask. Arrive prepared at depth.',
+                    body: 'Before every interview, generate a full brief on the company, usually in about a minute: situation, technology posture, your win thesis, the objections you will face, and the questions only a peer would ask. Arrive prepared at depth.',
                   },
                   {
                     label: 'Structured pipeline',

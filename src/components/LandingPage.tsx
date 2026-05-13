@@ -85,7 +85,7 @@ const FEATURES = [
   },
   {
     label: 'Elite Interview Prep Brief',
-    body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Ready in 60 seconds. If a brief misses the mark, flag it in one click — we track every report and improve the prompt.',
+    body: 'Your win thesis. The objections they will raise, and how to counter each one. The questions only a peer would think to ask. What to leave out entirely. Usually ready in about a minute. If a brief misses the mark, flag it in one click — we track every report and improve the prompt.',
   },
   {
     label: 'Daily Accountability Briefing',
@@ -262,7 +262,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           </div>
           <p className="text-[12px] text-slate-300 mt-3 font-medium">
-            Start in 10 minutes: select targets, set your level, and launch your first briefing loop.
+            Start in minutes: select targets, set your level, and launch your first briefing loop.
           </p>
 
           {showPersonaSelector && (
@@ -593,7 +593,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div className="border-t-2 border-slate-200 pt-5">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Before each interview</p>
               <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
-              <p className="text-[13px] text-slate-500 leading-relaxed">60 seconds. Your win thesis, their likely objections, the questions a peer would ask. Walk in ready.</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute. Your win thesis, their likely objections, the questions a peer would ask. Walk in ready.</p>
             </div>
           </div>
         </div>
