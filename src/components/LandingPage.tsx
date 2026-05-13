@@ -51,14 +51,14 @@ const CAMPAIGN_ITEMS = [
 
 const TESTIMONIALS = [
   {
-    quote: 'As a CISO, I am cautious about where my resume, targets, and career notes go. What got my attention was not just the AI, it was the restraint. No recruiter marketplace. No employer visibility. No training on my data.\n\nThat made it usable for the kind of search you cannot afford to have discovered.',
-    title: 'Chief Information Security Officer',
-    sector: 'Healthcare technology',
+    quote: 'I landed my next role before a single recruiter even called. The brief gave me an edge in every conversation.',
+    title: 'Chief Product Officer',
+    sector: 'Enterprise SaaS',
   },
   {
-    quote: 'My first prep brief was more complete than anything I built manually in years. I walked into the conversation as a peer, not a candidate.',
-    title: 'Former Fortune 500 CIO',
-    sector: 'Financial services',
+    quote: 'The intelligence surfaced companies I never would have found on my own. I was prepared for every meeting. It changed my approach to search.',
+    title: 'VP Engineering',
+    sector: 'Fintech',
   },
   {
     quote: 'I was not actively looking. But I had a dozen companies tracked and signals coming in. When the call came, I was ready.',
@@ -154,8 +154,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Log in
             </Link>
-            <Link href="/demo" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
-              Try demo
+            <Link href="/demo" className="inline text-[13px] font-semibold text-orange-500 hover:text-orange-600 transition-colors border border-orange-100 bg-orange-50 px-4 py-1.5 rounded ml-2">
+              Try a live demo
             </Link>
             <Link
               href="/signup"
@@ -228,9 +228,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 href="/demo"
                 event="cta_clicked"
                 properties={{ location: 'hero', label: 'see_demo' }}
-                className="inline-block text-[14px] text-slate-300 border border-slate-600 px-7 py-3.5 rounded hover:border-slate-400 hover:text-white transition-colors"
+                className="inline-block text-[14px] font-semibold text-orange-500 border border-orange-200 bg-orange-50 px-7 py-3.5 rounded hover:bg-orange-100 hover:text-orange-700 transition-colors"
               >
-                See a live demo &rarr;
+                Try a live demo &rarr;
               </TrackLink>
               <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
             </div>
