@@ -140,6 +140,9 @@ function TraceRow({
       } else if (event.key.toLowerCase() === 'u') {
         event.preventDefault()
         setRating(null)
+      } else if (event.key.toLowerCase() === 'o') {
+        event.preventDefault()
+        setExpanded((value) => !value)
       }
     }
 
@@ -268,7 +271,7 @@ function TraceRow({
             rows={denseMode ? 1 : 2}
             className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
           />
-          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated.</p>
+          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated, O = output.</p>
         </div>
       </div>
     </div>

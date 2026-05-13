@@ -120,11 +120,11 @@ export default async function TracesPage({
         <div className={`mb-4 rounded border px-3 py-2 text-[11px] ${labelingFocusMode ? 'bg-slate-900 text-slate-100 border-slate-800' : 'bg-white text-slate-500 border-slate-200'}`}>
           {labelingFocusMode ? (
             <>
-              <span className="font-semibold">Labeling shortcuts:</span> P = pass, F = fail, U = unrated. In this mode, rating auto-advances to the next trace.
+              <span className="font-semibold">Labeling shortcuts:</span> P = pass, F = fail, U = unrated, O = output. In this mode, rating auto-advances to the next trace.
             </>
           ) : (
             <>
-              <span className="font-semibold text-slate-700">Shortcut tip:</span> P = pass, F = fail, U = unrated.
+              <span className="font-semibold text-slate-700">Shortcut tip:</span> P = pass, F = fail, U = unrated, O = output.
             </>
           )}
         </div>
