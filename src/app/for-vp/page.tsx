@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for VPs - Make the Move from VP to CIO',
-  description: 'The campaign infrastructure for technology leaders ready to move from VP to CIO. Position yourself at the right altitude, prepare for search firm conversations, and stay ahead of the market. Free 30-day trial.',
+  title: 'Starting Monday for C-suite leaders - Make the Move from VP to CIO',
+  description: 'The campaign infrastructure for C-suite leaders ready to move from VP to CIO. Position yourself at the right altitude, prepare for search firm conversations, and stay ahead of the market. Free 30-day trial.',
   keywords: [
     'VP to CIO',
     'VP IT to CIO',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'CIO career advice',
   ],
   openGraph: {
-    title: 'Starting Monday for VPs - Make the Move from VP to CIO',
+    title: 'Starting Monday for C-suite leaders - Make the Move from VP to CIO',
     description: 'Most VP searches fail at positioning, not credentials. The infrastructure to make the VP-to-CIO move deliberately.',
     url: 'https://startingmonday.app/for-vp',
     type: 'website',
@@ -127,3 +127,4 @@ export default function ForVpPage() {
     </>
   )
 }
+

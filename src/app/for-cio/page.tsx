@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CIOs and CTOs - Executive Search Campaign Infrastructure',
-  description: 'Campaign infrastructure for CIOs and CTOs in active search. Intelligence before roles are posted, relationship precision, and preparation that wins the conversation. Free 30-day trial.',
+  title: 'Starting Monday for C-suite technology searches - Executive Search Campaign Infrastructure',
+  description: 'Campaign infrastructure for C-suite technology searches. Intelligence before roles are posted, relationship precision, and preparation that wins the conversation. Free 30-day trial.',
   keywords: [
     'CIO job search',
     'CTO job search',
@@ -19,15 +19,15 @@ export const metadata: Metadata = {
     'how to prepare for CIO interview',
   ],
   openGraph: {
-    title: 'Starting Monday for CIOs and CTOs',
-    description: 'The best CIO mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
+    title: 'Starting Monday for C-suite technology searches',
+    description: 'The best C-suite mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
     url: 'https://startingmonday.app/for-cio',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CIOs and CTOs',
-    description: 'The best CIO mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
+    title: 'Starting Monday for C-suite technology searches',
+    description: 'The best C-suite mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-cio',
@@ -58,7 +58,7 @@ const SITUATIONS: SituationCard[] = [
   {
     id: 'board',
     headline: 'I want the next role to lead to a board seat.',
-    sub: 'Running a CIO search and a board positioning campaign at the same time.',
+    sub: 'Running a C-suite search and a board positioning campaign at the same time.',
   },
   {
     id: 'returning',
@@ -87,7 +87,7 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-cio/#webpage',
   url: 'https://startingmonday.app/for-cio',
-  name: 'Starting Monday for CIOs and CTOs',
+  name: 'Starting Monday for C-suite technology searches',
   description: 'Campaign infrastructure for CIOs and CTOs in active search. Intelligence before roles are posted, precise relationship management, and preparation that wins the conversation.',
   isPartOf: {
     '@type': 'WebSite',
@@ -111,7 +111,7 @@ export default function ForCioPage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'The best CIO mandates are created, not posted.',
+          eyebrow: 'The best C-suite mandates are created, not posted.',
           h1Lines: ["Your next mandate", "won't be", "announced."],
           body: "The best opportunities at your level surface through relationships and reputation, not job boards. The process is quiet, the timeline is compressed, and the candidate who walks in most prepared wins. Starting Monday is the campaign infrastructure for a search that needs to stay invisible until it is done.",
           note: 'Import your profile during setup. Operational in minutes.',
@@ -128,3 +128,4 @@ export default function ForCioPage() {
     </>
   )
 }
+
