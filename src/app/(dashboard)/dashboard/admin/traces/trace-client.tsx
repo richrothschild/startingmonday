@@ -305,6 +305,7 @@ export function TraceViewer({
   const [sessionLabeled, setSessionLabeled] = useState<Record<string, boolean>>({})
   const [sessionFailureTagsByTrace, setSessionFailureTagsByTrace] = useState<Record<string, string[]>>({})
   const [failureSummaryMode, setFailureSummaryMode] = useState<'page' | 'session'>('page')
+  const [isApplyingTopTag, setIsApplyingTopTag] = useState(false)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -377,6 +378,39 @@ export function TraceViewer({
     .slice(0, 8)
   const summaryRows = failureSummaryMode === 'session' ? sessionFailureCategoryRows : pageFailureCategoryRows
   const topFailureTheme = summaryRows[0] ?? null
+  const untaggedFailedTraces = visibleTraces.filter((trace) => {
+    if (trace.eval_pass !== false) return false
+    return parseEvalNotes(trace.eval_notes).categories.length === 0
+  })
+
+  async function applyTopTagToUntaggedFails() {
+    if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
+
+    const topTag = topFailureTheme[0]
+    setIsApplyingTopTag(true)
+    try {
+      for (const trace of untaggedFailedTraces) {
+        const parsed = parseEvalNotes(trace.eval_notes)
+        const nextCategories = [...new Set([...parsed.categories, topTag])]
+        const nextNotes = composeEvalNotes(parsed.body, nextCategories)
+
+        await rateTrace(trace.id, false, nextNotes)
+
+        setVisibleTraces((prev) => prev.map((row) => (
+          row.id === trace.id
+            ? { ...row, eval_notes: nextNotes }
+            : row
+        )))
+
+        setSessionFailureTagsByTrace((prev) => ({
+          ...prev,
+          [trace.id]: nextCategories,
+        }))
+      }
+    } finally {
+      setIsApplyingTopTag(false)
+    }
+  }
 
   return (
     <>
@@ -437,6 +471,20 @@ export function TraceViewer({
             )}
           </div>
           <div className="flex items-center gap-1">
+            {topFailureTheme && untaggedFailedTraces.length > 0 && (
+              <button
+                type="button"
+                onClick={applyTopTagToUntaggedFails}
+                disabled={isApplyingTopTag}
+                className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                  isApplyingTopTag
+                    ? 'bg-slate-100 text-slate-400 border-slate-200'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                }`}
+              >
+                {isApplyingTopTag ? 'Applying…' : `Apply top tag to ${untaggedFailedTraces.length}`}
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setFailureSummaryMode('page')}
