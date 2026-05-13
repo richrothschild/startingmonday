@@ -100,12 +100,20 @@ export default async function TracesPage({
               )}
             </p>
           </div>
-          <Link
-            href="/dashboard/admin/traces/rubric"
-            className="text-[12px] font-semibold text-slate-500 border border-slate-200 hover:border-slate-400 bg-white px-3 py-1.5 rounded transition-colors shrink-0"
-          >
-            Rubric
-          </Link>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              href="/dashboard/admin/traces?feature=prep_brief&unrated=1"
+              className="text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-3 py-1.5 rounded transition-colors"
+            >
+              Start labeling
+            </Link>
+            <Link
+              href="/dashboard/admin/traces/rubric"
+              className="text-[12px] font-semibold text-slate-500 border border-slate-200 hover:border-slate-400 bg-white px-3 py-1.5 rounded transition-colors"
+            >
+              Rubric
+            </Link>
+          </div>
         </div>
 
         <div className="mb-6 bg-white border border-slate-200 rounded p-4">
@@ -150,7 +158,7 @@ export default async function TracesPage({
                 href="/dashboard/admin/traces?feature=prep_brief&unrated=1"
                 className="text-[12px] font-semibold text-slate-700 border border-slate-200 hover:border-slate-400 bg-white px-3 py-1.5 rounded transition-colors"
               >
-                Open queue
+                Label now
               </Link>
             </div>
           </div>
