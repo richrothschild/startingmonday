@@ -237,6 +237,8 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
     - `npm run evals:label-progress`
     - `npm run evals:label-progress:strict` (exits non-zero until 25/25 is reached)
     - `node scripts/check-prep-brief-label-progress.mjs --json` (machine-readable output)
+    - `npm run evals:readiness` (combined label + golden set status)
+    - `npm run evals:readiness:strict` (non-zero exit until fully ready)
   7. Run export:
     - `npm run evals:export-golden-set`
   8. Optional preflight:

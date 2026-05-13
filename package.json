@@ -20,6 +20,8 @@
     "evals:export-golden-set": "node scripts/export-prep-brief-golden-set.mjs",
     "evals:verify-golden-set": "node scripts/verify-prep-brief-golden-set.mjs",
     "evals:verify-golden-set:strict": "node scripts/verify-prep-brief-golden-set.mjs --strict",
+    "evals:readiness": "node scripts/check-prep-brief-evals-readiness.mjs",
+    "evals:readiness:strict": "node scripts/check-prep-brief-evals-readiness.mjs --strict",
     "test": "vitest run",
     "test:watch": "vitest"
   },
