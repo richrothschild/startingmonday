@@ -54,24 +54,6 @@ const CAMPAIGN_ITEMS = [
   'Positioned in the right places before the search goes to a firm',
 ]
 
-const TESTIMONIALS = [
-  {
-    quote: 'Pilot case study slot open for a senior technology executive currently in transition. Join the waitlist to be considered.',
-    title: 'Early pilot cohort',
-    sector: 'Waitlist open',
-  },
-  {
-    quote: 'We are collecting verified outcomes before publishing named quotes. Request access to the next pilot wave.',
-    title: 'Case studies in progress',
-    sector: 'Verification-first',
-  },
-  {
-    quote: 'If you prefer to evaluate first, run the live prep brief demo before starting a trial.',
-    title: 'Live product evaluation',
-    sector: 'No signup required for demo',
-  },
-]
-
 const FEATURES = [
   {
     label: 'Level-Calibrated AI',
@@ -502,38 +484,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[11px] text-slate-500">Before LinkedIn, before any recruiter.</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-10">
-            Pilot feedback
-          </p>
-          <blockquote className="mb-10 border-l-2 border-orange-500 pl-6 max-w-2xl">
-            <p className="text-[20px] sm:text-[22px] font-bold text-slate-900 leading-snug mb-2">
-              &ldquo;We only publish named testimonials after explicit permission and outcome verification.&rdquo;
-            </p>
-            <footer className="text-[13px] text-slate-500">Early-access policy</footer>
-          </blockquote>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col justify-between">
-                <div className="text-[14px] text-slate-700 leading-relaxed mb-5">
-                  {t.quote.split('\n\n').map((para, i, arr) => (
-                    <p key={i} className={i < arr.length - 1 ? 'mb-2' : ''}>
-                      {i === 0 && <>&ldquo;</>}{para}{i === arr.length - 1 && <>&rdquo;</>}
-                    </p>
-                  ))}
-                </div>
-                <div>
-                  <p className="text-[12px] font-semibold text-slate-900">{t.title}</p>
-                  <p className="text-[12px] text-slate-400">{t.sector}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
