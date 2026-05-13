@@ -138,31 +138,33 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors" title="For partners and alliances" aria-label="Partner entry and info">
               Partners
             </Link>
-            <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1">
+            <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1" title="Refer a leader for consideration" aria-label="Refer a leader">
               Refer a Leader
             </Link>
-            <Link href="/about" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/about" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="About the company and commitments" aria-label="About Starting Monday">
               About
             </Link>
-            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="Free executive profile grade" aria-label="Free executive profile grade">
               Free Profile Grade
             </Link>
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" title="Log in to your account" aria-label="Log in">
               Log in
             </Link>
-            <Link href="/demo" className="inline text-[13px] font-semibold text-orange-500 hover:text-orange-600 transition-colors border border-orange-100 bg-orange-50 px-4 py-1.5 rounded ml-2">
+            <Link href="/demo" className="inline text-[13px] font-semibold text-orange-500 hover:text-orange-600 transition-colors border border-orange-100 bg-orange-50 px-4 py-1.5 rounded ml-2" title="See a live product demo" aria-label="See product demo">
               See it in action
             </Link>
             <Link
               href="/signup"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
+              title="Start your free trial in minutes"
+              aria-label="Try Starting Monday free"
             >
               Try free
             </Link>
