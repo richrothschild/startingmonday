@@ -842,7 +842,7 @@ export function TraceViewer({
                     showCopyActions
                       ? 'bg-slate-900 text-white border-slate-900'
                       : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
-                  }`}
+                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-1`}
                 >
                   Copy actions
                 </button>
@@ -854,7 +854,7 @@ export function TraceViewer({
                       ref={(el) => { copyActionItemRefs.current[0] = el }}
                       onKeyDown={(event) => onCopyActionKeyDown(event, 0)}
                       onClick={() => { setShowCopyActions(false); void copyFailureSummary() }}
-                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                     >
                       Copy summary
                     </button>
@@ -864,7 +864,7 @@ export function TraceViewer({
                       ref={(el) => { copyActionItemRefs.current[1] = el }}
                       onKeyDown={(event) => onCopyActionKeyDown(event, 1)}
                       onClick={() => { setShowCopyActions(false); void copyCompactSummary() }}
-                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                     >
                       Copy compact
                     </button>
@@ -874,7 +874,7 @@ export function TraceViewer({
                       ref={(el) => { copyActionItemRefs.current[2] = el }}
                       onKeyDown={(event) => onCopyActionKeyDown(event, 2)}
                       onClick={() => { setShowCopyActions(false); void copyCompactSummaryTable() }}
-                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
+                      className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                     >
                       Copy compact table
                     </button>
