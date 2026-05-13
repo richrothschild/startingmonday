@@ -176,6 +176,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       {/* Hero */}
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
+                {/* Urgency micro-line */}
+                <div className="mb-3">
+                  <span className="inline-block text-[13px] font-semibold text-orange-500 bg-orange-50 rounded px-3 py-1 animate-pulse">
+                    New roles open every week — don’t miss your window
+                  </span>
+                </div>
         <div className="max-w-3xl mx-auto">
           <p className="text-[16px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-5 sm:mb-7">
             {hero.eyebrow}
@@ -260,6 +266,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
 
         {/* Dashboard preview */}
+                {/* Urgency micro-line for dashboard section */}
+                <div className="mb-3">
+                  <span className="inline-block text-[13px] font-semibold text-orange-500 bg-orange-50 rounded px-3 py-1 animate-pulse">
+                    See what’s live now — opportunities update daily
+                  </span>
+                </div>
         <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
           <div className="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
             <Image
@@ -277,6 +289,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+                {/* Urgency micro-line for persona selector section */}
+                <div className="mb-3">
+                  <span className="inline-block text-[13px] font-semibold text-orange-500 bg-orange-50 rounded px-3 py-1 animate-pulse">
+                    Tailor your path — next cohort starts soon
+                  </span>
+                </div>
         <div className="max-w-5xl mx-auto">
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-7">
             The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
