@@ -318,12 +318,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               defaultValue=""
             >
               <option value="" disabled>Select persona…</option>
-              <option value="vp-up">VP to CIO/CTO</option>
-              <option value="executive">Sitting CIO/CTO</option>
-              <option value="restructured">Displaced executive</option>
-              <option value="building">PE-backed operator</option>
-              <option value="low-energy">Burned-out exec</option>
-              <option value="returning">Returning to market</option>
+              <option value="urgent">Urgent transition</option>
+              <option value="building">Quietly building target list</option>
+              <option value="vp-up">Moving to next seat</option>
+              <option value="optionality">Passive market awareness</option>
             </select>
           </div>
 
@@ -331,7 +329,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 mb-6 flex items-center gap-4">
             <div className="flex-1">
               <p className="text-[15px] text-blue-900 font-semibold mb-1">Not actively searching?</p>
-              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings�without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
+              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
             </div>
             <TrackLink
               href="/signup?from=passive"
@@ -346,7 +344,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           {/* Founder Trust Block - below hero CTA */}
           <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-2 text-left shadow-md border border-slate-700">
             <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
-            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions or want to talk before starting, email me directly: <a href="mailto:founder@startingmonday.com" className="underline hover:text-orange-400">founder@startingmonday.com</a> — <span className="italic">Chris Goodwin, Founder</span></p>
+            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, email me directly: <a href="mailto:contact@startingmonday.app" className="underline hover:text-orange-400">contact@startingmonday.app</a> — <span className="italic">Richard Rothschild, Founder</span></p>
           </div>
           <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
             Where are you in the search?
@@ -427,7 +425,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
           <div className="mt-8 max-w-2xl">
             <p className="text-[14px] text-slate-500 leading-relaxed">
-              Executives who reach a target company before a search is posted are dramatically more likely to get the first interview than those who apply after a posting goes live. The window between the first signal and a search going to a retained firm closes in days, not weeks.
+              Executives who reach a target company before a search is posted are often more likely to get the first interview than those who apply after a posting goes live. The window between early signals and formal search can close quickly.
             </p>
           </div>
         </div>
@@ -461,7 +459,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 Start watching &rarr;
               </Link>
               <p className="text-[12px] text-slate-600 mt-4 leading-relaxed">
-                This morning we processed signals from 847 companies being watched by executives in active search. Yours update every 48 hours.
+                We continuously process signals from companies being tracked by executives in active search. Yours update every 48 hours.
               </p>
             </div>
             <div className="flex flex-col gap-3">
@@ -475,7 +473,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[12px] text-slate-400 leading-relaxed mb-2">CIO departed last week. Combined with a digital transformation announcement, this is a high-probability window for external technology leadership.</p>
                 <div className="flex items-center justify-between">
                   <p className="text-[11px] text-orange-400 font-semibold">Reach out before the search is formalized.</p>
-                  <p className="text-[11px] text-slate-600">200+ executives watching this company</p>
+                  <p className="text-[11px] text-slate-600">High watch activity from executives in transition</p>
                 </div>
               </div>
               {/* Card 2 - exec departure: before search is announced */}
@@ -495,7 +493,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                   <span className="text-[10px] font-semibold text-slate-300 bg-slate-900 px-2 py-0.5 rounded-full">Role Posted</span>
                 </div>
                 <p className="text-[13px] font-semibold text-white mb-1">VP, Enterprise Technology</p>
-                <p className="text-[12px] text-slate-400 leading-relaxed mb-2">Posted to their career page 4 hours ago.</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed mb-2">Posted to their career page recently.</p>
                 <p className="text-[11px] text-slate-500">Before LinkedIn, before any recruiter.</p>
               </div>
             </div>

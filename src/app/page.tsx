@@ -130,7 +130,7 @@ export default function HomePage() {
         hero={{
           eyebrow: 'Signal intelligence for C-suite technology searches.',
           h1Lines: ['Spot executive opportunities', '2-4 weeks before they post.'],
-          body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms.',
+          body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
           note: 'Monitor $49/mo · Active $199/mo · Executive $499/mo · Free 30-day trial',
           steps: [
             'Add your target companies.',

@@ -72,6 +72,9 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
+          <p className="text-[12px] text-slate-400 mt-4 text-center">
+            Role guidance reflects common usage patterns from active campaigns, not hard eligibility rules.
+          </p>
         </section>
 
         <section className="mb-12 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
@@ -83,6 +86,9 @@ export default function PricingPage() {
             <p><span className="font-semibold text-slate-900">Active:</span> a daily operating rhythm for active search, including prep and pipeline follow-through.</p>
             <p><span className="font-semibold text-slate-900">Executive:</span> full-depth coverage and speed for candidates optimizing every high-value conversation.</p>
           </div>
+          <p className="text-[12px] text-slate-400 mt-4">
+            Outcomes depend on sector, role scope, and campaign consistency. These are directional expectations, not guaranteed placement results.
+          </p>
         </section>
 
         <section className="mb-12">

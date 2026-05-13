@@ -143,6 +143,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     return step - 1
   }
 
+  function quickStart() {
+    if (!searchPersona) setSearchPersona('csuite')
+    goTo(4)
+  }
+
   function applyImport(data: ImportResult) {
     if (data.full_name)            setFullName(data.full_name)
     if (data.current_title)        setCurrentTitle(data.current_title)
@@ -370,10 +375,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             {step === 0 && (
               <button
                 type="button"
-                onClick={() => goTo(1)}
+                onClick={quickStart}
                 className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
               >
-                Guided setup
+                Quick start
               </button>
             )}
           </div>
@@ -386,10 +391,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             {step === 0 && (
               <button
                 type="button"
-                onClick={() => advance()}
+                onClick={() => goTo(1)}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Continue
+                Guided setup
               </button>
             )}
             {step === 1 && (
