@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useTransition, type KeyboardEvent as React
 import Link from 'next/link'
 import { rateTrace } from './actions'
 import { buildFailureSummaryPayload } from './copy-summary'
+import { resolveNextActiveRowId } from './active-row'
 
 export type Trace = {
   id: string
@@ -562,14 +563,10 @@ export function TraceViewer({
 
     if (!unratedOnly || nextPass === null) return
 
-    const currentIndex = visibleTraces.findIndex((trace) => trace.id === traceId)
+    const nextActiveRowId = resolveNextActiveRowId(visibleTraces, traceId, activeRowId)
     const nextVisible = visibleTraces.filter((trace) => trace.id !== traceId)
     setVisibleTraces(nextVisible)
-
-    if (activeRowId === traceId) {
-      const nextCandidate = (currentIndex >= 0 ? nextVisible[currentIndex] : null) ?? nextVisible[Math.max(0, currentIndex - 1)] ?? null
-      setActiveRowId(nextCandidate?.id ?? null)
-    }
+    setActiveRowId(nextActiveRowId)
   }
 
   const sessionTotal = Object.keys(sessionLabeled).length
