@@ -34,6 +34,11 @@ type BriefingJson = {
   closing?: string
 }
 
+type GeneratedBriefing = {
+  briefing: BriefingJson
+  usedFallback: boolean
+}
+
 async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, tz: string) {
   const now = new Date()
   const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
@@ -124,7 +129,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   }
 }
 
-async function generateBriefing(context: Awaited<ReturnType<typeof assembleBriefing>>): Promise<BriefingJson> {
+async function generateBriefing(context: Awaited<ReturnType<typeof assembleBriefing>>): Promise<GeneratedBriefing> {
   const { userName, targetTitles, totalCompanies, newMatches, followUps, signals, todayStr } = context
 
   const matchesText = newMatches.length
@@ -179,15 +184,21 @@ Output valid JSON only, no markdown fences.`
   const raw = (message.content[0] as { type: string; text?: string })?.text?.trim() ?? '{}'
   const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
   try {
-    return JSON.parse(cleaned) as BriefingJson
+    return {
+      briefing: JSON.parse(cleaned) as BriefingJson,
+      usedFallback: false,
+    }
   } catch (err) {
     Sentry.captureException(err, { extra: { model: MODELS.haiku, rawLength: raw.length } })
     return {
-      intro: `Here is your search update for ${todayStr}.`,
-      signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
-      matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
-      followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
-      closing: `${totalCompanies} companies in your pipeline.`,
+      briefing: {
+        intro: `Here is your search update for ${todayStr}.`,
+        signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
+        matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
+        followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
+        closing: `${totalCompanies} companies in your pipeline.`,
+      },
+      usedFallback: true,
     }
   }
 }
@@ -236,7 +247,9 @@ async function BriefingBody({
   context: BriefingContext
   mode: 'focused' | 'full'
 }) {
-  const briefing = context.hasContent ? await generateBriefing(context) : null
+  const generated = context.hasContent ? await generateBriefing(context) : null
+  const briefing = generated?.briefing ?? null
+  const usedFallback = generated?.usedFallback ?? false
   const maxItems = mode === 'focused' ? 1 : 3
   const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
   const matchInsights = (briefing?.matchInsights ?? []).slice(0, maxItems)
@@ -261,6 +274,15 @@ async function BriefingBody({
         </div>
       ) : (
         <>
+          {usedFallback && (
+            <div className="mb-6 rounded border border-amber-200 bg-amber-50 p-4">
+              <p className="text-[12px] font-semibold text-amber-900 mb-1">Briefing generated in safe mode</p>
+              <p className="text-[13px] text-amber-800 leading-relaxed">
+                We had a temporary formatting issue while building your AI summary. The actions below are still valid from your live data.
+              </p>
+            </div>
+          )}
+
           <div className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</p>
             <p className="text-[14px] text-slate-700 leading-relaxed">

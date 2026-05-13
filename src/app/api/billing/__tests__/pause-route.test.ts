@@ -35,6 +35,26 @@ describe('POST /api/billing/pause', () => {
     expect(res.status).toBe(401)
   })
 
+  it('returns 404 when no billing account exists', async () => {
+    mockGetOrRecoverStripeCustomerId.mockResolvedValue(null)
+    const res = await POST(requestWithDays(14))
+    expect(res.status).toBe(404)
+    const body = await res.json()
+    expect(body.error).toBe('No billing account found')
+  })
+
+  it('returns 404 when no subscription exists', async () => {
+    const list = vi.fn().mockResolvedValue({ data: [] })
+    const update = vi.fn()
+    mockGetStripe.mockReturnValue({ subscriptions: { list, update } } as unknown as ReturnType<typeof getStripe>)
+
+    const res = await POST(requestWithDays(7))
+    expect(res.status).toBe(404)
+    const body = await res.json()
+    expect(body.error).toBe('No subscription found')
+    expect(update).not.toHaveBeenCalled()
+  })
+
   it('uses default 14-day pause for invalid input', async () => {
     const list = vi.fn().mockResolvedValue({ data: [{ id: 'sub_1' }] })
     const update = vi.fn().mockResolvedValue({})
@@ -70,5 +90,16 @@ describe('POST /api/billing/pause', () => {
 
     const body = await res.json()
     expect(body.pauseDays).toBe(30)
+  })
+
+  it('returns 500 when stripe update fails', async () => {
+    const list = vi.fn().mockResolvedValue({ data: [{ id: 'sub_1' }] })
+    const update = vi.fn().mockRejectedValue(new Error('stripe failure'))
+    mockGetStripe.mockReturnValue({ subscriptions: { list, update } } as unknown as ReturnType<typeof getStripe>)
+
+    const res = await POST(requestWithDays(14))
+    expect(res.status).toBe(500)
+    const body = await res.json()
+    expect(body.error).toBe('stripe failure')
   })
 })
