@@ -329,6 +329,7 @@ export function TraceViewer({
   const [includeZeroCountsInCopy, setIncludeZeroCountsInCopy] = useState(false)
   const [copyFormat, setCopyFormat] = useState<'list' | 'table'>('list')
   const [showCopyPreview, setShowCopyPreview] = useState(false)
+  const [trimForSlack, setTrimForSlack] = useState(false)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -343,6 +344,7 @@ export function TraceViewer({
     setIncludeZeroCountsInCopy(false)
     setCopyFormat('list')
     setShowCopyPreview(false)
+    setTrimForSlack(false)
     setLastBulkApply(null)
     setLastAction(null)
   }, [currentFeature, unratedOnly, page])
@@ -420,6 +422,8 @@ export function TraceViewer({
         .map((tag) => [tag, sourceCounts[tag] ?? 0] as const)
         .sort((a, b) => b[1] - a[1])
     : summaryRows
+  const rowsForCopySlack = trimForSlack ? rowsForCopy.slice(0, 6) : rowsForCopy
+  const rowsOmittedForSlack = Math.max(0, rowsForCopy.length - rowsForCopySlack.length)
   const untaggedFailedTraces = visibleTraces.filter((trace) => {
     if (trace.eval_pass !== false) return false
     return parseEvalNotes(trace.eval_notes).categories.length === 0
@@ -427,13 +431,16 @@ export function TraceViewer({
 
   function buildFailureSummaryPayload(): string {
     if (copyFormat === 'table') {
-      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`
+      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''}${trimForSlack ? ', trimmed for Slack' : ''})`
       const tableLines = [
         '| Tag | Count |',
         '| --- | ---: |',
-        ...rowsForCopy.map(([tag, count]) => `| ${tag} | ${count} |`),
+        ...rowsForCopySlack.map(([tag, count]) => `| ${tag} | ${count} |`),
       ]
       let payload = [header, '', ...tableLines].join('\n')
+      if (rowsOmittedForSlack > 0) {
+        payload += `\n\n(${rowsOmittedForSlack} additional tag${rowsOmittedForSlack === 1 ? '' : 's'} omitted)`
+      }
       if (topFailureTheme) {
         payload += `\n\nTop theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`
       }
@@ -441,9 +448,12 @@ export function TraceViewer({
     }
 
     const lines = [
-      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
-      ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
+      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''}${trimForSlack ? ', trimmed for Slack' : ''})`,
+      ...rowsForCopySlack.map(([tag, count]) => `- ${tag}: ${count}`),
     ]
+    if (rowsOmittedForSlack > 0) {
+      lines.push(`(${rowsOmittedForSlack} additional tag${rowsOmittedForSlack === 1 ? '' : 's'} omitted)`)
+    }
 
     if (topFailureTheme) {
       lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
@@ -712,6 +722,17 @@ export function TraceViewer({
               }`}
             >
               Include zeros: {includeZeroCountsInCopy ? 'on' : 'off'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setTrimForSlack((value) => !value)}
+              className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                trimForSlack
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              Trim for Slack: {trimForSlack ? 'on' : 'off'}
             </button>
             {lastBulkApply && (
               <button
