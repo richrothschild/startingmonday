@@ -69,6 +69,26 @@ describe('POST /api/preferences/briefing', () => {
     })
   })
 
+  it('returns 400 when daily mode has invalid time', async () => {
+    const supabase = makeSupabase(null)
+    mockCreateClient.mockResolvedValue(supabase as unknown as Awaited<ReturnType<typeof createClient>>)
+
+    const res = await POST(requestBody({ briefingFrequency: 'daily', briefingTime: '25:99' }))
+    expect(res.status).toBe(400)
+    const body = await res.json()
+    expect(body.error).toBe('Invalid briefing time for daily mode')
+  })
+
+  it('returns 400 when daily mode has missing time', async () => {
+    const supabase = makeSupabase(null)
+    mockCreateClient.mockResolvedValue(supabase as unknown as Awaited<ReturnType<typeof createClient>>)
+
+    const res = await POST(requestBody({ briefingFrequency: 'daily' }))
+    expect(res.status).toBe(400)
+    const body = await res.json()
+    expect(body.error).toBe('Invalid briefing time for daily mode')
+  })
+
   it('returns 500 when persistence fails', async () => {
     const supabase = makeSupabase({ message: 'db failure' })
     mockCreateClient.mockResolvedValue(supabase as unknown as Awaited<ReturnType<typeof createClient>>)

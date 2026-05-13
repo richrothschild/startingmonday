@@ -24,7 +24,10 @@ export async function POST(request: NextRequest) {
     briefing_frequency: frequency,
   }
 
-  if (frequency === 'daily' && isValidTime(body.briefingTime)) {
+  if (frequency === 'daily') {
+    if (!isValidTime(body.briefingTime)) {
+      return NextResponse.json({ error: 'Invalid briefing time for daily mode' }, { status: 400 })
+    }
     updatePayload.briefing_time = body.briefingTime
   }
 
