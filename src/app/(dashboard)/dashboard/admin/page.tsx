@@ -57,7 +57,7 @@ export default async function AdminPage() {
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
     adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time, last_briefing_sent_at, placed_at, placement_company, full_name'),
-    adminClient.from('user_events').select('event_name').gte('created_at', since7d).limit(5000),
+    adminClient.from('user_events').select('event_name, created_at').gte('created_at', since7d).limit(5000),
     adminClient.from('user_events').select('event_name').gte('created_at', since30d).limit(5000),
     adminClient.from('users').select('id', { count: 'exact', head: true }),
     adminClient.from('users').select('id', { count: 'exact', head: true }).eq('subscription_status', 'active'),
@@ -141,6 +141,25 @@ export default async function AdminPage() {
   const searchResumed7d = eventCounts7d.search_resumed ?? 0
   const netPaused7d = searchPaused7d - searchResumed7d
   const pauseResumeRatio7d = searchResumed7d > 0 ? (searchPaused7d / searchResumed7d).toFixed(2) : null
+  const trendByDay: Record<string, { paused: number; resumed: number }> = {}
+  for (const event of events7d ?? []) {
+    const dayKey = event.created_at?.slice(0, 10)
+    if (!dayKey) continue
+    if (!trendByDay[dayKey]) trendByDay[dayKey] = { paused: 0, resumed: 0 }
+    if (event.event_name === 'search_paused') trendByDay[dayKey].paused += 1
+    if (event.event_name === 'search_resumed') trendByDay[dayKey].resumed += 1
+  }
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const pauseResumeTrend7d = Array.from({ length: 7 }, (_, idx) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() - (6 - idx))
+    const dayKey = date.toISOString().slice(0, 10)
+    const stats = trendByDay[dayKey] ?? { paused: 0, resumed: 0 }
+    const label = date.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })
+    return { dayKey, label, paused: stats.paused, resumed: stats.resumed, net: stats.paused - stats.resumed }
+  })
+  const trendPeak = pauseResumeTrend7d.reduce((peak, row) => Math.max(peak, row.paused, row.resumed), 1)
 
   // Go/no-go scorecard metrics (best-effort with explicit tracking gaps)
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
@@ -440,6 +459,38 @@ export default async function AdminPage() {
                 <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
+          </div>
+          <div className="mt-4 bg-white border border-slate-200 rounded p-4">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily trend</p>
+            <div className="space-y-2">
+              {pauseResumeTrend7d.map((row) => (
+                <div key={row.dayKey} className="grid grid-cols-[84px_1fr_44px] items-center gap-3 text-[11px]">
+                  <span className="text-slate-500">{row.label}</span>
+                  <div className="grid grid-cols-2 gap-2">
+                    <progress
+                      max={trendPeak}
+                      value={row.paused}
+                      title={`Paused: ${row.paused}`}
+                      className="w-full h-2 [&::-webkit-progress-bar]:bg-slate-100 [&::-webkit-progress-value]:bg-slate-900 [&::-moz-progress-bar]:bg-slate-900"
+                    />
+                    <progress
+                      max={trendPeak}
+                      value={row.resumed}
+                      title={`Resumed: ${row.resumed}`}
+                      className="w-full h-2 [&::-webkit-progress-bar]:bg-slate-100 [&::-webkit-progress-value]:bg-emerald-500 [&::-moz-progress-bar]:bg-emerald-500"
+                    />
+                  </div>
+                  <span className={`text-right font-semibold ${row.net > 0 ? 'text-amber-700' : row.net < 0 ? 'text-emerald-700' : 'text-slate-500'}`}>
+                    {row.net > 0 ? `+${row.net}` : row.net}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex items-center gap-4 text-[10px] text-slate-400">
+              <span><span className="inline-block w-2 h-2 rounded bg-slate-900 mr-1" />Paused</span>
+              <span><span className="inline-block w-2 h-2 rounded bg-emerald-500 mr-1" />Resumed</span>
+              <span>Net shown at right</span>
+            </div>
           </div>
         </div>
 
