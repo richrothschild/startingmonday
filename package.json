@@ -16,6 +16,7 @@
     "test:e2e:report": "playwright show-report",
     "seed:demo": "npx tsx scripts/seed-demo.ts",
     "evals:label-progress": "node scripts/check-prep-brief-label-progress.mjs",
+    "evals:label-progress:strict": "node scripts/check-prep-brief-label-progress.mjs --strict",
     "evals:export-golden-set": "node scripts/export-prep-brief-golden-set.mjs",
     "test": "vitest run",
     "test:watch": "vitest"

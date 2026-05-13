@@ -235,6 +235,8 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
   5. Confirm "Ready to export" in the prep_brief progress panel.
   6. Optional CLI progress check:
     - `npm run evals:label-progress`
+    - `npm run evals:label-progress:strict` (exits non-zero until 25/25 is reached)
+    - `node scripts/check-prep-brief-label-progress.mjs --json` (machine-readable output)
   7. Run export:
     - `npm run evals:export-golden-set`
   8. Optional preflight:

@@ -9,12 +9,22 @@ const TARGET_FEATURE = 'prep_brief'
 const PASS_TARGET = 25
 const FAIL_TARGET = 25
 
+function parseArgs(argv) {
+  const args = new Set(argv.slice(2))
+  return {
+    strict: args.has('--strict'),
+    json: args.has('--json'),
+  }
+}
+
 function pct(value, total) {
   if (total <= 0) return 0
   return Math.min(100, Math.round((value / total) * 100))
 }
 
 async function main() {
+  const { strict, json } = parseArgs(process.argv)
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
@@ -42,6 +52,24 @@ async function main() {
   const failRemaining = Math.max(0, FAIL_TARGET - fail)
   const readyToExport = passRemaining === 0 && failRemaining === 0
 
+  const result = {
+    feature: TARGET_FEATURE,
+    pass,
+    fail,
+    unrated,
+    passTarget: PASS_TARGET,
+    failTarget: FAIL_TARGET,
+    passRemaining,
+    failRemaining,
+    readyToExport,
+  }
+
+  if (json) {
+    console.log(JSON.stringify(result, null, 2))
+    if (strict && !readyToExport) process.exit(1)
+    return
+  }
+
   console.log('Prep brief labeling progress')
   console.log('---------------------------')
   console.log(`Pass: ${pass}/${PASS_TARGET} (${pct(pass, PASS_TARGET)}%)`)
@@ -55,6 +83,10 @@ async function main() {
     console.log('Status: IN PROGRESS')
     console.log(`Remaining: ${passRemaining} pass, ${failRemaining} fail`)
     console.log('Next: keep labeling at /dashboard/admin/traces?feature=prep_brief&unrated=1')
+  }
+
+  if (strict && !readyToExport) {
+    process.exit(1)
   }
 }
 
