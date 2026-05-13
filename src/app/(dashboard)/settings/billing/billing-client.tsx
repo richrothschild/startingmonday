@@ -26,6 +26,8 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   accountName: string | null
   isPlaced?: boolean
 }) {
+  const [paused, setPaused] = useState(sub.isPaused)
+  const [pauseDays, setPauseDays] = useState(14)
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
   const [portalError, setPortalError] = useState('')
@@ -80,10 +82,17 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
     setActionError('')
     setActionMessage('')
     try {
-      const res = await fetch('/api/billing/pause', { method: 'POST' })
-      const { ok, error } = await res.json()
+      const res = await fetch('/api/billing/pause', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ days: pauseDays }),
+      })
+      const { ok, error, pauseDays: appliedDays } = await res.json()
       if (error) { setActionError(error); return }
-      if (ok) window.location.reload()
+      if (ok) {
+        setPaused(true)
+        setActionMessage(`Subscription paused for ${appliedDays ?? pauseDays} days.`)
+      }
     } catch {
       setActionError('Could not pause subscription right now. Please try again.')
     } finally {
@@ -99,7 +108,10 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
       const res = await fetch('/api/billing/resume', { method: 'POST' })
       const { ok, error } = await res.json()
       if (error) { setActionError(error); return }
-      if (ok) window.location.reload()
+      if (ok) {
+        setPaused(false)
+        setActionMessage('Subscription resumed. Full access is active now.')
+      }
     } catch {
       setActionError('Could not resume subscription right now. Please try again.')
     } finally {
@@ -115,7 +127,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
     ? Math.max(0, Math.ceil((sub.trialEndsAt.getTime() - Date.now()) / 86_400_000))
     : null
 
-  const planLabel = sub.isPaused ? 'Paused'
+  const planLabel = paused ? 'Paused'
     : sub.status === 'canceled' ? 'Canceled'
     : PLAN_LABEL_MAP[sub.tier] ?? sub.tier
 
@@ -144,7 +156,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         </div>
 
         {/* Maintenance mode: placed user on active/executive tier */}
-        {isPlaced && sub.isPaid && sub.tier !== 'passive' && sub.tier !== 'free' && !sub.isPaused && (
+        {isPlaced && sub.isPaid && sub.tier !== 'passive' && sub.tier !== 'free' && !paused && (
           <div className="bg-orange-50 border border-orange-200 rounded p-5 mb-6 flex items-start gap-4">
             <div className="flex-1">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Monitor.</p>
@@ -176,7 +188,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
               }
             </div>
           )}
-          {sub.isPaused && (
+          {paused && (
             <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800">
               Your subscription is paused. Resume below to restore access to AI briefs, outreach drafting, and chat.
             </div>
@@ -199,7 +211,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
               <p className="text-[13px] text-slate-500 capitalize">{sub.status.replace('_', ' ')}</p>
             </div>
             <div className="ml-auto flex items-center gap-3">
-              {sub.isPaused && hasStripeCustomer && (
+              {paused && hasStripeCustomer && (
                 <button
                   type="button"
                   onClick={handleResume}
@@ -209,8 +221,19 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                   {loading === 'resume' ? 'Resuming…' : 'Resume subscription'}
                 </button>
               )}
-              {sub.isPaid && !sub.isPaused && hasStripeCustomer && (
+              {sub.isPaid && !paused && hasStripeCustomer && (
                 <>
+                  <select
+                    value={pauseDays}
+                    onChange={e => setPauseDays(Number(e.target.value))}
+                    aria-label="Pause duration"
+                    className="text-[13px] text-slate-700 border border-slate-200 rounded px-2.5 py-2 bg-white"
+                    disabled={!!loading}
+                  >
+                    <option value={7}>7d</option>
+                    <option value={14}>14d</option>
+                    <option value={30}>30d</option>
+                  </select>
                   <button
                     type="button"
                     onClick={handlePause}
@@ -231,7 +254,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
               )}
             </div>
           </div>
-          {sub.isPaid && !sub.isPaused && hasStripeCustomer && (
+          {sub.isPaid && !paused && hasStripeCustomer && (
             <p className="mt-3 text-[12px] text-slate-400">
               <strong className="font-semibold text-slate-500">Pause</strong> stops billing temporarily &mdash; your data and pipeline stay intact.{' '}
               <strong className="font-semibold text-slate-500">Cancel</strong> (via Manage subscription) ends your subscription entirely.
