@@ -67,6 +67,8 @@ async function main() {
     readiness: [
       'npm run evals:readiness',
       'npm run evals:readiness:strict',
+      'npm run evals:readiness:summary',
+      'npm run evals:readiness:summary:strict',
     ],
     closeout: [
       'npm run evals:closeout',
@@ -114,6 +116,8 @@ async function main() {
     console.log('Readiness:')
     console.log('  npm run evals:readiness')
     console.log('  npm run evals:readiness:strict')
+    console.log('  npm run evals:readiness:summary')
+    console.log('  npm run evals:readiness:summary:strict')
     console.log('')
     console.log('Closeout:')
     console.log('  npm run evals:closeout')

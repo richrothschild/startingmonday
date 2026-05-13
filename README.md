@@ -92,6 +92,7 @@ npm run evals:readiness
 npm run evals:readiness:strict
 npm run evals:readiness:md
 npm run evals:readiness:summary
+npm run evals:readiness:summary:strict
 npm run evals:readiness:snapshot
 
 # One-command closeout flow

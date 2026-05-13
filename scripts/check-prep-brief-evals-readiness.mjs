@@ -177,7 +177,7 @@ async function main() {
 
   if (json) {
     console.log(JSON.stringify(result, null, 2))
-    if (strict && !overallReady) process.exit(1)
+    if (strict && !overallReady) process.exitCode = 1
     return
   }
 
@@ -195,7 +195,7 @@ async function main() {
       }
       console.log(`- Next action: ${result.nextAction}`)
     }
-    if (strict && !overallReady) process.exit(1)
+    if (strict && !overallReady) process.exitCode = 1
     return
   }
 
@@ -206,7 +206,7 @@ async function main() {
       `unrated=${labels.unrated} golden_total=${goldenSet.status.total}/${PASS_TARGET + FAIL_TARGET} ` +
       `generated_at=${generatedAt} next=${result.nextAction}`
     )
-    if (strict && !overallReady) process.exit(1)
+    if (strict && !overallReady) process.exitCode = 1
     return
   }
 
@@ -232,11 +232,11 @@ async function main() {
   }
 
   if (strict && !overallReady) {
-    process.exit(1)
+    process.exitCode = 1
   }
 }
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error))
-  process.exit(1)
+  process.exitCode = 1
 })
