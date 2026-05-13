@@ -12,22 +12,43 @@ function parseArgs(argv) {
   }
 }
 
-function runNodeScript(scriptPath, args = []) {
+function runNodeScript(scriptPath, args = [], captureStdout = false) {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [scriptPath, ...args], {
       cwd: ROOT,
-      stdio: 'inherit',
+      stdio: captureStdout ? ['inherit', 'pipe', 'inherit'] : 'inherit',
     })
+
+    let stdout = ''
+    if (captureStdout && child.stdout) {
+      child.stdout.on('data', (chunk) => {
+        const text = String(chunk)
+        stdout += text
+      })
+    }
 
     child.on('error', reject)
     child.on('close', (code) => {
       if (code === 0) {
-        resolve()
+        resolve(stdout)
       } else {
         reject(new Error(`${path.basename(scriptPath)} exited with code ${code ?? 'unknown'}`))
       }
     })
   })
+}
+
+function parseJsonFromOutput(output) {
+  const withoutAnsi = output.replace(/\u001b\[[0-9;]*m/g, '')
+  const trimmed = withoutAnsi.trim()
+  if (!trimmed) {
+    throw new Error('No JSON output received')
+  }
+
+  const lines = trimmed.split(/\r?\n/)
+  const jsonStart = lines.findIndex((line) => line.trimStart().startsWith('{'))
+  const candidate = jsonStart >= 0 ? lines.slice(jsonStart).join('\n').trim() : trimmed
+  return JSON.parse(candidate)
 }
 
 async function main() {
@@ -59,9 +80,23 @@ async function main() {
     ],
   }
 
+  let doctor = null
+  let readiness = null
+  if (status && json) {
+    const doctorScript = path.join(ROOT, 'scripts', 'evals-doctor.mjs')
+    const readinessScript = path.join(ROOT, 'scripts', 'check-prep-brief-evals-readiness.mjs')
+    const [doctorRaw, readinessRaw] = await Promise.all([
+      runNodeScript(doctorScript, ['--json'], true),
+      runNodeScript(readinessScript, ['--json'], true),
+    ])
+    doctor = parseJsonFromOutput(doctorRaw)
+    readiness = parseJsonFromOutput(readinessRaw)
+  }
+
   if (json) {
-    console.log(JSON.stringify({ commands, includesStatus: status }, null, 2))
+    console.log(JSON.stringify({ commands, includesStatus: status, doctor, readiness }, null, 2))
     if (!status) return
+    return
   }
 
   if (!json) {
@@ -95,10 +130,14 @@ async function main() {
 
   if (!json) {
     console.log('')
+    console.log('Prerequisites:')
+    const doctorScript = path.join(ROOT, 'scripts', 'evals-doctor.mjs')
+    await runNodeScript(doctorScript)
+    console.log('')
     console.log('Current readiness:')
+    const readinessScript = path.join(ROOT, 'scripts', 'check-prep-brief-evals-readiness.mjs')
+    await runNodeScript(readinessScript)
   }
-  const readinessScript = path.join(ROOT, 'scripts', 'check-prep-brief-evals-readiness.mjs')
-  await runNodeScript(readinessScript)
 }
 
 main().catch((error) => {

@@ -101,6 +101,7 @@ npm run evals:closeout:json
 npm run evals:help
 npm run evals:help:status
 npm run evals:help:json
+npm run evals:help:status:json
 
 # Prerequisite check
 npm run evals:doctor
