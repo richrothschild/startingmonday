@@ -143,7 +143,6 @@ export default function HomePage() {
           claimMethodLabel: 'How we estimate the timing window (method and sources)',
           claimMethodHref: '/blog/how-we-estimate-early-role-signals',
           body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
-          note: 'Free 30-day trial. No credit card.',
           steps: [
             'Add your target companies.',
             'Upload your resume.',

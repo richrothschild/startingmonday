@@ -200,11 +200,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
-          {hero.note && (
-            <p className="text-[13px] text-slate-500 mb-6">
-              {hero.note}
-            </p>
-          )}
+          <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-6">
+            Calibrated for C-suite transitions: every prep brief, strategy recommendation, and AI output is built for executive-level scrutiny.
+          </p>
 
           {/* Confidentiality promise - above the fold, before any CTA */}
           <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
@@ -335,9 +333,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed sm:whitespace-nowrap">
             LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the signal layer between that and a search firm.
-          </p>
-          <p className="text-[13px] text-slate-500 mt-4">
-            Every prep brief, strategy recommendation, and AI output is calibrated for C-suite altitude — not optimized for mid-level job seekers.
           </p>
         </div>
       </section>
@@ -667,7 +662,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-2">For Partners</p>
               <p className="text-[16px] font-bold text-slate-900 mb-1">Do you work with executives in transition?</p>
               <p className="text-[13px] text-slate-500 leading-relaxed max-w-xl">
-                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Earn 20% commission on every active referral — Active plan referrals pay $39.80 per client/month.
+                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Coaches can carry each client&apos;s briefs and signal history into every session. Earn 20% commission on every active referral — Active plan referrals pay $39.80 per client/month.
               </p>
             </div>
             <div className="flex flex-col gap-2 shrink-0">
