@@ -230,10 +230,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <TrackLink
                 href="/signup"
                 event="cta_clicked"
-                properties={{ location: 'hero', label: 'start_watching' }}
+                properties={{ location: 'hero', label: 'start_campaign' }}
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start watching now &rarr;
+                Start your campaign &rarr;
               </TrackLink>
               <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
@@ -251,6 +251,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
           <p className="text-[12px] text-slate-300 mt-3 font-medium">
             Start in minutes: select targets, set your level, and launch your first briefing loop.
+          </p>
+          <p className="text-[12px] text-slate-400 mt-2">
+            For coaches and search firms: 20% recurring referral commission (Active plan = $39.80 per client/month).{' '}
+            <Link href="/partners" className="underline hover:text-slate-200 transition-colors">
+              Partner details
+            </Link>
           </p>
 
           {showPersonaSelector && (
@@ -443,7 +449,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 href="/signup"
                 className="inline-block text-[13px] font-semibold text-slate-900 bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start watching &rarr;
+                Start your campaign &rarr;
               </Link>
               <p className="text-[12px] text-slate-600 mt-4 leading-relaxed">
                 We continuously process signals from companies being tracked by executives in active search. Yours update every 48 hours.
@@ -555,7 +561,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
             <div>
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">60s</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To generate the prep brief an executive coach takes days to produce</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To generate a role-specific prep brief with company context, likely objections, and peer-level questions</p>
             </div>
             <div>
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">11 days</p>
@@ -586,6 +592,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-[18px] font-bold text-slate-900 mb-4">Verified pilot evidence</h3>
+          <p className="text-[12px] text-slate-500 mb-5">Verification-first policy: we publish named testimonials only after explicit permission and outcome verification.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-8 mb-4">
             <div>
               <p className="text-[28px] font-bold text-green-600 leading-none mb-1">81%</p>
@@ -600,12 +607,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[13px] text-slate-700">Median time to first qualified outreach from setup</p>
             </div>
           </div>
-          <blockquote className="max-w-2xl mx-auto border-l-2 border-orange-400 pl-4 text-left my-5">
-            <p className="text-[14px] text-slate-700 leading-relaxed">
-              "I stopped reacting to job posts and started running a real campaign. The weekly brief changed how I prioritized outreach."
-            </p>
-            <footer className="text-[12px] text-slate-500 mt-2">SVP Technology candidate, pilot cohort</footer>
-          </blockquote>
           <p className="text-[12px] text-slate-500 mb-1">Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.</p>
           <p className="text-[12px] text-slate-400">Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.</p>
         </div>
