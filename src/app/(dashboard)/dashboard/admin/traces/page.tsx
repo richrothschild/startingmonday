@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { TraceViewer } from './trace-client'
+import { CopyCommandButton } from './copy-command-button'
 
 export const metadata = { title: 'LLM Traces - Starting Monday Admin' }
 
@@ -157,7 +158,10 @@ export default async function TracesPage({
             {goldenSetReady ? (
               <>
                 <p className="text-[11px] font-semibold text-emerald-800">Golden set is ready to export.</p>
-                <p className="text-[11px] text-emerald-700 mt-0.5">Run: <span className="font-mono">npm run evals:export-golden-set</span></p>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <p className="text-[11px] text-emerald-700">Run: <span className="font-mono">npm run evals:export-golden-set</span></p>
+                  <CopyCommandButton command="npm run evals:export-golden-set" />
+                </div>
               </>
             ) : (
               <>
