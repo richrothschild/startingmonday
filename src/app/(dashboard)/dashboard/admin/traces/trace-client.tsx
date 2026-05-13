@@ -326,6 +326,7 @@ export function TraceViewer({
   const [lastBulkApply, setLastBulkApply] = useState<{ tag: string; changes: BulkApplyUndoChange[] } | null>(null)
   const [toast, setToast] = useState<ToastState | null>(null)
   const [lastAction, setLastAction] = useState<LastActionState | null>(null)
+  const [includeZeroCountsInCopy, setIncludeZeroCountsInCopy] = useState(false)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -337,6 +338,7 @@ export function TraceViewer({
     setSessionLabeled({})
     setSessionFailureTagsByTrace({})
     setFailureSummaryMode('page')
+    setIncludeZeroCountsInCopy(false)
     setLastBulkApply(null)
     setLastAction(null)
   }, [currentFeature, unratedOnly, page])
@@ -518,9 +520,16 @@ export function TraceViewer({
     if (summaryRows.length === 0) return
 
     const modeLabel = failureSummaryMode === 'session' ? 'session' : 'current page'
+    const sourceCounts = failureSummaryMode === 'session' ? sessionFailureCategoryCounts : pageFailureCategoryCounts
+    const allKnownTags = [...new Set([...FAILURE_CATEGORIES, ...Object.keys(sourceCounts)])]
+    const rowsForCopy = includeZeroCountsInCopy
+      ? allKnownTags
+          .map((tag) => [tag, sourceCounts[tag] ?? 0] as const)
+          .sort((a, b) => b[1] - a[1])
+      : summaryRows
     const lines = [
-      `Failure tags (${modeLabel})`,
-      ...summaryRows.map(([tag, count]) => `- ${tag}: ${count}`),
+      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
+      ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
     ]
 
     if (topFailureTheme) {
@@ -643,6 +652,17 @@ export function TraceViewer({
                 Copy summary
               </button>
             )}
+            <button
+              type="button"
+              onClick={() => setIncludeZeroCountsInCopy((value) => !value)}
+              className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                includeZeroCountsInCopy
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              Include zeros: {includeZeroCountsInCopy ? 'on' : 'off'}
+            </button>
             {lastBulkApply && (
               <button
                 type="button"
