@@ -328,6 +328,7 @@ export function TraceViewer({
   const [lastAction, setLastAction] = useState<LastActionState | null>(null)
   const [includeZeroCountsInCopy, setIncludeZeroCountsInCopy] = useState(false)
   const [copyFormat, setCopyFormat] = useState<'list' | 'table'>('list')
+  const [showCopyPreview, setShowCopyPreview] = useState(false)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -341,6 +342,7 @@ export function TraceViewer({
     setFailureSummaryMode('page')
     setIncludeZeroCountsInCopy(false)
     setCopyFormat('list')
+    setShowCopyPreview(false)
     setLastBulkApply(null)
     setLastAction(null)
   }, [currentFeature, unratedOnly, page])
@@ -410,10 +412,44 @@ export function TraceViewer({
     .slice(0, 8)
   const summaryRows = failureSummaryMode === 'session' ? sessionFailureCategoryRows : pageFailureCategoryRows
   const topFailureTheme = summaryRows[0] ?? null
+  const modeLabel = failureSummaryMode === 'session' ? 'session' : 'current page'
+  const sourceCounts = failureSummaryMode === 'session' ? sessionFailureCategoryCounts : pageFailureCategoryCounts
+  const allKnownTags = [...new Set([...FAILURE_CATEGORIES, ...Object.keys(sourceCounts)])]
+  const rowsForCopy = includeZeroCountsInCopy
+    ? allKnownTags
+        .map((tag) => [tag, sourceCounts[tag] ?? 0] as const)
+        .sort((a, b) => b[1] - a[1])
+    : summaryRows
   const untaggedFailedTraces = visibleTraces.filter((trace) => {
     if (trace.eval_pass !== false) return false
     return parseEvalNotes(trace.eval_notes).categories.length === 0
   })
+
+  function buildFailureSummaryPayload(): string {
+    if (copyFormat === 'table') {
+      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`
+      const tableLines = [
+        '| Tag | Count |',
+        '| --- | ---: |',
+        ...rowsForCopy.map(([tag, count]) => `| ${tag} | ${count} |`),
+      ]
+      let payload = [header, '', ...tableLines].join('\n')
+      if (topFailureTheme) {
+        payload += `\n\nTop theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`
+      }
+      return payload
+    }
+
+    const lines = [
+      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
+      ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
+    ]
+
+    if (topFailureTheme) {
+      lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
+    }
+    return lines.join('\n')
+  }
 
   async function applyTopTagToUntaggedFails() {
     if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
@@ -520,38 +556,7 @@ export function TraceViewer({
 
   async function copyFailureSummary() {
     if (summaryRows.length === 0) return
-
-    const modeLabel = failureSummaryMode === 'session' ? 'session' : 'current page'
-    const sourceCounts = failureSummaryMode === 'session' ? sessionFailureCategoryCounts : pageFailureCategoryCounts
-    const allKnownTags = [...new Set([...FAILURE_CATEGORIES, ...Object.keys(sourceCounts)])]
-    const rowsForCopy = includeZeroCountsInCopy
-      ? allKnownTags
-          .map((tag) => [tag, sourceCounts[tag] ?? 0] as const)
-          .sort((a, b) => b[1] - a[1])
-      : summaryRows
-    let payload = ''
-    if (copyFormat === 'table') {
-      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`
-      const tableLines = [
-        '| Tag | Count |',
-        '| --- | ---: |',
-        ...rowsForCopy.map(([tag, count]) => `| ${tag} | ${count} |`),
-      ]
-      payload = [header, '', ...tableLines].join('\n')
-      if (topFailureTheme) {
-        payload += `\n\nTop theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`
-      }
-    } else {
-      const lines = [
-        `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
-        ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
-      ]
-
-      if (topFailureTheme) {
-        lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
-      }
-      payload = lines.join('\n')
-    }
+    const payload = buildFailureSummaryPayload()
 
     try {
       await navigator.clipboard.writeText(payload)
@@ -667,6 +672,19 @@ export function TraceViewer({
                 Copy summary
               </button>
             )}
+            {summaryRows.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowCopyPreview((value) => !value)}
+                className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                  showCopyPreview
+                    ? 'bg-slate-900 text-white border-slate-900'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                }`}
+              >
+                {showCopyPreview ? 'Hide preview' : 'Preview copy'}
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setCopyFormat((value) => (value === 'list' ? 'table' : 'list'))}
@@ -741,6 +759,14 @@ export function TraceViewer({
               ? 'No session failure tags yet.'
               : 'No failed traces with category tags on this page yet.'}
           </p>
+        )}
+        {showCopyPreview && summaryRows.length > 0 && (
+          <div className="mt-2 border border-slate-200 rounded bg-slate-50 p-2">
+            <p className="text-[10px] font-semibold text-slate-500 mb-1">Copy payload preview</p>
+            <pre className="text-[10px] text-slate-600 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
+              {buildFailureSummaryPayload()}
+            </pre>
+          </div>
         )}
       </div>
 
