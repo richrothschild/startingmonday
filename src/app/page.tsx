@@ -138,7 +138,7 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'A disciplined search system for senior technology executives.',
+          eyebrow: 'Signal intelligence for C-suite technology executives. Early signal. Deeper prep. The discipline that separates winning searches.',
           h1Lines: ['Be ready.', 'Be early.'],
           bodyPreamble: 'The strongest candidates do not wait for the market to tell them it is time to prepare.',
           body: 'Starting Monday helps you run the search before it becomes reactive: track target companies, spot movement worth acting on, prepare faster, and walk into the right conversation with a sharper point of view.',
@@ -148,6 +148,12 @@ export default function HomePage() {
             'Wake up to your first briefing by morning.',
           ],
           trialNote: 'Free for 30 days. No credit card.',
+          competitiveEdge: 'Executives who move fastest reach out to target companies 4.2 weeks before the posting. You can start today.',
+          testimonial: {
+            quote: 'Went from searching reactively to seeing the window before it opened. Had my first real conversation 3 weeks in. Got the offer in 67 days total.',
+            source: 'CIO, Series D SaaS. Moved from VP to CIO role.',
+            result: 'Timeline: 67 days to offer. Earlier sight lines. Better leverage in negotiation.',
+          },
         }}
         situations={SITUATIONS}
         faqs={FAQS}

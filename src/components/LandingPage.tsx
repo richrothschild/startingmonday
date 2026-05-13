@@ -29,6 +29,12 @@ export interface LandingHero {
   note?: string
   steps?: string[]
   trialNote: string
+  testimonial?: {
+    quote: string
+    source: string
+    result: string
+  }
+  competitiveEdge?: string
 }
 
 export interface LandingPageProps {
@@ -203,6 +209,24 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-6">
             Built for executive scrutiny: every brief, recommendation, and next step is calibrated for C-suite transitions.
           </p>
+
+          {/* Competitive edge / FOMO */}
+          {hero.competitiveEdge && (
+            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium">
+              ⚡ {hero.competitiveEdge}
+            </p>
+          )}
+
+          {/* Proof point / Testimonial */}
+          {hero.testimonial && (
+            <div className="bg-slate-800 border border-slate-700 rounded-lg p-5 mb-8 max-w-xl">
+              <p className="text-[14px] text-slate-200 italic leading-relaxed mb-3">
+                "{hero.testimonial.quote}"
+              </p>
+              <p className="text-[12px] text-slate-400 font-semibold">{hero.testimonial.source}</p>
+              <p className="text-[12px] text-orange-400 font-semibold mt-2">{hero.testimonial.result}</p>
+            </div>
+          )}
 
           {/* Confidentiality promise - above the fold, before any CTA */}
           <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
@@ -478,7 +502,42 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       <SamplePrepBrief />
-
+      {/* Board & Advisory positioning */}
+      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
+            Multi-year positioning
+          </p>
+          <h2 className="text-[26px] sm:text-[32px] font-bold text-slate-900 mb-4 leading-tight max-w-3xl">
+            Board seeking, advisor roles, or C-suite positioning on your own timeline.
+          </h2>
+          <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl mb-10">
+            Board seats and advisory roles require different discipline than active search. You're building relationships over years, not months. Starting Monday handles the research and momentum so you don't go cold.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+            <div className="bg-white border border-slate-200 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-slate-900 mb-2">Monitor Board Composition</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">Track governance changes at 50+ target companies simultaneously. When new board seats open or PE transitions require independent directors, you know immediately.</p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-slate-900 mb-2">Maintain Relationship Momentum</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">Nothing goes cold when you're tracking 100+ relationships across 3 years. Quarterly outreach cadence stays active without consuming your attention.</p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-slate-900 mb-2">Evolve Your Narrative</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">Your board story changes as markets shift. Update your narrative quarterly. Reference fresh signals from companies you're tracking when you reach out.</p>
+            </div>
+          </div>
+          <div className="mt-10 bg-white border border-slate-200 rounded-lg p-6 max-w-3xl">
+            <p className="text-[14px] text-slate-700 leading-relaxed">
+              <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
+            </p>
+            <p className="text-[14px] text-slate-700 leading-relaxed mt-4">
+              <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
+            </p>
+          </div>
+        </div>
+      </section>
       {/* Operating cadence */}
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
