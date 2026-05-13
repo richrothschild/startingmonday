@@ -94,6 +94,24 @@ export default function MarkReviewPage() {
             </div>
           </section>
 
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Why different from alternatives</p>
+            <div className="space-y-4">
+              <div className="border-t border-slate-100 pt-4">
+                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. LinkedIn</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">LinkedIn is a job board. You wait for postings and compete with thousands. We find opportunities before they're posted by monitoring organizational signals. You move first.</p>
+              </div>
+              <div className="border-t border-slate-100 pt-4">
+                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. Executive coaches</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Coaches provide strategy and accountability. They spend 90% of their time on the 10% of your search (the sessions). We handle the 90%: signal monitoring, prep briefs, pipeline discipline, daily execution. Better coaches use us for exactly this.</p>
+              </div>
+              <div className="border-t border-slate-100 pt-4">
+                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. Spray and pay (resume services, general job boards)</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Those tools are transactional and generic. We are built for VP/C-suite tech searches only. Signal monitoring is specific to executive moves. Prep briefs are calibrated to peer-level conversations. Every feature assumes you are targeting 20-40 companies, not browsing thousands.</p>
+              </div>
+            </div>
+          </section>
+
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I Want From You</p>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-800 leading-relaxed">
