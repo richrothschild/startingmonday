@@ -18,6 +18,12 @@ export type Trace = {
   eval_notes: string | null
 }
 
+type BulkApplyUndoChange = {
+  traceId: string
+  prevNotes: string | null
+  prevSessionTags: string[] | undefined
+}
+
 const FEATURES = ['', 'prep_brief', 'prep_refine', 'chat', 'suggestions']
 const FEATURE_LABELS: Record<string, string> = {
   '':           'All features',
@@ -306,6 +312,8 @@ export function TraceViewer({
   const [sessionFailureTagsByTrace, setSessionFailureTagsByTrace] = useState<Record<string, string[]>>({})
   const [failureSummaryMode, setFailureSummaryMode] = useState<'page' | 'session'>('page')
   const [isApplyingTopTag, setIsApplyingTopTag] = useState(false)
+  const [isUndoingTopTag, setIsUndoingTopTag] = useState(false)
+  const [lastBulkApply, setLastBulkApply] = useState<{ tag: string; changes: BulkApplyUndoChange[] } | null>(null)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -317,6 +325,7 @@ export function TraceViewer({
     setSessionLabeled({})
     setSessionFailureTagsByTrace({})
     setFailureSummaryMode('page')
+    setLastBulkApply(null)
   }, [currentFeature, unratedOnly, page])
 
   useEffect(() => {
@@ -387,6 +396,13 @@ export function TraceViewer({
     if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
 
     const topTag = topFailureTheme[0]
+    const snapshotById = Object.fromEntries(visibleTraces.map((trace) => [trace.id, trace]))
+    const changes: BulkApplyUndoChange[] = untaggedFailedTraces.map((trace) => ({
+      traceId: trace.id,
+      prevNotes: snapshotById[trace.id]?.eval_notes ?? null,
+      prevSessionTags: sessionFailureTagsByTrace[trace.id],
+    }))
+
     setIsApplyingTopTag(true)
     try {
       for (const trace of untaggedFailedTraces) {
@@ -407,8 +423,44 @@ export function TraceViewer({
           [trace.id]: nextCategories,
         }))
       }
+
+      if (changes.length > 0) {
+        setLastBulkApply({ tag: topTag, changes })
+      }
     } finally {
       setIsApplyingTopTag(false)
+    }
+  }
+
+  async function undoLastBulkApplyTopTag() {
+    if (!lastBulkApply || isUndoingTopTag) return
+
+    setIsUndoingTopTag(true)
+    try {
+      for (const change of lastBulkApply.changes) {
+        const restoredNotes = change.prevNotes ?? ''
+        await rateTrace(change.traceId, false, restoredNotes)
+
+        setVisibleTraces((prev) => prev.map((row) => (
+          row.id === change.traceId
+            ? { ...row, eval_notes: change.prevNotes }
+            : row
+        )))
+
+        setSessionFailureTagsByTrace((prev) => {
+          const next = { ...prev }
+          if (change.prevSessionTags === undefined) {
+            delete next[change.traceId]
+          } else {
+            next[change.traceId] = change.prevSessionTags
+          }
+          return next
+        })
+      }
+
+      setLastBulkApply(null)
+    } finally {
+      setIsUndoingTopTag(false)
     }
   }
 
@@ -483,6 +535,20 @@ export function TraceViewer({
                 }`}
               >
                 {isApplyingTopTag ? 'Applying…' : `Apply top tag to ${untaggedFailedTraces.length}`}
+              </button>
+            )}
+            {lastBulkApply && (
+              <button
+                type="button"
+                onClick={undoLastBulkApplyTopTag}
+                disabled={isUndoingTopTag}
+                className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                  isUndoingTopTag
+                    ? 'bg-slate-100 text-slate-400 border-slate-200'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                }`}
+              >
+                {isUndoingTopTag ? 'Undoing…' : `Undo ${lastBulkApply.tag}`}
               </button>
             )}
             <button
