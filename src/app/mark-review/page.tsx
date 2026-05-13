@@ -23,42 +23,26 @@ export const metadata: Metadata = {
 const FEATURE_BLOCKS = [
   {
     title: 'Signal Intelligence',
-    body: 'Tracks organizational movement before roles are publicly posted so executives can act earlier with better timing.',
-  },
-  {
-    title: 'Pipeline Command Center',
-    body: 'Central system for target companies, contacts, and outreach status so activity stays focused and accountable.',
+    body: 'Track organizational moves at 2,000+ target companies so you spot opportunities 2–4 weeks before LinkedIn.',
   },
   {
     title: 'AI Prep Brief',
-    body: 'Company and role-specific prep package in under a minute: likely objections, talking points, and high-value questions.',
+    body: 'Generated in 60 seconds per role: likely objections, talking points, and high-value questions for outreach.',
   },
   {
     title: 'Daily Briefing Loop',
-    body: 'Each morning, users get signal changes and next actions so progress compounds instead of restarting each week.',
+    body: 'Each morning, get signal changes at your targets so your pipeline compounds instead of stalling.',
+  },
+  {
+    title: 'Pipeline Command Center',
+    body: 'Central dashboard for target companies, contacts, and outreach status so activity stays focused and measurable.',
   },
 ]
-
-const FEEDBACK_QUESTIONS = [
-  'Would this position Starting Monday as a must-have operating system for serious executive search, or still optional?',
-  'What is unclear, weak, or unfocused in the current landing-page story?',
-  'Where does onboarding create drag before first value?',
-  'What would make this compelling enough for a paying executive in the first week?',
-  'What is the one thing we should stop doing immediately to improve conversion quality?',
-]
-
-const REACTION_SECTIONS = [
-  'BLUF and Positioning',
-  'Core Features and Outcomes',
-  '12-Minute Review Path',
-]
-
-const REACTIONS = ['Clear', 'Unclear', 'Strong', 'Weak', 'Prioritize fix']
 
 export default function MarkReviewPage() {
   const structuredFeedbackLink = mailtoHref(
     'Starting Monday review feedback',
-    'Top 3 fixes:\n1)\n2)\n3)\n\nTop 1 stop doing:\n\nBiggest risk this month:\n\nOne fast win this week:\n',
+    'Objections by journey stage:\n- Hero:\n- Positioning/category:\n- Demo trust:\n- Pricing confidence:\n- Signup friction:\n- First-week usage:\n\nForce-rank:\nTop 3 fixes:\n1)\n2)\n3)\n\nTop 1 stop-doing:\n\nTop 1 thing to double down on:\n\nWhat would make you personally recommend this to one executive right now?\n',
   )
 
   const callRequestLink = mailtoHref(
@@ -91,10 +75,10 @@ export default function MarkReviewPage() {
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Mark Review Brief</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            BLUF: Starting Monday helps senior executives get ahead of searches before roles are publicly posted.
+            BLUF: Find executive job opportunities before LinkedIn posts them—and move faster than your firm's own recruiters.
           </h1>
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl mb-6">
-            Our immediate objective is simple: win first paid users and prove repeatable conversion while delivering an excellent first-week user experience.
+            Starting Monday gives VPs and C-suite candidates a signal advantage: intelligence on open searches 2–4 weeks early, prep briefs in 60 seconds, and a daily feed of moves at your target companies.
           </p>
           <div className="bg-slate-800 border border-slate-700 rounded p-4">
             <p className="text-[12px] font-bold text-orange-500 uppercase tracking-[0.1em] mb-2">What we need from you</p>
@@ -138,40 +122,15 @@ export default function MarkReviewPage() {
               <div className="border border-slate-200 rounded p-4 bg-white">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Is</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">
-                  Executive opportunity intelligence and execution infrastructure for VP-to-C-suite searches.
+                  The intelligence layer that finds executive moves before LinkedIn does—and gives you prep briefs in 60 seconds.
                 </p>
               </div>
               <div className="border border-slate-200 rounded p-4 bg-slate-50">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Is not</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">
-                  A generic AI job search assistant, resume generator, or passive content product.
+                  A resume generator, interview coach, passive job board, or generic AI assistant.
                 </p>
               </div>
-            </div>
-          </section>
-
-          <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Quick section reactions</p>
-            <div className="space-y-4">
-              {REACTION_SECTIONS.map(section => (
-                <div key={section} className="border border-slate-200 rounded p-4">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-3">{section}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {REACTIONS.map(reaction => (
-                      <a
-                        key={`${section}-${reaction}`}
-                        href={mailtoHref(
-                          `Quick reaction: ${section} - ${reaction}`,
-                          `Section: ${section}\nReaction: ${reaction}\nReason (optional):\n`,
-                        )}
-                        className="text-[12px] border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:bg-slate-50 transition-colors"
-                      >
-                        {reaction}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </div>
           </section>
 
@@ -188,74 +147,75 @@ export default function MarkReviewPage() {
           </section>
 
           <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What happens in week 1</p>
+            <div className="space-y-3 mb-6">
+              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">Day 1:</span> Pipeline intelligence on 2,000+ target companies appears in your dashboard within 5 minutes of signup. First AI prep brief is ready in 60 seconds.</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">Days 2–7:</span> Daily briefing arrives each morning with new moves, signal changes, and one-click talking points for outreach.</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">By day 7:</span> You've identified 3–5 opportunities your firm's own recruiters haven't seen yet.</p>
+            </div>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Fast review path (12 minutes)</p>
-            <ol className="list-decimal pl-5 space-y-2 text-[13px] text-slate-700 leading-relaxed">
+            <ol className="list-decimal pl-5 space-y-2 text-[13px] text-slate-700 leading-relaxed mb-6">
               <li>Read landing page positioning and hero flow.</li>
-              <li>Run the live demo and inspect prep-brief quality.</li>
+              <li>Run the live demo and inspect prep-brief quality (2–3 minutes).</li>
               <li>Review pricing page for conversion clarity and trust.</li>
             </ol>
-            <div className="flex flex-col sm:flex-row gap-3 mt-6">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/" className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center">
                 Open landing page
               </Link>
-              <Link href="/demo" className="inline-block border border-slate-200 hover:border-slate-400 text-slate-700 text-[14px] px-6 py-3 rounded transition-colors text-center">
+              <Link href="/demo" className="inline-block border border-slate-300 hover:border-slate-500 text-slate-800 text-[14px] px-6 py-3 rounded transition-colors text-center">
                 Run live demo
               </Link>
-              <Link href="/pricing" className="inline-block border border-slate-200 hover:border-slate-400 text-slate-700 text-[14px] px-6 py-3 rounded transition-colors text-center">
+              <Link href="/pricing" className="inline-block border border-slate-300 hover:border-slate-500 text-slate-800 text-[14px] px-6 py-3 rounded transition-colors text-center">
                 Review pricing
               </Link>
             </div>
           </section>
-
-          <section className="border-t border-slate-100 pt-10">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Feedback we want, unfiltered</p>
-            <ul className="space-y-2">
-              {FEEDBACK_QUESTIONS.map(question => (
-                <li key={question} className="text-[13px] text-slate-700 leading-relaxed">- {question}</li>
-              ))}
-            </ul>
-            <p className="text-[13px] text-slate-600 mt-6">
-              Preferred response format: top 3 fixes, top 1 stop-doing decision, and what to prioritize this month.
-            </p>
-
-            <div className="mt-6 border border-slate-200 rounded p-5 bg-slate-50">
-              <p className="text-[12px] font-semibold text-slate-900 mb-3">60-second feedback form</p>
-              <form action={`mailto:${FEEDBACK_EMAIL}`} method="post" encType="text/plain" className="space-y-3">
-                <div>
-                  <label htmlFor="clarity" className="block text-[12px] text-slate-700 mb-1">Clarity score (1-10)</label>
-                  <input id="clarity" name="Clarity score" type="number" min={1} max={10} className="w-full sm:w-40 border border-slate-300 rounded px-3 py-2 text-[13px]" />
-                </div>
-                <div>
-                  <label htmlFor="conversion" className="block text-[12px] text-slate-700 mb-1">Conversion confidence (1-10)</label>
-                  <input id="conversion" name="Conversion confidence" type="number" min={1} max={10} className="w-full sm:w-40 border border-slate-300 rounded px-3 py-2 text-[13px]" />
-                </div>
-                <div>
-                  <label htmlFor="biggest-flaw" className="block text-[12px] text-slate-700 mb-1">Biggest flaw</label>
-                  <input id="biggest-flaw" name="Biggest flaw" type="text" className="w-full border border-slate-300 rounded px-3 py-2 text-[13px]" />
-                </div>
-                <div>
-                  <label htmlFor="first-change" className="block text-[12px] text-slate-700 mb-1">First change to make</label>
-                  <input id="first-change" name="First change" type="text" className="w-full border border-slate-300 rounded px-3 py-2 text-[13px]" />
-                </div>
-                <button
-                  type="submit"
-                  className="inline-block bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors"
-                >
-                  Send form by email
-                </button>
-              </form>
-            </div>
-
-            <p className="text-[13px] text-slate-600 mt-2">
-              Send feedback to{' '}
-              <a href={`mailto:${FEEDBACK_EMAIL}`} className="underline hover:text-slate-900 transition-colors">
-                {FEEDBACK_EMAIL}
-              </a>
-              .
-            </p>
-          </section>
         </div>
       </main>
+
+      <footer className="bg-slate-900 px-4 sm:px-6 py-10 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Send feedback</p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href={structuredFeedbackLink}
+                className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-5 py-2.5 rounded transition-colors text-center"
+              >
+                Send structured feedback
+              </a>
+              <a
+                href={callRequestLink}
+                className="inline-block border border-slate-500 hover:border-slate-300 text-slate-200 text-[14px] px-5 py-2.5 rounded transition-colors text-center"
+              >
+                Request 20-minute call
+              </a>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-6">
+            <p className="text-[12px] text-slate-400 mb-2">Need the feedback template?</p>
+            <a
+              href="/mark-feedback-template.md"
+              download
+              className="text-[13px] text-orange-400 underline hover:text-orange-300 transition-colors"
+            >
+              Download one-page template (Markdown)
+            </a>
+          </div>
+          <div className="border-t border-slate-800 pt-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Feedback requested by journey stage</p>
+            <ul className="space-y-2 text-[12px] text-slate-400">
+              <li>- Hero positioning and urgency</li>
+              <li>- Category clarity (what problem are we solving?)</li>
+              <li>- Demo proof and trust signals</li>
+              <li>- Pricing confidence and anchoring</li>
+              <li>- Signup flow friction</li>
+              <li>- First-week value delivery</li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
