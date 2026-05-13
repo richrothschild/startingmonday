@@ -23,6 +23,11 @@ type ToastState = {
   message: string
 }
 
+type LastActionState = {
+  message: string
+  at: string
+}
+
 type BulkApplyUndoChange = {
   traceId: string
   prevNotes: string | null
@@ -320,6 +325,7 @@ export function TraceViewer({
   const [isUndoingTopTag, setIsUndoingTopTag] = useState(false)
   const [lastBulkApply, setLastBulkApply] = useState<{ tag: string; changes: BulkApplyUndoChange[] } | null>(null)
   const [toast, setToast] = useState<ToastState | null>(null)
+  const [lastAction, setLastAction] = useState<LastActionState | null>(null)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -332,6 +338,7 @@ export function TraceViewer({
     setSessionFailureTagsByTrace({})
     setFailureSummaryMode('page')
     setLastBulkApply(null)
+    setLastAction(null)
   }, [currentFeature, unratedOnly, page])
 
   useEffect(() => {
@@ -440,6 +447,10 @@ export function TraceViewer({
       if (changes.length > 0) {
         setLastBulkApply({ tag: topTag, changes })
         setToast({ kind: 'success', message: `Applied ${topTag} to ${changes.length} trace${changes.length === 1 ? '' : 's'}.` })
+        setLastAction({
+          message: `Applied ${topTag} to ${changes.length} trace${changes.length === 1 ? '' : 's'}`,
+          at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+        })
       }
     } catch {
       setToast({ kind: 'error', message: 'Could not apply top tag. Try again.' })
@@ -478,6 +489,10 @@ export function TraceViewer({
 
       setLastBulkApply(null)
       setToast({ kind: 'success', message: `Undid bulk tag on ${undoCount} trace${undoCount === 1 ? '' : 's'}.` })
+      setLastAction({
+        message: `Undid bulk tag on ${undoCount} trace${undoCount === 1 ? '' : 's'}`,
+        at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      })
     } catch {
       setToast({ kind: 'error', message: 'Could not undo bulk tag. Try again.' })
     } finally {
@@ -543,6 +558,11 @@ export function TraceViewer({
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">
               Failure tags ({failureSummaryMode === 'session' ? 'session' : 'current page'})
             </p>
+            {lastAction && (
+              <p className="text-[10px] text-slate-400 mt-1">
+                Last action: <span className="text-slate-600">{lastAction.message}</span> <span className="text-slate-400">at {lastAction.at}</span>
+              </p>
+            )}
             {topFailureTheme && (
               <p className="text-[10px] text-slate-500 mt-1">
                 Top theme: <span className="font-semibold text-slate-700">{topFailureTheme[0]}</span> ({topFailureTheme[1]})
