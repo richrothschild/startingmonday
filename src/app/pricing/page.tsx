@@ -47,6 +47,91 @@ export default function PricingPage() {
 
         <PricingCards />
 
+        <section className="mt-14 mb-12">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">
+            Which tier should I pick?
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              {
+                tier: 'Monitor — $49/mo',
+                who: 'Best for executives who are not in active search yet but want to track target companies quietly.',
+              },
+              {
+                tier: 'Active — $199/mo',
+                who: 'Best for VP and C-suite executives in an active campaign who need prep briefs, daily signals, and pipeline control.',
+              },
+              {
+                tier: 'Executive — $499/mo',
+                who: 'Best for high-stakes C-suite searches where you need full-depth intelligence, faster alerts, and unlimited coverage.',
+              },
+            ].map(item => (
+              <div key={item.tier} className="border border-slate-200 rounded-lg p-5 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-2">{item.tier}</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">{item.who}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            What outcomes to expect
+          </p>
+          <div className="space-y-3 text-[13px] text-slate-700 leading-relaxed">
+            <p><span className="font-semibold text-slate-900">Monitor:</span> passive monitoring with early signal visibility so opportunities do not surprise you.</p>
+            <p><span className="font-semibold text-slate-900">Active:</span> a daily operating rhythm for active search, including prep and pipeline follow-through.</p>
+            <p><span className="font-semibold text-slate-900">Executive:</span> full-depth coverage and speed for candidates optimizing every high-value conversation.</p>
+          </div>
+        </section>
+
+        <section className="mb-12">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">
+            Why this over alternatives
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="w-full text-left text-[13px]">
+              <thead className="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th className="px-4 py-3 font-semibold text-slate-900">Option</th>
+                  <th className="px-4 py-3 font-semibold text-slate-900">Best for</th>
+                  <th className="px-4 py-3 font-semibold text-slate-900">Limitation</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {[
+                  {
+                    option: 'Starting Monday',
+                    best: 'Signal intelligence + prep + pipeline in one system for senior searches.',
+                    limit: 'Requires disciplined weekly usage to compound results.',
+                  },
+                  {
+                    option: 'LinkedIn Premium',
+                    best: 'Broad candidate browsing and job board access.',
+                    limit: 'Usually late in the cycle for senior executive searches.',
+                  },
+                  {
+                    option: 'DIY spreadsheets',
+                    best: 'Custom tracking with no software cost.',
+                    limit: 'Manual, inconsistent, and easy to stall under load.',
+                  },
+                  {
+                    option: 'Executive coaching only',
+                    best: 'Narrative and interview strategy guidance.',
+                    limit: 'Does not provide daily market monitoring infrastructure.',
+                  },
+                ].map(row => (
+                  <tr key={row.option} className="bg-white">
+                    <td className="px-4 py-3 font-semibold text-slate-900">{row.option}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.best}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.limit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* Teams row */}
         <div className="border border-slate-200 rounded-lg px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div>
@@ -63,6 +148,31 @@ export default function PricingPage() {
             Contact us
           </Link>
         </div>
+
+        <section className="mt-12 border-t border-slate-100 pt-10">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">Pricing FAQ</p>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {[
+              {
+                q: 'Can I upgrade or downgrade later?',
+                a: 'Yes. You can move between plans at any time as your search intensity changes.',
+              },
+              {
+                q: 'What if I pick the wrong tier to start?',
+                a: 'Start where you are now. Most executives begin on Monitor or Active, then upgrade when the campaign becomes urgent.',
+              },
+              {
+                q: 'Is there a long-term contract?',
+                a: 'No. All plans start with a 30-day free trial and can be canceled at any time.',
+              },
+            ].map(item => (
+              <div key={item.q} className="border border-slate-200 rounded-lg p-5">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">{item.q}</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <p className="mt-10 text-center text-[13px] text-slate-400">
           All plans include a 30-day free trial. Cancel any time.{' '}
