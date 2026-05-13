@@ -1,5 +1,5 @@
 'use client'
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { rateTrace } from './actions'
 
@@ -27,6 +27,48 @@ const FEATURE_LABELS: Record<string, string> = {
   suggestions:  'Suggestions',
 }
 
+const FAILURE_CATEGORIES = [
+  'company_context_thin',
+  'role_fit_not_established',
+  'questions_too_generic',
+  'format_off',
+  'tone_wrong',
+  'factual_error',
+  'missing_context_not_flagged',
+  'competitive_framing_missed',
+]
+
+function parseEvalNotes(raw: string | null): { body: string; categories: string[] } {
+  if (!raw?.trim()) return { body: '', categories: [] }
+
+  const lines = raw.split(/\r?\n/)
+  const categoryLineIndex = lines.findIndex((line) => /^\s*categories\s*:/i.test(line))
+
+  if (categoryLineIndex < 0) return { body: raw.trim(), categories: [] }
+
+  const categoryLine = lines[categoryLineIndex].replace(/^\s*categories\s*:/i, '')
+  const categories = categoryLine
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean)
+
+  const body = lines
+    .filter((_, idx) => idx !== categoryLineIndex)
+    .join('\n')
+    .trim()
+
+  return { body, categories }
+}
+
+function composeEvalNotes(body: string, categories: string[]): string {
+  const normalizedBody = body.trim()
+  const normalizedCategories = [...new Set(categories.map((item) => item.trim()).filter(Boolean))]
+  if (normalizedCategories.length === 0) return normalizedBody
+
+  const categoryLine = `Categories: ${normalizedCategories.join(', ')}`
+  return normalizedBody ? `${normalizedBody}\n\n${categoryLine}` : categoryLine
+}
+
 function buildUrl(params: { feature?: string; unrated?: string; page?: string }) {
   const sp = new URLSearchParams()
   if (params.feature) sp.set('feature', params.feature)
@@ -37,20 +79,59 @@ function buildUrl(params: { feature?: string; unrated?: string; page?: string })
 }
 
 function TraceRow({ trace }: { trace: Trace }) {
+  const parsedNotes = parseEvalNotes(trace.eval_notes)
   const [evalPass, setEvalPass]   = useState(trace.eval_pass)
-  const [evalNotes, setEvalNotes] = useState(trace.eval_notes ?? '')
+  const [evalNotesBody, setEvalNotesBody] = useState(parsedNotes.body)
+  const [categories, setCategories] = useState(parsedNotes.categories)
   const [expanded, setExpanded]   = useState(false)
   const [, startTransition]       = useTransition()
 
-  function rate(pass: boolean) {
-    const next = evalPass === pass ? null : pass
-    setEvalPass(next)
-    startTransition(async () => { await rateTrace(trace.id, next, evalNotes) })
+  function persist(nextPass: boolean | null, nextNotesBody: string, nextCategories: string[]) {
+    const nextNotes = composeEvalNotes(nextNotesBody, nextCategories)
+    startTransition(async () => { await rateTrace(trace.id, nextPass, nextNotes) })
+  }
+
+  function setRating(nextPass: boolean | null) {
+    setEvalPass(nextPass)
+    persist(nextPass, evalNotesBody, categories)
+  }
+
+  function toggleCategory(category: string) {
+    const nextCategories = categories.includes(category)
+      ? categories.filter((item) => item !== category)
+      : [...categories, category]
+
+    setCategories(nextCategories)
+    persist(evalPass, evalNotesBody, nextCategories)
   }
 
   function saveNotes() {
-    startTransition(async () => { await rateTrace(trace.id, evalPass, evalNotes) })
+    persist(evalPass, evalNotesBody, categories)
   }
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      const target = event.target as HTMLElement | null
+      if (target) {
+        const tagName = target.tagName.toLowerCase()
+        if (tagName === 'textarea' || tagName === 'input' || tagName === 'select' || target.isContentEditable) return
+      }
+
+      if (event.key.toLowerCase() === 'p') {
+        event.preventDefault()
+        setRating(true)
+      } else if (event.key.toLowerCase() === 'f') {
+        event.preventDefault()
+        setRating(false)
+      } else if (event.key.toLowerCase() === 'u') {
+        event.preventDefault()
+        setRating(null)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [evalNotesBody, categories, evalPass])
 
   const tokens = (trace.prompt_tokens ?? 0) + (trace.completion_tokens ?? 0)
   const dateStr = new Date(trace.created_at).toLocaleString('en-US', {
@@ -67,7 +148,7 @@ function TraceRow({ trace }: { trace: Trace }) {
         <div className="flex flex-col gap-1.5 shrink-0 pt-0.5">
           <button
             type="button"
-            onClick={() => rate(true)}
+            onClick={() => setRating(evalPass === true ? null : true)}
             className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
               evalPass === true
                 ? 'bg-emerald-500 text-white'
@@ -78,7 +159,7 @@ function TraceRow({ trace }: { trace: Trace }) {
           </button>
           <button
             type="button"
-            onClick={() => rate(false)}
+            onClick={() => setRating(evalPass === false ? null : false)}
             className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
               evalPass === false
                 ? 'bg-red-500 text-white'
@@ -143,14 +224,35 @@ function TraceRow({ trace }: { trace: Trace }) {
           )}
 
           {/* Notes */}
+          <div className="mb-2 flex flex-wrap items-center gap-1.5">
+            {FAILURE_CATEGORIES.map((category) => {
+              const active = categories.includes(category)
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => toggleCategory(category)}
+                  className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                    active
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-500 border-slate-200 hover:border-slate-400'
+                  }`}
+                >
+                  {category}
+                </button>
+              )
+            })}
+          </div>
+
           <textarea
-            value={evalNotes}
-            onChange={e => setEvalNotes(e.target.value)}
+            value={evalNotesBody}
+            onChange={e => setEvalNotesBody(e.target.value)}
             onBlur={saveNotes}
             placeholder="Open coding: what is wrong (or strong) about this output?"
             rows={2}
             className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
           />
+          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated.</p>
         </div>
       </div>
     </div>
