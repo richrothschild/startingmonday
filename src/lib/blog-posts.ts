@@ -10,6 +10,24 @@ export interface BlogPostMeta {
 
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: 'executive-job-search-daily-routine',
+    title: 'Executive Job Search Daily Routine: What the Top 1% Do Differently',
+    description: 'The strongest executive candidates run a disciplined daily operating rhythm: signals, targeted outreach, prep, and follow-through. Here is the exact routine and the weekly metrics that keep momentum high.',
+    date: '2026-05-12',
+    readTime: '6 min read',
+    keywords: [
+      'executive job search daily routine',
+      'daily executive search workflow',
+      'CIO job search habits',
+      'executive search discipline',
+      'how top executive candidates run search',
+      'executive outreach routine',
+      'senior candidate job search strategy',
+      'executive search operating cadence',
+    ],
+    related: ['executive-search-operating-system', 'how-cios-find-jobs', 'linkedin-executive-search-strategy'],
+  },
+  {
     slug: 'executive-search-firms-cio',
     title: 'What Executive Search Firms Actually Want from CIO Candidates',
     description: 'Most technology executives think about executive search firms the wrong way. Here is how retained search actually works, what gets you on the short list, and why timing matters more than almost anything else.',
