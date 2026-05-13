@@ -135,7 +135,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/for-search-firms" className="hidden md:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="For executive search firms" aria-label="Search-firm route">
               Search Firms
             </Link>
-            <Link href="/for-coaches" className="hidden lg:inline text-[13px] font-semibold text-slate-200 border border-slate-600 px-4 py-1.5 rounded hover:border-slate-400 hover:text-white transition-colors" title="For executive coaches" aria-label="Executive coach route">
+            <Link href="/for-coaches" className="hidden lg:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="For executive coaches" aria-label="Executive coach route">
               Coaches
             </Link>
             <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1" title="Refer a leader for consideration" aria-label="Refer a leader">
@@ -207,7 +207,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           )}
 
           {/* Confidentiality promise - above the fold, before any CTA */}
-
           <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
             Private by default
@@ -252,10 +251,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
             </div>
           </div>
-          <p className="text-[12px] text-slate-300 mt-3 font-medium">
+          <p className="text-[12px] text-slate-300 mt-4 font-medium">
             Start in minutes: select targets, set your level, and launch your first briefing loop.
           </p>
-          <p className="text-[12px] text-slate-400 mt-2">
+          <p className="text-[12px] text-slate-400 mt-3">
             For coaches and search firms: 20% recurring referral commission (Active plan = $39.80 per client/month).{' '}
             <Link href="/partners" className="underline hover:text-slate-200 transition-colors">
               Partner details
@@ -338,17 +337,17 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </div>
 
           {/* Founder Trust Block - below hero CTA */}
-          <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-2 text-left shadow-md border border-slate-700">
+          <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-5 text-left shadow-md border border-slate-700">
             <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
             <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, email me directly: <a href="mailto:contact@startingmonday.app" className="underline hover:text-orange-400">contact@startingmonday.app</a> — <span className="italic">Richard Rothschild, Founder</span></p>
           </div>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-1.5">
+          <h2 className="text-[22px] font-bold text-slate-900 mb-2">
             Where are you in the search?
           </h2>
           <p className="text-[14px] text-slate-500 mb-8">
             Pick the one that fits. The platform adjusts to where you are and what you need to do next.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {situations.map(s => (
               <TrackLink
                 key={s.id}
@@ -370,10 +369,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Differentiation + category claim */}
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-3 leading-snug">
+          <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-4 leading-snug">
             Signal intelligence for C-suite searches.
           </h2>
-          <p className="text-[16px] text-slate-500 leading-relaxed mb-2">
+          <p className="text-[16px] text-slate-500 leading-relaxed mb-3">
             Not a job board. Built to complement executive coaching.{' '}
             <span className="text-slate-900 font-semibold">The infrastructure for a campaign.</span>
           </p>
