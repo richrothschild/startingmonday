@@ -82,6 +82,12 @@ async function main() {
       'npm run evals:closeout:force',
       'npm run evals:closeout:json',
     ],
+    commandIndex: [
+      'npm run evals:help',
+      'npm run evals:help:status',
+      'npm run evals:help:json',
+      'npm run evals:help:status:json',
+    ],
     prerequisites: [
       'npm run evals:doctor',
       'npm run evals:doctor:strict',
@@ -140,6 +146,12 @@ async function main() {
     console.log('  npm run evals:closeout:dry-run')
     console.log('  npm run evals:closeout:force')
     console.log('  npm run evals:closeout:json')
+    console.log('')
+    console.log('Command index:')
+    console.log('  npm run evals:help')
+    console.log('  npm run evals:help:status')
+    console.log('  npm run evals:help:json')
+    console.log('  npm run evals:help:status:json')
     console.log('')
     console.log('Prerequisites:')
     console.log('  npm run evals:doctor')
