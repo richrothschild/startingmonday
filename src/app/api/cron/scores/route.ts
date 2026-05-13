@@ -117,9 +117,13 @@ export async function GET(request: NextRequest) {
   const now = Date.now()
   const since7d  = new Date(now - 7  * 86_400_000).toISOString()
   const since30d = new Date(now - 30 * 86_400_000).toISOString()
+  const startOfToday = new Date(now)
+  startOfToday.setHours(0, 0, 0, 0)
+  const startOfTodayIso = startOfToday.toISOString()
+  const startOfTomorrowIso = new Date(startOfToday.getTime() + 86_400_000).toISOString()
 
   const [{ data: rows7d }, { data: rows30d }] = await Promise.all([
-    admin.from('user_events').select('event_name').gte('created_at', since7d).limit(20000),
+    admin.from('user_events').select('event_name, created_at').gte('created_at', since7d).limit(20000),
     admin.from('user_events').select('event_name').gte('created_at', since30d).limit(50000),
   ])
 
@@ -149,6 +153,39 @@ export async function GET(request: NextRequest) {
 
   const totalEvents7d = (rows7d ?? []).length
 
+  const trendByDay: Record<string, { paused: number; resumed: number }> = {}
+  for (const e of rows7d ?? []) {
+    const dayKey = e.created_at?.slice(0, 10)
+    if (!dayKey) continue
+    if (!trendByDay[dayKey]) trendByDay[dayKey] = { paused: 0, resumed: 0 }
+    if (e.event_name === 'search_paused') trendByDay[dayKey].paused += 1
+    if (e.event_name === 'search_resumed') trendByDay[dayKey].resumed += 1
+  }
+
+  const today = new Date(now)
+  today.setHours(0, 0, 0, 0)
+  const dailyTrend = Array.from({ length: 7 }, (_, idx) => {
+    const d = new Date(today)
+    d.setDate(today.getDate() - (6 - idx))
+    const dayKey = d.toISOString().slice(0, 10)
+    const row = trendByDay[dayKey] ?? { paused: 0, resumed: 0 }
+    return { dayKey, paused: row.paused, resumed: row.resumed, net: row.paused - row.resumed }
+  })
+
+  function telemetryLevel(window: { net: number }[]): 'normal' | 'watch' | 'risk' {
+    const netSum = window.reduce((sum, row) => sum + row.net, 0)
+    const positiveDays = window.filter((row) => row.net > 0).length
+    if (netSum >= 6 || positiveDays === 3) return 'risk'
+    if (netSum >= 3 || positiveDays >= 2) return 'watch'
+    return 'normal'
+  }
+
+  const previous3d = dailyTrend.slice(1, 4)
+  const recent3d = dailyTrend.slice(-3)
+  const previousLevel = telemetryLevel(previous3d)
+  const currentLevel = telemetryLevel(recent3d)
+  const flippedToRisk = currentLevel === 'risk' && previousLevel !== 'risk'
+
   const weekLabel = new Date(now).toLocaleDateString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric',
   })
@@ -165,5 +202,61 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: (error as { message?: string }).message ?? 'send failed' }, { status: 500 })
   }
 
-  return NextResponse.json({ ok: true, week: weekLabel, total_events_7d: totalEvents7d })
+  let pauseRiskAlertSent = false
+  if (flippedToRisk) {
+    const { count: alertsToday } = await admin
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('event_name', 'admin_pause_risk_alerted')
+      .gte('created_at', startOfTodayIso)
+      .lt('created_at', startOfTomorrowIso)
+
+    if ((alertsToday ?? 0) === 0) {
+      const ownerUser = await admin
+        .from('users')
+        .select('id')
+        .eq('email', OWNER_EMAIL)
+        .maybeSingle()
+
+      if (ownerUser.data?.id) {
+        await admin.from('user_events').insert({
+          user_id: ownerUser.data.id,
+          event_name: 'admin_pause_risk_alerted',
+          properties: {
+            previous_level: previousLevel,
+            current_level: currentLevel,
+            net_paused_last_3d: recent3d.reduce((sum, row) => sum + row.net, 0),
+          },
+        })
+      }
+
+      await sendEmail({
+        to: OWNER_EMAIL,
+        subject: `Pause/Resume at risk: ${weekLabel}`,
+        html: `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#0f172a;">
+          <h2 style="margin:0 0 12px 0;">Pause/Resume risk alert</h2>
+          <p style="margin:0 0 10px 0;">Search control telemetry flipped to <strong>At risk</strong> over the latest 3-day window.</p>
+          <p style="margin:0 0 10px 0;">Previous window: <strong>${previousLevel}</strong> &middot; Current window: <strong>${currentLevel}</strong></p>
+          <table style="border-collapse:collapse;font-size:13px;">
+            <tr><th align="left" style="padding:4px 12px 4px 0;color:#64748b;">Day</th><th align="right" style="padding:4px 12px;">Paused</th><th align="right" style="padding:4px 12px;">Resumed</th><th align="right" style="padding:4px 0;">Net</th></tr>
+            ${dailyTrend.map((r) => `<tr><td style="padding:4px 12px 4px 0;">${r.dayKey}</td><td align="right" style="padding:4px 12px;">${r.paused}</td><td align="right" style="padding:4px 12px;">${r.resumed}</td><td align="right" style="padding:4px 0;">${r.net > 0 ? `+${r.net}` : r.net}</td></tr>`).join('')}
+          </table>
+          <p style="margin:14px 0 0 0;"><a href="${APP_URL}/dashboard/admin" style="color:#0f172a;">Open admin dashboard</a></p>
+        </body></html>`,
+      })
+      pauseRiskAlertSent = true
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    week: weekLabel,
+    total_events_7d: totalEvents7d,
+    pause_risk: {
+      previous_level: previousLevel,
+      current_level: currentLevel,
+      flipped_to_risk: flippedToRisk,
+      alert_sent: pauseRiskAlertSent,
+    },
+  })
 }
