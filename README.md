@@ -100,6 +100,7 @@ npm run evals:closeout:json
 # Command index
 npm run evals:help
 npm run evals:help:status
+npm run evals:help:json
 
 # Prerequisite check
 npm run evals:doctor
