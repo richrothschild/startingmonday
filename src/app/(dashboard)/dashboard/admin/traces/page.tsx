@@ -65,6 +65,8 @@ export default async function TracesPage({
   const prepPassPct = Math.min(100, Math.round((prepPass / GOLDEN_SET_TARGET_PER_CLASS) * 100))
   const prepFailPct = Math.min(100, Math.round((prepFail / GOLDEN_SET_TARGET_PER_CLASS) * 100))
   const goldenSetReady = prepPass >= GOLDEN_SET_TARGET_PER_CLASS && prepFail >= GOLDEN_SET_TARGET_PER_CLASS
+  const prepPassRemaining = Math.max(0, GOLDEN_SET_TARGET_PER_CLASS - prepPass)
+  const prepFailRemaining = Math.max(0, GOLDEN_SET_TARGET_PER_CLASS - prepFail)
 
   const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE)
 
@@ -150,6 +152,21 @@ export default async function TracesPage({
                 Open queue
               </Link>
             </div>
+          </div>
+          <div className={`mt-3 rounded border px-3 py-2 ${goldenSetReady ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
+            {goldenSetReady ? (
+              <>
+                <p className="text-[11px] font-semibold text-emerald-800">Golden set is ready to export.</p>
+                <p className="text-[11px] text-emerald-700 mt-0.5">Run: <span className="font-mono">npm run evals:export-golden-set</span></p>
+              </>
+            ) : (
+              <>
+                <p className="text-[11px] font-semibold text-amber-800">Keep labeling to unlock export.</p>
+                <p className="text-[11px] text-amber-700 mt-0.5">
+                  Remaining: {prepPassRemaining} pass, {prepFailRemaining} fail.
+                </p>
+              </>
+            )}
           </div>
         </div>
 
