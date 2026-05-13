@@ -451,6 +451,10 @@ export function TraceViewer({
     return lines.join('\n')
   }
 
+  const copyPreviewPayload = summaryRows.length > 0 ? buildFailureSummaryPayload() : ''
+  const copyPreviewChars = copyPreviewPayload.length
+  const copyPreviewLines = copyPreviewPayload.length > 0 ? copyPreviewPayload.split('\n').length : 0
+
   async function applyTopTagToUntaggedFails() {
     if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
 
@@ -556,7 +560,7 @@ export function TraceViewer({
 
   async function copyFailureSummary() {
     if (summaryRows.length === 0) return
-    const payload = buildFailureSummaryPayload()
+    const payload = copyPreviewPayload
 
     try {
       await navigator.clipboard.writeText(payload)
@@ -762,9 +766,12 @@ export function TraceViewer({
         )}
         {showCopyPreview && summaryRows.length > 0 && (
           <div className="mt-2 border border-slate-200 rounded bg-slate-50 p-2">
-            <p className="text-[10px] font-semibold text-slate-500 mb-1">Copy payload preview</p>
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <p className="text-[10px] font-semibold text-slate-500">Copy payload preview</p>
+              <p className="text-[10px] text-slate-400">{copyPreviewChars} chars · {copyPreviewLines} lines</p>
+            </div>
             <pre className="text-[10px] text-slate-600 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
-              {buildFailureSummaryPayload()}
+              {copyPreviewPayload}
             </pre>
           </div>
         )}
