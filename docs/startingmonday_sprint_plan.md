@@ -216,7 +216,7 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
 ]
 ```
 
-  ### 3.5.1 - Labeling and export runbook (operator)
+### 3.5.1 - Labeling and export runbook (operator)
 
   Use this sequence to close Sprint 3 with the current admin tooling:
 
@@ -233,11 +233,13 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
     - `D` dense view toggle
     - `A` apply top tag to untagged fails, `Z` undo last bulk apply
   5. Confirm "Ready to export" in the prep_brief progress panel.
-  6. Run export:
+  6. Optional CLI progress check:
+    - `npm run evals:label-progress`
+  7. Run export:
     - `npm run evals:export-golden-set`
-  7. Optional preflight:
+  8. Optional preflight:
     - `npm run evals:export-golden-set -- --dry-run`
-  8. Verify output file `src/evals/prep_brief_golden_set.json` has 50 examples with a 25/25 pass/fail split.
+  9. Verify output file `src/evals/prep_brief_golden_set.json` has 50 examples with a 25/25 pass/fail split.
 
 ### 3.6 — First optimization loop
 
