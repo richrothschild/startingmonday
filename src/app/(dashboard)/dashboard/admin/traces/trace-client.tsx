@@ -327,6 +327,7 @@ export function TraceViewer({
   const [toast, setToast] = useState<ToastState | null>(null)
   const [lastAction, setLastAction] = useState<LastActionState | null>(null)
   const [includeZeroCountsInCopy, setIncludeZeroCountsInCopy] = useState(false)
+  const [copyFormat, setCopyFormat] = useState<'list' | 'table'>('list')
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -339,6 +340,7 @@ export function TraceViewer({
     setSessionFailureTagsByTrace({})
     setFailureSummaryMode('page')
     setIncludeZeroCountsInCopy(false)
+    setCopyFormat('list')
     setLastBulkApply(null)
     setLastAction(null)
   }, [currentFeature, unratedOnly, page])
@@ -527,22 +529,35 @@ export function TraceViewer({
           .map((tag) => [tag, sourceCounts[tag] ?? 0] as const)
           .sort((a, b) => b[1] - a[1])
       : summaryRows
-    const lines = [
-      `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
-      ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
-    ]
+    let payload = ''
+    if (copyFormat === 'table') {
+      const header = `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`
+      const tableLines = [
+        '| Tag | Count |',
+        '| --- | ---: |',
+        ...rowsForCopy.map(([tag, count]) => `| ${tag} | ${count} |`),
+      ]
+      payload = [header, '', ...tableLines].join('\n')
+      if (topFailureTheme) {
+        payload += `\n\nTop theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`
+      }
+    } else {
+      const lines = [
+        `Failure tags (${modeLabel}${includeZeroCountsInCopy ? ', includes zeros' : ''})`,
+        ...rowsForCopy.map(([tag, count]) => `- ${tag}: ${count}`),
+      ]
 
-    if (topFailureTheme) {
-      lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
+      if (topFailureTheme) {
+        lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
+      }
+      payload = lines.join('\n')
     }
-
-    const payload = lines.join('\n')
 
     try {
       await navigator.clipboard.writeText(payload)
       setToast({ kind: 'success', message: `Copied ${modeLabel} failure summary.` })
       setLastAction({
-        message: `Copied ${modeLabel} failure summary`,
+        message: `Copied ${modeLabel} failure summary (${copyFormat})`,
         at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
       })
     } catch {
@@ -652,6 +667,17 @@ export function TraceViewer({
                 Copy summary
               </button>
             )}
+            <button
+              type="button"
+              onClick={() => setCopyFormat((value) => (value === 'list' ? 'table' : 'list'))}
+              className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                copyFormat === 'table'
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              Format: {copyFormat}
+            </button>
             <button
               type="button"
               onClick={() => setIncludeZeroCountsInCopy((value) => !value)}
