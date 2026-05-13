@@ -158,7 +158,7 @@ function TraceRow({
   const featureLabel = FEATURE_LABELS[trace.feature] ?? trace.feature.replace(/_/g, ' ')
 
   return (
-    <div className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''}`}>
+    <div className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''} ${enableShortcuts ? 'ring-1 ring-slate-300 ring-inset' : ''}`}>
       <div className="px-5 py-4 flex items-start gap-4">
 
         {/* Pass / Fail column */}
@@ -195,6 +195,11 @@ function TraceRow({
             <span className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-600">
               {featureLabel}
             </span>
+            {enableShortcuts && (
+              <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-700 bg-slate-200 px-2 py-0.5 rounded">
+                Active
+              </span>
+            )}
             <span className="text-[11px] text-slate-400">{dateStr}</span>
             {trace.latency_ms != null && (
               <span className="text-[11px] text-slate-300">{(trace.latency_ms / 1000).toFixed(1)}s</span>
