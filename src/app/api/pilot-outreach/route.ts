@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
   const admin = createAdminClient()
-  await admin.from('pilot_outreach').insert({ name, email, company, message })
+  await (admin as any).from('pilot_outreach').insert({ name, email, company, message })
   await sendEmail({
     to: process.env.OWNER_EMAIL ?? '',
     subject: `Pilot Outreach: ${name} (${company})`,
