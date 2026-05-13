@@ -343,7 +343,19 @@ export function TraceViewer({
       ) : visibleTraces.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded p-10 text-center">
           <p className="text-[14px] text-slate-500">This page of unrated traces is complete.</p>
-          <p className="text-[12px] text-slate-400 mt-1">Use Next to continue labeling more traces.</p>
+          {unratedOnly && page < totalPages - 1 ? (
+            <>
+              <p className="text-[12px] text-slate-400 mt-1">Move to the next unrated page to continue labeling.</p>
+              <Link
+                href={buildUrl({ feature: currentFeature || undefined, unrated: '1', page: String(page + 1) })}
+                className="inline-block mt-3 text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-200 bg-white text-slate-700 hover:border-slate-400 transition-colors"
+              >
+                Next unrated page
+              </Link>
+            </>
+          ) : (
+            <p className="text-[12px] text-slate-400 mt-1">No more unrated traces on remaining pages for this filter.</p>
+          )}
         </div>
       ) : (
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-5">
