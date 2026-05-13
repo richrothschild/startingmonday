@@ -259,7 +259,9 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
     - `npm run evals:export-golden-set:dry-run:json` (machine-readable dry-run summary)
   9. Verify output file `src/evals/prep_brief_golden_set.json` has 50 examples with a 25/25 pass/fail split.
     - `npm run evals:verify-golden-set`
+    - `npm run evals:verify-golden-set:json` (machine-readable verification summary)
     - `npm run evals:verify-golden-set:strict` (non-zero exit until fully valid)
+    - `npm run evals:verify-golden-set:strict:json` (machine-readable strict verification)
   10. Optional one-command closeout:
     - `npm run evals:closeout` (doctor -> readiness -> export -> strict verify)
     - `npm run evals:closeout:dry-run` (shows sequence without exporting)

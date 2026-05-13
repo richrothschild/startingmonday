@@ -65,7 +65,9 @@ async function main() {
       'npm run evals:export-golden-set:json',
       'npm run evals:export-golden-set:dry-run:json',
       'npm run evals:verify-golden-set',
+      'npm run evals:verify-golden-set:json',
       'npm run evals:verify-golden-set:strict',
+      'npm run evals:verify-golden-set:strict:json',
     ],
     readiness: [
       'npm run evals:readiness',
@@ -130,7 +132,9 @@ async function main() {
     console.log('  npm run evals:export-golden-set:json')
     console.log('  npm run evals:export-golden-set:dry-run:json')
     console.log('  npm run evals:verify-golden-set')
+    console.log('  npm run evals:verify-golden-set:json')
     console.log('  npm run evals:verify-golden-set:strict')
+    console.log('  npm run evals:verify-golden-set:strict:json')
     console.log('')
     console.log('Readiness:')
     console.log('  npm run evals:readiness')
