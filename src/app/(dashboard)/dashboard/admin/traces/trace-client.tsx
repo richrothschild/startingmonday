@@ -78,7 +78,15 @@ function buildUrl(params: { feature?: string; unrated?: string; page?: string })
   return `/dashboard/admin/traces${qs ? '?' + qs : ''}`
 }
 
-function TraceRow({ trace }: { trace: Trace }) {
+function TraceRow({
+  trace,
+  enableShortcuts,
+  onRated,
+}: {
+  trace: Trace
+  enableShortcuts: boolean
+  onRated?: (traceId: string, nextPass: boolean | null) => void
+}) {
   const parsedNotes = parseEvalNotes(trace.eval_notes)
   const [evalPass, setEvalPass]   = useState(trace.eval_pass)
   const [evalNotesBody, setEvalNotesBody] = useState(parsedNotes.body)
@@ -94,6 +102,7 @@ function TraceRow({ trace }: { trace: Trace }) {
   function setRating(nextPass: boolean | null) {
     setEvalPass(nextPass)
     persist(nextPass, evalNotesBody, categories)
+    onRated?.(trace.id, nextPass)
   }
 
   function toggleCategory(category: string) {
@@ -110,6 +119,8 @@ function TraceRow({ trace }: { trace: Trace }) {
   }
 
   useEffect(() => {
+    if (!enableShortcuts) return
+
     function onKeyDown(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null
       if (target) {
@@ -131,7 +142,7 @@ function TraceRow({ trace }: { trace: Trace }) {
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [evalNotesBody, categories, evalPass])
+  }, [enableShortcuts, evalNotesBody, categories, evalPass])
 
   const tokens = (trace.prompt_tokens ?? 0) + (trace.completion_tokens ?? 0)
   const dateStr = new Date(trace.created_at).toLocaleString('en-US', {
@@ -274,6 +285,17 @@ export function TraceViewer({
   totalPages: number
   totalCount: number
 }) {
+  const [visibleTraces, setVisibleTraces] = useState(traces)
+
+  useEffect(() => {
+    setVisibleTraces(traces)
+  }, [traces])
+
+  function handleRated(traceId: string, nextPass: boolean | null) {
+    if (!unratedOnly || nextPass === null) return
+    setVisibleTraces((prev) => prev.filter((trace) => trace.id !== traceId))
+  }
+
   return (
     <>
       {/* Filter bar */}
@@ -305,6 +327,12 @@ export function TraceViewer({
         </div>
       </div>
 
+      {unratedOnly && visibleTraces.length > 0 && (
+        <p className="text-[11px] text-slate-500 mb-3">
+          Focus mode: shortcuts apply to the top visible trace only. Rate and it auto-advances.
+        </p>
+      )}
+
       {/* Trace list */}
       {totalCount === 0 ? (
         <div className="bg-white border border-slate-200 rounded p-10 text-center">
@@ -312,9 +340,21 @@ export function TraceViewer({
             No traces yet. Traces are written on every Claude API call once migration 040 is applied.
           </p>
         </div>
+      ) : visibleTraces.length === 0 ? (
+        <div className="bg-white border border-slate-200 rounded p-10 text-center">
+          <p className="text-[14px] text-slate-500">This page of unrated traces is complete.</p>
+          <p className="text-[12px] text-slate-400 mt-1">Use Next to continue labeling more traces.</p>
+        </div>
       ) : (
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-5">
-          {traces.map(t => <TraceRow key={t.id} trace={t} />)}
+          {visibleTraces.map((t, idx) => (
+            <TraceRow
+              key={t.id}
+              trace={t}
+              enableShortcuts={idx === 0}
+              onRated={handleRated}
+            />
+          ))}
         </div>
       )}
 
