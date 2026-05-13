@@ -7,6 +7,7 @@ import { getActivationStatus } from '@/lib/activation'
 import { PipelineFilter } from './PipelineFilter'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
+import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
@@ -926,20 +927,11 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Stall nudge */}
-        {stallNudge && (
-          <div className="bg-amber-50 border border-amber-200 rounded p-4 mb-5 flex items-start gap-4">
-            <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-amber-900 mb-1">{stallNudge.headline}</p>
-              <p className="text-[13px] text-amber-800 leading-relaxed mb-3">{stallNudge.body}</p>
-              <Link
-                href={stallNudge.href}
-                className="inline-block text-[12px] font-bold text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1.5 rounded hover:bg-amber-200 transition-colors"
-              >
-                {stallNudge.action} →
-              </Link>
-            </div>
-            <form action={dismissStallNudge} className="shrink-0">
+        {/* Persistent Next Best Action Prompt */}
+        {stallNudge ? (
+          <div className="relative">
+            <NextBestActionPrompt action={stallNudge.action} href={stallNudge.href} description={stallNudge.headline + ' ' + stallNudge.body} />
+            <form action={dismissStallNudge} className="absolute top-2 right-2">
               <button
                 type="submit"
                 className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
@@ -949,6 +941,12 @@ export default async function DashboardPage({
               </button>
             </form>
           </div>
+        ) : (
+          <NextBestActionPrompt
+            action="Open your daily briefing"
+            href="/dashboard/briefing"
+            description="Start with your daily briefing to see signals, due actions, and your top priorities."
+          />
         )}
 
         {/* Weekly commitment device */}
