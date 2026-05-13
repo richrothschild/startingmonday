@@ -105,7 +105,7 @@ export default function AboutPage() {
 
           <p>
             <span className="font-semibold text-slate-900">Why me:</span> I have spent my career in enterprise
-            technology leadership, including transformation CIO roles. The pattern was always the same: the
+            technology leadership, including transformation operator roles. The pattern was always the same: the
             business needed outcomes, not activity, and leadership needed clarity, not reporting.
           </p>
 
@@ -145,7 +145,7 @@ export default function AboutPage() {
 
           <p>
             If you are a senior technology executive in active search or approaching one, the platform is
-            built for you. If you are at the C-suite level and want a better way to move, this is the place.
+            built for you. If you are targeting the C-suite and want a better way to run a campaign, this is the place.
           </p>
 
           <div className="pt-4 border-t border-slate-100">
@@ -200,16 +200,16 @@ export default function AboutPage() {
           </p>
           <div className="space-y-4">
             {[
-              { href: '/blog/cio-board-presentation', label: 'How to Prepare for a Board Presentation as a New CIO' },
-              { href: '/blog/pe-backed-cio', label: 'What PE-Backed Companies Look for in a CIO' },
-              { href: '/blog/executive-resume-gaps', label: 'The Executive Resume Gaps That Kill CIO Candidacies' },
+              { href: '/blog/cio-board-presentation', label: 'How to Prepare for a Board Presentation as a New C-suite Technology Leader' },
+              { href: '/blog/pe-backed-cio', label: 'What PE-Backed Companies Look for in a C-suite Technology Operator' },
+              { href: '/blog/executive-resume-gaps', label: 'Executive Resume Gaps That Quietly Kill Senior Candidacies' },
               { href: '/blog/retained-search-firms', label: 'How to Work with Retained Search Firms Without Losing Leverage' },
-              { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from CIO Candidates' },
-              { href: '/blog/cio-job-search-timeline', label: 'How Long Does a CIO Job Search Really Take?' },
-              { href: '/blog/vp-to-cio-transition', label: 'How VPs of Technology Make the Move to CIO' },
-              { href: '/blog/ciso-interview-preparation', label: 'How to Prepare for a CISO Interview' },
+              { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from Senior Technology Candidates' },
+              { href: '/blog/cio-job-search-timeline', label: 'How Long Does a Senior Executive Technology Search Really Take?' },
+              { href: '/blog/vp-to-cio-transition', label: 'How VPs of Technology Make the Move to the C-suite' },
+              { href: '/blog/ciso-interview-preparation', label: 'How to Prepare for a Security Leadership Interview' },
               { href: '/blog/what-companies-want-chief-data-officer', label: 'What Companies Actually Want in a Chief Data Officer' },
-              { href: '/blog/cio-compensation-negotiation', label: 'How to Negotiate CIO Compensation' },
+              { href: '/blog/cio-compensation-negotiation', label: 'How to Negotiate C-suite Technology Compensation' },
             ].map(post => (
               <Link
                 key={post.href}

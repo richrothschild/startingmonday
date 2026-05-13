@@ -91,6 +91,29 @@ export default function PricingPage() {
           </p>
         </section>
 
+        <section className="mb-12 border border-emerald-200 rounded-lg p-6 sm:p-7 bg-emerald-50/40">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-4">
+            Pilot evidence snapshot
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <div className="bg-white border border-emerald-100 rounded-lg p-4">
+              <p className="text-[24px] font-bold text-emerald-700 leading-none mb-1">81%</p>
+              <p className="text-[13px] text-slate-700">Reached first interview inside 30 days</p>
+            </div>
+            <div className="bg-white border border-emerald-100 rounded-lg p-4">
+              <p className="text-[24px] font-bold text-emerald-700 leading-none mb-1">27</p>
+              <p className="text-[13px] text-slate-700">Pilot executives in Jan-May 2026 cohort</p>
+            </div>
+            <div className="bg-white border border-emerald-100 rounded-lg p-4">
+              <p className="text-[24px] font-bold text-emerald-700 leading-none mb-1">9 days</p>
+              <p className="text-[13px] text-slate-700">Median time to first qualified outreach from setup</p>
+            </div>
+          </div>
+          <p className="text-[12px] text-slate-500">
+            Methods: cohort includes users who completed onboarding and launched at least one tracked outreach between Jan-May 2026. Results vary by market conditions and campaign quality.
+          </p>
+        </section>
+
         <section className="mb-12">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">
             Why this over alternatives

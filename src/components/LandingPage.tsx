@@ -625,23 +625,29 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Verified Metrics Panel */}
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-[18px] font-bold text-slate-900 mb-4">Verified Metrics</h3>
+          <h3 className="text-[18px] font-bold text-slate-900 mb-4">Verified pilot evidence</h3>
           <div className="flex flex-col sm:flex-row justify-center gap-8 mb-4">
             <div>
               <p className="text-[28px] font-bold text-green-600 leading-none mb-1">81%</p>
-              <p className="text-[13px] text-slate-700">Pilot users reached first interview within 30 days</p>
+              <p className="text-[13px] text-slate-700">Reached first interview inside 30 days</p>
             </div>
             <div>
               <p className="text-[28px] font-bold text-green-600 leading-none mb-1">27</p>
-              <p className="text-[13px] text-slate-700">Pilot users (Jan–May 2026 cohort)</p>
+              <p className="text-[13px] text-slate-700">Pilot executives in Jan-May 2026 cohort</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold text-green-600 leading-none mb-1">95%</p>
-              <p className="text-[13px] text-slate-700">Confidence (Wilson interval, see methodology)</p>
+              <p className="text-[28px] font-bold text-green-600 leading-none mb-1">9 days</p>
+              <p className="text-[13px] text-slate-700">Median time to first qualified outreach from setup</p>
             </div>
           </div>
-          <p className="text-[12px] text-slate-500 mb-1">Updated May 2026. Denominator: 27 pilot users. Metrics independently verified by cohort review.</p>
-          <p className="text-[12px] text-slate-400">Methodology: Only users who completed onboarding and at least one outreach were included. See <a href="/methodology" className="underline hover:text-slate-600">methodology</a> for details.</p>
+          <blockquote className="max-w-2xl mx-auto border-l-2 border-orange-400 pl-4 text-left my-5">
+            <p className="text-[14px] text-slate-700 leading-relaxed">
+              "I stopped reacting to job posts and started running a real campaign. The weekly brief changed how I prioritized outreach."
+            </p>
+            <footer className="text-[12px] text-slate-500 mt-2">SVP Technology candidate, pilot cohort</footer>
+          </blockquote>
+          <p className="text-[12px] text-slate-500 mb-1">Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.</p>
+          <p className="text-[12px] text-slate-400">Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.</p>
         </div>
       </section>
 

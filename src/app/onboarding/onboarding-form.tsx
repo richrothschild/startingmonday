@@ -23,6 +23,7 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
 ]
 
 const STEP_COUNT = 7
+const QUICK_PATH_STEP_COUNT = 5
 
 const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
   csuite:   ['Microsoft', 'Salesforce', 'ServiceNow', 'Oracle', 'Workday'],
@@ -31,10 +32,10 @@ const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
   board:    ['KKR', 'Blackstone', 'General Atlantic', 'Vista Equity', 'Thoma Bravo'],
 }
 
-function Dots({ current }: { current: number }) {
+function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
   return (
     <div className="flex items-center gap-2">
-      {Array.from({ length: STEP_COUNT }).map((_, i) => (
+      {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
           className={[
@@ -51,6 +52,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState<'forward' | 'back'>('forward')
   const [animating, setAnimating] = useState(false)
+  const [advancedSetup, setAdvancedSetup] = useState(false)
 
   const [fullName, setFullName]               = useState(profile?.full_name ?? '')
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
@@ -132,12 +134,14 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
+    if (!advancedSetup && step === 1) { goTo(4); return }
     if (isPassive && step === 2) { goTo(4); return }
     if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
+    if (!advancedSetup && step === 4) return 1
     if (isPassive && step === 4) return 2
     if (isPassive && step === 6) return 4
     return step - 1
@@ -146,6 +150,14 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   function quickStart() {
     if (!searchPersona) setSearchPersona('csuite')
     goTo(4)
+  }
+
+  function progressIndex() {
+    if (advancedSetup) return step
+    if (step <= 1) return step
+    if (step <= 4) return 2
+    if (step === 5) return 3
+    return 4
   }
 
   function applyImport(data: ImportResult) {
@@ -384,28 +396,46 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           </div>
 
           {/* Dots */}
-          <Dots current={step} />
+          <div className="flex flex-col items-center gap-2">
+            <Dots current={progressIndex()} total={advancedSetup ? STEP_COUNT : QUICK_PATH_STEP_COUNT} />
+            <p className="text-[11px] text-slate-400">
+              {step <= 1
+                ? 'About 2 minutes to launch your first watchlist.'
+                : step <= 4
+                ? 'You are one step away from first value.'
+                : 'Next: first briefing preview, then dashboard.'}
+            </p>
+          </div>
 
           {/* Next */}
           <div>
             {step === 0 && (
               <button
                 type="button"
-                onClick={() => goTo(1)}
+                onClick={() => { setAdvancedSetup(false); goTo(1) }}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Guided setup
+                Guided setup (about 2 minutes)
               </button>
             )}
             {step === 1 && (
-              <button
-                type="button"
-                onClick={advance}
-                disabled={!searchPersona}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
-              >
-                Continue
-              </button>
+              <div className="flex flex-col items-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => { setAdvancedSetup(false); advance() }}
+                  disabled={!searchPersona}
+                  className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
+                >
+                  Continue to watchlist
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAdvancedSetup(true); goTo(2) }}
+                  className="text-[12px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
+                >
+                  Add search context first
+                </button>
+              </div>
             )}
             {step === 2 && (
               <button
