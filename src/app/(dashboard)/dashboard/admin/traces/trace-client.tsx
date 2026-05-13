@@ -396,6 +396,26 @@ export function TraceViewer({
   }
 
   function onCopyActionKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>, index: number) {
+    const key = event.key.toLowerCase()
+    if (key === 's') {
+      event.preventDefault()
+      setShowCopyActions(false)
+      void copyFailureSummary()
+      return
+    }
+    if (key === 'c') {
+      event.preventDefault()
+      setShowCopyActions(false)
+      void copyCompactSummary()
+      return
+    }
+    if (key === 't') {
+      event.preventDefault()
+      setShowCopyActions(false)
+      void copyCompactSummaryTable()
+      return
+    }
+
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       focusCopyActionByIndex(index + 1)
@@ -879,7 +899,7 @@ export function TraceViewer({
                       Copy compact table
                     </button>
                     <div className="pt-1 mt-1 border-t border-slate-100 text-[9px] text-slate-400 px-1">
-                      ↑/↓ navigate · Enter select · Esc close
+                      ↑/↓ navigate · Enter select · Esc close · S/C/T quick keys
                     </div>
                   </div>
                 )}
