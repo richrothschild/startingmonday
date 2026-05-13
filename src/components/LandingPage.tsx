@@ -276,6 +276,29 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
           </p>
 
+          {/* Persona Selector above signup CTA */}
+          <div className="mb-6">
+            <label htmlFor="persona-select" className="block text-[13px] text-slate-400 mb-1">Searching at a specific level?</label>
+            <select
+              id="persona-select"
+              className="text-[13px] px-3 py-2 rounded border border-slate-300 focus:border-orange-500 focus:outline-none"
+              onChange={e => {
+                const val = e.target.value
+                if (val) window.location.href = `/signup?from=${val}`
+              }}
+              defaultValue=""
+            >
+              <option value="" disabled>Select persona…</option>
+              <option value="vp-up">VP to CIO/CTO</option>
+              <option value="executive">Sitting CIO/CTO</option>
+              <option value="restructured">Displaced executive</option>
+              <option value="building">PE-backed operator</option>
+              <option value="low-energy">Burned-out exec</option>
+              <option value="passive">Not actively searching</option>
+              <option value="returning">Returning to market</option>
+            </select>
+          </div>
+
           {/* Founder Trust Block - below hero CTA */}
           <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-2 text-left shadow-md border border-slate-700">
             <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
