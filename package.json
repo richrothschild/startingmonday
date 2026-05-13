@@ -28,6 +28,8 @@
     "evals:closeout:json": "node scripts/closeout-prep-brief-evals.mjs --dry-run --json",
     "evals:help": "node scripts/evals-help.mjs",
     "evals:help:status": "node scripts/evals-help.mjs --status",
+    "evals:doctor": "node scripts/evals-doctor.mjs",
+    "evals:doctor:strict": "node scripts/evals-doctor.mjs --strict",
     "test": "vitest run",
     "test:watch": "vitest"
   },

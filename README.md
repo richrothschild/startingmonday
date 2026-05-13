@@ -100,6 +100,10 @@ npm run evals:closeout:json
 # Command index
 npm run evals:help
 npm run evals:help:status
+
+# Prerequisite check
+npm run evals:doctor
+npm run evals:doctor:strict
 ```
 
 Primary labeling UI:
