@@ -65,6 +65,24 @@ For Starting Monday, this may be more important than pure outbound.
 
 ---
 
+### Naval Ravikant
+**Area of expertise:** Strategic leverage, founder judgment, and compounding advantage. Specific knowledge, ownership, and high-leverage focus.
+
+**Starting Monday lens:** Prioritize BD motions that create compounding distribution and intelligence advantages instead of one-off partner activity.
+
+**First principles he brings:**
+- Build leverage through code, media, capital, and trusted people.
+- Focus on compounding assets, not low-leverage busywork.
+- Long-term games with long-term partners create durable value.
+
+**Key questions he asks:**
+- Which partner motions compound over 12-24 months?
+- What BD work creates reusable assets versus one-time effort?
+- Does this partnership increase distribution, trust, and ownership economics?
+- What should we stop doing because it is low leverage?
+
+---
+
 ## How to Use This Council
 
 Run this prompt when evaluating a potential BD partnership or building a partner strategy:
@@ -80,6 +98,7 @@ For each member, answer:
 Council members:
 - Bob Moore: ecosystem overlap, partner data, repeatable referral flow, co-selling leverage
 - Jay McBain: ecosystem infrastructure, buyer journey influence, partner categories, strategic GTM design
+- Naval Ravikant: leverage, compounding assets, founder focus, high-agency BD choices
 
 Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). The key BD insight: we need partners who know when executives enter career transition BEFORE those executives search for us. The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
 

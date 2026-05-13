@@ -58,6 +58,43 @@ This pod advises Starting Monday on how to identify, message, and convert B2B pr
 
 ---
 
+### Chris Voss
+**Area of expertise:** Negotiation and tactical empathy in high-stakes conversations. Discovery, objection handling, and calibrated questioning.
+
+**Starting Monday lens:** Improve sales and partnership conversations by surfacing hidden objections early and replacing pitch pressure with deeper discovery.
+
+**First principles he brings:**
+- Negotiation is discovery under emotional pressure.
+- Tactical empathy reveals truth and lowers resistance.
+- Calibrated questions move deals better than argument.
+- A "no" can start a more honest conversation.
+
+**Key questions he asks:**
+- What objection is present but not stated out loud?
+- What should we label instead of trying to rebut?
+- Which calibrated question reveals real buyer intent?
+- Are we prioritizing understanding over persuasion?
+
+---
+
+### Robert Cialdini
+**Area of expertise:** Ethical persuasion and trust signals. Social proof, authority, reciprocity, commitment, and pre-suasion.
+
+**Starting Monday lens:** Strengthen conversion quality without damaging trust by using credible authority and proof before the ask.
+
+**First principles he brings:**
+- Influence works through predictable and ethical persuasion principles.
+- Context before the ask changes response to the ask.
+- Trust and authority must be established before conversion pressure.
+
+**Key questions he asks:**
+- What trust signal is missing before the ask?
+- Are we using social proof credibly and ethically?
+- Does the copy create confidence or skepticism?
+- Are we optimizing for long-term trust, not short-term clicks?
+
+---
+
 ## How to Use This Council
 
 Run this prompt before sending any B2B outreach sequence:
@@ -73,6 +110,8 @@ For each member, answer:
 Council members:
 - John Barrows: relevance, trigger-based outreach, specificity, contextual value
 - Josh Braun: trust, low pressure, curiosity over pitch, safety to say no
+- Chris Voss: tactical empathy, objection discovery, calibrated questions, negotiation quality
+- Robert Cialdini: ethical persuasion, authority, social proof, pre-suasion
 
 Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). B2B targets are intermediaries who work with executives in transition: executive coaches, retained search firms, PE talent teams, CIO communities, outplacement firms.
 
