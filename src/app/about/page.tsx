@@ -4,13 +4,13 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'About Richard Rothschild - Starting Monday',
-  description: 'Richard Rothschild is a transformation CIO and the founder of Starting Monday. He built the platform after running his own C-suite search and finding the process broken.',
+  description: 'Richard Rothschild is the founder of Starting Monday. He built the platform after running his own C-suite search and finding the process broken.',
   alternates: {
     canonical: 'https://startingmonday.app/about',
   },
   openGraph: {
     title: 'About Richard Rothschild - Starting Monday',
-    description: 'Transformation CIO. Founder of Starting Monday. Writing about C-suite search strategy, technology leadership, and what it actually takes to land the right role.',
+    description: 'Founder of Starting Monday. Writing about C-suite search strategy, technology leadership, and what it actually takes to land the right role.',
     url: 'https://startingmonday.app/about',
     type: 'profile',
   },
@@ -21,8 +21,8 @@ const personJsonLd = {
   '@type': 'Person',
   name: 'Richard Rothschild',
   url: 'https://startingmonday.app/about',
-  jobTitle: 'Chief Information Officer',
-  description: 'Transformation CIO and founder of Starting Monday, a signal intelligence platform for C-suite executive searches.',
+  jobTitle: 'Founder',
+  description: 'Founder of Starting Monday, a signal intelligence platform for C-suite executive searches.',
   sameAs: [
     'https://www.linkedin.com/in/richrothschild',
   ],
@@ -83,7 +83,7 @@ export default function AboutPage() {
             </div>
           </div>
           <p className="text-[16px] text-slate-400 leading-relaxed mb-4">
-            Transformation CIO. Founder of Starting Monday. Built for C-suite searches.
+            Founder of Starting Monday. Built for C-suite searches.
           </p>
           <a
             href="https://www.linkedin.com/in/richrothschild"
@@ -104,9 +104,10 @@ export default function AboutPage() {
         <div className="max-w-2xl mx-auto space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
           <p>
-            I have spent my career as a transformation CIO. The work is the same in every organization: a
-            technology function that is not delivering what the business needs, a leadership team that has
-            lost confidence in IT, and a mandate to change both. The execution varies. The pattern does not.
+            I have spent my career in enterprise technology leadership, including transformation CIO roles.
+            The work is the same in every organization: a technology function that is not delivering what the
+            business needs, a leadership team that has lost confidence in IT, and a mandate to change both.
+            The execution varies. The pattern does not.
           </p>
 
           <p>
