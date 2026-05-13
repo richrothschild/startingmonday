@@ -87,7 +87,7 @@ function TraceRow({
   trace: Trace
   enableShortcuts: boolean
   denseMode: boolean
-  onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null) => void
+  onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) => void
 }) {
   const parsedNotes = parseEvalNotes(trace.eval_notes)
   const [evalPass, setEvalPass]   = useState(trace.eval_pass)
@@ -105,7 +105,7 @@ function TraceRow({
     const prevPass = evalPass
     setEvalPass(nextPass)
     persist(nextPass, evalNotesBody, categories)
-    onRated?.(trace.id, prevPass, nextPass)
+    onRated?.(trace.id, prevPass, nextPass, categories)
   }
 
   function toggleCategory(category: string) {
@@ -115,6 +115,9 @@ function TraceRow({
 
     setCategories(nextCategories)
     persist(evalPass, evalNotesBody, nextCategories)
+    if (evalPass === false) {
+      onRated?.(trace.id, false, false, nextCategories)
+    }
   }
 
   function saveNotes() {
@@ -300,6 +303,8 @@ export function TraceViewer({
 }) {
   const [visibleTraces, setVisibleTraces] = useState(traces)
   const [sessionLabeled, setSessionLabeled] = useState<Record<string, boolean>>({})
+  const [sessionFailureTagsByTrace, setSessionFailureTagsByTrace] = useState<Record<string, string[]>>({})
+  const [failureSummaryMode, setFailureSummaryMode] = useState<'page' | 'session'>('page')
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -309,13 +314,15 @@ export function TraceViewer({
 
   useEffect(() => {
     setSessionLabeled({})
+    setSessionFailureTagsByTrace({})
+    setFailureSummaryMode('page')
   }, [currentFeature, unratedOnly, page])
 
   useEffect(() => {
     setDenseMode(focusMode)
   }, [focusMode])
 
-  function handleRated(traceId: string, prevPass: boolean | null, nextPass: boolean | null) {
+  function handleRated(traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) {
     setSessionLabeled((prev) => {
       const next = { ...prev }
       const wasCounted = Object.prototype.hasOwnProperty.call(next, traceId)
@@ -328,6 +335,16 @@ export function TraceViewer({
         next[traceId] = nextPass
       }
 
+      return next
+    })
+
+    setSessionFailureTagsByTrace((prev) => {
+      const next = { ...prev }
+      if (nextPass === false) {
+        next[traceId] = [...new Set(categories)]
+      } else {
+        delete next[traceId]
+      }
       return next
     })
 
@@ -349,6 +366,16 @@ export function TraceViewer({
   const pageFailureCategoryRows = Object.entries(pageFailureCategoryCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8)
+  const sessionFailureCategoryCounts = Object.values(sessionFailureTagsByTrace).reduce<Record<string, number>>((acc, tags) => {
+    for (const tag of tags) {
+      acc[tag] = (acc[tag] ?? 0) + 1
+    }
+    return acc
+  }, {})
+  const sessionFailureCategoryRows = Object.entries(sessionFailureCategoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+  const summaryRows = failureSummaryMode === 'session' ? sessionFailureCategoryRows : pageFailureCategoryRows
 
   return (
     <>
@@ -397,17 +424,49 @@ export function TraceViewer({
       </div>
 
       <div className="mb-4 bg-white border border-slate-200 rounded px-3 py-2">
-        <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Current page failure tags</p>
-        {pageFailureCategoryRows.length > 0 ? (
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">
+            Failure tags ({failureSummaryMode === 'session' ? 'session' : 'current page'})
+          </p>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setFailureSummaryMode('page')}
+              className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                failureSummaryMode === 'page'
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-500 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              Page
+            </button>
+            <button
+              type="button"
+              onClick={() => setFailureSummaryMode('session')}
+              className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                failureSummaryMode === 'session'
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-500 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              Session
+            </button>
+          </div>
+        </div>
+        {summaryRows.length > 0 ? (
           <div className="flex flex-wrap items-center gap-1.5">
-            {pageFailureCategoryRows.map(([category, count]) => (
+            {summaryRows.map(([category, count]) => (
               <span key={category} className="text-[10px] px-2 py-1 rounded border border-slate-200 bg-slate-50 text-slate-600">
                 {category} <span className="font-semibold text-slate-800">{count}</span>
               </span>
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-slate-400">No failed traces with category tags on this page yet.</p>
+          <p className="text-[11px] text-slate-400">
+            {failureSummaryMode === 'session'
+              ? 'No session failure tags yet.'
+              : 'No failed traces with category tags on this page yet.'}
+          </p>
         )}
       </div>
 
