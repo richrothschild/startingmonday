@@ -1,2 +1,11 @@
 date,channel,firm,name,role,trigger,trigger_source,status,last_touch,next_step,notes
-2026-05-12,vcpe,,,,,,,prepare targets,
+2026-05-12,vcpe,General Catalyst,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #1,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Insight Partners,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #2,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Battery Ventures,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #3,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,TCV,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #4,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Vista Equity Partners,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #5,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Thoma Bravo,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #6,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,KKR,,Portfolio Operations,[fill trigger],[fill source],ready_to_send,,send dm #7,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Bain Capital,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #8,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Silver Lake,,Portfolio Operations,[fill trigger],[fill source],ready_to_send,,send dm #9,Use draft from sprint-e-vcpe-send-list.md
+2026-05-12,vcpe,Permira,,Operating Partner,[fill trigger],[fill source],ready_to_send,,send dm #10,Use draft from sprint-e-vcpe-send-list.md

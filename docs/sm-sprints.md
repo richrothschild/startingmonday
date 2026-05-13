@@ -274,11 +274,11 @@ Topic: "Executive job search daily routine — what the top 1% of senior candida
 
 **[M] 3.8 — VC/PE outreach begins** (2h)
 Activate the VC/PE saved search in Sales Navigator. Send first 10 DMs, trigger-based (reference a recent portfolio company leadership transition if visible).
-*In progress: Send-ready outreach pack and tracker created in docs; awaiting manual send execution in Sales Navigator.*
+*In progress: Send-ready outreach pack complete, 10-target tracker pre-populated, and DM drafts prepared; awaiting manual send execution in Sales Navigator.*
 
 **[S] 3.10 — University outreach to 5 additional schools** (1h)
 Personalized emails to career center directors at 5 MBA programs referencing the Wake Forest/Stanford conversation: "Following a conversation with [name] about how career centers are using AI tools for alumni in search, I wanted to share something I built..."
-*In progress: 5-school outreach pack and tracker created; awaiting manual email send.*
+*In progress: 5-school outreach pack complete, school tracker pre-populated, and email drafts prepared; awaiting manual send execution.*
 
 **Sprint E Success Criteria:**
 - Demo page live at /demo; email capture working
