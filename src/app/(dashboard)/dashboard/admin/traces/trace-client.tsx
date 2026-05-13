@@ -878,6 +878,9 @@ export function TraceViewer({
                     >
                       Copy compact table
                     </button>
+                    <div className="pt-1 mt-1 border-t border-slate-100 text-[9px] text-slate-400 px-1">
+                      ↑/↓ navigate · Enter select · Esc close
+                    </div>
                   </div>
                 )}
               </div>
