@@ -14,6 +14,7 @@ export function SearchControlsPanel({
   initialBriefingTime: string | null
   isPaused: boolean
 }) {
+  const [paused, setPaused] = useState(isPaused)
   const [days, setDays] = useState(14)
   const [pausing, setPausing] = useState(false)
   const [resuming, setResuming] = useState(false)
@@ -26,11 +27,16 @@ export function SearchControlsPanel({
   const [prefsMessage, setPrefsMessage] = useState<string | null>(null)
   const [prefsError, setPrefsError] = useState<string | null>(null)
 
+  const validTime = /^([01]\d|2[0-3]):([0-5]\d)$/.test(briefingTime)
+  
+
   const isDirty = useMemo(() => {
     const sameFreq = frequency === initialFrequency
     const sameTime = (initialBriefingTime?.slice(0, 5) ?? '07:00') === briefingTime
     return !(sameFreq && sameTime)
   }, [frequency, initialFrequency, briefingTime, initialBriefingTime])
+
+  const canSavePrefs = savingPrefs || !isDirty || (frequency === 'daily' && !validTime)
 
   async function handlePause() {
     setPausing(true)
@@ -45,7 +51,7 @@ export function SearchControlsPanel({
       const data = await res.json().catch(() => ({}))
       if (!res.ok || data.error) throw new Error(data.error ?? 'Could not pause search right now.')
       setPauseMessage(`Search paused for ${days} days. Major alerts and digest stay on.`)
-      window.location.reload()
+      setPaused(true)
     } catch (err) {
       setPauseError(err instanceof Error ? err.message : 'Could not pause search right now.')
     } finally {
@@ -62,7 +68,7 @@ export function SearchControlsPanel({
       const data = await res.json().catch(() => ({}))
       if (!res.ok || data.error) throw new Error(data.error ?? 'Could not resume search right now.')
       setPauseMessage('Search resumed. Daily workflows are active again.')
-      window.location.reload()
+      setPaused(false)
     } catch (err) {
       setPauseError(err instanceof Error ? err.message : 'Could not resume search right now.')
     } finally {
@@ -71,6 +77,11 @@ export function SearchControlsPanel({
   }
 
   async function saveBriefingPrefs() {
+    if (frequency === 'daily' && !validTime) {
+      setPrefsError('Use a valid time in HH:MM format for daily briefing.')
+      return
+    }
+
     setSavingPrefs(true)
     setPrefsMessage(null)
     setPrefsError(null)
@@ -110,11 +121,12 @@ export function SearchControlsPanel({
           <p className="text-[12px] text-slate-500 leading-relaxed mb-3">
             Keep major alerts and low-frequency digest active while you take a break.
           </p>
-          {!isPaused ? (
+          {!paused ? (
             <div className="flex flex-wrap items-center gap-2">
               <select
                 value={days}
                 onChange={e => setDays(Number(e.target.value))}
+                aria-label="Pause duration"
                 className="border border-slate-200 rounded px-2.5 py-2 text-[12px] text-slate-700 bg-white"
                 disabled={pausing}
               >
@@ -142,7 +154,19 @@ export function SearchControlsPanel({
             </button>
           )}
           {pauseMessage && <p className="text-[12px] text-green-700 mt-2">{pauseMessage}</p>}
-          {pauseError && <p className="text-[12px] text-red-700 mt-2">{pauseError}</p>}
+          {pauseError && (
+            <div className="mt-2">
+              <p className="text-[12px] text-red-700">{pauseError}</p>
+              <button
+                type="button"
+                onClick={paused ? handleResume : handlePause}
+                disabled={pausing || resuming}
+                className="mt-1 text-[11px] font-semibold text-red-700 border border-red-200 rounded px-2 py-1 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                Retry
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="border border-slate-200 rounded p-4">
@@ -176,19 +200,35 @@ export function SearchControlsPanel({
               value={briefingTime}
               onChange={e => setBriefingTime(e.target.value)}
               disabled={frequency === 'weekly'}
+              aria-label="Daily briefing time"
               className="border border-slate-200 rounded px-2 py-1.5 text-[12px] text-slate-700 bg-white disabled:text-slate-300"
             />
           </div>
           <button
             type="button"
             onClick={saveBriefingPrefs}
-            disabled={savingPrefs || !isDirty}
+            disabled={canSavePrefs}
             className="text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors disabled:opacity-50 cursor-pointer"
           >
             {savingPrefs ? 'Saving...' : 'Save preferences'}
           </button>
+          {frequency === 'daily' && !validTime && (
+            <p className="text-[12px] text-amber-700 mt-2">Enter a valid daily time before saving.</p>
+          )}
           {prefsMessage && <p className="text-[12px] text-green-700 mt-2">{prefsMessage}</p>}
-          {prefsError && <p className="text-[12px] text-red-700 mt-2">{prefsError}</p>}
+          {prefsError && (
+            <div className="mt-2">
+              <p className="text-[12px] text-red-700">{prefsError}</p>
+              <button
+                type="button"
+                onClick={saveBriefingPrefs}
+                disabled={savingPrefs}
+                className="mt-1 text-[11px] font-semibold text-red-700 border border-red-200 rounded px-2 py-1 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                Retry save
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -209,3 +249,4 @@ export function SearchControlsPanel({
     </div>
   )
 }
+
