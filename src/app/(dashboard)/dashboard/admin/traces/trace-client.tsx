@@ -18,6 +18,11 @@ export type Trace = {
   eval_notes: string | null
 }
 
+type ToastState = {
+  kind: 'success' | 'error'
+  message: string
+}
+
 type BulkApplyUndoChange = {
   traceId: string
   prevNotes: string | null
@@ -314,6 +319,7 @@ export function TraceViewer({
   const [isApplyingTopTag, setIsApplyingTopTag] = useState(false)
   const [isUndoingTopTag, setIsUndoingTopTag] = useState(false)
   const [lastBulkApply, setLastBulkApply] = useState<{ tag: string; changes: BulkApplyUndoChange[] } | null>(null)
+  const [toast, setToast] = useState<ToastState | null>(null)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -331,6 +337,12 @@ export function TraceViewer({
   useEffect(() => {
     setDenseMode(focusMode)
   }, [focusMode])
+
+  useEffect(() => {
+    if (!toast) return
+    const timeout = window.setTimeout(() => setToast(null), 1800)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
 
   function handleRated(traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) {
     setSessionLabeled((prev) => {
@@ -410,7 +422,8 @@ export function TraceViewer({
         const nextCategories = [...new Set([...parsed.categories, topTag])]
         const nextNotes = composeEvalNotes(parsed.body, nextCategories)
 
-        await rateTrace(trace.id, false, nextNotes)
+        const result = await rateTrace(trace.id, false, nextNotes)
+        if (!result.ok) throw new Error('save failed')
 
         setVisibleTraces((prev) => prev.map((row) => (
           row.id === trace.id
@@ -426,7 +439,10 @@ export function TraceViewer({
 
       if (changes.length > 0) {
         setLastBulkApply({ tag: topTag, changes })
+        setToast({ kind: 'success', message: `Applied ${topTag} to ${changes.length} trace${changes.length === 1 ? '' : 's'}.` })
       }
+    } catch {
+      setToast({ kind: 'error', message: 'Could not apply top tag. Try again.' })
     } finally {
       setIsApplyingTopTag(false)
     }
@@ -435,11 +451,13 @@ export function TraceViewer({
   async function undoLastBulkApplyTopTag() {
     if (!lastBulkApply || isUndoingTopTag) return
 
+    const undoCount = lastBulkApply.changes.length
     setIsUndoingTopTag(true)
     try {
       for (const change of lastBulkApply.changes) {
         const restoredNotes = change.prevNotes ?? ''
-        await rateTrace(change.traceId, false, restoredNotes)
+        const result = await rateTrace(change.traceId, false, restoredNotes)
+        if (!result.ok) throw new Error('undo failed')
 
         setVisibleTraces((prev) => prev.map((row) => (
           row.id === change.traceId
@@ -459,6 +477,9 @@ export function TraceViewer({
       }
 
       setLastBulkApply(null)
+      setToast({ kind: 'success', message: `Undid bulk tag on ${undoCount} trace${undoCount === 1 ? '' : 's'}.` })
+    } catch {
+      setToast({ kind: 'error', message: 'Could not undo bulk tag. Try again.' })
     } finally {
       setIsUndoingTopTag(false)
     }
@@ -466,6 +487,12 @@ export function TraceViewer({
 
   return (
     <>
+      {toast && (
+        <div className={`mb-4 rounded border px-3 py-2 text-[11px] ${toast.kind === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-red-50 border-red-200 text-red-700'}`}>
+          {toast.message}
+        </div>
+      )}
+
       {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-3 mb-5">
         {FEATURES.map(f => (
