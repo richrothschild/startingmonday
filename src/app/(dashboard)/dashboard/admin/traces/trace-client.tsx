@@ -621,6 +621,41 @@ export function TraceViewer({
     }
   }
 
+  async function copyCompactSummaryTable() {
+    if (summaryRows.length === 0) return
+
+    const compactRows = summaryRows.slice(0, 6)
+    const omitted = Math.max(0, summaryRows.length - compactRows.length)
+    const lines = [
+      `Failure tags (${modeLabel}, compact table)`,
+      '',
+      '| Tag | Count |',
+      '| --- | ---: |',
+      ...compactRows.map(([tag, count]) => `| ${tag} | ${count} |`),
+    ]
+
+    if (omitted > 0) {
+      lines.push('', `(${omitted} additional tag${omitted === 1 ? '' : 's'} omitted)`)
+    }
+
+    if (topFailureTheme) {
+      lines.push('', `Top theme: **${topFailureTheme[0]}** (${topFailureTheme[1]})`)
+    }
+
+    const payload = lines.join('\n')
+
+    try {
+      await navigator.clipboard.writeText(payload)
+      setToast({ kind: 'success', message: `Copied compact table ${modeLabel} summary.` })
+      setLastAction({
+        message: `Copied compact table ${modeLabel} summary`,
+        at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      })
+    } catch {
+      setToast({ kind: 'error', message: 'Could not copy compact table summary.' })
+    }
+  }
+
   return (
     <>
       {toast && (
@@ -730,6 +765,15 @@ export function TraceViewer({
                 className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
               >
                 Copy compact
+              </button>
+            )}
+            {summaryRows.length > 0 && (
+              <button
+                type="button"
+                onClick={copyCompactSummaryTable}
+                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              >
+                Copy compact table
               </button>
             )}
             {summaryRows.length > 0 && (
