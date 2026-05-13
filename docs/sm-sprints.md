@@ -257,13 +257,14 @@ Write up the VC/PE pricing: $250 setup fee + $129/month Active or $249/month Exe
 - Testimonials: use real quotes from alpha users (minimum 1) or placeholder with "join the waitlist"
 - Demo CTA: "See it in action — try a live prep brief" → /demo
 - Remove any fabricated social proof
-*In progress: Demo CTA and testimonials refreshed; pricing currently intentionally held at live production rates pending explicit pricing change decision.*
+*Done with scope note: Demo CTA and testimonials refreshed, fabricated social proof removed, and placeholder/waitlist language applied. Pricing remains at current live rates per explicit decision to keep pricing accurate.*
 
 ### B2C GTM (3h)
 
 **[M] 2.7 — LinkedIn paid ads setup** (2h)
 Account setup only if trial-to-paid conversion is measured at ≥35% by this sprint. If not, defer. Ad creative: "We scanned 500 career pages this week..." and "Start monitoring your companies before the search goes public." $500 test budget targeting CIO/CTO/VP IT with "open to work" signal.
 *Decision (2026-05-12): Deferred. Gate check returned 0 ended trials and no measurable conversion baseline yet.*
+*Operationalized: Gate status now visible on admin dashboard and runnable via npm run sprint5:ads-gate.*
 
 **[S] Second SEO article** (1h)
 Topic: "Executive job search daily routine — what the top 1% of senior candidates do differently."
