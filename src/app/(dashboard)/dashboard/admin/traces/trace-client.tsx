@@ -81,10 +81,12 @@ function buildUrl(params: { feature?: string; unrated?: string; page?: string })
 function TraceRow({
   trace,
   enableShortcuts,
+  denseMode,
   onRated,
 }: {
   trace: Trace
   enableShortcuts: boolean
+  denseMode: boolean
   onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null) => void
 }) {
   const parsedNotes = parseEvalNotes(trace.eval_notes)
@@ -203,7 +205,7 @@ function TraceRow({
           </div>
 
           {/* Input snapshot */}
-          {trace.input_snapshot && Object.keys(trace.input_snapshot).length > 0 && (
+          {!denseMode && trace.input_snapshot && Object.keys(trace.input_snapshot).length > 0 && (
             <div className="mb-2 flex flex-wrap gap-x-4 gap-y-0.5">
               {Object.entries(trace.input_snapshot).map(([k, v]) => (
                 <span key={k} className="text-[11px] font-mono text-slate-300">
@@ -227,10 +229,12 @@ function TraceRow({
                 <pre className="text-[12px] text-slate-700 whitespace-pre-wrap leading-relaxed bg-white border border-slate-100 rounded p-3 max-h-[500px] overflow-y-auto">
                   {trace.output_snapshot}
                 </pre>
-              ) : (
+              ) : !denseMode ? (
                 <p className="text-[12px] text-slate-600 leading-relaxed">
                   {trace.output_snapshot.slice(0, 220)}{trace.output_snapshot.length > 220 ? '…' : ''}
                 </p>
+              ) : (
+                <p className="text-[11px] text-slate-400">Collapsed in dense mode. Expand output when needed.</p>
               )}
             </div>
           )}
@@ -261,7 +265,7 @@ function TraceRow({
             onChange={e => setEvalNotesBody(e.target.value)}
             onBlur={saveNotes}
             placeholder="Open coding: what is wrong (or strong) about this output?"
-            rows={2}
+            rows={denseMode ? 1 : 2}
             className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
           />
           <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated.</p>
@@ -288,6 +292,8 @@ export function TraceViewer({
 }) {
   const [visibleTraces, setVisibleTraces] = useState(traces)
   const [sessionLabeled, setSessionLabeled] = useState<Record<string, boolean>>({})
+  const focusMode = unratedOnly && currentFeature === 'prep_brief'
+  const [denseMode, setDenseMode] = useState(focusMode)
 
   useEffect(() => {
     setVisibleTraces(traces)
@@ -296,6 +302,10 @@ export function TraceViewer({
   useEffect(() => {
     setSessionLabeled({})
   }, [currentFeature, unratedOnly, page])
+
+  useEffect(() => {
+    setDenseMode(focusMode)
+  }, [focusMode])
 
   function handleRated(traceId: string, prevPass: boolean | null, nextPass: boolean | null) {
     setSessionLabeled((prev) => {
@@ -356,6 +366,15 @@ export function TraceViewer({
         <span className="font-semibold text-slate-700">Session labeled: {sessionTotal}</span>
         <span>Pass: {sessionPass}</span>
         <span>Fail: {sessionFail}</span>
+        {focusMode && (
+          <button
+            type="button"
+            onClick={() => setDenseMode((v) => !v)}
+            className="ml-auto text-[11px] font-semibold border border-slate-200 bg-white text-slate-700 hover:border-slate-400 px-2 py-1 rounded transition-colors"
+          >
+            {denseMode ? 'Dense view: on' : 'Dense view: off'}
+          </button>
+        )}
       </div>
 
       {unratedOnly && visibleTraces.length > 0 && (
@@ -395,6 +414,7 @@ export function TraceViewer({
               key={t.id}
               trace={t}
               enableShortcuts={idx === 0}
+              denseMode={denseMode}
               onRated={handleRated}
             />
           ))}
