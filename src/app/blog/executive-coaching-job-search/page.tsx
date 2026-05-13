@@ -93,8 +93,8 @@ export default function ExecutiveCoachingJobSearchPage() {
 
         <p>
           Consider what changes when your client is using a platform that monitors their target
-          companies continuously, surfaces signals before roles are posted, generates a 60-second
-          prep brief before every interview, and sends them a morning digest of pending actions and
+          companies continuously, surfaces signals before roles are posted, generates a prep brief in about a minute
+          before every interview, and sends them a morning digest of pending actions and
           new developments. They arrive at your session prepared. They have notes on conversations.
           They have already read the brief on the company they are interviewing with on Thursday.
           The session time that was going to context-building can go to strategy.

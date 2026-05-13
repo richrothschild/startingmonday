@@ -25,7 +25,7 @@ const FEATURES = [
   },
   {
     name: 'AI Prep Briefs',
-    forNetwork: 'A new client meeting is not a job interview, but the preparation requirements are identical. The executive needs to understand the company situation, the technology posture, the operating challenges the technology function is facing, and the questions that demonstrate genuine operational depth. Starting Monday generates a full prep brief in 60 seconds before any high-stakes client meeting. The brief covers everything a peer would know.',
+    forNetwork: 'A new client meeting is not a job interview, but the preparation requirements are identical. The executive needs to understand the company situation, the technology posture, the operating challenges the technology function is facing, and the questions that demonstrate genuine operational depth. Starting Monday generates a full prep brief in about a minute before any high-stakes client meeting. The brief covers everything a peer would know.',
     outcome: 'Members arrive at new client meetings having done the research that distinguishes a seasoned operator from someone who read the website. That is visible in the first conversation.',
   },
   {

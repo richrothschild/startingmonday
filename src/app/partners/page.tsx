@@ -22,7 +22,7 @@ const PRIMARY_PARTNERS = [
     economics: 'Earn 20% of every active subscription your clients start through your referral link. No minimum volume. No enrollment fee.',
     specifics: [
       'View client pipeline between sessions without requiring a status call',
-      'Prep briefs ready in 60 seconds before every coaching call',
+      'Prep briefs usually ready in about a minute before every coaching call',
       'Your clients reach out to target companies before searches are posted',
     ],
   },
@@ -33,7 +33,7 @@ const PRIMARY_PARTNERS = [
     value: 'Give your C-suite candidates the preparation depth that determines whether they advance beyond the first round. Better-prepared candidates reflect better on your firm.',
     economics: 'Earn 20% per active subscription. Preferred partners get consolidated billing and a candidate activation dashboard.',
     specifics: [
-      'Candidates arrive at client interviews with a 60-second prep brief, not a printout',
+      'Candidates arrive at client interviews with a prep brief generated in about a minute, not a printout',
       'Track which candidates are actively engaged and prepared before you present them',
       'Co-marketing for your firm in the Starting Monday partner directory',
     ],

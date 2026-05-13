@@ -117,7 +117,7 @@ export default function ForVpPage() {
           steps: [
             'Map organizations where a CIO mandate is forming - we flag roles before they are authorized, not just before they are posted',
             'Build your positioning narrative at the right altitude - calibrated to C-suite, not the VP tier you are leaving',
-            'Walk into every search firm conversation prepared - brief, objection responses, and win thesis ready in 60 seconds',
+            'Walk into every search firm conversation prepared - brief, objection responses, and win thesis usually ready in about a minute',
           ],
           trialNote: 'Free for 30 days. No credit card.',
         }}

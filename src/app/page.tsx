@@ -58,7 +58,7 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'How is this different from LinkedIn Premium?',
-    answer: 'LinkedIn Premium gives you a better job board. Starting Monday monitors company signals before roles are posted, builds prep briefs in 60 seconds, and tracks your full pipeline across every conversation. It is the infrastructure between a job board and a $25,000 coaching engagement.',
+    answer: 'LinkedIn Premium gives you a better job board. Starting Monday monitors company signals before roles are posted, builds prep briefs in about a minute, and tracks your full pipeline across every conversation. It is the infrastructure between a job board and a $25,000 coaching engagement.',
   },
   {
     question: 'How do you surface signals before a role is posted?',
@@ -70,11 +70,11 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'What does the prep brief include?',
-    answer: 'Your win thesis for that specific company. The objections they are likely to raise and how to counter each one. Questions that signal you understand the business at a peer level. What to leave out of the conversation entirely. Generated from your background, the role, and current company intelligence. Ready in 60 seconds.',
+    answer: 'Your win thesis for that specific company. The objections they are likely to raise and how to counter each one. Questions that signal you understand the business at a peer level. What to leave out of the conversation entirely. Generated from your background, the role, and current company intelligence. Usually ready in about a minute.',
   },
   {
     question: 'How long does setup take?',
-    answer: 'Most users are tracking companies and receiving signals within 15 minutes of creating an account. Upload your resume, add target companies, and set your search level. The daily briefing starts the following morning.',
+    answer: 'Most users are tracking companies and receiving signals quickly after creating an account. Upload your resume, add target companies, and set your search level. The daily briefing starts the following morning.',
   },
   {
     question: 'Who is this built for?',

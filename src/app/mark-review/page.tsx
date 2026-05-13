@@ -144,7 +144,7 @@ export default function MarkReviewPage() {
               <div className="border border-slate-200 rounded p-4 bg-white">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Is</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">
-                  The intelligence layer that finds executive moves before LinkedIn does—and gives you prep briefs in 60 seconds.
+                  The intelligence layer that finds executive moves before LinkedIn does, and gives you prep briefs in about a minute.
                 </p>
               </div>
               <div className="border border-slate-200 rounded p-4 bg-slate-50">
@@ -171,9 +171,9 @@ export default function MarkReviewPage() {
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What happens in week 1</p>
             <div className="space-y-3 mb-6">
-              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">Day 1:</span> Pipeline intelligence on 2,000+ target companies appears in your dashboard within 5 minutes of signup. First AI prep brief is ready in 60 seconds.</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">Day 1:</span> Pipeline intelligence appears quickly after signup. First AI prep brief is usually ready in about a minute.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">Days 2–7:</span> Daily briefing arrives each morning with new moves, signal changes, and one-click talking points for outreach.</p>
-              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">By day 7:</span> You've identified 3–5 opportunities your firm's own recruiters haven't seen yet.</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed"><span className="font-semibold">By day 7:</span> Most users have a clearer short list of opportunities and outreach priorities.</p>
             </div>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Fast review path (12 minutes)</p>
             <ol className="list-decimal pl-5 space-y-2 text-[13px] text-slate-700 leading-relaxed mb-6">

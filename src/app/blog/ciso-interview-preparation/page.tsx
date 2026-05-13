@@ -36,7 +36,7 @@ export default function CisoInterviewPreparationPage() {
       url="https://startingmonday.app/blog/ciso-interview-preparation"
       cta={{
         headline: 'Walk in as a peer, not a candidate.',
-        body: 'The prep brief assembles your win thesis, likely objections, and the questions only a CISO would think to ask — built from your background and their actual situation. Ready in 60 seconds.',
+        body: 'The prep brief assembles your win thesis, likely objections, and the questions only a CISO would think to ask — built from your background and their actual situation. Usually ready in about a minute.',
         label: 'Generate your prep brief →',
         href: '/signup',
         note: 'Free for 30 days. No credit card.',

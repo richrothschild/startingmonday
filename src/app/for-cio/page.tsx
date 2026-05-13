@@ -118,7 +118,7 @@ export default function ForCioPage() {
           steps: [
             'Track your target organizations - board changes, leadership gaps, transformation initiatives - before a search is ever authorized',
             'Manage every relationship and conversation with precision - nothing forgotten, nothing cold, nothing left to chance',
-            'Walk in fully prepared - brief, positioning, and objection responses assembled in 60 seconds from their company and your actual record',
+            'Walk in fully prepared - brief, positioning, and objection responses assembled in about a minute from their company and your actual record',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

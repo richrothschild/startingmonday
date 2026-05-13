@@ -15,7 +15,7 @@ const FEATURES = [
   },
   {
     name: 'AI Prep Brief',
-    forCoach: 'Before every coaching session where your client has an interview coming up, read their prep brief. It takes 60 seconds to generate. It covers the company situation, the likely objections, the questions only a peer would think to ask, and the narrative your client should lead with. You arrive at the session as a peer, not as someone who needs to be briefed by your client.',
+    forCoach: 'Before every coaching session where your client has an interview coming up, read their prep brief. It usually takes about a minute to generate. It covers the company situation, the likely objections, the questions only a peer would think to ask, and the narrative your client should lead with. You arrive at the session as a peer, not as someone who needs to be briefed by your client.',
     outcome: 'Clients walk into interviews prepared at a depth that is hard to achieve manually. Coaches spend session time on strategy, not research.',
   },
   {

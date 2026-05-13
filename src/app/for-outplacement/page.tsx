@@ -30,7 +30,7 @@ const FEATURES = [
   },
   {
     name: 'AI Interview Prep Briefs',
-    forFirm: 'Before every interview, the platform generates a full prep brief in 60 seconds: company situation, the win thesis the executive should lead with, likely objections and how to counter them, and the questions only a peer would ask. It draws from everything the executive has tracked and researched on that company.',
+    forFirm: 'Before every interview, the platform generates a full prep brief in about a minute: company situation, the win thesis the executive should lead with, likely objections and how to counter them, and the questions only a peer would ask. It draws from everything the executive has tracked and researched on that company.',
     outcome: 'Executives arrive at interviews prepared at depth. First-round pass rates improve. The difference between a prepared senior candidate and an unprepared one is audible in ten minutes.',
   },
   {

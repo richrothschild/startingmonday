@@ -19,7 +19,7 @@ const WHAT_CHANGES = [
   },
   {
     before: 'Your client is preparing for interviews the night before with a web search and a printout.',
-    after: 'The prep brief is ready in 60 seconds. Win thesis, likely objections, peer-level questions, what to leave out. You can read it before the session.',
+    after: 'The prep brief is usually ready in about a minute. Win thesis, likely objections, peer-level questions, what to leave out. You can read it before the session.',
   },
   {
     before: 'You cannot track 30 companies between sessions. Things happen and your client misses the window.',
@@ -124,7 +124,7 @@ export default function ForCoachesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { label: 'Intelligence Scanner', body: 'Watches every company on their target list. Surfaces executive departures, board changes, funding, and career page postings before a search is formalized.' },
-                { label: 'AI Prep Brief', body: 'Win thesis, likely objections, peer-level questions, what to leave out. Ready in 60 seconds. Accurate to the specific company and role.' },
+                { label: 'AI Prep Brief', body: 'Win thesis, likely objections, peer-level questions, what to leave out. Usually ready in about a minute. Accurate to the specific company and role.' },
                 { label: 'Pipeline Command Center', body: 'Every company, contact, and conversation tracked. Nothing goes cold. You can view their pipeline between sessions.' },
                 { label: 'Daily Morning Briefing', body: 'Overnight signals and a prioritized action list in their inbox before the market opens. One decision each morning, not thirty.' },
               ].map((item, i) => (

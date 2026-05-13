@@ -36,7 +36,7 @@ export default function ExecutiveResumeGapsPage() {
       url="https://startingmonday.app/blog/executive-resume-gaps"
       cta={{
         headline: 'Something is blocking your search. Find out what.',
-        body: 'The AI strategy brief synthesizes your positioning, targets, and pipeline to surface what is holding you back. Run it in 60 seconds.',
+        body: 'The AI strategy brief synthesizes your positioning, targets, and pipeline to surface what is holding you back. Run it in about a minute.',
         label: 'Run your strategy brief →',
         href: '/signup',
         note: 'Free for 30 days. No credit card.',
