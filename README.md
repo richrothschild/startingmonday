@@ -96,6 +96,10 @@ npm run evals:closeout
 npm run evals:closeout:dry-run
 npm run evals:closeout:force
 npm run evals:closeout:json
+
+# Command index
+npm run evals:help
+npm run evals:help:status
 ```
 
 Primary labeling UI:

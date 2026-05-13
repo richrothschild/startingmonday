@@ -26,6 +26,8 @@
     "evals:closeout:dry-run": "node scripts/closeout-prep-brief-evals.mjs --dry-run",
     "evals:closeout:force": "node scripts/closeout-prep-brief-evals.mjs --force",
     "evals:closeout:json": "node scripts/closeout-prep-brief-evals.mjs --dry-run --json",
+    "evals:help": "node scripts/evals-help.mjs",
+    "evals:help:status": "node scripts/evals-help.mjs --status",
     "test": "vitest run",
     "test:watch": "vitest"
   },
