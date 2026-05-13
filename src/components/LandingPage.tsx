@@ -173,8 +173,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </nav>
 
       <main>
-
-      {/* Hero */}
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
                 {/* Urgency micro-line */}
                 <div className="mb-3">
@@ -770,7 +768,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      </main>
+      
 
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
@@ -797,6 +795,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </footer>
 
+    </main>
+
     </div>
   )
 }
+
+
+
+
+
