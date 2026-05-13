@@ -9,10 +9,13 @@ function parseArgs(argv) {
   return {
     dryRun: args.has('--dry-run'),
     force: args.has('--force'),
+    json: args.has('--json'),
   }
 }
 
-function runNodeScript(scriptPath, args = [], captureStdout = false) {
+function runNodeScript(scriptPath, args = [], options = {}) {
+  const captureStdout = options.captureStdout ?? false
+  const mirrorStdout = options.mirrorStdout ?? true
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [scriptPath, ...args], {
       cwd: ROOT,
@@ -24,7 +27,9 @@ function runNodeScript(scriptPath, args = [], captureStdout = false) {
       child.stdout.on('data', (chunk) => {
         const text = String(chunk)
         stdout += text
-        process.stdout.write(text)
+        if (mirrorStdout) {
+          process.stdout.write(text)
+        }
       })
     }
 
@@ -63,41 +68,76 @@ function parseJsonFromOutput(output) {
 }
 
 async function main() {
-  const { dryRun, force } = parseArgs(process.argv)
+  const { dryRun, force, json } = parseArgs(process.argv)
 
   const readinessScript = path.join(ROOT, 'scripts', 'check-prep-brief-evals-readiness.mjs')
   const exportScript = path.join(ROOT, 'scripts', 'export-prep-brief-golden-set.mjs')
   const verifyScript = path.join(ROOT, 'scripts', 'verify-prep-brief-golden-set.mjs')
 
-  console.log('Prep brief evals closeout')
-  console.log('-------------------------')
-  console.log('Step 1/3: checking readiness...')
+  if (!json) {
+    console.log('Prep brief evals closeout')
+    console.log('-------------------------')
+    console.log('Step 1/3: checking readiness...')
+  }
 
-  const readinessRaw = await runNodeScript(readinessScript, ['--json'], true)
+  const readinessRaw = await runNodeScript(readinessScript, ['--json'], {
+    captureStdout: true,
+    mirrorStdout: !json,
+  })
   const readiness = parseJsonFromOutput(readinessRaw)
+  const result = {
+    dryRun,
+    force,
+    readiness,
+    blocked: false,
+    exported: false,
+    verified: false,
+    success: false,
+  }
 
   if (!readiness?.overallReady && !force && !dryRun) {
-    console.log('Closeout blocked: not ready yet (use --force to override).')
+    result.blocked = true
+    if (json) {
+      console.log(JSON.stringify(result, null, 2))
+    } else {
+      console.log('Closeout blocked: not ready yet (use --force to override).')
+    }
     process.exit(1)
   }
 
   if (dryRun) {
-    if (!readiness?.overallReady) {
-      console.log('Dry run note: readiness not met yet; closeout would be blocked without --force.')
+    result.success = readiness?.overallReady || force
+    if (json) {
+      console.log(JSON.stringify(result, null, 2))
+    } else {
+      if (!readiness?.overallReady) {
+        console.log('Dry run note: readiness not met yet; closeout would be blocked without --force.')
+      }
+      console.log('Dry run complete.')
+      console.log('Step 2/3 would run: export-prep-brief-golden-set.mjs')
+      console.log('Step 3/3 would run: verify-prep-brief-golden-set.mjs --strict')
     }
-    console.log('Dry run complete.')
-    console.log('Step 2/3 would run: export-prep-brief-golden-set.mjs')
-    console.log('Step 3/3 would run: verify-prep-brief-golden-set.mjs --strict')
     return
   }
 
-  console.log('Step 2/3: exporting golden set...')
+  if (!json) {
+    console.log('Step 2/3: exporting golden set...')
+  }
   await runNodeScript(exportScript)
+  result.exported = true
 
-  console.log('Step 3/3: verifying golden set...')
+  if (!json) {
+    console.log('Step 3/3: verifying golden set...')
+  }
   await runNodeScript(verifyScript, ['--strict'])
+  result.verified = true
+  result.success = true
 
-  console.log('Closeout complete: export + verify passed.')
+  if (json) {
+    console.log(JSON.stringify(result, null, 2))
+  } else {
+    console.log('Closeout complete: export + verify passed.')
+  }
 }
 
 main().catch((error) => {
