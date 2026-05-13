@@ -18,6 +18,8 @@
     "evals:label-progress": "node scripts/check-prep-brief-label-progress.mjs",
     "evals:label-progress:strict": "node scripts/check-prep-brief-label-progress.mjs --strict",
     "evals:export-golden-set": "node scripts/export-prep-brief-golden-set.mjs",
+    "evals:verify-golden-set": "node scripts/verify-prep-brief-golden-set.mjs",
+    "evals:verify-golden-set:strict": "node scripts/verify-prep-brief-golden-set.mjs --strict",
     "test": "vitest run",
     "test:watch": "vitest"
   },

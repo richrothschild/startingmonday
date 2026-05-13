@@ -242,6 +242,8 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
   8. Optional preflight:
     - `npm run evals:export-golden-set -- --dry-run`
   9. Verify output file `src/evals/prep_brief_golden_set.json` has 50 examples with a 25/25 pass/fail split.
+    - `npm run evals:verify-golden-set`
+    - `npm run evals:verify-golden-set:strict` (non-zero exit until fully valid)
 
 ### 3.6 — First optimization loop
 
