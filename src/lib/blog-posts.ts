@@ -10,6 +10,23 @@ export interface BlogPostMeta {
 
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: 'how-we-estimate-early-role-signals',
+    title: 'How We Estimate Early Role Signals (And Why We Use a 1-3 Week Window)',
+    description: 'A transparent look at our methodology: how we define event dates, posting dates, lag windows, and the primary sources we use to estimate early executive-role timing signals.',
+    date: '2026-05-13',
+    readTime: '6 min read',
+    keywords: [
+      'executive role timing methodology',
+      'how we estimate job posting lead time',
+      '8-K hiring signals',
+      'career page monitoring method',
+      'executive search timing signals',
+      'decision to posting lag',
+      'C-suite hiring signal model',
+    ],
+    related: ['cio-job-market-2026', 'target-company-list', 'executive-search-firms-cio'],
+  },
+  {
     slug: 'executive-job-search-daily-routine',
     title: 'Executive Job Search Daily Routine: What the Top 1% Do Differently',
     description: 'The strongest executive candidates run a disciplined daily operating rhythm: signals, targeted outreach, prep, and follow-through. Here is the exact routine and the weekly metrics that keep momentum high.',

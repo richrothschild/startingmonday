@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - Signal intelligence for C-suite searches',
-  description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
+  description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -129,7 +129,9 @@ export default function HomePage() {
       <LandingPage
         hero={{
           eyebrow: 'Signal intelligence for C-suite technology searches.',
-          h1Lines: ['Spot executive opportunities', '2-4 weeks before they post.'],
+          h1Lines: ['Spot executive opportunities', 'often 1-3 weeks before they post.'],
+          claimMethodLabel: 'How we estimate the timing window (method and sources)',
+          claimMethodHref: '/blog/how-we-estimate-early-role-signals',
           body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
           note: 'Monitor $49/mo · Active $199/mo · Executive $499/mo · Free 30-day trial',
           steps: [

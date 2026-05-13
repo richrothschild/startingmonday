@@ -20,6 +20,8 @@ export interface FAQ {
 export interface LandingHero {
   eyebrow: string
   h1Lines: string[]
+  claimMethodLabel?: string
+  claimMethodHref?: string
   bodyPreamble?: string
   body: string
   note?: string
@@ -193,6 +195,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
           </h1>
+          {hero.claimMethodLabel && hero.claimMethodHref && (
+            <p className="text-[13px] text-slate-400 mb-4">
+              <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+                {hero.claimMethodLabel}
+              </Link>
+            </p>
+          )}
           {hero.bodyPreamble && (
             <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3">
               {hero.bodyPreamble}
