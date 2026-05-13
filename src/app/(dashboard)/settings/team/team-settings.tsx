@@ -30,8 +30,11 @@ function Dot({ done }: { done: boolean }) {
 export function TeamSettings({ seats: initialSeats }: { seats: Seat[] }) {
   const [seats, setSeats] = useState(initialSeats)
   const [email, setEmail] = useState('')
+  const [bulkInput, setBulkInput] = useState('')
   const [sending, setSending] = useState(false)
+  const [bulkSending, setBulkSending] = useState(false)
   const [sentTo, setSentTo] = useState<string | null>(null)
+  const [bulkSummary, setBulkSummary] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [removing, setRemoving] = useState<string | null>(null)
 
@@ -71,6 +74,50 @@ export function TeamSettings({ seats: initialSeats }: { seats: Seat[] }) {
     }
   }
 
+  async function handleBulkInvite(e: React.FormEvent) {
+    e.preventDefault()
+    setBulkSending(true)
+    setError('')
+    setSentTo(null)
+    setBulkSummary(null)
+
+    const emails = [...new Set(
+      bulkInput
+        .split(/[\n,;]+/)
+        .map((item) => item.trim().toLowerCase())
+        .filter(Boolean)
+    )]
+
+    if (emails.length === 0) {
+      setError('Add at least one email for bulk invite.')
+      setBulkSending(false)
+      return
+    }
+
+    try {
+      const res = await fetch('/api/team/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emails }),
+      })
+      const data = await res.json().catch(() => null)
+      if (!res.ok) {
+        setError(data?.error ?? 'Bulk invite failed.')
+        return
+      }
+
+      const invitedCount = Number(data?.invitedCount ?? 0)
+      const duplicateCount = Number(data?.duplicateCount ?? 0)
+      const failedCount = Number(data?.failedCount ?? 0)
+      setBulkSummary(`Invited ${invitedCount}. Duplicates ${duplicateCount}. Failed ${failedCount}.`)
+      setBulkInput('')
+    } catch {
+      setError('Something went wrong.')
+    } finally {
+      setBulkSending(false)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="bg-white border border-slate-200 rounded p-6">
@@ -95,6 +142,35 @@ export function TeamSettings({ seats: initialSeats }: { seats: Seat[] }) {
           </button>
         </form>
         {sentTo && <p className="mt-2.5 text-[12px] text-emerald-600">Invite sent to {sentTo}.</p>}
+        {error && <p className="mt-2.5 text-[12px] text-red-600">{error}</p>}
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+          Bulk invite
+        </p>
+        <p className="text-[12px] text-slate-500 mb-3">
+          Paste one email per line, or separate with commas.
+        </p>
+        <form onSubmit={handleBulkInvite} className="flex flex-col gap-3">
+          <textarea
+            value={bulkInput}
+            onChange={(e) => setBulkInput(e.target.value)}
+            placeholder={'client1@company.com\nclient2@company.com'}
+            rows={5}
+            className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+          />
+          <div>
+            <button
+              type="submit"
+              disabled={bulkSending || !bulkInput.trim()}
+              className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50"
+            >
+              {bulkSending ? 'Sending...' : 'Send bulk invites'}
+            </button>
+          </div>
+        </form>
+        {bulkSummary && <p className="mt-2.5 text-[12px] text-emerald-600">{bulkSummary}</p>}
         {error && <p className="mt-2.5 text-[12px] text-red-600">{error}</p>}
       </div>
 
