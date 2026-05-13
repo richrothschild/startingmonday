@@ -99,11 +99,13 @@ function TraceRow({
   trace,
   enableShortcuts,
   denseMode,
+  onActivate,
   onRated,
 }: {
   trace: Trace
   enableShortcuts: boolean
   denseMode: boolean
+  onActivate?: (traceId: string) => void
   onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) => void
 }) {
   const parsedNotes = parseEvalNotes(trace.eval_notes)
@@ -178,7 +180,10 @@ function TraceRow({
   const featureLabel = FEATURE_LABELS[trace.feature] ?? trace.feature.replace(/_/g, ' ')
 
   return (
-    <div className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''} ${enableShortcuts ? 'ring-1 ring-slate-300 ring-inset' : ''}`}>
+    <div
+      className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''} ${enableShortcuts ? 'ring-1 ring-slate-300 ring-inset' : ''}`}
+      onMouseDown={() => onActivate?.(trace.id)}
+    >
       <div className="px-5 py-4 flex items-start gap-4">
 
         {/* Pass / Fail column */}
@@ -296,7 +301,7 @@ function TraceRow({
             rows={denseMode ? 1 : 2}
             className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
           />
-          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated, O = output.</p>
+          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated, O = output, J/K = active row.</p>
         </div>
       </div>
     </div>
@@ -333,6 +338,7 @@ export function TraceViewer({
   const [trimForSlack, setTrimForSlack] = useState(false)
   const [showCopyActions, setShowCopyActions] = useState(false)
   const [copyMenuAnnouncement, setCopyMenuAnnouncement] = useState('')
+  const [activeRowId, setActiveRowId] = useState<string | null>(traces[0]?.id ?? null)
   const copyActionsRef = useRef<HTMLDivElement | null>(null)
   const copyActionsToggleRef = useRef<HTMLButtonElement | null>(null)
   const copyActionItemRefs = useRef<Array<HTMLButtonElement | null>>([])
@@ -341,7 +347,21 @@ export function TraceViewer({
 
   useEffect(() => {
     setVisibleTraces(traces)
+    setActiveRowId(traces[0]?.id ?? null)
   }, [traces])
+
+  useEffect(() => {
+    if (visibleTraces.length === 0) {
+      setActiveRowId(null)
+      return
+    }
+
+    if (activeRowId && visibleTraces.some((trace) => trace.id === activeRowId)) {
+      return
+    }
+
+    setActiveRowId(visibleTraces[0]?.id ?? null)
+  }, [visibleTraces, activeRowId])
 
   useEffect(() => {
     setSessionLabeled({})
@@ -359,6 +379,37 @@ export function TraceViewer({
   useEffect(() => {
     setDenseMode(focusMode)
   }, [focusMode])
+
+  useEffect(() => {
+    if (visibleTraces.length === 0) return
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (showCopyActions) return
+
+      const target = event.target as HTMLElement | null
+      if (target) {
+        const tagName = target.tagName.toLowerCase()
+        if (tagName === 'textarea' || tagName === 'input' || tagName === 'select' || target.isContentEditable) return
+      }
+
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+
+      const key = event.key.toLowerCase()
+      if (key !== 'j' && key !== 'k') return
+
+      event.preventDefault()
+      const currentIndex = activeRowId
+        ? visibleTraces.findIndex((trace) => trace.id === activeRowId)
+        : -1
+      const safeIndex = currentIndex >= 0 ? currentIndex : 0
+      const delta = key === 'j' ? 1 : -1
+      const nextIndex = Math.max(0, Math.min(visibleTraces.length - 1, safeIndex + delta))
+      setActiveRowId(visibleTraces[nextIndex]?.id ?? null)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [visibleTraces, activeRowId, showCopyActions])
 
   useEffect(() => {
     if (!showCopyActions) return
@@ -1030,7 +1081,7 @@ export function TraceViewer({
 
       {unratedOnly && visibleTraces.length > 0 && (
         <p className="text-[11px] text-slate-500 mb-3">
-          Focus mode: shortcuts apply to the top visible trace only. Rate and it auto-advances.
+          Focus mode: shortcuts apply to the active trace. Use J/K to change active row. Rate and it auto-advances.
         </p>
       )}
 
@@ -1064,8 +1115,9 @@ export function TraceViewer({
             <TraceRow
               key={t.id}
               trace={t}
-              enableShortcuts={idx === 0}
+              enableShortcuts={t.id === activeRowId || (activeRowId == null && idx === 0)}
               denseMode={denseMode}
+              onActivate={setActiveRowId}
               onRated={handleRated}
             />
           ))}
