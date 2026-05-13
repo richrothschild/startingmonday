@@ -514,6 +514,33 @@ export function TraceViewer({
     }
   }
 
+  async function copyFailureSummary() {
+    if (summaryRows.length === 0) return
+
+    const modeLabel = failureSummaryMode === 'session' ? 'session' : 'current page'
+    const lines = [
+      `Failure tags (${modeLabel})`,
+      ...summaryRows.map(([tag, count]) => `- ${tag}: ${count}`),
+    ]
+
+    if (topFailureTheme) {
+      lines.push(`Top theme: ${topFailureTheme[0]} (${topFailureTheme[1]})`)
+    }
+
+    const payload = lines.join('\n')
+
+    try {
+      await navigator.clipboard.writeText(payload)
+      setToast({ kind: 'success', message: `Copied ${modeLabel} failure summary.` })
+      setLastAction({
+        message: `Copied ${modeLabel} failure summary`,
+        at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      })
+    } catch {
+      setToast({ kind: 'error', message: 'Could not copy failure summary.' })
+    }
+  }
+
   return (
     <>
       {toast && (
@@ -605,6 +632,15 @@ export function TraceViewer({
                 className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
               >
                 Copy top theme
+              </button>
+            )}
+            {summaryRows.length > 0 && (
+              <button
+                type="button"
+                onClick={copyFailureSummary}
+                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              >
+                Copy summary
               </button>
             )}
             {lastBulkApply && (
