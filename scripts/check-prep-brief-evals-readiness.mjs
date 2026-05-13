@@ -16,6 +16,7 @@ function parseArgs(argv) {
   return {
     json: args.has('--json'),
     markdown: args.has('--markdown'),
+    summary: args.has('--summary'),
     strict: args.has('--strict'),
   }
 }
@@ -148,7 +149,7 @@ async function getGoldenSetStatus() {
 }
 
 async function main() {
-  const { json, markdown, strict } = parseArgs(process.argv)
+  const { json, markdown, summary, strict } = parseArgs(process.argv)
   const generatedAt = new Date().toISOString()
 
   const [labels, goldenSet] = await Promise.all([
@@ -194,6 +195,17 @@ async function main() {
       }
       console.log(`- Next action: ${result.nextAction}`)
     }
+    if (strict && !overallReady) process.exit(1)
+    return
+  }
+
+  if (summary) {
+    const status = overallReady ? 'READY' : 'NOT_READY'
+    console.log(
+      `status=${status} pass=${labels.pass}/${PASS_TARGET} fail=${labels.fail}/${FAIL_TARGET} ` +
+      `unrated=${labels.unrated} golden_total=${goldenSet.status.total}/${PASS_TARGET + FAIL_TARGET} ` +
+      `generated_at=${generatedAt} next=${result.nextAction}`
+    )
     if (strict && !overallReady) process.exit(1)
     return
   }
