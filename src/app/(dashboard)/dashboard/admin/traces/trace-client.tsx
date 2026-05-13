@@ -376,6 +376,7 @@ export function TraceViewer({
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8)
   const summaryRows = failureSummaryMode === 'session' ? sessionFailureCategoryRows : pageFailureCategoryRows
+  const topFailureTheme = summaryRows[0] ?? null
 
   return (
     <>
@@ -425,9 +426,16 @@ export function TraceViewer({
 
       <div className="mb-4 bg-white border border-slate-200 rounded px-3 py-2">
         <div className="flex items-center justify-between gap-2 mb-1.5">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">
-            Failure tags ({failureSummaryMode === 'session' ? 'session' : 'current page'})
-          </p>
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">
+              Failure tags ({failureSummaryMode === 'session' ? 'session' : 'current page'})
+            </p>
+            {topFailureTheme && (
+              <p className="text-[10px] text-slate-500 mt-1">
+                Top theme: <span className="font-semibold text-slate-700">{topFailureTheme[0]}</span> ({topFailureTheme[1]})
+              </p>
+            )}
+          </div>
           <div className="flex items-center gap-1">
             <button
               type="button"
