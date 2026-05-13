@@ -288,12 +288,12 @@ With the rubric and golden set in hand, the improvement cycle is:
 Do not add LLM-as-judge until you have run at least 3 manual optimization cycles and the rubric is stable.
 
 ### Sprint 3 Definition of Done
-- [ ] Trace viewer exists at `/admin/traces`, shows LLM traces with inline Pass/Fail toggle
-- [ ] At least 100 prep brief traces labeled with `eval_pass` and `eval_notes`
-- [ ] Axial coding complete: 6–10 failure categories documented
-- [ ] `src/evals/prep_brief_rubric.md` exists with binary pass/fail checks
-- [ ] `src/evals/prep_brief_golden_set.json` exists with 50 labeled examples
-- [ ] At least 1 prompt optimization cycle completed against the golden set
+- [x] Trace viewer exists at `/admin/traces`, shows LLM traces with inline Pass/Fail toggle
+- [x] At least 100 prep brief traces labeled with `eval_pass` and `eval_notes`
+- [x] Axial coding complete: 6-10 failure categories documented
+- [x] `src/evals/prep_brief_rubric.md` exists with binary pass/fail checks
+- [x] `src/evals/prep_brief_golden_set.json` exists with 50 labeled examples
+- [x] At least 1 prompt optimization cycle completed against the golden set
 
 ---
 

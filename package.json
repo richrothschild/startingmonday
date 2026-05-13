@@ -50,6 +50,11 @@
     "evals:doctor:strict:json": "node scripts/evals-doctor.mjs --strict --json",
     "evals:ci:check": "node scripts/evals-ci-check.mjs",
     "evals:ci:check:json": "node scripts/evals-ci-check.mjs --json",
+    "evals:seed:traces": "node scripts/seed-prep-brief-eval-traces.mjs",
+    "evals:seed:traces:dry-run": "node scripts/seed-prep-brief-eval-traces.mjs --dry-run",
+    "evals:sprint3:dod": "node scripts/check-prep-brief-sprint3-dod.mjs",
+    "evals:sprint3:dod:json": "node scripts/check-prep-brief-sprint3-dod.mjs --json",
+    "evals:sprint3:dod:strict": "node scripts/check-prep-brief-sprint3-dod.mjs --strict",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -104,6 +104,13 @@ async function main() {
       'npm run evals:ci:check',
       'npm run evals:ci:check:json',
     ],
+    sprint3: [
+      'npm run evals:seed:traces',
+      'npm run evals:seed:traces:dry-run',
+      'npm run evals:sprint3:dod',
+      'npm run evals:sprint3:dod:json',
+      'npm run evals:sprint3:dod:strict',
+    ],
   }
 
   let doctor = null
@@ -176,6 +183,13 @@ async function main() {
     console.log('CI:')
     console.log('  npm run evals:ci:check')
     console.log('  npm run evals:ci:check:json')
+    console.log('')
+    console.log('Sprint 3 completion:')
+    console.log('  npm run evals:seed:traces')
+    console.log('  npm run evals:seed:traces:dry-run')
+    console.log('  npm run evals:sprint3:dod')
+    console.log('  npm run evals:sprint3:dod:json')
+    console.log('  npm run evals:sprint3:dod:strict')
   }
 
   if (!status) return

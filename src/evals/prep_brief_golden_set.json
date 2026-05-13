@@ -1,1 +1,627 @@
-[]
+[
+  {
+    "id": "2f3f3d98-e2ac-48eb-9aae-d71c9568d295",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 99: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (99).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "5e954ae0-4437-4c2a-a11e-2e85681b78f0",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 51: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (51).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "58bd4c1c-fa9b-403a-a56a-caf9c13eeb10",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 53: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (53).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "20c2612f-f3dd-4749-87cd-e2b7241bbc29",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 55: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (55).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "59dbef55-1570-47f2-b9cb-9ae2d7425cfa",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 57: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (57).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "81b125be-81cf-4266-9ea2-f54062e01609",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 59: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (59).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "f3837508-dd27-42a7-b85a-602f24fa9c4c",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 61: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (61).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "8cce6dc9-3e0b-4a10-aada-7f75eaf234ab",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 63: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (63).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "44e91682-7413-4a47-8db1-0583b4fed924",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 65: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (65).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "9f5c8219-c427-410e-b389-db3294726bac",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 67: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (67).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "54d9cf9b-b153-4dad-82be-23c3fc08265b",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 69: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (69).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "2da4139a-b3ed-4cbe-babc-95defd353ecc",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 71: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (71).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "32531a84-9743-479b-b623-68d0a7b1dd29",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 73: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (73).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "d03272fc-0a7a-40ab-ad51-2e41669d0a8e",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 75: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (75).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "f4d56824-1ed8-4c9b-8f5f-af0ff5403789",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 77: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (77).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "f278589c-0d09-40b9-b41a-1957c8b54d49",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 79: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (79).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "44b01457-5a33-4950-965b-98881008fcc7",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 81: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (81).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "0535e26c-0449-4310-ac77-922e573a0414",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 83: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (83).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "52d79711-d7bc-4d3f-89f5-e30cac762cd4",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 85: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (85).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "65f57199-445b-4e16-b087-875e131ab902",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 87: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (87).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "c75ca0fc-f746-41a9-91fe-80baba87a0c2",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 89: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (89).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "c3c4a23f-a988-40ef-9fc6-2fbccc3a2cba",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 91: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (91).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "b3da6415-6554-49db-999f-cc1f6192e30a",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 93: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (93).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "eb9e047d-1f9f-44d3-a388-9f63974e3b0c",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 95: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (95).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "9357e365-d37d-473b-bf87-2bd4e3b6ffeb",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 97: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nYou win this role by combining enterprise operating discipline with transformation execution depth (97).\n\n## The Situation\nThe company is balancing growth pressure with execution risk and needs an operator who can align board expectations with delivery cadence.\n\n## Win Thesis\nYour edge is proven transformation leadership under high-stakes accountability, not just strategy decks.\n\n## Questions to Ask\n1. Which transformation milestones are board-visible in the next two quarters?\n2. What execution bottleneck is most likely to block delivery this year?",
+    "pass": true,
+    "failure_categories": []
+  },
+  {
+    "id": "b42721a2-0ac1-44ea-b7a8-4d63b381c3d3",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 100: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (100).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "9a0c5cd3-6b7b-4dd4-bcb6-cbf0e7d16b3d",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 52: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (52).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "bd6c128c-4dbc-4d58-a62c-151ff4195e3a",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 54: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (54).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "d14c3d40-6f8a-43f4-a52f-8c70256b828b",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 56: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (56).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "b6ddd0db-40de-4701-b76d-a0e625def3b0",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 58: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (58).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  },
+  {
+    "id": "c2632c5f-6506-4ac9-8fc7-b85c73ff5d5f",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 60: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (60).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "bff0046c-7b7e-40cd-917a-cbdbc0b79cec",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 62: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (62).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "f0173d92-78b3-432d-a1d1-7a8e9df18cd6",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 64: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (64).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "161a0609-53ec-47c9-aa56-6a0f48855f72",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 66: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (66).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  },
+  {
+    "id": "fc2d7cf4-c62e-4b65-abc4-80d05383ec54",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 68: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (68).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "d0b39621-5e14-4db2-92b0-0db07c25dee4",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 70: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (70).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "4d55e92d-1b4b-4c11-8b29-10bfefc3591d",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 72: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (72).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "58ddd7c3-6a1b-48bb-a960-cf4d7dc2662a",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 74: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (74).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  },
+  {
+    "id": "1806616d-2ffd-414c-8c75-0061eee70873",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 76: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (76).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "1f9ff3cf-0c7e-4f5a-9252-abcbc4b56d82",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 78: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (78).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "bb79b2f5-b22f-48b8-a82f-5d667beb8db4",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 80: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (80).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "ff4dac7f-3085-4412-be4e-56a19ffb1ea6",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 82: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (82).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  },
+  {
+    "id": "e55d8d0a-2327-432c-9347-c4ad35cf9467",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 84: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (84).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "86d8b1bb-ec41-4f29-af3c-6ee14e67fbd4",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 86: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (86).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "d01ff842-2e82-473c-b24d-48fef4768932",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 88: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (88).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "7b708461-4a2d-453f-9e39-4c99ad7d7bdc",
+    "input": {
+      "role": "VP Engineering",
+      "company": "Summit Payments",
+      "profile_snapshot": "Executive background 90: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (90).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  },
+  {
+    "id": "2bd2a147-1bd8-49ec-a3be-c4305537080f",
+    "input": {
+      "role": "CTO",
+      "company": "Granite Cloud",
+      "profile_snapshot": "Executive background 92: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (92).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "format_off",
+      "missing_context_not_flagged"
+    ]
+  },
+  {
+    "id": "28637dcf-1451-4cdf-8af7-5a392d0037f7",
+    "input": {
+      "role": "Chief Data Officer",
+      "company": "Vector Health",
+      "profile_snapshot": "Executive background 94: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (94).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "factual_error",
+      "company_context_thin"
+    ]
+  },
+  {
+    "id": "c6fab65a-edf2-455a-889b-3b6277082983",
+    "input": {
+      "role": "CIO",
+      "company": "Northstar Systems",
+      "profile_snapshot": "Executive background 96: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (96).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "competitive_framing_missed",
+      "questions_too_generic"
+    ]
+  },
+  {
+    "id": "16f0bae2-c461-4116-911a-140304ddee2e",
+    "input": {
+      "role": "CISO",
+      "company": "Helios Retail",
+      "profile_snapshot": "Executive background 98: led two enterprise transformations and scaled teams globally."
+    },
+    "output": "## Bottom Line\nThis is a great opportunity and you should be confident in your interview (98).\n\n## The Situation\nThe company is growing and needs leadership.\n\n## Questions to Ask\n1. What does success look like?\n2. Tell me more about your culture?",
+    "pass": false,
+    "failure_categories": [
+      "role_fit_not_established",
+      "tone_wrong"
+    ]
+  }
+]

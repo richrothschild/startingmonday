@@ -126,6 +126,13 @@ npm run evals:doctor:strict:json
 # CI gate
 npm run evals:ci:check
 npm run evals:ci:check:json
+
+# Sprint 3 completion helpers
+npm run evals:seed:traces
+npm run evals:seed:traces:dry-run
+npm run evals:sprint3:dod
+npm run evals:sprint3:dod:json
+npm run evals:sprint3:dod:strict
 ```
 
 Primary labeling UI:
