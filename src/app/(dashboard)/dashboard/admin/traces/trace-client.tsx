@@ -415,6 +415,26 @@ export function TraceViewer({
     }
   }
 
+  function onCopyActionsTriggerKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>) {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setShowCopyActions(true)
+      window.setTimeout(() => focusCopyActionByIndex(0), 0)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setShowCopyActions(true)
+      window.setTimeout(() => focusCopyActionByIndex(copyActionItemRefs.current.length - 1), 0)
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setShowCopyActions((value) => !value)
+    } else if (event.key === 'Escape') {
+      if (showCopyActions) {
+        event.preventDefault()
+        setShowCopyActions(false)
+      }
+    }
+  }
+
   useEffect(() => {
     if (!toast) return
     const timeout = window.setTimeout(() => setToast(null), 1800)
@@ -817,6 +837,7 @@ export function TraceViewer({
                   type="button"
                   ref={copyActionsToggleRef}
                   onClick={() => setShowCopyActions((value) => !value)}
+                  onKeyDown={onCopyActionsTriggerKeyDown}
                   className={`text-[10px] px-2 py-1 rounded border transition-colors ${
                     showCopyActions
                       ? 'bg-slate-900 text-white border-slate-900'
