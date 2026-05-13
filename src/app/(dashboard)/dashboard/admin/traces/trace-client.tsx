@@ -454,6 +454,8 @@ export function TraceViewer({
   const copyPreviewPayload = summaryRows.length > 0 ? buildFailureSummaryPayload() : ''
   const copyPreviewChars = copyPreviewPayload.length
   const copyPreviewLines = copyPreviewPayload.length > 0 ? copyPreviewPayload.split('\n').length : 0
+  const slackCharLimit = 4000
+  const fitsSlack = copyPreviewChars <= slackCharLimit
 
   async function applyTopTagToUntaggedFails() {
     if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
@@ -768,7 +770,12 @@ export function TraceViewer({
           <div className="mt-2 border border-slate-200 rounded bg-slate-50 p-2">
             <div className="flex items-center justify-between gap-2 mb-1">
               <p className="text-[10px] font-semibold text-slate-500">Copy payload preview</p>
-              <p className="text-[10px] text-slate-400">{copyPreviewChars} chars · {copyPreviewLines} lines</p>
+              <div className="flex items-center gap-2">
+                <p className="text-[10px] text-slate-400">{copyPreviewChars} chars · {copyPreviewLines} lines</p>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded border ${fitsSlack ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200'}`}>
+                  {fitsSlack ? 'Fits Slack' : 'Over 4k'}
+                </span>
+              </div>
             </div>
             <pre className="text-[10px] text-slate-600 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
               {copyPreviewPayload}
