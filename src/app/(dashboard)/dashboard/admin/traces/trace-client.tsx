@@ -500,6 +500,20 @@ export function TraceViewer({
     }
   }
 
+  async function copyTopTheme() {
+    if (!topFailureTheme) return
+    try {
+      await navigator.clipboard.writeText(topFailureTheme[0])
+      setToast({ kind: 'success', message: `Copied top theme: ${topFailureTheme[0]}` })
+      setLastAction({
+        message: `Copied top theme ${topFailureTheme[0]}`,
+        at: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      })
+    } catch {
+      setToast({ kind: 'error', message: 'Could not copy top theme.' })
+    }
+  }
+
   return (
     <>
       {toast && (
@@ -582,6 +596,15 @@ export function TraceViewer({
                 }`}
               >
                 {isApplyingTopTag ? 'Applying…' : `Apply top tag to ${untaggedFailedTraces.length}`}
+              </button>
+            )}
+            {topFailureTheme && (
+              <button
+                type="button"
+                onClick={copyTopTheme}
+                className="text-[10px] px-2 py-1 rounded border transition-colors bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              >
+                Copy top theme
               </button>
             )}
             {lastBulkApply && (
