@@ -23,6 +23,7 @@
     "evals:readiness": "node scripts/check-prep-brief-evals-readiness.mjs",
     "evals:readiness:strict": "node scripts/check-prep-brief-evals-readiness.mjs --strict",
     "evals:readiness:md": "node scripts/check-prep-brief-evals-readiness.mjs --markdown",
+    "evals:readiness:snapshot": "node scripts/save-prep-brief-readiness-snapshot.mjs",
     "evals:closeout": "node scripts/closeout-prep-brief-evals.mjs",
     "evals:closeout:dry-run": "node scripts/closeout-prep-brief-evals.mjs --dry-run",
     "evals:closeout:force": "node scripts/closeout-prep-brief-evals.mjs --force",

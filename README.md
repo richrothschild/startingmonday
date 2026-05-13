@@ -91,6 +91,7 @@ npm run evals:verify-golden-set:strict
 npm run evals:readiness
 npm run evals:readiness:strict
 npm run evals:readiness:md
+npm run evals:readiness:snapshot
 
 # One-command closeout flow
 npm run evals:closeout       # doctor -> readiness -> export -> strict verify
