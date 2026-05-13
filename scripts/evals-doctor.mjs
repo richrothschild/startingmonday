@@ -64,7 +64,7 @@ async function main() {
 
   if (json) {
     console.log(JSON.stringify(result, null, 2))
-    if (strict && !ok) process.exit(1)
+    if (strict && !ok) process.exitCode = 1
     return
   }
 
@@ -79,11 +79,11 @@ async function main() {
   }
 
   if (strict && !ok) {
-    process.exit(1)
+    process.exitCode = 1
   }
 }
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error))
-  process.exit(1)
+  process.exitCode = 1
 })

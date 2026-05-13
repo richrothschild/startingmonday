@@ -102,7 +102,8 @@ async function main() {
     } else {
       console.log('Closeout blocked: prerequisites check failed (use --force to override).')
     }
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   if (!json) {
@@ -132,7 +133,8 @@ async function main() {
     } else {
       console.log('Closeout blocked: not ready yet (use --force to override).')
     }
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   if (dryRun) {
@@ -175,5 +177,5 @@ async function main() {
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error))
-  process.exit(1)
+  process.exitCode = 1
 })
