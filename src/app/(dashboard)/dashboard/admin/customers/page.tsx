@@ -11,13 +11,13 @@ const FILTER_LABELS: Record<Filter, string> = {
   all:         'All customers',
   trialing:    'Trialing',
   intelligence:'Monitor',
-  search:      'Search',
+  search:      'Active',
   executive:   'Executive',
 }
 
 const TIER_NAMES: Record<string, string> = {
   passive:   'Monitor',
-  active:    'Search',
+  active:    'Active',
   executive: 'Executive',
   free:      'Free',
 }

@@ -8,7 +8,7 @@ import { APP_URL } from '@/lib/config'
 
 const TIER_NAMES: Record<string, string> = {
   passive:   'Monitor',
-  active:    'Search',
+  active:    'Active',
   executive: 'Executive',
   free:      'Free',
 }

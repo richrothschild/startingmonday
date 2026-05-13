@@ -13,10 +13,10 @@ export const PLANS = {
     ],
   },
   active: {
-    name: 'Search',
+    name: 'Active',
     amount: 19900,
     annualAmount: 199000,
-    description: 'Full search operating system with AI briefs, daily briefing, and outreach',
+    description: 'Full active campaign infrastructure with AI briefs, daily briefing, and outreach',
     features: [
       'Everything in Monitor',
       'AI Interview Prep Briefs',
@@ -33,7 +33,7 @@ export const PLANS = {
     annualAmount: 499000,
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
-      'Everything in Search',
+      'Everything in Active',
       'Unlimited company pipeline',
       'Daily career page scanning (2x/day)',
       'Salary intelligence and negotiation scripts',

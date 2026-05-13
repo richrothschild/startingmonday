@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - Signal intelligence for C-suite searches',
-  description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign. Free 30-day trial.',
+  description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign.',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign.',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities 2-4 weeks before roles are posted, then run a disciplined campaign with prep briefs and pipeline control.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -39,39 +39,14 @@ const SITUATIONS: SituationCard[] = [
     sub: 'I need to land well. Quickly.',
   },
   {
-    id: 'executive',
-    headline: 'I know exactly what I want.',
-    sub: 'Targeted search. I just need to move faster.',
-  },
-  {
     id: 'building',
     headline: "I'm still in my role. The decision is made.",
     sub: 'Building my target list and warming up relationships before I announce anything.',
   },
   {
-    id: 'restructured',
-    headline: 'My role was restructured.',
-    sub: 'I know my worth. I want to land at the right level, not just the next one.',
-  },
-  {
-    id: 'passive',
-    headline: "I'm not looking - but Sunday nights feel different.",
-    sub: 'Not ready to commit. But not at peace either.',
-  },
-  {
     id: 'vp-up',
     headline: "I'm ready for the next seat.",
     sub: 'VP to CIO. Director to VP. I have the record. Now I need the campaign.',
-  },
-  {
-    id: 'returning',
-    headline: "I've been saying 'starting Monday' for months.",
-    sub: 'This is the one that sticks.',
-  },
-  {
-    id: 'low-energy',
-    headline: "I know I need to do this. I don't have the energy to start.",
-    sub: 'One thing at a time. The system does the heavy lifting.',
   },
   {
     id: 'optionality',
@@ -153,11 +128,10 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For C-suite executives in active search.',
-          h1Lines: ["The role was never posted.", "You found it anyway."],
-          bodyPreamble: "Most executives in active search won't tell anyone they're looking. Not their peers. Not their network. Not even their closest contacts.",
-          body: "Most executive roles are filled before they are ever posted. Starting Monday monitors target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
-          note: 'Pricing starts at $49/mo. Active campaigns are $199/mo. Executive plans are $499/mo.',
+          eyebrow: 'Signal intelligence for C-suite technology searches.',
+          h1Lines: ['Spot executive opportunities', '2-4 weeks before they post.'],
+          body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms.',
+          note: 'Monitor $49/mo · Active $199/mo · Executive $499/mo · Free 30-day trial',
           steps: [
             'Add your target companies.',
             'Upload your resume.',

@@ -9,8 +9,8 @@ import { ExportCsvButton } from './ExportCsvButton'
 
 const TIER_MRR: Record<string, number> = {
   passive:   49,
-  active:   129,
-  executive: 249,
+  active:   199,
+  executive: 499,
 }
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
@@ -81,7 +81,7 @@ export default async function PartnerDashboardPage() {
   })).sort((a, b) => new Date(b.joinedDate).getTime() - new Date(a.joinedDate).getTime())
 
   const tierLabel: Record<string, string> = {
-    passive: 'Monitor', active: 'Search', executive: 'Executive', free: 'Free',
+    passive: 'Monitor', active: 'Active', executive: 'Executive', free: 'Free',
   }
   const statusColor: Record<string, string> = {
     active: 'bg-green-50 text-green-700',

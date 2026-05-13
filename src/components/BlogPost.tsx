@@ -155,17 +155,28 @@ export function BlogPost({ title, description, date, readTime, url, slug, cta, c
           <p className="text-[14px] text-slate-400 mb-7 leading-relaxed max-w-lg">
             {activeCta.body}
           </p>
-          <Link
-            href={activeCta.href}
-            className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
-          >
-            {activeCta.label}
-          </Link>
-          <p className="text-[12px] text-slate-400 mt-3">
-            Want to compare tiers first?{' '}
-            <Link href="/pricing" className="text-orange-400 hover:text-orange-300 transition-colors underline">
-              Review pricing
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href={activeCta.href}
+              className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors text-center"
+            >
+              {activeCta.label}
             </Link>
+            <Link
+              href="/demo"
+              className="inline-block border border-slate-600 text-slate-200 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors text-center"
+            >
+              Run the live demo
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-block border border-slate-600 text-slate-200 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors text-center"
+            >
+              Compare tiers
+            </Link>
+          </div>
+          <p className="text-[12px] text-slate-400 mt-3">
+            Start with demo if you want proof, pricing if you want to choose a tier, or trial if you are ready to move.
           </p>
           {activeCta.note && <p className="text-[12px] text-slate-400 mt-3">{activeCta.note}</p>}
         </div>

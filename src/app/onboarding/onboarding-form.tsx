@@ -359,14 +359,21 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 Back
               </button>
             )}
-            {step > 0 && (
+            <button
+              type="submit"
+              form="onboarding-form"
+              formAction={skipOnboarding}
+              className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
+            >
+              Skip setup
+            </button>
+            {step === 0 && (
               <button
-                type="submit"
-                form="onboarding-form"
-                formAction={skipOnboarding}
+                type="button"
+                onClick={() => goTo(1)}
                 className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
               >
-                Skip setup
+                Guided setup
               </button>
             )}
           </div>

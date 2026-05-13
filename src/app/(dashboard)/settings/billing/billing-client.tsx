@@ -14,7 +14,7 @@ const PLAN_LABEL_MAP: Record<string, string> = {
   free:      'Free trial',
   passive:   'Monitor',
   monitor:   'Monitor',
-  active:    'Search',
+  active:    'Active',
   executive: 'Executive',
   campaign:  'Campaign',
 }

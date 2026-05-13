@@ -92,6 +92,15 @@ export default function ForCoachesPage() {
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6">
               Preferred partners who enroll multiple clients at once get consolidated billing, an activation dashboard, and volume pricing. You see who is active and engaged, without requiring a status call from your client.
             </p>
+            <div className="border border-slate-200 rounded-lg p-5 bg-slate-50 mb-6">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">Economics at a glance</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                20% recurring commission on paid referrals.
+              </p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Example: 10 clients on Active ($199/mo) = about $398/mo in recurring partner revenue, while clients get daily execution infrastructure between sessions.
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/partners#apply"

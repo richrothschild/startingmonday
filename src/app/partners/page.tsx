@@ -102,6 +102,9 @@ export default function PartnersPage() {
             <p className="text-[16px] text-slate-400 leading-relaxed max-w-2xl mb-6">
               We help C-suite candidates move faster. Earn 20% commission on every active subscription you refer. No enrollment fee. No minimum volume.
             </p>
+            <p className="text-[13px] text-slate-500 leading-relaxed max-w-2xl mb-6 border-l-2 border-orange-500 pl-4">
+              Typical referral economics: 15 active referrals on the Active tier ($199/mo) is about $597/mo in recurring commission while your clients get daily search execution infrastructure.
+            </p>
             <div className="flex flex-wrap gap-3">
               <a
                 href="#apply"

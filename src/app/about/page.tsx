@@ -104,40 +104,35 @@ export default function AboutPage() {
         <div className="max-w-2xl mx-auto space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
           <p>
-            I have spent my career in enterprise technology leadership, including transformation CIO roles.
-            The work is the same in every organization: a technology function that is not delivering what the
-            business needs, a leadership team that has lost confidence in IT, and a mandate to change both.
-            The execution varies. The pattern does not.
+            <span className="font-semibold text-slate-900">Why me:</span> I have spent my career in enterprise
+            technology leadership, including transformation CIO roles. The pattern was always the same: the
+            business needed outcomes, not activity, and leadership needed clarity, not reporting.
           </p>
 
           <p>
-            I built Starting Monday because I ran my own C-suite search and found the process broken. Not
-            broken in the obvious ways. The job boards were there. The search firms returned calls. The
-            problem was structural: the preparation tools available to a senior executive in active search
-            were either built for a different era or built for a different audience. Nothing was built for
-            someone operating at the C-suite level, running a search that needed to stay invisible until it
-            was done.
+            <span className="font-semibold text-slate-900">Why this product:</span> I built Starting Monday because
+            I ran my own C-suite search and found the process broken in a specific way. The job boards existed.
+            The recruiters existed. What did not exist was an intelligence layer for a confidential executive
+            campaign: early signals, decision-ready prep, and daily execution discipline.
           </p>
 
           <p>
-            I spent months building a manual version of what Starting Monday does now. Tracking target
-            companies. Logging every search firm conversation and every referral. Building the prep brief for
-            each interview from scratch. The process worked. But it took time that a search demands you spend
-            differently.
+            I spent months building a manual version of what Starting Monday does now: tracking target
+            companies, logging every search-firm conversation and referral, and rebuilding prep from scratch
+            before each interview. It worked, but it was too slow for how fast executive windows actually close.
           </p>
 
           <p>
-            Starting Monday is the automated version of what I built for myself. Early role intelligence from
-            the organizational signals that precede C-suite searches. A pipeline that tracks every relationship
-            and every conversation. A prep brief that assembles your win thesis, likely objections, and
-            company-specific questions in sixty seconds.
+            Starting Monday is the automated version of that workflow: early role intelligence from the
+            organizational signals that precede C-suite searches, a pipeline that tracks every relationship,
+            and prep briefs that assemble your win thesis, likely objections, and company-specific questions
+            in sixty seconds.
           </p>
 
           <p>
-            The blog is the thinking that sits behind the platform. Everything here is what I wish I had read
-            before I started my search. Not generic career advice. The specific mechanics of how C-suite
-            searches work, what search firms actually evaluate, how timing determines outcomes, and what
-            preparation looks like when it is done at the right level.
+            <span className="font-semibold text-slate-900">Why now:</span> executive hiring moved faster and quieter.
+            More searches are influenced before the role posts, and timing advantages compound quickly.
+            That makes reactive, posting-first search behavior a structural disadvantage for serious candidates.
           </p>
 
           <p>
@@ -152,6 +147,30 @@ export default function AboutPage() {
             If you are a senior technology executive in active search or approaching one, the platform is
             built for you. If you are at the C-suite level and want a better way to move, this is the place.
           </p>
+
+          <div className="pt-4 border-t border-slate-100">
+            <p className="text-[13px] font-semibold text-slate-900 mb-3">Start where you are:</p>
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <Link
+                href="/demo"
+                className="text-[13px] font-semibold text-slate-900 border border-slate-300 hover:border-slate-600 px-4 py-2 rounded transition-colors"
+              >
+                Run the live demo
+              </Link>
+              <Link
+                href="/pricing"
+                className="text-[13px] font-semibold text-slate-900 border border-slate-300 hover:border-slate-600 px-4 py-2 rounded transition-colors"
+              >
+                Review pricing
+              </Link>
+              <Link
+                href="/signup"
+                className="text-[13px] font-semibold text-slate-900 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition-colors"
+              >
+                Start free trial
+              </Link>
+            </div>
+          </div>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-4">
             <a
