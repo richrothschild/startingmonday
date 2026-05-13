@@ -4,15 +4,18 @@ import { NextRequest, NextResponse } from 'next/server'
 vi.mock('@/lib/require-auth')
 vi.mock('@/lib/stripe')
 vi.mock('@/lib/stripe-customer')
+vi.mock('@/lib/events')
 
 import { POST } from '../pause/route'
 import { requireAuth } from '@/lib/require-auth'
 import { getStripe } from '@/lib/stripe'
 import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
+import { logEvent } from '@/lib/events'
 
 const mockRequireAuth = vi.mocked(requireAuth)
 const mockGetStripe = vi.mocked(getStripe)
 const mockGetOrRecoverStripeCustomerId = vi.mocked(getOrRecoverStripeCustomerId)
+const mockLogEvent = vi.mocked(logEvent)
 
 function requestWithDays(days: unknown) {
   return new NextRequest('https://startingmonday.app/api/billing/pause', {
@@ -26,6 +29,7 @@ beforeEach(() => {
   vi.resetAllMocks()
   mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1', response: new NextResponse() })
   mockGetOrRecoverStripeCustomerId.mockResolvedValue('cus_123')
+  mockLogEvent.mockResolvedValue()
 })
 
 describe('POST /api/billing/pause', () => {
@@ -90,6 +94,10 @@ describe('POST /api/billing/pause', () => {
 
     const body = await res.json()
     expect(body.pauseDays).toBe(30)
+    expect(mockLogEvent).toHaveBeenCalledWith('user-1', 'search_paused', {
+      pause_days: 30,
+      resumes_at: expect.any(Number),
+    })
   })
 
   it('returns 500 when stripe update fails', async () => {

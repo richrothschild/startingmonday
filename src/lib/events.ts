@@ -20,6 +20,8 @@ export type UserEventName =
   | 'signals_page_viewed'
   | 'briefing_viewed'
   | 'briefing_action_clicked'
+  | 'search_paused'
+  | 'search_resumed'
 
 type EventProperties = Record<string, string | number | boolean | null>
 

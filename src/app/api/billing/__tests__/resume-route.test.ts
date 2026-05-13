@@ -4,15 +4,18 @@ import { NextRequest, NextResponse } from 'next/server'
 vi.mock('@/lib/require-auth')
 vi.mock('@/lib/stripe')
 vi.mock('@/lib/stripe-customer')
+vi.mock('@/lib/events')
 
 import { POST } from '../resume/route'
 import { requireAuth } from '@/lib/require-auth'
 import { getStripe } from '@/lib/stripe'
 import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
+import { logEvent } from '@/lib/events'
 
 const mockRequireAuth = vi.mocked(requireAuth)
 const mockGetStripe = vi.mocked(getStripe)
 const mockGetOrRecoverStripeCustomerId = vi.mocked(getOrRecoverStripeCustomerId)
+const mockLogEvent = vi.mocked(logEvent)
 
 function request() {
   return new NextRequest('https://startingmonday.app/api/billing/resume', {
@@ -24,6 +27,7 @@ beforeEach(() => {
   vi.resetAllMocks()
   mockRequireAuth.mockResolvedValue({ ok: true as const, userId: 'user-1', response: new NextResponse() })
   mockGetOrRecoverStripeCustomerId.mockResolvedValue('cus_123')
+  mockLogEvent.mockResolvedValue()
 })
 
 describe('POST /api/billing/resume', () => {
@@ -61,6 +65,7 @@ describe('POST /api/billing/resume', () => {
     const res = await POST(request())
     expect(res.status).toBe(200)
     expect(update).toHaveBeenCalledWith('sub_1', { pause_collection: null })
+    expect(mockLogEvent).toHaveBeenCalledWith('user-1', 'search_resumed', {})
     const body = await res.json()
     expect(body.ok).toBe(true)
   })
