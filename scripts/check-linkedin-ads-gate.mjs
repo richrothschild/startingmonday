@@ -80,6 +80,7 @@ async function getTrialConversionSnapshot() {
 }
 
 function printHuman(snapshot) {
+
   console.log('Sprint E LinkedIn Paid Ads Gate')
   console.log('------------------------------')
   console.log(`Measured at:     ${snapshot.measuredAt}`)
@@ -88,6 +89,20 @@ function printHuman(snapshot) {
   console.log(`Trials converted:${snapshot.totalConverted}`)
   console.log(`Conversion rate: ${snapshot.conversionRate === null ? 'N/A' : `${snapshot.conversionRate}%`}`)
   console.log(`Decision:        ${snapshot.decision}`)
+  if (snapshot.totalEnded > 0) {
+    // Wilson score interval for 95% confidence
+    const n = snapshot.totalEnded
+    const p = snapshot.totalConverted / n
+    const z = 1.96
+    const denominator = 1 + z * z / n
+    const centre = p + z * z / (2 * n)
+    const margin = z * Math.sqrt((p * (1 - p) + z * z / (4 * n)) / n)
+    const lower = ((centre - margin) / denominator) * 100
+    const upper = ((centre + margin) / denominator) * 100
+    console.log(`Confidence interval (95%): ${lower.toFixed(1)}% – ${upper.toFixed(1)}%`)
+    console.log(`Denominator: ${n} trials (sample size)`)
+    console.log('Annotation: 95% Wilson interval, see methodology for details.')
+  }
 
   if (snapshot.bySource.length > 0) {
     console.log('\nBy signup source:')
