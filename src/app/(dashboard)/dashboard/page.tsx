@@ -8,6 +8,8 @@ import { PipelineFilter } from './PipelineFilter'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
+import { HelpQuickButton } from '@/components/HelpQuickButton'
+import { TrackLink } from '@/components/TrackLink'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
 import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
@@ -241,11 +243,11 @@ export default async function DashboardPage({
   const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
 
-  // Nurture path — derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
+  // Nurture path ï¿½ derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
   const searchPath = profile?.search_path ?? null
   const isNurturePath = searchPath === 'nurture'
 
-  // Stall detection — pattern-specific nudge shown after 14 days of low activity
+  // Stall detection ï¿½ pattern-specific nudge shown after 14 days of low activity
   type StallNudge = { headline: string; body: string; action: string; href: string } | null
   let stallNudge: StallNudge = null
   const dismissedAt = profile?.stall_nudge_dismissed_at
@@ -270,7 +272,7 @@ export default async function DashboardPage({
         headline: 'No activity in two weeks.',
         body: hasSummary
           ? 'You have contacts to work but nothing has moved. Run a strategy brief to see where the gap is.'
-          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back — you are not sure what to say yet.',
+          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back ï¿½ you are not sure what to say yet.',
         action: hasSummary ? 'Run strategy brief' : 'Add your positioning',
         href: hasSummary ? '/dashboard/strategy' : '/dashboard/profile',
       }
@@ -816,7 +818,7 @@ export default async function DashboardPage({
           </Link>
         )}
 
-        {/* Proactive intelligence cards — pipeline gap summary */}
+        {/* Proactive intelligence cards ï¿½ pipeline gap summary */}
         {totalCount >= 3 && numIntelGaps > 0 && (
           <div className="mb-6 sm:mb-8">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</p>
@@ -865,7 +867,7 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
-        {/* Nurture path welcome card — first 7 days, empty pipeline, between-roles user */}
+        {/* Nurture path welcome card ï¿½ first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</p>
@@ -886,7 +888,7 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Campaign path welcome — first 7 days, empty pipeline */}
+        {/* Campaign path welcome ï¿½ first 7 days, empty pipeline */}
         {showCampaignWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</p>
@@ -902,12 +904,12 @@ export default async function DashboardPage({
               Add your first target company &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career page URLs as you go — we scan for openings before they go public.
+              Aim for 10 to 15 companies. Add career page URLs as you go ï¿½ we scan for openings before they go public.
             </p>
           </div>
         )}
 
-        {/* Watcher path welcome — first 7 days, empty pipeline */}
+        {/* Watcher path welcome ï¿½ first 7 days, empty pipeline */}
         {showWatcherWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</p>
@@ -915,7 +917,7 @@ export default async function DashboardPage({
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
               The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
             </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to — and let the platform do the watching.</p>
+            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to ï¿½ and let the platform do the watching.</p>
             <Link
               href="/dashboard/companies/new"
               className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
@@ -931,7 +933,7 @@ export default async function DashboardPage({
         {/* Persistent Next Best Action Prompt */}
         {stallNudge ? (
           <div className="relative">
-            <NextBestActionPrompt action={stallNudge.action} href={stallNudge.href} description={stallNudge.headline + ' ' + stallNudge.body} />
+            <NextBestActionPrompt action={stallNudge.action} href={stallNudge.href} description={stallNudge.headline + ' ' + stallNudge.body} source="stall_nudge" />
             <form action={dismissStallNudge} className="absolute top-2 right-2">
               <button
                 type="submit"
@@ -947,6 +949,7 @@ export default async function DashboardPage({
             action="Open your daily briefing"
             href="/dashboard/briefing"
             description="Start with your daily briefing to see signals, due actions, and your top priorities."
+            source="dashboard_default"
           />
         )}
 
@@ -970,7 +973,7 @@ export default async function DashboardPage({
                       : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
                   </div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
-                    Goal: {goal} per week · {done} done since Monday
+                    Goal: {goal} per week ï¿½ {done} done since Monday
                   </div>
                 </div>
                 <form action={saveWeeklyGoal} className="shrink-0">
@@ -1112,21 +1115,23 @@ export default async function DashboardPage({
         <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
           <div className="flex items-center justify-between gap-3 mb-3">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</p>
-            <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+            <TrackLink href="/dashboard/start" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'setup_guide' }} className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
               Full setup guide ?
-            </Link>
+            </TrackLink>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Link href="/dashboard/briefing" className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+            <TrackLink href="/dashboard/briefing" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'briefing' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">1) Start with briefing</p>
               <p className="text-[12px] text-slate-500 leading-relaxed">Pick your top three actions before opening other pages.</p>
-            </Link>
-            <Link href="/dashboard/contacts" className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+            </TrackLink>
+            <TrackLink href="/dashboard/contacts" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'relationships' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">2) Work relationships</p>
               <p className="text-[12px] text-slate-500 leading-relaxed">Prioritize one warm contact and schedule the next follow-up.</p>
-            </Link>
-            <Link
+            </TrackLink>
+            <TrackLink
               href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard/companies'}
+              event="how_to_card_clicked"
+              properties={{ source: 'dashboard_how_to', target: interviewingCompany ? 'interview_prep' : 'companies' }}
               className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block"
             >
               <p className="text-[13px] font-semibold text-slate-900 mb-1">3) Run interview prep</p>
@@ -1135,7 +1140,7 @@ export default async function DashboardPage({
                   ? `Generate a prep brief for ${interviewingCompany.name} before your next conversation.`
                   : 'Generate a prep brief from any company page before your next interview.'}
               </p>
-            </Link>
+            </TrackLink>
           </div>
         </div>
 
@@ -1469,7 +1474,7 @@ export default async function DashboardPage({
                 {hasFilters && totalFiltered === 0
                   ? `0 of ${totalCount}`
                   : totalPages > 1 || hasFilters
-                    ? `${start + 1}–${Math.min(start + PAGE_SIZE, totalFiltered)} of ${totalFiltered}`
+                    ? `${start + 1}ï¿½${Math.min(start + PAGE_SIZE, totalFiltered)} of ${totalFiltered}`
                     : totalCount} {totalCount === 1 ? 'company' : 'companies'}
               </span>
               <Link
@@ -1612,6 +1617,7 @@ export default async function DashboardPage({
 
         </div>
       </main>
+      <HelpQuickButton source="dashboard" />
     </div>
   )
 }

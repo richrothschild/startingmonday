@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
+import { HelpQuickButton } from '@/components/HelpQuickButton'
 
 type SearchPersona = 'csuite' | 'vp' | 'director' | 'board'
 
@@ -453,6 +454,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         aria-label="Upload LinkedIn PDF"
         className="hidden"
       />
+      <HelpQuickButton source="onboarding" href="/dashboard/help" />
     </div>
   )
 }

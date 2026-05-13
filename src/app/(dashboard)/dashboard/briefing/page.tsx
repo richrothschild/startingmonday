@@ -7,6 +7,7 @@ import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
 import { logBriefingAction } from './actions'
 import { LogoutButton } from '../logout-button'
+import { HelpQuickButton } from '@/components/HelpQuickButton'
 
 export const metadata = {
   title: 'Daily Briefing - Starting Monday',
@@ -476,6 +477,7 @@ export default async function BriefingPage() {
         </p>
 
       </main>
+      <HelpQuickButton source="briefing" />
     </div>
   )
 }
