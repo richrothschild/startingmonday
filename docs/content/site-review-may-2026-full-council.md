@@ -95,6 +95,18 @@ Each line includes grade, primary dislike, and one required change.
 - Burned-out technology executive: B+. Dislike: low-effort promise is not central enough. Change: add "10 minutes to start" commitment line.
 - Executive recruiter: C+. Dislike: recruiter path discoverability remains low. Change: add search-firm route in nav/footer.
 
+## v6 Roster Additions (May 13, 2026)
+
+These members were added after this May 12 review and should be included in all future full-council runs.
+
+- Seth Godin -> Sales and Marketing Council
+- Richard Thaler -> Behavioral Economics Council
+- Chris Voss -> Outreach Sales Council
+- Robert Cialdini -> Outreach Sales Council
+- Naval Ravikant -> Business Development and Partnerships Council
+
+Note: these v6 members were not individually scored in this May 12 artifact.
+
 ## Tensions and Resolutions
 
 ### Tension 1: Social proof demand vs trust discipline
