@@ -229,11 +229,18 @@ function BriefingBodySkeleton() {
 
 type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
-async function BriefingBody({ context }: { context: BriefingContext }) {
+async function BriefingBody({
+  context,
+  mode,
+}: {
+  context: BriefingContext
+  mode: 'focused' | 'full'
+}) {
   const briefing = context.hasContent ? await generateBriefing(context) : null
-  const signalAlerts  = briefing?.signalAlerts ?? []
-  const matchInsights = briefing?.matchInsights ?? []
-  const followUpItems = (briefing?.followUpSuggestions ?? []).slice(0, 3)
+  const maxItems = mode === 'focused' ? 1 : 3
+  const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
+  const matchInsights = (briefing?.matchInsights ?? []).slice(0, maxItems)
+  const followUpItems = (briefing?.followUpSuggestions ?? []).slice(0, maxItems)
 
   return (
     <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
@@ -384,7 +391,14 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
 
 // ─── Page - shell renders immediately, body streams in ────────────────────────
 
-export default async function BriefingPage() {
+export default async function BriefingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string }>
+}) {
+  const { mode: rawMode } = await searchParams
+  const mode: 'focused' | 'full' = rawMode === 'focused' ? 'focused' : 'full'
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -467,9 +481,25 @@ export default async function BriefingPage() {
           ))}
         </div>
 
+        <div className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
+          <span className="text-[11px] font-semibold text-slate-500">View:</span>
+          <Link
+            href="/dashboard/briefing?mode=focused"
+            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+          >
+            Focused
+          </Link>
+          <Link
+            href="/dashboard/briefing?mode=full"
+            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'full' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+          >
+            Full
+          </Link>
+        </div>
+
         {/* Briefing body - streams in after Claude call completes */}
         <Suspense fallback={<BriefingBodySkeleton />}>
-          <BriefingBody context={context} />
+          <BriefingBody context={context} mode={mode} />
         </Suspense>
 
         <p className="text-center text-[11px] text-slate-400 mt-4">

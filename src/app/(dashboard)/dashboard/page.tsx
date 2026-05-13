@@ -9,6 +9,7 @@ import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
+import { SearchControlsPanel } from '@/components/SearchControlsPanel'
 import { TrackLink } from '@/components/TrackLink'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
@@ -41,6 +42,7 @@ type ProfileRow = {
   resume_text: string | null
   positioning_summary: string | null
   briefing_time: string | null
+  briefing_frequency: string | null
   current_title: string | null
   placed_at: string | null
   placement_company: string | null
@@ -89,7 +91,7 @@ export default async function DashboardPage({
 
   const { data: profileRaw, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path')
+    .select('full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, briefing_frequency, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path')
     .eq('user_id', user.id)
     .single()
   const profile = profileRaw as ProfileRow | null
@@ -1116,7 +1118,7 @@ export default async function DashboardPage({
           <div className="flex items-center justify-between gap-3 mb-3">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</p>
             <TrackLink href="/dashboard/start" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'setup_guide' }} className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-              Full setup guide ?
+              Full setup guide -&gt;
             </TrackLink>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1144,14 +1146,11 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        {/* Pause Search (less prominent, but findable) */}
-        <div className="mb-6 sm:mb-8 flex flex-col items-center">
-          <div className="w-full max-w-xs">
-            <div className="text-[11px] text-slate-400 mb-1 text-center">Need a break? Pause your search:</div>
-            
-            {typeof window !== 'undefined' && require('@/components/PauseSearchButton').PauseSearchButton()}
-          </div>
-        </div>
+        <SearchControlsPanel
+          initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
+          initialBriefingTime={profile?.briefing_time ?? null}
+          isPaused={userRow?.subscription_status === 'paused'}
+        />
 
         {/* Today */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
