@@ -47,6 +47,7 @@ next-env.d.ts
 
 # local dev artifacts
 .briefing-preview.html
+docs/status/prep-brief-evals-readiness.md
 
 # Local documents
 *.pdf
