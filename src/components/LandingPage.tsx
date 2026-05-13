@@ -254,12 +254,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[12px] text-slate-300 mt-4 font-medium">
             Start in minutes: select targets, set your level, and launch your first briefing loop.
           </p>
-          <p className="text-[12px] text-slate-400 mt-3">
-            For coaches and search firms: 20% recurring referral commission (Active plan = $39.80 per client/month).{' '}
-            <Link href="/partners" className="underline hover:text-slate-200 transition-colors">
-              Partner details
-            </Link>
-          </p>
 
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">
@@ -310,7 +304,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               }}
               defaultValue=""
             >
-              <option value="" disabled>Select persona…</option>
+              <option value="" disabled>Select your situation…</option>
               <option value="urgent">My role was eliminated</option>
               <option value="building">I am still in my role. The decision is made</option>
               <option value="vp-up">I am ready for the next seat</option>
@@ -336,11 +330,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </TrackLink>
           </div>
 
-          {/* Founder Trust Block - below hero CTA */}
-          <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 mb-5 text-left shadow-md border border-slate-700">
-            <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
-            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, email me directly: <a href="mailto:contact@startingmonday.app" className="underline hover:text-orange-400">contact@startingmonday.app</a> — <span className="italic">Richard Rothschild, Founder</span></p>
-          </div>
           <h2 className="text-[22px] font-bold text-slate-900 mb-2">
             Where are you in the search?
           </h2>
@@ -362,6 +351,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-[13px] text-slate-500 leading-relaxed">{s.sub}</p>
               </TrackLink>
             ))}
+          </div>
+
+          {/* Founder Trust Block - after situation self-selection */}
+          <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 text-left shadow-md border border-slate-700">
+            <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
+            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, email me directly: <a href="mailto:contact@startingmonday.app" className="underline hover:text-orange-400">contact@startingmonday.app</a> — <span className="italic">Richard Rothschild, Founder</span></p>
           </div>
         </div>
       </section>
@@ -707,7 +702,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-2">For Partners</p>
               <p className="text-[16px] font-bold text-slate-900 mb-1">Do you work with executives in transition?</p>
               <p className="text-[13px] text-slate-500 leading-relaxed max-w-xl">
-                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Earn 20% commission on every active referral.
+                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Earn 20% commission on every active referral — Active plan referrals pay $39.80 per client/month.
               </p>
             </div>
             <div className="flex flex-col gap-2 shrink-0">
