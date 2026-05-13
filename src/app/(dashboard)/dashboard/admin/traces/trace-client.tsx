@@ -85,7 +85,7 @@ function TraceRow({
 }: {
   trace: Trace
   enableShortcuts: boolean
-  onRated?: (traceId: string, nextPass: boolean | null) => void
+  onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null) => void
 }) {
   const parsedNotes = parseEvalNotes(trace.eval_notes)
   const [evalPass, setEvalPass]   = useState(trace.eval_pass)
@@ -100,9 +100,10 @@ function TraceRow({
   }
 
   function setRating(nextPass: boolean | null) {
+    const prevPass = evalPass
     setEvalPass(nextPass)
     persist(nextPass, evalNotesBody, categories)
-    onRated?.(trace.id, nextPass)
+    onRated?.(trace.id, prevPass, nextPass)
   }
 
   function toggleCategory(category: string) {
@@ -286,15 +287,39 @@ export function TraceViewer({
   totalCount: number
 }) {
   const [visibleTraces, setVisibleTraces] = useState(traces)
+  const [sessionLabeled, setSessionLabeled] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     setVisibleTraces(traces)
   }, [traces])
 
-  function handleRated(traceId: string, nextPass: boolean | null) {
+  useEffect(() => {
+    setSessionLabeled({})
+  }, [currentFeature, unratedOnly, page])
+
+  function handleRated(traceId: string, prevPass: boolean | null, nextPass: boolean | null) {
+    setSessionLabeled((prev) => {
+      const next = { ...prev }
+      const wasCounted = Object.prototype.hasOwnProperty.call(next, traceId)
+
+      if (prevPass === null && nextPass !== null) {
+        next[traceId] = nextPass
+      } else if (nextPass === null && wasCounted) {
+        delete next[traceId]
+      } else if (nextPass !== null && wasCounted) {
+        next[traceId] = nextPass
+      }
+
+      return next
+    })
+
     if (!unratedOnly || nextPass === null) return
     setVisibleTraces((prev) => prev.filter((trace) => trace.id !== traceId))
   }
+
+  const sessionTotal = Object.keys(sessionLabeled).length
+  const sessionPass = Object.values(sessionLabeled).filter(Boolean).length
+  const sessionFail = sessionTotal - sessionPass
 
   return (
     <>
@@ -325,6 +350,12 @@ export function TraceViewer({
             Unrated only
           </Link>
         </div>
+      </div>
+
+      <div className="mb-4 bg-white border border-slate-200 rounded px-3 py-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
+        <span className="font-semibold text-slate-700">Session labeled: {sessionTotal}</span>
+        <span>Pass: {sessionPass}</span>
+        <span>Fail: {sessionFail}</span>
       </div>
 
       {unratedOnly && visibleTraces.length > 0 && (
