@@ -68,6 +68,7 @@ export default async function TracesPage({
   const goldenSetReady = prepPass >= GOLDEN_SET_TARGET_PER_CLASS && prepFail >= GOLDEN_SET_TARGET_PER_CLASS
   const prepPassRemaining = Math.max(0, GOLDEN_SET_TARGET_PER_CLASS - prepPass)
   const prepFailRemaining = Math.max(0, GOLDEN_SET_TARGET_PER_CLASS - prepFail)
+  const labelingFocusMode = feature === 'prep_brief' && unrated === '1'
 
   const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE)
 
@@ -114,6 +115,18 @@ export default async function TracesPage({
               Rubric
             </Link>
           </div>
+        </div>
+
+        <div className={`mb-4 rounded border px-3 py-2 text-[11px] ${labelingFocusMode ? 'bg-slate-900 text-slate-100 border-slate-800' : 'bg-white text-slate-500 border-slate-200'}`}>
+          {labelingFocusMode ? (
+            <>
+              <span className="font-semibold">Labeling shortcuts:</span> P = pass, F = fail, U = unrated. In this mode, rating auto-advances to the next trace.
+            </>
+          ) : (
+            <>
+              <span className="font-semibold text-slate-700">Shortcut tip:</span> P = pass, F = fail, U = unrated.
+            </>
+          )}
         </div>
 
         <div className="mb-6 bg-white border border-slate-200 rounded p-4">
