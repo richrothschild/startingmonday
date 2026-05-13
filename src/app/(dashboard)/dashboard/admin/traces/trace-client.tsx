@@ -409,6 +409,16 @@ export function TraceViewer({
       if (event.metaKey || event.ctrlKey || event.altKey) return
 
       const key = event.key.toLowerCase()
+      if (key === 'a' && !isApplyingTopTag) {
+        event.preventDefault()
+        void applyTopTagToUntaggedFails()
+        return
+      }
+      if (key === 'z' && lastBulkApply && !isUndoingTopTag) {
+        event.preventDefault()
+        void undoLastBulkApplyTopTag()
+        return
+      }
       if (key !== 'j' && key !== 'k') return
 
       event.preventDefault()
@@ -423,7 +433,14 @@ export function TraceViewer({
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [visibleTraces, activeRowId, showCopyActions])
+  }, [
+    visibleTraces,
+    activeRowId,
+    showCopyActions,
+    isApplyingTopTag,
+    lastBulkApply,
+    isUndoingTopTag,
+  ])
 
   useEffect(() => {
     if (!showCopyActions) return
@@ -892,6 +909,7 @@ export function TraceViewer({
                 Top theme: <span className="font-semibold text-slate-700">{topFailureTheme[0]}</span> ({topFailureTheme[1]})
               </p>
             )}
+            <p className="text-[10px] text-slate-400 mt-1">Keyboard: A = apply top tag, Z = undo last bulk apply.</p>
           </div>
           <div className="flex items-center gap-1">
             {topFailureTheme && untaggedFailedTraces.length > 0 && (
@@ -899,6 +917,7 @@ export function TraceViewer({
                 type="button"
                 onClick={applyTopTagToUntaggedFails}
                 disabled={isApplyingTopTag}
+                aria-keyshortcuts="A"
                 className={`text-[10px] px-2 py-1 rounded border transition-colors ${
                   isApplyingTopTag
                     ? 'bg-slate-100 text-slate-400 border-slate-200'
@@ -1022,6 +1041,7 @@ export function TraceViewer({
                 type="button"
                 onClick={undoLastBulkApplyTopTag}
                 disabled={isUndoingTopTag}
+                aria-keyshortcuts="Z"
                 className={`text-[10px] px-2 py-1 rounded border transition-colors ${
                   isUndoingTopTag
                     ? 'bg-slate-100 text-slate-400 border-slate-200'
