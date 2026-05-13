@@ -338,6 +338,17 @@ export function TraceViewer({
   const sessionTotal = Object.keys(sessionLabeled).length
   const sessionPass = Object.values(sessionLabeled).filter(Boolean).length
   const sessionFail = sessionTotal - sessionPass
+  const pageFailureCategoryCounts = visibleTraces.reduce<Record<string, number>>((acc, trace) => {
+    if (trace.eval_pass !== false) return acc
+    const { categories } = parseEvalNotes(trace.eval_notes)
+    for (const category of categories) {
+      acc[category] = (acc[category] ?? 0) + 1
+    }
+    return acc
+  }, {})
+  const pageFailureCategoryRows = Object.entries(pageFailureCategoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
 
   return (
     <>
@@ -382,6 +393,21 @@ export function TraceViewer({
           >
             {denseMode ? 'Dense view: on' : 'Dense view: off'}
           </button>
+        )}
+      </div>
+
+      <div className="mb-4 bg-white border border-slate-200 rounded px-3 py-2">
+        <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Current page failure tags</p>
+        {pageFailureCategoryRows.length > 0 ? (
+          <div className="flex flex-wrap items-center gap-1.5">
+            {pageFailureCategoryRows.map(([category, count]) => (
+              <span key={category} className="text-[10px] px-2 py-1 rounded border border-slate-200 bg-slate-50 text-slate-600">
+                {category} <span className="font-semibold text-slate-800">{count}</span>
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p className="text-[11px] text-slate-400">No failed traces with category tags on this page yet.</p>
         )}
       </div>
 
