@@ -32,9 +32,9 @@ const EXECUTIVE_FEATURES = [
   'Priority contact flagging and CSV export',
 ]
 
-const MO    = { passive: 49,   active: 199,  executive: 499,  concierge: 1299 }
-const YR    = { passive: 490,  active: 1990, executive: 5000, concierge: 13999 }
-const YR_MO = { passive: 41,   active: 166,  executive: 417,  concierge: 1167 }
+const MO    = { passive: 49,   active: 199,  executive: 499 }
+const YR    = { passive: 490,  active: 1990, executive: 5000 }
+const YR_MO = { passive: 41,   active: 166,  executive: 417 }
 
 type Tier = keyof typeof MO
 
@@ -69,11 +69,6 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
         </h2>
         <p className="text-[14px] text-slate-500 mb-4 max-w-2xl leading-relaxed">
           You run the campaign. We power it. Choose the tier that matches your search altitude. All plans include a 30-day free trial, no credit card required.
-        </p>
-        <p className="text-[13px] text-slate-400 mb-4">
-          Including{' '}
-          <a href="/concierge" className="text-orange-600 hover:text-orange-700 transition-colors font-medium">Executive Concierge</a>
-          {' '}at $1,299/mo &mdash; monthly strategy session, application required.
         </p>
         <p className="text-[13px] text-slate-500 border-l-2 border-orange-500 pl-4 mb-6 max-w-2xl leading-relaxed">
           The delta between the role you want and the role you settle for is measured in weeks, not years. At $199/mo, this is a fraction of a rounding error on a $300K compensation decision.
@@ -213,30 +208,6 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
 
         </div>
 
-        {/* Concierge band */}
-        <div className="mt-6 max-w-4xl border border-slate-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2.5 mb-1.5">
-              <p className="text-[13px] font-bold text-slate-900">Executive Concierge</p>
-              <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-orange-600 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Waitlist open</span>
-            </div>
-            <p className="text-[13px] text-slate-500 leading-relaxed max-w-lg">
-              Everything in Active, plus a monthly 45-minute strategy session. AI prepares the agenda from your live pipeline. Notes carry forward every call.
-            </p>
-          </div>
-          <div className="shrink-0 text-right">
-            <p className="text-[22px] font-bold text-slate-900 leading-none mb-0.5">
-              ${price('concierge')}<span className="text-[13px] font-normal text-slate-400">/mo</span>
-            </p>
-            <p className="text-[11px] text-slate-400 mb-3">{subline('concierge')}</p>
-            <Link
-              href="/concierge"
-              className="inline-block text-[13px] font-semibold text-orange-600 border border-orange-200 bg-orange-50 px-5 py-2 rounded hover:bg-orange-100 transition-colors"
-            >
-              Join the waitlist &rarr;
-            </Link>
-          </div>
-        </div>
 
       </div>
     </section>

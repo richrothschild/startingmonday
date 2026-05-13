@@ -85,7 +85,7 @@ const FEATURES = [
   },
   {
     label: 'Resume Tailoring',
-    body: 'Paste the job description. Get a tailored resume that matches their language without keyword stuffing. Run the quality check for an ATS score, recruiter grade, and a list of weak bullets to fix before you send it.',
+    body: 'Paste the job description and generate a targeted resume in minutes. Match the role language without keyword stuffing. Run a quality check for ATS score, recruiter grade, and weak bullets before you send.',
   },
 ]
 
@@ -134,6 +134,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </Link>
             <Link href="/for-search-firms" className="hidden md:inline text-[13px] text-slate-400 hover:text-white transition-colors" title="For executive search firms" aria-label="Search-firm route">
               Search Firms
+            </Link>
+            <Link href="/for-coaches" className="hidden lg:inline text-[13px] font-semibold text-slate-200 border border-slate-600 px-4 py-1.5 rounded hover:border-slate-400 hover:text-white transition-colors" title="For executive coaches" aria-label="Executive coach route">
+              Coaches
             </Link>
             <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1" title="Refer a leader for consideration" aria-label="Refer a leader">
               Refer a Leader
@@ -298,7 +301,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           {/* Persona Selector above signup CTA */}
           <div className="mb-6">
-            <label htmlFor="persona-select" className="block text-[13px] text-slate-400 mb-1">Searching at a specific level?</label>
+            <label htmlFor="persona-select" className="block text-[13px] text-slate-400 mb-1">Where are you in your search?</label>
             <select
               id="persona-select"
               className="text-[13px] px-3 py-2 rounded border border-slate-300 focus:border-orange-500 focus:outline-none"
@@ -309,12 +312,12 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               defaultValue=""
             >
               <option value="" disabled>Select persona…</option>
-              <option value="urgent">Urgent transition</option>
-              <option value="building">Quietly building target list</option>
-              <option value="vp-up">Moving to next seat</option>
-              <option value="monitor">Monitoring the market</option>
-              <option value="selective">Left on my terms — being selective</option>
-              <option value="returning">Running a better search than last time</option>
+              <option value="urgent">My role was eliminated</option>
+              <option value="building">I am still in my role. The decision is made</option>
+              <option value="vp-up">I am ready for the next seat</option>
+              <option value="monitor">I am not searching yet. I want to monitor the market</option>
+              <option value="selective">I left on my terms. I am being selective</option>
+              <option value="returning">I want to run a better search than last time</option>
             </select>
           </div>
 
@@ -371,10 +374,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Signal intelligence for C-suite searches.
           </h2>
           <p className="text-[16px] text-slate-500 leading-relaxed mb-2">
-            Not a job board. Not a $25,000 coaching engagement.{' '}
+            Not a job board. Built to complement executive coaching.{' '}
             <span className="text-slate-900 font-semibold">The infrastructure for a campaign.</span>
           </p>
-          <p className="text-[14px] text-slate-400 leading-relaxed">
+          <p className="text-[14px] text-slate-400 leading-relaxed sm:whitespace-nowrap">
             LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the signal layer between that and a search firm.
           </p>
         </div>
@@ -568,7 +571,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">
                 average window between the first signal and a search going to a retained firm &mdash; the whole game at this level.{' '}
                 <Link href="/blog/how-we-estimate-early-role-signals" className="underline hover:text-slate-300 transition-colors">
-                  Method and sources
+                  How we estimate the timing window (method and sources)
                 </Link>
               </p>
             </div>

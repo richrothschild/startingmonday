@@ -68,7 +68,7 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'How is this different from LinkedIn Premium?',
-    answer: 'LinkedIn Premium gives you a better job board. Starting Monday monitors company signals before roles are posted, builds prep briefs in about a minute, and tracks your full pipeline across every conversation. It is the infrastructure between a job board and a $25,000 coaching engagement.',
+    answer: 'LinkedIn Premium gives you a better job board. Starting Monday makes your search more effective by surfacing company signals before roles are posted, generating prep briefs in about a minute, and helping you manage the relationships that matter across your pipeline. It complements executive coaching by powering the day-to-day campaign execution between sessions.',
   },
   {
     question: 'How do you surface signals before a role is posted?',
