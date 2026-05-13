@@ -198,6 +198,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           )}
 
           {/* Confidentiality promise - above the fold, before any CTA */}
+
+          <p className="text-[13px] font-semibold text-green-700 bg-green-50 rounded px-3 py-2 mb-3 inline-block">
+            Private by default
+          </p>
           <p className="text-[13px] text-slate-500 mb-8">
             Your search is completely private - we never share your identity, targets, or activity with anyone.
             No credit card. No recruiter visibility. No employer access. Cancel from settings in 10 seconds.
