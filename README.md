@@ -72,3 +72,33 @@ Health check: `GET /api/health` (returns uptime, timestamp, version)
 - [Architecture](docs/architecture.md) — infrastructure, schema, API patterns, environment variables
 - [Product Roadmap](docs/product-roadmap.md) — what is built and what is planned
 - [Backlog](docs/backlog.md) — validated ideas deferred from the active roadmap
+
+## Sprint 3 Evals Commands
+
+Prep brief labeling and golden-set workflow commands:
+
+```bash
+# Label progress
+npm run evals:label-progress
+npm run evals:label-progress:strict
+
+# Golden set export and verification
+npm run evals:export-golden-set
+npm run evals:verify-golden-set
+npm run evals:verify-golden-set:strict
+
+# Combined readiness gate
+npm run evals:readiness
+npm run evals:readiness:strict
+
+# One-command closeout flow
+npm run evals:closeout
+npm run evals:closeout:dry-run
+npm run evals:closeout:force
+npm run evals:closeout:json
+```
+
+Primary labeling UI:
+
+- `/dashboard/admin/traces?feature=prep_brief&unrated=1`
+- `/dashboard/admin/traces/rubric`
