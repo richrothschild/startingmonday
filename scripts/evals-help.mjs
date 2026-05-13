@@ -61,6 +61,7 @@ async function main() {
     ],
     goldenSet: [
       'npm run evals:export-golden-set',
+      'npm run evals:export-golden-set:json',
       'npm run evals:verify-golden-set',
       'npm run evals:verify-golden-set:strict',
     ],
@@ -117,6 +118,7 @@ async function main() {
     console.log('')
     console.log('Golden set:')
     console.log('  npm run evals:export-golden-set')
+    console.log('  npm run evals:export-golden-set:json')
     console.log('  npm run evals:verify-golden-set')
     console.log('  npm run evals:verify-golden-set:strict')
     console.log('')

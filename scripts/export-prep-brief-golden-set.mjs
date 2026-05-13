@@ -15,6 +15,7 @@ function parseArgs(argv) {
   const args = new Set(argv.slice(2))
   return {
     dryRun: args.has('--dry-run'),
+    json: args.has('--json'),
   }
 }
 
@@ -29,7 +30,7 @@ function parseFailureCategories(evalNotes) {
 }
 
 async function main() {
-  const { dryRun } = parseArgs(process.argv)
+  const { dryRun, json } = parseArgs(process.argv)
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -90,7 +91,27 @@ async function main() {
   const outputPath = path.join(process.cwd(), 'src', 'evals', 'prep_brief_golden_set.json')
   const content = `${JSON.stringify(goldenSet, null, 2)}\n`
 
+  const result = {
+    generatedAt: new Date().toISOString(),
+    feature: TARGET_FEATURE,
+    targets: {
+      pass: PASS_TARGET,
+      fail: FAIL_TARGET,
+    },
+    selected: {
+      pass: selectedPass.length,
+      fail: selectedFail.length,
+    },
+    outputPath,
+    dryRun,
+    written: false,
+  }
+
   if (dryRun) {
+    if (json) {
+      console.log(JSON.stringify(result, null, 2))
+      return
+    }
     console.log('[dry-run] Golden set preview ready')
     console.log(`Pass samples: ${selectedPass.length}`)
     console.log(`Fail samples: ${selectedFail.length}`)
@@ -99,6 +120,13 @@ async function main() {
   }
 
   await fs.writeFile(outputPath, content, 'utf8')
+  result.written = true
+
+  if (json) {
+    console.log(JSON.stringify(result, null, 2))
+    return
+  }
+
   console.log(`Golden set written: ${outputPath}`)
   console.log(`Pass samples: ${selectedPass.length}`)
   console.log(`Fail samples: ${selectedFail.length}`)
@@ -106,5 +134,5 @@ async function main() {
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error))
-  process.exit(1)
+  process.exitCode = 1
 })

@@ -84,6 +84,7 @@ npm run evals:label-progress:strict
 
 # Golden set export and verification
 npm run evals:export-golden-set
+npm run evals:export-golden-set:json
 npm run evals:verify-golden-set
 npm run evals:verify-golden-set:strict
 
