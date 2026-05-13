@@ -201,7 +201,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {hero.body}
           </p>
           <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-6">
-            Calibrated for C-suite transitions: every prep brief, strategy recommendation, and AI output is built for executive-level scrutiny.
+            Built for executive scrutiny: every brief, recommendation, and next step is calibrated for C-suite transitions.
           </p>
 
           {/* Confidentiality promise - above the fold, before any CTA */}
@@ -250,7 +250,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           </div>
           <p className="text-[12px] text-slate-300 mt-4 font-medium">
-            Start in minutes: select targets, set your level, and launch your first briefing loop.
+            Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
 
           {showPersonaSelector && (
