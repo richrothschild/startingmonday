@@ -348,6 +348,9 @@ export default async function AdminPage() {
   const totalEnded = trialsEnded.length
   const totalConverted = trialsEnded.filter(u => u.subscription_status === 'active').length
   const conversionRate = totalEnded > 0 ? Math.round((totalConverted / totalEnded) * 100) : null
+  const linkedInAdsThreshold = 35
+  const linkedInAdsGatePass = conversionRate !== null && conversionRate >= linkedInAdsThreshold
+  const linkedInAdsDecision = linkedInAdsGatePass ? 'GO' : 'DEFER'
 
   // Conversion by signup_source channel
   const channelMap: Record<string, { ended: number; converted: number }> = {}
@@ -687,6 +690,22 @@ export default async function AdminPage() {
         <div className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</div>
           <p className="text-[12px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
+          <div className={`mb-5 border rounded p-4 ${linkedInAdsGatePass ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'}`}>
+            <div className="flex items-center justify-between gap-3 mb-1">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">LinkedIn Ads Gate</p>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${linkedInAdsGatePass ? 'bg-green-600 text-white' : 'bg-amber-600 text-white'}`}>
+                {linkedInAdsDecision}
+              </span>
+            </div>
+            <p className="text-[12px] text-slate-600">
+              Requires trial-to-paid conversion of at least {linkedInAdsThreshold}%. Current: {conversionRate !== null ? `${conversionRate}%` : 'N/A'}.
+            </p>
+            {!linkedInAdsGatePass && (
+              <p className="text-[12px] text-slate-500 mt-1">
+                Paid ads stay deferred until this threshold is reached.
+              </p>
+            )}
+          </div>
           {totalEnded === 0 ? (
             <p className="text-[13px] text-slate-400">No ended trials yet.</p>
           ) : (
