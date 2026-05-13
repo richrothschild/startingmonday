@@ -29,9 +29,13 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
   const [portalError, setPortalError] = useState('')
+  const [actionMessage, setActionMessage] = useState('')
+  const [actionError, setActionError] = useState('')
 
   async function handleCheckout(plan: 'passive' | 'active' | 'executive') {
     setLoading(plan)
+    setActionError('')
+    setActionMessage('')
     try {
       const res = await fetch('/api/billing/checkout', {
         method: 'POST',
@@ -39,11 +43,11 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         body: JSON.stringify({ plan, interval }),
       })
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
-      if (data.error) { alert(data.error); return }
-      if (!data.url) { alert('No checkout URL returned'); return }
+      if (data.error) { setActionError(data.error); return }
+      if (!data.url) { setActionError('No checkout URL returned. Please try again.'); return }
       window.location.href = data.url
     } catch (e) {
-      alert(`Checkout failed: ${e}`)
+      setActionError(`Checkout failed: ${e}`)
     } finally {
       setLoading(null)
     }
@@ -52,6 +56,8 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   async function handlePortal() {
     setLoading('portal')
     setPortalError('')
+    setActionError('')
+    setActionMessage('')
     try {
       const res = await fetch('/api/billing/portal', { method: 'POST' })
       const { url, error } = await res.json()
@@ -62,19 +68,24 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         return
       }
       window.location.href = url
+    } catch {
+      setPortalError('Could not open billing portal right now. Please try again.')
     } finally {
       setLoading(null)
     }
   }
 
   async function handlePause() {
-    if (!confirm('Pause your subscription? You will lose access to AI features until you resume.')) return
     setLoading('pause')
+    setActionError('')
+    setActionMessage('')
     try {
       const res = await fetch('/api/billing/pause', { method: 'POST' })
       const { ok, error } = await res.json()
-      if (error) { alert(error); return }
+      if (error) { setActionError(error); return }
       if (ok) window.location.reload()
+    } catch {
+      setActionError('Could not pause subscription right now. Please try again.')
     } finally {
       setLoading(null)
     }
@@ -82,11 +93,15 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 
   async function handleResume() {
     setLoading('resume')
+    setActionError('')
+    setActionMessage('')
     try {
       const res = await fetch('/api/billing/resume', { method: 'POST' })
       const { ok, error } = await res.json()
-      if (error) { alert(error); return }
+      if (error) { setActionError(error); return }
       if (ok) window.location.reload()
+    } catch {
+      setActionError('Could not resume subscription right now. Please try again.')
     } finally {
       setLoading(null)
     }
@@ -225,6 +240,16 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
           {portalError && (
             <div className="mt-3 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
               {portalError}
+            </div>
+          )}
+          {actionError && (
+            <div className="mt-3 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+              {actionError}
+            </div>
+          )}
+          {actionMessage && (
+            <div className="mt-3 px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
+              {actionMessage}
             </div>
           )}
         </div>
