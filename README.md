@@ -94,6 +94,7 @@ npm run evals:readiness:md
 npm run evals:readiness:summary
 npm run evals:readiness:summary:strict
 npm run evals:readiness:snapshot
+npm run evals:readiness:snapshot:json
 
 # One-command closeout flow
 npm run evals:closeout       # doctor -> readiness -> export -> strict verify

@@ -4,13 +4,26 @@ import path from 'node:path'
 import { spawn } from 'node:child_process'
 
 const ROOT = process.cwd()
-const DEFAULT_OUTPUT = path.join(ROOT, 'docs', 'status', 'prep-brief-evals-readiness.md')
+const DEFAULT_OUTPUT_MARKDOWN = path.join(ROOT, 'docs', 'status', 'prep-brief-evals-readiness.md')
+const DEFAULT_OUTPUT_JSON = path.join(ROOT, 'docs', 'status', 'prep-brief-evals-readiness.json')
 
 function parseArgs(argv) {
   const args = argv.slice(2)
-  let outputPath = DEFAULT_OUTPUT
+  let outputPath = ''
+  let format = 'markdown'
 
   for (let i = 0; i < args.length; i += 1) {
+    if (args[i] === '--format' && args[i + 1]) {
+      const nextFormat = args[i + 1].toLowerCase()
+      if (nextFormat === 'markdown' || nextFormat === 'json') {
+        format = nextFormat
+      } else {
+        throw new Error(`Unsupported format: ${args[i + 1]}. Use markdown or json.`)
+      }
+      i += 1
+      continue
+    }
+
     if (args[i] === '--output' && args[i + 1]) {
       outputPath = path.isAbsolute(args[i + 1])
         ? args[i + 1]
@@ -19,13 +32,19 @@ function parseArgs(argv) {
     }
   }
 
-  return { outputPath }
+  if (!outputPath) {
+    outputPath = format === 'json' ? DEFAULT_OUTPUT_JSON : DEFAULT_OUTPUT_MARKDOWN
+  }
+
+  return { outputPath, format }
 }
 
-function runReadinessMarkdown() {
+function runReadiness(mode) {
+  const args = mode === 'json' ? ['--json'] : ['--markdown']
+
   return new Promise((resolve, reject) => {
     const readinessScript = path.join(ROOT, 'scripts', 'check-prep-brief-evals-readiness.mjs')
-    const child = spawn(process.execPath, [readinessScript, '--markdown'], {
+    const child = spawn(process.execPath, [readinessScript, ...args], {
       cwd: ROOT,
       stdio: ['inherit', 'pipe', 'inherit'],
     })
@@ -48,12 +67,26 @@ function runReadinessMarkdown() {
   })
 }
 
+function parseJsonFromOutput(output) {
+  const withoutAnsi = output.replace(/\u001b\[[0-9;]*m/g, '')
+  const trimmed = withoutAnsi.trim()
+  if (!trimmed) {
+    throw new Error('No JSON output received')
+  }
+
+  const lines = trimmed.split(/\r?\n/)
+  const jsonStart = lines.findIndex((line) => line.trimStart().startsWith('{'))
+  const candidate = jsonStart >= 0 ? lines.slice(jsonStart).join('\n').trim() : trimmed
+  return JSON.stringify(JSON.parse(candidate), null, 2) + '\n'
+}
+
 async function main() {
-  const { outputPath } = parseArgs(process.argv)
-  const markdown = await runReadinessMarkdown()
+  const { outputPath, format } = parseArgs(process.argv)
+  const raw = await runReadiness(format)
+  const content = format === 'json' ? parseJsonFromOutput(raw) : raw
 
   await fs.mkdir(path.dirname(outputPath), { recursive: true })
-  await fs.writeFile(outputPath, markdown, 'utf8')
+  await fs.writeFile(outputPath, content, 'utf8')
 
   console.log(`Readiness snapshot written: ${outputPath}`)
 }
