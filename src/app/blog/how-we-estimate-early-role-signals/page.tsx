@@ -38,8 +38,8 @@ export default function EarlyRoleSignalsMethodPage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>
-          We use the phrase <strong>"often 1-3 weeks before they post"</strong> on our homepage. This post explains exactly
-          how we calculate that window, what data supports it, and where uncertainty remains.
+          Our homepage now leads with <strong>"Be ready. Be early."</strong> This post explains the timing model behind that
+          promise: how we calculate early-signal windows, what data supports them, and where uncertainty remains.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What the claim means</h2>

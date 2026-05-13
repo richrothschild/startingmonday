@@ -1,7 +1,7 @@
 ﻿import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
-export const alt = 'Starting Monday - Find executive roles before they post'
+export const alt = 'Starting Monday - Be ready. Be early.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

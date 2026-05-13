@@ -139,7 +139,7 @@ export default function HomePage() {
       <LandingPage
         hero={{
           eyebrow: 'Signal intelligence for C-suite technology searches.',
-          h1Lines: ['Spot executive opportunities', '1\u20133 weeks before they post.'],
+          h1Lines: ['Be ready.', 'Be early.'],
           claimMethodLabel: 'How we estimate the timing window (method and sources)',
           claimMethodHref: '/blog/how-we-estimate-early-role-signals',
           body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
