@@ -145,6 +145,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Partners
             </Link>
+            <Link href="/refer" className="text-[13px] font-semibold text-green-400 border border-green-200 bg-green-50 px-4 py-1.5 rounded hover:bg-green-100 hover:text-green-700 transition-colors ml-1">
+              Refer a Leader
+            </Link>
             <Link href="/about" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
               About
             </Link>
@@ -731,6 +734,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/partners" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Partners</Link>
+              <Link href="/refer" className="text-[12px] font-semibold text-green-500 hover:text-green-700 transition-colors">Refer a Leader</Link>
               <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
