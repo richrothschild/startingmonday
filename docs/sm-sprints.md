@@ -263,6 +263,7 @@ Write up the VC/PE pricing: $250 setup fee + $129/month Active or $249/month Exe
 
 **[M] 2.7 — LinkedIn paid ads setup** (2h)
 Account setup only if trial-to-paid conversion is measured at ≥35% by this sprint. If not, defer. Ad creative: "We scanned 500 career pages this week..." and "Start monitoring your companies before the search goes public." $500 test budget targeting CIO/CTO/VP IT with "open to work" signal.
+*Decision (2026-05-12): Deferred. Gate check returned 0 ended trials and no measurable conversion baseline yet.*
 
 **[S] Second SEO article** (1h)
 Topic: "Executive job search daily routine — what the top 1% of senior candidates do differently."
