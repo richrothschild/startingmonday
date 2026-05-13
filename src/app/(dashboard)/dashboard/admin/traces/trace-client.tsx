@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { rateTrace } from './actions'
 
@@ -331,6 +331,7 @@ export function TraceViewer({
   const [showCopyPreview, setShowCopyPreview] = useState(false)
   const [trimForSlack, setTrimForSlack] = useState(false)
   const [showCopyActions, setShowCopyActions] = useState(false)
+  const copyActionsRef = useRef<HTMLDivElement | null>(null)
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -354,6 +355,31 @@ export function TraceViewer({
   useEffect(() => {
     setDenseMode(focusMode)
   }, [focusMode])
+
+  useEffect(() => {
+    if (!showCopyActions) return
+
+    function onDocumentMouseDown(event: MouseEvent) {
+      const target = event.target as Node | null
+      if (!target) return
+      if (copyActionsRef.current?.contains(target)) return
+      setShowCopyActions(false)
+    }
+
+    function onDocumentKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setShowCopyActions(false)
+      }
+    }
+
+    document.addEventListener('mousedown', onDocumentMouseDown)
+    document.addEventListener('keydown', onDocumentKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', onDocumentMouseDown)
+      document.removeEventListener('keydown', onDocumentKeyDown)
+    }
+  }, [showCopyActions])
 
   useEffect(() => {
     if (!toast) return
@@ -752,7 +778,7 @@ export function TraceViewer({
               </button>
             )}
             {summaryRows.length > 0 && (
-              <div className="relative">
+              <div className="relative" ref={copyActionsRef}>
                 <button
                   type="button"
                   onClick={() => setShowCopyActions((value) => !value)}
