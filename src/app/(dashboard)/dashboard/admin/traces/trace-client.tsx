@@ -266,6 +266,7 @@ function TraceRow({
           {/* Output snapshot */}
           {trace.output_snapshot && (
             <div className="mb-3">
+          const [focusMode, setFocusMode] = useState(false)
               <button
                 type="button"
                 onClick={() => setExpanded(v => !v)}
@@ -430,6 +431,11 @@ export function TraceViewer({
         void undoLastBulkApplyTopTag()
         return
       }
+      if (key === 'd' && focusMode) {
+        event.preventDefault()
+        setDenseMode((value) => !value)
+        return
+      }
       if (key === 'g') {
         event.preventDefault()
         const nextIndex = event.shiftKey ? visibleTraces.length - 1 : 0
@@ -457,6 +463,7 @@ export function TraceViewer({
     isApplyingTopTag,
     lastBulkApply,
     isUndoingTopTag,
+    focusMode,
   ])
 
   useEffect(() => {
@@ -903,6 +910,7 @@ export function TraceViewer({
           <button
             type="button"
             onClick={() => setDenseMode((v) => !v)}
+            aria-keyshortcuts="D"
             className="ml-auto text-[11px] font-semibold border border-slate-200 bg-white text-slate-700 hover:border-slate-400 px-2 py-1 rounded transition-colors"
           >
             {denseMode ? 'Dense view: on' : 'Dense view: off'}
@@ -926,7 +934,7 @@ export function TraceViewer({
                 Top theme: <span className="font-semibold text-slate-700">{topFailureTheme[0]}</span> ({topFailureTheme[1]})
               </p>
             )}
-            <p className="text-[10px] text-slate-400 mt-1">Keyboard: A = apply top tag, Z = undo last bulk apply.</p>
+            <p className="text-[10px] text-slate-400 mt-1">Keyboard: A = apply top tag, Z = undo last bulk apply, D = toggle dense view.</p>
           </div>
           <div className="flex items-center gap-1">
             {topFailureTheme && untaggedFailedTraces.length > 0 && (
@@ -1142,7 +1150,7 @@ export function TraceViewer({
 
       {unratedOnly && visibleTraces.length > 0 && (
         <p className="text-[11px] text-slate-500 mb-3">
-          Focus mode: shortcuts apply to the active trace. Use J/K to change active row, G/Shift+G for first/last row, and 1-8 for fail tags. Rate and it auto-advances.
+          Focus mode: shortcuts apply to the active trace. Use J/K to change active row, G/Shift+G for first/last row, D for dense view, and 1-8 for fail tags. Rate and it auto-advances.
         </p>
       )}
 
