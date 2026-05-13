@@ -101,6 +101,7 @@ function TraceRow({
   enableShortcuts,
   shortcutsBlocked,
   denseMode,
+  rowRef,
   onActivate,
   onRated,
 }: {
@@ -108,6 +109,7 @@ function TraceRow({
   enableShortcuts: boolean
   shortcutsBlocked?: boolean
   denseMode: boolean
+  rowRef?: (element: HTMLDivElement | null) => void
   onActivate?: (traceId: string) => void
   onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) => void
 }) {
@@ -191,6 +193,7 @@ function TraceRow({
 
   return (
     <div
+      ref={rowRef}
       className={`border-b border-slate-100 ${evalPass === true ? 'bg-emerald-50/30' : evalPass === false ? 'bg-red-50/30' : ''} ${enableShortcuts ? 'ring-1 ring-slate-300 ring-inset' : ''}`}
       onMouseDown={() => onActivate?.(trace.id)}
     >
@@ -354,6 +357,7 @@ export function TraceViewer({
   const [copyMenuAnnouncement, setCopyMenuAnnouncement] = useState('')
   const [activeRowId, setActiveRowId] = useState<string | null>(traces[0]?.id ?? null)
   const copyActionsRef = useRef<HTMLDivElement | null>(null)
+  const rowRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const copyActionsToggleRef = useRef<HTMLButtonElement | null>(null)
   const copyActionItemRefs = useRef<Array<HTMLButtonElement | null>>([])
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
@@ -393,6 +397,13 @@ export function TraceViewer({
   useEffect(() => {
     setDenseMode(focusMode)
   }, [focusMode])
+
+  useEffect(() => {
+    if (!focusMode || !activeRowId) return
+    const rowElement = rowRefs.current[activeRowId]
+    if (!rowElement) return
+    rowElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [focusMode, activeRowId])
 
   useEffect(() => {
     if (visibleTraces.length === 0) return
@@ -1162,6 +1173,13 @@ export function TraceViewer({
               enableShortcuts={t.id === activeRowId || (activeRowId == null && idx === 0)}
               shortcutsBlocked={showCopyActions}
               denseMode={denseMode}
+              rowRef={(element) => {
+                if (element) {
+                  rowRefs.current[t.id] = element
+                } else {
+                  delete rowRefs.current[t.id]
+                }
+              }}
               onActivate={setActiveRowId}
               onRated={handleRated}
             />
