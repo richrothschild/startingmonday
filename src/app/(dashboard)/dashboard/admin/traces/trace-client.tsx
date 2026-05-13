@@ -98,12 +98,14 @@ function buildUrl(params: { feature?: string; unrated?: string; page?: string })
 function TraceRow({
   trace,
   enableShortcuts,
+  shortcutsBlocked,
   denseMode,
   onActivate,
   onRated,
 }: {
   trace: Trace
   enableShortcuts: boolean
+  shortcutsBlocked?: boolean
   denseMode: boolean
   onActivate?: (traceId: string) => void
   onRated?: (traceId: string, prevPass: boolean | null, nextPass: boolean | null, categories: string[]) => void
@@ -144,7 +146,7 @@ function TraceRow({
   }
 
   useEffect(() => {
-    if (!enableShortcuts) return
+    if (!enableShortcuts || shortcutsBlocked) return
 
     function onKeyDown(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null
@@ -165,12 +167,19 @@ function TraceRow({
       } else if (event.key.toLowerCase() === 'o') {
         event.preventDefault()
         setExpanded((value) => !value)
+      } else if (/^[1-8]$/.test(event.key) && evalPass === false) {
+        event.preventDefault()
+        const idx = Number(event.key) - 1
+        const category = FAILURE_CATEGORIES[idx]
+        if (category) {
+          toggleCategory(category)
+        }
       }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [enableShortcuts, evalNotesBody, categories, evalPass])
+  }, [enableShortcuts, shortcutsBlocked, evalNotesBody, categories, evalPass])
 
   const tokens = (trace.prompt_tokens ?? 0) + (trace.completion_tokens ?? 0)
   const dateStr = new Date(trace.created_at).toLocaleString('en-US', {
@@ -274,7 +283,7 @@ function TraceRow({
 
           {/* Notes */}
           <div className="mb-2 flex flex-wrap items-center gap-1.5">
-            {FAILURE_CATEGORIES.map((category) => {
+            {FAILURE_CATEGORIES.map((category, idx) => {
               const active = categories.includes(category)
               return (
                 <button
@@ -287,7 +296,7 @@ function TraceRow({
                       : 'bg-white text-slate-500 border-slate-200 hover:border-slate-400'
                   }`}
                 >
-                  {category}
+                  <span className="mr-1 font-semibold">{idx + 1}</span>{category}
                 </button>
               )
             })}
@@ -301,7 +310,7 @@ function TraceRow({
             rows={denseMode ? 1 : 2}
             className="w-full text-[12px] text-slate-700 border border-slate-200 rounded px-3 py-2 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
           />
-          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated, O = output, J/K = active row.</p>
+          <p className="mt-1.5 text-[10px] text-slate-400">Shortcuts: P = pass, F = fail, U = unrated, O = output, J/K = active row, 1-8 = fail tags.</p>
         </div>
       </div>
     </div>
@@ -1081,7 +1090,7 @@ export function TraceViewer({
 
       {unratedOnly && visibleTraces.length > 0 && (
         <p className="text-[11px] text-slate-500 mb-3">
-          Focus mode: shortcuts apply to the active trace. Use J/K to change active row. Rate and it auto-advances.
+          Focus mode: shortcuts apply to the active trace. Use J/K to change active row and 1-8 for fail tags. Rate and it auto-advances.
         </p>
       )}
 
@@ -1116,6 +1125,7 @@ export function TraceViewer({
               key={t.id}
               trace={t}
               enableShortcuts={t.id === activeRowId || (activeRowId == null && idx === 0)}
+              shortcutsBlocked={showCopyActions}
               denseMode={denseMode}
               onActivate={setActiveRowId}
               onRated={handleRated}
