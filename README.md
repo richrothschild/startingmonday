@@ -110,6 +110,9 @@ npm run evals:help:status:json
 # Prerequisite check
 npm run evals:doctor
 npm run evals:doctor:strict
+
+# CI gate
+npm run evals:ci:check
 ```
 
 Primary labeling UI:
