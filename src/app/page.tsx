@@ -138,15 +138,14 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Signal intelligence for C-suite technology searches.',
+          eyebrow: 'A disciplined search system for senior technology executives.',
           h1Lines: ['Be ready.', 'Be early.'],
-          claimMethodLabel: 'How we estimate the timing window (method and sources)',
-          claimMethodHref: '/blog/how-we-estimate-early-role-signals',
-          body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
+          bodyPreamble: 'The strongest candidates do not wait for the market to tell them it is time to prepare.',
+          body: 'Starting Monday helps you run the search before it becomes reactive: track target companies, spot movement worth acting on, prepare faster, and walk into the right conversation with a sharper point of view.',
           steps: [
             'Add your target companies.',
-            'Upload your resume.',
-            'Your first briefing is ready by morning.',
+            'Set your search level and narrative.',
+            'Wake up to your first briefing by morning.',
           ],
           trialNote: 'Free for 30 days. No credit card.',
         }}
