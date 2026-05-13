@@ -466,6 +466,7 @@ export function TraceViewer({
   const copyPreviewLines = copyPreviewPayload.length > 0 ? copyPreviewPayload.split('\n').length : 0
   const slackCharLimit = 4000
   const fitsSlack = copyPreviewChars <= slackCharLimit
+  const shouldSuggestTrimForSlack = !fitsSlack && !trimForSlack
 
   async function applyTopTagToUntaggedFails() {
     if (!topFailureTheme || untaggedFailedTraces.length === 0 || isApplyingTopTag) return
@@ -798,6 +799,18 @@ export function TraceViewer({
                 </span>
               </div>
             </div>
+            {shouldSuggestTrimForSlack && (
+              <div className="mb-2 flex items-center justify-between gap-2 rounded border border-amber-200 bg-amber-50 px-2 py-1.5">
+                <p className="text-[10px] text-amber-800">Payload exceeds Slack-friendly length. Enable Trim for Slack?</p>
+                <button
+                  type="button"
+                  onClick={() => setTrimForSlack(true)}
+                  className="text-[10px] font-semibold rounded border border-amber-300 bg-white text-amber-800 hover:border-amber-500 px-2 py-1 transition-colors"
+                >
+                  Enable trim
+                </button>
+              </div>
+            )}
             <pre className="text-[10px] text-slate-600 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
               {copyPreviewPayload}
             </pre>
