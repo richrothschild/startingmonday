@@ -112,6 +112,11 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
 
           {/* Monitor */}
           <div className="border border-slate-200 rounded-lg p-5 sm:p-6 flex flex-col">
+            {/* KPI Row */}
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-[13px] font-bold text-green-600">$49/mo</span>
+              <span className="text-[12px] text-slate-400">Track up to 25 companies, get weekly signals</span>
+            </div>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Monitor</p>
             <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
               ${price('passive')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
@@ -140,6 +145,11 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
 
           {/* Active — most popular, orange border */}
           <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col relative">
+            {/* KPI Row */}
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-[13px] font-bold text-green-600">$199/mo</span>
+              <span className="text-[12px] text-slate-400">Unlimited briefs, daily signals, AI advisor</span>
+            </div>
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
               <span className="text-[10px] font-bold tracking-[0.08em] uppercase bg-orange-500 text-slate-900 px-3 py-1 rounded-full whitespace-nowrap">Most popular</span>
             </div>
@@ -172,6 +182,11 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
 
           {/* Executive — slate-900 authority */}
           <div className="border border-slate-800 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
+            {/* KPI Row */}
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-[13px] font-bold text-green-400">$499/mo</span>
+              <span className="text-[12px] text-green-200">Full pipeline, salary intelligence, recruiter tracker</span>
+            </div>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Executive</p>
             <p className="text-[32px] font-bold text-white leading-none mb-1">
               ${price('executive')}<span className="text-[16px] font-normal text-slate-500">/mo</span>
