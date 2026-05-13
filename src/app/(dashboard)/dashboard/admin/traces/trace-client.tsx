@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState, useTransition } from 'react'
+import { useEffect, useRef, useState, useTransition, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Link from 'next/link'
 import { rateTrace } from './actions'
 
@@ -332,6 +332,8 @@ export function TraceViewer({
   const [trimForSlack, setTrimForSlack] = useState(false)
   const [showCopyActions, setShowCopyActions] = useState(false)
   const copyActionsRef = useRef<HTMLDivElement | null>(null)
+  const copyActionsToggleRef = useRef<HTMLButtonElement | null>(null)
+  const copyActionItemRefs = useRef<Array<HTMLButtonElement | null>>([])
   const focusMode = unratedOnly && currentFeature === 'prep_brief'
   const [denseMode, setDenseMode] = useState(focusMode)
 
@@ -359,6 +361,10 @@ export function TraceViewer({
   useEffect(() => {
     if (!showCopyActions) return
 
+    const focusTimeout = window.setTimeout(() => {
+      copyActionItemRefs.current[0]?.focus()
+    }, 0)
+
     function onDocumentMouseDown(event: MouseEvent) {
       const target = event.target as Node | null
       if (!target) return
@@ -376,10 +382,38 @@ export function TraceViewer({
     document.addEventListener('keydown', onDocumentKeyDown)
 
     return () => {
+      window.clearTimeout(focusTimeout)
       document.removeEventListener('mousedown', onDocumentMouseDown)
       document.removeEventListener('keydown', onDocumentKeyDown)
     }
   }, [showCopyActions])
+
+  function focusCopyActionByIndex(index: number) {
+    const buttons = copyActionItemRefs.current.filter(Boolean)
+    if (buttons.length === 0) return
+    const next = ((index % buttons.length) + buttons.length) % buttons.length
+    buttons[next]?.focus()
+  }
+
+  function onCopyActionKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>, index: number) {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      focusCopyActionByIndex(index + 1)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      focusCopyActionByIndex(index - 1)
+    } else if (event.key === 'Home') {
+      event.preventDefault()
+      focusCopyActionByIndex(0)
+    } else if (event.key === 'End') {
+      event.preventDefault()
+      focusCopyActionByIndex(copyActionItemRefs.current.length - 1)
+    } else if (event.key === 'Escape') {
+      event.preventDefault()
+      setShowCopyActions(false)
+      copyActionsToggleRef.current?.focus()
+    }
+  }
 
   useEffect(() => {
     if (!toast) return
@@ -781,6 +815,7 @@ export function TraceViewer({
               <div className="relative" ref={copyActionsRef}>
                 <button
                   type="button"
+                  ref={copyActionsToggleRef}
                   onClick={() => setShowCopyActions((value) => !value)}
                   className={`text-[10px] px-2 py-1 rounded border transition-colors ${
                     showCopyActions
@@ -791,9 +826,12 @@ export function TraceViewer({
                   Copy actions
                 </button>
                 {showCopyActions && (
-                  <div className="absolute right-0 top-[calc(100%+4px)] z-10 min-w-[150px] bg-white border border-slate-200 rounded shadow-sm p-1 space-y-1">
+                  <div role="menu" className="absolute right-0 top-[calc(100%+4px)] z-10 min-w-[150px] bg-white border border-slate-200 rounded shadow-sm p-1 space-y-1">
                     <button
                       type="button"
+                      role="menuitem"
+                      ref={(el) => { copyActionItemRefs.current[0] = el }}
+                      onKeyDown={(event) => onCopyActionKeyDown(event, 0)}
                       onClick={() => { setShowCopyActions(false); void copyFailureSummary() }}
                       className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
                     >
@@ -801,6 +839,9 @@ export function TraceViewer({
                     </button>
                     <button
                       type="button"
+                      role="menuitem"
+                      ref={(el) => { copyActionItemRefs.current[1] = el }}
+                      onKeyDown={(event) => onCopyActionKeyDown(event, 1)}
                       onClick={() => { setShowCopyActions(false); void copyCompactSummary() }}
                       className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
                     >
@@ -808,6 +849,9 @@ export function TraceViewer({
                     </button>
                     <button
                       type="button"
+                      role="menuitem"
+                      ref={(el) => { copyActionItemRefs.current[2] = el }}
+                      onKeyDown={(event) => onCopyActionKeyDown(event, 2)}
                       onClick={() => { setShowCopyActions(false); void copyCompactSummaryTable() }}
                       className="w-full text-left text-[10px] px-2 py-1 rounded text-slate-600 hover:bg-slate-50"
                     >
