@@ -430,6 +430,12 @@ export function TraceViewer({
         void undoLastBulkApplyTopTag()
         return
       }
+      if (key === 'g') {
+        event.preventDefault()
+        const nextIndex = event.shiftKey ? visibleTraces.length - 1 : 0
+        setActiveRowId(visibleTraces[nextIndex]?.id ?? null)
+        return
+      }
       if (key !== 'j' && key !== 'k') return
 
       event.preventDefault()
@@ -1136,7 +1142,7 @@ export function TraceViewer({
 
       {unratedOnly && visibleTraces.length > 0 && (
         <p className="text-[11px] text-slate-500 mb-3">
-          Focus mode: shortcuts apply to the active trace. Use J/K to change active row and 1-8 for fail tags. Rate and it auto-advances.
+          Focus mode: shortcuts apply to the active trace. Use J/K to change active row, G/Shift+G for first/last row, and 1-8 for fail tags. Rate and it auto-advances.
         </p>
       )}
 
