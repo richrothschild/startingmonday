@@ -6,16 +6,68 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
 
-const SITUATION_COPY: Record<string, { title: string; sub: string }> = {
-  urgent:       { title: 'You need to land well. Quickly.',               sub: 'Your first briefing is ready by morning. Add target companies and Starting Monday starts working tonight.' },
-  executive:    { title: 'Targeted search. Moving faster starts now.',    sub: 'Your pipeline, your signals, your prep briefs — all in one place from day one.' },
-  building:     { title: 'Build your list before you announce anything.', sub: 'Track target companies silently. Your employer will never know you\'re watching.' },
-  restructured: { title: 'You know your worth.',                          sub: 'Land at the right level, not just the next one. Every brief is calibrated to the role you deserve.' },
-  passive:      { title: 'Not ready to commit. That\'s fine.',            sub: 'Monitor your targets in the background. You\'ll know the moment something changes.' },
-  'vp-up':      { title: 'You have the record. Now run the campaign.',    sub: 'Every output — prep briefs, outreach, strategy — calibrated to the altitude you\'re moving toward.' },
-  returning:    { title: 'This is the one that sticks.',                  sub: 'One step at a time. Add your first company and the system starts working.' },
-  'low-energy':  { title: 'One thing at a time.',                          sub: 'Set it up once. The briefing comes to you. The system does the heavy lifting.' },
-  optionality:   { title: "You want to know before you have to.",          sub: "Monitor your target companies without committing to an active campaign. The platform works in the background." },
+type SituationContent = {
+  title: string
+  sub: string
+  firstStep: string
+  cta: string
+}
+
+const SITUATION_COPY: Record<string, SituationContent> = {
+  urgent: {
+    title: 'You need to land well. Quickly.',
+    sub: 'Your first briefing is ready by morning. Add target companies and Starting Monday starts working tonight.',
+    firstStep: 'Add your top 10 target companies so tomorrow morning has one clear priority action.',
+    cta: 'start your campaign',
+  },
+  executive: {
+    title: 'Targeted search. Moving faster starts now.',
+    sub: 'Your pipeline, your signals, your prep briefs - all in one place from day one.',
+    firstStep: 'Set your level and create your first campaign pipeline.',
+    cta: 'launch your campaign',
+  },
+  building: {
+    title: 'Build your list before you announce anything.',
+    sub: 'Track target companies silently. Your employer will never know you\'re watching.',
+    firstStep: 'Start with quiet monitoring on companies you would call first if a transition signal appears.',
+    cta: 'start monitoring quietly',
+  },
+  restructured: {
+    title: 'You know your worth.',
+    sub: 'Land at the right level, not just the next one. Every brief is calibrated to the role you deserve.',
+    firstStep: 'Define your target level first, then add companies that match that altitude.',
+    cta: 'start at the right level',
+  },
+  passive: {
+    title: 'Not ready to commit. That\'s fine.',
+    sub: 'Monitor your targets in the background. You\'ll know the moment something changes.',
+    firstStep: 'Begin in low-visibility mode and track target companies without active outreach.',
+    cta: 'start in monitor mode',
+  },
+  'vp-up': {
+    title: 'You have the record. Now run the campaign.',
+    sub: 'Every output - prep briefs, outreach, strategy - calibrated to the altitude you\'re moving toward.',
+    firstStep: 'Set your campaign to VP-to-CXO mode and generate your first positioning brief.',
+    cta: 'start your VP-to-CXO campaign',
+  },
+  returning: {
+    title: 'This is the one that sticks.',
+    sub: 'One step at a time. Add your first company and the system starts working.',
+    firstStep: 'Rebuild momentum by tracking one company first, then expand to your full list.',
+    cta: 'restart your campaign',
+  },
+  'low-energy': {
+    title: 'One thing at a time.',
+    sub: 'Set it up once. The briefing comes to you. The system does the heavy lifting.',
+    firstStep: 'Do one setup pass now so your morning briefing handles the daily execution rhythm.',
+    cta: 'set up once and start',
+  },
+  optionality: {
+    title: 'You want to know before you have to.',
+    sub: 'Monitor your target companies without committing to an active campaign. The platform works in the background.',
+    firstStep: 'Track optionality targets now so you can move the same day a signal appears.',
+    cta: 'start your optionality track',
+  },
 }
 
 export default function SignupPage() {
@@ -187,6 +239,14 @@ export default function SignupPage() {
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
                     <p className="text-[12px] text-slate-400 mt-3">Create your account below. 30 days free. No credit card.</p>
+                    <div className="mt-4 bg-white border border-slate-200 rounded p-3">
+                      <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
+                      <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
+                        <li>1. Create your account</li>
+                        <li>2. {SITUATION_COPY[situation].firstStep}</li>
+                        <li>3. Morning rhythm starts: one priority action each day</li>
+                      </ol>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -273,7 +333,7 @@ export default function SignupPage() {
                     disabled={loading}
                     className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Creating account…' : 'Get started'}
+                    {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
                   <p className="text-center text-[11px] text-slate-400">
                     Your employer cannot see this. We never share your data with recruiters, employers, or third parties.{' '}

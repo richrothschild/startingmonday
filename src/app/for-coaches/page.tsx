@@ -139,6 +139,7 @@ export default function ForCoachesPage() {
                     <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
                     <p className="text-[13px] text-slate-700 font-medium">Give your client the discipline to move fast and the signal awareness to strike at the right moment. You become their strategic thinking partner, not their research assistant. You can now assess readiness for Q3 moves based on signals, not hope.</p>
                   </div>
+                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client stops feeling behind and starts feeling in control between sessions.</p>
                 </div>
               </div>
               <div className="border border-slate-200 rounded-lg p-6 bg-white">
@@ -153,6 +154,7 @@ export default function ForCoachesPage() {
                     <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
                     <p className="text-[13px] text-slate-700 font-medium">Maintain momentum over years without the work consuming you. Quarterly outreach cadence, updated narrative, sustained relationship tracking. You become the keeper of their executive narrative. Your engagement time doesn't increase. Your impact does.</p>
                   </div>
+                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client moves from uncertainty about readiness to confidence in progression and timing.</p>
                 </div>
               </div>
               <div className="border border-slate-200 rounded-lg p-6 bg-white">
@@ -167,6 +169,7 @@ export default function ForCoachesPage() {
                     <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
                     <p className="text-[13px] text-slate-700 font-medium">See what they are doing, what signals they are missing, what companies are moving. Coach with full context. Your 2-week window becomes 4 weeks of advantage. You become the coach search firms call repeatedly for C-suite placements.</p>
                   </div>
+                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client replaces interview anxiety with peer-level confidence before each round.</p>
                 </div>
               </div>
               <div className="border border-slate-200 rounded-lg p-6 bg-white">
@@ -181,7 +184,34 @@ export default function ForCoachesPage() {
                     <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
                     <p className="text-[13px] text-slate-700 font-medium">Monitor board composition changes, governance signals, and PE transitions at scale. You maintain relationships over years without consuming your attention. Your credibility compounds. Coaches who maintain quarterly outreach cadence see 40% more client activations in the next cycle.</p>
                   </div>
+                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client moves from low-grade uncertainty to steady long-range confidence in board positioning.</p>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              Execution rhythm
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-8 max-w-xl leading-snug">
+              Three touchpoints. No wasted motion.
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+              <div className="border-t-2 border-orange-500 pt-5">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Monday morning</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Review the pipeline together.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">Update stages. Drop what has gone cold. Choose who moves to outreach this week.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-5">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Every morning</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Act on overnight signals.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">One decision: which company to contact first. The briefing surfaces it. Your client acts.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-5">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Before each interview</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute. Win thesis, likely objections, and peer-level questions before the session starts.</p>
               </div>
             </div>
           </section>

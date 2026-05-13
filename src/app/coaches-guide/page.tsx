@@ -131,6 +131,30 @@ export default function CoachesGuidePage() {
             </div>
           </section>
 
+          <section className="space-y-6">
+            <h2 className="text-[22px] font-bold text-slate-900">Execution rhythm your clients follow</h2>
+            <p className="text-[15px] text-slate-700 leading-relaxed">
+              Keep the cadence language consistent in every client kickoff: Monday morning review, every morning action, and prep brief before each interview.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="border-t-2 border-orange-500 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Monday morning</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Review your pipeline</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Update stages, remove stale paths, and select this week&rsquo;s outreach priorities.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Every morning</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Act on overnight signals</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Make one decision first: who to contact now based on fresh signal clusters.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Before each interview</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Run the prep brief</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Usually one minute to get win thesis, likely objections, and peer-level questions.</p>
+              </div>
+            </div>
+          </section>
+
           {/* What it does not do */}
           <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
             <h2 className="text-[22px] font-bold text-slate-900">What it does not do</h2>

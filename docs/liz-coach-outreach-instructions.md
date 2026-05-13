@@ -89,6 +89,27 @@ Rich is personalizing these, so they won't look exactly like this. But if you ge
 
 ---
 
+## Objection-Handling Appendix (5 Common Pushbacks)
+
+Use these when coaches respond with hesitation. Keep replies short and specific.
+
+### 1) "My clients already pay me for this."
+- **Reply:** "Exactly - this supports your delivery, it does not replace it. It handles tracking and daily intelligence between sessions so your paid time stays strategic."
+
+### 2) "I do not want another tool to manage."
+- **Reply:** "The workflow is simple: Monday pipeline review, every morning signal action, prep brief before interviews. Setup once, then cadence runs daily."
+
+### 3) "My clients are confidential."
+- **Reply:** "Private by default. No recruiter visibility, no employer visibility, and client-controlled access. Confidentiality is a core requirement, not an afterthought."
+
+### 4) "AI content is usually generic."
+- **Reply:** "The output is company-specific and role-specific. Coaches review and edit before client use, so quality stays aligned with your standard."
+
+### 5) "Not sure the economics are worth it."
+- **Reply:** "Partner model is 20% recurring on active referrals. More importantly, clients stay engaged between sessions, which improves both outcomes and retention."
+
+---
+
 ## Success Metrics
 
 **What we're tracking:**

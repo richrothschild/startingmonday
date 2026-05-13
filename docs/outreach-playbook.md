@@ -67,3 +67,39 @@ If there is still no response, let it rest for 60 days and try again with a new 
 The outreach drafting tool generates a personalized message based on the contact's role and company, recent signals at their organization, and your positioning and relevant background. It produces a draft you own and edit — not something you send verbatim.
 
 Read every draft aloud before sending it. If it sounds like something a machine wrote, rewrite it. The signal is in the specificity and the voice. If it could have been sent by anyone, it will be received as if it came from no one.
+
+---
+
+## Objection-Handling Appendix (Coach and Partner Outreach)
+
+Use these as rebuttal frameworks, not scripts. Keep every reply short, specific, and tied to the coach or partner context.
+
+### 1) "My clients already have me. They do not need another tool."
+
+**What this really means:** Fear that software will commoditize coaching.
+
+**Rebuttal:** "Exactly. This is not replacing coaching. It removes the research and tracking burden between sessions so your paid time stays strategic. Most coaches use it to spend less time rebuilding context and more time on decision quality."
+
+### 2) "I do not want to introduce new process friction for my clients."
+
+**What this really means:** Concern about activation effort and client drop-off.
+
+**Rebuttal:** "The first setup is one pass, then the rhythm is automatic: Monday pipeline review, every morning signal action, prep brief before interviews. Coaches report better follow-through because the system creates daily momentum without extra meetings."
+
+### 3) "My clients are private. They will not want visibility risk."
+
+**What this really means:** Trust and confidentiality concern.
+
+**Rebuttal:** "That is the design center. Private by default. No employer visibility. No recruiter visibility. Data is not shared externally, and clients control who can view their pipeline."
+
+### 4) "I have seen AI output that is generic. I cannot stake my reputation on that."
+
+**What this really means:** Quality and brand-risk concern.
+
+**Rebuttal:** "Do not use generic output. The prep brief is company-specific and role-specific, and coaches edit the final narrative before clients use it. The point is faster first draft and better readiness, not blind automation."
+
+### 5) "The economics do not justify another platform."
+
+**What this really means:** ROI skepticism.
+
+**Rebuttal:** "For coaches and partners, economics are tied to outcomes and retention. Clients who keep momentum between sessions stay engaged longer. Partner model is 20% recurring on active referrals. It is designed to improve delivery quality and create predictable recurring upside."
