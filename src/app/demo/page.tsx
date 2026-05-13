@@ -212,6 +212,10 @@ function DemoContent() {
             <Link href="/blog/how-we-estimate-early-role-signals" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
               Method and sources
             </Link>
+            {' '}·{' '}
+            <Link href="/references" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              Evidence and references
+            </Link>
             .
           </p>
         </section>

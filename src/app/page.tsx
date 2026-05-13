@@ -132,6 +132,8 @@ export default function HomePage() {
           h1Lines: ['Spot executive opportunities', 'often 1-3 weeks before they post.'],
           claimMethodLabel: 'How we estimate the timing window (method and sources)',
           claimMethodHref: '/blog/how-we-estimate-early-role-signals',
+          claimEvidenceLabel: 'Evidence and references',
+          claimEvidenceHref: '/references',
           body: 'Starting Monday monitors target companies every 48 hours, flags early search signals, and gives you prep briefs plus pipeline control so you run a disciplined campaign before the field forms. Timing varies by company and sector.',
           note: 'Monitor $49/mo · Active $199/mo · Executive $499/mo · Free 30-day trial',
           steps: [

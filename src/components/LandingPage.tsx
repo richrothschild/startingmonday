@@ -22,6 +22,8 @@ export interface LandingHero {
   h1Lines: string[]
   claimMethodLabel?: string
   claimMethodHref?: string
+  claimEvidenceLabel?: string
+  claimEvidenceHref?: string
   bodyPreamble?: string
   body: string
   note?: string
@@ -200,6 +202,15 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
                 {hero.claimMethodLabel}
               </Link>
+              {hero.claimEvidenceLabel && hero.claimEvidenceHref && (
+                <>
+                  {' '}
+                  ·{' '}
+                  <Link href={hero.claimEvidenceHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+                    {hero.claimEvidenceLabel}
+                  </Link>
+                </>
+              )}
             </p>
           )}
           {hero.bodyPreamble && (

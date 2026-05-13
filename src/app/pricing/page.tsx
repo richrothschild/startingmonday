@@ -112,6 +112,13 @@ export default function PricingPage() {
           <p className="text-[12px] text-slate-500">
             Methods: cohort includes users who completed onboarding and launched at least one tracked outreach between Jan-May 2026. Results vary by market conditions and campaign quality.
           </p>
+          <p className="text-[12px] text-slate-500 mt-2">
+            See full claim mapping in{' '}
+            <Link href="/references" className="underline hover:text-slate-700 transition-colors">
+              Evidence and References
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="mb-12">
