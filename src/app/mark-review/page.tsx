@@ -117,6 +117,28 @@ export default function MarkReviewPage() {
           </section>
 
           <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">Mark's Full Audit</p>
+            <div className="border border-slate-300 rounded-lg bg-blue-50 p-6 mb-6">
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-4">
+                Mark has completed a comprehensive review of the entire Starting Monday site across all 9 major sections. He graded each section, identified dislikes, and provided specific tier-1, tier-2, and tier-3 recommendations.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/docs/mark-horstman-site-audit.md"
+                  download
+                  className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-5 py-2.5 rounded transition-colors text-center"
+                >
+                  Download Full Audit (Markdown)
+                </a>
+                <Link
+                  href="/mark-review/summary"
+                  className="inline-block border border-slate-400 hover:border-slate-600 text-slate-800 text-[14px] px-5 py-2.5 rounded transition-colors text-center"
+                >
+                  View Summary & Top Fixes
+                </Link>
+              </div>
+            </div>
+
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What this is</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="border border-slate-200 rounded p-4 bg-white">
