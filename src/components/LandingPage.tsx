@@ -316,9 +316,24 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <option value="restructured">Displaced executive</option>
               <option value="building">PE-backed operator</option>
               <option value="low-energy">Burned-out exec</option>
-              <option value="passive">Not actively searching</option>
               <option value="returning">Returning to market</option>
             </select>
+          </div>
+
+          {/* Passive candidate CTA variant */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 mb-6 flex items-center gap-4">
+            <div className="flex-1">
+              <p className="text-[15px] text-blue-900 font-semibold mb-1">Not actively searching?</p>
+              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings—without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
+            </div>
+            <TrackLink
+              href="/signup?from=passive"
+              event="cta_clicked"
+              properties={{ location: 'passive_cta', label: 'join_passive' }}
+              className="inline-block bg-blue-600 text-white text-[13px] font-bold px-5 py-2.5 rounded hover:bg-blue-700 transition-colors"
+            >
+              Join as passive
+            </TrackLink>
           </div>
 
           {/* Founder Trust Block - below hero CTA */}
