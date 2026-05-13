@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - For Career Tools and Manager Tools Listeners',
-  description: 'The search infrastructure built for VP and C-suite job searches. If you are approaching the senior executive level - or already there - this is what the search looks like and what it takes to run it well.',
+  description: 'The search infrastructure built for C-suite job searches. If you are approaching the senior executive level - or already there - this is what the search looks like and what it takes to run it well.',
   alternates: { canonical: 'https://startingmonday.app/career-tools' },
   robots: { index: false },
 }
@@ -64,7 +64,7 @@ export default function CareerToolsPage() {
               For Career Tools and Manager Tools listeners
             </p>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
-              The job search changes when you reach VP.
+              The job search changes when you reach the C-suite.
             </h1>
             <p className="text-[16px] text-slate-400 leading-relaxed">
               Most of what you know about running a job search stops working at the senior executive level.
@@ -79,7 +79,7 @@ export default function CareerToolsPage() {
 
             {/* What changes */}
             <section className="space-y-6">
-              <h2 className="text-[22px] font-bold text-slate-900">What changes at the VP and C-suite level</h2>
+              <h2 className="text-[22px] font-bold text-slate-900">What changes at the C-suite level</h2>
               <div className="space-y-3">
                 {WHAT_CHANGES.map((item, i) => (
                   <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-lg overflow-hidden">
@@ -137,7 +137,7 @@ export default function CareerToolsPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">Who it is for</h2>
               <p>
-                Starting Monday was built for VP and C-suite technology executives: CIOs, CTOs,
+                Starting Monday was built for C-suite and near-C-suite technology executives: CIOs, CTOs,
                 VPs of Technology, CISOs, CDOs, and VP of Engineering. If you are at that level
                 now and in active search, this is the platform.
               </p>

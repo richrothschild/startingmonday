@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CIO and Technology Associations - Partner Guide',
-  description: 'How CIO and technology associations offer Starting Monday as a member benefit that gives technology executives a genuine search advantage when they need it most.',
+  title: 'Starting Monday for C-suite and Technology Associations - Partner Guide',
+  description: 'How C-suite and technology associations offer Starting Monday as a member benefit that gives technology executives a genuine search advantage when they need it most.',
   alternates: { canonical: 'https://startingmonday.app/for-cio-associations' },
   openGraph: {
-    title: 'Starting Monday for CIO and Technology Associations',
+    title: 'Starting Monday for C-suite and Technology Associations',
     description: 'Give your members a search advantage in transition - not just access to a directory.',
     url: 'https://startingmonday.app/for-cio-associations',
   },
@@ -20,12 +20,12 @@ const FEATURES = [
   },
   {
     name: 'Research Partnership',
-    forAssociation: 'Starting Monday monitors hundreds of company career pages and tracks organizational signals that precede CIO, CTO, and VP Technology searches. That data becomes association-branded research: quarterly reports on technology executive hiring trends, sector-by-sector signal analysis, and role demand patterns. Your members receive intelligence they cannot get anywhere else.',
+    forAssociation: 'Starting Monday monitors hundreds of company career pages and tracks organizational signals that precede C-suite technology searches. That data becomes association-branded research: quarterly reports on technology executive hiring trends, sector-by-sector signal analysis, and role demand patterns. Your members receive intelligence they cannot get anywhere else.',
     outcome: 'The association publishes credible, original research based on real market signals. Member value increases. Media coverage and membership inquiries follow.',
   },
   {
     name: 'Content and Education Access',
-    forAssociation: 'Starting Monday publishes practical guidance specifically for VP and C-suite technology executives: search strategy, search firm relationships, compensation negotiation, interview preparation. Association members receive access to this content through the platform. Selected pieces can be co-published under your brand.',
+    forAssociation: 'Starting Monday publishes practical guidance specifically for C-suite technology executives: search strategy, search firm relationships, compensation negotiation, interview preparation. Association members receive access to this content through the platform. Selected pieces can be co-published under your brand.',
     outcome: 'Your education program gains a continuous stream of practitioner-level content without internal production cost.',
   },
   {
@@ -68,7 +68,7 @@ export default function ForCioAssociationsPage() {
               Partner Guide
             </p>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
-              Starting Monday for <span className="whitespace-nowrap">CIO and Technology Associations</span>
+              Starting Monday for <span className="whitespace-nowrap">C-suite and Technology Associations</span>
             </h1>
             <p className="text-[16px] text-slate-400 leading-relaxed">
               Give your members a search advantage in transition - not just access to a directory.
@@ -91,27 +91,20 @@ export default function ForCioAssociationsPage() {
                 search moving.
               </p>
               <p>
-                For CIO and technology associations, the platform is a member benefit that delivers
-                concrete value at the moment members need it most - when they are in transition.
-              </p>
-            </section>
-
-            {/* The gap */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">The gap it fills</h2>
-              <p>
-                Most professional associations offer their members the same set of benefits: a
-                directory, a network, events, and a job board. At the VP and C-suite level, those
-                are necessary but not sufficient. Technology executives entering transition need
-                more than introductions. They need an intelligence infrastructure that tells them
-                which companies to watch, what signals precede a search, and how to show up to
-                an interview having done the research that a peer would do.
+                For C-suite and technology associations, the platform is a member benefit that
+                delivers concrete value at the moment members need it most - when they are in
+                transition. Most professional associations offer their members the same set of
+                benefits: a directory, a network, events, and a job board. At the VP and C-suite
+                level, those are necessary but not sufficient.
               </p>
               <p>
-                The executives in your membership are exactly the people Starting Monday was built
-                for. When you make Starting Monday available as a member benefit, you give your
-                members a tool that works - not a workshop they attend once and a job board they
-                check twice.
+                Technology executives entering transition need more than introductions. They need an
+                intelligence infrastructure that tells them which companies to watch, what signals
+                precede a search, and how to show up to an interview having done the research that a
+                peer would do. The executives in your membership are exactly the people Starting
+                Monday was built for. When you make Starting Monday available as a member benefit,
+                you give your members a tool that works - not a workshop they attend once and a job
+                board they check twice.
               </p>
             </section>
 

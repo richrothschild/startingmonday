@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Fractional CIO and CTO Networks - Partner Guide',
-  description: 'How fractional CIO and CTO networks use Starting Monday to give members the infrastructure to track engagements, monitor target companies, and move to full-time when the right opportunity surfaces.',
+  title: 'Starting Monday for Fractional C-suite Technology Networks - Partner Guide',
+  description: 'How fractional C-suite technology networks use Starting Monday to give members the infrastructure to track engagements, monitor target companies, and move to full-time when the right opportunity surfaces.',
   alternates: { canonical: 'https://startingmonday.app/for-fractional-executives' },
   openGraph: {
-    title: 'Starting Monday for Fractional CIO and CTO Networks',
+    title: 'Starting Monday for Fractional C-suite Technology Networks',
     description: 'Fractional executives are always searching. The question is whether the search is systematic or reactive.',
     url: 'https://startingmonday.app/for-fractional-executives',
   },
@@ -73,7 +73,7 @@ export default function ForFractionalExecutivesPage() {
               Partner Guide
             </p>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
-              Starting Monday for <span className="whitespace-nowrap">Fractional CIO and CTO Networks</span>
+              Starting Monday for <span className="whitespace-nowrap">Fractional C-suite Technology Networks</span>
             </h1>
             <p className="text-[16px] text-slate-400 leading-relaxed">
               Fractional executives are always searching. The question is whether the search is systematic or reactive.
@@ -89,13 +89,13 @@ export default function ForFractionalExecutivesPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered platform built for VP and C-suite technology executives.
+                Starting Monday is an AI-powered platform built for C-suite technology executives.
                 It gives them the infrastructure that senior searches require: monitoring of target companies
                 for pre-search signals, AI-generated prep briefs, a structured engagement and relationship
                 pipeline, and a daily briefing that keeps the search moving.
               </p>
               <p>
-                For fractional CIO and CTO networks, the platform serves a dual function: it supports the
+                For fractional C-suite technology networks, the platform serves a dual function: it supports the
                 ongoing fractional engagement business and supports the eventual full-time search when the
                 time is right. Members use one platform for both modes.
               </p>
@@ -105,7 +105,7 @@ export default function ForFractionalExecutivesPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">The gap it fills</h2>
               <p>
-                A fractional CIO managing three active engagements and fifteen prospective targets is
+                A fractional C-suite executive managing three active engagements and fifteen prospective targets is
                 running a business development operation with no infrastructure. They track prospects
                 in a spreadsheet, prepare for client meetings the night before, and find out about new
                 fractional opportunities when a colleague mentions them or when a posting appears on
