@@ -15,21 +15,21 @@ export const metadata: Metadata = {
 const CO_CREATION_FORMATS = [
   {
     name: 'Podcast Episode Series',
-    description: 'Multi-episode series on senior executive career strategy co-created with Rich Rothschild, founder of Starting Monday. Rich is a former transformation CIO who spent two years studying how VP and C-suite technology searches actually work, then built the platform to run them correctly.',
+    description: 'Multi-episode series on senior executive career strategy co-created with Rich Rothschild, founder of Starting Monday. Rich spent two years studying how VP and C-suite technology searches actually work, then built the platform to run them correctly.',
     topics: [
       'How the job search changes when you reach VP or C-suite',
       'What retained search firms actually want from executive candidates',
       'Why technology executive candidates fail the first round',
       'How to build a target company list before a search starts',
-      'What CIOs and CTOs are doing differently in the 2026 job market',
+      'What senior technology executives are doing differently in the 2026 job market',
     ],
     audience: 'Senior managers approaching VP and above, and executives already in active search.',
   },
   {
     name: 'Sponsored Research Distribution',
-    description: 'Starting Monday monitors hundreds of company career pages and tracks organizational signals that precede CIO, CTO, and VP Technology searches. That data becomes original, branded research for your newsletter: quarterly hiring trend reports, sector signal analysis, and job market intelligence your readers cannot get anywhere else.',
+    description: 'Starting Monday monitors hundreds of company career pages and tracks organizational signals that precede senior technology and C-suite searches. That data becomes original, branded research for your newsletter: quarterly hiring trend reports, sector signal analysis, and job market intelligence your readers cannot get anywhere else.',
     topics: [
-      'CIO/CTO hiring trends by sector and quarter',
+      'Senior technology hiring trends by sector and quarter',
       'Which organizational signals predict technology leadership searches',
       'Time-to-fill benchmarks for technology executive roles',
       'Pre-market signal patterns across 500+ monitored companies',
@@ -101,7 +101,7 @@ export default function ForMediaPartnersPage() {
                 relationships and conversations, and a daily briefing that keeps the search moving.
               </p>
               <p>
-                It was built by Rich Rothschild, a former transformation CIO who spent two years
+                It was built by Rich Rothschild, who spent two years
                 studying why senior technology executive searches fail and what the executives who
                 land well actually do differently. Starting Monday is the system that runs the search
                 correctly.
@@ -164,7 +164,7 @@ export default function ForMediaPartnersPage() {
                 Starting Monday continuously monitors hundreds of company career pages across
                 technology-intensive sectors. The platform tracks executive departure signals,
                 leadership team changes, funding events, PE ownership transitions, and career
-                page posting patterns that precede formal CIO and CTO searches.
+                page posting patterns that precede formal senior technology and C-suite searches.
               </p>
               <p>
                 That data is original and current. It is not recycled from LinkedIn or job boards.

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     name: 'New Market Target List',
-    forFirm: 'An executive who just relocated to a new city does not know which companies are worth pursuing, which technology teams are growing, or which leadership vacancies are about to surface. Starting Monday builds a target list for the new market - monitoring companies the executive adds for executive changes, funding, career page signals, and organizational patterns that precede a CIO or VP search.',
+    forFirm: 'An executive who just relocated to a new city does not know which companies are worth pursuing, which teams are growing, or which leadership vacancies are about to surface. Starting Monday builds a target list for the new market - monitoring companies the executive adds for executive changes, funding, career page signals, and organizational patterns that precede senior executive searches.',
     outcome: 'Executives identify the right companies in the new market faster. They are reaching out to the right people before the role is posted.',
   },
   {
@@ -89,7 +89,7 @@ export default function ForRelocationPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered job search platform built for VP and C-suite executives.
+                Starting Monday is an AI-powered job search platform built for senior executives.
                 It gives them the intelligence infrastructure that senior searches require: monitoring of
                 target companies for pre-search signals, AI-generated prep briefs for every interview,
                 a structured pipeline for tracking relationships and conversations, and a daily briefing

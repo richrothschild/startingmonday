@@ -66,9 +66,9 @@ const PRIMARY_PARTNERS = [
 
 const OTHER_PARTNERS = [
   { label: 'Relocation firms', href: '/for-relocation' },
-  { label: 'CIO and technology associations', href: '/for-cio-associations' },
+  { label: 'C-suite and technology associations', href: '/for-cio-associations' },
   { label: 'Executive financial advisors', href: '/for-financial-advisors' },
-  { label: 'Fractional CIO and CTO networks', href: '/for-fractional-executives' },
+  { label: 'Fractional C-suite technology networks', href: '/for-fractional-executives' },
   { label: 'Podcast hosts and newsletter writers', href: '/for-media-partners' },
 ]
 

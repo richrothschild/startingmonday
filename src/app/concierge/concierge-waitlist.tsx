@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const INCLUDES = [
   'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
-  'One 45-minute strategy session each month with the founder, a transformation CIO who has run this search',
+  'One 45-minute strategy session each month with the founder, who has run this search from the executive side',
   'AI prepares the session agenda from your live pipeline before every call',
   'Priorities and commitments carry forward into the next session',
   'First access to new capabilities as they ship',
@@ -75,7 +75,7 @@ export function ConciergeWaitlist() {
             The intelligence is running<br />before you wake up.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
-            Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, a transformation CIO who has run this search. The program stays small because it has to.
+            Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.
           </p>
         </div>
       </header>
@@ -170,7 +170,7 @@ export function ConciergeWaitlist() {
           <div className="border border-slate-200 rounded-lg p-6 mb-12">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">About the founder</p>
             <p className="text-[14px] text-slate-700 leading-relaxed">
-              Starting Monday was built by a transformation CIO who ran executive job searches at scale and watched colleagues waste months on reactive tactics that did not work. The sessions are direct, structured, and specific to your pipeline. Not coaching. Not cheerleading. One CIO to another.
+              Starting Monday was built by a founder who ran executive job searches at scale and watched colleagues waste months on reactive tactics that did not work. The sessions are direct, structured, and specific to your pipeline. Not coaching. Not cheerleading. One executive to another.
             </p>
           </div>
 
