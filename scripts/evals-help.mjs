@@ -57,7 +57,9 @@ async function main() {
   const commands = {
     labelProgress: [
       'npm run evals:label-progress',
+      'npm run evals:label-progress:json',
       'npm run evals:label-progress:strict',
+      'npm run evals:label-progress:strict:json',
     ],
     goldenSet: [
       'npm run evals:export-golden-set',
@@ -71,7 +73,9 @@ async function main() {
     ],
     readiness: [
       'npm run evals:readiness',
+      'npm run evals:readiness:json',
       'npm run evals:readiness:strict',
+      'npm run evals:readiness:strict:json',
       'npm run evals:readiness:md',
       'npm run evals:readiness:summary',
       'npm run evals:readiness:summary:strict',
@@ -92,7 +96,9 @@ async function main() {
     ],
     prerequisites: [
       'npm run evals:doctor',
+      'npm run evals:doctor:json',
       'npm run evals:doctor:strict',
+      'npm run evals:doctor:strict:json',
     ],
     ci: [
       'npm run evals:ci:check',
@@ -124,7 +130,9 @@ async function main() {
     console.log('-----------------------')
     console.log('Label progress:')
     console.log('  npm run evals:label-progress')
+    console.log('  npm run evals:label-progress:json')
     console.log('  npm run evals:label-progress:strict')
+    console.log('  npm run evals:label-progress:strict:json')
     console.log('')
     console.log('Golden set:')
     console.log('  npm run evals:export-golden-set')
@@ -138,7 +146,9 @@ async function main() {
     console.log('')
     console.log('Readiness:')
     console.log('  npm run evals:readiness')
+    console.log('  npm run evals:readiness:json')
     console.log('  npm run evals:readiness:strict')
+    console.log('  npm run evals:readiness:strict:json')
     console.log('  npm run evals:readiness:md')
     console.log('  npm run evals:readiness:summary')
     console.log('  npm run evals:readiness:summary:strict')
@@ -159,7 +169,9 @@ async function main() {
     console.log('')
     console.log('Prerequisites:')
     console.log('  npm run evals:doctor')
+    console.log('  npm run evals:doctor:json')
     console.log('  npm run evals:doctor:strict')
+    console.log('  npm run evals:doctor:strict:json')
     console.log('')
     console.log('CI:')
     console.log('  npm run evals:ci:check')

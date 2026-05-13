@@ -80,7 +80,9 @@ Prep brief labeling and golden-set workflow commands:
 ```bash
 # Label progress
 npm run evals:label-progress
+npm run evals:label-progress:json
 npm run evals:label-progress:strict
+npm run evals:label-progress:strict:json
 
 # Golden set export and verification
 npm run evals:export-golden-set
@@ -94,7 +96,9 @@ npm run evals:verify-golden-set:strict:json
 
 # Combined readiness gate
 npm run evals:readiness
+npm run evals:readiness:json
 npm run evals:readiness:strict
+npm run evals:readiness:strict:json
 npm run evals:readiness:md
 npm run evals:readiness:summary
 npm run evals:readiness:summary:strict
@@ -115,7 +119,9 @@ npm run evals:help:status:json
 
 # Prerequisite check
 npm run evals:doctor
+npm run evals:doctor:json
 npm run evals:doctor:strict
+npm run evals:doctor:strict:json
 
 # CI gate
 npm run evals:ci:check

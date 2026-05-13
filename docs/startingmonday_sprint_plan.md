@@ -235,17 +235,23 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
   5. Confirm "Ready to export" in the prep_brief progress panel.
   6. Optional CLI progress check:
     - `npm run evals:label-progress`
+    - `npm run evals:label-progress:json` (machine-readable label progress)
     - `npm run evals:label-progress:strict` (exits non-zero until 25/25 is reached)
+    - `npm run evals:label-progress:strict:json` (machine-readable strict label progress)
     - `node scripts/check-prep-brief-label-progress.mjs --json` (machine-readable output)
     - `npm run evals:readiness` (combined label + golden set status)
+    - `npm run evals:readiness:json` (machine-readable readiness status)
     - `npm run evals:readiness:strict` (non-zero exit until fully ready)
+    - `npm run evals:readiness:strict:json` (machine-readable strict readiness)
     - `npm run evals:readiness:md` (human-readable markdown status)
     - `npm run evals:readiness:summary` (single-line status output)
     - `npm run evals:readiness:summary:strict` (summary mode with strict exit)
     - `npm run evals:readiness:snapshot` (writes markdown snapshot to `docs/status/`)
     - `npm run evals:readiness:snapshot:json` (writes JSON snapshot to `docs/status/`)
     - `npm run evals:doctor` (checks env/files prerequisites)
+    - `npm run evals:doctor:json` (machine-readable prerequisites)
     - `npm run evals:doctor:strict` (non-zero exit if prerequisites fail)
+    - `npm run evals:doctor:strict:json` (machine-readable strict prerequisites)
     - `npm run evals:help` (command index)
     - `npm run evals:help:status` (command index + live prerequisite/readiness output)
     - `npm run evals:help:json` (machine-readable command index)
