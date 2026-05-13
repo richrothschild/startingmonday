@@ -160,6 +160,15 @@ export default async function AdminPage() {
     return { dayKey, label, paused: stats.paused, resumed: stats.resumed, net: stats.paused - stats.resumed }
   })
   const trendPeak = pauseResumeTrend7d.reduce((peak, row) => Math.max(peak, row.paused, row.resumed), 1)
+  const recent3d = pauseResumeTrend7d.slice(-3)
+  const netPausedLast3d = recent3d.reduce((sum, row) => sum + row.net, 0)
+  const positiveNetDaysLast3d = recent3d.filter((row) => row.net > 0).length
+  const telemetryAlertLevel: 'normal' | 'watch' | 'risk' =
+    netPausedLast3d >= 6 || positiveNetDaysLast3d === 3
+      ? 'risk'
+      : netPausedLast3d >= 3 || positiveNetDaysLast3d >= 2
+        ? 'watch'
+        : 'normal'
 
   // Go/no-go scorecard metrics (best-effort with explicit tracking gaps)
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
@@ -461,7 +470,24 @@ export default async function AdminPage() {
             ))}
           </div>
           <div className="mt-4 bg-white border border-slate-200 rounded p-4">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily trend</p>
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily trend</p>
+              <span
+                className={`text-[10px] font-bold px-2 py-1 rounded border ${
+                  telemetryAlertLevel === 'risk'
+                    ? 'text-red-700 bg-red-50 border-red-200'
+                    : telemetryAlertLevel === 'watch'
+                      ? 'text-amber-700 bg-amber-50 border-amber-200'
+                      : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                }`}
+              >
+                {telemetryAlertLevel === 'risk' ? 'At risk' : telemetryAlertLevel === 'watch' ? 'Watch' : 'Healthy'}
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 mb-3">
+              Last 3d net: <span className="font-semibold text-slate-700">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
+              {' '}({positiveNetDaysLast3d}/3 days net positive)
+            </p>
             <div className="space-y-2">
               {pauseResumeTrend7d.map((row) => (
                 <div key={row.dayKey} className="grid grid-cols-[84px_1fr_44px] items-center gap-3 text-[11px]">
