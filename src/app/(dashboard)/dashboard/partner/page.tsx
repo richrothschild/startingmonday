@@ -2,7 +2,10 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+
 import { SeatPurchase } from './seat-purchase'
+import { ExportCsvButton } from './ExportCsvButton'
+
 
 const TIER_MRR: Record<string, number> = {
   passive:   49,
@@ -22,7 +25,7 @@ export default async function PartnerDashboardPage() {
   // Check if this user is a registered partner
   const { data: partner } = await admin
     .from('partners')
-    .select('id, name, referral_code, commission_pct, created_at, seats_purchased, user_id')
+    .select('id, name, referral_code, commission_pct, created_at, seats_purchased, user_id, is_active, email')
     .eq('email', user.email ?? '')
     .eq('is_active', true)
     .maybeSingle()
@@ -87,6 +90,17 @@ export default async function PartnerDashboardPage() {
     free: 'bg-slate-100 text-slate-400',
   }
 
+  // CSV export rows
+  const csvRows = displayRows.map(row => ({
+    joinedDate: row.joinedDate,
+    tier: row.tier,
+    status: row.status,
+    mrr: row.status === 'active' ? (TIER_MRR[row.tier] ?? 0) : 0,
+    commission: row.status === 'active' ? Math.round((TIER_MRR[row.tier] ?? 0) * partner.commission_pct / 100) : 0,
+  }))
+
+  // Use a client component for the export button
+  // ...existing code...
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -143,6 +157,9 @@ export default async function PartnerDashboardPage() {
             Share this link with your clients. When they sign up and convert to a paid plan, you earn {partner.commission_pct}% of their monthly subscription for as long as they remain active.
           </p>
         </div>
+
+        {/* Export CSV button */}
+        <ExportCsvButton rows={csvRows} />
 
         {/* Subscriber table */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
