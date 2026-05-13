@@ -273,7 +273,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
           <div className="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
             <Image
-              src="/dashboard-screenshot.png"
+              src="/dashboard.screenshot.png"
               alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
               width={1262}
               height={932}
@@ -324,7 +324,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 mb-6 flex items-center gap-4">
             <div className="flex-1">
               <p className="text-[15px] text-blue-900 font-semibold mb-1">Not actively searching?</p>
-              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefings—without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
+              <p className="text-[13px] text-blue-800 leading-relaxed mb-2">Stay in the loop for future opportunities, market signals, and executive briefingsï¿½without starting a search. No outreach, no recruiter calls, just insights when you want them.</p>
             </div>
             <TrackLink
               href="/signup?from=passive"
