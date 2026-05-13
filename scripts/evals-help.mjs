@@ -67,8 +67,11 @@ async function main() {
     readiness: [
       'npm run evals:readiness',
       'npm run evals:readiness:strict',
+      'npm run evals:readiness:md',
       'npm run evals:readiness:summary',
       'npm run evals:readiness:summary:strict',
+      'npm run evals:readiness:snapshot',
+      'npm run evals:readiness:snapshot:json',
     ],
     closeout: [
       'npm run evals:closeout',
@@ -120,8 +123,11 @@ async function main() {
     console.log('Readiness:')
     console.log('  npm run evals:readiness')
     console.log('  npm run evals:readiness:strict')
+    console.log('  npm run evals:readiness:md')
     console.log('  npm run evals:readiness:summary')
     console.log('  npm run evals:readiness:summary:strict')
+    console.log('  npm run evals:readiness:snapshot')
+    console.log('  npm run evals:readiness:snapshot:json')
     console.log('')
     console.log('Closeout:')
     console.log('  npm run evals:closeout')
