@@ -377,14 +377,14 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <section className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-3 leading-snug">
-            The executive job search operating system.
+            Signal intelligence for C-suite searches.
           </h2>
           <p className="text-[16px] text-slate-500 leading-relaxed mb-2">
             Not a job board. Not a $25,000 coaching engagement.{' '}
             <span className="text-slate-900 font-semibold">The infrastructure for a campaign.</span>
           </p>
           <p className="text-[14px] text-slate-400 leading-relaxed">
-            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the operating system between those two.
+            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the signal layer between that and a search firm.
           </p>
         </div>
       </section>

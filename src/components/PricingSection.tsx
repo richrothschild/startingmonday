@@ -65,10 +65,10 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           What it costs
         </p>
         <h2 className="text-[22px] font-bold text-slate-900 mb-4 max-w-xl leading-snug">
-          Infrastructure pricing. Campaign outcomes.
+          C-suite campaign pricing. Campaign outcomes.
         </h2>
         <p className="text-[14px] text-slate-500 mb-4 max-w-2xl leading-relaxed">
-          You run the campaign. We power it. All plans include a 30-day free trial, no credit card required.
+          You run the campaign. We power it. Choose the tier that matches your search altitude. All plans include a 30-day free trial, no credit card required.
         </p>
         <p className="text-[13px] text-slate-400 mb-4">
           Including{' '}
@@ -84,7 +84,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           <span>No recruiter marketplace</span>
         </div>
         <p className="text-[12px] text-slate-500 mb-8">
-          Most executives start on Monitor, move to Active once they see what prep briefs do. When you&apos;re ready for full depth, Executive is waiting.
+          Most executives start on Monitor, move to Active once they see what prep briefs do. C-suite leaders who want deeper analysis move to Executive when they need full coverage.
         </p>
 
         {/* Billing toggle */}

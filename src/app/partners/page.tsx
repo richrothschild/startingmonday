@@ -4,11 +4,11 @@ import { PartnersForm } from './partners-form'
 
 export const metadata: Metadata = {
   title: 'Partner Program - Starting Monday',
-  description: 'Partner with Starting Monday to give senior executives in transition an intelligence advantage. Referral programs for executive coaches, retained search firms, PE talent teams, and outplacement providers. Earn 20% commission.',
+  description: 'Partner with Starting Monday to give C-suite executives in transition an intelligence advantage. Referral programs for executive coaches, retained search firms, PE talent teams, and outplacement providers. Earn 20% commission.',
   alternates: { canonical: 'https://startingmonday.app/partners' },
   openGraph: {
     title: 'Partner with Starting Monday',
-    description: 'You know when executives are in motion. We help them move faster. Earn 20% commission on every active subscription you refer.',
+    description: 'You know when executives are in motion. We help C-suite candidates move faster. Earn 20% commission on every active subscription you refer.',
     url: 'https://startingmonday.app/partners',
   },
 }
@@ -30,7 +30,7 @@ const PRIMARY_PARTNERS = [
     label: 'Retained search firms',
     href: '/for-search-firms',
     guidehref: '/for-search-firms',
-    value: 'Give your candidates the preparation depth that determines whether they advance beyond the first round. Better-prepared candidates reflect better on your firm.',
+    value: 'Give your C-suite candidates the preparation depth that determines whether they advance beyond the first round. Better-prepared candidates reflect better on your firm.',
     economics: 'Earn 20% per active subscription. Preferred partners get consolidated billing and a candidate activation dashboard.',
     specifics: [
       'Candidates arrive at client interviews with a 60-second prep brief, not a printout',
@@ -54,7 +54,7 @@ const PRIMARY_PARTNERS = [
     label: 'Outplacement providers',
     href: '/for-outplacement',
     guidehref: '/for-outplacement',
-    value: 'Turn your outplacement program into an active search campaign, not a workshop series. Bulk seats, activation tracking, and daily intelligence for every executive in your cohort.',
+    value: 'Turn your outplacement program into an active C-suite search campaign, not a workshop series. Bulk seats, activation tracking, and daily intelligence for every executive in your cohort.',
     economics: 'Preferred partner pricing on bulk cohort enrollments. Consolidated billing. Usage dashboard to see who is active.',
     specifics: [
       'Every participant gets daily briefings and pipeline tracking from day one',
@@ -100,7 +100,7 @@ export default function PartnersPage() {
               You know when executives<br className="hidden sm:block" /> are in motion.
             </h1>
             <p className="text-[16px] text-slate-400 leading-relaxed max-w-2xl mb-6">
-              We help them move faster. Earn 20% commission on every active subscription you refer. No enrollment fee. No minimum volume.
+              We help C-suite candidates move faster. Earn 20% commission on every active subscription you refer. No enrollment fee. No minimum volume.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -168,7 +168,7 @@ export default function PartnersPage() {
               <div className="border border-slate-200 rounded-lg p-6">
                 <p className="text-[12px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Referral Partner</p>
                 <p className="text-[18px] font-bold text-slate-900 mb-3">Free to join</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">Share your referral link. Earn 20% commission on every subscription that activates through your link.</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">Share your referral link. Earn 20% commission on every C-suite subscription that activates through your link.</p>
                 <ul className="space-y-2">
                   {[
                     'Unique referral link with activation tracking',
@@ -187,7 +187,7 @@ export default function PartnersPage() {
               <div className="border border-orange-400 bg-orange-50 rounded-lg p-6">
                 <p className="text-[12px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-1">Preferred Partner</p>
                 <p className="text-[18px] font-bold text-slate-900 mb-3">Volume pricing</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">For firms enrolling multiple clients. Consolidated billing, usage visibility, and co-marketing for your practice.</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">For firms enrolling multiple C-suite clients. Consolidated billing, usage visibility, and co-marketing for your practice.</p>
                 <ul className="space-y-2">
                   {[
                     'Everything in Referral Partner',

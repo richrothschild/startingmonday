@@ -271,7 +271,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               value={fullName}
               onChange={setFullName}
               inputRef={nameRef}
-              onNext={() => fullName.trim() && advance()}
+                onNext={() => advance()}
             />
           )}
 
@@ -379,9 +379,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             {step === 0 && (
               <button
                 type="button"
-                onClick={() => fullName.trim() && advance()}
-                disabled={!fullName.trim()}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
+                onClick={() => advance()}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
                 Continue
               </button>
@@ -834,7 +833,7 @@ function StepName({
           What do we call you?
         </h1>
         <p className="text-[15px] text-slate-500">
-          Your briefings and prep briefs will use your first name.
+          Your briefings and prep briefs will use your first name, but you can skip this for now.
         </p>
       </div>
       <input

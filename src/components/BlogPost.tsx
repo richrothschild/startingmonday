@@ -27,7 +27,7 @@ function formatDate(iso: string): string {
 }
 
 const DEFAULT_CTA: BlogCta = {
-  headline: 'The infrastructure for a more deliberate search.',
+  headline: 'The infrastructure for a more deliberate C-suite search.',
   body: 'Pipeline tracking, early role intelligence, interview prep briefs, and a daily briefing assembled from your actual targets. Free 30-day trial.',
   label: 'Start your campaign →',
   href: '/signup',
@@ -161,6 +161,12 @@ export function BlogPost({ title, description, date, readTime, url, slug, cta, c
           >
             {activeCta.label}
           </Link>
+          <p className="text-[12px] text-slate-400 mt-3">
+            Want to compare tiers first?{' '}
+            <Link href="/pricing" className="text-orange-400 hover:text-orange-300 transition-colors underline">
+              Review pricing
+            </Link>
+          </p>
           {activeCta.note && <p className="text-[12px] text-slate-400 mt-3">{activeCta.note}</p>}
         </div>
       </section>

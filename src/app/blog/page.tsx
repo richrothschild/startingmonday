@@ -76,14 +76,25 @@ export default function BlogIndexPage() {
             The executive search brief.
           </h1>
           <p className="text-[16px] text-slate-400 leading-relaxed max-w-xl">
-            Practical guidance for VP and C-suite technology executives in active search, and the coaches, search firms, and advisors who work with them.
+            Practical guidance for C-suite technology executives in active search, and the coaches, search firms, and advisors who work with them.
           </p>
+          <div className="flex flex-wrap gap-3 mt-6">
+            <Link href="/demo" className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors">
+              See a live prep brief &rarr;
+            </Link>
+            <Link href="/pricing" className="inline-block border border-slate-700 hover:border-slate-500 text-slate-200 text-[13px] px-5 py-2.5 rounded transition-colors">
+              Review pricing &rarr;
+            </Link>
+          </div>
         </div>
       </header>
 
       {/* Executive post list */}
       <section className="px-4 sm:px-6 py-14 sm:py-16">
         <div className="max-w-3xl mx-auto">
+          <p className="text-[12px] text-slate-500 mb-5 leading-relaxed">
+            Every article should help you decide whether Starting Monday solves your next step. If the post is useful, the next click should be the demo or the pricing page, not another blog post.
+          </p>
           <div className="divide-y divide-slate-100">
             {executivePosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">
@@ -113,6 +124,14 @@ export default function BlogIndexPage() {
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-8">
             For coaches, search firms, and advisors
           </p>
+          <div className="mb-6 flex flex-wrap gap-3">
+            <Link href="/for-coaches" className="inline-block bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors">
+              Coach guide &rarr;
+            </Link>
+            <Link href="/partners" className="inline-block border border-slate-300 hover:border-slate-500 text-slate-700 text-[13px] px-5 py-2.5 rounded transition-colors">
+              Partner program &rarr;
+            </Link>
+          </div>
           <div className="divide-y divide-slate-100">
             {intermediaryPosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">

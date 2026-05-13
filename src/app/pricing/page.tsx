@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { PricingCards } from './pricing-cards'
 
 export const metadata: Metadata = {
-  title: 'Pricing - Starting Monday',
-  description: 'Simple pricing for senior executive job searches. Monitor at $49/mo, Active at $199/mo, Executive at $499/mo. Concierge available by application.',
+  title: 'Pricing - Starting Monday for C-suite searches',
+  description: 'Simple pricing for C-suite executive searches. Monitor at $49/mo, Active at $199/mo, Executive at $499/mo. Concierge available by application.',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
-    title: 'Pricing - Starting Monday',
-    description: 'Simple pricing for senior executive job searches.',
+    title: 'Pricing - Starting Monday for C-suite searches',
+    description: 'Simple pricing for C-suite executive searches.',
     url: 'https://startingmonday.app/pricing',
   },
 }
@@ -41,7 +41,7 @@ export default function PricingPage() {
             Pricing
           </h1>
           <p className="text-[16px] text-slate-500 mt-3 max-w-md mx-auto leading-relaxed">
-            30-day free trial. No credit card required to start.
+            30-day free trial. No credit card required to start. Built for C-suite searches.
           </p>
         </div>
 

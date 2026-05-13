@@ -3,11 +3,11 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Executive Coaches',
-  description: 'Give your clients the intelligence infrastructure to run a better search. You focus on the strategy. The platform handles the research, the pipeline tracking, and the daily briefing.',
+  description: 'Give your C-suite clients the intelligence infrastructure to run a better search. You focus on the strategy. The platform handles the research, the pipeline tracking, and the daily briefing.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches' },
   openGraph: {
     title: 'Starting Monday for Executive Coaches',
-    description: 'Your clients run better searches. You spend session time on strategy, not research.',
+    description: 'Your C-suite clients run better searches. You spend session time on strategy, not research.',
     url: 'https://startingmonday.app/for-coaches',
   },
 }
@@ -51,7 +51,7 @@ export default function ForCoachesPage() {
             For Executive Coaches
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Your clients run<br />better searches.<br />You do better work.
+            Your C-suite clients run<br />better searches.<br />You do better work.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
             Starting Monday gives your clients the infrastructure they need between sessions. Intelligence, pipeline discipline, prep. You arrive at every call ready to do the work only you can do.
@@ -87,7 +87,7 @@ export default function ForCoachesPage() {
               The partner program
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-              When your clients activate a paid plan through your referral link, you earn 20% commission on their subscription for as long as they are active. There is no enrollment fee and no minimum volume.
+              When your C-suite clients activate a paid plan through your referral link, you earn 20% commission on their subscription for as long as they are active. There is no enrollment fee and no minimum volume.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6">
               Preferred partners who enroll multiple clients at once get consolidated billing, an activation dashboard, and volume pricing. You see who is active and engaged, without requiring a status call from your client.

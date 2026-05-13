@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday - The executive job search operating system',
-  description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one. Free 30-day trial.',
+  title: 'Starting Monday - Signal intelligence for C-suite searches',
+  description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign. Free 30-day trial.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -17,15 +17,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday - The executive job search operating system',
-    description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one.',
+    title: 'Starting Monday - Signal intelligence for C-suite searches',
+    description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday - The executive job search operating system',
-    description: 'Starting Monday monitors your target companies every 48 hours and surfaces signals before a search is formalized. Built for technology executives who run a disciplined campaign, not a passive one.',
+    title: 'Starting Monday - Signal intelligence for C-suite searches',
+    description: 'Starting Monday monitors target companies every 48 hours and surfaces signals before a search is formalized. Built for C-suite executives who run a disciplined campaign.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -153,10 +153,11 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For technology executives in active search.',
+          eyebrow: 'For C-suite executives in active search.',
           h1Lines: ["The role was never posted.", "You found it anyway."],
           bodyPreamble: "Most executives in active search won't tell anyone they're looking. Not their peers. Not their network. Not even their closest contacts.",
-          body: "Most executive roles are filled before they are ever posted. Starting Monday monitors your target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
+          body: "Most executive roles are filled before they are ever posted. Starting Monday monitors target companies every 48 hours and surfaces signals before a search opens. You move before the field forms.",
+          note: 'Pricing starts at $49/mo. Active campaigns are $199/mo. Executive plans are $499/mo.',
           steps: [
             'Add your target companies.',
             'Upload your resume.',

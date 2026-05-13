@@ -4,13 +4,13 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'About Richard Rothschild - Starting Monday',
-  description: 'Richard Rothschild is a transformation CIO and the founder of Starting Monday. He built the platform after running his own executive search and finding the process broken.',
+  description: 'Richard Rothschild is a transformation CIO and the founder of Starting Monday. He built the platform after running his own C-suite search and finding the process broken.',
   alternates: {
     canonical: 'https://startingmonday.app/about',
   },
   openGraph: {
     title: 'About Richard Rothschild - Starting Monday',
-    description: 'Transformation CIO. Founder of Starting Monday. Writing about executive search, technology leadership, and what it actually takes to land the right role.',
+    description: 'Transformation CIO. Founder of Starting Monday. Writing about C-suite search strategy, technology leadership, and what it actually takes to land the right role.',
     url: 'https://startingmonday.app/about',
     type: 'profile',
   },
@@ -22,7 +22,7 @@ const personJsonLd = {
   name: 'Richard Rothschild',
   url: 'https://startingmonday.app/about',
   jobTitle: 'Chief Information Officer',
-  description: 'Transformation CIO and founder of Starting Monday, an executive search campaign platform for senior technology leaders.',
+  description: 'Transformation CIO and founder of Starting Monday, a signal intelligence platform for C-suite executive searches.',
   sameAs: [
     'https://www.linkedin.com/in/richrothschild',
   ],
@@ -83,7 +83,7 @@ export default function AboutPage() {
             </div>
           </div>
           <p className="text-[16px] text-slate-400 leading-relaxed mb-4">
-            Transformation CIO. Founder of Starting Monday.
+            Transformation CIO. Founder of Starting Monday. Built for C-suite searches.
           </p>
           <a
             href="https://www.linkedin.com/in/richrothschild"
@@ -110,12 +110,12 @@ export default function AboutPage() {
           </p>
 
           <p>
-            I built Starting Monday because I ran my own executive search and found the process broken. Not
+            I built Starting Monday because I ran my own C-suite search and found the process broken. Not
             broken in the obvious ways. The job boards were there. The search firms returned calls. The
-            problem was structural: the preparation tools available to a senior technology executive in active
-            search were either built for a different era or built for a different audience. Nothing was built
-            for someone operating at my level, running a search that needed to stay invisible until it was
-            done.
+            problem was structural: the preparation tools available to a senior executive in active search
+            were either built for a different era or built for a different audience. Nothing was built for
+            someone operating at the C-suite level, running a search that needed to stay invisible until it
+            was done.
           </p>
 
           <p>
@@ -127,16 +127,16 @@ export default function AboutPage() {
 
           <p>
             Starting Monday is the automated version of what I built for myself. Early role intelligence from
-            the organizational signals that precede CIO searches. A pipeline that tracks every relationship
+            the organizational signals that precede C-suite searches. A pipeline that tracks every relationship
             and every conversation. A prep brief that assembles your win thesis, likely objections, and
             company-specific questions in sixty seconds.
           </p>
 
           <p>
             The blog is the thinking that sits behind the platform. Everything here is what I wish I had read
-            before I started my search. Not generic career advice. The specific mechanics of how CIO searches
-            work, what search firms actually evaluate, how timing determines outcomes, and what preparation
-            looks like when it is done at the right level.
+            before I started my search. Not generic career advice. The specific mechanics of how C-suite
+            searches work, what search firms actually evaluate, how timing determines outcomes, and what
+            preparation looks like when it is done at the right level.
           </p>
 
           <p>
@@ -149,7 +149,7 @@ export default function AboutPage() {
 
           <p>
             If you are a senior technology executive in active search or approaching one, the platform is
-            built for you.
+            built for you. If you are at the C-suite level and want a better way to move, this is the place.
           </p>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-4">
