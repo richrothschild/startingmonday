@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -241,11 +241,11 @@ export default async function DashboardPage({
   const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
 
-  // Nurture path — derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
+  // Nurture path � derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
   const searchPath = profile?.search_path ?? null
   const isNurturePath = searchPath === 'nurture'
 
-  // Stall detection — pattern-specific nudge shown after 14 days of low activity
+  // Stall detection � pattern-specific nudge shown after 14 days of low activity
   type StallNudge = { headline: string; body: string; action: string; href: string } | null
   let stallNudge: StallNudge = null
   const dismissedAt = profile?.stall_nudge_dismissed_at
@@ -270,7 +270,7 @@ export default async function DashboardPage({
         headline: 'No activity in two weeks.',
         body: hasSummary
           ? 'You have contacts to work but nothing has moved. Run a strategy brief to see where the gap is.'
-          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back — you are not sure what to say yet.',
+          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back � you are not sure what to say yet.',
         action: hasSummary ? 'Run strategy brief' : 'Add your positioning',
         href: hasSummary ? '/dashboard/strategy' : '/dashboard/profile',
       }
@@ -388,6 +388,7 @@ export default async function DashboardPage({
   const offerCompany = !profile?.placed_at
     ? allList.find(c => c.stage === 'offer') ?? null
     : null
+  const interviewingCompany = allList.find(c => c.stage === 'interviewing') ?? null
 
   const daysSinceOnboard = profile?.onboarding_completed_at
     ? Math.floor((Date.now() - new Date(profile.onboarding_completed_at).getTime()) / 86400000)
@@ -645,7 +646,7 @@ export default async function DashboardPage({
               </span>
             </div>
             <Link href="/dashboard/offers" className="text-[12px] font-semibold text-green-700 hover:text-green-900 shrink-0">
-              Compare &amp; negotiate →
+              Compare &amp; negotiate ?
             </Link>
           </div>
         )}
@@ -689,7 +690,7 @@ export default async function DashboardPage({
               </span>
             </div>
             <Link href="/dashboard/start" className="text-[12px] font-semibold text-slate-900 hover:underline shrink-0">
-              Finish setup →
+              Finish setup ?
             </Link>
           </div>
         )}
@@ -718,7 +719,7 @@ export default async function DashboardPage({
               </div>
             </div>
             <span className="text-[12px] font-semibold text-slate-500 shrink-0">
-              {nextProfileSection ? `Complete ${nextProfileSection.label} →` : 'View profile →'}
+              {nextProfileSection ? `Complete ${nextProfileSection.label} ?` : 'View profile ?'}
             </span>
           </Link>
         )}
@@ -765,7 +766,7 @@ export default async function DashboardPage({
                   Save and continue
                 </button>
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-200">
-                  Full profile →
+                  Full profile ?
                 </Link>
               </div>
             </form>
@@ -811,11 +812,11 @@ export default async function DashboardPage({
                 Roles at this level fill through relationships. Add contacts at your top targets.
               </p>
             </div>
-            <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
+            <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts ?</span>
           </Link>
         )}
 
-        {/* Proactive intelligence cards — pipeline gap summary */}
+        {/* Proactive intelligence cards � pipeline gap summary */}
         {totalCount >= 3 && numIntelGaps > 0 && (
           <div className="mb-6 sm:mb-8">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</p>
@@ -864,7 +865,7 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
-        {/* Nurture path welcome card — first 7 days, empty pipeline, between-roles user */}
+        {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</p>
@@ -885,7 +886,7 @@ export default async function DashboardPage({
           </div>
         )}
 
-        {/* Campaign path welcome — first 7 days, empty pipeline */}
+        {/* Campaign path welcome � first 7 days, empty pipeline */}
         {showCampaignWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</p>
@@ -901,12 +902,12 @@ export default async function DashboardPage({
               Add your first target company &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career page URLs as you go — we scan for openings before they go public.
+              Aim for 10 to 15 companies. Add career page URLs as you go � we scan for openings before they go public.
             </p>
           </div>
         )}
 
-        {/* Watcher path welcome — first 7 days, empty pipeline */}
+        {/* Watcher path welcome � first 7 days, empty pipeline */}
         {showWatcherWelcome && (
           <div className="bg-slate-900 rounded-lg p-6 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</p>
@@ -914,7 +915,7 @@ export default async function DashboardPage({
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
               The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
             </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to — and let the platform do the watching.</p>
+            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
             <Link
               href="/dashboard/companies/new"
               className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
@@ -937,7 +938,7 @@ export default async function DashboardPage({
                 className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
                 aria-label="Dismiss"
               >
-                ✕
+                ?
               </button>
             </form>
           </div>
@@ -969,7 +970,7 @@ export default async function DashboardPage({
                       : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
                   </div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
-                    Goal: {goal} per week · {done} done since Monday
+                    Goal: {goal} per week � {done} done since Monday
                   </div>
                 </div>
                 <form action={saveWeeklyGoal} className="shrink-0">
@@ -1107,11 +1108,42 @@ export default async function DashboardPage({
           ))}
         </div>
 
+        {/* How-To + Interview Prep (in-context guidance) */}
+        <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</p>
+            <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+              Full setup guide ?
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Link href="/dashboard/briefing" className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">1) Start with briefing</p>
+              <p className="text-[12px] text-slate-500 leading-relaxed">Pick your top three actions before opening other pages.</p>
+            </Link>
+            <Link href="/dashboard/contacts" className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">2) Work relationships</p>
+              <p className="text-[12px] text-slate-500 leading-relaxed">Prioritize one warm contact and schedule the next follow-up.</p>
+            </Link>
+            <Link
+              href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard/companies'}
+              className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block"
+            >
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">3) Run interview prep</p>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                {interviewingCompany
+                  ? `Generate a prep brief for ${interviewingCompany.name} before your next conversation.`
+                  : 'Generate a prep brief from any company page before your next interview.'}
+              </p>
+            </Link>
+          </div>
+        </div>
+
         {/* Pause Search (less prominent, but findable) */}
         <div className="mb-6 sm:mb-8 flex flex-col items-center">
           <div className="w-full max-w-xs">
             <div className="text-[11px] text-slate-400 mb-1 text-center">Need a break? Pause your search:</div>
-            {/* @ts-expect-error Async Server Component import in client file */}
+            
             {typeof window !== 'undefined' && require('@/components/PauseSearchButton').PauseSearchButton()}
           </div>
         </div>
@@ -1226,7 +1258,7 @@ export default async function DashboardPage({
                 Pattern Alerts
               </span>
               <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                See all →
+                See all ?
               </Link>
             </div>
             <div className="divide-y divide-slate-50">
@@ -1277,7 +1309,7 @@ export default async function DashboardPage({
                 Company Signals
               </span>
               <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                See all →
+                See all ?
               </Link>
             </div>
             <div className="divide-y divide-slate-50">
@@ -1352,7 +1384,7 @@ export default async function DashboardPage({
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
                     step.done ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-500'
                   }`}>
-                    {step.done ? '✓' : i + 1}
+                    {step.done ? '?' : i + 1}
                   </div>
                   <span className={`text-[13px] flex-1 min-w-0 ${
                     step.done ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-900'
@@ -1437,7 +1469,7 @@ export default async function DashboardPage({
                 {hasFilters && totalFiltered === 0
                   ? `0 of ${totalCount}`
                   : totalPages > 1 || hasFilters
-                    ? `${start + 1}–${Math.min(start + PAGE_SIZE, totalFiltered)} of ${totalFiltered}`
+                    ? `${start + 1}�${Math.min(start + PAGE_SIZE, totalFiltered)} of ${totalFiltered}`
                     : totalCount} {totalCount === 1 ? 'company' : 'companies'}
               </span>
               <Link
@@ -1483,7 +1515,7 @@ export default async function DashboardPage({
                           icon={EMPTY_ICONS.companies}
                           title="Start here: upload your resume"
                           body="Paste your LinkedIn profile text or upload your resume. It's what drives prep briefs, daily briefings, and every AI response you get."
-                          cta={{ label: 'Go to profile →', href: '/dashboard/profile' }}
+                          cta={{ label: 'Go to profile ?', href: '/dashboard/profile' }}
                         />
                       ) : (
                         <EmptyState
@@ -1551,7 +1583,7 @@ export default async function DashboardPage({
                     href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page - 1) }).toString()}`}
                     className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
                   >
-                    ← Previous
+                    ? Previous
                   </a>
                 )}
                 {page < totalPages - 1 && (
@@ -1559,7 +1591,7 @@ export default async function DashboardPage({
                     href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page + 1) }).toString()}`}
                     className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
                   >
-                    Next →
+                    Next ?
                   </a>
                 )}
               </div>
