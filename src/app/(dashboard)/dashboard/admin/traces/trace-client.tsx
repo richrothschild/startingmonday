@@ -561,7 +561,15 @@ export function TraceViewer({
     })
 
     if (!unratedOnly || nextPass === null) return
-    setVisibleTraces((prev) => prev.filter((trace) => trace.id !== traceId))
+
+    const currentIndex = visibleTraces.findIndex((trace) => trace.id === traceId)
+    const nextVisible = visibleTraces.filter((trace) => trace.id !== traceId)
+    setVisibleTraces(nextVisible)
+
+    if (activeRowId === traceId) {
+      const nextCandidate = (currentIndex >= 0 ? nextVisible[currentIndex] : null) ?? nextVisible[Math.max(0, currentIndex - 1)] ?? null
+      setActiveRowId(nextCandidate?.id ?? null)
+    }
   }
 
   const sessionTotal = Object.keys(sessionLabeled).length
