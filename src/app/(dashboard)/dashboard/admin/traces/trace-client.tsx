@@ -201,6 +201,7 @@ function TraceRow({
           <button
             type="button"
             onClick={() => setRating(evalPass === true ? null : true)}
+            aria-keyshortcuts="P"
             className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
               evalPass === true
                 ? 'bg-emerald-500 text-white'
@@ -212,6 +213,7 @@ function TraceRow({
           <button
             type="button"
             onClick={() => setRating(evalPass === false ? null : false)}
+            aria-keyshortcuts="F"
             className={`px-3 py-1.5 rounded text-[12px] font-bold cursor-pointer border-0 transition-colors w-14 ${
               evalPass === false
                 ? 'bg-red-500 text-white'
@@ -264,6 +266,7 @@ function TraceRow({
               <button
                 type="button"
                 onClick={() => setExpanded(v => !v)}
+                aria-keyshortcuts="O"
                 className="text-[11px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0 mb-1.5"
               >
                 Output {expanded ? '▲' : '▼'}
@@ -291,6 +294,7 @@ function TraceRow({
                   key={category}
                   type="button"
                   onClick={() => toggleCategory(category)}
+                  aria-keyshortcuts={String(idx + 1)}
                   className={`text-[10px] px-2 py-1 rounded border transition-colors ${
                     active
                       ? 'bg-slate-900 text-white border-slate-900'
@@ -608,6 +612,9 @@ export function TraceViewer({
     if (trace.eval_pass !== false) return false
     return parseEvalNotes(trace.eval_notes).categories.length === 0
   })
+  const activeRowIndex = activeRowId
+    ? visibleTraces.findIndex((trace) => trace.id === activeRowId)
+    : -1
 
   const copyPreviewPayload = summaryRows.length > 0
     ? buildFailureSummaryPayload(rowsForCopy, {
@@ -855,6 +862,9 @@ export function TraceViewer({
         <span className="font-semibold text-slate-700">Session labeled: {sessionTotal}</span>
         <span>Pass: {sessionPass}</span>
         <span>Fail: {sessionFail}</span>
+        {focusMode && activeRowIndex >= 0 && (
+          <span className="text-slate-600">Active row: {activeRowIndex + 1}/{visibleTraces.length}</span>
+        )}
         {focusMode && (
           <button
             type="button"
