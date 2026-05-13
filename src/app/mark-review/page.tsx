@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+const FEEDBACK_EMAIL = 'rothschild@gmail.com'
+
+function mailtoHref(subject: string, body: string) {
+  return `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
 export const metadata: Metadata = {
   title: 'Starting Monday | Mark Review Brief',
   description:
@@ -41,7 +47,25 @@ const FEEDBACK_QUESTIONS = [
   'What is the one thing we should stop doing immediately to improve conversion quality?',
 ]
 
+const REACTION_SECTIONS = [
+  'BLUF and Positioning',
+  'Core Features and Outcomes',
+  '12-Minute Review Path',
+]
+
+const REACTIONS = ['Clear', 'Unclear', 'Strong', 'Weak', 'Prioritize fix']
+
 export default function MarkReviewPage() {
+  const structuredFeedbackLink = mailtoHref(
+    'Starting Monday review feedback',
+    'Top 3 fixes:\n1)\n2)\n3)\n\nTop 1 stop doing:\n\nBiggest risk this month:\n\nOne fast win this week:\n',
+  )
+
+  const callRequestLink = mailtoHref(
+    '20-minute review call request',
+    'Mark,\n\nIf you are open to it, I would value 20 minutes for direct critique on the attached review page.\n\nPreferred windows:\n- Option 1:\n- Option 2:\n\nThanks,\nRich\n',
+  )
+
   return (
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10">
@@ -83,6 +107,31 @@ export default function MarkReviewPage() {
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-3xl mx-auto space-y-14">
+          <section className="border border-orange-200 bg-orange-50 rounded-lg p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-3">Fast feedback options</p>
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <a
+                href={structuredFeedbackLink}
+                className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-5 py-2.5 rounded transition-colors text-center"
+              >
+                Send structured feedback email
+              </a>
+              <a
+                href={callRequestLink}
+                className="inline-block border border-slate-300 hover:border-slate-500 text-slate-800 text-[14px] px-5 py-2.5 rounded transition-colors text-center"
+              >
+                Request 20-minute review call
+              </a>
+            </div>
+            <a
+              href="/mark-feedback-template.md"
+              download
+              className="text-[13px] text-slate-700 underline hover:text-slate-900 transition-colors"
+            >
+              Download one-page feedback template
+            </a>
+          </section>
+
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What this is</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -98,6 +147,31 @@ export default function MarkReviewPage() {
                   A generic AI job search assistant, resume generator, or passive content product.
                 </p>
               </div>
+            </div>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Quick section reactions</p>
+            <div className="space-y-4">
+              {REACTION_SECTIONS.map(section => (
+                <div key={section} className="border border-slate-200 rounded p-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-3">{section}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {REACTIONS.map(reaction => (
+                      <a
+                        key={`${section}-${reaction}`}
+                        href={mailtoHref(
+                          `Quick reaction: ${section} - ${reaction}`,
+                          `Section: ${section}\nReaction: ${reaction}\nReason (optional):\n`,
+                        )}
+                        className="text-[12px] border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:bg-slate-50 transition-colors"
+                      >
+                        {reaction}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -143,10 +217,39 @@ export default function MarkReviewPage() {
             <p className="text-[13px] text-slate-600 mt-6">
               Preferred response format: top 3 fixes, top 1 stop-doing decision, and what to prioritize this month.
             </p>
+
+            <div className="mt-6 border border-slate-200 rounded p-5 bg-slate-50">
+              <p className="text-[12px] font-semibold text-slate-900 mb-3">60-second feedback form</p>
+              <form action={`mailto:${FEEDBACK_EMAIL}`} method="post" encType="text/plain" className="space-y-3">
+                <div>
+                  <label htmlFor="clarity" className="block text-[12px] text-slate-700 mb-1">Clarity score (1-10)</label>
+                  <input id="clarity" name="Clarity score" type="number" min={1} max={10} className="w-full sm:w-40 border border-slate-300 rounded px-3 py-2 text-[13px]" />
+                </div>
+                <div>
+                  <label htmlFor="conversion" className="block text-[12px] text-slate-700 mb-1">Conversion confidence (1-10)</label>
+                  <input id="conversion" name="Conversion confidence" type="number" min={1} max={10} className="w-full sm:w-40 border border-slate-300 rounded px-3 py-2 text-[13px]" />
+                </div>
+                <div>
+                  <label htmlFor="biggest-flaw" className="block text-[12px] text-slate-700 mb-1">Biggest flaw</label>
+                  <input id="biggest-flaw" name="Biggest flaw" type="text" className="w-full border border-slate-300 rounded px-3 py-2 text-[13px]" />
+                </div>
+                <div>
+                  <label htmlFor="first-change" className="block text-[12px] text-slate-700 mb-1">First change to make</label>
+                  <input id="first-change" name="First change" type="text" className="w-full border border-slate-300 rounded px-3 py-2 text-[13px]" />
+                </div>
+                <button
+                  type="submit"
+                  className="inline-block bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors"
+                >
+                  Send form by email
+                </button>
+              </form>
+            </div>
+
             <p className="text-[13px] text-slate-600 mt-2">
               Send feedback to{' '}
-              <a href="mailto:rich@startingmonday.app" className="underline hover:text-slate-900 transition-colors">
-                rich@startingmonday.app
+              <a href={`mailto:${FEEDBACK_EMAIL}`} className="underline hover:text-slate-900 transition-colors">
+                {FEEDBACK_EMAIL}
               </a>
               .
             </p>
