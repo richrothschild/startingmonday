@@ -17,12 +17,12 @@ export async function PATCH(
 
   try {
     // Check staff status
-    const { data: staffMember, error: staffError } = await supabase
-      .from('staff_members')
+    const staffQuery = supabase.from('staff_members') as any
+    const { data: staffMember, error: staffError } = await staffQuery
       .select('id')
       .eq('user_id', userId)
       .eq('is_active', true)
-      .single() as any
+      .single()
 
     if (staffError || !staffMember) {
       return NextResponse.json({ error: 'Only staff can update feedback status' }, { status: 403 })
@@ -55,7 +55,7 @@ export async function PATCH(
     const timestamp = new Date().toISOString()
 
     // Determine SLA timestamps
-    let updateData: any = {
+    const updateData: Record<string, unknown> = {
       status: newStatus,
       staff_notes: staff_notes || null,
       updated_at: timestamp,
@@ -75,9 +75,9 @@ export async function PATCH(
     }
 
     // Update feedback item
-    const { error: updateError } = await supabase
-      .from('feedback_items')
-      .update(updateData as any)
+    const { error: updateError } = await (supabase
+      .from('feedback_items') as any)
+      .update(updateData)
       .eq('id', itemId) as any
 
     if (updateError) {

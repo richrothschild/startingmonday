@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null)
@@ -8,6 +9,16 @@ export async function POST(request: NextRequest) {
   const email = (body?.email ?? '').toString().trim().toLowerCase()
   const company = (body?.company ?? '').toString().trim()
   const message = (body?.message ?? '').toString().trim()
+  const captchaToken = (body?.captchaToken ?? '').toString().trim()
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'pilot-outreach',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
+
   if (!name || !email || !company) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }

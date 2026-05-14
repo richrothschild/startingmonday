@@ -1,28 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { checkRateLimit } from '@/lib/rate-limit'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? request.headers.get('x-real-ip')
-    ?? 'unknown'
-  const { allowed, retryAfter } = checkRateLimit(`demo-email:${ip}`, 3)
-  if (!allowed) {
-    return NextResponse.json(
-      { ok: false, error: 'Too many requests' },
-      { status: 429, headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {} },
-    )
-  }
-
-  let email: string, company: string, role: string
+  let email: string, company: string, role: string, captchaToken: string
   try {
     const body = await request.json()
     email   = typeof body.email   === 'string' ? body.email.trim().toLowerCase()   : ''
     company = typeof body.company === 'string' ? body.company.trim() : ''
     role    = typeof body.role    === 'string' ? body.role.trim()    : ''
+    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'demo-email',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
 
   if (!email || !email.includes('@') || !email.includes('.')) {
     return NextResponse.json({ ok: false, error: 'Invalid email' }, { status: 400 })

@@ -82,12 +82,12 @@ export async function POST(
 
     // If staff note, require staff status
     if (is_staff_note) {
-      const { data: staffMember } = await supabase
-        .from('staff_members')
+      const staffQuery = supabase.from('staff_members') as any
+      const { data: staffMember } = await staffQuery
         .select('id')
         .eq('user_id', userId)
         .eq('is_active', true)
-        .single() as any
+        .single()
 
       if (!staffMember) {
         return NextResponse.json({ error: 'Only staff can add staff notes' }, { status: 403 })

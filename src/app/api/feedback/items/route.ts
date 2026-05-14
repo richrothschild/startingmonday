@@ -117,8 +117,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Insert feedback item
-    const { data: feedbackItem, error } = await supabase
-      .from('feedback_items')
+    const { data: feedbackItem, error } = await (supabase
+      .from('feedback_items') as any)
       .insert({
         title,
         body: feedbackBody,

@@ -26,6 +26,24 @@ const CATEGORY_EMOJIS: Record<string, string> = {
   other: '💭',
 }
 
+type FeedbackMetric = {
+  id: string
+  title: string
+  category: string
+  status: string
+  vote_count: number
+  created_at: string
+  user_profiles?: { full_name?: string | null } | null
+  feedback_comments?: Array<{ count?: number | null }> | null
+  first_staff_response_at?: string | null
+  status_decided_at?: string | null
+  hoursOld: number
+  timeToFirstResponse: number | null
+  timeToDecision: number | null
+  exceeds24h: boolean
+  exceeds7d: boolean
+}
+
 export default async function FeedbackAdminPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -33,8 +51,8 @@ export default async function FeedbackAdminPage() {
   if (!user) redirect('/login')
 
   // Check staff status
-  const { data: staffMember } = await supabase
-    .from('staff_members')
+  const staffQuery = supabase.from('staff_members') as any
+  const { data: staffMember } = await staffQuery
     .select('id')
     .eq('user_id', user.id)
     .eq('is_active', true)
@@ -73,7 +91,7 @@ export default async function FeedbackAdminPage() {
 
   // Calculate SLA metrics
   const now = new Date()
-  const metrics = (feedbackItems || []).map((item: any) => {
+  const metrics: FeedbackMetric[] = (feedbackItems || []).map((item: any) => {
     const createdAt = new Date(item.created_at)
     const hoursOld = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60)
 
@@ -99,12 +117,12 @@ export default async function FeedbackAdminPage() {
 
   // Count items by status
   const statusCounts = {
-    new: metrics.filter(m => m.status === 'new').length,
-    under_review: metrics.filter(m => m.status === 'under_review').length,
-    planned: metrics.filter(m => m.status === 'planned').length,
-    in_progress: metrics.filter(m => m.status === 'in_progress').length,
-    shipped: metrics.filter(m => m.status === 'shipped').length,
-    declined: metrics.filter(m => m.status === 'declined').length,
+    new: metrics.filter((m) => m.status === 'new').length,
+    under_review: metrics.filter((m) => m.status === 'under_review').length,
+    planned: metrics.filter((m) => m.status === 'planned').length,
+    in_progress: metrics.filter((m) => m.status === 'in_progress').length,
+    shipped: metrics.filter((m) => m.status === 'shipped').length,
+    declined: metrics.filter((m) => m.status === 'declined').length,
   }
 
   return (
@@ -139,16 +157,16 @@ export default async function FeedbackAdminPage() {
 
         {/* SLA Alerts */}
         <section className="space-y-3">
-          {metrics.filter(m => m.exceeds24h || m.exceeds7d).length > 0 && (
+          {metrics.filter((m) => m.exceeds24h || m.exceeds7d).length > 0 && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-2">
               <p className="text-[13px] font-bold text-red-900">🚨 SLA Breaches</p>
               <ul className="text-[12px] text-red-800 space-y-1">
-                {metrics.filter(m => m.exceeds24h).map(m => (
+                {metrics.filter((m) => m.exceeds24h).map((m) => (
                   <li key={m.id}>
                     "{m.title}" - No response for {Math.round(m.hoursOld)} hours
                   </li>
                 ))}
-                {metrics.filter(m => m.exceeds7d).map(m => (
+                {metrics.filter((m) => m.exceeds7d).map((m) => (
                   <li key={m.id}>
                     "{m.title}" - No decision for {Math.round(m.hoursOld / 24)} days
                   </li>
@@ -182,7 +200,7 @@ export default async function FeedbackAdminPage() {
                     </td>
                   </tr>
                 ) : (
-                  metrics.map((item) => (
+                  metrics.map((item: FeedbackMetric) => (
                     <tr key={item.id} className={`hover:bg-slate-50 ${item.exceeds24h || item.exceeds7d ? 'bg-red-50' : ''}`}>
                       <td className="px-4 py-3 max-w-xs truncate">
                         <span className="font-medium text-slate-900">{item.title}</span>

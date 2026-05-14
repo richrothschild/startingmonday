@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL
 
@@ -15,6 +16,15 @@ export async function POST(request: NextRequest) {
   const email   = (body?.email  ?? '').toString().trim()
   const tier    = (body?.tier   ?? 'trialing').toString().trim()
   const source  = (body?.source ?? '').toString().trim() || null
+  const captchaToken = (body?.captchaToken ?? '').toString().trim()
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'notify-new-user',
+    maxPerMinute: 5,
+  })
+  if (blocked) return blocked
 
   if (!email) return NextResponse.json({ ok: true })
   if (!OWNER_EMAIL) return NextResponse.json({ ok: true })
