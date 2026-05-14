@@ -148,22 +148,66 @@ export default async function SocialAdminPage() {
 
           <div className="mt-6 pt-5 border-t border-slate-100">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</p>
-            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one tone and send same day.</p>
+            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one body, then send same day.</p>
             <div className="bg-slate-50 border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct</p>
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct And Memorable</p>
+              <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> Most CIO searches stall between sessions.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
-                [Name] — thanks for connecting. Most CIO searches lose momentum between sessions because research and target tracking are manual. Starting Monday gives you a live operating layer: company signals, prep briefs, and a pipeline view in one place. If useful, I can share a 15-minute walkthrough and show exactly how other technology leaders are using it.
+                [Name], thanks for connecting. The pattern I keep seeing is simple: strong operators run weak search systems between sessions. Starting Monday fixes that execution gap with company signals, prep briefs, and a live pipeline view in one place. If you want, I can show you the full workflow in 15 minutes.
               </p>
             </div>
             <div className="mt-3 bg-slate-50 border border-slate-200 rounded p-4">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version B - Relationship First</p>
+              <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> You run strategy. We handle the between-session execution.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
-                [Name] — appreciate the connection. I work with senior technology leaders in transition, and the consistent gap I see is execution between coaching sessions. Starting Monday covers that layer with daily signal monitoring, prep briefs, and a clear pipeline view so decisions move faster. Open to a short 15-minute walkthrough?
+                [Name], appreciate the connection. Senior technology transitions usually break down in the quiet middle: scattered research, stale targets, and lost follow-through. Starting Monday gives CIO candidates a daily operating rhythm so they show up sharper in every conversation. Open to a short 15-minute walkthrough?
               </p>
             </div>
             <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
               <p><span className="font-semibold text-slate-800">If no response after 3 days:</span> Happy to send a short demo video if that is easier than a live call.</p>
               <p className="mt-1"><span className="font-semibold text-slate-800">If no response after 7 days:</span> No pressure if timing is not right. If priorities shift, I am happy to reconnect.</p>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-slate-100">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Synthetic Council Review - Sales Marketing And Pricing</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-[12px] text-left border border-slate-200 rounded overflow-hidden">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="px-3 py-2 font-semibold text-slate-900">Member</th>
+                      <th className="px-3 py-2 font-semibold text-slate-900">Feedback</th>
+                      <th className="px-3 py-2 font-semibold text-slate-900">Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    <tr>
+                      <td className="px-3 py-2 text-slate-800 font-semibold">Dave Gerhardt</td>
+                      <td className="px-3 py-2 text-slate-700">Strong opener and good founder-style directness. Version A is punchier and more likely to get a reply.</td>
+                      <td className="px-3 py-2 text-slate-900 font-semibold">A-</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 text-slate-800 font-semibold">April Dunford</td>
+                      <td className="px-3 py-2 text-slate-700">Clear who this is for: CIO-level transitions. Positioning is cleaner when centered on the execution gap between sessions.</td>
+                      <td className="px-3 py-2 text-slate-900 font-semibold">A</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 text-slate-800 font-semibold">John McMahon</td>
+                      <td className="px-3 py-2 text-slate-700">Pain and urgency are visible. Keep CTA specific at 15 minutes and avoid adding extra links in first follow-up.</td>
+                      <td className="px-3 py-2 text-slate-900 font-semibold">A-</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 text-slate-800 font-semibold">Katelyn Bourgoin</td>
+                      <td className="px-3 py-2 text-slate-700">Version B lands emotional reality better. "Quiet middle" language is memorable and human.</td>
+                      <td className="px-3 py-2 text-slate-900 font-semibold">A</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 text-slate-800 font-semibold">Patrick Campbell</td>
+                      <td className="px-3 py-2 text-slate-700">Value framing is stronger when outcomes are explicit: sharper conversations and faster search velocity. Good premium signal without pricing friction.</td>
+                      <td className="px-3 py-2 text-slate-900 font-semibold">A-</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
