@@ -8,6 +8,20 @@ type GuardOptions = {
   maxPerMinute: number
 }
 
+let hasLoggedMissingTurnstileSecret = false
+
+function warnIfMissingTurnstileSecret(): void {
+  if (hasLoggedMissingTurnstileSecret) return
+
+  const isLocal = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
+  if (isLocal) return
+
+  if (!process.env.TURNSTILE_SECRET_KEY) {
+    console.warn('[security] TURNSTILE_SECRET_KEY is missing in a non-local environment. Public endpoint captcha checks will fail closed until it is configured.')
+    hasLoggedMissingTurnstileSecret = true
+  }
+}
+
 function getClientIp(request: NextRequest): string {
   return (
     request.headers.get('cf-connecting-ip')
@@ -47,6 +61,8 @@ async function verifyTurnstileToken(token: string, ip: string): Promise<boolean>
 export async function enforcePublicEndpointGuard(
   options: GuardOptions,
 ): Promise<NextResponse | null> {
+  warnIfMissingTurnstileSecret()
+
   const { request, captchaToken, rateLimitKey, maxPerMinute } = options
   const ip = getClientIp(request)
 
