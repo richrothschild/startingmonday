@@ -22,7 +22,7 @@ function warnIfMissingTurnstileSecret(): void {
   }
 }
 
-function getClientIp(request: NextRequest): string {
+export function getClientIp(request: NextRequest): string {
   return (
     request.headers.get('cf-connecting-ip')
     ?? request.headers.get('x-real-ip')
@@ -31,7 +31,7 @@ function getClientIp(request: NextRequest): string {
   )
 }
 
-async function verifyTurnstileToken(token: string, ip: string): Promise<boolean> {
+export async function verifyTurnstileToken(token: string, ip: string): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY
   if (!secret) return false
 

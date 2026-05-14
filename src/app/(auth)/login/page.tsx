@@ -128,27 +128,26 @@ export default function LoginPage() {
     }
 
     try {
-      const supabase = createClient()
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      // Call server-enforced login endpoint
+      const response = await fetch('/api/auth/verify-and-signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, turnstileToken }),
+      })
 
-      if (error) {
-        setError(error.message)
+      const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
+
+      if (!response.ok || !data.ok) {
+        setError(data.error || 'Sign-in failed')
         resetTurnstile()
         setLoading(false)
         return
       }
 
-      if (data.user) {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-        await supabase.from('user_profiles').upsert(
-          { user_id: data.user.id, briefing_timezone: tz },
-          { onConflict: 'user_id' }
-        )
-      }
-
+      // Successfully authenticated; cookies are already set by server
       router.push('/dashboard/briefing')
       router.refresh()
-    } catch {
+    } catch (err) {
       setError('Something went wrong. Please try again.')
       resetTurnstile()
       setLoading(false)
