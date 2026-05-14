@@ -1,9 +1,19 @@
 ﻿'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId?: string) => void
+    }
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter()
@@ -13,8 +23,77 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement | null>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+
+  function resetTurnstile() {
+    setTurnstileToken('')
+    if (turnstileWidgetIdRef.current) {
+      window.turnstile?.reset(turnstileWidgetIdRef.current)
+    }
+  }
+
+  useEffect(() => {
+    if (!turnstileSiteKey || !turnstileRef.current) return
+
+    const renderWidget = () => {
+      if (!window.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          setTurnstileToken(token)
+          setError(null)
+        },
+        'expired-callback': () => {
+          setTurnstileToken('')
+        },
+        'error-callback': () => {
+          setTurnstileToken('')
+          setError('Captcha failed. Please try again.')
+        },
+      })
+      setTurnstileReady(true)
+    }
+
+    if (window.turnstile) {
+      renderWidget()
+      return () => {
+        if (turnstileWidgetIdRef.current && window.turnstile) {
+          window.turnstile.remove(turnstileWidgetIdRef.current)
+          turnstileWidgetIdRef.current = null
+        }
+      }
+    }
+
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.defer = true
+    script.onload = renderWidget
+    document.head.appendChild(script)
+
+    return () => {
+      script.onload = null
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetIdRef.current)
+        turnstileWidgetIdRef.current = null
+      }
+    }
+  }, [turnstileSiteKey])
+
+  const authBusy = googleLoading || appleLoading || loading
+  const captchaReady = !!turnstileSiteKey && turnstileReady
+  const canAttemptAuth = captchaReady && !!turnstileToken && !authBusy
 
   async function handleGoogle() {
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
+      return
+    }
+
     setGoogleLoading(true)
     const supabase = createClient()
     await supabase.auth.signInWithOAuth({
@@ -24,6 +103,11 @@ export default function LoginPage() {
   }
 
   async function handleApple() {
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
+      return
+    }
+
     setAppleLoading(true)
     const supabase = createClient()
     await supabase.auth.signInWithOAuth({
@@ -37,12 +121,19 @@ export default function LoginPage() {
     setLoading(true)
     setError(null)
 
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
+      setLoading(false)
+      return
+    }
+
     try {
       const supabase = createClient()
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
       if (error) {
         setError(error.message)
+        resetTurnstile()
         setLoading(false)
         return
       }
@@ -59,6 +150,7 @@ export default function LoginPage() {
       router.refresh()
     } catch {
       setError('Something went wrong. Please try again.')
+      resetTurnstile()
       setLoading(false)
     }
   }
@@ -87,7 +179,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleGoogle}
-              disabled={googleLoading || appleLoading || loading}
+              disabled={!canAttemptAuth}
               className="w-full flex items-center justify-center gap-2.5 border border-slate-200 rounded px-4 py-2.5 text-[14px] font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-colors cursor-pointer bg-white disabled:opacity-50 disabled:cursor-not-allowed mb-5"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -102,7 +194,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleApple}
-              disabled={googleLoading || appleLoading || loading}
+              disabled={!canAttemptAuth}
               className="w-full flex items-center justify-center gap-2.5 rounded px-4 py-2.5 text-[14px] font-semibold text-white bg-black hover:bg-slate-900 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mb-5"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -152,9 +244,16 @@ export default function LoginPage() {
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
 
+              <div className="space-y-1">
+                <div ref={turnstileRef} />
+                {!turnstileSiteKey && (
+                  <p className="text-[12px] text-amber-700">Captcha is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY.</p>
+                )}
+              </div>
+
               <button
                 type="submit"
-                disabled={loading}
+                disabled={!canAttemptAuth}
                 className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in…' : 'Sign in'}
