@@ -148,19 +148,19 @@ export default async function SocialAdminPage() {
 
           <div className="mt-6 pt-5 border-t border-slate-100">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</p>
-            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one body, then send same day.</p>
+            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one two-sentence body, then send same day.</p>
             <div className="bg-slate-50 border border-slate-200 rounded p-4">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct And Memorable</p>
               <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> Most CIO searches stall between sessions.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
-                [Name], thanks for connecting. The pattern I keep seeing is simple: strong operators run weak search systems between sessions. Starting Monday fixes that execution gap with company signals, prep briefs, and a live pipeline view in one place. If you want, I can show you the full workflow in 15 minutes.
+                [Name], thanks for connecting. Most CIO searches lose momentum between sessions, so we built Starting Monday to keep execution tight with company signals, prep briefs, and a live pipeline view; open to a 15-minute walkthrough?
               </p>
             </div>
             <div className="mt-3 bg-slate-50 border border-slate-200 rounded p-4">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version B - Relationship First</p>
               <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> You run strategy. We handle the between-session execution.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
-                [Name], appreciate the connection. Senior technology transitions usually break down in the quiet middle: scattered research, stale targets, and lost follow-through. Starting Monday gives CIO candidates a daily operating rhythm so they show up sharper in every conversation. Open to a short 15-minute walkthrough?
+                [Name], appreciate the connection. The quiet middle of a CIO transition is where searches drift, so Starting Monday gives candidates a daily operating rhythm that keeps research, outreach, and interview prep moving; open to a short 15-minute walkthrough?
               </p>
             </div>
             <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
