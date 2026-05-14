@@ -1,10 +1,20 @@
 ﻿'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId?: string) => void
+    }
+  }
+}
 
 type SituationContent = {
   title: string
@@ -87,41 +97,157 @@ export default function SignupPage() {
   const [confirmed, setConfirmed] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement | null>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+
+  function resetTurnstile() {
+    setTurnstileToken('')
+    if (turnstileWidgetIdRef.current) {
+      window.turnstile?.reset(turnstileWidgetIdRef.current)
+    }
+  }
+
+  useEffect(() => {
+    if (!turnstileSiteKey || !turnstileRef.current) return
+
+    const renderWidget = () => {
+      if (!window.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          setTurnstileToken(token)
+          setError(null)
+        },
+        'expired-callback': () => {
+          setTurnstileToken('')
+        },
+        'error-callback': () => {
+          setTurnstileToken('')
+          setError('Captcha failed. Please try again.')
+        },
+      })
+      setTurnstileReady(true)
+    }
+
+    if (window.turnstile) {
+      renderWidget()
+      return () => {
+        if (turnstileWidgetIdRef.current && window.turnstile) {
+          window.turnstile.remove(turnstileWidgetIdRef.current)
+          turnstileWidgetIdRef.current = null
+        }
+      }
+    }
+
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.defer = true
+    script.onload = renderWidget
+    document.head.appendChild(script)
+
+    return () => {
+      script.onload = null
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetIdRef.current)
+        turnstileWidgetIdRef.current = null
+      }
+    }
+  }, [turnstileSiteKey])
+
+  const authBusy = googleLoading || appleLoading || loading
+  const captchaReady = !!turnstileSiteKey && turnstileReady
+  const canAttemptAuth = captchaReady && !!turnstileToken && !authBusy
 
   async function handleGoogle() {
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
+      return
+    }
+
     setGoogleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'google' })
     } catch { /* analytics must not block */ }
-    const supabase = createClient()
     const params = new URLSearchParams(window.location.search)
     const utmSource = params.get('utm_source') || params.get('ref') || null
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: callbackUrl.toString() },
-    })
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'google',
+          turnstileToken,
+          redirectTo: callbackUrl.toString(),
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Google sign-in')
+        resetTurnstile()
+        setGoogleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      resetTurnstile()
+      setGoogleLoading(false)
+    }
   }
 
   async function handleApple() {
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
+      return
+    }
+
     setAppleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'apple' })
     } catch { /* analytics must not block */ }
-    const supabase = createClient()
     const params = new URLSearchParams(window.location.search)
     const utmSource = params.get('utm_source') || params.get('ref') || null
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
-    await supabase.auth.signInWithOAuth({
-      provider: 'apple',
-      options: { redirectTo: callbackUrl.toString() },
-    })
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'apple',
+          turnstileToken,
+          redirectTo: callbackUrl.toString(),
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Apple sign-in')
+        resetTurnstile()
+        setAppleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      resetTurnstile()
+      setAppleLoading(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -129,74 +255,88 @@ export default function SignupPage() {
     setLoading(true)
     setError(null)
 
-    const supabase = createClient()
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: `${window.location.origin}/dashboard/briefing` },
-    })
-
-    if (error) {
-      setError(error.message)
+    if (!turnstileToken) {
+      setError('Please complete captcha first.')
       setLoading(false)
       return
-    }
-
-    if (data.user) {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-      const params = new URLSearchParams(window.location.search)
-      const ref = params.get('ref') || null
-      const utmSource = params.get('utm_source') || null
-      const utmMedium = params.get('utm_medium') || null
-      const utmCampaign = params.get('utm_campaign') || null
-      const fromSituation = params.get('from') || null
-      const signupSource = utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
-      await Promise.all([
-        supabase.from('user_profiles').upsert(
-          { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
-          { onConflict: 'user_id' }
-        ),
-        signupSource
-          ? supabase.from('users').update({
-              signup_source: signupSource,
-              acquisition_channel: utmMedium ?? (ref ? 'referral' : null),
-              referral_source: utmCampaign ?? utmSource ?? ref ?? null,
-            }).eq('id', data.user.id)
-          : Promise.resolve(),
-        ref
-          ? fetch('/api/partners/attribute', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ referral_code: ref }),
-            }).catch(() => {})
-          : Promise.resolve(),
-        fetch('/api/notify/new-user', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: signupSource }),
-        }).catch(() => {}),
-      ])
     }
 
     try {
-      const phParams = new URLSearchParams(window.location.search)
-      ph?.capture('signup_completed', {
-        method: 'email',
-        situation: phParams.get('from') ?? null,
-        source: phParams.get('utm_source') ?? phParams.get('ref') ?? null,
+      const response = await fetch('/api/auth/verify-and-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, turnstileToken }),
       })
-    } catch { /* analytics must not block */ }
 
-    // If email confirmation is required, the session won't exist yet
-    if (!data.session) {
-      setConfirmed(true)
+      const data = await response.json() as { ok?: boolean; error?: string; user?: { id: string; email?: string | null } | null; session?: unknown }
+
+      if (!response.ok || !data.ok) {
+        setError(data.error || 'Account creation failed')
+        resetTurnstile()
+        setLoading(false)
+        return
+      }
+
+      if (data.user) {
+        const supabase = createClient()
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+        const params = new URLSearchParams(window.location.search)
+        const ref = params.get('ref') || null
+        const utmSource = params.get('utm_source') || null
+        const utmMedium = params.get('utm_medium') || null
+        const utmCampaign = params.get('utm_campaign') || null
+        const fromSituation = params.get('from') || null
+        const signupSource = utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
+        await Promise.all([
+          supabase.from('user_profiles').upsert(
+            { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
+            { onConflict: 'user_id' }
+          ),
+          signupSource
+            ? supabase.from('users').update({
+                signup_source: signupSource,
+                acquisition_channel: utmMedium ?? (ref ? 'referral' : null),
+                referral_source: utmCampaign ?? utmSource ?? ref ?? null,
+              }).eq('id', data.user.id)
+            : Promise.resolve(),
+          ref
+            ? fetch('/api/partners/attribute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ referral_code: ref }),
+              }).catch(() => {})
+            : Promise.resolve(),
+          fetch('/api/notify/new-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: signupSource }),
+          }).catch(() => {}),
+        ])
+      }
+
+      try {
+        const phParams = new URLSearchParams(window.location.search)
+        ph?.capture('signup_completed', {
+          method: 'email',
+          situation: phParams.get('from') ?? null,
+          source: phParams.get('utm_source') ?? phParams.get('ref') ?? null,
+        })
+      } catch { /* analytics must not block */ }
+
+      if (!data.session) {
+        setConfirmed(true)
+        setLoading(false)
+        return
+      }
+
+      const seatToken = new URLSearchParams(window.location.search).get('seat_token')
+      router.push(seatToken ? `/team/join/${seatToken}` : '/dashboard/briefing')
+      router.refresh()
+    } catch {
+      setError('Something went wrong. Please try again.')
+      resetTurnstile()
       setLoading(false)
-      return
     }
-
-    const seatToken = new URLSearchParams(window.location.search).get('seat_token')
-    router.push(seatToken ? `/team/join/${seatToken}` : '/dashboard/briefing')
-    router.refresh()
   }
 
   return (
@@ -261,7 +401,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={handleGoogle}
-                  disabled={googleLoading || appleLoading || loading}
+                  disabled={!canAttemptAuth}
                   className="w-full flex items-center justify-center gap-2.5 border border-slate-200 rounded px-4 py-2.5 text-[14px] font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-colors cursor-pointer bg-white disabled:opacity-50 disabled:cursor-not-allowed mb-5"
                 >
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -276,7 +416,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={handleApple}
-                  disabled={googleLoading || appleLoading || loading}
+                  disabled={!canAttemptAuth}
                   className="w-full flex items-center justify-center gap-2.5 rounded px-4 py-2.5 text-[14px] font-semibold text-white bg-black hover:bg-slate-900 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mb-5"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -328,9 +468,16 @@ export default function SignupPage() {
                     <p className="text-[13px] text-red-600">{error}</p>
                   )}
 
+                  <div className="space-y-1">
+                    <div ref={turnstileRef} />
+                    {!turnstileSiteKey && (
+                      <p className="text-[12px] text-amber-700">Captcha is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY.</p>
+                    )}
+                  </div>
+
                   <button
                     type="submit"
-                    disabled={loading}
+                    disabled={!canAttemptAuth}
                     className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}

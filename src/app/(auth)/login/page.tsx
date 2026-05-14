@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
 
 declare global {
   interface Window {
@@ -95,11 +94,32 @@ export default function LoginPage() {
     }
 
     setGoogleLoading(true)
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    })
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'google',
+          turnstileToken,
+          redirectTo: `${window.location.origin}/auth/callback`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Google sign-in')
+        resetTurnstile()
+        setGoogleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      resetTurnstile()
+      setGoogleLoading(false)
+    }
   }
 
   async function handleApple() {
@@ -109,11 +129,32 @@ export default function LoginPage() {
     }
 
     setAppleLoading(true)
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'apple',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    })
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'apple',
+          turnstileToken,
+          redirectTo: `${window.location.origin}/auth/callback`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Apple sign-in')
+        resetTurnstile()
+        setAppleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      resetTurnstile()
+      setAppleLoading(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
