@@ -146,6 +146,20 @@ export default async function SocialAdminPage() {
             ))}
           </ol>
 
+          <div className="mt-6 pt-5 border-t border-slate-100">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</p>
+            <p className="text-[12px] text-slate-500 mb-3">Use this when a CIO accepts the connection request. Personalize the first sentence with something specific from their profile, post, or recent move.</p>
+            <div className="bg-slate-50 border border-slate-200 rounded p-4">
+              <p className="text-[13px] text-slate-700 leading-relaxed">
+                [Name] — thanks for connecting. I work with senior operators in transition and saw your focus on [specific signal]. Most CIO searches lose momentum between sessions because research and target tracking are manual. Starting Monday gives you a live operating layer: company signals, prep briefs, and a pipeline view in one place. If useful, I can share a 15-minute walkthrough and show exactly how other technology leaders are using it.
+              </p>
+            </div>
+            <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
+              <p><span className="font-semibold text-slate-800">If no response after 3 days:</span> Happy to send a short demo video if that is easier than a live call.</p>
+              <p className="mt-1"><span className="font-semibold text-slate-800">If no response after 7 days:</span> No pressure if timing is not right. If priorities shift, I am happy to reconnect.</p>
+            </div>
+          </div>
+
           {/* Pillar legend */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</p>
