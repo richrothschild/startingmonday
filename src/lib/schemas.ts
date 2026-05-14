@@ -57,6 +57,28 @@ export const OnboardingFormSchema = z.object({
   }),
 })
 
+// Feedback System Schemas
+export const FeedbackCategorySchema = z.enum(['bug', 'feature_request', 'ui_ux', 'performance', 'other'])
+export const FeedbackStatusSchema = z.enum(['new', 'under_review', 'planned', 'in_progress', 'shipped', 'declined'])
+
+export const FeedbackSubmitSchema = z.object({
+  title: z.string().min(5, 'Title must be at least 5 characters').max(200),
+  body: z.string().min(10, 'Description must be at least 10 characters').max(5000),
+  category: FeedbackCategorySchema,
+  screenshot_url: z.string().url().optional().or(z.literal('')),
+})
+
+export const FeedbackStatusUpdateSchema = z.object({
+  status: FeedbackStatusSchema,
+  change_note: z.string().max(2000).optional(),
+  staff_notes: z.string().max(5000).optional(),
+})
+
+export const FeedbackCommentSchema = z.object({
+  body: z.string().min(1, 'Comment cannot be empty').max(2000),
+  is_staff_note: z.boolean().default(false),
+})
+
 // Returns the first Zod issue message or a fallback
 export function firstZodError(err: z.ZodError): string {
   return err.issues[0]?.message ?? 'Invalid input'
