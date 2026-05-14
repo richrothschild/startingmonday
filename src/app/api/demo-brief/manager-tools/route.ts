@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { PREP_SYSTEM } from '@/lib/prompts'
-import { checkBurstLimit } from '@/lib/burst-limit'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 // Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
 // Designed to show the full brief depth to Mark Horstman without exposing any real user data.
@@ -181,12 +181,21 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No m
 language.`
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-real-ip')
-    ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? 'unknown'
-  if (!checkBurstLimit(`demo-mt:${ip}`)) {
-    return new Response('Too many requests', { status: 429 })
+  let captchaToken: string
+  try {
+    const body = await request.json()
+    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
+  } catch {
+    return new Response('Bad request', { status: 400 })
   }
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'demo-brief-manager-tools',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
 
   const encoder = new TextEncoder()
   const readable = new ReadableStream({
