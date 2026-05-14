@@ -148,10 +148,17 @@ export default async function SocialAdminPage() {
 
           <div className="mt-6 pt-5 border-t border-slate-100">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</p>
-            <p className="text-[12px] text-slate-500 mb-3">Use this when a CIO accepts the connection request. Personalize the first sentence with something specific from their profile, post, or recent move.</p>
+            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one tone and send same day.</p>
             <div className="bg-slate-50 border border-slate-200 rounded p-4">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
-                [Name] — thanks for connecting. I work with senior operators in transition and saw your focus on [specific signal]. Most CIO searches lose momentum between sessions because research and target tracking are manual. Starting Monday gives you a live operating layer: company signals, prep briefs, and a pipeline view in one place. If useful, I can share a 15-minute walkthrough and show exactly how other technology leaders are using it.
+                [Name] — thanks for connecting. Most CIO searches lose momentum between sessions because research and target tracking are manual. Starting Monday gives you a live operating layer: company signals, prep briefs, and a pipeline view in one place. If useful, I can share a 15-minute walkthrough and show exactly how other technology leaders are using it.
+              </p>
+            </div>
+            <div className="mt-3 bg-slate-50 border border-slate-200 rounded p-4">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version B - Relationship First</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed">
+                [Name] — appreciate the connection. I work with senior technology leaders in transition, and the consistent gap I see is execution between coaching sessions. Starting Monday covers that layer with daily signal monitoring, prep briefs, and a clear pipeline view so decisions move faster. Open to a short 15-minute walkthrough?
               </p>
             </div>
             <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
