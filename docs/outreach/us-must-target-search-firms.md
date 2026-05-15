@@ -365,3 +365,78 @@ Important note on contacts and emails:
 3. Add CHRO and CRO once first partner proof points land.
 4. Expand to medium-fit tech specialist channels (Riviera, plus technology practices in Tier 1 firms).
 5. Use early outcomes to enter strategic global firms with a targeted-practice pilot pitch.
+
+---
+
+## Coverage Status and Expanded US Universe
+
+This document now includes:
+- A must-target operating list (top priority accounts)
+- A broader US search-firm universe for next-wave expansion
+- Adjacent channels that influence the same executive moves
+
+It is intentionally practical and prioritized rather than a full census of every boutique in the US.
+
+## Expanded US Search-Firm Universe (Next-Wave Accounts)
+
+### Large Global Firms with Significant US Presence
+1. Heidrick and Struggles
+2. Korn Ferry
+3. Russell Reynolds Associates
+4. Spencer Stuart
+5. Egon Zehnder
+6. Odgers Berndtson
+7. Boyden
+8. Amrop
+
+### US and North America Mid-Market Multi-Practice Firms
+1. JM Search
+2. ZRG Partners
+3. DHR Global
+4. Caldwell
+5. Stanton Chase
+6. Buffkin and Baker
+7. Diversified Search Group
+8. Koya Partners (Diversified Search Group)
+9. Charles Aris Executive Search
+
+### US Functional Specialists
+
+#### CFO and COO Lanes
+1. Crist Kolder Associates
+2. Slayton Search Partners
+3. David Barrett Partners
+4. Howard Fischer Associates
+
+#### CIO, CTO, CISO, CDO Lanes
+1. Riviera Partners
+2. Bespoke Partners
+3. Daversa Partners
+4. True Search technology practices
+
+#### CHRO and People Lanes
+1. Hanold Associates
+2. True Search people practices
+3. DHR human resources practices
+
+#### CRO and Revenue Lanes
+1. True Search go-to-market practices
+2. ZRG revenue leadership practices
+3. The Bridger Group (where role scope matches CRO-level mandates)
+
+## Adjacent US Channels (High Leverage)
+
+These are not always traditional retained search firms but frequently influence or route the same executive transitions.
+
+1. PE operating partner and talent networks
+2. VC platform talent teams and portfolio talent partners
+3. Board director communities and governance networks
+4. Executive coaching and transition coaching networks
+5. Interim executive providers (CFO, COO, CIO benches)
+6. Leadership advisory firms with succession and assessment practices
+
+## Contact Data Confidence
+
+- The top-12 must-target section includes immediate public contact routes to start now.
+- For partner-direct outreach, map named partners by role lane after first reply or via manual research per target account.
+- Treat direct personal emails as dynamic data that should be validated at time of send.
