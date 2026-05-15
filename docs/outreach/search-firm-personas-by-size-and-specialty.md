@@ -345,6 +345,85 @@ Use for concentrated access to CFO and COO candidates in strongest-fit windows.
 
 ---
 
+## Coverage Status and Expanded Universe
+
+This list is directionally comprehensive for immediate GTM prioritization, but it is not a complete global census of all search and adjacent-search firms. Use the lists below as an expanded target universe for sequencing and account research.
+
+## Expanded Global Retained Search Firms
+
+1. Heidrick and Struggles
+2. Korn Ferry
+3. Russell Reynolds Associates
+4. Spencer Stuart
+5. Egon Zehnder
+6. Odgers Berndtson
+7. Boyden
+8. Amrop
+9. N2Growth
+10. Pedersen and Partners
+11. TRANSEARCH International
+
+## Expanded Mid-Market and Multi-Practice Firms
+
+1. JM Search
+2. ZRG Partners
+3. DHR Global
+4. Caldwell
+5. Stanton Chase
+6. Buffkin and Baker
+7. Koya Partners (Diversified Search Group)
+8. Diversified Search Group
+9. Bespoke Partners
+10. True Search
+11. Slayton Search Partners
+12. Charles Aris Executive Search
+
+## Expanded Functional Specialists
+
+### CFO and COO Focus
+1. Crist Kolder Associates
+2. David Barrett Partners
+3. Howard Fischer Associates
+4. Slayton Search Partners
+5. Charles Aris Executive Search
+
+### CIO, CTO, CISO, CDO Focus
+1. Riviera Partners
+2. Bespoke Partners
+3. Daversa Partners
+4. True Search technology practices
+5. Caldwell technology practices
+
+### CHRO and People Leadership Focus
+1. Hanold Associates
+2. DHR human resources practices
+3. True Search people practices
+4. Buffkin and Baker HR practices
+
+### CRO and Revenue Leadership Focus
+1. ZRG revenue leadership practices
+2. True Search go-to-market practices
+3. The Bridger Group (revenue and sales leadership where relevant)
+
+## Adjacent Search Channels (Important, Not Traditional Retained Search)
+
+These channels can accelerate access to the same executive personas, especially in pre-search windows.
+
+1. PE operating partner networks and talent partners
+2. Venture talent partners and portfolio talent teams
+3. Board director networks and governance communities
+4. Executive coaching and transition coaching networks
+5. Interim executive providers (CFO, COO, CIO benches)
+6. Leadership advisory firms with succession and assessment practices
+
+## Practical Interpretation
+
+- Tier 1 to Tier 3 above remains the recommended immediate execution list.
+- Expanded universe lists are the next-ring accounts for pipeline depth and vertical expansion.
+- Adjacent channels are best used to improve B2C top-of-funnel timing and B2B partner introductions.
+
+---
+
 ## Recommended Sequence
 
 1. Start with 8-12 mid-sized firms in CFO/COO/CIO lanes.
