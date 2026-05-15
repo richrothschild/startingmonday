@@ -24,5 +24,21 @@ export async function sendEmail({
     }))
   }
 
-  return resend.emails.send({ from: FROM, to, subject, html })
+  try {
+    return await resend.emails.send({ from: FROM, to, subject, html })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'send failed'
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'email_send_exception',
+      to,
+      subject,
+      from: FROM,
+      message,
+    }))
+    return {
+      data: null,
+      error: { message },
+    }
+  }
 }
