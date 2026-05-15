@@ -67,6 +67,30 @@ Both services deploy to Railway automatically on push to `main`.
 
 Health check: `GET /api/health` (returns uptime, timestamp, version)
 
+## Monitoring
+
+Production monitoring is implemented via a scheduled GitHub Actions workflow:
+
+- Workflow: `.github/workflows/monitoring.yml`
+- Frequency: every 30 minutes
+- Checks:
+  - `GET /api/health`
+  - `GET /login`
+  - `GET /pricing`
+  - Cron endpoints (when cron secret is available)
+
+Manual run:
+
+```bash
+npm run monitor:smoke
+```
+
+Required GitHub configuration:
+
+- Secret: `CRON_SECRET` (for cron endpoint smoke checks)
+- Secret: `SLACK_WEBHOOK_URL` (for failure alerts)
+- Optional repo variable: `MONITOR_BASE_URL` (defaults to `https://startingmonday.app`)
+
 ## Docs
 
 - [Architecture](docs/architecture.md) — infrastructure, schema, API patterns, environment variables

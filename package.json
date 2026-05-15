@@ -10,6 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "monitor:smoke": "node scripts/production-smoke-check.mjs",
+    "monitor:smoke:json": "node scripts/production-smoke-check.mjs --json",
     "prepare": "git rev-parse --git-dir > /dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "check:auth": "sh scripts/check-auth.sh",
     "security:api-guards": "node scripts/check-api-guards.mjs",
