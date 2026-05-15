@@ -6,23 +6,23 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('ciso-interview-preparation')!
 
 export const metadata: Metadata = {
-  title: `${post.title} - Starting Monday`,
-  description: post.description,
-  keywords: post.keywords,
+  title: 'CISO Interview Questions: How to Prepare for a CISO Interview - Starting Monday',
+  description: 'CISO interview questions and preparation strategy for senior security leaders. Learn how boards, CEOs, and peer executives evaluate CISO candidates and how to prepare role-specific answers.',
+  keywords: [...post.keywords, 'ciso interview questions', 'ciso interview prep', 'chief information security officer interview questions'],
   alternates: {
     canonical: 'https://startingmonday.app/blog/ciso-interview-preparation',
   },
   openGraph: {
-    title: post.title,
-    description: post.description,
+    title: 'CISO Interview Questions: How to Prepare for a CISO Interview',
+    description: 'CISO interview questions and preparation strategy for senior security leaders.',
     url: 'https://startingmonday.app/blog/ciso-interview-preparation',
     type: 'article',
     publishedTime: post.date,
   },
   twitter: {
     card: 'summary_large_image',
-    title: post.title,
-    description: post.description,
+    title: 'CISO Interview Questions: How to Prepare for a CISO Interview',
+    description: 'CISO interview questions and preparation strategy for senior security leaders.',
   },
 }
 

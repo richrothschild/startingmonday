@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for VP Technology - The Right Mandate at the Right Organization',
-  description: 'Campaign infrastructure for VP and SVP Technology leaders in active search. Track the organizations building or restructuring their technology function before roles are posted. Free 30-day trial.',
+  title: 'VP Technology Search: The Right Mandate at the Right Organization - Starting Monday',
+  description: 'VP technology search infrastructure for VP and SVP Technology leaders. Track organizations building or restructuring technology leadership before roles are posted.',
   keywords: [
     'VP technology job search',
     'VP IT job search',
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     'technology VP job search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for VP Technology',
+    title: 'VP Technology Search - Starting Monday',
     description: 'The best VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
     url: 'https://startingmonday.app/for-vp-technology',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for VP Technology',
+    title: 'VP Technology Search - Starting Monday',
     description: 'The best VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
   },
   alternates: {
