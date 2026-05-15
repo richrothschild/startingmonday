@@ -91,6 +91,17 @@ Required GitHub configuration:
 - Secret: `SLACK_WEBHOOK_URL` (for failure alerts)
 - Optional repo variable: `MONITOR_BASE_URL` (defaults to `https://startingmonday.app`)
 
+Monitoring of monitoring is implemented via:
+
+- Workflow: `.github/workflows/monitoring-watchdog.yml`
+- Frequency: hourly (`:15`)
+- Verifies:
+  - `monitoring.yml` latest completed run is successful and not stale
+  - `security-weekly.yml` latest completed run is successful and not stale
+  - `watermark-audit.yml` latest completed run is successful and not stale
+  - required secrets (`CRON_SECRET`, `SLACK_WEBHOOK_URL`) are still present
+- On failure: sends Slack alert with watchdog run link
+
 ## Docs
 
 - [Architecture](docs/architecture.md) — infrastructure, schema, API patterns, environment variables

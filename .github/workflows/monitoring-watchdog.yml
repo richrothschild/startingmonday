@@ -1,0 +1,109 @@
+name: Monitoring Watchdog
+
+on:
+  schedule:
+    - cron: '15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  watchdog:
+    name: Watch monitoring and alerting health
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate required monitoring secrets
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          missing=0
+          if [ -z "$CRON_SECRET" ]; then
+            echo "Missing required secret: CRON_SECRET"
+            missing=1
+          fi
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Missing required secret: SLACK_WEBHOOK_URL"
+            missing=1
+          fi
+          if [ "$missing" -eq 1 ]; then
+            exit 1
+          fi
+
+      - name: Check scheduled workflow freshness
+        id: freshness
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflows = [
+              { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90 },
+              { id: 'security-weekly.yml', name: 'Weekly security audit', maxAgeMinutes: 60 * 24 * 10 },
+              { id: 'watermark-audit.yml', name: 'Monthly Watermark Documentation Audit', maxAgeMinutes: 60 * 24 * 40 },
+            ]
+
+            const now = Date.now()
+            const failures = []
+            const notes = []
+
+            for (const wf of workflows) {
+              const res = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: wf.id,
+                status: 'completed',
+                per_page: 1,
+                branch: 'main',
+                exclude_pull_requests: true,
+              })
+
+              const run = res.data.workflow_runs?.[0]
+              if (!run) {
+                failures.push(`${wf.name}: no completed run found on main`)
+                continue
+              }
+
+              const ageMinutes = Math.floor((now - new Date(run.created_at).getTime()) / 60000)
+              notes.push(`${wf.name}: ${run.conclusion} (${ageMinutes}m old)`)
+
+              if (run.conclusion !== 'success') {
+                failures.push(`${wf.name}: latest completed run is ${run.conclusion}`)
+              }
+
+              if (ageMinutes > wf.maxAgeMinutes) {
+                failures.push(`${wf.name}: stale (${ageMinutes}m > ${wf.maxAgeMinutes}m)`)
+              }
+            }
+
+            core.notice(notes.join(' | '))
+
+            if (failures.length) {
+              core.setOutput('summary', failures.join(' | '))
+              core.setFailed(failures.join('\n'))
+            } else {
+              core.setOutput('summary', 'Monitoring watchdog checks passed')
+            }
+
+      - name: Send Slack alert on watchdog failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SUMMARY='${{ steps.freshness.outputs.summary }}'
+          if [ -z "$SUMMARY" ]; then
+            SUMMARY='Monitoring watchdog failed before summary was generated.'
+          fi
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Monitoring watchdog failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Monitoring watchdog failed*\n'"$SUMMARY"'\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View watchdog run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
