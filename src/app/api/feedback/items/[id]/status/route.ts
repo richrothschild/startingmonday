@@ -6,13 +6,14 @@ import { NextRequest, NextResponse } from 'next/server'
 // PATCH /api/feedback/items/[id]/status - update status (staff only)
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
   const { userId } = auth
 
   try {
@@ -122,7 +123,7 @@ export async function PATCH(
 // GET /api/feedback/items/[id]/status - get status history
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -131,7 +132,8 @@ export async function GET(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
 
   try {
     const { data: history, error } = await supabase

@@ -6,13 +6,14 @@ import { NextRequest, NextResponse } from 'next/server'
 // DELETE /api/feedback/items/[id]/vote - remove vote
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
   const { userId } = auth
 
   try {
@@ -59,13 +60,14 @@ export async function POST(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
   const { userId } = auth
 
   try {

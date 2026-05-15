@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 // GET /api/feedback/items/[id]/comments - list comments
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -15,7 +15,8 @@ export async function GET(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
 
   try {
     const searchParams = req.nextUrl.searchParams
@@ -47,13 +48,14 @@ export async function GET(
 // POST /api/feedback/items/[id]/comments - add comment
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
-  const itemId = params.id
+  const { id } = await params
+  const itemId = id
   const { userId } = auth
 
   try {
