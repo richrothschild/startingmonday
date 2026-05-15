@@ -201,7 +201,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </p>
           )}
           {hero.bodyPreamble && (
-            <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3">
+            <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line">
               {hero.bodyPreamble}
             </p>
           )}

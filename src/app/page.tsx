@@ -140,7 +140,7 @@ export default function HomePage() {
         hero={{
           eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday gives C-suite technology leaders private signal intelligence so outreach starts earlier, with context.',
           h1Lines: ['Be ready.', 'Be early.'],
-          bodyPreamble: 'If you\'re leading a team while planning your next move, the last thing you need is more noise.',
+          bodyPreamble: 'If you\'re leading a team while planning your next move,\nthe last thing you need is more noise.',
           body: 'Starting Monday helps you run a disciplined campaign: monitor your exact targets, spot role-shaping movement early, prepare a sharp outreach angle, and enter conversations before the process becomes crowded.',
           steps: [
             'Add your target companies.',
