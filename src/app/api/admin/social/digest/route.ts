@@ -34,11 +34,24 @@ export async function GET(request: NextRequest) {
 
   const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const admin = createAdminClient()
-  const { data: posts } = await admin
+  const { data: posts, error: postsError } = await admin
     .from('social_posts')
     .select('id, post_date, pillar, draft_text, is_posted, posted_at, buffer_scheduled_at, notes')
     .gte('post_date', since)
     .order('post_date', { ascending: true })
+
+  if (postsError) {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'social_digest_query_failed',
+      message: postsError.message,
+      code: postsError.code,
+      details: postsError.details,
+      hint: postsError.hint,
+      since,
+    }))
+    return NextResponse.json({ error: postsError.message }, { status: 500 })
+  }
 
   const typedPosts = (posts ?? []) as SocialPost[]
 
@@ -76,7 +89,7 @@ export async function GET(request: NextRequest) {
   const postedCount = typedPosts.filter(p => p.is_posted).length
   const weekOf = new Date(since + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
 
-  await sendEmail({
+  const { error: sendError } = await sendEmail({
     to: OWNER_EMAIL,
     subject: `LinkedIn digest: ${postedCount}/${typedPosts.length} posts this week (${weekOf})`,
     html: `
@@ -92,6 +105,19 @@ export async function GET(request: NextRequest) {
       </div>
     `,
   })
+
+  if (sendError) {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'social_digest_email_failed',
+      to: OWNER_EMAIL,
+      message: (sendError as { message?: string }).message ?? 'send failed',
+      since,
+      postCount: typedPosts.length,
+      postedCount,
+    }))
+    return NextResponse.json({ error: (sendError as { message?: string }).message ?? 'send failed' }, { status: 500 })
+  }
 
   return NextResponse.json({ ok: true, sent: true, postCount: typedPosts.length, postedCount })
 }

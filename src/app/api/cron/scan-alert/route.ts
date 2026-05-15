@@ -159,11 +159,22 @@ export async function GET(request: NextRequest) {
 </body>
 </html>`
 
-  await sendEmail({
+  const { error: sendError } = await sendEmail({
     to: OWNER_EMAIL,
     subject: `[SM Alert] ${n} ${n === 1 ? 'company' : 'companies'} went dark - scan health`,
     html,
   })
+
+  if (sendError) {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'scan_alert_email_failed',
+      to: OWNER_EMAIL,
+      message: (sendError as { message?: string }).message ?? 'send failed',
+      failingCompanyCount: n,
+    }))
+    return NextResponse.json({ error: (sendError as { message?: string }).message ?? 'send failed' }, { status: 500 })
+  }
 
   const now = new Date().toISOString()
   for (const f of failing) {
