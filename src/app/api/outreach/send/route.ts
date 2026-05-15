@@ -40,6 +40,30 @@ function toHtml(text: string): string {
     .replace(/\n/g, '<br/>')
 }
 
+function withComplianceFooter(messageText: string): string {
+  const trimmed = messageText.trim()
+  return [
+    trimmed,
+    '',
+    '---',
+    'Starting Monday',
+    'If you prefer no further outreach, reply with "unsubscribe" and I will stop.',
+  ].join('\n')
+}
+
+function warmupCaps(daysSinceFirstSend: number | null): { dailyCap: number; hourlyCap: number; phase: string } {
+  if (daysSinceFirstSend === null) {
+    return { dailyCap: 10, hourlyCap: 4, phase: 'new' }
+  }
+  if (daysSinceFirstSend < 7) {
+    return { dailyCap: 15, hourlyCap: 5, phase: 'week_1' }
+  }
+  if (daysSinceFirstSend < 14) {
+    return { dailyCap: 25, hourlyCap: 8, phase: 'week_2' }
+  }
+  return { dailyCap: MAX_LIVE_SENDS_PER_DAY, hourlyCap: MAX_LIVE_SENDS_PER_HOUR, phase: 'mature' }
+}
+
 function firstName(fullName: string): string {
   return fullName.trim().split(/\s+/)[0]?.toLowerCase() ?? ''
 }
@@ -164,12 +188,35 @@ export async function POST(request: NextRequest) {
     contactId = existingContact.id
   }
 
+  const [{ data: suppressionHit }, { data: closedContactHit }] = await Promise.all([
+    supabase
+      .from('outreach_suppressions')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('email', emailTo)
+      .eq('active', true)
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from('contacts')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('email', emailTo)
+      .eq('outreach_status', 'closed')
+      .limit(1)
+      .maybeSingle(),
+  ])
+
+  if (suppressionHit?.id || closedContactHit?.id) {
+    return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
+  }
+
   if (mode === 'live') {
     const dayStart = new Date()
     dayStart.setHours(0, 0, 0, 0)
     const hourStart = new Date(Date.now() - 60 * 60 * 1000)
 
-    const [{ count: sentToday }, { count: sentHour }] = await Promise.all([
+    const [{ count: sentToday }, { count: sentHour }, { data: firstSendRow }] = await Promise.all([
       supabase
         .from('outreach_logs')
         .select('id', { count: 'exact', head: true })
@@ -182,14 +229,28 @@ export async function POST(request: NextRequest) {
         .eq('user_id', userId)
         .eq('channel', 'email')
         .gte('sent_at', hourStart.toISOString()),
+      supabase
+        .from('outreach_logs')
+        .select('sent_at')
+        .eq('user_id', userId)
+        .eq('channel', 'email')
+        .order('sent_at', { ascending: true })
+        .limit(1)
+        .maybeSingle(),
     ])
 
-    if ((sentToday ?? 0) >= MAX_LIVE_SENDS_PER_DAY) {
-      return NextResponse.json({ error: `Daily send cap reached (${MAX_LIVE_SENDS_PER_DAY}).` }, { status: 429 })
+    const firstSendAt = firstSendRow?.sent_at ? new Date(firstSendRow.sent_at) : null
+    const daysSinceFirstSend = firstSendAt ? Math.floor((Date.now() - firstSendAt.getTime()) / (24 * 60 * 60 * 1000)) : null
+    const caps = warmupCaps(daysSinceFirstSend)
+    const dailyCap = Math.min(MAX_LIVE_SENDS_PER_DAY, caps.dailyCap)
+    const hourlyCap = Math.min(MAX_LIVE_SENDS_PER_HOUR, caps.hourlyCap)
+
+    if ((sentToday ?? 0) >= dailyCap) {
+      return NextResponse.json({ error: `Daily warm-up cap reached (${dailyCap}, phase: ${caps.phase}).` }, { status: 429 })
     }
 
-    if ((sentHour ?? 0) >= MAX_LIVE_SENDS_PER_HOUR) {
-      return NextResponse.json({ error: `Hourly send cap reached (${MAX_LIVE_SENDS_PER_HOUR}).` }, { status: 429 })
+    if ((sentHour ?? 0) >= hourlyCap) {
+      return NextResponse.json({ error: `Hourly warm-up cap reached (${hourlyCap}, phase: ${caps.phase}).` }, { status: 429 })
     }
 
     if (contactId) {
@@ -261,12 +322,18 @@ export async function POST(request: NextRequest) {
   }
 
   const finalSubject = mode === 'test_to_self' ? `[TEST] ${subject}` : subject
+  const finalMessageText = withComplianceFooter(messageText)
+  const listUnsubscribe = `<mailto:richard@startingmonday.app?subject=unsubscribe>`
   const sendResult = await sendEmail({
     to: recipient,
     subject: finalSubject,
-    html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(messageText)}</div>`,
+    html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`,
     from: fromAddress,
     replyTo: 'richard@startingmonday.app',
+    headers: {
+      'List-Unsubscribe': listUnsubscribe,
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+    },
   })
 
   if ((sendResult as { error?: { message?: string } } | null)?.error) {
@@ -280,7 +347,7 @@ export async function POST(request: NextRequest) {
     user_id: userId,
     contact_id: mode === 'live' ? contactId : null,
     channel: mode === 'live' ? 'email' : 'other',
-    message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${messageText.slice(0, 200)}`,
+    message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${finalMessageText.slice(0, 200)}`,
   })
 
   if (mode === 'live') {

@@ -10,12 +10,14 @@ export async function sendEmail({
   html,
   from,
   replyTo,
+  headers,
 }: {
   to: string
   subject: string
   html: string
   from?: string
   replyTo?: string
+  headers?: Record<string, string>
 }) {
   const issues = reviewEmail(subject, html)
   if (issues.length) {
@@ -29,7 +31,7 @@ export async function sendEmail({
   }
 
   try {
-    return await resend.emails.send({ from: from ?? FROM, to, subject, html, replyTo })
+    return await resend.emails.send({ from: from ?? FROM, to, subject, html, replyTo, headers })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'send failed'
     console.error(JSON.stringify({

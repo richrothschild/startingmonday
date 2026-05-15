@@ -51,6 +51,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
   const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
+  const [suppressing, setSuppressing] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -156,6 +157,35 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     } else {
       setSuccess('Dry run complete. No email was sent.')
     }
+  }
+
+  async function suppressSelected() {
+    if (!selected || suppressing) return
+
+    setSuppressing(true)
+    setError(null)
+    setSuccess(null)
+
+    const res = await fetch('/api/outreach/suppression', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: selected.email,
+        reason: 'manual suppression from outreach hub',
+        source: 'manual',
+      }),
+    })
+
+    setSuppressing(false)
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error ?? 'Could not suppress recipient.')
+      return
+    }
+
+    setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'closed' } : r)))
+    setSuccess(`Suppressed ${selected.fullName}. Future sends are blocked until unsuppressed.`)
   }
 
   const liveBlocked = sendMode === 'live' && !confirmLive
@@ -335,6 +365,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded disabled:opacity-50"
               >
                 {sending ? 'Processing...' : sendMode === 'dry_run' ? 'Run Dry Run Check' : sendMode === 'test_to_self' ? 'Send Test To Me' : `Send Live To ${selected.fullName}`}
+              </button>
+
+              <button
+                type="button"
+                onClick={suppressSelected}
+                disabled={suppressing}
+                className="w-full bg-white border border-slate-300 text-slate-700 text-[13px] font-semibold py-2 rounded disabled:opacity-50"
+              >
+                {suppressing ? 'Updating...' : `Suppress ${selected.fullName}`}
               </button>
             </>
           ) : (
