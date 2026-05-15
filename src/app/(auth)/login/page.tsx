@@ -22,106 +22,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState('')
-  const [turnstileReady, setTurnstileReady] = useState(false)
-  const [captchaNotice, setCaptchaNotice] = useState<string | null>(null)
-  const turnstileRef = useRef<HTMLDivElement | null>(null)
-  const turnstileWidgetIdRef = useRef<string | null>(null)
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
-
-  function resetTurnstile() {
-    setTurnstileToken('')
-    if (turnstileWidgetIdRef.current) {
-      window.turnstile?.reset(turnstileWidgetIdRef.current)
-    }
-  }
-
-  useEffect(() => {
-    if (!turnstileSiteKey) {
-      setCaptchaNotice('Captcha is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY and redeploy.')
-      return
-    }
-
-    if (!turnstileRef.current) return
-
-    setCaptchaNotice('Loading captcha...')
-
-    const renderWidget = () => {
-      if (!window.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return
-
-      try {
-        turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-          sitekey: turnstileSiteKey,
-          callback: (token: string) => {
-            setTurnstileToken(token)
-            setError(null)
-            setCaptchaNotice(null)
-          },
-          'expired-callback': () => {
-            setTurnstileToken('')
-          },
-          'error-callback': () => {
-            setTurnstileToken('')
-            setCaptchaNotice('Captcha failed to load. Disable content blockers and refresh.')
-            setError('Captcha failed. Please try again.')
-          },
-        })
-        setTurnstileReady(true)
-        setCaptchaNotice(null)
-      } catch {
-        setTurnstileReady(false)
-        setCaptchaNotice('Captcha failed to initialize. Check Turnstile site key domain settings and refresh.')
-      }
-    }
-
-    const loadingTimeout = window.setTimeout(() => {
-      if (!turnstileWidgetIdRef.current) {
-        setCaptchaNotice('Captcha is still loading. Disable content blockers and refresh.')
-      }
-    }, 5000)
-
-    if (window.turnstile) {
-      renderWidget()
-      return () => {
-        if (turnstileWidgetIdRef.current && window.turnstile) {
-          window.turnstile.remove(turnstileWidgetIdRef.current)
-          turnstileWidgetIdRef.current = null
-        }
-      }
-    }
-
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-    script.async = true
-    script.defer = true
-    script.onload = renderWidget
-    script.onerror = () => {
-      setTurnstileReady(false)
-      setCaptchaNotice('Captcha script was blocked. Disable content blockers and refresh.')
-    }
-    document.head.appendChild(script)
-
-    return () => {
-      window.clearTimeout(loadingTimeout)
-      script.onload = null
-      script.onerror = null
-      if (turnstileWidgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetIdRef.current)
-        turnstileWidgetIdRef.current = null
-      }
-    }
-  }, [turnstileSiteKey])
 
   const authBusy = googleLoading || appleLoading || loading
-  const captchaReady = !!turnstileSiteKey && turnstileReady
-  const canAttemptAuth = captchaReady && !!turnstileToken && !authBusy
 
   async function handleGoogle() {
-    if (!turnstileToken) {
-      setError('Please complete captcha first.')
-      return
-    }
-
     setGoogleLoading(true)
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
@@ -129,7 +33,6 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           provider: 'google',
-          turnstileToken,
           redirectTo: `${window.location.origin}/auth/callback`,
         }),
       })
@@ -138,7 +41,6 @@ export default function LoginPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Google sign-in')
-        resetTurnstile()
         setGoogleLoading(false)
         return
       }
@@ -146,17 +48,11 @@ export default function LoginPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
-      resetTurnstile()
       setGoogleLoading(false)
     }
   }
 
   async function handleApple() {
-    if (!turnstileToken) {
-      setError('Please complete captcha first.')
-      return
-    }
-
     setAppleLoading(true)
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
@@ -164,7 +60,6 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           provider: 'apple',
-          turnstileToken,
           redirectTo: `${window.location.origin}/auth/callback`,
         }),
       })
@@ -173,7 +68,6 @@ export default function LoginPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Apple sign-in')
-        resetTurnstile()
         setAppleLoading(false)
         return
       }
@@ -181,7 +75,6 @@ export default function LoginPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
-      resetTurnstile()
       setAppleLoading(false)
     }
   }
@@ -191,25 +84,18 @@ export default function LoginPage() {
     setLoading(true)
     setError(null)
 
-    if (!turnstileToken) {
-      setError('Please complete captcha first.')
-      setLoading(false)
-      return
-    }
-
     try {
       // Call server-enforced login endpoint
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, turnstileToken }),
+        body: JSON.stringify({ email, password }),
       })
 
       const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
 
       if (!response.ok || !data.ok) {
         setError(data.error || 'Sign-in failed')
-        resetTurnstile()
         setLoading(false)
         return
       }
@@ -219,7 +105,6 @@ export default function LoginPage() {
       router.refresh()
     } catch (err) {
       setError('Something went wrong. Please try again.')
-      resetTurnstile()
       setLoading(false)
     }
   }
@@ -248,7 +133,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleGoogle}
-              disabled={!canAttemptAuth}
+              disabled={authBusy}
               className="w-full flex items-center justify-center gap-2.5 border border-slate-200 rounded px-4 py-2.5 text-[14px] font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-colors cursor-pointer bg-white disabled:opacity-50 disabled:cursor-not-allowed mb-5"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -263,7 +148,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleApple}
-              disabled={!canAttemptAuth}
+              disabled={authBusy}
               className="w-full flex items-center justify-center gap-2.5 rounded px-4 py-2.5 text-[14px] font-semibold text-white bg-black hover:bg-slate-900 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mb-5"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -313,16 +198,11 @@ export default function LoginPage() {
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
 
-              <div className="space-y-1">
-                <div ref={turnstileRef} className="min-h-[70px]" />
-                {captchaNotice && (
-                  <p className="text-[12px] text-amber-700">{captchaNotice}</p>
-                )}
-              </div>
+
 
               <button
                 type="submit"
-                disabled={!canAttemptAuth}
+                disabled={loading}
                 className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in…' : 'Sign in'}

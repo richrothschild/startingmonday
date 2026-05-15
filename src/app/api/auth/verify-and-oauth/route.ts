@@ -41,15 +41,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Unsupported provider' }, { status: 400 })
   }
 
-  if (!turnstileToken) {
-    return NextResponse.json({ ok: false, error: 'Captcha is required' }, { status: 400 })
-  }
-
-  const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
-  if (!captchaValid) {
-    return NextResponse.json({ ok: false, error: 'Captcha verification failed' }, { status: 403 })
-  }
-
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

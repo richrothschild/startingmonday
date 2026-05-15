@@ -35,13 +35,8 @@ export async function POST(request: NextRequest) {
   const password = typeof body.password === 'string' ? body.password : ''
   const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken : ''
 
-  if (!email || !password || !turnstileToken) {
+  if (!email || !password) {
     return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 400 })
-  }
-
-  const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
-  if (!captchaValid) {
-    return NextResponse.json({ ok: false, error: 'Captcha verification failed' }, { status: 403 })
   }
 
   const supabase = createAdminClient()
