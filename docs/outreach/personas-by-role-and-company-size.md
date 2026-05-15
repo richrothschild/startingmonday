@@ -1203,3 +1203,41 @@ This framework segments target C-suite personas across three company size bands.
 - Investor or peer referral (30%)
 - Direct outreach (10%)
 
+---
+
+## Channel Usage Frequency (Strongest + Medium Fit Personas)
+
+### Most Frequent Channels
+
+1. **Search firms (most dominant in mid-market):**
+- Usually 60-70% for strongest-fit mid-market personas
+- Examples: CFO 70%, COO 70%, CIO or VP IT 60%, CHRO 60%, CRO 60%
+
+2. **Board or peer referrals (second most common):**
+- Usually 15-30% depending on role and company context
+- Examples: CFO 15% board, COO 15% board, CIO or CHRO or CRO 30% board-or-peer
+
+3. **Investor or PE sponsor sourcing (third):**
+- Usually around 10-20%
+- Strongest in PE-backed operator and finance tracks
+
+4. **Direct outreach or outbound (lowest-frequency):**
+- Usually 5-10%
+
+### Pattern by Company Size
+
+**1,001-10,000 Employees (Mid-Market):**
+- Search-firm-led motion is dominant
+- Board and peer referrals are secondary
+
+**<1,000 Employees (Startup):**
+- Founder and network-led motion is dominant
+- Typical mix: founder or CEO intros first, then investor and peer channels
+
+### Quick Takeaway Comments
+
+- For strongest-fit targets, prioritize search-firm-adjacent and board-referral pathways first.
+- For startup variants, prioritize founder and investor network channels first.
+- Keep direct outbound as a support channel, not the primary channel.
+- Build messaging for pre-search intelligence, since many mid-market executives evaluate before formal search engagement.
+
