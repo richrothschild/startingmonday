@@ -96,6 +96,7 @@ Monitoring of monitoring is implemented via:
 - Workflow: `.github/workflows/monitoring-watchdog.yml`
 - Frequency: hourly (`:15`)
 - Verifies:
+  - `ci.yml` latest completed run is successful
   - `monitoring.yml` latest completed run is successful and not stale
   - `security-weekly.yml` latest completed run is successful and not stale
   - `watermark-audit.yml` latest completed run is successful and not stale
