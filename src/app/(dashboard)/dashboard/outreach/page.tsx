@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { OutreachHubClient } from './outreach-hub-client'
 
 export const metadata = {
   title: 'Outreach Hub - Starting Monday',
@@ -15,16 +16,21 @@ type CsvSummary = {
   rows: CsvRow[]
 }
 
-function parseCsvLine(line: string): string[] {
-  const out: string[] = []
+function parseCsv(content: string): CsvSummary {
+  if (!content.trim()) {
+    return { rowCount: 0, rows: [] }
+  }
+
+  const records: string[][] = []
+  let row: string[] = []
   let current = ''
   let inQuotes = false
 
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i]
+  for (let i = 0; i < content.length; i++) {
+    const ch = content[i]
 
     if (ch === '"') {
-      if (inQuotes && line[i + 1] === '"') {
+      if (inQuotes && content[i + 1] === '"') {
         current += '"'
         i++
       } else {
@@ -34,47 +40,118 @@ function parseCsvLine(line: string): string[] {
     }
 
     if (ch === ',' && !inQuotes) {
-      out.push(current)
+      row.push(current)
       current = ''
+      continue
+    }
+
+    if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && content[i + 1] === '\n') i++
+      row.push(current)
+      current = ''
+      if (row.some(cell => cell.length > 0)) {
+        records.push(row)
+      }
+      row = []
       continue
     }
 
     current += ch
   }
 
-  out.push(current)
-  return out
-}
+  if (current.length > 0 || row.length > 0) {
+    row.push(current)
+    if (row.some(cell => cell.length > 0)) {
+      records.push(row)
+    }
+  }
 
-function parseCsv(content: string): CsvSummary {
-  const lines = content
-    .split(/\r?\n/)
-    .map(line => line.trim())
-    .filter(Boolean)
-
-  if (lines.length === 0) {
+  if (records.length === 0) {
     return { rowCount: 0, rows: [] }
   }
 
-  const headers = parseCsvLine(lines[0])
-  const rows: CsvRow[] = []
-
-  for (const line of lines.slice(1)) {
-    const cols = parseCsvLine(line)
-    const row: CsvRow = {}
+  const [headers, ...lines] = records
+  const rows = lines.map((cols) => {
+    const mapped: CsvRow = {}
     for (let i = 0; i < headers.length; i++) {
-      row[headers[i]] = cols[i] ?? ''
+      mapped[headers[i]] = cols[i] ?? ''
     }
-    rows.push(row)
-  }
+    return mapped
+  })
 
   return { rowCount: rows.length, rows }
+}
+
+function normalizeStatus(raw: string | undefined): string {
+  const status = (raw ?? '').trim().toLowerCase()
+  if (status === 'new') return 'prospect'
+  if (status === 'first_sent' || status === 'followup_1_sent' || status === 'followup_2_sent') return 'reached_out'
+  if (status === 'replied') return 'in_conversation'
+  if (status === 'meeting_booked') return 'meeting_scheduled'
+  if (status === 'not_a_fit') return 'closed'
+  if (['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'].includes(status)) return status
+  return 'prospect'
+}
+
+function buildDefaultBody(row: CsvRow): string {
+  const opening = row.email_opening?.trim() || `I noticed your role at ${row.company} and wanted to send a short, specific note.`
+  const core = row.email_body_core?.trim() || 'I work on executive positioning and outreach for senior operators navigating high-stakes transitions.'
+
+  return [
+    opening,
+    '',
+    core,
+    '',
+    'If useful, I can send a concise follow-up with one specific angle for your remit.',
+    '',
+    'Best,',
+    'Rich Rothschild',
+    'Starting Monday',
+  ].join('\n')
+}
+
+function buildDefaultSubject(row: CsvRow): string {
+  const role = row.role_bucket?.toUpperCase() || 'Executive'
+  return `A specific ${role} angle for ${row.company}`
+}
+
+function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): CsvSummary {
+  const byName = new Map<string, CsvRow>()
+  for (const row of firstTouch.rows) {
+    byName.set((row.full_name ?? '').trim().toLowerCase(), row)
+  }
+
+  const merged = master.rows.map((row) => {
+    const touch = byName.get((row.full_name ?? '').trim().toLowerCase())
+    return {
+      ...row,
+      default_subject: touch?.subject ?? buildDefaultSubject(row),
+      default_body: touch?.email_text ?? buildDefaultBody(row),
+    }
+  })
+
+  return { rowCount: merged.length, rows: merged }
 }
 
 async function readOutreachCsv(fileName: string): Promise<CsvSummary> {
   const fullPath = path.join(process.cwd(), 'docs', 'outreach', fileName)
   const content = await readFile(fullPath, 'utf8')
   return parseCsv(content)
+}
+
+type ContactStatusRow = {
+  email: string | null
+  outreach_status: string | null
+}
+
+function statusByEmail(rows: ContactStatusRow[]): Map<string, string> {
+  const byEmail = new Map<string, string>()
+  for (const row of rows) {
+    const email = (row.email ?? '').trim().toLowerCase()
+    if (!email) continue
+    byEmail.set(email, normalizeStatus(row.outreach_status ?? 'prospect'))
+  }
+  return byEmail
 }
 
 export default async function OutreachHubPage() {
@@ -92,13 +169,36 @@ export default async function OutreachHubPage() {
     redirect('/onboarding')
   }
 
-  const [master50, firstTouch, followUps] = await Promise.all([
+  const [master50Raw, firstTouch, followUps, rawContactStatuses] = await Promise.all([
     readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('send_ready_followups_first_10.csv'),
+    supabase
+      .from('contacts')
+      .select('email, outreach_status')
+      .eq('user_id', user.id)
+      .eq('status', 'active'),
   ])
+  const master50 = mergeFirstTouch(master50Raw, firstTouch)
+  const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
 
-  const preview = master50.rows.slice(0, 10)
+  const clientRows = master50.rows.map((row) => {
+    const email = (row.email_guess ?? '').trim().toLowerCase()
+    const dbStatus = mappedStatuses.get(email)
+    return {
+      fullName: row.full_name ?? '',
+      roleBucket: row.role_bucket ?? 'VP',
+      company: row.company ?? '',
+      email,
+      status: dbStatus ?? normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: row.email_body_core ?? '',
+      defaultSubject: row.default_subject ?? buildDefaultSubject(row),
+      defaultBody: row.default_body ?? buildDefaultBody(row),
+    }
+  }).filter(row => !!row.fullName && !!row.email)
+
+  const fromAddressLabel = process.env.OUTREACH_FROM_ADDRESS ?? 'Richard Rothschild <richard@startingmonday.app>'
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -139,6 +239,8 @@ export default async function OutreachHubPage() {
           </div>
         </section>
 
+        <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+
         <section className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
             <div>
@@ -159,35 +261,6 @@ export default async function OutreachHubPage() {
             <li>Friday: send follow-up 2 for non-responders (day 7).</li>
             <li>Friday: review replies, meetings booked, and next-week list.</li>
           </ol>
-        </section>
-
-        <section className="bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-100">
-            <h2 className="text-[16px] font-bold text-slate-900">Current Prospect Preview</h2>
-            <p className="text-[12px] text-slate-500 mt-1">Top 10 rows from the personalized master list.</p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100">
-                  <th className="text-left text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 px-4 py-3">Name</th>
-                  <th className="text-left text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 px-4 py-3">Role</th>
-                  <th className="text-left text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 px-4 py-3">Company</th>
-                  <th className="text-left text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 px-4 py-3">Email Guess</th>
-                </tr>
-              </thead>
-              <tbody>
-                {preview.map((row, idx) => (
-                  <tr key={`${row.full_name}-${idx}`} className="border-b border-slate-100 last:border-b-0">
-                    <td className="px-4 py-3 text-[13px] text-slate-900">{row.full_name}</td>
-                    <td className="px-4 py-3 text-[13px] text-slate-600">{row.role_bucket}</td>
-                    <td className="px-4 py-3 text-[13px] text-slate-600">{row.company}</td>
-                    <td className="px-4 py-3 text-[13px] text-slate-600">{row.email_guess}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </section>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
