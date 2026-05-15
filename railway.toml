@@ -3,7 +3,7 @@ builder = "nixpacks"
 buildCommand = "npm run build"
 
 [deploy]
-startCommand = "npm run start"
+startCommand = "echo '=== STARTUP ===' && node --version && echo 'PORT='$PORT && ls .next/BUILD_ID && npm run start -- --port $PORT"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 60
 restartPolicyType = "on_failure"
