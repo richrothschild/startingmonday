@@ -1,0 +1,279 @@
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+import { OutreachHubClient } from './outreach-hub-client'
+
+export const metadata = {
+  title: 'Outreach Hub - Starting Monday',
+}
+
+type CsvRow = Record<string, string>
+
+type CsvSummary = {
+  rowCount: number
+  rows: CsvRow[]
+}
+
+function parseCsv(content: string): CsvSummary {
+  if (!content.trim()) {
+    return { rowCount: 0, rows: [] }
+  }
+
+  const records: string[][] = []
+  let row: string[] = []
+  let current = ''
+  let inQuotes = false
+
+  for (let i = 0; i < content.length; i++) {
+    const ch = content[i]
+
+    if (ch === '"') {
+      if (inQuotes && content[i + 1] === '"') {
+        current += '"'
+        i++
+      } else {
+        inQuotes = !inQuotes
+      }
+      continue
+    }
+
+    if (ch === ',' && !inQuotes) {
+      row.push(current)
+      current = ''
+      continue
+    }
+
+    if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && content[i + 1] === '\n') i++
+      row.push(current)
+      current = ''
+      if (row.some(cell => cell.length > 0)) {
+        records.push(row)
+      }
+      row = []
+      continue
+    }
+
+    current += ch
+  }
+
+  if (current.length > 0 || row.length > 0) {
+    row.push(current)
+    if (row.some(cell => cell.length > 0)) {
+      records.push(row)
+    }
+  }
+
+  if (records.length === 0) {
+    return { rowCount: 0, rows: [] }
+  }
+
+  const [headers, ...lines] = records
+  const rows = lines.map((cols) => {
+    const mapped: CsvRow = {}
+    for (let i = 0; i < headers.length; i++) {
+      mapped[headers[i]] = cols[i] ?? ''
+    }
+    return mapped
+  })
+
+  return { rowCount: rows.length, rows }
+}
+
+function normalizeStatus(raw: string | undefined): string {
+  const status = (raw ?? '').trim().toLowerCase()
+  if (status === 'new') return 'prospect'
+  if (status === 'first_sent' || status === 'followup_1_sent' || status === 'followup_2_sent') return 'reached_out'
+  if (status === 'replied') return 'in_conversation'
+  if (status === 'meeting_booked') return 'meeting_scheduled'
+  if (status === 'not_a_fit') return 'closed'
+  if (['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'].includes(status)) return status
+  return 'prospect'
+}
+
+function buildDefaultBody(row: CsvRow): string {
+  const opening = row.email_opening?.trim() || `I noticed your role at ${row.company} and wanted to send a short, specific note.`
+  const core = row.email_body_core?.trim() || 'I work on executive positioning and outreach for senior operators navigating high-stakes transitions.'
+
+  return [
+    opening,
+    '',
+    core,
+    '',
+    'If useful, I can send a concise follow-up with one specific angle for your remit.',
+    '',
+    'Best,',
+    'Rich Rothschild',
+    'Starting Monday',
+  ].join('\n')
+}
+
+function buildDefaultSubject(row: CsvRow): string {
+  const role = row.role_bucket?.toUpperCase() || 'Executive'
+  return `A specific ${role} angle for ${row.company}`
+}
+
+function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): CsvSummary {
+  const byName = new Map<string, CsvRow>()
+  for (const row of firstTouch.rows) {
+    byName.set((row.full_name ?? '').trim().toLowerCase(), row)
+  }
+
+  const merged = master.rows.map((row) => {
+    const touch = byName.get((row.full_name ?? '').trim().toLowerCase())
+    return {
+      ...row,
+      default_subject: touch?.subject ?? buildDefaultSubject(row),
+      default_body: touch?.email_text ?? buildDefaultBody(row),
+    }
+  })
+
+  return { rowCount: merged.length, rows: merged }
+}
+
+async function readOutreachCsv(fileName: string): Promise<CsvSummary> {
+  const fullPath = path.join(process.cwd(), 'docs', 'outreach', fileName)
+  const content = await readFile(fullPath, 'utf8')
+  return parseCsv(content)
+}
+
+type ContactStatusRow = {
+  email: string | null
+  outreach_status: string | null
+}
+
+function statusByEmail(rows: ContactStatusRow[]): Map<string, string> {
+  const byEmail = new Map<string, string>()
+  for (const row of rows) {
+    const email = (row.email ?? '').trim().toLowerCase()
+    if (!email) continue
+    byEmail.set(email, normalizeStatus(row.outreach_status ?? 'prospect'))
+  }
+  return byEmail
+}
+
+export default async function OutreachHubPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: profile } = await supabase
+    .from('user_profiles')
+    .select('full_name, onboarding_completed_at')
+    .eq('user_id', user.id)
+    .single()
+
+  if (!profile?.onboarding_completed_at) {
+    redirect('/onboarding')
+  }
+
+  const [master50Raw, firstTouch, followUps, rawContactStatuses] = await Promise.all([
+    readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
+    readOutreachCsv('send_ready_emails_first_10.csv'),
+    readOutreachCsv('send_ready_followups_first_10.csv'),
+    supabase
+      .from('contacts')
+      .select('email, outreach_status')
+      .eq('user_id', user.id)
+      .eq('status', 'active'),
+  ])
+  const master50 = mergeFirstTouch(master50Raw, firstTouch)
+  const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
+
+  const clientRows = master50.rows.map((row) => {
+    const email = (row.email_guess ?? '').trim().toLowerCase()
+    const dbStatus = mappedStatuses.get(email)
+    return {
+      fullName: row.full_name ?? '',
+      roleBucket: row.role_bucket ?? 'VP',
+      company: row.company ?? '',
+      email,
+      status: dbStatus ?? normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: row.email_body_core ?? '',
+      defaultSubject: row.default_subject ?? buildDefaultSubject(row),
+      defaultBody: row.default_body ?? buildDefaultBody(row),
+    }
+  }).filter(row => !!row.fullName && !!row.email)
+
+  const fromAddressLabel = process.env.OUTREACH_FROM_ADDRESS ?? 'Richard Rothschild <richard@startingmonday.app>'
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <header className="bg-slate-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </span>
+          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+            ← Dashboard
+          </Link>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+        <div>
+          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
+          <p className="text-[13px] text-slate-500 mt-1">
+            Internal outbound operating center: send queue, follow-ups, and personalized target list.
+          </p>
+        </div>
+
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Personalized Prospects</p>
+            <p className="text-[24px] font-bold text-slate-900">{master50.rowCount}</p>
+            <p className="text-[12px] text-slate-500 mt-1">Master list rows</p>
+          </div>
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">First Touch</p>
+            <p className="text-[24px] font-bold text-slate-900">{firstTouch.rowCount}</p>
+            <p className="text-[12px] text-slate-500 mt-1">Ready-to-send emails</p>
+          </div>
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Follow-Ups</p>
+            <p className="text-[24px] font-bold text-slate-900">{followUps.rowCount}</p>
+            <p className="text-[12px] text-slate-500 mt-1">Automated sequence rows</p>
+          </div>
+        </section>
+
+        <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+
+        <section className="bg-white border border-slate-200 rounded overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
+            <div>
+              <h2 className="text-[16px] font-bold text-slate-900">Operating Cadence</h2>
+              <p className="text-[12px] text-slate-500">Run this every week to keep outbound moving.</p>
+            </div>
+            <a
+              href="/calendar/starting-monday-outreach-reminders.ics"
+              download
+              className="text-[12px] font-semibold text-white bg-slate-900 rounded px-3 py-2 hover:bg-slate-700 transition-colors"
+            >
+              Download Reminder Calendar
+            </a>
+          </div>
+          <ol className="px-5 py-4 text-[13px] text-slate-700 list-decimal ml-5 space-y-2">
+            <li>Monday: send first-touch notes to your active batch.</li>
+            <li>Wednesday: send follow-up 1 for non-responders (day 3).</li>
+            <li>Friday: send follow-up 2 for non-responders (day 7).</li>
+            <li>Friday: review replies, meetings booked, and next-week list.</li>
+          </ol>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Link href="/dashboard/calendar" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900 mb-1">In-App Calendar</p>
+            <p className="text-[12px] text-slate-500">Manage date-based follow-ups alongside the outreach routine.</p>
+          </Link>
+          <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900 mb-1">Contacts</p>
+            <p className="text-[12px] text-slate-500">Update statuses: first sent, follow-up sent, replied, meeting booked.</p>
+          </Link>
+        </section>
+      </main>
+    </div>
+  )
+}

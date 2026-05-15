@@ -1,0 +1,47 @@
+name: Production Monitoring
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Production smoke checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run production smoke checks
+        id: smoke
+        env:
+          MONITOR_BASE_URL: https://startingmonday.app
+          MONITOR_CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: npm run monitor:smoke
+
+      - name: Send Slack notification on failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Production smoke check failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Production smoke check failed*\nWorkflow: Production Monitoring\nBranch: ${{ github.ref_name }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run logs>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

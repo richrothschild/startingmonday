@@ -6,23 +6,23 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('executive-search-firms-cio')!
 
 export const metadata: Metadata = {
-  title: `${post.title} - Starting Monday`,
-  description: post.description,
-  keywords: post.keywords,
+  title: 'CIO Executive Search: What Executive Search Firms Actually Want - Starting Monday',
+  description: 'CIO executive search guide for senior technology leaders. Learn how retained search firms build long lists, what gets candidates shortlisted, and how timing affects CIO search outcomes.',
+  keywords: [...post.keywords, 'cio executive search', 'executive search cio', 'cio search firms'],
   alternates: {
     canonical: 'https://startingmonday.app/blog/executive-search-firms-cio',
   },
   openGraph: {
-    title: post.title,
-    description: post.description,
+    title: 'CIO Executive Search: What Executive Search Firms Actually Want',
+    description: 'CIO executive search guide for senior technology leaders and retained firm processes.',
     url: 'https://startingmonday.app/blog/executive-search-firms-cio',
     type: 'article',
     publishedTime: post.date,
   },
   twitter: {
     card: 'summary_large_image',
-    title: post.title,
-    description: post.description,
+    title: 'CIO Executive Search: What Executive Search Firms Actually Want',
+    description: 'CIO executive search guide for senior technology leaders and retained firm processes.',
   },
 }
 

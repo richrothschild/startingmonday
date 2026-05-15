@@ -6,23 +6,23 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('pe-backed-cio')!
 
 export const metadata: Metadata = {
-  title: `${post.title} - Starting Monday`,
-  description: post.description,
-  keywords: post.keywords,
+  title: 'PE Backed CIO Search: What Private Equity Firms Look For - Starting Monday',
+  description: 'PE backed CIO search guide for technology leaders evaluating private equity portfolio roles. Learn sponsor thesis, timeline expectations, and how PE CIO hiring differs from public company searches.',
+  keywords: [...post.keywords, 'pe backed', 'pe backed cio', 'private equity cio search'],
   alternates: {
     canonical: 'https://startingmonday.app/blog/pe-backed-cio',
   },
   openGraph: {
-    title: post.title,
-    description: post.description,
+    title: 'PE Backed CIO Search: What Private Equity Firms Look For',
+    description: 'PE backed CIO search guide for technology leaders evaluating private equity portfolio roles.',
     url: 'https://startingmonday.app/blog/pe-backed-cio',
     type: 'article',
     publishedTime: post.date,
   },
   twitter: {
     card: 'summary_large_image',
-    title: post.title,
-    description: post.description,
+    title: 'PE Backed CIO Search: What Private Equity Firms Look For',
+    description: 'PE backed CIO search guide for technology leaders evaluating private equity portfolio roles.',
   },
 }
 

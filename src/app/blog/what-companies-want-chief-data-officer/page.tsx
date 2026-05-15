@@ -6,23 +6,23 @@ import { getPost } from '@/lib/blog-posts'
 const post = getPost('what-companies-want-chief-data-officer')!
 
 export const metadata: Metadata = {
-  title: `${post.title} - Starting Monday`,
-  description: post.description,
-  keywords: post.keywords,
+  title: 'CDO Executive Search: What Companies Want in a Chief Data Officer - Starting Monday',
+  description: 'CDO executive search guide for Chief Data Officer candidates. Understand the three core CDO mandates, what hiring committees screen for, and how to position for data and AI leadership roles.',
+  keywords: [...post.keywords, 'cdo executive search', 'chief data officer executive search', 'chief data officer search'],
   alternates: {
     canonical: 'https://startingmonday.app/blog/what-companies-want-chief-data-officer',
   },
   openGraph: {
-    title: post.title,
-    description: post.description,
+    title: 'CDO Executive Search: What Companies Want in a Chief Data Officer',
+    description: 'CDO executive search guide for Chief Data Officer candidates.',
     url: 'https://startingmonday.app/blog/what-companies-want-chief-data-officer',
     type: 'article',
     publishedTime: post.date,
   },
   twitter: {
     card: 'summary_large_image',
-    title: post.title,
-    description: post.description,
+    title: 'CDO Executive Search: What Companies Want in a Chief Data Officer',
+    description: 'CDO executive search guide for Chief Data Officer candidates.',
   },
 }
 

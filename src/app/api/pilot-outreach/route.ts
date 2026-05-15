@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { getOwnerEmail } from '@/lib/owner-email'
+
+const OWNER_EMAIL = getOwnerEmail()
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null)
@@ -25,7 +28,7 @@ export async function POST(request: NextRequest) {
   const admin = createAdminClient()
   await (admin as any).from('pilot_outreach').insert({ name, email, company, message })
   await sendEmail({
-    to: process.env.OWNER_EMAIL ?? '',
+    to: OWNER_EMAIL ?? '',
     subject: `Pilot Outreach: ${name} (${company})`,
     html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Company:</strong> ${company}</p><p><strong>Message:</strong> ${message}</p>`
   })

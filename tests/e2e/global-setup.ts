@@ -15,7 +15,8 @@ setup('authenticate', async ({ page }) => {
   await page.fill('#email', email)
   await page.fill('#password', password)
   await page.click('button[type="submit"]')
-  await page.waitForURL('**/dashboard', { timeout: 15_000 })
+  // Login now redirects to /dashboard/briefing for most users.
+  await page.waitForURL(/\/dashboard(?:\/.*)?$/, { timeout: 20_000 })
   await expect(page.locator('h1')).toBeVisible()
 
   await page.context().storageState({ path: authFile })

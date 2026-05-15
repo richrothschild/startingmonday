@@ -3,8 +3,9 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+import { getOwnerEmail } from '@/lib/owner-email'
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL
+const OWNER_EMAIL = getOwnerEmail()
 
 export async function markPlaced(formData: FormData) {
   const supabase = await createClient()

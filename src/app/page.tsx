@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - Signal intelligence for C-suite searches',
-  description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
+  description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
+    description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
+    description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -68,7 +68,7 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'How is this different from LinkedIn Premium?',
-    answer: 'LinkedIn Premium gives you a better job board. Starting Monday makes your search more effective by surfacing company signals before roles are posted, generating prep briefs in about a minute, and helping you manage the relationships that matter across your pipeline. It complements executive coaching by powering the day-to-day campaign execution between sessions.',
+    answer: 'LinkedIn Premium gives you a better job board. Starting Monday improves how you run the campaign itself: earlier signals, better-timed outreach, and stronger relationship follow-through so you can land the right role, not just the next role. It complements executive coaching by powering day-to-day execution between sessions.',
   },
   {
     question: 'How do you surface signals before a role is posted?',
@@ -138,17 +138,17 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday gives C-suite technology leaders private signal intelligence so outreach starts earlier, with context.',
+          eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday helps C-suite technology leaders improve behavior and relationship quality so outreach starts earlier, with context.',
           h1Lines: ['Be ready.', 'Be early.'],
-          bodyPreamble: 'If you\'re leading a team while planning your next move, the last thing you need is more noise.',
-          body: 'Starting Monday helps you run a disciplined campaign: monitor your exact targets, spot role-shaping movement early, prepare a sharp outreach angle, and enter conversations before the process becomes crowded.',
+          bodyPreamble: 'If you\'re leading a team while planning your next move,\nthe last thing you need is more noise.',
+          body: 'Starting Monday helps you run a disciplined campaign: monitor exact targets, spot role-shaping movement early, prepare sharper outreach, and build higher-trust conversations before the process becomes crowded.',
           steps: [
             'Add your target companies.',
             'Set your level, positioning narrative, and privacy preferences.',
             'Wake up to a decision-ready briefing by morning.',
           ],
-          trialNote: 'Free for 30 days. No credit card. Built for active C-suite campaigns, not apply-and-wait job board searches.',
-          competitiveEdge: 'Executives using Starting Monday reach out an average of 4.2 weeks before the posting. Early context becomes relationship advantage.',
+          trialNote: 'Free for 30 days. No credit card. Built for C-suite candidates who want the right role, not a reactive scramble.',
+          competitiveEdge: 'Executives using Starting Monday reach out an average of 4.2 weeks before the posting. Earlier context improves relationship quality and decision leverage.',
           testimonial: {
             quote: 'Used to take 6+ months. With Starting Monday, I had competing offers in 67 days. Started tracking in January. Had offers by early March.',
             source: 'Technology executive, VP to CIO transition',

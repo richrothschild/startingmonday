@@ -46,7 +46,7 @@ jobs:
           while IFS= read -r file; do
             # Skip known intentionally-public routes and routes using custom auth patterns
             case "$file" in
-              *webhooks/stripe*|*health*|*demo-brief*|*demo-email*|*partners*|*optimize*|*admin/health*) continue ;;
+              *webhooks/stripe*|*health*|*demo-brief*|*demo-email*|*partners*|*optimize*|*admin/health*|*notify/new-user*|*auth/verify*) continue ;;
               *briefing/send*) continue ;;  # retired endpoint (returns 410)
             esac
             # Check if file has POST/PUT/DELETE but no auth guard

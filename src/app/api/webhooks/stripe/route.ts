@@ -5,8 +5,10 @@ import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
 import { mapStripeStatus } from '@/lib/stripe-status'
+import { getOwnerEmail } from '@/lib/owner-email'
 
 const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign', 'coach'])
+const OWNER_EMAIL = getOwnerEmail()
 
 // current_period_end is present on Stripe.Subscription at runtime but not typed
 // in the SDK version pinned in this project.
@@ -86,7 +88,7 @@ export async function POST(request: NextRequest) {
         updateError = error
         if (updatedUser?.email) {
           sendEmail({
-            to: process.env.OWNER_EMAIL ?? '',
+            to: OWNER_EMAIL ?? '',
             subject: `New paid subscriber: ${updatedUser.email}`,
             html: `<p style="font-family:sans-serif;font-size:14px;color:#0f172a;"><strong>${updatedUser.email}</strong> just converted to a paid ${plan} plan.</p>`,
           }).catch(() => {})
