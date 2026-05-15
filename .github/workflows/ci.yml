@@ -88,3 +88,67 @@ jobs:
         env:
           # Optional: set SEMGREP_APP_TOKEN to also post results to semgrep.dev dashboard
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+  notify-failure:
+    name: Notify Slack on failure
+    runs-on: ubuntu-latest
+    needs: [test, semgrep]
+    if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
+
+    steps:
+      - name: Determine failed job
+        id: failed-job
+        run: |
+          if [[ "${{ needs.test.result }}" == "failure" ]]; then
+            echo "job_name=Type check & tests" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.semgrep.result }}" == "failure" ]]; then
+            echo "job_name=Semgrep security scan" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "❌ CI Build Failed",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "❌ CI Build Failed"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n`${{ github.ref_name }}`"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n${{ github.actor }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Failed Step:*\n${{ steps.failed-job.outputs.job_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<${{ steps.failed-job.outputs.job_link }}|View full build logs →>"
+                  }
+                }
+              ]
+            }
