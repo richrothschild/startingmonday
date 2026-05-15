@@ -176,10 +176,10 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
         <div className="mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Live demo</p>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
-            Know the room before you walk in.
+            Improve the conversation before it starts.
           </h1>
           <p className="text-[14px] text-slate-500 leading-relaxed">
-            Enter any company and role. See the same prep brief Starting Monday generates before every interview in your search &mdash; live, in real time, from your actual target.
+            Enter any company and role. See the same prep brief Starting Monday generates to improve search behavior, strengthen relationships, and help you pursue the right role, not the first role.
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
             <div>
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Why this company context matters</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
-                Executive searches are won on context quality, not volume. This brief is designed to help you walk in with a point of view on the company, likely objections, and the questions that signal peer-level understanding.
+                Executive searches are won on context quality, not volume. This brief is built to reduce reactive behavior and improve relationship quality with a clear point of view, likely objections, and peer-level questions.
               </p>
             </div>
             <div>
@@ -202,8 +202,8 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Typical week of signals</p>
               <ul className="space-y-1.5 text-[13px] text-slate-600 leading-relaxed">
                 <li>- Monday: leadership or org-change disclosures</li>
-                <li>- Wednesday: career page role and language updates</li>
-                <li>- Friday: follow-through opportunities for outreach priority</li>
+                <li>- Wednesday: role-shaping movement and language updates</li>
+                <li>- Friday: relationship follow-through priorities</li>
               </ul>
             </div>
           </div>
@@ -283,7 +283,7 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
                     The brief continues.
                   </p>
                   <p className="text-[13px] text-slate-500 mb-6 leading-relaxed">
-                    See the questions they'll ask about your track record, the objections to get ahead of, and the five things only a peer would think to raise. Enter your email to unlock the full brief.
+                    See the likely questions about your track record, objections to get ahead of, and the points that improve trust with decision makers. Enter your email to unlock the full brief.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
                     <input
@@ -313,10 +313,10 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
               <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <p className="text-[14px] font-semibold text-white mb-0.5">
-                    Get this before every interview. Know when the search opens before anyone posts it.
+                    Get this before every interview. Build better relationships before the process gets crowded.
                   </p>
                   <p className="text-[12px] text-slate-400">
-                    Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is ever engaged.
+                    Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you can engage earlier with stronger context and better role-fit judgment.
                   </p>
                 </div>
                 <Link
@@ -336,11 +336,13 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
             <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-5">What you get with a full account</p>
             <div className="flex flex-col gap-3">
               {[
-                'This brief, auto-generated for every company in your pipeline before every interview',
-                'Signal intelligence on every target company - exec moves, 8-K filings, funding rounds, and career pages, with pattern alerts before roles are ever posted',
+                'This brief, auto-generated for each target company before high-stakes conversations',
+                'Signal intelligence on every target company with pattern alerts before roles are broadly posted',
+                'Behavior support: daily priorities that reduce reactive moves and improve execution consistency',
+                'Relationship support: sharper outreach timing and follow-through prompts for critical stakeholders',
                 'Contact tracker with outreach drafting and recruiter firm grouping',
                 'Daily morning briefing with your signals, open actions, and pending matches',
-                'AI career advisor with full visibility into your pipeline',
+                'AI career advisor with pipeline visibility to help you choose right-fit opportunities',
               ].map((item, i) => (
                 <div key={i} className="flex gap-3 items-start">
                   <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
