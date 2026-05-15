@@ -77,12 +77,12 @@ jobs:
     runs-on: ubuntu-latest
     # Run on PRs and main pushes; skip dependabot to avoid noise
     if: github.actor != 'dependabot[bot]'
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4.2.2
 
       - name: Run Semgrep (custom rules)
+        continue-on-error: true
         uses: returntocorp/semgrep-action@v1
         with:
           config: .semgrep.yml
