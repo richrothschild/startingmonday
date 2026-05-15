@@ -156,9 +156,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <Link href="/demo" className="hidden sm:inline text-[12px] text-slate-500 hover:text-slate-300 transition-colors" title="See a live product demo" aria-label="See product demo">
               See it in action
             </Link>
-            <Link href="/refer" className="hidden sm:inline text-[12px] text-slate-500 hover:text-slate-300 transition-colors" title="Refer a leader for consideration" aria-label="Refer a leader">
-              Refer a Leader
-            </Link>
             <Link
               href="/signup"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
@@ -174,7 +171,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <main>
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[16px] sm:text-[21px] text-slate-400 italic leading-relaxed mb-5 sm:mb-7">
+          <p className="text-[16px] sm:text-[21px] text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7">
             {hero.eyebrow}
           </p>
           <h1 className="text-[36px] sm:text-[46px] font-bold text-white leading-[1.1] tracking-tight mb-5">
@@ -228,14 +225,13 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           )}
 
-          {/* Confidentiality promise - above the fold, before any CTA */}
+          {/* Confidentiality promise - moved to before the main CTA for trust anchor */}
           <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
             Private by default
           </p>
           <p className="text-[13px] text-slate-500 mb-8">
-            Your search is completely private - we never share your identity, targets, or activity with anyone.
-            No credit card. No recruiter visibility. No employer access. Cancel from settings in 10 seconds.
+            Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
           </p>
 
           {hero.steps && hero.steps.length > 0 && (
@@ -257,7 +253,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 properties={{ location: 'hero', label: 'start_campaign' }}
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start your campaign &rarr;
+                Start free trial &rarr;
               </TrackLink>
               <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
@@ -266,11 +262,11 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 href="/demo"
                 event="cta_clicked"
                 properties={{ location: 'hero', label: 'see_demo' }}
-                className="inline-block text-[14px] font-semibold text-orange-500 border border-orange-200 bg-orange-50 px-7 py-3.5 rounded hover:bg-orange-100 hover:text-orange-700 transition-colors"
+                className="inline-block text-[14px] font-bold text-white border border-orange-500 bg-orange-500 px-7 py-3.5 rounded hover:bg-orange-600 hover:border-orange-600 transition-colors"
               >
-                See it in action - try a live prep brief &rarr;
+                See it in action &rarr;
               </TrackLink>
-              <p className="text-[12px] text-slate-400 mt-2.5">No signup required</p>
+              <p className="text-[12px] text-slate-400 mt-2.5">Live prep brief demo. No signup required.</p>
             </div>
           </div>
           <p className="text-[12px] text-slate-300 mt-4 font-medium">
@@ -783,7 +779,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
               <Link href="/partners" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Partners</Link>
               <Link href="/for-search-firms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Search Firms</Link>
-              <Link href="/refer" className="text-[12px] font-semibold text-green-500 hover:text-green-700 transition-colors">Refer a Leader</Link>
+
               <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>

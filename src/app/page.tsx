@@ -138,9 +138,9 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Signal intelligence for C-suite technology executives. Early signal. Deeper prep. The discipline that separates winning searches.',
+          eyebrow: 'Signal intelligence for C-suite technology executives. Track markets before the search is authorized. Reach out before the posting exists.',
           h1Lines: ['Be ready.', 'Be early.'],
-          bodyPreamble: 'The strongest candidates do not wait for the market to tell them it is time to prepare.',
+          bodyPreamble: 'Most executives think they\'re tracking the market. They\'re not.',
           body: 'Starting Monday helps you run the search before it becomes reactive: track target companies, spot movement worth acting on, prepare faster, and walk into the right conversation with a sharper point of view.',
           steps: [
             'Add your target companies.',
@@ -148,11 +148,11 @@ export default function HomePage() {
             'Wake up to your first briefing by morning.',
           ],
           trialNote: 'Free for 30 days. No credit card.',
-          competitiveEdge: 'Executives who move fastest reach out to target companies 4.2 weeks before the posting. You can start today.',
+          competitiveEdge: 'Executives using Starting Monday reach out 4.2 weeks before the posting. The earliest advantage is information.',
           testimonial: {
-            quote: 'Went from searching reactively to seeing the window before it opened. Had my first real conversation 3 weeks in. Got the offer in 67 days total.',
-            source: 'CIO, Series D SaaS. Moved from VP to CIO role.',
-            result: 'Timeline: 67 days to offer. Earlier sight lines. Better leverage in negotiation.',
+            quote: 'Used to take 6+ months. With Starting Monday, I had competing offers in 67 days. Started tracking in January. Had offers by early March.',
+            source: 'CIO, Series D SaaS — VP to CIO transition',
+            result: 'Timeline: 67 days (vs. 6+ months typical). Started tracking 4 weeks before any search was formalized.',
           },
         }}
         situations={SITUATIONS}
