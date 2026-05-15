@@ -45,6 +45,8 @@ export function InviteClient({
             <input
               readOnly
               value={url}
+              title="Your invite link"
+              aria-label="Your invite link"
               className="flex-1 border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-600 bg-slate-50 focus:outline-none"
             />
             <button

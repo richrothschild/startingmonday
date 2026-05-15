@@ -199,10 +199,11 @@ export default function FeedbackDetailPage({ params }: { params: { id: string } 
 
           <div className="space-y-4">
             <div>
-              <label className="block text-[12px] font-semibold text-slate-900 mb-2">
+              <label htmlFor="status-select" className="block text-[12px] font-semibold text-slate-900 mb-2">
                 Status
               </label>
               <select
+                id="status-select"
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value as FeedbackStatus)}
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[13px] focus:outline-none focus:ring-2 focus:ring-orange-500"

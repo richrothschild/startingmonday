@@ -183,10 +183,11 @@ export default function FeedbackPage() {
             </div>
 
             <div>
-              <label className="block text-[12px] font-semibold text-slate-900 mb-2">
+              <label htmlFor="category-input" className="block text-[12px] font-semibold text-slate-900 mb-2">
                 Category *
               </label>
               <select
+                id="category-input"
                 name="category"
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[13px] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
@@ -214,10 +215,11 @@ export default function FeedbackPage() {
         <section className="bg-white border border-slate-200 rounded-lg p-4 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
+              <label htmlFor="category-filter" className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
                 Category
               </label>
               <select
+                id="category-filter"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value as FeedbackCategory | '')}
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[12px] focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -232,10 +234,11 @@ export default function FeedbackPage() {
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
+              <label htmlFor="status-filter" className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
                 Status
               </label>
               <select
+                id="status-filter"
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value as FeedbackStatus | '')}
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[12px] focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -251,10 +254,11 @@ export default function FeedbackPage() {
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
+              <label htmlFor="sort-filter" className="block text-[11px] font-semibold text-slate-600 uppercase mb-1.5">
                 Sort By
               </label>
               <select
+                id="sort-filter"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'recent' | 'votes' | 'comments')}
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[12px] focus:outline-none focus:ring-2 focus:ring-orange-500"

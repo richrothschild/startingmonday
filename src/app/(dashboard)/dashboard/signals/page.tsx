@@ -150,8 +150,10 @@ export default async function SignalsPage({
 
         {/* Filters */}
         <form method="GET" className="flex flex-wrap gap-3 mb-6">
+          <label className="sr-only">Filter by company</label>
           <select
             name="company"
+            aria-label="Filter by company"
             defaultValue={companyFilter ?? ''}
             className="text-[13px] border border-slate-200 rounded px-3 py-1.5 bg-white text-slate-700 focus:outline-none focus:border-slate-400"
           >
@@ -161,8 +163,10 @@ export default async function SignalsPage({
             ))}
           </select>
 
+          <label className="sr-only">Filter by type</label>
           <select
             name="type"
+            aria-label="Filter by type"
             defaultValue={typeFilter ?? ''}
             className="text-[13px] border border-slate-200 rounded px-3 py-1.5 bg-white text-slate-700 focus:outline-none focus:border-slate-400"
           >
