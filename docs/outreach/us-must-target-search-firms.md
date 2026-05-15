@@ -35,6 +35,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US functional practice leaders (CFO, CEO and Board, Global Technology and Services, Human Resources Officers).
 - Best immediate email route: `info@heidrick.com`
+- Homework sentence for outreach: "I reviewed your US CFO and leadership advisory materials and noticed your board-sensitive transition coverage is especially strong."
 - Website contact path: Heidrick contact page routing by region/practice.
 
 ---
@@ -62,6 +63,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US market leaders for CFO, COO, CHRO, Technology Officers, and Revenue Officers.
 - Best immediate email route: `clientrequest@kornferry.com`
+- Homework sentence for outreach: "I reviewed your advisory and search materials and noticed how tightly your consultant workflow links assessment and placement."
 - Website contact path: Korn Ferry contact form (practice and region routing).
 
 ---
@@ -89,6 +91,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US managing directors in CFO, technology, operations, and people practices.
 - Best immediate email route: `info@russellreynolds.com`
+- Homework sentence for outreach: "I reviewed your board and succession materials and noticed a clear concentration in highly selective C-suite transitions."
 - Website contact path: Russell Reynolds office and contact form routing.
 
 ---
@@ -116,6 +119,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US functional practice leaders across Financial Officers, Technology Officers, and Human Resources.
 - Best immediate email route: `info@spencerstuart.com`
+- Homework sentence for outreach: "I reviewed your board advisory and leadership assessment materials and noticed the emphasis on judgment quality over volume."
 - Website contact path: Spencer Stuart office contact routing.
 
 ---
@@ -143,6 +147,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US consultants leading CFO, technology, operations, and people practices.
 - Best immediate email route: `info@egonzehnder.com`
+- Homework sentence for outreach: "I reviewed your advisory positioning and noticed how strongly your US work emphasizes long-horizon leadership outcomes."
 - Website contact path: Egon Zehnder office inquiry routing.
 
 ---
@@ -170,6 +175,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - Practice leaders in Private Equity, CFO, Technology, and HR Officers.
 - Best immediate email route: `info@jmsearch.com`
+- Homework sentence for outreach: "I reviewed your practice pages and noticed strong PE-backed mid-market concentration in CFO, COO, and CIO mandates."
 - Website contact path: JM Search contact form.
 
 ---
@@ -197,6 +203,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - Practice leaders in Financial Officers, Technology, Revenue, and Human Capital.
 - Best immediate email route: `info@zrgpartners.com`
+- Homework sentence for outreach: "I reviewed your public materials and noticed broad US multi-practice coverage across financial, technology, revenue, and human capital lanes."
 - Website contact path: ZRG contact page.
 
 ---
@@ -224,6 +231,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US practice leaders for CFO, CIO/CTO, Operations, People, and Revenue officers.
 - Best immediate email route: `info@dhrglobal.com`
+- Homework sentence for outreach: "I reviewed your functional practice coverage and noticed broad US depth across finance, technology, operations, people, and revenue mandates."
 - Website contact path: DHR contact form.
 
 ---
@@ -251,6 +259,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US practice leads in Financial Officers, Technology Officers, and Human Capital.
 - Best immediate email route: `info@caldwell.com`
+- Homework sentence for outreach: "I reviewed your leadership advisory and functional search pages and noticed consistent emphasis on partner-level quality and fit."
 - Website contact path: Caldwell contact form.
 
 ---
@@ -278,6 +287,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - US managing directors and functional practice leaders.
 - Best immediate email route: `info@stantonchase.com`
+- Homework sentence for outreach: "I reviewed your US office and practice information and noticed strong mid-market coverage across core C-suite lanes."
 - Website contact path: Stanton Chase contact routing.
 
 ---
@@ -305,6 +315,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - Practice leaders in GTM, People, and Technology.
 - Best immediate email route: `hello@truesearch.com`
+- Homework sentence for outreach: "I reviewed your function-first model and noticed how your GTM, people, and technology practices depend on speed with precision."
 - Website contact path: True Search contact page.
 
 ---
@@ -332,6 +343,7 @@ Important note on contacts and emails:
 **Top contacts and emails**
 - Partners leading CTO, CISO, and product practices.
 - Best immediate email route: `info@rivierapartners.com`
+- Homework sentence for outreach: "I reviewed your technology and product specialization pages and noticed clear depth in CTO, CISO, and VP Product mandates."
 - Website contact path: Riviera contact form.
 
 ---
