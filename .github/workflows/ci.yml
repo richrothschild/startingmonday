@@ -39,6 +39,9 @@ jobs:
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
+    # Non-blocking until staging is healthy. Remove continue-on-error once
+    # starting-monday-staging-production.up.railway.app is serving traffic.
+    continue-on-error: true
     # Staging branch: always runs against the staging URL.
     # Main branch: runs when PLAYWRIGHT_ENABLED = true in repo variables.
     if: github.ref == 'refs/heads/staging' || vars.PLAYWRIGHT_ENABLED == 'true'
