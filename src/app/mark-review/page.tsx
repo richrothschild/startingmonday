@@ -8,39 +8,80 @@ function mailtoHref(subject: string, body: string) {
 }
 
 export const metadata: Metadata = {
-  title: 'Starting Monday | Direct Review Brief',
+  title: 'Starting Monday | C-Suite Conversion Review Brief',
   description:
-    'Direct review brief for Mark Horstman: what Starting Monday is building, current stage, and the exact feedback request.',
+    'One-page review brief for Mark Horstman: value proposition, C-suite objections, and specific decision asks.',
   alternates: { canonical: 'https://startingmonday.app/mark-review' },
   openGraph: {
-    title: 'Starting Monday | Direct Review Brief',
+    title: 'Starting Monday | C-Suite Conversion Review Brief',
     description:
-      'What Starting Monday is building, where it stands today, and the direct feedback request.',
+      'One-page review brief for Mark Horstman: value proposition, C-suite objections, and specific decision asks.',
     url: 'https://startingmonday.app/mark-review',
   },
 }
 
+const DECISION_QUESTIONS = [
+  'What are the top 3 reasons a serious C-suite buyer would hesitate or leave?',
+  'Which trust gap is the most damaging right now: credibility, proof, privacy, positioning, pricing, or workflow burden?',
+  'If we only fix one thing this week, what is it?',
+]
+
+const CORE_VALUE = [
+  'Find role-shaping opportunity windows before postings become public.',
+  'Turn raw market movement into decision-ready daily actions.',
+  'Prepare outreach and interview narrative at executive depth, not job-board depth.',
+  'Run a disciplined campaign with less noise and tighter follow-through.',
+]
+
+const KEY_OBJECTIONS = [
+  {
+    concern: '"This sounds like another dashboard."',
+    response:
+      'It is not built for passive monitoring. It is built for action: signal -> decision -> outreach -> follow-up.',
+  },
+  {
+    concern: '"Can I trust the signal quality?"',
+    response:
+      'Signal is tied to timing and execution decisions, not vanity alerts. The standard is useful next step, not interesting data.',
+  },
+  {
+    concern: '"I am employed. Is this private?"',
+    response:
+      'Privacy is a first-order requirement. No employer visibility. No recruiter visibility. User-controlled account and data deletion.',
+  },
+  {
+    concern: '"Will this save time or add work?"',
+    response:
+      'The goal is reduced cognitive load: one place for target movement, prep context, and next actions.',
+  },
+  {
+    concern: '"Is this built for people at my level?"',
+    response:
+      'The product is focused on C-suite and near-C-suite technology transitions, not broad apply-and-wait searches.',
+  },
+]
+
+const feedbackLink = mailtoHref(
+  'Starting Monday: C-suite conversion review',
+  'Top 3 conversion blockers for C-suite buyers:\n1)\n2)\n3)\n\nMost damaging trust gap (pick one):\n\nOne fix to ship this week:\n\nAnything unclear or weak in the value proposition:\n',
+)
+
+const callLink = mailtoHref(
+  'Starting Monday: 15-minute review call',
+  'Mark,\n\nIf you are open to it, I would value 15 minutes to pressure-test the site for C-suite conversion.\n\nPreferred windows:\n- Option 1:\n- Option 2:\n\nThanks,\nRichard\n',
+)
+
 export default function MarkReviewPage() {
-  const structuredFeedbackLink = mailtoHref(
-    'Starting Monday direct feedback',
-    'Top 3 flaws (no softening):\n1)\n2)\n3)\n\nTop 1 fix first:\n\nWould you recommend this to one executive right now? (yes/no + why):\n\nWhat would make this an automatic yes for you?\n',
-  )
-
-  const callRequestLink = mailtoHref(
-    '15-minute direct review call',
-    'Mark,\n\nIf you are open to it, I would value 15 minutes for direct critique.\n\nPreferred windows:\n- Option 1:\n- Option 2:\n\nThanks,\nRich\n',
-  )
-
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/mark-demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
-              Demo
+            <Link href="/" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              Main site
             </Link>
             <Link
               href="/signup"
@@ -53,85 +94,85 @@ export default function MarkReviewPage() {
       </nav>
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Direct Review Brief</p>
-          <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Starting Monday: first-principles review request
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">One-Page Brief</p>
+          <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
+            Starting Monday: C-suite conversion pressure test
           </h1>
-          <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl">
-            This is a first contact brief. No internal grading deck. No context required. Just what we are building, where it stands, and what feedback I need.
+          <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
+            This brief is direct by design: what the product is, where buyer trust can break, and the exact decisions needed to improve conversion.
           </p>
         </div>
       </header>
 
-      <main className="px-4 sm:px-6 py-14 sm:py-20">
-        <div className="max-w-3xl mx-auto space-y-12">
+      <main className="px-4 sm:px-6 py-14 sm:py-18">
+        <div className="max-w-4xl mx-auto space-y-10">
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What Starting Monday is trying to do</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is</p>
             <p className="text-[15px] text-slate-700 leading-relaxed">
-              Help VP and C-suite technology leaders run a disciplined search before the market gets crowded. The product combines early company signal monitoring, prep briefs for high-stakes conversations, and a pipeline system so outreach and follow-through stay tight.
+              Starting Monday is an execution platform for C-suite technology executives in search. It is designed to help serious buyers move earlier, prepare better, and run a tighter campaign.
             </p>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Where we are in the build</p>
-            <p className="text-[15px] text-slate-700 leading-relaxed">
-              Live product. Live users. Core workflow is in place. Current focus is sharpening positioning, trust, and conversion quality so the story is as strong as the underlying product.
-            </p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Core value</p>
+            <ul className="space-y-2.5">
+              {CORE_VALUE.map((item) => (
+                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
+                  <span className="text-orange-500 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Start Here</p>
-            <div className="space-y-3">
-              <Link href="/" className="block border border-slate-300 rounded p-4 hover:bg-slate-50 transition-colors">
-                <p className="text-[14px] font-semibold text-slate-900">Public landing page</p>
-                <p className="text-[13px] text-slate-600">https://startingmonday.app</p>
-              </Link>
-              <Link href="/mark-demo" className="block border border-slate-300 rounded p-4 hover:bg-slate-50 transition-colors">
-                <p className="text-[14px] font-semibold text-slate-900">Live demo (no email required)</p>
-                <p className="text-[13px] text-slate-600">https://startingmonday.app/mark-demo</p>
-              </Link>
-            </div>
-          </section>
-
-          <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Why different from alternatives</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">C-suite objections and current answers</p>
             <div className="space-y-4">
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. LinkedIn</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">LinkedIn is a job board. You wait for postings and compete with thousands. We find opportunities before they're posted by monitoring organizational signals. You move first.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. Executive coaches</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">Coaches provide strategy and accountability. They spend 90% of their time on the 10% of your search (the sessions). We handle the 90%: signal monitoring, prep briefs, pipeline discipline, daily execution. Better coaches use us for exactly this.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-2">vs. Spray and pay (resume services, general job boards)</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">Those tools are transactional and generic. We are built for VP/C-suite tech searches only. Signal monitoring is specific to executive moves. Prep briefs are calibrated to peer-level conversations. Every feature assumes you are targeting 20-40 companies, not browsing thousands.</p>
-              </div>
+              {KEY_OBJECTIONS.map((item) => (
+                <div key={item.concern} className="border-l-4 border-slate-300 pl-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.concern}</p>
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.response}</p>
+                </div>
+              ))}
             </div>
           </section>
 
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I Want From You</p>
-            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-800 leading-relaxed">
-              <li>Top 3 flaws. No softening.</li>
-              <li>Top 1 fix we should do first.</li>
-              <li>Would you recommend this to one executive right now: yes or no, and why.</li>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">Decision ask</p>
+            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
+              {DECISION_QUESTIONS.map((q) => (
+                <li key={q}>{q}</li>
+              ))}
             </ol>
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
               <a
-                href={structuredFeedbackLink}
+                href={feedbackLink}
                 className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-5 py-2.5 rounded transition-colors text-center"
               >
-                Send direct feedback email
+                Send direct feedback
               </a>
               <a
-                href={callRequestLink}
+                href={callLink}
                 className="inline-block border border-slate-400 hover:border-slate-600 text-slate-800 text-[14px] px-5 py-2.5 rounded transition-colors text-center"
               >
                 Request 15-minute call
               </a>
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Review links</p>
+            <div className="space-y-3 text-[14px]">
+              <Link href="/" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
+                Main site: https://startingmonday.app
+              </Link>
+              <Link href="/demo" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
+                Demo: https://startingmonday.app/demo
+              </Link>
+              <Link href="/pricing" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
+                Pricing: https://startingmonday.app/pricing
+              </Link>
             </div>
           </section>
         </div>
