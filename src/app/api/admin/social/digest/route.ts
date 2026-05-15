@@ -2,8 +2,9 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
+import { getOwnerEmail } from '@/lib/owner-email'
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL
+const OWNER_EMAIL = getOwnerEmail()
 
 const PILLAR_LABELS: Record<string, string> = {
   search_craft:  'Search Craft',
@@ -47,7 +48,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
     if (!OWNER_EMAIL) {
-      return NextResponse.json({ error: 'OWNER_EMAIL not configured' }, { status: 500 })
+      return NextResponse.json({ error: 'OWNER_EMAIL or NOTIFY_EMAIL not configured' }, { status: 500 })
     }
 
     const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]

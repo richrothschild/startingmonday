@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { getOwnerEmail } from '@/lib/owner-email'
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL
+const OWNER_EMAIL = getOwnerEmail()
 
 const TIER_LABELS: Record<string, string> = {
   trialing:  'Free trial',

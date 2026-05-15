@@ -3,9 +3,10 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+import { getOwnerEmail } from '@/lib/owner-email'
 import { ACTION_SCORES, compositeScore, GROUP_LABELS, type ScoreGroup } from '@/lib/action-scores'
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL
+const OWNER_EMAIL = getOwnerEmail()
 
 const GROUP_ORDER: ScoreGroup[] = [
   'onboarding', 'pipeline', 'intelligence', 'signals', 'communication', 'profile',
@@ -110,7 +111,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
   if (!OWNER_EMAIL) {
-    return NextResponse.json({ error: 'OWNER_EMAIL not configured' }, { status: 500 })
+    return NextResponse.json({ error: 'OWNER_EMAIL or NOTIFY_EMAIL not configured' }, { status: 500 })
   }
 
   const admin = createAdminClient()

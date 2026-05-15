@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { getOwnerEmail } from '@/lib/owner-email'
 
 function escHtml(s: string): string {
   return s
@@ -17,6 +18,7 @@ function generateReferralCode(): string {
 }
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
+const OWNER_EMAIL = getOwnerEmail()
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null)
@@ -60,7 +62,7 @@ export async function POST(request: NextRequest) {
 
   // Notify Rich
   sendEmail({
-    to: process.env.OWNER_EMAIL ?? '',
+    to: OWNER_EMAIL ?? '',
     subject: `Partner inquiry: ${name} at ${company}`,
     html: `
       <p><strong>Name:</strong> ${escHtml(name)}</p>
