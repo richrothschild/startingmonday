@@ -1,8 +1,11 @@
 ﻿'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Script from 'next/script'
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
 
 declare global {
   interface Window {
@@ -22,8 +25,33 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
+  // Block submit only when Turnstile is configured and the token hasn't arrived yet.
+  const canSubmit = !authBusy && (!TURNSTILE_SITE_KEY || !!turnstileToken)
+
+  function renderTurnstileWidget() {
+    if (!TURNSTILE_SITE_KEY || !turnstileRef.current || !window.turnstile) return
+    if (widgetIdRef.current !== null) return // already rendered
+    widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      size: 'invisible',
+      callback: (token: string) => setTurnstileToken(token),
+      'expired-callback': () => setTurnstileToken(null),
+      'error-callback': () => setTurnstileToken(null),
+    })
+  }
+
+  function resetTurnstile() {
+    setTurnstileToken(null)
+    if (widgetIdRef.current !== null && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current)
+      widgetIdRef.current = null
+    }
+  }
 
   async function handleGoogle() {
     setGoogleLoading(true)
@@ -81,21 +109,26 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!canSubmit) return
     setLoading(true)
     setError(null)
 
     try {
       // Call server-enforced login endpoint
+      const body: Record<string, string> = { email, password }
+      if (turnstileToken) body.turnstileToken = turnstileToken
+
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(body),
       })
 
       const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
 
       if (!response.ok || !data.ok) {
         setError(data.error || 'Sign-in failed')
+        resetTurnstile()
         setLoading(false)
         return
       }
@@ -103,14 +136,22 @@ export default function LoginPage() {
       // Successfully authenticated; cookies are already set by server
       router.push('/dashboard/briefing')
       router.refresh()
-    } catch (err) {
+    } catch {
       setError('Something went wrong. Please try again.')
+      resetTurnstile()
       setLoading(false)
     }
   }
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
+      {TURNSTILE_SITE_KEY && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+          onLoad={renderTurnstileWidget}
+        />
+      )}
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -198,11 +239,12 @@ export default function LoginPage() {
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
 
-
+              {/* Invisible Turnstile widget — renders here when NEXT_PUBLIC_TURNSTILE_SITE_KEY is set */}
+              <div ref={turnstileRef} />
 
               <button
                 type="submit"
-                disabled={loading}
+                disabled={!canSubmit}
                 className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in…' : 'Sign in'}
