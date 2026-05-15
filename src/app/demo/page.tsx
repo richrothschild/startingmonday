@@ -218,6 +218,21 @@ export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate
             </Link>
             .
           </p>
+          <p className="text-[12px] text-slate-500 mt-2">
+            Further reading:{' '}
+            <Link href="/blog/executive-hiring-patterns-2026" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              executive hiring patterns
+            </Link>
+            {' '}·{' '}
+            <Link href="/blog/why-executive-recruiters-go-quiet" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              why recruiters go quiet
+            </Link>
+            {' '}·{' '}
+            <Link href="/blog/why-starting-monday-exists" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              why we built Starting Monday
+            </Link>
+            .
+          </p>
         </section>
 
         {/* Input form */}

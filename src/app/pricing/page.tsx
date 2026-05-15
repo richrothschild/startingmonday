@@ -91,6 +91,23 @@ export default function PricingPage() {
           </p>
         </section>
 
+        <section className="mb-12 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Before you choose a tier
+          </p>
+          <div className="space-y-2">
+            <Link href="/blog/executive-hiring-patterns-2026" className="block text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              We Analyzed 300+ Executive Hiring Profiles. Here Is What Actually Gets Senior Leaders Interviewed.
+            </Link>
+            <Link href="/blog/why-executive-recruiters-go-quiet" className="block text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Why Executive Recruiters Go Quiet (And How Senior Candidates Can Break the Pattern)
+            </Link>
+            <Link href="/blog/why-starting-monday-exists" className="block text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Why Starting Monday Exists: Executive Search Is Not a Resume Problem
+            </Link>
+          </div>
+        </section>
+
         <section className="mb-12 border border-emerald-200 rounded-lg p-6 sm:p-7 bg-emerald-50/40">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-4">
             Pilot evidence snapshot

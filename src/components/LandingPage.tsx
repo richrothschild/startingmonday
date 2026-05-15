@@ -629,6 +629,28 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
+      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+            From the brief
+          </p>
+          <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
+            Practical guidance for C-suite and VP candidates running active campaigns.
+          </p>
+          <div className="flex flex-col gap-2">
+            <Link href="/blog/executive-hiring-patterns-2026" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              We Analyzed 300+ Executive Hiring Profiles. Here Is What Actually Gets Senior Leaders Interviewed.
+            </Link>
+            <Link href="/blog/why-executive-recruiters-go-quiet" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Why Executive Recruiters Go Quiet (And How Senior Candidates Can Break the Pattern)
+            </Link>
+            <Link href="/blog/why-starting-monday-exists" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Why Starting Monday Exists: Executive Search Is Not a Resume Problem
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <PricingSection trialNote={hero.trialNote} />
 
       {/* Trust */}
