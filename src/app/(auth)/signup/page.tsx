@@ -99,6 +99,7 @@ export default function SignupPage() {
   const [appleLoading, setAppleLoading] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState('')
   const [turnstileReady, setTurnstileReady] = useState(false)
+  const [captchaNotice, setCaptchaNotice] = useState<string | null>(null)
   const turnstileRef = useRef<HTMLDivElement | null>(null)
   const turnstileWidgetIdRef = useRef<string | null>(null)
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
@@ -111,26 +112,48 @@ export default function SignupPage() {
   }
 
   useEffect(() => {
-    if (!turnstileSiteKey || !turnstileRef.current) return
+    if (!turnstileSiteKey) {
+      setCaptchaNotice('Captcha is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY and redeploy.')
+      return
+    }
+
+    if (!turnstileRef.current) return
+
+    setCaptchaNotice('Loading captcha...')
 
     const renderWidget = () => {
       if (!window.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return
-      turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-        sitekey: turnstileSiteKey,
-        callback: (token: string) => {
-          setTurnstileToken(token)
-          setError(null)
-        },
-        'expired-callback': () => {
-          setTurnstileToken('')
-        },
-        'error-callback': () => {
-          setTurnstileToken('')
-          setError('Captcha failed. Please try again.')
-        },
-      })
-      setTurnstileReady(true)
+
+      try {
+        turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: turnstileSiteKey,
+          callback: (token: string) => {
+            setTurnstileToken(token)
+            setError(null)
+            setCaptchaNotice(null)
+          },
+          'expired-callback': () => {
+            setTurnstileToken('')
+          },
+          'error-callback': () => {
+            setTurnstileToken('')
+            setCaptchaNotice('Captcha failed to load. Disable content blockers and refresh.')
+            setError('Captcha failed. Please try again.')
+          },
+        })
+        setTurnstileReady(true)
+        setCaptchaNotice(null)
+      } catch {
+        setTurnstileReady(false)
+        setCaptchaNotice('Captcha failed to initialize. Check Turnstile site key domain settings and refresh.')
+      }
     }
+
+    const loadingTimeout = window.setTimeout(() => {
+      if (!turnstileWidgetIdRef.current) {
+        setCaptchaNotice('Captcha is still loading. Disable content blockers and refresh.')
+      }
+    }, 5000)
 
     if (window.turnstile) {
       renderWidget()
@@ -147,10 +170,16 @@ export default function SignupPage() {
     script.async = true
     script.defer = true
     script.onload = renderWidget
+    script.onerror = () => {
+      setTurnstileReady(false)
+      setCaptchaNotice('Captcha script was blocked. Disable content blockers and refresh.')
+    }
     document.head.appendChild(script)
 
     return () => {
+      window.clearTimeout(loadingTimeout)
       script.onload = null
+      script.onerror = null
       if (turnstileWidgetIdRef.current && window.turnstile) {
         window.turnstile.remove(turnstileWidgetIdRef.current)
         turnstileWidgetIdRef.current = null
@@ -469,9 +498,9 @@ export default function SignupPage() {
                   )}
 
                   <div className="space-y-1">
-                    <div ref={turnstileRef} />
-                    {!turnstileSiteKey && (
-                      <p className="text-[12px] text-amber-700">Captcha is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY.</p>
+                    <div ref={turnstileRef} className="min-h-[70px]" />
+                    {captchaNotice && (
+                      <p className="text-[12px] text-amber-700">{captchaNotice}</p>
                     )}
                   </div>
 
