@@ -512,7 +512,7 @@ export default async function DashboardPage({
           </div>
 
           {/* Contacts and chat links */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Contacts</p>
               <p className="text-[12px] text-slate-400 leading-relaxed">Your network at target companies.</p>
@@ -520,6 +520,10 @@ export default async function DashboardPage({
             <Link href="/dashboard/chat" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
               <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
+            </Link>
+            <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
+              <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
             </Link>
           </div>
 
@@ -550,6 +554,7 @@ export default async function DashboardPage({
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
             <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
+            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
@@ -566,6 +571,7 @@ export default async function DashboardPage({
           <div className="flex sm:hidden items-center gap-4 ml-auto">
             <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Contacts</Link>
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
+            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
             <LogoutButton label="Sign out" />
           </div>
