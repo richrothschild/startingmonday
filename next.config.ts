@@ -25,13 +25,13 @@ const CSP = [
   "default-src 'self'",
   // Next.js App Router requires unsafe-inline for hydration scripts.
   // unsafe-eval is required by some Next.js internals and Sentry.
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   // External services the browser connects to at runtime
-  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io",
+  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io https://challenges.cloudflare.com",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "frame-src 'none'",
+  "frame-src https://challenges.cloudflare.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
