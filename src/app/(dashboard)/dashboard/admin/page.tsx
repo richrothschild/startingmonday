@@ -28,6 +28,13 @@ const INTERNAL_PAGES = [
   { path: '/dashboard/admin/metrics',          label: 'Action Scores',        owner: 'rw', admin: 'rw', viewer: '-' },
 ]
 
+const INTERNAL_APIS = [
+  { path: '/api/outreach/draft',       label: 'Outreach Draft',        owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/outreach/send',        label: 'Outreach Send',         owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/outreach/status',      label: 'Outreach Status',       owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/outreach/suppression', label: 'Outreach Suppression',  owner: 'rw', admin: 'rw', viewer: '-' },
+]
+
 export default async function AdminPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -621,6 +628,36 @@ export default async function AdminPage() {
                 <tr key={i}>
                   <td className="px-6 py-3">
                     <Link href={p.path} className="text-slate-900 font-semibold hover:text-slate-600">{p.label}</Link>
+                    <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
+                  </td>
+                  <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
+                  <td className="px-4 py-3 text-center font-bold text-blue-600">{p.admin}</td>
+                  <td className="px-4 py-3 text-center text-slate-300">{p.viewer}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Internal APIs + permissions */}
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <div className="px-6 py-[18px] border-b border-slate-200">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal APIs</span>
+          </div>
+          <table className="w-full text-[12px]">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                <th className="px-6 py-2.5 font-semibold text-slate-400">Endpoint</th>
+                <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
+                <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
+                <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {INTERNAL_APIS.map((p, i) => (
+                <tr key={i}>
+                  <td className="px-6 py-3">
+                    <span className="text-slate-900 font-semibold">{p.label}</span>
                     <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
                   </td>
                   <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
