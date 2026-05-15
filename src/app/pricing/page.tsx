@@ -4,11 +4,11 @@ import { PricingCards } from './pricing-cards'
 
 export const metadata: Metadata = {
   title: 'Pricing - Starting Monday for C-suite searches',
-  description: 'Simple pricing for C-suite executive searches. Monitor at $49/mo, Active at $199/mo, Executive at $499/mo. Concierge available by application.',
+  description: 'Simple pricing for C-suite executive searches. Improve campaign behavior, relationship quality, and right-role decisions with Monitor ($49), Active ($199), or Executive ($499).',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
     title: 'Pricing - Starting Monday for C-suite searches',
-    description: 'Simple pricing for C-suite executive searches.',
+    description: 'Simple pricing for C-suite executive searches focused on behavior, relationships, and right-role outcomes.',
     url: 'https://startingmonday.app/pricing',
   },
 }
@@ -41,7 +41,7 @@ export default function PricingPage() {
             Pricing
           </h1>
           <p className="text-[16px] text-slate-500 mt-3 max-w-md mx-auto leading-relaxed">
-            30-day free trial. No credit card required to start. Built for C-suite searches.
+            30-day free trial. No credit card required to start. Built to improve C-suite search behavior and relationship outcomes.
           </p>
         </div>
 
@@ -55,15 +55,15 @@ export default function PricingPage() {
             {[
               {
                 tier: 'Monitor — $49/mo',
-                who: 'Best for executives who are not in active search yet but want to track target companies quietly.',
+                who: 'Best for executives who are not in active search yet but want to build disciplined market awareness before urgency hits.',
               },
               {
                 tier: 'Active — $199/mo',
-                who: 'Best for VP and C-suite executives in an active campaign who need prep briefs, daily signals, and pipeline control.',
+                who: 'Best for VP and C-suite executives in active search who need better outreach behavior, stronger relationship cadence, and tighter execution.',
               },
               {
                 tier: 'Executive — $499/mo',
-                who: 'Best for high-stakes C-suite searches where you need full-depth intelligence, faster alerts, and unlimited coverage.',
+                who: 'Best for high-stakes C-suite searches where right-role fit is critical and every high-value conversation must be prepared at depth.',
               },
             ].map(item => (
               <div key={item.tier} className="border border-slate-200 rounded-lg p-5 bg-white">
@@ -82,9 +82,9 @@ export default function PricingPage() {
             What outcomes to expect
           </p>
           <div className="space-y-3 text-[13px] text-slate-700 leading-relaxed">
-            <p><span className="font-semibold text-slate-900">Monitor:</span> passive monitoring with early signal visibility so opportunities do not surprise you.</p>
-            <p><span className="font-semibold text-slate-900">Active:</span> a daily operating rhythm for active search, including prep and pipeline follow-through.</p>
-            <p><span className="font-semibold text-slate-900">Executive:</span> full-depth coverage and speed for candidates optimizing every high-value conversation.</p>
+            <p><span className="font-semibold text-slate-900">Monitor:</span> stronger search behavior before urgency: earlier signal visibility and cleaner target focus.</p>
+            <p><span className="font-semibold text-slate-900">Active:</span> better weekly execution: sharper outreach, stronger relationship follow-through, and consistent pipeline momentum.</p>
+            <p><span className="font-semibold text-slate-900">Executive:</span> right-role optimization: full-depth context and preparation for the conversations that determine final fit.</p>
           </div>
           <p className="text-[12px] text-slate-400 mt-4">
             Outcomes depend on sector, role scope, and campaign consistency. These are directional expectations, not guaranteed placement results.
