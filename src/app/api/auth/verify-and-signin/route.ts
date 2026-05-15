@@ -41,27 +41,37 @@ export async function POST(request: NextRequest) {
   const { email, password, turnstileToken } = body
 
   // Validate input types
-  if (typeof email !== 'string' || typeof password !== 'string' || typeof turnstileToken !== 'string') {
+  if (typeof email !== 'string' || typeof password !== 'string') {
     return NextResponse.json(
       { ok: false, error: 'Missing or invalid required fields' },
       { status: 400 }
     )
   }
 
-  if (!email || !password || !turnstileToken) {
+  if (!email || !password) {
     return NextResponse.json(
       { ok: false, error: 'Missing required fields' },
       { status: 400 }
     )
   }
 
-  // Server-side Turnstile verification (required for security)
-  const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
-  if (!captchaValid) {
-    return NextResponse.json(
-      { ok: false, error: 'Captcha verification failed' },
-      { status: 403 }
-    )
+  // Server-side Turnstile verification - skipped when TURNSTILE_SECRET_KEY is not configured
+  // (allows staging/dev environments without Cloudflare Turnstile set up)
+  const turnstileConfigured = !!process.env.TURNSTILE_SECRET_KEY
+  if (turnstileConfigured) {
+    if (typeof turnstileToken !== 'string' || !turnstileToken) {
+      return NextResponse.json(
+        { ok: false, error: 'Missing or invalid required fields' },
+        { status: 400 }
+      )
+    }
+    const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
+    if (!captchaValid) {
+      return NextResponse.json(
+        { ok: false, error: 'Captcha verification failed' },
+        { status: 403 }
+      )
+    }
   }
 
   // Proceed with authentication
