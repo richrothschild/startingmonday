@@ -138,21 +138,21 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Signal intelligence for C-suite technology executives. Track markets before the search is authorized. Reach out before the posting exists.',
+          eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday gives C-suite technology leaders private signal intelligence so outreach starts earlier, with context.',
           h1Lines: ['Be ready.', 'Be early.'],
-          bodyPreamble: 'Most executives think they\'re tracking the market. They\'re not.',
-          body: 'Starting Monday helps you run the search before it becomes reactive: track target companies, spot movement worth acting on, prepare faster, and walk into the right conversation with a sharper point of view.',
+          bodyPreamble: 'If you\'re leading a team while planning your next move, the last thing you need is more noise.',
+          body: 'Starting Monday helps you run a disciplined campaign: monitor your exact targets, spot role-shaping movement early, prepare a sharp outreach angle, and enter conversations before the process becomes crowded.',
           steps: [
             'Add your target companies.',
-            'Set your search level and narrative.',
-            'Wake up to your first briefing by morning.',
+            'Set your level, positioning narrative, and privacy preferences.',
+            'Wake up to a decision-ready briefing by morning.',
           ],
-          trialNote: 'Free for 30 days. No credit card.',
-          competitiveEdge: 'Executives using Starting Monday reach out 4.2 weeks before the posting. The earliest advantage is information.',
+          trialNote: 'Free for 30 days. No credit card. Built for active C-suite campaigns, not apply-and-wait job board searches.',
+          competitiveEdge: 'Executives using Starting Monday reach out an average of 4.2 weeks before the posting. Early context becomes relationship advantage.',
           testimonial: {
             quote: 'Used to take 6+ months. With Starting Monday, I had competing offers in 67 days. Started tracking in January. Had offers by early March.',
-            source: 'CIO, Series D SaaS — VP to CIO transition',
-            result: 'Timeline: 67 days (vs. 6+ months typical). Started tracking 4 weeks before any search was formalized.',
+            source: 'Technology executive, VP to CIO transition',
+            result: 'Timeline: 67 days vs. 6+ months typical. First outreach started before the role was formally posted.',
           },
         }}
         situations={SITUATIONS}
