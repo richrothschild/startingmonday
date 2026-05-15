@@ -48,10 +48,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
   const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
+  const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
+  const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [guardrailWarnings, setGuardrailWarnings] = useState<string[]>([])
+  const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -76,6 +80,9 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setMessageText(next.defaultBody)
     setError(null)
     setSuccess(null)
+    setGuardrailWarnings([])
+    setGuardrailViolations([])
+    setConfirmLive(false)
   }
 
   async function updateStatus(email: string, fullName: string, company: string, status: string) {
@@ -107,6 +114,8 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setSending(true)
     setError(null)
     setSuccess(null)
+    setGuardrailWarnings([])
+    setGuardrailViolations([])
 
     const res = await fetch('/api/outreach/send', {
       method: 'POST',
@@ -119,20 +128,37 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         subject,
         messageText,
         statusAfter: 'reached_out',
+        mode: sendMode,
       }),
     })
 
+    const data = await res.json().catch(() => ({} as Record<string, unknown>))
     setSending(false)
 
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      setError(data.error ?? 'Email send failed.')
+      const violations = Array.isArray(data.violations) ? data.violations.map(String) : []
+      const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+      setGuardrailViolations(violations)
+      setGuardrailWarnings(warnings)
+      setError((data.error as string) ?? 'Email send failed.')
       return
     }
 
-    setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'reached_out' } : r)))
-    setSuccess(`Sent to ${selected.fullName} from ${fromAddressLabel}.`)
+    const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+    setGuardrailWarnings(warnings)
+
+    if (sendMode === 'live') {
+      setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'reached_out' } : r)))
+      setSuccess(`Sent live to ${selected.fullName} from ${fromAddressLabel}.`)
+      setConfirmLive(false)
+    } else if (sendMode === 'test_to_self') {
+      setSuccess('Test email sent to your own inbox. Review rendering and tone before live send.')
+    } else {
+      setSuccess('Dry run complete. No email was sent.')
+    }
   }
+
+  const liveBlocked = sendMode === 'live' && !confirmLive
 
   return (
     <section className="bg-white border border-slate-200 rounded overflow-hidden">
@@ -248,16 +274,67 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 />
               </div>
 
+              <div className="bg-slate-50 border border-slate-200 rounded p-3 space-y-2">
+                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Send Mode</label>
+                <select
+                  aria-label="Select send mode"
+                  title="Select send mode"
+                  value={sendMode}
+                  onChange={(e) => {
+                    const next = e.target.value as 'dry_run' | 'test_to_self' | 'live'
+                    setSendMode(next)
+                    if (next !== 'live') setConfirmLive(false)
+                  }}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white"
+                >
+                  <option value="dry_run">Dry Run (no send)</option>
+                  <option value="test_to_self">Send Test To Me</option>
+                  <option value="live">Send Live To Prospect</option>
+                </select>
+                <p className="text-[11px] text-slate-500">
+                  Start with Dry Run, then Send Test To Me, then Send Live.
+                </p>
+                {sendMode === 'live' && (
+                  <label className="flex items-start gap-2 text-[12px] text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={confirmLive}
+                      onChange={(e) => setConfirmLive(e.target.checked)}
+                      className="mt-0.5"
+                    />
+                    I reviewed this message and confirm it is personalized and ready for live send.
+                  </label>
+                )}
+              </div>
+
+              {guardrailViolations.length > 0 && (
+                <div className="border border-red-200 bg-red-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-red-700 mb-1">Guardrail violations</p>
+                  <ul className="text-[12px] text-red-700 list-disc ml-5 space-y-1">
+                    {guardrailViolations.map((v, i) => <li key={`v-${i}`}>{v}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              {guardrailWarnings.length > 0 && (
+                <div className="border border-amber-200 bg-amber-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-amber-800 mb-1">Quality warnings</p>
+                  <ul className="text-[12px] text-amber-800 list-disc ml-5 space-y-1">
+                    {guardrailWarnings.map((w, i) => <li key={`w-${i}`}>{w}</li>)}
+                  </ul>
+                </div>
+              )}
+
               {error && <p className="text-[12px] text-red-600">{error}</p>}
               {success && <p className="text-[12px] text-green-700">{success}</p>}
 
               <button
                 type="button"
                 onClick={sendSelected}
-                disabled={sending || !subject.trim() || !messageText.trim()}
+                disabled={sending || !subject.trim() || !messageText.trim() || liveBlocked}
                 className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded disabled:opacity-50"
               >
-                {sending ? 'Sending...' : `Send To ${selected.fullName}`}
+                {sending ? 'Processing...' : sendMode === 'dry_run' ? 'Run Dry Run Check' : sendMode === 'test_to_self' ? 'Send Test To Me' : `Send Live To ${selected.fullName}`}
               </button>
             </>
           ) : (
