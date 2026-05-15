@@ -45,6 +45,8 @@ export function InviteClient({
             <input
               readOnly
               value={url}
+              title="Your invite link"
+              aria-label="Your invite link"
               className="flex-1 border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-600 bg-slate-50 focus:outline-none"
             />
             <button
@@ -67,7 +69,7 @@ export function InviteClient({
             <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Share via</p>
             <div className="flex flex-wrap gap-2">
               <a
-                href={`mailto:?subject=You should check out Starting Monday&body=I've been using Starting Monday to run my executive search - it monitors target companies, surfaces roles before they're posted, and generates prep briefs in 60 seconds. Thought you'd find it useful.%0A%0A${encodeURIComponent(url)}`}
+                href={`mailto:?subject=You should check out Starting Monday&body=I've been using Starting Monday to run my executive search - it monitors target companies, surfaces roles before they're posted, and generates prep briefs in about a minute. Thought you'd find it useful.%0A%0A${encodeURIComponent(url)}`}
                 className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:bg-slate-50 transition-colors"
               >
                 Email
@@ -81,7 +83,7 @@ export function InviteClient({
                 LinkedIn
               </a>
               <a
-                href={`https://twitter.com/intent/tweet?text=I've been using Starting Monday for my executive search - monitors target companies and generates prep briefs in 60 seconds.&url=${encodeURIComponent(url)}`}
+                href={`https://twitter.com/intent/tweet?text=I've been using Starting Monday for my executive search - monitors target companies and generates prep briefs in about a minute.&url=${encodeURIComponent(url)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:bg-slate-50 transition-colors"

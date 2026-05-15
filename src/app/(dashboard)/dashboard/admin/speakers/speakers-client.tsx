@@ -1,4 +1,5 @@
-﻿'use client'
+﻿/* eslint-disable jsx-a11y/no-aria-label */
+'use client'
 
 import { useState, useRef } from 'react'
 
@@ -258,7 +259,9 @@ export function SpeakersClient({ initialSpeakers }: { initialSpeakers: Speaker[]
                         )}
                       </td>
                       <td className="px-4 py-3">
+                        <label className="sr-only">Speaker priority</label>
                         <select
+                          aria-label="Speaker priority"
                           value={s.priority}
                           onClick={e => e.stopPropagation()}
                           onChange={async e => {
@@ -383,11 +386,14 @@ function OutreachNotesCell({
   if (editing) {
     return (
       <div className="flex flex-col gap-1">
+        <label htmlFor="speaker-notes" className="sr-only">Speaker notes</label>
         <textarea
+          id="speaker-notes"
           autoFocus
           value={value}
           onChange={e => setValue(e.target.value)}
           rows={2}
+          aria-label="Speaker notes"
           className="text-[12px] border border-slate-300 rounded px-2 py-1 w-full resize-none focus:outline-none focus:border-slate-500"
         />
         <div className="flex gap-2">

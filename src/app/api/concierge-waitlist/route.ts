@@ -1,14 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export async function POST(request: NextRequest) {
   let email: string
+  let captchaToken: string
   try {
     const body = await request.json()
     email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : ''
+    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'concierge-waitlist',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
 
   if (!email || !email.includes('@') || !email.includes('.')) {
     return NextResponse.json({ ok: false, error: 'Invalid email' }, { status: 400 })

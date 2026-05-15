@@ -1,6 +1,6 @@
 # The Starting Monday Synthetic Council
 
-A panel of five advisors whose frameworks govern every piece of content we publish. Before anything goes live — blog post, LinkedIn post, landing page copy, email — it must survive their scrutiny.
+A panel of six advisors whose frameworks govern every piece of content we publish. Before anything goes live - blog post, LinkedIn post, landing page copy, email - it must survive their scrutiny.
 
 ---
 
@@ -71,6 +71,19 @@ A panel of five advisors whose frameworks govern every piece of content we publi
 
 ---
 
+### Seth Godin
+**Area of expertise:** Permission marketing, category storytelling, and audience trust. Tribe formation, smallest viable audience strategy, and remarkable positioning.
+
+**First principles:** Permission beats interruption. People like us do things like this. Remarkable products and sharp audience focus create compounding word-of-mouth.
+
+**Key questions he asks:**
+- Are we earning permission and trust, or just trying to capture attention?
+- Is this written for a smallest viable audience, or for everyone?
+- What in this message is truly remarkable enough to be shared?
+- Does this content strengthen category identity for executive opportunity intelligence?
+
+---
+
 ## How to Use the Council
 
 ### Full Review (required for blog posts and major copy)
@@ -91,6 +104,7 @@ Council members:
 - John McMahon: pain, urgency, economic buyer, reason to act now
 - Katelyn Bourgoin: emotional trigger, anxiety, progress and relief framing
 - Patrick Campbell: value reinforcement, tier alignment, retention and expansion
+- Seth Godin: permission marketing, smallest viable audience, category resonance
 
 Starting Monday context: AI-powered job search platform for senior executives. Hero message: "The role was never posted. You found it anyway." Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
 

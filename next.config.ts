@@ -1,20 +1,41 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from '@sentry/nextjs'
 
+// Derive Sentry's CSP security-report endpoint from the DSN.
+// DSN format:  https://KEY@ORG.ingest.sentry.io/PROJECT_ID
+// Report URI:  https://ORG.ingest.sentry.io/api/PROJECT_ID/security/?sentry_key=KEY
+function sentryReportUri(): string | null {
+  const dsn = process.env.SENTRY_DSN
+  if (!dsn) return null
+  try {
+    const url = new URL(dsn)
+    const key = url.username
+    const host = url.hostname
+    const projectId = url.pathname.replace(/^\//, '')
+    if (!key || !host || !projectId) return null
+    return `https://${host}/api/${projectId}/security/?sentry_key=${key}`
+  } catch {
+    return null
+  }
+}
+
+const SENTRY_REPORT_URI = sentryReportUri()
+
 const CSP = [
   "default-src 'self'",
   // Next.js App Router requires unsafe-inline for hydration scripts.
   // unsafe-eval is required by some Next.js internals and Sentry.
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   // External services the browser connects to at runtime
-  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io",
+  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io https://challenges.cloudflare.com",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "frame-src 'none'",
+  "frame-src https://challenges.cloudflare.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
+  ...(SENTRY_REPORT_URI ? [`report-uri ${SENTRY_REPORT_URI}`, "report-to csp-endpoint"] : []),
 ].join('; ')
 
 const securityHeaders = [
@@ -23,8 +44,14 @@ const securityHeaders = [
   { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
   { key: 'X-DNS-Prefetch-Control',    value: 'on' },
-  { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
-  { key: 'Content-Security-Policy',   value: CSP },
+  { key: 'Strict-Transport-Security',  value: 'max-age=31536000; includeSubDomains' },
+  { key: 'Content-Security-Policy',    value: CSP },
+  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+  { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+  ...(SENTRY_REPORT_URI ? [{
+    key: 'Report-To',
+    value: JSON.stringify({ group: 'csp-endpoint', max_age: 86400, endpoints: [{ url: SENTRY_REPORT_URI }] }),
+  }] : []),
 ]
 
 const nextConfig: NextConfig = {

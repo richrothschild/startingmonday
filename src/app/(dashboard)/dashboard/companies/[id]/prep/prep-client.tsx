@@ -21,16 +21,13 @@ const DEFAULT_INTERVIEW_STAGE: Record<string, InterviewStage> = {
   offer:       'final_round',
 }
 
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
-
-function renderInline(str: string): string {
-  return escapeHtml(str).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+function BoldText({ text }: { text: string }) {
+  const parts = text.split(/\*\*(.+?)\*\*/g)
+  return (
+    <>
+      {parts.map((part, i) => i % 2 === 1 ? <strong key={i}>{part}</strong> : part)}
+    </>
+  )
 }
 
 function renderBrief(text: string) {
@@ -48,17 +45,15 @@ function renderBrief(text: string) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
-          <span dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+          <BoldText text={line.slice(2)} />
         </div>
       )
     }
     if (line.trim() === '') return <div key={i} className="h-1.5" />
     return (
-      <p
-        key={i}
-        className="text-[14px] text-slate-700 leading-relaxed mb-2.5"
-        dangerouslySetInnerHTML={{ __html: renderInline(line) }}
-      />
+      <p key={i} className="text-[14px] text-slate-700 leading-relaxed mb-2.5">
+        <BoldText text={line} />
+      </p>
     )
   })
 }
@@ -214,6 +209,11 @@ function OnDemandPanel({
           {loading && (
             <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
           )}
+          {!loading && (
+            <p className="mt-5 pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+              AI-generated — use as input, not advice. Verify facts before any conversation.
+            </p>
+          )}
         </div>
       )}
       {briefId && !loading && content && (
@@ -249,6 +249,7 @@ export function PrepClient({
   hasTargetTitles,
   profileScore,
   firstCompany = false,
+  initialStage,
 }: {
   companyId: string
   companyName: string
@@ -263,6 +264,7 @@ export function PrepClient({
   hasTargetTitles: boolean
   profileScore: number
   firstCompany?: boolean
+  initialStage?: InterviewStage
 }) {
   const [brief, setBrief] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
@@ -272,7 +274,7 @@ export function PrepClient({
   const [refining, setRefining] = useState(false)
   const [postingUrl, setPostingUrl] = useState('')
   const [interviewStage, setInterviewStage] = useState<InterviewStage>(
-    DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
+    initialStage ?? DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
   )
   const [outreachDraft, setOutreachDraft] = useState('')
   const [outreachLoading, setOutreachLoading] = useState(false)
@@ -280,7 +282,14 @@ export function PrepClient({
   const [outreachCopied, setOutreachCopied] = useState(false)
   const [outreachLogged, setOutreachLogged] = useState(false)
   const [outreachLogLoading, setOutreachLogLoading] = useState(false)
+  // Chat state
+  type ChatMessage = { role: 'user' | 'assistant'; content: string }
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
+  const [chatInput, setChatInput] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
+  const [downloading, setDownloading] = useState(false)
   const refineRef = useRef<HTMLTextAreaElement>(null)
+  const chatInputRef = useRef<HTMLTextAreaElement>(null)
   const autoStarted = useRef(false)
 
   useEffect(() => {
@@ -412,6 +421,80 @@ export function PrepClient({
     }).catch(() => {})
   }
 
+  async function handleChat() {
+    const message = chatInput.trim()
+    if (!message || chatLoading || loading) return
+    const userMsg: ChatMessage = { role: 'user', content: message }
+    setChatMessages(prev => [...prev, userMsg])
+    setChatInput('')
+    setChatLoading(true)
+    try {
+      const res = await fetch(`/api/prep/${companyId}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          brief: brief.slice(0, 6000),
+          companyName,
+          history: chatMessages.slice(-8).map(m => ({ role: m.role, content: m.content })),
+        }),
+      })
+      let fullText = ''
+      setChatMessages(prev => [...prev, { role: 'assistant', content: '' }])
+      if (res.ok) {
+        await streamResponse(res, chunk => {
+          fullText += chunk
+          setChatMessages(prev => {
+            const updated = [...prev]
+            updated[updated.length - 1] = { role: 'assistant', content: fullText }
+            return updated
+          })
+        })
+      } else {
+        setChatMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = { role: 'assistant', content: 'Unable to answer right now.' }
+          return updated
+        })
+      }
+    } catch {
+      setChatMessages(prev => {
+        const updated = [...prev]
+        updated[updated.length - 1] = { role: 'assistant', content: 'Unable to answer right now.' }
+        return updated
+      })
+    } finally {
+      setChatLoading(false)
+    }
+  }
+
+  async function handleDownload() {
+    if (downloading || !brief) return
+    setDownloading(true)
+    try {
+      const title = `${companyName} - Prep Brief`
+      const res = await fetch('/api/briefs/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: brief, title }),
+      })
+      if (!res.ok) return
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${companyName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-prep-brief.docx`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    } catch {
+      // silently fail - user can retry
+    } finally {
+      setDownloading(false)
+    }
+  }
+
   const busy = loading || refining
 
   return (
@@ -458,14 +541,25 @@ export function PrepClient({
                   {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
                 </button>
                 {brief && !busy && (
-                  <button
-                    type="button"
-                    onClick={() => window.print()}
-                    className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
-                    title="Save as PDF"
-                  >
-                    PDF
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      disabled={downloading}
+                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors disabled:opacity-40"
+                      title="Download as Word document"
+                    >
+                      {downloading ? '…' : 'Word'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => window.print()}
+                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
+                      title="Save as PDF"
+                    >
+                      PDF
+                    </button>
+                  </>
                 )}
               </div>
             </div>
@@ -612,6 +706,11 @@ export function PrepClient({
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
+            {!busy && (
+              <p className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
+                AI-generated — use as input, not advice. Verify facts before any conversation.
+              </p>
+            )}
           </div>
         )}
 
@@ -749,6 +848,61 @@ export function PrepClient({
         )}
 
         {brief && !loading && <div className="no-print"><ResourcePanel brief={brief} /></div>}
+
+        {brief && !loading && (
+          <div className="bg-white border border-slate-200 rounded p-6 mb-4 no-print">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-3">
+              Ask about this brief
+            </p>
+            {chatMessages.length > 0 && (
+              <div className="flex flex-col gap-3 mb-4 max-h-80 overflow-y-auto">
+                {chatMessages.map((msg, i) => (
+                  <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[85%] rounded-lg px-4 py-2.5 text-[13px] leading-relaxed whitespace-pre-wrap ${
+                      msg.role === 'user'
+                        ? 'bg-slate-900 text-white'
+                        : 'bg-slate-50 border border-slate-200 text-slate-800'
+                    }`}>
+                      {msg.content}
+                      {msg.role === 'assistant' && msg.content === '' && chatLoading && (
+                        <span className="inline-flex gap-1 ml-1">
+                          <span className="w-1 h-1 rounded-full bg-slate-400 animate-pulse inline-block" />
+                          <span className="w-1 h-1 rounded-full bg-slate-400 animate-pulse inline-block [animation-delay:150ms]" />
+                          <span className="w-1 h-1 rounded-full bg-slate-400 animate-pulse inline-block [animation-delay:300ms]" />
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2 items-end">
+              <textarea
+                ref={chatInputRef}
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleChat() }
+                }}
+                placeholder={chatMessages.length === 0
+                  ? 'Ask anything — "What should I ask about their CFO transition?" or "Role-play their opening question"'
+                  : 'Ask a follow-up...'}
+                rows={2}
+                disabled={chatLoading || loading}
+                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
+              />
+              <button
+                type="button"
+                onClick={handleChat}
+                disabled={chatLoading || loading || !chatInput.trim()}
+                className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 rounded-lg cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {chatLoading ? '…' : 'Ask'}
+              </button>
+            </div>
+            <p className="mt-2 text-[11px] text-slate-300">Enter to send · Shift+Enter for new line</p>
+          </div>
+        )}
 
         {brief && !loading && (
           <div className="bg-white border border-slate-200 rounded p-6 no-print">

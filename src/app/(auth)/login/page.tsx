@@ -1,9 +1,18 @@
 ﻿'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId?: string) => void
+    }
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter()
@@ -12,14 +21,62 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
+  const [appleLoading, setAppleLoading] = useState(false)
+
+  const authBusy = googleLoading || appleLoading || loading
 
   async function handleGoogle() {
     setGoogleLoading(true)
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    })
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'google',
+          redirectTo: `${window.location.origin}/auth/callback`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Google sign-in')
+        setGoogleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setGoogleLoading(false)
+    }
+  }
+
+  async function handleApple() {
+    setAppleLoading(true)
+    try {
+      const response = await fetch('/api/auth/verify-and-oauth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'apple',
+          redirectTo: `${window.location.origin}/auth/callback`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+
+      if (!response.ok || !data.ok || !data.url) {
+        setError(data.error || 'Failed to start Apple sign-in')
+        setAppleLoading(false)
+        return
+      }
+
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setAppleLoading(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -28,26 +85,25 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const supabase = createClient()
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      // Call server-enforced login endpoint
+      const response = await fetch('/api/auth/verify-and-signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
 
-      if (error) {
-        setError(error.message)
+      const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
+
+      if (!response.ok || !data.ok) {
+        setError(data.error || 'Sign-in failed')
         setLoading(false)
         return
       }
 
-      if (data.user) {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-        await supabase.from('user_profiles').upsert(
-          { user_id: data.user.id, briefing_timezone: tz },
-          { onConflict: 'user_id' }
-        )
-      }
-
-      router.push('/dashboard')
+      // Successfully authenticated; cookies are already set by server
+      router.push('/dashboard/briefing')
       router.refresh()
-    } catch {
+    } catch (err) {
       setError('Something went wrong. Please try again.')
       setLoading(false)
     }
@@ -77,7 +133,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleGoogle}
-              disabled={googleLoading || loading}
+              disabled={authBusy}
               className="w-full flex items-center justify-center gap-2.5 border border-slate-200 rounded px-4 py-2.5 text-[14px] font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-colors cursor-pointer bg-white disabled:opacity-50 disabled:cursor-not-allowed mb-5"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -87,6 +143,18 @@ export default function LoginPage() {
                 <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
               </svg>
               {googleLoading ? 'Redirecting…' : 'Continue with Google'}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleApple}
+              disabled={authBusy}
+              className="w-full flex items-center justify-center gap-2.5 rounded px-4 py-2.5 text-[14px] font-semibold text-white bg-black hover:bg-slate-900 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mb-5"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M16.365 1.43c0 1.14-.425 2.13-1.273 2.97-.852.84-1.88 1.31-3.084 1.21-.077-1.11.39-2.12 1.16-2.89.85-.85 1.99-1.35 3.197-1.29zM20.93 17.19c-.36.83-.79 1.6-1.29 2.31-.68.97-1.23 1.64-1.65 2.01-.65.6-1.34.91-2.07.93-.52 0-1.15-.15-1.89-.45-.74-.3-1.42-.45-2.04-.45-.65 0-1.35.15-2.1.45-.75.3-1.36.46-1.83.48-.7.03-1.41-.29-2.13-.96-.46-.4-1.04-1.1-1.74-2.1-.75-1.07-1.37-2.31-1.85-3.72-.51-1.52-.77-2.99-.77-4.41 0-1.63.35-3.04 1.06-4.23.56-.96 1.3-1.72 2.24-2.28.94-.56 1.96-.84 3.05-.86.57 0 1.31.18 2.22.53.91.35 1.49.53 1.74.53.19 0 .84-.2 1.95-.6 1.05-.37 1.93-.53 2.65-.48 1.95.16 3.42.93 4.4 2.31-1.75 1.06-2.62 2.55-2.6 4.47.02 1.5.56 2.75 1.64 3.74.49.46 1.04.81 1.64 1.04-.13.38-.27.75-.42 1.12z" />
+              </svg>
+              {appleLoading ? 'Redirecting…' : 'Continue with Apple'}
             </button>
 
             <div className="flex items-center gap-3 mb-5">
@@ -129,6 +197,8 @@ export default function LoginPage() {
               {error && (
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
+
+
 
               <button
                 type="submit"

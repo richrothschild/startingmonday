@@ -1,5 +1,6 @@
 'use server'
 import { redirect } from 'next/navigation'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { logEvent, logCompanyWatch } from '@/lib/events'
@@ -68,7 +69,7 @@ export async function addCompany(formData: FormData) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-worker-secret': process.env.WORKER_SECRET },
       body: JSON.stringify({ companyId: inserted.id, userId: user.id }),
-    }).catch(err => console.error('[scan-trigger] failed to reach worker:', err))
+    }).catch(err => Sentry.captureException(err, { extra: { context: 'scan-trigger', companyId: inserted.id, userId: user.id } }))
   }
 
   await logEvent(user.id, 'company_added', { career_page_url_present: !!careerPageUrl, sector: sector ?? '' })

@@ -2,12 +2,15 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+
 import { SeatPurchase } from './seat-purchase'
+import { ExportCsvButton } from './ExportCsvButton'
+
 
 const TIER_MRR: Record<string, number> = {
   passive:   49,
-  active:   129,
-  executive: 249,
+  active:   199,
+  executive: 499,
 }
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
@@ -22,7 +25,7 @@ export default async function PartnerDashboardPage() {
   // Check if this user is a registered partner
   const { data: partner } = await admin
     .from('partners')
-    .select('id, name, referral_code, commission_pct, created_at, seats_purchased, user_id')
+    .select('id, name, referral_code, commission_pct, created_at, seats_purchased, user_id, is_active, email')
     .eq('email', user.email ?? '')
     .eq('is_active', true)
     .maybeSingle()
@@ -78,7 +81,7 @@ export default async function PartnerDashboardPage() {
   })).sort((a, b) => new Date(b.joinedDate).getTime() - new Date(a.joinedDate).getTime())
 
   const tierLabel: Record<string, string> = {
-    passive: 'Intelligence', active: 'Search', executive: 'Executive', free: 'Free',
+    passive: 'Monitor', active: 'Active', executive: 'Executive', free: 'Free',
   }
   const statusColor: Record<string, string> = {
     active: 'bg-green-50 text-green-700',
@@ -87,6 +90,17 @@ export default async function PartnerDashboardPage() {
     free: 'bg-slate-100 text-slate-400',
   }
 
+  // CSV export rows
+  const csvRows = displayRows.map(row => ({
+    joinedDate: row.joinedDate,
+    tier: row.tier,
+    status: row.status,
+    mrr: row.status === 'active' ? (TIER_MRR[row.tier] ?? 0) : 0,
+    commission: row.status === 'active' ? Math.round((TIER_MRR[row.tier] ?? 0) * partner.commission_pct / 100) : 0,
+  }))
+
+  // Use a client component for the export button
+  // ...existing code...
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -144,6 +158,9 @@ export default async function PartnerDashboardPage() {
           </p>
         </div>
 
+        {/* Export CSV button */}
+        <ExportCsvButton rows={csvRows} />
+
         {/* Subscriber table */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200">
@@ -199,7 +216,7 @@ export default async function PartnerDashboardPage() {
               'Share your referral link with executives you work with.',
               `When they sign up and start a paid subscription, you earn ${partner.commission_pct}% of their monthly fee.`,
               'Commissions are calculated on the 1st of each month and paid via Stripe.',
-              'Intelligence tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
+              'Monitor tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
               'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">

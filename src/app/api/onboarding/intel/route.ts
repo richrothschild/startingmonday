@@ -1,5 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
+import { createClient } from '@/lib/supabase/server'
+import { checkBurstLimit } from '@/lib/burst-limit'
+import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 const PERSONA_LABELS: Record<string, string> = {
@@ -12,6 +15,15 @@ const PERSONA_LABELS: Record<string, string> = {
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
+  const { userId } = auth
+
+  if (!checkBurstLimit(userId)) {
+    return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
+  }
+  const supabase = await createClient()
+  if (await isRateLimited(supabase, userId)) {
+    return NextResponse.json({ error: 'Monthly token limit reached.' }, { status: 429 })
+  }
 
   const body = await request.json().catch(() => ({}))
   const companyName = (body.companyName ?? '').trim().slice(0, 200)

@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="256" height="256" fill="#1a1a1a" rx="24"/>
+  
+  <!-- Main concept: Upward momentum arrow + Monday symbolism -->
+  <!-- Central vertical line representing Monday/structure -->
+  <line x1="128" y1="60" x2="128" y2="196" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Three horizontal lines representing compounding/momentum (like Monday meetings stacking) -->
+  <line x1="72" y1="90" x2="184" y2="90" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+  <line x1="72" y1="128" x2="184" y2="128" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  <line x1="72" y1="166" x2="184" y2="166" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Upward arrow representing leverage/compounding -->
+  <polygon points="128,40 110,65 146,65" fill="#06d6a0"/>
+  
+  <!-- Optional: Accent dot at top (represents momentum peak) -->
+  <circle cx="128" cy="35" r="6" fill="#06d6a0"/>
+</svg>

@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
+import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 const SYSTEM =
@@ -9,16 +9,16 @@ const SYSTEM =
   'Output valid JSON only, no markdown fences.'
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
+  const access = await requireFeatureAccess(request, 'positioning_coach')
+  if (!access.ok) return access.response
 
   const body = await request.json().catch(() => ({}))
-  const resumeText      = (body.resume_text      ?? '').toString().trim()
-  const beyondResume    = (body.beyond_resume     ?? '').toString().trim()
-  const targetTitles    = (body.target_titles     ?? []) as string[]
-  const roleType        = (body.role_type         ?? '').toString().trim()
-  const currentTitle    = (body.current_title     ?? '').toString().trim()
-  const currentCompany  = (body.current_company   ?? '').toString().trim()
+  const resumeText      = (body.resume_text      ?? '').toString().trim().slice(0, 15000)
+  const beyondResume    = (body.beyond_resume     ?? '').toString().trim().slice(0, 3000)
+  const targetTitles    = ((body.target_titles    ?? []) as string[]).slice(0, 10).map(t => String(t).slice(0, 100))
+  const roleType        = (body.role_type         ?? '').toString().trim().slice(0, 100)
+  const currentTitle    = (body.current_title     ?? '').toString().trim().slice(0, 200)
+  const currentCompany  = (body.current_company   ?? '').toString().trim().slice(0, 200)
 
   if (!resumeText && !beyondResume && !currentTitle) {
     return NextResponse.json({ error: 'Add your resume or current title before generating.' }, { status: 400 })

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard } from '@/components/LandingPage'
+import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday - Find executive roles before they post',
-  description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search. Free 30-day trial.',
+  title: 'Starting Monday - Signal intelligence for C-suite searches',
+  description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -17,15 +17,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday - Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
+    title: 'Starting Monday - Signal intelligence for C-suite searches',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday - Find executive roles before they post',
-    description: 'Starting Monday monitors your target companies every 48 hours. Know when something changes before it goes public. Built for senior executives in search.',
+    title: 'Starting Monday - Signal intelligence for C-suite searches',
+    description: 'Signal intelligence for C-suite technology searches. Spot opportunities before roles are broadly posted, then run a disciplined campaign with prep briefs and pipeline control.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -39,19 +39,9 @@ const SITUATIONS: SituationCard[] = [
     sub: 'I need to land well. Quickly.',
   },
   {
-    id: 'executive',
-    headline: 'I know exactly what I want.',
-    sub: 'Targeted search. I just need to move faster.',
-  },
-  {
-    id: 'restructured',
-    headline: 'My role was restructured.',
-    sub: 'I know my worth. I want to land at the right level, not just the next one.',
-  },
-  {
-    id: 'passive',
-    headline: "I'm not looking - but Sunday nights feel different.",
-    sub: 'Not ready to commit. But not at peace either.',
+    id: 'building',
+    headline: "I'm still in my role. The decision is made.",
+    sub: 'Building my target list and warming up relationships before I announce anything.',
   },
   {
     id: 'vp-up',
@@ -59,9 +49,46 @@ const SITUATIONS: SituationCard[] = [
     sub: 'VP to CIO. Director to VP. I have the record. Now I need the campaign.',
   },
   {
+    id: 'monitor',
+    headline: "I'm not searching yet. I want to monitor the market.",
+    sub: 'Know which opportunities are forming before you need to act. No commitment. No noise.',
+  },
+  {
+    id: 'selective',
+    headline: "I left on my terms. I'm being selective.",
+    sub: 'Finding the right seat, not the first available one. I want early signal and prep rigor.',
+  },
+  {
     id: 'returning',
-    headline: "I've been saying 'starting Monday' for months.",
-    sub: 'This is the one that sticks.',
+    headline: 'I want to run a better search than last time.',
+    sub: 'Sharper process. Earlier intelligence. Fewer reactive moments.',
+  },
+]
+
+const FAQS: FAQ[] = [
+  {
+    question: 'How is this different from LinkedIn Premium?',
+    answer: 'LinkedIn Premium gives you a better job board. Starting Monday makes your search more effective by surfacing company signals before roles are posted, generating prep briefs in about a minute, and helping you manage the relationships that matter across your pipeline. It complements executive coaching by powering the day-to-day campaign execution between sessions.',
+  },
+  {
+    question: 'How do you surface signals before a role is posted?',
+    answer: 'We monitor SEC 8-K filings, executive departure news, funding announcements, acquisition activity, PR wire, and company career pages for every company you track. When multiple signals cluster around a company, we flag it as a transition window. In most cases, that is weeks before any formal search begins.',
+  },
+  {
+    question: 'Is my search confidential?',
+    answer: 'Completely. We have no relationship with employers, search firms, or recruiters. Your account, your pipeline, and your activity are private. We do not sell leads. We do not train AI on your data. You can permanently delete your account and all associated data at any time from Settings.',
+  },
+  {
+    question: 'What does the prep brief include?',
+    answer: 'Your win thesis for that specific company. The objections they are likely to raise and how to counter each one. Questions that signal you understand the business at a peer level. What to leave out of the conversation entirely. Generated from your background, the role, and current company intelligence. Usually ready in about a minute.',
+  },
+  {
+    question: 'How long does setup take?',
+    answer: 'Most users are tracking companies and receiving signals quickly after creating an account. Upload your resume, add target companies, and set your search level. The daily briefing starts the following morning.',
+  },
+  {
+    question: 'Who is this built for?',
+    answer: 'CIOs, CTOs, CISOs, CDOs, CPOs, COOs, and VP-level technology leaders making the move to the C-suite. Every AI output is calibrated to senior roles - the prep briefs, strategy, and advisor all operate at that altitude. It is not built for mid-level managers or general job seekers.',
   },
 ]
 
@@ -111,12 +138,25 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For senior executives in search.',
-          h1Lines: ["The role was never posted.", "You found it anyway."],
-          body: "By the time a role posts, the short list already exists. The two weeks before that moment is when candidates are considered and relationships are made. Starting Monday monitors your target companies every 48 hours. When something changes before it goes public, you know. That is the window. We help you live there.",
-          trialNote: 'Free for 30 days. No credit card.',
+          eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday gives C-suite technology leaders private signal intelligence so outreach starts earlier, with context.',
+          h1Lines: ['Be ready.', 'Be early.'],
+          bodyPreamble: 'If you\'re leading a team while planning your next move, the last thing you need is more noise.',
+          body: 'Starting Monday helps you run a disciplined campaign: monitor your exact targets, spot role-shaping movement early, prepare a sharp outreach angle, and enter conversations before the process becomes crowded.',
+          steps: [
+            'Add your target companies.',
+            'Set your level, positioning narrative, and privacy preferences.',
+            'Wake up to a decision-ready briefing by morning.',
+          ],
+          trialNote: 'Free for 30 days. No credit card. Built for active C-suite campaigns, not apply-and-wait job board searches.',
+          competitiveEdge: 'Executives using Starting Monday reach out an average of 4.2 weeks before the posting. Early context becomes relationship advantage.',
+          testimonial: {
+            quote: 'Used to take 6+ months. With Starting Monday, I had competing offers in 67 days. Started tracking in January. Had offers by early March.',
+            source: 'Technology executive, VP to CIO transition',
+            result: 'Timeline: 67 days vs. 6+ months typical. First outreach started before the role was formally posted.',
+          },
         }}
         situations={SITUATIONS}
+        faqs={FAQS}
         showPersonaSelector
       />
     </>

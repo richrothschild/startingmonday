@@ -29,7 +29,7 @@ export type ContactListItem = {
   notes: string | null
   outreach_status: string | null
   is_priority: boolean
-  companies: { name: string } | null
+  companies: { id: string; name: string } | null
 }
 
 function exportContactsCsv(contacts: ContactListItem[]) {
@@ -136,6 +136,13 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
     const statusLabel = STATUS_LABELS[status] ?? status
     const statusCls = STATUS_CLS[status] ?? 'bg-slate-100 text-slate-500'
     const isPriority = priorities[ct.id] ?? ct.is_priority
+    const nextAction = status === 'prospect'
+      ? 'Draft first outreach'
+      : status === 'meeting_scheduled'
+        ? 'Prep for scheduled meeting'
+        : status === 'closed'
+          ? 'Keep warm monthly'
+          : 'Schedule next follow-up'
 
     return (
       <div className="px-6 py-4 flex items-start gap-3">
@@ -166,6 +173,16 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
           {subtitle && (
             <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
           )}
+          <div className="text-[11px] text-slate-500 mt-1.5 flex items-center gap-2 flex-wrap">
+            {ct.companies?.id && (
+              <Link href={`/dashboard/companies/${ct.companies.id}`} className="font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+                {ct.companies.name}
+              </Link>
+            )}
+            <span>
+              Next: <span className="font-semibold text-slate-700">{nextAction}</span>
+            </span>
+          </div>
         </div>
         <div className="flex items-center gap-3 shrink-0 mt-0.5">
           <Link

@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { checkBurstLimit } from '@/lib/burst-limit'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 const SYSTEM =
   'You are a senior executive coach preparing a candidate for a high-stakes interview. ' +
@@ -9,21 +9,23 @@ const SYSTEM =
   'No filler. No em dashes. No motivational language. This is coaching, not cheerleading.'
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-real-ip')
-    ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? 'unknown'
-  if (!checkBurstLimit(`demo:${ip}`)) {
-    return new Response('Too many requests', { status: 429 })
-  }
-
-  let company: string, role: string
+  let company: string, role: string, captchaToken: string
   try {
     const body = await request.json()
     company = typeof body.company === 'string' ? body.company.trim() : ''
     role    = typeof body.role    === 'string' ? body.role.trim()    : ''
+    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
   } catch {
     return new Response('Bad request', { status: 400 })
   }
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'demo-brief',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
 
   if (!company || !role) return new Response('company and role required', { status: 400 })
   if (company.length > 200 || role.length > 200) return new Response('Input too long', { status: 400 })

@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { createClient } from '@/lib/supabase/server'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 const DAILY_LIMIT = 3
 
@@ -57,8 +58,31 @@ function getClientIp(request: NextRequest): string {
 }
 
 export async function POST(request: NextRequest) {
+  let text: string
+  let email: string | null = null
+  let captchaToken: string
+  try {
+    const body = await request.json()
+    text = (body.text ?? '').trim()
+    captchaToken = (body.captchaToken ?? '').trim()
+    const rawEmail = (body.email ?? '').trim().toLowerCase()
+    if (rawEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) {
+      email = rawEmail
+    }
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
+  }
+
+  const blocked = await enforcePublicEndpointGuard({
+    request,
+    captchaToken: captchaToken || null,
+    rateLimitKey: 'optimize',
+    maxPerMinute: 3,
+  })
+  if (blocked) return blocked
+
   // Bot detection is handled in middleware.ts (User-Agent check).
-  // Here we enforce the persistent per-IP daily rate limit.
+  // Here we also enforce the persistent per-IP daily rate limit.
   const ip = getClientIp(request)
 
   // Use the Supabase anon client; check_and_increment_rate_limit is
@@ -77,12 +101,8 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  let text: string
-  try {
-    const body = await request.json()
-    text = (body.text ?? '').trim()
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
+  if (!email) {
+    return new Response(JSON.stringify({ error: 'Email is required.' }), { status: 400 })
   }
 
   if (!text || text.length < 100) {
@@ -93,6 +113,10 @@ export async function POST(request: NextRequest) {
   }
 
   if (text.length > 20000) text = text.slice(0, 20000)
+
+  // Store lead email - fire and forget, do not block the stream on a write failure
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(supabase as any).from('optimize_leads').insert({ email, ip }).then(() => {})
 
   const stream = await anthropic.messages.stream({
     model: MODELS.sonnet,

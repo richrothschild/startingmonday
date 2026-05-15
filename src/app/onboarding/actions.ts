@@ -2,6 +2,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingFormSchema } from '@/lib/schemas'
+import { captureServerEvent } from '@/lib/posthog-server'
+import { logEvent } from '@/lib/events'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -18,6 +20,7 @@ export async function completeOnboarding(formData: FormData) {
   const currentCompany      = (formData.get('current_company') as string ?? '').trim() || null
   const employmentStatus    = (formData.get('employment_status') as string) || null
   const searchTimeline      = (formData.get('search_timeline') as string) || null
+  const searchDriver        = (formData.get('search_driver') as string ?? '').trim() || null
   const linkedinUrl         = (formData.get('linkedin_url') as string ?? '').trim() || null
   const targetTitles        = parseCsv(formData.get('target_titles') as string ?? '')
   const targetSectors       = parseCsv(formData.get('target_sectors') as string ?? '')
@@ -52,6 +55,11 @@ export async function completeOnboarding(formData: FormData) {
 
   if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
 
+  const searchPath =
+    (employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic') ? 'watcher' :
+    (employmentStatus === 'between_roles' && searchTimeline === 'immediately') ? 'nurture' :
+    'campaign'
+
   const now = new Date().toISOString()
 
   await supabase.from('user_profiles').upsert(
@@ -63,6 +71,8 @@ export async function completeOnboarding(formData: FormData) {
       current_company:          currentCompany,
       employment_status:        employmentStatus,
       search_timeline:          searchTimeline,
+      search_driver:            searchDriver,
+      search_path:              searchPath,
       linkedin_url:             linkedinUrl,
       target_titles:            targetTitles.length > 0 ? targetTitles : null,
       target_sectors:           targetSectors.length > 0 ? targetSectors : null,
@@ -96,6 +106,19 @@ export async function completeOnboarding(formData: FormData) {
     .update({ search_started_at: now })
     .eq('user_id', user.id)
     .is('search_started_at', null)
+
+  captureServerEvent(user.id, 'onboarding_completed', {
+    search_path: searchPath,
+    search_persona: searchPersona ?? '',
+    employment_status: employmentStatus ?? '',
+    company_count: companyNamesList.length,
+  })
+  await logEvent(user.id, 'onboarding_completed', {
+    search_path: searchPath,
+    search_persona: searchPersona ?? '',
+    employment_status: employmentStatus ?? '',
+    company_count: companyNamesList.length,
+  })
 
   redirect('/dashboard/start')
 }

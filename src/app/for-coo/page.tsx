@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for COOs - Technology Executives Making the Move to Operations',
-  description: 'Campaign infrastructure for CIOs and CTOs moving into COO roles. Identify organizations where a technology-background COO fits, track operational mandate signals, and build the narrative that crosses the functional boundary. Free 30-day trial.',
+  title: 'Starting Monday for C-suite leaders moving to COO roles',
+  description: 'Campaign infrastructure for C-suite leaders moving into COO roles. Identify organizations where a technology-background COO fits, track operational mandate signals, and build the narrative that crosses the functional boundary. Free 30-day trial.',
   keywords: [
     'COO job search',
     'CIO to COO',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'technology executive career transition',
   ],
   openGraph: {
-    title: 'Starting Monday for COOs - Technology Executives in Operations',
+    title: 'Starting Monday for C-suite leaders moving to COO roles',
     description: 'The technology executive who can run the business is the most valuable person in the room. Make the CIO-to-COO move deliberately.',
     url: 'https://startingmonday.app/for-coo',
     type: 'website',
@@ -127,3 +127,4 @@ export default function ForCooPage() {
     </>
   )
 }
+

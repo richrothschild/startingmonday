@@ -7,10 +7,10 @@ import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
 
 const TIER_NAMES: Record<string, string> = {
-  passive:   'Intelligence',
-  active:    'Search',
+  passive:   'Monitor',
+  active:    'Active',
   executive: 'Executive',
-  free:      'Intelligence',
+  free:      'Free',
 }
 
 function escHtml(s: string): string {
@@ -85,7 +85,7 @@ export async function sendWelcomeEmail(userId: string, currentFilter: string): P
 
   const fullName = profile?.full_name ?? targetUser.email
   const firstName = fullName.includes(' ') ? fullName.split(' ')[0] : fullName.split('@')[0]
-  const tierName = TIER_NAMES[targetUser.subscription_tier ?? 'free'] ?? 'Intelligence'
+  const tierName = TIER_NAMES[targetUser.subscription_tier ?? 'free'] ?? 'Free'
 
   await sendEmail({
     to: targetUser.email,

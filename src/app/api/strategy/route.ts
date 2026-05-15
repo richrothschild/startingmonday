@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -26,7 +27,7 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
         controller.enqueue(encoder.encode(encodeUserId(userId)))
         controller.close()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
-        trackApiUsage(supabase, userId, tokens).catch(err => console.error('[api-usage] strategy', err))
+        trackApiUsage(supabase, userId, tokens).catch(err => Sentry.captureException(err, { extra: { route: 'strategy', userId } }))
       } catch (err) {
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'strategy_brief', userId })))
         controller.close()

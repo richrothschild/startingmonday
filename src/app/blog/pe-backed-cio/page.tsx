@@ -34,6 +34,13 @@ export default function PeBackedCioPage() {
       date={post.date}
       readTime={post.readTime}
       url="https://startingmonday.app/blog/pe-backed-cio"
+      cta={{
+        headline: 'PE firm activity is a signal. Track it before the search opens.',
+        body: 'Starting Monday monitors funding rounds, portfolio moves, and leadership changes at your target companies. Know which ones have a forming opportunity before the search is authorized.',
+        label: 'Start watching quietly →',
+        href: '/signup',
+        note: 'Free for 30 days. Your employer will not find out.',
+      }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 

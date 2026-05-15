@@ -70,7 +70,7 @@ export default async function WrapUpPage() {
               <p className="text-[13px] text-white font-semibold mb-1">Keep your market intelligence running.</p>
               <p className="text-[13px] text-slate-400 leading-relaxed mb-4">
                 After you land, the executives who stay sharp are the ones who have options when things change.
-                Intelligence ($49/mo) keeps your signal monitoring and briefing running with no active search work required.
+                Monitor ($49/mo) keeps your signal monitoring and briefing running with no active search work required.
               </p>
               <Link
                 href="/settings/billing"

@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 
-const OWNER_EMAIL = 'rothschild@gmail.com'
+const OWNER_EMAIL = process.env.OWNER_EMAIL
 const CONSECUTIVE_THRESHOLD = 3
 const RE_ALERT_DAYS = 7
 
@@ -40,9 +41,11 @@ function diagnose(scans: ScanSummary[]): { label: string; action: string } {
 }
 
 export async function GET(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get('secret')
-  if (!secret || secret !== process.env.CRON_SECRET) {
+  if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+  if (!OWNER_EMAIL) {
+    return NextResponse.json({ error: 'OWNER_EMAIL not configured' }, { status: 500 })
   }
 
   const admin = createAdminClient()

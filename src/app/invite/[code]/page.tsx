@@ -1,5 +1,5 @@
 ﻿import Link from 'next/link'
-import { createClient as createAdminClient } from '@supabase/supabase-js'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export const metadata = { title: 'Join Starting Monday' }
 
@@ -10,11 +10,7 @@ export default async function InvitePage({
 }) {
   const { code } = await params
 
-  const admin = createAdminClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
-  )
+  const admin = createAdminClient()
 
   const { data: profile } = await admin
     .from('user_profiles')

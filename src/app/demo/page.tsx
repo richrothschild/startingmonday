@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 function escapeHtml(str: string): string {
   return str
@@ -62,7 +63,10 @@ function secondHeaderIndex(text: string): number {
   return -1
 }
 
-export default function DemoPage() {
+export function DemoContent({ bypassGate: bypassGateProp = false }: { bypassGate?: boolean }) {
+  const searchParams = useSearchParams()
+  const noGate = bypassGateProp || searchParams.get('full') === '1'
+
   const [company,  setCompany]  = useState('')
   const [role,     setRole]     = useState('')
   const [content,  setContent]  = useState('')
@@ -76,7 +80,7 @@ export default function DemoPage() {
 
   const gateIdx   = secondHeaderIndex(content)
   const gateReady = gateIdx !== -1
-  const gated     = gateReady && !revealed
+  const gated     = gateReady && !revealed && !noGate
 
   const visibleContent = gated ? content.slice(0, gateIdx).trimEnd() : content
 
@@ -178,6 +182,43 @@ export default function DemoPage() {
             Enter any company and role. See the same prep brief Starting Monday generates before every interview in your search &mdash; live, in real time, from your actual target.
           </p>
         </div>
+
+        <section className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Before you run the demo</p>
+          <div className="space-y-4">
+            <div>
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Why this company context matters</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Executive searches are won on context quality, not volume. This brief is designed to help you walk in with a point of view on the company, likely objections, and the questions that signal peer-level understanding.
+              </p>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">How signal windows are identified</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                We track executive moves, disclosures, company announcements, and career page changes. When signals cluster, the platform flags likely transition windows before broad-market posting channels catch up.
+              </p>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">Typical week of signals</p>
+              <ul className="space-y-1.5 text-[13px] text-slate-600 leading-relaxed">
+                <li>- Monday: leadership or org-change disclosures</li>
+                <li>- Wednesday: career page role and language updates</li>
+                <li>- Friday: follow-through opportunities for outreach priority</li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-4">
+            Pilot snapshot (Jan-May 2026): 81% reached first interview in 30 days, denominator 27 executives.{' '}
+            <Link href="/blog/how-we-estimate-early-role-signals" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              Method and sources
+            </Link>
+            {' '}·{' '}
+            <Link href="/references" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
+              Evidence and references
+            </Link>
+            .
+          </p>
+        </section>
 
         {/* Input form */}
         <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded p-6 flex flex-col gap-4 mb-8">
@@ -321,5 +362,13 @@ export default function DemoPage() {
 
       </main>
     </div>
+  )
+}
+
+export default function DemoPage() {
+  return (
+    <Suspense fallback={null}>
+      <DemoContent />
+    </Suspense>
   )
 }

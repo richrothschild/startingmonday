@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Starting Monday for Executive Coaches - Partner Guide',
   description: 'How executive coaches use Starting Monday to give clients an intelligence advantage in their search. Features, outcomes, and how to get clients started.',
-  robots: { index: false },
+  robots: { index: true },
 }
 
 const FEATURES = [
@@ -15,7 +15,7 @@ const FEATURES = [
   },
   {
     name: 'AI Prep Brief',
-    forCoach: 'Before every coaching session where your client has an interview coming up, read their prep brief. It takes 60 seconds to generate. It covers the company situation, the likely objections, the questions only a peer would think to ask, and the narrative your client should lead with. You arrive at the session as a peer, not as someone who needs to be briefed by your client.',
+    forCoach: 'Before every coaching session where your client has an interview coming up, read their prep brief. It usually takes about a minute to generate. It covers the company situation, the likely objections, the questions only a peer would think to ask, and the narrative your client should lead with. You arrive at the session as a peer, not as someone who needs to be briefed by your client.',
     outcome: 'Clients walk into interviews prepared at a depth that is hard to achieve manually. Coaches spend session time on strategy, not research.',
   },
   {
@@ -50,10 +50,10 @@ export default function CoachesGuidePage() {
               See a demo
             </Link>
             <Link
-              href="/signup"
+              href="/partners"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
-              Try free
+              Become a partner
             </Link>
           </div>
         </div>
@@ -131,6 +131,30 @@ export default function CoachesGuidePage() {
             </div>
           </section>
 
+          <section className="space-y-6">
+            <h2 className="text-[22px] font-bold text-slate-900">Execution rhythm your clients follow</h2>
+            <p className="text-[15px] text-slate-700 leading-relaxed">
+              Keep the cadence language consistent in every client kickoff: Monday morning review, every morning action, and prep brief before each interview.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="border-t-2 border-orange-500 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Monday morning</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Review your pipeline</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Update stages, remove stale paths, and select this week&rsquo;s outreach priorities.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Every morning</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Act on overnight signals</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Make one decision first: who to contact now based on fresh signal clusters.</p>
+              </div>
+              <div className="border-t-2 border-slate-200 pt-4">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Before each interview</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Run the prep brief</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Usually one minute to get win thesis, likely objections, and peer-level questions.</p>
+              </div>
+            </div>
+          </section>
+
           {/* What it does not do */}
           <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
             <h2 className="text-[22px] font-bold text-slate-900">What it does not do</h2>
@@ -159,9 +183,9 @@ export default function CoachesGuidePage() {
               {[
                 'Your clients get a 30-day free trial, no credit card required',
                 'Active plan ($199/month) includes all AI features - prep briefs, strategy brief, advisor chat, resume tailoring',
-                'Passive plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
+                'Monitor plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
                 'View access for coaches: your client controls who sees their pipeline',
-                'Referral: reach out to Rich Rothschild directly (contact@startingmonday.app) to discuss a referral arrangement for your practice',
+                'Partner program: apply at startingmonday.app/partners to receive your referral link, commission tracking, and partner resource kit',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
@@ -171,24 +195,30 @@ export default function CoachesGuidePage() {
             </ul>
           </section>
 
-          {/* See it live */}
+          {/* Apply CTA */}
           <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-              See it in 10 minutes
+              Ready to partner?
             </p>
             <h2 className="text-[20px] font-bold text-slate-900 mb-3 leading-snug">
-              Walk through a live demo
+              Apply to the partner program
             </h2>
             <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-              The demo shows the full platform with a pre-loaded account: pipeline, signals,
-              a generated prep brief, and the daily briefing. No signup required.
+              Fill out the application and we will follow up within 2 business days with your referral link, commission tracking, and partner resource kit.
             </p>
             <Link
-              href="/demo"
+              href="/partners#apply"
               className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
             >
-              See the demo &rarr;
+              Apply now &rarr;
             </Link>
+            <p className="text-[13px] text-slate-400 mt-4">
+              Want to see the platform first?{' '}
+              <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                Walk through a live demo
+              </Link>
+              .
+            </p>
           </section>
 
         </div>

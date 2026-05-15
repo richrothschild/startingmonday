@@ -50,7 +50,7 @@ export default async function ContactDetailPage({
   const [{ data: rawContact }, { data: followUps }, { data: recentBriefs }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, outreach_status, company_id, contact_type, last_role_discussed, companies(id, name)')
+      .select('id, name, title, firm, channel, notes, email, linkedin_url, contacted_at, outreach_status, company_id, contact_type, last_role_discussed, companies(id, name, stage)')
       .eq('id', id)
       .eq('user_id', user.id)
       .eq('status', 'active')
@@ -81,7 +81,7 @@ export default async function ContactDetailPage({
     outreach_status?: string | null
     contact_type?: string | null
     last_role_discussed?: string | null
-    companies: { id: string; name: string } | null
+    companies: { id: string; name: string; stage?: string | null } | null
   }
   const contact = rawContact as unknown as ContactRow
 
@@ -111,6 +111,21 @@ export default async function ContactDetailPage({
   const companyName = (contact.companies as { name: string } | null)?.name ?? contact.firm ?? null
   const daysSinceContacted = daysSince(contact.contacted_at)
   const mostRecentSignal = companySignals[0] ?? null
+  const linkedCompany = contact.companies as { id: string; name: string; stage?: string | null } | null
+  const stageLabel: Record<string, string> = {
+    watching: 'Watching',
+    researching: 'Researching',
+    applied: 'In Process',
+    interviewing: 'Interviewing',
+    offer: 'Offer',
+  }
+  const nextCompanyAction = mostRecentSignal
+    ? 'Use latest signal to send timely outreach'
+    : linkedCompany?.stage === 'interviewing'
+      ? 'Run interview prep before next conversation'
+      : linkedCompany?.stage === 'watching'
+        ? 'Move from watching to first outreach'
+        : 'Review company and schedule next step'
 
   const allFollowUps = followUps ?? []
   const pendingFollowUps = allFollowUps.filter(f => f.status === 'pending')
@@ -244,6 +259,41 @@ export default async function ContactDetailPage({
             )}
           </div>
         </div>
+
+        {linkedCompany && (
+          <div className="bg-white border border-slate-200 rounded-lg p-5 mb-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Linked company</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <Link href={`/dashboard/companies/${linkedCompany.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-700 transition-colors">
+                  {linkedCompany.name}
+                </Link>
+                {linkedCompany.stage && (
+                  <p className="text-[12px] text-slate-500 mt-0.5">
+                    Stage: {stageLabel[linkedCompany.stage] ?? linkedCompany.stage}
+                  </p>
+                )}
+                <p className="text-[12px] text-slate-500 mt-1.5">
+                  Next action: <span className="font-semibold text-slate-700">{nextCompanyAction}</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href={`/dashboard/companies/${linkedCompany.id}`}
+                  className="text-[12px] font-semibold text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+                >
+                  Open company
+                </Link>
+                <Link
+                  href={`/dashboard/companies/${linkedCompany.id}/prep`}
+                  className="text-[12px] font-semibold bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded transition-colors"
+                >
+                  Prep
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Mark contacted confirmation */}
         {sent === '1' && (

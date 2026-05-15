@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { getStripe } from '@/lib/stripe'
 import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
+import { logEvent } from '@/lib/events'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -21,8 +22,10 @@ export async function POST(request: NextRequest) {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (getStripe().subscriptions as any).update(subscription.id, {
-      pause_collection: '',
+      pause_collection: null,
     })
+
+    await logEvent(auth.userId, 'search_resumed', {})
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
     return NextResponse.json({ error: message }, { status: 500 })

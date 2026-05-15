@@ -14,6 +14,14 @@ export type UserEventName =
   | 'brief_rated'
   | 'activation_complete'
   | 'offer_accepted'
+  | 'onboarding_completed'
+  | 'positioning_saved'
+  | 'signal_outreach_generated'
+  | 'signals_page_viewed'
+  | 'briefing_viewed'
+  | 'briefing_action_clicked'
+  | 'search_paused'
+  | 'search_resumed'
 
 type EventProperties = Record<string, string | number | boolean | null>
 

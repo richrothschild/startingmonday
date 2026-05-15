@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 
-const OWNER_EMAIL = 'rothschild@gmail.com'
+const OWNER_EMAIL = process.env.OWNER_EMAIL
 
 const PILLAR_LABELS: Record<string, string> = {
   search_craft:  'Search Craft',
@@ -24,9 +25,11 @@ type SocialPost = {
 }
 
 export async function GET(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get('secret')
-  if (!secret || secret !== process.env.CRON_SECRET) {
+  if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+  if (!OWNER_EMAIL) {
+    return NextResponse.json({ error: 'OWNER_EMAIL not configured' }, { status: 500 })
   }
 
   const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]

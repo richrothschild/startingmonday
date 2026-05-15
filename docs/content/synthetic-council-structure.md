@@ -55,3 +55,23 @@
 ## Closing View
 
 The world-class version of this system is not "ask an AI council what to do." It is a continuous decision-quality system that helps founders and executives make better strategic bets, track outcomes, learn from reality, and compound durable advantage over time.
+
+---
+
+## Full Synthetic Council Roster (v6)
+
+### New members added
+
+- Naval Ravikant
+- Seth Godin
+- Richard Thaler
+- Robert Cialdini
+- Chris Voss
+
+### Sub-council placement
+
+- Seth Godin -> Sales and Marketing Synthetic Council
+- Richard Thaler -> Behavioral Economics Synthetic Council
+- Chris Voss -> Outreach Sales Synthetic Council
+- Robert Cialdini -> Outreach Sales Synthetic Council
+- Naval Ravikant -> Business Development Partnerships Synthetic Council

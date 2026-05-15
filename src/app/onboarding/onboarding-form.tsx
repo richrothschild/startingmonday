@@ -1,6 +1,8 @@
 'use client'
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
+import { HelpQuickButton } from '@/components/HelpQuickButton'
 
 type SearchPersona = 'csuite' | 'vp' | 'director' | 'board'
 
@@ -22,6 +24,7 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
 ]
 
 const STEP_COUNT = 7
+const QUICK_PATH_STEP_COUNT = 5
 
 const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
   csuite:   ['Microsoft', 'Salesforce', 'ServiceNow', 'Oracle', 'Workday'],
@@ -30,10 +33,10 @@ const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
   board:    ['KKR', 'Blackstone', 'General Atlantic', 'Vista Equity', 'Thoma Bravo'],
 }
 
-function Dots({ current }: { current: number }) {
+function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
   return (
     <div className="flex items-center gap-2">
-      {Array.from({ length: STEP_COUNT }).map((_, i) => (
+      {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
           className={[
@@ -46,15 +49,22 @@ function Dots({ current }: { current: number }) {
   )
 }
 
+function seededCompaniesFor(persona: SearchPersona | ''): string[] {
+  const picks = SUGGESTIONS_BY_PERSONA[persona || 'csuite'] ?? []
+  return picks.slice(0, 3)
+}
+
 export function OnboardingForm({ profile }: { profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null } | null }) {
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState<'forward' | 'back'>('forward')
   const [animating, setAnimating] = useState(false)
+  const [advancedSetup, setAdvancedSetup] = useState(false)
 
   const [fullName, setFullName]               = useState(profile?.full_name ?? '')
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
   const [employmentStatus, setEmploymentStatus] = useState('')
   const [searchTimeline, setSearchTimeline]   = useState('')
+  const [searchDriver, setSearchDriver]       = useState('')
   const [currentTitle, setCurrentTitle]       = useState(profile?.current_title ?? '')
   const [currentCompany, setCurrentCompany]   = useState(profile?.current_company ?? '')
   const [resumeText, setResumeText]           = useState('')
@@ -85,6 +95,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
+  const step6FetchStarted = useRef(false)
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
@@ -92,13 +103,21 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   useEffect(() => {
     if (step === 3 && isPassive && !manualMode) setManualMode(true)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step])
+  }, [step, isPassive, manualMode])
+
+  useEffect(() => {
+    if (step !== 4 || advancedSetup) return
+    if (companyNames.some(n => n.trim())) return
+    const seeded = seededCompaniesFor(searchPersona)
+    if (seeded.length === 0) return
+    setCompanyNames([...seeded, ''])
+  }, [step, advancedSetup, companyNames, searchPersona])
 
   useEffect(() => {
     if (step !== 6) return
     const firstCompany = companyNames.find(n => n.trim())
-    if (!firstCompany || intelContent || intelLoading) return
+    if (!firstCompany || intelContent || intelLoading || step6FetchStarted.current) return
+    step6FetchStarted.current = true
     setIntelLoading(true)
     fetch('/api/onboarding/intel', {
       method: 'POST',
@@ -116,8 +135,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         setIntelContent(text)
       }
     }).catch(() => {}).finally(() => setIntelLoading(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step])
+  }, [step, companyNames, intelContent, intelLoading, searchPersona])
 
   function goTo(next: number) {
     if (animating) return
@@ -130,15 +148,39 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
+    if (!advancedSetup && step === 1) { goTo(4); return }
+    if (!advancedSetup && step === 4) {
+      if (isPassive) setBriefingFrequency('weekly')
+      goTo(6)
+      return
+    }
     if (isPassive && step === 2) { goTo(4); return }
     if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
+    if (!advancedSetup && step === 4) return 1
     if (isPassive && step === 4) return 2
     if (isPassive && step === 6) return 4
     return step - 1
+  }
+
+  function quickStart() {
+    if (!searchPersona) setSearchPersona('csuite')
+    if (!companyNames.some(n => n.trim())) {
+      const seeded = seededCompaniesFor(searchPersona || 'csuite')
+      setCompanyNames([...seeded, ''])
+    }
+    goTo(4)
+  }
+
+  function progressIndex() {
+    if (advancedSetup) return step
+    if (step <= 1) return step
+    if (step <= 4) return 2
+    if (step === 5) return 3
+    return 4
   }
 
   function applyImport(data: ImportResult) {
@@ -238,6 +280,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="search_persona"      value={searchPersona} />
         <input type="hidden" name="employment_status"   value={employmentStatus} />
         <input type="hidden" name="search_timeline"     value={searchTimeline} />
+        <input type="hidden" name="search_driver"       value={searchDriver} />
         <input type="hidden" name="current_title"       value={currentTitle} />
         <input type="hidden" name="current_company"     value={currentCompany} />
         <input type="hidden" name="resume_text"         value={resumeText} />
@@ -268,7 +311,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               value={fullName}
               onChange={setFullName}
               inputRef={nameRef}
-              onNext={() => fullName.trim() && advance()}
+                onNext={() => advance()}
             />
           )}
 
@@ -283,8 +326,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             <StepSituation
               status={employmentStatus}
               timeline={searchTimeline}
+              driver={searchDriver}
               onStatus={setEmploymentStatus}
               onTimeline={setSearchTimeline}
+              onDriver={setSearchDriver}
               onNext={advance}
             />
           )}
@@ -354,42 +399,66 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 Back
               </button>
             )}
-            {step > 0 && (
+            <button
+              type="submit"
+              form="onboarding-form"
+              formAction={skipOnboarding}
+              className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
+            >
+              Skip setup
+            </button>
+            {step === 0 && (
               <button
-                type="submit"
-                form="onboarding-form"
-                formAction={skipOnboarding}
+                type="button"
+                onClick={quickStart}
                 className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
               >
-                Skip setup
+                Quick start
               </button>
             )}
           </div>
 
           {/* Dots */}
-          <Dots current={step} />
+          <div className="flex flex-col items-center gap-2">
+            <Dots current={progressIndex()} total={advancedSetup ? STEP_COUNT : QUICK_PATH_STEP_COUNT} />
+            <p className="text-[11px] text-slate-400">
+              {step <= 1
+                ? 'Fast path: launch your first watchlist in about a minute.'
+                : step <= 4
+                ? 'You are one step away from first value.'
+                : 'Next: first briefing preview, then dashboard.'}
+            </p>
+          </div>
 
           {/* Next */}
           <div>
             {step === 0 && (
               <button
                 type="button"
-                onClick={() => fullName.trim() && advance()}
-                disabled={!fullName.trim()}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
+                onClick={() => { setAdvancedSetup(false); goTo(1) }}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Continue
+                Guided setup (about 2 minutes)
               </button>
             )}
             {step === 1 && (
-              <button
-                type="button"
-                onClick={advance}
-                disabled={!searchPersona}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
-              >
-                Continue
-              </button>
+              <div className="flex flex-col items-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => { setAdvancedSetup(false); advance() }}
+                  disabled={!searchPersona}
+                  className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
+                >
+                  Continue to watchlist
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAdvancedSetup(true); goTo(2) }}
+                  className="text-[12px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
+                >
+                  Add search context first
+                </button>
+              </div>
             )}
             {step === 2 && (
               <button
@@ -449,6 +518,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         aria-label="Upload LinkedIn PDF"
         className="hidden"
       />
+      <HelpQuickButton source="onboarding" href="/dashboard/help" />
     </div>
   )
 }
@@ -806,6 +876,16 @@ function StepDone({
           </p>
         </div>
       )}
+
+      <div className="border border-slate-200 rounded-lg px-5 py-4 bg-white">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Optional next step</p>
+        <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+          Want better prep quality? Add LinkedIn and profile detail after launch.
+        </p>
+        <Link href="/dashboard/start" className="text-[13px] font-semibold text-slate-800 underline hover:text-slate-600 transition-colors">
+          Complete profile from dashboard start page
+        </Link>
+      </div>
     </div>
   )
 }
@@ -828,7 +908,7 @@ function StepName({
           What do we call you?
         </h1>
         <p className="text-[15px] text-slate-500">
-          Your briefings and prep briefs will use your first name.
+          You are already signed up. Add your name for personalized messaging, or skip and keep moving.
         </p>
       </div>
       <input
@@ -899,14 +979,18 @@ function StepLevel({
 function StepSituation({
   status,
   timeline,
+  driver,
   onStatus,
   onTimeline,
+  onDriver,
   onNext,
 }: {
   status: string
   timeline: string
+  driver: string
   onStatus: (v: string) => void
   onTimeline: (v: string) => void
+  onDriver: (v: string) => void
   onNext: () => void
 }) {
   const selectCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white appearance-none cursor-pointer'
@@ -954,6 +1038,18 @@ function StepSituation({
             <option value="6_months">Within the next 6 months</option>
             <option value="opportunistic">Only for the right opportunity</option>
           </select>
+        </div>
+        <div>
+          <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+            What is driving this search? <span className="font-normal normal-case tracking-normal text-slate-300">(one sentence)</span>
+          </label>
+          <input
+            type="text"
+            value={driver}
+            onChange={e => onDriver(e.target.value)}
+            placeholder="e.g. My role was eliminated. / I want to move from VP to CIO."
+            className="w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+          />
         </div>
       </div>
       <p className="text-[12px] text-slate-400">

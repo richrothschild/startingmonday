@@ -1,0 +1,149 @@
+import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/require-auth'
+import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function GET(req: NextRequest) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  try {
+    const searchParams = req.nextUrl.searchParams
+    const category = searchParams.get('category')
+    const status = searchParams.get('status')
+    const search = searchParams.get('search')
+    const sortBy = searchParams.get('sortBy') || 'recent' // recent, votes, comments
+    const limit = Math.min(parseInt(searchParams.get('limit') || '50'), 100)
+    const offset = parseInt(searchParams.get('offset') || '0')
+
+    let query = supabase
+      .from('feedback_items')
+      .select(`
+        *,
+        user_profiles:user_id(full_name, email)
+      `, { count: 'exact' })
+
+    // Apply filters
+    if (category) {
+      query = query.eq('category', category)
+    }
+    if (status) {
+      query = query.eq('status', status)
+    }
+    if (search) {
+      query = query.or(`title.ilike.%${search}%,body.ilike.%${search}%`)
+    }
+
+    // Apply sorting
+    if (sortBy === 'votes') {
+      query = query.order('vote_count', { ascending: false })
+    } else if (sortBy === 'comments') {
+      query = query.order('comment_count', { ascending: false })
+    } else {
+      query = query.order('created_at', { ascending: false })
+    }
+
+    const { data, error, count } = await query
+      .range(offset, offset + limit - 1) as any
+
+    if (error) {
+      console.error('[feedback] list error:', error)
+      return NextResponse.json({ error: 'Failed to fetch feedback' }, { status: 500 })
+    }
+
+    // Check user votes for each item
+    const itemIds = (data || []).map((item: any) => item.id)
+    if (itemIds.length > 0) {
+      const { data: userVotes } = await supabase
+        .from('feedback_votes')
+        .select('item_id')
+        .in('item_id', itemIds)
+        .eq('user_id', user.id)
+
+      const votedItemIds = new Set((userVotes || []).map((v: any) => v.item_id))
+      const enhancedData = (data || []).map((item: any) => ({
+        ...item,
+        user_voted: votedItemIds.has(item.id),
+      }))
+
+      return NextResponse.json({ items: enhancedData, count: count || 0 })
+    }
+
+    return NextResponse.json({ items: data || [], count: count || 0 })
+  } catch (err) {
+    console.error('[feedback] list exception:', err)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+export async function POST(req: NextRequest) {
+  const auth = await requireAuth(req)
+  if (!auth.ok) return auth.response
+
+  const supabase = await createClient()
+  const { userId } = auth
+
+  try {
+    const body = await req.json()
+    
+    // Validate input
+    const parseResult = FeedbackSubmitSchema.safeParse(body)
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: firstZodError(parseResult.error) },
+        { status: 400 }
+      )
+    }
+
+    const { title, body: feedbackBody, category, screenshot_url } = parseResult.data
+
+    // Check rate limit: max 5 feedback submissions per day per user
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    const { count: recentCount } = await supabase
+      .from('feedback_items')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .gt('created_at', oneDayAgo)
+
+    if ((recentCount || 0) >= 5) {
+      return NextResponse.json(
+        { error: 'You can submit a maximum of 5 feedback items per day' },
+        { status: 429 }
+      )
+    }
+
+    // Insert feedback item
+    const { data: feedbackItem, error } = await (supabase
+      .from('feedback_items') as any)
+      .insert({
+        title,
+        body: feedbackBody,
+        category,
+        screenshot_url: screenshot_url || null,
+        user_id: userId,
+        status: 'new',
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('[feedback] submit error:', error)
+      return NextResponse.json({ error: 'Failed to submit feedback' }, { status: 500 })
+    }
+
+    return NextResponse.json(
+      { 
+        item: feedbackItem,
+        message: 'Thank you for your feedback! We\'ll review it within 24 hours.'
+      },
+      { status: 201 }
+    )
+  } catch (err) {
+    console.error('[feedback] submit exception:', err)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}

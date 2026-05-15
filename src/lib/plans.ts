@@ -1,6 +1,6 @@
 export const PLANS = {
   passive: {
-    name: 'Intelligence',
+    name: 'Monitor',
     amount: 4900,
     annualAmount: 49000,
     description: 'Company signal monitoring, exec moves, funding rounds, and weekly digest',
@@ -13,12 +13,12 @@ export const PLANS = {
     ],
   },
   active: {
-    name: 'Search',
-    amount: 12900,
-    annualAmount: 129000,
-    description: 'Full search operating system with AI briefs, daily briefing, and outreach',
+    name: 'Active',
+    amount: 19900,
+    annualAmount: 199000,
+    description: 'Full active campaign infrastructure with AI briefs, daily briefing, and outreach',
     features: [
-      'Everything in Intelligence',
+      'Everything in Monitor',
       'AI Interview Prep Briefs',
       'Search Strategy Brief',
       'AI Chat advisor',
@@ -29,11 +29,11 @@ export const PLANS = {
   },
   executive: {
     name: 'Executive',
-    amount: 24900,
-    annualAmount: 249000,
+    amount: 49900,
+    annualAmount: 499000,
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
-      'Everything in Search',
+      'Everything in Active',
       'Unlimited company pipeline',
       'Daily career page scanning (2x/day)',
       'Salary intelligence and negotiation scripts',

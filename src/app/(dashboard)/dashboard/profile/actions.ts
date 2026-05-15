@@ -72,6 +72,12 @@ export async function saveProfile(formData: FormData) {
     try { careerHistoryJson = JSON.parse(careerHistoryRaw) } catch { /* ignore malformed */ }
   }
 
+  const starStoriesRaw = (formData.get('star_stories_json') as string ?? '').trim()
+  let starStoriesJson: unknown = null
+  if (starStoriesRaw) {
+    try { starStoriesJson = JSON.parse(starStoriesRaw) } catch { /* ignore malformed */ }
+  }
+
   const roleCtx: Record<string, unknown> = {}
   if (roleType === 'ciso') {
     const sf = parseCsv(formData.get('security_frameworks') as string ?? '')
@@ -134,6 +140,7 @@ export async function saveProfile(formData: FormData) {
         role_type: roleType,
         career_history_json: careerHistoryJson,
         role_context: Object.keys(roleCtx).length > 0 ? roleCtx : null,
+        star_stories: starStoriesJson ?? [],
       },
       { onConflict: 'user_id' }
     )
@@ -166,4 +173,26 @@ export async function saveProfile(formData: FormData) {
 
   revalidatePath('/dashboard')
   redirect('/dashboard/profile?saved=1')
+}
+
+export async function dismissStallNudge() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+  await supabase
+    .from('user_profiles')
+    .update({ stall_nudge_dismissed_at: new Date().toISOString() })
+    .eq('user_id', user.id)
+  revalidatePath('/dashboard')
+}
+
+export async function saveWeeklyGoal(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+  const raw = parseInt(formData.get('weekly_goal') as string ?? '', 10)
+  const goal = Number.isFinite(raw) && raw >= 1 && raw <= 10 ? raw : null
+  if (!goal) return
+  await supabase.from('user_profiles').update({ weekly_goal: goal }).eq('user_id', user.id)
+  revalidatePath('/dashboard')
 }

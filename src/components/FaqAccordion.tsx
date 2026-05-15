@@ -59,8 +59,8 @@ const FAQS = [
     a: 'When you add a follow-up action to a company (e.g. "Send thank you note - Friday"), it appears in Actions Due on the dashboard when the date arrives. Click the action text to edit it. Click Done to dismiss it.',
   },
   {
-    q: 'What is the difference between Intelligence and Search?',
-    a: 'Intelligence ($49/mo) includes pipeline tracking for up to 25 companies, company signal intelligence across news, 8-K filings, executive moves, funding rounds, and career pages, plus a weekly signal digest and contact tracker. Search ($129/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Executive ($249/mo) adds an unlimited company pipeline, 2x daily career page scanning, immediate pattern and exec departure alerts, Opus-grade prep briefs, salary intelligence, and the recruiter tracker. All plans include a 30-day free trial.',
+    q: 'What is the difference between Monitor, Active, and Executive?',
+    a: 'Monitor ($49/mo) includes pipeline tracking for up to 25 companies, company signal intelligence across news, 8-K filings, executive moves, funding rounds, and career pages, plus a weekly signal digest and contact tracker. Active ($199/mo) adds AI Interview Prep Briefs, the Search Strategy Brief, AI Chat advisor, outreach drafting, resume tailoring, and the daily morning briefing. Executive ($499/mo) adds an unlimited company pipeline, 2x daily career page scanning, immediate pattern and exec departure alerts, Opus-grade prep briefs, salary intelligence, and the recruiter tracker. All plans include a 30-day free trial.',
   },
   {
     q: 'How do I manage my subscription?',

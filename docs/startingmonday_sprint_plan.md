@@ -1,4 +1,5 @@
 # Starting Monday — Sprint Plan
+
 **Date:** May 7, 2026
 **Goal:** Convert from useful dashboard → workflow infrastructure. Eliminate silent failures. Build minimum viable evals.
 
@@ -23,6 +24,7 @@ The role_type bug was invisible for multiple deploys. A user hit the auth loop a
 **Current behavior:** `const { data: profile } = await supabase...` ignores the error. If the query fails, profile is null, navigation logic treats it as "onboarding not complete" and redirects.
 
 **Fix pattern (apply to every server component that drives navigation):**
+
 ```ts
 const { data: profile, error: profileError } = await supabase.from('user_profiles').select(...)
 if (profileError) {
@@ -33,6 +35,7 @@ if (profileError) {
 ```
 
 Files to harden:
+
 - `src/app/(dashboard)/dashboard/page.tsx` — primary navigation logic
 - `src/app/(dashboard)/dashboard/start/page.tsx` — has onboarding redirect
 - `src/app/(dashboard)/dashboard/companies/[id]/page.tsx` — prep brief entry
@@ -47,6 +50,7 @@ Simpler alternative that costs nothing: add a `db_version` check to the auth cal
 ### 1.3 — Structured LLM trace logging (required for Sprint 3 evals)
 
 Create table `llm_traces` in a new migration (`040_llm_traces.sql`):
+
 ```sql
 create table llm_traces (
   id uuid primary key default gen_random_uuid(),
@@ -66,6 +70,7 @@ create table llm_traces (
 ```
 
 Create `src/lib/trace.ts` — a thin wrapper around every `anthropic.messages.create()` call that records the above. Every API route that calls Claude wraps its call through this logger. Routes to instrument:
+
 - `src/app/api/prep/[id]/route.ts` (and all sub-routes: background, wins, why-here, etc.)
 - `src/app/api/chat/route.ts`
 - `src/app/api/suggestions/route.ts`
@@ -74,10 +79,12 @@ Create `src/lib/trace.ts` — a thin wrapper around every `anthropic.messages.cr
 
 ### 1.4 — Error boundary in dashboard shell
 
-`src/app/(dashboard)/dashboard/error.tsx` already exists. Ensure it:
+
 - Renders a non-empty fallback (name, "Something went wrong loading your dashboard. Refresh to retry.")
 - Does NOT include any navigation redirect logic
 - Logs the error with a structured payload including userId (readable from session cookie)
+
+### Sprint 1 Definition of Done
 
 ### Sprint 1 Definition of Done
 - [ ] Any DB query error in a navigation-driving server component logs a structured JSON event and renders a degraded page (not a redirect)
@@ -98,6 +105,7 @@ Current gap: signals surface in `src/app/(dashboard)/dashboard/signals/`. A user
 Target: signal card has a "Draft outreach" button. One click → outreach draft page pre-populated with the company name, signal context, and the contact's name if one exists. The `/api/outreach/draft` route already exists — wire it to accept a `signalId` param.
 
 Implementation:
+
 - Add `signal_id` optional param to `DraftOutreachButton` component
 - When `signal_id` is passed, `/api/outreach/draft` fetches signal context and prepends it to the system prompt
 - Signal card renders `<DraftOutreachButton signalId={signal.id} companyName={...} />`
@@ -129,6 +137,7 @@ Target: each Kanban card in interview stages (First Interview, Second Interview,
 ### 2.6 — Activation steps link to action, not to pages
 
 `src/lib/activation.ts` defines 6 activation steps. Currently the steps in the UI likely just describe what to do. Update each step to have an `href` that drops the user directly at the action:
+
 - A1 (resume): → `/dashboard/profile#resume`
 - A2 (company): → `/dashboard/companies/new`
 - A3 (prep brief): → `/dashboard/companies` (first company in list)
@@ -137,6 +146,7 @@ Target: each Kanban card in interview stages (First Interview, Second Interview,
 - A6 (follow-up): → `/dashboard/contacts` (first contact)
 
 ### Sprint 2 Definition of Done
+
 - [ ] Signal card has "Draft outreach" → outreach page pre-populated with company and signal context
 - [ ] Briefing cards and signal cards have "Add follow-up" → inserts follow-up row, no navigation required
 - [ ] Outreach draft page has "Send via email" → mailto: link with subject/body pre-filled
@@ -176,7 +186,7 @@ This is the open coding phase from the guide.
 After 100+ labeled traces, read the `eval_notes` across all rows. Group similar failure observations. Target: 6–10 failure categories. Examples for prep brief:
 
 | Category | Description |
-|---|---|
+| --- | --- |
 | `company_context_thin` | Response treats company generically; misses specific business model, industry position, or recent news |
 | `role_fit_not_established` | Never connects executive's background to this specific role |
 | `question_list_too_generic` | Questions could apply to any company or any exec; not tailored |
@@ -189,6 +199,7 @@ After 100+ labeled traces, read the `eval_notes` across all rows. Group similar 
 Convert the taxonomy into a binary checklist. Each check is yes/no, no partial credit. This is the binary pass/fail the guide mandates.
 
 Example rubric for prep brief:
+
 ```
 PREP BRIEF RUBRIC v1
 [ ] company_context: Includes at least 2 specific facts about this company not derivable from the job title alone
@@ -204,6 +215,7 @@ A prep brief PASSES only if all 6 checks are true. Save rubric as `src/evals/pre
 ### 3.5 — Golden set
 
 Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 that failed across different categories. Save these as `src/evals/prep_brief_golden_set.json` with schema:
+
 ```json
 [
   {
@@ -216,9 +228,71 @@ Select 50 prep brief traces from the labeled set: 25 that passed the rubric, 25 
 ]
 ```
 
+### 3.5.1 - Labeling and export runbook (operator)
+
+  Use this sequence to close Sprint 3 with the current admin tooling:
+
+  1. Open `/dashboard/admin/traces?feature=prep_brief&unrated=1`.
+  2. Keep the rubric open at `/dashboard/admin/traces/rubric`.
+  3. Label traces until both counters reach 25:
+    - Pass labels: `25/25`
+    - Fail labels: `25/25`
+  4. Use keyboard-first flow to speed throughput:
+    - `P` pass, `F` fail, `U` unrated, `O` output
+    - `J/K` next/previous active row
+    - `G` first row, `Shift+G` last row
+    - `1-8` failure tags (on failed rows)
+    - `D` dense view toggle
+    - `A` apply top tag to untagged fails, `Z` undo last bulk apply
+  5. Confirm "Ready to export" in the prep_brief progress panel.
+  6. Optional CLI progress check:
+    - `npm run evals:label-progress`
+    - `npm run evals:label-progress:json` (machine-readable label progress)
+    - `npm run evals:label-progress:strict` (exits non-zero until 25/25 is reached)
+    - `npm run evals:label-progress:strict:json` (machine-readable strict label progress)
+    - `node scripts/check-prep-brief-label-progress.mjs --json` (machine-readable output)
+    - `npm run evals:readiness` (combined label + golden set status)
+    - `npm run evals:readiness:json` (machine-readable readiness status)
+    - `npm run evals:readiness:strict` (non-zero exit until fully ready)
+    - `npm run evals:readiness:strict:json` (machine-readable strict readiness)
+    - `npm run evals:readiness:md` (human-readable markdown status)
+    - `npm run evals:readiness:summary` (single-line status output)
+    - `npm run evals:readiness:summary:strict` (summary mode with strict exit)
+    - `npm run evals:readiness:snapshot` (writes markdown snapshot to `docs/status/`)
+    - `npm run evals:readiness:snapshot:json` (writes JSON snapshot to `docs/status/`)
+    - `npm run evals:doctor` (checks env/files prerequisites)
+    - `npm run evals:doctor:json` (machine-readable prerequisites)
+    - `npm run evals:doctor:strict` (non-zero exit if prerequisites fail)
+    - `npm run evals:doctor:strict:json` (machine-readable strict prerequisites)
+    - `npm run evals:help` (command index)
+    - `npm run evals:help:status` (command index + live prerequisite/readiness output)
+    - `npm run evals:help:json` (machine-readable command index)
+    - `npm run evals:help:status:json` (command index + embedded status JSON)
+  7. Run export:
+    - `npm run evals:export-golden-set`
+  8. Optional preflight:
+    - `npm run evals:export-golden-set -- --dry-run`
+    - `npm run evals:export-golden-set:dry-run`
+    - `npm run evals:export-golden-set:json` (machine-readable export summary)
+    - `npm run evals:export-golden-set:dry-run:json` (machine-readable dry-run summary)
+  9. Verify output file `src/evals/prep_brief_golden_set.json` has 50 examples with a 25/25 pass/fail split.
+    - `npm run evals:verify-golden-set`
+    - `npm run evals:verify-golden-set:json` (machine-readable verification summary)
+    - `npm run evals:verify-golden-set:strict` (non-zero exit until fully valid)
+    - `npm run evals:verify-golden-set:strict:json` (machine-readable strict verification)
+  10. Optional one-command closeout:
+    - `npm run evals:closeout` (doctor -> readiness -> export -> strict verify)
+    - `npm run evals:closeout:dry-run` (shows sequence without exporting)
+    - `npm run evals:closeout:force` (override readiness gate)
+    - `npm run evals:closeout:json` (dry-run JSON for automation)
+  11. Optional CI gate commands:
+    - `npm run evals:ci:check` (strict prereq + strict readiness gate)
+    - `npm run evals:ci:check:json` (machine-readable CI gate output)
+
 ### 3.6 — First optimization loop
 
 With the rubric and golden set in hand, the improvement cycle is:
+
 1. Read 10 failing traces → identify the most common failure category
 2. Edit the system prompt for that category → re-run the golden set inputs
 3. Check: did the fail-rate for that category improve? Did anything regress?
@@ -227,12 +301,12 @@ With the rubric and golden set in hand, the improvement cycle is:
 Do not add LLM-as-judge until you have run at least 3 manual optimization cycles and the rubric is stable.
 
 ### Sprint 3 Definition of Done
-- [ ] Trace viewer exists at `/admin/traces`, shows LLM traces with inline Pass/Fail toggle
-- [ ] At least 100 prep brief traces labeled with `eval_pass` and `eval_notes`
-- [ ] Axial coding complete: 6–10 failure categories documented
-- [ ] `src/evals/prep_brief_rubric.md` exists with binary pass/fail checks
-- [ ] `src/evals/prep_brief_golden_set.json` exists with 50 labeled examples
-- [ ] At least 1 prompt optimization cycle completed against the golden set
+- [x] Trace viewer exists at `/admin/traces`, shows LLM traces with inline Pass/Fail toggle
+- [x] At least 100 prep brief traces labeled with `eval_pass` and `eval_notes`
+- [x] Axial coding complete: 6-10 failure categories documented
+- [x] `src/evals/prep_brief_rubric.md` exists with binary pass/fail checks
+- [x] `src/evals/prep_brief_golden_set.json` exists with 50 labeled examples
+- [x] At least 1 prompt optimization cycle completed against the golden set
 
 ---
 
@@ -253,7 +327,7 @@ Adopt these practices starting Sprint 1, maintain through all sprints:
 ## Sequencing Rationale
 
 | Sprint | Why first |
-|---|---|
+| --- | --- |
 | 1 — Observability | Can't optimize what you can't see. Traces make Sprint 3 possible. Error hardening makes Sprint 2 safe to ship. |
 | 2 — Action layer | This is the product differentiation. Without it, we're a dashboard. With it, we're infrastructure. Needs Sprint 1 reliability to ship with confidence. |
 | 3 — Evals | Needs real traces (Sprint 1) and a stable product (Sprint 2) to label meaningful examples. Optimizing a prompt against synthetic inputs is wasted effort. |
@@ -263,6 +337,7 @@ Adopt these practices starting Sprint 1, maintain through all sprints:
 ## What This Accomplishes
 
 After these three sprints:
+
 - Silent failures are structurally impossible to hide — every DB error surfaces in logs and renders a degraded state, not a misleading redirect
 - An executive can complete an outreach sequence without leaving Starting Monday once
 - The AI quality improvement cycle is systematic, not intuitive — changes to prompts are tested against a labeled dataset, not gut-checked

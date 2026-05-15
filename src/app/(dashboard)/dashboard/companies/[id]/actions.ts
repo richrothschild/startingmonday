@@ -44,6 +44,15 @@ export async function updateCompany(id: string, formData: FormData) {
 
   if (!name) redirect(`/dashboard/companies/${id}?error=required`)
 
+  // Fetch current stage before updating so we can detect advancement
+  const { data: current } = await supabase
+    .from('companies')
+    .select('stage')
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .single()
+  const prevStage = current?.stage ?? 'watching'
+
   const { error } = await supabase
     .from('companies')
     .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, crunchbase_id: crunchbaseId, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
@@ -63,6 +72,13 @@ export async function updateCompany(id: string, formData: FormData) {
 
   revalidatePath(`/dashboard/companies/${id}`)
   revalidatePath('/dashboard')
+
+  // Detect stage advancement and surface a milestone moment
+  const STAGE_ORDER = ['watching', 'researching', 'applied', 'interviewing', 'offer']
+  const advanced = STAGE_ORDER.indexOf(stage) > STAGE_ORDER.indexOf(prevStage)
+  if (advanced) {
+    redirect(`/dashboard/companies/${id}?saved=1&stage_up=${encodeURIComponent(stage)}`)
+  }
   redirect(`/dashboard/companies/${id}?saved=1`)
 }
 

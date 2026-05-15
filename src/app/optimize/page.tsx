@@ -1,6 +1,7 @@
 ﻿'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { usePostHog } from 'posthog-js/react'
 
 type Status = 'idle' | 'uploading' | 'streaming' | 'done' | 'error'
 
@@ -112,7 +113,9 @@ function HelpPopover() {
 }
 
 export default function OptimizePage() {
+  const ph = usePostHog()
   const [text, setText] = useState('')
+  const [email, setEmail] = useState('')
   const [output, setOutput] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
@@ -144,6 +147,10 @@ export default function OptimizePage() {
     e.preventDefault()
     if (!text.trim() || status === 'streaming') return
 
+    try {
+      ph?.capture('profile_grade_submitted', { text_length: text.trim().length })
+    } catch { /* analytics must not block */ }
+
     setStatus('streaming')
     setOutput('')
     setError('')
@@ -151,7 +158,7 @@ export default function OptimizePage() {
     const res = await fetch('/api/optimize', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, email }),
     })
 
     if (!res.ok) {
@@ -174,7 +181,8 @@ export default function OptimizePage() {
     setStatus('done')
   }
 
-  const canSubmit = text.trim().length >= 100 && status !== 'streaming' && status !== 'uploading'
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+  const canSubmit = text.trim().length >= 100 && emailValid && status !== 'streaming' && status !== 'uploading'
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -241,17 +249,30 @@ export default function OptimizePage() {
               disabled={status === 'streaming'}
               className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"
             />
-            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between gap-4">
-              <span className="text-[12px] text-slate-400">
-                {text.length > 0 ? `${text.length.toLocaleString()} characters` : 'Min. 100 characters'}
-              </span>
-              <button
-                type="submit"
-                disabled={!canSubmit}
-                className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {status === 'streaming' ? 'Analyzing…' : 'Analyze my profile'}
-              </button>
+            <div className="px-6 py-4 border-t border-slate-100">
+              <div className="flex items-center gap-3 mb-3">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Your work email to receive the analysis"
+                  disabled={status === 'streaming'}
+                  className="flex-1 border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 disabled:opacity-60"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[12px] text-slate-400">
+                  {text.length > 0 ? `${text.length.toLocaleString()} characters` : 'Min. 100 characters'}
+                </span>
+                <button
+                  type="submit"
+                  disabled={!canSubmit}
+                  className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {status === 'streaming' ? 'Analyzing…' : 'Analyze my profile'}
+                </button>
+              </div>
             </div>
           </form>
         </div>

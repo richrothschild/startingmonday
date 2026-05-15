@@ -1,10 +1,22 @@
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
+import { createClient } from '@/lib/supabase/server'
+import { checkBurstLimit } from '@/lib/burst-limit'
+import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
+  const { userId } = auth
+
+  if (!checkBurstLimit(userId)) {
+    return Response.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
+  }
+  const supabase = await createClient()
+  if (await isRateLimited(supabase, userId)) {
+    return Response.json({ error: 'Monthly token limit reached.' }, { status: 429 })
+  }
 
   let text: string
   try {

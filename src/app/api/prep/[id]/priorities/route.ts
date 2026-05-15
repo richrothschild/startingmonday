@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { DOC_CHARS } from '@/lib/ai-limits'
@@ -101,7 +102,7 @@ Tone: strategy advisor voice. Evidence-based. No em dashes. No generic observati
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
         controller.close()
-        trackApiUsage(supabase, userId, (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)).catch(err => console.error('[api-usage] prep-priorities', err))
+        trackApiUsage(supabase, userId, (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)).catch(err => Sentry.captureException(err, { extra: { route: 'prep-priorities', userId } }))
       } catch (err) {
         controller.enqueue(encoder.encode(`__ERROR__${err instanceof Error ? err.message : 'Unknown error'}`))
         controller.close()

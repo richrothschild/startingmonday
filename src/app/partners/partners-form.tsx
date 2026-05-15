@@ -2,10 +2,17 @@
 import { useState } from 'react'
 
 const INTEREST_OPTIONS = [
-  'Outplacement services',
-  'Relocation firm partnership',
   'Executive coaching integration',
   'Search firm / retained firm',
+  'Outplacement services',
+  'PE operating partner network',
+  'Relocation firm partnership',
+  'CIO association or peer group',
+  'Executive financial advisor / wealth management',
+  'Fractional CIO or CTO network',
+  'CHRO / Chief People Officer',
+  'Digital transformation consultancy',
+  'Media / podcast / newsletter',
   'Enterprise team seats',
   'Other',
 ]

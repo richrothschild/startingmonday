@@ -10,7 +10,17 @@ export default async function PositioningPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: profile }, sub] = await Promise.all([
+  type PositioningProfile = {
+    full_name: string | null
+    current_title: string | null
+    current_company: string | null
+    target_titles: string[] | null
+    resume_text: string | null
+    positioning_summary: string | null
+    beyond_resume: string | null
+  }
+
+  const [{ data: rawProfile }, sub] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, current_title, current_company, target_titles, resume_text, positioning_summary, beyond_resume')
@@ -18,6 +28,7 @@ export default async function PositioningPage() {
       .single(),
     getUserSubscription(user.id),
   ])
+  const profile = rawProfile as PositioningProfile | null
 
   const canAccess = canAccessFeature(sub, 'positioning_coach')
 
@@ -69,11 +80,11 @@ export default async function PositioningPage() {
             currentPositioning={profile?.positioning_summary ?? ''}
             context={{
               currentTitle:        profile?.current_title ?? '',
-              currentCompany:      (profile as unknown as Record<string, string> | null)?.current_company ?? '',
+              currentCompany:      profile?.current_company ?? '',
               targetTitles:        (profile?.target_titles as string[] | null) ?? [],
               resumeText:          profile?.resume_text ?? '',
               positioningSummary:  profile?.positioning_summary ?? '',
-              beyondResume:        (profile as unknown as Record<string, string> | null)?.beyond_resume ?? '',
+              beyondResume:        profile?.beyond_resume ?? '',
             }}
           />
         )}

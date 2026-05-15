@@ -3,11 +3,18 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const INCLUDES = [
-  'Everything in Active ($199/mo)',
-  'One 45-minute strategy session each month with the founder, a transformation CIO who has run this search',
-  'AI prepares the agenda from your live pipeline before every call',
-  'Session notes and priorities carry forward',
+  'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
+  'One 45-minute strategy session each month with the founder, who has run this search from the executive side',
+  'AI prepares the session agenda from your live pipeline before every call',
+  'Priorities and commitments carry forward into the next session',
   'First access to new capabilities as they ship',
+  'Direct channel to the founder between sessions for time-sensitive decisions',
+]
+
+const FOR_WHO = [
+  { label: 'Active C-suite search', body: 'You are in motion. A board role, a CIO seat, or a CEO opportunity is on the table and you need full depth, not a tool.' },
+  { label: 'High-stakes single opportunity', body: 'One company, one role. The intelligence and prep need to be flawless. A mistake here is not recoverable.' },
+  { label: 'PE or transformation mandate', body: 'You have been brought in to assess an operator seat. You need company intelligence, positioning, and a peer sounding board before the term sheet conversation.' },
 ]
 
 export function ConciergeWaitlist() {
@@ -57,25 +64,26 @@ export function ConciergeWaitlist() {
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-14">
+      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-            Executive Concierge
+            Executive Concierge &mdash; $1,299/mo
           </p>
-          <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-2">
-            Not open yet.
+          <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-5">
+            The analysis is done.<br />
+            The brief is written.<br />
+            The intelligence is running<br />before you wake up.
           </h1>
-          <p className="text-[14px] text-slate-500 mb-5">$1,299/mo &middot; or $13,999/yr</p>
-          <p className="text-[16px] text-slate-400 leading-relaxed max-w-lg">
-            We are designing this around a small first cohort. Each session is with the founder, and the program has to stay small to stay good.
-            Join the list and we will reach out when access opens.
+          <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
+            Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.
           </p>
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-16">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-16 mb-16">
 
             <div>
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
@@ -94,19 +102,19 @@ export function ConciergeWaitlist() {
                   $1,299<span className="text-[16px] font-normal text-slate-400">/mo</span>
                 </p>
                 <p className="text-[12px] text-slate-400 mb-0.5">or $13,999/yr</p>
-                <p className="text-[12px] text-slate-400">30-day trial included when the program opens.</p>
+                <p className="text-[12px] text-slate-400">Application required. 30-day trial included when access opens.</p>
               </div>
             </div>
 
             <div>
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
-                Join the waitlist
+                Request access
               </p>
               {submitted ? (
-                <div className="border border-emerald-200 bg-emerald-50 rounded p-6">
-                  <p className="text-[15px] font-semibold text-emerald-800 mb-1">You are on the list.</p>
-                  <p className="text-[13px] text-emerald-700 leading-relaxed">
-                    We will reach out directly when the first cohort opens.
+                <div className="border border-slate-200 bg-slate-50 rounded p-6">
+                  <p className="text-[15px] font-semibold text-slate-900 mb-1">Request received.</p>
+                  <p className="text-[13px] text-slate-600 leading-relaxed">
+                    We review each application personally. You will hear from us directly.
                   </p>
                 </div>
               ) : (
@@ -134,10 +142,10 @@ export function ConciergeWaitlist() {
                     disabled={loading || !email.trim()}
                     className="bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Joining...' : 'Join the waitlist'}
+                    {loading ? 'Sending...' : 'Request access'}
                   </button>
                   <p className="text-[11px] text-slate-400 leading-relaxed">
-                    We will contact you directly. No automated drip campaign.
+                    We review each application personally. No automated response.
                   </p>
                 </form>
               )}
@@ -145,8 +153,29 @@ export function ConciergeWaitlist() {
 
           </div>
 
-          <div className="mt-16 pt-8 border-t border-slate-100">
-            <p className="text-[13px] text-slate-400 mb-2">Looking for the Active plan instead?</p>
+          <div className="border-t border-slate-100 pt-12 mb-12">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-6">
+              Who this is for
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {FOR_WHO.map((item, i) => (
+                <div key={i} className="border-t-2 border-slate-200 pt-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-2">{item.label}</p>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="border border-slate-200 rounded-lg p-6 mb-12">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">About the founder</p>
+            <p className="text-[14px] text-slate-700 leading-relaxed">
+              Starting Monday was built by a founder who ran executive job searches at scale and watched colleagues waste months on reactive tactics that did not work. The sessions are direct, structured, and specific to your pipeline. Not coaching. Not cheerleading. One executive to another.
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100">
+            <p className="text-[13px] text-slate-400 mb-2">Looking for Executive or Active instead?</p>
             <Link
               href="/pricing"
               className="text-[13px] font-semibold text-slate-700 hover:text-slate-900 transition-colors"

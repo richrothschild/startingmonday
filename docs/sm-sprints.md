@@ -250,28 +250,35 @@ Write up the VC/PE pricing: $250 setup fee + $129/month Active or $249/month Exe
 
 **[L] 1.5.1 — Demo page** (8h)
 `/demo` — company name + target title input. Streaming Claude prep brief. No login required. Email gate after showing 30% of brief. CTA at end: "Try this for every company in your search — free 30-day trial." Quality of the brief is the only thing that matters. This must be the best prep brief a user has ever seen. If it's generic, it converts nobody.
+*Done: Demo page live at /demo with streaming brief, email capture gate, and trial CTA.*
 
 **[M] 1.5.4 — Landing page refresh** (4h)
 - Pricing section: $129 Active / $249 Executive (not $199)
 - Testimonials: use real quotes from alpha users (minimum 1) or placeholder with "join the waitlist"
 - Demo CTA: "See it in action — try a live prep brief" → /demo
 - Remove any fabricated social proof
+*Done with scope note: Demo CTA and testimonials refreshed, fabricated social proof removed, and placeholder/waitlist language applied. Pricing remains at current live rates per explicit decision to keep pricing accurate.*
 
 ### B2C GTM (3h)
 
 **[M] 2.7 — LinkedIn paid ads setup** (2h)
 Account setup only if trial-to-paid conversion is measured at ≥35% by this sprint. If not, defer. Ad creative: "We scanned 500 career pages this week..." and "Start monitoring your companies before the search goes public." $500 test budget targeting CIO/CTO/VP IT with "open to work" signal.
+*Decision (2026-05-12): Deferred. Gate check returned 0 ended trials and no measurable conversion baseline yet.*
+*Operationalized: Gate status now visible on admin dashboard and runnable via npm run sprint5:ads-gate.*
 
 **[S] Second SEO article** (1h)
 Topic: "Executive job search daily routine — what the top 1% of senior candidates do differently."
+*Done: Published at /blog/executive-job-search-daily-routine.*
 
 ### B2B GTM (3h)
 
 **[M] 3.8 — VC/PE outreach begins** (2h)
 Activate the VC/PE saved search in Sales Navigator. Send first 10 DMs, trigger-based (reference a recent portfolio company leadership transition if visible).
+*In progress: Send-ready outreach pack complete, 10-target tracker pre-populated, and DM drafts prepared; awaiting manual send execution in Sales Navigator.*
 
 **[S] 3.10 — University outreach to 5 additional schools** (1h)
 Personalized emails to career center directors at 5 MBA programs referencing the Wake Forest/Stanford conversation: "Following a conversation with [name] about how career centers are using AI tools for alumni in search, I wanted to share something I built..."
+*In progress: 5-school outreach pack complete, school tracker pre-populated, and email drafts prepared; awaiting manual send execution.*
 
 **Sprint E Success Criteria:**
 - Demo page live at /demo; email capture working

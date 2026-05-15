@@ -1,9 +1,13 @@
 ﻿import { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import Anthropic from '@anthropic-ai/sdk'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
+import { anthropic, MODELS } from '@/lib/anthropic'
+import { logEvent } from '@/lib/events'
+import { logBriefingAction } from './actions'
 import { LogoutButton } from '../logout-button'
+import { HelpQuickButton } from '@/components/HelpQuickButton'
 
 export const metadata = {
   title: 'Daily Briefing - Starting Monday',
@@ -28,6 +32,11 @@ type BriefingJson = {
   matchInsights?: { company: string; roles: string[]; insight: string }[]
   followUpSuggestions?: { person: string; action: string; suggestion: string }[]
   closing?: string
+}
+
+type GeneratedBriefing = {
+  briefing: BriefingJson
+  usedFallback: boolean
 }
 
 async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, tz: string) {
@@ -120,7 +129,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   }
 }
 
-async function generateBriefing(context: Awaited<ReturnType<typeof assembleBriefing>>): Promise<BriefingJson> {
+async function generateBriefing(context: Awaited<ReturnType<typeof assembleBriefing>>): Promise<GeneratedBriefing> {
   const { userName, targetTitles, totalCompanies, newMatches, followUps, signals, todayStr } = context
 
   const matchesText = newMatches.length
@@ -157,7 +166,7 @@ ${followUpsText}
 
 Write a morning briefing as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Specific and factual - name the company or action. No generic phrases. If there are signals, lead with that.
-- "intro": 1-2 sentences. State what's on the board today and why it matters. No preamble.
+- "intro": 1-2 sentences. State what changed overnight and what matters today. No preamble.
 - "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } - only if there are signals.
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } - only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence - what to do and how) } - only if there are follow-ups.
@@ -166,9 +175,8 @@ Write a morning briefing as JSON with exactly these keys:
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases. Write as a trusted advisor, not a coach.
 Output valid JSON only, no markdown fences.`
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-  const message = await client.messages.create({
-    model: process.env.ANTHROPIC_BRIEFING_MODEL ?? 'claude-haiku-4-5-20251001',
+  const message = await anthropic.messages.create({
+    model: MODELS.haiku,
     max_tokens: 1024,
     messages: [{ role: 'user', content: prompt }],
   })
@@ -176,14 +184,21 @@ Output valid JSON only, no markdown fences.`
   const raw = (message.content[0] as { type: string; text?: string })?.text?.trim() ?? '{}'
   const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
   try {
-    return JSON.parse(cleaned) as BriefingJson
-  } catch {
     return {
-      intro: `Here is your search update for ${todayStr}.`,
-      signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
-      matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
-      followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
-      closing: `${totalCompanies} companies in your pipeline.`,
+      briefing: JSON.parse(cleaned) as BriefingJson,
+      usedFallback: false,
+    }
+  } catch (err) {
+    Sentry.captureException(err, { extra: { model: MODELS.haiku, rawLength: raw.length } })
+    return {
+      briefing: {
+        intro: `Here is your search update for ${todayStr}.`,
+        signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
+        matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
+        followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
+        closing: `${totalCompanies} companies in your pipeline.`,
+      },
+      usedFallback: true,
     }
   }
 }
@@ -225,11 +240,20 @@ function BriefingBodySkeleton() {
 
 type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
-async function BriefingBody({ context }: { context: BriefingContext }) {
-  const briefing = context.hasContent ? await generateBriefing(context) : null
-  const signalAlerts  = briefing?.signalAlerts ?? []
-  const matchInsights = briefing?.matchInsights ?? []
-  const followUpItems = briefing?.followUpSuggestions ?? []
+async function BriefingBody({
+  context,
+  mode,
+}: {
+  context: BriefingContext
+  mode: 'focused' | 'full'
+}) {
+  const generated = context.hasContent ? await generateBriefing(context) : null
+  const briefing = generated?.briefing ?? null
+  const usedFallback = generated?.usedFallback ?? false
+  const maxItems = mode === 'focused' ? 1 : 3
+  const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
+  const matchInsights = (briefing?.matchInsights ?? []).slice(0, maxItems)
+  const followUpItems = (briefing?.followUpSuggestions ?? []).slice(0, maxItems)
 
   return (
     <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
@@ -250,6 +274,22 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
         </div>
       ) : (
         <>
+          {usedFallback && (
+            <div className="mb-6 rounded border border-amber-200 bg-amber-50 p-4">
+              <p className="text-[12px] font-semibold text-amber-900 mb-1">Briefing generated in safe mode</p>
+              <p className="text-[13px] text-amber-800 leading-relaxed">
+                We had a temporary formatting issue while building your AI summary. The actions below are still valid from your live data.
+              </p>
+            </div>
+          )}
+
+          <div className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</p>
+            <p className="text-[14px] text-slate-700 leading-relaxed">
+              Overnight changes show you what shifted. Today's actions show you who to contact first and what to do before the day gets away from you.
+            </p>
+          </div>
+
           {briefing?.intro && (
             <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
           )}
@@ -257,7 +297,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
           {signalAlerts.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Company Signals
+                Overnight Changes
               </div>
               <div className="flex flex-col gap-3">
                 {signalAlerts.map((s, i) => (
@@ -275,13 +315,25 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                   </div>
                 ))}
               </div>
+              <div className="mt-4">
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="overnight_changes" />
+                  <input type="hidden" name="target" value="/dashboard/signals" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open signals and choose a follow-up &rarr;
+                  </button>
+                </form>
+              </div>
             </div>
           )}
 
           {matchInsights.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                New Matches
+                People To Reach
               </div>
               <div className="flex flex-col gap-3">
                 {matchInsights.map((m, i) => (
@@ -294,13 +346,25 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                   </div>
                 ))}
               </div>
+              <div className="mt-4">
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="people_to_reach" />
+                  <input type="hidden" name="target" value="/dashboard/companies" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open companies and run next outreach step &rarr;
+                  </button>
+                </form>
+              </div>
             </div>
           )}
 
           {followUpItems.length > 0 && (
             <div className="mb-8">
               <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Open Actions
+                Today, Do This
               </div>
               <div className="flex flex-col gap-2">
                 {followUpItems.map((f, i) => (
@@ -311,6 +375,18 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
                     <p className="text-[13px] text-slate-500 leading-relaxed">{f.suggestion}</p>
                   </div>
                 ))}
+              </div>
+              <div className="mt-4">
+                <form action={logBriefingAction}>
+                  <input type="hidden" name="section" value="today_do_this" />
+                  <input type="hidden" name="target" value="/dashboard/calendar" />
+                  <button
+                    type="submit"
+                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+                  >
+                    Open calendar and complete today&apos;s actions &rarr;
+                  </button>
+                </form>
               </div>
             </div>
           )}
@@ -326,7 +402,7 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
               href="/dashboard"
               className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
             >
-              Open Dashboard
+              Back to dashboard
             </Link>
           </div>
         </>
@@ -337,7 +413,14 @@ async function BriefingBody({ context }: { context: BriefingContext }) {
 
 // ─── Page - shell renders immediately, body streams in ────────────────────────
 
-export default async function BriefingPage() {
+export default async function BriefingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string }>
+}) {
+  const { mode: rawMode } = await searchParams
+  const mode: 'focused' | 'full' = rawMode === 'focused' ? 'focused' : 'full'
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -352,6 +435,13 @@ export default async function BriefingPage() {
 
   const tz = profile?.briefing_timezone ?? 'UTC'
   const context = await assembleBriefing(supabase, user.id, tz)
+
+  await logEvent(user.id, 'briefing_viewed', {
+    signals: context.signals.length,
+    matches: context.newMatches.length,
+    due_today: context.followUps.length,
+    total_companies: context.totalCompanies,
+  })
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const todayLabel = new Date(context.todayStr + 'T12:00:00Z').toLocaleDateString('en-US', {
@@ -391,6 +481,9 @@ export default async function BriefingPage() {
             Good morning, {firstName}.
           </h1>
           <p className="text-[13px] text-slate-500">{todayLabel}</p>
+          <p className="text-[13px] text-slate-300 mt-3 leading-relaxed">
+            Here is what changed overnight and what to act on first today.
+          </p>
         </div>
 
         {/* Stats bar - streams immediately after DB queries */}
@@ -399,7 +492,7 @@ export default async function BriefingPage() {
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
             { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
             { value: context.newMatches.length, label: 'Matches', amber: false, red: false },
-            { value: context.followUps.length, label: 'Actions Due', amber: false, red: context.followUps.length > 0 },
+            { value: context.followUps.length, label: 'Due Today', amber: false, red: context.followUps.length > 0 },
           ].map(({ value, label, amber, red }) => (
             <div key={label} className="py-4 px-3 text-center">
               <div className={`text-[22px] font-bold leading-none ${red ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
@@ -410,9 +503,25 @@ export default async function BriefingPage() {
           ))}
         </div>
 
+        <div className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
+          <span className="text-[11px] font-semibold text-slate-500">View:</span>
+          <Link
+            href="/dashboard/briefing?mode=focused"
+            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+          >
+            Focused
+          </Link>
+          <Link
+            href="/dashboard/briefing?mode=full"
+            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'full' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+          >
+            Full
+          </Link>
+        </div>
+
         {/* Briefing body - streams in after Claude call completes */}
         <Suspense fallback={<BriefingBodySkeleton />}>
-          <BriefingBody context={context} />
+          <BriefingBody context={context} mode={mode} />
         </Suspense>
 
         <p className="text-center text-[11px] text-slate-400 mt-4">
@@ -420,6 +529,7 @@ export default async function BriefingPage() {
         </p>
 
       </main>
+      <HelpQuickButton source="briefing" />
     </div>
   )
 }

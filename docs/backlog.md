@@ -46,6 +46,17 @@ Move forward when: 100+ active users or first A/B test need.
 
 Move forward when: Railway staging environment exists.
 
+**Cloudflare Turnstile (Captcha on Auth)** — Signup, login (password and OAuth), and public endpoints currently have no abuse protection. Turnstile infrastructure is in place (CSP configured, library integrated, server verification implemented) but disabled. When re-enabled:
+- Client-side widget loads on auth pages; users solve captcha before submitting credentials.
+- Server routes (`/api/auth/verify-and-signin`, `/api/auth/verify-and-signup`, `/api/auth/verify-and-oauth`) verify token before auth operations.
+- Public endpoints (intake forms, demo routes) are gated with per-IP rate limiting + captcha verification.
+
+The implementation is complete; it's currently disabled to unblock user testing and iteration on the core auth flow.
+
+Status (May 2026): Disabled. All code paths intact; just need to re-enable enforcement.
+
+Move forward when: User growth reaches a point where bot signup/brute force is observed, OR before opening public intake/demo features to ad-driven traffic.
+
 ---
 
 ## Code Quality

@@ -6,7 +6,7 @@ type Plan = 'passive' | 'active'
 
 const SEAT_PLANS: Record<Plan, { name: string; pricePerSeat: number; description: string }> = {
   passive: {
-    name: 'Passive',
+    name: 'Monitor',
     pricePerSeat: 39,
     description: 'Signal monitoring, daily briefing, pipeline tracking',
   },

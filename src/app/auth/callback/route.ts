@@ -1,11 +1,12 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard'
+  const next = searchParams.get('next') ?? '/dashboard/briefing'
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
   // x-forwarded-host contains the real public hostname (startingmonday.app).
@@ -59,15 +60,18 @@ export async function GET(request: NextRequest) {
       const isNewUser = data.user.created_at
         ? (Date.now() - new Date(data.user.created_at).getTime()) < 60_000
         : false
+      // utm_source carries the referral code when signup came through a partner link (?ref=CODE)
+      const refCode = utmSource && /^[A-Z0-9]{6,12}$/.test(utmSource) ? utmSource : null
       await Promise.all([
         supabase.from('user_profiles').upsert(
-          { user_id: data.user.id },
+          { user_id: data.user.id, ...(refCode ? { referred_by: refCode } : {}) },
           { onConflict: 'user_id', ignoreDuplicates: true }
         ),
         utmSource
           ? supabase.from('users').update({
               signup_source: utmSource,
-              acquisition_channel: utmMedium ?? null,
+              acquisition_channel: utmMedium ?? (refCode ? 'referral' : null),
+              referral_source: utmSource,
             }).eq('id', data.user.id)
           : Promise.resolve(),
         isNewUser
@@ -76,6 +80,23 @@ export async function GET(request: NextRequest) {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: utmSource }),
             }).catch(() => {})
+          : Promise.resolve(),
+        isNewUser && refCode
+          ? (async () => {
+              const admin = createAdminClient()
+              const { data: partner } = await admin
+                .from('partners')
+                .select('id')
+                .eq('referral_code', refCode)
+                .eq('is_active', true)
+                .maybeSingle()
+              if (partner) {
+                await admin.from('referral_attributions').upsert(
+                  { signup_user_id: data.user.id, partner_id: partner.id },
+                  { onConflict: 'signup_user_id', ignoreDuplicates: true }
+                )
+              }
+            })().catch(() => {})
           : Promise.resolve(),
       ])
       return response

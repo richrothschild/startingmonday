@@ -98,15 +98,49 @@ const STAGES = [
   { value: 'offer',        label: 'Offer' },
 ]
 
+type CompanyDetailRow = {
+  id: string
+  name: string
+  sector: string | null
+  stage: string
+  company_size: string | null
+  fit_score: number | null
+  notes: string | null
+  competitive_context: string | null
+  interview_notes: string | null
+  company_url: string | null
+  career_page_url: string | null
+  linkedin_url: string | null
+  crunchbase_id: string | null
+  role_watch_description: string | null
+  offer_role_title: string | null
+  offer_base: number | null
+  offer_bonus_pct: number | null
+  offer_signing: number | null
+  offer_equity: string | null
+  offer_notes: string | null
+  offer_decision_factors: string | null
+}
+
+type SignalDetailRow = {
+  id: string
+  signal_type: string
+  signal_summary: string
+  outreach_angle: string | null
+  outreach_draft: { subject: string; body: string } | null
+  signal_date: string
+  source_url: string | null
+}
+
 export default async function CompanyPage({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ error?: string; saved?: string; scanning?: string }>
+  searchParams: Promise<{ error?: string; saved?: string; scanning?: string; stage_up?: string }>
 }) {
   const { id } = await params
-  const { error, saved, scanning } = await searchParams
+  const { error, saved, scanning, stage_up: stageUp } = await searchParams
   const isScanning = scanning === '1' && true
 
   const supabase = await createClient()
@@ -115,7 +149,7 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: company, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: signals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
+  const [{ data: rawCompany, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: rawSignals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
     supabase
       .from('companies')
       .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
@@ -125,7 +159,7 @@ export default async function CompanyPage({
       .single(),
     supabase
       .from('follow_ups')
-      .select('id, action, due_date')
+      .select('id, action, due_date, contact_id')
       .eq('company_id', id)
       .eq('user_id', user.id)
       .eq('status', 'pending')
@@ -179,6 +213,8 @@ export default async function CompanyPage({
       .limit(20),
   ])
 
+  const company = rawCompany as CompanyDetailRow | null
+  const signals = (rawSignals ?? []) as unknown as SignalDetailRow[]
   const scans = (rawScans ?? []) as unknown as ScanResult[]
   const latestScan = scans[0] ?? null
   const scanHistory = scans.slice(1)
@@ -192,6 +228,12 @@ export default async function CompanyPage({
   if (!company) notFound()
 
   const todayISO = todayInTz(profile?.briefing_timezone ?? 'UTC')
+  const nextFollowUpByContact = new Map<string, { due_date: string; action: string }>()
+  for (const fu of (followUps ?? [])) {
+    if (fu.contact_id && !nextFollowUpByContact.has(fu.contact_id)) {
+      nextFollowUpByContact.set(fu.contact_id, { due_date: fu.due_date, action: fu.action })
+    }
+  }
 
   const NOTES_PLACEHOLDERS: Record<string, string> = {
     cio:          'Transformation agenda, current CIO tenure and departure context, CFO relationship dynamic, board technology appetite...',
@@ -253,6 +295,12 @@ export default async function CompanyPage({
               Tailor resume
             </Link>
             <Link
+              href={`/dashboard/companies/${id}/prep?stage=informal_meeting`}
+              className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+            >
+              Conversation prep
+            </Link>
+            <Link
               href={`/dashboard/companies/${id}/prep`}
               className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
             >
@@ -274,11 +322,26 @@ export default async function CompanyPage({
                 {errorMsg}
               </div>
             )}
-            {saved && (
+            {stageUp ? (
+              <div className="mb-5 px-5 py-4 bg-green-50 border border-green-200 rounded flex items-center gap-4">
+                <span className="text-[22px] leading-none">&#10003;</span>
+                <div>
+                  <p className="text-[14px] font-semibold text-green-900">
+                    {company.name} moved to {
+                      stageUp === 'researching'  ? 'Researching' :
+                      stageUp === 'applied'       ? 'In Process' :
+                      stageUp === 'interviewing'  ? 'Interviewing' :
+                      stageUp === 'offer'         ? 'Offer' : stageUp
+                    }.
+                  </p>
+                  <p className="text-[12px] text-green-700 mt-0.5">That is real progress.</p>
+                </div>
+              </div>
+            ) : saved ? (
               <div className="mb-5 px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
                 Changes saved.
               </div>
-            )}
+            ) : null}
 
             <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5">
 
@@ -456,7 +519,7 @@ export default async function CompanyPage({
               </div>
 
               {company.stage === 'offer' && (() => {
-                const co = company as unknown as {
+                const co = company as {
                   offer_role_title?: string | null
                   offer_base?: number | null
                   offer_bonus_pct?: number | null
@@ -577,7 +640,7 @@ export default async function CompanyPage({
                 <textarea
                   name="role_watch_description"
                   rows={3}
-                  defaultValue={(company as unknown as { role_watch_description?: string | null }).role_watch_description ?? ''}
+                  defaultValue={company.role_watch_description ?? ''}
                   placeholder="e.g. A CTO or VP Engineering role overseeing platform, specifically where they need someone to scale the team post-Series B and modernize the data stack..."
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
@@ -682,20 +745,89 @@ export default async function CompanyPage({
 
           </div>
         </div>
-        {/* Smart prompt: generate prep brief */}
-        {(prepBriefCount ?? 0) === 0 && (
-          <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
-            <p className="text-[13px] text-slate-300">
-              You have not generated a prep brief for {company.name} yet.
-            </p>
-            <Link
-              href={`/dashboard/companies/${id}/prep`}
-              className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
-            >
-              Generate brief
-            </Link>
-          </div>
-        )}
+        {/* Primary next action banner */}
+        {(() => {
+          const hasContacts = (contacts ?? []).length > 0
+          const hasBrief = (prepBriefCount ?? 0) > 0
+          const hasOutreachStarted = (contacts ?? []).some(ct => ct.outreach_status && ct.outreach_status !== 'prospect')
+          const isInterviewing = company.stage === 'interviewing'
+          const hasInterviewLogs = interviewLogs.length > 0
+
+          if (!hasContacts && !hasBrief) {
+            return (
+              <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4">
+                <div className="flex-1">
+                  <p className="text-[13px] font-semibold text-white">Two things move this forward.</p>
+                  <p className="text-[12px] text-slate-400 mt-0.5">Add a contact at {company.name} and run a prep brief before your first conversation.</p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <Link
+                    href={`#add-contact-form`}
+                    className="text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+                  >
+                    Add contact
+                  </Link>
+                  <Link
+                    href={`/dashboard/companies/${id}/prep`}
+                    className="text-[12px] font-semibold bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded transition-colors border-0"
+                  >
+                    Run a brief
+                  </Link>
+                </div>
+              </div>
+            )
+          }
+
+          if (isInterviewing && !hasInterviewLogs) {
+            return (
+              <div className="mt-6 bg-amber-50 border border-amber-200 rounded px-6 py-4 flex items-center justify-between gap-4">
+                <p className="text-[13px] text-slate-700">
+                  You are in the interview loop. Log what happened so your next brief reflects the actual conversation.
+                </p>
+                <Link
+                  href={`/dashboard/companies/${id}/prep`}
+                  className="shrink-0 text-[12px] font-semibold text-amber-800 border border-amber-300 hover:border-amber-500 bg-white px-3 py-1.5 rounded transition-colors"
+                >
+                  Run interview prep
+                </Link>
+              </div>
+            )
+          }
+
+          if (!hasBrief) {
+            return (
+              <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
+                <p className="text-[13px] text-slate-300">
+                  {hasContacts ? `You have contacts at ${company.name}. Run a brief before your next call.` : `No prep brief for ${company.name} yet.`}
+                </p>
+                <Link
+                  href={`/dashboard/companies/${id}/prep`}
+                  className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+                >
+                  Generate brief
+                </Link>
+              </div>
+            )
+          }
+
+          if (hasContacts && !hasOutreachStarted && company.stage === 'watching') {
+            return (
+              <div className="mt-6 bg-blue-50 border border-blue-200 rounded px-6 py-4 flex items-center justify-between gap-4">
+                <p className="text-[13px] text-slate-700">
+                  Ready to reach out? You have a contact here.
+                </p>
+                <Link
+                  href={`/dashboard/contacts/${(contacts ?? [])[0]?.id}/outreach`}
+                  className="shrink-0 text-[12px] font-semibold text-blue-700 hover:text-blue-900 border border-blue-200 hover:border-blue-400 bg-white px-3 py-1.5 rounded transition-colors"
+                >
+                  Draft outreach
+                </Link>
+              </div>
+            )
+          }
+
+          return null
+        })()}
 
         {/* Contacts */}
         <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
@@ -713,6 +845,16 @@ export default async function CompanyPage({
               {contacts.map(ct => {
                 const ch = ct.channel ? (CHANNEL[ct.channel] ?? { label: ct.channel, cls: 'bg-slate-100 text-slate-500' }) : null
                 const os = OUTREACH_STATUS[ct.outreach_status ?? 'prospect'] ?? OUTREACH_STATUS.prospect
+                const nextFollowUp = nextFollowUpByContact.get(ct.id)
+                const nextAction = nextFollowUp
+                  ? `Follow up ${new Date(nextFollowUp.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                  : ct.outreach_status === 'prospect'
+                    ? 'Draft first outreach'
+                    : ct.outreach_status === 'meeting_scheduled'
+                      ? 'Prep for meeting'
+                      : ct.outreach_status === 'closed'
+                        ? 'Keep warm monthly'
+                        : 'Set next follow-up'
                 return (
                   <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
                     <div className="flex-1 min-w-0">
@@ -735,6 +877,9 @@ export default async function CompanyPage({
                       {ct.notes && (
                         <p className="text-[12px] text-slate-400 mt-1 truncate max-w-xl">{ct.notes}</p>
                       )}
+                      <p className="text-[11px] text-slate-500 mt-1.5">
+                        Next relationship action: <span className="font-semibold text-slate-700">{nextAction}</span>
+                      </p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
                       <Link
@@ -1105,8 +1250,8 @@ export default async function CompanyPage({
                     {sig.outreach_angle && (
                       <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>
                     )}
-                    {(sig as unknown as { outreach_draft?: { subject: string; body: string } | null }).outreach_draft && (
-                      <DraftPanel draft={(sig as unknown as { outreach_draft: { subject: string; body: string } }).outreach_draft} />
+                    {sig.outreach_draft && (
+                      <DraftPanel draft={sig.outreach_draft} />
                     )}
                     {sig.source_url && (
                       <a

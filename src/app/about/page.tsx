@@ -4,13 +4,13 @@ import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'About Richard Rothschild - Starting Monday',
-  description: 'Richard Rothschild is a transformation CIO and the founder of Starting Monday. He built the platform after running his own executive search and finding the process broken.',
+  description: 'Richard Rothschild is the founder of Starting Monday. He built the platform after running his own C-suite search and finding the process broken.',
   alternates: {
     canonical: 'https://startingmonday.app/about',
   },
   openGraph: {
     title: 'About Richard Rothschild - Starting Monday',
-    description: 'Transformation CIO. Founder of Starting Monday. Writing about executive search, technology leadership, and what it actually takes to land the right role.',
+    description: 'Founder of Starting Monday. Writing about C-suite search strategy, technology leadership, and what it actually takes to land the right role.',
     url: 'https://startingmonday.app/about',
     type: 'profile',
   },
@@ -21,8 +21,8 @@ const personJsonLd = {
   '@type': 'Person',
   name: 'Richard Rothschild',
   url: 'https://startingmonday.app/about',
-  jobTitle: 'Chief Information Officer',
-  description: 'Transformation CIO and founder of Starting Monday, an executive search campaign platform for senior technology leaders.',
+  jobTitle: 'Founder',
+  description: 'Founder of Starting Monday, a signal intelligence platform for C-suite executive searches.',
   sameAs: [
     'https://www.linkedin.com/in/richrothschild',
   ],
@@ -83,7 +83,7 @@ export default function AboutPage() {
             </div>
           </div>
           <p className="text-[16px] text-slate-400 leading-relaxed mb-4">
-            Transformation CIO. Founder of Starting Monday.
+            Founder of Starting Monday. Built for C-suite searches.
           </p>
           <a
             href="https://www.linkedin.com/in/richrothschild"
@@ -104,45 +104,73 @@ export default function AboutPage() {
         <div className="max-w-2xl mx-auto space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
           <p>
-            I have spent my career as a transformation CIO. The work is the same in every organization: a
-            technology function that is not delivering what the business needs, a leadership team that has
-            lost confidence in IT, and a mandate to change both. The execution varies. The pattern does not.
+            <span className="font-semibold text-slate-900">Why me:</span> I have spent my career in enterprise
+            technology leadership, including transformation operator roles. The pattern was always the same: the
+            business needed outcomes, not activity, and leadership needed clarity, not reporting.
           </p>
 
           <p>
-            I built Starting Monday because I ran my own executive search and found the process broken. Not
-            broken in the obvious ways. The job boards were there. The search firms returned calls. The
-            problem was structural: the preparation tools available to a senior technology executive in active
-            search were either built for a different era or built for a different audience. Nothing was built
-            for someone operating at my level, running a search that needed to stay invisible until it was
-            done.
+            <span className="font-semibold text-slate-900">Why this product:</span> I built Starting Monday because
+            I ran my own C-suite search and found the process broken in a specific way. The job boards existed.
+            The recruiters existed. What did not exist was an intelligence layer for a confidential executive
+            campaign: early signals, decision-ready prep, and daily execution discipline.
           </p>
 
           <p>
-            I spent months building a manual version of what Starting Monday does now. Tracking target
-            companies. Logging every search firm conversation and every referral. Building the prep brief for
-            each interview from scratch. The process worked. But it took time that a search demands you spend
-            differently.
+            I spent months building a manual version of what Starting Monday does now: tracking target
+            companies, logging every search-firm conversation and referral, and rebuilding prep from scratch
+            before each interview. It worked, but it was too slow for how fast executive windows actually close.
           </p>
 
           <p>
-            Starting Monday is the automated version of what I built for myself. Early role intelligence from
-            the organizational signals that precede CIO searches. A pipeline that tracks every relationship
-            and every conversation. A prep brief that assembles your win thesis, likely objections, and
-            company-specific questions in sixty seconds.
+            Starting Monday is the automated version of that workflow: early role intelligence from the
+            organizational signals that precede C-suite searches, a pipeline that tracks every relationship,
+            and prep briefs that assemble your win thesis, likely objections, and company-specific questions
+            in sixty seconds.
           </p>
 
           <p>
-            The blog is the thinking that sits behind the platform. Everything here is what I wish I had read
-            before I started my search. Not generic career advice. The specific mechanics of how CIO searches
-            work, what search firms actually evaluate, how timing determines outcomes, and what preparation
-            looks like when it is done at the right level.
+            <span className="font-semibold text-slate-900">Why now:</span> executive hiring moved faster and quieter.
+            More searches are influenced before the role posts, and timing advantages compound quickly.
+            That makes reactive, posting-first search behavior a structural disadvantage for serious candidates.
+          </p>
+
+          <p>
+            Starting Monday uses Anthropic Claude to power the prep briefs, strategy documents, and briefings.
+            Not because it was the obvious choice &mdash; because the model calibrates better to executive-level
+            language than the alternatives, and because Anthropic&apos;s data handling policies align with the
+            privacy commitments we make on the security page. Your data is not used to train AI models.
+            Our API agreement with Anthropic enforces it.
           </p>
 
           <p>
             If you are a senior technology executive in active search or approaching one, the platform is
-            built for you.
+            built for you. If you are targeting the C-suite and want a better way to run a campaign, this is the place.
           </p>
+
+          <div className="pt-4 border-t border-slate-100">
+            <p className="text-[13px] font-semibold text-slate-900 mb-3">Start where you are:</p>
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <Link
+                href="/demo"
+                className="text-[13px] font-semibold text-slate-900 border border-slate-300 hover:border-slate-600 px-4 py-2 rounded transition-colors"
+              >
+                Run the live demo
+              </Link>
+              <Link
+                href="/pricing"
+                className="text-[13px] font-semibold text-slate-900 border border-slate-300 hover:border-slate-600 px-4 py-2 rounded transition-colors"
+              >
+                Review pricing
+              </Link>
+              <Link
+                href="/signup"
+                className="text-[13px] font-semibold text-slate-900 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition-colors"
+              >
+                Start free trial
+              </Link>
+            </div>
+          </div>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-4">
             <a
@@ -172,16 +200,16 @@ export default function AboutPage() {
           </p>
           <div className="space-y-4">
             {[
-              { href: '/blog/cio-board-presentation', label: 'How to Prepare for a Board Presentation as a New CIO' },
-              { href: '/blog/pe-backed-cio', label: 'What PE-Backed Companies Look for in a CIO' },
-              { href: '/blog/executive-resume-gaps', label: 'The Executive Resume Gaps That Kill CIO Candidacies' },
+              { href: '/blog/cio-board-presentation', label: 'How to Prepare for a Board Presentation as a New C-suite Technology Leader' },
+              { href: '/blog/pe-backed-cio', label: 'What PE-Backed Companies Look for in a C-suite Technology Operator' },
+              { href: '/blog/executive-resume-gaps', label: 'Executive Resume Gaps That Quietly Kill Senior Candidacies' },
               { href: '/blog/retained-search-firms', label: 'How to Work with Retained Search Firms Without Losing Leverage' },
-              { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from CIO Candidates' },
-              { href: '/blog/cio-job-search-timeline', label: 'How Long Does a CIO Job Search Really Take?' },
-              { href: '/blog/vp-to-cio-transition', label: 'How VPs of Technology Make the Move to CIO' },
-              { href: '/blog/ciso-interview-preparation', label: 'How to Prepare for a CISO Interview' },
+              { href: '/blog/executive-search-firms-cio', label: 'What Executive Search Firms Actually Want from Senior Technology Candidates' },
+              { href: '/blog/cio-job-search-timeline', label: 'How Long Does a Senior Executive Technology Search Really Take?' },
+              { href: '/blog/vp-to-cio-transition', label: 'How VPs of Technology Make the Move to the C-suite' },
+              { href: '/blog/ciso-interview-preparation', label: 'How to Prepare for a Security Leadership Interview' },
               { href: '/blog/what-companies-want-chief-data-officer', label: 'What Companies Actually Want in a Chief Data Officer' },
-              { href: '/blog/cio-compensation-negotiation', label: 'How to Negotiate CIO Compensation' },
+              { href: '/blog/cio-compensation-negotiation', label: 'How to Negotiate C-suite Technology Compensation' },
             ].map(post => (
               <Link
                 key={post.href}

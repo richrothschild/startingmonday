@@ -18,6 +18,30 @@ export default function TermsPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
+
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-8 py-7 mb-10">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">AI-Generated Content</p>
+          <h2 className="text-[18px] font-bold text-slate-900 mb-3 leading-snug">How to use Starting Monday outputs</h2>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            Starting Monday uses AI to generate interview prep briefs, positioning summaries, strategy analyses, outreach drafts, and signal interpretations.
+            These outputs are designed to inform your thinking — they are not professional advice.
+          </p>
+          <ul className="flex flex-col gap-2.5 text-[13px] text-slate-600">
+            {[
+              'Verify all company facts, leadership names, and role details before any conversation.',
+              'AI outputs reflect training data and may contain errors, outdated information, or gaps.',
+              'Do not rely on any Starting Monday output as legal, financial, or career advice.',
+              'Starting Monday is not responsible for decisions made based on AI-generated content.',
+              'Signal alerts indicate patterns — they do not guarantee that a role exists or will open.',
+            ].map(item => (
+              <li key={item} className="flex items-start gap-2.5">
+                <span className="text-slate-400 shrink-0 mt-0.5">–</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <script
           src="https://app.termly.io/embed-policy.min.js"
           data-auto-block="on"

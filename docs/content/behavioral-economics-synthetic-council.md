@@ -23,3 +23,15 @@
 **Main content/source:** Alchemy
 
 **Key points to apply:** Psychological value is real; seemingly irrational improvements can outperform rational optimization when they change perception, confidence, and behavior.
+
+---
+
+## Richard Thaler
+
+**Area of expertise:** Behavioral economics, choice architecture, and decision friction. Nudge design, default effects, incentives, and predictable irrationality.
+
+**First principles used by the council:** Small frictions create large behavior shifts; defaults matter; users do not behave like perfect rational agents.
+
+**Main content/source:** Nudge / Misbehaving
+
+**Key points to apply:** Use ethical nudges and better defaults, reduce avoidable choice overload, and align incentives so users complete valuable actions with less cognitive load.

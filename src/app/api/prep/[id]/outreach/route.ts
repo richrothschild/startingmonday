@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { createClient } from '@/lib/supabase/server'
+import { requirePrepAccess } from '@/lib/require-prep-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
 import { recordTrace, recordTraceError } from '@/lib/trace'
@@ -19,10 +18,9 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id: companyId } = await params
-  const auth = await requireAuth(request)
-  if (!auth.ok) return auth.response
-  const { userId } = auth
-  const supabase = await createClient()
+  const access = await requirePrepAccess(request)
+  if (!access.ok) return access.response
+  const { userId, supabase } = access
 
   // Fetch everything in parallel
   const [

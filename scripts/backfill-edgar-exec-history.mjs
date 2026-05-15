@@ -9,11 +9,13 @@
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs [options]
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --year 2024
  *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --start 2024-01-01 --end 2024-06-30
+ *   node --env-file=../.env.local scripts/backfill-edgar-exec-history.mjs --cik 29082 --year 2024
  *
  * Options:
  *   --year YYYY         Process a single calendar year (default: current year - 1)
  *   --start YYYY-MM-DD  Custom start date (overrides --year)
  *   --end YYYY-MM-DD    Custom end date (overrides --year)
+ *   --cik CIK           Target a single company via its EDGAR submissions JSON instead of EFTS scan
  *   --limit N           Stop after N filings (useful for testing, default: unlimited)
  *   --dry-run           Fetch + extract but do not write to DB
  *   --batch-size N      EFTS results per page (max 100, default: 50)
@@ -63,6 +65,7 @@ const DEBUG      = args.includes('--debug')
 const LIMIT      = getArg('--limit') ? parseInt(getArg('--limit'), 10) : Infinity
 const BATCH_SIZE = Math.min(100, parseInt(getArg('--batch-size', '50'), 10))
 const DELAY_MS   = parseInt(getArg('--delay-ms', '250'), 10)
+const CIK_FILTER = getArg('--cik')   // target a single company via submissions JSON
 const HAIKU      = 'claude-haiku-4-5-20251001'
 
 let startDate, endDate
@@ -76,11 +79,129 @@ if (getArg('--start') && getArg('--end')) {
   endDate   = `${year}-12-31`
 }
 
-console.log(`EDGAR 8-K 5.02 backfill: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+if (CIK_FILTER) {
+  console.log(`EDGAR 8-K 5.02 backfill [CIK ${CIK_FILTER}]: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+} else {
+  console.log(`EDGAR 8-K 5.02 backfill: ${startDate} to ${endDate}${DRY_RUN ? ' [DRY RUN]' : ''}`)
+}
 
 // ── main ──────────────────────────────────────────────────────────────────────
 
-await run()
+await (CIK_FILTER ? runForCik(CIK_FILTER) : run())
+
+// ── CIK-targeted run (uses submissions JSON, not EFTS) ────────────────────────
+
+async function runForCik(cikRaw) {
+  const cik    = cikRaw.replace(/^0+/, '')
+  const padded = cik.padStart(10, '0')
+
+  console.log(`Fetching submissions for CIK ${cik}...`)
+  await sleep(DELAY_MS)
+  const sub = await fetchJSON(`https://data.sec.gov/submissions/CIK${padded}.json`)
+  if (!sub) { console.error('Could not fetch submissions JSON'); return }
+
+  const entityName = sub.name ?? cik
+  console.log(`Entity: ${entityName}`)
+
+  // submissions JSON splits filings into recent + older pages under filings.files
+  const filePages = sub.filings?.files ?? []
+  console.log(`Filing pages in submissions JSON: ${filePages.length + 1} (recent + ${filePages.length} older)`)
+  filePages.forEach(f => console.log(`  page: ${f.name} [${f.filingFrom} to ${f.filingTo}]`))
+
+  const pages = [sub.filings?.recent ?? {}]
+  for (const f of filePages) {
+    if (!f.name) continue
+    // Each file covers a date range — skip pages entirely outside our window
+    const pageEnd = f.filingTo ?? ''
+    if (pageEnd && pageEnd < startDate) {
+      console.log(`  skipping page ${f.name} (ends ${pageEnd} before ${startDate})`)
+      continue
+    }
+    await sleep(DELAY_MS)
+    const page = await fetchJSON(`https://data.sec.gov/submissions/${f.name}`)
+    if (page) pages.push(page)
+  }
+
+  let processed = 0, inserted = 0, skipped = 0, failed = 0
+  let diag8k = 0, diagDatePass = 0, diagItemPass = 0
+
+  outer: for (const page of pages) {
+    const accessions = page.accessionNumber ?? []
+    const forms      = page.form            ?? []
+    const dates      = page.filingDate      ?? []
+    const itemsList  = page.items           ?? []
+
+    for (let i = 0; i < accessions.length; i++) {
+      if (processed >= LIMIT) break outer
+
+      if ((forms[i] ?? '') !== '8-K') continue
+      diag8k++
+
+      const fileDate = dates[i] ?? ''
+      const itemsStr = itemsList[i] ?? ''
+
+      if (fileDate >= startDate && fileDate <= endDate) diagDatePass++
+      if ((!itemsStr || itemsStr.includes('5.02')) && fileDate >= startDate && fileDate <= endDate) diagItemPass++
+
+      if (itemsStr && !itemsStr.includes('5.02')) continue
+      if (fileDate < startDate || fileDate > endDate) continue
+
+      const accession = accessions[i]
+
+      const alreadyLoaded = await isAlreadyLoaded(accession)
+      if (alreadyLoaded) { skipped++; continue }
+
+      processed++
+      await sleep(DELAY_MS)
+
+      const primaryDoc = await getFilingPrimaryDoc(cik, accession)
+      if (!primaryDoc) {
+        console.log(`  [skip] ${accession} - could not resolve primary document`)
+        skipped++
+        continue
+      }
+
+      const docUrl = `${EDGAR_ARCHIVE}/${cik}/${accession.replace(/-/g, '')}/${primaryDoc}`
+      await sleep(DELAY_MS)
+
+      const section = await fetchItemSection(docUrl)
+      if (!section) {
+        if (DEBUG) console.log(`  [skip] ${accession} - no Item 5.02 section found`)
+        skipped++
+        continue
+      }
+
+      const executives = await extractWithHaiku(section, entityName, fileDate)
+      if (!executives || executives.length === 0) {
+        console.log(`  [skip] ${accession} - Haiku extracted no executives`)
+        skipped++
+        continue
+      }
+
+      console.log(`  [${processed}] ${entityName} | ${fileDate} | ${executives.length} exec(s) | ${accession}`)
+
+      if (DRY_RUN) {
+        for (const ex of executives) console.log('    ', JSON.stringify(ex))
+        continue
+      }
+
+      const writeOk = await writeExecutives(executives, {
+        companyName: entityName,
+        companyCik:  cik,
+        filingDate:  fileDate,
+        accession,
+        sourceUrl:   docUrl,
+      })
+      if (writeOk) inserted++
+      else failed++
+    }
+  }
+
+  console.log(`\nDiag: 8-Ks seen=${diag8k} in-date-range=${diagDatePass} item-5.02-candidates=${diagItemPass}`)
+  console.log(`Done. processed=${processed} inserted=${inserted} skipped=${skipped} failed=${failed}`)
+}
+
+// ── EFTS full-scan run (original) ────────────────────────────────────────────
 
 async function run() {
   let offset = 0
@@ -385,8 +506,8 @@ async function writeExecutives(executives, { companyName, companyCik, filingDate
         company_cik:          companyCik,
         title:                ex.title,
         title_normalized:     ex.title_normalized ?? null,
-        start_date:           ex.start_date ?? null,
-        end_date:             ex.end_date ?? (ex.event_type !== 'appointment' ? filingDate : null),
+        start_date:           normalizeDate(ex.start_date),
+        end_date:             normalizeDate(ex.end_date) ?? (ex.event_type !== 'appointment' ? filingDate : null),
         is_current:           ex.is_current ?? false,
         departure_type:       ex.departure_type ?? null,
         departure_trigger:    ex.departure_trigger ?? null,
@@ -412,6 +533,23 @@ async function writeExecutives(executives, { companyName, companyCik, filingDate
     console.error('  writeExecutives error:', err.message)
     return false
   }
+}
+
+// ── date normalization ────────────────────────────────────────────────────────
+
+const QUARTER_STARTS = { Q1: '01-01', Q2: '04-01', Q3: '07-01', Q4: '10-01' }
+
+function normalizeDate(value) {
+  if (!value || typeof value !== 'string') return null
+  const v = value.trim()
+  // Already a valid ISO date
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v
+  // "2020-Q1" or "2020Q1"
+  const qMatch = v.match(/^(\d{4})[- ]?Q([1-4])$/i)
+  if (qMatch) return `${qMatch[1]}-${QUARTER_STARTS[`Q${qMatch[2]}`]}`
+  // Year only "2020"
+  if (/^\d{4}$/.test(v)) return `${v}-01-01`
+  return null
 }
 
 // ── fetch utilities ───────────────────────────────────────────────────────────

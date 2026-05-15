@@ -3,6 +3,14 @@ import { JsonLd } from '@/components/JsonLd'
 import { getRelated } from '@/lib/blog-posts'
 import type { BlogPostMeta } from '@/lib/blog-posts'
 
+interface BlogCta {
+  headline: string
+  body: string
+  label: string
+  href: string
+  note?: string
+}
+
 interface BlogPostProps {
   title: string
   description: string
@@ -10,6 +18,7 @@ interface BlogPostProps {
   readTime: string
   url: string
   slug?: string
+  cta?: BlogCta
   children: React.ReactNode
 }
 
@@ -17,7 +26,16 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-export function BlogPost({ title, description, date, readTime, url, slug, children }: BlogPostProps) {
+const DEFAULT_CTA: BlogCta = {
+  headline: 'The infrastructure for a more deliberate C-suite search.',
+  body: 'Pipeline tracking, early role intelligence, interview prep briefs, and a daily briefing assembled from your actual targets. Free 30-day trial.',
+  label: 'Start your campaign →',
+  href: '/signup',
+  note: 'No credit card. Cancel any time.',
+}
+
+export function BlogPost({ title, description, date, readTime, url, slug, cta, children }: BlogPostProps) {
+  const activeCta = cta ?? DEFAULT_CTA
   const derivedSlug = slug ?? url.split('/').pop() ?? ''
   const relatedPosts: BlogPostMeta[] = derivedSlug ? getRelated(derivedSlug) : []
 
@@ -132,18 +150,35 @@ export function BlogPost({ title, description, date, readTime, url, slug, childr
             Starting Monday
           </p>
           <h2 className="text-[24px] sm:text-[28px] font-bold text-white mb-3 leading-snug">
-            The infrastructure for a more deliberate search.
+            {activeCta.headline}
           </h2>
           <p className="text-[14px] text-slate-400 mb-7 leading-relaxed max-w-lg">
-            Pipeline tracking, early role intelligence, interview prep briefs, and a daily briefing assembled from your actual targets. Free 30-day trial.
+            {activeCta.body}
           </p>
-          <Link
-            href="/signup"
-            className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
-          >
-            Start your campaign &rarr;
-          </Link>
-          <p className="text-[12px] text-slate-400 mt-3">No credit card. Cancel any time.</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href={activeCta.href}
+              className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors text-center"
+            >
+              {activeCta.label}
+            </Link>
+            <Link
+              href="/demo"
+              className="inline-block border border-slate-600 text-slate-200 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors text-center"
+            >
+              Run the live demo
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-block border border-slate-600 text-slate-200 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors text-center"
+            >
+              Compare tiers
+            </Link>
+          </div>
+          <p className="text-[12px] text-slate-400 mt-3">
+            Start with demo if you want proof, pricing if you want to choose a tier, or trial if you are ready to move.
+          </p>
+          {activeCta.note && <p className="text-[12px] text-slate-400 mt-3">{activeCta.note}</p>}
         </div>
       </section>
 

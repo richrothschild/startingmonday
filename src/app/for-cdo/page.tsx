@@ -4,8 +4,8 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for CDOs - Chief Digital Officer Search Campaign Infrastructure',
-  description: 'Campaign infrastructure for Chief Digital Officers in active search. Know the mandate before the first conversation, track transformation signals, and position yourself precisely for the right organization. Free 30-day trial.',
+  title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search Campaign Infrastructure',
+  description: 'Campaign infrastructure for C-suite digital leaders in active search. Know the mandate before the first conversation, track transformation signals, and position yourself precisely for the right organization. Free 30-day trial.',
   keywords: [
     'CDO job search',
     'Chief Digital Officer job search',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'chief digital officer search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for CDOs - Chief Digital Officer Search',
+    title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search',
     description: 'Digital transformation mandates are being absorbed, restructured, and redefined. The CDO who wins knows exactly which mandate they are walking into.',
     url: 'https://startingmonday.app/for-cdo',
     type: 'website',
@@ -127,3 +127,4 @@ export default function ForCdoPage() {
     </>
   )
 }
+

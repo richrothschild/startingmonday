@@ -72,3 +72,70 @@ Health check: `GET /api/health` (returns uptime, timestamp, version)
 - [Architecture](docs/architecture.md) — infrastructure, schema, API patterns, environment variables
 - [Product Roadmap](docs/product-roadmap.md) — what is built and what is planned
 - [Backlog](docs/backlog.md) — validated ideas deferred from the active roadmap
+
+## Sprint 3 Evals Commands
+
+Prep brief labeling and golden-set workflow commands:
+
+```bash
+# Label progress
+npm run evals:label-progress
+npm run evals:label-progress:json
+npm run evals:label-progress:strict
+npm run evals:label-progress:strict:json
+
+# Golden set export and verification
+npm run evals:export-golden-set
+npm run evals:export-golden-set:dry-run
+npm run evals:export-golden-set:json
+npm run evals:export-golden-set:dry-run:json
+npm run evals:verify-golden-set
+npm run evals:verify-golden-set:json
+npm run evals:verify-golden-set:strict
+npm run evals:verify-golden-set:strict:json
+
+# Combined readiness gate
+npm run evals:readiness
+npm run evals:readiness:json
+npm run evals:readiness:strict
+npm run evals:readiness:strict:json
+npm run evals:readiness:md
+npm run evals:readiness:summary
+npm run evals:readiness:summary:strict
+npm run evals:readiness:snapshot
+npm run evals:readiness:snapshot:json
+
+# One-command closeout flow
+npm run evals:closeout       # doctor -> readiness -> export -> strict verify
+npm run evals:closeout:dry-run
+npm run evals:closeout:force
+npm run evals:closeout:json
+
+# Command index
+npm run evals:help
+npm run evals:help:status
+npm run evals:help:json
+npm run evals:help:status:json
+
+# Prerequisite check
+npm run evals:doctor
+npm run evals:doctor:json
+npm run evals:doctor:strict
+npm run evals:doctor:strict:json
+
+# CI gate
+npm run evals:ci:check
+npm run evals:ci:check:json
+
+# Sprint 3 completion helpers
+npm run evals:seed:traces
+npm run evals:seed:traces:dry-run
+npm run evals:sprint3:dod
+npm run evals:sprint3:dod:json
+npm run evals:sprint3:dod:strict
+```
+
+Primary labeling UI:
+
+- `/dashboard/admin/traces?feature=prep_brief&unrated=1`
+- `/dashboard/admin/traces/rubric`

@@ -127,6 +127,57 @@ export default function SecurityPage() {
           </section>
 
           <section className="pt-10">
+            <h2 className="text-[16px] font-bold text-slate-900 mb-4">AI governance and regulatory compliance</h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+              Senior executives at enterprise companies are fielding AI governance questions from their own boards and legal teams. Starting Monday processes career data that falls under these frameworks. Here is our position.
+            </p>
+            <ul className="space-y-4 text-[14px] text-slate-600 mb-4">
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span><strong className="text-slate-800">CCPA:</strong> California residents can request access to, correction of, or deletion of all personal data at any time. Use the account deletion option in Settings. We do not sell personal information and have never sold personal information.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span><strong className="text-slate-800">EU AI Act:</strong> Starting Monday uses AI to generate career documents &mdash; prep briefs, outreach drafts, and strategy summaries. This is an assistive tool that produces draft output for human review. No automated decisions are made about users. All outputs are reviewed and acted on by the user, not by automated systems acting on their behalf.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span><strong className="text-slate-800">Enterprise procurement:</strong> If your organization requires AI vendor documentation, a data processing agreement (DPA), or AI usage disclosure for procurement review, contact us at{' '}<a href="mailto:hello@startingmonday.app" className="text-slate-800 underline">hello@startingmonday.app</a>. We provide these on request.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span><strong className="text-slate-800">AI model choice:</strong> We use Anthropic Claude. Anthropic does not use API data to train models under our agreement. We chose Anthropic specifically because of how they handle data and because the model calibrates better to executive-level language than the alternatives.</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="pt-10">
+            <h2 className="text-[16px] font-bold text-slate-900 mb-4">Incident response</h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+              If we detect unauthorized access to your data, here is what we do and when.
+            </p>
+            <ul className="space-y-3 text-[14px] text-slate-600 mb-4">
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span>We contain and investigate the incident within 24 hours of detection.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span>We notify affected users by email within 72 hours of confirming a breach. The notification includes: what data was accessed, when the incident occurred, what we have done to contain it, and what steps you can take.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span>We cooperate with law enforcement and provide required regulatory notifications under applicable law.</span>
+              </li>
+            </ul>
+            <p className="text-[14px] text-slate-600 leading-relaxed">
+              To report a suspected security vulnerability or incident, email{' '}
+              <a href="mailto:hello@startingmonday.app" className="text-slate-800 underline">hello@startingmonday.app</a>
+              {' '}immediately. We respond to all security disclosures within one business day.
+            </p>
+          </section>
+
+          <section className="pt-10">
             <h2 className="text-[16px] font-bold text-slate-900 mb-4">Questions</h2>
             <p className="text-[14px] text-slate-600 leading-relaxed">
               If you have a security question, a disclosure, or a data request, contact us directly at{' '}

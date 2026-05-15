@@ -21,7 +21,7 @@ const PLANS = [
     description: 'Stop running a reactive search. Prep briefs, pipeline tracking, intelligence, outreach, and a daily briefing. From one place.',
     featured: true,
     features: [
-      'Everything in Passive',
+      'Everything in Monitor',
       'AI interview prep briefs',
       'Search strategy brief',
       'AI chat advisor',
@@ -32,7 +32,7 @@ const PLANS = [
   },
   {
     ...PRICING.executive,
-    description: 'For C-suite candidates who need daily intelligence, unlimited pipeline, and Opus-grade prep briefs.',
+    description: 'For executives who want the analysis done, the brief written, and the intelligence running at full depth. Not data to work from.',
     featured: false,
     features: [
       'Everything in Active',
@@ -48,7 +48,7 @@ const PLANS = [
 ]
 
 function Check() {
-  return <span className="text-emerald-500 shrink-0 mt-0.5 font-bold text-[13px]">&#10003;</span>
+  return <span className="text-orange-500 shrink-0 mt-0.5 font-bold text-[12px]">+</span>
 }
 
 export function PricingCards() {
@@ -57,9 +57,12 @@ export function PricingCards() {
   return (
     <>
       {/* Anchor sentence */}
-      <p className="text-center text-[14px] text-slate-500 mb-8 max-w-xl mx-auto leading-relaxed">
+      <p className="text-center text-[14px] text-slate-500 mb-3 max-w-xl mx-auto leading-relaxed">
         One hour with an executive coach runs $300 to $500.
         Starting Monday is ${PRICING.active.monthly} a month and runs every day.
+      </p>
+      <p className="text-center text-[13px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
+        Missing one signal on a company you are tracking — a leadership departure, a funding event, a quiet job posting — costs more than a year of this subscription.
       </p>
 
       {/* Interval toggle */}
@@ -85,6 +88,15 @@ export function PricingCards() {
             2 months free
           </span>
         )}
+      </div>
+
+      {/* Privacy assurance — visible before plan cards for Arc 2 users */}
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <span className="text-green-600 font-bold text-[13px]">&#10003;</span>
+        <p className="text-[13px] text-slate-500">
+          Your employer cannot see your account or your search activity.{' '}
+          <Link href="/privacy#employer" className="underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
+        </p>
       </div>
 
       {/* Plan cards */}

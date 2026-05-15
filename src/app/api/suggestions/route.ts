@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { checkBurstLimit } from '@/lib/burst-limit'
+import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
 
@@ -18,6 +20,13 @@ export async function GET(request: NextRequest) {
   const sub = await getUserSubscription(userId, supabase)
   if (!canAccessFeature(sub, 'scan')) {
     return NextResponse.json({ companies: [], recruiters: [] })
+  }
+
+  if (!checkBurstLimit(userId)) {
+    return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
+  }
+  if (await isRateLimited(supabase, userId)) {
+    return NextResponse.json({ error: 'Monthly token limit reached.' }, { status: 429 })
   }
 
   const { data: profile } = await supabase

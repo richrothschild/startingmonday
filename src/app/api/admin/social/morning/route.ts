@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
@@ -78,8 +79,7 @@ Write only the post text. Nothing else.`,
 }
 
 export async function GET(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get('secret')
-  if (!secret || secret !== process.env.CRON_SECRET) {
+  if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 

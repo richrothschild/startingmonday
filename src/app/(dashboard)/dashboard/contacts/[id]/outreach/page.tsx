@@ -13,7 +13,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
   const [{ data: contact }, { data: history }, { data: profileData }] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, email, linkedin_url, companies(name)')
+      .select('id, name, title, firm, channel, notes, email, linkedin_url, company_id, companies(name)')
       .eq('id', id)
       .eq('user_id', user.id)
       .single(),
@@ -31,6 +31,18 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
       .eq('user_id', user.id)
       .single(),
   ])
+
+  const companyId = (contact as typeof contact & { company_id?: string | null })?.company_id ?? null
+  const { data: recentSignals } = companyId
+    ? await supabase
+        .from('company_signals')
+        .select('id, signal_type, signal_summary, signal_date')
+        .eq('company_id', companyId)
+        .eq('user_id', user.id)
+        .neq('signal_type', 'pattern_alert')
+        .order('signal_date', { ascending: false })
+        .limit(3)
+    : { data: null }
 
   if (!contact) notFound()
 
@@ -66,6 +78,11 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
       profileScore={profileScore}
       roleType={profileData?.role_type ?? null}
       fullName={profileData?.full_name ?? null}
+      recentSignals={(recentSignals ?? []).map(s => ({
+        signalType: s.signal_type,
+        summary: s.signal_summary,
+        date: s.signal_date,
+      }))}
     />
   )
 }

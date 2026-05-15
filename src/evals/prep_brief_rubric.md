@@ -1,4 +1,5 @@
 # Prep Brief Rubric v1
+
 **Status:** Draft - not yet validated against labeled traces
 **Beachhead feature:** prep_brief
 **Last updated:** 2026-05-08
@@ -38,7 +39,7 @@ No claim in the brief is identifiably wrong based on available information. This
 ## Failure Taxonomy (from open coding - update as you find new patterns)
 
 | Category | Description | Example failure |
-|---|---|---|
+| --- | --- | --- |
 | `company_context_thin` | Generic company description, misses specific business model or recent events | "Company X is a technology leader in their space" |
 | `role_fit_not_established` | No connection between candidate's background and this specific role | Win Thesis reads like a generic cover letter |
 | `questions_too_generic` | Questions could apply to any company or any exec | "What does success look like in the first 90 days?" |
@@ -53,7 +54,7 @@ No claim in the brief is identifiably wrong based on available information. This
 ## Optimization log
 
 | Date | Change | Before (fail rate) | After (fail rate) | Notes |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | - | Rubric created | - | - | Not yet validated |
 
 ---
