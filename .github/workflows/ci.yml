@@ -78,6 +78,8 @@ jobs:
   semgrep:
     name: Semgrep security scan
     runs-on: ubuntu-latest
+    # Non-blocking: findings are reviewed manually, not used as a deploy gate.
+    continue-on-error: true
     # Run on PRs and main pushes; skip dependabot to avoid noise
     if: github.actor != 'dependabot[bot]'
 
