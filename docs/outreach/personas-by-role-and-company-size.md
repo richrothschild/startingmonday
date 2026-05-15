@@ -1241,3 +1241,11 @@ This framework segments target C-suite personas across three company size bands.
 - Keep direct outbound as a support channel, not the primary channel.
 - Build messaging for pre-search intelligence, since many mid-market executives evaluate before formal search engagement.
 
+---
+
+## Related Document
+
+For search-firm segmentation, B2C and B2B sweet spots, and prioritized target firms, see:
+
+- [Search Firm Personas by Size and Specialty](docs/outreach/search-firm-personas-by-size-and-specialty.md)
+
