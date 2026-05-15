@@ -29,8 +29,10 @@ const DECISION_QUESTIONS = [
 const CORE_VALUE = [
   'Find role-shaping opportunity windows before postings become public.',
   'Turn raw market movement into decision-ready daily actions.',
+  'Improve executive search behavior: fewer reactive moves, more consistent high-leverage actions.',
+  'Strengthen relationship quality with better-timed, better-context outreach.',
   'Prepare outreach and interview narrative at executive depth, not job-board depth.',
-  'Run a disciplined campaign with less noise and tighter follow-through.',
+  'Run a disciplined campaign with less noise and tighter follow-through to land the right-fit role.',
 ]
 
 const KEY_OBJECTIONS = [
@@ -110,7 +112,7 @@ export default function MarkReviewPage() {
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is</p>
             <p className="text-[15px] text-slate-700 leading-relaxed">
-              Starting Monday is an execution platform for C-suite technology executives in search. It is designed to help serious buyers move earlier, prepare better, and run a tighter campaign.
+              Starting Monday is an execution platform for C-suite technology executives in search. It is designed to improve search behavior and relationship quality so serious buyers move earlier, prepare better, and land the right role for them, not just the first available role.
             </p>
           </section>
 
