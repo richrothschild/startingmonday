@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { getStaffMember } from '@/lib/staff'
 
 const VALID_SOURCES = new Set(['manual', 'unsubscribe', 'bounce', 'complaint', 'system'])
 
@@ -17,6 +18,13 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
   const { userId } = auth
 
+  const supabase = await createClient()
+  const { data: authData } = await supabase.auth.getUser()
+  const staff = await getStaffMember(authData.user?.email ?? '')
+  if (!staff) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const body = await request.json().catch(() => null)
   const email = normalizeEmail(body?.email)
   const reason = (body?.reason ?? 'manual').toString().trim() || 'manual'
@@ -29,7 +37,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid source.' }, { status: 400 })
   }
 
-  const supabase = await createClient()
   const sb = supabase as any
 
   const { error } = await sb

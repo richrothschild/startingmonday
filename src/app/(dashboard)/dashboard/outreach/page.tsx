@@ -1,15 +1,17 @@
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { OutreachHubClient } from './outreach-hub-client'
+import { getStaffMember } from '@/lib/staff'
 
 export const metadata = {
   title: 'Outreach Hub - Starting Monday',
 }
 
 type CsvRow = Record<string, string>
+type OutreachChannel = 'executives' | 'search_firms' | 'coaches'
 
 type CsvSummary = {
   rowCount: number
@@ -115,6 +117,11 @@ function buildDefaultSubject(row: CsvRow): string {
   return `A specific ${role} angle for ${row.company}`
 }
 
+function normalizeFitTier(raw: string | undefined): 'strong' | 'medium' {
+  const fit = (raw ?? '').trim().toLowerCase()
+  return fit === 'medium' ? 'medium' : 'strong'
+}
+
 function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): CsvSummary {
   const byName = new Map<string, CsvRow>()
   for (const row of firstTouch.rows) {
@@ -139,6 +146,21 @@ async function readOutreachCsv(fileName: string): Promise<CsvSummary> {
   return parseCsv(content)
 }
 
+type ClientRow = {
+  fullName: string
+  roleBucket: string
+  company: string
+  email: string
+  status: string
+  emailOpening: string
+  emailBodyCore: string
+  defaultSubject: string
+  defaultBody: string
+  outreachChannel: OutreachChannel
+  fitTier: 'strong' | 'medium'
+  personaFocus: string
+}
+
 type ContactStatusRow = {
   email: string | null
   outreach_status: string | null
@@ -159,46 +181,94 @@ export default async function OutreachHubPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: profile } = await supabase
-    .from('user_profiles')
-    .select('full_name, onboarding_completed_at')
-    .eq('user_id', user.id)
-    .single()
+  const staff = await getStaffMember(user.email ?? '')
+  if (!staff) notFound()
 
-  if (!profile?.onboarding_completed_at) {
-    redirect('/onboarding')
-  }
-
-  const [master50Raw, firstTouch, followUps, rawContactStatuses] = await Promise.all([
-    readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
+  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, rawContactStatuses] = await Promise.all([
+    readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
-    readOutreachCsv('send_ready_followups_first_10.csv'),
+    readOutreachCsv('search_firms_prospecting_100.csv'),
+    readOutreachCsv('coaches_prospecting_100.csv'),
     supabase
       .from('contacts')
       .select('email, outreach_status')
       .eq('user_id', user.id)
       .eq('status', 'active'),
   ])
-  const master50 = mergeFirstTouch(master50Raw, firstTouch)
+  const executives = mergeFirstTouch(executiveRaw, firstTouch)
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
 
-  const clientRows = master50.rows.map((row) => {
-    const email = (row.email_guess ?? '').trim().toLowerCase()
-    const dbStatus = mappedStatuses.get(email)
-    return {
+  const allRows: ClientRow[] = [
+    ...executives.rows.map((row) => ({
       fullName: row.full_name ?? '',
-      roleBucket: row.role_bucket ?? 'VP',
+      roleBucket: row.role_bucket ?? 'Executive',
       company: row.company ?? '',
-      email,
-      status: dbStatus ?? normalizeStatus(row.status),
+      email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       defaultSubject: row.default_subject ?? buildDefaultSubject(row),
       defaultBody: row.default_body ?? buildDefaultBody(row),
-    }
-  }).filter(row => !!row.fullName && !!row.email)
+      outreachChannel: 'executives' as const,
+      fitTier: normalizeFitTier(row.fit_tier),
+      personaFocus: row.persona_focus ?? row.role_bucket ?? 'C-suite transitions',
+    })),
+    ...searchFirmRaw.rows.map((row) => ({
+      fullName: row.full_name ?? '',
+      roleBucket: row.role_bucket ?? 'Partner',
+      company: row.company ?? '',
+      email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      status: normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: row.email_body_core ?? '',
+      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
+      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
+      outreachChannel: 'search_firms' as const,
+      fitTier: normalizeFitTier(row.fit_tier),
+      personaFocus: row.persona_focus ?? 'CFO, COO, CIO, CHRO, CRO searches',
+    })),
+    ...coachRaw.rows.map((row) => ({
+      fullName: row.full_name ?? '',
+      roleBucket: row.role_bucket ?? 'Executive Coach',
+      company: row.company ?? '',
+      email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      status: normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: row.email_body_core ?? '',
+      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
+      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
+      outreachChannel: 'coaches' as const,
+      fitTier: normalizeFitTier(row.fit_tier),
+      personaFocus: row.persona_focus ?? 'CIO, CTO, CISO, COO, CFO transitions',
+    })),
+  ].filter(row => !!row.fullName && !!row.email)
 
-  const fromAddressLabel = process.env.OUTREACH_FROM_ADDRESS ?? 'Richard Rothschild <richard@startingmonday.app>'
+  const dedupedByEmail = new Map<string, ClientRow>()
+  for (const row of allRows) {
+    const dbStatus = mappedStatuses.get(row.email)
+    const normalized = {
+      ...row,
+      status: dbStatus ?? row.status,
+    }
+    if (!dedupedByEmail.has(row.email)) {
+      dedupedByEmail.set(row.email, normalized)
+      continue
+    }
+
+    const existing = dedupedByEmail.get(row.email)!
+    if (existing.fitTier === 'medium' && normalized.fitTier === 'strong') {
+      dedupedByEmail.set(row.email, normalized)
+    }
+  }
+
+  const clientRows = Array.from(dedupedByEmail.values())
+  const executiveCount = clientRows.filter(r => r.outreachChannel === 'executives').length
+  const searchFirmCount = clientRows.filter(r => r.outreachChannel === 'search_firms').length
+  const coachCount = clientRows.filter(r => r.outreachChannel === 'coaches').length
+  const strongCount = clientRows.filter(r => r.fitTier === 'strong').length
+  const mediumCount = clientRows.filter(r => r.fitTier === 'medium').length
+
+  const fromAddressLabel = 'Richard Rothschild <richard@startingmonday.app>'
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -217,25 +287,27 @@ export default async function OutreachHubPage() {
         <div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1">
-            Internal outbound operating center: send queue, follow-ups, and personalized target list.
+            Internal outbound operating center: executives, search firms, and coaches with one-click send and auto follow-up reminders.
           </p>
         </div>
 
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Personalized Prospects</p>
-            <p className="text-[24px] font-bold text-slate-900">{master50.rowCount}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Master list rows</p>
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Total Prospects</p>
+            <p className="text-[24px] font-bold text-slate-900">{clientRows.length}</p>
+            <p className="text-[12px] text-slate-500 mt-1">Deduped across all channels</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">First Touch</p>
-            <p className="text-[24px] font-bold text-slate-900">{firstTouch.rowCount}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Ready-to-send emails</p>
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">By Channel</p>
+            <p className="text-[13px] font-semibold text-slate-900 mt-1">Executives: {executiveCount}</p>
+            <p className="text-[13px] font-semibold text-slate-900">Search Firms: {searchFirmCount}</p>
+            <p className="text-[13px] font-semibold text-slate-900">Coaches: {coachCount}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Follow-Ups</p>
-            <p className="text-[24px] font-bold text-slate-900">{followUps.rowCount}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Automated sequence rows</p>
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>
+            <p className="text-[13px] font-semibold text-slate-900 mt-1">Strong fit: {strongCount}</p>
+            <p className="text-[13px] font-semibold text-slate-900">Medium fit: {mediumCount}</p>
+            <p className="text-[12px] text-slate-500 mt-1">Strong-fit rows should be worked first</p>
           </div>
         </section>
 

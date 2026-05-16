@@ -7,12 +7,13 @@ type Props = {
   id: string
   action: string
   dueDate: string
+  googleEventUrl?: string | null
   today: string
   overdue: boolean
   label: string
 }
 
-export function CalendarItemClient({ id, action, dueDate, today, overdue, label }: Props) {
+export function CalendarItemClient({ id, action, dueDate, googleEventUrl, today, overdue, label }: Props) {
   const router = useRouter()
   const [hidden, setHidden] = useState(false)
   const [pending, startTransition] = useTransition()
@@ -39,6 +40,16 @@ export function CalendarItemClient({ id, action, dueDate, today, overdue, label 
       <div className="flex-1 min-w-0">
         <p className="text-[14px] font-semibold text-slate-900 leading-tight">{action}</p>
         {label && <p className="text-[12px] text-slate-400 mt-0.5">{label}</p>}
+        {googleEventUrl && (
+          <a
+            href={googleEventUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block text-[11px] text-slate-600 underline mt-1"
+          >
+            Add to Google Calendar
+          </a>
+        )}
       </div>
       <span className={`shrink-0 text-[11px] font-semibold mt-0.5 ${overdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
         {dateLabel}

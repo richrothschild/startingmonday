@@ -3,13 +3,12 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
 import { reviewEmail } from '@/lib/email-quality'
+import { getStaffMember } from '@/lib/staff'
 
 const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'])
 const VALID_MODES = new Set(['live', 'dry_run', 'test_to_self'])
-
-const MAX_LIVE_SENDS_PER_DAY = 40
-const MAX_LIVE_SENDS_PER_HOUR = 12
-const RECIPIENT_COOLDOWN_HOURS = 24
+const VALID_OUTREACH_CHANNELS = new Set(['executives', 'search_firms', 'coaches'])
+const PACIFIC_TZ = 'America/Los_Angeles'
 
 const SPAMMY_PHRASES = [
   'guaranteed',
@@ -51,25 +50,41 @@ function withComplianceFooter(messageText: string): string {
   ].join('\n')
 }
 
-function warmupCaps(daysSinceFirstSend: number | null): { dailyCap: number; hourlyCap: number; phase: string } {
-  if (daysSinceFirstSend === null) {
-    return { dailyCap: 10, hourlyCap: 4, phase: 'new' }
-  }
-  if (daysSinceFirstSend < 7) {
-    return { dailyCap: 15, hourlyCap: 5, phase: 'week_1' }
-  }
-  if (daysSinceFirstSend < 14) {
-    return { dailyCap: 25, hourlyCap: 8, phase: 'week_2' }
-  }
-  return { dailyCap: MAX_LIVE_SENDS_PER_DAY, hourlyCap: MAX_LIVE_SENDS_PER_HOUR, phase: 'mature' }
-}
-
 function firstName(fullName: string): string {
   return fullName.trim().split(/\s+/)[0]?.toLowerCase() ?? ''
 }
 
 function extractUrls(text: string): string[] {
   return text.match(/https?:\/\/[^\s)]+/gi) ?? []
+}
+
+function pacificTodayISO(): string {
+  return new Date().toLocaleDateString('en-CA', { timeZone: PACIFIC_TZ })
+}
+
+function addBusinessDays(isoDate: string, businessDays: number): string {
+  const d = new Date(`${isoDate}T00:00:00Z`)
+  let remaining = businessDays
+  while (remaining > 0) {
+    d.setUTCDate(d.getUTCDate() + 1)
+    const day = d.getUTCDay()
+    if (day !== 0 && day !== 6) remaining--
+  }
+  return d.toISOString().slice(0, 10)
+}
+
+function buildGoogleCalendarUrl(input: { title: string; details: string; dateISO: string }): string {
+  const start = `${input.dateISO.replace(/-/g, '')}T170000Z`
+  const endDate = new Date(`${input.dateISO}T00:00:00Z`)
+  endDate.setUTCDate(endDate.getUTCDate() + 1)
+  const end = `${endDate.toISOString().slice(0, 10).replace(/-/g, '')}T000000Z`
+  const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+  const q = new URLSearchParams({
+    text: input.title,
+    dates: `${start}/${end}`,
+    details: input.details,
+  })
+  return `${base}&${q.toString()}`
 }
 
 function evaluateGuardrails(input: {
@@ -143,10 +158,21 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
   const { userId } = auth
 
+  const supabase = await createClient()
+  const { data: authData } = await supabase.auth.getUser()
+  const senderUserEmail = authData.user?.email?.toLowerCase() ?? ''
+  const staff = await getStaffMember(authData.user?.email ?? '')
+  if (!staff) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const body = await request.json().catch(() => null)
   const fullName = (body?.fullName ?? '').toString().trim()
   const company = (body?.company ?? '').toString().trim()
   const roleBucket = (body?.roleBucket ?? '').toString().trim().toLowerCase()
+  const outreachChannel = (body?.outreachChannel ?? 'executives').toString().trim().toLowerCase()
+  const fitTier = (body?.fitTier ?? '').toString().trim().toLowerCase()
+  const personaFocus = (body?.personaFocus ?? '').toString().trim()
   const emailTo = normalizeEmail(body?.emailTo)
   const subject = (body?.subject ?? '').toString().trim()
   const messageText = (body?.messageText ?? '').toString().trim()
@@ -165,21 +191,21 @@ export async function POST(request: NextRequest) {
   if (!VALID_MODES.has(mode)) {
     return NextResponse.json({ error: 'Invalid mode.' }, { status: 400 })
   }
+  if (!VALID_OUTREACH_CHANNELS.has(outreachChannel)) {
+    return NextResponse.json({ error: 'Invalid outreachChannel.' }, { status: 400 })
+  }
 
   const guardrail = evaluateGuardrails({ subject, messageText, fullName, company, mode })
   if (guardrail.violations.length > 0) {
     return NextResponse.json({ error: 'Guardrail violation', violations: guardrail.violations, warnings: guardrail.warnings }, { status: 400 })
   }
 
-  const supabase = await createClient()
   const sb = supabase as any
-  const { data: authData } = await supabase.auth.getUser()
-  const senderUserEmail = authData.user?.email?.toLowerCase() ?? ''
 
   let contactId: string | null = null
   const { data: existingContact } = await supabase
     .from('contacts')
-    .select('id')
+    .select('id, outreach_status')
     .eq('user_id', userId)
     .eq('email', emailTo)
     .limit(1)
@@ -212,64 +238,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
   }
 
-  if (mode === 'live') {
-    const dayStart = new Date()
-    dayStart.setHours(0, 0, 0, 0)
-    const hourStart = new Date(Date.now() - 60 * 60 * 1000)
-
-    const [{ count: sentToday }, { count: sentHour }, { data: firstSendRow }] = await Promise.all([
-      supabase
-        .from('outreach_logs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', userId)
-        .eq('channel', 'email')
-        .gte('sent_at', dayStart.toISOString()),
-      supabase
-        .from('outreach_logs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', userId)
-        .eq('channel', 'email')
-        .gte('sent_at', hourStart.toISOString()),
-      supabase
-        .from('outreach_logs')
-        .select('sent_at')
-        .eq('user_id', userId)
-        .eq('channel', 'email')
-        .order('sent_at', { ascending: true })
-        .limit(1)
-        .maybeSingle(),
-    ])
-
-    const firstSendAt = firstSendRow?.sent_at ? new Date(firstSendRow.sent_at) : null
-    const daysSinceFirstSend = firstSendAt ? Math.floor((Date.now() - firstSendAt.getTime()) / (24 * 60 * 60 * 1000)) : null
-    const caps = warmupCaps(daysSinceFirstSend)
-    const dailyCap = Math.min(MAX_LIVE_SENDS_PER_DAY, caps.dailyCap)
-    const hourlyCap = Math.min(MAX_LIVE_SENDS_PER_HOUR, caps.hourlyCap)
-
-    if ((sentToday ?? 0) >= dailyCap) {
-      return NextResponse.json({ error: `Daily warm-up cap reached (${dailyCap}, phase: ${caps.phase}).` }, { status: 429 })
-    }
-
-    if ((sentHour ?? 0) >= hourlyCap) {
-      return NextResponse.json({ error: `Hourly warm-up cap reached (${hourlyCap}, phase: ${caps.phase}).` }, { status: 429 })
-    }
-
-    if (contactId) {
-      const cooldownStart = new Date(Date.now() - RECIPIENT_COOLDOWN_HOURS * 60 * 60 * 1000).toISOString()
-      const { count: recentToSameRecipient } = await supabase
-        .from('outreach_logs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', userId)
-        .eq('channel', 'email')
-        .eq('contact_id', contactId)
-        .gte('sent_at', cooldownStart)
-
-      if ((recentToSameRecipient ?? 0) > 0) {
-        return NextResponse.json({ error: `Recipient cooldown active (${RECIPIENT_COOLDOWN_HOURS}h). Use follow-up schedule instead.` }, { status: 429 })
-      }
-    }
-  }
-
   if (mode === 'dry_run') {
     return NextResponse.json({
       ok: true,
@@ -294,6 +262,9 @@ export async function POST(request: NextRequest) {
           outreach_status: statusAfter,
           contacted_at: new Date().toISOString(),
           status: 'active',
+          channel: outreachChannel,
+          contact_type: fitTier || null,
+          last_role_discussed: personaFocus || null,
         })
         .eq('id', existingContact.id)
         .eq('user_id', userId)
@@ -306,10 +277,12 @@ export async function POST(request: NextRequest) {
           firm: company || null,
           title: roleBucket ? roleBucket.toUpperCase() : null,
           email: emailTo,
-          channel: 'cold',
+          channel: outreachChannel,
           status: 'active',
           outreach_status: statusAfter,
           contacted_at: new Date().toISOString(),
+          contact_type: fitTier || null,
+          last_role_discussed: personaFocus || null,
         })
         .select('id')
         .single()
@@ -344,26 +317,64 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  const resendMessageId = ((sendResult as { data?: { id?: string } | null } | null)?.data?.id ?? null) as string | null
+
   await supabase.from('outreach_logs').insert({
     user_id: userId,
     contact_id: mode === 'live' ? contactId : null,
     channel: mode === 'live' ? 'email' : 'other',
     message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${finalMessageText.slice(0, 200)}`,
+    recipient_email: emailTo,
+    recipient_name: fullName,
+    sender_email: 'richard@startingmonday.app',
+    subject: finalSubject,
+    message_body: finalMessageText,
+    send_mode: mode,
+    outreach_channel: outreachChannel,
+    fit_tier: fitTier || null,
+    persona_focus: personaFocus || null,
+    resend_message_id: resendMessageId,
+    delivery_status: mode === 'live' ? 'sent' : 'simulated',
   })
 
+  let googleFollowUp3Url: string | null = null
+  let googleFollowUp7Url: string | null = null
+
   if (mode === 'live') {
-    const followUpDate = new Date()
-    followUpDate.setDate(followUpDate.getDate() + 3)
-    const followUpDateStr = followUpDate.toISOString().slice(0, 10)
+    const todayPacific = pacificTodayISO()
+    const followUp3Date = addBusinessDays(todayPacific, 3)
+    const followUp7Date = addBusinessDays(todayPacific, 7)
 
     if (contactId) {
-      await supabase.from('follow_ups').insert({
-        user_id: userId,
-        contact_id: contactId,
-        action: `Follow up with ${fullName}`,
-        due_date: followUpDateStr,
-        status: 'pending',
+      googleFollowUp3Url = buildGoogleCalendarUrl({
+        title: `Follow-up 1: ${fullName}`,
+        details: `Channel: ${outreachChannel}\nCompany: ${company || 'N/A'}\nEmail: ${emailTo}`,
+        dateISO: followUp3Date,
       })
+      googleFollowUp7Url = buildGoogleCalendarUrl({
+        title: `Follow-up 2: ${fullName}`,
+        details: `Channel: ${outreachChannel}\nCompany: ${company || 'N/A'}\nEmail: ${emailTo}`,
+        dateISO: followUp7Date,
+      })
+
+      await supabase.from('follow_ups').insert([
+        {
+          user_id: userId,
+          contact_id: contactId,
+          action: `Follow-up 1 with ${fullName} (${outreachChannel})`,
+          due_date: followUp3Date,
+          status: 'pending',
+          google_event_url: googleFollowUp3Url,
+        },
+        {
+          user_id: userId,
+          contact_id: contactId,
+          action: `Follow-up 2 with ${fullName} (${outreachChannel})`,
+          due_date: followUp7Date,
+          status: 'pending',
+          google_event_url: googleFollowUp7Url,
+        },
+      ])
     }
   }
 
@@ -373,5 +384,7 @@ export async function POST(request: NextRequest) {
     to: recipient,
     warnings: guardrail.warnings,
     status: mode === 'live' ? statusAfter : 'prospect',
+    googleFollowUp3Url,
+    googleFollowUp7Url,
   })
 }

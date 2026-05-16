@@ -11,6 +11,12 @@ const STATUS_OPTIONS = [
   { value: 'closed', label: 'Closed' },
 ]
 
+const CHANNEL_OPTIONS = [
+  { value: 'executives', label: 'Executives' },
+  { value: 'search_firms', label: 'Search Firms' },
+  { value: 'coaches', label: 'Coaches' },
+] as const
+
 type ProspectRow = {
   fullName: string
   roleBucket: string
@@ -21,6 +27,9 @@ type ProspectRow = {
   emailBodyCore: string
   defaultSubject: string
   defaultBody: string
+  outreachChannel: 'executives' | 'search_firms' | 'coaches'
+  fitTier: 'strong' | 'medium'
+  personaFocus: string
 }
 
 type Props = {
@@ -45,6 +54,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [items, setItems] = useState(rows)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches'>('executives')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
   const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
@@ -57,19 +67,22 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [success, setSuccess] = useState<string | null>(null)
   const [guardrailWarnings, setGuardrailWarnings] = useState<string[]>([])
   const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
+  const [googleFollowUp3Url, setGoogleFollowUp3Url] = useState<string | null>(null)
+  const [googleFollowUp7Url, setGoogleFollowUp7Url] = useState<string | null>(null)
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
     return items.filter((r) => {
+      const matchesChannel = r.outreachChannel === activeChannel
       const matchesStatus = statusFilter === 'all' || r.status === statusFilter
       const matchesQuery = !q
         || r.fullName.toLowerCase().includes(q)
         || r.company.toLowerCase().includes(q)
         || r.roleBucket.toLowerCase().includes(q)
         || r.email.toLowerCase().includes(q)
-      return matchesStatus && matchesQuery
+      return matchesChannel && matchesStatus && matchesQuery
     })
-  }, [items, search, statusFilter])
+  }, [items, search, statusFilter, activeChannel])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
 
@@ -83,6 +96,8 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setSuccess(null)
     setGuardrailWarnings([])
     setGuardrailViolations([])
+    setGoogleFollowUp3Url(null)
+    setGoogleFollowUp7Url(null)
     setConfirmLive(false)
   }
 
@@ -130,6 +145,9 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         messageText,
         statusAfter: 'reached_out',
         mode: sendMode,
+        outreachChannel: selected.outreachChannel,
+        fitTier: selected.fitTier,
+        personaFocus: selected.personaFocus,
       }),
     })
 
@@ -147,6 +165,11 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
     const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
     setGuardrailWarnings(warnings)
+
+    const maybeGoogle3 = typeof data.googleFollowUp3Url === 'string' ? data.googleFollowUp3Url : null
+    const maybeGoogle7 = typeof data.googleFollowUp7Url === 'string' ? data.googleFollowUp7Url : null
+    setGoogleFollowUp3Url(maybeGoogle3)
+    setGoogleFollowUp7Url(maybeGoogle7)
 
     if (sendMode === 'live') {
       setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'reached_out' } : r)))
@@ -195,6 +218,28 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       <div className="px-5 py-4 border-b border-slate-100">
         <h2 className="text-[16px] font-bold text-slate-900">Send Queue</h2>
         <p className="text-[12px] text-slate-500 mt-1">Filter by status, review content, and send from {fromAddressLabel}.</p>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {CHANNEL_OPTIONS.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => {
+                setActiveChannel(option.value)
+                setSelectedIndex(0)
+                setSearch('')
+              }}
+              className={[
+                'text-[12px] font-semibold px-3 py-1.5 rounded border transition-colors',
+                activeChannel === option.value
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
+              ].join(' ')}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] min-h-[640px]">
@@ -227,7 +272,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
           <div className="max-h-[560px] overflow-y-auto divide-y divide-slate-100">
             {filtered.length === 0 && (
-              <div className="px-4 py-8 text-[13px] text-slate-400">No prospects match the current filter.</div>
+              <div className="px-4 py-8 text-[13px] text-slate-400">No prospects match this channel and filter.</div>
             )}
 
             {filtered.map((row, idx) => (
@@ -244,6 +289,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                     <p className="text-[13px] font-semibold text-slate-900">{row.fullName}</p>
                     <p className="text-[12px] text-slate-500 mt-0.5">{row.roleBucket} · {row.company}</p>
                     <p className="text-[11px] text-slate-400 mt-1">{row.email}</p>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.06em] text-slate-500">{row.outreachChannel.replace('_', ' ')}</span>
+                      <span className={[
+                        'text-[10px] font-semibold px-1.5 py-0.5 rounded',
+                        row.fitTier === 'strong' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700',
+                      ].join(' ')}>
+                        {row.fitTier}
+                      </span>
+                    </div>
                   </div>
                   <span className={`text-[10px] font-semibold px-2 py-1 rounded-full ${statusBadge(row.status)}`}>
                     {statusText(row.status)}
@@ -276,6 +330,8 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               <div className="bg-slate-50 border border-slate-200 rounded p-3">
                 <p className="text-[11px] text-slate-500">To</p>
                 <p className="text-[13px] font-semibold text-slate-900">{selected.fullName} ({selected.email})</p>
+                <p className="text-[12px] text-slate-500 mt-1">Channel: {selected.outreachChannel.replace('_', ' ')} · Fit: {selected.fitTier}</p>
+                <p className="text-[12px] text-slate-500 mt-1">Persona focus: {selected.personaFocus}</p>
                 <p className="text-[12px] text-slate-500 mt-1">From: {fromAddressLabel}</p>
               </div>
 
@@ -357,6 +413,24 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
               {error && <p className="text-[12px] text-red-600">{error}</p>}
               {success && <p className="text-[12px] text-green-700">{success}</p>}
+
+              {(googleFollowUp3Url || googleFollowUp7Url) && (
+                <div className="border border-slate-200 bg-slate-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-slate-700 mb-2">Follow-up reminders created</p>
+                  <div className="flex flex-wrap gap-2">
+                    {googleFollowUp3Url && (
+                      <a href={googleFollowUp3Url} target="_blank" rel="noreferrer" className="text-[12px] font-semibold text-slate-900 border border-slate-300 rounded px-2.5 py-1.5 hover:border-slate-500">
+                        Add Follow-up 1 to Google Calendar
+                      </a>
+                    )}
+                    {googleFollowUp7Url && (
+                      <a href={googleFollowUp7Url} target="_blank" rel="noreferrer" className="text-[12px] font-semibold text-slate-900 border border-slate-300 rounded px-2.5 py-1.5 hover:border-slate-500">
+                        Add Follow-up 2 to Google Calendar
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <button
                 type="button"
