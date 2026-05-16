@@ -12,6 +12,7 @@ export const metadata = {
 
 type CsvRow = Record<string, string>
 type OutreachChannel = 'executives' | 'search_firms' | 'coaches'
+type EmailConfidence = 'high' | 'medium' | 'low'
 
 type CsvSummary = {
   rowCount: number
@@ -140,6 +141,48 @@ function normalizeFitTier(raw: string | undefined): 'strong' | 'medium' {
   return fit === 'medium' ? 'medium' : 'strong'
 }
 
+function normalizeEmailConfidence(raw: string | undefined): EmailConfidence | null {
+  const confidence = (raw ?? '').trim().toLowerCase()
+  if (confidence === 'high' || confidence === 'medium' || confidence === 'low') return confidence
+  return null
+}
+
+function inferEmailConfidence(row: CsvRow): EmailConfidence {
+  const explicit = normalizeEmailConfidence(row.email_confidence)
+  if (explicit) return explicit
+
+  const email = (row.email_guess ?? row.email ?? '').trim().toLowerCase()
+  const company = (row.company ?? '').trim().toLowerCase()
+  const sourceType = (row.source_type ?? '').trim().toLowerCase()
+
+  const domain = email.includes('@') ? email.split('@')[1] : ''
+  const domainRoot = domain.split('.')[0] ?? ''
+  const freeEmailDomains = new Set(['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'aol.com'])
+  if (!domain || freeEmailDomains.has(domain)) return 'low'
+
+  const stopWords = new Set(['inc', 'llc', 'ltd', 'group', 'partners', 'partner', 'search', 'executive', 'leadership', 'advisors'])
+  const companyTokens = company
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .map(token => token.trim())
+    .filter(token => token.length >= 4 && !stopWords.has(token))
+
+  const domainMatchesCompany = companyTokens.some(token => domainRoot.includes(token) || token.includes(domainRoot))
+
+  if (sourceType.includes('verified')) return 'high'
+  if (sourceType.includes('curated') && domainMatchesCompany) return 'high'
+  if (sourceType.includes('inferred') && domainMatchesCompany) return 'medium'
+  if (domainMatchesCompany) return 'high'
+  if (sourceType.includes('inferred')) return 'low'
+  return 'medium'
+}
+
+function emailConfidenceRank(confidence: EmailConfidence): number {
+  if (confidence === 'high') return 3
+  if (confidence === 'medium') return 2
+  return 1
+}
+
 function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): CsvSummary {
   const byName = new Map<string, CsvRow>()
   for (const row of firstTouch.rows) {
@@ -169,6 +212,7 @@ type ClientRow = {
   roleBucket: string
   company: string
   email: string
+  emailConfidence: EmailConfidence
   status: string
   emailOpening: string
   emailBodyCore: string
@@ -226,6 +270,7 @@ export default async function OutreachHubPage() {
       roleBucket: row.role_bucket ?? 'Executive',
       company: row.company ?? '',
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
@@ -240,6 +285,7 @@ export default async function OutreachHubPage() {
       roleBucket: row.role_bucket ?? 'Partner',
       company: row.company ?? '',
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
@@ -254,6 +300,7 @@ export default async function OutreachHubPage() {
       roleBucket: row.role_bucket ?? 'Executive Coach',
       company: row.company ?? '',
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
@@ -279,6 +326,11 @@ export default async function OutreachHubPage() {
 
     const existing = dedupedByEmail.get(row.email)!
     if (existing.fitTier === 'medium' && normalized.fitTier === 'strong') {
+      dedupedByEmail.set(row.email, normalized)
+      continue
+    }
+
+    if (existing.fitTier === normalized.fitTier && emailConfidenceRank(normalized.emailConfidence) > emailConfidenceRank(existing.emailConfidence)) {
       dedupedByEmail.set(row.email, normalized)
     }
   }
