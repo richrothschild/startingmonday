@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
@@ -119,7 +119,7 @@ function evaluateGuardrails(input: {
     violations.push('Use at most one link per outreach message to reduce spam risk.')
   }
 
-  if (message.includes('—') || message.includes('&mdash;')) {
+  if (message.includes('\u2014') || message.includes('&mdash;')) {
     violations.push('Do not use em dashes in outreach messages.')
   }
 
