@@ -289,7 +289,7 @@ export default async function OutreachHubPage() {
   if (!staff) notFound()
 
   const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
-    readOutreachCsv('prospecting_combined_strict_100.csv'),
+    readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('search_firms_prospecting_100.csv'),
     readOutreachCsv('coaches_prospecting_100.csv'),
