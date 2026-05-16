@@ -40,7 +40,7 @@ export default function SampleCfoBriefPage() {
       <main className="px-4 py-10 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-4xl">
           <Link href="/search-firms" className="text-sm text-slate-500 hover:text-slate-900">
-            <- Back to search firms
+            &larr; Back to search firms
           </Link>
 
           <header className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-6 sm:p-8">
