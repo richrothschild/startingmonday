@@ -1,0 +1,33 @@
+<svg width="1584" height="396" viewBox="0 0 1584 396" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday LinkedIn company banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1584" height="396" fill="url(#bg)"/>
+
+  <g opacity="0.22">
+    <circle cx="1450" cy="44" r="220" fill="#1F2937"/>
+    <circle cx="1520" cy="40" r="140" fill="#0F172A"/>
+  </g>
+
+  <g transform="translate(72,58)">
+    <rect x="0" y="0" width="280" height="280" rx="34" fill="#0F172A" stroke="#334155" stroke-width="6"/>
+    <path d="M36 98C70 50 126 24 188 24C238 24 286 42 322 76" fill="none" stroke="url(#sun)" stroke-width="18" stroke-linecap="round" transform="translate(-8,20)"/>
+    <circle cx="238" cy="94" r="10" fill="#F97316"/>
+    <rect x="28" y="104" width="224" height="8" rx="4" fill="#334155"/>
+    <text x="34" y="214" fill="#E2E8F0" font-size="150" font-weight="800" font-family="Segoe UI, Arial, sans-serif" letter-spacing="-5">SM</text>
+  </g>
+
+  <g fill="#E5E7EB" font-family="Segoe UI, Arial, sans-serif">
+    <text x="402" y="156" font-size="66" font-weight="700" letter-spacing="0.3">Starting Monday</text>
+    <text x="402" y="222" font-size="42" font-weight="700" fill="#F97316">Be ready before the market knows.</text>
+    <text x="402" y="272" font-size="26" fill="#94A3B8" letter-spacing="1.2">Executive search operating system for senior leaders and partner firms.</text>
+  </g>
+</svg>

@@ -16,6 +16,7 @@ export default async function TeamSettingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
 
   const { data: rawSeats } = await supabase
     .from('team_seats')
@@ -53,9 +54,16 @@ export default async function TeamSettingsPage() {
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            &larr; Dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+              &larr; Dashboard
+            </Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 

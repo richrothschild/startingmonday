@@ -7,6 +7,14 @@ This is the single internal index for outbound execution assets.
 - Primary first-touch emails: `docs/outreach/send_ready_emails_first_10.csv`
 - Follow-up sequence for same first 10: `docs/outreach/send_ready_followups_first_10.csv`
 - Role-specific body library: `docs/outreach/role_bucket_email_body_blocks.csv`
+- Proof asset package: `docs/outreach/proof-asset-execution-package-v1.md`
+- Coach and search partner playbook: `docs/outreach/coach-search-partner-assets-and-sequences-v1.md`
+
+## First Proof Assets
+
+- Aggregate proof note: `docs/outreach/proof-asset-01-pilot-cohort-methodology-note.md`
+- Founder case study: `docs/outreach/proof-asset-02-founder-case-study.md`
+- Sample output walkthrough: `docs/outreach/proof-asset-03-sample-output-walkthrough-cfo-brief.md`
 
 ## Prospecting Master Files
 
@@ -51,3 +59,7 @@ Use one of these in your working tracker:
 Import this file into Google Calendar or Outlook:
 
 - `public/calendar/starting-monday-outreach-reminders.ics`
+
+## Weekly Governance
+
+- Pre-scale operator scorecard: `docs/status/pre-scale-weekly-operator-scorecard.md`

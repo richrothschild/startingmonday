@@ -6,6 +6,16 @@ METHOD:PUBLISH
 X-WR-CALNAME:Starting Monday Outreach
 
 BEGIN:VEVENT
+UID:sm-weekly-plan-001@startingmonday
+DTSTAMP:20260516T120000Z
+SUMMARY:Weekly Plan and Tasks
+DESCRIPTION:Plan this week's execution. Tasks:\n1) Monday: select 10 prospects and send first-touch outreach.\n2) Wednesday: send follow-up 1 to day-3 non-responders.\n3) Friday: send follow-up 2 to day-7 non-responders.\n4) Friday: run weekly outreach review and refresh next-week list.\n5) Friday: update pre-scale operator scorecard and proof asset progress.
+DTSTART:20260518T130000Z
+DTEND:20260518T133000Z
+RRULE:FREQ=WEEKLY;BYDAY=MO
+END:VEVENT
+
+BEGIN:VEVENT
 UID:sm-outreach-daily-001@startingmonday
 DTSTAMP:20260515T120000Z
 SUMMARY:Outreach Block (First Touch)
@@ -43,6 +53,16 @@ DESCRIPTION:Review replies, booked meetings, and next week target list.
 DTSTART:20260522T193000Z
 DTEND:20260522T200000Z
 RRULE:FREQ=WEEKLY;BYDAY=FR
+END:VEVENT
+
+BEGIN:VEVENT
+UID:sm-progress-checkin-001@startingmonday
+DTSTAMP:20260516T120000Z
+SUMMARY:Progress Check-In (Copilot)
+DESCRIPTION:Report progress in Copilot chat. Include:\n1) What you completed since last check-in\n2) Current blockers\n3) What you will complete before the next check-in
+DTSTART:20260518T160000Z
+DTEND:20260518T161500Z
+RRULE:FREQ=WEEKLY;BYDAY=MO,TH
 END:VEVENT
 
 END:VCALENDAR

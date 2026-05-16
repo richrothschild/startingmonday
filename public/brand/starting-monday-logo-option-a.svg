@@ -1,0 +1,25 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday logo option A">
+  <defs>
+    <linearGradient id="sunA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="320" fill="#0F172A"/>
+
+  <g transform="translate(70,40)">
+    <rect x="0" y="0" width="240" height="240" rx="28" fill="#111827" stroke="#334155" stroke-width="4"/>
+    <path d="M44 176C44 124 86 82 138 82C176 82 210 104 226 136" fill="none" stroke="url(#sunA)" stroke-width="18" stroke-linecap="round"/>
+    <rect x="66" y="56" width="26" height="138" rx="8" fill="#E2E8F0"/>
+    <rect x="108" y="118" width="26" height="76" rx="8" fill="#E2E8F0"/>
+    <rect x="150" y="96" width="26" height="98" rx="8" fill="#E2E8F0"/>
+    <circle cx="208" cy="78" r="12" fill="#F97316"/>
+  </g>
+
+  <g fill="#E5E7EB" font-family="Segoe UI, Arial, sans-serif">
+    <text x="360" y="150" font-size="72" font-weight="700" letter-spacing="0.5">Starting</text>
+    <text x="360" y="230" font-size="72" font-weight="700" fill="#F97316" letter-spacing="0.5">Monday</text>
+    <text x="362" y="274" font-size="26" fill="#94A3B8" letter-spacing="1.8">EXECUTIVE SEARCH OPERATING SYSTEM</text>
+  </g>
+</svg>

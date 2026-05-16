@@ -24,190 +24,88 @@
 
 **Where:** LinkedIn Sales Navigator connection note field  
 **Length:** 250 characters max  
-**Tone:** Specific, peer-to-peer, low-friction ask (15 minutes)  
-**Principle:** Reference their actual signal (post, activity) + concrete coach benefit (not feature)
+**Tone:** Persuasive, peer-to-peer, high-value ask (15 minutes)  
+**Principle:** Leverage reciprocity and authority; highlight unique value.
 
 ### Base Template
 ```
-[Name] — saw your post on [specific coaching topic]. Built a tool coaches are using 
-to give clients the infrastructure layer (monitoring, prep briefs, pipeline) so you 
-focus on strategy. Worth a 15-min conversation?
+[Name] — noticed your expertise on [specific coaching topic]. Built a platform coaches trust to deliver high-impact results (pipeline visibility, prep briefs, momentum tracking). Let’s explore if it aligns—15 minutes?
 ```
 
 ### Persona Variants
 
 **Career Transition Specialist**
 ```
-[Name] — your post on transition support caught my eye. Built a platform coaches use 
-so clients move faster through transitions without burning research time. 15-min call 
-worth it?
+[Name] — your insights on transition coaching stood out. Built a tool that accelerates client transitions while saving you hours on research. Let’s connect for 15 minutes?
 ```
 
 **VP-to-CXO Positioning Coach**
 ```
-[Name] — saw your focus on multi-level positioning. Built a tool that keeps clients 
-engaged between sessions—momentum never drops over 12-24 months. Worth exploring together?
+[Name] — your focus on executive positioning is impressive. Built a platform that ensures clients maintain momentum across 12–24 months. Worth a quick 15-minute chat?
 ```
 
 **Executive Search Firm Coach**
 ```
-[Name] — your interview prep approach resonated. Built something that gives you full 
-visibility into your client's pipeline before each call. 15 minutes to see if it fits?
+[Name] — your approach to interview prep caught my eye. Built a tool that gives you real-time visibility into client pipelines. Let’s discuss—15 minutes?
 ```
 
 **Board & Governance Coach**
 ```
-[Name] — noticed you coach board-seeking execs. Built a platform that tracks 50+ 
-relationships automatically so they stay warm without consuming your admin time. 
-Worth 15 minutes?
+[Name] — noticed your work with board-seeking executives. Built a platform that tracks 50+ governance opportunities tailored to your clients. Let’s connect for 15 minutes?
 ```
-
-### Personalization Checklist
-- [ ] Reference actual signal (post, event, profile detail) — not generic
-- [ ] Mention coach benefit first (speed, momentum, visibility, leverage) — not product feature
-- [ ] "15 minutes" — specific, small ask
-- [ ] Name first — human voice, not template
 
 ---
 
-## MESSAGE 2: Follow-Up (Day 0–1 After Connection Accepted)
+## MESSAGE 2: Follow-Up (Post-Acceptance)
 
 **Where:** LinkedIn Direct Message or Email  
-**Length:** 4–5 sentences  
-**Timing:** Same day as connection (if they accept quickly) or within 24 hours of acceptance  
-**Tone:** Grateful, specific value statement, clear next step
-
-### Base Template
-```
-[Name], thanks for connecting. Most coaches spend half their session time rebuilding 
-context because clients don't track their own search between calls. I built Starting 
-Monday to handle that layer — daily company monitoring, prep briefs, pipeline tracking 
-— so you stay in strategy.
-
-Your clients move faster. You do better work. You earn 20% commission on every client 
-who signs up through your link.
-
-Worth 15 minutes to see how it works? I can show you a real brief in 60 seconds.
-
-[Link to demo or calendar]
-```
-
-### Persona Variants
-
-**Career Transition Specialist**
-```
-[Name], thanks for connecting. The biggest win I see with coaches is this: when the 
-client has infrastructure watching their targets, the coach stops being the research 
-assistant and becomes the strategist. You move faster. Your billable leverage increases.
-
-Starting Monday gives your clients that — monitoring, prep briefs, everything tracked. 
-You see it all between sessions.
-
-15-minute demo? I'll show you exactly what your clients see on day one.
-
-[Link to demo calendar or video]
-```
-
-**VP-to-CXO Positioning Coach**
-```
-[Name], thanks for connecting. You know the VP-to-CXO coach's real problem: momentum 
-dies between quarters. The client goes quiet. You're managing a 24-month relationship 
-on billable time, not leverage.
-
-I built Starting Monday so momentum never stops. Your clients get one action every 
-morning. The platform keeps them engaged for you.
-
-15 minutes to see how this actually works? I'll show you.
-
-[Link to demo calendar or video]
-```
-
-**Executive Search Firm Coach**
-```
-[Name], thanks for connecting. In a 2-week placement cycle, half your coaching happens 
-half-blind — you don't know their full pipeline. I built Starting Monday so you have 
-full visibility: every company, every stage, every conversation, before you walk into 
-prep sessions.
-
-Your 2-week advantage becomes 4 weeks. Your clients interview differently.
-
-Worth 15 minutes to see how?
-
-[Link to demo calendar or video]
-```
-
-**Board & Governance Coach**
-```
-[Name], thanks for connecting. Board relationships are multi-year. Tracking 50+ of 
-them manually is admin-heavy and leverage-light. Starting Monday lets you maintain 
-relationships at scale: every PE transition, every board composition change, every 
-outreach cadence — all tracked automatically.
-
-Your relationship maintenance becomes your credibility multiplier.
-
-15 minutes to walk through how this works?
-
-[Link to demo calendar or video]
-```
-
-### Message Structure Notes
-- **Line 1:** Acknowledge connection + restate coach pain point
-- **Line 2:** What Starting Monday does for their practice
-- **Line 3:** Outcome (faster clients, better work, leverage multiplied)
-- **Line 4:** Clear ask + value statement ("show you a real brief in 60 seconds")
-- **CTA:** Link to demo calendar (Calendly) or 5-min video demo
-
----
-
-## MESSAGE 3: Day 3 Check-In (No Response to Day 0)
-
-**Where:** LinkedIn Direct Message or Email  
-**Length:** 3 sentences max  
-**Tone:** Low-pressure, option-giving, no apology  
-**Trigger:** If no response to cold connection request after 72 hours
+**Length:** 300 characters max  
+**Tone:** Warm, value-driven, and action-oriented  
+**Principle:** Build on initial connection; emphasize mutual benefit.
 
 ### Template
 ```
-Checking in on my earlier note. Happy to send a 5-minute demo video if a call doesn't 
-fit your schedule — or let me know if timing isn't right now and we can reconnect later.
-
-[Video link]
+[Name], thanks for connecting! Coaches using our platform report faster client transitions and deeper engagement. Would love to show you how it works—15 minutes this week?
 ```
-
-### Notes
-- No "Sorry to bother you"
-- Two options: video OR let them know timing (leaves door open)
-- Keep it brief (they likely saw the first message)
 
 ---
 
-## MESSAGE 4: Day 7 Final Touch (Still No Response)
+## MESSAGE 3: Check-In Demo Offer
 
 **Where:** LinkedIn Direct Message or Email  
-**Length:** 2–3 sentences  
-**Tone:** Respectful, non-pushy, graceful exit  
-**Trigger:** If no response after Day 3 check-in
+**Length:** 300 characters max  
+**Tone:** Persistent but respectful; emphasize exclusivity  
+**Principle:** Create urgency; highlight unique outcomes.
 
 ### Template
 ```
-No worries if this isn't a fit right now. If you ever want to explore how coaches are 
-using this to amplify their practice, I'm here.
+Hi [Name], following up to see if you’d like to explore our platform. Coaches say it’s a game-changer for client momentum and visibility. Let’s find 15 minutes this week?
+```
 
-Good luck with your coaching work.
+---
+
+## MESSAGE 4: Final Touch
+
+**Where:** LinkedIn Direct Message or Email  
+**Length:** 250 characters max  
+**Tone:** Polite, final opportunity  
+**Principle:** Leave the door open for future engagement.
+
+### Template
+```
+Hi [Name], I know timing is everything. If now isn’t the right moment, no problem—just let me know. Coaches often revisit us when they’re ready to scale client impact. Wishing you continued success!
 ```
 
 ### Alternative (If New Signal Available)
 ```
-Saw you were recently interviewed on [publication] about [topic] — that's exactly the 
-kind of coaching we support. Happy to share a quick demo if you're open to it. If not, 
-no problem.
+Saw you were recently interviewed on [publication] about [topic] — that’s exactly the kind of coaching we support. Happy to share a quick demo if you’re open to it. If not, no problem.
 
 [Video link]
 ```
 
 ### Notes
 - Use alternative only if you have a NEW signal (different publication, recent move, etc.)
-- If using alternative, reset the sequence (don't send base Day 7 after this)
+- If using alternative, reset the sequence (don’t send base Day 7 after this)
 - Otherwise, use base template to close door gracefully
 
 ---

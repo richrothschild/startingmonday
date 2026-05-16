@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday logo option B">
+  <defs>
+    <linearGradient id="gradB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="68" fill="#020617"/>
+  <rect x="42" y="42" width="428" height="428" rx="52" fill="#0F172A" stroke="#334155" stroke-width="6"/>
+
+  <path d="M84 142C118 95 174 68 236 68C286 68 334 86 370 120" fill="none" stroke="url(#gradB)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="392" cy="114" r="11" fill="#F97316"/>
+  <rect x="88" y="148" width="336" height="8" rx="4" fill="#334155"/>
+
+  <text x="88" y="334" fill="#E2E8F0" font-size="220" font-weight="800" font-family="Segoe UI, Arial, sans-serif" letter-spacing="-6">SM</text>
+</svg>

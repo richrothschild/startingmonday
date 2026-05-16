@@ -3,6 +3,7 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { getOwnerEmail } from '@/lib/owner-email'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 const OWNER_EMAIL = getOwnerEmail()
 
@@ -107,6 +108,13 @@ export async function GET(request: NextRequest) {
 
     const postedCount = typedPosts.filter((p) => p.is_posted).length
     const weekOf = safeDateLabel(since).replace(/^[A-Za-z]+,\s*/, '')
+
+    const today = new Date().toISOString().split('T')[0]
+    const lastSentKey = `linkedin_digest_last_sent:${today}`
+    const alreadySent = checkRateLimit(lastSentKey, 1)
+    if (!alreadySent.allowed) {
+      return NextResponse.json({ ok: false, error: 'Digest already sent today' }, { status: 429 })
+    }
 
     const { error: sendError } = await sendEmail({
       to: OWNER_EMAIL,
