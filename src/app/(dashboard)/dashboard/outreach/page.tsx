@@ -148,7 +148,86 @@ function canonicalizeLabel(value: string | undefined): string {
     .trim()
 }
 
-function executivePersonaFit(row: CsvRow): 'strong' | 'medium' | null {
+function normalizeCompanyKey(value: string | undefined): string {
+  return canonicalizeLabel(value)
+    .replace(/\b(inc|incorporated|corp|corporation|co|company|group|holdings|plc|llc|ltd|limited|communications)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function roleTokens(value: string): Set<string> {
+  const normalized = canonicalizeLabel(value)
+  const roles = new Set<string>()
+
+  if (!normalized) return roles
+
+  const add = (...items: string[]) => items.forEach(item => roles.add(item))
+
+  if (normalized.includes('cfo') || normalized.includes('chief financial officer')) add('cfo', 'chief financial officer')
+  if (normalized.includes('coo') || normalized.includes('chief operating officer')) add('coo', 'chief operating officer')
+  if (normalized.includes('cio') || normalized.includes('chief information officer')) add('cio', 'chief information officer')
+  if (normalized.includes('chro') || normalized.includes('chief human resources officer') || normalized.includes('chief people officer')) add('chro', 'chief people officer')
+  if (normalized.includes('cro') || normalized.includes('chief revenue officer')) add('cro', 'chief revenue officer')
+  if (normalized.includes('cto') || normalized.includes('chief technology officer')) add('cto', 'chief technology officer')
+  if (normalized.includes('ciso') || normalized.includes('chief information security officer')) add('ciso', 'chief information security officer')
+  if (normalized.includes('cdo') || normalized.includes('chief data officer')) add('cdo', 'chief data officer')
+  if (normalized.includes('chief analytics officer')) add('chief analytics officer')
+  if (normalized.includes('vp it') || normalized.includes('vp information technology')) add('vp it', 'vp information technology')
+  if (normalized.includes('vp sales')) add('vp sales')
+  if (normalized.includes('vp revenue')) add('vp revenue')
+  if (normalized.includes('vp technology')) add('vp technology')
+  if (normalized.includes('vp engineering')) add('vp engineering')
+
+  if (roles.size === 0) {
+    roles.add(normalized)
+  }
+
+  return roles
+}
+
+function buildExecutiveFitLookup(rows: CsvRow[]): Map<string, Map<string, 'strong' | 'medium'>> {
+  const lookup = new Map<string, Map<string, 'strong' | 'medium'>>()
+
+  for (const row of rows) {
+    const companyKey = normalizeCompanyKey(row.target_account ?? row.company)
+    const title = row.target_title ?? row.title ?? row.role_bucket
+    const fitTier = normalizeFitTier(row.fit_tier)
+    const roleSet = roleTokens(title ?? '')
+
+    if (!companyKey || roleSet.size === 0) continue
+
+    const companyRoles = lookup.get(companyKey) ?? new Map<string, 'strong' | 'medium'>()
+    for (const role of roleSet) {
+      const existing = companyRoles.get(role)
+      if (existing === 'strong') continue
+      companyRoles.set(role, fitTier)
+    }
+    lookup.set(companyKey, companyRoles)
+  }
+
+  return lookup
+}
+
+function executivePersonaFit(
+  row: CsvRow,
+  fitLookup: Map<string, Map<string, 'strong' | 'medium'>>,
+): 'strong' | 'medium' | null {
+  const explicitFit = (row.fit_tier ?? '').trim().toLowerCase()
+  if (explicitFit === 'strong' || explicitFit === 'medium') return explicitFit
+
+  const companyKey = normalizeCompanyKey(row.company)
+  const roleCandidates = roleTokens(`${row.role_bucket ?? ''} ${row.title ?? ''}`)
+
+  if (companyKey && roleCandidates.size > 0) {
+    const companyRoles = fitLookup.get(companyKey)
+    if (companyRoles) {
+      for (const role of roleCandidates) {
+        const matched = companyRoles.get(role)
+        if (matched) return matched
+      }
+    }
+  }
+
   const role = canonicalizeLabel(row.role_bucket)
   const title = canonicalizeLabel(row.title)
   const combined = `${role} ${title}`.trim()
@@ -178,8 +257,22 @@ function executivePersonaFit(row: CsvRow): 'strong' | 'medium' | null {
     'chief analytics officer',
   ]
 
-  if (strongSignals.some(signal => combined.includes(signal))) return 'strong'
-  if (mediumSignals.some(signal => combined.includes(signal))) return 'medium'
+  let score = 0
+
+  if (strongSignals.some(signal => combined.includes(signal))) score += 70
+  if (mediumSignals.some(signal => combined.includes(signal))) score += 45
+
+  const sourceType = canonicalizeLabel(row.source_type)
+  if (sourceType.includes('leadership') || sourceType.includes('investor') || sourceType.includes('company')) {
+    score += 10
+  }
+
+  const confidence = (row.confidence ?? row.email_confidence ?? '').trim().toLowerCase()
+  if (confidence === 'high') score += 10
+  if (confidence === 'medium') score += 5
+
+  if (score >= 70) return 'strong'
+  if (score >= 45) return 'medium'
   return null
 }
 
@@ -288,8 +381,9 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
+    readOutreachCsv('us-senior-executive-target-slate.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('search_firms_prospecting_100.csv'),
     readOutreachCsv('coaches_prospecting_100.csv'),
@@ -303,12 +397,13 @@ export default async function OutreachHubPage() {
       .eq('status', 'active'),
   ])
   const executives = mergeFirstTouch(executiveRaw, firstTouch)
+  const executiveFitLookup = buildExecutiveFitLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
     .map((row): ClientRow | null => {
-      const personaFit = executivePersonaFit(row)
+      const personaFit = executivePersonaFit(row, executiveFitLookup)
       if (!personaFit) return null
 
       return {
