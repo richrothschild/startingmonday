@@ -18,6 +18,24 @@ type CsvSummary = {
   rows: CsvRow[]
 }
 
+function prioritizeCuratedRows(base: CsvSummary, curated: CsvSummary, limit = 100): CsvSummary {
+  const seenEmails = new Set<string>()
+  const prioritized: CsvRow[] = []
+
+  for (const row of [...curated.rows, ...base.rows]) {
+    const email = (row.email_guess ?? row.email ?? '').trim().toLowerCase()
+    if (!email || seenEmails.has(email)) continue
+    seenEmails.add(email)
+    prioritized.push(row)
+    if (prioritized.length >= limit) break
+  }
+
+  return {
+    rowCount: prioritized.length,
+    rows: prioritized,
+  }
+}
+
 function parseCsv(content: string): CsvSummary {
   if (!content.trim()) {
     return { rowCount: 0, rows: [] }
@@ -184,11 +202,13 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('search_firms_prospecting_100.csv'),
     readOutreachCsv('coaches_prospecting_100.csv'),
+    readOutreachCsv('search_firms_prospecting_curated_top25.csv'),
+    readOutreachCsv('coaches_prospecting_curated_top25.csv'),
     supabase
       .from('contacts')
       .select('email, outreach_status')
@@ -196,6 +216,8 @@ export default async function OutreachHubPage() {
       .eq('status', 'active'),
   ])
   const executives = mergeFirstTouch(executiveRaw, firstTouch)
+  const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
+  const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
 
   const allRows: ClientRow[] = [
@@ -213,7 +235,7 @@ export default async function OutreachHubPage() {
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? row.role_bucket ?? 'C-suite transitions',
     })),
-    ...searchFirmRaw.rows.map((row) => ({
+    ...prioritizedSearchFirms.rows.map((row) => ({
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Partner',
       company: row.company ?? '',
@@ -227,7 +249,7 @@ export default async function OutreachHubPage() {
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CFO, COO, CIO, CHRO, CRO searches',
     })),
-    ...coachRaw.rows.map((row) => ({
+    ...prioritizedCoaches.rows.map((row) => ({
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Executive Coach',
       company: row.company ?? '',
