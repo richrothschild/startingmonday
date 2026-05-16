@@ -141,6 +141,48 @@ function normalizeFitTier(raw: string | undefined): 'strong' | 'medium' {
   return fit === 'medium' ? 'medium' : 'strong'
 }
 
+function canonicalizeLabel(value: string | undefined): string {
+  return (value ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+}
+
+function executivePersonaFit(row: CsvRow): 'strong' | 'medium' | null {
+  const role = canonicalizeLabel(row.role_bucket)
+  const title = canonicalizeLabel(row.title)
+  const combined = `${role} ${title}`.trim()
+
+  const strongSignals = [
+    'cfo',
+    'coo',
+    'cio',
+    'chro',
+    'chief people officer',
+    'cro',
+    'chief revenue officer',
+    'vp it',
+    'vp information technology',
+    'vp sales',
+    'vp revenue',
+  ]
+
+  const mediumSignals = [
+    'cto',
+    'vp technology',
+    'vp engineering',
+    'ciso',
+    'chief information security officer',
+    'cdo',
+    'chief data officer',
+    'chief analytics officer',
+  ]
+
+  if (strongSignals.some(signal => combined.includes(signal))) return 'strong'
+  if (mediumSignals.some(signal => combined.includes(signal))) return 'medium'
+  return null
+}
+
 function normalizeEmailConfidence(raw: string | undefined): EmailConfidence | null {
   const confidence = (raw ?? '').trim().toLowerCase()
   if (confidence === 'high' || confidence === 'medium' || confidence === 'low') return confidence
@@ -264,23 +306,31 @@ export default async function OutreachHubPage() {
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
+  const executivePersonaRows: ClientRow[] = executives.rows
+    .map((row): ClientRow | null => {
+      const personaFit = executivePersonaFit(row)
+      if (!personaFit) return null
+
+      return {
+        fullName: row.full_name ?? '',
+        roleBucket: row.role_bucket ?? 'Executive',
+        company: row.company ?? '',
+        email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+        emailConfidence: inferEmailConfidence(row),
+        status: normalizeStatus(row.status),
+        emailOpening: row.email_opening ?? '',
+        emailBodyCore: row.email_body_core ?? '',
+        defaultSubject: row.default_subject ?? buildDefaultSubject(row),
+        defaultBody: row.default_body ?? buildDefaultBody(row),
+        outreachChannel: 'executives' as const,
+        fitTier: personaFit,
+        personaFocus: row.persona_focus ?? row.role_bucket ?? 'C-suite transitions',
+      }
+    })
+    .filter((row): row is ClientRow => row !== null)
 
   const allRows: ClientRow[] = [
-    ...executives.rows.map((row) => ({
-      fullName: row.full_name ?? '',
-      roleBucket: row.role_bucket ?? 'Executive',
-      company: row.company ?? '',
-      email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
-      emailConfidence: inferEmailConfidence(row),
-      status: normalizeStatus(row.status),
-      emailOpening: row.email_opening ?? '',
-      emailBodyCore: row.email_body_core ?? '',
-      defaultSubject: row.default_subject ?? buildDefaultSubject(row),
-      defaultBody: row.default_body ?? buildDefaultBody(row),
-      outreachChannel: 'executives' as const,
-      fitTier: normalizeFitTier(row.fit_tier),
-      personaFocus: row.persona_focus ?? row.role_bucket ?? 'C-suite transitions',
-    })),
+    ...executivePersonaRows,
     ...prioritizedSearchFirms.rows.map((row) => ({
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Partner',
