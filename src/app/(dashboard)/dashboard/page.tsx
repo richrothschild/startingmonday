@@ -606,15 +606,21 @@ export default async function DashboardPage({
             </p>
         </div>
 
-        <div className="mb-6 flex flex-wrap items-center gap-3">
-          <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">
-            Dashboard
-          </Link>
-          {isRothschildAdmin && (
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">
-              Admin
+        <div className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</p>
+            <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/dashboard" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Dashboard
             </Link>
-          )}
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
 
         <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
