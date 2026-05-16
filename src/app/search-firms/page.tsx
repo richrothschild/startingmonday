@@ -57,6 +57,20 @@ const firmBenefits = [
   },
 ]
 
+const cadence = [
+  'Monday: mandate intake and role lane selection.',
+  'Tuesday: brief delivery with market context and candidate framing.',
+  'Wednesday: consultant prep and kickoff refinement.',
+  'Thursday: candidate outreach and interview prep.',
+  'Friday: shortlist review and search reset check.',
+]
+
+const metrics = [
+  'Consultant prep hours saved per search',
+  'First-slate acceptance rate',
+  'Mid-search resets avoided',
+]
+
 export default function SearchFirmsPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -91,6 +105,9 @@ export default function SearchFirmsPage() {
             <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">
               Starting Monday gives your team role-specific pre-search briefs that improve kickoff quality, sharpen candidate positioning, and help you move from mandate to shortlist faster.
             </p>
+            <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-300">
+              If your firm already researches every mandate, this is not a replacement. It is the briefing layer that keeps partners from starting from zero.
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/search-firms/sample-cfo-brief"
@@ -128,11 +145,33 @@ export default function SearchFirmsPage() {
             <div className="rounded-lg border border-slate-200 p-6">
               <h2 className="text-xl font-bold text-slate-900">How it fits your current process</h2>
               <ol className="mt-4 space-y-3 text-sm text-slate-700">
-                <li>1. You share the mandate and role lane.</li>
-                <li>2. We deliver a role-specific brief in 24-48 hours.</li>
-                <li>3. Your consultants use it for kickoff and candidate prep.</li>
-                <li>4. You track prep time, shortlist quality, and cycle speed improvements.</li>
+                {cadence.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
               </ol>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+            <div className="rounded-lg border border-slate-200 p-6">
+              <h2 className="text-xl font-bold text-slate-900">Why this is credible in retained search</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                We use the same language your team uses every day: mandate, kickoff, slate, shortlist, candidate prep. The goal is not to replace research. It is to make the first conversation sharper and the search easier to run.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-6">
+              <h2 className="text-xl font-bold text-slate-900">Track it with a simple scoreboard</h2>
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                {metrics.map((metric) => (
+                  <li key={metric} className="flex gap-2">
+                    <span className="font-bold text-orange-500">+</span>
+                    <span>{metric}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
