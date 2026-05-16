@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 type CsvRow = Record<string, string>
-type OutreachChannel = 'executives' | 'search_firms' | 'coaches'
+type OutreachChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
 type EmailConfidence = 'high' | 'medium' | 'low'
 
 type CsvSummary = {
@@ -246,11 +246,12 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('search_firms_prospecting_100.csv'),
     readOutreachCsv('coaches_prospecting_100.csv'),
+    readOutreachCsv('outplacement_firms_prospecting_100.csv'),
     readOutreachCsv('search_firms_prospecting_curated_top25.csv'),
     readOutreachCsv('coaches_prospecting_curated_top25.csv'),
     supabase
@@ -310,6 +311,21 @@ export default async function OutreachHubPage() {
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CIO, CTO, CISO, COO, CFO transitions',
     })),
+    ...outplacementRaw.rows.map((row) => ({
+      fullName: row.full_name ?? '',
+      roleBucket: row.role_bucket ?? 'Outplacement Partner',
+      company: row.company ?? '',
+      email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
+      emailConfidence: inferEmailConfidence(row),
+      status: normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: row.email_body_core ?? '',
+      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
+      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
+      outreachChannel: 'outplacement_firms' as const,
+      fitTier: normalizeFitTier(row.fit_tier),
+      personaFocus: row.persona_focus ?? 'Executive transition and career mobility programs',
+    })),
   ].filter(row => !!row.fullName && !!row.email)
 
   const dedupedByEmail = new Map<string, ClientRow>()
@@ -339,6 +355,7 @@ export default async function OutreachHubPage() {
   const executiveCount = clientRows.filter(r => r.outreachChannel === 'executives').length
   const searchFirmCount = clientRows.filter(r => r.outreachChannel === 'search_firms').length
   const coachCount = clientRows.filter(r => r.outreachChannel === 'coaches').length
+  const outplacementCount = clientRows.filter(r => r.outreachChannel === 'outplacement_firms').length
   const strongCount = clientRows.filter(r => r.fitTier === 'strong').length
   const mediumCount = clientRows.filter(r => r.fitTier === 'medium').length
 
@@ -376,6 +393,7 @@ export default async function OutreachHubPage() {
             <p className="text-[13px] font-semibold text-slate-900 mt-1">Executives: {executiveCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Search Firms: {searchFirmCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Coaches: {coachCount}</p>
+            <p className="text-[13px] font-semibold text-slate-900">Outplacement Firms: {outplacementCount}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>

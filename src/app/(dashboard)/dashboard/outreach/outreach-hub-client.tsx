@@ -15,6 +15,7 @@ const CHANNEL_OPTIONS = [
   { value: 'executives', label: 'Executives' },
   { value: 'search_firms', label: 'Search Firms' },
   { value: 'coaches', label: 'Coaches' },
+  { value: 'outplacement_firms', label: 'Outplacement Firms' },
 ] as const
 
 const CONFIDENCE_OPTIONS = [
@@ -35,7 +36,7 @@ type ProspectRow = {
   emailBodyCore: string
   defaultSubject: string
   defaultBody: string
-  outreachChannel: 'executives' | 'search_firms' | 'coaches'
+  outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
   fitTier: 'strong' | 'medium'
   personaFocus: string
 }
@@ -63,7 +64,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [confidenceFilter, setConfidenceFilter] = useState<'all' | 'high' | 'medium' | 'low'>('high')
-  const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches'>('executives')
+  const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'>('executives')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
   const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
