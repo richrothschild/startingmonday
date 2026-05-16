@@ -234,6 +234,31 @@ Deferred because: distinct product from the candidate-facing application. Requir
 
 Move forward when: Recruiter Relationship Layer (candidate-side) is live and recruiter usage is measurable.
 
+### Partner Outreach Channel Expansion
+
+Expand the internal outreach hub beyond executives, search firms, coaches, and outplacement firms to cover additional partner channels already represented in the partner GTM surface.
+
+Priority order:
+
+1. PE talent teams and operating partners
+2. Fractional C-suite networks
+3. C-suite and technology associations
+4. Executive financial advisors
+5. Relocation firms
+6. Media partners (podcasts and newsletters)
+
+Deferred because: current channel operations are newly live and need baseline conversion, reply, and unsubscribe data before opening six new channels at once. Expanding too quickly will dilute message quality and reduce learning velocity.
+
+Move forward when: the first four channels (executives, search firms, coaches, outplacement) have at least 30 days of send data and channel-level benchmarks for reply rate, meeting-booked rate, and suppression rate.
+
+Definition of done for each added channel:
+
+- Outreach hub tab and filter added
+- Send API channel validation updated
+- Starter prospect CSV added with confidence tags
+- Channel-specific message templates and persona focus fields defined
+- Calendar follow-up flow verified end-to-end
+
 ---
 
 ## Analytics and Visualization
