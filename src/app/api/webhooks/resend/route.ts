@@ -17,6 +17,13 @@ type WebhookPayload = {
   }
 }
 
+type LogLookupRow = {
+  id: string
+  user_id: string
+  contact_id: string | null
+  recipient_email: string | null
+}
+
 function createAdminClient() {
   return createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -68,12 +75,7 @@ export async function POST(request: NextRequest) {
 
   const supabase = createAdminClient()
 
-  let logRow: {
-    id: string
-    user_id: string
-    contact_id: string | null
-    recipient_email: string | null
-  } | null = null
+  let logRow: LogLookupRow | null = null
 
   if (messageId) {
     const { data } = await supabase
@@ -84,7 +86,7 @@ export async function POST(request: NextRequest) {
       .limit(1)
       .maybeSingle()
 
-    logRow = (data as typeof logRow) ?? null
+    logRow = (data as unknown as LogLookupRow | null) ?? null
   }
 
   if (!logRow && recipient) {
@@ -96,7 +98,7 @@ export async function POST(request: NextRequest) {
       .limit(1)
       .maybeSingle()
 
-    logRow = (data as typeof logRow) ?? null
+    logRow = (data as unknown as LogLookupRow | null) ?? null
   }
 
   const userId = logRow?.user_id ?? null
