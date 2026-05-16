@@ -1,12 +1,13 @@
-<svg width="256" height="256" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon">
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon option C">
   <defs>
-    <linearGradient id="gradFavicon" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="gradC" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#F97316"/>
       <stop offset="100%" stop-color="#FB923C"/>
     </linearGradient>
   </defs>
 
   <rect width="512" height="512" rx="72" fill="#0B1220"/>
+
   <rect x="96" y="98" width="320" height="316" rx="32" fill="#111827" stroke="#334155" stroke-width="8"/>
   <rect x="128" y="128" width="256" height="32" rx="16" fill="#1F2937"/>
 
@@ -14,6 +15,6 @@
   <rect x="234" y="226" width="44" height="136" rx="12" fill="#E2E8F0"/>
   <rect x="326" y="174" width="44" height="188" rx="12" fill="#E2E8F0"/>
 
-  <path d="M126 106C154 70 198 48 248 48C296 48 340 68 370 102" fill="none" stroke="url(#gradFavicon)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M126 106C154 70 198 48 248 48C296 48 340 68 370 102" fill="none" stroke="url(#gradC)" stroke-width="18" stroke-linecap="round"/>
   <circle cx="392" cy="100" r="10" fill="#F97316"/>
 </svg>

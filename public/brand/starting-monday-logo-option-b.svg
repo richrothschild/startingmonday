@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday logo option B">
+  <defs>
+    <linearGradient id="gradB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="68" fill="#020617"/>
+  <rect x="42" y="42" width="428" height="428" rx="52" fill="#0F172A" stroke="#334155" stroke-width="6"/>
+
+  <path d="M118 332V168H160L214 260L268 168H310V332H272V236L214 326L156 236V332H118Z" fill="#E2E8F0"/>
+  <path d="M332 332V168H372V294H436V332H332Z" fill="#E2E8F0"/>
+
+  <path d="M92 130C116 94 154 72 198 72C236 72 270 88 296 116" fill="none" stroke="url(#gradB)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="320" cy="110" r="12" fill="#F97316"/>
+</svg>
