@@ -1,5 +1,5 @@
-"full_name","role_bucket","company","email_guess","fit_tier","persona_focus","status","email_opening","email_body_core","default_subject","default_body","source_type","source_url"
-"Michael Brown","Leadership Coach","Career Path","michael.brown@careerpath.com","strong","VP-to-CXO","prospect","I have followed your work at Career Path and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Michael,
+full_name,role_bucket,company,email_guess,fit_tier,persona_focus,status,email_opening,email_body_core,default_subject,default_body,source_type,source_url
+Michael Brown,Leadership Coach,Career Path,michael.brown@careerpath.com,strong,VP-to-CXO,prospect,I have followed your work at Career Path and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Michael,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -13,8 +13,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-brown"
-"Linda Rodriguez","Leadership Coach","Apex Leaders","linda.rodriguez@apexleaders.com","strong","CISO","prospect","I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-brown
+Linda Rodriguez,Leadership Coach,Apex Leaders,linda.rodriguez@apexleaders.com,strong,CISO,prospect,I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Linda,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -28,8 +29,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-rodriguez"
-"Elizabeth Johnson","Career Transition Coach","Apex Leaders","elizabeth.johnson@apexleaders.com","strong","CRO","prospect","I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-rodriguez
+Elizabeth Johnson,Career Transition Coach,Apex Leaders,elizabeth.johnson@apexleaders.com,strong,CRO,prospect,I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Elizabeth,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -43,8 +45,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-johnson"
-"Patricia Rodriguez","Executive Coach","Summit Search","patricia.rodriguez@summitsearch.com","strong","COO","prospect","I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-johnson
+Patricia Rodriguez,Executive Coach,Summit Search,patricia.rodriguez@summitsearch.com,strong,COO,prospect,I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Patricia,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -58,8 +61,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-rodriguez"
-"Elizabeth Garcia","Executive Coach","Board Advisors","elizabeth.garcia@boardadvisors.com","strong","COO","prospect","I have followed your work at Board Advisors and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-rodriguez
+Elizabeth Garcia,Executive Coach,Board Advisors,elizabeth.garcia@boardadvisors.com,strong,COO,prospect,I have followed your work at Board Advisors and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Elizabeth,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -73,8 +77,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-garcia"
-"James Rodriguez","Executive Coach","Executive Excellence","james.rodriguez@executiveexcellence.com","strong","CIO","prospect","I have followed your work at Executive Excellence and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-garcia
+James Rodriguez,Executive Coach,Executive Excellence,james.rodriguez@executiveexcellence.com,strong,CIO,prospect,I have followed your work at Executive Excellence and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi James,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -88,8 +93,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-rodriguez"
-"James Garcia","Career Transition Coach","Strategic Hires","james.garcia@strategichires.com","strong","CTO","prospect","I have followed your work at Strategic Hires and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-rodriguez
+James Garcia,Career Transition Coach,Strategic Hires,james.garcia@strategichires.com,strong,CTO,prospect,I have followed your work at Strategic Hires and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi James,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -103,8 +109,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-garcia"
-"Jennifer Jones","Career Transition Coach","Apex Leaders","jennifer.jones@apexleaders.com","strong","CISO","prospect","I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-garcia
+Jennifer Jones,Career Transition Coach,Apex Leaders,jennifer.jones@apexleaders.com,strong,CISO,prospect,I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Jennifer,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -118,8 +125,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-jones"
-"Michael Smith","Board Coach","Apex Leaders","michael.smith@apexleaders.com","strong","CRO","prospect","I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-jones
+Michael Smith,Board Coach,Apex Leaders,michael.smith@apexleaders.com,strong,CRO,prospect,I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Michael,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -133,8 +141,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-smith"
-"Robert Rodriguez","Executive Coach","Premier Partners","robert.rodriguez@premierpartners.com","strong","CRO","prospect","I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-smith
+Robert Rodriguez,Executive Coach,Premier Partners,robert.rodriguez@premierpartners.com,strong,CRO,prospect,I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Robert,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -148,8 +157,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-rodriguez"
-"John Brown","Career Transition Coach","Executive Excellence","john.brown@executiveexcellence.com","strong","CPO","prospect","I have followed your work at Executive Excellence and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-rodriguez
+John Brown,Career Transition Coach,Executive Excellence,john.brown@executiveexcellence.com,strong,CPO,prospect,I have followed your work at Executive Excellence and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi John,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -163,8 +173,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-brown"
-"Mary Williams","Executive Coach","Career Path","mary.williams@careerpath.com","strong","CFO","prospect","I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-brown
+Mary Williams,Executive Coach,Career Path,mary.williams@careerpath.com,strong,CFO,prospect,I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Mary,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -178,8 +189,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-williams"
-"Elizabeth Garcia","Board Coach","Summit Search","elizabeth.garcia@summitsearch.com","strong","COO","prospect","I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-williams
+Elizabeth Garcia,Board Coach,Summit Search,elizabeth.garcia@summitsearch.com,strong,COO,prospect,I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Elizabeth,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -193,8 +205,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-garcia"
-"James Davis","Leadership Coach","Apex Leaders","james.davis@apexleaders.com","strong","CRO","prospect","I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-garcia
+James Davis,Leadership Coach,Apex Leaders,james.davis@apexleaders.com,strong,CRO,prospect,I have followed your work at Apex Leaders and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi James,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -208,8 +221,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-davis"
-"Linda Smith","Leadership Coach","Career Path","linda.smith@careerpath.com","strong","CFO","prospect","I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-davis
+Linda Smith,Leadership Coach,Career Path,linda.smith@careerpath.com,strong,CFO,prospect,I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Linda,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -223,8 +237,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-smith"
-"Mary Brown","Executive Coach","Board Advisors","mary.brown@boardadvisors.com","strong","CIO","prospect","I have followed your work at Board Advisors and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-smith
+Mary Brown,Executive Coach,Board Advisors,mary.brown@boardadvisors.com,strong,CIO,prospect,I have followed your work at Board Advisors and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Mary,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -238,8 +253,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-brown"
-"Linda Johnson","Leadership Coach","Global Talent","linda.johnson@globaltalent.com","strong","COO","prospect","I have followed your work at Global Talent and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-brown
+Linda Johnson,Leadership Coach,Global Talent,linda.johnson@globaltalent.com,strong,COO,prospect,I have followed your work at Global Talent and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Linda,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -253,8 +269,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-johnson"
-"Linda Garcia","Board Coach","Vanguard Search","linda.garcia@vanguardsearch.com","strong","CHRO","prospect","I have followed your work at Vanguard Search and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-johnson
+Linda Garcia,Board Coach,Vanguard Search,linda.garcia@vanguardsearch.com,strong,CHRO,prospect,I have followed your work at Vanguard Search and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Linda,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -268,8 +285,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-garcia"
-"Patricia Rodriguez","Career Transition Coach","Strategic Hires","patricia.rodriguez@strategichires.com","strong","CPO","prospect","I have followed your work at Strategic Hires and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-garcia
+Patricia Rodriguez,Career Transition Coach,Strategic Hires,patricia.rodriguez@strategichires.com,strong,CPO,prospect,I have followed your work at Strategic Hires and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi Patricia,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -283,8 +301,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-rodriguez"
-"Linda Williams","Executive Coach","Vanguard Search","linda.williams@vanguardsearch.com","strong","CFO","prospect","I have followed your work at Vanguard Search and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-rodriguez
+Linda Williams,Executive Coach,Vanguard Search,linda.williams@vanguardsearch.com,strong,CFO,prospect,I have followed your work at Vanguard Search and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Linda,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -298,8 +317,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-williams"
-"Robert Davis","Board Coach","Summit Search","robert.davis@summitsearch.com","strong","CRO","prospect","I have followed your work at Summit Search and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-williams
+Robert Davis,Board Coach,Summit Search,robert.davis@summitsearch.com,strong,CRO,prospect,I have followed your work at Summit Search and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Robert,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -313,8 +333,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-davis"
-"Elizabeth Miller","Leadership Coach","Vanguard Search","elizabeth.miller@vanguardsearch.com","strong","CFO","prospect","I have followed your work at Vanguard Search and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-davis
+Elizabeth Miller,Leadership Coach,Vanguard Search,elizabeth.miller@vanguardsearch.com,strong,CFO,prospect,I have followed your work at Vanguard Search and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Elizabeth,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -328,8 +349,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-miller"
-"Robert Brown","Career Transition Coach","Leadership Group","robert.brown@leadershipgroup.com","strong","CISO","prospect","I have followed your work at Leadership Group and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-miller
+Robert Brown,Career Transition Coach,Leadership Group,robert.brown@leadershipgroup.com,strong,CISO,prospect,I have followed your work at Leadership Group and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Robert,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -343,8 +365,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-brown"
-"John Davis","Career Transition Coach","Vanguard Search","john.davis@vanguardsearch.com","strong","CISO","prospect","I have followed your work at Vanguard Search and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-brown
+John Davis,Career Transition Coach,Vanguard Search,john.davis@vanguardsearch.com,strong,CISO,prospect,I have followed your work at Vanguard Search and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi John,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -358,8 +381,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-davis"
-"Mary Martinez","Executive Coach","Leadership Group","mary.martinez@leadershipgroup.com","strong","COO","prospect","I have followed your work at Leadership Group and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-davis
+Mary Martinez,Executive Coach,Leadership Group,mary.martinez@leadershipgroup.com,strong,COO,prospect,I have followed your work at Leadership Group and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Mary,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -373,8 +397,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-martinez"
-"Robert Brown","Career Transition Coach","Summit Search","robert.brown@summitsearch.com","strong","CRO","prospect","I have followed your work at Summit Search and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-martinez
+Robert Brown,Career Transition Coach,Summit Search,robert.brown@summitsearch.com,strong,CRO,prospect,I have followed your work at Summit Search and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Robert,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -388,8 +413,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-brown"
-"William Brown","Leadership Coach","Apex Leaders","william.brown@apexleaders.com","strong","CISO","prospect","I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-brown
+William Brown,Leadership Coach,Apex Leaders,william.brown@apexleaders.com,strong,CISO,prospect,I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi William,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -403,8 +429,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-brown"
-"John Williams","Leadership Coach","Premier Partners","john.williams@premierpartners.com","strong","CRO","prospect","I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-brown
+John Williams,Leadership Coach,Premier Partners,john.williams@premierpartners.com,strong,CRO,prospect,I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi John,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -418,8 +445,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-williams"
-"Michael Brown","Leadership Coach","Board Advisors","michael.brown@boardadvisors.com","strong","CISO","prospect","I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-williams
+Michael Brown,Leadership Coach,Board Advisors,michael.brown@boardadvisors.com,strong,CISO,prospect,I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Michael,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -433,8 +461,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-brown"
-"William Brown","Leadership Coach","Apex Leaders","william.brown@apexleaders.com","strong","CPO","prospect","I have followed your work at Apex Leaders and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-brown
+William Brown,Leadership Coach,Apex Leaders,william.brown@apexleaders.com,strong,CPO,prospect,I have followed your work at Apex Leaders and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi William,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -448,8 +477,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-brown"
-"Linda Davis","Executive Coach","Leadership Group","linda.davis@leadershipgroup.com","strong","VP-to-CXO","prospect","I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-brown
+Linda Davis,Executive Coach,Leadership Group,linda.davis@leadershipgroup.com,strong,VP-to-CXO,prospect,I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Linda,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -463,8 +493,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-davis"
-"John Jones","Leadership Coach","Global Talent","john.jones@globaltalent.com","strong","CTO","prospect","I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-davis
+John Jones,Leadership Coach,Global Talent,john.jones@globaltalent.com,strong,CTO,prospect,I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi John,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -478,8 +509,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-jones"
-"John Smith","Board Coach","Summit Search","john.smith@summitsearch.com","strong","CHRO","prospect","I have followed your work at Summit Search and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-jones
+John Smith,Board Coach,Summit Search,john.smith@summitsearch.com,strong,CHRO,prospect,I have followed your work at Summit Search and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi John,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -493,8 +525,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-smith"
-"William Johnson","Career Transition Coach","Summit Search","william.johnson@summitsearch.com","strong","CFO","prospect","I have followed your work at Summit Search and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-smith
+William Johnson,Career Transition Coach,Summit Search,william.johnson@summitsearch.com,strong,CFO,prospect,I have followed your work at Summit Search and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi William,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -508,8 +541,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-johnson"
-"Elizabeth Garcia","Executive Coach","Summit Search","elizabeth.garcia@summitsearch.com","strong","CIO","prospect","I have followed your work at Summit Search and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-johnson
+Elizabeth Garcia,Executive Coach,Summit Search,elizabeth.garcia@summitsearch.com,strong,CIO,prospect,I have followed your work at Summit Search and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Elizabeth,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -523,8 +557,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-garcia"
-"Jennifer Smith","Leadership Coach","Premier Partners","jennifer.smith@premierpartners.com","strong","CRO","prospect","I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-garcia
+Jennifer Smith,Leadership Coach,Premier Partners,jennifer.smith@premierpartners.com,strong,CRO,prospect,I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Jennifer,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -538,8 +573,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-smith"
-"William Brown","Leadership Coach","Leadership Group","william.brown@leadershipgroup.com","strong","VP-to-CXO","prospect","I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-smith
+William Brown,Leadership Coach,Leadership Group,william.brown@leadershipgroup.com,strong,VP-to-CXO,prospect,I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi William,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -553,8 +589,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-brown"
-"Mary Smith","Executive Coach","Strategic Hires","mary.smith@strategichires.com","strong","CFO","prospect","I have followed your work at Strategic Hires and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-brown
+Mary Smith,Executive Coach,Strategic Hires,mary.smith@strategichires.com,strong,CFO,prospect,I have followed your work at Strategic Hires and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Mary,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -568,8 +605,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-smith"
-"James Rodriguez","Career Transition Coach","Vanguard Search","james.rodriguez@vanguardsearch.com","strong","COO","prospect","I have followed your work at Vanguard Search and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-smith
+James Rodriguez,Career Transition Coach,Vanguard Search,james.rodriguez@vanguardsearch.com,strong,COO,prospect,I have followed your work at Vanguard Search and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi James,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -583,8 +621,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-rodriguez"
-"William Davis","Board Coach","Executive Excellence","william.davis@executiveexcellence.com","strong","CISO","prospect","I have followed your work at Executive Excellence and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-rodriguez
+William Davis,Board Coach,Executive Excellence,william.davis@executiveexcellence.com,strong,CISO,prospect,I have followed your work at Executive Excellence and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi William,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -598,8 +637,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-davis"
-"Robert Williams","Board Coach","Career Path","robert.williams@careerpath.com","strong","CISO","prospect","I have followed your work at Career Path and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-davis
+Robert Williams,Board Coach,Career Path,robert.williams@careerpath.com,strong,CISO,prospect,I have followed your work at Career Path and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Robert,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -613,8 +653,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-williams"
-"Elizabeth Brown","Leadership Coach","Career Path","elizabeth.brown@careerpath.com","strong","CIO","prospect","I have followed your work at Career Path and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-williams
+Elizabeth Brown,Leadership Coach,Career Path,elizabeth.brown@careerpath.com,strong,CIO,prospect,I have followed your work at Career Path and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Elizabeth,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -628,8 +669,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-brown"
-"Mary Brown","Executive Coach","Executive Excellence","mary.brown@executiveexcellence.com","strong","CFO","prospect","I have followed your work at Executive Excellence and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-brown
+Mary Brown,Executive Coach,Executive Excellence,mary.brown@executiveexcellence.com,strong,CFO,prospect,I have followed your work at Executive Excellence and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Mary,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -643,8 +685,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-brown"
-"Patricia Brown","Executive Coach","Vanguard Search","patricia.brown@vanguardsearch.com","strong","CIO","prospect","I have followed your work at Vanguard Search and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-brown
+Patricia Brown,Executive Coach,Vanguard Search,patricia.brown@vanguardsearch.com,strong,CIO,prospect,I have followed your work at Vanguard Search and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Patricia,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -658,8 +701,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-brown"
-"Linda Johnson","Executive Coach","Apex Leaders","linda.johnson@apexleaders.com","strong","CISO","prospect","I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-brown
+Linda Johnson,Executive Coach,Apex Leaders,linda.johnson@apexleaders.com,strong,CISO,prospect,I have followed your work at Apex Leaders and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Linda,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -673,8 +717,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-johnson"
-"Michael Jones","Executive Coach","Summit Search","michael.jones@summitsearch.com","strong","COO","prospect","I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-johnson
+Michael Jones,Executive Coach,Summit Search,michael.jones@summitsearch.com,strong,COO,prospect,I have followed your work at Summit Search and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Michael,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -688,8 +733,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-jones"
-"John Miller","Leadership Coach","Summit Search","john.miller@summitsearch.com","strong","CTO","prospect","I have followed your work at Summit Search and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-jones
+John Miller,Leadership Coach,Summit Search,john.miller@summitsearch.com,strong,CTO,prospect,I have followed your work at Summit Search and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi John,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -703,8 +749,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-miller"
-"James Garcia","Executive Coach","Strategic Hires","james.garcia@strategichires.com","strong","COO","prospect","I have followed your work at Strategic Hires and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-miller
+James Garcia,Executive Coach,Strategic Hires,james.garcia@strategichires.com,strong,COO,prospect,I have followed your work at Strategic Hires and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi James,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -718,8 +765,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-garcia"
-"Jennifer Brown","Board Coach","Career Path","jennifer.brown@careerpath.com","strong","CFO","prospect","I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-garcia
+Jennifer Brown,Board Coach,Career Path,jennifer.brown@careerpath.com,strong,CFO,prospect,I have followed your work at Career Path and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Jennifer,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -733,8 +781,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-brown"
-"William Johnson","Board Coach","Executive Excellence","william.johnson@executiveexcellence.com","strong","CTO","prospect","I have followed your work at Executive Excellence and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-brown
+William Johnson,Board Coach,Executive Excellence,william.johnson@executiveexcellence.com,strong,CTO,prospect,I have followed your work at Executive Excellence and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi William,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -748,8 +797,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-johnson"
-"Patricia Johnson","Executive Coach","Summit Search","patricia.johnson@summitsearch.com","strong","CIO","prospect","I have followed your work at Summit Search and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-johnson
+Patricia Johnson,Executive Coach,Summit Search,patricia.johnson@summitsearch.com,strong,CIO,prospect,I have followed your work at Summit Search and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Patricia,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -763,8 +813,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-johnson"
-"William Williams","Career Transition Coach","Premier Partners","william.williams@premierpartners.com","strong","CFO","prospect","I have followed your work at Premier Partners and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-johnson
+William Williams,Career Transition Coach,Premier Partners,william.williams@premierpartners.com,strong,CFO,prospect,I have followed your work at Premier Partners and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi William,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -778,8 +829,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-williams"
-"Mary Garcia","Board Coach","Premier Partners","mary.garcia@premierpartners.com","strong","CFO","prospect","I have followed your work at Premier Partners and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-williams
+Mary Garcia,Board Coach,Premier Partners,mary.garcia@premierpartners.com,strong,CFO,prospect,I have followed your work at Premier Partners and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Mary,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -793,8 +845,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-garcia"
-"John Miller","Executive Coach","Premier Partners","john.miller@premierpartners.com","strong","CRO","prospect","I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-garcia
+John Miller,Executive Coach,Premier Partners,john.miller@premierpartners.com,strong,CRO,prospect,I have followed your work at Premier Partners and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi John,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -808,8 +861,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-miller"
-"Robert Rodriguez","Executive Coach","Career Path","robert.rodriguez@careerpath.com","strong","CISO","prospect","I have followed your work at Career Path and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-miller
+Robert Rodriguez,Executive Coach,Career Path,robert.rodriguez@careerpath.com,strong,CISO,prospect,I have followed your work at Career Path and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Robert,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -823,8 +877,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-rodriguez"
-"James Johnson","Executive Coach","Board Advisors","james.johnson@boardadvisors.com","strong","VP-to-CXO","prospect","I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-rodriguez
+James Johnson,Executive Coach,Board Advisors,james.johnson@boardadvisors.com,strong,VP-to-CXO,prospect,I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi James,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -838,8 +893,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-johnson"
-"William Williams","Leadership Coach","Leadership Group","william.williams@leadershipgroup.com","strong","CISO","prospect","I have followed your work at Leadership Group and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-johnson
+William Williams,Leadership Coach,Leadership Group,william.williams@leadershipgroup.com,strong,CISO,prospect,I have followed your work at Leadership Group and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi William,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -853,8 +909,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-williams"
-"Jennifer Brown","Board Coach","Summit Search","jennifer.brown@summitsearch.com","strong","CFO","prospect","I have followed your work at Summit Search and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-williams
+Jennifer Brown,Board Coach,Summit Search,jennifer.brown@summitsearch.com,strong,CFO,prospect,I have followed your work at Summit Search and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Jennifer,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -868,8 +925,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-brown"
-"Jennifer Brown","Board Coach","Premier Partners","jennifer.brown@premierpartners.com","strong","VP-to-CXO","prospect","I have followed your work at Premier Partners and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-brown
+Jennifer Brown,Board Coach,Premier Partners,jennifer.brown@premierpartners.com,strong,VP-to-CXO,prospect,I have followed your work at Premier Partners and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Jennifer,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -883,8 +941,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-brown"
-"Robert Garcia","Executive Coach","Executive Excellence","robert.garcia@executiveexcellence.com","strong","CHRO","prospect","I have followed your work at Executive Excellence and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-brown
+Robert Garcia,Executive Coach,Executive Excellence,robert.garcia@executiveexcellence.com,strong,CHRO,prospect,I have followed your work at Executive Excellence and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Robert,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -898,8 +957,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-garcia"
-"Robert Williams","Executive Coach","Leadership Group","robert.williams@leadershipgroup.com","medium","COO","prospect","I have followed your work at Leadership Group and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-garcia
+Robert Williams,Executive Coach,Leadership Group,robert.williams@leadershipgroup.com,medium,COO,prospect,I have followed your work at Leadership Group and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Robert,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -913,8 +973,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-williams"
-"Linda Miller","Leadership Coach","Premier Partners","linda.miller@premierpartners.com","medium","VP-to-CXO","prospect","I have followed your work at Premier Partners and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-williams
+Linda Miller,Leadership Coach,Premier Partners,linda.miller@premierpartners.com,medium,VP-to-CXO,prospect,I have followed your work at Premier Partners and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Linda,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -928,8 +989,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-miller"
-"Michael Davis","Board Coach","Board Advisors","michael.davis@boardadvisors.com","medium","VP-to-CXO","prospect","I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-miller
+Michael Davis,Board Coach,Board Advisors,michael.davis@boardadvisors.com,medium,VP-to-CXO,prospect,I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Michael,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -943,8 +1005,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-davis"
-"James Garcia","Executive Coach","Executive Excellence","james.garcia@executiveexcellence.com","medium","CFO","prospect","I have followed your work at Executive Excellence and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-davis
+James Garcia,Executive Coach,Executive Excellence,james.garcia@executiveexcellence.com,medium,CFO,prospect,I have followed your work at Executive Excellence and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi James,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -958,8 +1021,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-garcia"
-"Linda Jones","Leadership Coach","Executive Excellence","linda.jones@executiveexcellence.com","medium","CISO","prospect","I have followed your work at Executive Excellence and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-garcia
+Linda Jones,Leadership Coach,Executive Excellence,linda.jones@executiveexcellence.com,medium,CISO,prospect,I have followed your work at Executive Excellence and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Linda,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -973,8 +1037,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-jones"
-"Patricia Miller","Career Transition Coach","Global Talent","patricia.miller@globaltalent.com","medium","CTO","prospect","I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-jones
+Patricia Miller,Career Transition Coach,Global Talent,patricia.miller@globaltalent.com,medium,CTO,prospect,I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi Patricia,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -988,8 +1053,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-miller"
-"Michael Smith","Executive Coach","Board Advisors","michael.smith@boardadvisors.com","medium","CRO","prospect","I have followed your work at Board Advisors and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-miller
+Michael Smith,Executive Coach,Board Advisors,michael.smith@boardadvisors.com,medium,CRO,prospect,I have followed your work at Board Advisors and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Michael,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1003,8 +1069,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-smith"
-"Elizabeth Jones","Career Transition Coach","Strategic Hires","elizabeth.jones@strategichires.com","medium","CFO","prospect","I have followed your work at Strategic Hires and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-smith
+Elizabeth Jones,Career Transition Coach,Strategic Hires,elizabeth.jones@strategichires.com,medium,CFO,prospect,I have followed your work at Strategic Hires and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi Elizabeth,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1018,8 +1085,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-jones"
-"Michael Miller","Board Coach","Board Advisors","michael.miller@boardadvisors.com","medium","COO","prospect","I have followed your work at Board Advisors and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-jones
+Michael Miller,Board Coach,Board Advisors,michael.miller@boardadvisors.com,medium,COO,prospect,I have followed your work at Board Advisors and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Michael,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1033,8 +1101,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-miller"
-"Linda Martinez","Board Coach","Vanguard Search","linda.martinez@vanguardsearch.com","medium","CRO","prospect","I have followed your work at Vanguard Search and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-miller
+Linda Martinez,Board Coach,Vanguard Search,linda.martinez@vanguardsearch.com,medium,CRO,prospect,I have followed your work at Vanguard Search and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Linda,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1048,8 +1117,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-martinez"
-"William Smith","Executive Coach","Vanguard Search","william.smith@vanguardsearch.com","medium","CTO","prospect","I have followed your work at Vanguard Search and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-martinez
+William Smith,Executive Coach,Vanguard Search,william.smith@vanguardsearch.com,medium,CTO,prospect,I have followed your work at Vanguard Search and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi William,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1063,8 +1133,9 @@ Given your work at Vanguard Search, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-smith"
-"Elizabeth Smith","Executive Coach","Board Advisors","elizabeth.smith@boardadvisors.com","medium","CISO","prospect","I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-smith
+Elizabeth Smith,Executive Coach,Board Advisors,elizabeth.smith@boardadvisors.com,medium,CISO,prospect,I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Elizabeth,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1078,8 +1149,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-smith"
-"John Williams","Career Transition Coach","Leadership Group","john.williams@leadershipgroup.com","medium","CPO","prospect","I have followed your work at Leadership Group and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-smith
+John Williams,Career Transition Coach,Leadership Group,john.williams@leadershipgroup.com,medium,CPO,prospect,I have followed your work at Leadership Group and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi John,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1093,8 +1165,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-williams"
-"Mary Jones","Career Transition Coach","Apex Leaders","mary.jones@apexleaders.com","medium","CHRO","prospect","I have followed your work at Apex Leaders and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-williams
+Mary Jones,Career Transition Coach,Apex Leaders,mary.jones@apexleaders.com,medium,CHRO,prospect,I have followed your work at Apex Leaders and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Mary,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1108,8 +1181,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-jones"
-"John Johnson","Career Transition Coach","Career Path","john.johnson@careerpath.com","medium","COO","prospect","I have followed your work at Career Path and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-jones
+John Johnson,Career Transition Coach,Career Path,john.johnson@careerpath.com,medium,COO,prospect,I have followed your work at Career Path and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi John,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1123,8 +1197,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-johnson"
-"William Rodriguez","Board Coach","Executive Excellence","william.rodriguez@executiveexcellence.com","medium","CTO","prospect","I have followed your work at Executive Excellence and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-johnson
+William Rodriguez,Board Coach,Executive Excellence,william.rodriguez@executiveexcellence.com,medium,CTO,prospect,I have followed your work at Executive Excellence and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi William,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1138,8 +1213,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-rodriguez"
-"Michael Rodriguez","Career Transition Coach","Executive Excellence","michael.rodriguez@executiveexcellence.com","medium","COO","prospect","I have followed your work at Executive Excellence and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-rodriguez
+Michael Rodriguez,Career Transition Coach,Executive Excellence,michael.rodriguez@executiveexcellence.com,medium,COO,prospect,I have followed your work at Executive Excellence and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Michael,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1153,8 +1229,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-rodriguez"
-"Mary Davis","Board Coach","Global Talent","mary.davis@globaltalent.com","medium","CPO","prospect","I have followed your work at Global Talent and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-rodriguez
+Mary Davis,Board Coach,Global Talent,mary.davis@globaltalent.com,medium,CPO,prospect,I have followed your work at Global Talent and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi Mary,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1168,8 +1245,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-davis"
-"Patricia Brown","Board Coach","Board Advisors","patricia.brown@boardadvisors.com","medium","CIO","prospect","I have followed your work at Board Advisors and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-davis
+Patricia Brown,Board Coach,Board Advisors,patricia.brown@boardadvisors.com,medium,CIO,prospect,I have followed your work at Board Advisors and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Patricia,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1183,8 +1261,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-brown"
-"William Miller","Leadership Coach","Apex Leaders","william.miller@apexleaders.com","medium","CFO","prospect","I have followed your work at Apex Leaders and your focus on finance leaders navigating CFO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CFO clients: confidential execution support","Hi William,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-brown
+William Miller,Leadership Coach,Apex Leaders,william.miller@apexleaders.com,medium,CFO,prospect,I have followed your work at Apex Leaders and your focus on finance leaders navigating CFO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CFO clients: confidential execution support,"Hi William,
 
 You coach finance leaders navigating CFO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1198,8 +1277,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/william-miller"
-"Patricia Brown","Career Transition Coach","Board Advisors","patricia.brown@boardadvisors.com","medium","CISO","prospect","I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CISO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/william-miller
+Patricia Brown,Career Transition Coach,Board Advisors,patricia.brown@boardadvisors.com,medium,CISO,prospect,I have followed your work at Board Advisors and your focus on security leaders navigating CISO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CISO clients: confidential execution support,"Hi Patricia,
 
 You coach security leaders navigating CISO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1213,8 +1293,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-brown"
-"Linda Martinez","Career Transition Coach","Career Path","linda.martinez@careerpath.com","medium","CTO","prospect","I have followed your work at Career Path and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-brown
+Linda Martinez,Career Transition Coach,Career Path,linda.martinez@careerpath.com,medium,CTO,prospect,I have followed your work at Career Path and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi Linda,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1228,8 +1309,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-martinez"
-"Robert Williams","Leadership Coach","Leadership Group","robert.williams@leadershipgroup.com","medium","CHRO","prospect","I have followed your work at Leadership Group and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-martinez
+Robert Williams,Leadership Coach,Leadership Group,robert.williams@leadershipgroup.com,medium,CHRO,prospect,I have followed your work at Leadership Group and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Robert,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1243,8 +1325,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-williams"
-"Jennifer Smith","Career Transition Coach","Global Talent","jennifer.smith@globaltalent.com","medium","CTO","prospect","I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-williams
+Jennifer Smith,Career Transition Coach,Global Talent,jennifer.smith@globaltalent.com,medium,CTO,prospect,I have followed your work at Global Talent and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi Jennifer,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1258,8 +1341,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-smith"
-"John Williams","Board Coach","Board Advisors","john.williams@boardadvisors.com","medium","VP-to-CXO","prospect","I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-smith
+John Williams,Board Coach,Board Advisors,john.williams@boardadvisors.com,medium,VP-to-CXO,prospect,I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi John,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1273,8 +1357,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-williams"
-"Mary Davis","Board Coach","Global Talent","mary.davis@globaltalent.com","medium","CRO","prospect","I have followed your work at Global Talent and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-williams
+Mary Davis,Board Coach,Global Talent,mary.davis@globaltalent.com,medium,CRO,prospect,I have followed your work at Global Talent and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Mary,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1288,8 +1373,9 @@ Given your work at Global Talent, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-davis"
-"Michael Williams","Leadership Coach","Board Advisors","michael.williams@boardadvisors.com","medium","VP-to-CXO","prospect","I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-davis
+Michael Williams,Leadership Coach,Board Advisors,michael.williams@boardadvisors.com,medium,VP-to-CXO,prospect,I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Michael,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1303,8 +1389,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-williams"
-"Robert Martinez","Leadership Coach","Board Advisors","robert.martinez@boardadvisors.com","medium","VP-to-CXO","prospect","I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-williams
+Robert Martinez,Leadership Coach,Board Advisors,robert.martinez@boardadvisors.com,medium,VP-to-CXO,prospect,I have followed your work at Board Advisors and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Robert,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1318,8 +1405,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-martinez"
-"Michael Martinez","Board Coach","Strategic Hires","michael.martinez@strategichires.com","medium","CIO","prospect","I have followed your work at Strategic Hires and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-martinez
+Michael Martinez,Board Coach,Strategic Hires,michael.martinez@strategichires.com,medium,CIO,prospect,I have followed your work at Strategic Hires and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Michael,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1333,8 +1421,9 @@ Given your work at Strategic Hires, this may be useful for select clients who ne
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-martinez"
-"Linda Johnson","Executive Coach","Board Advisors","linda.johnson@boardadvisors.com","medium","CRO","prospect","I have followed your work at Board Advisors and your focus on revenue leaders navigating CRO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CRO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-martinez
+Linda Johnson,Executive Coach,Board Advisors,linda.johnson@boardadvisors.com,medium,CRO,prospect,I have followed your work at Board Advisors and your focus on revenue leaders navigating CRO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CRO clients: confidential execution support,"Hi Linda,
 
 You coach revenue leaders navigating CRO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1348,8 +1437,9 @@ Given your work at Board Advisors, this may be useful for select clients who nee
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-johnson"
-"James Rodriguez","Board Coach","Leadership Group","james.rodriguez@leadershipgroup.com","medium","CHRO","prospect","I have followed your work at Leadership Group and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi James,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-johnson
+James Rodriguez,Board Coach,Leadership Group,james.rodriguez@leadershipgroup.com,medium,CHRO,prospect,I have followed your work at Leadership Group and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi James,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1363,8 +1453,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/james-rodriguez"
-"Mary Garcia","Leadership Coach","Premier Partners","mary.garcia@premierpartners.com","medium","COO","prospect","I have followed your work at Premier Partners and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Mary,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/james-rodriguez
+Mary Garcia,Leadership Coach,Premier Partners,mary.garcia@premierpartners.com,medium,COO,prospect,I have followed your work at Premier Partners and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Mary,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1378,8 +1469,9 @@ Given your work at Premier Partners, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/mary-garcia"
-"Michael Garcia","Executive Coach","Executive Excellence","michael.garcia@executiveexcellence.com","medium","CHRO","prospect","I have followed your work at Executive Excellence and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Michael,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/mary-garcia
+Michael Garcia,Executive Coach,Executive Excellence,michael.garcia@executiveexcellence.com,medium,CHRO,prospect,I have followed your work at Executive Excellence and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Michael,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1393,8 +1485,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/michael-garcia"
-"Linda Johnson","Career Transition Coach","Summit Search","linda.johnson@summitsearch.com","medium","CHRO","prospect","I have followed your work at Summit Search and your focus on people leaders navigating CHRO-level moves.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CHRO clients: confidential execution support","Hi Linda,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/michael-garcia
+Linda Johnson,Career Transition Coach,Summit Search,linda.johnson@summitsearch.com,medium,CHRO,prospect,I have followed your work at Summit Search and your focus on people leaders navigating CHRO-level moves.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CHRO clients: confidential execution support,"Hi Linda,
 
 You coach people leaders navigating CHRO-level moves. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1408,8 +1501,9 @@ Given your work at Summit Search, this may be useful for select clients who need
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/linda-johnson"
-"Jennifer Garcia","Board Coach","Apex Leaders","jennifer.garcia@apexleaders.com","medium","CPO","prospect","I have followed your work at Apex Leaders and your focus on product leaders pursuing CPO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CPO clients: confidential execution support","Hi Jennifer,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/linda-johnson
+Jennifer Garcia,Board Coach,Apex Leaders,jennifer.garcia@apexleaders.com,medium,CPO,prospect,I have followed your work at Apex Leaders and your focus on product leaders pursuing CPO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CPO clients: confidential execution support,"Hi Jennifer,
 
 You coach product leaders pursuing CPO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1423,8 +1517,9 @@ Given your work at Apex Leaders, this may be useful for select clients who need 
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/jennifer-garcia"
-"Patricia Martinez","Board Coach","Leadership Group","patricia.martinez@leadershipgroup.com","medium","VP-to-CXO","prospect","I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your VP-to-CXO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/jennifer-garcia
+Patricia Martinez,Board Coach,Leadership Group,patricia.martinez@leadershipgroup.com,medium,VP-to-CXO,prospect,I have followed your work at Leadership Group and your focus on senior operators stepping from VP scope into C-suite mandates.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your VP-to-CXO clients: confidential execution support,"Hi Patricia,
 
 You coach senior operators stepping from VP scope into C-suite mandates. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1438,8 +1533,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-martinez"
-"Patricia Martinez","Career Transition Coach","Executive Excellence","patricia.martinez@executiveexcellence.com","medium","COO","prospect","I have followed your work at Executive Excellence and your focus on operators navigating COO-level transition decisions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your COO clients: confidential execution support","Hi Patricia,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-martinez
+Patricia Martinez,Career Transition Coach,Executive Excellence,patricia.martinez@executiveexcellence.com,medium,COO,prospect,I have followed your work at Executive Excellence and your focus on operators navigating COO-level transition decisions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your COO clients: confidential execution support,"Hi Patricia,
 
 You coach operators navigating COO-level transition decisions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1453,8 +1549,9 @@ Given your work at Executive Excellence, this may be useful for select clients w
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/patricia-martinez"
-"Robert Martinez","Board Coach","Career Path","robert.martinez@careerpath.com","medium","CIO","prospect","I have followed your work at Career Path and your focus on technology executives pursuing CIO-level transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CIO clients: confidential execution support","Hi Robert,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/patricia-martinez
+Robert Martinez,Board Coach,Career Path,robert.martinez@careerpath.com,medium,CIO,prospect,I have followed your work at Career Path and your focus on technology executives pursuing CIO-level transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CIO clients: confidential execution support,"Hi Robert,
 
 You coach technology executives pursuing CIO-level transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1468,8 +1565,9 @@ Given your work at Career Path, this may be useful for select clients who need d
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/robert-martinez"
-"John Smith","Leadership Coach","Leadership Group","john.smith@leadershipgroup.com","medium","CTO","prospect","I have followed your work at Leadership Group and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi John,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/robert-martinez
+John Smith,Leadership Coach,Leadership Group,john.smith@leadershipgroup.com,medium,CTO,prospect,I have followed your work at Leadership Group and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi John,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1483,8 +1581,9 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/john-smith"
-"Elizabeth Johnson","Board Coach","Leadership Group","elizabeth.johnson@leadershipgroup.com","medium","CTO","prospect","I have followed your work at Leadership Group and your focus on leaders navigating CTO transitions.","Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.","For your CTO clients: confidential execution support","Hi Elizabeth,
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/john-smith
+Elizabeth Johnson,Board Coach,Leadership Group,elizabeth.johnson@leadershipgroup.com,medium,CTO,prospect,I have followed your work at Leadership Group and your focus on leaders navigating CTO transitions.,"Starting Monday adds a coach-first execution layer: target-list discipline, market-signal tracking, outreach drafts, and prep briefs, while protecting your client relationship.",For your CTO clients: confidential execution support,"Hi Elizabeth,
 
 You coach leaders navigating CTO transitions. I run Starting Monday, a private search-operations platform for senior operators in transition.
 
@@ -1498,4 +1597,5 @@ Given your work at Leadership Group, this may be useful for select clients who n
 Would it be a bad idea to do a 15-minute fit check next week?
 
 Best,
-Richard Rothschild","docs_inferred","https://www.linkedin.com/in/elizabeth-johnson"
+Richard Rothschild
+startingmonday.app",docs_inferred,https://www.linkedin.com/in/elizabeth-johnson

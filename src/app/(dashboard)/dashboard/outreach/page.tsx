@@ -127,7 +127,7 @@ function buildDefaultBody(row: CsvRow): string {
     '',
     'Best,',
     'Rich Rothschild',
-    'Starting Monday',
+    'startingmonday.app',
   ].join('\n')
 }
 
