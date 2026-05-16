@@ -30,8 +30,9 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createClient()
+  const sb = supabase as any
 
-  const { error } = await supabase
+  const { error } = await sb
     .from('outreach_suppressions')
     .upsert({
       user_id: userId,

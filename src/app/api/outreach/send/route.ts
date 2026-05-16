@@ -172,6 +172,7 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createClient()
+  const sb = supabase as any
   const { data: authData } = await supabase.auth.getUser()
   const senderUserEmail = authData.user?.email?.toLowerCase() ?? ''
 
@@ -189,7 +190,7 @@ export async function POST(request: NextRequest) {
   }
 
   const [{ data: suppressionHit }, { data: closedContactHit }] = await Promise.all([
-    supabase
+    sb
       .from('outreach_suppressions')
       .select('id')
       .eq('user_id', userId)
@@ -197,7 +198,7 @@ export async function POST(request: NextRequest) {
       .eq('active', true)
       .limit(1)
       .maybeSingle(),
-    supabase
+    sb
       .from('contacts')
       .select('id')
       .eq('user_id', userId)
