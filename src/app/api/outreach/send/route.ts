@@ -205,7 +205,7 @@ export async function POST(request: NextRequest) {
       .eq('outreach_status', 'closed')
       .limit(1)
       .maybeSingle(),
-  ])
+  ]) as [{ data: { id: string } | null }, { data: { id: string } | null }]
 
   if (suppressionHit?.id || closedContactHit?.id) {
     return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
