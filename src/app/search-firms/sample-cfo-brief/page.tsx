@@ -1,0 +1,116 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Sample CFO Pre-Search Brief',
+  description:
+    'A sample role-specific CFO pre-search brief showing market context, positioning angles, and consultant interview filters.',
+  alternates: {
+    canonical: 'https://startingmonday.app/search-firms/sample-cfo-brief',
+  },
+  openGraph: {
+    title: 'Sample CFO Pre-Search Brief',
+    description:
+      'See what Starting Monday delivers before search kickoff for CFO mandates.',
+    url: 'https://startingmonday.app/search-firms/sample-cfo-brief',
+  },
+}
+
+const moves = [
+  'Recent CFO transitions in comparable mid-market SaaS companies',
+  'Role trigger patterns: sponsor change, acquisition, or IPO prep',
+  'Comparable search timelines and placement profiles',
+]
+
+const positioning = [
+  'Lead with mandate reality: M&A integration plus international expansion',
+  'Frame board dynamics clearly so candidates self-select early',
+  'Anchor value in outcomes: cycle speed, quality of shortlist, and fit confidence',
+]
+
+const interviewFilters = [
+  'Has this candidate led at least one full acquisition integration?',
+  'Can they run active board and sponsor communication under pressure?',
+  'Do they have practical international finance operations experience?',
+]
+
+export default function SampleCfoBriefPage() {
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <main className="px-4 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-4xl">
+          <Link href="/search-firms" className="text-sm text-slate-500 hover:text-slate-900">
+            <- Back to search firms
+          </Link>
+
+          <header className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-6 sm:p-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Sample brief</p>
+            <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">CFO Pre-Search Brief</h1>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              This is a sample format for what a retained search consultant receives before kickoff on a CFO mandate.
+            </p>
+          </header>
+
+          <section className="mt-8 space-y-6">
+            <article className="rounded-lg border border-slate-200 p-6">
+              <h2 className="text-xl font-bold">Section A: Market context</h2>
+              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                {moves.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="font-bold text-orange-500">+</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-lg border border-slate-200 p-6">
+              <h2 className="text-xl font-bold">Section B: Candidate positioning angles</h2>
+              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                {positioning.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="font-bold text-orange-500">+</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-lg border border-slate-200 p-6">
+              <h2 className="text-xl font-bold">Section C: Interview filters</h2>
+              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                {interviewFilters.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="font-bold text-orange-500">+</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-lg border border-slate-200 bg-slate-50 p-6">
+              <h2 className="text-xl font-bold">Section D: One-page takeaway</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                Mandate fit is strongest when the candidate has proven integration execution, sponsor communication strength, and scale-stage finance leadership. This context should be used at kickoff and in first-round screening.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="/search-firms"
+                  className="rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+                >
+                  Back to landing page
+                </Link>
+                <Link
+                  href="/partners#apply"
+                  className="rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-500"
+                >
+                  Run a pilot
+                </Link>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+  )
+}
