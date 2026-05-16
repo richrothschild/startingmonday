@@ -8,6 +8,7 @@ type BriefInput = {
   mandateRole: string
   triggerEvent: string
   boardContext: string
+  boardConcerns: string
   timeline: string
   mustHaves: string
   compensationBand: string
@@ -31,6 +32,25 @@ const sampleBrief = {
   compensationBand: '$220K base + 40% bonus + equity refresh tied to exit event.',
   candidateSummary:
     'Former finance leader at two growth SaaS companies. Scaled team from 6 to 28, integrated one $120M acquisition, and reduced monthly close from 12 days to 5.',
+  boardQuestions: [
+    'How will you preserve operating discipline while integrating two acquired businesses and preparing the company for exit?',
+    'What reporting cadence would you put in place for the board in the first 90 days?',
+    'Where will you personally spend time versus delegate as the finance platform scales internationally?',
+  ],
+  objections: [
+    {
+      label: 'Scope fit',
+      body: 'The board may worry the candidate is too SaaS-centric. Answer: they have already led finance through acquisition integration, international expansion, and sponsor-facing reporting.',
+    },
+    {
+      label: 'Scale readiness',
+      body: 'The team may question whether the candidate has handled the pace of a PE-backed environment. Answer: they scaled a finance function from 6 to 28 and cut close cycles materially.',
+    },
+    {
+      label: 'Board communication',
+      body: 'The board will want crisp, low-drama communication. Answer: use the candidate\'s history of disciplined reporting and clear ownership of operating metrics.',
+    },
+  ],
 }
 
 const defaultInput: BriefInput = {
@@ -39,6 +59,7 @@ const defaultInput: BriefInput = {
   mandateRole: 'Chief Financial Officer',
   triggerEvent: '',
   boardContext: '',
+  boardConcerns: '',
   timeline: '',
   mustHaves: '',
   compensationBand: '',
@@ -106,8 +127,18 @@ export default function SearchFirmSampleBriefExperience() {
         {
           title: 'Board and Sponsor Dynamics',
           body:
-            input.boardContext ||
+            input.boardConcerns || input.boardContext ||
             'Add board expectations, sponsor operating style, and likely pressure points for first 180 days.',
+        },
+        {
+          title: 'Board Questions and Objections',
+          body: input.boardConcerns || input.boardContext
+            ? [
+                'What board question is most likely in round one?',
+                'Which objection will matter most to the sponsor or directors?',
+                'What answer should the candidate stay ready to repeat?',
+              ]
+            : ['Add board concerns so the draft can surface likely questions and objections.'],
         },
         {
           title: 'Search Constraints',
@@ -128,6 +159,14 @@ export default function SearchFirmSampleBriefExperience() {
           body:
             input.compensationBand ||
             'Add base, bonus, equity, and notable tradeoffs you expect to discuss in final rounds.',
+        },
+        {
+          title: 'What Not to Say',
+          body: [
+            'Do not open with a chronology.',
+            'Do not sound generic about board dynamics.',
+            'Do not overstate fit without a direct link to the mandate.',
+          ],
         },
       ],
     }
@@ -210,6 +249,13 @@ export default function SearchFirmSampleBriefExperience() {
             placeholder="Board/sponsor context"
             value={input.boardContext}
             onChange={(e) => setInput((s) => ({ ...s, boardContext: e.target.value }))}
+          />
+          <textarea
+            className="rounded border border-slate-300 px-3 py-2 text-sm md:col-span-2"
+            rows={3}
+            placeholder="Board concerns or likely objections"
+            value={input.boardConcerns}
+            onChange={(e) => setInput((s) => ({ ...s, boardConcerns: e.target.value }))}
           />
           <input
             className="rounded border border-slate-300 px-3 py-2 text-sm"

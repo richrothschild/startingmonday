@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Sample CFO Pre-Search Brief',
     description:
-      'See what Starting Monday delivers before search kickoff for CFO mandates.',
+      'See a board-ready CFO pre-search brief and intake flow before search kickoff.',
     url: 'https://startingmonday.app/search-firms/sample-cfo-brief',
   },
 }
@@ -48,10 +48,10 @@ export default function SampleCfoBriefPage() {
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Sample brief</p>
             <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">CFO Pre-Search Brief</h1>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              This is a sample format for what a retained search consultant receives before kickoff on a CFO mandate.
+              This is a retained-search artifact: a board-ready CFO brief that helps a firm sharpen kickoff, candidate framing, and board prep before search starts.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              This page now includes both a complete example and an intake-to-brief preview flow for real client mandates.
+              The page includes a complete example and an intake-to-brief preview flow for real client mandates.
             </p>
           </header>
 
@@ -81,7 +81,7 @@ export default function SampleCfoBriefPage() {
             </article>
 
             <article className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold">Section C: Interview filters</h2>
+              <h2 className="text-xl font-bold">Section C: Interview filters and board questions</h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-700">
                 {interviewFilters.map((item) => (
                   <li key={item} className="flex gap-2">
