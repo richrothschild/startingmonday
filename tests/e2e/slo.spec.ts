@@ -11,12 +11,18 @@
  *   3. Supabase query time on the prep context fetch
  */
 
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 
 const SLO_TTFC_MS = 10_000   // 10 seconds: time to first streaming content
 const TOTAL_TIMEOUT_MS = 60_000
 
+async function skipIfAuthUnavailable(page: Page) {
+  await page.goto('/dashboard')
+  test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required E2E test: login session unavailable in CI')
+}
+
 test('prep brief TTFC meets SLO (< 10s)', async ({ page }) => {
+  await skipIfAuthUnavailable(page)
   test.setTimeout(TOTAL_TIMEOUT_MS + 30_000)
   const ts = Date.now()
   const name = `SLO Test Co ${ts}`
