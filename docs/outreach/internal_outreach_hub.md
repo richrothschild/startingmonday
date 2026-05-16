@@ -10,6 +10,12 @@ This is the single internal index for outbound execution assets.
 - Proof asset package: `docs/outreach/proof-asset-execution-package-v1.md`
 - Coach and search partner playbook: `docs/outreach/coach-search-partner-assets-and-sequences-v1.md`
 
+## First Proof Assets
+
+- Aggregate proof note: `docs/outreach/proof-asset-01-pilot-cohort-methodology-note.md`
+- Founder case study: `docs/outreach/proof-asset-02-founder-case-study.md`
+- Sample output walkthrough: `docs/outreach/proof-asset-03-sample-output-walkthrough-cfo-brief.md`
+
 ## Prospecting Master Files
 
 - Master personalized list (50): `docs/outreach/prospecting_combined_strict_50_personalized.csv`
