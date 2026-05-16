@@ -365,6 +365,7 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
+  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -558,6 +559,9 @@ export default async function DashboardPage({
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
+            )}
             {isPartner && (
               <Link href="/dashboard/partner" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
             )}
@@ -573,6 +577,9 @@ export default async function DashboardPage({
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
             <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 whitespace-nowrap">Admin</Link>
+            )}
             <LogoutButton label="Sign out" />
           </div>
         </div>

@@ -112,6 +112,7 @@ export default async function ProfilePage({
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
   const starStories = Array.isArray(profile?.star_stories) ? (profile.star_stories as StarStory[]) : [] as StarStory[]
+  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
 
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])
@@ -138,12 +139,22 @@ export default async function ProfilePage({
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link
-            href="/dashboard"
-            className="text-[13px] text-slate-300 hover:text-white transition-colors"
-          >
-            ← Dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="text-[13px] text-slate-300 hover:text-white transition-colors"
+            >
+              ← Dashboard
+            </Link>
+            {isRothschildAdmin && (
+              <Link
+                href="/dashboard/admin"
+                className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors"
+              >
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
