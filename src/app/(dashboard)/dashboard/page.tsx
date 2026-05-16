@@ -425,18 +425,26 @@ export default async function DashboardPage({
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="hidden sm:flex items-center gap-4 flex-1">
+              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Dashboard</Link>
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
               <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
               <div className="ml-auto flex items-center gap-4 shrink-0">
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
                 <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors">Billing</Link>
+                {isRothschildAdmin && (
+                  <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
+                )}
                 <LogoutButton label="Sign out" />
               </div>
             </div>
             <div className="flex sm:hidden items-center gap-4 ml-auto">
+              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300">Dashboard</Link>
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white">Feedback</Link>
+              {isRothschildAdmin && (
+                <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300">Admin</Link>
+              )}
               <LogoutButton label="Sign out" />
             </div>
           </div>
