@@ -24,6 +24,7 @@
     "test:e2e": "playwright test --project=setup --project=smoke",
     "test:e2e:report": "playwright show-report",
     "seed:demo": "npx tsx scripts/seed-demo.ts",
+    "seed:social": "npx tsx scripts/seed-social-calendar.ts",
     "evals:label-progress": "node scripts/check-prep-brief-label-progress.mjs",
     "evals:label-progress:json": "node scripts/check-prep-brief-label-progress.mjs --json",
     "evals:label-progress:strict": "node scripts/check-prep-brief-label-progress.mjs --strict",
