@@ -119,7 +119,7 @@ function evaluateGuardrails(input: {
     violations.push('Use at most one link per outreach message to reduce spam risk.')
   }
 
-  if (message.includes('—') || message.includes('&mdash;')) {
+    if (message.includes('\u2014') || message.includes('&mdash;')) {
     violations.push('Do not use em dashes in outreach messages.')
   }
 
