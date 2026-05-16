@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import SearchFirmSampleBriefExperience from '@/components/SearchFirmSampleBriefExperience'
 
 export const metadata: Metadata = {
   title: 'Sample CFO Pre-Search Brief',
@@ -48,6 +49,9 @@ export default function SampleCfoBriefPage() {
             <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">CFO Pre-Search Brief</h1>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               This is a sample format for what a retained search consultant receives before kickoff on a CFO mandate.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              This page now includes both a complete fake-person example and an intake-to-brief preview flow for real client mandates.
             </p>
           </header>
 
@@ -109,6 +113,8 @@ export default function SampleCfoBriefPage() {
               </div>
             </article>
           </section>
+
+          <SearchFirmSampleBriefExperience />
         </div>
       </main>
     </div>
