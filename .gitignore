@@ -54,3 +54,11 @@ docs/status/prep-brief-evals-readiness.json
 *.pdf
 *.docx
 *.doc
+
+# Screenshots and downloads accidentally dropped into project folder
+/Screenshots/
+/Downloads/
+*.heic
+*.jpg
+*.jpeg
+*.png
