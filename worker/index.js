@@ -25,6 +25,7 @@ import { runIndustryPulseJob } from './jobs/industry-pulse-job.js'
 import { runOpportunityRadarJob } from './jobs/opportunity-radar-job.js'
 import { runConciergePrepJob } from './jobs/concierge-prep-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
+import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -156,6 +157,9 @@ cron.schedule('30 7 * * *', () => runJob('concierge-prep-job', runConciergePrepJ
 
 // Briefing watchdog: daily at 14:00 UTC — alerts Rich if no briefings sent in 36h
 cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWatchdogJob))
+
+// Outreach digest: daily at 15:00 UTC — send/delivery status summary + bounce/stuck alerts
+cron.schedule('0 15 * * *', () => runJob('outreach-digest-job', runOutreachDigestJob))
 
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.

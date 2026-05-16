@@ -304,6 +304,7 @@ export async function POST(request: NextRequest) {
     html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`,
     from: fromAddress,
     replyTo: 'richard@startingmonday.app',
+    bcc: mode === 'live' ? 'richard@startingmonday.app' : undefined,
     headers: {
       'List-Unsubscribe': listUnsubscribe,
       'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
