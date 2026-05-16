@@ -308,6 +308,46 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       </section>
 
+      {/* Objection Discovery — addressing real executive concerns */}
+      <section className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-[20px] font-bold text-white mb-10 leading-snug">
+            You might be thinking: Here's exactly where we fit in.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {/* Objection 1: I have a coach */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">If you work with a coach</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"My coach handles this."</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                Exactly. We handle the infrastructure layer your coach builds on. Every morning, your briefing surfaces which conversations to prioritize. Before each session with your coach, you have your prep brief ready. We make what they teach executable.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">20% of our early users brought the briefing into every coaching session.</p>
+            </div>
+
+            {/* Objection 2: I use LinkedIn Premium / have a recruiter */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">If you use LinkedIn Premium or have a recruiter</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"I already have those tools."</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                LinkedIn is a job board; we are intelligence + cadence. Your recruiter works inside the formal process; we work before it exists. The signal comes 11 days before the search goes to a firm. We catch it.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">Your recruiter will have better context because you reached out sooner.</p>
+            </div>
+
+            {/* Objection 3: Will my employer find out */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">Privacy is non-negotiable</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"Will my employer find out?"</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                No. We have no relationship with employers, search firms, or recruiters. We do not sell leads. We do not train AI on your data. Your account is completely private. We never share your activity.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">Delete everything anytime, from Settings.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -540,7 +580,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
       {/* Operating cadence */}
-      <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+      <section id="operating-cadence" className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             How it runs
