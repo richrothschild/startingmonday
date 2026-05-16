@@ -123,10 +123,13 @@ export function CommandPalette() {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] px-4"
-      onMouseDown={e => { if (e.target === e.currentTarget) close() }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
+      <div
+        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onMouseDown={close}
+        aria-hidden="true"
+      />
 
       {/* Panel */}
       <div className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200">
@@ -147,6 +150,14 @@ export function CommandPalette() {
           {loading && (
             <div className="w-4 h-4 border-2 border-slate-200 border-t-slate-600 rounded-full animate-spin shrink-0" />
           )}
+          <button
+            type="button"
+            onClick={close}
+            className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors px-2 py-1 rounded border border-transparent hover:border-slate-200"
+            aria-label="Close command palette"
+          >
+            Close
+          </button>
           <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 bg-slate-100 rounded border border-slate-200 shrink-0">
             ESC
           </kbd>

@@ -606,6 +606,17 @@ export default async function DashboardPage({
             </p>
         </div>
 
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">
+            Dashboard
+          </Link>
+          {isRothschildAdmin && (
+            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">
+              Admin
+            </Link>
+          )}
+        </div>
+
         <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <div className="flex-1 min-w-0">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</p>
