@@ -15,7 +15,7 @@ type BriefInput = {
   candidateSummary: string
 }
 
-const fakeBrief = {
+const sampleBrief = {
   candidateName: 'Jordan Patel',
   mandateRole: 'Chief Financial Officer',
   clientName: 'Apex Field Systems',
@@ -136,24 +136,38 @@ export default function SearchFirmSampleBriefExperience() {
   return (
     <section className="mt-10 space-y-8">
       <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 sm:p-8">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Complete fake example</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Complete example</p>
         <h3 className="mt-2 text-2xl font-bold text-slate-900">
-          {fakeBrief.mandateRole} Brief: {fakeBrief.clientName}
+          {sampleBrief.mandateRole} Brief: {sampleBrief.clientName}
         </h3>
         <p className="mt-2 text-sm text-slate-600">
-          Candidate: <span className="font-semibold text-slate-900">{fakeBrief.candidateName}</span>
+          Candidate: <span className="font-semibold text-slate-900">{sampleBrief.candidateName}</span>
         </p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {renderSection('Client Snapshot', fakeBrief.companyDescription)}
-          {renderSection('Search Trigger', fakeBrief.triggerEvent)}
-          {renderSection('Board Context', fakeBrief.boardContext)}
-          {renderSection('Target Timeline', fakeBrief.timeline)}
-          {renderSection('Must-Have Filters', toBulletList(fakeBrief.mustHaves))}
-          {renderSection('Compensation', fakeBrief.compensationBand)}
+          {renderSection('Client Snapshot', sampleBrief.companyDescription)}
+          {renderSection('Search Trigger', sampleBrief.triggerEvent)}
+          {renderSection('Board Context', sampleBrief.boardContext)}
+          {renderSection('Target Timeline', sampleBrief.timeline)}
+          {renderSection('Must-Have Filters', toBulletList(sampleBrief.mustHaves))}
+          {renderSection('Compensation', sampleBrief.compensationBand)}
         </div>
 
-        <div className="mt-4">{renderSection('Candidate Positioning Narrative', fakeBrief.candidateSummary)}</div>
+        <div className="mt-4">{renderSection('Candidate Positioning Narrative', sampleBrief.candidateSummary)}</div>
+
+        {showGenerated && (
+          <div className="mt-6 rounded-lg border border-orange-200 bg-orange-50/30 p-6">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-600">Draft output from your intake</p>
+            <h4 className="mt-2 text-xl font-bold text-slate-900">{generated.title}</h4>
+            <p className="mt-1 text-sm text-slate-600">{generated.candidateHeadline}</p>
+
+            <div className="mt-5 space-y-4">
+              {generated.sections.map((section) => (
+                <div key={section.title}>{renderSection(section.title, section.body)}</div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="rounded-lg border border-slate-200 p-6 sm:p-8">
@@ -251,19 +265,6 @@ export default function SearchFirmSampleBriefExperience() {
           </button>
         </div>
 
-        {showGenerated && (
-          <div className="mt-8 rounded-lg border border-orange-200 bg-orange-50/30 p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-600">Generated draft</p>
-            <h4 className="mt-2 text-xl font-bold text-slate-900">{generated.title}</h4>
-            <p className="mt-1 text-sm text-slate-600">{generated.candidateHeadline}</p>
-
-            <div className="mt-5 space-y-4">
-              {generated.sections.map((section) => (
-                <div key={section.title}>{renderSection(section.title, section.body)}</div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   )

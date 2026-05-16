@@ -51,7 +51,7 @@ export default function SampleCfoBriefPage() {
               This is a sample format for what a retained search consultant receives before kickoff on a CFO mandate.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              This page now includes both a complete fake-person example and an intake-to-brief preview flow for real client mandates.
+              This page now includes both a complete example and an intake-to-brief preview flow for real client mandates.
             </p>
           </header>
 
