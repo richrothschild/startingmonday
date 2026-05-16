@@ -16,6 +16,7 @@ Core thesis:
 - Institutions with aggregated executive demand are the fastest path to durable ARR.
 - Software-first delivery can produce high gross margins if product scope remains tight.
 - A premium brand must be backed by measurable outcomes, not positioning language alone.
+- The company must sell executive readiness, signal intelligence, and better conversations, not generic job-search help.
 
 24-month objective:
 
@@ -26,6 +27,10 @@ Path to $100M ARR:
 - Win one wedge deeply (coaches), then expand into adjacent segments (search, outplacement) with a shared core product.
 - Add enterprise controls, reporting, and integrations to increase account size and expansion revenue.
 
+Pre-scale rule:
+
+- The company does not scale a segment until proof, trust, activation, and unit economics are evidenced in that segment.
+
 ## Market and ICP strategy
 
 ### ICP priority and sequencing
@@ -34,6 +39,22 @@ Path to $100M ARR:
 2. Search firms (adjacent expansion)
 3. Outplacement firms (institutional scale)
 4. Individual executives (premium one-time, brand support)
+
+Immediate execution constraint:
+
+- Quarter 1 focus remains executive coaches, but search firms should be tested in parallel as a threat-sensitive discovery channel so sequencing is validated rather than assumed.
+
+### Smallest viable audience
+
+- Primary wedge: coaches serving senior technology executives in transition, especially CIO, CTO, CISO, CDO, and PE-backed transformation leaders.
+- Secondary wedge for validation: boutique retained IT executive search firms serving the same buyer ecosystem.
+
+### Coach persona map
+
+1. Career transition coaches: speed, clarity, and reduced between-session chaos.
+2. VP-to-CXO coaches: executive narrative, confidentiality, and higher-stakes positioning.
+3. Search-affiliate coaches: candidate readiness before interviews and introductions.
+4. Board-positioning coaches: long-cycle governance and opportunity monitoring.
 
 ### Segment strategy map
 
@@ -49,6 +70,13 @@ Path to $100M ARR:
 - Company position: premium execution system for executive transitions.
 - Segment narrative: same core product, different value language and proof points.
 - Category stance: outcome platform, not generic career content.
+
+Message guardrails:
+
+- Do not say: we help executives find jobs faster.
+- Say: we help executives and their advisors become opportunity-ready earlier, with better signal intelligence and better high-stakes conversations.
+- For coaches: position as leverage that makes coaching more effective, not AI that replaces coaching.
+- For search firms: position as candidate-readiness and market-signal infrastructure, not sourcing or recruiter replacement.
 
 ### Key market assumptions (fill-in)
 
@@ -77,12 +105,18 @@ Layer 2: Segment configuration
 - Outplacement mode
 - Executive one-time mode
 
+Configuration rule:
+
+- Segment modes may change workflows, reporting, permissions, and language, but may not fork the core data model without explicit approval in quarterly strategy review.
+
 Layer 3: Premium trust and controls
 
 - Role-based access
 - Data governance
 - Brand-safe output controls
 - Account-level visibility and reporting
+- Confidentiality and employer-discovery protections
+- Partnership-safe boundaries for coach and search-firm workflows
 
 ### Delivery model
 
@@ -100,6 +134,10 @@ Each feature must improve at least one of these:
 
 If a feature cannot be tied to one of the above within one quarter, it is deferred.
 
+Enforcement rule:
+
+- Every proposed feature must identify target segment, expected metric impact, and support-cost implication before entering a sprint.
+
 ### Product KPI table (fill-in)
 
 | KPI | Current | Target Q+1 | Target Q+2 | Owner | Source |
@@ -108,6 +146,9 @@ If a feature cannot be tied to one of the above within one quarter, it is deferr
 | Activation rate (30 days) | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
 | Segment feature adoption | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
 | Product-related churn reasons | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Daily briefing usage rate | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Coach activation by day 7 | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Search pilot activation by day 7 | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
 
 ## GTM system
 
@@ -121,6 +162,26 @@ If a feature cannot be tied to one of the above within one quarter, it is deferr
 1. Segment-specific messaging and proof assets.
 2. Pilot-to-subscription conversion process.
 3. Expansion motion based on account outcomes and usage depth.
+
+### Segment-specific partner motions
+
+Coach motion:
+
+- Offer: private executive opportunity intelligence layer between coaching sessions.
+- Entry asset: coach partner preview with free coach access, 2-3 preview seats, sample brief, and feedback session.
+- Proof needed: coach quotes, reduced prep time, stronger client session quality, client outcome stories.
+
+Search-firm motion:
+
+- Offer: private executive readiness and market signal layer that improves search conversations.
+- Entry asset: search intelligence partner pilot with sample readiness brief, sample company signal report, confidentiality framing, and no-poach language.
+- Proof needed: consultant prep efficiency, better candidate readiness, improved conversation quality, trust-safe workflow fit.
+
+Search-firm trust boundaries:
+
+- Starting Monday does not replace search judgment.
+- Starting Monday does not source candidates for a retained mandate.
+- Starting Monday does not use partner data outside approved workflow boundaries.
 
 ### Funnel design by stage
 
@@ -138,6 +199,7 @@ If a feature cannot be tied to one of the above within one quarter, it is deferr
 - Objection and competitor handling playbook.
 - Pilot scorecard with explicit conversion criteria.
 - Win/loss review every month.
+- Proof asset library with named outcomes, sample outputs, and methodology notes.
 
 ## Operating model and org design
 
@@ -151,12 +213,25 @@ If a feature cannot be tied to one of the above within one quarter, it is deferr
 
 - CEO decides: segment priority, pricing shifts, strategic roadmap bets.
 - Functional owners decide: execution tactics within approved objectives.
+- Product/engineering lead decides sprint sequencing within approved roadmap constraints.
+- Revenue lead owns partner and pipeline quality by segment.
+
+Conflict-resolution rule:
+
+- When segment requests conflict, the primary segment wins unless a non-primary request materially improves trust, retention, or contribution margin across segments.
 
 ### Meeting cadence
 
 - Weekly operating review: pipeline, retention risk, cash, product blockers.
 - Monthly business review: KPI trends, unit economics, hiring triggers.
 - Quarterly strategy review: what to stop, what to scale, which segment leads.
+
+Required monthly review topics:
+
+- Proof asset progress
+- Segment-level contribution margin
+- Trust and legal readiness gaps
+- Feature requests rejected due to scope or margin risk
 
 ### Hiring plan tied to revenue milestones (fill-in)
 
@@ -195,15 +270,24 @@ Gate 1: Product-market evidence
 
 - Retention in primary segment is consistently healthy.
 - Close rate and sales cycle are predictable.
+- Named proof assets exist and can be used in-market.
 
 Gate 2: Repeatability
 
 - Non-founder can run meaningful share of pipeline.
 - Onboarding quality remains stable while volume grows.
+- Segment-specific activation definitions are instrumented and stable.
 
 Gate 3: Scalable expansion
 
 - Adjacent segment grows without breaking margins or roadmap focus.
+- Trust boundaries, partner terms, and confidentiality controls are in place for the next segment.
+
+Gate 0: Trust and proof readiness
+
+- Sample outputs are visible and explainable.
+- Methodology and outcome claims can be defended.
+- Coach and search partner materials clearly state what Starting Monday is and is not.
 
 ## Risk register and contingencies
 
@@ -217,6 +301,8 @@ Gate 3: Scalable expansion
 | Margin compression from hidden service work | Months 3-12 | Rising support hours per account | High | Productize repeated asks; block custom one-offs without pricing |
 | Cash crunch while bootstrapped | Any time | Runway <6 months, delayed receivables | Very High | Tighten hiring, push annual prepay, reduce low-ROI spend |
 | Channel overdependence | Months 6-18 | >60% pipeline from one source | Medium | Build second reliable channel before scaling spend |
+| Search-firm threat perception blocks pilots | Months 1-6 | High objection rate around sourcing or replacement concerns | High | Lead with no-poach boundaries, confidentiality language, and search-safe pilot framing |
+| Legal and confidentiality debt slows trust | Months 2-12 | Repeated privacy, confidentiality, or security objections | High | Publish trust roadmap, document controls, and prioritize partner-safe agreements |
 
 ## 24 month implementation roadmap
 
@@ -235,6 +321,7 @@ Sprint 1: Baseline instrumentation and segmentation
 Sprint 2: Coach offer and pilot package hardening
 
 - Deliverables: offer sheet, pilot scorecard, objection handling.
+- Deliverables: separate messaging and offer variants for the four coach personas.
 - Obstacles: offer ambiguity and pricing confusion.
 - Risk response: one approved pricing structure and one pilot format.
 
@@ -247,6 +334,7 @@ Sprint 3: Onboarding and activation optimization
 Sprint 4: Proof asset production
 
 - Deliverables: case narratives and quantified outcomes.
+- Deliverables: named proof assets, sample outputs, methodology notes, and partner-safe testimonials.
 - Obstacles: low trust in premium claims.
 - Risk response: proof-before-scale rule.
 
@@ -257,6 +345,7 @@ Outcome: core sales and success execution runs through playbooks, not founder im
 Sprint 5: Sales playbook codification
 
 - Deliverables: discovery script, qualification standard, stage exit criteria.
+- Deliverables: coach-specific objection handling and search-firm threat labels.
 - Obstacles: inconsistent qualification quality.
 - Risk response: weekly deal review with reject reasons tracked.
 
@@ -269,6 +358,7 @@ Sprint 6: Success and retention playbook
 Sprint 7: Revenue ops foundation
 
 - Deliverables: pipeline SLA, stage aging alerts, forecast method.
+- Deliverables: segment-level CAC, payback, and contribution margin reporting.
 - Obstacles: unreliable forecast and surprise misses.
 - Risk response: confidence-weighted forecasting.
 
@@ -285,6 +375,7 @@ Outcome: launch search firms without breaking coach economics.
 Sprint 9: Search segment pilot design
 
 - Deliverables: segment narrative, pilot package, success metrics.
+- Deliverables: explicit no-poach and confidentiality framing.
 - Obstacles: product fit differences.
 - Risk response: configuration over custom build principle.
 
@@ -344,6 +435,7 @@ Sprints 25-32 focus:
 - Procurement readiness assets.
 - Partner channel development.
 - Leadership operating model maturity.
+- Security, privacy, and confidentiality readiness scaled for larger accounts.
 
 Key obstacle: complexity outpacing organizational maturity.
 Mitigation: quarterly stop-doing list and decision-rights clarity.
@@ -360,6 +452,19 @@ Use one row per KPI. Include targets, actuals, trend, and board-level decisions.
 | [fill in] | Avg sales cycle | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
 | [fill in] | Gross margin % | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
 | [fill in] | Net cash change | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| [fill in] | Proof asset readiness | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| [fill in] | Trust and legal readiness | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+
+## Pre-scale checklist
+
+The business does not scale headcount, spend, or segment breadth until these are true:
+
+1. Named proof assets are live for the primary segment.
+2. Coach persona motions are live and measured separately.
+3. Search-firm trust package is live before search expansion.
+4. Segment economics are tracked with actuals, not only assumptions.
+5. Segment-specific activation and retention instrumentation is live.
+6. Legal, confidentiality, and trust roadmap is approved and staffed.
 
 ## Brutal skeptic section: what can go wrong and when
 
