@@ -56,6 +56,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['pdf-parse', 'mammoth'],
+  experimental: {
+    inlineCss: true,
+  },
   async redirects() {
     return [
       {
