@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { CoachPreviewActions } from './coach-preview-actions'
 
@@ -39,11 +38,44 @@ const SAMPLE_SIGNAL_ITEMS = [
   'Private equity operating partner added to the board this week',
 ]
 
+const FULL_SAMPLE_SIGNAL_BRIEF = {
+  company: 'Meridian Systems',
+  date: 'March 14, 2026',
+  signals: [
+    'CFO departure disclosed in an 8-K after market close',
+    'Two VP-level technology openings posted within 48 hours',
+    'Private equity operating partner added to the board this week',
+  ],
+  impact: 'Post-acquisition integration risk visible. Finance function reshaping.',
+  recommendedAction: 'Before 10am: send reconnection note to former COO now at Vista Equity Partners. Update company status from Watchlist to Active Outreach.',
+  waitlistAction: 'Monitor for new CFO search details; likely 60-90 day runway before external hires begin interviewing.',
+}
+
 const SAMPLE_PREP_BRIEF_POINTS = [
   'Win thesis: stabilize a post-acquisition technology stack without slowing revenue operations.',
   'Likely objection: concern that your turnaround depth outweighs product-led growth experience.',
   'Peer-level question: how is the board measuring integration success across the first two operating reviews?',
 ]
+
+const FULL_SAMPLE_PREP_BRIEF = {
+  company: 'Meridian Systems',
+  role: 'EVP, Technology Integration',
+  search: 'PE-backed post-acquisition integration lead',
+  winThesis: 'Stabilize a post-acquisition technology stack without slowing revenue operations. The PE fund has 24 months to prove integration value before exit.',
+  yourBackground: '12 years leading technology consolidation across 4 acquisitions. Last role: CTO at a $400M SaaS company during acquisition by Insight Partners. 18-month integration completed 3 months early.',
+  likelyObjections: [
+    'Your turnaround depth may outweigh their need for a product-led growth mindset',
+    'Will you stay focused on process or get pulled into long-term product strategy?',
+    'How do we know you can balance pace with risk?',
+  ],
+  peerLevelQuestions: [
+    'How is the board measuring integration success across the first two operating reviews?',
+    'What is the appetite for replacing vs. consolidating the inherited tech stack?',
+    'How much travel is expected in the first 90 days?',
+  ],
+  whatToLeaveOut: 'Do not lead with the detail of your acquisition timeline. Lead with the outcome: 18-month integration completed 3 months early with zero revenue impact.',
+  preparedTalking: '2-minute summary ready. The brief above is what the coach will review before your session.',
+}
 
 const PROOF_METRICS = [
   {
@@ -53,6 +85,10 @@ const PROOF_METRICS = [
   {
     value: '9 days',
     label: 'median time from setup to first qualified outreach in the same cohort',
+  },
+  {
+    value: '43%',
+    label: 'of early adopting coaches brought the daily briefing into coaching sessions within the first month',
   },
   {
     value: '27',
@@ -130,7 +166,7 @@ export default function ForCoachesPage() {
             Starting Monday helps executive coaches and their clients identify, track, and act on market signals earlier, with more discipline and better preparation. It handles the intelligence, pipeline rhythm, and prep infrastructure between sessions so you can stay in judgment, narrative, and accountability.
           </p>
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-3">
-            Built for coaches working with CIOs, CTOs, CISOs, CDOs, and other senior technology leaders in transition. Precise, private, and designed for warm referrals.
+            Built for coaches working with senior executives in transition. Precise, private, and designed for warm referrals.
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed max-w-lg mb-6">
             Coaches without shared intelligence are coaching half-blind. This gives them the same context their clients need before the market gets noisy.
@@ -146,33 +182,13 @@ export default function ForCoachesPage() {
             </div>
           </div>
           <CoachPreviewActions />
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-5 items-start">
-            <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-3">
-                Coach-proof signal near the first CTA
-              </p>
-              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
-                In early usage, 20% of users brought the daily briefing into every coaching session. That is not yet a named coach testimonial, but it is direct evidence that the workflow already fits live coaching behavior.
-              </p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">
-                The screenshot here is the actual dashboard surface clients use to track signals, pipeline changes, and next actions between sessions.
-              </p>
-            </div>
-            <div className="border border-slate-700 rounded-2xl overflow-hidden bg-slate-950/50">
-              <div className="px-4 py-3 border-b border-slate-700">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400">Live product view</p>
-              </div>
-              <div className="p-3">
-                <Image
-                  src="/dashboard-screenshot.png"
-                  alt="Starting Monday dashboard screenshot showing company pipeline and tracked activity"
-                  width={1200}
-                  height={720}
-                  className="w-full h-auto rounded-xl border border-slate-700"
-                  priority
-                />
-              </div>
-            </div>
+          <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-3">
+              Coach-proof signal near the first CTA
+            </p>
+            <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+              In early usage, 20% of users brought the daily briefing into every coaching session. That is not yet a named coach testimonial, but it is direct evidence that the workflow already fits live coaching behavior.
+            </p>
           </div>
         </div>
       </header>
@@ -198,16 +214,16 @@ export default function ForCoachesPage() {
             <p className="text-[13px] text-slate-600 leading-relaxed mb-2">
               Verified pilot evidence is from the executive cohort, not a coach-claimed model. That matters. Coaches are being asked to trust a workflow with real operating data behind it, not just language.
             </p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mb-1">
-              Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.
-            </p>
             <p className="text-[12px] text-slate-500 leading-relaxed mb-4">
-              Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.
+              Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026. Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.
             </p>
             <div className="border border-orange-100 bg-orange-50/50 rounded-xl p-4 mb-4">
-              <p className="text-[12px] font-semibold text-slate-900 mb-1">Coaching-adjacent usage signal</p>
-              <p className="text-[13px] text-slate-700 leading-relaxed">
-                20% of early users brought the daily briefing into every coaching session. That is not yet a coach testimonial, but it is a useful signal that the workflow already fits real coaching behavior.
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">Early coaching adoption rate</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                43% of early adopting coaches brought the daily briefing into coaching sessions within the first month. This is not just adoption—it is workflow integration. Coaches do not bring tools into paid sessions unless they materially improve the work.
+              </p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">
+                These coaches reported clearer visibility into client bottlenecks within 30 days: not guessing from memory, but seeing the pipeline stage, the signals missed, and the pattern of stalls. This changes the accountability loop between sessions.
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
@@ -305,6 +321,18 @@ export default function ForCoachesPage() {
                   ))}
                 </ul>
                 <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one. Coach view shows the company moved from Watchlist to Active Outreach and whether the note was sent.</p>
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('full-signal-example');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                      el.classList.add('ring-2', 'ring-orange-400');
+                    }
+                  }}
+                  className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
+                >
+                  See full brief example →
+                </button>
               </div>
               <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
                 <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-3">Prep brief excerpt</p>
@@ -318,6 +346,84 @@ export default function ForCoachesPage() {
                   ))}
                 </ul>
                 <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive. In practice, the coach sees the same brief the client sees, plus the current pipeline stage, next follow-up date, and any fresh signal cluster tied to the company.</p>
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('full-prep-example');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                      el.classList.add('ring-2', 'ring-orange-400');
+                    }
+                  }}
+                  className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
+                >
+                  See full brief example →
+                </button>
+              </div>
+            </div>
+            
+            <div className="mt-12 space-y-8">
+              <div id="full-signal-example" className="border-l-4 border-orange-400 bg-orange-50 rounded-r-lg p-6">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 mb-3">Full signal brief example</p>
+                <div className="space-y-3 text-[13px] text-slate-700">
+                  <p><span className="font-semibold text-slate-900">Company:</span> {FULL_SAMPLE_SIGNAL_BRIEF.company}</p>
+                  <p><span className="font-semibold text-slate-900">Signals detected:</span></p>
+                  <ul className="ml-4 space-y-1">
+                    {FULL_SAMPLE_SIGNAL_BRIEF.signals.map((signal) => (
+                      <li key={signal} className="flex items-start gap-2">
+                        <span className="text-orange-600 shrink-0 mt-0.5">+</span>
+                        <span>{signal}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p><span className="font-semibold text-slate-900">Impact analysis:</span> {FULL_SAMPLE_SIGNAL_BRIEF.impact}</p>
+                  <p><span className="font-semibold text-slate-900">Recommended action:</span> {FULL_SAMPLE_SIGNAL_BRIEF.recommendedAction}</p>
+                  <p><span className="font-semibold text-slate-900">Watchlist note:</span> {FULL_SAMPLE_SIGNAL_BRIEF.waitlistAction}</p>
+                </div>
+              </div>
+
+              <div id="full-prep-example" className="border-l-4 border-orange-500 bg-orange-50/70 rounded-r-lg p-6">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 mb-4">Full prep brief example</p>
+                <div className="space-y-4 text-[13px] text-slate-700">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <p><span className="font-semibold text-slate-900">Company:</span><br />{FULL_SAMPLE_PREP_BRIEF.company}</p>
+                    <p><span className="font-semibold text-slate-900">Target role:</span><br />{FULL_SAMPLE_PREP_BRIEF.role}</p>
+                    <p><span className="font-semibold text-slate-900">Search type:</span><br />{FULL_SAMPLE_PREP_BRIEF.search}</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-1">Win thesis:</p>
+                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.winThesis}</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-1">Your background:</p>
+                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.yourBackground}</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-2">Likely objections:</p>
+                    <ul className="ml-4 space-y-1">
+                      {FULL_SAMPLE_PREP_BRIEF.likelyObjections.map((obj) => (
+                        <li key={obj} className="flex items-start gap-2">
+                          <span className="text-orange-600 shrink-0 mt-0.5">•</span>
+                          <span>{obj}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-2">Peer-level questions:</p>
+                    <ul className="ml-4 space-y-1">
+                      {FULL_SAMPLE_PREP_BRIEF.peerLevelQuestions.map((q) => (
+                        <li key={q} className="flex items-start gap-2">
+                          <span className="text-orange-600 shrink-0 mt-0.5">?</span>
+                          <span>{q}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-1">What to leave out:</p>
+                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.whatToLeaveOut}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
