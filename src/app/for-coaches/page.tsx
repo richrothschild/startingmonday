@@ -102,6 +102,8 @@ const COACH_SCOREBOARD = [
   },
 ]
 
+const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
+
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -140,7 +142,7 @@ export default function ForCoachesPage() {
             <div className="space-y-2 text-[13px] text-slate-300 leading-relaxed">
               <p><span className="text-white font-semibold">&quot;My clients already have LinkedIn Premium.&quot;</span> Good. This is the operating layer underneath that, not a replacement for it.</p>
               <p><span className="text-white font-semibold">&quot;I already handle this in coaching.&quot;</span> Exactly. The point is to stop spending paid coaching time rebuilding context and chasing research.</p>
-              <p><span className="text-white font-semibold">&quot;I do not want another tool to manage.&quot;</span> Then start with the preview. One coach seat, two to three client seats, one walkthrough, no obligation.</p>
+              <p><span className="text-white font-semibold">&quot;I do not want another tool to manage.&quot;</span> {PREVIEW_SENTENCE}</p>
             </div>
           </div>
           <CoachPreviewActions />
@@ -221,7 +223,7 @@ export default function ForCoachesPage() {
               Start with one coach preview, not a commitment.
             </h2>
             <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-6">
-              <p>Free coach access for the preview period. Two to three client preview seats. One sample prep brief walkthrough. One short feedback session with the founder.</p>
+              <p>{PREVIEW_SENTENCE}</p>
               <p>Coaches can see the workflow, decide if it fits their practice, and recommend it only if it improves client readiness and session quality.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -245,7 +247,7 @@ export default function ForCoachesPage() {
             <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-5">
               <p><span className="font-semibold text-slate-900">Who it is for:</span> executive coaches working with senior technology leaders in transition or positioning.</p>
               <p><span className="font-semibold text-slate-900">What changes:</span> less session time rebuilding context, more time on strategy, judgment, and accountability.</p>
-              <p><span className="font-semibold text-slate-900">How to try it:</span> one preview seat for the coach, two to three preview seats for clients, no broader commitment required.</p>
+              <p><span className="font-semibold text-slate-900">How to try it:</span> {PREVIEW_SENTENCE}</p>
             </div>
             <div className="flex flex-wrap gap-4 text-[13px]">
               <Link href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
@@ -420,13 +422,13 @@ export default function ForCoachesPage() {
               The coaching practice that compounds
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-              This is not about giving your clients a tool. It&apos;s about building a sustainable, scalable coaching practice. Better infrastructure means better pace. Better pace means you can do this for 20 years. Your impact compounds. Your reputation compounds. Your revenue compounds. Coaching doesn&apos;t burn you out.
+              This is not about giving your clients a tool. It is about running a more consistent coaching process when a client is in active transition. The practical gain is simpler: less session time rebuilding context, better weekly visibility, and cleaner preparation before high-stakes conversations.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-2">
-              Your clients feel the difference immediately. Someone is watching. Someone cares enough to track this. You become the coach who has the advantage, the insight, the discipline.
+              If the preview works, the coach should expect three things in the first 30 days: clearer pipeline visibility, faster identification of where a client is stalling, and better prep quality before important calls.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed">
-              Built for coaches who think in terms of relationship sustainability, not transaction completion.
+              Built for coaches who want a disciplined between-session layer without changing the core coaching relationship.
             </p>
           </section>
 
@@ -438,7 +440,7 @@ export default function ForCoachesPage() {
               Start with the preview. Review pricing and FAQ only if the workflow fits.
             </h2>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
-              Terry only needs to send this page. If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
+              Terry only needs to send this page. {PREVIEW_SENTENCE} If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
             </p>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-5 text-[13px]">

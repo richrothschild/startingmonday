@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 
+const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
+
 export const metadata: Metadata = {
   title: 'Coach FAQ | Starting Monday',
   description: 'Frequently asked questions for executive coaches evaluating the Starting Monday partner preview.',
@@ -32,7 +34,7 @@ const FAQS = [
   {
     question: 'What does the coach preview include?',
     answer:
-      'Free coach access during the preview window, two to three client preview seats, a sample prep-brief walkthrough, and one short feedback session with the founder. The point is to evaluate workflow fit before any broader rollout.',
+      `${PREVIEW_SENTENCE} The point is to evaluate workflow fit before any broader rollout.`,
   },
   {
     question: 'How long is the client trial?',
@@ -97,7 +99,7 @@ export default function CoachFaqPage() {
             Next step
           </p>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
-            If the workflow sounds relevant, start with the preview. If the coach needs pricing and commission detail before deciding, send the economics page next. The goal is to reduce perceived risk before asking for commitment.
+            If the workflow sounds relevant, start with the preview. {PREVIEW_SENTENCE} If the coach needs pricing and commission detail before deciding, send the economics page next.
           </p>
           <CoachPreviewActions />
           <div className="flex flex-wrap gap-4 mt-5 text-[13px]">

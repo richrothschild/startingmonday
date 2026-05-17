@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 
+const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
+
 export const metadata: Metadata = {
   title: 'Coach Pricing and Economics | Starting Monday',
   description: 'Client pricing, partner economics, and preview structure for executive coaches evaluating Starting Monday.',
@@ -72,7 +74,7 @@ export default function CoachEconomicsPage() {
             Preview structure
           </p>
           <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed">
-            <p>Start with free coach access, two to three client preview seats, one sample brief walkthrough, and one short feedback session.</p>
+            <p>{PREVIEW_SENTENCE}</p>
             <p>After the preview, coaches can either keep recommending the standard client plans or discuss preferred-partner rollout if they are enrolling multiple clients.</p>
           </div>
         </section>
