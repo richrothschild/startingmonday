@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CoachPreviewActions } from './coach-preview-actions'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Executive Coaches',
-  description: 'Give your C-suite clients the intelligence infrastructure to run a better search. You focus on the strategy. The platform handles the research, the pipeline tracking, and the daily briefing.',
+  title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
+  description: 'A warm-intro page for executive coaches. See how Starting Monday gives your clients the signal and readiness infrastructure between sessions so you can stay in strategy.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches' },
   openGraph: {
-    title: 'Starting Monday for Executive Coaches',
-    description: 'Your C-suite clients run better searches. You spend session time on strategy, not research.',
+    title: 'Coach Partner Preview | Starting Monday',
+    description: 'Help clients identify signals earlier, stay accountable between sessions, and show up better prepared for high-stakes conversations.',
     url: 'https://startingmonday.app/for-coaches',
   },
 }
@@ -31,31 +32,16 @@ const WHAT_CHANGES = [
   },
 ]
 
-const COACH_PERSONAS = [
-  {
-    type: 'Career Transition Specialist',
-    situation: 'Coaching executives through involuntary or voluntary transitions (30-90 days)',
-    pressure: 'Session time consumed by research. Clients go dormant and miss signals.',
-    leverage: 'Give your client the discipline to move fast and the signal awareness to strike at the right moment. You become their strategic thinking partner, not their research assistant.',
-  },
-  {
-    type: 'VP-to-CXO Positioning Coach',
-    situation: 'Coaching high-performers ready for next-level roles (12-24 months)',
-    pressure: 'Clients go dormant between sessions. Long cycles mean attention spans shrink.',
-    leverage: 'Maintain momentum over years without the work consuming you. Quarterly outreach cadence, updated narrative, sustained relationship tracking. You become the keeper of their executive narrative.',
-  },
-  {
-    type: 'Executive Search Firm Coach',
-    situation: 'Interview prep and messaging coaching for C-suite placements (2-4 weeks)',
-    pressure: 'Coaching half-blind. You do not have pipeline visibility. Last-minute prep.',
-    leverage: 'See what they are doing, what signals they are missing, what companies are moving. Coach with full context. Your 2-week window becomes 4 weeks of advantage.',
-  },
-  {
-    type: 'Board & Governance Coach',
-    situation: 'Coaching executives pursuing board seats and advisory roles (6-24 months)',
-    pressure: 'Multi-year relationships require discipline. Tracking 50+ relationships is admin-heavy.',
-    leverage: 'Monitor board composition changes, governance signals, and PE transitions at scale. You maintain relationships over years without consuming your attention. Your credibility compounds.',
-  },
+const SAMPLE_SIGNAL_ITEMS = [
+  'CFO departure disclosed in an 8-K after market close',
+  'Two VP-level technology openings posted within 48 hours',
+  'Private equity operating partner added to the board this week',
+]
+
+const SAMPLE_PREP_BRIEF_POINTS = [
+  'Win thesis: stabilize a post-acquisition technology stack without slowing revenue operations.',
+  'Likely objection: concern that your turnaround depth outweighs product-led growth experience.',
+  'Peer-level question: how is the board measuring integration success across the first two operating reviews?',
 ]
 
 export default function ForCoachesPage() {
@@ -75,25 +61,48 @@ export default function ForCoachesPage() {
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-            For Executive Coaches
+            Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Your coaching leverage. Compounded.
+            Give your clients the signal and readiness infrastructure. Keep your session time for strategy.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
-            You're paid to be a strategic thinking partner, not a research assistant. Starting Monday handles the intelligence, pipeline discipline, and daily briefing between sessions. Your clients move faster. You do better work. Your leverage with them increases.
+            Starting Monday helps executive coaches and their clients identify, track, and act on market signals earlier, with more discipline and better preparation. It handles the intelligence, pipeline rhythm, and prep infrastructure between sessions so you can stay in judgment, narrative, and accountability.
           </p>
-          <p className="text-[13px] text-orange-400 font-semibold mb-2">
-            Most coaches operate in the dark. You won't.
+          <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
+            Built for coaches working with CIOs, CTOs, CISOs, CDOs, and other senior technology leaders in transition. Precise, private, and designed for warm referrals.
           </p>
-          <p className="text-[13px] text-slate-400 italic">
-            Search coaches who are not tracking intelligence are operating at a disadvantage.
-          </p>
+          <CoachPreviewActions />
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
+
+          <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
+              The preview offer
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Start with one coach preview, not a commitment.
+            </h2>
+            <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-6">
+              <p>Free coach access for the preview period. Two to three client preview seats. One sample prep brief walkthrough. One short feedback session with the founder.</p>
+              <p>Your coaches can see the workflow, decide if it fits their practice, and recommend it only if it improves client readiness and session quality.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                'Free coach access during the preview',
+                '2-3 client preview seats for live evaluation',
+                'Sample brief walkthrough before first use',
+                'Short feedback session after the preview window',
+              ].map((item) => (
+                <div key={item} className="bg-white border border-emerald-100 rounded-lg px-4 py-3">
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
@@ -114,8 +123,48 @@ export default function ForCoachesPage() {
               ))}
             </div>
             <p className="text-[14px] text-slate-600 leading-relaxed max-w-lg">
-              When your clients move faster and make better decisions, they tell their peers you made them better. Your reputation compounds. Engagement time increases. You become indispensable.
+              When your clients move earlier, stay accountable, and show up better prepared, they credit you for the quality of the process. That is the compounding asset here: better client outcomes, better conversations, stronger reputation.
             </p>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              Sample output
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Show, don&rsquo;t tell.
+            </h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
+              Coaches do not need more feature language. They need to see the quality of the output and the kind of action it creates. This is the kind of artifact a coach preview should expose immediately.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="border border-slate-200 rounded-2xl p-5 bg-white">
+                <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Morning signal brief</p>
+                <p className="text-[14px] font-semibold text-slate-900 mb-3">One company moved overnight. Here is why it matters.</p>
+                <ul className="space-y-2">
+                  {SAMPLE_SIGNAL_ITEMS.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-[13px] text-slate-600 leading-relaxed">
+                      <span className="text-orange-500 shrink-0 mt-0.5">+</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one.</p>
+              </div>
+              <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
+                <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-3">Prep brief excerpt</p>
+                <p className="text-[14px] font-semibold text-slate-900 mb-3">Pre-interview view for a PE-backed CIO search</p>
+                <ul className="space-y-2">
+                  {SAMPLE_PREP_BRIEF_POINTS.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-[13px] text-slate-700 leading-relaxed">
+                      <span className="text-orange-600 shrink-0 mt-0.5">+</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive.</p>
+              </div>
+            </div>
           </section>
 
           <section>
@@ -152,7 +201,7 @@ export default function ForCoachesPage() {
                   </div>
                   <div>
                     <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
-                    <p className="text-[13px] text-slate-700 font-medium">Maintain momentum over years without the work consuming you. Quarterly outreach cadence, updated narrative, sustained relationship tracking. You become the keeper of their executive narrative. Your engagement time doesn't increase. Your impact does.</p>
+                    <p className="text-[13px] text-slate-700 font-medium">Maintain momentum over years without the work consuming you. Quarterly outreach cadence, updated narrative, sustained relationship tracking. You become the keeper of their executive narrative. Your engagement time doesn&apos;t increase. Your impact does.</p>
                   </div>
                   <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client moves from uncertainty about readiness to confidence in progression and timing.</p>
                 </div>
@@ -242,36 +291,12 @@ export default function ForCoachesPage() {
 
           <section className="border-t border-slate-100 pt-10">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              Partner economics
+              What this is not
             </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-              When your clients activate a paid plan through your referral link, you earn 20% commission on their subscription for as long as they are active. No enrollment fee. No minimum volume. Revenue follows reputation.
-            </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6">
-              Preferred partners who enroll multiple clients get consolidated billing, an activation dashboard, and volume pricing. You see who is active and engaged, without status calls from your clients.
-            </p>
-            <div className="border border-slate-200 rounded-lg p-5 bg-slate-50 mb-6">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">Economics at a glance</p>
-              <p className="text-[13px] text-slate-700 leading-relaxed mb-3">
-                20% recurring commission on paid referrals. Example: 10 clients on Active ($199/mo) = approximately $398/mo recurring partner revenue.
-              </p>
-              <p className="text-[13px] text-slate-600 leading-relaxed">
-                Your clients get daily execution infrastructure between sessions. You get a revenue stream from the work you are already doing. They move faster and stick with coaching longer. Your clients become repeat clients. Your revenue becomes predictable.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/partners#apply"
-                className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
-              >
-                Apply as a partner &rarr;
-              </Link>
-              <Link
-                href="/coaches-guide"
-                className="inline-block border border-slate-200 hover:border-slate-400 text-slate-700 text-[14px] px-6 py-3 rounded transition-colors text-center"
-              >
-                Read the full coaches guide &rarr;
-              </Link>
+            <div className="space-y-4 text-[14px] text-slate-600 leading-relaxed max-w-xl">
+              <p>It is not a replacement for coaching. It does not replace judgment, accountability, or the human work of helping a senior leader manage uncertainty and narrative.</p>
+              <p>It is not generic job-search automation. It is a signal, preparation, and execution layer built for senior technology leaders running confidential, relationship-driven searches.</p>
+              <p>It is not dramatic market prophecy. The value is disciplined early-signal tracking, shared context between sessions, and better preparation before high-stakes conversations.</p>
             </div>
           </section>
 
@@ -280,7 +305,7 @@ export default function ForCoachesPage() {
               The coaching practice that compounds
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-              This is not about giving your clients a tool. It's about building a sustainable, scalable coaching practice. Better infrastructure means better pace. Better pace means you can do this for 20 years. Your impact compounds. Your reputation compounds. Your revenue compounds. Coaching doesn't burn you out.
+              This is not about giving your clients a tool. It&apos;s about building a sustainable, scalable coaching practice. Better infrastructure means better pace. Better pace means you can do this for 20 years. Your impact compounds. Your reputation compounds. Your revenue compounds. Coaching doesn&apos;t burn you out.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-2">
               Your clients feel the difference immediately. Someone is watching. Someone cares enough to track this. You become the coach who has the advantage, the insight, the discipline.
@@ -288,6 +313,27 @@ export default function ForCoachesPage() {
             <p className="text-[14px] text-slate-600 leading-relaxed">
               Built for coaches who think in terms of relationship sustainability, not transaction completion.
             </p>
+          </section>
+
+          <section className="border-t border-slate-100 pt-10">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              Next step
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Start with the preview. Review pricing and FAQ only if the workflow fits.
+            </h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
+              Terry only needs to send this page. If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
+            </p>
+            <CoachPreviewActions />
+            <div className="flex flex-wrap gap-4 mt-5 text-[13px]">
+              <Link href="/for-coaches/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                Read the coach FAQ
+              </Link>
+              <Link href="/for-coaches/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                See pricing and partner economics
+              </Link>
+            </div>
           </section>
 
         </div>

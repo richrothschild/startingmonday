@@ -57,6 +57,10 @@ Status (May 2026): Disabled. All code paths intact; just need to re-enable enfor
 
 Move forward when: User growth reaches a point where bot signup/brute force is observed, OR before opening public intake/demo features to ad-driven traffic.
 
+**Semgrep Cloud integration** — Security scanning is wired in locally, but Cloud upload and repo onboarding are deferred until the Semgrep account/context is confirmed. Keep the scan in CI, but postpone the GitHub App and token setup until the correct org/account flow is settled.
+
+Move forward when: ready to finish the Semgrep Cloud onboarding and store `SEMGREP_APP_TOKEN` in repository secrets.
+
 ---
 
 ## Code Quality
