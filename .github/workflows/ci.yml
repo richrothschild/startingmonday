@@ -39,10 +39,8 @@ jobs:
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
-    continue-on-error: ${{ github.ref == 'refs/heads/main' }}
-    # Staging branch: always runs against the staging URL.
-    # Main branch: runs when PLAYWRIGHT_ENABLED = true in repo variables.
-    if: github.ref == 'refs/heads/staging' || vars.PLAYWRIGHT_ENABLED == 'true'
+    # Run on protected branches and block release on failure.
+    if: github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4.2.2
