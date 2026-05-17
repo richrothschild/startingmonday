@@ -54,16 +54,7 @@ export async function GET(
     )
   }
 
-  // Log access
-  for (const company of data || []) {
-    await logCoachAccess(
-      coachId,
-      clientId,
-      'companies',
-      company.id,
-      'view'
-    )
-  }
+  await logCoachAccess(coachId, clientId, 'companies', clientId, 'view')
 
   return NextResponse.json({ data }, { status: 200, headers: auth.response.headers })
 }

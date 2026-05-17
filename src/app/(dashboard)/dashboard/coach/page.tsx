@@ -137,6 +137,7 @@ export default function CoachDashboard() {
                   <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Momentum</th>
                   <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Active</th>
                   <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Overdue</th>
+                  <th className="text-right text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
@@ -160,6 +161,18 @@ export default function CoachDashboard() {
                         ? <span className="text-[12px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full tabular-nums">{client.overdueActions}</span>
                         : <span className="text-[12px] text-slate-300">-</span>
                       }
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      {client.userId ? (
+                        <Link
+                          href={`/dashboard/coach/${client.userId}`}
+                          className="text-[12px] font-semibold text-slate-700 hover:text-slate-900 underline underline-offset-2"
+                        >
+                          View Data
+                        </Link>
+                      ) : (
+                        <span className="text-[12px] text-slate-300">-</span>
+                      )}
                     </td>
                   </tr>
                 ))}

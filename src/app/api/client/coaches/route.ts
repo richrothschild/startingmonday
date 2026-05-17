@@ -9,22 +9,20 @@ export async function GET(request: NextRequest) {
   const { userId } = auth
   const supabase = await createClient()
 
-  // Get coaches this user has invited with accepted team seats
-  const { data, error } = await supabase
+  const { data: seats, error } = await supabase
     .from('team_seats')
     .select(
       `
       id,
-      member_user_id,
+      owner_id,
       member_email,
-      coach_access_enabled,
       access_level,
       access_granted_at,
       last_accessed_at,
       status
     `
     )
-    .eq('owner_id', userId)
+    .eq('member_user_id', userId)
     .eq('status', 'accepted')
 
   if (error) {
@@ -34,6 +32,28 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     )
   }
+
+  const coachIds = (seats ?? []).map((s) => s.owner_id)
+  const { data: permissions } = await supabase
+    .from('coach_client_permissions')
+    .select('coach_id, access_enabled, access_level, updated_at')
+    .eq('client_id', userId)
+    .in('coach_id', coachIds.length ? coachIds : ['00000000-0000-0000-0000-000000000000'])
+
+  const permissionMap = new Map((permissions ?? []).map((p) => [p.coach_id, p]))
+  const data = (seats ?? []).map((seat) => {
+    const permission = permissionMap.get(seat.owner_id)
+    return {
+      id: seat.id,
+      coach_id: seat.owner_id,
+      member_email: 'Coach account',
+      coach_access_enabled: permission ? permission.access_enabled : true,
+      access_level: permission?.access_level ?? seat.access_level ?? 'read_write',
+      access_granted_at: permission?.updated_at ?? seat.access_granted_at,
+      last_accessed_at: seat.last_accessed_at,
+      status: seat.status,
+    }
+  })
 
   return NextResponse.json({ data }, { status: 200, headers: auth.response.headers })
 }

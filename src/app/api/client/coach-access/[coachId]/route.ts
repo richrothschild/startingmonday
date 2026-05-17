@@ -14,23 +14,33 @@ export async function GET(
 
   const supabase = await createClient()
 
+  const { data: seat } = await supabase
+    .from('team_seats')
+    .select('id')
+    .eq('owner_id', coachId)
+    .eq('member_user_id', clientId)
+    .eq('status', 'accepted')
+    .maybeSingle()
+
+  if (!seat) {
+    return NextResponse.json({ error: 'Coach relationship not found' }, { status: 404 })
+  }
+
   // Get coach access info
   const { data, error } = await supabase
-    .from('team_seats')
+    .from('coach_client_permissions')
     .select(
       `
-      id,
-      member_user_id,
-      member_email,
-      coach_access_enabled,
+      coach_id,
+      client_id,
+      access_enabled,
       access_level,
-      access_granted_at,
-      last_accessed_at,
-      status
+      updated_at
     `
     )
-    .eq('owner_id', clientId)
-    .eq('status', 'accepted')
+    .eq('client_id', clientId)
+    .eq('coach_id', coachId)
+    .maybeSingle()
 
   if (error) {
     console.error('Error fetching coach access:', error)
@@ -40,7 +50,15 @@ export async function GET(
     )
   }
 
-  return NextResponse.json({ data }, { status: 200, headers: auth.response.headers })
+  return NextResponse.json({
+    data: data ?? {
+      coach_id: coachId,
+      client_id: clientId,
+      access_enabled: true,
+      access_level: 'read_write',
+      updated_at: null,
+    },
+  }, { status: 200, headers: auth.response.headers })
 }
 
 export async function PUT(
@@ -58,17 +76,27 @@ export async function PUT(
 
   const supabase = await createClient()
 
-  // Update coach access for this seat
-  const { error } = await supabase
+  const { data: seat } = await supabase
     .from('team_seats')
-    .update({
-      coach_access_enabled,
-      access_level: access_level || 'read_write',
-      access_granted_at: coach_access_enabled ? new Date().toISOString() : null,
-    })
-    .eq('owner_id', clientId)
-    .eq('member_user_id', coachId)
+    .select('id')
+    .eq('owner_id', coachId)
+    .eq('member_user_id', clientId)
     .eq('status', 'accepted')
+    .maybeSingle()
+
+  if (!seat) {
+    return NextResponse.json({ error: 'Coach relationship not found' }, { status: 404 })
+  }
+
+  const { error } = await supabase
+    .from('coach_client_permissions')
+    .upsert({
+      coach_id: coachId,
+      client_id: clientId,
+      access_enabled: Boolean(coach_access_enabled),
+      access_level: access_level || 'read_write',
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'coach_id,client_id' })
 
   if (error) {
     console.error('Error updating coach access:', error)
@@ -96,13 +124,15 @@ export async function DELETE(
 
   const supabase = await createClient()
 
-  // Revoke coach access by disabling it and deleting the team seat
   const { error } = await supabase
-    .from('team_seats')
-    .delete()
-    .eq('owner_id', clientId)
-    .eq('member_user_id', coachId)
-    .eq('status', 'accepted')
+    .from('coach_client_permissions')
+    .upsert({
+      coach_id: coachId,
+      client_id: clientId,
+      access_enabled: false,
+      access_level: 'read_only',
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'coach_id,client_id' })
 
   if (error) {
     console.error('Error revoking coach access:', error)

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { TeamSettings } from './team-settings'
+import { ClientCoachAccessManager } from '@/components/client/coach-access-manager'
 
 export const metadata = { title: 'Team - Starting Monday' }
 
@@ -86,6 +87,10 @@ export default async function TeamSettingsPage() {
             seatStatus: seatStatuses[s.id] ?? null,
           }))}
         />
+
+        <div className="mt-8">
+          <ClientCoachAccessManager />
+        </div>
       </main>
     </div>
   )

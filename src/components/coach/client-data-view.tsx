@@ -1,16 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 interface Scorecard {
   pipeline: {
     total_companies: number
     by_stage: {
       watching: number
-      active_outreach: number
-      conversations: number
-      offers: number
+      researching: number
+      applied: number
+      interviewing_or_offer: number
     }
     avg_fit_score: number
   }
@@ -44,19 +43,20 @@ interface Company {
 
 interface Signal {
   id: string
+  companies?: { name: string } | null
   signal_type: string
-  title: string
-  summary?: string
-  score: number
-  detected_at: string
+  signal_summary: string
+  signal_date: string
+  source_url?: string | null
 }
 
 interface Brief {
   id: string
   company_id: string
-  brief_for: string
-  brief_type?: string
-  win_thesis?: string
+  companies?: { name: string } | null
+  type: string
+  output_text: string
+  user_rating?: number | null
   created_at: string
 }
 
@@ -282,17 +282,27 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           {signals.slice(0, 20).map((signal) => (
             <div key={signal.id} className="border border-slate-200 rounded-lg p-4 bg-white">
               <div className="flex justify-between items-start mb-2">
-                <h4 className="font-semibold text-slate-900">{signal.title}</h4>
-                <span className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">
-                  {signal.score}
+                <h4 className="font-semibold text-slate-900">
+                  {(signal.companies?.name ?? 'Company')} · {signal.signal_type.replace('_', ' ')}
+                </h4>
+                <span className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded capitalize">
+                  {signal.signal_type.replace('_', ' ')}
                 </span>
               </div>
-              {signal.summary && (
-                <p className="text-sm text-slate-600 mb-2">{signal.summary}</p>
-              )}
+              <p className="text-sm text-slate-600 mb-2">{signal.signal_summary}</p>
               <p className="text-xs text-slate-500">
-                {new Date(signal.detected_at).toLocaleDateString()}
+                {new Date(signal.signal_date).toLocaleDateString()}
               </p>
+              {signal.source_url && (
+                <a
+                  href={signal.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs text-slate-500 hover:text-slate-700 underline underline-offset-2"
+                >
+                  Open source
+                </a>
+              )}
             </div>
           ))}
           {signals.length === 0 && (
@@ -308,10 +318,15 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             <div key={brief.id} className="border border-slate-200 rounded-lg p-4 bg-white">
               <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="font-semibold text-slate-900">{brief.brief_for}</h4>
-                  <p className="text-sm text-slate-600 mt-1">{brief.win_thesis}</p>
+                  <h4 className="font-semibold text-slate-900">
+                    {(brief.companies?.name ?? 'General')} · {brief.type}
+                  </h4>
+                  <p className="text-sm text-slate-600 mt-1 line-clamp-3">{brief.output_text}</p>
                 </div>
               </div>
+              {brief.user_rating !== null && brief.user_rating !== undefined && (
+                <p className="text-xs text-slate-500 mt-2">Rating: {brief.user_rating > 0 ? 'positive' : 'negative'}</p>
+              )}
               <p className="text-xs text-slate-500 mt-3">
                 {new Date(brief.created_at).toLocaleDateString()}
               </p>

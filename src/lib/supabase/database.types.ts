@@ -567,11 +567,85 @@ export type Database = {
           status: string
           invited_at: string
           accepted_at: string | null
+          coach_access_enabled: boolean
+          access_level: string
+          access_granted_at: string | null
+          last_accessed_at: string | null
         }
         Insert: {
           id?: string
           owner_id: string
           member_email: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_access_logs: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          table_name: string
+          record_id: string
+          action: string
+          old_values: Json | null
+          new_values: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          table_name: string
+          record_id: string
+          action: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_alert_preferences: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          alert_on_company_signal: boolean
+          alert_on_new_interview: boolean
+          alert_on_client_edit: boolean
+          alert_frequency: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_client_permissions: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          access_enabled: boolean
+          access_level: string
+          updated_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
           [key: string]: unknown
         }
         Update: {

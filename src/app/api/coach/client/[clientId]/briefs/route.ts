@@ -32,14 +32,10 @@ export async function GET(
       id,
       company_id,
       companies(name),
-      brief_for,
-      brief_type,
-      win_thesis,
-      likely_objections,
-      peer_level_questions,
-      notes,
-      created_at,
-      updated_at
+      type,
+      output_text,
+      user_rating,
+      created_at
     `
     )
     .eq('user_id', clientId)
@@ -54,10 +50,7 @@ export async function GET(
     )
   }
 
-  // Log access
-  for (const brief of data || []) {
-    await logCoachAccess(coachId, clientId, 'briefs', brief.id, 'view')
-  }
+  await logCoachAccess(coachId, clientId, 'briefs', clientId, 'view')
 
   return NextResponse.json({ data }, { status: 200, headers: auth.response.headers })
 }

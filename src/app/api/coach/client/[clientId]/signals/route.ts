@@ -31,17 +31,16 @@ export async function GET(
       `
       id,
       company_id,
+      companies(name),
       signal_type,
-      title,
-      summary,
-      score,
-      is_new,
-      detected_at,
+      signal_summary,
+      signal_date,
+      source_url,
       created_at
     `
     )
     .eq('user_id', clientId)
-    .order('detected_at', { ascending: false })
+    .order('signal_date', { ascending: false })
     .limit(200)
 
   if (error) {
@@ -52,10 +51,7 @@ export async function GET(
     )
   }
 
-  // Log access
-  for (const signal of data || []) {
-    await logCoachAccess(coachId, clientId, 'company_signals', signal.id, 'view')
-  }
+  await logCoachAccess(coachId, clientId, 'company_signals', clientId, 'view')
 
   return NextResponse.json({ data }, { status: 200, headers: auth.response.headers })
 }

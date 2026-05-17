@@ -1,12 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { formatDate } from '@/lib/utils'
+
+function formatDateTime(iso: string) {
+  return new Date(iso).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+}
 
 interface CoachAccess {
   id: string
   member_email: string
-  member_user_id: string
+  coach_id: string
   coach_access_enabled: boolean
   access_level: 'read_only' | 'read_write'
   access_granted_at: string | null
@@ -49,7 +58,7 @@ export function ClientCoachAccessManager() {
 
       setCoaches((prev) =>
         prev.map((coach) =>
-          coach.member_user_id === coachId
+          coach.coach_id === coachId
             ? { ...coach, coach_access_enabled: enabled }
             : coach
         )
@@ -69,7 +78,7 @@ export function ClientCoachAccessManager() {
       })
       if (!res.ok) throw new Error('Failed to revoke access')
 
-      setCoaches((prev) => prev.filter((coach) => coach.member_user_id !== coachId))
+      setCoaches((prev) => prev.filter((coach) => coach.coach_id !== coachId))
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
@@ -108,7 +117,7 @@ export function ClientCoachAccessManager() {
         <div className="space-y-3">
           {coaches.map((coach) => (
             <div
-              key={coach.member_user_id}
+              key={coach.coach_id}
               className="border border-slate-200 rounded-lg p-4 bg-white flex items-center justify-between"
             >
               <div className="flex-1">
@@ -138,7 +147,7 @@ export function ClientCoachAccessManager() {
                     <span>
                       Last accessed:{' '}
                       <span className="font-medium text-slate-900">
-                        {formatDate(new Date(coach.last_accessed_at))}
+                        {formatDateTime(coach.last_accessed_at)}
                       </span>
                     </span>
                   )}
@@ -147,8 +156,8 @@ export function ClientCoachAccessManager() {
 
               <div className="flex gap-2">
                 <button
-                  onClick={() => toggleCoachAccess(coach.member_user_id, !coach.coach_access_enabled)}
-                  disabled={updating === coach.member_user_id}
+                  onClick={() => toggleCoachAccess(coach.coach_id, !coach.coach_access_enabled)}
+                  disabled={updating === coach.coach_id}
                   className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
                     coach.coach_access_enabled
                       ? 'bg-orange-100 text-orange-700 hover:bg-orange-200 disabled:opacity-50'
@@ -158,8 +167,8 @@ export function ClientCoachAccessManager() {
                   {coach.coach_access_enabled ? 'Disable' : 'Enable'}
                 </button>
                 <button
-                  onClick={() => revokeCoachAccess(coach.member_user_id)}
-                  disabled={updating === coach.member_user_id}
+                  onClick={() => revokeCoachAccess(coach.coach_id)}
+                  disabled={updating === coach.coach_id}
                   className="px-3 py-2 rounded text-sm font-medium bg-red-50 text-red-700 hover:bg-red-100 transition-colors disabled:opacity-50"
                 >
                   Revoke
