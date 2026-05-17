@@ -59,6 +59,25 @@ const PROOF_METRICS = [
   },
 ]
 
+const COACH_FIT = [
+  {
+    title: 'Career transition coaches',
+    detail: 'Best fit when clients need speed, accountability, and earlier signal visibility in the first 30-90 days.',
+  },
+  {
+    title: 'VP-to-CXO coaches',
+    detail: 'Best fit when clients need long-cycle narrative discipline and shared context across months, not just weeks.',
+  },
+  {
+    title: 'Search-affiliate coaches',
+    detail: 'Best fit when interview prep quality and live pipeline visibility affect placement outcomes immediately.',
+  },
+  {
+    title: 'Board and governance coaches',
+    detail: 'Best fit when clients need relationship maintenance and signal monitoring over a longer positioning horizon.',
+  },
+]
+
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -167,6 +186,25 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
+          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              30-second skim
+            </p>
+            <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-5">
+              <p><span className="font-semibold text-slate-900">Who it is for:</span> executive coaches working with senior technology leaders in transition or positioning.</p>
+              <p><span className="font-semibold text-slate-900">What changes:</span> less session time rebuilding context, more time on strategy, judgment, and accountability.</p>
+              <p><span className="font-semibold text-slate-900">How to try it:</span> one preview seat for the coach, two to three preview seats for clients, no broader commitment required.</p>
+            </div>
+            <div className="flex flex-wrap gap-4 text-[13px]">
+              <Link href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                See the operating rhythm
+              </Link>
+              <Link href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                Jump to next step
+              </Link>
+            </div>
+          </section>
+
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               The coach credibility play
@@ -232,77 +270,22 @@ export default function ForCoachesPage() {
 
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              Your coaching style. Multiplied.
+              Where this fits best
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-8 max-w-lg">
-              Different coaches work with different timelines and client situations. Here is how Starting Monday amplifies your leverage in each one. The same platform, different contexts—your practice scales across all of these.
+              Different coaches use the same platform in different contexts. If you only scan one section before deciding whether this is worth a preview, scan this one.
             </p>
-            <div className="space-y-6">
-              {/* Persona specificity and metrics added */}
-              <div className="border border-slate-200 rounded-lg p-6 bg-white">
-                <p className="text-[13px] font-bold text-slate-900 mb-1">Career Transition Specialist</p>
-                <p className="text-[12px] text-slate-500 mb-4">Coaching executives through involuntary or voluntary transitions (30-90 days)</p>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.08em] mb-1">The pressure</p>
-                    <p className="text-[13px] text-slate-600">Session time consumed by research. Clients go dormant and miss signals. Typical client moves through 3-4 waves of conversations in their first month, not their first quarter.</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
-                    <p className="text-[13px] text-slate-700 font-medium">Give your client the discipline to move fast and the signal awareness to strike at the right moment. You become their strategic thinking partner, not their research assistant. You can now assess readiness for Q3 moves based on signals, not hope.</p>
-                  </div>
-                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client stops feeling behind and starts feeling in control between sessions.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {COACH_FIT.map((item) => (
+                <div key={item.title} className="border border-slate-200 rounded-lg p-5 bg-white">
+                  <p className="text-[13px] font-bold text-slate-900 mb-2">{item.title}</p>
+                  <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
                 </div>
-              </div>
-              <div className="border border-slate-200 rounded-lg p-6 bg-white">
-                <p className="text-[13px] font-bold text-slate-900 mb-1">VP-to-CXO Positioning Coach</p>
-                <p className="text-[12px] text-slate-500 mb-4">Coaching high-performers ready for next-level roles (12-24 months)</p>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.08em] mb-1">The pressure</p>
-                    <p className="text-[13px] text-slate-600">Clients go dormant between sessions. Long cycles mean attention spans shrink. Typical engagement: 18 months, 6-8 active opportunities tracked at once.</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
-                    <p className="text-[13px] text-slate-700 font-medium">Maintain momentum over years without the work consuming you. Quarterly outreach cadence, updated narrative, sustained relationship tracking. You become the keeper of their executive narrative. Your engagement time doesn&apos;t increase. Your impact does.</p>
-                  </div>
-                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client moves from uncertainty about readiness to confidence in progression and timing.</p>
-                </div>
-              </div>
-              <div className="border border-slate-200 rounded-lg p-6 bg-white">
-                <p className="text-[13px] font-bold text-slate-900 mb-1">Executive Search Firm Coach</p>
-                <p className="text-[12px] text-slate-500 mb-4">Interview prep and messaging coaching for C-suite placements (2-4 weeks)</p>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.08em] mb-1">The pressure</p>
-                    <p className="text-[13px] text-slate-600">Coaching half-blind. You do not have pipeline visibility. Last-minute prep. Typical: 2-3 C-suite placements per quarter, each with 4+ interviews in 2 weeks.</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
-                    <p className="text-[13px] text-slate-700 font-medium">See what they are doing, what signals they are missing, what companies are moving. Coach with full context. Your 2-week window becomes 4 weeks of advantage. You become the coach search firms call repeatedly for C-suite placements.</p>
-                  </div>
-                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client replaces interview anxiety with peer-level confidence before each round.</p>
-                </div>
-              </div>
-              <div className="border border-slate-200 rounded-lg p-6 bg-white">
-                <p className="text-[13px] font-bold text-slate-900 mb-1">Board & Governance Coach</p>
-                <p className="text-[12px] text-slate-500 mb-4">Coaching executives pursuing board seats and advisory roles (6-24 months)</p>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.08em] mb-1">The pressure</p>
-                    <p className="text-[13px] text-slate-600">Multi-year relationships require discipline. Tracking 50+ relationships is admin-heavy. Typical: 50-80 board/advisor relationships tracked over 3 years.</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-[0.08em] mb-1">Your leverage</p>
-                    <p className="text-[13px] text-slate-700 font-medium">Monitor board composition changes, governance signals, and PE transitions at scale. You maintain relationships over years without consuming your attention. Your credibility compounds. Coaches who maintain quarterly outreach cadence see 40% more client activations in the next cycle.</p>
-                  </div>
-                  <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-800">Emotional shift:</span> Your client moves from low-grade uncertainty to steady long-range confidence in board positioning.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </section>
 
-          <section>
+          <section id="execution-rhythm">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Execution rhythm
             </p>
@@ -355,7 +338,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section className="border-t border-slate-100 pt-10">
+          <section id="next-step" className="border-t border-slate-100 pt-10">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               What this is not
             </p>
