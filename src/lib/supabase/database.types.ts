@@ -653,6 +653,22 @@ export type Database = {
         }
         Relationships: []
       }
+      coach_profiles: {
+        Row: {
+          coach_id: string
+          display_name: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          coach_id: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
       conference_speakers: {
         Row: {
           id: string

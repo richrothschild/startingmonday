@@ -40,13 +40,21 @@ export async function GET(request: NextRequest) {
     .eq('client_id', userId)
     .in('coach_id', coachIds.length ? coachIds : ['00000000-0000-0000-0000-000000000000'])
 
+  const { data: coachProfiles } = await supabase
+    .from('coach_profiles')
+    .select('coach_id, display_name')
+    .in('coach_id', coachIds.length ? coachIds : ['00000000-0000-0000-0000-000000000000'])
+
   const permissionMap = new Map((permissions ?? []).map((p) => [p.coach_id, p]))
+  const profileMap = new Map((coachProfiles ?? []).map((p) => [p.coach_id, p]))
   const data = (seats ?? []).map((seat) => {
     const permission = permissionMap.get(seat.owner_id)
+    const profile = profileMap.get(seat.owner_id)
     return {
       id: seat.id,
       coach_id: seat.owner_id,
-      member_email: 'Coach account',
+      member_email: profile?.display_name || 'Coach account',
+      coach_name: profile?.display_name || null,
       coach_access_enabled: permission ? permission.access_enabled : true,
       access_level: permission?.access_level ?? seat.access_level ?? 'read_write',
       access_granted_at: permission?.updated_at ?? seat.access_granted_at,

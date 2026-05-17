@@ -333,18 +333,12 @@ export default function ForCoachesPage() {
                   ))}
                 </ul>
                 <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one. Coach view shows the company moved from Watchlist to Active Outreach and whether the note was sent.</p>
-                <button 
-                  onClick={() => {
-                    const el = document.getElementById('full-signal-example');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth' });
-                      el.classList.add('ring-2', 'ring-orange-400');
-                    }
-                  }}
+                <a
+                  href="#full-signal-example"
                   className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
                 >
                   See full brief example →
-                </button>
+                </a>
               </div>
               <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
                 <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-3">Prep brief excerpt</p>
@@ -358,18 +352,12 @@ export default function ForCoachesPage() {
                   ))}
                 </ul>
                 <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive. In practice, the coach sees the same brief the client sees, plus the current pipeline stage, next follow-up date, and any fresh signal cluster tied to the company.</p>
-                <button 
-                  onClick={() => {
-                    const el = document.getElementById('full-prep-example');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth' });
-                      el.classList.add('ring-2', 'ring-orange-400');
-                    }
-                  }}
+                <a
+                  href="#full-prep-example"
                   className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
                 >
                   See full brief example →
-                </button>
+                </a>
               </div>
             </div>
             

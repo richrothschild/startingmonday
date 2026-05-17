@@ -16,10 +16,18 @@ interface CoachAccess {
   id: string
   member_email: string
   coach_id: string
+  coach_name?: string | null
   coach_access_enabled: boolean
-  access_level: 'read_only' | 'read_write'
+  access_level: 'read_only' | 'read_write' | string
   access_granted_at: string | null
   last_accessed_at: string | null
+}
+
+interface CoachActivityItem {
+  id: string
+  table_name: string
+  action: string
+  created_at: string
 }
 
 export function ClientCoachAccessManager() {
@@ -27,6 +35,8 @@ export function ClientCoachAccessManager() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [updating, setUpdating] = useState<string | null>(null)
+  const [activityByCoach, setActivityByCoach] = useState<Record<string, CoachActivityItem[]>>({})
+  const [loadingActivityFor, setLoadingActivityFor] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadCoaches() {
@@ -86,6 +96,20 @@ export function ClientCoachAccessManager() {
     }
   }
 
+  async function loadActivity(coachId: string) {
+    try {
+      setLoadingActivityFor(coachId)
+      const res = await fetch(`/api/client/coach-access/${coachId}/activity`)
+      if (!res.ok) throw new Error('Failed to load activity')
+      const json = await res.json()
+      setActivityByCoach((prev) => ({ ...prev, [coachId]: json.data || [] }))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoadingActivityFor(null)
+    }
+  }
+
   if (loading) {
     return <div className="p-6 text-center text-slate-600">Loading coach access settings...</div>
   }
@@ -116,12 +140,15 @@ export function ClientCoachAccessManager() {
       ) : (
         <div className="space-y-3">
           {coaches.map((coach) => (
+            <div key={coach.coach_id} className="space-y-2">
             <div
-              key={coach.coach_id}
               className="border border-slate-200 rounded-lg p-4 bg-white flex items-center justify-between"
             >
               <div className="flex-1">
-                <p className="font-semibold text-slate-900">{coach.member_email}</p>
+                <p className="font-semibold text-slate-900">{coach.coach_name || coach.member_email}</p>
+                {coach.coach_name && (
+                  <p className="text-[12px] text-slate-500">{coach.member_email}</p>
+                )}
                 <div className="flex gap-4 mt-2 text-sm text-slate-600">
                   <span>
                     Access:{' '}
@@ -156,6 +183,13 @@ export function ClientCoachAccessManager() {
 
               <div className="flex gap-2">
                 <button
+                  onClick={() => loadActivity(coach.coach_id)}
+                  disabled={loadingActivityFor === coach.coach_id}
+                  className="px-3 py-2 rounded text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors disabled:opacity-50"
+                >
+                  {loadingActivityFor === coach.coach_id ? 'Loading...' : 'View Activity'}
+                </button>
+                <button
                   onClick={() => toggleCoachAccess(coach.coach_id, !coach.coach_access_enabled)}
                   disabled={updating === coach.coach_id}
                   className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
@@ -174,6 +208,26 @@ export function ClientCoachAccessManager() {
                   Revoke
                 </button>
               </div>
+            </div>
+
+            {activityByCoach[coach.coach_id] && (
+              <div className="mt-2 bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+                  Recent Coach Activity
+                </p>
+                {activityByCoach[coach.coach_id].length === 0 ? (
+                  <p className="text-[12px] text-slate-500">No activity logged yet.</p>
+                ) : (
+                  <div className="space-y-1.5">
+                    {activityByCoach[coach.coach_id].map((item) => (
+                      <p key={item.id} className="text-[12px] text-slate-600">
+                        {formatDateTime(item.created_at)}: {item.action} {item.table_name.replace('_', ' ')}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             </div>
           ))}
         </div>
