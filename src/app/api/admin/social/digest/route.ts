@@ -3,7 +3,6 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { getOwnerEmail } from '@/lib/owner-email'
-import { checkRateLimit } from '@/lib/rate-limit'
 
 const OWNER_EMAIL = getOwnerEmail()
 
@@ -109,11 +108,30 @@ export async function GET(request: NextRequest) {
     const postedCount = typedPosts.filter((p) => p.is_posted).length
     const weekOf = safeDateLabel(since).replace(/^[A-Za-z]+,\s*/, '')
 
-    const today = new Date().toISOString().split('T')[0]
-    const lastSentKey = `linkedin_digest_last_sent:${today}`
-    const alreadySent = checkRateLimit(lastSentKey, 1)
-    if (!alreadySent.allowed) {
-      return NextResponse.json({ ok: false, error: 'Digest already sent today' }, { status: 429 })
+    const today = new Date().toISOString().slice(0, 10)
+    const digestKey = 'linkedin_digest:owner'
+    const { data: lockAllowed, error: lockError } = await admin.rpc('check_and_increment_rate_limit', {
+      p_key: digestKey,
+      p_window: today,
+      p_limit: 1,
+    })
+
+    if (lockError) {
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'social_digest_lock_failed',
+        message: lockError.message,
+        code: lockError.code,
+        details: lockError.details,
+        hint: lockError.hint,
+        key: digestKey,
+        window: today,
+      }))
+      return NextResponse.json({ error: 'Failed to acquire digest lock' }, { status: 500 })
+    }
+
+    if (!lockAllowed) {
+      return NextResponse.json({ ok: true, sent: false, reason: 'Digest already sent today' }, { status: 200 })
     }
 
     const { error: sendError } = await sendEmail({
