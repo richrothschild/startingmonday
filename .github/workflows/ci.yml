@@ -85,8 +85,6 @@ jobs:
         uses: returntocorp/semgrep-action@v1
         with:
           config: .semgrep.yml
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
   notify-failure:
     name: Notify Slack on failure

@@ -80,4 +80,26 @@ test.describe('authenticated monitoring journeys', () => {
       await expect(page.getByText(/Review and send on right/i)).toBeVisible()
     }
   })
+
+  test('company detail route renders when a company exists', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto('/dashboard')
+    const companyLink = page.locator('a[href^="/dashboard/companies/"]').first()
+
+    if ((await companyLink.count()) === 0) {
+      test.skip(true, 'Skipping company detail monitoring check: no companies in this account')
+    }
+
+    await companyLink.click()
+    await expect(page).toHaveURL(/\/dashboard\/companies\/.+/)
+    await expectJourneyHealthy(page, guards)
+
+    await expect(page.locator('h1')).toBeVisible()
+    await expect(page.getByRole('link', { name: /Interview prep|Run interview prep/i }).first()).toBeVisible()
+    await expect(page.locator('body')).not.toContainText(/404/i)
+    await expect(page.locator('.bg-red-50')).toHaveCount(0)
+  })
 })
