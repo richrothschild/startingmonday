@@ -246,13 +246,25 @@ export default function ForCoachesPage() {
               {[
                 'Free coach access during the preview',
                 '2-3 client preview seats for live evaluation',
-                'Sample brief walkthrough before first use',
+                'Full visibility into client pipeline, signals, and briefs',
+                'Scorecards showing client behavior and activity health',
+                'Audit log tracking all data access',
                 'Short feedback session after the preview window',
               ].map((item) => (
                 <div key={item} className="bg-white border border-emerald-100 rounded-lg px-4 py-3">
                   <p className="text-[13px] text-slate-700 leading-relaxed">{item}</p>
                 </div>
               ))}
+            </div>
+            <div className="mt-4 border border-emerald-300 bg-emerald-50 rounded-lg p-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">What coaches see during preview:</p>
+              <ul className="space-y-1 text-[12px] text-slate-700">
+                <li>• Complete company pipeline with fit scores and stage tracking</li>
+                <li>• Real-time signals with detection dates and relevance scores</li>
+                <li>• Interview prep briefs showing your approach before each conversation</li>
+                <li>• 30-day activity scorecards: pipeline health, signal velocity, interview outcomes</li>
+                <li>• All activity is logged—clients can see exactly when coaches accessed their data</li>
+              </ul>
             </div>
           </section>
 
