@@ -1,4 +1,3 @@
-﻿
 import { ImageResponse } from 'next/og'
 import './opengraph-image.css'
 
@@ -9,30 +8,32 @@ export const contentType = 'image/png'
 
 export default function Image() {
   return new ImageResponse(
-    <div className="og-container">
-      {/* Orange left accent bar */}
-      <div className="og-accent-bar" />
+    (
+      <div className="og-container" style={{ display: 'flex' }}>
+        {/* Orange left accent bar */}
+        <div className="og-accent-bar" />
 
-      {/* Brand */}
-      <div className="og-brand-container">
-        <span className="og-brand-start">
-          STARTING&nbsp;
-        </span>
-        <span className="og-brand-month">
-          MONDAY
-        </span>
-      </div>
+        {/* Brand */}
+        <div className="og-brand-container" style={{ display: 'flex' }}>
+          <span className="og-brand-start">
+            STARTING&nbsp;
+          </span>
+          <span className="og-brand-month">
+            MONDAY
+          </span>
+        </div>
 
-      {/* Headline */}
-      <div className="og-headline">
-        The role was never posted. You found it anyway.
-      </div>
+        {/* Headline */}
+        <div className="og-headline">
+          The role was never posted. You found it anyway.
+        </div>
 
-      {/* Subline */}
-      <div className="og-subline">
-        For senior executives in search.
+        {/* Subline */}
+        <div className="og-subline">
+          For senior executives in search.
+        </div>
       </div>
-    </div>,
+    ),
     size,
   )
 }
