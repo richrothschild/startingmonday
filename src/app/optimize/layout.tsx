@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PHProvider } from '@/components/PosthogProvider'
 
 export const metadata: Metadata = {
   title: 'Free Executive Resume Optimizer - Starting Monday',
@@ -29,5 +30,5 @@ export const metadata: Metadata = {
 }
 
 export default function OptimizeLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return <PHProvider>{children}</PHProvider>
 }

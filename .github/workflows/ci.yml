@@ -88,7 +88,6 @@ jobs:
         with:
           config: .semgrep.yml
         env:
-          # Optional: set SEMGREP_APP_TOKEN to also post results to semgrep.dev dashboard
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
   notify-failure:

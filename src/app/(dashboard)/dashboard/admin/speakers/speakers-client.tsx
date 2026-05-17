@@ -259,8 +259,9 @@ export function SpeakersClient({ initialSpeakers }: { initialSpeakers: Speaker[]
                         )}
                       </td>
                       <td className="px-4 py-3">
-                        <label className="sr-only">Speaker priority</label>
+                        <label htmlFor={`priority-select-${s.id}`} className="sr-only">Speaker priority</label>
                         <select
+                          id={`priority-select-${s.id}`}
                           aria-label="Speaker priority"
                           value={s.priority}
                           onClick={e => e.stopPropagation()}
@@ -284,7 +285,10 @@ export function SpeakersClient({ initialSpeakers }: { initialSpeakers: Speaker[]
                         </select>
                       </td>
                       <td className="px-4 py-3" onClick={e => e.stopPropagation()}>
+                        <label htmlFor={`status-select-${s.id}`} className="sr-only">Speaker outreach status</label>
                         <select
+                          id={`status-select-${s.id}`}
+                          aria-label="Speaker outreach status"
                           value={s.outreach_status}
                           onChange={e => updateStatus(s.id, e.target.value)}
                           className={`text-[11px] font-bold px-2 py-0.5 rounded border-0 cursor-pointer ${STATUS_COLORS[s.outreach_status]}`}

@@ -1,10 +1,8 @@
-"use client";
 import Link from 'next/link'
 import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 import { SamplePrepBrief } from '@/components/SamplePrepBrief'
-import { TrackLink } from '@/components/TrackLink'
 
 export interface SituationCard {
   id: string
@@ -252,25 +250,21 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
-              <TrackLink
+              <Link
                 href="/signup"
-                event="cta_clicked"
-                properties={{ location: 'hero', label: 'start_campaign' }}
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start free trial &rarr;
-              </TrackLink>
+              </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
             <div>
-              <TrackLink
+              <Link
                 href="/demo"
-                event="cta_clicked"
-                properties={{ location: 'hero', label: 'see_demo' }}
                 className="inline-block text-[14px] font-bold text-white border border-orange-500 bg-orange-500 px-7 py-3.5 rounded hover:bg-orange-600 hover:border-orange-600 transition-colors"
               >
                 See it in action &rarr;
-              </TrackLink>
+              </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">Live prep brief demo. No signup required.</p>
             </div>
           </div>
@@ -363,18 +357,16 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {situations.map(s => (
-              <TrackLink
+              <Link
                 key={s.id}
                 href={`/signup?from=${s.id}`}
-                event="situation_selected"
-                properties={{ situation_id: s.id }}
                 className="group bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-800 hover:shadow-sm transition-all"
               >
                 <p className="text-[15px] font-semibold text-slate-900 mb-1.5 group-hover:text-slate-700">
                   {s.headline}
                 </p>
                 <p className="text-[13px] text-slate-500 leading-relaxed">{s.sub}</p>
-              </TrackLink>
+              </Link>
             ))}
           </div>
 

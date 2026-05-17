@@ -2,9 +2,13 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 
 // GET: list speakers with appearances, optional filters: ?status=&q=&conference=&year=
 export async function GET(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -48,7 +52,7 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  return NextResponse.json({ speakers })
+  return withAuthCookies(NextResponse.json({ speakers }), auth)
 }
 
 // POST: import speakers from CSV body (text/csv or multipart with "file" field)
@@ -56,6 +60,9 @@ export async function GET(request: NextRequest) {
 // full_name, first_name, last_name, title, company, linkedin_url, sector, notes, priority,
 // conference_name, year, topic, session_type
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -164,12 +171,12 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({
+  return withAuthCookies(NextResponse.json({
     ok: true,
     speakersUpserted,
     appearancesInserted,
     errors: errors.slice(0, 20),
-  })
+  }), auth)
 }
 
 // ── helpers ────────────────────────────────────────────────────────────────────
