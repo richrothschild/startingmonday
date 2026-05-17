@@ -111,6 +111,9 @@ export default function ForCoachesPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Early proof
             </p>
+            <p className="text-[12px] text-slate-500 mb-5">
+              Verification-first policy: named testimonials are published only after explicit permission and outcome verification.
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               {PROOF_METRICS.map((metric) => (
                 <div key={metric.value} className="border border-slate-100 rounded-xl p-4 bg-slate-50">
@@ -119,8 +122,23 @@ export default function ForCoachesPage() {
                 </div>
               ))}
             </div>
-            <p className="text-[13px] text-slate-600 leading-relaxed">
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-2">
               Verified pilot evidence is from the executive cohort, not a coach-claimed model. That matters. Coaches are being asked to trust a workflow with real operating data behind it, not just language.
+            </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-1">
+              Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.
+            </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-4">
+              Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.
+            </p>
+            <div className="border border-orange-100 bg-orange-50/50 rounded-xl p-4 mb-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-1">Coaching-adjacent usage signal</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed">
+                20% of early users brought the daily briefing into every coaching session. That is not yet a coach testimonial, but it is a useful signal that the workflow already fits real coaching behavior.
+              </p>
+            </div>
+            <p className="text-[12px] text-slate-500 leading-relaxed">
+              More evidence and claim mapping live in <Link href="/references" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Evidence and References</Link>.
             </p>
           </section>
 
