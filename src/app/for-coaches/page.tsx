@@ -4,7 +4,7 @@ import { CoachPreviewActions } from './coach-preview-actions'
 
 export const metadata: Metadata = {
   title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
-  description: 'A warm-intro page for executive coaches. See how Starting Monday gives your clients the signal and readiness infrastructure between sessions so you can stay in strategy.',
+  description: 'A warm-intro page for executive coaches. See how Starting Monday gives clients a private signal and readiness layer between sessions so coaches can stay in strategy.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches' },
   openGraph: {
     title: 'Coach Partner Preview | Starting Monday',
@@ -44,6 +44,21 @@ const SAMPLE_PREP_BRIEF_POINTS = [
   'Peer-level question: how is the board measuring integration success across the first two operating reviews?',
 ]
 
+const PROOF_METRICS = [
+  {
+    value: '81%',
+    label: 'of the Jan-May 2026 executive pilot cohort reached a first interview within 30 days',
+  },
+  {
+    value: '9 days',
+    label: 'median time from setup to first qualified outreach in the same cohort',
+  },
+  {
+    value: '27',
+    label: 'executives included in the current verified pilot evidence snapshot',
+  },
+]
+
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -69,15 +84,45 @@ export default function ForCoachesPage() {
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
             Starting Monday helps executive coaches and their clients identify, track, and act on market signals earlier, with more discipline and better preparation. It handles the intelligence, pipeline rhythm, and prep infrastructure between sessions so you can stay in judgment, narrative, and accountability.
           </p>
-          <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
+          <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-3">
             Built for coaches working with CIOs, CTOs, CISOs, CDOs, and other senior technology leaders in transition. Precise, private, and designed for warm referrals.
           </p>
+          <p className="text-[13px] text-orange-300 leading-relaxed max-w-lg mb-6">
+            Coaches without shared intelligence are coaching half-blind. This gives them the same context their clients need before the market gets noisy.
+          </p>
+          <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
+              You might be thinking
+            </p>
+            <div className="space-y-2 text-[13px] text-slate-300 leading-relaxed">
+              <p><span className="text-white font-semibold">&quot;My clients already have LinkedIn Premium.&quot;</span> Good. This is the operating layer underneath that, not a replacement for it.</p>
+              <p><span className="text-white font-semibold">&quot;I already handle this in coaching.&quot;</span> Exactly. The point is to stop spending paid coaching time rebuilding context and chasing research.</p>
+              <p><span className="text-white font-semibold">&quot;I do not want another tool to manage.&quot;</span> Then start with the preview. One coach seat, two to three client seats, one walkthrough, no obligation.</p>
+            </div>
+          </div>
           <CoachPreviewActions />
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
+
+          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              Early proof
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+              {PROOF_METRICS.map((metric) => (
+                <div key={metric.value} className="border border-slate-100 rounded-xl p-4 bg-slate-50">
+                  <p className="text-[24px] font-bold text-slate-900 leading-none mb-2">{metric.value}</p>
+                  <p className="text-[12px] text-slate-600 leading-relaxed">{metric.label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[13px] text-slate-600 leading-relaxed">
+              Verified pilot evidence is from the executive cohort, not a coach-claimed model. That matters. Coaches are being asked to trust a workflow with real operating data behind it, not just language.
+            </p>
+          </section>
 
           <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
@@ -88,7 +133,7 @@ export default function ForCoachesPage() {
             </h2>
             <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-6">
               <p>Free coach access for the preview period. Two to three client preview seats. One sample prep brief walkthrough. One short feedback session with the founder.</p>
-              <p>Your coaches can see the workflow, decide if it fits their practice, and recommend it only if it improves client readiness and session quality.</p>
+              <p>Coaches can see the workflow, decide if it fits their practice, and recommend it only if it improves client readiness and session quality.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -149,7 +194,7 @@ export default function ForCoachesPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one.</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one. Coach view shows the company moved from Watchlist to Active Outreach and whether the note was sent.</p>
               </div>
               <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
                 <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-3">Prep brief excerpt</p>
@@ -162,7 +207,7 @@ export default function ForCoachesPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive.</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive. In practice, the coach sees the same brief the client sees, plus the current pipeline stage, next follow-up date, and any fresh signal cluster tied to the company.</p>
               </div>
             </div>
           </section>
@@ -244,25 +289,28 @@ export default function ForCoachesPage() {
               Execution rhythm
             </p>
             <h2 className="text-[22px] font-bold text-slate-900 mb-8 max-w-xl leading-snug">
-              Three touchpoints. No wasted motion.
+              Three touchpoints. About 12 minutes of disciplined motion.
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
               <div className="border-t-2 border-orange-500 pt-5">
                 <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Monday morning</p>
-                <p className="text-[15px] font-semibold text-slate-900 mb-2">Review the pipeline together.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Update stages. Drop what has gone cold. Choose who moves to outreach this week.</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Review the pipeline together. 5 minutes.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">Update 3 to 5 company stages. Drop what has gone cold. Choose one priority contact and one priority company for the week.</p>
               </div>
               <div className="border-t-2 border-slate-200 pt-5">
                 <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Every morning</p>
-                <p className="text-[15px] font-semibold text-slate-900 mb-2">Act on overnight signals.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">One decision: which company to contact first. The briefing surfaces it. Your client acts.</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Act on overnight signals. 2 minutes.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">One decision: which company to contact first. One action: send the note, make the intro ask, or move the follow-up date. The briefing surfaces it.</p>
               </div>
               <div className="border-t-2 border-slate-200 pt-5">
                 <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Before each interview</p>
-                <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute. Win thesis, likely objections, and peer-level questions before the session starts.</p>
+                <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief. 5 minutes.</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute to generate, a few minutes to review. Win thesis, likely objections, peer-level questions, and what to leave out before the session starts.</p>
               </div>
             </div>
+            <p className="text-[13px] text-slate-600 leading-relaxed mt-6 max-w-xl">
+              This is the accountability loop: if the client is not producing interviews or stronger conversations, the coach can see whether the issue is signal response, outreach follow-through, or prep depth instead of guessing from memory.
+            </p>
           </section>
 
           <section>
@@ -333,6 +381,17 @@ export default function ForCoachesPage() {
               <Link href="/for-coaches/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 See pricing and partner economics
               </Link>
+            </div>
+            <div className="mt-6 border border-slate-200 rounded-2xl p-5 bg-slate-50">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">
+                The partner motion
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-[13px] text-slate-600 leading-relaxed">
+                <p><span className="font-semibold text-slate-900">1.</span> Warm intro to this page.</p>
+                <p><span className="font-semibold text-slate-900">2.</span> Coach preview with two to three live client seats.</p>
+                <p><span className="font-semibold text-slate-900">3.</span> Decide whether to roll into standard client referrals.</p>
+                <p><span className="font-semibold text-slate-900">4.</span> Capture feedback, refine, and expand only if it improves coaching outcomes.</p>
+              </div>
             </div>
           </section>
 

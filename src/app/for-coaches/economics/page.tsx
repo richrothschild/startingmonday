@@ -33,6 +33,13 @@ const ECONOMICS = [
   'Client plans still start with a 30-day free trial and no credit card.',
 ]
 
+const PARTNER_MECHANICS = [
+  'Commission begins when a referred client converts from free trial to a paid subscription.',
+  'Preview seats and free-trial days do not generate commission; they exist to evaluate fit without pressure.',
+  'Recurring commission continues while the referred client remains on a paid plan.',
+  'Preferred partner currently means 5 or more active paid client seats or a coordinated firm-managed rollout.',
+]
+
 export default function CoachEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -118,12 +125,23 @@ export default function CoachEconomicsPage() {
           </div>
         </section>
 
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+            Mechanics, not mystery
+          </p>
+          <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
+            {PARTNER_MECHANICS.map((item) => (
+              <p key={item}>{item}</p>
+            ))}
+          </div>
+        </section>
+
         <section className="border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
           </p>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
-            If the economics look reasonable, go back to the coach preview and request the live walkthrough. That keeps the evaluation anchored in workflow quality, not theory.
+            If the economics look reasonable, go back to the coach preview and request the live walkthrough. That keeps the evaluation anchored in workflow quality, not theory, and makes the next step obvious.
           </p>
           <CoachPreviewActions />
           <div className="flex flex-wrap gap-4 mt-5 text-[13px]">

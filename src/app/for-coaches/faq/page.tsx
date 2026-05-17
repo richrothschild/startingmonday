@@ -42,7 +42,12 @@ const FAQS = [
   {
     question: 'How do confidentiality and visibility work?',
     answer:
-      'The client controls access to their pipeline. Starting Monday is not connected to employers or search firms, does not sell leads, and is built for private executive transitions. Coach visibility is opt-in, not automatic.',
+      'The client controls access to their pipeline. Coach visibility is opt-in, not automatic. When access is granted, the coach can see the company list, current stage, next follow-up date, recent signals, and prep briefs tied to that client. Employers and search firms do not see this activity, and the client can revoke coach access at any time.',
+  },
+  {
+    question: 'What exactly happens after Terry forwards this to a coach?',
+    answer:
+      'The intended sequence is simple: the coach reads the preview page, requests the preview if relevant, gets one coach seat plus two to three client preview seats, tests the workflow with live context, then decides whether to recommend standard client plans. If they want broader rollout, that moves into the partner program.',
   },
   {
     question: 'What happens after the preview?',
@@ -92,7 +97,7 @@ export default function CoachFaqPage() {
             Next step
           </p>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
-            If the workflow sounds relevant, start with the preview. If the coach needs pricing and commission detail before deciding, send the economics page next.
+            If the workflow sounds relevant, start with the preview. If the coach needs pricing and commission detail before deciding, send the economics page next. The goal is to reduce perceived risk before asking for commitment.
           </p>
           <CoachPreviewActions />
           <div className="flex flex-wrap gap-4 mt-5 text-[13px]">
