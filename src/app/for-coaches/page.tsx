@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { CoachPreviewActions } from './coach-preview-actions'
 
@@ -78,6 +79,29 @@ const COACH_FIT = [
   },
 ]
 
+const COACH_SCOREBOARD = [
+  {
+    label: 'Companies updated weekly',
+    target: '3-5',
+    note: 'If fewer are moving, the pipeline is drifting or too broad.',
+  },
+  {
+    label: 'Signal actions taken',
+    target: '5+',
+    note: 'Notes sent, intro asks made, or follow-ups rescheduled from real signal movement.',
+  },
+  {
+    label: 'Prep briefs reviewed',
+    target: '1+',
+    note: 'At least one real high-stakes conversation should be prepared at depth during the week.',
+  },
+  {
+    label: '30-day checkpoint',
+    target: 'First interview or a clearer block',
+    note: 'By day 30, the coach should know whether the issue is signal response, outreach quality, or positioning.',
+  },
+]
+
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -120,6 +144,34 @@ export default function ForCoachesPage() {
             </div>
           </div>
           <CoachPreviewActions />
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-5 items-start">
+            <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-3">
+                Coach-proof signal near the first CTA
+              </p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                In early usage, 20% of users brought the daily briefing into every coaching session. That is not yet a named coach testimonial, but it is direct evidence that the workflow already fits live coaching behavior.
+              </p>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                The screenshot here is the actual dashboard surface clients use to track signals, pipeline changes, and next actions between sessions.
+              </p>
+            </div>
+            <div className="border border-slate-700 rounded-2xl overflow-hidden bg-slate-950/50">
+              <div className="px-4 py-3 border-b border-slate-700">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400">Live product view</p>
+              </div>
+              <div className="p-3">
+                <Image
+                  src="/dashboard-screenshot.png"
+                  alt="Starting Monday dashboard screenshot showing company pipeline and tracked activity"
+                  width={1200}
+                  height={720}
+                  className="w-full h-auto rounded-xl border border-slate-700"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -312,6 +364,20 @@ export default function ForCoachesPage() {
             <p className="text-[13px] text-slate-600 leading-relaxed mt-6 max-w-xl">
               This is the accountability loop: if the client is not producing interviews or stronger conversations, the coach can see whether the issue is signal response, outreach follow-through, or prep depth instead of guessing from memory.
             </p>
+            <div className="mt-8 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+                Coach scoreboard
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {COACH_SCOREBOARD.map((item) => (
+                  <div key={item.label} className="border border-slate-200 rounded-xl p-4 bg-white">
+                    <p className="text-[12px] text-slate-500 mb-1">{item.label}</p>
+                    <p className="text-[16px] font-semibold text-slate-900 mb-2">{item.target}</p>
+                    <p className="text-[12px] text-slate-600 leading-relaxed">{item.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </section>
 
           <section>
