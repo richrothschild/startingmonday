@@ -86,6 +86,18 @@ jobs:
         with:
           config: .semgrep.yml
 
+      - name: Upload Semgrep findings to Semgrep Cloud (optional)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+        continue-on-error: true
+        run: |
+          if [ -z "${SEMGREP_APP_TOKEN:-}" ]; then
+            echo "SEMGREP_APP_TOKEN not set in runner environment; skipping Semgrep Cloud upload."
+            exit 0
+          fi
+
+          python3 -m pip install --upgrade semgrep
+          semgrep ci --config auto
+
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
