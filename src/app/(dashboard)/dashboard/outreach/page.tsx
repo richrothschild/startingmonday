@@ -123,7 +123,7 @@ function buildDefaultBody(row: CsvRow): string {
     '',
     core,
     '',
-    'If useful, I can send a concise follow-up with one specific angle for your remit.',
+    'If useful, I can send a concise follow-up with one specific angle tailored to your priorities.',
     '',
     'Best,',
     'Rich Rothschild',
@@ -187,13 +187,33 @@ function companyToken(company: string | undefined): string {
   return value || 'your organization'
 }
 
+function csvPersonalizedOpening(row: CsvRow, company: string): string {
+  const opening = (row.email_opening ?? '').trim()
+  if (opening) return opening
+
+  const personalizationLine = (row.personalization_line ?? '').trim()
+  if (personalizationLine) return personalizationLine
+
+  const personaFocus = (row.persona_focus ?? '').trim()
+  const roleSignal = (row.role_bucket ?? row.title ?? '').trim()
+
+  if (personaFocus && roleSignal) {
+    return `I have been following your ${roleSignal} work at ${company}, especially your focus on ${personaFocus}.`
+  }
+  if (personaFocus) {
+    return `Your focus on ${personaFocus} at ${company} stood out.`
+  }
+  if (roleSignal) {
+    return `I have been following your ${roleSignal} leadership at ${company}.`
+  }
+
+  return `I have been following your work at ${company}.`
+}
+
 function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subject: string; body: string } {
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
-
-  const personalization = (row.email_opening ?? '').trim()
-    || (row.personalization_line ?? '').trim()
-    || `I noticed your ${row.role_bucket || 'leadership'} remit at ${company}.`
+  const personalization = csvPersonalizedOpening(row, company)
 
   if (channel === 'executives') {
     const archetype = detectExecutiveRoleArchetype(row)
