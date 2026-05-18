@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
 
@@ -543,42 +544,42 @@ export default function ForCoachesPage() {
             <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">Questions? We&rsquo;ve got answers.</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <a href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">❓</span>
+                <Image src="/brand/icon-exploration-v1/faq.svg" alt="FAQ icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
                   <p className="text-[12px] text-slate-500">Objections & responses</p>
                 </div>
               </a>
               <a href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">🔒</span>
+                <Image src="/brand/icon-exploration-v1/security.svg" alt="Security icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
                   <p className="text-[12px] text-slate-500">Privacy & compliance</p>
                 </div>
               </a>
               <a href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">💰</span>
+                <Image src="/brand/icon-exploration-v1/pricing.svg" alt="Pricing icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
                   <p className="text-[12px] text-slate-500">Investment & ROI</p>
                 </div>
               </a>
               <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">💬</span>
+                <Image src="/brand/icon-exploration-v1/feedback.svg" alt="Feedback icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Feedback</p>
                   <p className="text-[12px] text-slate-500">Share your thoughts</p>
                 </div>
               </a>
               <a href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">📊</span>
+                <Image src="/brand/icon-exploration-v1/evidence.svg" alt="Evidence icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
                   <p className="text-[12px] text-slate-500">Research & references</p>
                 </div>
               </a>
               <a href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <span className="text-[20px] group-hover:scale-110 transition-transform">🤝</span>
+                <Image src="/brand/icon-exploration-v1/partner.svg" alt="Partner program icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
                   <p className="text-[12px] text-slate-500">Affiliate & referral</p>
