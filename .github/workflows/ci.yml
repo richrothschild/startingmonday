@@ -39,6 +39,9 @@ jobs:
       - name: Outreach format check
         run: node scripts/check-outreach-format.mjs
 
+      - name: Executive fit criteria check
+        run: node scripts/check-executive-fit-criteria.mjs
+
       - name: Start app for smoke checks
         run: |
           npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &

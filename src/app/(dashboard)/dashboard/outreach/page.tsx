@@ -336,6 +336,23 @@ function normalizeCompanyKey(value: string | undefined): string {
     .trim()
 }
 
+function parseCompanySizeBand(value: string | undefined): 'target' | 'other' | 'unknown' {
+  const normalized = canonicalizeLabel(value)
+  if (!normalized) return 'unknown'
+
+  if (normalized.includes('1001 10000')) return 'target'
+  if (normalized.includes('10001')) return 'other'
+  if (normalized.includes('enterprise') || normalized.includes('startup') || normalized.includes('small')) return 'other'
+
+  const numeric = Number(normalized.replace(/[^0-9]/g, ''))
+  if (Number.isFinite(numeric) && numeric > 0) {
+    if (numeric > 1000 && numeric < 10000) return 'target'
+    return 'other'
+  }
+
+  return 'unknown'
+}
+
 function roleTokens(value: string): Set<string> {
   const normalized = canonicalizeLabel(value)
   const roles = new Set<string>()
@@ -389,14 +406,37 @@ function buildExecutiveFitLookup(rows: CsvRow[]): Map<string, Map<string, 'stron
   return lookup
 }
 
+function buildExecutiveCompanySizeLookup(rows: CsvRow[]): Map<string, 'target' | 'other'> {
+  const lookup = new Map<string, 'target' | 'other'>()
+
+  for (const row of rows) {
+    const companyKey = normalizeCompanyKey(row.target_account ?? row.company)
+    const sizeBand = parseCompanySizeBand(row.company_size_band ?? row.company_size)
+    if (!companyKey || sizeBand === 'unknown') continue
+
+    const existing = lookup.get(companyKey)
+    if (existing === 'target') continue
+    lookup.set(companyKey, sizeBand)
+  }
+
+  return lookup
+}
+
 function executivePersonaFit(
   row: CsvRow,
   fitLookup: Map<string, Map<string, 'strong' | 'medium'>>,
+  companySizeLookup: Map<string, 'target' | 'other'>,
 ): 'strong' | 'medium' | null {
+  const companyKey = normalizeCompanyKey(row.company)
+  const companySizeFromRow = parseCompanySizeBand(row.company_size_band ?? row.company_size)
+  const companySize = companySizeFromRow === 'unknown' ? (companySizeLookup.get(companyKey) ?? 'unknown') : companySizeFromRow
+
+  // Executive strong/medium targeting only applies to the midmarket band (1001-10000).
+  if (companySize !== 'target') return null
+
   const explicitFit = (row.fit_tier ?? '').trim().toLowerCase()
   if (explicitFit === 'strong' || explicitFit === 'medium') return explicitFit
 
-  const companyKey = normalizeCompanyKey(row.company)
   const roleCandidates = roleTokens(`${row.role_bucket ?? ''} ${row.title ?? ''}`)
 
   if (companyKey && roleCandidates.size > 0) {
@@ -659,12 +699,13 @@ export default async function OutreachHubPage() {
   ])
   const executives = mergeFirstTouch(executiveUniverse, firstTouch)
   const executiveFitLookup = buildExecutiveFitLookup(executiveTargetSlate.rows)
+  const executiveCompanySizeLookup = buildExecutiveCompanySizeLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
     .map((row): ClientRow | null => {
-      const personaFit = executivePersonaFit(row, executiveFitLookup)
+      const personaFit = executivePersonaFit(row, executiveFitLookup, executiveCompanySizeLookup)
       if (!personaFit) return null
       const standardizedDraft = buildStandardizedDraft(row, 'executives')
 
