@@ -7,4 +7,6 @@ echo "tsc..."
 echo "source guard..."
 node scripts/prebuild-guard.mjs
 
+echo "outreach lint..."
+node scripts/precommit-outreach-lint.mjs
 echo "ok"
