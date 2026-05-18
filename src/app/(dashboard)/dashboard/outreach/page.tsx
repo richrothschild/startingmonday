@@ -254,6 +254,7 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
         `Would it be a bad idea if I sent a one-page ${company}-style ${roleLabel} flow?`,
         '',
         'Rich',
+        'startingmonday.app',
       ].join('\n'),
     }
   }
@@ -271,6 +272,7 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
         'Would it be a bad idea if I sent a one-page example tailored to your mandate mix?',
         '',
         'Rich',
+        'startingmonday.app',
       ].join('\n'),
     }
   }
@@ -288,6 +290,7 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
         'Would it be a bad idea if I sent a one-page version for the clients you coach most often?',
         '',
         'Rich',
+        'startingmonday.app',
       ].join('\n'),
     }
   }
@@ -304,6 +307,7 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
       'Would it be a bad idea if I sent a one-page example mapped to your transition-support model?',
       '',
       'Rich',
+      'startingmonday.app',
     ].join('\n'),
   }
 }

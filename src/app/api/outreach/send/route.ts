@@ -50,6 +50,25 @@ function withComplianceFooter(messageText: string): string {
   ].join('\n')
 }
 
+function ensureSignatureLine(messageText: string): string {
+  const normalized = messageText.replace(/\r\n/g, '\n').trim()
+  if (!normalized) return normalized
+
+  if (normalized.includes('\nRich\nstartingmonday.app')) {
+    return normalized
+  }
+
+  if (normalized.endsWith('\nRich')) {
+    return `${normalized}\nstartingmonday.app`
+  }
+
+  if (normalized.endsWith('Rich')) {
+    return `${normalized}\nstartingmonday.app`
+  }
+
+  return `${normalized}\n\nRich\nstartingmonday.app`
+}
+
 function firstName(fullName: string): string {
   return fullName.trim().split(/\s+/)[0]?.toLowerCase() ?? ''
 }
@@ -200,8 +219,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Guardrail violation', violations: guardrail.violations, warnings: guardrail.warnings }, { status: 400 })
   }
 
-  const sb = supabase as any
-
   let contactId: string | null = null
   const { data: existingContact } = await supabase
     .from('contacts')
@@ -215,8 +232,8 @@ export async function POST(request: NextRequest) {
     contactId = existingContact.id
   }
 
-  const [{ data: suppressionHit }, { data: closedContactHit }] = await Promise.all([
-    sb
+  const [{ data: suppressionHitRaw }, { data: closedContactHitRaw }] = await Promise.all([
+    supabase
       .from('outreach_suppressions')
       .select('id')
       .eq('user_id', userId)
@@ -224,7 +241,7 @@ export async function POST(request: NextRequest) {
       .eq('active', true)
       .limit(1)
       .maybeSingle(),
-    sb
+    supabase
       .from('contacts')
       .select('id')
       .eq('user_id', userId)
@@ -233,6 +250,9 @@ export async function POST(request: NextRequest) {
       .limit(1)
       .maybeSingle(),
   ])
+
+  const suppressionHit = suppressionHitRaw as { id?: string } | null
+  const closedContactHit = closedContactHitRaw as { id?: string } | null
 
   if (suppressionHit?.id || closedContactHit?.id) {
     return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
@@ -296,7 +316,8 @@ export async function POST(request: NextRequest) {
   }
 
   const finalSubject = mode === 'test_to_self' ? `[TEST] ${subject}` : subject
-  const finalMessageText = withComplianceFooter(messageText)
+  const signedMessageText = ensureSignatureLine(messageText)
+  const finalMessageText = withComplianceFooter(signedMessageText)
   const listUnsubscribe = `<mailto:richard@startingmonday.app?subject=unsubscribe>`
   const sendResult = await sendEmail({
     to: recipient,
