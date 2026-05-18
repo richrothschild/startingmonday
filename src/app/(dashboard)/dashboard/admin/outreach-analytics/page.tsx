@@ -22,6 +22,11 @@ type SocialPostRow = {
   post_date: string
   is_posted: boolean
   notes: string | null
+  like_count: number
+  comment_count: number
+  impression_count: number
+  engagement_synced_at: string | null
+  linkedin_post_urn: string | null
 }
 
 type UserRow = {
@@ -99,9 +104,9 @@ export default async function OutreachAnalyticsPage() {
       .limit(10000),
     admin
       .from('social_posts')
-      .select('post_date, is_posted, notes')
+      .select('post_date, is_posted, notes, like_count, comment_count, impression_count, engagement_synced_at, linkedin_post_urn')
       .gte('post_date', since30d.slice(0, 10))
-      .order('post_date', { ascending: false })
+      .order('post_date', { ascending: true })
       .limit(200),
     admin
       .from('users')
@@ -119,7 +124,7 @@ export default async function OutreachAnalyticsPage() {
   const typed7d = (outreach7d ?? []) as unknown as OutreachLogRow[]
   const typed30d = (outreach30d ?? []) as unknown as OutreachLogRow[]
   const typedContacts = (contacts ?? []) as ContactRow[]
-  const typedSocial = (socialPosts ?? []) as SocialPostRow[]
+  const typedSocial = (socialPosts ?? []) as unknown as SocialPostRow[]
   const typedUsers30d = (newUsers30d ?? []) as UserRow[]
 
   const live7d = typed7d.filter(r => r.send_mode === 'live')
@@ -156,13 +161,29 @@ export default async function OutreachAnalyticsPage() {
   const meetingRate = contactedTotal > 0 ? Math.round((byStatus.meeting_scheduled / contactedTotal) * 100) : 0
 
   const postedSocial = typedSocial.filter(p => p.is_posted)
-  const postsWithNotes = postedSocial.filter(p => (p.notes ?? '').trim().length > 0)
-  const postsMissingNotes = postedSocial.length - postsWithNotes.length
+  const postsWithUrn = postedSocial.filter(p => p.linkedin_post_urn)
+  const postsSynced = postedSocial.filter(p => p.engagement_synced_at)
+  const totalLikes = postedSocial.reduce((sum, p) => sum + (p.like_count ?? 0), 0)
+  const totalComments = postedSocial.reduce((sum, p) => sum + (p.comment_count ?? 0), 0)
+  const totalImpressions = postedSocial.reduce((sum, p) => sum + (p.impression_count ?? 0), 0)
+  const avgEngagementRate = postsSynced.length > 0
+    ? Math.round(postsSynced.reduce((sum, p) => {
+        const imp = p.impression_count ?? 0
+        if (imp === 0) return sum
+        return sum + ((p.like_count + p.comment_count) / imp) * 100
+      }, 0) / postsSynced.filter(p => (p.impression_count ?? 0) > 0).length * 10) / 10
+    : 0
 
+  // Engagement trend chart data (last 30d posted, ascending order)
+  const chartPosts = postedSocial.slice(-20)
+  const maxEngagement = Math.max(...chartPosts.map(p => (p.like_count ?? 0) + (p.comment_count ?? 0)), 1)
+
+  // Fallback: parse manual notes only when API data not yet synced
   let parsedLikes = 0
   let parsedComments = 0
   let parsedEngagementPosts = 0
-  for (const post of postsWithNotes) {
+  const unsynced = postedSocial.filter(p => !p.engagement_synced_at)
+  for (const post of unsynced) {
     const parsed = parseEngagementFromNotes(post.notes)
     if (!parsed) continue
     parsedEngagementPosts += 1
@@ -336,20 +357,97 @@ export default async function OutreachAnalyticsPage() {
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Execution (30d)</p>
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Engagement (30d)</p>
+              {postsSynced.length > 0 && (
+                <span className="text-[10px] text-emerald-600 font-semibold">API synced</span>
+              )}
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
-              <p>Posted rows</p><p className="font-semibold text-right">{postedSocial.length}</p>
-              <p>Posts with engagement notes</p><p className="font-semibold text-right">{postsWithNotes.length}</p>
-              <p>Posts missing notes</p><p className="font-semibold text-right">{postsMissingNotes}</p>
-              <p>Parsed likes (manual notes)</p><p className="font-semibold text-right">{parsedLikes}</p>
-              <p>Parsed comments (manual notes)</p><p className="font-semibold text-right">{parsedComments}</p>
-              <p>Posts with structured like/comment notes</p><p className="font-semibold text-right">{parsedEngagementPosts}</p>
+              <p>Posts published</p><p className="font-semibold text-right">{postedSocial.length}</p>
+              <p>Posts with LinkedIn URN</p><p className="font-semibold text-right">{postsWithUrn.length}</p>
+              <p>Posts with API engagement</p><p className="font-semibold text-right">{postsSynced.length}</p>
+              <p>Total likes</p><p className="font-semibold text-right">{totalLikes + parsedLikes}</p>
+              <p>Total comments</p><p className="font-semibold text-right">{totalComments + parsedComments}</p>
+              {totalImpressions > 0 && (
+                <>
+                  <p>Total impressions</p><p className="font-semibold text-right">{totalImpressions.toLocaleString()}</p>
+                  <p>Avg engagement rate</p><p className="font-semibold text-right">{avgEngagementRate}%</p>
+                </>
+              )}
+              {parsedEngagementPosts > 0 && (
+                <>
+                  <p className="text-slate-400">Manual notes (unsynced)</p>
+                  <p className="font-semibold text-right text-slate-400">{parsedEngagementPosts} posts</p>
+                </>
+              )}
             </div>
-            <div className="px-5 pb-4 text-[11px] text-slate-400">Like/comment totals are currently parsed from manual notes on social posts. For automatic counts, connect LinkedIn or Buffer analytics ingestion.</div>
+            {postsWithUrn.length === 0 && (
+              <div className="px-5 pb-4 text-[11px] text-amber-600">
+                No LinkedIn URNs stored yet. Update your Make.com scenario to return{' '}
+                <code className="font-mono">&#123;&quot;linkedin_post_urn&quot;: &quot;urn:li:ugcPost:...&quot;&#125;</code>{' '}
+                in the HTTP response module, then add <code className="font-mono">LINKEDIN_ACCESS_TOKEN</code> to env.
+              </div>
+            )}
+            {postsWithUrn.length > 0 && postsSynced.length === 0 && (
+              <div className="px-5 pb-4 text-[11px] text-amber-600">
+                URNs stored but no sync yet. Add <code className="font-mono">LINKEDIN_ACCESS_TOKEN</code> env var
+                (requires <code className="font-mono">r_member_social</code> or <code className="font-mono">r_organization_social</code> scope).
+              </div>
+            )}
           </div>
 
+          {/* Engagement trend bar chart — inline SVG, no client bundle needed */}
+          <div className="bg-white border border-slate-200 rounded overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</p>
+            </div>
+            <div className="px-5 py-5">
+              {chartPosts.length === 0 ? (
+                <p className="text-[13px] text-slate-500">No posted data yet.</p>
+              ) : (
+                <svg viewBox={`0 0 ${chartPosts.length * 22} 80`} className="w-full h-20">
+                  {chartPosts.map((p, i) => {
+                    const total = (p.like_count ?? 0) + (p.comment_count ?? 0)
+                    const likeH = Math.round(((p.like_count ?? 0) / maxEngagement) * 64)
+                    const commentH = Math.round(((p.comment_count ?? 0) / maxEngagement) * 64)
+                    const barH = Math.max(likeH + commentH, total > 0 ? 2 : 0)
+                    const x = i * 22 + 3
+                    return (
+                      <g key={p.post_date}>
+                        {barH > 0 && (
+                          <>
+                            <rect x={x} y={72 - likeH} width={16} height={likeH} fill="#6366f1" rx={2} />
+                            <rect x={x} y={72 - likeH - commentH} width={16} height={commentH} fill="#f97316" rx={2} />
+                          </>
+                        )}
+                        {barH === 0 && (
+                          <rect x={x} y={71} width={16} height={1} fill="#e2e8f0" />
+                        )}
+                        <text x={x + 8} y={80} textAnchor="middle" fontSize={7} fill="#94a3b8">
+                          {p.post_date.slice(5)}
+                        </text>
+                      </g>
+                    )
+                  })}
+                </svg>
+              )}
+              <div className="flex items-center gap-4 mt-2">
+                <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                  <span className="inline-block w-3 h-3 rounded-sm bg-indigo-500" />Likes
+                </span>
+                <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                  <span className="inline-block w-3 h-3 rounded-sm bg-orange-500" />Comments
+                </span>
+                {postsSynced.length === 0 && (
+                  <span className="text-[11px] text-slate-400 ml-auto">Awaiting API sync</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
               <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Delivery Failures (7d)</p>

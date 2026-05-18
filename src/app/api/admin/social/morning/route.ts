@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getSocialPlanForDate, isSocialPostDay } from '@/lib/social-posting-plan'
@@ -77,9 +77,28 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Make.com webhook error', detail: errText }, { status: 502 })
   }
 
+  // Try to capture the LinkedIn post URN from Make.com's response body.
+  // Configure your Make.com scenario to return { "linkedin_post_urn": "urn:li:ugcPost:..." }
+  // or { "postUrn": "..." } in its HTTP response module for engagement sync to work.
+  let linkedinPostUrn: string | null = null
+  try {
+    const makeData = await makeRes.json()
+    linkedinPostUrn =
+      (makeData?.linkedin_post_urn as string | undefined) ??
+      (makeData?.postUrn as string | undefined) ??
+      (makeData?.urn as string | undefined) ??
+      null
+  } catch {
+    // Make.com returned non-JSON or empty body - URN not available, sync will be skipped
+  }
+
   await admin
     .from('social_posts')
-    .update({ is_posted: true, posted_at: new Date().toISOString() })
+    .update({
+      is_posted: true,
+      posted_at: new Date().toISOString(),
+      ...(linkedinPostUrn ? { linkedin_post_urn: linkedinPostUrn } : {}),
+    })
     .eq('id', post.id)
 
   console.log(JSON.stringify({
@@ -91,6 +110,7 @@ export async function GET(request: NextRequest) {
     audienceLabel: plan.audienceLabel,
     dateStr,
     postId: post.id,
+    linkedinPostUrn,
   }))
 
   return NextResponse.json({
@@ -101,5 +121,6 @@ export async function GET(request: NextRequest) {
     audience: plan.audience,
     audienceLabel: plan.audienceLabel,
     dateStr,
+    linkedinPostUrn,
   })
 }

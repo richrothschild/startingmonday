@@ -27,6 +27,7 @@ import { runConciergePrepJob } from './jobs/concierge-prep-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
 import { runSocialPostJob } from './jobs/social-post-job.js'
+import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -168,6 +169,8 @@ cron.schedule('5 9 * * 2', () => runJob('social-post-job', runSocialPostJob), { 
 cron.schedule('45 8 * * 3', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('10 9 * * 4', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('35 8 * * 5', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+// LinkedIn engagement sync — runs daily at 6pm CT to pull latest likes/comments
+cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLinkedInEngagementJob), { timezone: 'America/Chicago' })
 
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
