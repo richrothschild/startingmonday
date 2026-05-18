@@ -140,6 +140,7 @@ function parseCompanyBand(value) {
 
 function expectedFit(roleText, companyBand) {
   const roleFit = fitFromRole(roleText)
+  if (companyBand === 'unknown') return 'unknown'
   if (companyBand !== 'target') return 'low'
   return roleFit
 }
@@ -147,6 +148,14 @@ function expectedFit(roleText, companyBand) {
 async function loadCsv(fileName) {
   const raw = await readFile(path.join(OUTREACH_DIR, fileName), 'utf8')
   return parseCsv(raw)
+}
+
+async function loadCsvIfExists(fileName) {
+  try {
+    return await loadCsv(fileName)
+  } catch {
+    return { headers: [], rows: [] }
+  }
 }
 
 function buildCompanyBandLookup(rows) {
@@ -163,6 +172,7 @@ function buildCompanyBandLookup(rows) {
 async function csvAudit(companyBandLookup) {
   const csv = await loadCsv('executives_prospecting_midmarket_strong_medium.csv')
   const mismatches = []
+  const unverifiable = []
   const byEmail = new Map()
   const byName = new Map()
 
@@ -186,7 +196,17 @@ async function csvAudit(companyBandLookup) {
     if (emailKey) byEmail.set(emailKey, indexPayload)
     if (nameKey) byName.set(nameKey, indexPayload)
 
-    if (current !== 'unknown' && expected !== current) {
+    if (expected === 'unknown' || current === 'unknown') {
+      unverifiable.push({
+        name: indexPayload.name,
+        company: indexPayload.company,
+        role: row.title || row.role_bucket || 'Unknown',
+        reason: expected === 'unknown' ? 'missing company size band' : 'missing fit tier',
+      })
+      continue
+    }
+
+    if (expected !== current) {
       mismatches.push({
         name: indexPayload.name,
         company: indexPayload.company,
@@ -198,15 +218,63 @@ async function csvAudit(companyBandLookup) {
     }
   }
 
-  return { total: csv.rows.length, mismatches, byEmail, byName }
+  const pass = csv.rows.length - mismatches.length - unverifiable.length
+  return { total: csv.rows.length, pass, mismatches, unverifiable, byEmail, byName }
 }
 
-async function dbAudit(companyBandLookup, csvIndex) {
+async function buildExecutiveReferenceIndex(companyBandLookup) {
+  const fileNames = [
+    'executives_prospecting_midmarket_strong_medium.csv',
+    'prospecting_combined_strict_100.csv',
+    'prospecting_combined_strict_50_personalized.csv',
+    'prospecting_combined_strict_31_personalized.csv',
+    'prospecting_combined_strict_21_personalized.csv',
+    'prospecting_batch_001.csv',
+    'prospecting_batch_001_strict_roles.csv',
+    'prospecting_batch_002_strict_roles.csv',
+    'prospecting_batch_003_personalized_real_10.csv',
+    'prospecting_batch_004_personalized_real_19.csv',
+    'apollo_priority_send_ready.csv',
+    'apollo_priority_followups.csv',
+  ]
+
+  const byEmail = new Map()
+  const byName = new Map()
+
+  for (const fileName of fileNames) {
+    const data = await loadCsvIfExists(fileName)
+    for (const row of data.rows) {
+      const roleText = `${row.title ?? ''} ${row.role_bucket ?? ''}`.trim()
+      const company = row.company ?? row.target_account ?? 'Unknown'
+      const companyBand =
+        companyBandLookup.get(normalizeCompanyKey(company)) ??
+        parseCompanyBand(row.company_size_band ?? row.company_size)
+      const expected = expectedFit(roleText, companyBand)
+
+      const payload = {
+        expected,
+        companyBand,
+        roleText: roleText || 'Unknown',
+        company,
+        name: row.full_name || `${row.first_name ?? ''} ${row.last_name ?? ''}`.trim() || 'Unknown',
+      }
+
+      const emailKey = canonicalize(row.email_guess ?? row.email)
+      const nameKey = canonicalize(payload.name)
+      if (emailKey && !byEmail.has(emailKey)) byEmail.set(emailKey, payload)
+      if (nameKey && !byName.has(nameKey)) byName.set(nameKey, payload)
+    }
+  }
+
+  return { byEmail, byName }
+}
+
+async function dbAudit(companyBandLookup, referenceIndex) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   if (!url || !key) {
-    return { skipped: true, reason: 'Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY', checked: 0, mismatches: [] }
+    return { skipped: true, reason: 'Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY', total: 0, pass: 0, checked: 0, mismatches: [], unverifiable: [] }
   }
 
   const supabase = createClient(url, key)
@@ -217,7 +285,7 @@ async function dbAudit(companyBandLookup, csvIndex) {
     .eq('outreach_channel', 'executives')
 
   if (logsError) {
-    return { skipped: true, reason: `Failed outreach_logs query: ${logsError.message}`, checked: 0, mismatches: [] }
+    return { skipped: true, reason: `Failed outreach_logs query: ${logsError.message}`, total: 0, pass: 0, checked: 0, mismatches: [], unverifiable: [] }
   }
 
   const contactIds = [...new Set((logs ?? []).map(log => log.contact_id).filter(Boolean))]
@@ -249,17 +317,31 @@ async function dbAudit(companyBandLookup, csvIndex) {
 
   let checked = 0
   const mismatches = []
+  const unverifiable = []
 
   for (const log of logs ?? []) {
     const current = normalizeCurrentFit(log.fit_tier)
-    if (current === 'unknown') continue
+    if (current === 'unknown') {
+      unverifiable.push({
+        recipient: log.recipient_name || log.recipient_email || 'Unknown',
+        reason: 'missing fit tier',
+      })
+      continue
+    }
 
-    const csvEmailMatch = csvIndex.byEmail.get(canonicalize(log.recipient_email))
-    const csvNameMatch = csvIndex.byName.get(canonicalize(log.recipient_name))
+    const csvEmailMatch = referenceIndex.byEmail.get(canonicalize(log.recipient_email))
+    const csvNameMatch = referenceIndex.byName.get(canonicalize(log.recipient_name))
     const csvMatch = csvEmailMatch ?? csvNameMatch
 
     if (csvMatch) {
       checked++
+      if (csvMatch.expected === 'unknown') {
+        unverifiable.push({
+          recipient: log.recipient_name || log.recipient_email || 'Unknown',
+          reason: 'missing company size band from CSV match',
+        })
+        continue
+      }
       if (current !== csvMatch.expected) {
         mismatches.push({
           recipient: log.recipient_name || log.recipient_email || 'Unknown',
@@ -274,7 +356,13 @@ async function dbAudit(companyBandLookup, csvIndex) {
 
     const contact = log.contact_id ? contactsById.get(log.contact_id) : null
     const roleText = `${contact?.title ?? ''} ${contact?.last_role_discussed ?? ''}`.trim()
-    if (!roleText) continue
+    if (!roleText) {
+      unverifiable.push({
+        recipient: log.recipient_name || log.recipient_email || 'Unknown',
+        reason: 'missing role on contact and no CSV match',
+      })
+      continue
+    }
 
     let companyBand = 'unknown'
     const companyFromDb = contact?.company_id ? companiesById.get(contact.company_id) : null
@@ -289,7 +377,13 @@ async function dbAudit(companyBandLookup, csvIndex) {
       companyBand = companyBandLookup.get(normalizeCompanyKey(contact?.firm)) ?? 'unknown'
     }
 
-    if (companyBand === 'unknown') continue
+    if (companyBand === 'unknown') {
+      unverifiable.push({
+        recipient: log.recipient_name || log.recipient_email || 'Unknown',
+        reason: 'missing company size band',
+      })
+      continue
+    }
 
     const expected = expectedFit(roleText, companyBand)
     checked++
@@ -305,7 +399,9 @@ async function dbAudit(companyBandLookup, csvIndex) {
     }
   }
 
-  return { skipped: false, checked, mismatches }
+  const total = (logs ?? []).length
+  const pass = total - mismatches.length - unverifiable.length
+  return { skipped: false, total, pass, checked, mismatches, unverifiable }
 }
 
 async function main() {
@@ -313,11 +409,18 @@ async function main() {
   const companyBandLookup = buildCompanyBandLookup(targetSlate.rows)
 
   const csv = await csvAudit(companyBandLookup)
-  const db = await dbAudit(companyBandLookup, csv)
+  const referenceIndex = await buildExecutiveReferenceIndex(companyBandLookup)
+  const db = await dbAudit(companyBandLookup, referenceIndex)
 
   if (csv.mismatches.length > 0) {
     for (const row of csv.mismatches) {
       console.log(`[CSV] ${row.name} (${row.company}) role=${row.role} band=${row.companyBand} expected=${row.expected} current=${row.current}`)
+    }
+  }
+
+  if (csv.unverifiable.length > 0) {
+    for (const row of csv.unverifiable) {
+      console.log(`[CSV-UNVERIFIABLE] ${row.name} (${row.company}) role=${row.role} reason=${row.reason}`)
     }
   }
 
@@ -327,12 +430,20 @@ async function main() {
     }
   }
 
+  if (db.unverifiable.length > 0) {
+    for (const row of db.unverifiable) {
+      console.log(`[DB-UNVERIFIABLE] ${row.recipient} reason=${row.reason}`)
+    }
+  }
+
   if (db.skipped) {
     console.log(`[DB] SKIP: ${db.reason}`)
   }
 
   const failures = csv.mismatches.length + db.mismatches.length
-  console.log(`Executive fit criteria check: csv_total=${csv.total}, csv_mismatches=${csv.mismatches.length}, db_checked=${db.checked}, db_mismatches=${db.mismatches.length}`)
+  console.log(`Executive fit criteria check: csv_total=${csv.total}, csv_pass=${csv.pass}, csv_mismatches=${csv.mismatches.length}, csv_unverifiable=${csv.unverifiable.length}, db_total=${db.total}, db_pass=${db.pass}, db_checked=${db.checked}, db_mismatches=${db.mismatches.length}, db_unverifiable=${db.unverifiable.length}`)
+  console.log(`All CSV rows processed: ${csv.total === (csv.pass + csv.mismatches.length + csv.unverifiable.length) ? 'yes' : 'no'}`)
+  console.log(`All DB rows processed: ${db.total === (db.pass + db.mismatches.length + db.unverifiable.length) ? 'yes' : 'no'}`)
 
   if (failures > 0) {
     process.exit(1)
