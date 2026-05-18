@@ -162,7 +162,8 @@ export default function ForCoachesPage() {
             Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Protect your time. Protect your value.<br />
+            Protect your time.<br />
+            Protect your value.<br />
             Clients arrive prepared. You stay indispensable.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
