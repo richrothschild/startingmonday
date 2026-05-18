@@ -1,4 +1,6 @@
-# Founder LinkedIn Calendar (4 Weeks)
+# Founder LinkedIn Calendar (4 Weeks, Archived)
+
+This calendar predates the current 3x/week M/W/F schedule and is kept only as a reference for the earlier weekday rotation.
 
 Start date: Monday, May 18, 2026
 Timezone: America/Chicago

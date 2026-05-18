@@ -163,11 +163,9 @@ cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWat
 // Outreach digest: daily at 15:00 UTC — send/delivery status summary + bounce/stuck alerts
 cron.schedule('0 15 * * *', () => runJob('outreach-digest-job', runOutreachDigestJob))
 
-// LinkedIn social posting: weekday queue in America/Chicago to preserve local publish windows
+// LinkedIn social posting: three times per week in America/Chicago to preserve local publish windows
 cron.schedule('35 8 * * 1', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
-cron.schedule('5 9 * * 2', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('45 8 * * 3', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
-cron.schedule('10 9 * * 4', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('35 8 * * 5', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 // LinkedIn engagement sync — runs daily at 6pm CT to pull latest likes/comments
 cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLinkedInEngagementJob), { timezone: 'America/Chicago' })

@@ -26,12 +26,29 @@ const AUDIENCE_LABELS: Record<Audience, string> = {
   outplacement_firms: 'Outplacement Firms',
 }
 
-const WEEKDAY_SLOTS: Record<number, { audience: Audience; pillar: Pillar; recommendedTimeCt: string }> = {
-  1: { audience: 'executives', pillar: 'search_craft', recommendedTimeCt: '8:35 AM CT' },
-  2: { audience: 'search_firms', pillar: 'market_intel', recommendedTimeCt: '9:05 AM CT' },
-  3: { audience: 'executive_coaches', pillar: 'user_story', recommendedTimeCt: '8:45 AM CT' },
-  4: { audience: 'outplacement_firms', pillar: 'behind_build', recommendedTimeCt: '9:10 AM CT' },
-  5: { audience: 'executives', pillar: 'engagement', recommendedTimeCt: '8:35 AM CT' },
+type Slot = { audience: Audience; pillar: Pillar; recommendedTimeCt: string }
+
+const WEEKLY_ROTATION: Record<number, Partial<Record<number, Slot>>> = {
+  0: {
+    1: { audience: 'executives', pillar: 'search_craft', recommendedTimeCt: '8:35 AM CT' },
+    3: { audience: 'search_firms', pillar: 'market_intel', recommendedTimeCt: '8:45 AM CT' },
+    5: { audience: 'executive_coaches', pillar: 'user_story', recommendedTimeCt: '8:35 AM CT' },
+  },
+  1: {
+    1: { audience: 'outplacement_firms', pillar: 'behind_build', recommendedTimeCt: '8:35 AM CT' },
+    3: { audience: 'executives', pillar: 'engagement', recommendedTimeCt: '8:45 AM CT' },
+    5: { audience: 'search_firms', pillar: 'market_intel', recommendedTimeCt: '8:35 AM CT' },
+  },
+  2: {
+    1: { audience: 'executive_coaches', pillar: 'user_story', recommendedTimeCt: '8:35 AM CT' },
+    3: { audience: 'outplacement_firms', pillar: 'behind_build', recommendedTimeCt: '8:45 AM CT' },
+    5: { audience: 'executives', pillar: 'search_craft', recommendedTimeCt: '8:35 AM CT' },
+  },
+  3: {
+    1: { audience: 'search_firms', pillar: 'market_intel', recommendedTimeCt: '8:35 AM CT' },
+    3: { audience: 'executive_coaches', pillar: 'user_story', recommendedTimeCt: '8:45 AM CT' },
+    5: { audience: 'outplacement_firms', pillar: 'behind_build', recommendedTimeCt: '8:35 AM CT' },
+  },
 }
 
 const POSTS: Record<Audience, string[]> = {
@@ -67,7 +84,7 @@ const POSTS: Record<Audience, string[]> = {
 
 export function isSocialPostDay(date: Date): boolean {
   const dow = date.getUTCDay()
-  return dow >= 1 && dow <= 5
+  return dow === 1 || dow === 3 || dow === 5
 }
 
 function getWeekIndex(date: Date): number {
@@ -79,7 +96,7 @@ function getWeekIndex(date: Date): number {
 
 export function getSocialPlanForDate(date: Date): SocialPlan | null {
   const dow = date.getUTCDay()
-  const slot = WEEKDAY_SLOTS[dow]
+  const slot = WEEKLY_ROTATION[getWeekIndex(date) % 4]?.[dow]
   if (!slot) return null
 
   const variants = POSTS[slot.audience]
