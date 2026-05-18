@@ -18,6 +18,16 @@ type LeadRow = {
   created_at: string
 }
 
+type LeadScoringRun = {
+  id: string
+  trigger: 'admin' | 'cron'
+  status: 'success' | 'failed'
+  processed: number
+  updated: number
+  error_message: string | null
+  created_at: string
+}
+
 function ageBucket(days: number): '0-7d' | '8-30d' | '31-90d' | '91+d' {
   if (days <= 7) return '0-7d'
   if (days <= 30) return '8-30d'
@@ -66,7 +76,14 @@ export default async function AdminCrmPage({
     .order('lead_score', { ascending: false })
     .limit(2000)
 
+  const { data: rawRuns } = await admin
+    .from('lead_scoring_runs')
+    .select('id, trigger, status, processed, updated, error_message, created_at')
+    .order('created_at', { ascending: false })
+    .limit(8)
+
   const leads = (rawLeads ?? []) as LeadRow[]
+  const runs = (rawRuns ?? []) as LeadScoringRun[]
   const totalLeads = leads.length
   const requestHeaders = await headers()
   const headerTime = Date.parse(requestHeaders.get('date') ?? '')
@@ -154,6 +171,53 @@ export default async function AdminCrmPage({
               : 'Lead scoring failed. Please try again or check server logs.'}
           </div>
         )}
+
+        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <div className="px-6 py-[14px] border-b border-slate-200">
+            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Scoring execution log</span>
+          </div>
+          {runs.length === 0 ? (
+            <p className="px-6 py-6 text-[13px] text-slate-400">No scoring runs logged yet.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                    <th className="px-6 py-2.5 font-semibold text-slate-400">Time</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Trigger</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Processed</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Updated</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400">Details</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {runs.map((run) => (
+                    <tr key={run.id}>
+                      <td className="px-6 py-3 text-slate-700">
+                        {new Date(run.created_at).toLocaleString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                        })}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600 uppercase tracking-wide text-[11px]">{run.trigger}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[11px] font-semibold ${run.status === 'success' ? 'text-green-700 bg-green-50 border-green-200' : 'text-red-700 bg-red-50 border-red-200'}`}>
+                          {run.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right font-semibold text-slate-900">{run.processed}</td>
+                      <td className="px-4 py-3 text-right font-semibold text-slate-900">{run.updated}</td>
+                      <td className="px-4 py-3 text-slate-500">{run.error_message ?? 'OK'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">

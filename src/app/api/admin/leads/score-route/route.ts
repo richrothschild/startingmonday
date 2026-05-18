@@ -48,7 +48,13 @@ async function runScoring(request: NextRequest) {
   const dryRun = request.nextUrl.searchParams.get('dryRun') === '1' || payload.dryRun === true
 
   try {
-    const result = await runLeadScoringPass({ limit, userId, dryRun })
+    const result = await runLeadScoringPass({
+      limit,
+      userId,
+      dryRun,
+      trigger: isCronRequest ? 'cron' : 'admin',
+      initiatedByUserId: auth.ok ? auth.userId : null,
+    })
     const success = NextResponse.json({
       ok: true,
       ...result,

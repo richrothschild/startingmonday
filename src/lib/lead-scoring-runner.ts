@@ -5,6 +5,8 @@ export type LeadScoringOptions = {
   limit?: number
   userId?: string
   dryRun?: boolean
+  trigger?: 'admin' | 'cron'
+  initiatedByUserId?: string | null
 }
 
 export type LeadScoringResult = {
@@ -20,6 +22,8 @@ export async function runLeadScoringPass(options: LeadScoringOptions): Promise<L
   const limit = Number.isFinite(queryLimit) ? Math.max(1, Math.min(queryLimit, 5000)) : 500
   const userId = options.userId
   const dryRun = options.dryRun === true
+  const trigger = options.trigger ?? 'admin'
+  const initiatedByUserId = options.initiatedByUserId ?? null
 
   const admin = createAdminClient()
   let query = admin
@@ -33,6 +37,15 @@ export async function runLeadScoringPass(options: LeadScoringOptions): Promise<L
 
   const { data: contacts, error: loadError } = await query
   if (loadError) {
+    await admin
+      .from('lead_scoring_runs')
+      .insert({
+        initiated_by_user_id: initiatedByUserId,
+        trigger,
+        status: 'failed',
+        dry_run: dryRun,
+        error_message: loadError.message,
+      })
     throw new Error(loadError.message)
   }
 
@@ -79,11 +92,26 @@ export async function runLeadScoringPass(options: LeadScoringOptions): Promise<L
     }
   }
 
-  return {
+  const result = {
     processed: rows.length,
     updated: dryRun ? 0 : updated,
     dryRun,
     routed,
     byChannel,
   }
+
+  await admin
+    .from('lead_scoring_runs')
+    .insert({
+      initiated_by_user_id: initiatedByUserId,
+      trigger,
+      status: 'success',
+      processed: result.processed,
+      updated: result.updated,
+      dry_run: result.dryRun,
+      routed: result.routed,
+      by_channel: result.byChannel,
+    })
+
+  return result
 }
