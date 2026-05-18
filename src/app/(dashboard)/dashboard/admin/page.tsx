@@ -14,22 +14,58 @@ const STEP_LABELS: Record<string, string> = {
   a6_follow_up:'Follow-up set',
 }
 
-const INTERNAL_PAGES = [
-  { path: '/dashboard/admin',                  label: 'Admin Hub',           owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin/team',             label: 'Team Management',     owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin',                  label: 'Analytics',           owner: 'rw', admin: 'rw', viewer: 'r' },
-  { path: '/dashboard/outreach',               label: 'Outreach Hub',        owner: 'rw', admin: 'rw', viewer: 'r' },
-  { path: '/dashboard/admin/intelligence',     label: 'Intelligence (B2B)',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/traces',           label: 'LLM Traces / Evals',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/social',           label: 'LinkedIn Social',      owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/coach-outreach',   label: 'Coach Outreach',      owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/crm',              label: 'CRM',                 owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/guide',                            label: 'Automation Guide',    owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/customers',        label: 'Customers',            owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/speakers',         label: 'Conference Speakers',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/metrics',          label: 'Action Scores',        owner: 'rw', admin: 'rw', viewer: '-' },
+type InternalPage = {
+  path: string
+  label: string
+  owner: string
+  admin: string
+  viewer: string
+  priority: 'core' | 'advanced'
+}
+
+const PAGE_GROUPS: Array<{
+  id: string
+  label: string
+  purpose: string
+  pages: InternalPage[]
+}> = [
+  {
+    id: 'revenue-growth',
+    label: 'Revenue & Growth',
+    purpose: 'Pipeline, customer conversion, demand generation, and GTM execution.',
+    pages: [
+      { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/speakers', label: 'Conference Speakers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+    ],
+  },
+  {
+    id: 'product-intelligence',
+    label: 'Product & Intelligence',
+    purpose: 'Customer intelligence, quality signals, and product performance telemetry.',
+    pages: [
+      { path: '/dashboard/admin', label: 'Admin Hub Analytics', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+    ],
+  },
+  {
+    id: 'platform-operations',
+    label: 'Platform Operations',
+    purpose: 'Runbooks, access control, reliability, and operational governance.',
+    pages: [
+      { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'core' },
+      { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
+    ],
+  },
 ]
 
 const INTERNAL_APIS = [
@@ -428,9 +464,8 @@ export default async function AdminPage() {
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/customers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Customers</Link>
-            <Link href="/dashboard/admin/social" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Social</Link>
-            <Link href="/dashboard/admin/speakers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Speakers</Link>
-            <Link href="/dashboard/admin/metrics" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Scores</Link>
+            <Link href="/dashboard/admin/crm" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">CRM</Link>
+            <Link href="/dashboard/admin/intelligence" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Intelligence</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
@@ -454,6 +489,32 @@ export default async function AdminPage() {
               Manage team
             </Link>
           )}
+        </div>
+
+        <div className="mb-8">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {PAGE_GROUPS.map((group) => {
+              const corePages = group.pages.filter((page) => page.priority === 'core')
+              const advancedCount = group.pages.filter((page) => page.priority === 'advanced').length
+              return (
+                <div key={group.id} className="bg-white border border-slate-200 rounded p-4">
+                  <p className="text-[14px] font-bold text-slate-900">{group.label}</p>
+                  <p className="text-[12px] text-slate-500 mt-1 leading-relaxed">{group.purpose}</p>
+                  <div className="mt-3 space-y-1.5">
+                    {corePages.map((page) => (
+                      <Link key={page.path} href={page.path} className="block text-[12px] font-semibold text-slate-700 hover:text-slate-900 hover:underline">
+                        {page.label}
+                      </Link>
+                    ))}
+                    {advancedCount > 0 && (
+                      <p className="text-[11px] text-slate-400 mt-2">+ {advancedCount} advanced pages</p>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         <div className="mb-8">
@@ -623,33 +684,47 @@ export default async function AdminPage() {
         </div>
 
         {/* Internal pages + permissions */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal Pages</span>
-          </div>
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
-                <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {INTERNAL_PAGES.map((p, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-3">
-                    <Link href={p.path} className="text-slate-900 font-semibold hover:text-slate-600">{p.label}</Link>
-                    <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
-                  </td>
-                  <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
-                  <td className="px-4 py-3 text-center font-bold text-blue-600">{p.admin}</td>
-                  <td className="px-4 py-3 text-center text-slate-300">{p.viewer}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-4 mb-6">
+          {PAGE_GROUPS.map((group) => (
+            <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
+              <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">{group.label}</span>
+                  <p className="text-[12px] text-slate-500 mt-1">{group.purpose}</p>
+                </div>
+                <span className="text-[11px] text-slate-400">{group.pages.length} pages</span>
+              </div>
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                    <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Tier</th>
+                    <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
+                    <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {group.pages.map((page, i) => (
+                    <tr key={`${group.id}-${i}`}>
+                      <td className="px-6 py-3">
+                        <Link href={page.path} className="text-slate-900 font-semibold hover:text-slate-600">{page.label}</Link>
+                        <span className="ml-2 text-slate-300 font-mono text-[11px]">{page.path}</span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${page.priority === 'core' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
+                          {page.priority === 'core' ? 'Core' : 'Advanced'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center font-bold text-amber-600">{page.owner}</td>
+                      <td className="px-4 py-3 text-center font-bold text-blue-600">{page.admin}</td>
+                      <td className="px-4 py-3 text-center text-slate-300">{page.viewer}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
 
         {/* Internal APIs + permissions */}
