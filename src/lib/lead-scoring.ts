@@ -21,21 +21,26 @@ export type LeadRouting = {
 }
 
 const CHANNEL_POINTS: Record<string, number> = {
-  referral: 35,
-  inbound: 30,
-  recruiter: 26,
-  linkedin: 22,
-  event: 20,
-  cold: 12,
+  referral: 38,
+  inbound: 34,
+  recruiter: 30,
+  linkedin: 20,
+  event: 18,
+  cold: 8,
 }
 
 const OUTREACH_POINTS: Record<string, number> = {
-  meeting_scheduled: 30,
-  in_conversation: 22,
-  reached_out: 10,
+  meeting_scheduled: 36,
+  in_conversation: 26,
+  reached_out: 8,
   prospect: 0,
-  closed: -10,
+  closed: -15,
 }
+
+const ROUTING_THRESHOLDS = {
+  hot: 75,
+  warm: 50,
+} as const
 
 const SENIORITY_KEYWORDS = [
   'chief',
@@ -57,11 +62,11 @@ function clamp(n: number, min: number, max: number): number {
 }
 
 function agePoints(days: number): number {
-  if (days <= 7) return 12
-  if (days <= 30) return 8
+  if (days <= 7) return 14
+  if (days <= 30) return 9
   if (days <= 90) return 4
-  if (days <= 180) return 1
-  return 0
+  if (days <= 180) return -2
+  return -8
 }
 
 function containsSeniority(title: string | null): boolean {
@@ -81,11 +86,11 @@ export function scoreLead(input: LeadScoreInput): { score: number; reasons: Scor
   const outreachScore = OUTREACH_POINTS[outreachKey] ?? 0
   reasons.push({ label: `Outreach stage: ${outreachKey}`, points: outreachScore })
 
-  if (input.isPriority) reasons.push({ label: 'Marked priority', points: 15 })
+  if (input.isPriority) reasons.push({ label: 'Marked priority', points: 12 })
   if (containsSeniority(input.title)) reasons.push({ label: 'Senior title match', points: 12 })
-  if (input.hasEmail) reasons.push({ label: 'Email available', points: 8 })
-  if (input.hasLinkedIn) reasons.push({ label: 'LinkedIn profile available', points: 6 })
-  if (input.hasNotes) reasons.push({ label: 'Notes/context available', points: 5 })
+  if (input.hasEmail) reasons.push({ label: 'Email available', points: 10 })
+  if (input.hasLinkedIn) reasons.push({ label: 'LinkedIn profile available', points: 4 })
+  if (input.hasNotes) reasons.push({ label: 'Notes/context available', points: 6 })
 
   const recency = agePoints(input.leadAgeDays)
   reasons.push({ label: `Lead age: ${input.leadAgeDays}d`, points: recency })
@@ -97,7 +102,7 @@ export function scoreLead(input: LeadScoreInput): { score: number; reasons: Scor
 }
 
 export function routeLead(score: number): LeadRouting {
-  if (score >= 80) return { tier: 'hot', queue: 'hot' }
-  if (score >= 55) return { tier: 'warm', queue: 'warm' }
+  if (score >= ROUTING_THRESHOLDS.hot) return { tier: 'hot', queue: 'hot' }
+  if (score >= ROUTING_THRESHOLDS.warm) return { tier: 'warm', queue: 'warm' }
   return { tier: 'nurture', queue: 'nurture' }
 }
