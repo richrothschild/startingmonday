@@ -37,7 +37,7 @@ const OUTREACH_POINTS: Record<string, number> = {
   closed: -15,
 }
 
-const ROUTING_THRESHOLDS = {
+export const ROUTING_THRESHOLDS = {
   hot: 75,
   warm: 50,
 } as const

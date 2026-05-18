@@ -4,6 +4,8 @@ import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import { ROUTING_THRESHOLDS } from '@/lib/lead-scoring'
+import { runLeadScoringNow } from './actions'
 
 type LeadRow = {
   id: string
@@ -36,14 +38,19 @@ function channelLabel(value: string | null): string {
 }
 
 function scoreClass(score: number): string {
-  if (score >= 80) return 'text-red-700 bg-red-50 border-red-200'
-  if (score >= 55) return 'text-amber-700 bg-amber-50 border-amber-200'
+  if (score >= ROUTING_THRESHOLDS.hot) return 'text-red-700 bg-red-50 border-red-200'
+  if (score >= ROUTING_THRESHOLDS.warm) return 'text-amber-700 bg-amber-50 border-amber-200'
   return 'text-slate-600 bg-slate-100 border-slate-200'
 }
 
 export const metadata = { title: 'CRM - Admin' }
 
-export default async function AdminCrmPage() {
+export default async function AdminCrmPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ scored?: string; processed?: string; updated?: string; error?: string }>
+}) {
+  const { scored, processed, updated, error } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -124,7 +131,7 @@ export default async function AdminCrmPage() {
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">CRM</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">Lead score, channel mix, and queue routing dashboard.</p>
           </div>
-          <form action="/api/admin/leads/score-route" method="post">
+          <form action={runLeadScoringNow}>
             <button
               type="submit"
               className="bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded cursor-pointer border-0"
@@ -133,6 +140,20 @@ export default async function AdminCrmPage() {
             </button>
           </form>
         </div>
+
+        {scored === '1' && (
+          <div className="mb-6 rounded border border-green-200 bg-green-50 px-4 py-3 text-[13px] text-green-800">
+            Lead scoring completed. Processed {processed ?? '0'} leads and updated {updated ?? '0'} records.
+          </div>
+        )}
+
+        {error && (
+          <div className="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-[13px] text-red-700">
+            {error === 'forbidden'
+              ? 'You do not have permission to run lead scoring.'
+              : 'Lead scoring failed. Please try again or check server logs.'}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">

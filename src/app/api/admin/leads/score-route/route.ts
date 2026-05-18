@@ -2,9 +2,8 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
-import { routeLead, scoreLead } from '@/lib/lead-scoring'
+import { runLeadScoringPass } from '@/lib/lead-scoring-runner'
 
 type ScoreRequest = {
   limit?: number
@@ -48,76 +47,20 @@ async function runScoring(request: NextRequest) {
   const userId = request.nextUrl.searchParams.get('userId') ?? payload.userId
   const dryRun = request.nextUrl.searchParams.get('dryRun') === '1' || payload.dryRun === true
 
-  const admin = createAdminClient()
-  let query = admin
-    .from('contacts')
-    .select('id, user_id, title, channel, status, outreach_status, is_priority, email, linkedin_url, notes, created_at')
-    .eq('status', 'active')
-    .order('created_at', { ascending: false })
-    .limit(limit)
+  try {
+    const result = await runLeadScoringPass({ limit, userId, dryRun })
+    const success = NextResponse.json({
+      ok: true,
+      ...result,
+      trigger: isCronRequest ? 'cron' : 'admin',
+    })
 
-  if (userId) query = query.eq('user_id', userId)
-
-  const { data: contacts, error: loadError } = await query
-  if (loadError) {
-    const failure = NextResponse.json({ error: loadError.message }, { status: 500 })
+    return auth.ok ? withAuthCookies(success, auth) : success
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to run scoring'
+    const failure = NextResponse.json({ error: message }, { status: 500 })
     return auth.ok ? withAuthCookies(failure, auth) : failure
   }
-
-  const rows = contacts ?? []
-  let updated = 0
-  const routed: Record<'hot' | 'warm' | 'nurture', number> = { hot: 0, warm: 0, nurture: 0 }
-  const byChannel: Record<string, number> = {}
-
-  for (const contact of rows) {
-    const ageDays = Math.max(0, Math.floor((Date.now() - new Date(contact.created_at).getTime()) / 86_400_000))
-    const { score, reasons } = scoreLead({
-      title: contact.title,
-      channel: contact.channel,
-      outreachStatus: contact.outreach_status,
-      isPriority: contact.is_priority,
-      hasEmail: !!contact.email,
-      hasLinkedIn: !!contact.linkedin_url,
-      hasNotes: !!contact.notes,
-      leadAgeDays: ageDays,
-      status: contact.status,
-    })
-    const routing = routeLead(score)
-
-    routed[routing.queue] += 1
-    const channelKey = (contact.channel ?? 'unknown').toLowerCase()
-    byChannel[channelKey] = (byChannel[channelKey] ?? 0) + 1
-
-    if (!dryRun) {
-      const { error: updateError } = await admin
-        .from('contacts')
-        .update({
-          lead_score: score,
-          lead_tier: routing.tier,
-          lead_queue: routing.queue,
-          lead_score_reasons: reasons,
-          lead_scored_at: new Date().toISOString(),
-          lead_routed_at: new Date().toISOString(),
-        })
-        .eq('id', contact.id)
-
-      if (!updateError) {
-        updated += 1
-      }
-    }
-  }
-
-  const success = NextResponse.json({
-    ok: true,
-    processed: rows.length,
-    updated: dryRun ? 0 : updated,
-    dryRun,
-    routed,
-    byChannel,
-    trigger: isCronRequest ? 'cron' : 'admin',
-  })
-
-  return auth.ok ? withAuthCookies(success, auth) : success
 }
 
 export async function GET(request: NextRequest) {
