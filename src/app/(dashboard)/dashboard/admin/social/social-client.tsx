@@ -218,7 +218,7 @@ export function SocialClient() {
     return (
       <div className="bg-white border border-slate-200 rounded p-8 text-center">
         <p className="text-[14px] font-semibold text-slate-900 mb-2">No post scheduled today.</p>
-        <p className="text-[13px] text-slate-500">Posts go out Monday, Wednesday, and Friday.</p>
+        <p className="text-[13px] text-slate-500">Posts go out every weekday with audience rotation.</p>
         {state.nextPostDays.length > 0 && (
           <p className="text-[12px] text-slate-400 mt-3">
             Next: {state.nextPostDays.map(d => formatDate(d)).join(', ')}

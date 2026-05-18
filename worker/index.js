@@ -26,6 +26,7 @@ import { runOpportunityRadarJob } from './jobs/opportunity-radar-job.js'
 import { runConciergePrepJob } from './jobs/concierge-prep-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
+import { runSocialPostJob } from './jobs/social-post-job.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -161,13 +162,20 @@ cron.schedule('0 14 * * *', () => runJob('briefing-watchdog-job', runBriefingWat
 // Outreach digest: daily at 15:00 UTC — send/delivery status summary + bounce/stuck alerts
 cron.schedule('0 15 * * *', () => runJob('outreach-digest-job', runOutreachDigestJob))
 
+// LinkedIn social posting: weekday queue in America/Chicago to preserve local publish windows
+cron.schedule('35 8 * * 1', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+cron.schedule('5 9 * * 2', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+cron.schedule('45 8 * * 3', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+cron.schedule('10 9 * * 4', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+cron.schedule('35 8 * * 5', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
 // Logs warnings to Railway for any demo data gaps — does not block startup.
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'social-post-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
