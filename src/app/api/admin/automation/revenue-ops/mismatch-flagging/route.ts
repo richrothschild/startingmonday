@@ -31,7 +31,13 @@ export async function POST(request: NextRequest) {
 
   if (openFlags.length > 0) {
     await sb.from('revenue_mismatch_flags').insert(
-      openFlags.map(flag => ({ user_id: userId, category: flag.category, severity: flag.severity, details: flag.details, status: 'open' })),
+      openFlags.map((flag: { category: string; severity: string; details: Record<string, unknown> }) => ({
+        user_id: userId,
+        category: flag.category,
+        severity: flag.severity,
+        details: flag.details,
+        status: 'open',
+      })),
     )
   }
 

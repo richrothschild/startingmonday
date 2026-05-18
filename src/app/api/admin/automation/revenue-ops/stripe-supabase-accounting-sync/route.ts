@@ -30,7 +30,9 @@ export async function POST(request: NextRequest) {
   }
 
   const invoices = await getStripe().invoices.list({ customer: userRow.stripe_customer_id, limit: 25 })
-  const paidAmount = invoices.data.filter(i => i.paid).reduce((sum, i) => sum + (i.amount_paid ?? 0), 0)
+  const paidAmount = invoices.data
+    .filter(i => i.status === 'paid' || (i.amount_paid ?? 0) > 0)
+    .reduce((sum, i) => sum + (i.amount_paid ?? 0), 0)
 
   const details = {
     invoice_count: invoices.data.length,

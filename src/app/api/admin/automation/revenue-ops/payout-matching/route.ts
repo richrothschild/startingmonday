@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
   }
 
   const invoices = await getStripe().invoices.list({ customer: userRow.stripe_customer_id, limit: 50 })
-  const paid = invoices.data.filter(i => i.paid)
-  const unpaid = invoices.data.filter(i => !i.paid)
+  const paid = invoices.data.filter(i => i.status === 'paid' || (i.amount_paid ?? 0) > 0)
+  const unpaid = invoices.data.filter(i => i.status !== 'paid' && (i.amount_paid ?? 0) === 0)
 
   const { data } = await sb
     .from('payout_matching_runs')
