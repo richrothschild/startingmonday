@@ -210,10 +210,23 @@ function csvPersonalizedOpening(row: CsvRow, company: string): string {
   return `I have been following your work at ${company}.`
 }
 
+function executiveSpecificOpening(row: CsvRow, company: string): string {
+  const roleSignal = (row.role_bucket ?? row.title ?? 'leadership').trim()
+  const personaFocus = (row.persona_focus ?? '').trim()
+
+  if (personaFocus) {
+    return `I have been following how you are driving ${personaFocus} as ${roleSignal} at ${company}.`
+  }
+
+  return `I have been following your ${roleSignal} leadership at ${company}.`
+}
+
 function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subject: string; body: string } {
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
-  const personalization = csvPersonalizedOpening(row, company)
+  const personalization = channel === 'executives'
+    ? executiveSpecificOpening(row, company)
+    : csvPersonalizedOpening(row, company)
 
   if (channel === 'executives') {
     const archetype = detectExecutiveRoleArchetype(row)
