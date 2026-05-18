@@ -73,16 +73,18 @@ function firstNameFromRecipient(name) {
 }
 
 function buildCoachEmail(firstName) {
-  const subject = `${firstName}, quick idea for your coaching clients`
+  const subject = `${firstName}, useful for keeping clients moving between sessions?`
   const messageBody = `Hi ${firstName},
 
-I came across your coaching work and wanted to share something relevant.
+Quick observation from the coaching practices we speak with: too much session time gets spent rebuilding search context instead of coaching decisions.
 
-Starting Monday gives executive coaches a practical execution layer between sessions: daily signal monitoring, prep briefs, and pipeline tracking, so you can stay focused on high-value coaching.
+Starting Monday handles the between-session execution layer with daily role and company signals, prep briefs, and pipeline tracking your clients can actually follow.
 
-You can see the coach overview here: https://startingmonday.app/for-coaches
+Coaches use this to get sharper sessions from minute one, better client follow-through, and less admin drag.
 
-If useful, I can show you a quick 15-minute walkthrough.
+You can see the overview here: https://startingmonday.app/for-coaches
+
+If it helps, reply yes and I will send two sample prep briefs so you can decide quickly if it fits your practice.
 
 Rich
 startingmonday.app`
