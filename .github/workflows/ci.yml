@@ -7,9 +7,13 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Type check & tests
+  predeploy-gates:
+    name: Predeploy gates (lint, typecheck, build, smoke)
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +27,46 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Type check
         run: npx tsc --noEmit
 
       - name: Build
         run: npm run build
+
+      - name: Start app for smoke checks
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next-start.pid
+
+      - name: Wait for app readiness
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "App is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          tail -n 200 /tmp/next-start.log || true
+          exit 1
+
+      - name: Smoke checks
+        env:
+          MONITOR_BASE_URL: http://127.0.0.1:3000
+          MONITOR_OUTPUT_JSON: '1'
+        run: npm run monitor:smoke:json
+
+      - name: Stop app
+        if: always()
+        run: |
+          if [ -f /tmp/next-start.pid ]; then
+            kill "$(cat /tmp/next-start.pid)" || true
+          fi
+          tail -n 200 /tmp/next-start.log || true
 
       - name: Run tests
         run: npm test
@@ -104,15 +143,15 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [test, semgrep, playwright]
+    needs: [predeploy-gates, semgrep, playwright]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
       - name: Determine failed job
         id: failed-job
         run: |
-          if [[ "${{ needs.test.result }}" == "failure" ]]; then
-            echo "job_name=Type check & tests" >> $GITHUB_OUTPUT
+          if [[ "${{ needs.predeploy-gates.result }}" == "failure" ]]; then
+            echo "job_name=Predeploy gates (lint, typecheck, build, smoke)" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.semgrep.result }}" == "failure" ]]; then
             echo "job_name=Semgrep security scan" >> $GITHUB_OUTPUT
