@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from './coach-preview-actions'
+import { SampleOutputSection } from './sample-output-section'
 
 export const metadata: Metadata = {
   title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
@@ -312,112 +313,12 @@ export default function ForCoachesPage() {
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
               Coaches do not need more feature language. They need to see the quality of the output and the kind of action it creates. This is the kind of artifact a coach preview should expose immediately.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="border border-slate-200 rounded-2xl p-5 bg-white">
-                <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Morning signal brief</p>
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">One company moved overnight. Here is why it matters.</p>
-                <ul className="space-y-2">
-                  {SAMPLE_SIGNAL_ITEMS.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-[13px] text-slate-600 leading-relaxed">
-                      <span className="text-orange-500 shrink-0 mt-0.5">+</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Recommended action before 10am: send the reconnection note to the former operating partner already in the client&rsquo;s network and update the company priority to watchlist tier one. Coach view shows the company moved from Watchlist to Active Outreach and whether the note was sent.</p>
-                <a
-                  href="#full-signal-example"
-                  className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
-                >
-                  See full brief example →
-                </a>
-              </div>
-              <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
-                <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-3">Prep brief excerpt</p>
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">Pre-interview view for a PE-backed CIO search</p>
-                <ul className="space-y-2">
-                  {SAMPLE_PREP_BRIEF_POINTS.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-[13px] text-slate-700 leading-relaxed">
-                      <span className="text-orange-600 shrink-0 mt-0.5">+</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-[12px] text-slate-500 leading-relaxed mt-4">Usually ready in about a minute. Coaches review the brief before the session so the conversation stays strategic instead of reconstructive. In practice, the coach sees the same brief the client sees, plus the current pipeline stage, next follow-up date, and any fresh signal cluster tied to the company.</p>
-                <a
-                  href="#full-prep-example"
-                  className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold mt-4 underline underline-offset-2"
-                >
-                  See full brief example →
-                </a>
-              </div>
-            </div>
-            
-            <div className="mt-12 space-y-8">
-              <div id="full-signal-example" className="border-l-4 border-orange-400 bg-orange-50 rounded-r-lg p-6">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 mb-3">Full signal brief example</p>
-                <div className="space-y-3 text-[13px] text-slate-700">
-                  <p><span className="font-semibold text-slate-900">Company:</span> {FULL_SAMPLE_SIGNAL_BRIEF.company}</p>
-                  <p><span className="font-semibold text-slate-900">Signals detected:</span></p>
-                  <ul className="ml-4 space-y-1">
-                    {FULL_SAMPLE_SIGNAL_BRIEF.signals.map((signal) => (
-                      <li key={signal} className="flex items-start gap-2">
-                        <span className="text-orange-600 shrink-0 mt-0.5">+</span>
-                        <span>{signal}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p><span className="font-semibold text-slate-900">Impact analysis:</span> {FULL_SAMPLE_SIGNAL_BRIEF.impact}</p>
-                  <p><span className="font-semibold text-slate-900">Recommended action:</span> {FULL_SAMPLE_SIGNAL_BRIEF.recommendedAction}</p>
-                  <p><span className="font-semibold text-slate-900">Watchlist note:</span> {FULL_SAMPLE_SIGNAL_BRIEF.waitlistAction}</p>
-                </div>
-              </div>
-
-              <div id="full-prep-example" className="border-l-4 border-orange-500 bg-orange-50/70 rounded-r-lg p-6">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 mb-4">Full prep brief example</p>
-                <div className="space-y-4 text-[13px] text-slate-700">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <p><span className="font-semibold text-slate-900">Company:</span><br />{FULL_SAMPLE_PREP_BRIEF.company}</p>
-                    <p><span className="font-semibold text-slate-900">Target role:</span><br />{FULL_SAMPLE_PREP_BRIEF.role}</p>
-                    <p><span className="font-semibold text-slate-900">Search type:</span><br />{FULL_SAMPLE_PREP_BRIEF.search}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 mb-1">Win thesis:</p>
-                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.winThesis}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 mb-1">Your background:</p>
-                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.yourBackground}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 mb-2">Likely objections:</p>
-                    <ul className="ml-4 space-y-1">
-                      {FULL_SAMPLE_PREP_BRIEF.likelyObjections.map((obj) => (
-                        <li key={obj} className="flex items-start gap-2">
-                          <span className="text-orange-600 shrink-0 mt-0.5">•</span>
-                          <span>{obj}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 mb-2">Peer-level questions:</p>
-                    <ul className="ml-4 space-y-1">
-                      {FULL_SAMPLE_PREP_BRIEF.peerLevelQuestions.map((q) => (
-                        <li key={q} className="flex items-start gap-2">
-                          <span className="text-orange-600 shrink-0 mt-0.5">?</span>
-                          <span>{q}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 mb-1">What to leave out:</p>
-                    <p className="ml-2">{FULL_SAMPLE_PREP_BRIEF.whatToLeaveOut}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SampleOutputSection
+              sampleSignalItems={SAMPLE_SIGNAL_ITEMS}
+              samplePrepBriefPoints={SAMPLE_PREP_BRIEF_POINTS}
+              fullSampleSignalBrief={FULL_SAMPLE_SIGNAL_BRIEF}
+              fullSamplePrepBrief={FULL_SAMPLE_PREP_BRIEF}
+            />
           </section>
 
           <section>
