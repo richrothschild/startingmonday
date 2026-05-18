@@ -8,6 +8,7 @@ const OUTREACH_DIR = path.join(ROOT_DIR, 'docs', 'outreach')
 const INPUT_FILES = [
   'apollo-contacts-export-coaches.5.18.26.1.csv',
   'apollo-contacts-export.coaches.5.18.26.2.csv',
+  'apollo-contacts-export.coaches.5.18.26.3.csv',
 ]
 const USER_ID = '797adda8-98a7-43c2-b4d7-2d68c9fdc502'
 const SENDER_EMAIL = 'richard@startingmonday.app'
@@ -184,7 +185,7 @@ async function main() {
   }
 
   console.log(`Copied files into docs/outreach: ${copied.join(', ')}`)
-  console.log(`Parsed rows from both files: ${totalRows}`)
+  console.log(`Parsed rows from input files: ${totalRows}`)
   console.log(`Unique emails in new files: ${uniqueRows.length}`)
   console.log(`New rows inserted into outreach_logs: ${inserted}`)
   console.log(`Rows skipped as already present: ${uniqueRows.length - inserted}`)
