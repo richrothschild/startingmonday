@@ -279,15 +279,19 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
 
   if (channel === 'coaches') {
     return {
-      subject: `Bad idea to send a 1-page coach-first execution flow for ${company}?`,
+      subject: `${firstName}, useful for keeping clients moving between sessions?`,
       body: [
-        `${firstName},`,
+        `Hi ${firstName},`,
         '',
-        personalization,
+        'Quick observation from the coaching practices we speak with: too much session time gets spent rebuilding search context instead of coaching decisions.',
         '',
-        'I run Starting Monday, a private coach-first workflow for senior operators in transition: focused targets, messaging support, prep briefs, and momentum tracking while protecting the client relationship you already own.',
+        'Starting Monday handles the between-session execution layer with daily role and company signals, prep briefs, and pipeline tracking your clients can actually follow.',
         '',
-        'Would it be a bad idea if I sent a one-page version for the clients you coach most often?',
+        'Coaches use this to get sharper sessions from minute one, better client follow-through, and less admin drag.',
+        '',
+        'You can see the overview here: https://startingmonday.app/for-coaches',
+        '',
+        'If it helps, reply yes and I will send two sample prep briefs so you can decide quickly if it fits your practice.',
         '',
         'Rich',
         'startingmonday.app',
