@@ -48,6 +48,8 @@ Most coaches I speak with are forced to spend too much session time rebuilding s
 
 Result: clients move faster, your sessions stay high-value, and you can earn partner commission when clients onboard.
 
+Check out https://startingmonday.app/for-coaches to see how other coaches use it.
+
 If useful, I can show you a live brief in 60 seconds on a 15-minute call.
 
 [Calendar Link]
@@ -58,7 +60,7 @@ Template:
 
 Quick follow-up in case it got buried.
 
-If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant.
+If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant. Or check out https://startingmonday.app/for-coaches directly.
 
 [Video Link]
 
