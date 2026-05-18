@@ -26,6 +26,7 @@ const INTERNAL_PAGES = [
   { path: '/dashboard/admin/coach-outreach',   label: 'Coach Outreach',      owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/crm',              label: 'CRM',                 owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/guide',                            label: 'Automation Guide',    owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/customers',        label: 'Customers',            owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/speakers',         label: 'Conference Speakers',  owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/metrics',          label: 'Action Scores',        owner: 'rw', admin: 'rw', viewer: '-' },
@@ -36,6 +37,7 @@ const INTERNAL_APIS = [
   { path: '/api/outreach/send',        label: 'Outreach Send',         owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/status',      label: 'Outreach Status',       owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/suppression', label: 'Outreach Suppression',  owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/admin/automation/monitoring/alerts', label: 'Automation Alerts', owner: 'rw', admin: 'rw', viewer: '-' },
 ]
 
 export default async function AdminPage() {
@@ -66,6 +68,7 @@ export default async function AdminPage() {
     { data: contacts24h },
     { data: followUps24h },
     { data: briefingViews24h },
+    { count: openAutomationAlerts },
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
     adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time, last_briefing_sent_at, placed_at, placement_company, full_name'),
@@ -81,6 +84,7 @@ export default async function AdminPage() {
     adminClient.from('contacts').select('user_id').gte('created_at', since24h).limit(5000),
     adminClient.from('follow_ups').select('user_id').gte('created_at', since24h).limit(5000),
     adminClient.from('user_events').select('user_id').eq('event_name', 'briefing_viewed').gte('created_at', since24h).limit(5000),
+    adminClient.from('automation_alerts').select('id', { count: 'exact', head: true }).eq('status', 'open'),
   ])
 
   const usersWithCompany24h = new Set((companies24h ?? []).map(r => r.user_id)).size
@@ -428,6 +432,7 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/speakers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Speakers</Link>
             <Link href="/dashboard/admin/metrics" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Scores</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
+            <Link href="/guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
           </div>
@@ -466,6 +471,11 @@ export default async function AdminPage() {
                 <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
+          </div>
+          <div className="mt-3">
+            <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> • view runbooks
+            </Link>
           </div>
         </div>
 
