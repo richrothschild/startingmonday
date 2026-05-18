@@ -72,6 +72,13 @@ export type Database = {
           email: string | null
           linkedin_url: string | null
           outreach_status: string
+          is_priority: boolean
+          lead_score: number
+          lead_tier: string
+          lead_queue: string
+          lead_score_reasons: Json
+          lead_scored_at: string | null
+          lead_routed_at: string | null
           contact_type: string | null
           last_role_discussed: string | null
         }

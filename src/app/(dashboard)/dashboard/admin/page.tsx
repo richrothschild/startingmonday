@@ -25,6 +25,7 @@ const INTERNAL_PAGES = [
   { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/coach-outreach',   label: 'Coach Outreach',      owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/dashboard/admin/crm',              label: 'CRM',                 owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/customers',        label: 'Customers',            owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/speakers',         label: 'Conference Speakers',  owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/dashboard/admin/metrics',          label: 'Action Scores',        owner: 'rw', admin: 'rw', viewer: '-' },
