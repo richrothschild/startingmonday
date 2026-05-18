@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   }
 
   const invoices = await getStripe().invoices.list({ customer: userRow.stripe_customer_id, status: 'open', limit: 10 })
-  const targetInvoice = invoices.data.find(inv => inv.attempted && inv.paid === false) ?? null
+  const targetInvoice = invoices.data.find(inv => inv.attempted && inv.status === 'open') ?? null
 
   if (!targetInvoice) {
     await sb.from('failed_payment_retry_runs').insert({
