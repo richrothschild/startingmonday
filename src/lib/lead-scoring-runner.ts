@@ -25,7 +25,7 @@ export async function runLeadScoringPass(options: LeadScoringOptions): Promise<L
   const trigger = options.trigger ?? 'admin'
   const initiatedByUserId = options.initiatedByUserId ?? null
 
-  const admin = createAdminClient()
+  const admin = createAdminClient() as any
   let query = admin
     .from('contacts')
     .select('id, user_id, title, channel, status, outreach_status, is_priority, email, linkedin_url, notes, created_at')

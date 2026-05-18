@@ -25,8 +25,8 @@ export async function POST(request: NextRequest) {
 
   if (userRow?.stripe_customer_id) {
     const invoices = await getStripe().invoices.list({ customer: userRow.stripe_customer_id, limit: 20 })
-    const paidInvoices = invoices.data.filter(i => i.paid)
-    const openInvoices = invoices.data.filter(i => !i.paid)
+    const paidInvoices = invoices.data.filter(i => i.status === 'paid' || (i.amount_paid ?? 0) > 0)
+    const openInvoices = invoices.data.filter(i => i.status === 'open')
     if (userRow.subscription_status === 'active' && openInvoices.length > 3) mismatchCount += 1
     details.paid_invoices = paidInvoices.length
     details.open_invoices = openInvoices.length

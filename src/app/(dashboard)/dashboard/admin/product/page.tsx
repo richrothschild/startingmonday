@@ -60,6 +60,8 @@ export default async function AdminProductPage() {
         { href: '/dashboard/admin/feedback', label: 'Triages product feedback', description: 'Close top user pain points quickly.' },
       ]
 
+  const latestHealthScore = (latestHealth as { health_score?: number } | null)?.health_score ?? '--'
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -87,7 +89,7 @@ export default async function AdminProductPage() {
           {[
             { label: 'Open product alerts', value: openProductAlerts ?? 0 },
             { label: 'Open support issues', value: openSupportIssues ?? 0 },
-            { label: 'Latest health score', value: latestHealth?.health_score ?? '--' },
+            { label: 'Latest health score', value: latestHealthScore },
             { label: 'LLM traces (7d)', value: traces7d ?? 0 },
           ].map((card) => (
             <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
