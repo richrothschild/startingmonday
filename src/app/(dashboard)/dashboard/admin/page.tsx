@@ -34,9 +34,10 @@ const PAGE_GROUPS: Array<{
     label: 'Revenue & Growth',
     purpose: 'Pipeline, customer conversion, demand generation, and GTM execution.',
     pages: [
+      { path: '/dashboard/admin/revenue', label: 'Revenue Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
       { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
@@ -48,7 +49,7 @@ const PAGE_GROUPS: Array<{
     label: 'Product & Intelligence',
     purpose: 'Customer intelligence, quality signals, and product performance telemetry.',
     pages: [
-      { path: '/dashboard/admin', label: 'Admin Hub Analytics', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/dashboard/admin/product', label: 'Product Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
       { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
       { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
@@ -61,8 +62,9 @@ const PAGE_GROUPS: Array<{
     label: 'Platform Operations',
     purpose: 'Runbooks, access control, reliability, and operational governance.',
     pages: [
+      { path: '/dashboard/admin/operations', label: 'Operations Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
       { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
     ],
   },
@@ -463,11 +465,10 @@ export default async function AdminPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/customers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Customers</Link>
-            <Link href="/dashboard/admin/crm" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">CRM</Link>
-            <Link href="/dashboard/admin/intelligence" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Intelligence</Link>
+            <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
+            <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
+            <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
-            <Link href="/guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
           </div>
