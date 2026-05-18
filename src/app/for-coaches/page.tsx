@@ -182,14 +182,6 @@ export default function ForCoachesPage() {
             </div>
           </div>
           <CoachPreviewActions />
-          <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-3">
-              Coach-proof signal near the first CTA
-            </p>
-            <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
-              In early usage, 20% of users brought the daily briefing into every coaching session. That is not yet a named coach testimonial, but it is direct evidence that the workflow already fits live coaching behavior.
-            </p>
-          </div>
         </div>
       </header>
 
@@ -227,7 +219,7 @@ export default function ForCoachesPage() {
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
-              More evidence and claim mapping live in <Link href="/references" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Evidence and References</Link>.
+              More evidence and claim mapping live in <Link href="/references" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Evidence and References</Link>. <Link href="/for-coaches/faq#proof" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">Learn more about our validation methodology →</Link>
             </p>
           </section>
 
@@ -430,6 +422,68 @@ export default function ForCoachesPage() {
 
           <section>
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
+              Shared intelligence with clients
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Coach and client see the same data. No silos, no secrets.
+            </h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-lg">
+              Coaches and clients share the same pipeline view, signal detection, and prep briefs. This eliminates the translation layer. When a coach asks "Did you see the signal about the CFO?" the client already knows—because they saw it when it happened, and the coach saw them see it.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="border border-slate-200 rounded-2xl p-5 bg-white">
+                <p className="text-[14px] font-semibold text-slate-900 mb-3">Coach perspective</p>
+                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>See which signals clients acted on</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Know exactly when prep briefs were reviewed</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Track accountability between sessions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Reduce misalignment on what clients actually know</span>
+                  </li>
+                </ul>
+                <Link href="/for-coaches/faq#sharing" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
+                  Learn more about sharing →
+                </Link>
+              </div>
+              <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
+                <p className="text-[14px] font-semibold text-slate-900 mb-3">Client perspective</p>
+                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Full control over coach data access</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Audit log shows when coaches viewed what</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>Grant or revoke access anytime</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
+                    <span>See exactly what each coach can access</span>
+                  </li>
+                </ul>
+                <Link href="/for-coaches/faq#client-control" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
+                  Learn more about client controls →
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where this fits best
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-8 max-w-lg">
@@ -510,6 +564,11 @@ export default function ForCoachesPage() {
                 <p className="text-[13px] text-slate-500 leading-relaxed">Overnight signals and a prioritized action list in their inbox before the market opens. Instead of thirty decisions, they make one. You help them focus on what matters most.</p>
               </div>
             </div>
+            <div className="flex gap-3 text-[12px]">
+              <Link href="/for-coaches/faq#client-benefits" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
+                Learn more about client benefits →
+              </Link>
+            </div>
           </section>
 
           <section id="next-step" className="border-t border-slate-100 pt-10">
@@ -549,12 +608,15 @@ export default function ForCoachesPage() {
               Terry only needs to send this page. {PREVIEW_SENTENCE} If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
             </p>
             <CoachPreviewActions />
-            <div className="flex flex-wrap gap-4 mt-5 text-[13px]">
-              <Link href="/for-coaches/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-                Read the coach FAQ
+            <div className="flex flex-wrap gap-4 mt-6 text-[13px]">
+              <Link href="/for-coaches/faq" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                📖 Read the coach FAQ
               </Link>
-              <Link href="/for-coaches/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-                See pricing and partner economics
+              <Link href="/for-coaches/faq#security" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                🔒 Data security guide
+              </Link>
+              <Link href="/for-coaches/economics" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                💰 Pricing & economics
               </Link>
             </div>
             <div className="mt-6 border border-slate-200 rounded-2xl p-5 bg-slate-50">
@@ -573,6 +635,59 @@ export default function ForCoachesPage() {
         </div>
       </main>
 
+      <section className="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 py-10 sm:py-14">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">More resources</p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">Questions? We&rsquo;ve got answers.</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <a href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">❓</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
+                  <p className="text-[12px] text-slate-500">Objections & responses</p>
+                </div>
+              </a>
+              <a href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">🔒</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
+                  <p className="text-[12px] text-slate-500">Privacy & compliance</p>
+                </div>
+              </a>
+              <a href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">💰</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
+                  <p className="text-[12px] text-slate-500">Investment & ROI</p>
+                </div>
+              </a>
+              <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">💬</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Feedback</p>
+                  <p className="text-[12px] text-slate-500">Share your thoughts</p>
+                </div>
+              </a>
+              <a href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">📊</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
+                  <p className="text-[12px] text-slate-500">Research & references</p>
+                </div>
+              </a>
+              <a href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <span className="text-[20px] group-hover:scale-110 transition-transform">🤝</span>
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
+                  <p className="text-[12px] text-slate-500">Affiliate & referral</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
@@ -582,6 +697,10 @@ export default function ForCoachesPage() {
             Questions?{' '}
             <a href="mailto:contact@startingmonday.app" className="hover:text-slate-300 transition-colors">
               contact@startingmonday.app
+            </a>{' '}
+            •{' '}
+            <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="hover:text-slate-300 transition-colors">
+              Send feedback
             </a>
           </p>
         </div>
