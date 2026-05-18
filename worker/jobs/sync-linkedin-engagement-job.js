@@ -5,7 +5,8 @@ const CRON_SECRET = process.env.CRON_SECRET
 
 export async function runSyncLinkedInEngagementJob() {
   if (!CRON_SECRET) {
-    throw new Error('CRON_SECRET is required for LinkedIn engagement sync')
+    logger.warn('sync-linkedin-engagement: skipped because CRON_SECRET is missing')
+    return
   }
 
   const url = `${APP_URL}/api/admin/social/sync-engagement?secret=${encodeURIComponent(CRON_SECRET)}`

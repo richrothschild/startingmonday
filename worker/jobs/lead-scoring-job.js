@@ -5,7 +5,8 @@ const CRON_SECRET = process.env.CRON_SECRET
 
 export async function runLeadScoringJob() {
   if (!CRON_SECRET) {
-    throw new Error('CRON_SECRET is required for lead scoring automation')
+    logger.warn('lead-scoring-job: skipped because CRON_SECRET is missing')
+    return
   }
 
   const url = `${APP_URL}/api/admin/leads/score-route?secret=${encodeURIComponent(CRON_SECRET)}&limit=2000`

@@ -5,7 +5,8 @@ const CRON_SECRET = process.env.CRON_SECRET
 
 export async function runSocialPostJob() {
   if (!CRON_SECRET) {
-    throw new Error('CRON_SECRET is required for social post automation')
+    logger.warn('social-post-job: skipped because CRON_SECRET is missing')
+    return
   }
 
   const url = `${APP_URL}/api/admin/social/morning?secret=${encodeURIComponent(CRON_SECRET)}`

@@ -1,6 +1,7 @@
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import type { Database } from './database.types'
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
+import type { Database } from "./database.types"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 
 export async function createClient() {
   const cookieStore = await cookies()
@@ -24,5 +25,12 @@ export async function createClient() {
         },
       },
     }
+  )
+}
+
+export function createAdminClient() {
+  return createSupabaseClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 }

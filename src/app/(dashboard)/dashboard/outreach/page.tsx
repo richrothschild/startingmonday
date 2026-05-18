@@ -187,173 +187,90 @@ function companyToken(company: string | undefined): string {
   return value || 'your organization'
 }
 
-function buildCouncilGradeExecutiveDraft(row: CsvRow): { subject: string; body: string } | null {
-  const archetype = detectExecutiveRoleArchetype(row)
-  if (!archetype) return null
-
+function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subject: string; body: string } {
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
-  const roleLabel = executiveRoleLabel(archetype)
 
-  const subject = `Bad idea to send a 1-page ${roleLabel} conversation flow for ${company}?`
+  const personalization = (row.email_opening ?? '').trim()
+    || (row.personalization_line ?? '').trim()
+    || `I noticed your ${row.role_bucket || 'leadership'} remit at ${company}.`
 
-  if (archetype === 'cfo') {
+  if (channel === 'executives') {
+    const archetype = detectExecutiveRoleArchetype(row)
+    const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'C-suite')
+
+    let roleAngle = 'Most senior operators need a clearer way to run discreet, high-signal conversations when timing gets sensitive.'
+    if (archetype === 'cfo') roleAngle = 'Finance leaders respond best to outreach that shows capital discipline and measurable operating impact early.'
+    if (archetype === 'coo') roleAngle = 'COO-level conversations land when execution depth is obvious without creating extra visibility too early.'
+    if (archetype === 'cio') roleAngle = 'CIO-level searches require balancing modernization language with concrete enterprise impact and execution proof.'
+    if (archetype === 'cto') roleAngle = 'CTO-level outreach works when architecture and delivery decisions are translated into business outcomes quickly.'
+    if (archetype === 'chro') roleAngle = 'CHRO-level outreach has to connect people strategy with measurable operating outcomes, not generic talent language.'
+    if (archetype === 'cro') roleAngle = 'CRO-level transitions usually break on pipeline signal quality and momentum discipline between conversations.'
+    if (archetype === 'ciso') roleAngle = 'CISO-level messages work when resilience and risk judgment are legible to non-technical stakeholders.'
+    if (archetype === 'cdo') roleAngle = 'CDO-level outreach lands when data strategy is tied to practical operating outcomes and governance clarity.'
+
     return {
-      subject,
+      subject: `Bad idea to send a 1-page ${roleLabel} conversation flow for ${company}?`,
       body: [
         `${firstName},`,
         '',
-        'Starting Monday helps senior leaders run focused career conversations with less noise: pick the right companies and people, prepare quickly for each discussion, and keep momentum from stalling.',
+        personalization,
         '',
-        'When timing is sensitive, most leaders struggle to keep momentum without broadcasting intent. This is built for that exact reality.',
+        `I run Starting Monday, a private workflow that helps senior leaders target the right conversations, prep quickly, and keep momentum without noise. ${roleAngle}`,
         '',
-        `Would it be a bad idea if I sent a one-page ${company}-style example of the 3-step flow?`,
+        `Would it be a bad idea if I sent a one-page ${company}-style ${roleLabel} flow?`,
         '',
         'Rich',
-        'startingmonday.app',
       ].join('\n'),
     }
   }
 
-  if (archetype === 'coo') {
+  if (channel === 'search_firms') {
     return {
-      subject,
+      subject: `Bad idea to send a 1-page workflow for ${company} mandates?`,
       body: [
         `${firstName},`,
         '',
-        'Starting Monday helps senior operators run focused transition conversations with less noise: prioritize the right targets, prep quickly for each discussion, and keep follow-up momentum from drifting.',
+        personalization,
         '',
-        'For COO-level moves, the challenge is usually showing execution depth without creating unnecessary visibility too early. This is designed to protect both discretion and operational credibility.',
+        'I run Starting Monday, a private execution workflow that helps search teams and senior operators tighten role narrative, outreach precision, and interview readiness before momentum is lost.',
         '',
-        `Would it be a bad idea if I sent a one-page ${company}-style COO conversation flow?`,
+        'Would it be a bad idea if I sent a one-page example tailored to your mandate mix?',
         '',
         'Rich',
-        'startingmonday.app',
       ].join('\n'),
     }
   }
 
-  if (archetype === 'cio') {
+  if (channel === 'coaches') {
     return {
-      subject,
+      subject: `Bad idea to send a 1-page coach-first execution flow for ${company}?`,
       body: [
         `${firstName},`,
         '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: select high-fit targets, prep quickly for each conversation, and keep follow-through disciplined.',
+        personalization,
         '',
-        'For CIO-level searches, the hard part is balancing business impact, modernization narrative, and execution proof in each conversation. This workflow is built for that lens.',
+        'I run Starting Monday, a private coach-first workflow for senior operators in transition: focused targets, messaging support, prep briefs, and momentum tracking while protecting the client relationship you already own.',
         '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CIO conversation flow?`,
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (archetype === 'cto') {
-    return {
-      subject,
-      body: [
-        `${firstName},`,
-        '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: target the right companies and stakeholders, prep quickly for each discussion, and keep momentum from stalling.',
-        '',
-        'For CTO-level transitions, the tension is usually translating architecture and delivery depth into clear business outcomes. This is designed to keep that signal sharp.',
-        '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CTO conversation flow?`,
+        'Would it be a bad idea if I sent a one-page version for the clients you coach most often?',
         '',
         'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (archetype === 'chro') {
-    return {
-      subject,
-      body: [
-        `${firstName},`,
-        '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: identify the right organizations and stakeholders, prep quickly for each conversation, and keep follow-up momentum intact.',
-        '',
-        'For CHRO-level searches, the challenge is showing people strategy depth with measurable operating impact while staying discreet on timing. This workflow is built around that reality.',
-        '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CHRO conversation flow?`,
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (archetype === 'cro') {
-    return {
-      subject,
-      body: [
-        `${firstName},`,
-        '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: prioritize high-fit targets, prep quickly for each discussion, and maintain follow-through discipline.',
-        '',
-        'For CRO-level moves, teams often lose either pipeline signal quality or momentum between conversations. This is built to protect both.',
-        '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CRO conversation flow?`,
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (archetype === 'ciso') {
-    return {
-      subject,
-      body: [
-        `${firstName},`,
-        '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: target the right organizations, prep quickly for each discussion, and keep follow-up execution tight.',
-        '',
-        'For CISO-level transitions, the challenge is often balancing credibility on risk and resilience while maintaining discretion about timing. This workflow is designed for that constraint.',
-        '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CISO conversation flow?`,
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (archetype === 'cdo') {
-    return {
-      subject,
-      body: [
-        `${firstName},`,
-        '',
-        'Starting Monday helps senior leaders run focused transition conversations with less noise: identify high-fit targets, prep quickly for each conversation, and keep momentum from dropping between steps.',
-        '',
-        'For CDO-level transitions, the challenge is proving data strategy can produce clear operating outcomes while keeping the process discreet. This is built for that exact dynamic.',
-        '',
-        `Would it be a bad idea if I sent a one-page ${company}-style CDO conversation flow?`,
-        '',
-        'Rich',
-        'startingmonday.app',
       ].join('\n'),
     }
   }
 
   return {
-    subject,
+    subject: `Bad idea to send a 1-page transition-support workflow for ${company}?`,
     body: [
       `${firstName},`,
       '',
-      'Starting Monday helps senior leaders run focused career conversations with less noise: identify the right companies and people, prepare quickly for each discussion, and keep momentum from stalling between steps.',
+      personalization,
       '',
-      'Most senior executives are not actively searching until they need to move. This workflow is designed for that exact reality.',
+      'I run Starting Monday, a private workflow for senior operators in transition that helps teams execute targeted outreach, prep efficiently, and maintain discreet momentum between conversations.',
       '',
-      `Would it be a bad idea if I sent a one-page ${company}-style example of the 3-step flow?`,
+      'Would it be a bad idea if I sent a one-page example mapped to your transition-support model?',
       '',
       'Rich',
-      'startingmonday.app',
     ].join('\n'),
   }
 }
@@ -712,8 +629,7 @@ export default async function OutreachHubPage() {
     .map((row): ClientRow | null => {
       const personaFit = executivePersonaFit(row, executiveFitLookup)
       if (!personaFit) return null
-
-      const councilDraft = buildCouncilGradeExecutiveDraft(row)
+      const standardizedDraft = buildStandardizedDraft(row, 'executives')
 
       return {
         fullName: row.full_name ?? '',
@@ -724,8 +640,8 @@ export default async function OutreachHubPage() {
         status: normalizeStatus(row.status),
         emailOpening: row.email_opening ?? '',
         emailBodyCore: row.email_body_core ?? '',
-        defaultSubject: councilDraft?.subject ?? row.default_subject ?? buildDefaultSubject(row),
-        defaultBody: councilDraft?.body ?? row.default_body ?? buildDefaultBody(row),
+        defaultSubject: standardizedDraft.subject,
+        defaultBody: standardizedDraft.body,
         outreachChannel: 'executives' as const,
         fitTier: personaFit,
         personaFocus: row.persona_focus ?? row.role_bucket ?? 'C-suite transitions',
@@ -736,6 +652,13 @@ export default async function OutreachHubPage() {
   const allRows: ClientRow[] = [
     ...executivePersonaRows,
     ...prioritizedSearchFirms.rows.map((row) => ({
+      ...(() => {
+        const draft = buildStandardizedDraft(row, 'search_firms')
+        return {
+          defaultSubject: draft.subject,
+          defaultBody: draft.body,
+        }
+      })(),
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Partner',
       company: row.company ?? '',
@@ -744,13 +667,18 @@ export default async function OutreachHubPage() {
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
-      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
-      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
       outreachChannel: 'search_firms' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CFO, COO, CIO, CHRO, CRO searches',
     })),
     ...prioritizedCoaches.rows.map((row) => ({
+      ...(() => {
+        const draft = buildStandardizedDraft(row, 'coaches')
+        return {
+          defaultSubject: draft.subject,
+          defaultBody: draft.body,
+        }
+      })(),
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Executive Coach',
       company: row.company ?? '',
@@ -759,13 +687,18 @@ export default async function OutreachHubPage() {
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
-      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
-      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
       outreachChannel: 'coaches' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CIO, CTO, CISO, COO, CFO transitions',
     })),
     ...outplacementRaw.rows.map((row) => ({
+      ...(() => {
+        const draft = buildStandardizedDraft(row, 'outplacement_firms')
+        return {
+          defaultSubject: draft.subject,
+          defaultBody: draft.body,
+        }
+      })(),
       fullName: row.full_name ?? '',
       roleBucket: row.role_bucket ?? 'Outplacement Partner',
       company: row.company ?? '',
@@ -774,8 +707,6 @@ export default async function OutreachHubPage() {
       status: normalizeStatus(row.status),
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
-      defaultSubject: (row.default_subject ?? '').trim() || buildDefaultSubject(row),
-      defaultBody: (row.default_body ?? '').trim() || buildDefaultBody(row),
       outreachChannel: 'outplacement_firms' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'Executive transition and career mobility programs',
