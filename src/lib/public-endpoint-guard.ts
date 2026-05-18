@@ -6,6 +6,7 @@ type GuardOptions = {
   captchaToken: string | null
   rateLimitKey: string
   maxPerMinute: number
+  requireCaptcha?: boolean
 }
 
 let hasLoggedMissingTurnstileSecret = false
@@ -63,7 +64,13 @@ export async function enforcePublicEndpointGuard(
 ): Promise<NextResponse | null> {
   warnIfMissingTurnstileSecret()
 
-  const { request, captchaToken, rateLimitKey, maxPerMinute } = options
+  const {
+    request,
+    captchaToken,
+    rateLimitKey,
+    maxPerMinute,
+    requireCaptcha = true,
+  } = options
   const ip = getClientIp(request)
 
   const { allowed, retryAfter } = checkRateLimit(`${rateLimitKey}:${ip}`, maxPerMinute)
@@ -73,6 +80,8 @@ export async function enforcePublicEndpointGuard(
       { status: 429, headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {} },
     )
   }
+
+  if (!requireCaptcha) return null
 
   if (!captchaToken) {
     return NextResponse.json({ ok: false, error: 'Captcha is required' }, { status: 400 })

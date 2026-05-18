@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
     captchaToken: captchaToken || null,
     rateLimitKey: 'demo-email',
     maxPerMinute: 3,
+    requireCaptcha: false,
   })
   if (blocked) return blocked
 
