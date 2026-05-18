@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All Statuses' },
@@ -79,6 +79,31 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
   const [googleFollowUp3Url, setGoogleFollowUp3Url] = useState<string | null>(null)
   const [googleFollowUp7Url, setGoogleFollowUp7Url] = useState<string | null>(null)
+
+  // Load current Supabase contact status for all rows on mount
+  useEffect(() => {
+    const emails = rows.map(r => r.email)
+    if (emails.length === 0) return
+
+    fetch('/api/outreach/current-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emails }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        const statusByEmail = data.statusByEmail ?? {}
+        const merged = rows.map(r => {
+          const dbStatus = statusByEmail[r.email]
+          return {
+            ...r,
+            status: dbStatus?.outreach_status ?? r.status,
+          }
+        })
+        setItems(merged)
+      })
+      .catch(err => console.error('Failed to fetch current statuses:', err))
+  }, [rows])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
