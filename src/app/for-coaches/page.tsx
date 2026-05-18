@@ -162,7 +162,8 @@ export default function ForCoachesPage() {
             Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Give your clients the signal and readiness infrastructure. Keep your session time for strategy.
+            Protect your time. Protect your value.<br />
+            Clients arrive prepared. You stay indispensable.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
             Starting Monday helps executive coaches and their clients identify, track, and act on market signals earlier, with more discipline and better preparation. It handles the intelligence, pipeline rhythm, and prep infrastructure between sessions so you can stay in judgment, narrative, and accountability.
