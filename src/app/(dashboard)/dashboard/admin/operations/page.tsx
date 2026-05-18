@@ -55,6 +55,10 @@ export default async function AdminOperationsPage() {
         { href: '/dashboard/admin/team', label: 'Manage operational access', description: 'Ensure least-privilege admin coverage.' },
       ]
 
+  const latestDeployStatus = (latestDeploy as { status?: string } | null)?.status ?? '--'
+  const latestRuntimeStatus = (latestRuntime as { status?: string } | null)?.status ?? '--'
+  const latestJobStatus = (latestJobObs as { status?: string } | null)?.status ?? '--'
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -81,9 +85,9 @@ export default async function AdminOperationsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           {[
             { label: 'Open ops alerts', value: openOpsAlerts ?? 0 },
-            { label: 'Latest deploy status', value: latestDeploy?.status ?? '--' },
-            { label: 'Runtime health', value: latestRuntime?.status ?? '--' },
-            { label: 'Last job status', value: latestJobObs?.status ?? '--' },
+            { label: 'Latest deploy status', value: latestDeployStatus },
+            { label: 'Runtime health', value: latestRuntimeStatus },
+            { label: 'Last job status', value: latestJobStatus },
           ].map((card) => (
             <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
               <div className="text-[24px] font-bold text-slate-900 leading-none capitalize">{card.value}</div>
