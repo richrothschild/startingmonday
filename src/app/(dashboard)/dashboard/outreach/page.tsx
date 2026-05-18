@@ -336,6 +336,61 @@ function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): CsvSummary
   return { rowCount: merged.length, rows: merged }
 }
 
+function rowCompletenessScore(row: CsvRow): number {
+  const fields = [
+    row.email_guess,
+    row.email,
+    row.role_bucket,
+    row.title,
+    row.default_subject,
+    row.default_body,
+    row.subject,
+    row.email_text,
+    row.email_opening,
+    row.email_body_core,
+    row.personalization_line,
+    row.persona_focus,
+  ]
+  return fields.reduce((sum, value) => sum + ((value ?? '').trim().length > 0 ? 1 : 0), 0)
+}
+
+function normalizeExecutiveRow(row: CsvRow): CsvRow {
+  return {
+    ...row,
+    default_subject: (row.default_subject ?? '').trim() || (row.subject ?? '').trim(),
+    default_body: (row.default_body ?? '').trim() || (row.email_text ?? '').trim(),
+    email_opening: (row.email_opening ?? '').trim() || (row.personalization_line ?? '').trim(),
+    email_body_core: (row.email_body_core ?? '').trim() || (row.email_text ?? '').trim(),
+  }
+}
+
+function combineExecutiveSources(sources: CsvSummary[]): CsvSummary {
+  const byKey = new Map<string, CsvRow>()
+
+  for (const source of sources) {
+    for (const rawRow of source.rows) {
+      const row = normalizeExecutiveRow(rawRow)
+      const email = (row.email_guess ?? row.email ?? '').trim().toLowerCase()
+      const fallbackKey = `${(row.full_name ?? '').trim().toLowerCase()}|${(row.company ?? '').trim().toLowerCase()}`
+      const key = email || fallbackKey
+      if (!key) continue
+
+      const existing = byKey.get(key)
+      if (!existing) {
+        byKey.set(key, row)
+        continue
+      }
+
+      if (rowCompletenessScore(row) > rowCompletenessScore(existing)) {
+        byKey.set(key, row)
+      }
+    }
+  }
+
+  const rows = Array.from(byKey.values())
+  return { rowCount: rows.length, rows }
+}
+
 async function readOutreachCsv(fileName: string): Promise<CsvSummary> {
   const fullPath = path.join(process.cwd(), 'docs', 'outreach', fileName)
   const content = await readFile(fullPath, 'utf8')
@@ -381,8 +436,19 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
+    readOutreachCsv('prospecting_combined_strict_100.csv'),
+    readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
+    readOutreachCsv('prospecting_combined_strict_31_personalized.csv'),
+    readOutreachCsv('prospecting_combined_strict_21_personalized.csv'),
+    readOutreachCsv('prospecting_batch_001.csv'),
+    readOutreachCsv('prospecting_batch_001_strict_roles.csv'),
+    readOutreachCsv('prospecting_batch_002_strict_roles.csv'),
+    readOutreachCsv('prospecting_batch_003_personalized_real_10.csv'),
+    readOutreachCsv('prospecting_batch_004_personalized_real_19.csv'),
+    readOutreachCsv('apollo_priority_send_ready.csv'),
+    readOutreachCsv('apollo_priority_followups.csv'),
     readOutreachCsv('us-senior-executive-target-slate.csv'),
     readOutreachCsv('send_ready_emails_first_10.csv'),
     readOutreachCsv('search_firms_prospecting_100.csv'),
@@ -396,7 +462,21 @@ export default async function OutreachHubPage() {
       .eq('user_id', user.id)
       .eq('status', 'active'),
   ])
-  const executives = mergeFirstTouch(executiveRaw, firstTouch)
+  const executiveUniverse = combineExecutiveSources([
+    executiveRaw,
+    executiveStrict100,
+    executiveStrict50,
+    executiveStrict31,
+    executiveStrict21,
+    executiveBatch1,
+    executiveBatch1Strict,
+    executiveBatch2Strict,
+    executiveBatch3Personalized,
+    executiveBatch4Personalized,
+    apolloSendReady,
+    apolloFollowups,
+  ])
+  const executives = mergeFirstTouch(executiveUniverse, firstTouch)
   const executiveFitLookup = buildExecutiveFitLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
