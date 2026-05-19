@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         {
           ok: false,
           error: isInvalidCredentials
-            ? 'Invalid email/password. If you signed up with Google or Apple, use that provider to sign in.'
+            ? 'Invalid email/password. If you signed up with Google or Apple, sign in with that provider first, then set a password in Settings > Security.'
             : error.message,
           code: isInvalidCredentials ? 'INVALID_CREDENTIALS' : 'AUTH_ERROR',
         },

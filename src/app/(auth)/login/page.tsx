@@ -95,7 +95,7 @@ export default function LoginPage() {
 
       if (!response.ok || !data.ok) {
         if (data.code === 'INVALID_CREDENTIALS') {
-          setError('That email/password did not work. If this account was created with Google or Apple, use that button above to sign in.')
+          setError('That email/password did not work. If this account was created with Google or Apple, sign in with that provider first, then set a password in Settings > Security.')
         } else {
           setError(data.error || 'Sign-in failed')
         }
