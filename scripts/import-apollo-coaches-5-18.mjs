@@ -1,4 +1,4 @@
-import { copyFile, readFile } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import 'dotenv/config'
 import { createClient } from '@supabase/supabase-js'
@@ -90,19 +90,11 @@ async function main() {
     process.exit(1)
   }
 
-  const copied = []
-  for (const fileName of INPUT_FILES) {
-    const src = path.join(ROOT_DIR, fileName)
-    const dst = path.join(OUTREACH_DIR, fileName)
-    await copyFile(src, dst)
-    copied.push(fileName)
-  }
-
   let totalRows = 0
   const candidates = []
 
   for (const fileName of INPUT_FILES) {
-    const raw = await readFile(path.join(ROOT_DIR, fileName), 'utf8')
+    const raw = await readFile(path.join(OUTREACH_DIR, fileName), 'utf8')
     const csv = parseCsv(raw)
 
     for (const row of csv.rows) {
@@ -184,7 +176,7 @@ async function main() {
     inserted += data?.length ?? 0
   }
 
-  console.log(`Copied files into docs/outreach: ${copied.join(', ')}`)
+  console.log(`Input files read from docs/outreach: ${INPUT_FILES.join(', ')}`)
   console.log(`Parsed rows from input files: ${totalRows}`)
   console.log(`Unique emails in new files: ${uniqueRows.length}`)
   console.log(`New rows inserted into outreach_logs: ${inserted}`)
