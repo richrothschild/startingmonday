@@ -205,6 +205,14 @@ export default function LoginPage() {
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
 
+              <p className="text-[12px] text-slate-500 -mt-1">
+                Signed up with Google or Apple? Use that provider to sign in first, then set a password at{' '}
+                <Link href="/settings/security" className="text-slate-700 font-semibold hover:text-slate-900">
+                  Settings → Security
+                </Link>
+                .
+              </p>
+
 
 
               <button
