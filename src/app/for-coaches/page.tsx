@@ -509,7 +509,7 @@ export default function ForCoachesPage() {
               Start with the preview. Review pricing and FAQ only if the workflow fits.
             </h2>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
-              Terry only needs to send this page. {PREVIEW_SENTENCE} If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
+              You only need to send this page. {PREVIEW_SENTENCE} If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
             </p>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-6 text-[13px]">

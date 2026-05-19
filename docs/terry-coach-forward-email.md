@@ -1,4 +1,4 @@
-# Terry Coach Forward Email
+# Coach Forward Email
 
 ## Subject options
 
@@ -22,7 +22,7 @@ If useful, I would look at the coach preview page first. In 15 minutes, you see 
 There is a low-pressure preview, so you can evaluate it without making a broader commitment.
 
 Best,
-Terry
+[Your Name]
 
 ## Shorter version
 
@@ -36,4 +36,4 @@ If it looks relevant, the best next step is the coach preview. In 15 minutes, yo
 There is a low-pressure preview if you want to evaluate it.
 
 Best,
-Terry
+[Your Name]

@@ -1,6 +1,6 @@
 # Coach Peer Forward Note
 
-Use this when sending the coach preview page to executive coaches in Terry Anderson's peer group.
+Use this when sending the coach preview page to executive coaches in your peer group.
 
 Suggested note:
 
