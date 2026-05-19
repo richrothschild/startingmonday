@@ -69,17 +69,26 @@ export default function LoginPage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setError(null)
+
+    // Password managers can populate DOM inputs without firing onChange.
+    // Read from the submitted form first, then fall back to React state.
+    const formData = new FormData(e.currentTarget)
+    const submittedEmail = (formData.get('email')?.toString().trim().toLowerCase() ?? '') || email
+    const submittedPassword = (formData.get('password')?.toString() ?? '') || password
+
+    setEmail(submittedEmail)
+    setPassword(submittedPassword)
 
     try {
       // Call server-enforced login endpoint
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
 
       const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
@@ -161,8 +170,10 @@ export default function LoginPage() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
@@ -176,8 +187,10 @@ export default function LoginPage() {
                 </label>
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   required
+                  autoComplete="current-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
