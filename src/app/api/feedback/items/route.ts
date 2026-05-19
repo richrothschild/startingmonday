@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
@@ -134,20 +133,13 @@ async function postHandler(req: NextRequest) {
       )
     }
 
-    // Insert feedback item
-    const { data: feedbackItem, error } = await (supabase
-      .from('feedback_items') as any)
-      .insert({
-        type: 'feedback',
-        title,
-        body: feedbackBody,
-        category,
-        screenshot_url: screenshot_url || null,
-        user_id: userId,
-        status: 'new',
-      })
-      .select()
-      .single()
+    // Insert feedback item via SECURITY DEFINER RPC so user auth is preserved
+    const { data: feedbackItem, error } = await supabase.rpc('create_feedback_item', {
+      p_title: title,
+      p_body: feedbackBody,
+      p_category: category,
+      p_screenshot_url: screenshot_url || null,
+    })
 
     if (error) {
       console.error('[feedback] submit error:', error)
