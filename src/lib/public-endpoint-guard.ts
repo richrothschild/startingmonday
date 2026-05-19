@@ -3,24 +3,8 @@ import { checkRateLimit } from '@/lib/rate-limit'
 
 type GuardOptions = {
   request: NextRequest
-  captchaToken: string | null
   rateLimitKey: string
   maxPerMinute: number
-  requireCaptcha?: boolean
-}
-
-let hasLoggedMissingTurnstileSecret = false
-
-function warnIfMissingTurnstileSecret(): void {
-  if (hasLoggedMissingTurnstileSecret) return
-
-  const isLocal = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
-  if (isLocal) return
-
-  if (!process.env.TURNSTILE_SECRET_KEY) {
-    console.warn('[security] TURNSTILE_SECRET_KEY is missing in a non-local environment. Public endpoint captcha checks will fail closed until it is configured.')
-    hasLoggedMissingTurnstileSecret = true
-  }
 }
 
 export function getClientIp(request: NextRequest): string {
@@ -32,44 +16,13 @@ export function getClientIp(request: NextRequest): string {
   )
 }
 
-export async function verifyTurnstileToken(token: string, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY
-  if (!secret) return false
-
-  const body = new URLSearchParams({
-    secret,
-    response: token,
-    remoteip: ip,
-  })
-
-  try {
-    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-      cache: 'no-store',
-    })
-
-    if (!response.ok) return false
-
-    const data = await response.json() as { success?: boolean }
-    return data.success === true
-  } catch {
-    return false
-  }
-}
-
 export async function enforcePublicEndpointGuard(
   options: GuardOptions,
 ): Promise<NextResponse | null> {
-  warnIfMissingTurnstileSecret()
-
   const {
     request,
-    captchaToken,
     rateLimitKey,
     maxPerMinute,
-    requireCaptcha = true,
   } = options
   const ip = getClientIp(request)
 
@@ -79,17 +32,6 @@ export async function enforcePublicEndpointGuard(
       { ok: false, error: 'Too many requests' },
       { status: 429, headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {} },
     )
-  }
-
-  if (!requireCaptcha) return null
-
-  if (!captchaToken) {
-    return NextResponse.json({ ok: false, error: 'Captcha is required' }, { status: 400 })
-  }
-
-  const captchaValid = await verifyTurnstileToken(captchaToken, ip)
-  if (!captchaValid) {
-    return NextResponse.json({ ok: false, error: 'Captcha verification failed' }, { status: 403 })
   }
 
   return null

@@ -181,17 +181,14 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No m
 language.`
 
 export async function POST(request: NextRequest) {
-  let captchaToken: string
   try {
-    const body = await request.json()
-    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
+    await request.json()
   } catch {
     return new Response('Bad request', { status: 400 })
   }
 
   const blocked = await enforcePublicEndpointGuard({
     request,
-    captchaToken: captchaToken || null,
     rateLimitKey: 'demo-brief-manager-tools',
     maxPerMinute: 3,
   })

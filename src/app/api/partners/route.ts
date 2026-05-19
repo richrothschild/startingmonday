@@ -28,11 +28,9 @@ export async function POST(request: NextRequest) {
   const role      = (body?.role      ?? '').toString().trim()
   const how_heard = (body?.how_heard ?? '').toString().trim() || null
   const interests = (body?.interests ?? '').toString().trim() || null
-  const captchaToken = (body?.captchaToken ?? '').toString().trim()
 
   const blocked = await enforcePublicEndpointGuard({
     request,
-    captchaToken: captchaToken || null,
     rateLimitKey: 'partners-inquiry',
     maxPerMinute: 3,
   })

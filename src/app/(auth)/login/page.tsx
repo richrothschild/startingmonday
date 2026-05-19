@@ -1,18 +1,8 @@
 ﻿'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: HTMLElement, options: Record<string, unknown>) => string
-      reset: (widgetId?: string) => void
-      remove: (widgetId?: string) => void
-    }
-  }
-}
 
 export default function LoginPage() {
   const router = useRouter()

@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { verifyTurnstileToken, getClientIp } from '@/lib/public-endpoint-guard'
+import { getClientIp } from '@/lib/public-endpoint-guard'
 import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
@@ -9,7 +9,6 @@ export const runtime = 'nodejs'
 type RequestBody = {
   email?: unknown
   password?: unknown
-  turnstileToken?: unknown
 }
 
 export async function POST(request: NextRequest) {
@@ -38,29 +37,20 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { email, password, turnstileToken } = body
+  const { email, password } = body
 
   // Validate input types
-  if (typeof email !== 'string' || typeof password !== 'string' || typeof turnstileToken !== 'string') {
+  if (typeof email !== 'string' || typeof password !== 'string') {
     return NextResponse.json(
       { ok: false, error: 'Missing or invalid required fields' },
       { status: 400 }
     )
   }
 
-  if (!email || !password || !turnstileToken) {
+  if (!email || !password) {
     return NextResponse.json(
       { ok: false, error: 'Missing required fields' },
       { status: 400 }
-    )
-  }
-
-  // Server-side Turnstile verification (required for security)
-  const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
-  if (!captchaValid) {
-    return NextResponse.json(
-      { ok: false, error: 'Captcha verification failed' },
-      { status: 403 }
     )
   }
 

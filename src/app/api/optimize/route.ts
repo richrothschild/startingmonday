@@ -60,11 +60,9 @@ function getClientIp(request: NextRequest): string {
 export async function POST(request: NextRequest) {
   let text: string
   let email: string | null = null
-  let captchaToken: string
   try {
     const body = await request.json()
     text = (body.text ?? '').trim()
-    captchaToken = (body.captchaToken ?? '').trim()
     const rawEmail = (body.email ?? '').trim().toLowerCase()
     if (rawEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) {
       email = rawEmail
@@ -75,12 +73,8 @@ export async function POST(request: NextRequest) {
 
   const blocked = await enforcePublicEndpointGuard({
     request,
-    captchaToken: captchaToken || null,
     rateLimitKey: 'optimize',
     maxPerMinute: 3,
-    // Optimize page currently does not render a Turnstile widget/token.
-    // Keep anti-abuse via burst + daily limits while avoiding false failures.
-    requireCaptcha: false,
   })
   if (blocked) return blocked
 

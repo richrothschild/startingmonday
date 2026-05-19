@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
-import { getClientIp, verifyTurnstileToken } from '@/lib/public-endpoint-guard'
+import { getClientIp } from '@/lib/public-endpoint-guard'
 import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
@@ -9,7 +9,6 @@ export const runtime = 'nodejs'
 type RequestBody = {
   email?: unknown
   password?: unknown
-  turnstileToken?: unknown
 }
 
 export async function POST(request: NextRequest) {
@@ -33,7 +32,6 @@ export async function POST(request: NextRequest) {
 
   const email = typeof body.email === 'string' ? body.email : ''
   const password = typeof body.password === 'string' ? body.password : ''
-  const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken : ''
 
   if (!email || !password) {
     return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 400 })

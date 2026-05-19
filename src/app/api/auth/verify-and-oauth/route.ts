@@ -1,14 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { getClientIp, verifyTurnstileToken } from '@/lib/public-endpoint-guard'
+import { getClientIp } from '@/lib/public-endpoint-guard'
 import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 
 type RequestBody = {
   provider?: unknown
-  turnstileToken?: unknown
   redirectTo?: unknown
 }
 
@@ -34,7 +33,6 @@ export async function POST(request: NextRequest) {
   }
 
   const provider = typeof body.provider === 'string' ? body.provider : ''
-  const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken : ''
   const redirectTo = typeof body.redirectTo === 'string' && body.redirectTo ? body.redirectTo : `${new URL(request.url).origin}/auth/callback`
 
   if (!ALLOWED_PROVIDERS.has(provider)) {

@@ -12,11 +12,9 @@ export async function POST(request: NextRequest) {
   const email = (body?.email ?? '').toString().trim().toLowerCase()
   const company = (body?.company ?? '').toString().trim()
   const message = (body?.message ?? '').toString().trim()
-  const captchaToken = (body?.captchaToken ?? '').toString().trim()
 
   const blocked = await enforcePublicEndpointGuard({
     request,
-    captchaToken: captchaToken || null,
     rateLimitKey: 'pilot-outreach',
     maxPerMinute: 3,
   })
