@@ -1,5 +1,4 @@
-﻿/* eslint-disable jsx-a11y/no-aria-label */
-'use client'
+﻿'use client'
 
 import { useState, useRef } from 'react'
 
