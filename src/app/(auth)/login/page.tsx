@@ -9,11 +9,13 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [info, setInfo] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
+  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
 
-  const authBusy = googleLoading || appleLoading || loading
+  const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
 
   async function handleGoogle() {
     setGoogleLoading(true)
@@ -73,6 +75,7 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    setInfo(null)
 
     // Password managers can populate DOM inputs without firing onChange.
     // Read from the submitted form first, then fall back to React state.
@@ -109,6 +112,41 @@ export default function LoginPage() {
     } catch (err) {
       setError('Something went wrong. Please try again.')
       setLoading(false)
+    }
+  }
+
+  async function handleMagicLink() {
+    const normalizedEmail = email.trim().toLowerCase()
+    if (!normalizedEmail) {
+      setError('Enter your email first, then request a sign-in link.')
+      return
+    }
+
+    setMagicLinkLoading(true)
+    setInfo(null)
+
+    try {
+      const response = await fetch('/api/auth/verify-and-magic-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          redirectTo: `${window.location.origin}/auth/callback?next=/dashboard/briefing`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; message?: string }
+
+      if (!response.ok || !data.ok) {
+        setError(data.error || 'Could not send sign-in link. Please try again.')
+        return
+      }
+
+      setInfo(data.message || 'If an account exists for that email, a sign-in link has been sent.')
+    } catch {
+      setError('Could not send sign-in link. Please try again.')
+    } finally {
+      setMagicLinkLoading(false)
     }
   }
 
@@ -203,6 +241,21 @@ export default function LoginPage() {
 
               {error && (
                 <p className="text-[13px] text-red-600">{error}</p>
+              )}
+
+              {info && (
+                <p className="text-[13px] text-emerald-700">{info}</p>
+              )}
+
+              {error && (
+                <button
+                  type="button"
+                  onClick={handleMagicLink}
+                  disabled={authBusy}
+                  className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link'}
+                </button>
               )}
 
               <p className="text-[12px] text-slate-500 -mt-1">

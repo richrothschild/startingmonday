@@ -2,10 +2,13 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase/admin'
+import type { EmailOtpType } from '@supabase/supabase-js'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  const tokenHash = searchParams.get('token_hash')
+  const tokenType = searchParams.get('type')
   const next = searchParams.get('next') ?? '/dashboard/briefing'
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
@@ -14,7 +17,7 @@ export async function GET(request: NextRequest) {
   const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
   const publicOrigin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : origin
 
-  if (code) {
+  if (code || (tokenHash && tokenType)) {
     const cookieStore = await cookies()
 
     // Use a JS redirect (location.replace) instead of an HTTP 302 so the
@@ -44,7 +47,14 @@ export async function GET(request: NextRequest) {
       }
     )
 
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+    const authResult = code
+      ? await supabase.auth.exchangeCodeForSession(code)
+      : await supabase.auth.verifyOtp({
+          token_hash: tokenHash!,
+          type: tokenType as EmailOtpType,
+        })
+
+    const { data, error } = authResult
 
     console.log(JSON.stringify({
       ts: new Date().toISOString(),
