@@ -22,3 +22,27 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/nightly-outreach-audit.mjs
+
+      - name: Data integrity check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/check-data-integrity.mjs
+
+      - name: Alert on integrity anomalies
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Data integrity anomaly detected in nightly audit",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Data Integrity Alert*\nNightly audit detected anomalies in follow_up or subscription data.\nSee runbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View audit run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL" || true

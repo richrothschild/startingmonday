@@ -41,6 +41,9 @@ jobs:
             const workflows = [
               { id: 'ci.yml', name: 'CI', maxAgeMinutes: null },
               { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90 },
+              { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90 },
+              { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90 },
+              { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 15 },
               { id: 'security-weekly.yml', name: 'Weekly security audit', maxAgeMinutes: 60 * 24 * 10 },
               { id: 'watermark-audit.yml', name: 'Monthly Watermark Documentation Audit', maxAgeMinutes: 60 * 24 * 40 },
             ]

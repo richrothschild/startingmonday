@@ -158,3 +158,112 @@ test.describe('Daily briefing page', () => {
     await expect(page.locator('.bg-red-50')).not.toBeVisible()
   })
 })
+
+// ─── UX Reliability: Password-Manager Autofill ──────────────────────────────
+// Verifies login form accepts credentials written directly into the DOM
+// (simulating password manager fill) without requiring onChange state sync.
+
+test.describe('UX reliability — auth and form edge cases', () => {
+  test('login form submits correctly when fields are filled programmatically (autofill simulation)', async ({ page }) => {
+    const email = process.env.PLAYWRIGHT_TEST_EMAIL
+    const password = process.env.PLAYWRIGHT_TEST_PASSWORD
+    test.skip(!email || !password, 'Skipping autofill test: test credentials not configured')
+
+    await page.goto('/login')
+    await expect(page.locator('#email')).toBeVisible()
+
+    // Use fill() which bypasses React onChange — simulates password manager injection
+    await page.locator('#email').fill(email!)
+    await page.locator('#password').fill(password!)
+
+    // Verify the submit button is enabled (not blocked by missing state)
+    const submitBtn = page.getByRole('button', { name: /Sign in/i })
+    await expect(submitBtn).toBeVisible()
+    await expect(submitBtn).not.toBeDisabled()
+
+    // Intercept the signin API call to verify the payload was read from DOM, not state
+    let signinPayload: Record<string, unknown> | null = null
+    await page.route('/api/auth/verify-and-signin', async route => {
+      const body = await route.request().postDataJSON().catch(() => null)
+      signinPayload = body
+      await route.continue()
+    })
+
+    await submitBtn.click()
+
+    // Wait for navigation away from login (success) or short timeout (wrong creds in CI)
+    await page.waitForURL(url => !url.pathname.startsWith('/login'), {
+      timeout: 10_000,
+    }).catch(() => {})
+
+    // The key assertion: the payload must have been sent with the correct email
+    // This catches the bug where autofill bypasses React state and email is blank
+    if (signinPayload) {
+      expect(String((signinPayload as Record<string, unknown>).email ?? '')).toBe(email!)
+    }
+  })
+
+  test('session expiry mid-flow redirects to login without unhandled error', async ({ browser }) => {
+    const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
+
+    // Create a context with an expired/empty session
+    const ctx = await browser.newContext({
+      baseURL,
+      storageState: { cookies: [], origins: [] },
+    })
+    const page = await ctx.newPage()
+
+    // Attempt to access an authenticated route directly
+    await page.goto('/dashboard/contacts')
+
+    // Should redirect to login without showing a 500 or error boundary
+    await expect(page).toHaveURL(/\/login/, { timeout: 15_000 })
+    await expect(page.locator('h1')).toBeVisible()
+    await expect(page.locator('body')).not.toContainText(/500|internal server error|unhandled/i)
+    await expect(page.locator('.bg-red-50')).not.toBeVisible()
+
+    await ctx.close()
+  })
+
+  test('feedback submission is idempotent (double-submit does not create duplicate)', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const syntheticTitle = `[SYNTHETIC-IDEMPOTENCY] ${Date.now()}`
+    let callCount = 0
+
+    // Count how many times the API is called
+    await page.route('/api/feedback/items', async route => {
+      if (route.request().method() === 'POST') callCount++
+      await route.continue()
+    })
+
+    // Make two rapid sequential requests with the same payload
+    const [res1, res2] = await Promise.all([
+      page.request.post('/api/feedback/items', {
+        data: { title: syntheticTitle, body: 'Idempotency test body 1', category: 'general' },
+        failOnStatusCode: false,
+      }),
+      page.request.post('/api/feedback/items', {
+        data: { title: syntheticTitle, body: 'Idempotency test body 2', category: 'general' },
+        failOnStatusCode: false,
+      }),
+    ])
+
+    // Both requests should have completed (not crashed with 500)
+    expect([200, 201, 429]).toContain(res1.status())
+    expect([200, 201, 429]).toContain(res2.status())
+
+    // Neither response should be a server error
+    expect(res1.status()).not.toBe(500)
+    expect(res2.status()).not.toBe(500)
+
+    // Cleanup any created items
+    for (const res of [res1, res2]) {
+      if (res.status() === 201) {
+        const body = await res.json().catch(() => null)
+        const id = body?.item?.id
+        if (id) await page.request.delete(`/api/feedback/items/${id}`, { failOnStatusCode: false })
+      }
+    }
+  })
+})

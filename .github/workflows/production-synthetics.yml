@@ -1,0 +1,172 @@
+name: Production Synthetics
+
+# Runs all 8 synthetic checks against production every 5 minutes.
+# Sends Sev-1 Slack alert on P0 synthetic failure with deploy SHA and runbook link.
+# Complements monitoring.yml (smoke checks) with deeper lifecycle validation.
+
+on:
+  schedule:
+    # Staggered from monitoring.yml (*/30) and fast-burn-alert.yml (10,40)
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: false
+        default: production
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  synthetics:
+    name: Run P0 synthetic checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run synthetic tests
+        id: synthetics
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+        run: |
+          npx playwright test --project=synthetics \
+            --reporter=json 2>/dev/null > synthetic-results.json || true
+
+          # Parse results for step summary and alert
+          node -e "
+          const fs = require('fs')
+          const results = JSON.parse(fs.readFileSync('synthetic-results.json', 'utf8'))
+          const suites = results.suites ?? []
+          let passed = 0, failed = 0, skipped = 0
+          const failedTests = []
+
+          function walk(suite) {
+            for (const s of suite.suites ?? []) walk(s)
+            for (const spec of suite.specs ?? []) {
+              for (const test of spec.tests ?? []) {
+                if (test.status === 'passed') passed++
+                else if (test.status === 'skipped') skipped++
+                else { failed++; failedTests.push(spec.title) }
+              }
+            }
+          }
+          suites.forEach(walk)
+
+          const total = passed + failed
+          console.log('passed=' + passed)
+          console.log('failed=' + failed)
+          console.log('skipped=' + skipped)
+          console.log('total=' + total)
+          console.log('failed_tests=' + failedTests.join('|'))
+
+          const outputs = [
+            'passed=' + passed,
+            'failed=' + failed,
+            'skipped=' + skipped,
+            'total=' + total,
+            'failed_tests=' + failedTests.join('|'),
+          ]
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, outputs.join('\n') + '\n')
+          " 2>/dev/null || echo "Result parsing failed — using exit code" >> /dev/null
+
+      - name: Publish synthetic summary
+        if: always()
+        run: |
+          PASSED="${{ steps.synthetics.outputs.passed || 'N/A' }}"
+          FAILED="${{ steps.synthetics.outputs.failed || 'N/A' }}"
+          TOTAL="${{ steps.synthetics.outputs.total || 'N/A' }}"
+          FAILED_TESTS="${{ steps.synthetics.outputs.failed_tests || '' }}"
+          SHA="${{ github.sha }}"
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ## Production Synthetics — $(date -u '+%Y-%m-%d %H:%M UTC')
+
+          | Metric | Value |
+          |---|---|
+          | Passed | ${PASSED} |
+          | Failed | ${FAILED} |
+          | Total | ${TOTAL} |
+          | Deploy SHA | ${SHA:0:8} |
+
+          EOF
+
+          if [ -n "$FAILED_TESTS" ]; then
+            echo "### Failed Checks" >> "$GITHUB_STEP_SUMMARY"
+            echo "$FAILED_TESTS" | tr '|' '\n' | sed 's/^/- /' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload synthetic results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-results
+          path: synthetic-results.json
+          retention-days: 14
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetics-playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Send Sev-1 alert on P0 synthetic failure
+        if: ${{ steps.synthetics.outputs.failed > 0 }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          FAILED="${{ steps.synthetics.outputs.failed }}"
+          TOTAL="${{ steps.synthetics.outputs.total }}"
+          FAILED_TESTS="${{ steps.synthetics.outputs.failed_tests }}"
+          SHA="${{ github.sha }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Format failed test list for Slack
+          TESTS_FMT=$(echo "$FAILED_TESTS" | tr '|' '\n' | head -5 | sed 's/^/- /' | tr '\n' ' ')
+
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"P0 Synthetic failure — ${FAILED}/${TOTAL} checks failed\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": {
+                  \"type\": \"plain_text\",
+                  \"text\": \"🚨 P0 Synthetic Failure — Sev-1\"
+                }
+              },
+              {
+                \"type\": \"section\",
+                \"fields\": [
+                  {\"type\": \"mrkdwn\", \"text\": \"*Failed checks:* ${FAILED}/${TOTAL}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Deploy SHA:* ${SHA:0:8}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Tests:* ${TESTS_FMT}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Runbooks:* docs/sre/runbooks/\"}
+                ]
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"<${RUN_URL}|View synthetic run logs>\"
+                }
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"

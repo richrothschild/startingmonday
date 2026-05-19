@@ -2,8 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { requireAuth } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
+import { withApiTelemetry } from '@/lib/telemetry'
 
-export async function GET(req: NextRequest) {
+async function getHandler(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
@@ -80,7 +81,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+async function postHandler(req: NextRequest) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
@@ -148,3 +149,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
+
+export const GET = withApiTelemetry('/api/feedback/items', getHandler)
+export const POST = withApiTelemetry('/api/feedback/items', postHandler)

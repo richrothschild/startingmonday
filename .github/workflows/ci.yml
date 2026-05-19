@@ -87,8 +87,8 @@ jobs:
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
-    # Run on protected branches and block release on failure.
-    if: github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    # Run on all PRs and protected branches — blocks merge on failure.
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4.2.2
@@ -118,6 +118,56 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  pre-prod-gate:
+    name: Pre-production synthetic gate
+    runs-on: ubuntu-latest
+    # Only gate on main/staging pushes that will trigger a deploy.
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+    needs: [predeploy-gates]
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Check production synthetic pass rate (last 3 runs)
+        id: gate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Require the last 3 production-synthetics runs to have all passed.
+            // This ensures we are not deploying into an already-degraded production.
+            const res = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'production-synthetics.yml',
+              status: 'completed',
+              per_page: 3,
+              branch: 'main',
+              exclude_pull_requests: true,
+            })
+
+            const runs = res.data.workflow_runs ?? []
+            if (runs.length === 0) {
+              core.notice('No completed production-synthetics runs found — gate is advisory, allowing deploy')
+              core.setOutput('gate_pass', 'true')
+              return
+            }
+
+            const failures = runs.filter(r => r.conclusion === 'failure')
+            const summary = runs.map(r => `${r.conclusion}(${r.id})`).join(', ')
+            core.notice(`Production synthetics last 3 runs: ${summary}`)
+
+            if (failures.length > 0) {
+              const msg = `Pre-prod gate BLOCKED: ${failures.length}/${runs.length} production synthetic runs are failing. ` +
+                `Resolve synthetic failures before deploying. Runs: ${summary}`
+              core.setOutput('gate_pass', 'false')
+              core.setOutput('summary', msg)
+              core.setFailed(msg)
+            } else {
+              core.setOutput('gate_pass', 'true')
+              core.notice('Pre-prod gate PASSED: all recent production synthetics are green')
+            }
 
   semgrep:
     name: Semgrep security scan
@@ -149,7 +199,7 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright]
+    needs: [predeploy-gates, semgrep, playwright, pre-prod-gate]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
