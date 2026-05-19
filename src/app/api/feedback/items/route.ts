@@ -1,8 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
-import { requireAuth } from '@/lib/require-auth'
+import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
 import { withApiTelemetry } from '@/lib/telemetry'
+import { createServerClient } from '@supabase/ssr'
 
 async function getHandler(req: NextRequest) {
   const supabase = await createClient()
@@ -85,8 +86,24 @@ async function postHandler(req: NextRequest) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
-  const supabase = await createClient()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll: () => req.cookies.getAll(),
+        setAll: (toSet) => {
+          toSet.forEach(({ name, value, options }) => {
+            auth.response.cookies.set(name, value, options)
+          })
+        },
+      },
+    }
+  )
   const { userId } = auth
+
+  const authJson = (payload: unknown, status: number) =>
+    withAuthCookies(NextResponse.json(payload, { status }), auth)
 
   try {
     const body = await req.json()
@@ -94,9 +111,9 @@ async function postHandler(req: NextRequest) {
     // Validate input
     const parseResult = FeedbackSubmitSchema.safeParse(body)
     if (!parseResult.success) {
-      return NextResponse.json(
+      return authJson(
         { error: firstZodError(parseResult.error) },
-        { status: 400 }
+        400
       )
     }
 
@@ -111,9 +128,9 @@ async function postHandler(req: NextRequest) {
       .gt('created_at', oneDayAgo)
 
     if ((recentCount || 0) >= 5) {
-      return NextResponse.json(
+      return authJson(
         { error: 'You can submit a maximum of 5 feedback items per day' },
-        { status: 429 }
+        429
       )
     }
 
@@ -134,19 +151,19 @@ async function postHandler(req: NextRequest) {
 
     if (error) {
       console.error('[feedback] submit error:', error)
-      return NextResponse.json({ error: 'Failed to submit feedback' }, { status: 500 })
+      return authJson({ error: 'Failed to submit feedback' }, 500)
     }
 
-    return NextResponse.json(
+    return authJson(
       { 
         item: feedbackItem,
         message: 'Thank you for your feedback! We\'ll review it within 24 hours.'
       },
-      { status: 201 }
+      201
     )
   } catch (err) {
     console.error('[feedback] submit exception:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return authJson({ error: 'Internal server error' }, 500)
   }
 }
 
