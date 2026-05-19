@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { saveProfile, deleteNotes } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
+import ProfileLinkedinUpload from './profile-linkedin-upload'
 import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
 import CareerVerificationPanel from '@/components/CareerVerificationPanel'
@@ -428,6 +429,17 @@ export default async function ProfilePage({
               />
             </div>
 
+            {/* LinkedIn PDF Upload */}
+            <div id="section-linkedin-upload" className="mb-6">
+              <label className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5 block">
+                LinkedIn profile PDF
+              </label>
+              <p className="text-[12px] text-slate-400 mb-2">
+                Download your LinkedIn profile as a PDF (Profile &rarr; More &rarr; Save to PDF) and upload it here. This is used to extract your LinkedIn summary, experience, and headline for your profile and AI briefs.
+              </p>
+              <ProfileLinkedinUpload />
+            </div>
+
             {/* Resume */}
             <div id="section-resume">
               <div className="flex items-center justify-between mb-1.5">
@@ -440,6 +452,9 @@ export default async function ProfilePage({
                   </Link>
                 )}
               </div>
+              <p className="text-[12px] text-slate-400 mb-2">
+                Upload your resume as a PDF or DOCX, or paste the text below. This is used for AI-powered interview prep and brief generation.
+              </p>
               <ProfileResumeUpload />
               <textarea
                 id="resume_text"
