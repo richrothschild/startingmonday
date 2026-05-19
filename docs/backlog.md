@@ -8,6 +8,22 @@ Items here are validated ideas deferred from the active roadmap. Each entry incl
 
 ## Engineering Infrastructure
 
+### Reliability Operating Package and 90-Day Rollout Epic
+
+Implementation-ready SRE package has been defined with route/page SLO mapping, alert thresholds, production synthetics, deploy gates, runbook templates, and incident severity policy.
+
+Reference docs:
+
+- docs/sre/operating-package.md
+- docs/sre/slo-catalog.md
+- docs/sre/alert-matrix.md
+- docs/sre/synthetic-tests-and-deploy-gates.md
+- docs/sre/runbook-templates.md
+- docs/sre/incident-severity-policy.md
+- docs/epic-90-day-reliability-rollout.md
+
+Move forward when: current sprint capacity can absorb phase 1 foundation work without delaying critical production fixes.
+
 ### Test Environments and Staging Pipeline
 
 CI is live (GitHub Actions runs type check + Vitest on every push and PR). The Supabase staging project is the next piece — run every migration there before production. Full staging environment deferred.
