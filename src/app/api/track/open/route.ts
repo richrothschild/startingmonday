@@ -17,12 +17,13 @@ function createAdminClient() {
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get('t')
-  
-  // Try signed token first (preferred), then fall back to unsigned (deprecated)
+  const requireSignedTokens = process.env.PIXEL_TOKEN_REQUIRE_SIGNATURE === 'true'
+
+  // Try signed token first (preferred), then fall back to unsigned only when strict mode is off.
   let payload = token ? parsePixelTokenSigned(token) : null
   const isSigned = !!payload
-  
-  if (!payload && token) {
+
+  if (!payload && token && !requireSignedTokens) {
     payload = parsePixelToken(token)
   }
 

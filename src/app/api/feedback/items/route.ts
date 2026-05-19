@@ -3,7 +3,6 @@ import { requireAuth } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
 import { withApiTelemetry } from '@/lib/telemetry'
-import { createServerClient } from '@supabase/ssr'
 
 async function getHandler(req: NextRequest) {
   const supabase = await createClient()
@@ -86,20 +85,7 @@ async function postHandler(req: NextRequest) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => req.cookies.getAll(),
-        setAll: (toSet) => {
-          toSet.forEach(({ name, value, options }) => {
-            auth.response.cookies.set(name, value, options)
-          })
-        },
-      },
-    }
-  )
+  const supabase = await createClient()
   const { userId } = auth
 
   const authJson = (payload: unknown, status: number) =>
@@ -134,13 +120,19 @@ async function postHandler(req: NextRequest) {
       )
     }
 
-    // Insert feedback item via SECURITY DEFINER RPC so user auth is preserved
-    const { data: feedbackItem, error } = await supabase.rpc('create_feedback_item', {
-      p_title: title,
-      p_body: feedbackBody,
-      p_category: category,
-      p_screenshot_url: screenshot_url || null,
-    })
+    const { data: feedbackItem, error } = await (supabase
+      .from('feedback_items') as any)
+      .insert({
+        type: 'feedback',
+        title,
+        body: feedbackBody,
+        category,
+        screenshot_url: screenshot_url || null,
+        user_id: userId,
+        status: 'new',
+      })
+      .select('*')
+      .single() as any
 
     if (error) {
       console.error('[feedback] submit error:', error)
