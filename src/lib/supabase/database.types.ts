@@ -160,6 +160,9 @@ export type Database = {
           due_date: string
           action: string
           status: string
+          next_action_owner: string | null
+          next_action_due_date: string | null
+          next_action_status: string
           notified_at: string | null
           created_at: string
         }
@@ -168,6 +171,9 @@ export type Database = {
           user_id: string
           due_date: string
           action: string
+          next_action_owner?: string | null
+          next_action_due_date?: string | null
+          next_action_status?: string
           [key: string]: unknown
         }
         Update: {
@@ -193,6 +199,58 @@ export type Database = {
             columns: ['contact_id']
             isOneToOne: false
             referencedRelation: 'contacts'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      coach_weekly_reviews: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          week_start: string
+          review_answers: Json
+          next_follow_up_id: string | null
+          status: string
+          completed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          week_start: string
+          review_answers?: Json
+          next_follow_up_id?: string | null
+          status?: string
+          completed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'coach_weekly_reviews_coach_id_fkey'
+            columns: ['coach_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'coach_weekly_reviews_client_id_fkey'
+            columns: ['client_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'coach_weekly_reviews_next_follow_up_id_fkey'
+            columns: ['next_follow_up_id']
+            isOneToOne: false
+            referencedRelation: 'follow_ups'
             referencedColumns: ['id']
           },
         ]

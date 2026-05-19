@@ -50,15 +50,21 @@ export async function GET(request: NextRequest) {
       .is('archived_at', null),
     admin
       .from('follow_ups')
-      .select('user_id')
+      .select('user_id, action, due_date, next_action_owner, next_action_due_date, next_action_status, status')
       .in('user_id', clientIds)
       .eq('status', 'pending')
-      .lte('due_date', new Date().toISOString().split('T')[0]),
+      .order('due_date', { ascending: true }),
   ])
 
   const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
   const activeCountMap: Record<string, number> = {}
   const overdueCountMap: Record<string, number> = {}
+  const nextActionMap: Record<string, {
+    action: string | null
+    dueDate: string | null
+    owner: string | null
+    status: string | null
+  }> = {}
 
   for (const c of companies ?? []) {
     if (['interviewing', 'applied', 'offer'].includes(c.stage)) {
@@ -67,6 +73,14 @@ export async function GET(request: NextRequest) {
   }
   for (const f of followUps ?? []) {
     overdueCountMap[f.user_id] = (overdueCountMap[f.user_id] ?? 0) + 1
+    if (!nextActionMap[f.user_id]) {
+      nextActionMap[f.user_id] = {
+        action: f.action ?? null,
+        dueDate: f.next_action_due_date ?? f.due_date ?? null,
+        owner: f.next_action_owner ?? null,
+        status: f.next_action_status ?? f.status ?? null,
+      }
+    }
   }
 
   const clients = seats.map(seat => {
@@ -82,6 +96,10 @@ export async function GET(request: NextRequest) {
       onboarded: !!profile?.onboarding_completed_at,
       activeCompanies: cid ? (activeCountMap[cid] ?? 0) : 0,
       overdueActions: cid ? (overdueCountMap[cid] ?? 0) : 0,
+      nextActionLabel: cid ? (nextActionMap[cid]?.action ?? null) : null,
+      nextActionOwner: cid ? (nextActionMap[cid]?.owner ?? null) : null,
+      nextActionDueDate: cid ? (nextActionMap[cid]?.dueDate ?? null) : null,
+      nextActionStatus: cid ? (nextActionMap[cid]?.status ?? null) : null,
       joinedAt: seat.accepted_at,
     }
   })
