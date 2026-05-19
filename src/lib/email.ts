@@ -1,7 +1,6 @@
 import { Resend } from 'resend'
 import { reviewEmail } from './email-quality'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_ADDRESS ?? 'briefing@startingmonday.app'
 
 export async function sendEmail({
@@ -33,6 +32,24 @@ export async function sendEmail({
   }
 
   try {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      const message = 'RESEND_API_KEY is not configured'
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'email_send_exception',
+        to,
+        subject,
+        from: from ?? FROM,
+        message,
+      }))
+      return {
+        data: null,
+        error: { message },
+      }
+    }
+
+    const resend = new Resend(apiKey)
     return await resend.emails.send({ from: from ?? FROM, to, bcc, subject, html, replyTo, headers })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'send failed'

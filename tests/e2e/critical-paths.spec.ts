@@ -184,8 +184,11 @@ test.describe('UX reliability — auth and form edge cases', () => {
     // Intercept the signin API call to verify the payload was read from DOM, not state
     let signinPayload: Record<string, unknown> | null = null
     await page.route('/api/auth/verify-and-signin', async route => {
-      const body = await route.request().postDataJSON().catch(() => null)
-      signinPayload = body
+      try {
+        signinPayload = route.request().postDataJSON() as Record<string, unknown>
+      } catch {
+        signinPayload = null
+      }
       await route.continue()
     })
 
