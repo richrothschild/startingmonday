@@ -247,16 +247,14 @@ export default function LoginPage() {
                 <p className="text-[13px] text-emerald-700">{info}</p>
               )}
 
-              {error && (
-                <button
-                  type="button"
-                  onClick={handleMagicLink}
-                  disabled={authBusy}
-                  className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link'}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handleMagicLink}
+                disabled={authBusy}
+                className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link instead'}
+              </button>
 
               <p className="text-[12px] text-slate-500 -mt-1">
                 Signed up with Google or Apple? Use that provider to sign in first, then set a password at{' '}
