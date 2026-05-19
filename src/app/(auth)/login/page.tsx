@@ -91,10 +91,14 @@ export default function LoginPage() {
         body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
 
-      const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
+      const data = await response.json() as { ok?: boolean; error?: string; code?: string; user?: unknown }
 
       if (!response.ok || !data.ok) {
-        setError(data.error || 'Sign-in failed')
+        if (data.code === 'INVALID_CREDENTIALS') {
+          setError('That email/password did not work. If this account was created with Google or Apple, use that button above to sign in.')
+        } else {
+          setError(data.error || 'Sign-in failed')
+        }
         setLoading(false)
         return
       }

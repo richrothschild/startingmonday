@@ -77,8 +77,15 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
+      const isInvalidCredentials = /invalid login credentials/i.test(error.message)
       return NextResponse.json(
-        { ok: false, error: error.message },
+        {
+          ok: false,
+          error: isInvalidCredentials
+            ? 'Invalid email/password. If you signed up with Google or Apple, use that provider to sign in.'
+            : error.message,
+          code: isInvalidCredentials ? 'INVALID_CREDENTIALS' : 'AUTH_ERROR',
+        },
         { status: 401 }
       )
     }
