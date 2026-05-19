@@ -282,6 +282,13 @@ export default function CoachFaqPage() {
                   Clients own their data. They can export at any time via their settings. They can delete their account and all associated data. We do not sell, trade, or use client data for third-party purposes.
                 </p>
               </div>
+              <p className="text-[12px] text-slate-600">
+                Need a quick shareable trust summary? Use the{' '}
+                <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-900 transition-colors">
+                  Coach Trust Pack
+                </Link>
+                .
+              </p>
             </div>
           </section>
 

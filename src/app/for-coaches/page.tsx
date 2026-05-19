@@ -142,6 +142,45 @@ const COACH_SCOREBOARD = [
 
 const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
 
+const PILOT_SCORECARD = [
+  {
+    metric: 'Week 1 signal action',
+    success: 'At least one signal-driven action logged for each pilot client.',
+  },
+  {
+    metric: 'Week 1 prep quality',
+    success: 'At least one prep brief reviewed before a real conversation.',
+  },
+  {
+    metric: 'Session yield',
+    success: 'Coach reports less context rebuild and more strategic depth in sessions.',
+  },
+  {
+    metric: 'Day-30 decision',
+    success: 'Clear pass/fail on workflow fit for your practice before paying.',
+  },
+]
+
+const ROLE_BOUNDARY = {
+  platform: [
+    'Detects signal movement and keeps the pipeline current between sessions',
+    'Generates prep briefs and tracks execution activity',
+    'Surfaces weekly risk markers and overdue actions',
+  ],
+  coach: [
+    'Owns strategic judgment, narrative calibration, and accountability coaching',
+    'Decides where to focus client effort and when to change search strategy',
+    'Interprets context and drives high-stakes decision quality',
+  ],
+}
+
+const WEEKLY_REVIEW_TEMPLATE = [
+  'What changed in signals since last week, and which two changes matter most?',
+  'Which companies moved stage, and which are stalled?',
+  'Which prep brief will shape this week\'s highest-stakes conversation?',
+  'What one action must happen before next session to protect momentum?',
+]
+
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -180,12 +219,16 @@ export default function ForCoachesPage() {
               You might be thinking
             </p>
             <div className="space-y-2 text-[13px] text-slate-300 leading-relaxed">
+              <p><span className="text-white font-semibold">"This sounds like one more tool that steals session time."</span> Fair concern. The design goal is the opposite: cut context rebuild and raise strategy time.</p>
               <p><span className="text-white font-semibold">&quot;My clients already have LinkedIn Premium.&quot;</span> Good. This is the operating layer underneath that, not a replacement for it.</p>
               <p><span className="text-white font-semibold">&quot;I already handle this in coaching.&quot;</span> Exactly. The point is to stop spending paid coaching time rebuilding context and chasing research.</p>
               <p><span className="text-white font-semibold">&quot;I do not want another tool to manage.&quot;</span> {PREVIEW_SENTENCE}</p>
             </div>
           </div>
           <CoachPreviewActions />
+          <p className="text-[12px] text-slate-400 mt-3">
+            Would it be unreasonable to test this with two clients for 30 days before making a rollout decision?
+          </p>
         </div>
       </header>
 
@@ -262,6 +305,47 @@ export default function ForCoachesPage() {
                 <li>• All activity is logged—clients can see exactly when coaches accessed their data</li>
               </ul>
             </div>
+            <div className="mt-4 border border-emerald-300 bg-white rounded-lg p-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-3">30-day pilot success scorecard</p>
+              <div className="space-y-2">
+                {PILOT_SCORECARD.map((row) => (
+                  <div key={row.metric} className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-2 text-[12px] text-slate-700">
+                    <p className="font-semibold text-slate-900">{row.metric}</p>
+                    <p>{row.success}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+              Role boundary
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Starting Monday supports coaching. It does not replace it.
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Platform owns</p>
+                <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
+                  {ROLE_BOUNDARY.platform.map((line) => (
+                    <li key={line}>• {line}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Coach owns</p>
+                <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
+                  {ROLE_BOUNDARY.coach.map((line) => (
+                    <li key={line}>• {line}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <p className="text-[12px] text-slate-500 mt-4">
+              Need compliance-ready details? Read the <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Coach Trust Pack</Link>.
+            </p>
           </section>
 
           <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-slate-50">
@@ -444,6 +528,19 @@ export default function ForCoachesPage() {
                 ))}
               </div>
             </div>
+            <div className="mt-6 border border-slate-200 rounded-2xl p-6 bg-white">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+                Weekly review template
+              </p>
+              <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+                Use this exact agenda in your Monday review so the operating cadence stays consistent across clients.
+              </p>
+              <ol className="space-y-2 text-[13px] text-slate-700 leading-relaxed list-decimal pl-5">
+                {WEEKLY_REVIEW_TEMPLATE.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ol>
+            </div>
           </section>
 
           <section>
@@ -519,6 +616,9 @@ export default function ForCoachesPage() {
               <Link href="/for-coaches/faq#security" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 🔒 Data security guide
               </Link>
+              <Link href="/for-coaches/trust-pack" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                🛡️ Coach trust pack
+              </Link>
               <Link href="/for-coaches/economics" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 💰 Pricing & economics
               </Link>
@@ -557,6 +657,13 @@ export default function ForCoachesPage() {
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
                   <p className="text-[12px] text-slate-500">Privacy & compliance</p>
+                </div>
+              </a>
+              <a href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                <Image src="/brand/icon-exploration-v1/security.svg" alt="Trust pack icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                <div>
+                  <p className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</p>
+                  <p className="text-[12px] text-slate-500">No recruiter-side sharing + controls</p>
                 </div>
               </a>
               <a href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">

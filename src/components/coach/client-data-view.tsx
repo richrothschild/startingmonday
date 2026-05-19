@@ -31,6 +31,19 @@ interface Scorecard {
     last_signal_days: number
     last_brief_days: number
   }
+  session_prep_snapshot: {
+    signals_last_7_days: number
+    briefs_last_7_days: number
+    interviews_last_7_days: number
+    active_pipeline_count: number
+    overdue_actions: number
+  }
+  weekly_trends: Array<{
+    week_start: string
+    signals: number
+    briefs: number
+    interviews: number
+  }>
 }
 
 interface Company {
@@ -119,10 +132,42 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   return (
     <div className="space-y-6">
       {/* Tab Navigation */}
+      <div className="border border-slate-200 rounded-lg p-4 bg-white">
+        <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">
+          Session Prep Snapshot (last 7 days)
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Signals</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.signals_last_7_days}</p>
+          </div>
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Briefs</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.briefs_last_7_days}</p>
+          </div>
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Interviews</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.interviews_last_7_days}</p>
+          </div>
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Active pipeline</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.active_pipeline_count}</p>
+          </div>
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Overdue actions</p>
+            <p className={`text-[18px] font-bold ${scorecard.session_prep_snapshot.overdue_actions > 0 ? 'text-red-600' : 'text-slate-900'}`}>
+              {scorecard.session_prep_snapshot.overdue_actions}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Tab Navigation */}
       <div className="border-b border-slate-200">
         <div className="flex gap-4">
           {[
             { id: 'scorecard', label: 'Scorecard' },
+            { id: 'trends', label: 'Weekly Trends' },
             { id: 'pipeline', label: 'Pipeline' },
             { id: 'signals', label: 'Signals' },
             { id: 'briefs', label: 'Briefs' },
@@ -249,6 +294,35 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Weekly Trends Tab */}
+      {activeTab === 'trends' && (
+        <div className="border border-slate-200 rounded-lg p-5 bg-white">
+          <h3 className="text-sm font-semibold text-slate-900 mb-4">Weekly Progress Markers</h3>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-slate-100 bg-slate-50">
+                  <th className="text-left text-[11px] font-semibold text-slate-600 px-4 py-2">Week</th>
+                  <th className="text-right text-[11px] font-semibold text-slate-600 px-4 py-2">Signals</th>
+                  <th className="text-right text-[11px] font-semibold text-slate-600 px-4 py-2">Briefs</th>
+                  <th className="text-right text-[11px] font-semibold text-slate-600 px-4 py-2">Interviews</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scorecard.weekly_trends.map((week) => (
+                  <tr key={week.week_start} className="border-b border-slate-100 last:border-0">
+                    <td className="px-4 py-2 text-[12px] text-slate-700">Week of {week.week_start}</td>
+                    <td className="px-4 py-2 text-[12px] text-right font-semibold text-slate-900 tabular-nums">{week.signals}</td>
+                    <td className="px-4 py-2 text-[12px] text-right font-semibold text-slate-900 tabular-nums">{week.briefs}</td>
+                    <td className="px-4 py-2 text-[12px] text-right font-semibold text-slate-900 tabular-nums">{week.interviews}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
