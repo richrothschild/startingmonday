@@ -7,6 +7,7 @@
     },
     "scripts": {
         "dev": "next dev",
+        "deps:check": "node scripts/check-dependency-policy.mjs",
         "build": "npm run prebuild:guard && next build",
         "prebuild:guard": "node scripts/prebuild-guard.mjs",
         "start": "next start",
