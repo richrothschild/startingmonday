@@ -27,6 +27,7 @@ This epic implements all items defined in:
 3. docs/sre/synthetic-tests-and-deploy-gates.md
 4. docs/sre/runbook-templates.md
 5. docs/sre/incident-severity-policy.md
+6. docs/sre/sprint-ready-tickets-90-day-reliability.md
 
 ## Phase 1 (Days 0-30): Foundations
 
