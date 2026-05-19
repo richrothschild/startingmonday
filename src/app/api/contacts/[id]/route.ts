@@ -3,11 +3,11 @@ import { requireAuth } from '@/lib/require-auth'
 import { withApiTelemetry } from '@/lib/telemetry'
 import { NextRequest, NextResponse } from 'next/server'
 
-async function deleteHandler(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const auth = await requireAuth(_req)
+async function deleteHandler(req: NextRequest, context: unknown) {
+  const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
-  const { id } = await context.params
+  const { id } = await (context as { params: Promise<{ id: string }> }).params
   const supabase = await createClient()
 
   try {
