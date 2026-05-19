@@ -61,7 +61,7 @@ const FAQS = [
     id: 'pricing',
     category: 'Investment & ROI',
     question: 'What does this cost and what is the ROI?',
-    answer: 'Coach previews are free for 30 days—no payment, no commitment. If a coach wants to roll into live client referrals, pricing is $X per client per month (see pricing page). Most coaches see ROI within 60 days because they spend less time rebuilding context and more time on strategy. Early adopters report 10-15% faster client placements and higher referral rates. Detailed economics and ROI calculator are on the economics page.',
+    answer: 'Coach previews are free for 30 days-no payment, no commitment. After preview, coaches can choose a buyer plan ($99/mo + $39 per active client seat, or $249/mo for a small client book) or a referral lane where clients subscribe directly and the coach earns recurring partner revenue. Most coaches see ROI within 60 days because they spend less time rebuilding context and more time on strategy. Detailed economics and ROI calculator are on the economics page.',
   },
   {
     id: 'support',
@@ -120,7 +120,7 @@ const OBJECTIONS = [
   {
     id: 'cost',
     objection: '"I cannot afford another monthly software subscription."',
-    response: 'The preview is free. If it does not work, you pay nothing. If it does work, most coaches see 1-2 additional placements in the first 90 days, which pays for the subscription many times over. ROI calculator on the economics page shows breakeven at 1-2 additional referrals per year. And you pass the cost to clients if you choose—many coaches add this as a coaching premium for active transitions.',
+    response: 'The preview is free. If it does not work, you pay nothing. If it does work, you have two pricing paths: a direct coach plan ($99 + $39 per active seat or $249 for a small book) or a referral path where clients subscribe and you earn recurring partner revenue. ROI calculator on the economics page shows breakeven at a very low lift in placement outcomes or retained clients.',
   },
   {
     id: 'data-risk',

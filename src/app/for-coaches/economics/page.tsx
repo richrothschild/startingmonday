@@ -4,6 +4,24 @@ import { CoachPreviewActions } from '../coach-preview-actions'
 
 const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
 
+const COACH_BUYER_PLANS = [
+  {
+    name: 'Starter Coach',
+    price: '$99/mo + $39 per active client seat',
+    fit: 'Best for solo coaches running 1-4 active transitions and wanting a low-friction start.',
+  },
+  {
+    name: 'Studio Coach',
+    price: '$249/mo (small client book)',
+    fit: 'Best for boutique coaches who want predictable spend for a small active client roster.',
+  },
+  {
+    name: 'Team Coach',
+    price: '$599/mo (up to 10 client seats)',
+    fit: 'Best for firms with multiple active transitions that need shared visibility and workload control.',
+  },
+]
+
 export const metadata: Metadata = {
   title: 'Coach Pricing and Economics | Starting Monday',
   description: 'Client pricing, partner economics, and preview structure for executive coaches evaluating Starting Monday.',
@@ -75,13 +93,32 @@ export default function CoachEconomicsPage() {
           </p>
           <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed">
             <p>{PREVIEW_SENTENCE}</p>
-            <p>After the preview, coaches can either keep recommending the standard client plans or discuss preferred-partner rollout if they are enrolling multiple clients.</p>
+            <p>After the preview, coaches can either buy a coach plan directly or use the referral-partner model if they prefer clients to subscribe directly.</p>
+            <p>Starting Monday does not replace coaching sessions. It increases session yield by reducing context rebuild and improving between-session execution.</p>
           </div>
         </section>
 
         <section className="mb-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
-            Client pricing
+            Coach buyer pricing (primary path)
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {COACH_BUYER_PLANS.map((plan) => (
+              <div key={plan.name} className="border border-slate-200 rounded-2xl p-5 bg-white">
+                <p className="text-[16px] font-semibold text-slate-900 mb-1">{plan.name}</p>
+                <p className="text-[20px] font-bold text-orange-600 mb-3">{plan.price}</p>
+                <p className="text-[14px] text-slate-600 leading-relaxed">{plan.fit}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-[12px] text-slate-500 mt-4">
+            These plans are designed to stay below one lost coaching session of value per month while improving client readiness and session quality.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+            Referral lane: client pricing
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {CLIENT_PLANS.map((plan) => (
@@ -93,13 +130,13 @@ export default function CoachEconomicsPage() {
             ))}
           </div>
           <p className="text-[12px] text-slate-500 mt-4">
-            All client plans start with a 30-day free trial and no credit card. The coach preview exists to make the referral decision low-risk before a broader rollout.
+            All client plans start with a 30-day free trial and no credit card. Use this lane when you want clients to own the subscription directly.
           </p>
         </section>
 
         <section className="mb-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
-            Partner economics
+            Referral partner economics (secondary path)
           </p>
           <div className="border border-slate-200 rounded-2xl p-6 bg-white">
             <ul className="space-y-3 mb-5">
