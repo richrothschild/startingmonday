@@ -78,6 +78,9 @@ export async function POST(request: NextRequest) {
     captchaToken: captchaToken || null,
     rateLimitKey: 'optimize',
     maxPerMinute: 3,
+    // Optimize page currently does not render a Turnstile widget/token.
+    // Keep anti-abuse via burst + daily limits while avoiding false failures.
+    requireCaptcha: false,
   })
   if (blocked) return blocked
 

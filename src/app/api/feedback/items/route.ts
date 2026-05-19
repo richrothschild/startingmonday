@@ -120,6 +120,7 @@ export async function POST(req: NextRequest) {
     const { data: feedbackItem, error } = await (supabase
       .from('feedback_items') as any)
       .insert({
+        type: 'feedback',
         title,
         body: feedbackBody,
         category,

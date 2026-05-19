@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { ContactStatusStepper } from '@/components/ContactStatusStepper'
-import { markContactSentForm } from '../actions'
+import { markContactSentForm, scheduleMeetingFollowUp } from '../actions'
 import { addContactFollowUp, logOutreach } from './actions'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
@@ -35,10 +35,10 @@ export default async function ContactDetailPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ sent?: string; logged?: string }>
+  searchParams: Promise<{ sent?: string; logged?: string; meeting?: string }>
 }) {
   const { id } = await params
-  const { sent, logged } = await searchParams
+  const { sent, logged, meeting } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -247,6 +247,14 @@ export default async function ContactDetailPage({
                 Mark contacted
               </button>
             </form>
+            <form action={scheduleMeetingFollowUp.bind(null, id, contact.name)}>
+              <button
+                type="submit"
+                className="border border-slate-200 hover:border-slate-400 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer bg-white"
+              >
+                Schedule meeting
+              </button>
+            </form>
             {contact.linkedin_url && (
               <a
                 href={contact.linkedin_url}
@@ -306,6 +314,12 @@ export default async function ContactDetailPage({
         {logged === '1' && (
           <div className="bg-green-50 border border-green-200 rounded-lg px-5 py-3 mb-5 text-[13px] text-green-700 font-medium">
             Outreach logged.
+          </div>
+        )}
+
+        {meeting === '1' && (
+          <div className="bg-green-50 border border-green-200 rounded-lg px-5 py-3 mb-5 text-[13px] text-green-700 font-medium">
+            Meeting follow-up scheduled.
           </div>
         )}
 
