@@ -1,17 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
-  const sb = supabase as any
+  const sb = asLooseSupabaseClient(supabase)
 
   const [{ data: issueFlags }, { data: revenueFlags }] = await Promise.all([
     sb.from('support_issue_triage').select('id, severity, category, status, created_at').eq('user_id', userId).eq('status', 'open').order('created_at', { ascending: false }).limit(50),

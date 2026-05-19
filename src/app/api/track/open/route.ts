@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { parsePixelToken, parsePixelTokenSigned } from '@/lib/pixel-token'
+import { parsePixelTokenLegacyForTelemetry, parsePixelTokenSigned } from '@/lib/pixel-token'
 
 // 1x1 transparent GIF
 const PIXEL = Buffer.from(
@@ -17,14 +17,15 @@ function createAdminClient() {
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get('t')
-  const requireSignedTokens = process.env.PIXEL_TOKEN_REQUIRE_SIGNATURE === 'true'
+  const payload = token ? parsePixelTokenSigned(token) : null
 
-  // Try signed token first (preferred), then fall back to unsigned only when strict mode is off.
-  let payload = token ? parsePixelTokenSigned(token) : null
-  const isSigned = !!payload
-
-  if (!payload && token && !requireSignedTokens) {
-    payload = parsePixelToken(token)
+  if (!payload && token) {
+    const legacyPayload = parsePixelTokenLegacyForTelemetry(token)
+    if (legacyPayload) {
+      console.warn(
+        `[pixel] rejected unsigned token for uid=${legacyPayload.uid} type=${legacyPayload.type}`,
+      )
+    }
   }
 
   if (payload) {
@@ -45,7 +46,7 @@ export async function GET(request: NextRequest) {
           open_ip: ip,
           user_agent: ua,
           raw_token: token,
-          token_signed: isSigned,
+          token_signed: true,
         })
 
       if (error) {

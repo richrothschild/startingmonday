@@ -1,24 +1,29 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { z } from 'zod'
+import { asLooseSupabaseClient, parseAutomationBody, requireAutomationAccess } from '@/lib/admin-automation-route'
+
+const deploymentValidationSchema = z.object({
+  environment: z.string().trim().toLowerCase().default('production'),
+  apiHealth: z.boolean().optional(),
+  dbHealth: z.boolean().optional(),
+  jobsHealth: z.boolean().optional(),
+})
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
-  const sb = supabase as any
-  const body = await request.json().catch(() => ({}))
+  const sb = asLooseSupabaseClient(supabase)
+  const parsedBody = await parseAutomationBody(request, deploymentValidationSchema)
+  if (!parsedBody.ok) return parsedBody.response
+  const body = parsedBody.body
 
-  const environment = (body?.environment ?? 'production').toString().trim().toLowerCase()
+  const environment = body.environment
   const checks = {
-    api_health: body?.apiHealth !== false,
-    db_health: body?.dbHealth !== false,
-    background_jobs: body?.jobsHealth !== false,
+    api_health: body.apiHealth !== false,
+    db_health: body.dbHealth !== false,
+    background_jobs: body.jobsHealth !== false,
   }
   const failureCount = Object.values(checks).filter(v => !v).length
   const status = failureCount === 0 ? 'healthy' : failureCount === 1 ? 'degraded' : 'unknown'

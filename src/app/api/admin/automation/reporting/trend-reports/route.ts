@@ -1,17 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
-  const sb = supabase as any
+  const sb = asLooseSupabaseClient(supabase)
 
   const [{ data: usageRuns }, { data: healthRuns }, { data: statusReports }] = await Promise.all([
     sb.from('usage_monitor_runs').select('metrics, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(8),
@@ -19,8 +14,9 @@ export async function POST(request: NextRequest) {
     sb.from('customer_status_reports').select('report_payload, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(8),
   ])
 
-  const avgHealth = (healthRuns?.length ?? 0) > 0
-    ? Math.round((healthRuns ?? []).reduce((sum: number, h: { health_score?: number }) => sum + Number(h.health_score ?? 0), 0) / (healthRuns?.length ?? 1))
+  const healthRows = Array.isArray(healthRuns) ? healthRuns as Array<{ health_score?: number }> : []
+  const avgHealth = healthRows.length > 0
+    ? Math.round(healthRows.reduce((sum, h) => sum + Number(h.health_score ?? 0), 0) / healthRows.length)
     : 0
 
   const trendPayload = {

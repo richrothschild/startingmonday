@@ -32,7 +32,8 @@ const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   console.error('Missing required env: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY')
-  process.exit(1)
+  process.exitCode = 1
+  throw new Error('Missing required Supabase environment variables')
 }
 
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY)
@@ -223,5 +224,5 @@ async function run() {
 
 run().catch(err => {
   console.error('check-data-integrity fatal error:', err)
-  process.exit(1)
+  process.exitCode = 1
 })

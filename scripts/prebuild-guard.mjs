@@ -36,7 +36,7 @@ if (filesWithEmDash.length > 0) {
   for (const file of filesWithEmDash) {
     console.error(` - ${file}`)
   }
-  process.exit(1)
+  process.exitCode = 1
 }
 
 const railwayEnvironment = (process.env.RAILWAY_ENVIRONMENT ?? process.env.RAILWAY_ENVIRONMENT_NAME ?? '').toLowerCase()
@@ -53,7 +53,7 @@ if (isProductionRailway) {
     for (const key of missing) {
       console.error(` - ${key}`)
     }
-    process.exit(1)
+    process.exitCode = 1
   }
 }
 

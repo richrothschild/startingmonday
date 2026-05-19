@@ -172,12 +172,12 @@ async function main() {
   }
 
   if (failures.length) {
-    process.exit(1)
+    process.exitCode = 1
   }
 }
 
 main().catch((error) => {
   const message = error instanceof Error ? error.message : 'smoke check failed'
   console.error(message)
-  process.exit(1)
+  process.exitCode = 1
 })

@@ -62,10 +62,19 @@ export async function POST(request: NextRequest) {
   if (!text) return NextResponse.json({ error: 'No text found in file' }, { status: 422 })
   if (text.length > MAX_TEXT) text = text.slice(0, MAX_TEXT)
 
-  const { error } = await supabase
+  let { error } = await supabase
     .from('user_profiles')
-    .update({ linkedin_about: text })
+    .update({ linkedin_raw_text: text })
     .eq('user_id', userId)
+
+  // Compatibility fallback while linkedin_raw_text migration rolls out everywhere.
+  if (error && error.message.toLowerCase().includes('linkedin_raw_text')) {
+    const fallback = await supabase
+      .from('user_profiles')
+      .update({ linkedin_about: text })
+      .eq('user_id', userId)
+    error = fallback.error
+  }
 
   if (error) {
     console.error('[upload-linkedin] supabase error:', JSON.stringify(error))

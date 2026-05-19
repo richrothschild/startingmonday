@@ -320,6 +320,7 @@ export type Database = {
           current_title: string | null
           current_company: string | null
           linkedin_url: string | null
+          linkedin_raw_text: string | null
           beyond_resume: string | null
           onboarding_completed_at: string | null
           momentum_score: number | null

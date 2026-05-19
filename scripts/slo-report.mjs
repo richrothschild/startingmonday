@@ -246,11 +246,11 @@ async function run() {
   // Exit 1 if any P0 SLO is violated or fast-burn is active
   const p0 = report.tier_summaries.find(t => t.tier === 'P0')
   if (p0 && (!p0.slo_met || p0.burn_rate_alert)) {
-    process.exit(1)
+    process.exitCode = 1
   }
 }
 
 run().catch(err => {
   console.error('slo-report error:', err)
-  process.exit(1)
+  process.exitCode = 1
 })

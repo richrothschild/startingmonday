@@ -1,23 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
-  const sb = supabase as any
+  const sb = asLooseSupabaseClient(supabase)
 
   const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
   const [{ count: events24h }, { count: followups24h }, { count: signals24h }] = await Promise.all([
-    supabase.from('user_events').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
-    supabase.from('follow_ups').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
-    supabase.from('company_signals').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
+    sb.from('user_events').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
+    sb.from('follow_ups').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
+    sb.from('company_signals').select('id', { count: 'exact', head: true }).eq('user_id', userId).gte('created_at', since24h),
   ])
 
   const snapshotPayload = {

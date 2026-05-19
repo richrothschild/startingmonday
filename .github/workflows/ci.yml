@@ -27,14 +27,20 @@ jobs:
       - name: Dependency policy check
         run: npm run deps:check
 
+      - name: Documentation command check
+        run: npm run docs:check-commands
+
       - name: Install dependencies
         run: npm ci
 
       - name: Lint
         run: npm run lint
 
+      - name: Lint baseline regression check
+        run: npm run lint:check-baseline
+
       - name: Type check
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Build
         run: npm run build
