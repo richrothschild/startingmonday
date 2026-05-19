@@ -6,6 +6,66 @@ Items here are validated ideas deferred from the active roadmap. Each entry incl
 
 ---
 
+## Backlog Review View (Chris Planning)
+
+Use this section during review to decide what Chris can own now, what to queue next, and what to defer.
+
+### Decision Rules
+
+1. Pull items that are implementation-ready and low-coupling first.
+2. Avoid work that requires staging architecture unless the staging decision is approved in the same sprint.
+3. Prefer items that reduce production risk or unblock acquisition-sensitive flows.
+4. Assign one primary owner per item before kickoff.
+
+### Priority Buckets
+
+#### Now (Ready to assign)
+
+| ID | Item | Why now | Suggested owner | Effort |
+| --- | --- | --- | --- | --- |
+| B1 | Form Validation (Zod) | Prevents broken onboarding and malformed API payloads before growth pushes | Chris (backend) | M |
+| B2 | Playwright E2E (4 critical paths) | Catches auth/billing/onboarding regressions before users report them | Chris + QA pairing | L |
+| B3 | Turnstile re-enable on auth/public endpoints | Abuse prevention risk grows with traffic; implementation already exists | Chris (backend) | S |
+| B4 | Migration rollback playbooks | Reduces blast radius on schema changes touching production data | Chris (backend/data) | M |
+| B5 | Semgrep Cloud onboarding completion | Turns existing scan into managed security workflow with visibility | Chris (platform) | S |
+
+#### Next (Start after one Now item ships)
+
+| ID | Item | Start condition | Suggested owner | Effort |
+| --- | --- | --- | --- | --- |
+| B6 | Supabase staging project + migration flow | Before any billing/auth/pipeline-sensitive migration | Chris (platform/data) | M |
+| B7 | Seed data script for staging realism | After staging project exists | Chris (backend) | S |
+| B8 | Resend staging routing | After Railway staging exists | Chris (platform) | S |
+| B9 | Secret split per environment | After staging exists | Chris (platform) | S |
+| B10 | Accessibility WCAG 2.1 AA pass | Before institutional B2B procurement motion | Chris + frontend | M |
+
+#### Later (Strategic, not immediate execution)
+
+| ID | Item family | Trigger |
+| --- | --- | --- |
+| B11 | Data gravity features (accomplishment repository, intelligence archive) | After retention and 100+ paying users |
+| B12 | Alumni and competitive-intelligence extensions | After core search PMF + alumni signal |
+| B13 | Network and recruiter layers | After sufficient scale and trust architecture |
+| B14 | Adjacent products | Separate product decision cycle |
+
+### Chris Candidate Workstream (Recommended Sequence)
+
+1. B3 Turnstile re-enable (fast risk reduction)
+2. B1 Form Validation with Zod (stability foundation)
+3. B2 Playwright critical-path suite (release confidence)
+4. B4 Migration rollback playbooks (data safety)
+5. B5 Semgrep Cloud onboarding (security operations)
+
+### Review Checklist for Meeting
+
+1. Confirm one sprint goal for Chris: risk reduction, release confidence, or staging readiness.
+2. Pick top 2 items from Now and lock owners.
+3. Define done criteria and demo artifact for each selected item.
+4. Capture explicit defer decisions for anything not selected.
+5. Schedule follow-up date to re-rank Next bucket.
+
+---
+
 ## Engineering Infrastructure
 
 ### Reliability Operating Package and 90-Day Rollout Epic
@@ -63,6 +123,7 @@ Move forward when: 100+ active users or first A/B test need.
 Move forward when: Railway staging environment exists.
 
 **Cloudflare Turnstile (Captcha on Auth)** — Signup, login (password and OAuth), and public endpoints currently have no abuse protection. Turnstile infrastructure is in place (CSP configured, library integrated, server verification implemented) but disabled. When re-enabled:
+
 - Client-side widget loads on auth pages; users solve captcha before submitting credentials.
 - Server routes (`/api/auth/verify-and-signin`, `/api/auth/verify-and-signup`, `/api/auth/verify-and-oauth`) verify token before auth operations.
 - Public endpoints (intake forms, demo routes) are gated with per-IP rate limiting + captcha verification.
