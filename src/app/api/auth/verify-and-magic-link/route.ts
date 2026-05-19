@@ -1,8 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { getClientIp } from '@/lib/public-endpoint-guard'
-import { checkRateLimit } from '@/lib/rate-limit'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export const runtime = 'nodejs'
 
@@ -12,16 +11,12 @@ type RequestBody = {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = getClientIp(request)
-  const rateLimitKey = `magic-link:${ip}`
-
-  const { allowed, retryAfter } = checkRateLimit(rateLimitKey, 5)
-  if (!allowed) {
-    return NextResponse.json(
-      { ok: false, error: 'Too many attempts. Please try again later.' },
-      { status: 429, headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {} }
-    )
-  }
+  const guardResponse = await enforcePublicEndpointGuard({
+    request,
+    rateLimitKey: 'magic-link',
+    maxPerMinute: 5,
+  })
+  if (guardResponse) return guardResponse
 
   let body: RequestBody
   try {

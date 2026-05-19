@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { NextResponse } from 'next/server'
+import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { requireAuth } from '@/lib/require-auth'
 
 const ENRICHMENT_API_URL = 'https://api.clearbit.com/v2/companies/find'
 const ENRICHMENT_API_KEY = process.env.CLEARBIT_API_KEY
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const sessionAuth = await requireAuth(request)
+  if (!sessionAuth.ok) return sessionAuth.response
+  const auth = await requireStaffAutomationAccess(request)
+  if (!auth.ok) return auth.response
   if (!ENRICHMENT_API_KEY) {
     return NextResponse.json({ error: 'Enrichment API key not configured' }, { status: 500 })
   }

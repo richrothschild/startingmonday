@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { NextResponse } from 'next/server'
+import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { requireAuth } from '@/lib/require-auth'
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const sessionAuth = await requireAuth(request)
+  if (!sessionAuth.ok) return sessionAuth.response
+  const auth = await requireStaffAutomationAccess(request)
+  if (!auth.ok) return auth.response
   const admin = createAdminClient() as any
 
   const { data: accountsRaw, error: fetchError } = await admin
