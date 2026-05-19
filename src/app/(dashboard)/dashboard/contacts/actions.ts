@@ -156,7 +156,7 @@ export async function updateOutreachStatus(contactId: string, status: string): P
   if (status === 'closed') {
     await supabase
       .from('follow_ups')
-      .update({ status: 'done' })
+      .update({ status: 'completed' })
       .eq('user_id', user.id)
       .eq('contact_id', contactId)
       .eq('status', 'pending')

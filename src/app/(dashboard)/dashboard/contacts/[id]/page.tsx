@@ -129,7 +129,7 @@ export default async function ContactDetailPage({
 
   const allFollowUps = followUps ?? []
   const pendingFollowUps = allFollowUps.filter(f => f.status === 'pending')
-  const doneFollowUps = allFollowUps.filter(f => f.status === 'done')
+  const doneFollowUps = allFollowUps.filter(f => f.status === 'completed')
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
