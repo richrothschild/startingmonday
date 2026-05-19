@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { requireAuth, withAuthCookies } from '@/lib/require-auth'
+import { requireAuth } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
 import { withApiTelemetry } from '@/lib/telemetry'
@@ -103,7 +103,7 @@ async function postHandler(req: NextRequest) {
   const { userId } = auth
 
   const authJson = (payload: unknown, status: number) =>
-    withAuthCookies(NextResponse.json(payload, { status }), auth)
+    NextResponse.json(payload, { status })
 
   try {
     const body = await req.json()
