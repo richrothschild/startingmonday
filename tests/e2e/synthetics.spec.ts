@@ -131,7 +131,7 @@ test('Synthetic-04: feedback submission returns 201 within budget', async ({ pag
     data: {
       title: syntheticTitle,
       body: 'This is a synthetic reliability test submission. Safe to delete.',
-      category: 'general',
+      category: 'other',
     },
     failOnStatusCode: false,
   })
