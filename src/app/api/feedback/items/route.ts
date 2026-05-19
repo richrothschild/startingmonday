@@ -1,3 +1,4 @@
+import { createClient } from '@/lib/supabase/server'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
