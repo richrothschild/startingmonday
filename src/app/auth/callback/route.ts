@@ -65,16 +65,19 @@ export async function GET(request: NextRequest) {
     }))
 
     if (!error && data.session && data.user) {
+      const user = data.user
+      const userId = user.id
+      const userEmail = user.email
       const utmSource = searchParams.get('utm_source')
       const utmMedium = searchParams.get('utm_medium')
-      const isNewUser = data.user.created_at
-        ? (Date.now() - new Date(data.user.created_at).getTime()) < 60_000
+      const isNewUser = user.created_at
+        ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
       // utm_source carries the referral code when signup came through a partner link (?ref=CODE)
       const refCode = utmSource && /^[A-Z0-9]{6,12}$/.test(utmSource) ? utmSource : null
       await Promise.all([
         supabase.from('user_profiles').upsert(
-          { user_id: data.user.id, ...(refCode ? { referred_by: refCode } : {}) },
+          { user_id: userId, ...(refCode ? { referred_by: refCode } : {}) },
           { onConflict: 'user_id', ignoreDuplicates: true }
         ),
         utmSource
@@ -82,13 +85,13 @@ export async function GET(request: NextRequest) {
               signup_source: utmSource,
               acquisition_channel: utmMedium ?? (refCode ? 'referral' : null),
               referral_source: utmSource,
-            }).eq('id', data.user.id)
+            }).eq('id', userId)
           : Promise.resolve(),
         isNewUser
           ? fetch(`${publicOrigin}/api/notify/new-user`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: utmSource }),
+              body: JSON.stringify({ email: userEmail, tier: 'trialing', source: utmSource }),
             }).catch(() => {})
           : Promise.resolve(),
         isNewUser && refCode
@@ -102,7 +105,7 @@ export async function GET(request: NextRequest) {
                 .maybeSingle()
               if (partner) {
                 await admin.from('referral_attributions').upsert(
-                  { signup_user_id: data.user.id, partner_id: partner.id },
+                  { signup_user_id: userId, partner_id: partner.id },
                   { onConflict: 'signup_user_id', ignoreDuplicates: true }
                 )
               }
