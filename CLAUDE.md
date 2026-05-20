@@ -65,6 +65,30 @@ Key env var names (values live in Doppler only):
 
 ---
 
+## Daily Session Workflow
+
+**One session per day, one branch per day.** This prevents commits landing on the wrong branch and keeps context manageable.
+
+**Daily routine:**
+1. Start a fresh Claude Code session each morning (don't resume yesterday's)
+2. Use this bootstrap prompt at the start of every session:
+   ```
+   Project: C:\Dev\StartingMonday
+   Read CLAUDE.md for full project context.
+   Today's tickets: SMK-XX, SMK-XX
+   ```
+3. Create a daily branch before writing any code:
+   ```
+   git checkout main && git pull origin main
+   git checkout -b dev/YYYY-MM-DD
+   ```
+4. All work for the day goes on that branch
+5. At end of day, split into per-ticket PRs if needed, or PR the whole branch
+
+**Per-ticket PRs:** When a ticket is complete, cherry-pick its commits onto a `SMK-XX/description` branch and open a PR from there. The daily branch continues with the next ticket.
+
+---
+
 ## GitHub
 
 Repo: https://github.com/richrothschild/startingmonday
@@ -74,7 +98,7 @@ Repo: https://github.com/richrothschild/startingmonday
 **PRs:** Always request `richrothschild` as reviewer. Include Jira ticket number in PR title (e.g. `feat(SMK-13): ...`). Use `Closes SMK-XX` in PR body.
 
 **CI checks on PRs:**
-- `Predeploy gates (lint, typecheck, build, smoke)` — **Required** check. As of May 2026 this is failing on `main` due to pre-existing lint errors in `extract_pdf.js`, `probe.js`, `run_extract.js`, and some admin pages. These are NOT caused by our PRs. Rich can bypass via "Merge without waiting for requirements" if all our changed files are clean.
+- `Predeploy gates (lint, typecheck, build, smoke)` — **Required** check. As of May 2026, PR #20 fixes the pre-existing lint errors. Once merged, CI should be green on all future PRs.
 - `Playwright E2E` — passes
 - `Semgrep security scan` — passes
 
