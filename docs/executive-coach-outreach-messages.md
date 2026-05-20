@@ -6,21 +6,49 @@ Purpose: Ready-to-send Sales Navigator outreach sequence for executive coaches.
 
 Subject:
 
-[First Name], useful for keeping clients moving between sessions?
+[First Name], would it be unreasonable to make every client meeting prep-ready?
 
 Body:
 
 Hi [First Name],
 
-Quick observation from the coaching practices we speak with: too much session time gets spent rebuilding search context instead of coaching decisions.
+Quick observation from the coaching practices we speak with: too much paid session time gets spent rebuilding context instead of making strategic decisions.
 
-Starting Monday handles the between-session execution layer with daily role and company signals, prep briefs, and pipeline tracking your clients can actually follow.
+Starting Monday gives you one place to stay on top of each client between sessions: signal monitoring, prep briefs, and pipeline accountability.
 
-Coaches use this to get sharper sessions from minute one, better client follow-through, and less admin drag.
+The practical effect is simple: clients arrive prepared, you spend less time on admin, and more of the session stays in judgment, narrative, and strategy.
 
 You can see the overview here: <https://startingmonday.app/for-coaches>
 
-If it helps, reply yes and I will send two sample prep briefs so you can decide quickly if it fits your practice.
+If helpful, reply yes and I will send two sample prep briefs so you can decide in under five minutes whether it fits your practice.
+
+Rich
+startingmonday.app
+
+## Subject Line Options (A/B)
+
+- [First Name], easily stay on top of each client in one place
+- [First Name], how would you feel if every client arrived prepared?
+- [First Name], would it be a bad idea to stop rebuilding context every session?
+- [First Name], one place for client prep, signals, and accountability
+
+## Alternate First-Touch Variant (Negative Question Style)
+
+Subject:
+
+[First Name], would it be a mistake to keep prepping manually?
+
+Body:
+
+Hi [First Name],
+
+How would you feel if your clients were prepared for every high-stakes conversation, without you spending extra hours between sessions?
+
+Most coaches we talk to are still doing the between-session layer manually: tracking signals in one tool, prep in another, and accountability in memory.
+
+Starting Monday brings that into one operating layer so you can easily stay on top of each client in one place.
+
+If this is useful, reply yes and I will send a 60-second sample plus two prep briefs.
 
 Rich
 startingmonday.app
@@ -103,6 +131,7 @@ Either way, appreciate the work you do.
 
 - Reference one real signal: post, interview, niche, or client type.
 - Lead with coach outcome first, not product features.
+- Use one calibrated question to create reflection, not pressure.
 - Keep ask small: 15-minute call.
 - Keep tone peer-to-peer, not sales-heavy.
 

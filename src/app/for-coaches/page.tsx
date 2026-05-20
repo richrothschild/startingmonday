@@ -141,7 +141,37 @@ const COACH_SCOREBOARD = [
   },
 ]
 
-const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
+const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and a simple way to easily stay on top of each client in one place.'
+
+const COUNCIL_BUY_SIGNALS = [
+  {
+    title: 'Outcomes they will pay for',
+    points: [
+      'Clients arrive prepared for high-stakes meetings',
+      'Less session time rebuilding context from memory',
+      'Faster first interviews and cleaner weekly momentum',
+      'Coach can spot stalls before the client loses confidence',
+    ],
+  },
+  {
+    title: 'Feelings to address directly',
+    points: [
+      '"I am spending too much time on prep and admin, not strategy"',
+      '"My client is too busy, so important prep gets skipped"',
+      '"I do not want to coach half-blind between sessions"',
+      '"I need to feel in control of every client account"',
+    ],
+  },
+  {
+    title: 'What Starting Monday offers',
+    points: [
+      'Shared coach-client signal and pipeline visibility',
+      'Prep briefs usually ready in about a minute',
+      'Daily focus prompts so clients make one good move each morning',
+      '30-day pass/fail scorecard before any rollout decision',
+    ],
+  },
+]
 
 const PILOT_SCORECARD = [
   {
@@ -214,6 +244,9 @@ export default function ForCoachesPage() {
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed max-w-lg mb-6">
             Coaches without shared intelligence are coaching half-blind. This gives them the same context their clients need before the market gets noisy.
+          </p>
+          <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
+            How would you feel if each client came into every meeting prepared, while you spent less time chasing prep and more time coaching strategy?
           </p>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
@@ -365,6 +398,33 @@ export default function ForCoachesPage() {
               <Link href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 Jump to next step
               </Link>
+            </div>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
+              What coaches said they would buy for
+            </p>
+            <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">
+              Lead with outcomes. Name the pressure. Show the path.
+            </h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-7 max-w-xl">
+              Council feedback was consistent: the page should persuade on practical outcomes and emotional relief first, then prove the workflow. This section captures the highest-frequency buy criteria.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              {COUNCIL_BUY_SIGNALS.map((column) => (
+                <div key={column.title} className="border border-slate-200 rounded-xl p-5 bg-white">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-3">{column.title}</p>
+                  <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed">
+                    {column.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <span className="text-orange-500 shrink-0 mt-0.5">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </section>
 
