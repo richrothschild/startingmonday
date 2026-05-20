@@ -232,7 +232,7 @@ export default function ForCoachesPage() {
             Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Easily stay on top of each client in one place.<br />
+            Easily stay on top of every client in one place.<br />
             Clients arrive prepared.<br />
             You stay in strategy.
           </h1>
@@ -273,34 +273,49 @@ export default function ForCoachesPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Why coaches buy
             </p>
-            <p className="text-[12px] text-slate-500 mb-5">
-              Coaches do not buy another tool. They buy better session quality, better client momentum, and relief from prep chaos.
+            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+              Coaches buy outcomes first, emotional relief second, workflow proof third.
+            </h2>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
+              This is not a feature purchase. Coaches buy when they believe three things: clients will show up prepared, the coach will feel in control between sessions, and the process can be tested quickly without adding operational drag.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-              {PROOF_METRICS.map((metric) => (
-                <div key={metric.value} className="border border-slate-100 rounded-xl p-4 bg-slate-50">
-                  <p className="text-[24px] font-bold text-slate-900 leading-none mb-2">{metric.value}</p>
-                  <p className="text-[12px] text-slate-600 leading-relaxed">{metric.label}</p>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">1) Outcome they want</p>
+                <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                  <li>• Clients come to meetings prepared</li>
+                  <li>• Less paid time rebuilding context</li>
+                  <li>• Faster momentum toward interviews</li>
+                </ul>
+              </div>
+              <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">2) Feeling they are buying</p>
+                <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                  <li>• "I am not coaching half-blind"</li>
+                  <li>• "I can see stalls before confidence drops"</li>
+                  <li>• "I am spending time on strategy, not admin"</li>
+                </ul>
+              </div>
+              <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">3) Offer that lowers risk</p>
+                <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                  <li>• 30-day test with 2-3 live clients</li>
+                  <li>• Pass/fail scorecard before rollout</li>
+                  <li>• Keep if it improves coaching outcomes</li>
+                </ul>
+              </div>
             </div>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-2">
-              Verified pilot evidence is from the executive cohort, not coach-claimed anecdotes. The pattern is consistent: when coaches and clients share one operating layer, clients prepare earlier and sessions shift toward strategy.
-            </p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mb-4">
-              Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026. Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.
-            </p>
-            <div className="border border-orange-100 bg-orange-50/50 rounded-xl p-4 mb-4">
-              <p className="text-[12px] font-semibold text-slate-900 mb-2">Emotional and workflow shift in first 30 days</p>
+            <div className="border border-slate-200 rounded-xl p-4 bg-white mb-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">What makes this credible</p>
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                43% of early adopting coaches brought the daily briefing into sessions within the first month. Coaches do not do that unless it reduces friction and improves outcomes.
+                Early pilot signal is directional but useful: 81% of the Jan-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
               </p>
-              <p className="text-[12px] text-slate-600 leading-relaxed">
-                Coaches reported feeling more in control of each client account within 30 days: less guessing from memory, clearer visibility into stalls, and stronger accountability between meetings.
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Denominator: 27 pilot executives. Use this as decision support, then validate fit with your own 30-day pass/fail test.
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
-              More evidence and claim mapping live in <Link href="/references" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Evidence and References</Link>. <Link href="/for-coaches/faq#proof" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">Learn more about our validation methodology →</Link>
+              More details live in <Link href="/references" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Evidence and References</Link> and <Link href="/for-coaches/faq#proof" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">our proof methodology</Link>.
             </p>
           </section>
 

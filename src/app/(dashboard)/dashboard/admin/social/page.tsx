@@ -111,6 +111,34 @@ export default async function SocialAdminPage() {
         {/* Liz instructions */}
         <div className="mt-10 bg-white border border-slate-200 rounded p-6">
           <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow — Monday Through Friday</p>
+
+          <div className="mb-6 border border-blue-200 bg-blue-50/40 rounded p-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-blue-700 mb-2">Executive Coach Outreach Guide For Liz</p>
+            <p className="text-[13px] text-slate-700 leading-relaxed mb-3">
+              The full step-by-step guide, coach-finding criteria, and message options are in:
+              {' '}
+              <span className="font-mono text-slate-800">docs/liz-executive-coach-linkedin-guide.md</span>
+            </p>
+            <p className="text-[12px] text-slate-600 mb-2">Send-ready email draft:</p>
+            <div className="bg-white border border-blue-100 rounded p-3 text-[12px] text-slate-700 leading-relaxed">
+              <p><span className="font-semibold text-slate-900">Subject:</span> Executive coach outreach guide now live</p>
+              <p className="mt-2">Hi Liz,</p>
+              <p className="mt-1">
+                I published the daily executive coach outreach guide. It mirrors the Social page operating style and includes: coach-finding filters, persona criteria, objection tags, connection note options, and the 7-touch follow-up sequence.
+              </p>
+              <p className="mt-1">
+                Please start with this file: docs/liz-executive-coach-linkedin-guide.md
+              </p>
+              <p className="mt-1">Thanks, Rich</p>
+            </div>
+            <a
+              href="mailto:?subject=Executive%20coach%20outreach%20guide%20now%20live&body=Hi%20Liz%2C%0A%0AI%20published%20the%20daily%20executive%20coach%20outreach%20guide.%20It%20mirrors%20the%20Social%20page%20operating%20style%20and%20includes%3A%20coach-finding%20filters%2C%20persona%20criteria%2C%20objection%20tags%2C%20connection%20note%20options%2C%20and%20the%207-touch%20follow-up%20sequence.%0A%0APlease%20start%20with%20this%20file%3A%20docs%2Fliz-executive-coach-linkedin-guide.md%0A%0AThanks%2C%0ARich"
+              className="inline-block mt-3 text-[12px] font-semibold text-blue-700 border border-blue-200 rounded px-3 py-2 hover:border-blue-400 hover:text-blue-800 transition-colors"
+            >
+              Open email draft
+            </a>
+          </div>
+
           <ol className="flex flex-col gap-5">
             {[
               {
@@ -166,6 +194,20 @@ export default async function SocialAdminPage() {
             <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
               <p><span className="font-semibold text-slate-800">If no response after 3 days:</span> Happy to send a short demo video if that is easier than a live call.</p>
               <p className="mt-1"><span className="font-semibold text-slate-800">If no response after 7 days:</span> No pressure if timing is not right. If priorities shift, I am happy to reconnect.</p>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-slate-100">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Executive Coach Outreach - Quick Use</p>
+              <p className="text-[12px] text-slate-600 mb-3">
+                Steps and message options are now on this page and fully documented in the guide above.
+              </p>
+              <ol className="list-decimal pl-5 space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                <li>Build 10-15 daily prospects in Sales Navigator (1-10 employee firms, active in last 30 days).</li>
+                <li>Tag each coach persona (Transition, VP-to-CXO, Search Affiliate, Board).</li>
+                <li>Send personalized connection notes the same day.</li>
+                <li>Run the 7-touch sequence: day 0, 1, 3, 7, 14, 21, 30.</li>
+                <li>Log objections and outcomes after every touch.</li>
+              </ol>
             </div>
 
             <div className="mt-5 pt-4 border-t border-slate-100">
