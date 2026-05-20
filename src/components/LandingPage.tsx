@@ -275,6 +275,24 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
 
+          <div className="mt-8 max-w-4xl rounded-lg border border-slate-700 bg-slate-800/70 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Why this is credible</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Link href="/references" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
+                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">References</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">Peer-reviewed coaching, transition, and behavior-change sources mapped to each claim.</p>
+              </Link>
+              <Link href="/method-and-evidence" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
+                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">Method</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">How we estimate early role timing and keep uncertainty visible.</p>
+              </Link>
+              <Link href="/evidence-room" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
+                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">Evidence room</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">Claims, pilot metrics, update history, and the memo-style research brief.</p>
+              </Link>
+            </div>
+          </div>
+
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">
               Searching at a specific level?{' '}
