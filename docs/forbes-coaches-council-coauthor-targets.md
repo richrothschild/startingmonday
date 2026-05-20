@@ -27,6 +27,7 @@ The pitch to coaches is: "You provide the coaching lens and the Forbes platform.
 - Rank: #1 — Direct overlap with Starting Monday's core message.
 - Role: Tech career coach and executive coach, Silicon Valley's top talent
 - Company: CaffeinatedKyle.com
+- **Email: hello@CaffeinatedKyle.com**
 - Forbes profile: forbes.com/councils/forbescoachescouncil/people/kyleelliott1/
 - LinkedIn: linkedin.com/in/kylecromerelliott
 - Twitter/X: @CaffeinatedKyle

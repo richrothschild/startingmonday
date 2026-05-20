@@ -28,6 +28,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 }) {
   const isRothschildAdmin = accountEmail.toLowerCase() === 'rothschild@gmail.com'
   const [paused, setPaused] = useState(sub.isPaused)
+  const [now] = useState(() => Date.now())
   const [pauseDays, setPauseDays] = useState(14)
   const [loading, setLoading] = useState<string | null>(null)
   const [interval, setInterval] = useState<BillingInterval>('monthly')
@@ -125,7 +126,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   }
 
   const trialDaysLeft = sub.trialEndsAt
-    ? Math.max(0, Math.ceil((sub.trialEndsAt.getTime() - Date.now()) / 86_400_000))
+    ? Math.max(0, Math.ceil((sub.trialEndsAt.getTime() - now) / 86_400_000))
     : null
 
   const planLabel = paused ? 'Paused'
