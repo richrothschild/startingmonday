@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
+import { BrandIcon } from '@/components/BrandIcon'
 
 export const metadata: Metadata = {
   title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
@@ -610,17 +611,21 @@ export default function ForCoachesPage() {
             </p>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-6 text-[13px]">
-              <Link href="/for-coaches/faq" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
-                📖 Read the coach FAQ
+              <Link href="/for-coaches/faq" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                <BrandIcon name="faq" className="h-4 w-4 text-orange-600" />
+                Read the coach FAQ
               </Link>
-              <Link href="/for-coaches/faq#security" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
-                🔒 Data security guide
+              <Link href="/for-coaches/faq#security" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                <BrandIcon name="security" className="h-4 w-4 text-orange-600" />
+                Data security guide
               </Link>
-              <Link href="/for-coaches/trust-pack" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
-                🛡️ Coach trust pack
+              <Link href="/for-coaches/trust-pack" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                <BrandIcon name="trust" className="h-4 w-4 text-orange-600" />
+                Coach trust pack
               </Link>
-              <Link href="/for-coaches/economics" className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
-                💰 Pricing & economics
+              <Link href="/for-coaches/economics" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+                <BrandIcon name="pricing" className="h-4 w-4 text-orange-600" />
+                Pricing & economics
               </Link>
             </div>
             <div className="mt-6 border border-slate-200 rounded-2xl p-5 bg-slate-50">
@@ -645,34 +650,34 @@ export default function ForCoachesPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">More resources</p>
             <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">Questions? We&rsquo;ve got answers.</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <a href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              <Link href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/faq.svg" alt="FAQ icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
                   <p className="text-[12px] text-slate-500">Objections & responses</p>
                 </div>
-              </a>
-              <a href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              </Link>
+              <Link href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/security.svg" alt="Security icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
                   <p className="text-[12px] text-slate-500">Privacy & compliance</p>
                 </div>
-              </a>
-              <a href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              </Link>
+              <Link href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/security.svg" alt="Trust pack icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</p>
                   <p className="text-[12px] text-slate-500">No recruiter-side sharing + controls</p>
                 </div>
-              </a>
-              <a href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              </Link>
+              <Link href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/pricing.svg" alt="Pricing icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
                   <p className="text-[12px] text-slate-500">Investment & ROI</p>
                 </div>
-              </a>
+              </Link>
               <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/feedback.svg" alt="Feedback icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
@@ -680,20 +685,20 @@ export default function ForCoachesPage() {
                   <p className="text-[12px] text-slate-500">Share your thoughts</p>
                 </div>
               </a>
-              <a href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              <Link href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/evidence.svg" alt="Evidence icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
                   <p className="text-[12px] text-slate-500">Research & references</p>
                 </div>
-              </a>
-              <a href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+              </Link>
+              <Link href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                 <Image src="/brand/icon-exploration-v1/partner.svg" alt="Partner program icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
                   <p className="text-[12px] text-slate-500">Affiliate & referral</p>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

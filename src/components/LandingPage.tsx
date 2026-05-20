@@ -1,3 +1,4 @@
+import { BrandIcon } from '@/components/BrandIcon'
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import Image from 'next/image'
@@ -213,8 +214,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           {/* Competitive edge / FOMO */}
           {hero.competitiveEdge && (
-            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium">
-              ⚡ {hero.competitiveEdge}
+            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium inline-flex items-start gap-1.5">
+              <BrandIcon name="performance" className="h-4 w-4 text-orange-400 mt-[1px] shrink-0" />
+              <span>{hero.competitiveEdge}</span>
             </p>
           )}
 

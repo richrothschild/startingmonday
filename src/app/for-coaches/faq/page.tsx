@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
+import { BrandIcon } from '@/components/BrandIcon'
 
 export const metadata: Metadata = {
   title: 'Coach FAQ & Objection Responses | Starting Monday',
@@ -254,8 +255,9 @@ export default function CoachFaqPage() {
 
           {/* Data security deep dive */}
           <section id="security" className="mt-16 pt-12 border-t border-slate-300">
-            <h2 className="text-[20px] font-bold text-slate-900 mb-6">
-              🔒 Data Security & Compliance Deep Dive
+            <h2 className="text-[20px] font-bold text-slate-900 mb-6 inline-flex items-center gap-2">
+              <BrandIcon name="security" className="h-5 w-5 text-orange-600" />
+              Data Security & Compliance Deep Dive
             </h2>
             <div className="space-y-5">
               <div className="border border-emerald-200 rounded-lg p-5 bg-emerald-50/30">

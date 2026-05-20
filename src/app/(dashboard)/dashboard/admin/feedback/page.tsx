@@ -18,12 +18,12 @@ const STATUS_COLORS: Record<string, string> = {
   declined: 'bg-red-100 text-red-700',
 }
 
-const CATEGORY_EMOJIS: Record<string, string> = {
-  bug: '🐛',
-  feature_request: '✨',
-  ui_ux: '🎨',
-  performance: '⚡',
-  other: '💭',
+const CATEGORY_LABELS: Record<string, string> = {
+  bug: 'Bug',
+  feature_request: 'Feature Request',
+  ui_ux: 'UI/UX',
+  performance: 'Performance',
+  other: 'Other',
 }
 
 type FeedbackMetric = {
@@ -206,7 +206,7 @@ export default async function FeedbackAdminPage() {
                         <span className="font-medium text-slate-900">{item.title}</span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="text-[11px]">{CATEGORY_EMOJIS[item.category] || '•'} {item.category}</span>
+                        <span className="text-[11px]">{CATEGORY_LABELS[item.category] || item.category}</span>
                       </td>
                       <td className="px-4 py-3">
                         <span className={`inline-block px-2 py-1 rounded text-[11px] font-semibold ${STATUS_COLORS[item.status]}`}>
