@@ -11,7 +11,7 @@ const PASSIVE_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Monitor',
+  'Everything in Intelligence',
   'AI Interview Prep Briefs',
   'Search Strategy Brief',
   'AI Chat advisor',
@@ -71,7 +71,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           <span>No recruiter marketplace</span>
         </div>
         <p className="text-[12px] text-slate-500 mb-8">
-          Most executives start on Monitor, move to Active once they see what prep briefs do. C-suite leaders who want deeper analysis move to Executive when they need full coverage.
+          Most executives start on Intelligence, move to Active once they see what prep briefs do. C-suite leaders who want deeper analysis move to Executive when they need full coverage.
         </p>
 
         {/* Billing toggle */}
@@ -104,7 +104,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
               <span className="text-[13px] font-bold text-green-600">$49/mo</span>
               <span className="text-[12px] text-slate-400">Track up to 25 companies, get weekly signals</span>
             </div>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Monitor</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Intelligence</p>
             <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
               ${price('passive')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
             </p>

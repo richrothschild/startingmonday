@@ -81,7 +81,7 @@ export default async function PartnerDashboardPage() {
   })).sort((a, b) => new Date(b.joinedDate).getTime() - new Date(a.joinedDate).getTime())
 
   const tierLabel: Record<string, string> = {
-    passive: 'Monitor', active: 'Active', executive: 'Executive', free: 'Free',
+    passive: 'Intelligence', active: 'Active', executive: 'Executive', free: 'Free',
   }
   const statusColor: Record<string, string> = {
     active: 'bg-green-50 text-green-700',
@@ -216,7 +216,7 @@ export default async function PartnerDashboardPage() {
               'Share your referral link with executives you work with.',
               `When they sign up and start a paid subscription, you earn ${partner.commission_pct}% of their monthly fee.`,
               'Commissions are calculated on the 1st of each month and paid via Stripe.',
-              'Monitor tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
+              'Intelligence tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
               'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">

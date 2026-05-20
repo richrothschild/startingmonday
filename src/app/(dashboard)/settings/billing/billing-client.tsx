@@ -12,8 +12,8 @@ function fmtDate(d: Date | null) {
 
 const PLAN_LABEL_MAP: Record<string, string> = {
   free:      'Free trial',
-  passive:   'Monitor',
-  monitor:   'Monitor',
+  passive:   'Intelligence',
+  monitor:   'Intelligence',
   active:    'Active',
   executive: 'Executive',
   campaign:  'Campaign',
@@ -168,9 +168,9 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         {isPlaced && sub.isPaid && sub.tier !== 'passive' && sub.tier !== 'free' && !paused && (
           <div className="bg-orange-50 border border-orange-200 rounded p-5 mb-6 flex items-start gap-4">
             <div className="flex-1">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Monitor.</p>
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Intelligence.</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
-                Monitor ($49/mo) keeps your signal monitoring and weekly digest running without the active search tools.
+                Intelligence ($49/mo) keeps your signal monitoring and weekly digest running without the active search tools.
                 Most executives search again within 3 years. When you are ready, everything you built here will be waiting.
               </p>
             </div>

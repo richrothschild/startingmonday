@@ -7,7 +7,7 @@ import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
 
 const TIER_NAMES: Record<string, string> = {
-  passive:   'Monitor',
+  passive:   'Intelligence',
   active:    'Active',
   executive: 'Executive',
   free:      'Free',
