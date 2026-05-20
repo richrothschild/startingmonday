@@ -4,19 +4,19 @@ import type { Metadata } from 'next'
 import { DemoContent } from '../page'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday | Presenter Demo',
-  description: 'A polished, shareable demo flow for showing Starting Monday to a stakeholder or prospect.',
+  title: 'Starting Monday | CIO Presenter Demo',
+  description: 'A polished, shareable CIO-focused demo flow for showing Starting Monday to a stakeholder or prospect.',
   robots: { index: false, follow: false },
 }
 
 const STEPS = [
   {
     title: 'Open with the problem',
-    body: 'Senior executive searches fail when context, timing, and follow-through are improvised. Starting Monday makes the campaign run like an operating system.',
+    body: 'CIO searches fail when context, timing, and follow-through are improvised. Starting Monday makes the campaign run like an operating system.',
   },
   {
     title: 'Show the live brief',
-    body: 'Use the preloaded example to show how the platform generates a company-specific prep brief before the conversation starts.',
+    body: 'Use the preloaded example to show how the platform generates a company-specific CIO prep brief before the conversation starts.',
   },
   {
     title: 'Close on the cadence',
@@ -25,9 +25,9 @@ const STEPS = [
 ]
 
 const TALK_TRACK = [
-  '1. “This is the infrastructure layer for a senior search.”',
+  '1. “This is the infrastructure layer for a CIO search.”',
   '2. “It tells you what changed, who to contact, and how to prep before the meeting.”',
-  '3. “The brief auto-generates, so the user is never building this from scratch.”',
+  '3. “The brief auto-generates, so the team is never building this from scratch.”',
   '4. “The goal is a better search campaign, not another job board.”',
 ]
 
@@ -52,7 +52,7 @@ export default function PresenterDemoPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Presenter mode</p>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-slate-900 leading-[1.1] mb-4">
-              A five-minute demo you can walk him through.
+              A five-minute CIO demo you can walk him through.
             </h1>
             <p className="text-[15px] text-slate-600 leading-relaxed mb-6 max-w-2xl">
               Start with the problem, show the live brief, then close on the operating cadence. This route opens on a strong sample and auto-runs the brief so you can present without typing.
@@ -77,7 +77,7 @@ export default function PresenterDemoPage() {
               ))}
             </div>
             <div className="mt-6 border-t border-slate-800 pt-5">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">What to show</p>
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">What to show the CIO</p>
               <div className="space-y-3">
                 {STEPS.map((step) => (
                   <div key={step.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
@@ -95,16 +95,16 @@ export default function PresenterDemoPage() {
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Demo sequence</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">1. Open with context</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">Lead with the shift from a job search to a managed campaign.</p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">1. Open with CIO context</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Lead with the shift from a job search to a managed CIO campaign.</p>
               </div>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">2. Show the brief</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">Let the generated prep brief reveal how company context changes the conversation.</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Let the generated CIO prep brief reveal how company context changes the conversation.</p>
               </div>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">3. End on cadence</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">Close with daily briefing, signals, outreach, and prep as one system.</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">Close with daily briefing, signals, outreach, and prep as one system for the CIO search.</p>
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function PresenterDemoPage() {
           }>
             <DemoContent
               bypassGate
-              initialCompany="Salesforce"
+              initialCompany="ServiceNow"
               initialRole="Chief Information Officer"
               autoGenerate
             />

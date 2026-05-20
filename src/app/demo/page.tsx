@@ -183,6 +183,9 @@ export function DemoContent({
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-5">
+            <Link href="/demo/cio" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              CIO demo
+            </Link>
             <Link href="/demo/presenter" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Presenter mode
             </Link>
