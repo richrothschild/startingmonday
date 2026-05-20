@@ -28,6 +28,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // One-off local scripts — not application code, not meant to be linted:
+    "extract_pdf.js",
+    "probe.js",
+    "run_extract.js",
   ]),
 ]);
 
