@@ -20,6 +20,8 @@ create index if not exists automation_alerts_source_idx
 
 alter table public.automation_alerts enable row level security;
 
+drop policy if exists "Users manage their own automation alerts" on public.automation_alerts;
+
 create policy "Users manage their own automation alerts"
   on public.automation_alerts
   for all
@@ -91,7 +93,7 @@ do $$
 declare
   v_table_name text;
 begin
-  foreach v_table_name in array[
+  foreach v_table_name in array ARRAY[
     'lead_scoring_runs',
     'usage_monitor_runs',
     'customer_health_checks',
