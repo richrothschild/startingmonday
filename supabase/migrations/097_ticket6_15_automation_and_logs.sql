@@ -38,6 +38,8 @@ create index if not exists meeting_bookings_user_schedule_idx
 
 alter table public.meeting_bookings enable row level security;
 
+drop policy if exists "Users manage their own meeting bookings" on public.meeting_bookings;
+
 create policy "Users manage their own meeting bookings"
   on public.meeting_bookings
   for all
@@ -81,6 +83,8 @@ create index if not exists outreach_reply_inbox_user_received_idx
 
 alter table public.outreach_reply_inbox enable row level security;
 
+drop policy if exists "Users manage their own outreach reply inbox" on public.outreach_reply_inbox;
+
 create policy "Users manage their own outreach reply inbox"
   on public.outreach_reply_inbox
   for all
@@ -102,6 +106,8 @@ create index if not exists onboarding_intake_submissions_user_created_idx
   on public.onboarding_intake_submissions(user_id, created_at desc);
 
 alter table public.onboarding_intake_submissions enable row level security;
+
+drop policy if exists "Users manage their own intake submissions" on public.onboarding_intake_submissions;
 
 create policy "Users manage their own intake submissions"
   on public.onboarding_intake_submissions
@@ -126,6 +132,8 @@ create index if not exists identity_verification_checks_user_created_idx
   on public.identity_verification_checks(user_id, created_at desc);
 
 alter table public.identity_verification_checks enable row level security;
+
+drop policy if exists "Users manage their own identity checks" on public.identity_verification_checks;
 
 create policy "Users manage their own identity checks"
   on public.identity_verification_checks
