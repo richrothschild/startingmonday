@@ -153,6 +153,55 @@ export default function ReferencesPage() {
         </section>
 
         <section className="mb-12">
+          <div className="mb-4">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What this evidence means</p>
+            <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-2">How the research shapes Starting Monday</h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed max-w-3xl">
+              Starting Monday is built around a simple thesis: coaching, transition support, and execution improve when leaders have better signals, better preparation, and better between-session structure.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-lg border border-slate-200">
+            <table className="w-full border-collapse bg-white">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">What we know</th>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">What it means for Starting Monday</th>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Best source</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaching works best when the mechanism is clear and the context is right.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">The product should support a visible between-session operating layer, not just another conversation tool.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ely et al. (2010)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Concrete plans improve follow-through more than vague intent.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Prep briefs and accountability loops should convert intention into a specific next action.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Gollwitzer (1999)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Onboarding and transition outcomes improve when structure reduces ambiguity.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Starting Monday should make early role transitions, executive searches, and first 90 days easier to navigate.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Bauer et al. (2007)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Weak signals can appear before formal market visibility.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the product’s edge: it helps users act before the search is obvious to everyone else.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ansoff (1975)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaching effectiveness is affected by multiple factors, not just effort inside the session.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaches need shared visibility into client progress between sessions so time can shift from status updates to strategy.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Bozer and Jones (2018)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-12">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-4">Source tiers</p>
           <div className="space-y-3">
             {SOURCE_TIERS.map(item => (
