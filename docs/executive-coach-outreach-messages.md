@@ -62,10 +62,15 @@ Audience:
 
 Cadence:
 
-- Day 0: Connection note
-- Day 0-1: Post-accept follow-up
-- Day 3: Check-in
-- Day 7: Final touch
+- Day 0: LinkedIn connection note
+- Day 1: Email first touch
+- Day 3: LinkedIn follow-up
+- Day 7: Email proof sample
+- Day 14: LinkedIn value-add note
+- Day 21: Email 30-day test offer
+- Day 30: Final close-the-loop email
+
+Default channel mix: LinkedIn for touches 1, 3, and 5; email for touches 2, 4, 6, and 7. Do not add text or Instagram unless the coach already knows you or has invited another channel.
 
 ## 1) Day 0 Connection Note (LinkedIn)
 
@@ -91,11 +96,17 @@ Board/governance variant:
 
 [First Name] - noticed your board advisory focus. We built a platform that helps you easily stay on top of each client in one place and maintain strategic relationships at scale between coaching sessions. Open to a quick 15-minute intro?
 
-## 2) Day 0-1 Follow-Up (After Connection Accepted)
+## 2) Day 1 Email First Touch
 
 Template:
 
-Thanks for connecting, [First Name].
+Subject:
+
+[First Name], would it be unreasonable to make every client meeting prep-ready?
+
+Body:
+
+Hi [First Name],
 
 Most coaches I speak with feel the same pressure: clients are too busy to prepare, and paid session time gets spent rebuilding context instead of making strategic decisions.
 
@@ -109,31 +120,96 @@ Would it be unreasonable to test this with two clients for 30 days before decidi
 
 If useful, I can show you a live brief in 60 seconds on a 15-minute call.
 
+If you prefer, I can also send two sample prep briefs before we talk.
+
 [Calendar Link]
 
-## 3) Day 3 Check-In (If No Reply)
+## 3) Day 3 LinkedIn Follow-Up
 
-Template:
+Use this only if they accepted the connection or viewed the profile but did not reply.
 
-Quick follow-up in case it got buried.
+[First Name] - circling back because the pressure you described is the one most coaches mention: clients are busy, and prep gets rebuilt from scratch each week.
 
-If now is not the right time for a call, I can send a short 5-minute demo video so you can quickly judge one question:
+Starting Monday was built to help you easily stay on top of each client in one place, so you spend less time rebuilding context and more time in strategy.
 
-Would this help you easily stay on top of each client in one place, without adding work?
+If it would help, I can send a 60-second screen recording instead of a call.
 
-You can also review it here: <https://startingmonday.app/for-coaches>
+## 4) Day 7 Email Proof Sample
 
-[Video Link]
+Subject:
 
-## 4) Day 7 Final Touch
+Two sample prep briefs for [First Name]
 
-Template:
+Body:
+
+Hi [First Name],
+
+As promised, here are two examples of the kind of prep support coaches use with Starting Monday:
+
+- 1-page client brief: signals, current priorities, and the next decision to make.
+- Meeting prep brief: what changed since the last session, what matters now, and what to ask next.
+
+The point is not more admin. It is to help you easily stay on top of each client in one place without rebuilding context every week.
+
+If you want, I can show you how this would look for one of your current clients on a 15-minute call.
+
+Rich
+
+## 5) Day 14 LinkedIn Value-Add Note
+
+Use this as a short value-add message or post reply, not a second pitch.
+
+[First Name] - one pattern keeps coming up with coaches: the session itself is usually not the bottleneck. The between-session layer is.
+
+That is why we built Starting Monday to help you easily stay on top of each client in one place, with the signals and prep context already organized before the call.
+
+If useful, I can send a 3-minute walkthrough that shows the workflow.
+
+## 6) Day 21 Email 30-Day Test Offer
+
+Subject:
+
+Would it be unreasonable to test this with two clients for 30 days?
+
+Body:
+
+Hi [First Name],
+
+Most coaches do not want another tool unless it clearly reduces friction.
+
+That is a fair filter. My suggestion is a small test: use Starting Monday with two clients for 30 days and judge it on whether it helps you easily stay on top of each client in one place without adding work.
+
+If it does not reduce prep time or context rebuild, stop. If it does, keep it.
+
+If you want, I can send a simple setup checklist so the test takes under 10 minutes to start.
+
+Rich
+
+## 7) Day 30 Final Close-the-Loop Email
+
+Subject:
+
+Should I close the loop for now?
+
+Body:
+
+Hi [First Name],
 
 No pressure if timing is not right.
 
-If you want to revisit how coaches are using this to improve client execution between sessions, I am happy to share a quick walkthrough any time.
+I do not want to crowd your inbox. If a 30-day test on two clients is not relevant right now, I will close the loop.
+
+If timing changes, reply with "2 clients" and I will send the setup.
 
 Either way, appreciate the work you do.
+
+## Short Channel Rules
+
+- Use LinkedIn to create familiarity and keep the message personal.
+- Use email to carry proof, samples, and the test offer.
+- Use articles or screen recordings only when they lower uncertainty.
+- Use text only after permission or a warm relationship.
+- Avoid Instagram as a primary channel unless the coach is already active there professionally.
 
 ## Personalization Rules
 
