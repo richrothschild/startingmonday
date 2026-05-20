@@ -602,6 +602,7 @@ export type Database = {
           type: string
           output_text: string
           user_rating: number | null
+          section_name: string | null
           created_at: string
         }
         Insert: {
@@ -609,6 +610,7 @@ export type Database = {
           user_id: string
           type: string
           output_text: string
+          section_name?: string | null
           [key: string]: unknown
         }
         Update: {

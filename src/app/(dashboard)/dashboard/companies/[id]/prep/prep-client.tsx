@@ -104,12 +104,12 @@ async function streamResponse(res: Response, onChunk: (text: string) => void) {
   }
 }
 
-async function saveBrief(type: string, text: string, companyId?: string): Promise<string | null> {
+async function saveBrief(type: string, text: string, companyId?: string, sectionName?: string): Promise<string | null> {
   try {
     const res = await fetch('/api/briefs/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, text, company_id: companyId }),
+      body: JSON.stringify({ type, text, company_id: companyId, section_name: sectionName }),
     })
     if (!res.ok) return null
     const data = await res.json()
@@ -119,7 +119,7 @@ async function saveBrief(type: string, text: string, companyId?: string): Promis
   }
 }
 
-function useOnDemand(url: string, companyId: string) {
+function useOnDemand(url: string, companyId: string, sectionName: string) {
   const [content, setContent] = useState('')
   const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -143,7 +143,7 @@ function useOnDemand(url: string, companyId: string) {
         setError(fullText.slice(9))
         setContent('')
       } else {
-        const id = await saveBrief('prep_section', fullText, companyId)
+        const id = await saveBrief('prep_section', fullText, companyId, sectionName)
         setBriefId(id)
       }
     } catch (e) {
@@ -300,15 +300,15 @@ export function PrepClient({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId)
-  const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId)
-  const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`,  companyId)
-  const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`,  companyId)
-  const competitive  = useOnDemand(`/api/prep/${companyId}/competitive`, companyId)
-  const wins         = useOnDemand(`/api/prep/${companyId}/wins`,        companyId)
-  const techStack    = useOnDemand(`/api/prep/${companyId}/tech-stack`,  companyId)
-  const whyHere      = useOnDemand(`/api/prep/${companyId}/why-here`,    companyId)
-  const questions    = useOnDemand(`/api/prep/${companyId}/questions`,   companyId)
+  const background   = useOnDemand(`/api/prep/${companyId}/background`,  companyId, 'background')
+  const leadership   = useOnDemand(`/api/prep/${companyId}/leadership`,  companyId, 'leadership')
+  const priorities   = useOnDemand(`/api/prep/${companyId}/priorities`,  companyId, 'priorities')
+  const challenges   = useOnDemand(`/api/prep/${companyId}/challenges`,  companyId, 'challenges')
+  const competitive  = useOnDemand(`/api/prep/${companyId}/competitive`, companyId, 'competitive')
+  const wins         = useOnDemand(`/api/prep/${companyId}/wins`,        companyId, 'wins')
+  const techStack    = useOnDemand(`/api/prep/${companyId}/tech-stack`,  companyId, 'tech_stack')
+  const whyHere      = useOnDemand(`/api/prep/${companyId}/why-here`,    companyId, 'why_here')
+  const questions    = useOnDemand(`/api/prep/${companyId}/questions`,   companyId, 'questions')
 
   async function handleGenerate() {
     setLoading(true)
