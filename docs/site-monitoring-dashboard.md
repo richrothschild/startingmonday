@@ -10,6 +10,7 @@ This is the single operating view for user-perspective reliability. It is intent
 | Uptime baseline | `/api/health` + UptimeRobot | 24x7 polling | Engineering | UptimeRobot monitor and `monitoring.yml` artifacts |
 | Client/server exceptions | Sentry | Near real-time | Engineering | Sentry Issues and Alerts |
 | Monitoring pipeline freshness | Monitoring Watchdog workflow | Hourly | Engineering | GitHub Actions: `Monitoring Watchdog` |
+| Deployment freshness | Deployment Watchdog workflow | Every 15 minutes | Engineering | GitHub Actions: `Deployment Watchdog` |
 | Synthetic artifacts (screenshots/video/trace) | Playwright reporter | On failure | Engineering | `playwright-report` artifact in CI run |
 | Last smoke summary JSON | Monitoring workflow artifact | Every 30 minutes | Engineering | `monitoring-summary` artifact in `Production Monitoring` run |
 

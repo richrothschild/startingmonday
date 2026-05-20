@@ -8,6 +8,9 @@ jobs:
     if: github.event.deployment_status.state == 'failure' || github.event.deployment_status.state == 'error'
     runs-on: ubuntu-latest
 
+    env:
+      RUNBOOK_URL: https://github.com/${{ github.repository }}/blob/main/docs/sre/runbooks/deployment-stalled.md
+
     steps:
       - name: Send Slack alert for failed deployment
         uses: slackapi/slack-github-action@v1.24.0
@@ -50,7 +53,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<${{ github.server_url }}/${{ github.repository }}/deployments|Open deployments in GitHub>"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/deployments|Open deployments in GitHub> | <${{ env.RUNBOOK_URL }}|Runbook: deployment stalled>"
                   }
                 }
               ]

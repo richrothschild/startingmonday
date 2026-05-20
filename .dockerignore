@@ -1,0 +1,14 @@
+docs/
+test-results/
+playwright-report/
+coverage/
+.github/
+worker/
+*.csv
+*.md
+*.log
+*.tmp
+*.zip
+*.mp4
+*.mov
+*.mov
