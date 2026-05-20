@@ -1,5 +1,5 @@
 {
-  "warnings": 173,
-  "capturedAt": "2026-05-19",
-  "notes": "Baseline generated from npm run lint before TD-02 enforcement"
+  "warnings": 180,
+  "capturedAt": "2026-05-20",
+  "notes": "Updated after fixing lint errors in extract_pdf.js, probe.js, run_extract.js. 7 additional warnings from new pages added since 2026-05-19 baseline (annual-report-2026, evidence-room, founder-note, method-and-evidence, pilot-findings, research-brief, admin/social)."
 }
