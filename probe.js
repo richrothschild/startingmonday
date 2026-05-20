@@ -1,0 +1,1 @@
+const pdf = require('pdf-parse'); console.log('Keys:', Object.keys(pdf)); if (pdf.PDFParse) { console.log('PDFParse is a function/class'); const instance = new pdf.PDFParse(); console.log('Instance methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(instance))); }
