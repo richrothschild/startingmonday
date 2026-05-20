@@ -108,6 +108,181 @@ export type Database = {
           },
         ]
       }
+      linkedin_import_consents: {
+        Row: {
+          id: string
+          user_id: string
+          purpose: string
+          method: string
+          consented_at: string
+          revoked_at: string | null
+          data_deleted_at: string | null
+          raw_file_name: string | null
+          connection_count: number | null
+          ip_hash: string | null
+          user_agent_hash: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          method: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_import_consents_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_imported_connections: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string
+          full_name: string
+          headline: string | null
+          company_name: string | null
+          company_name_normalized: string | null
+          email: string | null
+          connected_on: string | null
+          linkedin_url: string | null
+          source_row: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          consent_id: string
+          full_name: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_imported_connections_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_imported_connections_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_contact_matches: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string
+          imported_conn_id: string
+          company_id: string | null
+          contact_id: string | null
+          match_reason: string
+          confidence: string
+          promoted_at: string | null
+          dismissed_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          consent_id: string
+          imported_conn_id: string
+          match_reason: string
+          confidence: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_contact_matches_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_imported_conn_id_fkey'
+            columns: ['imported_conn_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_imported_connections'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_contact_id_fkey'
+            columns: ['contact_id']
+            isOneToOne: false
+            referencedRelation: 'contacts'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_import_audit_events: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string | null
+          event_type: string
+          event_data: Json
+          occurred_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          event_type: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_import_audit_events_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_import_audit_events_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       company_signals: {
         Row: {
           id: string

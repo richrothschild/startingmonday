@@ -48,7 +48,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
       if (data.error) { setActionError(data.error); return }
       if (!data.url) { setActionError('No checkout URL returned. Please try again.'); return }
-      window.location.href = data.url
+      window.location.assign(data.url)
     } catch (e) {
       setActionError(`Checkout failed: ${e}`)
     } finally {
@@ -70,7 +70,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
           : error)
         return
       }
-      window.location.href = url
+      window.location.assign(url)
     } catch {
       setPortalError('Could not open billing portal right now. Please try again.')
     } finally {
@@ -121,7 +121,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   }
 
   async function handleWaitlist(plan: string) {
-    window.location.href = `mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`
+    window.location.assign(`mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`)
   }
 
   const trialDaysLeft = sub.trialEndsAt
