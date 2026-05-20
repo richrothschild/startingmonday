@@ -97,11 +97,15 @@ Template:
 
 Thanks for connecting, [First Name].
 
-Most coaches I speak with are forced to spend too much session time rebuilding search context. Starting Monday handles that execution layer with daily signal monitoring, prep briefs, and pipeline tracking, so you can stay in strategic coaching mode.
+Most coaches I speak with feel the same pressure: clients are too busy to prepare, and paid session time gets spent rebuilding context instead of making strategic decisions.
 
-Result: clients move faster, your sessions stay high-value, and you can earn partner commission when clients onboard.
+Starting Monday gives you one place to stay on top of each client between sessions - signals, prep briefs, and accountability in one operating layer.
+
+Result: clients arrive better prepared, you spend less time on admin, and your sessions stay high-value and strategy-first.
 
 Check out <https://startingmonday.app/for-coaches> to see how other coaches use it.
+
+Would it be unreasonable to test this with two clients for 30 days before deciding whether it fits your practice?
 
 If useful, I can show you a live brief in 60 seconds on a 15-minute call.
 
@@ -113,7 +117,11 @@ Template:
 
 Quick follow-up in case it got buried.
 
-If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant. Or check out <https://startingmonday.app/for-coaches> directly.
+If now is not the right time for a call, I can send a short 5-minute demo video so you can quickly judge one question:
+
+Would this help you easily stay on top of each client in one place, without adding work?
+
+You can also review it here: <https://startingmonday.app/for-coaches>
 
 [Video Link]
 

@@ -232,21 +232,21 @@ export default function ForCoachesPage() {
             Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Protect your time. Protect your value.<br />
+            Easily stay on top of each client in one place.<br />
             Clients arrive prepared.<br />
-            You stay indispensable.
+            You stay in strategy.
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
-            Starting Monday helps executive coaches and their clients identify, track, and act on market signals earlier, with more discipline and better preparation. It handles the intelligence, pipeline rhythm, and prep infrastructure between sessions so you can stay in judgment, narrative, and accountability.
+            Starting Monday is the between-session operating layer for coaches who want less admin drag and stronger strategic sessions. You and your clients share one place for signal monitoring, prep briefs, and pipeline accountability.
           </p>
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-3">
-            Built for coaches working with senior executives in transition. Precise, private, and designed for warm referrals.
+            Built for coaches working with senior executives in transition who are too busy to prep consistently without structure.
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed max-w-lg mb-6">
-            Coaches without shared intelligence are coaching half-blind. This gives them the same context their clients need before the market gets noisy.
+            The goal is simple: stop coaching half-blind, and stop spending paid time rebuilding context from memory.
           </p>
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
-            How would you feel if each client came into every meeting prepared, while you spent less time chasing prep and more time coaching strategy?
+            How would you feel if every client came into each meeting prepared, while you spent less time chasing prep and more time coaching strategy?
           </p>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
@@ -271,10 +271,10 @@ export default function ForCoachesPage() {
 
           <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              Early proof
+              Why coaches buy
             </p>
             <p className="text-[12px] text-slate-500 mb-5">
-              Verification-first policy: named testimonials are published only after explicit permission and outcome verification.
+              Coaches do not buy another tool. They buy better session quality, better client momentum, and relief from prep chaos.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               {PROOF_METRICS.map((metric) => (
@@ -285,18 +285,18 @@ export default function ForCoachesPage() {
               ))}
             </div>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-2">
-              Verified pilot evidence is from the executive cohort, not a coach-claimed model. That matters. Coaches are being asked to trust a workflow with real operating data behind it, not just language.
+              Verified pilot evidence is from the executive cohort, not coach-claimed anecdotes. The pattern is consistent: when coaches and clients share one operating layer, clients prepare earlier and sessions shift toward strategy.
             </p>
             <p className="text-[12px] text-slate-500 leading-relaxed mb-4">
               Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026. Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.
             </p>
             <div className="border border-orange-100 bg-orange-50/50 rounded-xl p-4 mb-4">
-              <p className="text-[12px] font-semibold text-slate-900 mb-2">Early coaching adoption rate</p>
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">Emotional and workflow shift in first 30 days</p>
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                43% of early adopting coaches brought the daily briefing into coaching sessions within the first month. This is not just adoption—it is workflow integration. Coaches do not bring tools into paid sessions unless they materially improve the work.
+                43% of early adopting coaches brought the daily briefing into sessions within the first month. Coaches do not do that unless it reduces friction and improves outcomes.
               </p>
               <p className="text-[12px] text-slate-600 leading-relaxed">
-                These coaches reported clearer visibility into client bottlenecks within 30 days: not guessing from memory, but seeing the pipeline stage, the signals missed, and the pattern of stalls. This changes the accountability loop between sessions.
+                Coaches reported feeling more in control of each client account within 30 days: less guessing from memory, clearer visibility into stalls, and stronger accountability between meetings.
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
@@ -306,23 +306,23 @@ export default function ForCoachesPage() {
 
           <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
-              The preview offer
+              From pressure to control
             </p>
             <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
-              Start with one coach preview, not a commitment.
+              Start with a 30-day preview and evaluate real outcomes.
             </h2>
             <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-6">
               <p>{PREVIEW_SENTENCE}</p>
-              <p>Coaches can see the workflow, decide if it fits their practice, and recommend it only if it improves client readiness and session quality.</p>
+              <p>This is designed for one practical test: can you spend less time on prep/admin and more time on strategy while clients show up better prepared?</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                'Free coach access during the preview',
-                '2-3 client preview seats for live evaluation',
-                'Full visibility into client pipeline, signals, and briefs',
-                'Scorecards showing client behavior and activity health',
-                'Audit log tracking all data access',
-                'Short feedback session after the preview window',
+                'Free coach access during the preview window',
+                '2-3 live client seats to test with real workflows',
+                'One shared place for pipeline, signals, and prep',
+                'Scorecards that reveal where momentum is stalling',
+                'Audit log and client controls for trust and transparency',
+                'Clear pass/fail decision at day 30',
               ].map((item) => (
                 <div key={item} className="bg-white border border-emerald-100 rounded-lg px-4 py-3">
                   <p className="text-[13px] text-slate-700 leading-relaxed">{item}</p>
