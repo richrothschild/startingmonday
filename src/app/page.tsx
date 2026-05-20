@@ -140,10 +140,10 @@ export default function HomePage() {
         hero={{
           eyebrow: 'The search doesn\'t start when you decide to search. It starts weeks or months earlier. Most searches are shaped before the posting exists.',
           h1Lines: ['Be ready.', 'Be early.'],
-          claimMethodLabel: 'See the operating cadence →',
-          claimMethodHref: '#operating-cadence',
-          claimEvidenceLabel: 'Evidence and references →',
-          claimEvidenceHref: '/references',
+          claimMethodLabel: 'Method and evidence →',
+          claimMethodHref: '/method-and-evidence',
+          claimEvidenceLabel: 'Evidence room →',
+          claimEvidenceHref: '/evidence-room',
           bodyPreamble: 'You might be thinking:\n"I have a coach." "I\'m using LinkedIn Premium." "I\'m working with a recruiter."\nThey\'re all right. Here\'s exactly where we fit in.',
           body: 'Starting Monday operates the infrastructure layer: signal intelligence so you know about transitions before they\'re public, a relationship tracker so nothing goes cold, and a prep brief that runs in 60 seconds. You work with your coach and recruiters. We make sure you have the best context and earliest advantage they can build on.',
           steps: [
