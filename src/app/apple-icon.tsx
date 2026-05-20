@@ -1,12 +1,12 @@
 import { ImageResponse } from 'next/og'
 
-export const size = { width: 32, height: 32 }
+export const size = { width: 180, height: 180 }
 export const contentType = 'image/png'
 
-export default function Icon() {
+export default function AppleIcon() {
   return new ImageResponse(
     (
-      <svg width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon">
+      <svg width="180" height="180" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon">
         <defs>
           <linearGradient id="gradC" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#F97316" />
