@@ -16,11 +16,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing type or text' }, { status: 400 })
   }
 
-  const { type, text, company_id, contact_id } = body as {
+  const { type, text, company_id, contact_id, section_name } = body as {
     type: string
     text: string
     company_id?: string
     contact_id?: string
+    section_name?: string
   }
 
   if (!['strategy', 'prep', 'prep_section', 'outreach'].includes(type)) {
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest) {
       output_text: watermarkText(text, userId),
       company_id: company_id ?? null,
       contact_id: contact_id ?? null,
+      section_name: section_name ?? null,
     })
     .select('id')
     .single()
