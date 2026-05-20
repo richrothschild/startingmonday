@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { getStaffMember } from '@/lib/staff'
 
 const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'])
 
@@ -12,6 +13,13 @@ export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
   const { userId } = auth
+
+  const supabase = await createClient()
+  const { data: authData } = await supabase.auth.getUser()
+  const staff = await getStaffMember(authData.user?.email ?? '')
+  if (!staff) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
 
   const body = await request.json().catch(() => null)
   const email = normalizeEmail(body?.email)
@@ -25,8 +33,6 @@ export async function POST(request: NextRequest) {
   if (!VALID_STATUSES.has(status)) {
     return NextResponse.json({ error: 'Invalid status.' }, { status: 400 })
   }
-
-  const supabase = await createClient()
 
   const { data: existing } = await supabase
     .from('contacts')

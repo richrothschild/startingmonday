@@ -26,6 +26,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   accountName: string | null
   isPlaced?: boolean
 }) {
+  const isRothschildAdmin = accountEmail.toLowerCase() === 'rothschild@gmail.com'
   const [paused, setPaused] = useState(sub.isPaused)
   const [pauseDays, setPauseDays] = useState(14)
   const [loading, setLoading] = useState<string | null>(null)
@@ -47,7 +48,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
       const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
       if (data.error) { setActionError(data.error); return }
       if (!data.url) { setActionError('No checkout URL returned. Please try again.'); return }
-      window.location.href = data.url
+      window.location.assign(data.url)
     } catch (e) {
       setActionError(`Checkout failed: ${e}`)
     } finally {
@@ -69,7 +70,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
           : error)
         return
       }
-      window.location.href = url
+      window.location.assign(url)
     } catch {
       setPortalError('Could not open billing portal right now. Please try again.')
     } finally {
@@ -120,7 +121,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   }
 
   async function handleWaitlist(plan: string) {
-    window.location.href = `mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`
+    window.location.assign(`mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`)
   }
 
   const trialDaysLeft = sub.trialEndsAt
@@ -136,9 +137,16 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
-          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            Dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+              Dashboard
+            </Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 

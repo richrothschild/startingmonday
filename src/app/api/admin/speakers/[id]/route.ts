@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 
 const VALID_STATUSES = ['not_started', 'contacted', 'responded', 'converted', 'not_interested', 'skip']
 
@@ -10,6 +11,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -55,5 +59,5 @@ export async function PATCH(
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ speaker: data })
+  return withAuthCookies(NextResponse.json({ speaker: data }), auth)
 }

@@ -9,19 +9,17 @@ const SYSTEM =
   'No filler. No em dashes. No motivational language. This is coaching, not cheerleading.'
 
 export async function POST(request: NextRequest) {
-  let company: string, role: string, captchaToken: string
+  let company: string, role: string
   try {
     const body = await request.json()
     company = typeof body.company === 'string' ? body.company.trim() : ''
     role    = typeof body.role    === 'string' ? body.role.trim()    : ''
-    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken.trim() : ''
   } catch {
     return new Response('Bad request', { status: 400 })
   }
 
   const blocked = await enforcePublicEndpointGuard({
     request,
-    captchaToken: captchaToken || null,
     rateLimitKey: 'demo-brief',
     maxPerMinute: 3,
   })

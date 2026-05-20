@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { saveProfile, deleteNotes } from './actions'
 import ProfileResumeUpload from './profile-resume-upload'
+import ProfileLinkedinUpload from './profile-linkedin-upload'
 import { TagInput } from '@/components/TagInput'
 import { getActivationStatus } from '@/lib/activation'
 import CareerVerificationPanel from '@/components/CareerVerificationPanel'
@@ -112,6 +113,7 @@ export default async function ProfilePage({
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
   const starStories = Array.isArray(profile?.star_stories) ? (profile.star_stories as StarStory[]) : [] as StarStory[]
+  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
 
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])
@@ -138,12 +140,22 @@ export default async function ProfilePage({
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link
-            href="/dashboard"
-            className="text-[13px] text-slate-300 hover:text-white transition-colors"
-          >
-            ← Dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="text-[13px] text-slate-300 hover:text-white transition-colors"
+            >
+              ← Dashboard
+            </Link>
+            {isRothschildAdmin && (
+              <Link
+                href="/dashboard/admin"
+                className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors"
+              >
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
@@ -417,6 +429,17 @@ export default async function ProfilePage({
               />
             </div>
 
+            {/* LinkedIn PDF Upload */}
+            <div id="section-linkedin-upload" className="mb-6">
+              <label className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5 block">
+                LinkedIn profile PDF
+              </label>
+              <p className="text-[12px] text-slate-400 mb-2">
+                Download your LinkedIn profile as a PDF (Profile &rarr; More &rarr; Save to PDF) and upload it here. This is used to extract your LinkedIn summary, experience, and headline for your profile and AI briefs.
+              </p>
+              <ProfileLinkedinUpload />
+            </div>
+
             {/* Resume */}
             <div id="section-resume">
               <div className="flex items-center justify-between mb-1.5">
@@ -429,6 +452,9 @@ export default async function ProfilePage({
                   </Link>
                 )}
               </div>
+              <p className="text-[12px] text-slate-400 mb-2">
+                Upload your resume as a PDF or DOCX, or paste the text below. This is used for AI-powered interview prep and brief generation.
+              </p>
               <ProfileResumeUpload />
               <textarea
                 id="resume_text"

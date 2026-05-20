@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
@@ -60,15 +61,16 @@ export async function GET(request: NextRequest) {
       .order('post_date', { ascending: true })
 
     if (postsError) {
-      console.error(JSON.stringify({
-        ts: new Date().toISOString(),
-        event: 'social_digest_query_failed',
-        message: postsError.message,
-        code: postsError.code,
-        details: postsError.details,
-        hint: postsError.hint,
-        since,
-      }))
+      Sentry.captureException(postsError, {
+        extra: {
+          route: 'admin/social/digest',
+          event: 'social_digest_query_failed',
+          code: postsError.code,
+          details: postsError.details,
+          hint: postsError.hint,
+          since,
+        },
+      })
       return NextResponse.json({ error: postsError.message }, { status: 500 })
     }
 
@@ -108,6 +110,33 @@ export async function GET(request: NextRequest) {
     const postedCount = typedPosts.filter((p) => p.is_posted).length
     const weekOf = safeDateLabel(since).replace(/^[A-Za-z]+,\s*/, '')
 
+    const today = new Date().toISOString().slice(0, 10)
+    const digestKey = 'linkedin_digest:owner'
+    const { data: lockAllowed, error: lockError } = await admin.rpc('check_and_increment_rate_limit', {
+      p_key: digestKey,
+      p_window: today,
+      p_limit: 1,
+    })
+
+    if (lockError) {
+      Sentry.captureException(lockError, {
+        extra: {
+          route: 'admin/social/digest',
+          event: 'social_digest_lock_failed',
+          code: lockError.code,
+          details: lockError.details,
+          hint: lockError.hint,
+          key: digestKey,
+          window: today,
+        },
+      })
+      return NextResponse.json({ error: 'Failed to acquire digest lock' }, { status: 500 })
+    }
+
+    if (!lockAllowed) {
+      return NextResponse.json({ ok: true, sent: false, reason: 'Digest already sent today' }, { status: 200 })
+    }
+
     const { error: sendError } = await sendEmail({
       to: OWNER_EMAIL,
       subject: `LinkedIn digest: ${postedCount}/${typedPosts.length} posts this week (${weekOf})`,
@@ -126,26 +155,29 @@ export async function GET(request: NextRequest) {
     })
 
     if (sendError) {
-      console.error(JSON.stringify({
-        ts: new Date().toISOString(),
-        event: 'social_digest_email_failed',
-        to: OWNER_EMAIL,
-        message: (sendError as { message?: string }).message ?? 'send failed',
-        since,
-        postCount: typedPosts.length,
-        postedCount,
-      }))
+      Sentry.captureException(sendError, {
+        extra: {
+          route: 'admin/social/digest',
+          event: 'social_digest_email_failed',
+          to: OWNER_EMAIL,
+          since,
+          postCount: typedPosts.length,
+          postedCount,
+        },
+      })
       return NextResponse.json({ error: (sendError as { message?: string }).message ?? 'send failed' }, { status: 500 })
     }
 
     return NextResponse.json({ ok: true, sent: true, postCount: typedPosts.length, postedCount })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'unexpected digest failure'
-    console.error(JSON.stringify({
-      ts: new Date().toISOString(),
-      event: 'social_digest_unhandled_exception',
-      message,
-    }))
+    Sentry.captureException(error, {
+      extra: {
+        route: 'admin/social/digest',
+        event: 'social_digest_unhandled_exception',
+        message,
+      },
+    })
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

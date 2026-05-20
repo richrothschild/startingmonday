@@ -1,0 +1,1 @@
+const fs = require('fs'); const pdf = require('pdf-parse'); let dataBuffer = fs.readFileSync('C:\\\\Users\\\\roths\\\\Downloads\\\\StartingMonday\\\\executive coaching product review and starting monday.pdf'); pdf(dataBuffer).then(function(data) { const lines = data.text.split('\\n'); console.log(lines.slice(0, 250).join('\\n')); }).catch(err => { console.error(err); });

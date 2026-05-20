@@ -2,13 +2,66 @@
 
 Purpose: Ready-to-send Sales Navigator outreach sequence for executive coaches.
 
+## Canonical First-Touch Email Template
+
+Subject:
+
+[First Name], would it be unreasonable to make every client meeting prep-ready?
+
+Body:
+
+Hi [First Name],
+
+Quick observation from the coaching practices we speak with: too much paid session time gets spent rebuilding context instead of making strategic decisions.
+
+Starting Monday gives you one place to stay on top of each client between sessions: signal monitoring, prep briefs, and pipeline accountability.
+
+The practical effect is simple: clients arrive prepared, you spend less time on admin, and more of the session stays in judgment, narrative, and strategy.
+
+You can see the overview here: <https://startingmonday.app/for-coaches>
+
+If helpful, reply yes and I will send two sample prep briefs so you can decide in under five minutes whether it fits your practice.
+
+Rich
+startingmonday.app
+
+## Subject Line Options (A/B)
+
+- [First Name], easily stay on top of each client in one place
+- [First Name], how would you feel if every client arrived prepared?
+- [First Name], would it be a bad idea to stop rebuilding context every session?
+- [First Name], one place for client prep, signals, and accountability
+
+## Alternate First-Touch Variant (Negative Question Style)
+
+Subject:
+
+[First Name], would it be a mistake to keep prepping manually?
+
+Body:
+
+Hi [First Name],
+
+How would you feel if your clients were prepared for every high-stakes conversation, without you spending extra hours between sessions?
+
+Most coaches we talk to are still doing the between-session layer manually: tracking signals in one tool, prep in another, and accountability in memory.
+
+Starting Monday brings that into one operating layer so you can easily stay on top of each client in one place.
+
+If this is useful, reply yes and I will send a 60-second sample plus two prep briefs.
+
+Rich
+startingmonday.app
+
 Audience:
+
 - Career transition coaches
 - VP-to-CXO coaches
 - Search-process coaches
 - Board and governance coaches
 
 Cadence:
+
 - Day 0: Connection note
 - Day 0-1: Post-accept follow-up
 - Day 3: Check-in
@@ -48,6 +101,8 @@ Most coaches I speak with are forced to spend too much session time rebuilding s
 
 Result: clients move faster, your sessions stay high-value, and you can earn partner commission when clients onboard.
 
+Check out <https://startingmonday.app/for-coaches> to see how other coaches use it.
+
 If useful, I can show you a live brief in 60 seconds on a 15-minute call.
 
 [Calendar Link]
@@ -58,7 +113,7 @@ Template:
 
 Quick follow-up in case it got buried.
 
-If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant.
+If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant. Or check out <https://startingmonday.app/for-coaches> directly.
 
 [Video Link]
 
@@ -76,21 +131,26 @@ Either way, appreciate the work you do.
 
 - Reference one real signal: post, interview, niche, or client type.
 - Lead with coach outcome first, not product features.
+- Use one calibrated question to create reflection, not pressure.
 - Keep ask small: 15-minute call.
 - Keep tone peer-to-peer, not sales-heavy.
 
 ## Objection Quick Replies
 
 My clients are not actively searching:
+
 - Understood. This works best for leaders who need ongoing market visibility and disciplined relationship motion, even before active search windows.
 
 They can just use LinkedIn:
+
 - LinkedIn is useful, but this adds structured monitoring, prep context, and execution discipline between sessions.
 
 I already do this manually:
+
 - That makes sense. Most coaches we work with did too. This reduces manual overhead and keeps context consistent across clients.
 
 Pricing concern:
+
 - Fair point. Coaches usually evaluate it on time recovered, session quality, and partner economics once clients adopt.
 
 ## Operating Targets

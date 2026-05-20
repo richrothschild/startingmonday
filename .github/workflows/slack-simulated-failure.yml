@@ -1,0 +1,82 @@
+name: Slack Simulated Failure Alert
+
+on:
+  workflow_dispatch:
+    inputs:
+      fail_after_alert:
+        description: 'Fail the workflow after sending Slack alert'
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  simulate-failure-alert:
+    name: Send simulated failure alert
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate webhook secret exists
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is missing"
+            exit 1
+          fi
+
+      - name: Send simulated failure notification
+        uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          payload: |
+            {
+              "text": "🚨 Simulated deployment failure alert",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚨 Simulated Deployment Failure"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Environment:*\nproduction"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*State:*\nfailure (simulated)"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:*\n${{ github.repository }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View workflow run>"
+                  }
+                }
+              ]
+            }
+
+      - name: Fail workflow intentionally
+        if: ${{ inputs.fail_after_alert }}
+        run: |
+          echo "Intentional failure after alert to verify on-call visibility path."
+          exit 1
+
+      - name: Keep workflow green when failure is disabled
+        if: ${{ !inputs.fail_after_alert }}
+        run: echo "Alert sent. Workflow left successful by request."

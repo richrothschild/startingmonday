@@ -2,8 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { requireAuth } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
+import { withApiTelemetry } from '@/lib/telemetry'
 
-export async function GET(req: NextRequest) {
+async function getHandler(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
@@ -80,12 +81,15 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+async function postHandler(req: NextRequest) {
   const auth = await requireAuth(req)
   if (!auth.ok) return auth.response
 
   const supabase = await createClient()
   const { userId } = auth
+
+  const authJson = (payload: unknown, status: number) =>
+    NextResponse.json(payload, { status })
 
   try {
     const body = await req.json()
@@ -93,9 +97,9 @@ export async function POST(req: NextRequest) {
     // Validate input
     const parseResult = FeedbackSubmitSchema.safeParse(body)
     if (!parseResult.success) {
-      return NextResponse.json(
+      return authJson(
         { error: firstZodError(parseResult.error) },
-        { status: 400 }
+        400
       )
     }
 
@@ -110,16 +114,16 @@ export async function POST(req: NextRequest) {
       .gt('created_at', oneDayAgo)
 
     if ((recentCount || 0) >= 5) {
-      return NextResponse.json(
+      return authJson(
         { error: 'You can submit a maximum of 5 feedback items per day' },
-        { status: 429 }
+        429
       )
     }
 
-    // Insert feedback item
     const { data: feedbackItem, error } = await (supabase
       .from('feedback_items') as any)
       .insert({
+        type: 'feedback',
         title,
         body: feedbackBody,
         category,
@@ -127,23 +131,26 @@ export async function POST(req: NextRequest) {
         user_id: userId,
         status: 'new',
       })
-      .select()
-      .single()
+      .select('*')
+      .single() as any
 
     if (error) {
       console.error('[feedback] submit error:', error)
-      return NextResponse.json({ error: 'Failed to submit feedback' }, { status: 500 })
+      return authJson({ error: 'Failed to submit feedback' }, 500)
     }
 
-    return NextResponse.json(
+    return authJson(
       { 
         item: feedbackItem,
         message: 'Thank you for your feedback! We\'ll review it within 24 hours.'
       },
-      { status: 201 }
+      201
     )
   } catch (err) {
     console.error('[feedback] submit exception:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return authJson({ error: 'Internal server error' }, 500)
   }
 }
+
+export const GET = withApiTelemetry('/api/feedback/items', getHandler)
+export const POST = withApiTelemetry('/api/feedback/items', postHandler)

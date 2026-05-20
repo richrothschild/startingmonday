@@ -177,9 +177,13 @@ Output valid JSON only, no markdown fences.`
 
   const message = await anthropic.messages.create({
     model: MODELS.haiku,
-    max_tokens: 1024,
+    max_tokens: 4096,
     messages: [{ role: 'user', content: prompt }],
   })
+
+  if (message.stop_reason === 'max_tokens') {
+    Sentry.captureMessage('Briefing generation truncated by max_tokens', { level: 'warning', extra: { model: MODELS.haiku } })
+  }
 
   const raw = (message.content[0] as { type: string; text?: string })?.text?.trim() ?? '{}'
   const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()

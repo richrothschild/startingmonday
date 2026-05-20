@@ -138,22 +138,19 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Most executive searches are shaped before the posting exists. Starting Monday helps C-suite technology leaders improve behavior and relationship quality so outreach starts earlier, with context.',
+          eyebrow: 'The search doesn\'t start when you decide to search. It starts weeks or months earlier. Most searches are shaped before the posting exists.',
           h1Lines: ['Be ready.', 'Be early.'],
-          bodyPreamble: 'If you\'re leading a team while planning your next move,\nthe last thing you need is more noise.',
-          body: 'Starting Monday helps you run a disciplined campaign: monitor exact targets, spot role-shaping movement early, prepare sharper outreach, and build higher-trust conversations before the process becomes crowded.',
+          claimMethodLabel: 'See the operating cadence →',
+          claimMethodHref: '#operating-cadence',
+          bodyPreamble: 'You might be thinking:\n"I have a coach." "I\'m using LinkedIn Premium." "I\'m working with a recruiter."\nThey\'re all right. Here\'s exactly where we fit in.',
+          body: 'Starting Monday operates the infrastructure layer: signal intelligence so you know about transitions before they\'re public, a relationship tracker so nothing goes cold, and a prep brief that runs in 60 seconds. You work with your coach and recruiters. We make sure you have the best context and earliest advantage they can build on.',
           steps: [
-            'Add your target companies.',
-            'Set your level, positioning narrative, and privacy preferences.',
-            'Wake up to a decision-ready briefing by morning.',
+            'Add the 20-50 companies where your next role likely lives.',
+            'Set your level, positioning narrative, and privacy settings (we never share your activity).',
+            'Watch for signals. Act on movement. Prepare rigorously before each conversation.',
           ],
-          trialNote: 'Free for 30 days. No credit card. Built for C-suite candidates who want the right role, not a reactive scramble.',
-          competitiveEdge: 'Executives using Starting Monday reach out an average of 4.2 weeks before the posting. Earlier context improves relationship quality and decision leverage.',
-          testimonial: {
-            quote: 'Used to take 6+ months. With Starting Monday, I had competing offers in 67 days. Started tracking in January. Had offers by early March.',
-            source: 'Technology executive, VP to CIO transition',
-            result: 'Timeline: 67 days vs. 6+ months typical. First outreach started before the role was formally posted.',
-          },
+          trialNote: 'Free for 30 days. No credit card. No access to your employer. Built for C-suite leaders who want the early advantage and the rigor.',
+          competitiveEdge: '⏰ The operating cadence: Monday pipeline review (5 min) → Daily signal briefing (2 min) → Pre-interview prep (5 min) = Disciplined search that lands better conversations.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}

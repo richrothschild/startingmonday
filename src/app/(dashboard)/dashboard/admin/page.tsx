@@ -14,18 +14,60 @@ const STEP_LABELS: Record<string, string> = {
   a6_follow_up:'Follow-up set',
 }
 
-const INTERNAL_PAGES = [
-  { path: '/dashboard/admin',                  label: 'Admin Hub',           owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin/team',             label: 'Team Management',     owner: 'rw', admin: 'r',  viewer: '-' },
-  { path: '/dashboard/admin',                  label: 'Analytics',           owner: 'rw', admin: 'rw', viewer: 'r' },
-  { path: '/dashboard/outreach',               label: 'Outreach Hub',        owner: 'rw', admin: 'rw', viewer: 'r' },
-  { path: '/dashboard/admin/intelligence',     label: 'Intelligence (B2B)',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/traces',           label: 'LLM Traces / Evals',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/social',           label: 'LinkedIn Social',      owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/coach-outreach',   label: 'Coach Outreach',      owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/customers',        label: 'Customers',            owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/speakers',         label: 'Conference Speakers',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/dashboard/admin/metrics',          label: 'Action Scores',        owner: 'rw', admin: 'rw', viewer: '-' },
+type InternalPage = {
+  path: string
+  label: string
+  owner: string
+  admin: string
+  viewer: string
+  priority: 'core' | 'advanced'
+}
+
+const PAGE_GROUPS: Array<{
+  id: string
+  label: string
+  purpose: string
+  pages: InternalPage[]
+}> = [
+  {
+    id: 'revenue-growth',
+    label: 'Revenue & Growth',
+    purpose: 'Pipeline, customer conversion, demand generation, and GTM execution.',
+    pages: [
+      { path: '/dashboard/admin/revenue', label: 'Revenue Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/speakers', label: 'Conference Speakers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+    ],
+  },
+  {
+    id: 'product-intelligence',
+    label: 'Product & Intelligence',
+    purpose: 'Customer intelligence, quality signals, and product performance telemetry.',
+    pages: [
+      { path: '/dashboard/admin/product', label: 'Product Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+    ],
+  },
+  {
+    id: 'platform-operations',
+    label: 'Platform Operations',
+    purpose: 'Runbooks, access control, reliability, and operational governance.',
+    pages: [
+      { path: '/dashboard/admin/operations', label: 'Operations Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
+      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
+    ],
+  },
 ]
 
 const INTERNAL_APIS = [
@@ -33,6 +75,7 @@ const INTERNAL_APIS = [
   { path: '/api/outreach/send',        label: 'Outreach Send',         owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/status',      label: 'Outreach Status',       owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/suppression', label: 'Outreach Suppression',  owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/admin/automation/monitoring/alerts', label: 'Automation Alerts', owner: 'rw', admin: 'rw', viewer: '-' },
 ]
 
 export default async function AdminPage() {
@@ -63,6 +106,7 @@ export default async function AdminPage() {
     { data: contacts24h },
     { data: followUps24h },
     { data: briefingViews24h },
+    { count: openAutomationAlerts },
   ] = await Promise.all([
     adminClient.from('users').select('id').in('subscription_status', ['trialing', 'active']),
     adminClient.from('user_profiles').select('user_id, positioning_summary, briefing_time, last_briefing_sent_at, placed_at, placement_company, full_name'),
@@ -78,6 +122,7 @@ export default async function AdminPage() {
     adminClient.from('contacts').select('user_id').gte('created_at', since24h).limit(5000),
     adminClient.from('follow_ups').select('user_id').gte('created_at', since24h).limit(5000),
     adminClient.from('user_events').select('user_id').eq('event_name', 'briefing_viewed').gte('created_at', since24h).limit(5000),
+    adminClient.from('automation_alerts').select('id', { count: 'exact', head: true }).eq('status', 'open'),
   ])
 
   const usersWithCompany24h = new Set((companies24h ?? []).map(r => r.user_id)).size
@@ -420,10 +465,9 @@ export default async function AdminPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/customers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Customers</Link>
-            <Link href="/dashboard/admin/social" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Social</Link>
-            <Link href="/dashboard/admin/speakers" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Speakers</Link>
-            <Link href="/dashboard/admin/metrics" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Scores</Link>
+            <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
+            <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
+            <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
@@ -449,6 +493,32 @@ export default async function AdminPage() {
         </div>
 
         <div className="mb-8">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {PAGE_GROUPS.map((group) => {
+              const corePages = group.pages.filter((page) => page.priority === 'core')
+              const advancedCount = group.pages.filter((page) => page.priority === 'advanced').length
+              return (
+                <div key={group.id} className="bg-white border border-slate-200 rounded p-4">
+                  <p className="text-[14px] font-bold text-slate-900">{group.label}</p>
+                  <p className="text-[12px] text-slate-500 mt-1 leading-relaxed">{group.purpose}</p>
+                  <div className="mt-3 space-y-1.5">
+                    {corePages.map((page) => (
+                      <Link key={page.path} href={page.path} className="block text-[12px] font-semibold text-slate-700 hover:text-slate-900 hover:underline">
+                        {page.label}
+                      </Link>
+                    ))}
+                    {advancedCount > 0 && (
+                      <p className="text-[11px] text-slate-400 mt-2">+ {advancedCount} advanced pages</p>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="mb-8">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily activation snapshot (24h)</p>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
             {[
@@ -463,6 +533,11 @@ export default async function AdminPage() {
                 <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
+          </div>
+          <div className="mt-3">
+            <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> • view runbooks
+            </Link>
           </div>
         </div>
 
@@ -610,33 +685,47 @@ export default async function AdminPage() {
         </div>
 
         {/* Internal pages + permissions */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal Pages</span>
-          </div>
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
-                <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {INTERNAL_PAGES.map((p, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-3">
-                    <Link href={p.path} className="text-slate-900 font-semibold hover:text-slate-600">{p.label}</Link>
-                    <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
-                  </td>
-                  <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
-                  <td className="px-4 py-3 text-center font-bold text-blue-600">{p.admin}</td>
-                  <td className="px-4 py-3 text-center text-slate-300">{p.viewer}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-4 mb-6">
+          {PAGE_GROUPS.map((group) => (
+            <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
+              <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">{group.label}</span>
+                  <p className="text-[12px] text-slate-500 mt-1">{group.purpose}</p>
+                </div>
+                <span className="text-[11px] text-slate-400">{group.pages.length} pages</span>
+              </div>
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                    <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Tier</th>
+                    <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
+                    <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {group.pages.map((page, i) => (
+                    <tr key={`${group.id}-${i}`}>
+                      <td className="px-6 py-3">
+                        <Link href={page.path} className="text-slate-900 font-semibold hover:text-slate-600">{page.label}</Link>
+                        <span className="ml-2 text-slate-300 font-mono text-[11px]">{page.path}</span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${page.priority === 'core' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
+                          {page.priority === 'core' ? 'Core' : 'Advanced'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center font-bold text-amber-600">{page.owner}</td>
+                      <td className="px-4 py-3 text-center font-bold text-blue-600">{page.admin}</td>
+                      <td className="px-4 py-3 text-center text-slate-300">{page.viewer}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
 
         {/* Internal APIs + permissions */}

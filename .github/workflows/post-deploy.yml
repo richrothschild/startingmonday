@@ -1,0 +1,194 @@
+name: Post-Deploy Gate
+
+# Triggered by Railway deployment events via GitHub deployment_status webhook.
+# Runs the full P0 synthetic suite against production immediately after deploy.
+# If 2+ consecutive post-deploy synthetics fail, sends a rollback alert.
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to target
+        default: production
+
+permissions:
+  actions: read
+  contents: read
+  deployments: write
+
+jobs:
+  post-deploy-synthetics:
+    # Only run when a deployment to production succeeds
+    if: >
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event.deployment_status.state == 'success' &&
+       (github.event.deployment.environment == 'production' ||
+        github.event.deployment.environment == 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Wait for production to stabilize (30s)
+        run: |
+          echo "Waiting 30s for production to stabilize after deploy..."
+          sleep 30
+
+      - name: Run P0 synthetic suite against production
+        id: synthetics
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+        run: |
+          # Run only the synthetics project (P0 checks)
+          EXIT_CODE=0
+          npx playwright test --project=synthetics \
+            --reporter=json 2>/dev/null > post-deploy-synthetic-results.json || EXIT_CODE=$?
+
+          node -e "
+          const fs = require('fs')
+          let results
+          try {
+            results = JSON.parse(fs.readFileSync('post-deploy-synthetic-results.json', 'utf8'))
+          } catch {
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'failed=1\npassed=0\ntotal=0\n')
+            process.exit(0)
+          }
+          const suites = results.suites ?? []
+          let passed = 0, failed = 0
+          const failedTests = []
+
+          function walk(suite) {
+            for (const s of suite.suites ?? []) walk(s)
+            for (const spec of suite.specs ?? []) {
+              for (const test of spec.tests ?? []) {
+                if (test.status === 'passed') passed++
+                else if (test.status !== 'skipped') { failed++; failedTests.push(spec.title) }
+              }
+            }
+          }
+          suites.forEach(walk)
+
+          const outputs = [
+            'passed=' + passed,
+            'failed=' + failed,
+            'total=' + (passed + failed),
+            'failed_tests=' + failedTests.join('|'),
+          ]
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, outputs.join('\n') + '\n')
+          "
+
+      - name: Check consecutive post-deploy failures (rollback trigger)
+        id: rollback_check
+        if: steps.synthetics.outputs.failed > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Look at the last 2 production-synthetics runs (proxy for post-deploy runs).
+            // If both are failures, trigger rollback alert.
+            const res = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'production-synthetics.yml',
+              status: 'completed',
+              per_page: 2,
+              branch: 'main',
+              exclude_pull_requests: true,
+            })
+
+            const runs = res.data.workflow_runs ?? []
+            const bothFailed = runs.length >= 2 && runs.every(r => r.conclusion === 'failure')
+
+            core.setOutput('rollback_required', bothFailed ? 'true' : 'false')
+            core.notice(`Consecutive failure check: ${runs.map(r => r.conclusion).join(', ')} — rollback_required=${bothFailed}`)
+
+      - name: Publish post-deploy summary
+        if: always()
+        run: |
+          PASSED="${{ steps.synthetics.outputs.passed || '?' }}"
+          FAILED="${{ steps.synthetics.outputs.failed || '?' }}"
+          SHA="${{ github.sha }}"
+          ENV="${{ github.event.deployment.environment || 'production' }}"
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ## Post-Deploy Synthetic Gate
+
+          | Metric | Value |
+          |---|---|
+          | Environment | ${ENV} |
+          | Deploy SHA | ${SHA:0:8} |
+          | Synthetics passed | ${PASSED} |
+          | Synthetics failed | ${FAILED} |
+          | Status | $( [ "${FAILED:-0}" = "0" ] && echo "PASS" || echo "FAIL" ) |
+          EOF
+
+      - name: Alert on post-deploy synthetic failure
+        if: steps.synthetics.outputs.failed > 0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          FAILED="${{ steps.synthetics.outputs.failed }}"
+          TOTAL="${{ steps.synthetics.outputs.total }}"
+          TESTS="${{ steps.synthetics.outputs.failed_tests }}"
+          SHA="${{ github.sha }}"
+          ROLLBACK="${{ steps.rollback_check.outputs.rollback_required }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          if [ "$ROLLBACK" = "true" ]; then
+            HEADER="🔴 ROLLBACK REQUIRED — Post-Deploy P0 Synthetics Failed (2nd consecutive)"
+            URGENCY="*Automatic rollback recommended.* Initiate in Railway: Deployments > prior deploy > Redeploy"
+          else
+            HEADER="⚠️ Post-Deploy Synthetic Failure"
+            URGENCY="*15-minute watch window active.* One more failure will trigger rollback alert."
+          fi
+
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"${HEADER}\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": { \"type\": \"plain_text\", \"text\": \"${HEADER}\" }
+              },
+              {
+                \"type\": \"section\",
+                \"fields\": [
+                  {\"type\": \"mrkdwn\", \"text\": \"*Failed checks:* ${FAILED}/${TOTAL}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Deploy SHA:* ${SHA:0:8}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Tests:* ${TESTS}\"}
+                ]
+              },
+              {
+                \"type\": \"section\",
+                \"text\": { \"type\": \"mrkdwn\", \"text\": \"${URGENCY}\" }
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"<${RUN_URL}|View post-deploy run> | Runbooks: docs/sre/runbooks/\"
+                }
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"
+
+      - name: Upload post-deploy results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-deploy-synthetic-results
+          path: post-deploy-synthetic-results.json
+          retention-days: 30

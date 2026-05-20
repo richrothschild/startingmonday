@@ -13,7 +13,7 @@ export async function markFollowUpDone(formData: FormData) {
 
   await supabase
     .from('follow_ups')
-    .update({ status: 'done' })
+    .update({ status: 'completed' })
     .eq('id', id)
     .eq('user_id', user.id)
 

@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { parsePixelToken } from '@/lib/pixel-token'
+import { parsePixelTokenLegacyForTelemetry, parsePixelTokenSigned } from '@/lib/pixel-token'
 
 // 1x1 transparent GIF
 const PIXEL = Buffer.from(
@@ -17,7 +17,16 @@ function createAdminClient() {
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get('t')
-  const payload = token ? parsePixelToken(token) : null
+  const payload = token ? parsePixelTokenSigned(token) : null
+
+  if (!payload && token) {
+    const legacyPayload = parsePixelTokenLegacyForTelemetry(token)
+    if (legacyPayload) {
+      console.warn(
+        `[pixel] rejected unsigned token for uid=${legacyPayload.uid} type=${legacyPayload.type}`,
+      )
+    }
+  }
 
   if (payload) {
     const ip =
@@ -26,17 +35,25 @@ export async function GET(request: NextRequest) {
       null
     const ua = request.headers.get('user-agent') ?? null
 
-    // Fire-and-forget - never delay the pixel response for a DB write
-    void createAdminClient()
-      .from('watermark_events')
-      .insert({
-        user_id:    payload.uid,
-        email_type: payload.type,
-        sent_date:  payload.d || null,
-        open_ip:    ip,
-        user_agent: ua,
-        raw_token:  token,
-      })
+    // Fire-and-forget - never delay the pixel response for a DB write.
+    void (async () => {
+      const { error } = await createAdminClient()
+        .from('watermark_events')
+        .insert({
+          user_id: payload.uid,
+          email_type: payload.type,
+          sent_date: payload.d || null,
+          open_ip: ip,
+          user_agent: ua,
+          raw_token: token,
+          token_signed: true,
+        })
+
+      if (error) {
+        // Silently fail - never block pixel response
+        console.error('[pixel] failed to log event:', error.message)
+      }
+    })()
   }
 
   return new NextResponse(PIXEL, {

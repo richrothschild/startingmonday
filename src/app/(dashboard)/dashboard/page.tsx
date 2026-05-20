@@ -365,6 +365,7 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
+  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -428,14 +429,22 @@ export default async function DashboardPage({
               <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
               <div className="ml-auto flex items-center gap-4 shrink-0">
+                <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
                 <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors">Billing</Link>
+                {isRothschildAdmin && (
+                  <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
+                )}
                 <LogoutButton label="Sign out" />
               </div>
             </div>
             <div className="flex sm:hidden items-center gap-4 ml-auto">
+              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white">Feedback</Link>
+              {isRothschildAdmin && (
+                <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
+              )}
               <LogoutButton label="Sign out" />
             </div>
           </div>
@@ -558,6 +567,9 @@ export default async function DashboardPage({
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
+            )}
             {isPartner && (
               <Link href="/dashboard/partner" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
             )}
@@ -573,6 +585,9 @@ export default async function DashboardPage({
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
             <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 whitespace-nowrap">Admin</Link>
+            )}
             <LogoutButton label="Sign out" />
           </div>
         </div>
@@ -589,6 +604,23 @@ export default async function DashboardPage({
             <p className="text-[13px] text-slate-400 mt-2 leading-relaxed">
               Start with the briefing, then work the next relationship and the next action.
             </p>
+        </div>
+
+        <div className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</p>
+            <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/dashboard" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Dashboard
+            </Link>
+            {isRothschildAdmin && (
+              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+                Admin
+              </Link>
+            )}
+          </div>
         </div>
 
         <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">

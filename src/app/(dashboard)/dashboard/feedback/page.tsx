@@ -4,16 +4,25 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import type { FeedbackItem } from '@/lib/database.types'
+import { BrandIcon } from '@/components/BrandIcon'
 
 type FeedbackCategory = 'bug' | 'feature_request' | 'ui_ux' | 'performance' | 'other'
 type FeedbackStatus = 'new' | 'under_review' | 'planned' | 'in_progress' | 'shipped' | 'declined'
 
 const CATEGORY_LABELS: Record<FeedbackCategory, string> = {
-  bug: '🐛 Bug',
-  feature_request: '✨ Feature Request',
-  ui_ux: '🎨 UI/UX',
-  performance: '⚡ Performance',
-  other: '💭 Other',
+  bug: 'Bug',
+  feature_request: 'Feature Request',
+  ui_ux: 'UI/UX',
+  performance: 'Performance',
+  other: 'Other',
+}
+
+const CATEGORY_ICONS: Record<FeedbackCategory, 'bug' | 'feature' | 'uiux' | 'performance' | 'other'> = {
+  bug: 'bug',
+  feature_request: 'feature',
+  ui_ux: 'uiux',
+  performance: 'performance',
+  other: 'other',
 }
 
 const STATUS_COLORS: Record<FeedbackStatus, string> = {
@@ -193,11 +202,11 @@ export default function FeedbackPage() {
                 required
               >
                 <option value="">Select a category</option>
-                <option value="bug">🐛 Bug Report</option>
-                <option value="feature_request">✨ Feature Request</option>
-                <option value="ui_ux">🎨 UI/UX Suggestion</option>
-                <option value="performance">⚡ Performance Issue</option>
-                <option value="other">💭 Other</option>
+                <option value="bug">Bug Report</option>
+                <option value="feature_request">Feature Request</option>
+                <option value="ui_ux">UI/UX Suggestion</option>
+                <option value="performance">Performance Issue</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -225,11 +234,11 @@ export default function FeedbackPage() {
                 className="w-full px-3 py-2 border border-slate-300 rounded text-[12px] focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">All Categories</option>
-                <option value="bug">🐛 Bug</option>
-                <option value="feature_request">✨ Feature</option>
-                <option value="ui_ux">🎨 UI/UX</option>
-                <option value="performance">⚡ Performance</option>
-                <option value="other">💭 Other</option>
+                <option value="bug">Bug</option>
+                <option value="feature_request">Feature</option>
+                <option value="ui_ux">UI/UX</option>
+                <option value="performance">Performance</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -317,7 +326,8 @@ export default function FeedbackPage() {
 
                 <div className="flex items-center justify-between text-[12px] text-slate-500">
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 bg-slate-100 text-slate-700 rounded">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 bg-slate-100 text-slate-700 rounded">
+                      <BrandIcon name={CATEGORY_ICONS[item.category as FeedbackCategory]} className="h-3.5 w-3.5 text-orange-600" />
                       {CATEGORY_LABELS[item.category as FeedbackCategory]}
                     </span>
                     {item.user_profiles && (
@@ -336,10 +346,10 @@ export default function FeedbackPage() {
                         : 'text-slate-500 hover:text-orange-600'
                     }`}
                   >
-                    👍 {item.vote_count}
+                    Votes {item.vote_count}
                   </button>
                   <div className="flex items-center gap-1 text-slate-500">
-                    💬 {item.comment_count}
+                    Comments {item.comment_count}
                   </div>
                 </div>
               </div>

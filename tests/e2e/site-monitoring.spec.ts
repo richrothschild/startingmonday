@@ -1,0 +1,105 @@
+import { test, expect, type Page } from '@playwright/test'
+import { attachJourneyGuards, expectJourneyHealthy, expectJourneyShell } from './monitoring.helpers'
+
+const publicJourneys = [
+  { path: '/', heading: /Be ready.*Be early|Starting Monday|Operating System/i },
+  { path: '/login', heading: /Sign in/i },
+  { path: '/signup', heading: /Get started|Create your account|Sign up/i },
+  { path: '/pricing', heading: /Pricing/i },
+]
+
+async function skipIfAuthUnavailable(page: Page) {
+  await page.goto('/dashboard')
+  test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required monitoring checks: login session unavailable in CI')
+}
+
+for (const journey of publicJourneys) {
+  test(`public journey renders cleanly: ${journey.path}`, async ({ page }) => {
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto(journey.path)
+    await expectJourneyShell(page, journey.heading)
+    await expectJourneyHealthy(page, guards)
+
+    await expect(page.locator('body')).not.toContainText(/404/i)
+    await expect(page.locator('.bg-red-50')).toHaveCount(0)
+  })
+}
+
+test.describe('authenticated monitoring journeys', () => {
+  test('dashboard renders meaningful content', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto('/dashboard')
+    await expectJourneyShell(page, /Dashboard|Company Pipeline|Starting Monday/i)
+    await expectJourneyHealthy(page, guards)
+
+    const emptyPipeline = page.getByText(/Add the first company you want to work for|no companies yet/i)
+    const populatedPipeline = page.getByText(/Company Pipeline|pipeline/i)
+    await expect(emptyPipeline.or(populatedPipeline).first()).toBeVisible()
+  })
+
+  test('briefing page shows fresh output or a clear empty state', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto('/dashboard/briefing')
+    await expectJourneyShell(page, /Good (morning|afternoon|evening)/i)
+    await expectJourneyHealthy(page, guards)
+
+    const emptyState = page.getByText('Nothing to brief today.')
+    if (await emptyState.isVisible()) {
+      await expect(page.getByText(/No new job matches, overdue follow-ups, or company signals/i)).toBeVisible()
+    } else {
+      await expect(page.getByText('Accountability')).toBeVisible()
+      await expect(page.getByText(/Overnight Changes|People To Reach|Today, Do This/)).toBeVisible()
+      await expect(page.getByText(/Here is what changed overnight and what to act on first today\./i)).toBeVisible()
+    }
+  })
+
+  test('outreach page shows a send queue or an explicit empty state', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto('/dashboard/outreach')
+    await expectJourneyShell(page, /Send Queue|Outreach/i)
+    await expectJourneyHealthy(page, guards)
+
+    await expect(page.getByText(/Defaults to high-confidence emails/i)).toBeVisible()
+    await expect(page.getByText(/Filter by confidence and status/i)).toBeVisible()
+
+    const emptyState = page.getByText('No prospects match this channel, confidence, and status filter.')
+    if (await emptyState.isVisible()) {
+      await expect(emptyState).toBeVisible()
+    } else {
+      await expect(page.getByRole('button', { name: /Executives|Search Firms|Coaches|Outplacement Firms/ })).toBeVisible()
+      await expect(page.getByText(/Review and send on right/i)).toBeVisible()
+    }
+  })
+
+  test('company detail route renders when a company exists', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+
+    const guards = await attachJourneyGuards(page)
+
+    await page.goto('/dashboard')
+    const companyLink = page.locator('a[href^="/dashboard/companies/"]').first()
+
+    if ((await companyLink.count()) === 0) {
+      test.skip(true, 'Skipping company detail monitoring check: no companies in this account')
+    }
+
+    await companyLink.click()
+    await expect(page).toHaveURL(/\/dashboard\/companies\/.+/)
+    await expectJourneyHealthy(page, guards)
+
+    await expect(page.locator('h1')).toBeVisible()
+    await expect(page.getByRole('link', { name: /Interview prep|Run interview prep/i }).first()).toBeVisible()
+    await expect(page.locator('body')).not.toContainText(/404/i)
+    await expect(page.locator('.bg-red-50')).toHaveCount(0)
+  })
+})

@@ -1,32 +1,22 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { verifyTurnstileToken, getClientIp } from '@/lib/public-endpoint-guard'
-import { checkRateLimit } from '@/lib/rate-limit'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export const runtime = 'nodejs'
 
 type RequestBody = {
   email?: unknown
   password?: unknown
-  turnstileToken?: unknown
 }
 
 export async function POST(request: NextRequest) {
-  const ip = getClientIp(request)
-  const rateLimitKey = `login:${ip}`
-
-  // Rate limit login attempts (5 per minute per IP)
-  const { allowed, retryAfter } = checkRateLimit(rateLimitKey, 5)
-  if (!allowed) {
-    return NextResponse.json(
-      { ok: false, error: 'Too many login attempts. Please try again later.' },
-      {
-        status: 429,
-        headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {},
-      }
-    )
-  }
+  const guardResponse = await enforcePublicEndpointGuard({
+    request,
+    rateLimitKey: 'login',
+    maxPerMinute: 5,
+  })
+  if (guardResponse) return guardResponse
 
   let body: RequestBody
   try {
@@ -38,7 +28,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { email, password, turnstileToken } = body
+  const { email, password } = body
 
   // Validate input types
   if (typeof email !== 'string' || typeof password !== 'string') {
@@ -53,25 +43,6 @@ export async function POST(request: NextRequest) {
       { ok: false, error: 'Missing required fields' },
       { status: 400 }
     )
-  }
-
-  // Server-side Turnstile verification - skipped when TURNSTILE_SECRET_KEY is not configured
-  // (allows staging/dev environments without Cloudflare Turnstile set up)
-  const turnstileConfigured = !!process.env.TURNSTILE_SECRET_KEY
-  if (turnstileConfigured) {
-    if (typeof turnstileToken !== 'string' || !turnstileToken) {
-      return NextResponse.json(
-        { ok: false, error: 'Missing or invalid required fields' },
-        { status: 400 }
-      )
-    }
-    const captchaValid = await verifyTurnstileToken(turnstileToken, ip)
-    if (!captchaValid) {
-      return NextResponse.json(
-        { ok: false, error: 'Captcha verification failed' },
-        { status: 403 }
-      )
-    }
   }
 
   // Proceed with authentication
@@ -97,8 +68,15 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
+      const isInvalidCredentials = /invalid login credentials/i.test(error.message)
       return NextResponse.json(
-        { ok: false, error: error.message },
+        {
+          ok: false,
+          error: isInvalidCredentials
+            ? 'Invalid email/password. If you signed up with Google or Apple, sign in with that provider first, then set a password in Settings > Security.'
+            : error.message,
+          code: isInvalidCredentials ? 'INVALID_CREDENTIALS' : 'AUTH_ERROR',
+        },
         { status: 401 }
       )
     }

@@ -1,57 +1,21 @@
 ﻿'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Script from 'next/script'
-
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
-
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: HTMLElement, options: Record<string, unknown>) => string
-      reset: (widgetId?: string) => void
-      remove: (widgetId?: string) => void
-    }
-  }
-}
 
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [info, setInfo] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string | null>(null)
+  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
 
-  const authBusy = googleLoading || appleLoading || loading
-  // Block submit only when Turnstile is configured and the token hasn't arrived yet.
-  const canSubmit = !authBusy && (!TURNSTILE_SITE_KEY || !!turnstileToken)
-
-  function renderTurnstileWidget() {
-    if (!TURNSTILE_SITE_KEY || !turnstileRef.current || !window.turnstile) return
-    if (widgetIdRef.current !== null) return // already rendered
-    widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-      sitekey: TURNSTILE_SITE_KEY,
-      size: 'invisible',
-      callback: (token: string) => setTurnstileToken(token),
-      'expired-callback': () => setTurnstileToken(null),
-      'error-callback': () => setTurnstileToken(null),
-    })
-  }
-
-  function resetTurnstile() {
-    setTurnstileToken(null)
-    if (widgetIdRef.current !== null && window.turnstile) {
-      window.turnstile.reset(widgetIdRef.current)
-      widgetIdRef.current = null
-    }
-  }
+  const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
 
   async function handleGoogle() {
     setGoogleLoading(true)
@@ -107,28 +71,37 @@ export default function LoginPage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (!canSubmit) return
+    if (authBusy) return
     setLoading(true)
     setError(null)
+    setInfo(null)
+
+    // Password managers can populate DOM inputs without firing onChange.
+    // Read from the submitted form first, then fall back to React state.
+    const formData = new FormData(e.currentTarget)
+    const submittedEmail = (formData.get('email')?.toString().trim().toLowerCase() ?? '') || email
+    const submittedPassword = (formData.get('password')?.toString() ?? '') || password
+
+    setEmail(submittedEmail)
+    setPassword(submittedPassword)
 
     try {
-      // Call server-enforced login endpoint
-      const body: Record<string, string> = { email, password }
-      if (turnstileToken) body.turnstileToken = turnstileToken
-
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
 
-      const data = await response.json() as { ok?: boolean; error?: string; user?: unknown }
+      const data = await response.json() as { ok?: boolean; error?: string; code?: string; user?: unknown }
 
       if (!response.ok || !data.ok) {
-        setError(data.error || 'Sign-in failed')
-        resetTurnstile()
+        if (data.code === 'INVALID_CREDENTIALS') {
+          setError('That email/password did not work. If this account was created with Google or Apple, sign in with that provider first, then set a password in Settings > Security.')
+        } else {
+          setError(data.error || 'Sign-in failed')
+        }
         setLoading(false)
         return
       }
@@ -138,21 +111,47 @@ export default function LoginPage() {
       router.refresh()
     } catch {
       setError('Something went wrong. Please try again.')
-      resetTurnstile()
       setLoading(false)
+    }
+  }
+
+  async function handleMagicLink() {
+    const normalizedEmail = email.trim().toLowerCase()
+    if (!normalizedEmail) {
+      setError('Enter your email first, then request a sign-in link.')
+      return
+    }
+
+    setMagicLinkLoading(true)
+    setInfo(null)
+
+    try {
+      const response = await fetch('/api/auth/verify-and-magic-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          redirectTo: `${window.location.origin}/auth/callback?next=/dashboard/briefing`,
+        }),
+      })
+
+      const data = await response.json() as { ok?: boolean; error?: string; message?: string }
+
+      if (!response.ok || !data.ok) {
+        setError(data.error || 'Could not send sign-in link. Please try again.')
+        return
+      }
+
+      setInfo(data.message || 'If an account exists for that email, a sign-in link has been sent.')
+    } catch {
+      setError('Could not send sign-in link. Please try again.')
+    } finally {
+      setMagicLinkLoading(false)
     }
   }
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      {TURNSTILE_SITE_KEY && (
-        <Script
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-          strategy="afterInteractive"
-          onLoad={renderTurnstileWidget}
-        />
-      )}
-
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
@@ -212,8 +211,10 @@ export default function LoginPage() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
@@ -227,8 +228,10 @@ export default function LoginPage() {
                 </label>
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   required
+                  autoComplete="current-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
@@ -239,12 +242,33 @@ export default function LoginPage() {
                 <p className="text-[13px] text-red-600">{error}</p>
               )}
 
-              {/* Invisible Turnstile widget — renders here when NEXT_PUBLIC_TURNSTILE_SITE_KEY is set */}
-              <div ref={turnstileRef} />
+              {info && (
+                <p className="text-[13px] text-emerald-700">{info}</p>
+              )}
+
+              <button
+                type="button"
+                onClick={handleMagicLink}
+                disabled={authBusy}
+                className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link instead'}
+              </button>
+
+              <p className="text-[12px] text-slate-500 -mt-1">
+                Signed up with Google or Apple? Use that provider to sign in first, then set a password at{' '}
+                <Link href="/settings/security" className="text-slate-700 font-semibold hover:text-slate-900">
+                  Settings → Security
+                </Link>
+                .
+              </p>
+
+
+
 
               <button
                 type="submit"
-                disabled={!canSubmit}
+                disabled={authBusy}
                 className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in…' : 'Sign in'}

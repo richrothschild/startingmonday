@@ -1,11 +1,15 @@
-import { NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 
 // GET: export speakers as CSV formatted for LinkedIn Sales Navigator import.
 // Excludes speakers with status 'converted' or 'not_interested' or 'skip'.
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -57,10 +61,10 @@ export async function GET() {
   const csv = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n')
   const date = new Date().toISOString().split('T')[0]
 
-  return new NextResponse(csv, {
+  return withAuthCookies(new NextResponse(csv, {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
       'Content-Disposition': `attachment; filename="speakers-export-${date}.csv"`,
     },
-  })
+  }), auth)
 }

@@ -1,0 +1,68 @@
+[
+  {
+    "archetype": "CFO",
+    "full_name": "Kevan Parekh",
+    "company": "Apple",
+    "title": "Senior Vice President and Chief Financial Officer",
+    "personalization": "Apple's leadership materials put you directly at the center of the company's financial stewardship, which usually means any transformation argument has to be both strategic and highly disciplined.",
+    "email_body_core": "I work on executive positioning and outreach for leaders navigating high-stakes transitions. In practice, the messages that get traction with finance audiences are the ones that show capital discipline, measurable operating impact, and a credible understanding of how transformation changes the economics of the business.",
+    "persona_focus": "",
+    "source_file": "prospecting_batch_003_personalized_real_10.csv",
+    "score": 12
+  },
+  {
+    "archetype": "COO",
+    "full_name": "Sabih Khan",
+    "company": "Apple",
+    "title": "Chief Operating Officer",
+    "personalization": "Apple's leadership materials make your operating remit explicit, which usually signals a very low tolerance for vague transformation language.",
+    "email_body_core": "I work on executive positioning and outreach for senior operators. The messages that tend to resonate are the ones that show operating cadence, transformation discipline, and an ability to scale complexity without turning the note into abstract strategy language.",
+    "persona_focus": "",
+    "source_file": "prospecting_batch_003_personalized_real_10.csv",
+    "score": 12
+  },
+  {
+    "archetype": "CIO",
+    "full_name": "Ruth Porat",
+    "company": "Alphabet",
+    "title": "President and CIO; CFO",
+    "personalization": "The way Alphabet presents your role suggests a strong emphasis on long-term investment judgment and enterprise stewardship.",
+    "email_body_core": "I spend time helping senior leaders frame change in a way that reads as durable strategy and sound judgment, not just urgent modernization.",
+    "persona_focus": "",
+    "source_file": "prospecting_combined_strict_21_personalized.csv",
+    "score": 12
+  },
+  {
+    "archetype": "CTO",
+    "full_name": "Andrew Bosworth",
+    "company": "Meta",
+    "title": "Chief Technology Officer",
+    "personalization": "Meta's leadership materials anchor your role around long-horizon technical direction and execution.",
+    "email_body_core": "I help senior technology leaders make strategic technical reasoning legible to mixed executive audiences without flattening complexity.",
+    "persona_focus": "",
+    "source_file": "prospecting_batch_004_personalized_real_19.csv",
+    "score": 12
+  },
+  {
+    "archetype": "CHRO",
+    "full_name": "Kathleen Hogan",
+    "company": "Microsoft",
+    "title": "Chief People Officer",
+    "personalization": "Microsoft's public description of your role centers on culture and employee experience, which signals a leadership lens broader than HR mechanics.",
+    "email_body_core": "I help leaders articulate that people-and-performance connection more clearly in transition messaging and high-value conversations.",
+    "persona_focus": "",
+    "source_file": "prospecting_combined_strict_21_personalized.csv",
+    "score": 12
+  },
+  {
+    "archetype": "CEO",
+    "full_name": "Arvind Krishna",
+    "company": "IBM",
+    "title": "Chairman and CEO",
+    "personalization": "",
+    "email_body_core": "",
+    "persona_focus": "",
+    "source_file": "prospecting_batch_001.csv",
+    "score": 0
+  }
+]

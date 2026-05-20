@@ -2,10 +2,13 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase/admin'
+import type { EmailOtpType } from '@supabase/supabase-js'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  const tokenHash = searchParams.get('token_hash')
+  const tokenType = searchParams.get('type')
   const next = searchParams.get('next') ?? '/dashboard/briefing'
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
@@ -14,7 +17,7 @@ export async function GET(request: NextRequest) {
   const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
   const publicOrigin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : origin
 
-  if (code) {
+  if (code || (tokenHash && tokenType)) {
     const cookieStore = await cookies()
 
     // Use a JS redirect (location.replace) instead of an HTTP 302 so the
@@ -44,7 +47,14 @@ export async function GET(request: NextRequest) {
       }
     )
 
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+    const authResult = code
+      ? await supabase.auth.exchangeCodeForSession(code)
+      : await supabase.auth.verifyOtp({
+          token_hash: tokenHash!,
+          type: tokenType as EmailOtpType,
+        })
+
+    const { data, error } = authResult
 
     console.log(JSON.stringify({
       ts: new Date().toISOString(),
@@ -55,16 +65,19 @@ export async function GET(request: NextRequest) {
     }))
 
     if (!error && data.session && data.user) {
+      const user = data.user
+      const userId = user.id
+      const userEmail = user.email
       const utmSource = searchParams.get('utm_source')
       const utmMedium = searchParams.get('utm_medium')
-      const isNewUser = data.user.created_at
-        ? (Date.now() - new Date(data.user.created_at).getTime()) < 60_000
+      const isNewUser = user.created_at
+        ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
       // utm_source carries the referral code when signup came through a partner link (?ref=CODE)
       const refCode = utmSource && /^[A-Z0-9]{6,12}$/.test(utmSource) ? utmSource : null
       await Promise.all([
         supabase.from('user_profiles').upsert(
-          { user_id: data.user.id, ...(refCode ? { referred_by: refCode } : {}) },
+          { user_id: userId, ...(refCode ? { referred_by: refCode } : {}) },
           { onConflict: 'user_id', ignoreDuplicates: true }
         ),
         utmSource
@@ -72,13 +85,13 @@ export async function GET(request: NextRequest) {
               signup_source: utmSource,
               acquisition_channel: utmMedium ?? (refCode ? 'referral' : null),
               referral_source: utmSource,
-            }).eq('id', data.user.id)
+            }).eq('id', userId)
           : Promise.resolve(),
         isNewUser
           ? fetch(`${publicOrigin}/api/notify/new-user`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: utmSource }),
+              body: JSON.stringify({ email: userEmail, tier: 'trialing', source: utmSource }),
             }).catch(() => {})
           : Promise.resolve(),
         isNewUser && refCode
@@ -92,7 +105,7 @@ export async function GET(request: NextRequest) {
                 .maybeSingle()
               if (partner) {
                 await admin.from('referral_attributions').upsert(
-                  { signup_user_id: data.user.id, partner_id: partner.id },
+                  { signup_user_id: userId, partner_id: partner.id },
                   { onConflict: 'signup_user_id', ignoreDuplicates: true }
                 )
               }

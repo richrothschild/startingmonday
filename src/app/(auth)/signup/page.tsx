@@ -6,16 +6,6 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
 
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: HTMLElement, options: Record<string, unknown>) => string
-      reset: (widgetId?: string) => void
-      remove: (widgetId?: string) => void
-    }
-  }
-}
-
 type SituationContent = {
   title: string
   sub: string

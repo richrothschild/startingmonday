@@ -26,7 +26,43 @@ jobs:
         env:
           MONITOR_BASE_URL: https://startingmonday.app
           MONITOR_CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: npm run monitor:smoke
+        run: |
+          MONITOR_OUTPUT_JSON=1 npm run monitor:smoke:json > monitoring-summary.json
+          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('monitoring-summary.json','utf8'));console.log('Production smoke check: '+d.passed+'/'+d.total+' passed');for(const r of d.results){console.log((r.ok?'OK':'FAIL')+' '+r.name+' ('+r.status+') '+r.durationMs+'ms'+(r.ok?'':' -> '+r.reason));} if(d.failed>0) process.exit(1);"
+
+      - name: Upload monitoring summary artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitoring-summary
+          path: monitoring-summary.json
+          retention-days: 14
+
+      - name: Publish monitoring summary
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs = require('fs')
+          const d = JSON.parse(fs.readFileSync('monitoring-summary.json', 'utf8'))
+          const lines = [
+            '## Production Monitoring Summary',
+            '',
+            `Base URL: ${d.baseUrl}`,
+            '',
+            `Passed: ${d.passed}/${d.total}`,
+            '',
+            '| Check | Status | HTTP | Duration | Notes |',
+            '|---|---|---:|---:|---|',
+          ]
+
+          for (const r of d.results) {
+            const status = r.ok ? 'OK' : 'FAIL'
+            const notes = r.ok ? '' : (r.reason || 'Unknown failure')
+            lines.push(`| ${r.name} | ${status} | ${r.status} | ${r.durationMs}ms | ${notes.replace(/\|/g, '/')} |`)
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`)
+          NODE
 
       - name: Send Slack notification on failure
         if: failure()

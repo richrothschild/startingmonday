@@ -37,6 +37,7 @@ type FollowUp = {
   id: string
   action: string
   due_date: string
+  google_event_url: string | null
   company_id: string | null
   contact_id: string | null
   companies: { id: string; name: string } | null
@@ -73,7 +74,7 @@ export default async function CalendarPage({
   const [{ data: rawFollowUps }, { data: overdueRaw }] = await Promise.all([
     supabase
       .from('follow_ups')
-      .select('id, action, due_date, company_id, contact_id, companies(id, name), contacts(id, name)')
+      .select('id, action, due_date, google_event_url, company_id, contact_id, companies(id, name), contacts(id, name)')
       .eq('user_id', user.id)
       .eq('status', 'pending')
       .gte('due_date', monday)
@@ -81,7 +82,7 @@ export default async function CalendarPage({
       .order('due_date', { ascending: true }),
     supabase
       .from('follow_ups')
-      .select('id, action, due_date, company_id, contact_id, companies(id, name), contacts(id, name)')
+      .select('id, action, due_date, google_event_url, company_id, contact_id, companies(id, name), contacts(id, name)')
       .eq('user_id', user.id)
       .eq('status', 'pending')
       .lt('due_date', monday)
@@ -160,6 +161,7 @@ export default async function CalendarPage({
                   id={fu.id}
                   action={fu.action}
                   dueDate={fu.due_date}
+                  googleEventUrl={fu.google_event_url}
                   today={todayISO}
                   overdue
                   label={fu.companies?.name ?? fu.contacts?.name ?? ''}
@@ -223,6 +225,7 @@ export default async function CalendarPage({
                         id={fu.id}
                         action={fu.action}
                         dueDate={fu.due_date}
+                        googleEventUrl={fu.google_event_url}
                         today={todayISO}
                         overdue={false}
                         label={fu.companies?.name ?? fu.contacts?.name ?? ''}

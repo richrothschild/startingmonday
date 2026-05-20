@@ -15,7 +15,16 @@ type SocialPost = {
 
 type TodayResponse =
   | { isPostDay: false; dateStr: string; nextPostDays: string[] }
-  | { isPostDay: true; dateStr: string; pillar: string; pillarLabel: string; post: SocialPost }
+  | {
+      isPostDay: true
+      dateStr: string
+      pillar: string
+      pillarLabel: string
+      audience?: string
+      audienceLabel?: string
+      recommendedTimeCt?: string
+      post: SocialPost
+    }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/feed/'
 const LINKEDIN_MESSAGING_URL = 'https://www.linkedin.com/messaging/compose/'
@@ -209,7 +218,7 @@ export function SocialClient() {
     return (
       <div className="bg-white border border-slate-200 rounded p-8 text-center">
         <p className="text-[14px] font-semibold text-slate-900 mb-2">No post scheduled today.</p>
-        <p className="text-[13px] text-slate-500">Posts go out Monday, Wednesday, and Friday.</p>
+        <p className="text-[13px] text-slate-500">Posts go out every weekday with audience rotation.</p>
         {state.nextPostDays.length > 0 && (
           <p className="text-[12px] text-slate-400 mt-3">
             Next: {state.nextPostDays.map(d => formatDate(d)).join(', ')}
@@ -235,6 +244,16 @@ export function SocialClient() {
             <span className="text-[11px] font-bold tracking-[0.08em] uppercase bg-orange-50 text-orange-600 px-2 py-0.5 rounded">
               {pillarLabel}
             </span>
+            {state.audienceLabel && (
+              <span className="text-[11px] font-bold tracking-[0.08em] uppercase bg-blue-50 text-blue-700 px-2 py-0.5 rounded">
+                {state.audienceLabel}
+              </span>
+            )}
+            {state.recommendedTimeCt && !post.is_posted && (
+              <span className="text-[11px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                Target {state.recommendedTimeCt}
+              </span>
+            )}
             {post.is_posted && (
               <span className="text-[11px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">
                 Posted {post.posted_at ? new Date(post.posted_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''}

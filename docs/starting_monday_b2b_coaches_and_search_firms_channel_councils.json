@@ -1,0 +1,660 @@
+{
+  "document_name": "starting_monday_b2b_coaches_and_search_firms_channel_councils",
+  "version": "1.1",
+  "created_date": "2026-05-16",
+  "source_context": {
+    "focus": "B2B executive coaches and executive search firms serving strong and medium fit senior executives.",
+    "core_gtm_principle": "Do not sell job search. Sell executive readiness, signal intelligence, and better conversations.",
+    "recommended_starting_channel": "Executive coaches first; boutique retained IT executive search firms second."
+  },
+  "councils": {
+    "executive_readiness_partner_council": {
+      "channel": "executive_coaches",
+      "purpose": "Evaluate how Starting Monday can partner with executive coaches who serve senior technology leaders.",
+      "core_question": "Would executive coaches see Starting Monday as a client accelerator, referral asset, differentiation tool, or threat?",
+      "evaluates": [
+        "coach referral willingness",
+        "coach-client workflow fit",
+        "privacy and confidentiality concerns",
+        "perceived threat to coach value",
+        "how Starting Monday helps coaches deliver better outcomes",
+        "what offer coaches would actually share with clients",
+        "how to position Starting Monday without sounding like AI replacing coaching"
+      ],
+      "best_customer_fit": [
+        {
+          "persona": "VP Technology / VP IT moving toward CIO",
+          "fit": "strong"
+        },
+        {
+          "persona": "Mid-market CIO / CTO / CISO / CDO",
+          "fit": "strong"
+        },
+        {
+          "persona": "PE-backed transformation executives",
+          "fit": "strong"
+        },
+        {
+          "persona": "Displaced or quietly-searching executives",
+          "fit": "strong"
+        },
+        {
+          "persona": "Large-enterprise C-suite near end-game role",
+          "fit": "medium_to_weak_unless_passive_monitoring"
+        }
+      ],
+      "subgroups": [
+        {
+          "name": "Elite C-Suite Behavior Change Coaches",
+          "role": "Test whether Starting Monday helps executives become more effective, coachable, and self-aware."
+        },
+        {
+          "name": "Career Transition / Identity Coaches",
+          "role": "Test whether Starting Monday helps executives move into a new leadership identity."
+        },
+        {
+          "name": "Technology Executive Coaches",
+          "role": "Test fit with CIO, CTO, CISO, and CDO clients specifically."
+        },
+        {
+          "name": "Coaching Business Model / Channel Advisors",
+          "role": "Test whether coaches would actually refer, resell, bundle, or co-brand Starting Monday."
+        }
+      ],
+      "members": [
+        {
+          "name": "Marshall Goldsmith",
+          "role": "Executive behavior change and C-suite coaching",
+          "expertise": [
+            "executive behavior change",
+            "360 feedback",
+            "leadership blind spots",
+            "coaching accountability",
+            "CEO/C-suite coaching"
+          ],
+          "first_principles": [
+            "Successful executives can outgrow the behaviors that made them successful.",
+            "Measurable behavior change matters more than self-image.",
+            "Feedback and follow-through are the foundation of executive growth.",
+            "Coachability predicts future leadership success."
+          ],
+          "starting_monday_lens": [
+            "Does the product help executives see their blind spots?",
+            "Does it make executives more coachable?",
+            "Can it create structured prep that improves a coach's work?",
+            "Would a coach trust this as a complement rather than replacement?"
+          ],
+          "likely_critique": "Starting Monday must not present itself as an AI coach replacement. It should position as career intelligence plus preparation infrastructure that makes coaching more effective."
+        },
+        {
+          "name": "Herminia Ibarra",
+          "role": "Career transition, leadership identity, and executive reinvention",
+          "expertise": [
+            "career reinvention",
+            "leadership transition",
+            "executive identity",
+            "network expansion",
+            "professional experimentation"
+          ],
+          "first_principles": [
+            "Career transition is not purely analytical; it is identity work.",
+            "Executives often act into a new identity before they fully believe it.",
+            "Networks shape opportunity.",
+            "Reinvention happens through experiments, not just planning."
+          ],
+          "starting_monday_lens": [
+            "Does the product help executives become the next version of themselves?",
+            "Does it help them experiment with roles, narratives, and networks?",
+            "Does it reduce fear during transition?",
+            "Does it support pre-search exploration before public movement?"
+          ],
+          "likely_critique": "If Starting Monday feels too mechanical, it will miss the emotional and identity-based reality of executive transition."
+        },
+        {
+          "name": "Michael Bungay Stanier",
+          "role": "Practical coaching conversations and curiosity-led leadership",
+          "expertise": [
+            "coaching conversations",
+            "curiosity-led leadership",
+            "practical coaching habits",
+            "behavior change through better questions"
+          ],
+          "first_principles": [
+            "Ask more, tell less.",
+            "Stay curious longer.",
+            "Coaching must be practical enough to use repeatedly.",
+            "Good questions create better self-discovery than advice dumps."
+          ],
+          "starting_monday_lens": [
+            "Does Starting Monday ask better questions?",
+            "Does it produce useful reflection, or just recommendations?",
+            "Can coaches use its outputs to improve sessions?",
+            "Can it help clients arrive prepared?"
+          ],
+          "likely_critique": "The product should avoid becoming a do-this machine. It should create better coaching conversations."
+        },
+        {
+          "name": "Nathalie Heynderickx",
+          "role": "CIO and technology executive coaching",
+          "expertise": [
+            "CIO coaching",
+            "technology executive performance",
+            "leadership sustainability",
+            "mindful leadership",
+            "C-level IT career development"
+          ],
+          "first_principles": [
+            "Technology executives need sustainable performance, not just career acceleration.",
+            "CIOs and senior IT leaders face emotional, political, and strategic pressures.",
+            "Community and reflection are part of leadership growth.",
+            "Burnout can distort career decisions."
+          ],
+          "starting_monday_lens": [
+            "Does Starting Monday understand CIO psychology?",
+            "Does it help technology leaders avoid reactive moves?",
+            "Does it support sustainable leadership and career clarity?",
+            "Could CIO coaches use it as client intelligence infrastructure?"
+          ],
+          "likely_critique": "Starting Monday must feel emotionally intelligent and human, not just analytically impressive."
+        },
+        {
+          "name": "Seth Godin",
+          "role": "Trust, permission, tribes, smallest viable audience",
+          "expertise": [
+            "permission marketing",
+            "tribes",
+            "category storytelling",
+            "trust",
+            "remarkable positioning"
+          ],
+          "first_principles": [
+            "Permission beats interruption.",
+            "Smallest viable audience beats generic scale.",
+            "People like us do things like this.",
+            "Remarkable products earn conversations."
+          ],
+          "starting_monday_lens": [
+            "Which coach niche is the smallest viable audience?",
+            "What would make coaches proud to recommend Starting Monday?",
+            "How does Starting Monday earn permission from coaches?",
+            "What story makes this feel valuable, not threatening?"
+          ],
+          "likely_critique": "Do not pitch AI helps your clients find jobs. Pitch your clients arrive more prepared, more informed, and more confident."
+        },
+        {
+          "name": "Robert Cialdini",
+          "role": "Ethical persuasion, authority, social proof, trust signals",
+          "expertise": [
+            "ethical persuasion",
+            "authority",
+            "social proof",
+            "trust signals",
+            "pre-suasion"
+          ],
+          "first_principles": [
+            "Trust must precede ask.",
+            "Authority and social proof reduce perceived risk.",
+            "Reciprocity and commitment can support adoption.",
+            "Pre-suasion shapes what prospects notice and value."
+          ],
+          "starting_monday_lens": [
+            "What proof would make coaches trust the product?",
+            "What authority signals are missing?",
+            "Should coaches receive a sample client prep brief?",
+            "How can Starting Monday ethically earn referrals?"
+          ],
+          "likely_critique": "Coach-channel conversion will fail without proof, authority, and low-risk trial mechanics."
+        }
+      ],
+      "recommended_positioning": {
+        "do_not_say": "We help your clients find jobs.",
+        "say": "We help your senior technology clients monitor opportunity signals, clarify their executive narrative, and arrive to coaching/search conversations better prepared.",
+        "core_offer": "Give your clients a private executive opportunity intelligence layer between coaching sessions."
+      },
+      "pilot_offer": {
+        "name": "Coach Partner Preview",
+        "components": [
+          "free access for coach",
+          "2-3 client preview seats",
+          "sample executive intelligence brief",
+          "private feedback session",
+          "optional referral fee or partner offer",
+          "co-branded executive readiness review option"
+        ]
+      },
+      "output_schema": {
+        "channel_fit_score": "0-100",
+        "best_coach_segment": "string",
+        "coach_threat_perception": "low/medium/high",
+        "coach_referral_likelihood": "low/medium/high",
+        "client_value_added": "low/medium/high",
+        "best_positioning": "string",
+        "messages_to_avoid": [],
+        "coach_objections": [],
+        "trust_assets_needed": [],
+        "ideal_pilot_offer": "string",
+        "first_30_day_test": [],
+        "first_90_day_motion": []
+      }
+    },
+    "search_intelligence_partner_council": {
+      "channel": "executive_search_firms",
+      "purpose": "Evaluate how Starting Monday can partner with boutique and retained executive search firms serving senior technology executives.",
+      "core_question": "Would search firms see Starting Monday as candidate-prep infrastructure, sourcing intelligence, market signal tooling, referral partner, or competitive threat?",
+      "evaluates": [
+        "search firm threat perception",
+        "partnerability",
+        "candidate intelligence value",
+        "signal quality",
+        "fit-model credibility",
+        "confidentiality concerns",
+        "referral/channel economics",
+        "workflow integration",
+        "whether Starting Monday should sell to search firms now or later"
+      ],
+      "best_customer_fit": [
+        {
+          "persona": "Mid-market CIO / CTO / CISO / CDO",
+          "fit": "strong"
+        },
+        {
+          "persona": "PE-backed technology transformation leaders",
+          "fit": "strong"
+        },
+        {
+          "persona": "CFO / COO at 1,001-10,000 employee companies",
+          "fit": "medium"
+        },
+        {
+          "persona": "Large-enterprise C-suite",
+          "fit": "medium_to_weak_unless_board_or_search_controlled"
+        },
+        {
+          "persona": "Startup executives under 1,000 employees",
+          "fit": "weak_to_medium_networks_dominate"
+        }
+      ],
+      "subgroups": [
+        {
+          "name": "Boutique Technology Search Specialists",
+          "role": "Best early partner target."
+        },
+        {
+          "name": "Global Retained Search Leaders",
+          "role": "Useful for category credibility and enterprise search realism."
+        },
+        {
+          "name": "PE / Transformation Search Specialists",
+          "role": "High value because they care about organizational signals, transformation mandates, and timing."
+        },
+        {
+          "name": "Search Workflow / Candidate Intelligence Advisors",
+          "role": "Evaluate whether Starting Monday helps or interferes with search workflow."
+        }
+      ],
+      "members": [
+        {
+          "name": "Steve Kendrick",
+          "role": "Senior IT executive search and CIO/CTO retained search",
+          "expertise": [
+            "retained IT executive search",
+            "CIO/CTO placement",
+            "client relationship management",
+            "senior technology leadership fit",
+            "PE and mid-market leadership needs"
+          ],
+          "first_principles": [
+            "Executive fit is relationship- and context-dependent.",
+            "CIO/CTO searches require credibility and trust.",
+            "Role timing often appears before public job activity.",
+            "Search firms own sensitive context that tools usually miss."
+          ],
+          "starting_monday_lens": [
+            "Would a boutique IT search firm refer candidates to Starting Monday?",
+            "Would it see Starting Monday as a threat?",
+            "Does the scanner produce signals a search consultant would respect?",
+            "Can Starting Monday improve candidate readiness before search engagement?"
+          ],
+          "likely_critique": "If positioned as a search replacement, search firms will resist. If positioned as executive readiness plus market intelligence, they may engage."
+        },
+        {
+          "name": "Craig Stephenson",
+          "role": "CIO/CTO search, digital officer recruiting, leadership development",
+          "expertise": [
+            "CIO/CTO executive search",
+            "technology officer leadership assessment",
+            "enterprise succession",
+            "leadership development",
+            "digital officer recruiting"
+          ],
+          "first_principles": [
+            "Technology officer search is about leadership fit, not keyword matching.",
+            "Enterprise search requires process rigor and confidentiality.",
+            "CIO/CTO readiness includes business transformation ability.",
+            "Leadership development and succession are part of the search ecosystem."
+          ],
+          "starting_monday_lens": [
+            "Could Starting Monday become a pre-search readiness layer?",
+            "Does fit modeling understand CIO/CTO leadership complexity?",
+            "Would large search firms trust its intelligence?",
+            "Does it help executives prepare for search-firm conversations?"
+          ],
+          "likely_critique": "Starting Monday needs proof that its intelligence is credible, explainable, and additive to search professionals."
+        },
+        {
+          "name": "Katie Graham Shannon",
+          "role": "Digital, technology, and AI officer search",
+          "expertise": [
+            "digital and technology officer search",
+            "AI-era leadership roles",
+            "executive readiness",
+            "transformation leadership",
+            "candidate-market fit"
+          ],
+          "first_principles": [
+            "Modern technology leaders must drive measurable business impact.",
+            "AI, digital, security, engineering, and customer experience leadership increasingly overlap.",
+            "Executive fit depends on transformation context.",
+            "PE and VC environments require different leadership patterns."
+          ],
+          "starting_monday_lens": [
+            "Does Starting Monday detect companies moving toward transformation needs?",
+            "Does it understand AI/digital officer role evolution?",
+            "Can it identify fit between executive background and transformation mandate?",
+            "Could it support PE-backed executive readiness?"
+          ],
+          "likely_critique": "The product must avoid static role taxonomies. Technology leadership roles are changing too quickly."
+        },
+        {
+          "name": "Eric Sigurdson",
+          "role": "CIO practice and technology transformation executive search",
+          "expertise": [
+            "CIO recruiting",
+            "technology transformation leadership",
+            "cultural and experiential fit",
+            "executive-market intelligence",
+            "role-readiness evaluation"
+          ],
+          "first_principles": [
+            "CIO fit balances leadership, culture, transformation history, and business context.",
+            "Technology leaders are increasingly enterprise strategists.",
+            "Reference networks and reputation matter.",
+            "Search is about fit under real organizational pressure."
+          ],
+          "starting_monday_lens": [
+            "Does Starting Monday understand cultural and transformation fit?",
+            "Does the executive fit model go beyond title/resume matching?",
+            "Can it surface market context search firms care about?",
+            "Can it help executives become more findable and better prepared?"
+          ],
+          "likely_critique": "Starting Monday needs outcome proof: did intelligence lead to better conversations, faster introductions, or better-fit opportunities?"
+        },
+        {
+          "name": "Chris Voss",
+          "role": "Negotiation, discovery, objection handling, trust-sensitive conversations",
+          "expertise": [
+            "negotiation",
+            "tactical empathy",
+            "discovery",
+            "objection handling",
+            "high-stakes conversations"
+          ],
+          "first_principles": [
+            "Tactical empathy reveals hidden resistance.",
+            "No can be the start of the real conversation.",
+            "Calibrated questions uncover true objections.",
+            "Labels reduce defensiveness."
+          ],
+          "starting_monday_lens": [
+            "What are search firms afraid Starting Monday will become?",
+            "How should we label threat concerns?",
+            "What questions reveal partnerability?",
+            "How do we negotiate pilot terms without sounding desperate?"
+          ],
+          "likely_critique": "Do not pitch search firms. Start by understanding what they protect: trust, client control, candidate quality, confidentiality, and process authority."
+        },
+        {
+          "name": "Bob Moore",
+          "role": "Ecosystem-led growth and partner overlap",
+          "expertise": [
+            "ecosystem-led growth",
+            "partner overlap",
+            "co-selling systems",
+            "data-informed partnerships",
+            "partner-led demand"
+          ],
+          "first_principles": [
+            "Partnerships should create shared pipeline or shared intelligence.",
+            "Partner overlap reveals hidden demand.",
+            "Ecosystems can create more trust than direct selling.",
+            "BD must be measurable."
+          ],
+          "starting_monday_lens": [
+            "Which search firms share the same executive audience?",
+            "Which partners have complementary incentives?",
+            "What does a measurable pilot look like?",
+            "Which search-firm partnerships create data/network advantages?"
+          ],
+          "likely_critique": "Do not collect logos. Build partner motions with clear economics, referrals, or intelligence benefits."
+        }
+      ],
+      "recommended_positioning": {
+        "do_not_say": "We help executives find jobs before you do.",
+        "say": "We help executives arrive more prepared, better positioned, and more informed \u2014 which can improve the quality of search conversations.",
+        "core_offer": "A private executive readiness and market signal layer that improves search conversations."
+      },
+      "pilot_offer": {
+        "name": "Search Intelligence Partner Pilot",
+        "components": [
+          "private demo",
+          "sample executive readiness brief",
+          "sample company signal report",
+          "optional client/candidate readiness workflow",
+          "no candidate poaching language",
+          "clear confidentiality framing",
+          "feedback session on signal quality and fit model credibility"
+        ]
+      },
+      "output_schema": {
+        "search_partner_fit_score": "0-100",
+        "search_firm_threat_level": "low/medium/high",
+        "candidate_readiness_value": "low/medium/high",
+        "market_signal_value": "low/medium/high",
+        "fit_model_credibility": "low/medium/high",
+        "best_search_firm_segment": "string",
+        "messages_to_avoid": [],
+        "search_firm_objections": [],
+        "recommended_positioning": "string",
+        "ideal_pilot_offer": "string",
+        "first_30_day_test": [],
+        "first_90_day_motion": []
+      }
+    }
+  },
+  "first_30_day_plan": {
+    "week_1_build_channel_assets": [
+      {
+        "asset": "Coach partner one-pager",
+        "message": "Help senior technology clients become opportunity-ready before the call comes."
+      },
+      {
+        "asset": "Search partner one-pager",
+        "message": "A private executive readiness and market signal layer that improves search conversations."
+      },
+      {
+        "asset": "Two sample outputs",
+        "examples": [
+          "executive opportunity intelligence brief",
+          "company signal scan"
+        ]
+      },
+      {
+        "asset": "Objection handling sheets",
+        "versions": [
+          "coach version",
+          "search firm version"
+        ]
+      }
+    ],
+    "week_2_outreach_test": {
+      "targets": [
+        "20 technology executive coaches",
+        "20 boutique IT executive search consultants"
+      ],
+      "goal": "8-10 conversations focused on learning, not sales.",
+      "primary_question": "Would this help or threaten your work with senior technology executives?"
+    },
+    "week_3_partner_discovery": {
+      "coach_tests": [
+        "referral fee",
+        "client seat bundle",
+        "coach dashboard",
+        "co-branded readiness review",
+        "private client prep brief"
+      ],
+      "search_firm_tests": [
+        "candidate readiness brief",
+        "signal intelligence briefing",
+        "no-poach/confidentiality framing",
+        "consultant-only trial",
+        "fit model feedback session"
+      ]
+    },
+    "week_4_decide": {
+      "decision_criteria": [
+        {
+          "metric": "reply_rate",
+          "threshold": ">15%"
+        },
+        {
+          "metric": "meeting_conversion",
+          "threshold": ">5%"
+        },
+        {
+          "metric": "partner_interest",
+          "threshold": "at least 5 serious conversations"
+        },
+        {
+          "metric": "threat_perception",
+          "threshold": "low/medium for coaches; no higher than medium for search"
+        },
+        {
+          "metric": "willingness_to_refer_or_pilot",
+          "threshold": "at least 3 qualified pilots"
+        },
+        {
+          "metric": "strategic_learning",
+          "threshold": "clear messaging improvement"
+        }
+      ]
+    }
+  },
+  "contact_enrichment_and_fit_rubric_v1_1": {
+    "purpose": "Operationalize Apollo-assisted contact expansion and auto-segment contacts into strong and medium fit tiers with deterministic rules.",
+    "enrichment_sources": {
+      "provider_priority": [
+        "company_leadership_or_ir_pages",
+        "linkedin_or_sales_navigator",
+        "apollo",
+        "legacy_or_inferred"
+      ],
+      "apollo_role": "coverage_expansion",
+      "authoritative_role": "role_and_company_verification_before_outbound"
+    },
+    "apollo_contact_schema": {
+      "required_fields": [
+        "first_name",
+        "last_name",
+        "full_name",
+        "title",
+        "role_bucket",
+        "company",
+        "company_domain",
+        "email_guess",
+        "source_type",
+        "source_url"
+      ],
+      "recommended_fields": [
+        "source_provider",
+        "provider_contact_id",
+        "linkedin_url",
+        "departments",
+        "seniority",
+        "management_level",
+        "location",
+        "source_last_updated_at",
+        "last_verified_at",
+        "confidence"
+      ]
+    },
+    "fit_segmentation_rules": {
+      "explicit_override": "If fit_tier is present in source row and is strong or medium, use it.",
+      "target_slate_join": {
+        "join_key": "normalized_company + normalized_role",
+        "rule": "If the company-role pair exists in us-senior-executive-target-slate.csv, assign that fit_tier directly."
+      },
+      "fallback_weighted_scoring": {
+        "score_bands": {
+          "strong": ">=70",
+          "medium": ">=45 and <70",
+          "drop": "<45"
+        },
+        "weights": {
+          "strong_role_match": 70,
+          "medium_role_match": 45,
+          "trusted_source_bonus": 10,
+          "confidence_high_bonus": 10,
+          "confidence_medium_bonus": 5
+        },
+        "strong_role_signals": [
+          "cfo",
+          "coo",
+          "cio",
+          "chro",
+          "chief people officer",
+          "cro",
+          "chief revenue officer",
+          "vp it",
+          "vp information technology",
+          "vp sales",
+          "vp revenue"
+        ],
+        "medium_role_signals": [
+          "cto",
+          "vp technology",
+          "vp engineering",
+          "ciso",
+          "chief information security officer",
+          "cdo",
+          "chief data officer",
+          "chief analytics officer"
+        ],
+        "trusted_source_patterns": [
+          "leadership",
+          "investor",
+          "company"
+        ]
+      }
+    },
+    "confidence_and_conflict_policy": {
+      "field_normalization": "Treat confidence and email_confidence as equivalent inputs.",
+      "precedence_order": [
+        "company_leadership_or_ir_pages",
+        "linkedin_or_sales_navigator",
+        "apollo",
+        "legacy_or_inferred"
+      ],
+      "conflict_rule": "When two records conflict for the same person, keep the higher-precedence source and latest verification date."
+    },
+    "dedupe_and_refresh": {
+      "canonical_person_key": "normalized_full_name + normalized_company",
+      "canonical_contact_key": "lowercase_email",
+      "dedupe_rule": "Prefer strong over medium; if tie, prefer higher email confidence; if tie, prefer higher source precedence.",
+      "refresh_cadence": {
+        "high_priority_contacts": "30_days",
+        "medium_priority_contacts": "45_days",
+        "long_tail_contacts": "60_days"
+      }
+    }
+  }
+}

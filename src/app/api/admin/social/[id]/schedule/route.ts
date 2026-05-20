@@ -30,10 +30,19 @@ export async function POST(
     return NextResponse.json({ error: 'MAKE_WEBHOOK_URL not configured' }, { status: 500 })
   }
 
+  const postTarget = process.env.LINKEDIN_POST_TARGET ?? 'personal'
+  const companyUrn = process.env.LINKEDIN_COMPANY_URN ?? null
+
   const makeRes = await fetch(makeWebhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: post.draft_text, post_date: post.post_date, pillar: post.pillar }),
+    body: JSON.stringify({
+      text: post.draft_text,
+      post_date: post.post_date,
+      pillar: post.pillar,
+      post_target: postTarget,
+      company_urn: companyUrn,
+    }),
   })
 
   if (!makeRes.ok) {

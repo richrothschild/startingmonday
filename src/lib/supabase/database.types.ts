@@ -72,6 +72,13 @@ export type Database = {
           email: string | null
           linkedin_url: string | null
           outreach_status: string
+          is_priority: boolean
+          lead_score: number
+          lead_tier: string
+          lead_queue: string
+          lead_score_reasons: Json
+          lead_scored_at: string | null
+          lead_routed_at: string | null
           contact_type: string | null
           last_role_discussed: string | null
         }
@@ -97,6 +104,181 @@ export type Database = {
             columns: ['company_id']
             isOneToOne: false
             referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_import_consents: {
+        Row: {
+          id: string
+          user_id: string
+          purpose: string
+          method: string
+          consented_at: string
+          revoked_at: string | null
+          data_deleted_at: string | null
+          raw_file_name: string | null
+          connection_count: number | null
+          ip_hash: string | null
+          user_agent_hash: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          method: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_import_consents_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_imported_connections: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string
+          full_name: string
+          headline: string | null
+          company_name: string | null
+          company_name_normalized: string | null
+          email: string | null
+          connected_on: string | null
+          linkedin_url: string | null
+          source_row: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          consent_id: string
+          full_name: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_imported_connections_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_imported_connections_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_contact_matches: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string
+          imported_conn_id: string
+          company_id: string | null
+          contact_id: string | null
+          match_reason: string
+          confidence: string
+          promoted_at: string | null
+          dismissed_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          consent_id: string
+          imported_conn_id: string
+          match_reason: string
+          confidence: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_contact_matches_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_imported_conn_id_fkey'
+            columns: ['imported_conn_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_imported_connections'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_contact_matches_contact_id_fkey'
+            columns: ['contact_id']
+            isOneToOne: false
+            referencedRelation: 'contacts'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      linkedin_import_audit_events: {
+        Row: {
+          id: string
+          user_id: string
+          consent_id: string | null
+          event_type: string
+          event_data: Json
+          occurred_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          event_type: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'linkedin_import_audit_events_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'linkedin_import_audit_events_consent_id_fkey'
+            columns: ['consent_id']
+            isOneToOne: false
+            referencedRelation: 'linkedin_import_consents'
             referencedColumns: ['id']
           },
         ]
@@ -153,6 +335,9 @@ export type Database = {
           due_date: string
           action: string
           status: string
+          next_action_owner: string | null
+          next_action_due_date: string | null
+          next_action_status: string
           notified_at: string | null
           created_at: string
         }
@@ -161,6 +346,9 @@ export type Database = {
           user_id: string
           due_date: string
           action: string
+          next_action_owner?: string | null
+          next_action_due_date?: string | null
+          next_action_status?: string
           [key: string]: unknown
         }
         Update: {
@@ -186,6 +374,58 @@ export type Database = {
             columns: ['contact_id']
             isOneToOne: false
             referencedRelation: 'contacts'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      coach_weekly_reviews: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          week_start: string
+          review_answers: Json
+          next_follow_up_id: string | null
+          status: string
+          completed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          week_start: string
+          review_answers?: Json
+          next_follow_up_id?: string | null
+          status?: string
+          completed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'coach_weekly_reviews_coach_id_fkey'
+            columns: ['coach_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'coach_weekly_reviews_client_id_fkey'
+            columns: ['client_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'coach_weekly_reviews_next_follow_up_id_fkey'
+            columns: ['next_follow_up_id']
+            isOneToOne: false
+            referencedRelation: 'follow_ups'
             referencedColumns: ['id']
           },
         ]
@@ -313,6 +553,7 @@ export type Database = {
           current_title: string | null
           current_company: string | null
           linkedin_url: string | null
+          linkedin_raw_text: string | null
           beyond_resume: string | null
           onboarding_completed_at: string | null
           momentum_score: number | null
@@ -567,11 +808,101 @@ export type Database = {
           status: string
           invited_at: string
           accepted_at: string | null
+          coach_access_enabled: boolean
+          access_level: string
+          access_granted_at: string | null
+          last_accessed_at: string | null
         }
         Insert: {
           id?: string
           owner_id: string
           member_email: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_access_logs: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          table_name: string
+          record_id: string
+          action: string
+          old_values: Json | null
+          new_values: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          table_name: string
+          record_id: string
+          action: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_alert_preferences: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          alert_on_company_signal: boolean
+          alert_on_new_interview: boolean
+          alert_on_client_edit: boolean
+          alert_frequency: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_client_permissions: {
+        Row: {
+          id: string
+          coach_id: string
+          client_id: string
+          access_enabled: boolean
+          access_level: string
+          updated_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          client_id: string
+          [key: string]: unknown
+        }
+        Update: {
+          [key: string]: unknown
+        }
+        Relationships: []
+      }
+      coach_profiles: {
+        Row: {
+          coach_id: string
+          display_name: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          coach_id: string
           [key: string]: unknown
         }
         Update: {

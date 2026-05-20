@@ -6,8 +6,9 @@ function getClient(): PostHog | null {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
   if (!key) return null
   if (!_client) {
+    const host = process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || 'https://us.i.posthog.com'
     _client = new PostHog(key, {
-      host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com',
+      host,
       flushAt: 1,
       flushInterval: 0,
     })

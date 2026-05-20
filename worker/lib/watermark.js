@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto'
+
 const ZWNJ = '‌'
 const ZWS  = '​'
 const ZWJ  = '‍'
@@ -46,11 +48,18 @@ export function watermarkEmailHtml(html, userId) {
   return html.includes('</body>') ? html.replace('</body>', `${span}</body>`) : html + span
 }
 
-// Generates a base64url token encoding userId, emailType, and sentDate.
-// Matches the parsePixelToken() decoder in src/lib/pixel-token.ts.
+// Generates a base64url token signed with HMAC-SHA256.
+// Matches parsePixelTokenSigned() in src/lib/pixel-token.ts.
 export function generatePixelToken(userId, emailType, sentDate) {
-  const payload = JSON.stringify({ uid: userId, type: emailType, d: sentDate })
-  return Buffer.from(payload).toString('base64url')
+  const secret = process.env.PIXEL_TOKEN_SECRET
+  if (!secret) {
+    throw new Error('PIXEL_TOKEN_SECRET is required for tracking token signing')
+  }
+
+  const payload = { uid: userId, type: emailType, d: sentDate }
+  const message = JSON.stringify(payload)
+  const signature = createHmac('sha256', secret).update(message).digest('base64url')
+  return Buffer.from(JSON.stringify({ ...payload, s: signature })).toString('base64url')
 }
 
 // Appends a 1x1 tracking pixel to email HTML.

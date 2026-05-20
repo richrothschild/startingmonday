@@ -6,11 +6,24 @@ const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scra
 
 const NOINDEX = { 'X-Robots-Tag': 'noindex, nofollow' }
 
-function logRequest(request: NextRequest) {
+const DEPLOY_SHA = process.env.RAILWAY_GIT_COMMIT_SHA
+  ?? process.env.VERCEL_GIT_COMMIT_SHA
+  ?? process.env.GIT_COMMIT_SHA
+  ?? 'unknown'
+
+function generateRequestId(): string {
+  // crypto.randomUUID is available on the edge runtime
+  return `req_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`
+}
+
+function logRequest(request: NextRequest, requestId: string) {
   console.log(JSON.stringify({
     ts: new Date().toISOString(),
+    event: 'request',
     method: request.method,
     path: request.nextUrl.pathname,
+    correlation_id: requestId,
+    deploy_sha: DEPLOY_SHA,
     ip: request.headers.get('cf-connecting-ip')
       ?? request.headers.get('x-real-ip')
       ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
@@ -20,11 +33,12 @@ function logRequest(request: NextRequest) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const requestId = request.headers.get('x-request-id') ?? generateRequestId()
 
   // --- API routes: early return after header/bot handling ---
   if (pathname.startsWith('/api/')) {
     // Skip logging for healthcheck to avoid noise
-    if (pathname !== '/api/health') logRequest(request)
+    if (pathname !== '/api/health') logRequest(request, requestId)
 
     // Block automated clients from the public LinkedIn review tool
     if (pathname === '/api/optimize') {
@@ -36,17 +50,20 @@ export async function middleware(request: NextRequest) {
     // Tell crawlers not to index API responses
     const res = NextResponse.next()
     res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+    res.headers.set('X-Request-Id', requestId)
     return res
   }
 
   // --- Intelligence routes: bot detection only, no auth required ---
   if (pathname.startsWith('/intelligence/')) {
-    logRequest(request)
+    logRequest(request, requestId)
     const ua = request.headers.get('user-agent') ?? ''
     if (!ua || BOT_UA_RE.test(ua)) {
       return new NextResponse('Forbidden', { status: 403 })
     }
-    return NextResponse.next()
+    const intelligenceRes = NextResponse.next()
+    intelligenceRes.headers.set('X-Request-Id', requestId)
+    return intelligenceRes
   }
 
   // --- Dashboard routes: session refresh + redirect guard ---
@@ -82,6 +99,7 @@ export async function middleware(request: NextRequest) {
   }
 
   Object.entries(NOINDEX).forEach(([k, v]) => supabaseResponse.headers.set(k, v))
+  supabaseResponse.headers.set('X-Request-Id', requestId)
   return supabaseResponse
 }
 

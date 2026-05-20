@@ -1,19 +1,19 @@
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="256" height="256" fill="#1a1a1a" rx="24"/>
-  
-  <!-- Main concept: Upward momentum arrow + Monday symbolism -->
-  <!-- Central vertical line representing Monday/structure -->
-  <line x1="128" y1="60" x2="128" y2="196" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
-  
-  <!-- Three horizontal lines representing compounding/momentum (like Monday meetings stacking) -->
-  <line x1="72" y1="90" x2="184" y2="90" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
-  <line x1="72" y1="128" x2="184" y2="128" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
-  <line x1="72" y1="166" x2="184" y2="166" stroke="#10b981" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
-  
-  <!-- Upward arrow representing leverage/compounding -->
-  <polygon points="128,40 110,65 146,65" fill="#06d6a0"/>
-  
-  <!-- Optional: Accent dot at top (represents momentum peak) -->
-  <circle cx="128" cy="35" r="6" fill="#06d6a0"/>
+<svg width="256" height="256" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon">
+  <defs>
+    <linearGradient id="gradFavicon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="72" fill="#0B1220"/>
+  <rect x="96" y="98" width="320" height="316" rx="32" fill="#111827" stroke="#334155" stroke-width="8"/>
+  <rect x="128" y="128" width="256" height="32" rx="16" fill="#1F2937"/>
+
+  <rect x="142" y="194" width="44" height="168" rx="12" fill="#E2E8F0"/>
+  <rect x="234" y="226" width="44" height="136" rx="12" fill="#E2E8F0"/>
+  <rect x="326" y="174" width="44" height="188" rx="12" fill="#E2E8F0"/>
+
+  <path d="M126 106C154 70 198 48 248 48C296 48 340 68 370 102" fill="none" stroke="url(#gradFavicon)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="392" cy="100" r="10" fill="#F97316"/>
 </svg>

@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Feedback icon">
+  <path d="M3.5 7.25C5.4 4.8 8.1 3.5 11 3.5C13.5 3.5 15.8 4.4 17.6 6.1" stroke="#F97316" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M6.8 8.7H17.2C18.25 8.7 19.1 9.55 19.1 10.6V14.95C19.1 16 18.25 16.85 17.2 16.85H11.3L8.1 19.45V16.85H6.8C5.75 16.85 4.9 16 4.9 14.95V10.6C4.9 9.55 5.75 8.7 6.8 8.7Z" stroke="#334155" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M8.2 13.05H15.8" stroke="#0F172A" stroke-width="1.45" stroke-linecap="round"/>
+  <path d="M8.2 11.35H13.9" stroke="#0F172A" stroke-width="1.45" stroke-linecap="round"/>
+</svg>

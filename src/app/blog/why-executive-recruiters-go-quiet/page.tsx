@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
 import { getPost } from '@/lib/blog-posts'

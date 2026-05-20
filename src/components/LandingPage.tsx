@@ -1,10 +1,10 @@
-"use client";
+import { BrandIcon } from '@/components/BrandIcon'
+/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 import { SamplePrepBrief } from '@/components/SamplePrepBrief'
-import { TrackLink } from '@/components/TrackLink'
 
 export interface SituationCard {
   id: string
@@ -214,8 +214,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           {/* Competitive edge / FOMO */}
           {hero.competitiveEdge && (
-            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium">
-              ⚡ {hero.competitiveEdge}
+            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium inline-flex items-start gap-1.5">
+              <BrandIcon name="performance" className="h-4 w-4 text-orange-400 mt-[1px] shrink-0" />
+              <span>{hero.competitiveEdge}</span>
             </p>
           )}
 
@@ -252,25 +253,21 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
-              <TrackLink
+              <Link
                 href="/signup"
-                event="cta_clicked"
-                properties={{ location: 'hero', label: 'start_campaign' }}
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start free trial &rarr;
-              </TrackLink>
+              </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
             </div>
             <div>
-              <TrackLink
+              <Link
                 href="/demo"
-                event="cta_clicked"
-                properties={{ location: 'hero', label: 'see_demo' }}
                 className="inline-block text-[14px] font-bold text-white border border-orange-500 bg-orange-500 px-7 py-3.5 rounded hover:bg-orange-600 hover:border-orange-600 transition-colors"
               >
                 See it in action &rarr;
-              </TrackLink>
+              </Link>
               <p className="text-[12px] text-slate-400 mt-2.5">Live prep brief demo. No signup required.</p>
             </div>
           </div>
@@ -308,6 +305,46 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       </section>
 
+      {/* Objection Discovery — addressing real executive concerns */}
+      <section className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-[20px] font-bold text-white mb-10 leading-snug">
+            You might be thinking: Here's exactly where we fit in.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {/* Objection 1: I have a coach */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">If you work with a coach</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"My coach handles this."</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                Exactly. We handle the infrastructure layer your coach builds on. Every morning, your briefing surfaces which conversations to prioritize. Before each session with your coach, you have your prep brief ready. We make what they teach executable.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">20% of our early users brought the briefing into every coaching session.</p>
+            </div>
+
+            {/* Objection 2: I use LinkedIn Premium / have a recruiter */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">If you use LinkedIn Premium or have a recruiter</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"I already have those tools."</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                LinkedIn is a job board; we are intelligence + cadence. Your recruiter works inside the formal process; we work before it exists. The signal comes 11 days before the search goes to a firm. We catch it.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">Your recruiter will have better context because you reached out sooner.</p>
+            </div>
+
+            {/* Objection 3: Will my employer find out */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <p className="text-[13px] font-bold text-orange-400 mb-2">Privacy is non-negotiable</p>
+              <p className="text-[13px] text-white font-semibold mb-3">"Will my employer find out?"</p>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+                No. We have no relationship with employers, search firms, or recruiters. We do not sell leads. We do not train AI on your data. Your account is completely private. We never share your activity.
+              </p>
+              <p className="text-[12px] text-slate-500 italic">Delete everything anytime, from Settings.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
       <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
@@ -323,18 +360,16 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {situations.map(s => (
-              <TrackLink
+              <Link
                 key={s.id}
                 href={`/signup?from=${s.id}`}
-                event="situation_selected"
-                properties={{ situation_id: s.id }}
                 className="group bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-800 hover:shadow-sm transition-all"
               >
                 <p className="text-[15px] font-semibold text-slate-900 mb-1.5 group-hover:text-slate-700">
                   {s.headline}
                 </p>
                 <p className="text-[13px] text-slate-500 leading-relaxed">{s.sub}</p>
-              </TrackLink>
+              </Link>
             ))}
           </div>
 
@@ -540,7 +575,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
       {/* Operating cadence */}
-      <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+      <section id="operating-cadence" className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             How it runs

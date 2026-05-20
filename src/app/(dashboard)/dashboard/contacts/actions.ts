@@ -69,23 +69,37 @@ export async function markContactSent(contactId: string, contactName: string): P
   const followUpDate = new Date()
   followUpDate.setDate(followUpDate.getDate() + 5)
   const followUpDateStr = followUpDate.toISOString().slice(0, 10)
+  const followUpAction = `Follow up with ${contactName}`
 
-  const [{ error: updateError }, { error: followUpError }] = await Promise.all([
+  const { data: existingFollowUp } = await supabase
+    .from('follow_ups')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('contact_id', contactId)
+    .eq('status', 'pending')
+    .eq('action', followUpAction)
+    .gte('due_date', new Date().toISOString().slice(0, 10))
+    .limit(1)
+    .maybeSingle()
+
+  const [{ error: updateError }, followUpResult] = await Promise.all([
     supabase
       .from('contacts')
       .update({ contacted_at: new Date().toISOString() })
       .eq('id', contactId)
       .eq('user_id', user.id),
-    supabase.from('follow_ups').insert({
-      user_id: user.id,
-      contact_id: contactId,
-      action: `Follow up with ${contactName}`,
-      due_date: followUpDateStr,
-      status: 'pending',
-    }),
+    existingFollowUp
+      ? Promise.resolve({ error: null })
+      : supabase.from('follow_ups').insert({
+          user_id: user.id,
+          contact_id: contactId,
+          action: followUpAction,
+          due_date: followUpDateStr,
+          status: 'pending',
+        }),
   ])
 
-  if (updateError || followUpError) return { ok: false, error: 'Failed to mark as sent' }
+  if (updateError || followUpResult.error) return { ok: false, error: 'Failed to mark as sent' }
   return { ok: true }
 }
 
@@ -101,14 +115,56 @@ export async function updateOutreachStatus(contactId: string, status: string): P
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return
 
+  const { data: contact } = await supabase
+    .from('contacts')
+    .select('name')
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+    .maybeSingle()
+
   await supabase
     .from('contacts')
     .update({ outreach_status: status })
     .eq('id', contactId)
     .eq('user_id', user.id)
 
+  if (status === 'meeting_scheduled' && contact?.name) {
+    const meetingAction = `Schedule meeting with ${contact.name}`
+    const tomorrow = new Date(Date.now() + 86400_000).toISOString().slice(0, 10)
+
+    const { data: existingMeetingFollowUp } = await supabase
+      .from('follow_ups')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('contact_id', contactId)
+      .eq('status', 'pending')
+      .eq('action', meetingAction)
+      .limit(1)
+      .maybeSingle()
+
+    if (!existingMeetingFollowUp) {
+      await supabase.from('follow_ups').insert({
+        user_id: user.id,
+        contact_id: contactId,
+        action: meetingAction,
+        due_date: tomorrow,
+        status: 'pending',
+      })
+    }
+  }
+
+  if (status === 'closed') {
+    await supabase
+      .from('follow_ups')
+      .update({ status: 'completed' })
+      .eq('user_id', user.id)
+      .eq('contact_id', contactId)
+      .eq('status', 'pending')
+  }
+
   revalidatePath(`/dashboard/contacts/${contactId}`)
   revalidatePath('/dashboard/contacts')
+  revalidatePath('/dashboard/calendar')
 }
 
 export async function remindLater(contactId: string, contactName: string): Promise<{ ok: boolean }> {
@@ -129,6 +185,39 @@ export async function remindLater(contactId: string, contactName: string): Promi
   })
 
   return { ok: !error }
+}
+
+export async function scheduleMeetingFollowUp(contactId: string, contactName: string): Promise<void> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const action = `Schedule meeting with ${contactName}`
+  const dueDate = new Date(Date.now() + 86400_000).toISOString().slice(0, 10)
+
+  const { data: existing } = await supabase
+    .from('follow_ups')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('contact_id', contactId)
+    .eq('status', 'pending')
+    .eq('action', action)
+    .limit(1)
+    .maybeSingle()
+
+  if (!existing) {
+    await supabase.from('follow_ups').insert({
+      user_id: user.id,
+      contact_id: contactId,
+      action,
+      due_date: dueDate,
+      status: 'pending',
+    })
+  }
+
+  revalidatePath(`/dashboard/contacts/${contactId}`)
+  revalidatePath('/dashboard/calendar')
+  redirect(`/dashboard/contacts/${contactId}?meeting=1`)
 }
 
 export async function archiveContact(contactId: string) {

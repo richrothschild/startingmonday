@@ -1,0 +1,97 @@
+name: Dependency Health Check
+
+# Checks status pages for third-party services Starting Monday depends on.
+# Runs every hour. Sends Slack alert when any P0 dependency reports an incident.
+# This provides early warning before production impact is detected.
+
+on:
+  schedule:
+    - cron: '5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  dependency-health:
+    name: Check P0 dependency status pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Supabase status
+        id: supabase
+        run: |
+          # Supabase status API
+          STATUS=$(curl -fsS --max-time 10 'https://status.supabase.com/api/v2/status.json' \
+            | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')); \
+              process.stdout.write(d.status?.indicator ?? 'unknown')" 2>/dev/null || echo "fetch_failed")
+          echo "indicator=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" != "none" ] && [ "$STATUS" != "fetch_failed" ]; then
+            echo "Supabase status: $STATUS (not nominal)"
+            echo "degraded=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Supabase status: $STATUS"
+            echo "degraded=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check Stripe status
+        id: stripe
+        run: |
+          STATUS=$(curl -fsS --max-time 10 'https://status.stripe.com/api/v2/status.json' \
+            | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')); \
+              process.stdout.write(d.status?.indicator ?? 'unknown')" 2>/dev/null || echo "fetch_failed")
+          echo "indicator=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" != "none" ] && [ "$STATUS" != "fetch_failed" ]; then
+            echo "Stripe status: $STATUS"
+            echo "degraded=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Stripe status: $STATUS"
+            echo "degraded=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check Anthropic status
+        id: anthropic
+        run: |
+          # Anthropic uses Atlassian Statuspage
+          STATUS=$(curl -fsS --max-time 10 'https://status.anthropic.com/api/v2/status.json' \
+            | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')); \
+              process.stdout.write(d.status?.indicator ?? 'unknown')" 2>/dev/null || echo "fetch_failed")
+          echo "indicator=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" != "none" ] && [ "$STATUS" != "fetch_failed" ]; then
+            echo "Anthropic status: $STATUS"
+            echo "degraded=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Anthropic status: $STATUS"
+            echo "degraded=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Alert on degraded dependency
+        if: >
+          steps.supabase.outputs.degraded == 'true' ||
+          steps.stripe.outputs.degraded == 'true' ||
+          steps.anthropic.outputs.degraded == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SUP="${{ steps.supabase.outputs.indicator }}"
+          STR="${{ steps.stripe.outputs.indicator }}"
+          ANT="${{ steps.anthropic.outputs.indicator }}"
+
+          DETAILS="Supabase: ${SUP} | Stripe: ${STR} | Anthropic: ${ANT}"
+
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"Dependency degradation detected — check production\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": {
+                  \"type\": \"plain_text\",
+                  \"text\": \"⚠️ Dependency Health Alert\"
+                }
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"One or more P0 dependencies report degradation. *Check production impact now.*\n\n${DETAILS}\n\nStatus pages:\n- <https://status.supabase.com|Supabase>\n- <https://status.stripe.com|Stripe>\n- <https://status.anthropic.com|Anthropic>\"
+                }
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"

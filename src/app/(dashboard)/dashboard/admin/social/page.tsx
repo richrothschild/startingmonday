@@ -59,7 +59,7 @@ export default async function SocialAdminPage() {
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">LinkedIn Social</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
-            Today&apos;s draft - review, edit, copy, and mark posted.
+            Daily weekday draft by audience - review, edit, copy, and mark posted.
           </p>
         </div>
 
@@ -110,16 +110,16 @@ export default async function SocialAdminPage() {
 
         {/* Liz instructions */}
         <div className="mt-10 bg-white border border-slate-200 rounded p-6">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow — Monday, Wednesday, Friday</p>
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow — Monday Through Friday</p>
           <ol className="flex flex-col gap-5">
             {[
               {
                 title: 'Open this page before 8:30 AM CT on post days.',
-                body: 'Posts go out Monday, Wednesday, and Friday only. The page will say "No post scheduled today" on off days. A cron job auto-posts at 8:30 AM CT if you haven\'t posted first — so if you want to review before it goes out, open this before then. If the status already shows "Posted," the auto-post already fired; just scroll to Notes.',
+                body: 'Posts now go out every weekday with audience rotation: executives, search firms, executive coaches, and outplacement firms. The page will say "No post scheduled today" on weekends. A cron job auto-posts if you have not posted first, so open this before 8:30 AM CT if you want a manual review pass.',
               },
               {
                 title: 'Read the draft carefully. Check three things.',
-                body: '(a) Does it sound like Rich — direct, short sentences, no corporate filler? If it sounds like a press release, regenerate. (b) Is it under 3,000 characters? The count appears below the text box. LinkedIn cuts off anything longer. (c) Does it end on a strong note — a question, a point, or a challenge? Weak endings kill engagement. If the draft is off on any of these, click "Regenerate" in the top-right of the date card. You can regenerate as many times as needed until it\'s right.',
+                body: '(a) Does it sound like Rich: direct, short sentences, no corporate filler? (b) Is it under 3,000 characters? The count appears below the text box. (c) Does it land one clear point with a sharp ending? If the draft is off, click "Regenerate" in the top-right of the date card.',
               },
               {
                 title: 'Edit anything that needs fixing.',
