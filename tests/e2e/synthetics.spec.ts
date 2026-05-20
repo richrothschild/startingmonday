@@ -23,7 +23,7 @@
  *   Synthetic-06: <= 10000ms
  *   Synthetic-07: <= 3000ms
  *   Synthetic-08: <= 2000ms
- *   Synthetic-09: <= 5000ms
+ *   Synthetic-09: <= 5000ms per route
  */
 
 import { test, expect, type APIRequestContext, type Page } from '@playwright/test'
@@ -360,21 +360,75 @@ test('Synthetic-08: Stripe webhook endpoint is reachable within budget', async (
 })
 
 // ---------------------------------------------------------------------------
-// Synthetic-09: Outreach Dashboard Route
-// Budget: <= 5000ms
+// Synthetic-09: Critical Dashboard Route Sweep
+// Budget: <= 5000ms per route
+// Routes: outreach, briefing, contacts, strategy, signals, profile
+// Explicit fail conditions:
+//   - Non-200 response
+//   - Dashboard error boundary copy
+//   - 404 / not found copy
+//   - JS runtime errors or console errors during navigation
 // ---------------------------------------------------------------------------
 
-test('Synthetic-09: outreach dashboard loads without error boundary', async ({ page }) => {
+test('Synthetic-09: critical dashboard route sweep has no 404/error-boundary failures', async ({ page }) => {
   await requireAuthSession(page)
 
-  const t0 = Date.now()
-  const res = await page.goto('/dashboard/outreach', { waitUntil: 'domcontentloaded' })
-  const elapsed = Date.now() - t0
+  const pageErrors: string[] = []
+  const consoleErrors: string[] = []
 
-  expect(res?.status(), `Outreach dashboard returned ${res?.status()}`).toBe(200)
-  await expect(page.locator('body')).not.toContainText(/Something went wrong\.|Dashboard Error/i)
-  await expect(page.getByText(/Send Queue|Outreach/i).first()).toBeVisible()
+  page.on('pageerror', (error) => {
+    pageErrors.push(error.message)
+  })
 
-  console.log(`Synthetic-09: outreach dashboard loaded in ${elapsed}ms (budget: 5000ms)`)
-  expect(elapsed, `Outreach dashboard load ${elapsed}ms exceeded budget of 5000ms`).toBeLessThanOrEqual(5_000)
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      consoleErrors.push(message.text())
+    }
+  })
+
+  const routes: Array<{ path: string; marker: RegExp }> = [
+    { path: '/dashboard/outreach', marker: /Send Queue|Outreach/i },
+    { path: '/dashboard/briefing', marker: /Good (morning|afternoon|evening)|Nothing to brief today|Accountability/i },
+    { path: '/dashboard/contacts', marker: /Contacts|Contact|Relationship/i },
+    { path: '/dashboard/strategy', marker: /Strategy|search playbook|operating system/i },
+    { path: '/dashboard/signals', marker: /Signals|Draft|Signal/i },
+    { path: '/dashboard/profile', marker: /Profile|Identity|Targets|Resume/i },
+  ]
+
+  const sweepFailures: string[] = []
+
+  for (const route of routes) {
+    const t0 = Date.now()
+    const res = await page.goto(route.path, { waitUntil: 'domcontentloaded' })
+    const elapsed = Date.now() - t0
+
+    const bodyText = await page.locator('body').innerText()
+
+    if (res?.status() !== 200) {
+      sweepFailures.push(`${route.path}: expected 200, got ${res?.status()}`)
+      continue
+    }
+
+    if (/something went wrong\.|dashboard error|failed to load/i.test(bodyText)) {
+      sweepFailures.push(`${route.path}: hit dashboard error boundary text`)
+    }
+
+    if (/\b404\b|not found|page not found/i.test(bodyText)) {
+      sweepFailures.push(`${route.path}: hit 404/not-found text`)
+    }
+
+    if (!route.marker.test(bodyText)) {
+      sweepFailures.push(`${route.path}: missing expected route marker`)
+    }
+
+    if (elapsed > 5_000) {
+      sweepFailures.push(`${route.path}: exceeded 5000ms budget (${elapsed}ms)`)
+    }
+
+    console.log(`Synthetic-09: ${route.path} loaded in ${elapsed}ms`)
+  }
+
+  expect(sweepFailures, `Route sweep failures: ${sweepFailures.join(' | ')}`).toHaveLength(0)
+  expect(pageErrors, `Page JS errors: ${pageErrors.join(' | ')}`).toHaveLength(0)
+  expect(consoleErrors, `Console errors: ${consoleErrors.join(' | ')}`).toHaveLength(0)
 })
