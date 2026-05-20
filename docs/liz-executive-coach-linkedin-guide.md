@@ -13,17 +13,17 @@ Primary references:
 
 ### Step 1: Open the same core workspace every day (5 min)
 - Open LinkedIn feed, messaging, and My Network.
-- Open Sales Navigator.
+- Open LinkedIn search in a second tab.
 - Open the Social admin page and copy the day\'s approved coach connection template style.
 - Open your outreach tracker.
 
 ### Step 2: Build today\'s target list (15-20 min)
-- Find 10-15 new coaches that fit the criteria in Section 2.
+- Find 8-12 new coaches that fit the criteria in Section 2 (LinkedIn-only mode).
 - Add each person to the tracker before sending anything.
 - Assign a persona tag for each prospect (Transition, VP-to-CXO, Search Affiliate, Board).
 
 ### Step 3: Send connection requests (15 min)
-- Send 10-15 requests.
+- Send 8-12 requests.
 - Use one of the connection-note options from Section 4.
 - Personalize the first line with one real signal from profile or recent content.
 
@@ -41,14 +41,29 @@ Primary references:
 
 ## 2) How to Find Executive Coaches Who Fit Our Criteria
 
-Use Sales Navigator first. Use raw LinkedIn search only as overflow.
+Use LinkedIn native search first. This guide assumes no Sales Navigator.
+
+### LinkedIn-only search method (repeat daily)
+- In LinkedIn search, run: `"executive coach" AND (CIO OR CTO OR "career transition" OR "board")`.
+- Filter by `People`.
+- Set `Connections` to 2nd-degree first.
+- Set `Locations` to United States.
+- Set `Current company` only when needed (for boutique firms you already know).
+- Open 20-30 profiles, then keep only A/B-quality matches.
+
+### If LinkedIn filters are limited in your account
+- Use Google X-ray search and then open profiles in LinkedIn:
+- `site:linkedin.com/in "executive coach" "career transition" "CIO"`
+- `site:linkedin.com/in "executive coach" "VP to C-level"`
+- `site:linkedin.com/in "executive coach" "board" "governance"`
+- Add matches to tracker and qualify using persona rules below.
 
 ### Core filter set
 - Geography: United States (then expand to Canada/UK once US daily volume is stable).
 - Relationship: 2nd-degree first.
-- Industry: Professional Training and Coaching, Management Consulting, Human Resources Services.
-- Company headcount: 1-10 (can include 11-50 if niche fit is strong).
-- Posted on LinkedIn: Past 30 days.
+- Industry: Professional Training and Coaching, Management Consulting, Human Resources Services (if visible).
+- Company headcount: 1-10 preferred (can include 11-50 if niche fit is strong).
+- Posted on LinkedIn: active in recent content (prefer last 30 days).
 - Seniority: Owner, Founder, Partner, Principal, Managing Director.
 
 ### Keywords to include
@@ -80,6 +95,13 @@ Based on `docs/content/executive-coaching-synthetic-council.md`:
 - C: Potential fit but unclear ICP; keep for later.
 
 Send only A and B today.
+
+### Daily volume target without Sales Navigator
+- New profiles reviewed: 20-30
+- New qualified prospects added: 8-12
+- Connection requests sent: 8-12
+
+Quality beats volume. Keep acceptance and reply rates healthy instead of forcing larger daily send counts.
 
 ---
 
