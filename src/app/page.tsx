@@ -142,6 +142,8 @@ export default function HomePage() {
           h1Lines: ['Be ready.', 'Be early.'],
           claimMethodLabel: 'See the operating cadence →',
           claimMethodHref: '#operating-cadence',
+          claimEvidenceLabel: 'Evidence and references →',
+          claimEvidenceHref: '/references',
           bodyPreamble: 'You might be thinking:\n"I have a coach." "I\'m using LinkedIn Premium." "I\'m working with a recruiter."\nThey\'re all right. Here\'s exactly where we fit in.',
           body: 'Starting Monday operates the infrastructure layer: signal intelligence so you know about transitions before they\'re public, a relationship tracker so nothing goes cold, and a prep brief that runs in 60 seconds. You work with your coach and recruiters. We make sure you have the best context and earliest advantage they can build on.',
           steps: [
