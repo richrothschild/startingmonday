@@ -3,7 +3,6 @@ test-results/
 playwright-report/
 coverage/
 .github/
-worker/
 *.csv
 *.md
 *.log
@@ -12,3 +11,7 @@ worker/
 *.mp4
 *.mov
 *.mov
+page*.html
+page*_new.html
+public/dashboard-screenshot_files/
+public/public.dashboard.screenshot.png.png
