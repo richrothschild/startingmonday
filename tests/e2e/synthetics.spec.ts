@@ -1,7 +1,7 @@
 /**
  * Production Synthetic Tests (R2.1 + R2.2)
  *
- * Implements Synthetic-01 through Synthetic-08 from:
+ * Implements Synthetic-01 through Synthetic-09 from:
  *   docs/sre/synthetic-tests-and-deploy-gates.md
  *
  * These tests are designed to run against the live production environment
@@ -23,6 +23,7 @@
  *   Synthetic-06: <= 10000ms
  *   Synthetic-07: <= 3000ms
  *   Synthetic-08: <= 2000ms
+ *   Synthetic-09: <= 5000ms
  */
 
 import { test, expect, type APIRequestContext, type Page } from '@playwright/test'
@@ -31,12 +32,12 @@ import { test, expect, type APIRequestContext, type Page } from '@playwright/tes
 // Helpers
 // ---------------------------------------------------------------------------
 
-async function skipIfAuthUnavailable(page: Page) {
+async function requireAuthSession(page: Page) {
   await page.goto('/dashboard')
-  test.skip(
+  expect(
     /\/login(?:$|[/?#])/.test(page.url()),
-    'Skipping synthetic: auth session unavailable'
-  )
+    'Synthetic auth session unavailable: dashboard redirected to login. Check PLAYWRIGHT_TEST_EMAIL / PLAYWRIGHT_TEST_PASSWORD.'
+  ).toBe(false)
 }
 
 async function skipIfApiAuthUnavailable(request: APIRequestContext, baseURL: string) {
@@ -104,7 +105,7 @@ test('Synthetic-02: auth API signin returns session within budget', async ({ req
 // ---------------------------------------------------------------------------
 
 test('Synthetic-03: dashboard loads with auth session within budget', async ({ page }) => {
-  await skipIfAuthUnavailable(page)
+  await requireAuthSession(page)
 
   const t0 = Date.now()
   const res = await page.goto('/dashboard', { waitUntil: 'domcontentloaded' })
@@ -131,7 +132,7 @@ test('Synthetic-03: dashboard loads with auth session within budget', async ({ p
 // ---------------------------------------------------------------------------
 
 test('Synthetic-04: feedback submission returns 201 within budget', async ({ page }) => {
-  await skipIfAuthUnavailable(page)
+  await requireAuthSession(page)
 
   const syntheticTitle = `[SYNTHETIC] Automated test ${Date.now()}`
 
@@ -212,7 +213,7 @@ test('Synthetic-05: optimize endpoint responds within budget', async ({ request,
 // ---------------------------------------------------------------------------
 
 test('Synthetic-06: follow-up lifecycle completes correctly within budget', async ({ page }) => {
-  await skipIfAuthUnavailable(page)
+  await requireAuthSession(page)
   test.setTimeout(30_000)
 
   const ts = Date.now()
@@ -299,7 +300,7 @@ test('Synthetic-06: follow-up lifecycle completes correctly within budget', asyn
 // ---------------------------------------------------------------------------
 
 test('Synthetic-07: billing portal endpoint responds within budget', async ({ page }) => {
-  await skipIfAuthUnavailable(page)
+  await requireAuthSession(page)
 
   const t0 = Date.now()
   const res = await page.request.post('/api/billing/portal', {
@@ -356,4 +357,24 @@ test('Synthetic-08: Stripe webhook endpoint is reachable within budget', async (
   ).toBe(true)
 
   expect(elapsed, `Webhook endpoint ${elapsed}ms exceeded budget of 2000ms`).toBeLessThanOrEqual(2_000)
+})
+
+// ---------------------------------------------------------------------------
+// Synthetic-09: Outreach Dashboard Route
+// Budget: <= 5000ms
+// ---------------------------------------------------------------------------
+
+test('Synthetic-09: outreach dashboard loads without error boundary', async ({ page }) => {
+  await requireAuthSession(page)
+
+  const t0 = Date.now()
+  const res = await page.goto('/dashboard/outreach', { waitUntil: 'domcontentloaded' })
+  const elapsed = Date.now() - t0
+
+  expect(res?.status(), `Outreach dashboard returned ${res?.status()}`).toBe(200)
+  await expect(page.locator('body')).not.toContainText(/Something went wrong\.|Dashboard Error/i)
+  await expect(page.getByText(/Send Queue|Outreach/i).first()).toBeVisible()
+
+  console.log(`Synthetic-09: outreach dashboard loaded in ${elapsed}ms (budget: 5000ms)`)
+  expect(elapsed, `Outreach dashboard load ${elapsed}ms exceeded budget of 5000ms`).toBeLessThanOrEqual(5_000)
 })
