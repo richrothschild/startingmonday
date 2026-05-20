@@ -73,23 +73,23 @@ Use one specific signal from their profile or recent post.
 
 Template:
 
-[First Name] - saw your post on [topic]. I built a platform coaches use to give clients the execution layer (monitoring, prep briefs, pipeline) so you can stay in strategy. Open to a quick 15-minute intro?
+[First Name] - saw your post on [topic]. I built a platform coaches use to help you easily stay on top of each client in one place, with monitoring, prep briefs, and pipeline visibility. Open to a quick 15-minute intro?
 
 Career transition variant:
 
-[First Name] - noticed your work helping leaders navigate transitions. We built a platform that keeps client momentum between sessions so you spend less time rebuilding context. Worth a 15-minute look?
+[First Name] - noticed your work helping leaders navigate transitions. We built a platform that helps you easily stay on top of each client in one place so you spend less time rebuilding context. Worth a 15-minute look?
 
 VP-to-CXO variant:
 
-[First Name] - your CXO positioning perspective stood out. We built a platform coaches use to keep candidates moving every week, so momentum does not stall between sessions. Open to a quick 15-minute intro?
+[First Name] - your CXO positioning perspective stood out. We built a platform that helps you easily stay on top of each client in one place, so momentum does not stall between sessions. Open to a quick 15-minute intro?
 
 Search-process variant:
 
-[First Name] - saw your interview prep content. We built a platform that gives coaches full pipeline visibility before each session, so prep gets sharper and faster. Worth a quick 15-minute look?
+[First Name] - saw your interview prep content. We built a platform that helps you easily stay on top of each client in one place, so prep gets sharper and faster before each session. Worth a quick 15-minute look?
 
 Board/governance variant:
 
-[First Name] - noticed your board advisory focus. We built a platform that helps leaders maintain strategic relationships at scale between coaching sessions. Open to a quick 15-minute intro?
+[First Name] - noticed your board advisory focus. We built a platform that helps you easily stay on top of each client in one place and maintain strategic relationships at scale between coaching sessions. Open to a quick 15-minute intro?
 
 ## 2) Day 0-1 Follow-Up (After Connection Accepted)
 
@@ -99,7 +99,7 @@ Thanks for connecting, [First Name].
 
 Most coaches I speak with feel the same pressure: clients are too busy to prepare, and paid session time gets spent rebuilding context instead of making strategic decisions.
 
-Starting Monday gives you one place to stay on top of each client between sessions - signals, prep briefs, and accountability in one operating layer.
+Starting Monday helps you easily stay on top of each client in one place between sessions - signals, prep briefs, and accountability in one operating layer.
 
 Result: clients arrive better prepared, you spend less time on admin, and your sessions stay high-value and strategy-first.
 
