@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useMemo, useRef, useState } from 'react'
 
 type ArchetypeKey =
+  | 'kenneth'
   | 'cio'
   | 'cto'
   | 'ciso'
@@ -26,6 +27,18 @@ type ArchetypeProfile = {
 }
 
 const ARCHETYPES: ArchetypeProfile[] = [
+  {
+    key: 'kenneth',
+    label: 'Kenneth Kicia, P.E. (CIO, Florida DOC)',
+    defaultRole: 'Chief Information Officer',
+    resume:
+      'Kenneth Kicia, P.E. | Chief Information Officer\n' +
+      'CIO at Florida Department of Corrections, leading technology for one of the largest state agencies in the US.\n' +
+      'Known for digital transformation, merger/integration leadership, and operational modernization across complex environments.\n' +
+      'Active governing and advisory roles across Gartner FL CIO/CISO community, higher education, and government technology boards.',
+    linkedin:
+      'Kenneth Kicia is a public-sector CIO focused on modernization, cybersecurity-informed execution, and aligning technology delivery to mission-critical outcomes.',
+  },
   {
     key: 'cio',
     label: 'CIO',
@@ -242,14 +255,14 @@ async function streamEndpoint(
 }
 
 export function CioPresentationClient() {
-  const [companyBriefCompany, setCompanyBriefCompany] = useState('ServiceNow')
+  const [companyBriefCompany, setCompanyBriefCompany] = useState('Florida Department of Corrections')
   const [companyBriefRole, setCompanyBriefRole] = useState('Chief Information Officer')
   const [companyBrief, setCompanyBrief] = useState('')
   const [companyBriefLoading, setCompanyBriefLoading] = useState(false)
   const [companyBriefError, setCompanyBriefError] = useState('')
 
-  const [archetype, setArchetype] = useState<ArchetypeKey>('cio')
-  const [tailoredCompany, setTailoredCompany] = useState('ServiceNow')
+  const [archetype, setArchetype] = useState<ArchetypeKey>('kenneth')
+  const [tailoredCompany, setTailoredCompany] = useState('Florida Department of Corrections')
   const [tailoredRole, setTailoredRole] = useState('Chief Information Officer')
   const [tailoredBrief, setTailoredBrief] = useState('')
   const [tailoredLoading, setTailoredLoading] = useState(false)
@@ -337,23 +350,28 @@ export function CioPresentationClient() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">CIO presentation mode</p>
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Kenneth-specific presentation mode</p>
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-[1.1] mb-4">
-            Live brief walkthrough page
+            Live brief walkthrough tailored to Kenneth Kicia
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed mb-5 max-w-3xl">
-            Run the company brief first, then Bob Barker tailored brief. Flip to the talking points page for objections and negotiation scripts.
+            Start with Florida DOC CIO context, then run a tailored brief using Kenneth's profile. Flip to the talking points page for targeted objections and negotiation scripts.
           </p>
           <div className="flex flex-wrap gap-2">
             <Link href="/demo/cio" className="text-[12px] px-3 py-1.5 rounded border bg-slate-900 text-white border-slate-900">Presentation page</Link>
             <Link href="/demo/cio/notes" className="text-[12px] px-3 py-1.5 rounded border bg-white text-slate-700 border-slate-300 hover:bg-slate-100 transition-colors">Talking points page</Link>
+          </div>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Current seat: CIO, Florida Department of Corrections</div>
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Strengths: transformation, large-scale operations, board-level influence</div>
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Credibility signals: public-sector leadership, advisory roles, certifications</div>
           </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Brief demo</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Generate the company brief on the fly</h2>
-          <p className="text-[14px] text-slate-600 mb-5">Type the company and role he names, click generate, and narrate the first section aloud.</p>
+          <p className="text-[14px] text-slate-600 mb-5">Start with his current environment, then pivot to any target company/role he names.</p>
 
           <form onSubmit={generateCompanyBrief} className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col gap-4">
             <div>
@@ -362,7 +380,7 @@ export function CioPresentationClient() {
                 value={companyBriefCompany}
                 onChange={(e) => setCompanyBriefCompany(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="ServiceNow"
+                placeholder="Florida Department of Corrections"
                 required
               />
             </div>
@@ -395,25 +413,25 @@ export function CioPresentationClient() {
 
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Tailored brief demo</p>
-          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Bob Barker at the named company and role</h2>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Kenneth profile at the named company and role</h2>
           <p className="text-[14px] text-slate-600 mb-5">
-            Pick a fake C-suite or VP profile, then generate a tailored brief from fake resume plus fake LinkedIn summary.
+            Generate a tailored brief from Kenneth's profile context and leadership history.
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
             <div className="border border-slate-200 rounded p-4 bg-slate-50">
-              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-2">Fake resume ({activeProfile.label})</p>
+              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-2">Profile snapshot ({activeProfile.label})</p>
               <pre className="text-[12px] text-slate-700 whitespace-pre-wrap leading-relaxed">{activeProfile.resume}</pre>
             </div>
             <div className="border border-slate-200 rounded p-4 bg-slate-50">
-              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-2">Fake LinkedIn summary</p>
+              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-2">LinkedIn-style summary</p>
               <p className="text-[12px] text-slate-700 leading-relaxed">{activeProfile.linkedin}</p>
             </div>
           </div>
 
           <form onSubmit={generateTailoredBrief} className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col gap-4">
             <div>
-              <label htmlFor="demo-archetype" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Fake profile archetype</label>
+              <label htmlFor="demo-archetype" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Profile source</label>
               <select
                 id="demo-archetype"
                 value={archetype}
@@ -436,7 +454,7 @@ export function CioPresentationClient() {
                 value={tailoredCompany}
                 onChange={(e) => setTailoredCompany(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="ServiceNow"
+                placeholder="Florida Department of Corrections"
                 required
               />
             </div>
@@ -455,7 +473,7 @@ export function CioPresentationClient() {
               disabled={tailoredLoading || !tailoredCompany.trim() || !tailoredRole.trim()}
               className="bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors self-start"
             >
-              {tailoredLoading ? 'Generating...' : 'Generate Bob Barker tailored brief'}
+                  {tailoredLoading ? 'Generating...' : 'Generate Kenneth-tailored brief'}
             </button>
             {tailoredError && <p className="text-[13px] text-red-600">{tailoredError}</p>}
           </form>

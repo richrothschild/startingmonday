@@ -6,26 +6,26 @@ import { useMemo, useState } from 'react'
 const TALKING_POINTS = [
   {
     title: 'Voss: Tactical Empathy',
-    body: 'You already do the hard executive work. It sounds like too much high-value time goes to context rebuild instead of strategy.'
+    body: 'You already run a high-scale public mission. It sounds like too much leadership time still goes to context rebuild instead of decision quality.'
   },
   {
     title: 'Voss: Accusation Audit',
-    body: 'This might feel like one more tool to manage. The demo proves it actually reduces prep friction in minutes.'
+    body: 'This may feel like another platform to manage. The demo is designed to prove lower prep friction and clearer weekly execution quickly.'
   },
   {
     title: 'Cialdini: Authority and Proof',
-    body: 'Method and evidence are visible, with denominator and confidence context for headline metrics.'
+    body: 'Method and evidence are explicit, with denominator and confidence context for every headline claim.'
   },
   {
     title: 'Horstman: Cadence and Clarity',
-    body: 'Clear role boundary: platform handles signals and operating cadence, coach handles judgment and strategy.'
+    body: 'Clear role boundary: platform handles signal capture and cadence discipline; leadership retains judgment, governance, and strategic calls.'
   },
 ]
 
 const CADENCE_STEPS = [
-  'Monday pipeline review: confirm target companies and active conversations.',
-  'Daily signal decision: what changed, who to contact, what to ignore.',
-  'Pre-session brief review: walk in with role-specific context and objections pre-handled.',
+  'Monday executive cadence review: priorities, risk, and stakeholder map.',
+  'Daily signal triage: what changed across talent, market, and mission-critical context.',
+  'Pre-conversation brief review: role context, likely objections, and board-ready framing.',
 ]
 
 const PRESENTER_ANCHORS = [
@@ -62,29 +62,29 @@ const PROOF_METRICS = [
 
 const OBJECTION_APPENDIX = [
   {
-    objection: 'We already have a process. Why add this?',
+    objection: 'We already run governance and operating reviews. Why add this?',
     response:
-      'That makes sense. This does not replace your process. It reduces context rebuild overhead so your existing process runs with better signal and decision speed.',
+      'That makes sense. This does not replace your governance process. It compresses context rebuild and makes weekly decisions more evidence-ready.',
   },
   {
-    objection: 'My team will not adopt another system.',
+    objection: 'My team will not adopt another platform.',
     response:
-      'Reasonable concern. Start with two users and one weekly cadence checkpoint. If week-1 action and prep quality do not improve, stop the pilot.',
+      'Reasonable concern. Start with two leaders and one cadence checkpoint. If week-1 action and briefing quality do not improve, stop the pilot.',
   },
   {
-    objection: 'How do we trust the AI output?',
+    objection: 'How do we trust AI output in a public-sector environment?',
     response:
-      'Treat the output as a first draft plus prompts for judgment. Metrics include denominator and confidence context, and final strategy remains human-owned.',
+      'Treat output as structured first draft plus prompts for judgment. Metrics include denominator and confidence context; final decisions remain human-owned.',
   },
   {
-    objection: 'What about privacy and governance?',
+    objection: 'What about compliance, privacy, and procurement constraints?',
     response:
-      'Use the trust pack and permissions model. Access boundaries and data-handling rules are explicit before rollout.',
+      'Use a clear trust pack and permissions model. Access boundaries, data-handling rules, and phased rollout criteria are explicit up front.',
   },
   {
-    objection: 'Can we prove ROI quickly?',
+    objection: 'Can we prove value quickly without disruption?',
     response:
-      'Yes. The 30-day scorecard tracks first signal action, first prep brief before a high-stakes conversation, and context rebuild time reduction.',
+      'Yes. The 30-day scorecard tracks first signal action, first high-stakes prep brief, and measurable context rebuild reduction.',
   },
 ]
 
@@ -93,19 +93,19 @@ const HESITATION_SCRIPTS = [
     key: 'need-time',
     label: 'We need to think about it',
     script:
-      'It sounds like you want to avoid adding noise to an already busy system. What would have to be true in the first two weeks for this to feel like a clear yes?',
+      'It sounds like you want to avoid adding noise to an already complex operation. What would need to be true in two weeks for this to be an obvious yes?',
   },
   {
     key: 'budget',
     label: 'Budget is tight right now',
     script:
-      'Seems like priority and proof are the issue, not interest. Would it be unreasonable to run a two-client pilot and decide only from the scorecard outcomes?',
+      'Seems like sequencing and proof are the issue, not interest. Would it be unreasonable to run a two-leader pilot and decide only from scorecard outcomes?',
   },
   {
     key: 'timing',
     label: 'Not this quarter',
     script:
-      'Sounds like timing risk is higher than value risk. If we did a low-lift start now, what milestone would make next-quarter expansion an obvious decision?',
+      'Sounds like timing risk is higher than value risk. If we run a low-lift start now, what milestone would make next-quarter expansion obvious?',
   },
 ]
 
@@ -167,12 +167,12 @@ export function CioNotesClient() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">CIO talking points mode</p>
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Kenneth-specific talking points mode</p>
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-[1.1] mb-4">
-            Talking points and objection handling in one place
+            Kenneth briefing notes and objection handling in one place
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed mb-5 max-w-3xl">
-            Use this page during the conversation for message discipline, then flip back to the presentation page for live generation.
+            Use this page during the conversation for message discipline tailored to Kenneth's public-sector CIO context, then flip back to presentation for live generation.
           </p>
 
           <div className="flex flex-wrap gap-2 mb-5">
