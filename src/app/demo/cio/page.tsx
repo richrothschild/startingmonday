@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { CioDemoClient } from './CioDemoClient'
+import { CioPresentationClient } from './CioPresentationClient'
 
 export const metadata: Metadata = {
   title: 'Starting Monday | CIO Demo',
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 }
 
 export default function CIODemoPage() {
-  return <CioDemoClient />
+  return <CioPresentationClient />
 }
