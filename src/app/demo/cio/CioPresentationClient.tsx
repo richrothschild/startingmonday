@@ -199,34 +199,40 @@ const ARCHETYPES: ArchetypeProfile[] = [
 
 const KENNETH_COMPANY_CANDIDATES: CompanyCandidate[] = [
   {
-    name: 'ServiceNow',
-    sector: 'Enterprise SaaS',
-    whyFit: 'Large-scale enterprise transformation and workflow modernization match Kenneth\'s operating profile.',
-    strengths: ['enterprise transformation', 'platform modernization', 'board-level communication'],
-  },
-  {
-    name: 'Salesforce',
-    sector: 'Enterprise Cloud',
-    whyFit: 'Global cloud operating model and cross-functional execution align with Kenneth\'s transformation track record.',
-    strengths: ['large-scale operations', 'change leadership', 'executive stakeholder alignment'],
-  },
-  {
-    name: 'Accenture',
-    sector: 'Technology Services',
-    whyFit: 'Complex delivery, strategic advisory motion, and enterprise modernization fit Kenneth\'s leadership style.',
-    strengths: ['digital transformation', 'multi-stakeholder delivery', 'execution cadence'],
-  },
-  {
     name: 'Tyler Technologies',
     sector: 'GovTech',
-    whyFit: 'Public-sector mission and technology modernization context maps directly to Kenneth\'s experience.',
+    whyFit: 'State and local government modernization aligns directly with Kenneth\'s public-sector CIO leadership background.',
     strengths: ['public sector', 'mission-critical systems', 'governance discipline'],
   },
   {
-    name: 'Palantir',
-    sector: 'Data and AI Platforms',
-    whyFit: 'Mission-scale operations and high-consequence decision environments align with Kenneth\'s profile.',
-    strengths: ['data strategy', 'mission environments', 'executive decision support'],
+    name: 'Leidos',
+    sector: 'Government and Defense Technology',
+    whyFit: 'Large mission-focused programs and high-accountability operating environments fit Kenneth\'s execution profile.',
+    strengths: ['mission environments', 'program scale', 'executive decision support'],
+  },
+  {
+    name: 'Kyndryl',
+    sector: 'Enterprise Infrastructure Services',
+    whyFit: 'Infrastructure modernization and reliability at scale map well to Kenneth\'s background in complex IT operating models.',
+    strengths: ['infrastructure modernization', 'operational resilience', 'enterprise transformation'],
+  },
+  {
+    name: 'CGI',
+    sector: 'Public Sector and Enterprise IT Services',
+    whyFit: 'Cross-sector transformation and long-cycle stakeholder management align with Kenneth\'s governance and advisory strengths.',
+    strengths: ['public-sector delivery', 'stakeholder alignment', 'board-facing communication'],
+  },
+  {
+    name: 'Accenture (Public Service)',
+    sector: 'Public Sector Transformation',
+    whyFit: 'Public service modernization programs and enterprise change leadership are tightly aligned with Kenneth\'s CIO track record.',
+    strengths: ['digital transformation', 'multi-stakeholder delivery', 'execution cadence'],
+  },
+  {
+    name: 'ServiceNow',
+    sector: 'Enterprise Workflow Platform',
+    whyFit: 'Workflow and operations modernization is a credible extension of Kenneth\'s transformation and governance experience.',
+    strengths: ['platform modernization', 'process transformation', 'operating cadence'],
   },
 ]
 
@@ -312,7 +318,7 @@ export function CioPresentationClient() {
   const [tailoredBrief, setTailoredBrief] = useState('')
   const [tailoredLoading, setTailoredLoading] = useState(false)
   const [tailoredError, setTailoredError] = useState('')
-  const [fitKeywords, setFitKeywords] = useState('public sector transformation, enterprise modernization, mission-critical systems, board-level influence')
+  const [fitKeywords, setFitKeywords] = useState('public sector modernization, mission-critical operations, governance leadership, enterprise infrastructure, digital transformation')
   const [fitResults, setFitResults] = useState<Array<CompanyCandidate & { score: number }>>([])
   const [targetList, setTargetList] = useState<SavedTarget[]>([])
 
