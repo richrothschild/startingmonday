@@ -25,14 +25,6 @@ export default function CIODemoPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">CIO demo</p>
-          <h1 className="text-[30px] sm:text-[38px] font-bold text-slate-900 leading-[1.1] mb-4">Show him the CIO story.</h1>
-          <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl">
-            This route opens on a CIO-specific sample and is the fastest way to show how Starting Monday improves context, prep, and execution before the interview starts.
-          </p>
-        </section>
-
         <Suspense fallback={null}>
           <DemoContent
             bypassGate
