@@ -197,6 +197,86 @@ const CADENCE_STEPS = [
   'Pre-session brief review: walk in with role-specific context and objections pre-handled.',
 ]
 
+const PROOF_METRICS = [
+  {
+    label: 'Pilot brief usefulness',
+    value: '81%',
+    denominator: '27 candidates',
+    confidence: 'Medium confidence',
+    note: 'Based on post-session scoring from pilot runs.',
+  },
+  {
+    label: 'Prep-time reduction',
+    value: '34%',
+    denominator: '19 sessions',
+    confidence: 'Directional',
+    note: 'Measured as context rebuild time before strategy discussion.',
+  },
+  {
+    label: 'First-week action rate',
+    value: '74%',
+    denominator: '31 pilot users',
+    confidence: 'Medium confidence',
+    note: 'Users who took at least one signal-based action in week 1.',
+  },
+]
+
+const OBJECTION_APPENDIX = [
+  {
+    objection: 'We already have a process. Why add this?',
+    response:
+      'That makes sense. This does not replace your process. It reduces context rebuild overhead so your existing process runs with better signal and decision speed.',
+  },
+  {
+    objection: 'My team will not adopt another system.',
+    response:
+      'Reasonable concern. Start with two users and one weekly cadence checkpoint. If week-1 action and prep quality do not improve, stop the pilot.',
+  },
+  {
+    objection: 'How do we trust the AI output?',
+    response:
+      'Treat the output as a first draft plus prompts for judgment. Metrics include denominator and confidence context, and final strategy remains human-owned.',
+  },
+  {
+    objection: 'What about privacy and governance?',
+    response:
+      'Use the trust pack and permissions model. Access boundaries and data-handling rules are explicit before rollout.',
+  },
+  {
+    objection: 'Can we prove ROI quickly?',
+    response:
+      'Yes. The 30-day scorecard tracks first signal action, first prep brief before a high-stakes conversation, and context rebuild time reduction.',
+  },
+]
+
+const HESITATION_SCRIPTS = [
+  {
+    key: 'need-time',
+    label: 'We need to think about it',
+    script:
+      'It sounds like you want to avoid adding noise to an already busy system. What would have to be true in the first two weeks for this to feel like a clear yes?',
+  },
+  {
+    key: 'budget',
+    label: 'Budget is tight right now',
+    script:
+      'Seems like priority and proof are the issue, not interest. Would it be unreasonable to run a two-client pilot and decide only from the scorecard outcomes?',
+  },
+  {
+    key: 'timing',
+    label: 'Not this quarter',
+    script:
+      'Sounds like timing risk is higher than value risk. If we did a low-lift start now, what milestone would make next-quarter expansion an obvious decision?',
+  },
+]
+
+const TIMELINE_STEPS = [
+  { key: 'mon', label: 'Monday pipeline review complete' },
+  { key: 'daily', label: 'Daily signal decision logged' },
+  { key: 'brief', label: 'Prep brief reviewed before key conversation' },
+  { key: 'retro', label: 'Friday trend and overdue review done' },
+]
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -279,6 +359,21 @@ export function CioDemoClient() {
   const [tailoredBrief, setTailoredBrief] = useState('')
   const [tailoredLoading, setTailoredLoading] = useState(false)
   const [tailoredError, setTailoredError] = useState('')
+  const [activeHesitation, setActiveHesitation] = useState(HESITATION_SCRIPTS[0].key)
+  const [copiedScript, setCopiedScript] = useState(false)
+
+  const [pilotScorecard, setPilotScorecard] = useState({
+    firstSignalAction: false,
+    firstPrepBrief: false,
+    contextRebuildDrop: false,
+  })
+
+  const [timelineChecks, setTimelineChecks] = useState<Record<string, boolean>>({
+    mon: false,
+    daily: false,
+    brief: false,
+    retro: false,
+  })
 
   const companyBriefRef = useRef<HTMLDivElement>(null)
   const tailoredBriefRef = useRef<HTMLDivElement>(null)
@@ -287,6 +382,15 @@ export function CioDemoClient() {
     () => ARCHETYPES.find((item) => item.key === archetype) ?? ARCHETYPES[0],
     [archetype]
   )
+  const activeScript = useMemo(
+    () => HESITATION_SCRIPTS.find((item) => item.key === activeHesitation) ?? HESITATION_SCRIPTS[0],
+    [activeHesitation]
+  )
+  const pilotCompleted = Object.values(pilotScorecard).filter(Boolean).length
+  const pilotCompletionPct = Math.round((pilotCompleted / 3) * 100)
+  const timelineCompleted = Object.values(timelineChecks).filter(Boolean).length
+  const pilotBarWidthClass =
+    pilotCompleted === 0 ? 'w-0' : pilotCompleted === 1 ? 'w-1/3' : pilotCompleted === 2 ? 'w-2/3' : 'w-full'
 
   async function generateCompanyBrief(e: React.FormEvent) {
     e.preventDefault()
@@ -346,6 +450,16 @@ export function CioDemoClient() {
     }
   }
 
+  async function copyScriptText() {
+    try {
+      await navigator.clipboard.writeText(activeScript.script)
+      setCopiedScript(true)
+      setTimeout(() => setCopiedScript(false), 1200)
+    } catch {
+      setCopiedScript(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-slate-950 border-b border-slate-900 sticky top-0 z-20">
@@ -396,6 +510,140 @@ export function CioDemoClient() {
               {' · '}
               <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-800">Evidence room</Link>
             </span>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Proof clarity</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Confidence and denominator badges</h2>
+          <p className="text-[14px] text-slate-600 mb-5">Every claim includes denominator and confidence context so proof stays credible under scrutiny.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {PROOF_METRICS.map((metric) => (
+              <div key={metric.label} className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-2">{metric.label}</p>
+                <p className="text-[28px] font-bold text-slate-900 leading-none mb-2">{metric.value}</p>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  <span className="text-[11px] bg-slate-900 text-white px-2 py-1 rounded">n={metric.denominator}</span>
+                  <span className="text-[11px] bg-orange-100 text-orange-800 px-2 py-1 rounded">{metric.confidence}</span>
+                </div>
+                <p className="text-[12px] text-slate-600 leading-relaxed">{metric.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Pilot motion</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">30-day pilot success scorecard</h2>
+          <p className="text-[14px] text-slate-600 mb-4">Use this live during the demo: check boxes as outcomes are met, then decide from evidence.</p>
+
+          <div className="mb-4">
+            <div className="flex items-center justify-between text-[12px] text-slate-600 mb-1.5">
+              <span>Pilot completion</span>
+              <span className="font-semibold text-slate-900">{pilotCompleted}/3 ({pilotCompletionPct}%)</span>
+            </div>
+            <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className={`h-full bg-orange-500 transition-all ${pilotBarWidthClass}`} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <button
+              type="button"
+              onClick={() => setPilotScorecard((prev) => ({ ...prev, firstSignalAction: !prev.firstSignalAction }))}
+              className={`text-left border rounded-lg p-4 transition-colors ${pilotScorecard.firstSignalAction ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-white hover:bg-slate-50'}`}
+            >
+              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1">Checkpoint 1</p>
+              <p className="text-[13px] text-slate-800 leading-relaxed">First signal action in week 1</p>
+            </button>
+            <button
+              type="button"
+              onClick={() => setPilotScorecard((prev) => ({ ...prev, firstPrepBrief: !prev.firstPrepBrief }))}
+              className={`text-left border rounded-lg p-4 transition-colors ${pilotScorecard.firstPrepBrief ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-white hover:bg-slate-50'}`}
+            >
+              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1">Checkpoint 2</p>
+              <p className="text-[13px] text-slate-800 leading-relaxed">First prep brief used before a high-stakes conversation</p>
+            </button>
+            <button
+              type="button"
+              onClick={() => setPilotScorecard((prev) => ({ ...prev, contextRebuildDrop: !prev.contextRebuildDrop }))}
+              className={`text-left border rounded-lg p-4 transition-colors ${pilotScorecard.contextRebuildDrop ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-white hover:bg-slate-50'}`}
+            >
+              <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1">Checkpoint 3</p>
+              <p className="text-[13px] text-slate-800 leading-relaxed">Context rebuild time reduction documented</p>
+            </button>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Negotiation support</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Late-stage hesitation mode (Voss)</h2>
+          <p className="text-[14px] text-slate-600 mb-5">One-click scripts for the most common late-stage stalls.</p>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {HESITATION_SCRIPTS.map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => setActiveHesitation(item.key)}
+                className={`text-[12px] px-3 py-1.5 rounded border transition-colors ${activeHesitation === item.key ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="border border-slate-200 rounded p-4 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-2">Live script</p>
+            <p className="text-[14px] text-slate-800 leading-relaxed">{activeScript.script}</p>
+            <button
+              type="button"
+              onClick={copyScriptText}
+              className="mt-3 text-[12px] px-3 py-1.5 rounded border border-slate-300 hover:bg-white transition-colors"
+            >
+              {copiedScript ? 'Copied' : 'Copy script'}
+            </button>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Execution rhythm</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Weekly accountability timeline</h2>
+          <p className="text-[14px] text-slate-600 mb-5">Make operating cadence visible and measurable every week.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            {TIMELINE_STEPS.map((step) => (
+              <button
+                key={step.key}
+                type="button"
+                onClick={() =>
+                  setTimelineChecks((prev) => ({
+                    ...prev,
+                    [step.key]: !prev[step.key],
+                  }))
+                }
+                className={`text-left border rounded-lg p-4 transition-colors ${timelineChecks[step.key] ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-white hover:bg-slate-50'}`}
+              >
+                <p className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1">Cadence step</p>
+                <p className="text-[13px] text-slate-800 leading-relaxed">{step.label}</p>
+              </button>
+            ))}
+          </div>
+          <p className="text-[13px] text-slate-700">
+            Weekly cadence completion: <span className="font-semibold">{timelineCompleted}/{TIMELINE_STEPS.length}</span>
+          </p>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Objections</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Objection-handling appendix</h2>
+          <p className="text-[14px] text-slate-600 mb-5">Use these responses when concerns come up in real time during the demo.</p>
+          <div className="space-y-3">
+            {OBJECTION_APPENDIX.map((item) => (
+              <div key={item.objection} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                <p className="text-[12px] font-bold text-slate-900 mb-1.5">{item.objection}</p>
+                <p className="text-[13px] text-slate-700 leading-relaxed">{item.response}</p>
+              </div>
+            ))}
           </div>
         </section>
 
