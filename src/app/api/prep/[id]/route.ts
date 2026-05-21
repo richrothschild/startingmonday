@@ -335,6 +335,22 @@ List the top 5-7 requirements inferred from the job description in priority orde
 **Coverage:** [Strong / Partial / Weak]
 Use this section to force specificity. Do not leave this generic.` : ''}
 
+## Stakeholder Signal Map
+Map the interview strategy by interviewer type using this exact structure:
+**Stakeholder:** [CEO / Board / Functional Peer / Recruiter]
+**What they need to believe:** [one sentence]
+**Signal they are looking for:** [specific behavior or proof]
+**Failure signal:** [what causes concern]
+**Your move:** [exact positioning move in this room]
+Prioritize the 2 stakeholder types most likely in this stage, then include the others briefly.
+
+## 12-Month Performance Outcomes
+Define 4-6 measurable outcomes this role is likely accountable for in the first 12 months. For each:
+**Outcome:** [what must be true by month 12]
+**Metric:** [how success is measured]
+**Candidate proof:** [which career evidence best supports this outcome]
+Make this role-specific and company-specific, not generic executive goals.
+
 ## The Narrative
 How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement, ready to say verbatim.
 
@@ -348,6 +364,15 @@ The 4–5 questions this interviewer will almost certainly ask, derived from the
 **They ask:** [the question, phrased as they would actually say it]
 **What they're probing:** [what is actually being tested underneath the question, one sentence]
 **Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
+
+## Behavioral Rehearsal Scorecard
+For the top 4 likely questions, provide a rehearsal rubric:
+**Question:** [reference the likely question]
+**Substance bar (1-5):** [what a 5/5 answer includes]
+**Structure bar (1-5):** [what organized executive-level structure looks like]
+**Signal bar (1-5):** [what confidence/ownership signal interviewers need]
+**Common failure mode:** [where senior interviewers lose interest]
+**Upgrade move:** [one concrete edit to improve answer quality]
 
 ## Talking Points
 5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
@@ -378,6 +403,17 @@ How to interpret the signals at the end of this specific conversation. Cover the
 **Your move:** [what to do within the next 24 hours in response]
 
 Include at least one strong positive signal and one soft negative signal. Be specific to this type of organization and seniority level, not generic interview advice.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}
+
+## Weekly Drill Cadence (7-day execution plan)
+Create a one-week prep cadence with explicit daily reps and outputs.
+- Day 1: requirement mapping and opening narrative draft
+- Day 2: objection drills and counter positioning
+- Day 3: behavioral rehearsal with scoring
+- Day 4: technical/case or role-specific depth rehearsal
+- Day 5: stakeholder-specific close rehearsal
+- Day 6: full mock loop and red-team stress test
+- Day 7: final polish and interview-day briefing
+For each day include: time budget, exact deliverable, and pass/fail check.
 
 If the candidate's background is thin (no resume, no positioning), name what you cannot assess rather than generating generic advice. Tell them exactly what to provide for a sharper brief. Do not invent specifics or use vague generalities to cover missing data.
 
