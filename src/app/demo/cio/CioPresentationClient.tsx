@@ -33,6 +33,11 @@ type CompanyCandidate = {
   strengths: string[]
 }
 
+type BriefRequestPayload = {
+  company: string
+  role: string
+}
+
 type SavedTarget = CompanyCandidate & {
   score: number
   stage: 'Target Identified' | 'Researching' | 'Outreach Ready'
@@ -286,7 +291,8 @@ function renderBrief(text: string, isStreaming: boolean) {
 async function streamEndpoint(
   endpoint: string,
   payload: Record<string, unknown>,
-  onChunk: (text: string) => void
+  onChunk: (text: string) => void,
+  onFirstChunk?: () => void
 ): Promise<void> {
   const res = await fetch(endpoint, {
     method: 'POST',
@@ -294,13 +300,25 @@ async function streamEndpoint(
     body: JSON.stringify(payload),
   })
 
-  if (!res.ok || !res.body) throw new Error('Request failed')
+  if (!res.ok || !res.body) {
+    const details = (await res.text().catch(() => '')).trim()
+    if (res.status === 429) {
+      const retryAfter = res.headers.get('Retry-After')
+      throw new Error(retryAfter ? `Rate limit reached. Retry in ${retryAfter}s.` : 'Rate limit reached. Please retry in a moment.')
+    }
+    throw new Error(details || 'Request failed')
+  }
 
   const reader = res.body.getReader()
   const decoder = new TextDecoder()
+  let gotFirstChunk = false
   while (true) {
     const { done, value } = await reader.read()
     if (done) break
+    if (!gotFirstChunk) {
+      gotFirstChunk = true
+      onFirstChunk?.()
+    }
     onChunk(decoder.decode(value, { stream: true }))
   }
 }
@@ -311,6 +329,9 @@ export function CioPresentationClient() {
   const [companyBrief, setCompanyBrief] = useState('')
   const [companyBriefLoading, setCompanyBriefLoading] = useState(false)
   const [companyBriefError, setCompanyBriefError] = useState('')
+  const [companyBriefStatus, setCompanyBriefStatus] = useState('')
+  const [companyFirstTokenSlow, setCompanyFirstTokenSlow] = useState(false)
+  const [lastCompanyRequest, setLastCompanyRequest] = useState<BriefRequestPayload | null>(null)
 
   const [archetype, setArchetype] = useState<ArchetypeKey>('kenneth')
   const [tailoredCompany, setTailoredCompany] = useState('ServiceNow')
@@ -318,6 +339,9 @@ export function CioPresentationClient() {
   const [tailoredBrief, setTailoredBrief] = useState('')
   const [tailoredLoading, setTailoredLoading] = useState(false)
   const [tailoredError, setTailoredError] = useState('')
+  const [tailoredStatus, setTailoredStatus] = useState('')
+  const [tailoredFirstTokenSlow, setTailoredFirstTokenSlow] = useState(false)
+  const [lastTailoredRequest, setLastTailoredRequest] = useState<BriefRequestPayload | null>(null)
   const [fitKeywords, setFitKeywords] = useState('public sector modernization, mission-critical operations, governance leadership, enterprise infrastructure, digital transformation')
   const [fitResults, setFitResults] = useState<Array<CompanyCandidate & { score: number }>>([])
   const [targetList, setTargetList] = useState<SavedTarget[]>([])
@@ -330,47 +354,90 @@ export function CioPresentationClient() {
     [archetype]
   )
 
-  async function generateCompanyBrief(e: React.FormEvent) {
-    e.preventDefault()
-    if (!companyBriefCompany.trim() || !companyBriefRole.trim() || companyBriefLoading) return
+  async function runCompanyBrief(targetCompany: string, targetRole: string) {
+    const trimmedCompany = targetCompany.trim()
+    const trimmedRole = targetRole.trim()
+    if (!trimmedCompany || !trimmedRole) return
+    if (companyBriefLoading) {
+      setCompanyBriefStatus('Already generating. Please wait for this run to finish.')
+      return
+    }
 
     setCompanyBrief('')
     setCompanyBriefError('')
     setCompanyBriefLoading(true)
+    setCompanyBriefStatus('Request sent. Building brief...')
+    setCompanyFirstTokenSlow(false)
+    setLastCompanyRequest({ company: trimmedCompany, role: trimmedRole })
+
+    const firstTokenTimer = setTimeout(() => {
+      setCompanyFirstTokenSlow(true)
+      setCompanyBriefStatus('Still working. Warming up the model...')
+    }, 3000)
 
     let full = ''
     try {
       await streamEndpoint(
         '/api/demo-brief',
-        { company: companyBriefCompany.trim(), role: companyBriefRole.trim() },
+        { company: trimmedCompany, role: trimmedRole },
         (chunk) => {
           full += chunk
           setCompanyBrief(full)
+        },
+        () => {
+          clearTimeout(firstTokenTimer)
+          setCompanyFirstTokenSlow(false)
+          setCompanyBriefStatus('Streaming response...')
         }
       )
-    } catch {
-      setCompanyBriefError('Something went wrong. Please try again.')
+      if (!full.trim()) {
+        setCompanyBriefError('No response returned. Please retry.')
+      }
+      setCompanyBriefStatus('')
+    } catch (err) {
+      setCompanyBriefError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setCompanyBriefStatus('')
     } finally {
+      clearTimeout(firstTokenTimer)
       setCompanyBriefLoading(false)
+      setCompanyFirstTokenSlow(false)
       setTimeout(() => companyBriefRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
     }
   }
 
-  async function generateTailoredBrief(e: React.FormEvent) {
+  async function generateCompanyBrief(e: React.FormEvent) {
     e.preventDefault()
-    if (!tailoredCompany.trim() || !tailoredRole.trim() || tailoredLoading) return
+    await runCompanyBrief(companyBriefCompany, companyBriefRole)
+  }
+
+  async function runTailoredBrief(targetCompany: string, targetRole: string) {
+    const trimmedCompany = targetCompany.trim()
+    const trimmedRole = targetRole.trim()
+    if (!trimmedCompany || !trimmedRole) return
+    if (tailoredLoading) {
+      setTailoredStatus('Already generating. Please wait for this run to finish.')
+      return
+    }
 
     setTailoredBrief('')
     setTailoredError('')
     setTailoredLoading(true)
+    setTailoredStatus('Request sent. Building brief...')
+    setTailoredFirstTokenSlow(false)
+    setLastTailoredRequest({ company: trimmedCompany, role: trimmedRole })
+
+    const firstTokenTimer = setTimeout(() => {
+      setTailoredFirstTokenSlow(true)
+      setTailoredStatus('Still working. Warming up the model...')
+    }, 3000)
 
     let full = ''
     try {
       await streamEndpoint(
         '/api/demo-brief/tailored',
         {
-          company: tailoredCompany.trim(),
-          role: tailoredRole.trim(),
+          company: trimmedCompany,
+          role: trimmedRole,
           archetype: activeProfile.key,
           resumeText: activeProfile.resume,
           linkedinSummary: activeProfile.linkedin,
@@ -378,14 +445,45 @@ export function CioPresentationClient() {
         (chunk) => {
           full += chunk
           setTailoredBrief(full)
+        },
+        () => {
+          clearTimeout(firstTokenTimer)
+          setTailoredFirstTokenSlow(false)
+          setTailoredStatus('Streaming response...')
         }
       )
-    } catch {
-      setTailoredError('Something went wrong. Please try again.')
+      if (!full.trim()) {
+        setTailoredError('No response returned. Please retry.')
+      }
+      setTailoredStatus('')
+    } catch (err) {
+      setTailoredError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setTailoredStatus('')
     } finally {
+      clearTimeout(firstTokenTimer)
       setTailoredLoading(false)
+      setTailoredFirstTokenSlow(false)
       setTimeout(() => tailoredBriefRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
     }
+  }
+
+  async function generateTailoredBrief(e: React.FormEvent) {
+    e.preventDefault()
+    await runTailoredBrief(tailoredCompany, tailoredRole)
+  }
+
+  async function retryCompanyBrief() {
+    if (!lastCompanyRequest || companyBriefLoading) return
+    setCompanyBriefCompany(lastCompanyRequest.company)
+    setCompanyBriefRole(lastCompanyRequest.role)
+    await runCompanyBrief(lastCompanyRequest.company, lastCompanyRequest.role)
+  }
+
+  async function retryTailoredBrief() {
+    if (!lastTailoredRequest || tailoredLoading) return
+    setTailoredCompany(lastTailoredRequest.company)
+    setTailoredRole(lastTailoredRequest.role)
+    await runTailoredBrief(lastTailoredRequest.company, lastTailoredRequest.role)
   }
 
   function findCompanyFit(e: React.FormEvent) {
@@ -584,6 +682,17 @@ export function CioPresentationClient() {
             >
               {companyBriefLoading ? 'Generating...' : 'Generate company brief'}
             </button>
+            {companyBriefStatus && <p className="text-[12px] text-slate-500">{companyBriefStatus}</p>}
+            {companyFirstTokenSlow && <p className="text-[12px] text-slate-500">First response chunk is taking longer than usual.</p>}
+            {lastCompanyRequest && !companyBriefLoading && (
+              <button
+                type="button"
+                onClick={retryCompanyBrief}
+                className="text-[12px] text-slate-600 underline underline-offset-2 hover:text-slate-900 self-start"
+              >
+                Retry last request
+              </button>
+            )}
             {companyBriefError && <p className="text-[13px] text-red-600">{companyBriefError}</p>}
           </form>
 
@@ -658,6 +767,17 @@ export function CioPresentationClient() {
             >
                   {tailoredLoading ? 'Generating...' : 'Generate Kenneth-tailored brief'}
             </button>
+            {tailoredStatus && <p className="text-[12px] text-slate-500">{tailoredStatus}</p>}
+            {tailoredFirstTokenSlow && <p className="text-[12px] text-slate-500">First response chunk is taking longer than usual.</p>}
+            {lastTailoredRequest && !tailoredLoading && (
+              <button
+                type="button"
+                onClick={retryTailoredBrief}
+                className="text-[12px] text-slate-600 underline underline-offset-2 hover:text-slate-900 self-start"
+              >
+                Retry last request
+              </button>
+            )}
             {tailoredError && <p className="text-[13px] text-red-600">{tailoredError}</p>}
           </form>
 
