@@ -375,6 +375,7 @@ Provide exactly 6 hard boardroom-style challenges and response frames using this
 For each use this structure:
 **Challenge:** [the question stated as a direct board challenge]
 **What they are testing:** [one sentence]
+**Decision-right owner:** [who owns the decision and accountability in this scenario]
 **Strong response frame:** [recommendation first, then evidence, then execution signal]
 **Execution proof line:** [one line naming owner, cadence, and metric]
 
@@ -400,6 +401,8 @@ The 4–5 questions this interviewer will almost certainly ask, derived from the
 **They ask:** [the question, phrased as they would actually say it]
 **What they're probing:** [what is actually being tested underneath the question, one sentence]
 **Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
+Optional: include one time-box answer variants line when useful:
+**Time-box variants (optional):** [30 seconds: core answer] [60 seconds: recommendation plus proof] [2 minutes: recommendation, context, execution detail, and measurable follow-up]
 
 ## Behavioral Rehearsal Scorecard
 For the top 4 likely questions, provide a rehearsal rubric:
