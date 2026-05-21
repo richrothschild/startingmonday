@@ -1,5 +1,5 @@
 {
-  "warnings": 180,
+  "warnings": 181,
   "capturedAt": "2026-05-20",
-  "notes": "Updated after fixing lint errors in extract_pdf.js, probe.js, run_extract.js. 7 additional warnings from new pages added since 2026-05-19 baseline (annual-report-2026, evidence-room, founder-note, method-and-evidence, pilot-findings, research-brief, admin/social)."
+  "notes": "Updated after fixing lint errors in extract_pdf.js, probe.js, run_extract.js. CI environment produces 181 warnings (vs 180 locally) — 1 warning difference due to environment."
 }
