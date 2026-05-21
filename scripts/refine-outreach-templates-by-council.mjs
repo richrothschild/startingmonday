@@ -114,6 +114,32 @@ function ctaVariants(audience) {
   }
 }
 
+function benchmarkAssetForFocus(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'the CFO board-readiness scorecard'
+  if (f.includes('CTO') || f.includes('TECH')) return 'the CTO architecture-to-business benchmark'
+  if (f.includes('COO') || f.includes('OPER')) return 'the COO sequencing and operating cadence benchmark'
+  if (f.includes('CISO') || f.includes('SECUR')) return 'the CISO risk narrative benchmark'
+  if (f.includes('CPO') || f.includes('PRODUCT')) return 'the product leadership narrative benchmark'
+  if (f.includes('CHRO') || f.includes('PEOPLE')) return 'the leadership-change benchmark'
+  if (f.includes('CEO') || f.includes('BOARD')) return 'the board-readiness benchmark'
+  if (f.includes('VP')) return 'the next-scope readiness benchmark'
+  return 'the role-specific benchmark sheet'
+}
+
+function breakupHookForFocus(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'how finance credibility becomes board-ready in the first conversation'
+  if (f.includes('CTO') || f.includes('TECH')) return 'how technical depth becomes a business-facing narrative'
+  if (f.includes('COO') || f.includes('OPER')) return 'how operating scale becomes a cleaner story of sequencing and leverage'
+  if (f.includes('CISO') || f.includes('SECUR')) return 'how security depth becomes risk language a business leader can use'
+  if (f.includes('CPO') || f.includes('PRODUCT')) return 'how product judgment becomes a growth story that does not sound fluffy'
+  if (f.includes('CHRO') || f.includes('PEOPLE')) return 'how culture and change work become specific enough to move the process'
+  if (f.includes('CEO') || f.includes('BOARD')) return 'how scope and governance become a board-ready opening narrative'
+  if (f.includes('VP')) return 'how next-scope readiness becomes something concrete instead of aspirational'
+  return 'how role depth becomes a clearer first conversation'
+}
+
 function subjectVariants(roleBucket, company) {
   return {
     a: `Bad idea to send a 1-page ${roleBucket} transition conversation flow for ${company}?`,
@@ -251,6 +277,7 @@ function executiveFollowupBody(roleBucket, step) {
   const proof = proofLineForFocus(focus)
   const stakes = stakesLineForFocus(focus, '{company_name}')
   const cta = ctaVariants(focus)
+  const benchmarkAsset = benchmarkAssetForFocus(focus)
   if (step === 'followup_1') {
     return [
       'Hi {first_name},',
@@ -273,11 +300,11 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       `I have been following your work at {company_name}, and I had one more thought on ${focus} transitions.`,
       '',
-      `I can also send the 30-day benchmark sheet so you can see how the first week, first pitch, and first follow-up are supposed to look.`,
+      `I can also send ${benchmarkAsset} so you can see how the first week, first pitch, and first follow-up should look for this role.`,
       '',
-      `For ${focus} leaders, that is where ${proof} becomes visible in a way that is easy to evaluate.`,
+      `For ${focus} leaders, that is where ${proof} becomes visible in a way that is hard to fake and easy to evaluate.`,
       '',
-      cta.pilot,
+      `If useful, I can share ${benchmarkAsset} and walk you through a 20-minute pilot with 3 success criteria.`,
       '',
       'Rich',
       'startingmonday.app',
@@ -288,9 +315,9 @@ function executiveFollowupBody(roleBucket, step) {
     '',
     `I have been following your work at {company_name}, and I am closing the loop on my note about ${focus} transitions.`,
     '',
-    'If timing is not right, no problem. If it is, I can send one concise example plus the 30-day benchmark sheet so you can judge it quickly.',
+    `If timing is not right, no problem. If it is, I can send one concise example plus ${benchmarkAsset} so you can judge it quickly.`,
     '',
-    `That is usually the cleanest way to show why ${proof} matters without overexplaining it.`,
+    `That is usually the cleanest way to show ${breakupHookForFocus(focus)} without overexplaining it.`,
     '',
     'Rich',
     'startingmonday.app',
