@@ -205,18 +205,41 @@ const QUANTIFIED_COMPARISON = [
 const QUOTE_PACKAGING = [
   {
     packageName: 'Pilot packaging',
-    details: '1 cohort, fixed 30-day decision gate, onboarding + weekly governance support included.',
-    quoteInputs: 'Seat mix, support tier, reporting scope, and legal review timeline.',
+    details: '1 cohort, fixed 30-day decision gate, onboarding + weekly governance support included under signed Order Form and MSA scope.',
+    quoteInputs: 'Seat mix, support tier, reporting scope, legal review timeline, and named sponsor owner.',
   },
   {
     packageName: 'Program packaging',
-    details: 'Multi-cohort or recurring cohorts with defined review cadence and sponsor reporting outputs.',
-    quoteInputs: 'Expected cohort volume, term length, operating model complexity, and training needs.',
+    details: 'Multi-cohort or recurring cohorts with defined review cadence, named deliverables, and contract-linked reporting outputs.',
+    quoteInputs: 'Expected cohort volume, term length, operating model complexity, training needs, and committee review schedule.',
   },
   {
     packageName: 'Enterprise packaging',
-    details: 'Centralized governance, expanded reporting cadence, and enterprise procurement controls.',
-    quoteInputs: 'Office count, compliance requirements, support SLA tier, and sponsor governance model.',
+    details: 'Centralized governance, expanded reporting cadence, and enterprise procurement controls with contractual service commitments.',
+    quoteInputs: 'Office count, compliance requirements, support SLA tier, sponsor governance model, and legal exhibit requirements.',
+  },
+]
+
+const CONTRACT_SLA_MAP = [
+  {
+    clause: 'Support response commitments',
+    contractualLanguage: 'Response-time commitments documented in Order Form schedule by severity tier (P1, P2, P3).',
+    defaultPosition: 'P1 same business day, P2 next business day, P3 two business days.',
+  },
+  {
+    clause: 'Pilot decision window',
+    contractualLanguage: 'Pilot scope fixed to one cohort and one decision window with explicit pass/fail criteria.',
+    defaultPosition: 'Day-30 decision gate with clean-no close path and optional corrective cycle terms.',
+  },
+  {
+    clause: 'Reporting obligations',
+    contractualLanguage: 'Weekly and monthly reporting outputs listed as deliverables in commercial schedule.',
+    defaultPosition: 'Activation, action velocity, prep readiness, stall index, and intervention queue included.',
+  },
+  {
+    clause: 'Security and trust artifacts',
+    contractualLanguage: 'Trust artifact request process and diligence documents referenced in security exhibit.',
+    defaultPosition: 'Public summary plus partner diligence packet under request workflow.',
   },
 ]
 
@@ -432,6 +455,35 @@ export default function OutplacementEconomicsPage() {
           <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
             Final approval packages should use quoted commercial terms issued against agreed scope, not only illustrative planning examples.
           </p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Contract-linked quote package language
+          </p>
+          <p className="text-[14px] text-slate-700 leading-relaxed mb-3">
+            Commercial approval should reference signed package artifacts: Order Form scope, MSA service boundaries, and pilot acceptance schedule.
+          </p>
+          <ul className="space-y-2">
+            <li className="text-[14px] text-slate-700 leading-relaxed">+ Package statement must include seat counts, term, named deliverables, and sponsor owner.</li>
+            <li className="text-[14px] text-slate-700 leading-relaxed">+ Pilot acceptance criteria must be listed as measurable thresholds, not narrative goals.</li>
+            <li className="text-[14px] text-slate-700 leading-relaxed">+ Expansion terms should be conditional on documented day-30 or day-60 decision evidence.</li>
+          </ul>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            SLA and contract-clause mapping
+          </p>
+          <div className="space-y-3">
+            {CONTRACT_SLA_MAP.map((row) => (
+              <div key={row.clause} className="border border-slate-200 rounded-lg p-4 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.clause}</p>
+                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Contract language: </span>{row.contractualLanguage}</p>
+                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Default position: </span>{row.defaultPosition}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">

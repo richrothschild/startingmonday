@@ -33,6 +33,8 @@ const PROCUREMENT_CHECKLIST = [
   'Retention and deletion handling',
   'Pilot legal scope and expansion decision gate',
   'Security and incident response review path',
+  'SLA commitments mapped to contract schedule by severity tier',
+  'Attestation and evidence artifact mapping to legal/procurement reviewers',
 ]
 
 const REVIEW_TIMELINE = [
@@ -150,6 +152,56 @@ const ARTIFACT_MAINTENANCE = [
   },
 ]
 
+const CONSOLIDATED_ARTIFACT_INDEX = [
+  {
+    artifact: 'Metric dictionary',
+    owner: 'Program analytics owner',
+    refreshCadence: 'Monthly or on governance change',
+    contractMap: 'Pilot acceptance criteria and reporting definitions schedule',
+  },
+  {
+    artifact: 'Operating scorecard template',
+    owner: 'Program lead',
+    refreshCadence: 'Quarterly',
+    contractMap: 'Pilot decision gate and expansion criteria schedule',
+  },
+  {
+    artifact: 'Trust and controls summary',
+    owner: 'Partner success + security owner',
+    refreshCadence: 'Quarterly or after major control updates',
+    contractMap: 'Security exhibit and diligence support schedule',
+  },
+  {
+    artifact: 'Support SLA commitments',
+    owner: 'Partner success lead',
+    refreshCadence: 'On contract revision',
+    contractMap: 'Order Form support commitment schedule (P1/P2/P3)',
+  },
+]
+
+const SLA_ATTESTATION_MAP = [
+  {
+    domain: 'Support SLA',
+    requirement: 'Severity-tier response commitments written in commercial schedule',
+    evidence: 'Order Form schedule with P1/P2/P3 commitments and escalation contacts',
+  },
+  {
+    domain: 'Security diligence',
+    requirement: 'Evidence path for security and governance controls',
+    evidence: 'Public security summary plus diligence packet under trust artifact request process',
+  },
+  {
+    domain: 'Data handling',
+    requirement: 'Contract-defined data scope, retention, and deletion boundaries',
+    evidence: 'Legal boundary section + contractual lifecycle controls language',
+  },
+  {
+    domain: 'Pilot governance',
+    requirement: 'Explicit pass/fail and decision-gate mechanics',
+    evidence: 'Scorecard definitions, runbook evidence packet, and day-30/day-60 decision notes',
+  },
+]
+
 export default function OutplacementTrustPackPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -206,6 +258,34 @@ export default function OutplacementTrustPackPage() {
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Consolidated trust artifact index (owner + refresh cadence)
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="min-w-full text-left text-[13px]">
+              <thead className="bg-slate-100 text-slate-700">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Artifact</th>
+                  <th className="px-4 py-3 font-semibold">Owner</th>
+                  <th className="px-4 py-3 font-semibold">Refresh cadence</th>
+                  <th className="px-4 py-3 font-semibold">Contract map</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CONSOLIDATED_ARTIFACT_INDEX.map((row) => (
+                  <tr key={row.artifact} className="border-t border-slate-200 bg-white">
+                    <td className="px-4 py-3 text-slate-900 font-medium">{row.artifact}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.owner}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.refreshCadence}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.contractMap}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Legal boundary summary
           </p>
           <div className="space-y-3">
@@ -213,6 +293,21 @@ export default function OutplacementTrustPackPage() {
               <div key={row.topic} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.topic}</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">{row.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            SLA and attestation clause mapping
+          </p>
+          <div className="space-y-3">
+            {SLA_ATTESTATION_MAP.map((row) => (
+              <div key={row.domain} className="border border-slate-200 rounded-lg p-4 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.domain}</p>
+                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Requirement: </span>{row.requirement}</p>
+                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Evidence: </span>{row.evidence}</p>
               </div>
             ))}
           </div>
