@@ -45,10 +45,40 @@ const FAQS = [
     answer: 'Data is encrypted in transit and at rest, with role-based access controls and row-level protections in the data layer. We can provide additional documentation for partner due diligence conversations.',
   },
   {
+    id: 'procurement-pack',
+    category: 'Security & Privacy',
+    question: 'What does your trust and procurement pack include?',
+    answer: 'The trust pack covers data ownership model, participant permission controls, access logging and audit visibility, retention and deletion approach, and incident-response process. Most firms run security and legal review in parallel with pilot setup.',
+  },
+  {
+    id: 'participant-lifecycle',
+    category: 'Rollout',
+    question: 'How do you handle participant lifecycle states such as pause, exit, or restart?',
+    answer: 'Programs can manage participant status as active, paused, or exited. Access and visibility follow program permissions, and cohort reporting can segment by status so your team can distinguish adoption risk from planned inactivity.',
+  },
+  {
+    id: 'integration',
+    category: 'Rollout',
+    question: 'What is manual versus automated in the pilot?',
+    answer: 'The pilot is intentionally lightweight: participant setup, company targeting, and counselor workflow are designed to run without heavy integration work. Program teams can evaluate fit first, then decide whether deeper process integration is needed for scale.',
+  },
+  {
+    id: 'sla',
+    category: 'Rollout',
+    question: 'What support model and response times should we expect?',
+    answer: 'Pilot partners receive implementation support, onboarding guidance for counselor leads, and a recurring review cadence. Operational support requests are triaged with business-day response commitments and escalation paths for blocking issues.',
+  },
+  {
     id: 'pricing',
     category: 'Commercials',
     question: 'How does pricing work for outplacement cohorts?',
     answer: 'Programs are typically structured with seat-based pricing and centralized billing. Cohort volume and term can influence pricing bands. Start with pilot seats and scale after pass/fail review.',
+  },
+  {
+    id: 'pilot-contract',
+    category: 'Commercials',
+    question: 'How is the pilot contract structured?',
+    answer: 'Pilot agreements are typically scoped to one cohort, one scorecard window, and explicit pass/fail criteria. Expansion is a separate decision milestone after pilot readout, so procurement risk stays controlled.',
   },
   {
     id: 'results',
@@ -164,6 +194,9 @@ export default function OutplacementFaqPage() {
             <div className="flex flex-wrap gap-4 text-[13px]">
               <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 View outplacement economics
+              </Link>
+              <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                Open trust and governance pack
               </Link>
               <Link href="/for-outplacement" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 Return to outplacement preview

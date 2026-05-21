@@ -78,6 +78,76 @@ const PILOT_SCORECARD = [
   },
 ]
 
+const ANON_SOCIAL_PROOF = [
+  {
+    title: 'National outplacement provider, technology cohort',
+    detail: 'Pilot cohort showed stronger week-2 outreach consistency after introducing daily decision prompts and counselor-side activity visibility.',
+  },
+  {
+    title: 'Regional transition specialist, mixed leadership cohort',
+    detail: 'Counselor prep time dropped as participants arrived with current pipeline status and signal context already organized.',
+  },
+  {
+    title: 'Enterprise HR-sponsored transition program',
+    detail: 'Program leads used the 30-day scorecard to identify stalled participants earlier and trigger targeted counselor intervention.',
+  },
+]
+
+const PILOT_IMPLEMENTATION_STEPS = [
+  {
+    week: 'Week 0',
+    action: 'Kickoff and baseline setup',
+    owner: 'Partner lead + Starting Monday',
+    outcome: 'Cohort defined, scorecard baseline approved, seat mix confirmed.',
+  },
+  {
+    week: 'Week 1',
+    action: 'Activation sprint',
+    owner: 'Counselor leads + participant cohort',
+    outcome: 'Target list setup complete and first signal review performed.',
+  },
+  {
+    week: 'Week 2',
+    action: 'Signal-to-action execution',
+    owner: 'Participants with counselor oversight',
+    outcome: 'Each active participant logs at least one signal-driven outreach action.',
+  },
+  {
+    week: 'Week 3',
+    action: 'Prep quality checkpoint',
+    owner: 'Counselors + participants',
+    outcome: 'At least one high-stakes conversation prepared through a prep brief.',
+  },
+  {
+    week: 'Day 30',
+    action: 'Pass/fail review',
+    owner: 'Partner sponsor + Starting Monday',
+    outcome: 'Decision to scale, tune, or close pilot based on agreed success criteria.',
+  },
+]
+
+const WEEKLY_CADENCE = [
+  'Monday: cohort pipeline review and stalled participant triage',
+  'Tuesday through Thursday: daily signal review and one high-quality action per participant',
+  'Pre-session: counselor reads what changed since prior conversation',
+  'Friday: risk and momentum review with next-week intervention list',
+]
+
+const ROLE_MATRIX = [
+  {
+    role: 'Starting Monday platform',
+    owns: 'Signal detection, prep brief generation, activity visibility, scorecard reporting.',
+  },
+  {
+    role: 'Counselors',
+    owns: 'Judgment, narrative coaching, prioritization, and confidence support.',
+  },
+  {
+    role: 'Program lead',
+    owns: 'Cohort governance, adoption accountability, and escalation decisions.',
+  },
+]
+
 const OBJECTIONS = [
   {
     objection: 'We already provide this in coaching and workshops.',
@@ -113,6 +183,9 @@ export default function ForOutplacementPage() {
             <Link href="/for-outplacement/faq" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               FAQ
             </Link>
+            <Link href="/for-outplacement/trust-pack" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              Trust pack
+            </Link>
             <Link
               href="/partners"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
@@ -140,6 +213,14 @@ export default function ForOutplacementPage() {
             <p className="text-[13px] text-orange-300 leading-relaxed mt-4 max-w-xl">
               The goal is simple: stronger placement momentum with less counselor admin overhead.
             </p>
+            <div className="border border-slate-700 rounded-xl p-4 bg-slate-950/40 mt-6">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">You might be thinking</p>
+              <div className="space-y-1.5 text-[13px] text-slate-300 leading-relaxed">
+                <p><span className="text-white font-semibold">This sounds like one more platform to manage.</span> Fair concern. The design goal is to reduce counselor overhead, not add it.</p>
+                <p><span className="text-white font-semibold">We already run workshops and coaching.</span> This handles the between-session operating work so your team stays in strategy.</p>
+                <p><span className="text-white font-semibold">Security review may slow us down.</span> Security and legal review can run in parallel with pilot setup.</p>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -230,6 +311,24 @@ export default function ForOutplacementPage() {
             </section>
 
             <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Evidence pattern snapshots (anonymized)</h2>
+              <p className="text-[14px] text-slate-600 leading-relaxed">
+                We do not publish partner names without permission. Instead, we share consistent outcome patterns, methodology notes, and scorecard structure you can validate in your own pilot.
+              </p>
+              <div className="space-y-3">
+                {ANON_SOCIAL_PROOF.map((item) => (
+                  <div key={item.title} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.title}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Claim discipline: use your own cohort outcomes first in client-facing materials. We can share methodology and evidence notes during due diligence.
+              </p>
+            </section>
+
+            <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">30-day partner scorecard</h2>
               <div className="space-y-3">
                 {PILOT_SCORECARD.map((row) => (
@@ -238,6 +337,56 @@ export default function ForOutplacementPage() {
                     <p className="text-[13px] text-slate-600 leading-relaxed">{row.success}</p>
                   </div>
                 ))}
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Pilot implementation model</h2>
+              <div className="space-y-3">
+                {PILOT_IMPLEMENTATION_STEPS.map((step) => (
+                  <div key={step.week} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{step.week}: {step.action}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed mb-1"><span className="font-semibold text-slate-700">Owner: </span>{step.owner}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Expected outcome: </span>{step.outcome}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Weekly operating cadence</h2>
+              <ul className="space-y-2 pl-1">
+                {WEEKLY_CADENCE.map((line) => (
+                  <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Role boundaries and accountability</h2>
+              <div className="space-y-3">
+                {ROLE_MATRIX.map((row) => (
+                  <div key={row.role} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.role}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed">{row.owns}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="border border-emerald-200 bg-emerald-50/40 rounded-xl p-6">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">Trust and governance</p>
+              <h2 className="text-[22px] font-bold text-slate-900 mb-3">Procurement-ready by design</h2>
+              <p className="text-[14px] text-slate-700 leading-relaxed mb-3">
+                We provide a trust pack covering data ownership, access controls, permission model, audit visibility, and pilot legal/security review workflow.
+              </p>
+              <div className="flex flex-wrap gap-4 text-[13px]">
+                <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Open trust and governance pack
+                </Link>
+                <Link href="/for-outplacement/faq#security-&-privacy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Review security FAQ
+                </Link>
               </div>
             </section>
 
@@ -298,6 +447,9 @@ export default function ForOutplacementPage() {
                 <Link href="/for-outplacement/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View outplacement FAQ
                 </Link>
+                <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  View trust and governance pack
+                </Link>
               </div>
             </section>
 
@@ -312,12 +464,26 @@ export default function ForOutplacementPage() {
               <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
                 Fill out the application and we will follow up within 2 business days with pilot structure, seat options, and implementation details for your cohort.
               </p>
+              <div className="border border-slate-200 rounded-lg p-4 bg-white mb-6">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">What happens next</p>
+                <ul className="space-y-1 text-[12px] text-slate-600 leading-relaxed">
+                  <li>1. Within 2 business days: fit and cohort-scope call</li>
+                  <li>2. Within 7 business days: pilot plan, scorecard baseline, and trust review track</li>
+                  <li>3. Day 10 onward: activation sprint begins with counselor enablement</li>
+                </ul>
+              </div>
               <Link
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
                 Apply now &rarr;
               </Link>
+              <p className="text-[12px] text-slate-500 mt-4 leading-relaxed">
+                Would it be unreasonable to run one 30-day cohort pilot before deciding on broader rollout?
+              </p>
+              <p className="text-[12px] text-slate-500 mt-2 leading-relaxed">
+                If the pilot does not meet agreed success criteria, you close it cleanly with no expansion commitment.
+              </p>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
                 <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">

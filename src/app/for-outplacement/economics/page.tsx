@@ -58,6 +58,56 @@ const COMMERCIAL_NOTES = [
   'Centralized billing and reporting options are available for enterprise partners.',
 ]
 
+const COHORT_SCENARIOS = [
+  {
+    cohort: '25 seats',
+    profile: 'Single office pilot cohort',
+    decisionUse: 'Validate activation quality and counselor workflow fit before expansion.',
+  },
+  {
+    cohort: '50 seats',
+    profile: 'Multi-team program cohort',
+    decisionUse: 'Validate repeatability across counselor teams and participant segments.',
+  },
+  {
+    cohort: '100 seats',
+    profile: 'Regional rollout',
+    decisionUse: 'Measure governance consistency and operating cadence at scale.',
+  },
+  {
+    cohort: '250 seats',
+    profile: 'Enterprise/multi-office rollout',
+    decisionUse: 'Evaluate centralized reporting, procurement governance, and long-term economics.',
+  },
+]
+
+const EMPLOYER_KPI_MAP = [
+  {
+    buyerMetric: 'Program engagement confidence',
+    mappedSignal: 'Activation rate, weekly participant action consistency, stalled-participant trend.',
+  },
+  {
+    buyerMetric: 'Transition momentum quality',
+    mappedSignal: 'Time to first qualified outreach, signal-driven action count, interview-prep readiness.',
+  },
+  {
+    buyerMetric: 'Counselor efficiency',
+    mappedSignal: 'Reduced context rebuild and faster session preparation from shared workflow visibility.',
+  },
+  {
+    buyerMetric: 'Client-facing program credibility',
+    mappedSignal: 'Cohort-level scorecards and documented decision framework at day 30.',
+  },
+]
+
+const SAMPLE_WEEKLY_REPORT = [
+  'Activation summary by cohort and counselor team',
+  'Top stalled participants with recommended interventions',
+  'Signal-driven actions completed this week',
+  'Prep-brief usage before interviews and high-stakes meetings',
+  'Risks, escalations, and next-week plan',
+]
+
 export default function OutplacementEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -150,6 +200,48 @@ export default function OutplacementEconomicsPage() {
           </div>
         </section>
 
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Cohort sizing scenarios for procurement
+          </p>
+          <div className="space-y-3">
+            {COHORT_SCENARIOS.map((row) => (
+              <div key={row.cohort} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.cohort} - {row.profile}</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">{row.decisionUse}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-[12px] text-slate-500 mt-4 leading-relaxed">
+            Final pricing depends on seat mix, term, and support model. These scenarios are for planning conversations and internal approvals.
+          </p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Enterprise KPI mapping (CHRO and procurement lens)
+          </p>
+          <div className="space-y-3">
+            {EMPLOYER_KPI_MAP.map((row) => (
+              <div key={row.buyerMetric} className="border border-slate-200 rounded-lg p-4 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.buyerMetric}</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">{row.mappedSignal}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Sample weekly partner report
+          </p>
+          <ul className="space-y-2">
+            {SAMPLE_WEEKLY_REPORT.map((line) => (
+              <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
+            ))}
+          </ul>
+        </section>
+
         <section className="border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
@@ -160,6 +252,9 @@ export default function OutplacementEconomicsPage() {
           <div className="flex flex-wrap gap-4 text-[13px]">
             <Link href="/partners#apply" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Apply to partner program
+            </Link>
+            <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open trust and governance pack
             </Link>
             <Link href="/for-outplacement/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Read outplacement FAQ
