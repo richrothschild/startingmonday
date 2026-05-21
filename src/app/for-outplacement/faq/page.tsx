@@ -66,7 +66,7 @@ const FAQS = [
     id: 'sla',
     category: 'Rollout',
     question: 'What support model and response times should we expect?',
-    answer: 'Support tiers are defined by impact: P1 (pilot blocking) same-business-day response target, P2 (high impact but workaround exists) next-business-day response target, and P3 (configuration/content request) two-business-day response target. Pilot partners also receive onboarding guidance and recurring review cadence.',
+    answer: 'Support tiers are defined by impact and captured in partner commercial terms: P1 (pilot blocking) same-business-day response target, P2 (high impact with workaround) next-business-day response target, and P3 (configuration/content request) two-business-day response target. Pilot agreements can include escalation contacts and review cadence obligations.',
   },
   {
     id: 'intervention-thresholds',
@@ -78,7 +78,7 @@ const FAQS = [
     id: 'socialize-counselors',
     category: 'Rollout',
     question: 'How do we socialize this to counselors without adoption backlash?',
-    answer: 'Position it as counselor leverage, not counselor replacement. Start with one script: the platform handles the repeatable operating work so counselors can spend more time on strategy, confidence, and decision quality. The runbook includes first-session scripts and rollout checklist.',
+    answer: 'Position it as counselor leverage, not counselor replacement. First-session script: "This does not replace coaching. It removes repeatable tracking/admin work so we can spend more time on strategy and decision quality." The runbook includes rollout checklist and reinforcement prompts.',
   },
   {
     id: 'session-prep',

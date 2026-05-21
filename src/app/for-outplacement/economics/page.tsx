@@ -179,6 +179,71 @@ const WEEKLY_PACKET_TEMPLATE = [
   'Intervention queue: named owners, due dates, and expected behavior change',
 ]
 
+const QUANTIFIED_COMPARISON = [
+  {
+    metric: 'Weekly participant action consistency',
+    current: '40-55% consistently active',
+    target: '70-85% consistently active by day 30',
+  },
+  {
+    metric: 'Prep reviewed before high-stakes meetings',
+    current: '35-50%',
+    target: '70-90%',
+  },
+  {
+    metric: 'Counselor context rebuild time per session',
+    current: '20-30 minutes',
+    target: '5-12 minutes',
+  },
+  {
+    metric: 'Stalled-participant detection latency',
+    current: '7-14 days',
+    target: '2-5 days',
+  },
+]
+
+const QUOTE_PACKAGING = [
+  {
+    packageName: 'Pilot packaging',
+    details: '1 cohort, fixed 30-day decision gate, onboarding + weekly governance support included.',
+    quoteInputs: 'Seat mix, support tier, reporting scope, and legal review timeline.',
+  },
+  {
+    packageName: 'Program packaging',
+    details: 'Multi-cohort or recurring cohorts with defined review cadence and sponsor reporting outputs.',
+    quoteInputs: 'Expected cohort volume, term length, operating model complexity, and training needs.',
+  },
+  {
+    packageName: 'Enterprise packaging',
+    details: 'Centralized governance, expanded reporting cadence, and enterprise procurement controls.',
+    quoteInputs: 'Office count, compliance requirements, support SLA tier, and sponsor governance model.',
+  },
+]
+
+const RACI_ROWS = [
+  {
+    deliverable: 'Metric dictionary maintenance',
+    responsible: 'Program analytics owner',
+    accountable: 'Partner sponsor',
+    consulted: 'Counselor lead, Starting Monday partner success',
+    informed: 'Client HR stakeholders',
+  },
+  {
+    deliverable: 'Weekly review packet publication',
+    responsible: 'Program lead',
+    accountable: 'Partner sponsor',
+    consulted: 'Counselor lead',
+    informed: 'Executive steering group',
+  },
+  {
+    deliverable: 'Intervention rule updates',
+    responsible: 'Counselor lead',
+    accountable: 'Program lead',
+    consulted: 'Partner success, analytics owner',
+    informed: 'Sponsor and client HR partners',
+  },
+]
+
 export default function OutplacementEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -291,6 +356,35 @@ export default function OutplacementEconomicsPage() {
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Quantified current-model vs operating-layer outcomes
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="min-w-full text-left text-[13px]">
+              <thead className="bg-slate-100 text-slate-700">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Metric</th>
+                  <th className="px-4 py-3 font-semibold">Typical current range</th>
+                  <th className="px-4 py-3 font-semibold">Pilot target range</th>
+                </tr>
+              </thead>
+              <tbody>
+                {QUANTIFIED_COMPARISON.map((row) => (
+                  <tr key={row.metric} className="border-t border-slate-200 bg-white">
+                    <td className="px-4 py-3 text-slate-900 font-medium">{row.metric}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.current}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.target}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            Ranges are directional planning bands; calibrate with your baseline and governance model before launch.
+          </p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Commercial examples by term and seat mix (illustrative)
           </p>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -319,6 +413,24 @@ export default function OutplacementEconomicsPage() {
           </div>
           <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
             Illustrative calculations use published plan prices before partner discounts, term incentives, and negotiated service scope.
+          </p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Quote-level packaging framework
+          </p>
+          <div className="space-y-3">
+            {QUOTE_PACKAGING.map((row) => (
+              <div key={row.packageName} className="border border-slate-200 rounded-lg p-4 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.packageName}</p>
+                <p className="text-[13px] text-slate-600 mb-1">{row.details}</p>
+                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Quote inputs: </span>{row.quoteInputs}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            Final approval packages should use quoted commercial terms issued against agreed scope, not only illustrative planning examples.
           </p>
         </section>
 
@@ -378,6 +490,36 @@ export default function OutplacementEconomicsPage() {
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Owner accountability (RACI variant for larger partner teams)
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="min-w-full text-left text-[13px]">
+              <thead className="bg-slate-100 text-slate-700">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Deliverable</th>
+                  <th className="px-4 py-3 font-semibold">Responsible</th>
+                  <th className="px-4 py-3 font-semibold">Accountable</th>
+                  <th className="px-4 py-3 font-semibold">Consulted</th>
+                  <th className="px-4 py-3 font-semibold">Informed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RACI_ROWS.map((row) => (
+                  <tr key={row.deliverable} className="border-t border-slate-200 bg-white">
+                    <td className="px-4 py-3 text-slate-900 font-medium">{row.deliverable}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.responsible}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.accountable}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.consulted}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.informed}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Sample weekly partner report
           </p>
           <ul className="space-y-2">
@@ -402,6 +544,10 @@ export default function OutplacementEconomicsPage() {
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
           </p>
+          <div className="border border-orange-200 rounded-lg p-4 bg-orange-50/50 mb-5">
+            <p className="text-[12px] font-semibold text-slate-900 mb-1">Short objection response</p>
+            <p className="text-[12px] text-slate-700 leading-relaxed">Worried this creates commitment pressure? It does not. Pilot is scoped as a decision gate with a documented clean-no exit path.</p>
+          </div>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
             If the model looks viable, request a live partner walkthrough and define a pilot cohort with named success metrics.
           </p>
@@ -420,6 +566,12 @@ export default function OutplacementEconomicsPage() {
             <Link href="/for-outplacement/runbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Open runbook and templates
             </Link>
+            <Link href="/for-outplacement/metric-dictionary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open canonical metric dictionary
+            </Link>
+            <Link href="/for-outplacement/operating-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open printable operating scorecard
+            </Link>
             <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Open trust and governance pack
             </Link>
@@ -432,6 +584,9 @@ export default function OutplacementEconomicsPage() {
           </div>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-4">
             Clean no path: if pilot criteria are not met at day 30, close without expansion commitment and retain the decision artifacts.
+          </p>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-2">
+            Day-30 pause path: if evidence is mixed, pause expansion, run one corrective 30-day cycle, and decide at day 60 with the same scorecard definitions.
           </p>
         </section>
       </main>

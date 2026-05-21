@@ -626,6 +626,12 @@ export default function ForOutplacementPage() {
                 <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View outplacement economics
                 </Link>
+                <Link href="/for-outplacement/metric-dictionary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Open metric dictionary
+                </Link>
+                <Link href="/for-outplacement/operating-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Open printable operating scorecard
+                </Link>
                 <Link href="/for-outplacement/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View outplacement FAQ
                 </Link>

@@ -57,15 +57,19 @@ const REVIEW_TIMELINE = [
 const LEGAL_BOUNDARIES = [
   {
     topic: 'Role boundaries',
-    detail: 'Partner organizations define participant program policy and access rules; Starting Monday provides the application layer and operational workflow tooling.',
+    detail: 'Partner organizations define participant program policy, access approval scope, and reporting recipients; Starting Monday provides the application layer and operational workflow tooling under agreed service terms.',
   },
   {
     topic: 'Data handling boundary',
-    detail: 'Data shared into the platform is used to deliver agreed partner workflow and reporting outputs. Data export and retention follow partner-agreed terms.',
+    detail: 'Data shared into the platform is used only for agreed workflow and reporting outputs. Export, retention, and deletion are governed by contractual scope and partner-approved lifecycle controls.',
   },
   {
     topic: 'Pilot legal scope',
     detail: 'Pilot agreement is scoped to one cohort, one review window, and defined decision gate before any expansion commitment.',
+  },
+  {
+    topic: 'Operational role split',
+    detail: 'Partner teams remain accountable for participant communication, coaching judgment, and intervention decisions. Starting Monday remains accountable for platform operations, workflow tooling, and agreed support obligations.',
   },
 ]
 
@@ -100,6 +104,50 @@ const TRUST_ARTIFACT_INDEX = [
   'Weekly review packet template with metric definitions',
   'Counselor enablement kit and first-session script pack',
   'Legal and procurement brief with role/data boundaries',
+]
+
+const ATTESTATION_INDEX = [
+  {
+    item: 'Security overview and trust controls summary',
+    availability: 'Public',
+  },
+  {
+    item: 'Detailed controls mapping and governance packet',
+    availability: 'Available for partner diligence under request process',
+  },
+  {
+    item: 'Operational incident-response governance summary',
+    availability: 'Available for partner diligence under request process',
+  },
+  {
+    item: 'Data handling and lifecycle controls brief',
+    availability: 'Available for partner diligence under request process',
+  },
+]
+
+const REGULATED_INDUSTRY_GUIDANCE = [
+  'Apply minimum-necessary visibility for high-sensitivity participant cohorts.',
+  'Use documented claims policy and staged KPI reporting for governance committees.',
+  'Map legal/security reviewers at kickoff and schedule explicit review checkpoints.',
+  'Restrict distribution of participant-level data to approved reporting recipients.',
+]
+
+const ARTIFACT_MAINTENANCE = [
+  {
+    artifact: 'Metric dictionary',
+    cadence: 'Monthly or on governance change',
+    owner: 'Program analytics owner',
+  },
+  {
+    artifact: 'Operating scorecard template',
+    cadence: 'Quarterly',
+    owner: 'Program lead',
+  },
+  {
+    artifact: 'Trust and controls summary',
+    cadence: 'Quarterly or after major control updates',
+    owner: 'Starting Monday partner success + security owner',
+  },
 ]
 
 export default function OutplacementTrustPackPage() {
@@ -170,6 +218,20 @@ export default function OutplacementTrustPackPage() {
           </div>
         </section>
 
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Lightweight authority badges and attestation index
+          </p>
+          <div className="space-y-3">
+            {ATTESTATION_INDEX.map((row) => (
+              <div key={row.item} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.item}</p>
+                <p className="text-[12px] text-slate-600">{row.availability}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Confidentiality by design
@@ -177,6 +239,11 @@ export default function OutplacementTrustPackPage() {
           <p className="text-[14px] text-slate-700 leading-relaxed">
             Sensitive transitions require minimum-necessary visibility, explicit permission scopes, and traceable access patterns. Partner and counselor views should align to program need, not blanket visibility, especially for regulated or high-profile cohorts.
           </p>
+          <div className="mt-4">
+            {REGULATED_INDUSTRY_GUIDANCE.map((line) => (
+              <p key={line} className="text-[13px] text-slate-700 leading-relaxed">+ {line}</p>
+            ))}
+          </div>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
@@ -220,6 +287,32 @@ export default function OutplacementTrustPackPage() {
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Artifact maintenance ownership
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="min-w-full text-left text-[13px]">
+              <thead className="bg-slate-100 text-slate-700">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Artifact</th>
+                  <th className="px-4 py-3 font-semibold">Update cadence</th>
+                  <th className="px-4 py-3 font-semibold">Owner</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ARTIFACT_MAINTENANCE.map((row) => (
+                  <tr key={row.artifact} className="border-t border-slate-200 bg-white">
+                    <td className="px-4 py-3 text-slate-900 font-medium">{row.artifact}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.cadence}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.owner}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Pilot review timeline
           </p>
           <div className="space-y-3">
@@ -236,6 +329,10 @@ export default function OutplacementTrustPackPage() {
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
           </p>
+          <div className="border border-orange-200 rounded-lg p-4 bg-orange-50/50 mb-5">
+            <p className="text-[12px] font-semibold text-slate-900 mb-1">Short objection response</p>
+            <p className="text-[12px] text-slate-700 leading-relaxed">Concerned this expands governance burden? The trust pack is designed to reduce uncertainty with explicit artifacts and clear decision gates.</p>
+          </div>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
             If this trust model fits your standards, move to pilot planning and set explicit pass/fail criteria before kickoff.
           </p>
@@ -246,6 +343,12 @@ export default function OutplacementTrustPackPage() {
             <Link href="/for-outplacement/executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               View committee one-pager
             </Link>
+            <Link href="/for-outplacement/metric-dictionary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open canonical metric dictionary
+            </Link>
+            <Link href="/for-outplacement/operating-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open printable operating scorecard
+            </Link>
             <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               View outplacement economics
             </Link>
@@ -253,6 +356,9 @@ export default function OutplacementTrustPackPage() {
               Read outplacement FAQ
             </Link>
           </div>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-4">
+            Day-30 pause path: if committee evidence is mixed, pause expansion, run one corrective cycle, and reconvene at day 60 with unchanged metric definitions.
+          </p>
         </section>
       </main>
     </div>
