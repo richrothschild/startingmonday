@@ -25,7 +25,7 @@ function parseCsv(text) {
 }
 
 function csvEscape(s) {
-  const str = String(s || '').replace(/\r\n/g, ' ').replace(/\n/g, ' ')
+  const str = String(s || '')
   return str.includes(',') || str.includes('"') ? `"${str.replace(/"/g, '""')}"` : str
 }
 
@@ -166,10 +166,14 @@ function buildEmail(row, tier, persona) {
   const title = row['Title'] || ''
   const city = row['City'] || ''
 
+  // Enforce outreach lint contract centrally so every template stays compliant.
+  const compliantSubject = `Bad idea to send a 1-page executive transition conversation flow for ${company || 'your team'}?`
+  const introLine = `I have been following your work at ${company || 'your organization'}, and I thought this might be useful for the executives you support.`
+
   const templates = {
 
     VISTAGE: {
-      subject: `One question about your executive transition clients`,
+      subject: compliantSubject,
       body: `Your Vistage work puts you in rooms where CEOs are deciding what comes next. I imagine you hear those conversations before anyone formal does.
 
 I built Starting Monday for exactly that moment — the senior executive who has decided to move but doesn't yet have the infrastructure to run a serious search. It handles target company intelligence, interview prep briefs, and outreach strategy so the operational work your member is already doing with you translates into action.
@@ -180,7 +184,7 @@ If that referral fit sounds useful for your practice, I'd welcome a 20-minute ca
     },
 
     RIGHT_MGMT: {
-      subject: `A tool worth a look for your executive transition clients`,
+      subject: compliantSubject,
       body: `Right Management works with executives at real inflection points — people who need more than a resume refresh.
 
 Starting Monday is built for that level: VP and C-suite candidates who need target company intelligence, interview prep briefs calibrated to specific roles, and outreach that reflects their seniority. It's the operational infrastructure that separates a serious executive search from a passive one.
@@ -189,7 +193,7 @@ I'm not asking you to change your methodology. I'm asking whether there's a fit 
     },
 
     CAREERMINDS: {
-      subject: `A tool worth a look for your executive search clients`,
+      subject: compliantSubject,
       body: `You've seen more executive job searches than most coaches — which means you know exactly where senior candidates lose time and momentum.
 
 Starting Monday addresses the operational layer most executives don't handle well: target company intelligence, tailored interview prep briefs, and outreach that doesn't read like a template. It's built specifically for VP and C-suite candidates, not generalist job seekers.
@@ -198,7 +202,7 @@ I'm not asking you to change what you do. I'm asking whether there's a referral 
     },
 
     BRAVANTI_ZRG: {
-      subject: `For coaches supporting executives in active transition`,
+      subject: compliantSubject,
       body: `BRAVANTI's executive transition work sits at the most critical stage of a senior leader's career. The candidates you support need more than positioning — they need a structured way to run the operational side of a serious search.
 
 Starting Monday provides exactly that: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy that reflects C-suite seniority. Executive coaches across multiple programs use it as a referral tool alongside their one-on-one work — the platform handles the execution layer so the coaching conversation stays at the strategic level.
@@ -207,7 +211,7 @@ If you have clients currently in active search, I'd welcome a 20-minute walkthro
     },
 
     CHALLENGER: {
-      subject: `A targeted tool for your executive-level outplacement clients`,
+      subject: compliantSubject,
       body: `Challenger, Gray & Christmas works with executives who need their search to run like a professional operation — not a job board exercise.
 
 Starting Monday is built for that standard: target company intelligence, role-specific interview prep briefs, and outreach that reflects VP and C-suite seniority. It gives the candidate the same quality of preparation infrastructure a retained search firm provides — on the candidate side.
@@ -216,7 +220,7 @@ Leading outplacement coaches use it as a resource alongside their direct work �
     },
 
     BETTERUP: {
-      subject: `A resource for BetterUp coaches supporting executives in transition`,
+      subject: compliantSubject,
       body: `BetterUp's coaching model puts you in direct contact with senior leaders at pivotal career moments — including executives who are quietly evaluating what comes next.
 
 Starting Monday is built for that moment: VP and C-suite candidates who need target company intelligence, tailored interview prep briefs, and outreach strategy before they go public with a search. It's structured, private, and designed to run alongside coaching — not replace it.
@@ -225,7 +229,7 @@ If executive career transitions are part of your practice, I'd welcome a 15-minu
     },
 
     CCL: {
-      subject: `For coaches working with executives in leadership transition`,
+      subject: compliantSubject,
       body: `The Center for Creative Leadership works with senior leaders at exactly the moments when career direction becomes a live question — not hypothetical.
 
 Starting Monday is built for that intersection: VP and C-suite leaders who need structured support for an executive search. Target company intelligence, interview prep briefs calibrated to the role and the organization, outreach strategy that doesn't read like a template.
@@ -234,7 +238,7 @@ Leadership coaches across multiple programs use it as a referral resource for cl
     },
 
     HEIDRICK: {
-      subject: `A candidate-side resource worth knowing about`,
+      subject: compliantSubject,
       body: `Heidrick's work sits at the most selective tier of leadership transitions. The executives you work with expect preparation that matches that standard.
 
 Starting Monday provides the candidate-side infrastructure: target company intelligence, role-specific interview prep briefs, and outreach strategy calibrated to C-suite seniority. It's what the best-prepared candidates are using before they ever engage with a search firm.
@@ -243,7 +247,7 @@ If you advise senior candidates or work with executives preparing for high-stake
     },
 
     KORN_FERRY: {
-      subject: `A preparation resource for the executives you advise`,
+      subject: compliantSubject,
       body: `Korn Ferry's leadership advisory practice works with the executives who need to be best prepared — not just competitive.
 
 Starting Monday provides the operational layer: target company intelligence, interview prep briefs that go beyond generic frameworks, and outreach strategy built for VP and C-suite seniority. It's the structured preparation infrastructure that separates a serious search from a reactive one.
@@ -252,7 +256,7 @@ If this is relevant for executives in your practice or pipeline, I'd welcome a 2
     },
 
     SPENCER_STUART: {
-      subject: `A preparation resource for the executives you advise`,
+      subject: compliantSubject,
       body: `Spencer Stuart's work with senior leaders sits at the point where preparation quality matters most.
 
 Starting Monday is the operational infrastructure for that preparation: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects C-suite seniority and board-level stakes. Executive coaches and advisors across multiple programs use it as a referral resource for candidates preparing for senior searches.
@@ -261,7 +265,7 @@ If you advise executives at that level, I'd welcome a 20-minute walkthrough to s
     },
 
     IMPACT_GROUP: {
-      subject: `A tool built for the executives in your transition practice`,
+      subject: compliantSubject,
       body: `IMPACT Group's executive transition work is built around serious candidates who need more than encouragement — they need execution infrastructure.
 
 Starting Monday provides exactly that: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy for VP and C-suite candidates. It runs alongside coaching, not instead of it — the client handles the operational layer on Starting Monday while the coach focuses on strategy and positioning.
@@ -270,7 +274,7 @@ If you have clients in active or near-term transition, I'd welcome a 20-minute w
     },
 
     COACHSOURCE: {
-      subject: `For coaches whose clients are quietly weighing a move`,
+      subject: compliantSubject,
       body: `CoachSource coaches often work with executives at inflection points — including those who are starting to ask what comes next, privately, before anything is official.
 
 Starting Monday is built for exactly that stage: structured target company intelligence, role-specific interview prep briefs, and outreach strategy for VP and C-suite candidates who haven't gone public yet. It costs less than one coaching session per month and runs alongside your work, not instead of it.
@@ -279,7 +283,7 @@ If any of your clients fit that profile, I'd welcome a 15-minute call to show yo
     },
 
     LHH: {
-      subject: `A targeted resource for your executive-level outplacement clients`,
+      subject: compliantSubject,
       body: `LHH works with executives at the most consequential career transitions of their lives — moments when preparation quality determines outcomes.
 
 Starting Monday is built for that tier: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects VP and C-suite seniority. Leading outplacement coaches use it as a referral resource — the platform handles the execution layer while the coach focuses on the strategic and personal work.
@@ -288,7 +292,7 @@ If you have clients in executive-level transition, I'd welcome a 20-minute walkt
     },
 
     EXEC_COACH_GENERAL: {
-      subject: `A resource for executives you're coaching through a search`,
+      subject: compliantSubject,
       body: `Executive coaches who work with leaders in transition know the operational side of a search is where most candidates underinvest.
 
 Starting Monday closes that gap for VP and C-suite candidates: target company intelligence, interview prep briefs calibrated to specific roles and organizations, and outreach strategy that reflects senior seniority. It runs alongside coaching — the client handles the structured execution work on Starting Monday while coaching conversations stay at the strategic level.
@@ -297,7 +301,7 @@ If you have clients actively exploring their next move, I'd welcome a 20-minute 
     },
 
     BIZ_SCHOOL: {
-      subject: `Built for the caliber of executive your program produces`,
+      subject: compliantSubject,
       body: `${company} works with professionals who expect their search infrastructure to match their academic credentials.
 
 Starting Monday is built for that standard: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy for VP and C-suite candidates. The gap I see consistently is that even strong candidates underinvest in preparation infrastructure — this is designed to close it without requiring a coach to add work.
@@ -306,7 +310,7 @@ Executive coaches across multiple programs use it as a referral resource when cl
     },
 
     GENERAL_COACH: {
-      subject: `A tool for the executives in your coaching practice`,
+      subject: compliantSubject,
       body: `Career coaches who work with senior professionals know the operational side of a search is where momentum stalls.
 
 Starting Monday is built for VP and C-suite candidates: structured target company intelligence, interview prep briefs tailored to specific roles, and outreach strategy that doesn't read like a template. It's the infrastructure gap between good coaching and a search that actually moves.
@@ -317,10 +321,15 @@ Executive coaches across multiple programs use it as a referral resource — the
 
   const t = templates[persona] || templates.EXEC_COACH_GENERAL
   const greeting = `Hi ${first},\n\n`
-  const signature = `\n\nBest,\nRich Rothschild\nStartingMonday.app`
+  const signature = `\n\nRich\nstartingmonday.app`
+  const cleanBody = t.body
+    .replace(/—/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim()
+  const cleanSubject = t.subject.replace(/—/g, '-')
   return {
-    subject: t.subject,
-    body: greeting + t.body + signature
+    subject: cleanSubject,
+    body: greeting + introLine + '\n\n' + cleanBody + signature
   }
 }
 
