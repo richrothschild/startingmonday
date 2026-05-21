@@ -10,7 +10,7 @@ import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import { encodeUserId } from '@/lib/watermark'
 import { streamErrorMessage } from '@/lib/stream-error'
 import {
-  buildScanSection, buildSignalSection, buildContactSection, buildDocSection,
+  buildScanSection, buildSignalSection, buildContactSection, buildDocSection, buildCompanyFocusBrief,
   type Signal, type ScanRow, type ContactRow, type DocRow,
 } from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
@@ -66,7 +66,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
 
 async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, companyId: string, userId: string) {
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }, { data: interviewLogs }] = await Promise.all([
+  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: interviewLogs }] = await Promise.all([
     supabase
       .from('companies')
       .select('name, sector, stage, company_size, notes, competitive_context, interview_notes')
@@ -99,14 +99,6 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .eq('user_id', userId)
       .order('created_at', { ascending: true }),
     supabase
-      .from('company_signals')
-      .select('signal_type, signal_summary, outreach_angle, signal_date')
-      .eq('company_id', companyId)
-      .eq('user_id', userId)
-      .gte('signal_date', since90d)
-      .order('signal_date', { ascending: false })
-      .limit(5),
-    supabase
       .from('company_interview_logs')
       .select('interview_date, interview_stage, questions_asked, what_landed, what_surprised, follow_up_needed')
       .eq('company_id', companyId)
@@ -115,6 +107,34 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .order('created_at', { ascending: false })
       .limit(10),
   ])
+  const primarySignalSelect = 'signal_type, signal_summary, outreach_angle, signal_date, confidence, source_kind, focus_tags, evidence_snippets, filing_form, filing_items, partner_entities'
+  const fallbackSignalSelect = 'signal_type, signal_summary, outreach_angle, signal_date'
+
+  let signals: Signal[] | null = null
+
+  const enrichedSignals = await supabase
+    .from('company_signals')
+    .select(primarySignalSelect)
+    .eq('company_id', companyId)
+    .eq('user_id', userId)
+    .gte('signal_date', since90d)
+    .order('signal_date', { ascending: false })
+    .limit(8)
+
+  if (enrichedSignals.error) {
+    const basicSignals = await supabase
+      .from('company_signals')
+      .select(fallbackSignalSelect)
+      .eq('company_id', companyId)
+      .eq('user_id', userId)
+      .gte('signal_date', since90d)
+      .order('signal_date', { ascending: false })
+      .limit(8)
+    signals = (basicSignals.data as Signal[] | null) ?? null
+  } else {
+    signals = (enrichedSignals.data as Signal[] | null) ?? null
+  }
+
   return { company, profile, scanResults, contacts, documents, signals, interviewLogs }
 }
 
@@ -208,6 +228,7 @@ Recent company signals are listed above. Infer the 2-3 most likely current compa
 - If partnership, acquisition, expansion, or product signals appear, infer growth, integration, or go-to-market focus.
 - If executive departures or hires appear, infer leadership-change and mandate-reset focus.
 Do not claim certainty. Phrase as likely focus areas supported by available evidence.
+In Anticipated Pushback, the first objection should reflect the highest-probability focus/risk inferred from these signals.
 Signal categories detected: ${typeList}.`
 }
 
@@ -218,6 +239,7 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
 
   const scanSection = buildScanSection(scanResults, profile?.role_type)
   const signalSection = buildSignalSection(signals)
+  const focusBrief = buildCompanyFocusBrief(signals)
   const contactSection = buildContactSection(contacts)
   const hasContacts = (contacts ?? []).length > 0
   const docsSection = buildDocSection(documents)
@@ -279,6 +301,7 @@ These notes change the brief in specific ways:
 ` : ''}JOB SCAN DATA
 ${scanSection}
 ${signalSection ? `\nCOMPANY SIGNALS (recent news events)\n${signalSection}` : ''}
+${focusBrief ? `\nCOMPANY FOCUS BRIEF (inferred from signals)\n${focusBrief}` : ''}
 ${signalFocusHints}
 
 KNOWN CONTACTS
@@ -304,6 +327,13 @@ What is actually driving this hire? What problem does this organization need sol
 
 ## Win Thesis
 One paragraph. Written as a conviction, not a summary. Not why the candidate is qualified, but why they win this specific role over everyone else being considered. What is the decisive advantage. Make the candidate feel it.
+
+${hasJobDescription ? `## Role Requirement to Evidence Map
+List the top 5-7 requirements inferred from the job description in priority order. For each:
+**Requirement:** [specific requirement in plain language]
+**Candidate evidence:** [specific proof from verified career history, STAR story, or positioning]
+**Coverage:** [Strong / Partial / Weak]
+Use this section to force specificity. Do not leave this generic.` : ''}
 
 ## The Narrative
 How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement, ready to say verbatim.

@@ -5,6 +5,13 @@ export type Signal = {
   signal_summary: string
   outreach_angle?: string | null
   signal_date: string
+  confidence?: number | null
+  focus_tags?: string[] | null
+  evidence_snippets?: string[] | null
+  source_kind?: string | null
+  filing_form?: string | null
+  filing_items?: string[] | null
+  partner_entities?: string[] | null
 }
 export type ScanRow = {
   scanned_at: string
@@ -57,8 +64,59 @@ export function buildSignalSection(signals: Signal[] | null): string | null {
   if (!(signals ?? []).length) return null
   return (signals ?? []).map(s => {
     const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-    return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}`
+    const confidence = typeof s.confidence === 'number' ? `\n  Confidence: ${s.confidence}` : ''
+    const tags = (s.focus_tags ?? []).length ? `\n  Focus tags: ${(s.focus_tags ?? []).join(', ')}` : ''
+    const partners = (s.partner_entities ?? []).length ? `\n  Partners: ${(s.partner_entities ?? []).join(', ')}` : ''
+    const evidence = (s.evidence_snippets ?? []).length
+      ? `\n  Evidence: ${(s.evidence_snippets ?? []).slice(0, 2).join(' | ')}`
+      : ''
+    return `- [${s.signal_type.toUpperCase()}] ${date}: ${s.signal_summary}${s.outreach_angle ? `\n  Angle: ${s.outreach_angle}` : ''}${confidence}${tags}${partners}${evidence}`
   }).join('\n')
+}
+
+const FOCUS_LABELS: Record<string, string> = {
+  funding: 'Capital deployment and growth acceleration',
+  exec_departure: 'Leadership transition and mandate reset',
+  exec_hire: 'Leadership transition and mandate reset',
+  acquisition: 'Integration and operating-model change',
+  expansion: 'Scale execution and operating leverage',
+  layoffs: 'Restructuring and cost discipline',
+  ipo: 'Public-company readiness and governance pressure',
+  new_product: 'Product and go-to-market acceleration',
+  award: 'Market credibility and category positioning',
+  filing_trend: 'Regulatory/governance trajectory shift',
+  board_change: 'Board governance and oversight shift',
+  regulatory_change: 'Compliance and risk management priority',
+  breach_disclosure: 'Security/risk urgency and trust recovery',
+  data_platform: 'Data infrastructure modernization',
+  ai_investment: 'AI strategy and capability buildout',
+  transformation_budget: 'Transformation program activation',
+  partnership: 'Ecosystem partnership execution',
+}
+
+export function buildCompanyFocusBrief(signals: Signal[] | null): string | null {
+  if (!(signals ?? []).length) return null
+
+  const signalCounts = new Map<string, number>()
+  for (const s of signals ?? []) {
+    signalCounts.set(s.signal_type, (signalCounts.get(s.signal_type) ?? 0) + 1)
+  }
+
+  const ranked = Array.from(signalCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+
+  if (!ranked.length) return null
+
+  const lines: string[] = []
+  for (const [signalType, count] of ranked) {
+    const label = FOCUS_LABELS[signalType] ?? 'Operating focus shift'
+    const exemplar = (signals ?? []).find(s => s.signal_type === signalType)
+    const evidence = exemplar?.signal_summary ? ` Evidence: ${exemplar.signal_summary}` : ''
+    lines.push(`- ${label} (signals: ${count}, type: ${signalType}).${evidence}`)
+  }
+
+  return lines.join('\n')
 }
 
 export function buildContactSection(contacts: ContactRow[] | null): string {

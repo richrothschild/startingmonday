@@ -19,7 +19,16 @@ const ITEM_LABELS = {
   '8.01': 'Other Material Events Disclosure',
 }
 
-// Returns up to 5 articles: { title, description, link, pubDate }
+const GUIDANCE_PATTERNS = [
+  /guidance/gi,
+  /outlook/gi,
+  /expects?\s+to/gi,
+  /fiscal\s+\d{4}/gi,
+  /capital\s+expenditures?/gi,
+]
+
+// Returns up to 8 filing-derived articles: 8-K material events plus 10-Q/10-K context where available.
+// Shape: { title, description, link, pubDate, filingForm, filingItems, filingFocus }
 // When { supabase, companyId } provided, also indexes all 8-K filings (12 months) into sec_filings.
 export async function fetchSecFilings(companyName, { supabase, companyId } = {}) {
   try {
@@ -110,7 +119,41 @@ async function getRecentFilings(companyName, cikPadded, { supabase, companyId } 
   }
 
   const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const contextCutoff = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const articles = []
+
+  // Pull one recent 10-Q and one recent 10-K for strategic context and guidance language.
+  const contextForms = ['10-Q', '10-K']
+  for (const form of contextForms) {
+    const idx = (f.form ?? []).findIndex((x, i) => x === form && (f.filingDate?.[i] ?? '') >= contextCutoff)
+    if (idx === -1) continue
+
+    const filingDate = f.filingDate?.[idx]
+    const accession = f.accessionNumber?.[idx] ?? ''
+    const primaryDoc = f.primaryDocument?.[idx] ?? ''
+    if (!filingDate || !accession) continue
+
+    const accFormatted = accession.replace(/-/g, '')
+    const link = primaryDoc
+      ? `${EDGAR_ARCHIVE}/${cik}/${accFormatted}/${primaryDoc}`
+      : `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=${form}`
+
+    const snippet = primaryDoc ? await fetchDocSnippet(link) : ''
+    const guidanceHints = extractGuidanceHints(snippet)
+    const description = guidanceHints.length
+      ? `${form} filed ${filingDate} by ${companyName}. Potential strategic focus and guidance language: ${guidanceHints.join(' | ')}`
+      : `${form} filed ${filingDate} by ${companyName}. Use this filing for strategic context, risk factors, and management priorities.`
+
+    articles.push({
+      title: `SEC ${form}: Strategic context at ${companyName}`,
+      description,
+      link,
+      pubDate: filingDate,
+      filingForm: form,
+      filingItems: [],
+      filingFocus: guidanceHints,
+    })
+  }
 
   for (let i = 0; i < (f.form ?? []).length; i++) {
     if (f.form[i] !== '8-K') continue
@@ -150,12 +193,33 @@ async function getRecentFilings(companyName, cikPadded, { supabase, companyId } 
       description,
       link,
       pubDate: filingDate,
+      filingForm: '8-K',
+      filingItems: itemList,
+      filingFocus: extractGuidanceHints(docSnippet),
     })
 
-    if (articles.length >= 5) break
+    if (articles.length >= 8) break
   }
 
   return articles
+}
+
+function extractGuidanceHints(text) {
+  if (!text) return []
+
+  const sentences = text
+    .split(/(?<=[.!?])\s+/)
+    .map(s => s.trim())
+    .filter(Boolean)
+
+  const hits = []
+  for (const sentence of sentences) {
+    if (GUIDANCE_PATTERNS.some(re => re.test(sentence))) {
+      hits.push(sentence.slice(0, 220))
+    }
+    if (hits.length >= 2) break
+  }
+  return hits
 }
 
 // Upsert all 8-K filings from the past 12 months into sec_filings for trend analysis.
