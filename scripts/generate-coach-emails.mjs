@@ -174,7 +174,7 @@ function buildEmail(row, tier, persona) {
 
 I built Starting Monday for exactly that moment — the senior executive who has decided to move but doesn't yet have the infrastructure to run a serious search. It handles target company intelligence, interview prep briefs, and outreach strategy so the operational work your member is already doing with you translates into action.
 
-Several coaches use it as a referral resource: when a client is ready to go active, they introduce Starting Monday and it handles the execution layer while the coach stays at the strategic level. It costs less than one coaching session per month.
+Executive coaches across multiple programs use it as a referral resource when clients are ready to go active. Starting Monday handles the execution layer while the coach stays at the strategic level. It costs less than one coaching session per month.
 
 If that referral fit sounds useful for your practice, I'd welcome a 20-minute call. No pitch — just the product.`
     },
@@ -221,7 +221,7 @@ Several outplacement coaches use it as a resource alongside their direct work �
 
 Starting Monday is built for that moment: VP and C-suite candidates who need target company intelligence, tailored interview prep briefs, and outreach strategy before they go public with a search. It's structured, private, and designed to run alongside coaching — not replace it.
 
-If executive career transitions are part of your practice, I'd welcome a 15-minute call to show you how other coaches are using it.`
+If executive career transitions are part of your practice, I'd welcome a 15-minute call to show you how executive coaches across multiple programs are using it.`
     },
 
     CCL: {
@@ -275,7 +275,7 @@ If you have clients in active or near-term transition, I'd welcome a 20-minute w
 
 Starting Monday is built for exactly that stage: structured target company intelligence, role-specific interview prep briefs, and outreach strategy for VP and C-suite candidates who haven't gone public yet. It costs less than one coaching session per month and runs alongside your work, not instead of it.
 
-If any of your clients fit that profile, I'd welcome a 15-minute call to show you how other coaches are using it.`
+If any of your clients fit that profile, I'd welcome a 15-minute call to show you how executive coaches across multiple programs are using it.`
     },
 
     LHH: {
@@ -302,7 +302,7 @@ If you have clients actively exploring their next move, I'd welcome a 20-minute 
 
 Starting Monday is built for that standard: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy for VP and C-suite candidates. The gap I see consistently is that even strong candidates underinvest in preparation infrastructure — this is designed to close it without requiring a coach to add work.
 
-Several coaches use it as a referral resource for clients ready to go active. If it looks relevant for the executives you support${city ? ` in ${city}` : ''}, I'd welcome a 20-minute walkthrough.`
+Executive coaches across multiple programs use it as a referral resource when clients are ready to go active. If it looks relevant for the executives you support${city ? ` in ${city}` : ''}, I'd welcome a 20-minute walkthrough.`
     },
 
     GENERAL_COACH: {
@@ -311,7 +311,7 @@ Several coaches use it as a referral resource for clients ready to go active. If
 
 Starting Monday is built for VP and C-suite candidates: structured target company intelligence, interview prep briefs tailored to specific roles, and outreach strategy that doesn't read like a template. It's the infrastructure gap between good coaching and a search that actually moves.
 
-Several coaches use it as a referral resource — they introduce it when a client is ready to go active and it handles the operational layer so coaching conversations stay strategic. If that model fits any of your current clients, I'd welcome a 15-minute call.`
+Executive coaches across multiple programs use it as a referral resource — they introduce it when a client is ready to go active and Starting Monday handles the operational layer so coaching conversations stay strategic. If that model fits any of your current clients, I'd welcome a 15-minute call.`
     },
   }
 
