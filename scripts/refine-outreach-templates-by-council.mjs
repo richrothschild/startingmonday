@@ -148,26 +148,78 @@ function subjectVariants(roleBucket, company) {
   }
 }
 
+function coachStakesLineForFocus(focus, company) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CEO') || f.includes('BOARD')) return `For ${focus} clients at ${company}, the failure mode is simple: they look accomplished, then lose momentum because governance and board-fit are not explicit in the first two conversations.`
+  if (f.includes('CFO') || f.includes('FINANCE')) return `For ${focus} clients at ${company}, the failure mode is sounding financially credible but not investment-grade for board and CEO audiences.`
+  if (f.includes('CTO') || f.includes('TECH')) return `For ${focus} clients at ${company}, the failure mode is deep technical credibility paired with weak business translation in first-touch conversations.`
+  if (f.includes('COO') || f.includes('OPER')) return `For ${focus} clients at ${company}, the failure mode is being known as reliable operators without proving scale leverage for the next mandate.`
+  return `For ${focus} clients at ${company}, the failure mode is looking qualified on paper but losing signal quality in live conversations.`
+}
+
+function coachProofPointForFocus(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CEO') || f.includes('BOARD')) return 'a board narrative that can be explained in one minute without hand-waving'
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'a finance-first narrative that reads as strategic judgment, not just stewardship'
+  if (f.includes('CTO') || f.includes('TECH')) return 'a technical narrative that maps directly to revenue, risk, and execution outcomes'
+  if (f.includes('COO') || f.includes('OPER')) return 'an operating narrative that proves sequencing, scale, and decision velocity'
+  return 'a role narrative that survives hard follow-up questions without drifting into generic language'
+}
+
+function coachAssetForFocus(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CEO') || f.includes('BOARD')) return 'the board-readiness interview map'
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'the CFO investment-grade narrative sheet'
+  if (f.includes('CTO') || f.includes('TECH')) return 'the CTO business-translation interview map'
+  if (f.includes('COO') || f.includes('OPER')) return 'the COO sequencing and scale interview map'
+  return 'the executive signal-quality interview map'
+}
+
+function outplacementStakesLine(focus, company) {
+  const f = (focus || '').toUpperCase()
+  const label = /programs?$/i.test(focus) ? focus : `${focus} programs`
+  if (f.includes('EXECUTIVE')) return `For ${label} at ${company}, the failure mode is high candidate activity but low qualified progression because first-touch narratives are inconsistent.`
+  if (f.includes('CAREER') || f.includes('MOBILITY')) return `For ${label} at ${company}, the failure mode is strong coaching effort with uneven narrative quality across cohorts.`
+  if (f.includes('LEADERSHIP') || f.includes('TRANSITION')) return `For ${label} at ${company}, the failure mode is candidates moving fast but entering senior conversations underprepared.`
+  return `For ${label} at ${company}, the failure mode is operational activity that does not convert into consistent executive-level conversation quality.`
+}
+
+function outplacementProofPoint(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('EXECUTIVE')) return 'a consistent first-conversation standard across high-variance senior cohorts'
+  if (f.includes('CAREER') || f.includes('MOBILITY')) return 'a cleaner narrative baseline that reduces coach-to-coach quality variance'
+  if (f.includes('LEADERSHIP') || f.includes('TRANSITION')) return 'faster readiness for high-stakes conversations without adding coordinator overhead'
+  return 'a measurable progression standard from targeting to first qualified conversation'
+}
+
+function outplacementAssetForFocus(focus) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('EXECUTIVE')) return 'the executive cohort progression benchmark'
+  if (f.includes('CAREER') || f.includes('MOBILITY')) return 'the mobility cohort narrative benchmark'
+  if (f.includes('LEADERSHIP') || f.includes('TRANSITION')) return 'the transition-readiness benchmark'
+  return 'the program-level progression benchmark'
+}
+
 function coachBody(row) {
   const first = firstName(row)
   const company = companyName(row)
   const focus = focusText(row.persona_focus || row.role_bucket || row.title)
-  const proof = proofLineForFocus(focus)
-  const quantified = quantifiedProofLineForFocus(focus)
+  const proof = coachProofPointForFocus(focus)
+  const asset = coachAssetForFocus(focus)
   return [
     `Hi ${first},`,
     '',
     `I have been following your work at ${company}, and I thought this might be useful for the executives you support.`,
     '',
-    'Starting Monday gives executive coaches a practical execution layer: target company intelligence, structured prep briefs, and outreach workflows that help senior candidates move with focus.',
+    'Starting Monday gives executive coaches a hard-edged execution layer: company targeting, interview narrative discipline, and outreach workflows that hold up under pressure.',
     '',
-    stakesLineForFocus(focus, company),
+    coachStakesLineForFocus(focus, company),
     '',
-    `In the first 30 days, coaches usually see ${quantified}.`,
+    `The concrete proof point is ${proof}.`,
     '',
-    `For ${focus} clients, the biggest win is ${proof}.`,
+    `If useful, I can send ${asset} so you can see exactly how it changes first-touch conversation quality.`,
     '',
-    ctaVariants('coach practice').pilot,
+    'If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it is worth rolling into your practice.',
     '',
     'Rich',
     'startingmonday.app',
@@ -179,23 +231,22 @@ function outplacementBody(row) {
   const company = companyName(row)
   const focus = focusText(row.persona_focus || row.role_bucket)
   const focusLabel = /programs?$/i.test(focus) ? focus : `${focus} programs`
-  const proof = proofLineForFocus(focus)
-  const quantified = quantifiedProofLineForFocus(focus)
-  const cta = ctaVariants('transition cohort')
+  const proof = outplacementProofPoint(focus)
+  const asset = outplacementAssetForFocus(focus)
   return [
     `Hi ${first},`,
     '',
     `I have been following your work at ${company}, and I thought this might be useful for your transition cohorts.`,
     '',
-    'Starting Monday helps outplacement teams run a measurable operating cadence across company targeting, outreach quality, and prep readiness for senior candidates.',
+    'Starting Monday helps outplacement teams enforce one measurable execution standard across targeting, narrative quality, and first-conversation readiness.',
     '',
-    stakesLineForFocus(focus, company),
+    outplacementStakesLine(focus, company),
     '',
-    `In the first 30 days, teams usually see ${quantified}.`,
+    `The concrete proof point is ${proof}.`,
     '',
-    `For ${focusLabel}, the biggest win is ${proof}.`,
+    `For ${focusLabel}, the operating asset is ${asset}.`,
     '',
-    cta.sample,
+    `If useful, I can send ${asset} and a 30-day pilot outline with measurable success criteria.`,
     '',
     'Rich',
     'startingmonday.app',
