@@ -201,7 +201,7 @@ I'm not asking you to change what you do. I'm asking whether there's a referral 
       subject: `For coaches supporting executives in active transition`,
       body: `BRAVANTI's executive transition work sits at the most critical stage of a senior leader's career. The candidates you support need more than positioning — they need a structured way to run the operational side of a serious search.
 
-Starting Monday provides exactly that: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy that reflects C-suite seniority. Several executive coaches use it as a referral tool alongside their one-on-one work — the platform handles the execution layer so the coaching conversation stays at the strategic level.
+Starting Monday provides exactly that: target company intelligence, interview prep briefs calibrated to specific roles, and outreach strategy that reflects C-suite seniority. Executive coaches across multiple programs use it as a referral tool alongside their one-on-one work — the platform handles the execution layer so the coaching conversation stays at the strategic level.
 
 If you have clients currently in active search, I'd welcome a 20-minute walkthrough so you can decide whether it belongs in your toolkit.`
     },
@@ -212,7 +212,7 @@ If you have clients currently in active search, I'd welcome a 20-minute walkthro
 
 Starting Monday is built for that standard: target company intelligence, role-specific interview prep briefs, and outreach that reflects VP and C-suite seniority. It gives the candidate the same quality of preparation infrastructure a retained search firm provides — on the candidate side.
 
-Several outplacement coaches use it as a resource alongside their direct work — the client runs the operational layer on Starting Monday, the coach focuses on strategy and mindset. If that model sounds relevant for your practice, I'd welcome a 20-minute walkthrough.`
+Leading outplacement coaches use it as a resource alongside their direct work — the client runs the operational layer on Starting Monday while the coach focuses on strategy and mindset. If that model sounds relevant for your practice, I'd welcome a 20-minute walkthrough.`
     },
 
     BETTERUP: {
@@ -230,7 +230,7 @@ If executive career transitions are part of your practice, I'd welcome a 15-minu
 
 Starting Monday is built for that intersection: VP and C-suite leaders who need structured support for an executive search. Target company intelligence, interview prep briefs calibrated to the role and the organization, outreach strategy that doesn't read like a template.
 
-Several leadership coaches use it as a referral resource for clients who are ready to go active. If that profile matches any of the leaders you work with, I'd welcome a 20-minute walkthrough.`
+Leadership coaches across multiple programs use it as a referral resource for clients who are ready to go active. If that profile matches any of the leaders you work with, I'd welcome a 20-minute walkthrough.`
     },
 
     HEIDRICK: {
@@ -255,7 +255,7 @@ If this is relevant for executives in your practice or pipeline, I'd welcome a 2
       subject: `A preparation resource for the executives you advise`,
       body: `Spencer Stuart's work with senior leaders sits at the point where preparation quality matters most.
 
-Starting Monday is the operational infrastructure for that preparation: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects C-suite seniority and board-level stakes. Several coaches and advisors use it as a referral resource for candidates preparing for senior searches.
+Starting Monday is the operational infrastructure for that preparation: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects C-suite seniority and board-level stakes. Executive coaches and advisors across multiple programs use it as a referral resource for candidates preparing for senior searches.
 
 If you advise executives at that level, I'd welcome a 20-minute walkthrough to show you what it looks like in practice.`
     },
@@ -282,7 +282,7 @@ If any of your clients fit that profile, I'd welcome a 15-minute call to show yo
       subject: `A targeted resource for your executive-level outplacement clients`,
       body: `LHH works with executives at the most consequential career transitions of their lives — moments when preparation quality determines outcomes.
 
-Starting Monday is built for that tier: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects VP and C-suite seniority. Several outplacement coaches use it as a referral resource — the platform handles the execution layer while the coach focuses on the strategic and personal work.
+Starting Monday is built for that tier: target company intelligence, role-specific interview prep briefs, and outreach strategy that reflects VP and C-suite seniority. Leading outplacement coaches use it as a referral resource — the platform handles the execution layer while the coach focuses on the strategic and personal work.
 
 If you have clients in executive-level transition, I'd welcome a 20-minute walkthrough to show you how it works in practice.`
     },
