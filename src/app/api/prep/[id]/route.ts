@@ -194,6 +194,23 @@ function formatInterviewLogs(logs: InterviewLogRow[]): string {
   }).join('\n\n')
 }
 
+function buildSignalFocusHints(signals: Signal[] | null): string {
+  if (!(signals ?? []).length) return ''
+
+  const topTypes = Array.from(new Set((signals ?? []).map(s => s.signal_type))).slice(0, 6)
+  const typeList = topTypes.join(', ')
+
+  return `
+
+SIGNAL-TO-FOCUS INFERENCE INSTRUCTION
+Recent company signals are listed above. Infer the 2-3 most likely current company focus areas and use them to shape the brief.
+- If filings, board, or governance signals appear, infer governance, compliance, or capital-allocation focus.
+- If partnership, acquisition, expansion, or product signals appear, infer growth, integration, or go-to-market focus.
+- If executive departures or hires appear, infer leadership-change and mandate-reset focus.
+Do not claim certainty. Phrase as likely focus areas supported by available evidence.
+Signal categories detected: ${typeList}.`
+}
+
 function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null, interviewLogs: InterviewLogRow[] | null = null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
@@ -204,6 +221,8 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
   const contactSection = buildContactSection(contacts)
   const hasContacts = (contacts ?? []).length > 0
   const docsSection = buildDocSection(documents)
+  const hasJobDescription = (documents ?? []).some(d => d.label === 'job_description')
+  const signalFocusHints = buildSignalFocusHints(signals)
 
   function careerSection(p: ProfileRow | null): string {
     if (!p) return ''
@@ -260,9 +279,18 @@ These notes change the brief in specific ways:
 ` : ''}JOB SCAN DATA
 ${scanSection}
 ${signalSection ? `\nCOMPANY SIGNALS (recent news events)\n${signalSection}` : ''}
+${signalFocusHints}
 
 KNOWN CONTACTS
 ${contactSection}${docsSection ? `\n\nDOCUMENTS\n${docsSection}` : ''}
+
+${hasJobDescription ? `JOB DESCRIPTION USAGE INSTRUCTION
+At least one job description is available in documents. Treat it as primary evidence for role requirements.
+- Extract the 5-7 highest-signal requirements that will determine selection in this role.
+- Map those requirements to the candidate's verified history and STAR stories where possible.
+- In Anticipated Pushback and Likely Questions, prioritize probes directly implied by the job description.
+- In What to Leave Out, explicitly remove stories that do not support the top requirements.
+Do not copy/paste the job description. Translate it into interview strategy.` : ''}
 
 ---
 
