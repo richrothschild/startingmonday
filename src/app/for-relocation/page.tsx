@@ -167,7 +167,7 @@ export default function ForRelocationPage() {
                 {[
                   'Executives get a 30-day free trial, no credit card required',
                   'Active plan ($199/month) includes all AI features: prep briefs, strategy brief, company intelligence',
-                  'Monitor plan ($49/month) for executives building a target list before active search mode',
+                  'Intelligence plan ($49/month) for executives building a target list before active search mode',
                   'Bulk seat pricing available for corporate relocation programs',
                   'Apply to the partner program at startingmonday.app/partners to receive your referral link and partner resource kit',
                 ].map((item, i) => (

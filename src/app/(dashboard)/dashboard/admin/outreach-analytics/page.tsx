@@ -322,7 +322,7 @@ export default async function OutreachAnalyticsPage() {
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <p>New trial users</p><p className="font-semibold text-right">{newTrialUsers30d}</p>
               <p>New paid users</p><p className="font-semibold text-right">{newPaidUsers30d}</p>
-              <p>New paid · Monitor</p><p className="font-semibold text-right">{newPaidByTier.monitor}</p>
+              <p>New paid · Intelligence</p><p className="font-semibold text-right">{newPaidByTier.monitor}</p>
               <p>New paid · Search</p><p className="font-semibold text-right">{newPaidByTier.search}</p>
               <p>New paid · Executive</p><p className="font-semibold text-right">{newPaidByTier.executive}</p>
               <p>Potential outreach-attributed signups</p><p className="font-semibold text-right">{outreachAttributed30d}</p>
@@ -337,7 +337,7 @@ export default async function OutreachAnalyticsPage() {
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <p>Trialing now</p><p className="font-semibold text-right">{trialingCount ?? 0}</p>
               <p>Active paid now</p><p className="font-semibold text-right">{activeCount ?? 0}</p>
-              <p>Active · Monitor</p><p className="font-semibold text-right">{activeMonitorCount ?? 0}</p>
+              <p>Active · Intelligence</p><p className="font-semibold text-right">{activeMonitorCount ?? 0}</p>
               <p>Active · Search</p><p className="font-semibold text-right">{activeSearchCount ?? 0}</p>
               <p>Active · Executive</p><p className="font-semibold text-right">{activeExecutiveCount ?? 0}</p>
             </div>

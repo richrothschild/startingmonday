@@ -10,13 +10,13 @@ type Filter = 'all' | 'trialing' | 'intelligence' | 'search' | 'executive'
 const FILTER_LABELS: Record<Filter, string> = {
   all:         'All customers',
   trialing:    'Trialing',
-  intelligence:'Monitor',
+  intelligence:'Intelligence',
   search:      'Active',
   executive:   'Executive',
 }
 
 const TIER_NAMES: Record<string, string> = {
-  passive:   'Monitor',
+  passive:   'Intelligence',
   active:    'Active',
   executive: 'Executive',
   free:      'Free',
@@ -134,7 +134,7 @@ export default async function CustomersPage({
   const cards: { filter: Filter; label: string; sublabel: string; accent: boolean }[] = [
     { filter: 'all',          label: String(counts.all),          sublabel: 'Active',        accent: false },
     { filter: 'trialing',     label: String(counts.trialing),     sublabel: 'Trialing',      accent: false },
-    { filter: 'intelligence', label: String(counts.intelligence), sublabel: 'Monitor',       accent: false },
+    { filter: 'intelligence', label: String(counts.intelligence), sublabel: 'Intelligence',  accent: false },
     { filter: 'search',       label: String(counts.search),       sublabel: 'Search',        accent: true  },
     { filter: 'executive',    label: String(counts.executive),    sublabel: 'Executive',     accent: false },
   ]

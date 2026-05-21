@@ -165,7 +165,7 @@ export default function ForOutplacementPage() {
                   'Bulk seat pricing with centralized billing for outplacement programs',
                   'Activation tracking: see which executives have enrolled and are active',
                   'Active plan ($199/month per seat) includes all AI features',
-                  'Monitor plan ($49/month per seat) for executives not yet in active search mode',
+                  'Intelligence plan ($49/month per seat) for executives not yet in active search mode',
                   'Volume discounts available for program cohorts of 5 or more seats',
                   'Apply to the partner program at startingmonday.app/partners to discuss bulk seat pricing, activation tracking, and preferred partner arrangements',
                 ].map((item, i) => (
