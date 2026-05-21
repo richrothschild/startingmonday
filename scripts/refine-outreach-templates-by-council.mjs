@@ -83,25 +83,34 @@ function proofLineForFocus(focus) {
 
 function quantifiedProofLineForFocus(focus) {
   const f = (focus || '').toUpperCase()
-  if (f.includes('CFO') || f.includes('FINANCE')) return '3 outcomes: cleaner board framing, stronger change language, and faster first replies'
-  if (f.includes('CTO') || f.includes('TECH')) return '3 outcomes: sharper architecture framing, clearer business value, and stronger stakeholder alignment'
-  if (f.includes('COO') || f.includes('OPER')) return '3 outcomes: tighter execution story, better sequencing, and faster screening progression'
-  if (f.includes('CISO') || f.includes('SECUR')) return '3 outcomes: clearer risk framing, better non-technical readability, and stronger trust signals'
-  if (f.includes('CPO') || f.includes('PRODUCT')) return '3 outcomes: crisper product narrative, more strategic pull, and cleaner interview cadence'
-  if (f.includes('CHRO') || f.includes('PEOPLE')) return '3 outcomes: better change narrative, stronger leadership signal, and cleaner decision-maker alignment'
-  if (f.includes('CEO') || f.includes('BOARD')) return '3 outcomes: cleaner board-readiness, stronger strategic posture, and more credible executive momentum'
-  if (f.includes('VP')) return '3 outcomes: clearer scope signal, stronger example quality, and faster next-step clarity'
-  return '3 outcomes: cleaner positioning, stronger proof, and faster decision-making'
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'a board-ready finance narrative that compresses the first conversation into one clean point of view'
+  if (f.includes('CTO') || f.includes('TECH')) return 'an architecture-to-business story that makes the technical scope obvious to non-technical decision-makers'
+  if (f.includes('COO') || f.includes('OPER')) return 'an execution story that shows operating leverage instead of just describing responsibility'
+  if (f.includes('CISO') || f.includes('SECUR')) return 'a risk narrative that translates security depth into trust, resilience, and business continuity'
+  if (f.includes('CPO') || f.includes('PRODUCT')) return 'a product-to-growth narrative that shows customer impact and operating judgment together'
+  if (f.includes('CHRO') || f.includes('PEOPLE')) return 'a change-leadership story that makes culture, talent, and operating cadence easy to trust'
+  if (f.includes('CEO') || f.includes('BOARD')) return 'a board-readiness narrative that makes scope, governance, and strategic fit easy to see'
+  if (f.includes('VP')) return 'a next-scope narrative that shows readiness for the bigger mandate without overexplaining the path'
+  return 'a role-specific narrative that makes the next conversation easier to schedule and easier to trust'
 }
 
-function microSpecificLine(company, focus, audience) {
-  return `For ${focus} leaders at ${company}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.`
+function stakesLineForFocus(focus, company) {
+  const f = (focus || '').toUpperCase()
+  if (f.includes('CFO') || f.includes('FINANCE')) return `For ${focus} leaders at ${company}, the real risk is sounding competent but not board-ready when the first serious conversation starts.`
+  if (f.includes('CTO') || f.includes('TECH')) return `For ${focus} leaders at ${company}, the real risk is being seen as technically strong but too abstract for a CEO, board, or investor audience.`
+  if (f.includes('COO') || f.includes('OPER')) return `For ${focus} leaders at ${company}, the real risk is being known for execution without proving the scale and sequencing that the next role requires.`
+  if (f.includes('CISO') || f.includes('SECUR')) return `For ${focus} leaders at ${company}, the real risk is having the right expertise but losing the room before the business impact lands.`
+  if (f.includes('CPO') || f.includes('PRODUCT')) return `For ${focus} leaders at ${company}, the real risk is sounding product-savvy without tying that work to growth, customer insight, and operating discipline.`
+  if (f.includes('CHRO') || f.includes('PEOPLE')) return `For ${focus} leaders at ${company}, the real risk is describing culture work in a way that feels soft instead of decisive.`
+  if (f.includes('CEO') || f.includes('BOARD')) return `For ${focus} leaders at ${company}, the real risk is under-selling governance, scale, and decision quality in the first conversation.`
+  if (f.includes('VP')) return `For ${focus} leaders at ${company}, the real risk is sounding ready for more scope without proving what changes at the higher level.`
+  return `For ${focus} leaders at ${company}, the real risk is sounding credible in theory but not specific enough to move the conversation forward.`
 }
 
 function ctaVariants(audience) {
   return {
     sample: `If useful, I can send a one-page sample built around your ${audience} context.`,
-    pilot: `If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.`,
+    pilot: `If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria.`,
   }
 }
 
@@ -126,7 +135,7 @@ function coachBody(row) {
     '',
     'Starting Monday gives executive coaches a practical execution layer: target company intelligence, structured prep briefs, and outreach workflows that help senior candidates move with focus.',
     '',
-    microSpecificLine(company, focus, 'coach'),
+    stakesLineForFocus(focus, company),
     '',
     `In the first 30 days, coaches usually see ${quantified}.`,
     '',
@@ -154,7 +163,7 @@ function outplacementBody(row) {
     '',
     'Starting Monday helps outplacement teams run a measurable operating cadence across company targeting, outreach quality, and prep readiness for senior candidates.',
     '',
-    microSpecificLine(company, focus, 'outplacement'),
+    stakesLineForFocus(focus, company),
     '',
     `In the first 30 days, teams usually see ${quantified}.`,
     '',
@@ -215,7 +224,7 @@ async function updateOutplacementFile(relPath) {
 function executiveBodyForRole(roleBucket) {
   const rb = roleBucket || 'Executive'
   const proof = proofLineForFocus(rb)
-  const quantified = quantifiedProofLineForFocus(rb)
+  const stakes = stakesLineForFocus(rb, '{company_name}')
   const cta = ctaVariants(rb)
   return [
     'Hi {first_name},',
@@ -224,9 +233,9 @@ function executiveBodyForRole(roleBucket) {
     '',
     'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
     '',
-    `For ${rb} leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.`,
+    stakes,
     '',
-    `In the first 30 days, leaders usually see ${quantified}.`,
+    `The clearest proof point for ${rb} leaders is ${proof}.`,
     '',
     `For ${rb} candidates, the biggest win is ${proof}.`,
     '',
@@ -240,7 +249,7 @@ function executiveBodyForRole(roleBucket) {
 function executiveFollowupBody(roleBucket, step) {
   const focus = roleBucket || 'Executive'
   const proof = proofLineForFocus(focus)
-  const quantified = quantifiedProofLineForFocus(focus)
+  const stakes = stakesLineForFocus(focus, '{company_name}')
   const cta = ctaVariants(focus)
   if (step === 'followup_1') {
     return [
@@ -248,9 +257,9 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       `I have been following your work at {company_name}, and I wanted to follow up on my earlier note about ${focus} transitions.`,
       '',
-      `The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.`,
+      stakes,
       '',
-      `For ${focus} candidates, that is where ${proof} usually shows up.`,
+      `For ${focus} candidates, that is where ${proof} usually shows up in the first serious conversation.`,
       '',
       cta.sample,
       '',
@@ -264,9 +273,9 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       `I have been following your work at {company_name}, and I had one more thought on ${focus} transitions.`,
       '',
-      `In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.`,
+      `I can also send the 30-day benchmark sheet so you can see how the first week, first pitch, and first follow-up are supposed to look.`,
       '',
-      `For ${focus} leaders, that is where ${quantified} usually emerge.`,
+      `For ${focus} leaders, that is where ${proof} becomes visible in a way that is easy to evaluate.`,
       '',
       cta.pilot,
       '',
@@ -279,9 +288,9 @@ function executiveFollowupBody(roleBucket, step) {
     '',
     `I have been following your work at {company_name}, and I am closing the loop on my note about ${focus} transitions.`,
     '',
-    'If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.',
+    'If timing is not right, no problem. If it is, I can send one concise example plus the 30-day benchmark sheet so you can judge it quickly.',
     '',
-    `That example is usually the cleanest way to show the 3-part structure without overexplaining it.`,
+    `That is usually the cleanest way to show why ${proof} matters without overexplaining it.`,
     '',
     'Rich',
     'startingmonday.app',
