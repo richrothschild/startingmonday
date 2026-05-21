@@ -364,21 +364,6 @@ The 3–4 most likely objections or challenges this candidate will face. Order b
 **They push:** [the objection]
 **You say:** [specific counter, not defensive, not vague]
 
-## Likely Questions
-The 4–5 questions this interviewer will almost certainly ask, derived from the intersection of this specific role, this company's situation, and this candidate's background. Not generic behavioral questions: questions that arise because of who this person is and what this company needs right now. For each:
-**They ask:** [the question, phrased as they would actually say it]
-**What they're probing:** [what is actually being tested underneath the question, one sentence]
-**Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
-
-## Behavioral Rehearsal Scorecard
-For the top 4 likely questions, provide a rehearsal rubric:
-**Question:** [reference the likely question]
-**Substance bar (1-5):** [what a 5/5 answer includes]
-**Structure bar (1-5):** [what organized executive-level structure looks like]
-**Signal bar (1-5):** [what confidence/ownership signal interviewers need]
-**Common failure mode:** [where senior interviewers lose interest]
-**Upgrade move:** [one concrete edit to improve answer quality]
-
 ## Board Challenge Drill
 Provide exactly 6 hard boardroom-style challenges and response frames using this exact set:
 1) Risk exposure
@@ -409,6 +394,21 @@ Give a reusable answer scaffold for high-pressure recovery questions. Use this e
 **How you measured recovery:** [metrics, baselines, and recovery threshold]
 **What governance you put in place:** [owner, review cadence, escalation path]
 Then add one 6-8 sentence sample answer using this sequence in plain executive language.
+
+## Likely Questions
+The 4–5 questions this interviewer will almost certainly ask, derived from the intersection of this specific role, this company's situation, and this candidate's background. Not generic behavioral questions: questions that arise because of who this person is and what this company needs right now. For each:
+**They ask:** [the question, phrased as they would actually say it]
+**What they're probing:** [what is actually being tested underneath the question, one sentence]
+**Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
+
+## Behavioral Rehearsal Scorecard
+For the top 4 likely questions, provide a rehearsal rubric:
+**Question:** [reference the likely question]
+**Substance bar (1-5):** [what a 5/5 answer includes]
+**Structure bar (1-5):** [what organized executive-level structure looks like]
+**Signal bar (1-5):** [what confidence/ownership signal interviewers need]
+**Common failure mode:** [where senior interviewers lose interest]
+**Upgrade move:** [one concrete edit to improve answer quality]
 
 ## Talking Points
 5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
