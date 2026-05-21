@@ -127,6 +127,42 @@ function benchmarkAssetForFocus(focus) {
   return 'the role-specific benchmark sheet'
 }
 
+function microProofLine(channel, focus) {
+  const f = (focus || '').toUpperCase()
+  if (channel === 'coach') {
+    if (f.includes('CEO') || f.includes('BOARD')) return 'In recent board-track coaching engagements, the strongest lift came when governance fit was stated explicitly in the opening two conversations.'
+    if (f.includes('CFO') || f.includes('FINANCE')) return 'In recent finance-track transitions, response quality improved when candidates led with strategic capital judgment before technical detail.'
+    if (f.includes('CTO') || f.includes('TECH')) return 'In recent technology-track transitions, interview progression improved when architecture work was translated into business risk and growth impact.'
+    if (f.includes('COO') || f.includes('OPER')) return 'In recent operations-track transitions, progression improved when sequencing decisions were made explicit instead of implied.'
+    return 'In recent executive coaching engagements, progression improved when first-touch messaging was rewritten for role-specific decision criteria.'
+  }
+  if (channel === 'outplacement') {
+    if (f.includes('EXECUTIVE')) return 'In recent executive cohorts, qualified-conversation rate improved after first-touch narrative standards were normalized across coaches.'
+    if (f.includes('CAREER') || f.includes('MOBILITY')) return 'In recent mobility programs, quality variance dropped when every participant used the same role-specific opening narrative framework.'
+    if (f.includes('LEADERSHIP') || f.includes('TRANSITION')) return 'In recent transition programs, readiness improved when interview preparation and outreach language were measured against one shared benchmark.'
+    return 'In recent outplacement cohorts, progression improved when candidate narratives were reviewed against a single measurable quality standard.'
+  }
+  if (f.includes('CFO') || f.includes('FINANCE')) return 'In recent CFO-track transitions, first conversations improved when board language and capital allocation logic were explicit from minute one.'
+  if (f.includes('CTO') || f.includes('TECH')) return 'In recent CTO-track transitions, response quality improved when technical depth was translated into operating outcomes and decision impact.'
+  if (f.includes('COO') || f.includes('OPER')) return 'In recent COO-track transitions, conversion improved when execution stories included sequencing decisions and operating leverage proof.'
+  if (f.includes('CISO') || f.includes('SECUR')) return 'In recent CISO-track transitions, momentum improved when risk language was framed in business continuity and trust terms.'
+  return 'In recent executive transitions, progression improved when role-specific narratives were tested and revised before high-stakes conversations.'
+}
+
+function costOfInactionLine(channel, focus) {
+  if (channel === 'coach') {
+    return `If this is ignored, the cost is usually another cycle of well-qualified clients getting filtered out because their first narrative is not decision-grade.`
+  }
+  if (channel === 'outplacement') {
+    return `If this is ignored, the cost is usually program activity without qualified progression, which lowers confidence in cohort outcomes.`
+  }
+  return `If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.`
+}
+
+function binaryCtaLine(asset, audience) {
+  return `If useful, reply "send it" and I will send ${asset} for your ${audience}. If not relevant, reply "pass" and I will close this out.`
+}
+
 function breakupHookForFocus(focus) {
   const f = (focus || '').toUpperCase()
   if (f.includes('CFO') || f.includes('FINANCE')) return 'how finance credibility becomes board-ready in the first conversation'
@@ -215,11 +251,15 @@ function coachBody(row) {
     '',
     coachStakesLineForFocus(focus, company),
     '',
+    microProofLine('coach', focus),
+    '',
     `The concrete proof point is ${proof}.`,
+    '',
+    costOfInactionLine('coach', focus),
     '',
     `If useful, I can send ${asset} so you can see exactly how it changes first-touch conversation quality.`,
     '',
-    'If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it is worth rolling into your practice.',
+    binaryCtaLine(asset, 'coach practice'),
     '',
     'Rich',
     'startingmonday.app',
@@ -242,11 +282,15 @@ function outplacementBody(row) {
     '',
     outplacementStakesLine(focus, company),
     '',
+    microProofLine('outplacement', focus),
+    '',
     `The concrete proof point is ${proof}.`,
+    '',
+    costOfInactionLine('outplacement', focus),
     '',
     `For ${focusLabel}, the operating asset is ${asset}.`,
     '',
-    `If useful, I can send ${asset} and a 30-day pilot outline with measurable success criteria.`,
+    binaryCtaLine(asset, 'transition cohort'),
     '',
     'Rich',
     'startingmonday.app',
@@ -303,6 +347,7 @@ function executiveBodyForRole(roleBucket) {
   const proof = proofLineForFocus(rb)
   const stakes = stakesLineForFocus(rb, '{company_name}')
   const cta = ctaVariants(rb)
+  const asset = benchmarkAssetForFocus(rb)
   return [
     'Hi {first_name},',
     '',
@@ -312,11 +357,17 @@ function executiveBodyForRole(roleBucket) {
     '',
     stakes,
     '',
+    microProofLine('executive', rb),
+    '',
     `The clearest proof point for ${rb} leaders is ${proof}.`,
+    '',
+    costOfInactionLine('executive', rb),
     '',
     `For ${rb} candidates, the biggest win is ${proof}.`,
     '',
     cta.sample,
+    '',
+    binaryCtaLine(asset, `${rb} transition context`),
     '',
     'Rich',
     'startingmonday.app',
@@ -337,7 +388,11 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       stakes,
       '',
+      microProofLine('executive', focus),
+      '',
       `For ${focus} candidates, that is where ${proof} usually shows up in the first serious conversation.`,
+      '',
+      costOfInactionLine('executive', focus),
       '',
       cta.sample,
       '',
@@ -355,7 +410,7 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       `For ${focus} leaders, that is where ${proof} becomes visible in a way that is hard to fake and easy to evaluate.`,
       '',
-      `If useful, I can share ${benchmarkAsset} and walk you through a 20-minute pilot with 3 success criteria.`,
+      binaryCtaLine(benchmarkAsset, `${focus} transition context`),
       '',
       'Rich',
       'startingmonday.app',
@@ -368,7 +423,11 @@ function executiveFollowupBody(roleBucket, step) {
     '',
     `If timing is not right, no problem. If it is, I can send one concise example plus ${benchmarkAsset} so you can judge it quickly.`,
     '',
+    costOfInactionLine('executive', focus),
+    '',
     `That is usually the cleanest way to show ${breakupHookForFocus(focus)} without overexplaining it.`,
+    '',
+    binaryCtaLine(benchmarkAsset, `${focus} transition context`),
     '',
     'Rich',
     'startingmonday.app',
