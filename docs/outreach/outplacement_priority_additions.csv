@@ -1,12 +1,12 @@
-full_name,company,role_bucket,email_guess,first_touch_angle,source
-Lauren Mitchell,LHH,OUTPLACEMENT,lauren.mitchell@lhh.com,Lead with executive transition program outcomes and cohort-level activation visibility,docs/outreach/outplacement_firms_prospecting_100.csv
-Brian Carter,Right Management,OUTPLACEMENT,brian.carter@right.com,Lead with career mobility cohorts and measurable 30-day momentum scorecards,docs/outreach/outplacement_firms_prospecting_100.csv
-Megan Walsh,"Challenger, Gray & Christmas",OUTPLACEMENT,megan.walsh@challengergray.com,Lead with senior outplacement differentiation through signal-timed outreach readiness,docs/outreach/outplacement_firms_prospecting_100.csv
-Daniel Hughes,Careerminds,OUTPLACEMENT,daniel.hughes@careerminds.com,Lead with faster setup-to-first-qualified-outreach and cleaner prep execution,docs/outreach/outplacement_firms_prospecting_100.csv
-Kevin Foster,Lee Hecht Harrison,OUTPLACEMENT,kevin.foster@lhh.com,Lead with bulk cohort activation and counselor time saved from admin tracking,docs/outreach/outplacement_firms_prospecting_100.csv
-Alyssa Morgan,Randstad RiseSmart,OUTPLACEMENT,alyssa.morgan@randstadrisesmart.com,Lead with structured daily briefing and cross-cohort engagement visibility,docs/outreach/outplacement_firms_prospecting_100.csv
-Natalie Brooks,Korn Ferry Advance,OUTPLACEMENT,natalie.brooks@kornferry.com,Lead with executive mobility velocity and stronger interview-prep consistency,docs/outreach/outplacement_firms_prospecting_100.csv
-Kara Simmons,IMPACT Group,OUTPLACEMENT,kara.simmons@impactgrouphr.com,Lead with transition support for senior cohorts that need one operating cadence,docs/outreach/outplacement_firms_prospecting_100.csv
-Olivia Hart,Keystone Partners,OUTPLACEMENT,olivia.hart@keystonepartners.com,Lead with placement outcome lift through signal monitoring and prep readiness,docs/outreach/outplacement_firms_prospecting_100.csv
-Rachel Wood,Career Partners International,OUTPLACEMENT,rachel.wood@careerpartners.com,Lead with global outplacement consistency and day-30 pilot scorecard decisioning,docs/outreach/outplacement_firms_prospecting_100.csv
-Evan Cole,RiseSmart,OUTPLACEMENT,evan.cole@randstadrisesmart.com,Lead with active-search workflows for executives who need weekly momentum,docs/outreach/outplacement_firms_prospecting_100.csv
+first_name,last_name,full_name,company,role_bucket,email_guess,first_touch_angle,source
+Lauren,Mitchell,Lauren Mitchell,LHH,OUTPLACEMENT,lauren.mitchell@lhh.com,Lead with executive transition program outcomes and cohort-level activation visibility,docs/outreach/outplacement_firms_prospecting_100.csv
+Brian,Carter,Brian Carter,Right Management,OUTPLACEMENT,brian.carter@right.com,Lead with career mobility cohorts and measurable 30-day momentum scorecards,docs/outreach/outplacement_firms_prospecting_100.csv
+Megan,Walsh,Megan Walsh,"Challenger, Gray & Christmas",OUTPLACEMENT,megan.walsh@challengergray.com,Lead with senior outplacement differentiation through signal-timed outreach readiness,docs/outreach/outplacement_firms_prospecting_100.csv
+Daniel,Hughes,Daniel Hughes,Careerminds,OUTPLACEMENT,daniel.hughes@careerminds.com,Lead with faster setup-to-first-qualified-outreach and cleaner prep execution,docs/outreach/outplacement_firms_prospecting_100.csv
+Kevin,Foster,Kevin Foster,Lee Hecht Harrison,OUTPLACEMENT,kevin.foster@lhh.com,Lead with bulk cohort activation and counselor time saved from admin tracking,docs/outreach/outplacement_firms_prospecting_100.csv
+Alyssa,Morgan,Alyssa Morgan,Randstad RiseSmart,OUTPLACEMENT,alyssa.morgan@randstadrisesmart.com,Lead with structured daily briefing and cross-cohort engagement visibility,docs/outreach/outplacement_firms_prospecting_100.csv
+Natalie,Brooks,Natalie Brooks,Korn Ferry Advance,OUTPLACEMENT,natalie.brooks@kornferry.com,Lead with executive mobility velocity and stronger interview-prep consistency,docs/outreach/outplacement_firms_prospecting_100.csv
+Kara,Simmons,Kara Simmons,IMPACT Group,OUTPLACEMENT,kara.simmons@impactgrouphr.com,Lead with transition support for senior cohorts that need one operating cadence,docs/outreach/outplacement_firms_prospecting_100.csv
+Olivia,Hart,Olivia Hart,Keystone Partners,OUTPLACEMENT,olivia.hart@keystonepartners.com,Lead with placement outcome lift through signal monitoring and prep readiness,docs/outreach/outplacement_firms_prospecting_100.csv
+Rachel,Wood,Rachel Wood,Career Partners International,OUTPLACEMENT,rachel.wood@careerpartners.com,Lead with global outplacement consistency and day-30 pilot scorecard decisioning,docs/outreach/outplacement_firms_prospecting_100.csv
+Evan,Cole,Evan Cole,RiseSmart,OUTPLACEMENT,evan.cole@randstadrisesmart.com,Lead with active-search workflows for executives who need weekly momentum,docs/outreach/outplacement_firms_prospecting_100.csv

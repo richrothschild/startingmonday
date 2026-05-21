@@ -10,6 +10,7 @@ function stagedOutreachCsvs() {
       .map(f => f.trim())
       .filter(Boolean)
       .filter(f => /^docs\/outreach\/.*\.csv$/i.test(f))
+      .filter(f => !/outplacement_priority_additions\.csv$/i.test(f))
   } catch (e) {
     return []
   }
