@@ -108,6 +108,77 @@ const SAMPLE_WEEKLY_REPORT = [
   'Risks, escalations, and next-week plan',
 ]
 
+const COMMERCIAL_EXAMPLES = [
+  {
+    seats: '25 seats',
+    term: '3-month pilot',
+    mix: '15 Active, 10 Intelligence',
+    monthlyList: '$3,485/mo list before volume discounts',
+    estimate: '$10,455 total list over 3 months before negotiated partner terms',
+  },
+  {
+    seats: '50 seats',
+    term: '6-month program',
+    mix: '30 Active, 20 Intelligence',
+    monthlyList: '$6,950/mo list before volume discounts',
+    estimate: '$41,700 total list over 6 months before negotiated partner terms',
+  },
+  {
+    seats: '100 seats',
+    term: '12-month rollout',
+    mix: '55 Active, 45 Intelligence',
+    monthlyList: '$13,240/mo list before volume discounts',
+    estimate: '$158,880 total list over 12 months before negotiated partner terms',
+  },
+]
+
+const BUSINESS_IMPACT = [
+  {
+    metric: 'Placement-cycle confidence',
+    conservative: 'Use day-30 momentum lift as an early indicator, not a guaranteed placement claim.',
+  },
+  {
+    metric: 'Counselor capacity quality',
+    conservative: 'Target fewer context-rebuild minutes per session and more strategy-time minutes per session.',
+  },
+  {
+    metric: 'Employer-facing program credibility',
+    conservative: 'Use documented scorecards and governance notes to show disciplined transition support.',
+  },
+]
+
+const METHOD_DISCLOSURE = [
+  'Activation numerator: participants with complete setup and target list. Denominator: assigned seats.',
+  'Signal action numerator: active participants with at least one signal-driven action. Denominator: active participants.',
+  'Prep readiness numerator: high-stakes conversations with prep brief reviewed beforehand. Denominator: high-stakes conversations.',
+]
+
+const OWNER_MATRIX = [
+  {
+    meeting: 'Weekly operating review',
+    owner: 'Program lead',
+    output: 'Adoption status, top risks, and intervention owners.',
+  },
+  {
+    meeting: 'Biweekly counselor quality review',
+    owner: 'Counselor lead',
+    output: 'Session-yield trend and prep-quality drift analysis.',
+  },
+  {
+    meeting: 'Monthly sponsor governance review',
+    owner: 'Partner sponsor',
+    output: 'Scale/tune/stop recommendation with documented evidence.',
+  },
+]
+
+const WEEKLY_PACKET_TEMPLATE = [
+  'Activation rate: percent of assigned participants fully active this week',
+  'Signal action velocity: average signal-driven actions per active participant',
+  'Prep readiness rate: percent of high-stakes meetings with prep brief review before meeting',
+  'Stall index: count of participants with 7+ days without meaningful action',
+  'Intervention queue: named owners, due dates, and expected behavior change',
+]
+
 export default function OutplacementEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -143,6 +214,7 @@ export default function OutplacementEconomicsPage() {
             <p>Most partners begin with one cohort and a 30-day pass/fail review before expanding seats.</p>
             <p>This keeps procurement risk low while giving counselor teams enough workflow exposure to judge fit.</p>
             <p>The goal is to validate measurable momentum lift, not just product satisfaction.</p>
+            <p className="font-semibold text-slate-800">Pilot is a decision instrument, not a commitment instrument.</p>
           </div>
         </section>
 
@@ -217,6 +289,50 @@ export default function OutplacementEconomicsPage() {
           </p>
         </section>
 
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Commercial examples by term and seat mix (illustrative)
+          </p>
+          <div className="overflow-x-auto border border-slate-200 rounded-lg">
+            <table className="min-w-full text-left text-[13px]">
+              <thead className="bg-slate-100 text-slate-700">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Cohort</th>
+                  <th className="px-4 py-3 font-semibold">Term</th>
+                  <th className="px-4 py-3 font-semibold">Seat mix</th>
+                  <th className="px-4 py-3 font-semibold">Monthly list estimate</th>
+                  <th className="px-4 py-3 font-semibold">Term estimate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMMERCIAL_EXAMPLES.map((row) => (
+                  <tr key={`${row.seats}-${row.term}`} className="border-t border-slate-200 bg-white">
+                    <td className="px-4 py-3 text-slate-900 font-medium">{row.seats}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.term}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.mix}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.monthlyList}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.estimate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            Illustrative calculations use published plan prices before partner discounts, term incentives, and negotiated service scope.
+          </p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Methodology disclosure mini-section
+          </p>
+          <ul className="space-y-2">
+            {METHOD_DISCLOSURE.map((item) => (
+              <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
+            ))}
+          </ul>
+        </section>
+
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Enterprise KPI mapping (CHRO and procurement lens)
@@ -233,10 +349,50 @@ export default function OutplacementEconomicsPage() {
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Conservative business impact framing
+          </p>
+          <div className="space-y-3">
+            {BUSINESS_IMPACT.map((row) => (
+              <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.metric}</p>
+                <p className="text-[13px] text-slate-600 leading-relaxed">{row.conservative}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Owner and meeting cadence matrix
+          </p>
+          <div className="space-y-3">
+            {OWNER_MATRIX.map((row) => (
+              <div key={row.meeting} className="border border-slate-200 rounded-lg p-4 bg-white">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.meeting}</p>
+                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Owner: </span>{row.owner}</p>
+                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Required output: </span>{row.output}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Sample weekly partner report
           </p>
           <ul className="space-y-2">
             {SAMPLE_WEEKLY_REPORT.map((line) => (
+              <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Friday MBR-lite packet template (with definitions)
+          </p>
+          <ul className="space-y-2">
+            {WEEKLY_PACKET_TEMPLATE.map((line) => (
               <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
             ))}
           </ul>
@@ -249,9 +405,20 @@ export default function OutplacementEconomicsPage() {
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
             If the model looks viable, request a live partner walkthrough and define a pilot cohort with named success metrics.
           </p>
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 mb-5">
+            <p className="text-[12px] font-semibold text-slate-900 mb-2">Calibrated decision questions</p>
+            <p className="text-[12px] text-slate-600 leading-relaxed">Would it be unreasonable to use one 30-day cohort as the only decision gate before scaling?</p>
+            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">What specific day-30 evidence would make expansion feel obvious to your committee?</p>
+          </div>
           <div className="flex flex-wrap gap-4 text-[13px]">
             <Link href="/partners#apply" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Apply to partner program
+            </Link>
+            <Link href="/for-outplacement/executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              View committee one-pager
+            </Link>
+            <Link href="/for-outplacement/runbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open runbook and templates
             </Link>
             <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Open trust and governance pack
@@ -263,6 +430,9 @@ export default function OutplacementEconomicsPage() {
               Return to outplacement preview
             </Link>
           </div>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-4">
+            Clean no path: if pilot criteria are not met at day 30, close without expansion commitment and retain the decision artifacts.
+          </p>
         </section>
       </main>
     </div>

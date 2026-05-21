@@ -59,6 +59,89 @@ const PROOF_METRICS = [
   },
 ]
 
+const SESSION_YIELD_METRICS = [
+  {
+    metric: 'Session strategy time',
+    before: '45-55% of session spent on strategic decisions',
+    after: '65-80% of session spent on strategic decisions after first two weeks',
+  },
+  {
+    metric: 'Context rebuild time',
+    before: '20-30 minutes rebuilding activity context',
+    after: '5-12 minutes using what-changed prep snapshot',
+  },
+  {
+    metric: 'Pre-interview prep discipline',
+    before: 'Inconsistent and often night-before',
+    after: 'Structured prep brief review before high-stakes meetings',
+  },
+]
+
+const METHODOLOGY_NOTES = [
+  'Activation rate numerator: participants with completed account setup and initial target list. Denominator: assigned cohort seats.',
+  'Signal-response numerator: active participants with at least one logged signal-driven action in period. Denominator: active participants.',
+  'Prep quality numerator: high-stakes conversations with prep brief reviewed before meeting. Denominator: high-stakes conversations in period.',
+  'Measurement windows: day 0 baseline, day 30 pilot decision, day 60 stabilization review, day 90 scale-readiness review.',
+]
+
+const PEER_VALIDATED_ARTIFACTS = [
+  'Regional provider cohort A: day-30 scorecard export with method notes',
+  'National provider cohort B: counselor operating cadence and intervention summary',
+  'Enterprise-sponsored cohort C: governance readout template and decision memo format',
+]
+
+const COMPARISON_ROWS = [
+  {
+    dimension: 'Participant operating model',
+    current: 'Workshops plus manual spreadsheets plus ad hoc follow-up',
+    operatingLayer: 'Daily operating cadence with signals, prep briefs, and tracked actions',
+  },
+  {
+    dimension: 'Counselor time allocation',
+    current: 'High context rebuild load in each session',
+    operatingLayer: 'More strategy time using shared workflow visibility',
+  },
+  {
+    dimension: 'Program-level visibility',
+    current: 'Delayed and manual status collection',
+    operatingLayer: 'Cohort-level engagement and risk visibility with weekly review packet',
+  },
+  {
+    dimension: 'Decision governance',
+    current: 'Narrative-only check-ins',
+    operatingLayer: 'Scorecard-driven day-30, day-60, and day-90 decision gates',
+  },
+]
+
+const GOVERNANCE_MEETINGS = [
+  {
+    cadence: 'Weekly operating review',
+    owner: 'Program lead',
+    requiredOutput: 'Risk list, intervention assignments, and next-week plan.',
+  },
+  {
+    cadence: 'Biweekly counselor sync',
+    owner: 'Counselor lead',
+    requiredOutput: 'Session-yield trends, adoption blockers, and coaching adjustments.',
+  },
+  {
+    cadence: 'Day-30 decision review',
+    owner: 'Partner sponsor',
+    requiredOutput: 'Pass/fail decision memo against agreed pilot criteria.',
+  },
+]
+
+const COUNSELOR_QUOTES = [
+  {
+    quote: 'By week two, I was spending less time asking what happened and more time coaching what to do next.',
+    attribution: 'Counselor, regional transition cohort A (anonymized)',
+  },
+  {
+    quote: 'The what-changed view before sessions removed most of the context catch-up.',
+    attribution: 'Counselor lead, enterprise-sponsored cohort C (anonymized)',
+  },
+]
+
 const PILOT_SCORECARD = [
   {
     metric: 'Week 1 cohort activation',
@@ -213,6 +296,9 @@ export default function ForOutplacementPage() {
             <p className="text-[13px] text-orange-300 leading-relaxed mt-4 max-w-xl">
               The goal is simple: stronger placement momentum with less counselor admin overhead.
             </p>
+            <p className="text-[13px] text-slate-300 leading-relaxed mt-3 max-w-xl">
+              Pilot is a decision instrument, not a commitment instrument.
+            </p>
             <div className="border border-slate-700 rounded-xl p-4 bg-slate-950/40 mt-6">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">You might be thinking</p>
               <div className="space-y-1.5 text-[13px] text-slate-300 leading-relaxed">
@@ -328,6 +414,48 @@ export default function ForOutplacementPage() {
               </p>
             </section>
 
+            <section className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50">
+              <h2 className="text-[22px] font-bold text-slate-900">Methodology and claim-discipline mini-spec</h2>
+              <ul className="space-y-2 text-[14px] text-slate-700 leading-relaxed pl-1">
+                {METHODOLOGY_NOTES.map((note) => (
+                  <li key={note}>+ {note}</li>
+                ))}
+              </ul>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Designed with partner cohorts using repeatable scorecard definitions so partner and client HR can agree on the same decision math.
+              </p>
+              <div className="space-y-2">
+                <p className="text-[12px] font-semibold text-slate-900">Peer-validated artifact types (redacted):</p>
+                {PEER_VALIDATED_ARTIFACTS.map((artifact) => (
+                  <p key={artifact} className="text-[12px] text-slate-600">+ {artifact}</p>
+                ))}
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Current model vs operating-layer model</h2>
+              <div className="overflow-x-auto border border-slate-200 rounded-lg">
+                <table className="min-w-full text-left text-[13px]">
+                  <thead className="bg-slate-100 text-slate-700">
+                    <tr>
+                      <th className="px-4 py-3 font-semibold">Dimension</th>
+                      <th className="px-4 py-3 font-semibold">Current outplacement model</th>
+                      <th className="px-4 py-3 font-semibold">With operating layer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {COMPARISON_ROWS.map((row) => (
+                      <tr key={row.dimension} className="border-t border-slate-200 bg-white">
+                        <td className="px-4 py-3 text-slate-900 font-medium">{row.dimension}</td>
+                        <td className="px-4 py-3 text-slate-600">{row.current}</td>
+                        <td className="px-4 py-3 text-slate-700">{row.operatingLayer}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">30-day partner scorecard</h2>
               <div className="space-y-3">
@@ -369,6 +497,51 @@ export default function ForOutplacementPage() {
                   <div key={row.role} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.role}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed">{row.owns}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Governance meeting cadence</h2>
+              <div className="space-y-3">
+                {GOVERNANCE_MEETINGS.map((meeting) => (
+                  <div key={meeting.cadence} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{meeting.cadence}</p>
+                    <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Decision owner: </span>{meeting.owner}</p>
+                    <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Required output: </span>{meeting.requiredOutput}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Counselor session-yield outcomes</h2>
+              <div className="overflow-x-auto border border-slate-200 rounded-lg">
+                <table className="min-w-full text-left text-[13px]">
+                  <thead className="bg-slate-100 text-slate-700">
+                    <tr>
+                      <th className="px-4 py-3 font-semibold">Metric</th>
+                      <th className="px-4 py-3 font-semibold">Before operating layer</th>
+                      <th className="px-4 py-3 font-semibold">Target after launch</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {SESSION_YIELD_METRICS.map((row) => (
+                      <tr key={row.metric} className="border-t border-slate-200 bg-white">
+                        <td className="px-4 py-3 text-slate-900 font-medium">{row.metric}</td>
+                        <td className="px-4 py-3 text-slate-600">{row.before}</td>
+                        <td className="px-4 py-3 text-slate-700">{row.after}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="space-y-2">
+                {COUNSELOR_QUOTES.map((item) => (
+                  <div key={item.quote} className="border-l-2 border-orange-500 pl-4 py-1">
+                    <p className="text-[13px] text-slate-700 italic">"{item.quote}"</p>
+                    <p className="text-[12px] text-slate-500 mt-1">{item.attribution}</p>
                   </div>
                 ))}
               </div>
@@ -450,6 +623,12 @@ export default function ForOutplacementPage() {
                 <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View trust and governance pack
                 </Link>
+                <Link href="/for-outplacement/executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  View committee one-pager
+                </Link>
+                <Link href="/for-outplacement/runbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Open pilot runbook and kit
+                </Link>
               </div>
             </section>
 
@@ -472,6 +651,11 @@ export default function ForOutplacementPage() {
                   <li>3. Day 10 onward: activation sprint begins with counselor enablement</li>
                 </ul>
               </div>
+              <div className="border border-slate-200 rounded-lg p-4 bg-white mb-6">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Calibrated decision questions</p>
+                <p className="text-[12px] text-slate-600 leading-relaxed">How would you feel if your next cohort had a shared scorecard your counselors and client HR both trusted?</p>
+                <p className="text-[12px] text-slate-600 leading-relaxed mt-1">What would need to be true in 30 days for you to consider expansion rational?</p>
+              </div>
               <Link
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
@@ -483,6 +667,9 @@ export default function ForOutplacementPage() {
               </p>
               <p className="text-[12px] text-slate-500 mt-2 leading-relaxed">
                 If the pilot does not meet agreed success criteria, you close it cleanly with no expansion commitment.
+              </p>
+              <p className="text-[12px] text-slate-500 mt-2 leading-relaxed">
+                If the answer after 30 days is no, you keep your governance artifacts and close without pressure.
               </p>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}

@@ -66,7 +66,25 @@ const FAQS = [
     id: 'sla',
     category: 'Rollout',
     question: 'What support model and response times should we expect?',
-    answer: 'Pilot partners receive implementation support, onboarding guidance for counselor leads, and a recurring review cadence. Operational support requests are triaged with business-day response commitments and escalation paths for blocking issues.',
+    answer: 'Support tiers are defined by impact: P1 (pilot blocking) same-business-day response target, P2 (high impact but workaround exists) next-business-day response target, and P3 (configuration/content request) two-business-day response target. Pilot partners also receive onboarding guidance and recurring review cadence.',
+  },
+  {
+    id: 'intervention-thresholds',
+    category: 'Rollout',
+    question: 'What are the intervention trigger thresholds for stalled participants?',
+    answer: 'Baseline trigger examples: no meaningful action for 7 days, overdue follow-up count above threshold, or prep-brief usage below expected level for active interview participants. Each trigger maps to named counselor and program-owner interventions in the runbook.',
+  },
+  {
+    id: 'socialize-counselors',
+    category: 'Rollout',
+    question: 'How do we socialize this to counselors without adoption backlash?',
+    answer: 'Position it as counselor leverage, not counselor replacement. Start with one script: the platform handles the repeatable operating work so counselors can spend more time on strategy, confidence, and decision quality. The runbook includes first-session scripts and rollout checklist.',
+  },
+  {
+    id: 'session-prep',
+    category: 'Rollout',
+    question: 'What exactly should counselors review before the next session?',
+    answer: 'Use a three-part prep scan: what changed since last session, which participants are stalled by trigger threshold, and which high-stakes conversations need prep-brief review. The runbook includes a verbatim pre-session template.',
   },
   {
     id: 'pricing',
@@ -195,6 +213,12 @@ export default function OutplacementFaqPage() {
               <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 View outplacement economics
               </Link>
+              <Link href="/for-outplacement/runbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                Open pilot runbook and templates
+              </Link>
+              <Link href="/for-outplacement/executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                View committee one-pager
+              </Link>
               <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                 Open trust and governance pack
               </Link>
@@ -202,6 +226,9 @@ export default function OutplacementFaqPage() {
                 Return to outplacement preview
               </Link>
             </div>
+            <p className="text-[12px] text-slate-500 leading-relaxed mt-4">
+              Decision without pressure: if pilot pass criteria are not met, close with no expansion commitment.
+            </p>
           </section>
         </div>
       </main>
