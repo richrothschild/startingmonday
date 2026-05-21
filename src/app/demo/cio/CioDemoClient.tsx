@@ -277,6 +277,14 @@ const TIMELINE_STEPS = [
   { key: 'retro', label: 'Friday trend and overdue review done' },
 ]
 
+const PRESENTER_ANCHORS = [
+  { id: 'proof-clarity', label: 'Proof badges' },
+  { id: 'pilot-scorecard', label: 'Pilot scorecard' },
+  { id: 'hesitation-mode', label: 'Hesitation mode' },
+  { id: 'accountability-timeline', label: 'Weekly timeline' },
+  { id: 'objection-appendix', label: 'Objections' },
+]
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -511,9 +519,23 @@ export function CioDemoClient() {
               <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-800">Evidence room</Link>
             </span>
           </div>
+          <div className="mt-5 border border-slate-200 rounded-xl p-3 bg-slate-50">
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">Presenter quick jump</p>
+            <div className="flex flex-wrap gap-2">
+              {PRESENTER_ANCHORS.map((anchor) => (
+                <a
+                  key={anchor.id}
+                  href={`#${anchor.id}`}
+                  className="text-[12px] px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 transition-colors"
+                >
+                  {anchor.label}
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+        <section id="proof-clarity" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8 scroll-mt-24">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Proof clarity</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Confidence and denominator badges</h2>
           <p className="text-[14px] text-slate-600 mb-5">Every claim includes denominator and confidence context so proof stays credible under scrutiny.</p>
@@ -532,7 +554,7 @@ export function CioDemoClient() {
           </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+        <section id="pilot-scorecard" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8 scroll-mt-24">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Pilot motion</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">30-day pilot success scorecard</h2>
           <p className="text-[14px] text-slate-600 mb-4">Use this live during the demo: check boxes as outcomes are met, then decide from evidence.</p>
@@ -575,7 +597,7 @@ export function CioDemoClient() {
           </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+        <section id="hesitation-mode" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8 scroll-mt-24">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Negotiation support</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Late-stage hesitation mode (Voss)</h2>
           <p className="text-[14px] text-slate-600 mb-5">One-click scripts for the most common late-stage stalls.</p>
@@ -606,7 +628,7 @@ export function CioDemoClient() {
           </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+        <section id="accountability-timeline" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8 scroll-mt-24">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Execution rhythm</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Weekly accountability timeline</h2>
           <p className="text-[14px] text-slate-600 mb-5">Make operating cadence visible and measurable every week.</p>
@@ -633,7 +655,7 @@ export function CioDemoClient() {
           </p>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+        <section id="objection-appendix" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8 scroll-mt-24">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Objections</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Objection-handling appendix</h2>
           <p className="text-[14px] text-slate-600 mb-5">Use these responses when concerns come up in real time during the demo.</p>
