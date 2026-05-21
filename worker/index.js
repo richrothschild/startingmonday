@@ -29,6 +29,7 @@ import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
 import { runSocialPostJob } from './jobs/social-post-job.js'
 import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
 import { runLeadScoringJob } from './jobs/lead-scoring-job.js'
+import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -44,6 +45,14 @@ Sentry.init({
 
 process.on('uncaughtException', (err) => {
   logger.error('worker: uncaught exception', { error: err.message, stack: err.stack })
+  notify({
+    subject: 'Worker crash: uncaught exception',
+    body: [
+      `Error: ${err.message}`,
+      `Time: ${new Date().toISOString()}`,
+      'Worker process will exit and rely on Railway restart.',
+    ].join('\n'),
+  }).catch(() => {})
   Sentry.captureException(err)
   Sentry.flush(2000).finally(() => process.exit(1))
 })
@@ -51,12 +60,24 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (reason) => {
   const message = reason instanceof Error ? reason.message : String(reason)
   logger.error('worker: unhandled rejection', { reason: message })
+  if (shouldNotifyFailure('process:unhandledRejection')) {
+    notify({
+      subject: 'Worker warning: unhandled rejection',
+      body: [
+        `Reason: ${message}`,
+        `Time: ${new Date().toISOString()}`,
+        'Process continues, but this should be investigated.',
+      ].join('\n'),
+    }).catch(() => {})
+  }
   Sentry.captureException(reason)
 })
 
 // ── Job runner ────────────────────────────────────────────────────────────────
 
 const jobStatus = {}
+const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
+const lastFailureNotifyAt = new Map()
 
 // Jobs that run longer than their timeout are forcibly rejected and logged as
 // { event: 'job_timeout' } so they surface in Railway log queries.
@@ -68,6 +89,14 @@ const JOB_TIMEOUTS_MS = {
   'briefing-job':           3 * 60_000,
 }
 const DEFAULT_JOB_TIMEOUT_MS = 5 * 60_000
+
+function shouldNotifyFailure(key) {
+  const now = Date.now()
+  const last = lastFailureNotifyAt.get(key) ?? 0
+  if (now - last < FAILURE_NOTIFY_COOLDOWN_MS) return false
+  lastFailureNotifyAt.set(key, now)
+  return true
+}
 
 async function runJob(name, fn) {
   if (jobStatus[name] === 'running') {
@@ -89,8 +118,31 @@ async function runJob(name, fn) {
     jobStatus[name] = 'idle'
     if (err.isTimeout) {
       logger.error(`${name}: timed out`, { event: 'job_timeout', job: name, timeout_ms: timeoutMs })
+      if (shouldNotifyFailure(`${name}:timeout`)) {
+        notify({
+          subject: `Worker timeout: ${name}`,
+          body: [
+            `Job timed out after ${timeoutMs}ms.`,
+            `Job: ${name}`,
+            `Time: ${new Date().toISOString()}`,
+            'Check Railway worker logs and Sentry for stack traces.',
+          ].join('\n'),
+        }).catch(() => {})
+      }
     } else {
       logger.error(`${name}: unhandled error`, { error: err.message })
+      if (shouldNotifyFailure(`${name}:error`)) {
+        notify({
+          subject: `Worker error: ${name}`,
+          body: [
+            `Job failed with unhandled error.`,
+            `Job: ${name}`,
+            `Error: ${err.message}`,
+            `Time: ${new Date().toISOString()}`,
+            'Check Railway worker logs and Sentry for full context.',
+          ].join('\n'),
+        }).catch(() => {})
+      }
     }
     Sentry.captureException(err, { tags: { job: name } })
   }
