@@ -45,6 +45,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Claude Code — local session context, not for shared repo
+CLAUDE.md
+
 # local dev artifacts
 .briefing-preview.html
 docs/status/prep-brief-evals-readiness.md
