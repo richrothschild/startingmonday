@@ -52,14 +52,27 @@ function toCsv(headers, rows) {
   return lines.join('\r\n') + '\r\n'
 }
 
+function normalizeKey(k) {
+  return String(k || '').replace(/^\uFEFF/, '').trim().toLowerCase()
+}
+
+function rowGet(row, keys) {
+  const wanted = keys.map(k => normalizeKey(k))
+  for (const [k, v] of Object.entries(row)) {
+    if (wanted.includes(normalizeKey(k))) return v
+  }
+  return ''
+}
+
 function firstName(row) {
-  if (row.first_name) return row.first_name.trim()
-  const full = (row.full_name || '').trim()
+  const first = String(rowGet(row, ['first_name'])).trim()
+  if (first) return first
+  const full = String(rowGet(row, ['full_name'])).trim()
   return full ? full.split(/\s+/)[0] : 'there'
 }
 
 function companyName(row) {
-  return (row.company || row['Company Name'] || 'your team').trim() || 'your team'
+  return (String(rowGet(row, ['company', 'Company Name'])) || 'your team').trim() || 'your team'
 }
 
 function focusText(raw) {
@@ -301,6 +314,90 @@ function subject(row) {
   return `Bad idea to send a 1-page executive transition conversation flow for ${companyName(row)}?`
 }
 
+function fillExecutivePlaceholders(template, row) {
+  return template
+    .replaceAll('{first_name}', firstName(row))
+    .replaceAll('{company_name}', companyName(row))
+}
+
+function executiveSubjectForStep(roleBucket, company, step) {
+  const rb = roleBucket || 'Executive'
+  if (step === 'followup_2') return `Bad idea to send a 1-page senior ${rb} transition conversation flow for ${company}?`
+  if (step === 'followup_3') return `Bad idea to send a 1-page transition conversation flow for ${rb} leaders at ${company}?`
+  return `Bad idea to send a 1-page ${rb} transition conversation flow for ${company}?`
+}
+
+function isPersonRow(row) {
+  const full = String(rowGet(row, ['full_name'])).trim()
+  const first = String(rowGet(row, ['first_name'])).trim()
+  const last = String(rowGet(row, ['last_name'])).trim()
+  return Boolean(full || first || last)
+}
+
+function inferChannel(row, relPath) {
+  const hint = `${rowGet(row, ['role_bucket']) || ''} ${rowGet(row, ['channel']) || ''} ${rowGet(row, ['persona_focus']) || ''} ${rowGet(row, ['title']) || ''} ${relPath}`.toUpperCase()
+  if (hint.includes('COACH')) return 'coach'
+  if (hint.includes('OUTPLACEMENT')) return 'outplacement'
+  return 'executive'
+}
+
+function buildBodyAndSubject(row, relPath) {
+  const channel = inferChannel(row, relPath)
+  const rb = focusText(String(rowGet(row, ['role_bucket', 'persona_focus', 'title']) || 'Executive'))
+  const company = companyName(row)
+  const step = String(rowGet(row, ['step'])).trim().toLowerCase()
+
+  if (channel === 'coach') {
+    return { body: coachBody(row), subject: subject(row) }
+  }
+
+  if (channel === 'outplacement') {
+    return { body: outplacementBody(row), subject: subject(row) }
+  }
+
+  if (step.startsWith('followup_')) {
+    const body = fillExecutivePlaceholders(executiveFollowupBody(rb, step), row)
+    return {
+      body,
+      subject: executiveSubjectForStep(rb, company, step),
+    }
+  }
+
+  const body = fillExecutivePlaceholders(executiveBodyForRole(rb), row)
+  return { body, subject: subject(row) }
+}
+
+async function updateGenericPersonFile(relPath) {
+  const full = path.join(ROOT, relPath)
+  const raw = await readFile(full, 'utf8')
+  const { headers, rows } = parseCsv(raw)
+  if (headers.length === 0 || rows.length === 0) return 0
+
+  const hasAnySubjectCol = headers.some(h => normalizeKey(h).includes('subject'))
+  const outHeaders = hasAnySubjectCol ? headers : [...headers, 'subject']
+
+  let updated = 0
+  for (const row of rows) {
+    if (!isPersonRow(row)) continue
+    const { body, subject: subj } = buildBodyAndSubject(row, relPath)
+
+    if ('default_subject' in row) row.default_subject = subj
+    if ('email_subject' in row) row.email_subject = subj
+    if ('subject' in row) row.subject = subj
+    if (!hasAnySubjectCol) row.subject = subj
+
+    if ('default_body' in row) row.default_body = body
+    if ('email_body' in row) row.email_body = body
+    if ('email_text' in row) row.email_text = body
+    if ('email_body_core' in row) row.email_body_core = body
+
+    updated++
+  }
+
+  await writeFile(full, toCsv(outHeaders, rows), 'utf8')
+  return updated
+}
+
 async function updateCoachesFile(relPath) {
   const full = path.join(ROOT, relPath)
   const raw = await readFile(full, 'utf8')
@@ -396,6 +493,8 @@ function executiveFollowupBody(roleBucket, step) {
       '',
       cta.sample,
       '',
+      binaryCtaLine(benchmarkAsset, `${focus} transition context`),
+      '',
       'Rich',
       'startingmonday.app',
     ].join('\n')
@@ -409,6 +508,8 @@ function executiveFollowupBody(roleBucket, step) {
       `I can also send ${benchmarkAsset} so you can see how the first week, first pitch, and first follow-up should look for this role.`,
       '',
       `For ${focus} leaders, that is where ${proof} becomes visible in a way that is hard to fake and easy to evaluate.`,
+      '',
+      costOfInactionLine('executive', focus),
       '',
       binaryCtaLine(benchmarkAsset, `${focus} transition context`),
       '',
@@ -521,6 +622,32 @@ async function main() {
   results.executiveFollowupRows = ladder.rows
   results.executiveFollowupFile = ladder.outFile
 
+  // Normalize all remaining person-level files so every channel is on the latest format.
+  const extraPersonFiles = [
+    path.join('docs', 'outreach', 'search_firms_prospecting_100.csv'),
+    path.join('docs', 'outreach', 'search_firms_prospecting_curated_top25.csv'),
+    path.join('docs', 'outreach', 'apollo_priority_send_ready.csv'),
+    path.join('docs', 'outreach', 'apollo_priority_followups.csv'),
+    path.join('docs', 'outreach', 'send_ready_emails_first_10.csv'),
+    path.join('docs', 'outreach', 'send_ready_followups_first_10.csv'),
+    path.join('docs', 'outreach', 'prospecting_personalized_sample_10.csv'),
+    path.join('docs', 'outreach', 'prospecting_batch_003_personalized_real_10.csv'),
+    path.join('docs', 'outreach', 'prospecting_batch_004_personalized_real_19.csv'),
+    path.join('docs', 'outreach', 'prospecting_combined_strict_21_personalized.csv'),
+    path.join('docs', 'outreach', 'prospecting_combined_strict_31_personalized.csv'),
+    path.join('docs', 'outreach', 'prospecting_combined_strict_50_personalized.csv'),
+    path.join('docs', 'outreach', 'exec_coaches_batch_may2026_personalized.csv'),
+  ]
+
+  for (const file of extraPersonFiles) {
+    try {
+      const updated = await updateGenericPersonFile(file)
+      results[file] = updated
+    } catch (err) {
+      // Keep generation resilient if an optional file is missing.
+    }
+  }
+
   console.log('Council refinements complete:')
   console.log(`coaches_prospecting_100 updated rows: ${results.coaches100}`)
   console.log(`coaches_prospecting_curated_top25 updated rows: ${results.coaches25}`)
@@ -530,6 +657,11 @@ async function main() {
   console.log(`executive send-ready templates: ${results.executiveSendReadyFile}`)
   console.log(`executive follow-up ladder rows: ${results.executiveFollowupRows}`)
   console.log(`executive follow-up ladder file: ${results.executiveFollowupFile}`)
+  for (const [k, v] of Object.entries(results)) {
+    if (k.startsWith(path.join('docs', 'outreach'))) {
+      console.log(`${k} updated rows: ${v}`)
+    }
+  }
 }
 
 main().catch(err => {
