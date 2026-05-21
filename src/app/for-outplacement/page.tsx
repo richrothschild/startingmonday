@@ -246,6 +246,8 @@ const OBJECTIONS = [
     objection: 'Data privacy is too risky for transition programs.',
     response:
       'Client access is permission-based, logged, and revocable. This preserves trust while giving counselors enough visibility to identify stalls early.',
+    linkHref: '/for-outplacement/security-overview',
+    linkText: 'Read our public security overview',
   },
 ]
 
@@ -585,6 +587,13 @@ export default function ForOutplacementPage() {
                   <div key={o.objection} className="border-l-2 border-orange-500 bg-orange-50/40 rounded-r-lg p-4">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{o.objection}</p>
                     <p className="text-[13px] text-slate-700 leading-relaxed">{o.response}</p>
+                    {o.linkHref && o.linkText ? (
+                      <p className="mt-2 text-[12px]">
+                        <Link href={o.linkHref} className="text-slate-700 underline underline-offset-2 hover:text-slate-900 transition-colors">
+                          {o.linkText}
+                        </Link>
+                      </p>
+                    ) : null}
                   </div>
                 ))}
               </div>
