@@ -319,6 +319,11 @@ Do not copy/paste the job description. Translate it into interview strategy.` : 
 
 Write the brief with these exact sections, using ## for each header:
 
+EXECUTION STYLE INSTRUCTION
+- Keep every answer manager-practical: name decision owner, operating cadence, and measurable follow-up.
+- Lead with the recommendation first, then supporting context.
+- Use operating language, not abstractions: who does what by when, and what metric proves it worked.
+
 ## Bottom Line
 Three sentences only. No preamble, no company context, no hedging. The first states the candidate's single decisive advantage for this role: what specifically makes them the hire over everyone else being considered. The second names the most dangerous objection they will face: the one that, if not addressed, loses them the offer. The third states the single thing they must do or say in this conversation to close it. If they read nothing else, these three sentences are everything they need to walk in. Commit fully.
 
@@ -373,6 +378,37 @@ For the top 4 likely questions, provide a rehearsal rubric:
 **Signal bar (1-5):** [what confidence/ownership signal interviewers need]
 **Common failure mode:** [where senior interviewers lose interest]
 **Upgrade move:** [one concrete edit to improve answer quality]
+
+## Board Challenge Drill
+Provide exactly 6 hard boardroom-style challenges and response frames using this exact set:
+1) Risk exposure
+2) Missed quarter
+3) Transformation ROI
+4) Security incident response
+5) Leadership bench
+6) Capital allocation
+For each use this structure:
+**Challenge:** [the question stated as a direct board challenge]
+**What they are testing:** [one sentence]
+**Strong response frame:** [recommendation first, then evidence, then execution signal]
+**Execution proof line:** [one line naming owner, cadence, and metric]
+
+## 2-Sentence Pivot Bank
+Provide 8 short interruption-ready pivots for hostile reframes or abrupt interviewer redirects.
+Each pivot must be exactly two sentences:
+- Sentence 1 acknowledges or reframes the interruption.
+- Sentence 2 lands one decision, one metric, and one next action.
+Format each as:
+**Interruption scenario:** [what they cut in with]
+**Pivot:** [sentence 1] [sentence 2]
+
+## Crisis-to-Credible Framework
+Give a reusable answer scaffold for high-pressure recovery questions. Use this exact sequence:
+**What happened:** [crisis facts and scope]
+**What you changed:** [specific operating changes made]
+**How you measured recovery:** [metrics, baselines, and recovery threshold]
+**What governance you put in place:** [owner, review cadence, escalation path]
+Then add one 6-8 sentence sample answer using this sequence in plain executive language.
 
 ## Talking Points
 5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
