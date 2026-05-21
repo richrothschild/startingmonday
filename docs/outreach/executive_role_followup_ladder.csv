@@ -1,0 +1,239 @@
+role_bucket,step,send_delay_days,subject,email_text,status
+CFO,followup_1,3,Bad idea to send a 1-page CFO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CFO transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For CFO candidates, that is where faster translation of finance credibility into board-readable transition narratives usually shows up.
+
+If useful, I can send a one-page sample built around your CFO context.
+
+Rich
+startingmonday.app",ready
+CFO,followup_2,7,Bad idea to send a 1-page senior CFO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on CFO transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For CFO leaders, that is where 3 outcomes: cleaner board framing, stronger change language, and faster first replies usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+CFO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CFO leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about CFO transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+CTO,followup_1,3,Bad idea to send a 1-page CTO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CTO transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For CTO candidates, that is where clearer architecture-to-business messaging before first stakeholder interviews usually shows up.
+
+If useful, I can send a one-page sample built around your CTO context.
+
+Rich
+startingmonday.app",ready
+CTO,followup_2,7,Bad idea to send a 1-page senior CTO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on CTO transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For CTO leaders, that is where 3 outcomes: sharper architecture framing, clearer business value, and stronger stakeholder alignment usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+CTO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CTO leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about CTO transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+COO,followup_1,3,Bad idea to send a 1-page COO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about COO transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For COO candidates, that is where stronger execution-cadence proof in early outreach and screening calls usually shows up.
+
+If useful, I can send a one-page sample built around your COO context.
+
+Rich
+startingmonday.app",ready
+COO,followup_2,7,Bad idea to send a 1-page senior COO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on COO transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For COO leaders, that is where 3 outcomes: tighter execution story, better sequencing, and faster screening progression usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+COO,followup_3,12,Bad idea to send a 1-page transition conversation flow for COO leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about COO transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+CDO,followup_1,3,Bad idea to send a 1-page CDO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CDO transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For CDO candidates, that is where cleaner role-specific positioning supported by measurable execution evidence usually shows up.
+
+If useful, I can send a one-page sample built around your CDO context.
+
+Rich
+startingmonday.app",ready
+CDO,followup_2,7,Bad idea to send a 1-page senior CDO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on CDO transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For CDO leaders, that is where 3 outcomes: cleaner positioning, stronger proof, and faster decision-making usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+CDO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CDO leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about CDO transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+CISO,followup_1,3,Bad idea to send a 1-page CISO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CISO transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For CISO candidates, that is where higher-confidence risk and resilience framing for non-technical decision-makers usually shows up.
+
+If useful, I can send a one-page sample built around your CISO context.
+
+Rich
+startingmonday.app",ready
+CISO,followup_2,7,Bad idea to send a 1-page senior CISO transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on CISO transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For CISO leaders, that is where 3 outcomes: clearer risk framing, better non-technical readability, and stronger trust signals usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+CISO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CISO leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about CISO transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+VP,followup_1,3,Bad idea to send a 1-page VP transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about VP transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For VP candidates, that is where clearer next-scope readiness proof supported by concrete execution examples usually shows up.
+
+If useful, I can send a one-page sample built around your VP context.
+
+Rich
+startingmonday.app",ready
+VP,followup_2,7,Bad idea to send a 1-page senior VP transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on VP transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For VP leaders, that is where 3 outcomes: clearer scope signal, stronger example quality, and faster next-step clarity usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+VP,followup_3,12,Bad idea to send a 1-page transition conversation flow for VP leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about VP transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready
+VP Operations,followup_1,3,Bad idea to send a 1-page VP Operations transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I wanted to follow up on my earlier note about VP Operations transitions.
+
+The part that usually matters most is getting 3 things aligned early: the narrative, the target list, and the first outreach sequence.
+
+For VP Operations candidates, that is where stronger execution-cadence proof in early outreach and screening calls usually shows up.
+
+If useful, I can send a one-page sample built around your VP Operations context.
+
+Rich
+startingmonday.app",ready
+VP Operations,followup_2,7,Bad idea to send a 1-page senior VP Operations transition conversation flow for {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I had one more thought on VP Operations transitions.
+
+In most active searches, the 3 signal points that matter are the resume story, the prep brief, and the follow-through cadence.
+
+For VP Operations leaders, that is where 3 outcomes: tighter execution story, better sequencing, and faster screening progression usually emerge.
+
+If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits.
+
+Rich
+startingmonday.app",ready
+VP Operations,followup_3,12,Bad idea to send a 1-page transition conversation flow for VP Operations leaders at {company_name}?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I am closing the loop on my note about VP Operations transitions.
+
+If timing is not right, no problem. If it is, I can send one concise example showing how the workflow looks in practice.
+
+That example is usually the cleanest way to show the 3-part structure without overexplaining it.
+
+Rich
+startingmonday.app",ready

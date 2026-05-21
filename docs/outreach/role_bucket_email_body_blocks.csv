@@ -1,99 +1,113 @@
-role_bucket,subject_line_1,subject_line_2,email_body_core,cta_line
+role_bucket,subject_line_1,subject_line_2,email_body_core,cta_line,subject_variant_a,subject_variant_b,subject_variant_c,cta_variant_a,cta_variant_b
 CFO,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CFO transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For CFO leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: cleaner board framing, stronger change language, and faster first replies.
 
 For CFO candidates, the biggest win is faster translation of finance credibility into board-readable transition narratives.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your CFO context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your CFO context.",Bad idea to send a 1-page CFO transition conversation flow for {company_name}?,3 ways CFO leaders improve transition momentum in 30 days?,How CFO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CFO context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 CTO,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CTO transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For CTO leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: sharper architecture framing, clearer business value, and stronger stakeholder alignment.
 
 For CTO candidates, the biggest win is clearer architecture-to-business messaging before first stakeholder interviews.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your CTO context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your CTO context.",Bad idea to send a 1-page CTO transition conversation flow for {company_name}?,3 ways CTO leaders improve transition momentum in 30 days?,How CTO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CTO context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 COO,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for COO transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For COO leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: tighter execution story, better sequencing, and faster screening progression.
 
 For COO candidates, the biggest win is stronger execution-cadence proof in early outreach and screening calls.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your COO context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your COO context.",Bad idea to send a 1-page COO transition conversation flow for {company_name}?,3 ways COO leaders improve transition momentum in 30 days?,How COO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your COO context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 CDO,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CDO transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For CDO leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: cleaner positioning, stronger proof, and faster decision-making.
 
 For CDO candidates, the biggest win is cleaner role-specific positioning supported by measurable execution evidence.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your CDO context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your CDO context.",Bad idea to send a 1-page CDO transition conversation flow for {company_name}?,3 ways CDO leaders improve transition momentum in 30 days?,How CDO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CDO context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 CISO,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CISO transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For CISO leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: clearer risk framing, better non-technical readability, and stronger trust signals.
 
 For CISO candidates, the biggest win is higher-confidence risk and resilience framing for non-technical decision-makers.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your CISO context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your CISO context.",Bad idea to send a 1-page CISO transition conversation flow for {company_name}?,3 ways CISO leaders improve transition momentum in 30 days?,How CISO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CISO context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 VP,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for VP transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For VP leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: clearer scope signal, stronger example quality, and faster next-step clarity.
 
 For VP candidates, the biggest win is clearer next-scope readiness proof supported by concrete execution examples.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your VP context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your VP context.",Bad idea to send a 1-page VP transition conversation flow for {company_name}?,3 ways VP leaders improve transition momentum in 30 days?,How VP leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your VP context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
 VP Operations,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for VP Operations transitions.
 
 Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
 
-In the first 30 days, leaders typically see stronger momentum: cleaner targeting, tighter narrative discipline, and faster progression to qualified conversations.
+For VP Operations leaders at {company_name}, the first 30 days usually need 3 things to line up: the target list, the prep brief, and the outreach cadence.
+
+In the first 30 days, leaders usually see 3 outcomes: tighter execution story, better sequencing, and faster screening progression.
 
 For VP Operations candidates, the biggest win is stronger execution-cadence proof in early outreach and screening calls.
 
-If useful, I can send a one-page version customized to your current transition context.
+If useful, I can send a one-page sample built around your VP Operations context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app","If useful, I can send a one-page sample built around your VP Operations context.",Bad idea to send a 1-page VP Operations transition conversation flow for {company_name}?,3 ways VP Operations leaders improve transition momentum in 30 days?,How VP Operations leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your VP Operations context.","If useful, I can walk you through a 20-minute pilot with 3 success criteria and you can decide quickly if it fits."
