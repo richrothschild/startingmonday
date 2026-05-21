@@ -158,45 +158,53 @@ const CONSOLIDATED_ARTIFACT_INDEX = [
     owner: 'Program analytics owner',
     refreshCadence: 'Monthly or on governance change',
     contractMap: 'Pilot acceptance criteria and reporting definitions schedule',
+    clauseId: 'Schedule C-1 (proposed)',
   },
   {
     artifact: 'Operating scorecard template',
     owner: 'Program lead',
     refreshCadence: 'Quarterly',
     contractMap: 'Pilot decision gate and expansion criteria schedule',
+    clauseId: 'Schedule A-1 (proposed)',
   },
   {
     artifact: 'Trust and controls summary',
     owner: 'Partner success + security owner',
     refreshCadence: 'Quarterly or after major control updates',
     contractMap: 'Security exhibit and diligence support schedule',
+    clauseId: 'Schedule D-1 (proposed)',
   },
   {
     artifact: 'Support SLA commitments',
     owner: 'Partner success lead',
     refreshCadence: 'On contract revision',
     contractMap: 'Order Form support commitment schedule (P1/P2/P3)',
+    clauseId: 'Schedule B-2 (proposed)',
   },
 ]
 
 const SLA_ATTESTATION_MAP = [
   {
     domain: 'Support SLA',
+    clauseId: 'Schedule B-2 (proposed)',
     requirement: 'Severity-tier response commitments written in commercial schedule',
     evidence: 'Order Form schedule with P1/P2/P3 commitments and escalation contacts',
   },
   {
     domain: 'Security diligence',
+    clauseId: 'Schedule D-1 (proposed)',
     requirement: 'Evidence path for security and governance controls',
     evidence: 'Public security summary plus diligence packet under trust artifact request process',
   },
   {
     domain: 'Data handling',
+    clauseId: 'MSA Section 4.3 (proposed)',
     requirement: 'Contract-defined data scope, retention, and deletion boundaries',
     evidence: 'Legal boundary section + contractual lifecycle controls language',
   },
   {
     domain: 'Pilot governance',
+    clauseId: 'Schedule A-1 (proposed)',
     requirement: 'Explicit pass/fail and decision-gate mechanics',
     evidence: 'Scorecard definitions, runbook evidence packet, and day-30/day-60 decision notes',
   },
@@ -268,6 +276,7 @@ export default function OutplacementTrustPackPage() {
                   <th className="px-4 py-3 font-semibold">Owner</th>
                   <th className="px-4 py-3 font-semibold">Refresh cadence</th>
                   <th className="px-4 py-3 font-semibold">Contract map</th>
+                  <th className="px-4 py-3 font-semibold">Clause ID</th>
                 </tr>
               </thead>
               <tbody>
@@ -277,11 +286,15 @@ export default function OutplacementTrustPackPage() {
                     <td className="px-4 py-3 text-slate-700">{row.owner}</td>
                     <td className="px-4 py-3 text-slate-600">{row.refreshCadence}</td>
                     <td className="px-4 py-3 text-slate-600">{row.contractMap}</td>
+                    <td className="px-4 py-3 text-slate-600">{row.clauseId}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            Clause IDs are proposed placeholders and should be swapped for final legal numbering once template schedules are finalized.
+          </p>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
@@ -306,6 +319,7 @@ export default function OutplacementTrustPackPage() {
             {SLA_ATTESTATION_MAP.map((row) => (
               <div key={row.domain} className="border border-slate-200 rounded-lg p-4 bg-white">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.domain}</p>
+                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Clause ID: </span>{row.clauseId}</p>
                 <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Requirement: </span>{row.requirement}</p>
                 <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Evidence: </span>{row.evidence}</p>
               </div>

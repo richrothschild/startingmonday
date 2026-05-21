@@ -223,24 +223,39 @@ const QUOTE_PACKAGING = [
 const CONTRACT_SLA_MAP = [
   {
     clause: 'Support response commitments',
+    clauseId: 'Schedule B-2 (proposed)',
     contractualLanguage: 'Response-time commitments documented in Order Form schedule by severity tier (P1, P2, P3).',
     defaultPosition: 'P1 same business day, P2 next business day, P3 two business days.',
   },
   {
     clause: 'Pilot decision window',
+    clauseId: 'Schedule A-1 (proposed)',
     contractualLanguage: 'Pilot scope fixed to one cohort and one decision window with explicit pass/fail criteria.',
     defaultPosition: 'Day-30 decision gate with clean-no close path and optional corrective cycle terms.',
   },
   {
     clause: 'Reporting obligations',
+    clauseId: 'Schedule C-1 (proposed)',
     contractualLanguage: 'Weekly and monthly reporting outputs listed as deliverables in commercial schedule.',
     defaultPosition: 'Activation, action velocity, prep readiness, stall index, and intervention queue included.',
   },
   {
     clause: 'Security and trust artifacts',
+    clauseId: 'Schedule D-1 (proposed)',
     contractualLanguage: 'Trust artifact request process and diligence documents referenced in security exhibit.',
     defaultPosition: 'Public summary plus partner diligence packet under request workflow.',
   },
+]
+
+const REDLINE_READY_QUOTE_EXCERPT = [
+  'Order Form Excerpt (Pilot Cohort):',
+  'Scope: 1 cohort, 25 seats (15 Active, 10 Intelligence), 30-day decision window.',
+  'Term: 3 months, auto-renew disabled during pilot period.',
+  'Acceptance criteria: activation >= 70%, prep readiness >= 70%, stall detection <= 5 days median.',
+  'Support commitment: P1 same business day, P2 next business day, P3 within two business days (see Schedule B-2).',
+  'Reporting deliverables: weekly operating packet + monthly sponsor readout (see Schedule C-1).',
+  'Expansion condition: expansion terms activate only after documented day-30 pass decision signed by partner sponsor.',
+  'Clean-no path: if criteria are not met, pilot closes at term end without expansion obligation.',
 ]
 
 const RACI_ROWS = [
@@ -471,6 +486,20 @@ export default function OutplacementEconomicsPage() {
           </ul>
         </section>
 
+        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            Example redline-ready quote excerpt
+          </p>
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+            {REDLINE_READY_QUOTE_EXCERPT.map((line) => (
+              <p key={line} className="text-[12px] text-slate-700 font-mono leading-relaxed">{line}</p>
+            ))}
+          </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            This is an illustrative drafting block. Replace proposed clause IDs with final legal numbering once template schedules are finalized.
+          </p>
+        </section>
+
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             SLA and contract-clause mapping
@@ -479,11 +508,15 @@ export default function OutplacementEconomicsPage() {
             {CONTRACT_SLA_MAP.map((row) => (
               <div key={row.clause} className="border border-slate-200 rounded-lg p-4 bg-white">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.clause}</p>
+                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Clause ID: </span>{row.clauseId}</p>
                 <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Contract language: </span>{row.contractualLanguage}</p>
                 <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Default position: </span>{row.defaultPosition}</p>
               </div>
             ))}
           </div>
+          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
+            Clause IDs are proposed placeholders to speed legal mapping and should be replaced with final schedule references at template freeze.
+          </p>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
