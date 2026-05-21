@@ -20,6 +20,10 @@ const TALKING_POINTS = [
     title: 'Horstman: Cadence and Clarity',
     body: 'Clear role boundary: platform handles signal capture and cadence discipline; leadership retains judgment, governance, and strategic calls.'
   },
+  {
+    title: 'Transition Outcome: Target Company Discovery',
+    body: 'Starting Monday helps identify and prioritize best-fit target companies, not just prepare for companies already in the pipeline.'
+  },
 ]
 
 const CADENCE_STEPS = [

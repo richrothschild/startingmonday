@@ -26,18 +26,25 @@ type ArchetypeProfile = {
   linkedin: string
 }
 
+type CompanyCandidate = {
+  name: string
+  sector: string
+  whyFit: string
+  strengths: string[]
+}
+
 const ARCHETYPES: ArchetypeProfile[] = [
   {
     key: 'kenneth',
     label: 'Kenneth Kicia, P.E. (CIO, Florida DOC)',
-    defaultRole: 'Chief Information Officer',
+    defaultRole: 'Enterprise CIO (Next Role)',
     resume:
-      'Kenneth Kicia, P.E. | Chief Information Officer\n' +
-      'CIO at Florida Department of Corrections, leading technology for one of the largest state agencies in the US.\n' +
-      'Known for digital transformation, merger/integration leadership, and operational modernization across complex environments.\n' +
+      'Kenneth Kicia, P.E. | Executive Technology Leader in Transition\n' +
+      'Current CIO at Florida Department of Corrections, pursuing next enterprise CIO opportunity.\n' +
+      'Known for digital transformation, merger/integration leadership, and modernization across complex organizations.\n' +
       'Active governing and advisory roles across Gartner FL CIO/CISO community, higher education, and government technology boards.',
     linkedin:
-      'Kenneth Kicia is a public-sector CIO focused on modernization, cybersecurity-informed execution, and aligning technology delivery to mission-critical outcomes.',
+      'Kenneth Kicia is a CIO-level executive in transition, focused on modernization leadership, mission-scale execution, and board-ready technology strategy.',
   },
   {
     key: 'cio',
@@ -185,6 +192,39 @@ const ARCHETYPES: ArchetypeProfile[] = [
   },
 ]
 
+const KENNETH_COMPANY_CANDIDATES: CompanyCandidate[] = [
+  {
+    name: 'ServiceNow',
+    sector: 'Enterprise SaaS',
+    whyFit: 'Large-scale enterprise transformation and workflow modernization match Kenneth\'s operating profile.',
+    strengths: ['enterprise transformation', 'platform modernization', 'board-level communication'],
+  },
+  {
+    name: 'Salesforce',
+    sector: 'Enterprise Cloud',
+    whyFit: 'Global cloud operating model and cross-functional execution align with Kenneth\'s transformation track record.',
+    strengths: ['large-scale operations', 'change leadership', 'executive stakeholder alignment'],
+  },
+  {
+    name: 'Accenture',
+    sector: 'Technology Services',
+    whyFit: 'Complex delivery, strategic advisory motion, and enterprise modernization fit Kenneth\'s leadership style.',
+    strengths: ['digital transformation', 'multi-stakeholder delivery', 'execution cadence'],
+  },
+  {
+    name: 'Tyler Technologies',
+    sector: 'GovTech',
+    whyFit: 'Public-sector mission and technology modernization context maps directly to Kenneth\'s experience.',
+    strengths: ['public sector', 'mission-critical systems', 'governance discipline'],
+  },
+  {
+    name: 'Palantir',
+    sector: 'Data and AI Platforms',
+    whyFit: 'Mission-scale operations and high-consequence decision environments align with Kenneth\'s profile.',
+    strengths: ['data strategy', 'mission environments', 'executive decision support'],
+  },
+]
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -255,18 +295,20 @@ async function streamEndpoint(
 }
 
 export function CioPresentationClient() {
-  const [companyBriefCompany, setCompanyBriefCompany] = useState('Florida Department of Corrections')
-  const [companyBriefRole, setCompanyBriefRole] = useState('Chief Information Officer')
+  const [companyBriefCompany, setCompanyBriefCompany] = useState('ServiceNow')
+  const [companyBriefRole, setCompanyBriefRole] = useState('Enterprise CIO (Next Role)')
   const [companyBrief, setCompanyBrief] = useState('')
   const [companyBriefLoading, setCompanyBriefLoading] = useState(false)
   const [companyBriefError, setCompanyBriefError] = useState('')
 
   const [archetype, setArchetype] = useState<ArchetypeKey>('kenneth')
-  const [tailoredCompany, setTailoredCompany] = useState('Florida Department of Corrections')
-  const [tailoredRole, setTailoredRole] = useState('Chief Information Officer')
+  const [tailoredCompany, setTailoredCompany] = useState('ServiceNow')
+  const [tailoredRole, setTailoredRole] = useState('Enterprise CIO (Next Role)')
   const [tailoredBrief, setTailoredBrief] = useState('')
   const [tailoredLoading, setTailoredLoading] = useState(false)
   const [tailoredError, setTailoredError] = useState('')
+  const [fitKeywords, setFitKeywords] = useState('public sector transformation, enterprise modernization, mission-critical systems, board-level influence')
+  const [fitResults, setFitResults] = useState<Array<CompanyCandidate & { score: number }>>([])
 
   const companyBriefRef = useRef<HTMLDivElement>(null)
   const tailoredBriefRef = useRef<HTMLDivElement>(null)
@@ -334,6 +376,26 @@ export function CioPresentationClient() {
     }
   }
 
+  function findCompanyFit(e: React.FormEvent) {
+    e.preventDefault()
+    const keywords = fitKeywords
+      .toLowerCase()
+      .split(',')
+      .map((k) => k.trim())
+      .filter(Boolean)
+
+    const scored = KENNETH_COMPANY_CANDIDATES.map((company) => {
+      const text = `${company.sector} ${company.whyFit} ${company.strengths.join(' ')}`.toLowerCase()
+      const hits = keywords.filter((k) => text.includes(k)).length
+      return {
+        ...company,
+        score: Math.round(((hits + 1) / (keywords.length + 1)) * 100),
+      }
+    }).sort((a, b) => b.score - a.score)
+
+    setFitResults(scored.slice(0, 4))
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-slate-950 border-b border-slate-900 sticky top-0 z-20">
@@ -350,28 +412,73 @@ export function CioPresentationClient() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Kenneth-specific presentation mode</p>
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Kenneth transition presentation mode</p>
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-[1.1] mb-4">
-            Live brief walkthrough tailored to Kenneth Kicia
+            Executive-in-transition walkthrough tailored to Kenneth
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed mb-5 max-w-3xl">
-            Start with Florida DOC CIO context, then run a tailored brief using Kenneth's profile. Flip to the talking points page for targeted objections and negotiation scripts.
+            Start with Kenneth's target-company context, then run a tailored brief showing how Starting Monday supports executives in transition from search strategy through interview prep and outreach execution.
           </p>
           <div className="flex flex-wrap gap-2">
             <Link href="/demo/cio" className="text-[12px] px-3 py-1.5 rounded border bg-slate-900 text-white border-slate-900">Presentation page</Link>
             <Link href="/demo/cio/notes" className="text-[12px] px-3 py-1.5 rounded border bg-white text-slate-700 border-slate-300 hover:bg-slate-100 transition-colors">Talking points page</Link>
           </div>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Current seat: CIO, Florida Department of Corrections</div>
-            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Strengths: transformation, large-scale operations, board-level influence</div>
-            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Credibility signals: public-sector leadership, advisory roles, certifications</div>
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Transition lens: from current CIO seat to next enterprise CIO role</div>
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Search outcome: stronger target narrative, faster prep, higher-quality outreach</div>
+            <div className="border border-slate-200 rounded-lg p-3 bg-slate-50 text-[12px] text-slate-700">Credibility signals: transformation wins, governance leadership, advisory footprint</div>
           </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Target discovery</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Find best-fit companies for Kenneth</h2>
+          <p className="text-[14px] text-slate-600 mb-5">
+            Show that Starting Monday is not only prep and outreach. It also helps identify high-fit target companies for executives in transition.
+          </p>
+
+          <form onSubmit={findCompanyFit} className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col gap-4">
+            <div>
+              <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Fit keywords (comma-separated)</label>
+              <input
+                value={fitKeywords}
+                onChange={(e) => setFitKeywords(e.target.value)}
+                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
+                placeholder="public sector transformation, enterprise modernization"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors self-start"
+            >
+              Find company matches
+            </button>
+          </form>
+
+          {fitResults.length > 0 && (
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {fitResults.map((company) => (
+                <div key={company.name} className="border border-slate-200 rounded-xl p-4 bg-white">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <p className="text-[16px] font-semibold text-slate-900 leading-tight">{company.name}</p>
+                      <p className="text-[12px] text-slate-500">{company.sector}</p>
+                    </div>
+                    <span className="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Fit score {company.score}</span>
+                  </div>
+                  <p className="text-[13px] text-slate-700 leading-relaxed mb-2">{company.whyFit}</p>
+                  <p className="text-[12px] text-slate-500">Signals: {company.strengths.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Brief demo</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Generate the company brief on the fly</h2>
-          <p className="text-[14px] text-slate-600 mb-5">Start with his current environment, then pivot to any target company/role he names.</p>
+          <p className="text-[14px] text-slate-600 mb-5">Use this as a transition scenario: choose Kenneth's target company and target role, then show the brief quality before high-stakes interviews.</p>
 
           <form onSubmit={generateCompanyBrief} className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col gap-4">
             <div>
@@ -380,7 +487,7 @@ export function CioPresentationClient() {
                 value={companyBriefCompany}
                 onChange={(e) => setCompanyBriefCompany(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="Florida Department of Corrections"
+                placeholder="ServiceNow"
                 required
               />
             </div>
@@ -390,7 +497,7 @@ export function CioPresentationClient() {
                 value={companyBriefRole}
                 onChange={(e) => setCompanyBriefRole(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="Chief Information Officer"
+                placeholder="Enterprise CIO (Next Role)"
                 required
               />
             </div>
@@ -413,9 +520,9 @@ export function CioPresentationClient() {
 
         <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Tailored brief demo</p>
-          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Kenneth profile at the named company and role</h2>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Kenneth transition brief at the named company and role</h2>
           <p className="text-[14px] text-slate-600 mb-5">
-            Generate a tailored brief from Kenneth's profile context and leadership history.
+            Generate a tailored executive-in-transition brief from Kenneth's profile, showing how his past outcomes map to target-company priorities.
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
@@ -454,7 +561,7 @@ export function CioPresentationClient() {
                 value={tailoredCompany}
                 onChange={(e) => setTailoredCompany(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="Florida Department of Corrections"
+                placeholder="ServiceNow"
                 required
               />
             </div>
@@ -464,7 +571,7 @@ export function CioPresentationClient() {
                 value={tailoredRole}
                 onChange={(e) => setTailoredRole(e.target.value)}
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900"
-                placeholder="Chief Information Officer"
+                placeholder="Enterprise CIO (Next Role)"
                 required
               />
             </div>
