@@ -33,6 +33,11 @@ type CompanyCandidate = {
   strengths: string[]
 }
 
+type SavedTarget = CompanyCandidate & {
+  score: number
+  stage: 'Target Identified' | 'Researching' | 'Outreach Ready'
+}
+
 const ARCHETYPES: ArchetypeProfile[] = [
   {
     key: 'kenneth',
@@ -309,6 +314,7 @@ export function CioPresentationClient() {
   const [tailoredError, setTailoredError] = useState('')
   const [fitKeywords, setFitKeywords] = useState('public sector transformation, enterprise modernization, mission-critical systems, board-level influence')
   const [fitResults, setFitResults] = useState<Array<CompanyCandidate & { score: number }>>([])
+  const [targetList, setTargetList] = useState<SavedTarget[]>([])
 
   const companyBriefRef = useRef<HTMLDivElement>(null)
   const tailoredBriefRef = useRef<HTMLDivElement>(null)
@@ -396,6 +402,23 @@ export function CioPresentationClient() {
     setFitResults(scored.slice(0, 4))
   }
 
+  function saveToTargetList(company: CompanyCandidate & { score: number }) {
+    setTargetList((prev) => {
+      const exists = prev.some((item) => item.name === company.name)
+      if (exists) return prev
+
+      const stage: SavedTarget['stage'] =
+        company.score >= 85 ? 'Outreach Ready' : company.score >= 70 ? 'Researching' : 'Target Identified'
+
+      return [...prev, { ...company, stage }]
+    })
+  }
+
+  function useInBrief(companyName: string) {
+    setCompanyBriefCompany(companyName)
+    setTailoredCompany(companyName)
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-slate-950 border-b border-slate-900 sticky top-0 z-20">
@@ -469,6 +492,53 @@ export function CioPresentationClient() {
                   </div>
                   <p className="text-[13px] text-slate-700 leading-relaxed mb-2">{company.whyFit}</p>
                   <p className="text-[12px] text-slate-500">Signals: {company.strengths.join(', ')}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => saveToTargetList(company)}
+                      disabled={targetList.some((item) => item.name === company.name)}
+                      className="text-[12px] px-3 py-1.5 rounded border border-slate-300 bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {targetList.some((item) => item.name === company.name) ? 'Saved' : 'Save to Target List'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => useInBrief(company.name)}
+                      className="text-[12px] px-3 py-1.5 rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 transition-colors"
+                    >
+                      Use in live brief
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Demo pipeline view</p>
+          <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-2">Kenneth target list</h2>
+          <p className="text-[14px] text-slate-600 mb-5">
+            This shows the handoff from fit discovery into pipeline targets. Saved companies are ready for briefing and outreach planning.
+          </p>
+
+          {targetList.length === 0 ? (
+            <div className="border border-dashed border-slate-300 rounded-xl p-4 text-[13px] text-slate-500 bg-slate-50">
+              No saved targets yet. Use Save to Target List on any company match above.
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {targetList.map((company) => (
+                <div key={company.name} className="border border-slate-200 rounded-xl p-4 bg-white flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[15px] font-semibold text-slate-900">{company.name}</p>
+                    <p className="text-[12px] text-slate-500 mb-1">{company.sector}</p>
+                    <p className="text-[13px] text-slate-700 leading-relaxed">{company.whyFit}</p>
+                  </div>
+                  <div className="shrink-0 flex flex-col items-end gap-2">
+                    <span className="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Fit {company.score}</span>
+                    <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-1 rounded">{company.stage}</span>
+                  </div>
                 </div>
               ))}
             </div>
