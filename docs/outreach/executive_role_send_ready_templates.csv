@@ -1,5 +1,5 @@
-role_bucket,subject_line_1,subject_line_2,email_body_core,cta_line
-CFO,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,"Hi {first_name},
+role_bucket,default_subject,default_body,status
+CFO,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CFO transitions.
 
@@ -12,8 +12,8 @@ For CFO candidates, the biggest win is faster translation of finance credibility
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-CTO,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,"Hi {first_name},
+startingmonday.app",ready
+CTO,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CTO transitions.
 
@@ -26,8 +26,8 @@ For CTO candidates, the biggest win is clearer architecture-to-business messagin
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-COO,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,"Hi {first_name},
+startingmonday.app",ready
+COO,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for COO transitions.
 
@@ -40,8 +40,8 @@ For COO candidates, the biggest win is stronger execution-cadence proof in early
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-CDO,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,"Hi {first_name},
+startingmonday.app",ready
+CDO,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CDO transitions.
 
@@ -54,8 +54,8 @@ For CDO candidates, the biggest win is cleaner role-specific positioning support
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-CISO,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,"Hi {first_name},
+startingmonday.app",ready
+CISO,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for CISO transitions.
 
@@ -68,8 +68,8 @@ For CISO candidates, the biggest win is higher-confidence risk and resilience fr
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-VP,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,"Hi {first_name},
+startingmonday.app",ready
+VP,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for VP transitions.
 
@@ -82,8 +82,8 @@ For VP candidates, the biggest win is clearer next-scope readiness proof support
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
-VP Operations,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,"Hi {first_name},
+startingmonday.app",ready
+VP Operations,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,"Hi {first_name},
 
 I have been following your work at {company_name}, and I thought this might be useful for VP Operations transitions.
 
@@ -96,4 +96,4 @@ For VP Operations candidates, the biggest win is stronger execution-cadence proo
 If useful, I can send a one-page version customized to your current transition context.
 
 Rich
-startingmonday.app","If useful, I can send a one-page version customized to your current transition context."
+startingmonday.app",ready
