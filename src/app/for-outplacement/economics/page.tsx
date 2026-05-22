@@ -331,6 +331,15 @@ export default function OutplacementEconomicsPage() {
           </div>
         </section>
 
+        <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden mb-10">
+          <summary className="list-none cursor-pointer px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+              <p className="text-[16px] font-semibold text-slate-900">Expand partner models, scorecards, and commercial examples</p>
+            </div>
+            <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <div className="px-6 py-6 border-t border-slate-100 space-y-10">
         <section id="partner-models" className="mb-10">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
             Partner models
@@ -463,6 +472,8 @@ export default function OutplacementEconomicsPage() {
             Illustrative calculations use published plan prices before partner discounts, term incentives, and negotiated service scope.
           </p>
         </section>
+          </div>
+        </details>
 
         <section id="next-step" className="border border-slate-200 rounded-2xl p-6 bg-white">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">

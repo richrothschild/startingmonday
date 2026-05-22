@@ -90,7 +90,7 @@ route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveL
 /dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,100,A+,true,279,147,147,0,2,11,11,3,0,0,0,1,0,0,false,true,false,No major static UX risks detected
 /dashboard/strategy,src/app/(dashboard)/dashboard/strategy/page.tsx,dashboard,88,B+,false,32,32,32,0,0,0,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
 /dashboard/wrap-up,src/app/(dashboard)/dashboard/wrap-up/page.tsx,dashboard,100,A+,true,95,71,71,0,1,4,4,4,1,1,0,0,0,0,false,false,false,No major static UX risks detected
-/demo,src/app/demo/page.tsx,marketing,82,B-,false,445,422,445,4,7,19,19,5,3,3,1,27,0,0,true,true,true,Moderate scroll burden | CTA overload
+/demo,src/app/demo/page.tsx,marketing,90,A-,true,445,422,445,4,7,19,19,5,3,3,1,1,0,0,true,true,true,Moderate scroll burden
 /demo/cio,src/app/demo/cio/page.tsx,marketing,92,A-,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
 /demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,92,A-,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
 /demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,86,B,false,314,291,314,0,3,11,11,5,1,2,0,4,0,0,false,true,true,Insufficient content chunking | Missing trust/confidentiality cues
@@ -102,7 +102,7 @@ route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveL
 /for-cio,src/app/for-cio/page.tsx,marketing,100,A+,true,148,39,148,1,2,0,0,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
 /for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,100,A+,true,217,179,217,5,6,17,17,6,0,0,1,2,0,0,true,true,true,No major static UX risks detected
 /for-ciso,src/app/for-ciso/page.tsx,marketing,92,A-,true,147,38,147,1,2,0,0,5,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/for-coaches,src/app/for-coaches/page.tsx,marketing,82,B-,false,698,510,698,14,10,99,99,27,0,0,8,1,0,0,true,true,true,High scroll burden
+/for-coaches,src/app/for-coaches/page.tsx,marketing,90,A-,true,555,521,457,14,10,101,67,27,0,0,8,1,1,1,true,true,true,Moderate scroll burden
 /for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,100,A+,true,201,138,201,7,9,20,20,4,0,0,1,2,0,0,true,true,true,No major static UX risks detected
 /for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,190,343,4,6,17,17,10,0,0,0,2,0,0,true,true,true,No major static UX risks detected
 /for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,100,A+,true,93,67,93,5,7,5,5,6,0,0,2,1,0,0,true,true,true,No major static UX risks detected
@@ -112,8 +112,8 @@ route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveL
 /for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,86,B,false,245,202,245,7,8,17,17,9,0,0,1,3,1,0,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
 /for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,86,B,false,241,198,241,7,8,17,17,9,0,0,1,4,1,0,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
 /for-media-partners,src/app/for-media-partners/page.tsx,marketing,86,B,false,243,195,243,6,7,20,20,6,0,0,1,1,0,0,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
-/for-outplacement,src/app/for-outplacement/page.tsx,marketing,82,B-,false,587,333,587,12,13,47,47,15,0,0,3,1,0,0,true,true,true,High scroll burden
-/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,82,B-,false,517,232,517,10,10,24,24,15,0,0,1,5,0,0,true,true,true,High scroll burden
+/for-outplacement,src/app/for-outplacement/page.tsx,marketing,90,A-,true,598,344,463,12,13,49,20,15,0,0,3,1,1,1,true,true,true,Moderate scroll burden
+/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,90,A-,true,528,243,435,10,10,26,13,15,0,0,1,5,1,1,true,true,true,Moderate scroll burden
 /for-outplacement/executive-summary,src/app/for-outplacement/executive-summary/page.tsx,marketing,100,A+,true,138,95,138,6,1,13,13,5,0,0,3,3,0,0,true,true,true,No major static UX risks detected
 /for-outplacement/faq,src/app/for-outplacement/faq/page.tsx,marketing,100,A+,true,238,114,238,3,4,9,9,9,0,0,0,6,0,0,true,true,true,No major static UX risks detected
 /for-outplacement/metric-dictionary,src/app/for-outplacement/metric-dictionary/page.tsx,marketing,100,A+,true,132,77,132,3,1,5,5,5,0,0,0,2,0,0,true,true,true,No major static UX risks detected
@@ -139,12 +139,12 @@ route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveL
 /onboarding,src/app/onboarding/page.tsx,marketing,92,A-,true,31,13,31,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
 /optimize,src/app/optimize/page.tsx,marketing,90,A-,true,395,371,395,6,8,15,15,11,3,3,2,2,0,0,true,true,true,Moderate scroll burden
 /partners,src/app/partners/page.tsx,marketing,100,A+,true,279,204,279,5,9,14,14,14,0,0,3,1,0,0,true,true,true,No major static UX risks detected
-/pilot-findings,src/app/pilot-findings/page.tsx,marketing,82,B-,false,126,93,126,3,6,8,8,5,0,0,2,0,0,0,true,true,true,No explicit CTA language
+/pilot-findings,src/app/pilot-findings/page.tsx,marketing,100,A+,true,126,93,126,3,6,8,8,5,0,0,2,2,0,0,true,true,true,No major static UX risks detected
 /pricing,src/app/pricing/page.tsx,marketing,92,A-,true,238,222,238,6,1,27,27,9,0,0,0,1,0,0,true,true,true,Weak heading hierarchy
 /privacy,src/app/privacy/page.tsx,legal,100,A+,true,142,133,142,1,8,12,12,3,0,0,3,3,0,0,true,false,false,No major static UX risks detected
 /references,src/app/references/page.tsx,marketing,92,A-,true,251,159,251,6,2,17,17,7,0,0,1,1,0,0,true,true,true,Weak heading hierarchy
 /research-brief,src/app/research-brief/page.tsx,marketing,100,A+,true,94,69,94,4,6,10,10,7,0,0,1,1,0,0,true,true,true,No major static UX risks detected
-/sales-marketing-plan,src/app/sales-marketing-plan/page.tsx,marketing,82,B-,false,569,278,538,7,6,33,22,7,0,0,4,10,2,2,true,true,true,High scroll burden
+/sales-marketing-plan,src/app/sales-marketing-plan/page.tsx,marketing,90,A-,true,581,290,446,7,6,35,3,7,0,0,4,10,3,3,true,true,true,Moderate scroll burden
 /search-firms,src/app/search-firms/page.tsx,marketing,94,A,true,234,160,234,6,10,8,8,7,0,0,3,1,0,0,false,true,true,Missing trust/confidentiality cues
 /search-firms/sample-cfo-brief,src/app/search-firms/sample-cfo-brief/page.tsx,marketing,100,A+,true,143,105,143,2,6,8,8,7,0,0,3,1,0,0,true,true,true,No major static UX risks detected
 /security,src/app/security/page.tsx,legal,100,A+,true,205,197,205,10,11,17,17,8,0,0,4,4,0,0,true,true,true,No major static UX risks detected

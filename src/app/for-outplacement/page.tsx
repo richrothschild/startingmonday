@@ -317,6 +317,15 @@ export default function ForOutplacementPage() {
           <div className="max-w-2xl mx-auto space-y-14">
 
             {/* What it is */}
+            <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+              <summary className="list-none cursor-pointer px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+                  <p className="text-[16px] font-semibold text-slate-900">Expand full partner rationale, evidence, objections, and program model</p>
+                </div>
+                <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 border-t border-slate-100 space-y-8">
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
@@ -514,6 +523,8 @@ export default function ForOutplacementPage() {
                 </Link>
               </div>
             </section>
+              </div>
+            </details>
 
             {/* Apply CTA */}
             <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">

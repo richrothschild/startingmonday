@@ -59,7 +59,7 @@ export default function PilotFindingsPage() {
       cta={{
         headline: 'See how the pilot translates into the product.',
         body: 'Better signals, better prep, and better between-session follow-through for senior executives and the coaches who support them.',
-        label: 'Open the evidence room →',
+        label: 'Get started in the evidence room →',
         href: '/evidence-room',
         note: 'Public evidence and methods are linked from the references page.',
       }}
@@ -116,7 +116,7 @@ export default function PilotFindingsPage() {
             Review methods, references, and linked evidence so your team can separate observed signal from interpretation.
           </p>
           <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-            Open evidence room
+            Get started in evidence room
           </Link>
         </section>
       </div>

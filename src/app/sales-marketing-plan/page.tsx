@@ -397,6 +397,17 @@ export default async function SalesMarketingPlanPage() {
           </div>
         </section>
 
+        <details className="group border-t border-slate-100 bg-white">
+          <summary className="list-none cursor-pointer px-4 sm:px-6 py-5 hover:bg-slate-50 transition-colors">
+            <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+                <p className="text-[16px] font-semibold text-slate-900">Expand execution priorities, workflows, message bank, and editorial kits</p>
+              </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </div>
+          </summary>
+
         <section className="px-4 sm:px-6 py-10 border-b border-slate-100 bg-slate-50">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
             {PRIORITIES.map(priority => (
@@ -562,6 +573,7 @@ export default async function SalesMarketingPlanPage() {
             </div>
           </div>
         </section>
+        </details>
       </main>
     </div>
   )

@@ -19,10 +19,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 139
-- Flagged pages (below excellent): 18
+- Excellent pages (A- or better): 145
+- Flagged pages (below excellent): 12
 - High-risk pages (score < 80): 0
-- Site excellence rate: 88.5%
+- Site excellence rate: 92.4%
 
 ## Results by Page Category
 
@@ -32,7 +32,7 @@ Excellence threshold: score >= 90 (A- or better).
 | blog | 30 | 92.5 | 30 | 0 |
 | dashboard | 57 | 97.2 | 51 | 6 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 93.8 | 51 | 12 |
+| marketing | 63 | 94.7 | 57 | 6 |
 
 ## Most Common Non-Excellent Patterns
 
@@ -41,12 +41,10 @@ Excellence threshold: score >= 90 (A- or better).
 | Missing H1 | 36 |
 | Missing outcome metrics | 21 |
 | Low action density for workflow page | 15 |
+| Moderate scroll burden | 9 |
 | Missing trust/confidentiality cues | 8 |
 | Weak heading hierarchy | 5 |
-| Moderate scroll burden | 5 |
-| High scroll burden | 4 |
 | Insufficient content chunking | 3 |
-| CTA overload | 1 |
 
 ## High-Risk Pages (Score < 80)
 
@@ -147,7 +145,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/start | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/start/page.tsx | No major static UX risks detected |
 | /dashboard/strategy | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/strategy/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/wrap-up | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/wrap-up/page.tsx | No major static UX risks detected |
-| /demo | 82 | B- | No | marketing | src/app/demo/page.tsx | Moderate scroll burden; CTA overload |
+| /demo | 90 | A- | Yes | marketing | src/app/demo/page.tsx | Moderate scroll burden |
 | /demo/cio | 92 | A- | Yes | marketing | src/app/demo/cio/page.tsx | Missing outcome metrics |
 | /demo/cio/notes | 92 | A- | Yes | marketing | src/app/demo/cio/notes/page.tsx | Missing outcome metrics |
 | /demo/manager-tools | 86 | B | No | marketing | src/app/demo/manager-tools/page.tsx | Insufficient content chunking; Missing trust/confidentiality cues |
@@ -159,7 +157,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-cio | 100 | A+ | Yes | marketing | src/app/for-cio/page.tsx | No major static UX risks detected |
 | /for-cio-associations | 100 | A+ | Yes | marketing | src/app/for-cio-associations/page.tsx | No major static UX risks detected |
 | /for-ciso | 92 | A- | Yes | marketing | src/app/for-ciso/page.tsx | Missing outcome metrics |
-| /for-coaches | 82 | B- | No | marketing | src/app/for-coaches/page.tsx | High scroll burden |
+| /for-coaches | 90 | A- | Yes | marketing | src/app/for-coaches/page.tsx | Moderate scroll burden |
 | /for-coaches/economics | 100 | A+ | Yes | marketing | src/app/for-coaches/economics/page.tsx | No major static UX risks detected |
 | /for-coaches/faq | 100 | A+ | Yes | marketing | src/app/for-coaches/faq/page.tsx | No major static UX risks detected |
 | /for-coaches/trust-pack | 100 | A+ | Yes | marketing | src/app/for-coaches/trust-pack/page.tsx | No major static UX risks detected |
@@ -169,8 +167,8 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-financial-advisors | 86 | B | No | marketing | src/app/for-financial-advisors/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
 | /for-fractional-executives | 86 | B | No | marketing | src/app/for-fractional-executives/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
 | /for-media-partners | 86 | B | No | marketing | src/app/for-media-partners/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
-| /for-outplacement | 82 | B- | No | marketing | src/app/for-outplacement/page.tsx | High scroll burden |
-| /for-outplacement/economics | 82 | B- | No | marketing | src/app/for-outplacement/economics/page.tsx | High scroll burden |
+| /for-outplacement | 90 | A- | Yes | marketing | src/app/for-outplacement/page.tsx | Moderate scroll burden |
+| /for-outplacement/economics | 90 | A- | Yes | marketing | src/app/for-outplacement/economics/page.tsx | Moderate scroll burden |
 | /for-outplacement/executive-summary | 100 | A+ | Yes | marketing | src/app/for-outplacement/executive-summary/page.tsx | No major static UX risks detected |
 | /for-outplacement/faq | 100 | A+ | Yes | marketing | src/app/for-outplacement/faq/page.tsx | No major static UX risks detected |
 | /for-outplacement/metric-dictionary | 100 | A+ | Yes | marketing | src/app/for-outplacement/metric-dictionary/page.tsx | No major static UX risks detected |
@@ -196,12 +194,12 @@ Excellence threshold: score >= 90 (A- or better).
 | /onboarding | 92 | A- | Yes | marketing | src/app/onboarding/page.tsx | Missing outcome metrics |
 | /optimize | 90 | A- | Yes | marketing | src/app/optimize/page.tsx | Moderate scroll burden |
 | /partners | 100 | A+ | Yes | marketing | src/app/partners/page.tsx | No major static UX risks detected |
-| /pilot-findings | 82 | B- | No | marketing | src/app/pilot-findings/page.tsx | No explicit CTA language |
+| /pilot-findings | 100 | A+ | Yes | marketing | src/app/pilot-findings/page.tsx | No major static UX risks detected |
 | /pricing | 92 | A- | Yes | marketing | src/app/pricing/page.tsx | Weak heading hierarchy |
 | /privacy | 100 | A+ | Yes | legal | src/app/privacy/page.tsx | No major static UX risks detected |
 | /references | 92 | A- | Yes | marketing | src/app/references/page.tsx | Weak heading hierarchy |
 | /research-brief | 100 | A+ | Yes | marketing | src/app/research-brief/page.tsx | No major static UX risks detected |
-| /sales-marketing-plan | 82 | B- | No | marketing | src/app/sales-marketing-plan/page.tsx | High scroll burden |
+| /sales-marketing-plan | 90 | A- | Yes | marketing | src/app/sales-marketing-plan/page.tsx | Moderate scroll burden |
 | /search-firms | 94 | A | Yes | marketing | src/app/search-firms/page.tsx | Missing trust/confidentiality cues |
 | /search-firms/sample-cfo-brief | 100 | A+ | Yes | marketing | src/app/search-firms/sample-cfo-brief/page.tsx | No major static UX risks detected |
 | /security | 100 | A+ | Yes | legal | src/app/security/page.tsx | No major static UX risks detected |
