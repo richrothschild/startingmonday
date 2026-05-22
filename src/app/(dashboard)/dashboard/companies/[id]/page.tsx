@@ -1,102 +1,27 @@
 ﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument, addInterviewLog, deleteInterviewLog } from './actions'
-import { DraftPanel } from '@/components/DraftPanel'
+import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
 import { LogSignalForm } from '@/components/LogSignalForm'
 import { ScanPoller } from '@/components/ScanPoller'
-
-function getNextScanDate(): string {
-  const now = new Date()
-  const scanDays = [1, 3, 5] // Mon=1, Wed=3, Fri=5 UTC
-  for (let d = 0; d <= 7; d++) {
-    const candidate = new Date(Date.UTC(
-      now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + d, 8, 0, 0, 0
-    ))
-    if (candidate > now && scanDays.includes(candidate.getUTCDay())) {
-      return candidate.toLocaleDateString('en-US', {
-        weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC',
-      }) + ' at 8:00 AM UTC'
-    }
-  }
-  return 'Mon, Wed, or Fri at 8:00 AM UTC'
-}
-
-type RawHit = {
-  title: string
-  score: number
-  is_match: boolean
-  summary: string
-  is_new: boolean
-}
-
-type ScanResult = {
-  id: string
-  scanned_at: string
-  status: string
-  ai_score: number
-  ai_summary: string | null
-  raw_hits: RawHit[] | null
-  error_message: string | null
-}
-
-type InterviewLog = {
-  id: string
-  interview_date: string | null
-  interview_stage: string | null
-  questions_asked: string | null
-  what_landed: string | null
-  what_surprised: string | null
-  follow_up_needed: string | null
-}
-
-const SIGNAL_LABELS: Record<string, { label: string; cls: string }> = {
-  funding:        { label: 'Funding',        cls: 'bg-green-50 text-green-700' },
-  exec_departure: { label: 'Exec Departure', cls: 'bg-amber-50 text-amber-700' },
-  exec_hire:      { label: 'Exec Hire',      cls: 'bg-blue-50 text-blue-700' },
-  acquisition:    { label: 'Acquisition',    cls: 'bg-purple-50 text-purple-700' },
-  expansion:      { label: 'Expansion',      cls: 'bg-blue-50 text-blue-700' },
-  layoffs:        { label: 'Layoffs',        cls: 'bg-red-50 text-red-700' },
-  ipo:            { label: 'IPO',            cls: 'bg-green-50 text-green-700' },
-  new_product:    { label: 'New Product',    cls: 'bg-indigo-50 text-indigo-700' },
-  award:          { label: 'Award',          cls: 'bg-amber-50 text-amber-700' },
-  pattern_alert:  { label: 'Pattern',        cls: 'bg-orange-50 text-orange-700' },
-  filing_trend:   { label: 'Filing Trend',   cls: 'bg-teal-50 text-teal-700' },
-}
-
-const DOC_LABELS: Record<string, { label: string; cls: string }> = {
-  job_description: { label: 'Job Description', cls: 'bg-purple-50 text-purple-700' },
-  news:            { label: 'News & Press',     cls: 'bg-blue-50 text-blue-700' },
-  annual_report:   { label: 'Annual Report',    cls: 'bg-amber-50 text-amber-700' },
-  org_notes:       { label: 'Org Notes',        cls: 'bg-green-50 text-green-700' },
-  other:           { label: 'Other',            cls: 'bg-slate-100 text-slate-500' },
-}
-
-const CHANNEL: Record<string, { label: string; cls: string }> = {
-  linkedin: { label: 'LinkedIn',  cls: 'bg-blue-50 text-blue-700' },
-  referral: { label: 'Referral',  cls: 'bg-green-50 text-green-700' },
-  cold:     { label: 'Cold',      cls: 'bg-slate-100 text-slate-500' },
-  inbound:  { label: 'Inbound',   cls: 'bg-indigo-50 text-indigo-700' },
-  event:    { label: 'Event',     cls: 'bg-amber-50 text-amber-700' },
-}
-
-const OUTREACH_STATUS: Record<string, { label: string; cls: string }> = {
-  prospect:          { label: 'Prospect',        cls: 'bg-slate-100 text-slate-500' },
-  reached_out:       { label: 'Reached Out',     cls: 'bg-blue-50 text-blue-600' },
-  in_conversation:   { label: 'In Conversation', cls: 'bg-amber-50 text-amber-700' },
-  meeting_scheduled: { label: 'Meeting Set',     cls: 'bg-green-50 text-green-700' },
-  closed:            { label: 'Closed',          cls: 'bg-slate-100 text-slate-400' },
-}
-
-const STAGES = [
-  { value: 'watching',     label: 'Watching' },
-  { value: 'researching',  label: 'Researching' },
-  { value: 'applied',      label: 'In Process' },
-  { value: 'interviewing', label: 'Interviewing' },
-  { value: 'offer',        label: 'Offer' },
-]
+import {
+  DOC_LABELS,
+  CHANNEL,
+  OUTREACH_STATUS,
+  STAGES,
+  NOTES_PLACEHOLDERS,
+  type ScanResult,
+  type InterviewLog,
+  type SignalDetailRow,
+} from './company-detail-constants'
+import { JobScanPanel } from './job-scan-panel'
+import { SignalsPanel } from './signals-panel'
+import { InterviewSessionsPanel } from './interview-sessions-panel'
+import { CompanyNextActionBanner } from './company-next-action-banner'
+import { ContactsPanel } from './contacts-panel'
+import { DocumentsPanel } from './documents-panel'
 
 type CompanyDetailRow = {
   id: string
@@ -120,16 +45,6 @@ type CompanyDetailRow = {
   offer_equity: string | null
   offer_notes: string | null
   offer_decision_factors: string | null
-}
-
-type SignalDetailRow = {
-  id: string
-  signal_type: string
-  signal_summary: string
-  outreach_angle: string | null
-  outreach_draft: { subject: string; body: string } | null
-  signal_date: string
-  source_url: string | null
 }
 
 export default async function CompanyPage({
@@ -235,25 +150,10 @@ export default async function CompanyPage({
     }
   }
 
-  const NOTES_PLACEHOLDERS: Record<string, string> = {
-    cio:          'Transformation agenda, current CIO tenure and departure context, CFO relationship dynamic, board technology appetite...',
-    cto:          'Engineering org size and maturity, current tech debt posture, what technical decision triggered this search, founding team dynamics...',
-    cdo_data:     'Current data maturity, governance vs analytics mandate, what business decisions are made without data today, CDO departure context...',
-    cdo_digital:  'Digital transformation agenda, current CIO or CMO dynamic, what customer experience problem is driving this search...',
-    ciso:         'Recent regulatory events in their sector, board security posture, known incidents or audits, why the CISO role opened...',
-    cpo:          'Current product health, engagement vs acquisition problem, what created this CPO opening, B2C or B2B context...',
-    coo:          'What operational phase are they in? What can the CEO not do alone right now? What broke operationally in the last 12 months?',
-    vp_technology:'Engineering team size, reporting structure, what is blocking their technology capability, what the CTO or CIO needs help with...',
-  }
   const notesPlaceholder = (profile?.role_type ? NOTES_PLACEHOLDERS[profile.role_type] : null)
     ?? 'Warm intro through Sarah, strong culture fit...'
 
   const isVpUser = profile?.search_persona === 'vp'
-  const CSUITE_PATTERNS = ['cio', 'cto', 'coo', 'cpo', 'ciso', 'cdo', 'chief', 'evp']
-  function isStepUpRole(title: string): boolean {
-    const lower = title.toLowerCase()
-    return CSUITE_PATTERNS.some(p => lower.includes(p))
-  }
 
   const errorMsg =
     error === 'duplicate' ? 'A company with that name is already in your pipeline.' :
@@ -757,89 +657,14 @@ export default async function CompanyPage({
 
           </div>
         </div>
-        {/* Primary next action banner */}
-        {(() => {
-          const hasContacts = (contacts ?? []).length > 0
-          const hasBrief = (prepBriefCount ?? 0) > 0
-          const hasOutreachStarted = (contacts ?? []).some(ct => ct.outreach_status && ct.outreach_status !== 'prospect')
-          const isInterviewing = company.stage === 'interviewing'
-          const hasInterviewLogs = interviewLogs.length > 0
-
-          if (!hasContacts && !hasBrief) {
-            return (
-              <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="flex-1">
-                  <p className="text-[13px] font-semibold text-white">Two things move this forward.</p>
-                  <p className="text-[12px] text-slate-400 mt-0.5">Add a contact at {company.name} and run a prep brief before your first conversation.</p>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <Link
-                    href={`#add-contact-form`}
-                    className="text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
-                  >
-                    Add contact
-                  </Link>
-                  <Link
-                    href={`/dashboard/companies/${id}/prep`}
-                    className="text-[12px] font-semibold bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded transition-colors border-0"
-                  >
-                    Run a brief
-                  </Link>
-                </div>
-              </div>
-            )
-          }
-
-          if (isInterviewing && !hasInterviewLogs) {
-            return (
-              <div className="mt-6 bg-amber-50 border border-amber-200 rounded px-6 py-4 flex items-center justify-between gap-4">
-                <p className="text-[13px] text-slate-700">
-                  You are in the interview loop. Log what happened so your next brief reflects the actual conversation.
-                </p>
-                <Link
-                  href={`/dashboard/companies/${id}/prep`}
-                  className="shrink-0 text-[12px] font-semibold text-amber-800 border border-amber-300 hover:border-amber-500 bg-white px-3 py-1.5 rounded transition-colors"
-                >
-                  Run interview prep
-                </Link>
-              </div>
-            )
-          }
-
-          if (!hasBrief) {
-            return (
-              <div className="mt-6 bg-slate-900 rounded px-6 py-4 flex items-center justify-between gap-4">
-                <p className="text-[13px] text-slate-300">
-                  {hasContacts ? `You have contacts at ${company.name}. Run a brief before your next call.` : `No prep brief for ${company.name} yet.`}
-                </p>
-                <Link
-                  href={`/dashboard/companies/${id}/prep`}
-                  className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
-                >
-                  Generate brief
-                </Link>
-              </div>
-            )
-          }
-
-          if (hasContacts && !hasOutreachStarted && company.stage === 'watching') {
-            return (
-              <div className="mt-6 bg-blue-50 border border-blue-200 rounded px-6 py-4 flex items-center justify-between gap-4">
-                <p className="text-[13px] text-slate-700">
-                  Ready to reach out? You have a contact here.
-                </p>
-                <Link
-                  href={`/dashboard/contacts/${(contacts ?? [])[0]?.id}/outreach`}
-                  className="shrink-0 text-[12px] font-semibold text-blue-700 hover:text-blue-900 border border-blue-200 hover:border-blue-400 bg-white px-3 py-1.5 rounded transition-colors"
-                >
-                  Draft outreach
-                </Link>
-              </div>
-            )
-          }
-
-          return null
-        })()}
+        <CompanyNextActionBanner
+          contacts={contacts ?? []}
+          prepBriefCount={prepBriefCount ?? 0}
+          stage={company.stage}
+          interviewLogsLength={interviewLogs.length}
+          companyName={company.name}
+          companyId={id}
+        />
 
         {/* Contacts */}
         <section id="people" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
@@ -852,167 +677,17 @@ export default async function CompanyPage({
             </span>
           </div>
 
-          {contacts && contacts.length > 0 && (
-            <div className="divide-y divide-slate-50">
-              {contacts.map(ct => {
-                const ch = ct.channel ? (CHANNEL[ct.channel] ?? { label: ct.channel, cls: 'bg-slate-100 text-slate-500' }) : null
-                const os = OUTREACH_STATUS[ct.outreach_status ?? 'prospect'] ?? OUTREACH_STATUS.prospect
-                const nextFollowUp = nextFollowUpByContact.get(ct.id)
-                const nextAction = nextFollowUp
-                  ? `Follow up ${new Date(nextFollowUp.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
-                  : ct.outreach_status === 'prospect'
-                    ? 'Draft first outreach'
-                    : ct.outreach_status === 'meeting_scheduled'
-                      ? 'Prep for meeting'
-                      : ct.outreach_status === 'closed'
-                        ? 'Keep warm monthly'
-                        : 'Set next follow-up'
-                return (
-                  <div key={ct.id} className="px-6 py-4 flex items-start gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                          {ct.name}
-                        </Link>
-                        {ct.title && (
-                          <span className="text-[13px] text-slate-400">{ct.title}{ct.firm ? ` · ${ct.firm}` : ''}</span>
-                        )}
-                        {ch && (
-                          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${ch.cls}`}>
-                            {ch.label}
-                          </span>
-                        )}
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${os.cls}`}>
-                          {os.label}
-                        </span>
-                      </div>
-                      {ct.notes && (
-                        <p className="text-[12px] text-slate-400 mt-1 truncate max-w-xl">{ct.notes}</p>
-                      )}
-                      <p className="text-[11px] text-slate-500 mt-1.5">
-                        Next relationship action: <span className="font-semibold text-slate-700">{nextAction}</span>
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <Link
-                        href={`/dashboard/contacts/${ct.id}/outreach`}
-                        className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
-                      >
-                        Draft
-                      </Link>
-                      <form action={archiveContact.bind(null, ct.id, id)}>
-                        <button
-                          type="submit"
-                          className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
-                        >
-                          Remove
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
-
-          {/* Add contact form */}
-          <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-              Add person
-            </div>
-            <form id="add-contact-form" action={addContact.bind(null, id)} className="flex flex-col gap-3">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                    Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="name"
-                    type="text"
-                    required
-                    placeholder="Jane Smith"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                    Title
-                  </label>
-                  <input
-                    name="title"
-                    type="text"
-                    placeholder="VP Engineering"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="channel" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                    Channel
-                  </label>
-                  <select
-                    id="channel"
-                    name="channel"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
-                  >
-                    <option value="">-</option>
-                    <option value="linkedin">LinkedIn</option>
-                    <option value="referral">Referral</option>
-                    <option value="cold">Cold</option>
-                    <option value="inbound">Inbound</option>
-                    <option value="event">Event</option>
-                  </select>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                    Email
-                  </label>
-                  <input
-                    name="email"
-                    type="text"
-                    placeholder="jane@company.com"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                    LinkedIn URL
-                  </label>
-                  <input
-                    name="linkedin_url"
-                    type="text"
-                    placeholder="https://linkedin.com/in/jane"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                  Notes
-                </label>
-                <input
-                  name="notes"
-                  type="text"
-                  placeholder="Met at SaaStr, warm connection…"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0"
-                >
-                  Add person
-                </button>
-              </div>
-            </form>
-          </div>
+          <ContactsPanel
+            companyId={id}
+            contacts={contacts ?? []}
+            nextFollowUpByContact={nextFollowUpByContact}
+            todayISO={todayISO}
+          />
         </section>
 
         {/* Documents */}
-        <section id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Documents
@@ -1022,87 +697,14 @@ export default async function CompanyPage({
             <span className="text-[12px] text-slate-400 shrink-0">
               {(documents ?? []).length} {(documents ?? []).length === 1 ? 'document' : 'documents'}
             </span>
-          </div>
+          </summary>
 
-          {(documents ?? []).length > 0 && (
-            <div className="divide-y divide-slate-50">
-              {(documents ?? []).map(doc => {
-                const dl = DOC_LABELS[doc.label] ?? { label: doc.label, cls: 'bg-slate-100 text-slate-500' }
-                return (
-                  <div key={doc.id} className="px-6 py-4 flex items-start gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] ${dl.cls}`}>
-                          {dl.label}
-                        </span>
-                      </div>
-                      <p className="text-[12px] text-slate-400 leading-relaxed line-clamp-2">
-                        {doc.content.slice(0, PREVIEW_CHARS)}{doc.content.length > PREVIEW_CHARS ? '…' : ''}
-                      </p>
-                    </div>
-                    <form action={removeDocument.bind(null, doc.id, id)}>
-                      <button
-                        type="submit"
-                        className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 shrink-0"
-                      >
-                        Remove
-                      </button>
-                    </form>
-                  </div>
-                )
-              })}
-            </div>
-          )}
-
-          <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-              Add document
-            </div>
-            <form action={addDocument.bind(null, id)} className="flex flex-col gap-3">
-              <div>
-                <label htmlFor="doc-label" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                  Type
-                </label>
-                <select
-                  id="doc-label"
-                  name="label"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
-                >
-                  <option value="job_description">Job Description</option>
-                  <option value="news">News & Press</option>
-                  <option value="annual_report">Annual Report</option>
-                  <option value="org_notes">Org Notes</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="doc-content" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
-                  Content <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="doc-content"
-                  name="content"
-                  required
-                  rows={7}
-                  placeholder="Paste a job description, news article, annual report excerpt, or org notes…"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white leading-relaxed"
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0"
-                >
-                  Save document
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
+          <DocumentsPanel companyId={id} documents={documents ?? []} previewChars={PREVIEW_CHARS} />
+        </details>
 
         {/* Scan results */}
-        <section id="job-scan" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="job-scan" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Job Scan
             </h2>
@@ -1113,178 +715,32 @@ export default async function CompanyPage({
             ) : (
               <span className="text-[12px] text-slate-400">Scans run Mon / Wed / Fri</span>
             )}
-          </div>
+          </summary>
 
-          {!latestScan ? (
-            <div className="px-6 py-10 text-center text-[14px] text-slate-400">
-              {isScanning && company.career_page_url ? (
-                <div className="flex items-center justify-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:300ms]" />
-                  <span className="ml-1 text-[13px] text-slate-400">Scanning career page now...</span>
-                </div>
-              ) : company.career_page_url ? (
-                <>Results will appear after the next scheduled scan &mdash; <span className="font-medium">{getNextScanDate()}</span>.</>
-              ) : (
-                'Add a career page URL above to enable scanning.'
-              )}
-            </div>
-          ) : latestScan.status === 'blocked' ? (
-            <div className="px-6 py-6">
-              <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
-              <p className="text-[13px] text-slate-400 leading-relaxed">
-                This site actively blocks bots (common with government and Cloudflare-protected sites).{' '}
-                <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
-                  Paste the job listing in the Documents section
-                </a>{' '}
-                below using the <strong>Job Description</strong> type - it will be used in your interview prep brief.
-              </p>
-            </div>
-          ) : latestScan.status === 'error' && /40[13]|block|access.denied/i.test(latestScan.error_message ?? '') ? (
-            <div className="px-6 py-6">
-              <p className="text-[13px] font-semibold text-slate-600 mb-1">Career page blocks automated scanning</p>
-              <p className="text-[13px] text-slate-400 leading-relaxed">
-                This site actively blocks bots (common with government and Cloudflare-protected sites).{' '}
-                <a href="#documents" className="text-slate-600 underline hover:text-slate-900">
-                  Paste the job listing in the Documents section
-                </a>{' '}
-                below using the <strong>Job Description</strong> type - it will be used in your interview prep brief.
-              </p>
-            </div>
-          ) : latestScan.status === 'error' ? (
-            <div className="px-6 py-6">
-              <p className="text-[13px] font-semibold text-slate-600 mb-1">Scan encountered an error</p>
-              <p className="text-[13px] text-slate-400">{latestScan.error_message ?? 'Unknown error'} - this will be retried on the next scheduled run.</p>
-            </div>
-          ) : (
-            <div>
-              {/* Latest scan summary */}
-              <div className="px-6 py-5 border-b border-slate-50">
-                <div className="flex items-center gap-3 mb-3 flex-wrap">
-                  {latestScan.ai_score >= 60 ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-                      {latestScan.ai_score} match score
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400 inline-block" />
-                      No matches
-                    </span>
-                  )}
-                  <span className="text-[11px] text-slate-300">60+ = strong match</span>
-                </div>
-                {latestScan.ai_summary && (
-                  <p className="text-[13px] text-slate-500">{latestScan.ai_summary}</p>
-                )}
-              </div>
-
-              {/* Matched roles */}
-              {(latestScan.raw_hits ?? []).filter(h => h.is_match).length > 0 && (
-                <div className="divide-y divide-slate-50">
-                  {(latestScan.raw_hits ?? []).filter(h => h.is_match).map((hit, i) => (
-                    <div key={i} className="px-6 py-4">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="text-[14px] font-semibold text-slate-900">{hit.title}</span>
-                        <span className="text-[11px] font-bold text-slate-400">{hit.score}</span>
-                        {hit.is_new && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
-                            New
-                          </span>
-                        )}
-                        {isVpUser && isStepUpRole(hit.title) && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
-                            Step-Up Opportunity
-                          </span>
-                        )}
-                      </div>
-                      {hit.summary && (
-                        <p className="text-[12px] text-slate-400">{hit.summary}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Scan history */}
-              {scanHistory.length > 0 && (
-                <div className="px-6 py-4 border-t border-slate-50 flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mr-1">
-                    History
-                  </span>
-                  {scanHistory.map(s => {
-                    const dateStr = new Date(s.scanned_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                    const scoreStr = s.status === 'error' ? 'Error' : s.ai_score >= 60 ? `Score: ${s.ai_score}` : 'No match'
-                    return (
-                      <span
-                        key={s.id}
-                        title={`${dateStr} · ${scoreStr}`}
-                        className={`w-2.5 h-2.5 rounded-full inline-block cursor-help ${s.ai_score >= 60 ? 'bg-emerald-400' : s.status === 'error' ? 'bg-red-300' : 'bg-slate-200'}`}
-                      />
-                    )
-                  })}
-                  <span className="text-[10px] text-slate-300 ml-1">hover for date &amp; score</span>
-                </div>
-              )}
-            </div>
-          )}
-        </section>
+          <JobScanPanel
+            latestScan={latestScan}
+            isScanning={isScanning}
+            careerPageUrl={company.career_page_url}
+            isVpUser={isVpUser}
+            scanHistory={scanHistory}
+          />
+        </details>
 
         {/* Signals */}
-        <section id="signals" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="signals" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Signals
             </h2>
             <LogSignalForm companyId={company.id} />
-          </div>
+          </summary>
 
-          {!(signals ?? []).length ? (
-            <div className="px-6 py-10 text-center">
-              <p className="text-[14px] text-slate-400 mb-2">No signals logged yet.</p>
-              <p className="text-[12px] text-slate-300">Paste a news headline or LinkedIn post above to log one.</p>
-            </div>
-          ) : (
-            <div className="divide-y divide-slate-50">
-              {(signals ?? []).map(sig => {
-                const sl = SIGNAL_LABELS[sig.signal_type] ?? { label: sig.signal_type, cls: 'bg-slate-100 text-slate-500' }
-                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-                return (
-                  <div key={sig.id} className="px-6 py-5">
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <span className="text-[13px] text-slate-400">{dateLabel}</span>
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-[0.04em] ${sl.cls}`}>
-                        {sl.label}
-                      </span>
-                    </div>
-                    <p className="text-[14px] text-slate-900 leading-relaxed mb-1.5">{sig.signal_summary}</p>
-                    {sig.outreach_angle && (
-                      <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>
-                    )}
-                    {sig.outreach_draft && (
-                      <DraftPanel draft={sig.outreach_draft} />
-                    )}
-                    {sig.source_url && (
-                      <a
-                        href={sig.source_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block mt-2 text-[12px] text-slate-400 hover:text-slate-700 transition-colors"
-                      >
-                        Source &rarr;
-                      </a>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
-        </section>
+          <SignalsPanel signals={signals} />
+        </details>
 
         {/* Interview Logs */}
-        <section id="interview-sessions" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="interview-sessions" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Interview Sessions
@@ -1294,137 +750,10 @@ export default async function CompanyPage({
             <span className="text-[12px] text-slate-400 shrink-0">
               {interviewLogs.length} {interviewLogs.length === 1 ? 'session' : 'sessions'}
             </span>
-          </div>
+          </summary>
 
-          {interviewLogs.length > 0 && (
-            <div className="divide-y divide-slate-50">
-              {interviewLogs.map(log => {
-                const dateLabel = log.interview_date
-                  ? new Date(log.interview_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-                  : null
-                return (
-                  <div key={log.id} className="px-6 py-5">
-                    <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        {dateLabel && <span className="text-[13px] text-slate-400">{dateLabel}</span>}
-                        {log.interview_stage && (
-                          <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">
-                            {log.interview_stage}
-                          </span>
-                        )}
-                      </div>
-                      <form action={deleteInterviewLog.bind(null, log.id, id)}>
-                        <button
-                          type="submit"
-                          className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0"
-                        >
-                          Delete
-                        </button>
-                      </form>
-                    </div>
-                    {log.questions_asked && (
-                      <div className="mb-3">
-                        <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">Questions asked</p>
-                        <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.questions_asked}</p>
-                      </div>
-                    )}
-                    {log.what_landed && (
-                      <div className="mb-3">
-                        <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">What landed</p>
-                        <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.what_landed}</p>
-                      </div>
-                    )}
-                    {log.what_surprised && (
-                      <div className="mb-3">
-                        <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">What surprised me</p>
-                        <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.what_surprised}</p>
-                      </div>
-                    )}
-                    {log.follow_up_needed && (
-                      <div>
-                        <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">Follow-up needed</p>
-                        <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.follow_up_needed}</p>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
-
-          <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-              Log session
-            </div>
-            <form action={addInterviewLog.bind(null, id)} className="flex flex-col gap-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Date</label>
-                  <input
-                    name="interview_date"
-                    type="date"
-                    aria-label="Interview date"
-                    defaultValue={todayISO}
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Stage</label>
-                  <input
-                    name="interview_stage"
-                    type="text"
-                    placeholder="Recruiter screen, Hiring manager, Panel..."
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Questions asked</label>
-                <textarea
-                  name="questions_asked"
-                  rows={2}
-                  placeholder="What were you asked?"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">What landed</label>
-                <textarea
-                  name="what_landed"
-                  rows={2}
-                  placeholder="What resonated, what got them nodding..."
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">What surprised me</label>
-                <textarea
-                  name="what_surprised"
-                  rows={2}
-                  placeholder="Unexpected questions, tone shifts, things you did not anticipate..."
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Follow-up needed</label>
-                <textarea
-                  name="follow_up_needed"
-                  rows={2}
-                  placeholder="What to prep differently, what to send, what to address next time..."
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0"
-                >
-                  Save session
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
+          <InterviewSessionsPanel companyId={id} interviewLogs={interviewLogs} todayISO={todayISO} />
+        </details>
 
       </main>
     </div>
