@@ -52,7 +52,8 @@ export default function ForCoachesPage() {
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.12] tracking-tight mb-5">
             <span className="block sm:whitespace-nowrap">Easily stay on top of every client in one place.</span>
-            <span className="block">Clients arrive prepared. You stay in strategy.</span>
+            <span className="block">Clients arrive prepared.</span>
+            <span className="block">You stay in strategy.</span>
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
             Starting Monday is the between-session operating layer for coaches who want less admin drag and stronger strategic sessions. You and your clients share one place for signal monitoring, prep briefs, and pipeline accountability.
