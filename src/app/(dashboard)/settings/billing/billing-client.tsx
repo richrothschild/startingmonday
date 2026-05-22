@@ -19,15 +19,14 @@ const PLAN_LABEL_MAP: Record<string, string> = {
   campaign:  'Campaign',
 }
 
-export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName, isPlaced = false }: {
+export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName, isPlaced = false, canSeeAdminHeader }: {
   sub: UserSubscription
   hasStripeCustomer: boolean
   accountEmail: string
   accountName: string | null
   isPlaced?: boolean
+  canSeeAdminHeader: boolean
 }) {
-  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
-  const isRothschildAdmin = adminHeaderEmails.has(accountEmail.toLowerCase())
   const [paused, setPaused] = useState(sub.isPaused)
   const [now] = useState(() => Date.now())
   const [pauseDays, setPauseDays] = useState(14)
@@ -143,7 +142,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
               Dashboard
             </Link>
-            {isRothschildAdmin && (
+            {canSeeAdminHeader && (
               <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">
                 Admin
               </Link>

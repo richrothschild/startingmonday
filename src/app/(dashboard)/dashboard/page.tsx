@@ -21,6 +21,7 @@ import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
+import { canUserSeeAdminHeader } from '@/lib/staff'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -365,8 +366,7 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
-  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
-  const isRothschildAdmin = adminHeaderEmails.has((user.email ?? '').toLowerCase())
+  const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0

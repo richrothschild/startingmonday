@@ -13,6 +13,7 @@ import type { StarStory } from '@/components/StarStoriesPanel'
 import { ProfileInactivityNudge } from '@/components/ProfileInactivityNudge'
 import { PositioningGeneratorTextarea } from './positioning-generator'
 import { LinkedInGenerator } from './linkedin-generator'
+import { canUserSeeAdminHeader } from '@/lib/staff'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_ABBR: Record<string, string> = {
@@ -113,8 +114,7 @@ export default async function ProfilePage({
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
   const starStories = Array.isArray(profile?.star_stories) ? (profile.star_stories as StarStory[]) : [] as StarStory[]
-  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
-  const isRothschildAdmin = adminHeaderEmails.has((user.email ?? '').toLowerCase())
+  const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
 
   const careerEntries = Array.isArray(profile?.career_history_json)
     ? (profile.career_history_json as CareerEntry[])

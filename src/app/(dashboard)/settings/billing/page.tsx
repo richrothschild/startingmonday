@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription } from '@/lib/subscription'
+import { canUserSeeAdminHeader } from '@/lib/staff'
 import { BillingClient } from './billing-client'
 
 export const metadata = { title: 'Billing - Starting Monday' }
@@ -17,6 +18,7 @@ export default async function BillingPage() {
 
   const accountName = profileResult.data?.full_name ?? null
   const isPlaced = !!profileResult.data?.placed_at
+  const canSeeAdminHeader = await canUserSeeAdminHeader(user.email ?? '')
 
-  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} accountEmail={user.email ?? ''} accountName={accountName} isPlaced={isPlaced} />
+  return <BillingClient sub={sub} hasStripeCustomer={sub.isPaid} accountEmail={user.email ?? ''} accountName={accountName} isPlaced={isPlaced} canSeeAdminHeader={canSeeAdminHeader} />
 }
