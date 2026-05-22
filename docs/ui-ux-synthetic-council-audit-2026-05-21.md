@@ -18,32 +18,32 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 98
-- Flagged pages (below excellent): 59
-- High-risk pages (score < 80): 36
-- Site excellence rate: 62.4%
+- Excellent pages (A- or better): 99
+- Flagged pages (below excellent): 58
+- High-risk pages (score < 80): 34
+- Site excellence rate: 63.1%
 
 ## Results by Page Category
 
 | Category | Pages | Avg score | Excellent | Flagged |
 |---|---:|---:|---:|---:|
 | auth | 2 | 75.0 | 0 | 2 |
-| blog | 30 | 90.8 | 28 | 2 |
-| dashboard | 57 | 85.8 | 32 | 25 |
+| blog | 30 | 91.3 | 28 | 2 |
+| dashboard | 57 | 85.9 | 32 | 25 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 86.4 | 33 | 30 |
+| marketing | 63 | 86.8 | 34 | 29 |
 
 ## Most Common Non-Excellent Patterns
 
 | Pattern | Page count |
 |---|---:|
-| Missing H1 | 39 |
+| Missing H1 | 37 |
 | Weak heading hierarchy | 35 |
 | Missing outcome metrics | 33 |
 | Insufficient content chunking | 24 |
 | Low action density for workflow page | 19 |
 | Missing trust/confidentiality cues | 16 |
-| No explicit CTA language | 14 |
+| No explicit CTA language | 13 |
 | Dense copy blocks | 7 |
 | Extreme scroll burden | 7 |
 
@@ -55,12 +55,9 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/companies/[id] | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard/profile | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard | 57 | C- | dashboard | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
-| /blog/cio-job-market-2026 | 66 | C- | blog | Missing H1; Insufficient content chunking; Long page without quick navigation |
 | /dashboard/admin/social | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Dense copy blocks |
 | /dashboard/briefing | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
 | /dashboard/contacts/[id] | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
-| / | 67 | C- | marketing | Missing H1; No explicit CTA language |
-| /dashboard/outreach | 67 | C- | dashboard | Weak heading hierarchy; Extreme scroll burden |
 | /feedback | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
 | /search-firms/sample-cfo-brief | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
 | /team/join/[token] | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
@@ -77,6 +74,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /optimize | 74 | C | marketing | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
 | /research-brief | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
 | /signup | 74 | C | auth | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
+| /dashboard/outreach | 75 | C+ | dashboard | Extreme scroll burden |
 | /for-coaches | 75 | C+ | marketing | Extreme scroll burden |
 | /for-outplacement | 75 | C+ | marketing | Extreme scroll burden |
 | /dashboard/admin/crm | 76 | C+ | dashboard | Weak heading hierarchy; Insufficient content chunking; Low action density for workflow page |
@@ -92,13 +90,13 @@ Excellence threshold: score >= 90 (A- or better).
 
 | Route | Score | Grade | Excellent | Category | File | Primary findings |
 |---|---:|---:|---|---|---|---|
-| / | 67 | C- | No | marketing | src/app/page.tsx | Missing H1; No explicit CTA language |
+| / | 92 | A- | Yes | marketing | src/app/page.tsx | Weak heading hierarchy |
 | /about | 92 | A- | Yes | marketing | src/app/about/page.tsx | Missing outcome metrics |
 | /annual-report-2026 | 74 | C | No | marketing | src/app/annual-report-2026/page.tsx | No explicit CTA language; Missing outcome metrics |
 | /blog | 100 | A+ | Yes | blog | src/app/blog/page.tsx | No major static UX risks detected |
 | /blog/cio-board-presentation | 92 | A- | Yes | blog | src/app/blog/cio-board-presentation/page.tsx | Missing H1 |
 | /blog/cio-compensation-negotiation | 92 | A- | Yes | blog | src/app/blog/cio-compensation-negotiation/page.tsx | Missing H1 |
-| /blog/cio-job-market-2026 | 66 | C- | No | blog | src/app/blog/cio-job-market-2026/page.tsx | Missing H1; Insufficient content chunking; Long page without quick navigation |
+| /blog/cio-job-market-2026 | 82 | B- | No | blog | src/app/blog/cio-job-market-2026/page.tsx | Insufficient content chunking; Dense copy blocks |
 | /blog/cio-job-search-timeline | 92 | A- | Yes | blog | src/app/blog/cio-job-search-timeline/page.tsx | Missing H1 |
 | /blog/cio-vs-cto-which-role | 92 | A- | Yes | blog | src/app/blog/cio-vs-cto-which-role/page.tsx | Missing H1 |
 | /blog/ciso-interview-preparation | 92 | A- | Yes | blog | src/app/blog/ciso-interview-preparation/page.tsx | Missing H1 |
@@ -171,7 +169,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/kanban | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/kanban/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/offers | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/offers/page.tsx | Weak heading hierarchy |
 | /dashboard/outplacement | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/outplacement/page.tsx | Low action density for workflow page |
-| /dashboard/outreach | 67 | C- | No | dashboard | src/app/(dashboard)/dashboard/outreach/page.tsx | Weak heading hierarchy; Extreme scroll burden |
+| /dashboard/outreach | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/outreach/page.tsx | Extreme scroll burden |
 | /dashboard/partner | 76 | C+ | No | dashboard | src/app/(dashboard)/dashboard/partner/page.tsx | Weak heading hierarchy; Insufficient content chunking; Low action density for workflow page |
 | /dashboard/pilot-outreach | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
 | /dashboard/placed | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/placed/page.tsx | No major static UX risks detected |

@@ -1,11 +1,11 @@
 route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,paragraphCount,linkCount,buttonCount,formFieldCount,listCount,ctaCount,hasTrust,hasOutcome,hasTOC,findings
-/,src/app/page.tsx,marketing,67,C-,false,164,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/,src/app/page.tsx,marketing,92,A-,true,188,1,2,1,6,0,0,0,1,true,true,true,Weak heading hierarchy
 /about,src/app/about/page.tsx,marketing,92,A-,true,270,4,4,13,23,0,0,0,2,true,false,true,Missing outcome metrics
 /annual-report-2026,src/app/annual-report-2026/page.tsx,marketing,74,C,false,109,3,6,7,5,0,0,2,0,true,false,true,No explicit CTA language | Missing outcome metrics
 /blog,src/app/blog/page.tsx,blog,100,A+,true,180,2,3,9,15,0,0,0,1,true,false,true,No major static UX risks detected
 /blog/cio-board-presentation,src/app/blog/cio-board-presentation/page.tsx,blog,92,A-,true,155,0,7,16,1,0,0,0,1,true,false,false,Missing H1
 /blog/cio-compensation-negotiation,src/app/blog/cio-compensation-negotiation/page.tsx,blog,92,A-,true,175,0,6,19,1,0,0,0,0,false,false,false,Missing H1
-/blog/cio-job-market-2026,src/app/blog/cio-job-market-2026/page.tsx,blog,66,C-,false,295,0,12,36,1,0,0,2,0,false,true,false,Missing H1 | Insufficient content chunking | Long page without quick navigation | Dense copy blocks
+/blog/cio-job-market-2026,src/app/blog/cio-job-market-2026/page.tsx,blog,82,B-,false,313,1,15,36,5,0,0,3,0,false,true,true,Insufficient content chunking | Dense copy blocks
 /blog/cio-job-search-timeline,src/app/blog/cio-job-search-timeline/page.tsx,blog,92,A-,true,167,0,4,15,1,0,0,0,0,false,true,false,Missing H1
 /blog/cio-vs-cto-which-role,src/app/blog/cio-vs-cto-which-role/page.tsx,blog,92,A-,true,174,0,6,18,0,0,0,0,0,true,false,false,Missing H1
 /blog/ciso-interview-preparation,src/app/blog/ciso-interview-preparation/page.tsx,blog,92,A-,true,174,0,6,18,1,0,0,0,0,true,true,false,Missing H1
@@ -78,7 +78,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /dashboard/kanban,src/app/(dashboard)/dashboard/kanban/page.tsx,dashboard,84,B,false,6,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
 /dashboard/offers,src/app/(dashboard)/dashboard/offers/page.tsx,dashboard,92,A-,true,216,0,2,6,8,0,0,0,0,false,true,false,Weak heading hierarchy
 /dashboard/outplacement,src/app/(dashboard)/dashboard/outplacement/page.tsx,dashboard,92,A-,true,32,0,1,2,2,0,0,1,1,false,false,false,Low action density for workflow page
-/dashboard/outreach,src/app/(dashboard)/dashboard/outreach/page.tsx,dashboard,67,C-,false,977,3,2,18,4,0,0,1,3,true,true,false,Weak heading hierarchy | Extreme scroll burden
+/dashboard/outreach,src/app/(dashboard)/dashboard/outreach/page.tsx,dashboard,75,C+,false,990,5,4,18,8,0,0,1,3,true,true,true,Extreme scroll burden
 /dashboard/partner,src/app/(dashboard)/dashboard/partner/page.tsx,dashboard,76,C+,false,234,0,1,6,1,0,0,0,3,false,false,false,Weak heading hierarchy | Insufficient content chunking | Low action density for workflow page
 /dashboard/pilot-outreach,src/app/(dashboard)/dashboard/pilot-outreach/page.tsx,dashboard,92,A-,true,44,0,1,3,0,1,4,0,2,false,false,false,Missing H1
 /dashboard/placed,src/app/(dashboard)/dashboard/placed/page.tsx,dashboard,100,A+,true,107,0,1,8,6,0,0,0,0,false,false,false,No major static UX risks detected

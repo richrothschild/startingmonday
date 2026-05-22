@@ -915,7 +915,17 @@ export default async function OutreachHubPage() {
           </p>
         </div>
 
-        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <section className="bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#outreach-snapshot" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Snapshot</a>
+            <a href="#outreach-workbench" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Outreach workbench</a>
+            <a href="#outreach-cadence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Cadence</a>
+            <a href="#outreach-links" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Linked tools</a>
+          </div>
+        </section>
+
+        <section id="outreach-snapshot" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Total Prospects</p>
             <p className="text-[24px] font-bold text-slate-900">{clientRows.length}</p>
@@ -936,9 +946,12 @@ export default async function OutreachHubPage() {
           </div>
         </section>
 
-        <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+        <section id="outreach-workbench">
+          <h2 className="sr-only">Outreach workbench</h2>
+          <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+        </section>
 
-        <section className="bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="outreach-cadence" className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
             <div>
               <h2 className="text-[16px] font-bold text-slate-900">Operating Cadence</h2>
@@ -960,7 +973,7 @@ export default async function OutreachHubPage() {
           </ol>
         </section>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <section id="outreach-links" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link href="/dashboard/calendar" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900 mb-1">In-App Calendar</p>
             <p className="text-[12px] text-slate-500">Manage date-based follow-ups alongside the outreach routine.</p>

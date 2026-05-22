@@ -36,6 +36,17 @@ export default function CioJobMarket2026Page() {
       url="https://startingmonday.app/blog/cio-job-market-2026"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+        <h1 className="sr-only">CIO Job Market 2026 report</h1>
+
+        <section className="border border-slate-200 rounded-lg p-4 bg-white">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#market-signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Market signals</a>
+            <a href="#monitoring-system" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Monitoring system</a>
+            <a href="#actions-this-week" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Actions this week</a>
+            <a href="#start-monitoring" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start monitoring</a>
+          </div>
+        </section>
 
         <p>
           The standard advice for an executive in search: update your resume, tell your network, wait for recruiters to call.
@@ -73,7 +84,7 @@ export default function CioJobMarket2026Page() {
           something is forming before the formal search begins.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The Q2 2026 CIO hiring picture: what the scans show</h2>
+        <h2 id="market-signals" className="text-[22px] font-bold text-slate-900 pt-4">The Q2 2026 CIO hiring picture: what the scans show</h2>
 
         <p>
           Across the career pages we monitored from April through early May, a few patterns emerged clearly.
@@ -176,7 +187,7 @@ export default function CioJobMarket2026Page() {
           of new postings is highest. A Friday-only check misses most of what appeared during the week.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">How to monitor career pages without doing it manually</h2>
+        <h2 id="monitoring-system" className="text-[22px] font-bold text-slate-900 pt-4">How to monitor career pages without doing it manually</h2>
 
         <p>
           Manual monitoring does not scale. If you are watching 20 companies and checking each career page individually
@@ -232,7 +243,7 @@ export default function CioJobMarket2026Page() {
           is the difference between being on the list and not being on it.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">What this means for your search right now</h2>
+        <h2 id="actions-this-week" className="text-[22px] font-bold text-slate-900 pt-4">What this means for your search right now</h2>
 
         <p>
           The CIO job market in Q2 2026 is not frozen and it is not red-hot. It is active in specific sectors and specific
@@ -274,7 +285,14 @@ export default function CioJobMarket2026Page() {
           who you are monitoring and how early you are moving.
         </p>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-8">
+        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Outcome snapshot</h2>
+        <ul className="list-disc pl-5 space-y-2">
+          <li><span className="font-semibold text-slate-900">Outcome:</span> Earlier company-page detection creates warmer first-touch windows.</li>
+          <li><span className="font-semibold text-slate-900">Outcome:</span> Signal tracking improves interview timing and shortlist entry odds.</li>
+          <li><span className="font-semibold text-slate-900">Outcome:</span> Weekly monitoring cadence reduces reactive outreach decisions.</li>
+        </ul>
+
+        <div id="start-monitoring" className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-8">
           <p className="text-[14px] font-semibold text-slate-900 mb-2">Start monitoring your target companies</p>
           <p className="text-[14px] text-slate-600 mb-4">
             Starting Monday scans career pages 3x per week and alerts you when a matching role appears.
