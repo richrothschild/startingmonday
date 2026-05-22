@@ -8,64 +8,99 @@ function mailtoHref(subject: string, body: string) {
 }
 
 export const metadata: Metadata = {
-  title: 'Starting Monday | C-Suite Conversion Review Brief',
+  title: 'Starting Monday | Mark Horstman Decision Brief',
   description:
-    'One-page review brief for Mark Horstman: value proposition, C-suite objections, and specific decision asks.',
+    'Updated decision brief for Mark Horstman: behavior-first positioning, cadence model, trust proof, and concrete next decisions.',
   alternates: { canonical: 'https://startingmonday.app/mark-review' },
   openGraph: {
-    title: 'Starting Monday | C-Suite Conversion Review Brief',
+    title: 'Starting Monday | Mark Horstman Decision Brief',
     description:
-      'One-page review brief for Mark Horstman: value proposition, C-suite objections, and specific decision asks.',
+      'Updated decision brief for Mark Horstman: behavior-first positioning, cadence model, trust proof, and concrete next decisions.',
     url: 'https://startingmonday.app/mark-review',
   },
 }
 
 const DECISION_QUESTIONS = [
-  'What are the top 3 reasons a serious C-suite buyer would hesitate or leave?',
-  'Which trust gap is the most damaging right now: credibility, proof, privacy, positioning, pricing, or workflow burden?',
-  'If we only fix one thing this week, what is it?',
+  'What is the single most important behavior metric to publish on the site now: outreach sent per week, conversations started, or follow-up completion?',
+  'Do we agree to treat person-first execution (not company-first browsing) as the primary product narrative on the page?',
+  'If we ship only one conversion fix this week, should it be proof clarity, pricing clarity, or loop-closure visibility?',
 ]
 
-const CORE_VALUE = [
-  'Find role-shaping opportunity windows before postings become public.',
-  'Turn raw market movement into decision-ready daily actions.',
-  'Improve executive search behavior: fewer reactive moves, more consistent high-leverage actions.',
-  'Strengthen relationship quality with better-timed, better-context outreach.',
-  'Prepare outreach and interview narrative at executive depth, not job-board depth.',
-  'Run a disciplined campaign with less noise and tighter follow-through to land the right-fit role.',
+const WHAT_CHANGED = [
+  'Behavior-over-information framing is now explicit: the product must change weekly actions, not just improve awareness.',
+  'Cadence model is visible: Monday review, daily triage, pre-conversation prep, and Friday accountability check.',
+  'Trust proof language now requires denominator and confidence context for headline claims.',
+  'Primary risk is named directly: signal to action to conversation loop is not yet measured end to end.',
+  'Positioning now emphasizes person-first outcomes and relationship momentum, not company list management.',
+]
+
+const HORSTMAN_FILTER = [
+  {
+    lens: 'Behavior standard',
+    check:
+      'A user should be able to point to changed behavior in week 1 (who they contacted, what they followed up on, and what decision was made).',
+  },
+  {
+    lens: 'Anti-vagueness standard',
+    check:
+      'Every value claim should translate to a measurable output, with denominator and confidence level visible.',
+  },
+  {
+    lens: 'Cadence standard',
+    check:
+      'The operating rhythm should be obvious and repeatable so users can run a weekly system without extra overhead.',
+  },
+  {
+    lens: 'Relationship standard',
+    check:
+      'The product should reinforce that executive outcomes are won through people and advocacy, not company tracking alone.',
+  },
+]
+
+const CADENCE_STEPS = [
+  'Monday: executive search cadence review (priorities, risks, and who needs follow-up).',
+  'Daily: signal triage into one clear next move per priority target.',
+  'Pre-conversation: prep brief review for likely objections and context-specific positioning.',
+  'Friday: accountability review of outreach sent, responses received, and overdue follow-ups.',
 ]
 
 const KEY_OBJECTIONS = [
   {
     concern: '"This sounds like another dashboard."',
     response:
-      'It is not built for passive monitoring. It is built for action: signal -> decision -> outreach -> follow-up.',
+      'It is not designed for passive monitoring. The model is explicit: signal -> decision -> outreach -> follow-up.',
   },
   {
-    concern: '"Can I trust the signal quality?"',
+    concern: '"Can I trust the AI output quality?"',
     response:
-      'Signal is tied to timing and execution decisions, not vanity alerts. The standard is useful next step, not interesting data.',
+      'Output quality is strongest when company context is well populated, and every claim should carry denominator and confidence context.',
   },
   {
-    concern: '"I am employed. Is this private?"',
+    concern: '"If this is behavior-first, where is the scoreboard?"',
     response:
-      'Privacy is a first-order requirement. No employer visibility. No recruiter visibility. User-controlled account and data deletion.',
+      'The scoreboard to prioritize next is loop closure: signals received, outreach sent, conversations started, and follow-ups completed.',
   },
   {
-    concern: '"Will this save time or add work?"',
+    concern: '"Is this built for company tracking or relationship execution?"',
     response:
-      'The goal is reduced cognitive load: one place for target movement, prep context, and next actions.',
+      'Company signals are input. Relationship execution is output. The page now centers the people-first outcome.',
   },
   {
-    concern: '"Is this built for people at my level?"',
+    concern: '"I am employed. Is this private and low-risk to use?"',
     response:
-      'The product is focused on C-suite and near-C-suite technology transitions, not broad apply-and-wait searches.',
+      'Privacy remains first-order: no employer visibility, no recruiter visibility, and user-controlled deletion.',
   },
 ]
 
+const NEXT_7_DAYS = [
+  'Publish one behavior KPI on-site with denominator and confidence annotation.',
+  'Add person-first copy directly in hero/supporting sections to remove company-first ambiguity.',
+  'Instrument loop-closure tracking for outreach and follow-up actions.',
+]
+
 const feedbackLink = mailtoHref(
-  'Starting Monday: C-suite conversion review',
-  'Top 3 conversion blockers for C-suite buyers:\n1)\n2)\n3)\n\nMost damaging trust gap (pick one):\n\nOne fix to ship this week:\n\nAnything unclear or weak in the value proposition:\n',
+  'Starting Monday: Mark decision brief feedback',
+  'Most important behavior KPI to publish now:\n\nMost damaging trust gap:\n\nBest single fix for this week:\n\nNotes on cadence clarity or person-first framing:\n',
 )
 
 const callLink = mailtoHref(
@@ -97,12 +132,12 @@ export default function MarkReviewPage() {
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">One-Page Brief</p>
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Updated Decision Brief</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            Starting Monday: C-suite conversion pressure test
+            Starting Monday: Mark Horstman review brief
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            This brief is direct by design: what the product is, where buyer trust can break, and the exact decisions needed to improve conversion.
+            This page reflects the latest brief updates: behavior-first positioning, cadence clarity, trust-proof standards, and explicit conversion decisions.
           </p>
         </div>
       </header>
@@ -110,16 +145,16 @@ export default function MarkReviewPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-18">
         <div className="max-w-4xl mx-auto space-y-10">
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is now</p>
             <p className="text-[15px] text-slate-700 leading-relaxed">
-              Starting Monday is an execution platform for C-suite technology executives in search. It is designed to improve search behavior and relationship quality so serious buyers move earlier, prepare better, and land the right role for them, not just the first available role.
+              Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition. It is built to create consistent, measurable weekly behaviors that produce better conversations and better-fit outcomes.
             </p>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Core value</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What changed since prior brief</p>
             <ul className="space-y-2.5">
-              {CORE_VALUE.map((item) => (
+              {WHAT_CHANGED.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
                   <span className="text-orange-500 mt-0.5">•</span>
                   <span>{item}</span>
@@ -129,7 +164,30 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">C-suite objections and current answers</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Horstman filter</p>
+            <div className="space-y-4">
+              {HORSTMAN_FILTER.map((item) => (
+                <div key={item.lens} className="border-l-4 border-slate-300 pl-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.lens}</p>
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.check}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="border border-slate-900 rounded-lg p-6 bg-slate-950">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Cadence visual</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {CADENCE_STEPS.map((step) => (
+                <div key={step} className="text-[13px] text-slate-100 leading-relaxed border border-white/10 bg-white/5 rounded p-3">
+                  {step}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Current objections and answers</p>
             <div className="space-y-4">
               {KEY_OBJECTIONS.map((item) => (
                 <div key={item.concern} className="border-l-4 border-slate-300 pl-4">
@@ -138,6 +196,15 @@ export default function MarkReviewPage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Next 7-day execution priorities</p>
+            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
+              {NEXT_7_DAYS.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
           </section>
 
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
@@ -171,6 +238,9 @@ export default function MarkReviewPage() {
               </Link>
               <Link href="/demo" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
                 Demo: https://startingmonday.app/demo
+              </Link>
+              <Link href="/demo/cio/notes" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
+                Notes mode (proof + cadence framing): https://startingmonday.app/demo/cio/notes
               </Link>
               <Link href="/pricing" className="block text-slate-800 hover:text-slate-900 underline underline-offset-2">
                 Pricing: https://startingmonday.app/pricing
