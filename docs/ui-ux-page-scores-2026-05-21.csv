@@ -1,0 +1,158 @@
+route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,paragraphCount,linkCount,buttonCount,formFieldCount,listCount,ctaCount,hasTrust,hasOutcome,hasTOC,findings
+/,src/app/page.tsx,marketing,67,C-,false,164,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/about,src/app/about/page.tsx,marketing,76,C+,false,250,1,1,12,18,0,0,0,2,true,false,true,Weak heading hierarchy | Insufficient content chunking | Missing outcome metrics
+/annual-report-2026,src/app/annual-report-2026/page.tsx,marketing,59,C-,false,77,1,2,5,0,0,0,1,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/blog,src/app/blog/page.tsx,blog,100,A+,true,180,2,3,9,15,0,0,0,1,true,false,true,No major static UX risks detected
+/blog/cio-board-presentation,src/app/blog/cio-board-presentation/page.tsx,blog,92,A-,true,155,0,7,16,1,0,0,0,1,true,false,false,Missing H1
+/blog/cio-compensation-negotiation,src/app/blog/cio-compensation-negotiation/page.tsx,blog,92,A-,true,175,0,6,19,1,0,0,0,0,false,false,false,Missing H1
+/blog/cio-job-market-2026,src/app/blog/cio-job-market-2026/page.tsx,blog,66,C-,false,295,0,12,36,1,0,0,2,0,false,true,false,Missing H1 | Insufficient content chunking | Long page without quick navigation | Dense copy blocks
+/blog/cio-job-search-timeline,src/app/blog/cio-job-search-timeline/page.tsx,blog,92,A-,true,167,0,4,15,1,0,0,0,0,false,true,false,Missing H1
+/blog/cio-vs-cto-which-role,src/app/blog/cio-vs-cto-which-role/page.tsx,blog,92,A-,true,174,0,6,18,0,0,0,0,0,true,false,false,Missing H1
+/blog/ciso-interview-preparation,src/app/blog/ciso-interview-preparation/page.tsx,blog,92,A-,true,174,0,6,18,1,0,0,0,0,true,true,false,Missing H1
+/blog/cto-job-search-timeline,src/app/blog/cto-job-search-timeline/page.tsx,blog,92,A-,true,152,0,4,15,0,0,0,0,0,false,false,false,Missing H1
+/blog/cto-vs-vp-engineering-career-path,src/app/blog/cto-vs-vp-engineering-career-path/page.tsx,blog,92,A-,true,169,0,5,19,0,0,0,0,0,false,false,false,Missing H1
+/blog/executive-coaching-candidate-infrastructure,src/app/blog/executive-coaching-candidate-infrastructure/page.tsx,blog,92,A-,true,214,0,6,24,1,0,0,0,0,false,false,false,Missing H1
+/blog/executive-coaching-job-search,src/app/blog/executive-coaching-job-search/page.tsx,blog,92,A-,true,179,0,6,18,0,0,0,0,0,false,false,false,Missing H1
+/blog/executive-hiring-patterns-2026,src/app/blog/executive-hiring-patterns-2026/page.tsx,blog,92,A-,true,125,0,8,9,0,0,0,2,0,true,true,false,Missing H1
+/blog/executive-job-search-daily-routine,src/app/blog/executive-job-search-daily-routine/page.tsx,blog,92,A-,true,186,0,10,20,0,0,0,2,0,false,true,false,Missing H1
+/blog/executive-resume-gaps,src/app/blog/executive-resume-gaps/page.tsx,blog,92,A-,true,190,0,7,19,1,0,0,0,0,true,true,false,Missing H1
+/blog/executive-search-firms-cio,src/app/blog/executive-search-firms-cio/page.tsx,blog,92,A-,true,175,0,6,19,1,0,0,0,0,true,false,false,Missing H1
+/blog/executive-search-operating-system,src/app/blog/executive-search-operating-system/page.tsx,blog,92,A-,true,216,0,4,24,0,0,0,0,0,false,true,false,Missing H1
+/blog/how-cios-find-jobs,src/app/blog/how-cios-find-jobs/page.tsx,blog,92,A-,true,179,0,5,17,0,0,0,0,0,false,true,false,Missing H1
+/blog/how-we-estimate-early-role-signals,src/app/blog/how-we-estimate-early-role-signals/page.tsx,blog,92,A-,true,162,0,10,9,5,0,0,6,0,true,true,false,Missing H1
+/blog/linkedin-executive-search-strategy,src/app/blog/linkedin-executive-search-strategy/page.tsx,blog,92,A-,true,187,0,6,20,0,0,0,0,2,false,false,false,Missing H1
+/blog/pe-backed-cio,src/app/blog/pe-backed-cio/page.tsx,blog,92,A-,true,191,0,7,20,1,0,0,0,0,false,true,false,Missing H1
+/blog/retained-search-candidate-preparation,src/app/blog/retained-search-candidate-preparation/page.tsx,blog,92,A-,true,195,0,5,20,1,0,0,0,0,false,false,false,Missing H1
+/blog/retained-search-firms,src/app/blog/retained-search-firms/page.tsx,blog,92,A-,true,175,0,7,18,1,0,0,0,0,false,false,false,Missing H1
+/blog/target-company-list,src/app/blog/target-company-list/page.tsx,blog,92,A-,true,195,0,5,21,0,0,0,0,0,false,false,false,Missing H1
+/blog/target-company-list-cto,src/app/blog/target-company-list-cto/page.tsx,blog,74,C,false,258,0,6,29,0,0,0,0,1,false,false,false,Missing H1 | Insufficient content chunking | Dense copy blocks
+/blog/technology-executive-transition-chro,src/app/blog/technology-executive-transition-chro/page.tsx,blog,92,A-,true,185,0,4,19,1,0,0,0,0,false,false,false,Missing H1
+/blog/vp-job-search-different-rules,src/app/blog/vp-job-search-different-rules/page.tsx,blog,92,A-,true,190,0,5,18,1,0,0,0,1,false,false,false,Missing H1
+/blog/vp-to-cio-transition,src/app/blog/vp-to-cio-transition/page.tsx,blog,92,A-,true,163,0,6,17,1,0,0,0,0,true,false,false,Missing H1
+/blog/what-companies-want-chief-data-officer,src/app/blog/what-companies-want-chief-data-officer/page.tsx,blog,92,A-,true,162,0,6,17,1,0,0,0,0,true,false,false,Missing H1
+/blog/why-executive-recruiters-go-quiet,src/app/blog/why-executive-recruiters-go-quiet/page.tsx,blog,92,A-,true,133,0,8,12,0,0,0,2,0,true,true,false,Missing H1
+/blog/why-starting-monday-exists,src/app/blog/why-starting-monday-exists/page.tsx,blog,92,A-,true,127,0,8,12,0,0,0,1,0,false,false,false,Missing H1
+/career-tools,src/app/career-tools/page.tsx,marketing,94,A,true,225,5,6,14,7,0,0,2,3,false,true,true,Missing trust/confidentiality cues
+/coaches-guide,src/app/coaches-guide/page.tsx,marketing,68,C-,false,244,7,8,27,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/concierge,src/app/concierge/page.tsx,marketing,53,C-,false,12,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/contributor,src/app/contributor/page.tsx,marketing,84,B,false,209,0,1,5,1,0,0,0,2,true,false,false,Weak heading hierarchy | Missing outcome metrics
+/dashboard,src/app/(dashboard)/dashboard/page.tsx,dashboard,49,C-,false,1666,0,2,69,77,7,10,1,1,false,true,true,Weak heading hierarchy | Insufficient content chunking | Extreme scroll burden | Dense copy blocks
+/dashboard/admin,src/app/(dashboard)/dashboard/admin/page.tsx,dashboard,49,C-,false,1102,0,1,31,11,0,0,0,2,false,true,false,Weak heading hierarchy | Insufficient content chunking | Extreme scroll burden | Dense copy blocks
+/dashboard/admin/b2b,src/app/(dashboard)/dashboard/admin/b2b/page.tsx,dashboard,92,A-,true,191,0,1,5,5,0,0,0,0,false,false,false,Weak heading hierarchy
+/dashboard/admin/b2b/[id],src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx,dashboard,100,A+,true,314,3,4,3,5,5,19,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/b2b/new,src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx,dashboard,100,A+,true,136,0,1,1,2,1,6,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/coach-outreach,src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx,dashboard,90,A-,true,435,9,10,49,5,0,0,4,12,false,true,true,Moderate scroll burden
+/dashboard/admin/crm,src/app/(dashboard)/dashboard/admin/crm/page.tsx,dashboard,76,C+,false,333,0,1,20,1,1,0,0,2,false,true,false,Weak heading hierarchy | Insufficient content chunking | Low action density for workflow page
+/dashboard/admin/customers,src/app/(dashboard)/dashboard/admin/customers/page.tsx,dashboard,84,B,false,317,0,1,13,2,1,0,0,0,false,true,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/admin/feedback,src/app/(dashboard)/dashboard/admin/feedback/page.tsx,dashboard,92,A-,true,249,3,1,4,3,0,0,1,2,false,true,true,Weak heading hierarchy
+/dashboard/admin/feedback/[id],src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx,dashboard,100,A+,true,288,3,4,13,2,1,3,0,0,false,false,true,No major static UX risks detected
+/dashboard/admin/intelligence,src/app/(dashboard)/dashboard/admin/intelligence/page.tsx,dashboard,84,B,false,51,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
+/dashboard/admin/linkedin-company-launch,src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx,dashboard,92,A-,true,92,0,1,11,2,0,0,3,1,false,true,false,Low action density for workflow page
+/dashboard/admin/metrics,src/app/(dashboard)/dashboard/admin/metrics/page.tsx,dashboard,76,C+,false,265,0,1,8,1,0,0,0,0,true,true,false,Weak heading hierarchy | Insufficient content chunking | Low action density for workflow page
+/dashboard/admin/operations,src/app/(dashboard)/dashboard/admin/operations/page.tsx,dashboard,100,A+,true,138,0,1,9,5,0,0,0,4,false,false,false,No major static UX risks detected
+/dashboard/admin/outreach-analytics,src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx,dashboard,74,C,false,501,6,1,78,4,0,0,0,0,false,true,false,Weak heading hierarchy | High scroll burden
+/dashboard/admin/product,src/app/(dashboard)/dashboard/admin/product/page.tsx,dashboard,100,A+,true,141,0,1,9,5,0,0,0,1,false,true,false,No major static UX risks detected
+/dashboard/admin/revenue,src/app/(dashboard)/dashboard/admin/revenue/page.tsx,dashboard,100,A+,true,139,0,1,9,5,0,0,0,4,false,true,false,No major static UX risks detected
+/dashboard/admin/social,src/app/(dashboard)/dashboard/admin/social/page.tsx,dashboard,66,C-,false,286,0,1,28,2,0,0,2,1,false,true,true,Weak heading hierarchy | Insufficient content chunking | Dense copy blocks | Low action density for workflow page
+/dashboard/admin/speakers,src/app/(dashboard)/dashboard/admin/speakers/page.tsx,dashboard,100,A+,true,84,0,1,1,4,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/team,src/app/(dashboard)/dashboard/admin/team/page.tsx,dashboard,92,A-,true,52,0,1,2,1,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/admin/traces,src/app/(dashboard)/dashboard/admin/traces/page.tsx,dashboard,92,A-,true,210,0,1,9,5,0,0,0,0,false,false,false,Weak heading hierarchy
+/dashboard/admin/traces/rubric,src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx,dashboard,92,A-,true,58,0,1,3,2,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/briefing,src/app/(dashboard)/dashboard/briefing/page.tsx,dashboard,66,C-,false,540,0,1,16,10,3,6,0,0,false,true,false,Weak heading hierarchy | Insufficient content chunking | High scroll burden
+/dashboard/calendar,src/app/(dashboard)/dashboard/calendar/page.tsx,dashboard,84,B,false,279,0,1,5,5,0,0,0,0,false,false,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/chat,src/app/(dashboard)/dashboard/chat/page.tsx,dashboard,66,C-,false,373,0,0,5,2,7,1,0,0,false,false,false,Missing H1 | Weak heading hierarchy | Insufficient content chunking | Moderate scroll burden
+/dashboard/coach,src/app/(dashboard)/dashboard/coach/page.tsx,dashboard,84,B,false,238,0,1,15,2,1,1,0,1,false,true,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/coach/[clientId],src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx,dashboard,92,A-,true,66,0,1,4,2,0,0,0,0,false,true,false,Low action density for workflow page
+/dashboard/companies/[id],src/app/(dashboard)/dashboard/companies/[id]/page.tsx,dashboard,49,C-,false,1421,0,1,49,15,10,36,0,0,true,true,false,Weak heading hierarchy | Insufficient content chunking | Extreme scroll burden | Dense copy blocks
+/dashboard/companies/[id]/prep,src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx,dashboard,84,B,false,86,0,0,0,0,0,0,0,0,false,true,false,Missing H1 | Low action density for workflow page
+/dashboard/companies/new,src/app/(dashboard)/dashboard/companies/new/page.tsx,dashboard,92,A-,true,193,0,1,5,2,1,7,0,0,false,true,false,Weak heading hierarchy
+/dashboard/concierge,src/app/(dashboard)/dashboard/concierge/page.tsx,dashboard,92,A-,true,183,3,2,18,4,0,0,1,1,false,true,false,Weak heading hierarchy
+/dashboard/contacts,src/app/(dashboard)/dashboard/contacts/page.tsx,dashboard,92,A-,true,220,0,1,1,1,1,8,0,0,false,false,false,Weak heading hierarchy
+/dashboard/contacts/[id],src/app/(dashboard)/dashboard/contacts/[id]/page.tsx,dashboard,66,C-,false,535,0,1,13,12,4,4,0,0,false,true,false,Weak heading hierarchy | Insufficient content chunking | High scroll burden
+/dashboard/contacts/[id]/edit,src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx,dashboard,92,A-,true,199,0,1,1,2,1,10,0,0,false,false,false,Weak heading hierarchy
+/dashboard/contacts/[id]/outreach,src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx,dashboard,84,B,false,89,0,0,0,0,0,0,0,0,false,true,false,Missing H1 | Low action density for workflow page
+/dashboard/discover,src/app/(dashboard)/dashboard/discover/page.tsx,dashboard,84,B,false,251,0,1,5,4,5,1,0,0,false,true,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/feedback,src/app/(dashboard)/dashboard/feedback/page.tsx,dashboard,90,A-,true,363,3,3,2,1,2,7,0,7,false,false,true,Moderate scroll burden
+/dashboard/help,src/app/(dashboard)/dashboard/help/page.tsx,dashboard,100,A+,true,85,0,1,5,8,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/invite,src/app/(dashboard)/dashboard/invite/page.tsx,dashboard,92,A-,true,79,0,1,3,1,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/kanban,src/app/(dashboard)/dashboard/kanban/page.tsx,dashboard,84,B,false,6,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
+/dashboard/offers,src/app/(dashboard)/dashboard/offers/page.tsx,dashboard,92,A-,true,216,0,2,6,8,0,0,0,0,false,true,false,Weak heading hierarchy
+/dashboard/outplacement,src/app/(dashboard)/dashboard/outplacement/page.tsx,dashboard,92,A-,true,32,0,1,2,2,0,0,1,1,false,false,false,Low action density for workflow page
+/dashboard/outreach,src/app/(dashboard)/dashboard/outreach/page.tsx,dashboard,67,C-,false,977,3,2,18,4,0,0,1,3,true,true,false,Weak heading hierarchy | Extreme scroll burden
+/dashboard/partner,src/app/(dashboard)/dashboard/partner/page.tsx,dashboard,76,C+,false,234,0,1,6,1,0,0,0,3,false,false,false,Weak heading hierarchy | Insufficient content chunking | Low action density for workflow page
+/dashboard/pilot-outreach,src/app/(dashboard)/dashboard/pilot-outreach/page.tsx,dashboard,92,A-,true,44,0,1,3,0,1,4,0,2,false,false,false,Missing H1
+/dashboard/placed,src/app/(dashboard)/dashboard/placed/page.tsx,dashboard,100,A+,true,107,0,1,8,6,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/positioning,src/app/(dashboard)/dashboard/positioning/page.tsx,dashboard,100,A+,true,95,0,2,4,3,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/profile,src/app/(dashboard)/dashboard/profile/page.tsx,dashboard,49,C-,false,787,0,1,42,6,2,23,0,0,true,true,false,Weak heading hierarchy | Insufficient content chunking | Extreme scroll burden | Dense copy blocks
+/dashboard/profile/tailor,src/app/(dashboard)/dashboard/profile/tailor/page.tsx,dashboard,100,A+,true,142,0,2,5,5,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/salary,src/app/(dashboard)/dashboard/salary/page.tsx,dashboard,92,A-,true,65,0,1,4,2,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/signals,src/app/(dashboard)/dashboard/signals/page.tsx,dashboard,84,B,false,333,0,1,5,15,2,4,0,0,false,true,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,84,B,false,279,0,2,11,3,0,0,0,1,false,true,false,Weak heading hierarchy | Insufficient content chunking
+/dashboard/strategy,src/app/(dashboard)/dashboard/strategy/page.tsx,dashboard,84,B,false,32,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
+/dashboard/wrap-up,src/app/(dashboard)/dashboard/wrap-up/page.tsx,dashboard,100,A+,true,95,0,1,4,4,1,1,0,0,false,false,false,No major static UX risks detected
+/demo,src/app/demo/page.tsx,marketing,66,C-,false,491,1,2,23,12,3,3,1,29,true,true,true,Weak heading hierarchy | Insufficient content chunking | Moderate scroll burden | CTA overload
+/demo/cio,src/app/demo/cio/page.tsx,marketing,53,C-,false,13,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,53,C-,false,13,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,86,B,false,314,0,3,11,5,1,2,0,4,false,true,true,Insufficient content chunking | Missing trust/confidentiality cues
+/demo/presenter,src/app/demo/presenter/page.tsx,marketing,74,C,false,137,3,1,13,6,0,0,0,0,true,false,true,No explicit CTA language | Missing outcome metrics
+/evaluate,src/app/evaluate/page.tsx,marketing,74,C,false,97,2,3,4,3,0,0,0,0,true,false,false,No explicit CTA language | Missing outcome metrics
+/evidence-room,src/app/evidence-room/page.tsx,marketing,100,A+,true,128,3,1,12,7,0,0,1,1,true,true,true,No major static UX risks detected
+/feedback,src/app/feedback/page.tsx,marketing,68,C-,false,84,0,2,4,0,1,1,0,0,false,false,false,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-cdo,src/app/for-cdo/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-cio,src/app/for-cio/page.tsx,marketing,59,C-,false,132,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,76,C+,false,213,5,6,15,6,0,0,1,0,false,true,true,No explicit CTA language | Missing trust/confidentiality cues
+/for-ciso,src/app/for-ciso/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-coaches,src/app/for-coaches/page.tsx,marketing,57,C-,false,802,15,10,112,24,0,0,10,0,true,true,true,Extreme scroll burden | No explicit CTA language
+/for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,78,C+,false,199,7,1,26,4,0,0,1,2,false,false,true,Weak heading hierarchy | Missing trust/confidentiality cues | Missing outcome metrics
+/for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,4,6,17,10,0,0,0,2,true,true,true,No major static UX risks detected
+/for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,74,C,false,79,3,1,6,2,0,0,2,0,true,false,false,No explicit CTA language | Missing outcome metrics
+/for-coo,src/app/for-coo/page.tsx,marketing,67,C-,false,131,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/for-cpo,src/app/for-cpo/page.tsx,marketing,53,C-,false,129,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-data-officer,src/app/for-data-officer/page.tsx,marketing,59,C-,false,130,0,0,0,0,0,0,0,0,true,false,true,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,68,C-,false,231,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,68,C-,false,227,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-media-partners,src/app/for-media-partners/page.tsx,marketing,86,B,false,243,6,7,20,6,0,0,1,1,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
+/for-outplacement,src/app/for-outplacement/page.tsx,marketing,75,C+,false,718,19,20,59,18,0,0,5,2,true,true,true,Extreme scroll burden
+/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,74,C,false,681,20,1,64,10,0,0,5,5,true,true,true,Weak heading hierarchy | High scroll burden
+/for-outplacement/executive-summary,src/app/for-outplacement/executive-summary/page.tsx,marketing,100,A+,true,138,6,1,13,5,0,0,3,3,true,true,true,No major static UX risks detected
+/for-outplacement/faq,src/app/for-outplacement/faq/page.tsx,marketing,100,A+,true,238,3,4,9,9,0,0,0,6,true,true,true,No major static UX risks detected
+/for-outplacement/metric-dictionary,src/app/for-outplacement/metric-dictionary/page.tsx,marketing,100,A+,true,132,3,1,5,5,0,0,0,2,true,true,true,No major static UX risks detected
+/for-outplacement/operating-scorecard,src/app/for-outplacement/operating-scorecard/page.tsx,marketing,82,B-,false,102,4,1,12,4,0,0,0,0,true,true,true,No explicit CTA language
+/for-outplacement/runbook,src/app/for-outplacement/runbook/page.tsx,marketing,100,A+,true,166,5,1,16,6,0,0,0,10,true,true,true,No major static UX risks detected
+/for-outplacement/security-overview,src/app/for-outplacement/security-overview/page.tsx,marketing,92,A-,true,132,4,1,13,5,0,0,0,2,true,false,true,Missing outcome metrics
+/for-outplacement/trust-pack,src/app/for-outplacement/trust-pack/page.tsx,marketing,82,B-,false,476,13,1,37,8,0,0,3,8,true,true,true,Weak heading hierarchy | Moderate scroll burden
+/for-pe-partners,src/app/for-pe-partners/page.tsx,marketing,68,C-,false,211,5,6,16,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-pe-teams,src/app/for-pe-teams/page.tsx,marketing,68,C-,false,139,3,1,11,7,0,0,0,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-relocation,src/app/for-relocation/page.tsx,marketing,68,C-,false,228,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-search-firms,src/app/for-search-firms/page.tsx,marketing,68,C-,false,229,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-vp,src/app/for-vp/page.tsx,marketing,67,C-,false,131,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/for-vp-technology,src/app/for-vp-technology/page.tsx,marketing,53,C-,false,129,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/founder-note,src/app/founder-note/page.tsx,marketing,59,C-,false,50,0,0,4,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/guide,src/app/guide/page.tsx,marketing,53,C-,false,61,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/intelligence/[slug],src/app/intelligence/[slug]/page.tsx,marketing,70,C,false,259,0,2,7,10,0,0,0,4,false,false,false,Weak heading hierarchy | Insufficient content chunking | Missing trust/confidentiality cues | Missing outcome metrics
+/invite/[code],src/app/invite/[code]/page.tsx,marketing,76,C+,false,78,0,1,5,3,0,0,0,0,false,true,false,No explicit CTA language | Missing trust/confidentiality cues
+/login,src/app/(auth)/login/page.tsx,auth,76,C+,false,296,0,1,6,3,4,2,0,1,true,false,false,Weak heading hierarchy | Insufficient content chunking | Long page without quick navigation
+/mark-demo,src/app/mark-demo/page.tsx,marketing,53,C-,false,18,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/mark-review,src/app/mark-review/page.tsx,marketing,92,A-,true,285,9,1,18,9,0,0,3,2,true,true,true,Weak heading hierarchy
+/mark-review/summary,src/app/mark-review/summary/page.tsx,marketing,100,A+,true,151,4,1,12,5,0,0,0,1,true,true,true,No major static UX risks detected
+/method-and-evidence,src/app/method-and-evidence/page.tsx,marketing,92,A-,true,125,3,4,13,7,0,0,0,1,true,false,true,Missing outcome metrics
+/onboarding,src/app/onboarding/page.tsx,marketing,53,C-,false,20,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/optimize,src/app/optimize/page.tsx,marketing,74,C,false,378,0,4,12,7,3,3,2,1,true,true,false,Insufficient content chunking | Moderate scroll burden | Long page without quick navigation
+/partners,src/app/partners/page.tsx,marketing,60,C-,false,260,4,1,18,10,0,0,3,0,false,false,true,Weak heading hierarchy | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/pilot-findings,src/app/pilot-findings/page.tsx,marketing,67,C-,false,101,1,3,6,0,0,0,2,0,true,true,false,Missing H1 | No explicit CTA language
+/pricing,src/app/pricing/page.tsx,marketing,92,A-,true,238,6,1,27,9,0,0,0,1,true,true,true,Weak heading hierarchy
+/privacy,src/app/privacy/page.tsx,legal,100,A+,true,142,1,8,12,3,0,0,3,3,true,false,false,No major static UX risks detected
+/references,src/app/references/page.tsx,marketing,92,A-,true,251,6,2,17,7,0,0,1,1,true,true,true,Weak heading hierarchy
+/research-brief,src/app/research-brief/page.tsx,marketing,74,C,false,82,3,1,11,4,0,0,1,0,true,false,true,No explicit CTA language | Missing outcome metrics
+/sales-marketing-plan,src/app/sales-marketing-plan/page.tsx,marketing,82,B-,false,569,7,6,33,7,0,0,4,10,true,true,true,High scroll burden
+/search-firms,src/app/search-firms/page.tsx,marketing,94,A,true,234,6,10,8,7,0,0,3,1,false,true,true,Missing trust/confidentiality cues
+/search-firms/sample-cfo-brief,src/app/search-firms/sample-cfo-brief/page.tsx,marketing,68,C-,false,123,1,5,4,3,0,0,3,0,false,false,false,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/security,src/app/security/page.tsx,legal,100,A+,true,205,10,11,17,8,0,0,4,4,true,true,true,No major static UX risks detected
+/settings/billing,src/app/(dashboard)/settings/billing/page.tsx,dashboard,84,B,false,25,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
+/settings/security,src/app/(dashboard)/settings/security/page.tsx,dashboard,92,A-,true,40,0,1,1,1,0,0,0,0,true,false,false,Low action density for workflow page
+/settings/team,src/app/(dashboard)/settings/team/page.tsx,dashboard,92,A-,true,99,0,1,1,2,0,0,0,0,false,false,false,Low action density for workflow page
+/signup,src/app/(auth)/signup/page.tsx,auth,74,C,false,416,0,3,13,5,3,2,1,1,true,true,false,Insufficient content chunking | Moderate scroll burden | Long page without quick navigation
+/team/join/[token],src/app/team/join/[token]/page.tsx,marketing,68,C-,false,148,0,1,6,5,1,0,0,0,false,false,false,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/terms,src/app/terms/page.tsx,legal,92,A-,true,70,0,1,3,2,0,0,1,0,false,false,false,Missing H1
+/unsubscribe/[code],src/app/unsubscribe/[code]/page.tsx,legal,92,A-,true,31,0,0,0,0,0,0,0,0,false,false,false,Missing H1
+/unsubscribe/confirmed,src/app/unsubscribe/confirmed/page.tsx,legal,100,A+,true,16,0,1,2,0,0,0,0,0,false,false,false,No major static UX risks detected
