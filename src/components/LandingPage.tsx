@@ -597,12 +597,20 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           </div>
           <div className="mt-10 bg-white border border-slate-200 rounded-lg p-6 max-w-3xl">
-            <p className="text-[14px] text-slate-700 leading-relaxed">
-              <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
-            </p>
-            <p className="text-[14px] text-slate-700 leading-relaxed mt-4">
-              <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
-            </p>
+            <details className="group">
+              <summary className="cursor-pointer text-[14px] font-semibold text-slate-900 list-none flex items-center justify-between">
+                <span>Advanced use cases and cadence details</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
+              </summary>
+              <div className="mt-4 space-y-4">
+                <p className="text-[14px] text-slate-700 leading-relaxed">
+                  <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
+                </p>
+                <p className="text-[14px] text-slate-700 leading-relaxed">
+                  <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
+                </p>
+              </div>
+            </details>
           </div>
         </div>
       </section>

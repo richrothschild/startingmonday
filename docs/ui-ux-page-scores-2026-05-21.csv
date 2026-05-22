@@ -1,6 +1,6 @@
 route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,paragraphCount,linkCount,buttonCount,formFieldCount,listCount,ctaCount,hasTrust,hasOutcome,hasTOC,findings
 /,src/app/page.tsx,marketing,67,C-,false,164,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
-/about,src/app/about/page.tsx,marketing,76,C+,false,250,1,1,12,18,0,0,0,2,true,false,true,Weak heading hierarchy | Insufficient content chunking | Missing outcome metrics
+/about,src/app/about/page.tsx,marketing,92,A-,true,270,4,4,13,23,0,0,0,2,true,false,true,Missing outcome metrics
 /annual-report-2026,src/app/annual-report-2026/page.tsx,marketing,59,C-,false,77,1,2,5,0,0,0,1,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
 /blog,src/app/blog/page.tsx,blog,100,A+,true,180,2,3,9,15,0,0,0,1,true,false,true,No major static UX risks detected
 /blog/cio-board-presentation,src/app/blog/cio-board-presentation/page.tsx,blog,92,A-,true,155,0,7,16,1,0,0,0,1,true,false,false,Missing H1
@@ -90,7 +90,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,84,B,false,279,0,2,11,3,0,0,0,1,false,true,false,Weak heading hierarchy | Insufficient content chunking
 /dashboard/strategy,src/app/(dashboard)/dashboard/strategy/page.tsx,dashboard,84,B,false,32,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
 /dashboard/wrap-up,src/app/(dashboard)/dashboard/wrap-up/page.tsx,dashboard,100,A+,true,95,0,1,4,4,1,1,0,0,false,false,false,No major static UX risks detected
-/demo,src/app/demo/page.tsx,marketing,66,C-,false,491,1,2,23,12,3,3,1,29,true,true,true,Weak heading hierarchy | Insufficient content chunking | Moderate scroll burden | CTA overload
+/demo,src/app/demo/page.tsx,marketing,74,C,false,506,4,5,24,16,3,3,1,29,true,true,true,High scroll burden | CTA overload
 /demo/cio,src/app/demo/cio/page.tsx,marketing,53,C-,false,13,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,53,C-,false,13,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,86,B,false,314,0,3,11,5,1,2,0,4,false,true,true,Insufficient content chunking | Missing trust/confidentiality cues
@@ -99,7 +99,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /evidence-room,src/app/evidence-room/page.tsx,marketing,100,A+,true,128,3,1,12,7,0,0,1,1,true,true,true,No major static UX risks detected
 /feedback,src/app/feedback/page.tsx,marketing,68,C-,false,84,0,2,4,0,1,1,0,0,false,false,false,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-cdo,src/app/for-cdo/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
-/for-cio,src/app/for-cio/page.tsx,marketing,59,C-,false,132,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-cio,src/app/for-cio/page.tsx,marketing,100,A+,true,148,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,76,C+,false,213,5,6,15,6,0,0,1,0,false,true,true,No explicit CTA language | Missing trust/confidentiality cues
 /for-ciso,src/app/for-ciso/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
 /for-coaches,src/app/for-coaches/page.tsx,marketing,57,C-,false,802,15,10,112,24,0,0,10,0,true,true,true,Extreme scroll burden | No explicit CTA language
@@ -107,7 +107,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,4,6,17,10,0,0,0,2,true,true,true,No major static UX risks detected
 /for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,74,C,false,79,3,1,6,2,0,0,2,0,true,false,false,No explicit CTA language | Missing outcome metrics
 /for-coo,src/app/for-coo/page.tsx,marketing,67,C-,false,131,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
-/for-cpo,src/app/for-cpo/page.tsx,marketing,53,C-,false,129,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
+/for-cpo,src/app/for-cpo/page.tsx,marketing,92,A-,true,145,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
 /for-data-officer,src/app/for-data-officer/page.tsx,marketing,59,C-,false,130,0,0,0,0,0,0,0,0,true,false,true,Missing H1 | No explicit CTA language | Missing outcome metrics
 /for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,68,C-,false,231,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,68,C-,false,227,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
@@ -125,7 +125,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /for-pe-teams,src/app/for-pe-teams/page.tsx,marketing,68,C-,false,139,3,1,11,7,0,0,0,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-relocation,src/app/for-relocation/page.tsx,marketing,68,C-,false,228,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-search-firms,src/app/for-search-firms/page.tsx,marketing,68,C-,false,229,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
-/for-vp,src/app/for-vp/page.tsx,marketing,67,C-,false,131,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/for-vp,src/app/for-vp/page.tsx,marketing,100,A+,true,147,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-vp-technology,src/app/for-vp-technology/page.tsx,marketing,53,C-,false,129,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /founder-note,src/app/founder-note/page.tsx,marketing,59,C-,false,50,0,0,4,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
 /guide,src/app/guide/page.tsx,marketing,53,C-,false,61,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
