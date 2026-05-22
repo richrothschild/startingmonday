@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -423,7 +423,7 @@ export default async function AdminPage() {
       rate: ended > 0 ? Math.round((converted / ended) * 100) : 0,
     }))
 
-  // Signal → action rate by signal type
+  // Signal to action rate by signal type
   const actedSignalIds = new Set((signalActions ?? []).map(a => a.signal_id).filter((id): id is string => id !== null))
   const signalTypeCounts: Record<string, { total: number; acted: number }> = {}
   for (const s of (allSignals ?? []) as { id: string; signal_type: string }[]) {
@@ -470,7 +470,7 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Dashboard</Link>
           </div>
         </div>
       </header>
@@ -546,7 +546,7 @@ export default async function AdminPage() {
           </div>
           <div className="mt-3">
             <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> • view runbooks
+              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
@@ -682,7 +682,7 @@ export default async function AdminPage() {
         <section id="team-summary" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
-            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage →</Link>
+            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage Team</Link>
           </div>
           <div className="divide-y divide-slate-50">
             {teamMembers.map(m => (
@@ -954,11 +954,11 @@ export default async function AdminPage() {
           </div>
         </details>
 
-        {/* Signal → action rate */}
+        {/* Signal to action rate */}
         <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
           <div className="pt-4">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</h2>
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
           <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
           {signalRows.length === 0 ? (
             <p className="text-[13px] text-slate-400">No signals yet.</p>
