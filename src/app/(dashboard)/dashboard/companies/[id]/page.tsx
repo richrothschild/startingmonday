@@ -255,7 +255,23 @@ export default async function CompanyPage({
               </div>
             ) : null}
 
-            <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5">
+            <div className="mb-5 bg-slate-50 border border-slate-200 rounded p-4">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Current snapshot</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px] text-slate-600">
+                <p><span className="font-semibold text-slate-700">Stage:</span> {(STAGES.find((s) => s.value === company.stage)?.label) ?? company.stage}</p>
+                <p><span className="font-semibold text-slate-700">Fit score:</span> {company.fit_score ?? 'Not set'}</p>
+                <p><span className="font-semibold text-slate-700">Sector:</span> {company.sector ?? 'Not set'}</p>
+                <p><span className="font-semibold text-slate-700">Size:</span> {company.company_size ?? 'Not set'}</p>
+              </div>
+            </div>
+
+            <details className="border border-slate-200 rounded">
+              <summary className="cursor-pointer list-none px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-slate-700">Edit company profile</span>
+                <span className="text-[11px] text-slate-400">Open fields</span>
+              </summary>
+
+              <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5 p-4 sm:p-5">
 
               <div>
                 <label htmlFor="company-name" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
@@ -568,7 +584,8 @@ export default async function CompanyPage({
                 </button>
               </div>
 
-            </form>
+              </form>
+            </details>
 
             <div className="mt-8 pt-6 border-t border-slate-100">
               <form action={archiveCompany.bind(null, id)}>
@@ -585,12 +602,11 @@ export default async function CompanyPage({
           {/* Follow-ups sidebar */}
           <div className="flex flex-col gap-4">
 
-            <div className="bg-white border border-slate-200 rounded overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-100">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                  Open Actions
-                </span>
-              </div>
+            <details className="bg-white border border-slate-200 rounded overflow-hidden">
+              <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Open Actions</span>
+                <span className="text-[11px] text-slate-400">{(followUps ?? []).length}</span>
+              </summary>
               {followUps && followUps.length > 0 ? (
                 <div className="divide-y divide-slate-50">
                   {followUps.map(fu => {
@@ -624,13 +640,13 @@ export default async function CompanyPage({
                   No open actions.
                 </div>
               )}
-            </div>
+            </details>
 
-            <div className="bg-white border border-slate-200 rounded p-5">
-              <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            <details className="bg-white border border-slate-200 rounded overflow-hidden">
+              <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Add action
-              </div>
-              <form action={addFollowUp.bind(null, id)} className="flex flex-col gap-3">
+              </summary>
+              <form action={addFollowUp.bind(null, id)} className="flex flex-col gap-3 p-5">
                 <input
                   name="action"
                   type="text"
@@ -653,7 +669,7 @@ export default async function CompanyPage({
                   Add
                 </button>
               </form>
-            </div>
+            </details>
 
           </div>
         </div>

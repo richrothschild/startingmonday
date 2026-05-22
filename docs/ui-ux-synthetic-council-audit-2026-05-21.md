@@ -3,6 +3,7 @@
 Date: May 21, 2026
 Scope: All App Router page routes under src/app/**/page.tsx (157 pages).
 Method: Static page-level audit using council-aligned standards from docs/main-landing-page-council-review.md, docs/landing-page-council-review.md, docs/search-firm-landing-page-council-review.md, and docs/site-review-from-new-council-members-may-2026.md.
+Note: Scroll burden uses effective line count that discounts content inside collapsed details disclosure blocks.
 
 ## Council Standards and Metrics Used
 
@@ -18,18 +19,18 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 126
-- Flagged pages (below excellent): 31
-- High-risk pages (score < 80): 3
-- Site excellence rate: 80.3%
+- Excellent pages (A- or better): 128
+- Flagged pages (below excellent): 29
+- High-risk pages (score < 80): 2
+- Site excellence rate: 81.5%
 
 ## Results by Page Category
 
 | Category | Pages | Avg score | Excellent | Flagged |
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
-| blog | 30 | 92.2 | 29 | 1 |
-| dashboard | 57 | 91.1 | 39 | 18 |
+| blog | 30 | 92.5 | 30 | 0 |
+| dashboard | 57 | 91.4 | 40 | 17 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
 
@@ -42,10 +43,10 @@ Excellence threshold: score >= 90 (A- or better).
 | Weak heading hierarchy | 19 |
 | Low action density for workflow page | 15 |
 | Insufficient content chunking | 9 |
+| Moderate scroll burden | 9 |
 | Missing trust/confidentiality cues | 8 |
-| Moderate scroll burden | 8 |
 | High scroll burden | 7 |
-| Extreme scroll burden | 3 |
+| Extreme scroll burden | 2 |
 
 ## High-Risk Pages (Score < 80)
 
@@ -53,7 +54,6 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---|---|
 | /dashboard | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
-| /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
 
 ## Full Page-by-Page Audit
 
@@ -65,7 +65,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /blog | 100 | A+ | Yes | blog | src/app/blog/page.tsx | No major static UX risks detected |
 | /blog/cio-board-presentation | 92 | A- | Yes | blog | src/app/blog/cio-board-presentation/page.tsx | Missing H1 |
 | /blog/cio-compensation-negotiation | 92 | A- | Yes | blog | src/app/blog/cio-compensation-negotiation/page.tsx | Missing H1 |
-| /blog/cio-job-market-2026 | 82 | B- | No | blog | src/app/blog/cio-job-market-2026/page.tsx | Insufficient content chunking; Dense copy blocks |
+| /blog/cio-job-market-2026 | 92 | A- | Yes | blog | src/app/blog/cio-job-market-2026/page.tsx | Insufficient content chunking |
 | /blog/cio-job-search-timeline | 92 | A- | Yes | blog | src/app/blog/cio-job-search-timeline/page.tsx | Missing H1 |
 | /blog/cio-vs-cto-which-role | 92 | A- | Yes | blog | src/app/blog/cio-vs-cto-which-role/page.tsx | Missing H1 |
 | /blog/ciso-interview-preparation | 92 | A- | Yes | blog | src/app/blog/ciso-interview-preparation/page.tsx | Missing H1 |
@@ -123,7 +123,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/chat | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | Moderate scroll burden |
 | /dashboard/coach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/coach/page.tsx | Weak heading hierarchy; Insufficient content chunking |
 | /dashboard/coach/[clientId] | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx | Low action density for workflow page |
-| /dashboard/companies/[id] | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Extreme scroll burden |
+| /dashboard/companies/[id] | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Moderate scroll burden |
 | /dashboard/companies/[id]/prep | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/companies/new | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/new/page.tsx | Weak heading hierarchy |
 | /dashboard/concierge | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/concierge/page.tsx | Weak heading hierarchy |

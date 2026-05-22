@@ -48,12 +48,77 @@ function hasAny(reList, text) {
   return reList.some((re) => re.test(text))
 }
 
+function lineCountOf(text) {
+  return text.split(/\r?\n/).length
+}
+
+function getDisclosureMetrics(source) {
+  const lines = source.split(/\r?\n/)
+  const stack = []
+  let disclosureCount = 0
+  let collapsedDisclosureCount = 0
+  let collapsedDisclosureLineCount = 0
+  let expandedDisclosureLineCount = 0
+  let collapsedParagraphCount = 0
+  let expandedParagraphCount = 0
+
+  function hasStaticOpen(attrs) {
+    if (/\bopen\b(?!\s*=)/.test(attrs)) return true
+    if (/\bopen\s*=\s*("open"|'open')/.test(attrs)) return true
+    if (/\bopen\s*=\s*{\s*true\s*}/.test(attrs)) return true
+    return false
+  }
+
+  for (const line of lines) {
+    const openMatches = Array.from(line.matchAll(/<details\b([^>]*)>/g))
+    for (const match of openMatches) {
+      const attrs = match[1] ?? ''
+      const hasOpenAttr = hasStaticOpen(attrs)
+      stack.push(hasOpenAttr)
+      disclosureCount += 1
+      if (!hasOpenAttr) collapsedDisclosureCount += 1
+    }
+
+    const pCount = count(/<p\b/g, line)
+    if (stack.length > 0) {
+      if (stack.some(Boolean)) {
+        expandedDisclosureLineCount += 1
+        expandedParagraphCount += pCount
+      } else {
+        collapsedDisclosureLineCount += 1
+        collapsedParagraphCount += pCount
+      }
+    }
+
+    const closeMatches = line.match(/<\/details>/g)
+    const closeCount = closeMatches ? closeMatches.length : 0
+    for (let i = 0; i < closeCount && stack.length > 0; i += 1) {
+      stack.pop()
+    }
+  }
+
+  return {
+    disclosureCount,
+    collapsedDisclosureCount,
+    collapsedDisclosureLineCount,
+    expandedDisclosureLineCount,
+    collapsedParagraphCount,
+    expandedParagraphCount,
+  }
+}
+
 function scorePage({ route, file, source }) {
   const lineCount = source.split(/\r?\n/).length
+  const disclosure = getDisclosureMetrics(source)
+  const effectiveLineCount = Math.max(
+    0,
+    Math.round(lineCount - disclosure.collapsedDisclosureLineCount * 0.65)
+  )
   const sectionCount = count(/<section\b/g, source)
   const heading1Count = count(/<h1\b/g, source)
   const headingCount = count(/<h[1-3]\b/g, source)
   const paragraphCount = count(/<p\b/g, source)
+  const effectiveParagraphCount = Math.max(0, paragraphCount - disclosure.collapsedParagraphCount)
   const linkCount = count(/<(Link|a)\b/g, source)
   const buttonCount = count(/<button\b/g, source)
   const formFieldCount = count(/<(input|textarea|select)\b/g, source)
@@ -101,13 +166,13 @@ function scorePage({ route, file, source }) {
     score -= 8
     findings.push('Insufficient content chunking')
   }
-  if (lineCount > 700) {
+  if (effectiveLineCount > 700) {
     score -= 25
     findings.push('Extreme scroll burden')
-  } else if (lineCount > 500) {
+  } else if (effectiveLineCount > 500) {
     score -= 18
     findings.push('High scroll burden')
-  } else if (lineCount > 350) {
+  } else if (effectiveLineCount > 350) {
     score -= 10
     findings.push('Moderate scroll burden')
   }
@@ -115,7 +180,7 @@ function scorePage({ route, file, source }) {
     score -= 8
     findings.push('Long page without quick navigation')
   }
-  if (paragraphCount > 25 && sectionCount < 5) {
+  if (effectiveParagraphCount > 25 && sectionCount < 5 && effectiveLineCount > 450) {
     score -= 10
     findings.push('Dense copy blocks')
   }
@@ -154,14 +219,18 @@ function scorePage({ route, file, source }) {
     file: path.relative(ROOT, file).replace(/\\/g, '/'),
     category,
     lineCount,
+    effectiveLineCount,
     sectionCount,
     headingCount,
     paragraphCount,
+    effectiveParagraphCount,
     linkCount,
     buttonCount,
     formFieldCount,
     listCount,
     ctaCount,
+    disclosureCount: disclosure.disclosureCount,
+    collapsedDisclosureCount: disclosure.collapsedDisclosureCount,
     hasTrust,
     hasOutcome,
     hasTOC,
@@ -222,6 +291,7 @@ md.push('')
 md.push('Date: May 21, 2026')
 md.push('Scope: All App Router page routes under src/app/**/page.tsx (157 pages).')
 md.push('Method: Static page-level audit using council-aligned standards from docs/main-landing-page-council-review.md, docs/landing-page-council-review.md, docs/search-firm-landing-page-council-review.md, and docs/site-review-from-new-council-members-may-2026.md.')
+md.push('Note: Scroll burden uses effective line count that discounts content inside collapsed details disclosure blocks.')
 md.push('')
 md.push('## Council Standards and Metrics Used')
 md.push('')
@@ -313,7 +383,7 @@ md.push('- Use before/after snapshots and route-level smoke tests to ensure key 
 fs.writeFileSync(OUT_MD, md.join('\n') + '\n', 'utf8')
 
 const csvHeaders = [
-  'route','file','category','score','grade','excellent','lineCount','sectionCount','headingCount','paragraphCount','linkCount','buttonCount','formFieldCount','listCount','ctaCount','hasTrust','hasOutcome','hasTOC','findings'
+  'route','file','category','score','grade','excellent','lineCount','effectiveLineCount','sectionCount','headingCount','paragraphCount','effectiveParagraphCount','linkCount','buttonCount','formFieldCount','listCount','ctaCount','disclosureCount','collapsedDisclosureCount','hasTrust','hasOutcome','hasTOC','findings'
 ]
 const csvRows = [csvHeaders.join(',')]
 for (const p of pages) {
@@ -325,14 +395,18 @@ for (const p of pages) {
     p.grade,
     p.excellent,
     p.lineCount,
+    p.effectiveLineCount,
     p.sectionCount,
     p.headingCount,
     p.paragraphCount,
+    p.effectiveParagraphCount,
     p.linkCount,
     p.buttonCount,
     p.formFieldCount,
     p.listCount,
     p.ctaCount,
+    p.disclosureCount,
+    p.collapsedDisclosureCount,
     p.hasTrust,
     p.hasOutcome,
     p.hasTOC,
