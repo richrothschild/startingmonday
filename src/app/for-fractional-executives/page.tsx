@@ -94,6 +94,29 @@ export default function ForFractionalExecutivesPage() {
               </div>
             </section>
 
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                ['15-25', 'Typical prospective engagements a member may track at once'],
+                ['1 platform', 'Fractional engagement pipeline and full-time transition support in one place'],
+                ['30 days', 'Practical pilot window for member adoption and outcome review'],
+              ].map(([value, label]) => (
+                <div key={value} className="border border-slate-200 rounded-xl p-4 bg-white">
+                  <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
+                  <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+                </div>
+              ))}
+            </section>
+
+            <section className="border border-emerald-200 rounded-xl p-5 bg-emerald-50/40">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and operating boundary</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                Member pipelines, prep materials, and search notes stay private to each account unless the member intentionally shares access. The network gets a partner program, not a hidden backdoor into confidential deal flow.
+              </p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">
+                Verification path: compare follow-through rate, meeting prep quality, and opportunity recovery over one month before expanding seats across the network.
+              </p>
+            </section>
+
             {/* What it is */}
             <section id="network-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>

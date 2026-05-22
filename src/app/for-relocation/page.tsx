@@ -94,6 +94,29 @@ export default function ForRelocationPage() {
               </div>
             </section>
 
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                ['30 days', 'Critical early window after relocation before the market goes cold'],
+                ['2 careers', 'Dual-career support for the relocated executive and trailing spouse'],
+                ['1 daily briefing', 'Lightweight cadence that protects search momentum during a disruptive move'],
+              ].map(([value, label]) => (
+                <div key={value} className="border border-slate-200 rounded-xl p-4 bg-white">
+                  <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
+                  <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+                </div>
+              ))}
+            </section>
+
+            <section className="border border-emerald-200 rounded-xl p-5 bg-emerald-50/40">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and confidentiality</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                Relocation searches are often confidential, time-bound, and emotionally loaded. Search notes, prep materials, and pipeline activity stay private to the executive unless they choose to share access.
+              </p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">
+                Evidence path: run a pilot with one relocated cohort, compare speed to first targeted outreach and interview readiness after 30 days, then decide whether broader inclusion improves program outcomes.
+              </p>
+            </section>
+
             {/* What it is */}
             <section id="relocation-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>

@@ -147,13 +147,36 @@ export default async function ContributorPage() {
           </p>
         </div>
 
+        <section className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            ['8 docs', 'Core onboarding path before first code change'],
+            ['2 days', 'Target time to finish setup, walkthrough, and first environment check'],
+            ['1 source of truth', 'Architecture, onboarding, and security runbooks live together here'],
+          ].map(([value, label]) => (
+            <div key={value} className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
+              <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mb-8 rounded-xl border border-emerald-200 bg-emerald-50/50 p-5">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Operating note</p>
+          <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+            This hub includes internal architecture, security, workflow, and contributor materials. Keep it inside the contributor circle and use the linked documentation as the verified source before making changes.
+          </p>
+          <p className="text-[12px] text-slate-600 leading-relaxed">
+            Outcome target: reach first local run, first authenticated walkthrough, and first safe production-ready commit without reconstructing setup from Slack or memory.
+          </p>
+        </section>
+
         <div className="space-y-8">
           {SECTIONS.map(section => (
-            <div key={section.label}>
-              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+            <section key={section.label} className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
                 {section.label}
-              </p>
-              <div className="bg-white border border-slate-200 rounded overflow-hidden divide-y divide-slate-100">
+              </h2>
+              <div className="rounded overflow-hidden divide-y divide-slate-100 border border-slate-100">
                 {section.docs.map(doc => (
                   <a
                     key={doc.href}
@@ -178,14 +201,14 @@ export default async function ContributorPage() {
                   </a>
                 ))}
               </div>
-            </div>
+            </section>
           ))}
         </div>
 
-        <div className="mt-10 bg-slate-900 rounded p-5">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">
+        <section className="mt-10 bg-slate-900 rounded p-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">
             Quick reference
-          </p>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5">
             {[
               ['Repo', 'github.com/richrothschild/startingmonday'],
@@ -201,7 +224,7 @@ export default async function ContributorPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
       </main>
     </div>
   )

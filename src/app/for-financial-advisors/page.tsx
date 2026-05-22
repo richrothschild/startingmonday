@@ -94,6 +94,29 @@ export default function ForFinancialAdvisorsPage() {
               </div>
             </section>
 
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                ['30 days', 'Decision window to judge whether the client search becomes more disciplined'],
+                ['6-8 weeks', 'Typical extension risk when first-round prep failures compound'],
+                ['1 shared view', 'Pipeline visibility that improves runway and compensation planning conversations'],
+              ].map(([value, label]) => (
+                <div key={value} className="border border-slate-200 rounded-xl p-4 bg-white">
+                  <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
+                  <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+                </div>
+              ))}
+            </section>
+
+            <section className="border border-emerald-200 rounded-xl p-5 bg-emerald-50/40">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and confidentiality</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                The client controls who sees their pipeline. Advisor visibility is shared intentionally, and confidential search materials stay inside the user account rather than being forwarded across email threads.
+              </p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">
+                Evidence path: use a 30-day client pilot, compare runway planning confidence before and after, and keep the decision anchored to observed search motion rather than anecdote.
+              </p>
+            </section>
+
             {/* What it is */}
             <section id="advisor-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
