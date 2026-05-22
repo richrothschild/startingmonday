@@ -460,9 +460,7 @@ export default async function AdminPage() {
     role === 'admin' ? 'bg-blue-50 text-blue-700' :
     'bg-slate-100 text-slate-500'
 
-  // New signups 7d / 30d
-  const signups7d  = cohort7.length
-  const signups30d = (users60d ?? []).filter(u => u.created_at >= since30d).length
+  const signups7d = cohort7.length
 
   // MRR from Stripe (best-effort — falls back to null on error)
   let stripeMrr: number | null = null
