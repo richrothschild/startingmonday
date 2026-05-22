@@ -353,7 +353,7 @@ async function BriefingBody({
               <div className="mt-4">
                 <form action={logBriefingAction}>
                   <input type="hidden" name="section" value="people_to_reach" />
-                  <input type="hidden" name="target" value="/dashboard/companies" />
+                  <input type="hidden" name="target" value="/dashboard" />
                   <button
                     type="submit"
                     className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"

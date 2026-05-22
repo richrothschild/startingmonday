@@ -30,6 +30,7 @@ import { runSocialPostJob } from './jobs/social-post-job.js'
 import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
 import { runLeadScoringJob } from './jobs/lead-scoring-job.js'
 import { runUiUxWeeklyReviewJob } from './jobs/ui-ux-weekly-review-job.js'
+import { runLinkIntegrityWeeklyReviewJob } from './jobs/link-integrity-weekly-review-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -230,13 +231,16 @@ cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLink
 // Weekly site-wide UI/UX council review summary: Sunday 21:00 UTC
 cron.schedule('0 21 * * 0', () => runJob('ui-ux-weekly-review-job', runUiUxWeeklyReviewJob))
 
+// Weekly site-wide link integrity review summary + safe auto-fix pass: Sunday 20:30 UTC
+cron.schedule('30 20 * * 0', () => runJob('link-integrity-weekly-review-job', runLinkIntegrityWeeklyReviewJob))
+
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
 // Logs warnings to Railway for any demo data gaps — does not block startup.
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'ui-ux-weekly-review-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

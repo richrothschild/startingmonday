@@ -114,7 +114,7 @@ export function SuggestionCards() {
             {added.size > 0 && (
               <p className="text-[12px] text-slate-400 mt-3">
                 Added to your pipeline.{' '}
-                <Link href="/dashboard/companies" className="text-slate-600 underline underline-offset-2">
+                <Link href="/dashboard" className="text-slate-600 underline underline-offset-2">
                   View companies
                 </Link>
                 {' '}to add their career page URLs.

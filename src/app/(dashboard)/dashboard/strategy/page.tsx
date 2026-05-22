@@ -33,7 +33,7 @@ export default async function StrategyPage() {
       <h1 className="sr-only">Search Strategy Brief</h1>
       <nav className="sr-only" aria-label="Strategy quick actions">
         <Link href="/dashboard">Back to dashboard</Link>
-        <Link href="/dashboard/companies">Review target companies</Link>
+        <Link href="/dashboard">Review target companies</Link>
         <Link href="/onboarding">Complete onboarding inputs</Link>
       </nav>
       <StrategyClient missingFields={missing} />

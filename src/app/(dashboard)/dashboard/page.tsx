@@ -404,7 +404,7 @@ export default async function DashboardPage({
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
-    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard/companies',      cta: 'Go to companies' },
+    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard',      cta: 'Go to companies' },
     { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Add a contact' },
     { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
     { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Go to contacts' },
@@ -495,7 +495,7 @@ export default async function DashboardPage({
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Your Companies ({totalCount})
               </span>
-              <Link href="/dashboard/companies" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
+              <Link href="/dashboard" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
                 Manage
               </Link>
             </div>
@@ -511,7 +511,7 @@ export default async function DashboardPage({
                 ))}
                 {allList.length > 20 && (
                   <li className="px-6 py-3 text-[12px] text-slate-400">
-                    +{allList.length - 20} more. <Link href="/dashboard/companies" className="underline">View all</Link>
+                    +{allList.length - 20} more. <Link href="/dashboard" className="underline">View all</Link>
                   </li>
                 )}
               </ul>
@@ -908,7 +908,7 @@ export default async function DashboardPage({
                 </Link>
               )}
               {companiesWithoutBrief.length > 0 && (
-                <Link href="/dashboard/companies" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+                <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
                   <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutBrief.length}</div>
                   <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
                     {companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief
@@ -1201,7 +1201,7 @@ export default async function DashboardPage({
               <p className="text-[12px] text-slate-500 leading-relaxed">Prioritize one warm contact and schedule the next follow-up.</p>
             </TrackLink>
             <TrackLink
-              href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard/companies'}
+              href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard'}
               event="how_to_card_clicked"
               properties={{ source: 'dashboard_how_to', target: interviewingCompany ? 'interview_prep' : 'companies' }}
               className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block"

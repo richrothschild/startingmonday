@@ -25,7 +25,7 @@ export default async function BillingPage() {
     <main>
       <h1 className="sr-only">Billing Settings</h1>
       <nav className="sr-only" aria-label="Billing quick actions">
-        <Link href="/settings">Back to settings</Link>
+        <Link href="/settings/security">Back to settings</Link>
         <Link href="/settings/security">Open security settings</Link>
         <Link href="/dashboard">Return to dashboard</Link>
       </nav>

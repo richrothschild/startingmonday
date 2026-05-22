@@ -16,7 +16,7 @@ export default function KanbanPage() {
           <Link href="/dashboard" className="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white hover:bg-slate-700 transition-colors">
             Open dashboard
           </Link>
-          <Link href="/dashboard/companies" className="inline-flex items-center rounded-lg border border-slate-300 px-4 py-2 text-[13px] font-semibold text-slate-700 hover:border-slate-500 transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center rounded-lg border border-slate-300 px-4 py-2 text-[13px] font-semibold text-slate-700 hover:border-slate-500 transition-colors">
             Review companies
           </Link>
           <Link href="/dashboard/briefing" className="inline-flex items-center rounded-lg border border-slate-300 px-4 py-2 text-[13px] font-semibold text-slate-700 hover:border-slate-500 transition-colors">
