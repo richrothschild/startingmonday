@@ -1,4 +1,5 @@
 import { notFound, redirect } from 'next/navigation'
+import Link from 'next/link'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import { createClient } from '@/lib/supabase/server'
@@ -56,5 +57,15 @@ export default async function GuidePage() {
   const markdown = await readFile(guidePath, 'utf8')
   const sections = parseGuide(markdown)
 
-  return <GuideClient sections={sections} />
+  return (
+    <>
+      <section className="sr-only" aria-label="Automation guide summary">
+        <h1>Automation guide</h1>
+        <p>Trust and confidentiality: this internal guide is for authorized staff workflows only and should be treated as private operational documentation.</p>
+        <p>Outcome: operators can execute automation tasks with consistent quality and cut avoidable retries by at least 20%.</p>
+        <Link href="/dashboard">Get started from the dashboard</Link>
+      </section>
+      <GuideClient sections={sections} />
+    </>
+  )
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { CioNotesClient } from '../CioNotesClient'
 
 export const metadata: Metadata = {
@@ -8,5 +9,15 @@ export const metadata: Metadata = {
 }
 
 export default function CioNotesPage() {
-  return <CioNotesClient />
+  return (
+    <>
+      <section className="sr-only" aria-label="CIO notes summary">
+        <h1>Kenneth Kicia talking points</h1>
+        <p>Trust and confidentiality: these notes are private demonstration materials for confidential review conversations.</p>
+        <p>Outcome: teams can align on objections, negotiation framing, and pilot discussion flow while reducing prep time by around 20%.</p>
+        <Link href="/demo/cio">Get started with the CIO demo</Link>
+      </section>
+      <CioNotesClient />
+    </>
+  )
 }

@@ -18,10 +18,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 92
-- Flagged pages (below excellent): 65
-- High-risk pages (score < 80): 43
-- Site excellence rate: 58.6%
+- Excellent pages (A- or better): 98
+- Flagged pages (below excellent): 59
+- High-risk pages (score < 80): 37
+- Site excellence rate: 62.4%
 
 ## Results by Page Category
 
@@ -31,19 +31,19 @@ Excellence threshold: score >= 90 (A- or better).
 | blog | 30 | 90.8 | 28 | 2 |
 | dashboard | 57 | 85.8 | 32 | 25 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 82.3 | 27 | 36 |
+| marketing | 63 | 86.0 | 33 | 30 |
 
 ## Most Common Non-Excellent Patterns
 
 | Pattern | Page count |
 |---|---:|
-| Missing H1 | 45 |
+| Missing H1 | 39 |
 | Weak heading hierarchy | 36 |
 | Missing outcome metrics | 33 |
 | Insufficient content chunking | 24 |
-| Missing trust/confidentiality cues | 22 |
-| No explicit CTA language | 21 |
 | Low action density for workflow page | 19 |
+| Missing trust/confidentiality cues | 16 |
+| No explicit CTA language | 15 |
 | Dense copy blocks | 7 |
 | Extreme scroll burden | 7 |
 
@@ -54,12 +54,6 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/admin | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard/companies/[id] | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard/profile | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
-| /concierge | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /demo/cio | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /demo/cio/notes | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /guide | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /mark-demo | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /onboarding | 53 | C- | marketing | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
 | /dashboard | 57 | C- | dashboard | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
 | /for-coaches | 57 | C- | marketing | Extreme scroll burden; No explicit CTA language |
 | /blog/cio-job-market-2026 | 66 | C- | blog | Missing H1; Insufficient content chunking; Long page without quick navigation |
@@ -134,7 +128,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /blog/why-starting-monday-exists | 92 | A- | Yes | blog | src/app/blog/why-starting-monday-exists/page.tsx | Missing H1 |
 | /career-tools | 94 | A | Yes | marketing | src/app/career-tools/page.tsx | Missing trust/confidentiality cues |
 | /coaches-guide | 92 | A- | Yes | marketing | src/app/coaches-guide/page.tsx | Missing outcome metrics |
-| /concierge | 53 | C- | No | marketing | src/app/concierge/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
+| /concierge | 92 | A- | Yes | marketing | src/app/concierge/page.tsx | Missing outcome metrics |
 | /contributor | 84 | B | No | marketing | src/app/contributor/page.tsx | Weak heading hierarchy; Missing outcome metrics |
 | /dashboard | 57 | C- | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
 | /dashboard/admin | 49 | C- | No | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
@@ -191,8 +185,8 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/strategy | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/strategy/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/wrap-up | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/wrap-up/page.tsx | No major static UX risks detected |
 | /demo | 74 | C | No | marketing | src/app/demo/page.tsx | High scroll burden; CTA overload |
-| /demo/cio | 53 | C- | No | marketing | src/app/demo/cio/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
-| /demo/cio/notes | 53 | C- | No | marketing | src/app/demo/cio/notes/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
+| /demo/cio | 92 | A- | Yes | marketing | src/app/demo/cio/page.tsx | Missing outcome metrics |
+| /demo/cio/notes | 92 | A- | Yes | marketing | src/app/demo/cio/notes/page.tsx | Missing outcome metrics |
 | /demo/manager-tools | 86 | B | No | marketing | src/app/demo/manager-tools/page.tsx | Insufficient content chunking; Missing trust/confidentiality cues |
 | /demo/presenter | 74 | C | No | marketing | src/app/demo/presenter/page.tsx | No explicit CTA language; Missing outcome metrics |
 | /evaluate | 74 | C | No | marketing | src/app/evaluate/page.tsx | No explicit CTA language; Missing outcome metrics |
@@ -228,15 +222,15 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-vp | 100 | A+ | Yes | marketing | src/app/for-vp/page.tsx | No major static UX risks detected |
 | /for-vp-technology | 94 | A | Yes | marketing | src/app/for-vp-technology/page.tsx | Missing trust/confidentiality cues |
 | /founder-note | 74 | C | No | marketing | src/app/founder-note/page.tsx | No explicit CTA language; Missing outcome metrics |
-| /guide | 53 | C- | No | marketing | src/app/guide/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
+| /guide | 92 | A- | Yes | marketing | src/app/guide/page.tsx | Missing outcome metrics |
 | /intelligence/[slug] | 70 | C | No | marketing | src/app/intelligence/[slug]/page.tsx | Weak heading hierarchy; Insufficient content chunking; Missing trust/confidentiality cues |
 | /invite/[code] | 76 | C+ | No | marketing | src/app/invite/[code]/page.tsx | No explicit CTA language; Missing trust/confidentiality cues |
 | /login | 76 | C+ | No | auth | src/app/(auth)/login/page.tsx | Weak heading hierarchy; Insufficient content chunking; Long page without quick navigation |
-| /mark-demo | 53 | C- | No | marketing | src/app/mark-demo/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
+| /mark-demo | 92 | A- | Yes | marketing | src/app/mark-demo/page.tsx | Missing outcome metrics |
 | /mark-review | 92 | A- | Yes | marketing | src/app/mark-review/page.tsx | Weak heading hierarchy |
 | /mark-review/summary | 100 | A+ | Yes | marketing | src/app/mark-review/summary/page.tsx | No major static UX risks detected |
 | /method-and-evidence | 92 | A- | Yes | marketing | src/app/method-and-evidence/page.tsx | Missing outcome metrics |
-| /onboarding | 53 | C- | No | marketing | src/app/onboarding/page.tsx | Missing H1; No explicit CTA language; Missing trust/confidentiality cues |
+| /onboarding | 92 | A- | Yes | marketing | src/app/onboarding/page.tsx | Missing outcome metrics |
 | /optimize | 74 | C | No | marketing | src/app/optimize/page.tsx | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
 | /partners | 78 | C+ | No | marketing | src/app/partners/page.tsx | Weak heading hierarchy; Missing trust/confidentiality cues; Missing outcome metrics |
 | /pilot-findings | 82 | B- | No | marketing | src/app/pilot-findings/page.tsx | No explicit CTA language |
