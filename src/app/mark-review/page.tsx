@@ -64,6 +64,24 @@ const CADENCE_STEPS = [
   'Friday: accountability review of outreach sent, responses received, and overdue follow-ups.',
 ]
 
+const CORE_PHILOSOPHIES = [
+  {
+    title: 'Behavior management over information management',
+    detail:
+      'The product should coach weekly execution habits: decide who to contact, send the outreach, and close the follow-up loop. Information is only useful when it changes behavior.',
+  },
+  {
+    title: 'Quality and effective experience',
+    detail:
+      'Every key interaction should reduce ambiguity and increase confidence. Guidance must be clear, evidence-aware, and specific enough to support immediate action by an executive user.',
+  },
+  {
+    title: 'Outcome-based behaviors',
+    detail:
+      'Success is defined by outcomes created through repeatable behaviors: conversations started, advocates activated, and momentum sustained week over week.',
+  },
+]
+
 const KEY_OBJECTIONS = [
   {
     concern: '"This sounds like another dashboard."',
@@ -149,6 +167,18 @@ export default function MarkReviewPage() {
             <p className="text-[15px] text-slate-700 leading-relaxed">
               Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition. It is built to create consistent, measurable weekly behaviors that produce better conversations and better-fit outcomes.
             </p>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Core philosophies</p>
+            <div className="space-y-4">
+              {CORE_PHILOSOPHIES.map((item) => (
+                <div key={item.title} className="border-l-4 border-orange-300 pl-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.title}</p>
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.detail}</p>
+                </div>
+              ))}
+            </div>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
