@@ -107,10 +107,10 @@ export default function ForCoachesPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Why coaches buy
             </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
+            <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-[1.2] max-w-2xl">
               Coaches buy outcomes first, emotional relief second, workflow proof third.
             </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-7 max-w-xl">
               This is not a feature purchase. Coaches buy when they believe three things: clients will show up prepared, the coach will feel in control between sessions, and the process can be tested quickly without adding operational drag.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
