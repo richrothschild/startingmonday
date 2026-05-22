@@ -46,14 +46,13 @@ export default function ForCoachesPage() {
       </nav>
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Coach Partner Preview
           </p>
-          <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Easily stay on top of every client in one place.<br />
-            Clients arrive prepared.<br />
-            You stay in strategy.
+          <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.12] tracking-tight mb-5">
+            <span className="block sm:whitespace-nowrap">Easily stay on top of every client in one place.</span>
+            <span className="block">Clients arrive prepared. You stay in strategy.</span>
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
             Starting Monday is the between-session operating layer for coaches who want less admin drag and stronger strategic sessions. You and your clients share one place for signal monitoring, prep briefs, and pipeline accountability.
@@ -136,7 +135,7 @@ export default function ForCoachesPage() {
               <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">3) Offer that lowers risk</p>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
-                  <li>• 30-day test with 2-3 live clients</li>
+                  <li>• 30-day test with two to three live clients</li>
                   <li>• Pass/fail scorecard before rollout</li>
                   <li>• Keep if it improves coaching outcomes</li>
                 </ul>
@@ -145,10 +144,10 @@ export default function ForCoachesPage() {
             <div className="border border-slate-200 rounded-xl p-4 bg-white mb-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-2">What makes this credible</p>
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                Early pilot signal is directional but useful: 81% of the Jan-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
+                Early pilot signal is directional but useful: 81 percent of the Jan.-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
               </p>
               <p className="text-[12px] text-slate-500 leading-relaxed">
-                Denominator: 27 pilot executives. Use this as decision support, then validate fit with your own 30-day pass/fail test.
+                Denominator: 27 pilot executives. Use this as decision support, then validate fit with your own 30-day pass-fail test.
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
@@ -455,17 +454,6 @@ export default function ForCoachesPage() {
                 <BrandIcon name="pricing" className="h-4 w-4 text-orange-600" />
                 Pricing & economics
               </Link>
-            </div>
-            <div className="mt-6 border border-slate-200 rounded-2xl p-5 bg-slate-50">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">
-                The partner motion
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-[13px] text-slate-600 leading-relaxed">
-                <p><span className="font-semibold text-slate-900">1.</span> Warm intro to this page.</p>
-                <p><span className="font-semibold text-slate-900">2.</span> Coach preview with two to three live client seats.</p>
-                <p><span className="font-semibold text-slate-900">3.</span> Decide whether to roll into standard client referrals.</p>
-                <p><span className="font-semibold text-slate-900">4.</span> Capture feedback, refine, and expand only if it improves coaching outcomes.</p>
-              </div>
             </div>
           </section>
 
