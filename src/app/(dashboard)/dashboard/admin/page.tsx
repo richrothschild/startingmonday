@@ -3,6 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
+import { getStripe } from '@/lib/stripe'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
 
 const STEP_LABELS: Record<string, string> = {
@@ -459,6 +460,27 @@ export default async function AdminPage() {
     role === 'admin' ? 'bg-blue-50 text-blue-700' :
     'bg-slate-100 text-slate-500'
 
+  const signups7d = cohort7.length
+
+  // MRR from Stripe (best-effort — falls back to null on error)
+  let stripeMrr: number | null = null
+  try {
+    const stripe = getStripe()
+    const subs = await stripe.subscriptions.list({ status: 'active', limit: 100 })
+    let totalCents = 0
+    for (const sub of subs.data) {
+      for (const item of sub.items.data) {
+        const cents = (item.price.unit_amount ?? 0) * (item.quantity ?? 1)
+        totalCents += item.price.recurring?.interval === 'year'
+          ? Math.round(cents / 12)
+          : cents
+      }
+    }
+    stripeMrr = Math.round(totalCents / 100)
+  } catch {
+    // Stripe unavailable — show null
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -645,15 +667,17 @@ export default async function AdminPage() {
         </section>
 
         {/* Subscriber summary */}
-        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
           {[
-            { label: 'Total users',   value: totalUsers    ?? 0 },
-            { label: 'Active (paid)', value: paidUsers     ?? 0 },
-            { label: 'Trialing',      value: trialingUsers ?? 0 },
-            { label: 'Placed',        value: placements.length },
-          ].map(({ label, value }) => (
+            { label: 'Total users',   value: String(totalUsers    ?? 0), highlight: false },
+            { label: 'Active (paid)', value: String(paidUsers     ?? 0), highlight: false },
+            { label: 'Trialing',      value: String(trialingUsers ?? 0), highlight: false },
+            { label: 'Placed',        value: String(placements.length),  highlight: false },
+            { label: 'New (7d)',       value: String(signups7d),          highlight: false },
+            { label: 'Stripe MRR',    value: stripeMrr !== null ? `$${stripeMrr.toLocaleString()}` : '--', highlight: true },
+          ].map(({ label, value, highlight }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
-              <div className="text-[28px] font-bold text-slate-900">{value}</div>
+              <div className={`text-[28px] font-bold ${highlight ? 'text-orange-500' : 'text-slate-900'}`}>{value}</div>
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
