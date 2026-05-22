@@ -76,6 +76,7 @@
         "evals:sprint3:dod": "node scripts/check-prep-brief-sprint3-dod.mjs",
         "evals:sprint3:dod:json": "node scripts/check-prep-brief-sprint3-dod.mjs --json",
         "evals:sprint3:dod:strict": "node scripts/check-prep-brief-sprint3-dod.mjs --strict",
+        "test:outreach-templates": "vitest run src/lib/outreach/template-engine.test.ts",
         "test": "vitest run",
         "test:watch": "vitest"
     },

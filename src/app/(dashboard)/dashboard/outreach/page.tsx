@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { OutreachHubClient } from './outreach-hub-client'
 import { getStaffMember } from '@/lib/staff'
+import templateEngine from '@/lib/outreach/template-engine.cjs'
 
 export const metadata = {
   title: 'Outreach Hub - Starting Monday',
@@ -368,121 +369,17 @@ function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subjec
 
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
-  const personalization = channel === 'executives'
-    ? executiveSpecificOpening(row, company)
-    : csvPersonalizedOpening(row, company)
+  const archetype = detectExecutiveRoleArchetype(row)
+  const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'Executive')
 
-  if (channel === 'executives') {
-    const archetype = detectExecutiveRoleArchetype(row)
-    const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'C-suite')
-    const focus = row.persona_focus || row.role_bucket || row.title || roleLabel
-    const proof = proofLineForFocus(focus)
-    const asset = benchmarkAssetForFocus(focus)
-
-    return {
-      subject: `Bad idea to send a 1-page ${roleLabel} conversation flow for ${company}?`,
-      body: [
-        `${firstName},`,
-        '',
-        `I have been following your work at ${company}, and I thought this might be useful for ${roleLabel} transitions.`,
-        '',
-        'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
-        '',
-        stakesLineForFocus(focus, company),
-        '',
-        microProofLine('executive', focus),
-        '',
-        `The clearest proof point for ${roleLabel} leaders is ${proof}.`,
-        '',
-        costOfInactionLine('executive'),
-        '',
-        `For ${roleLabel} candidates, the biggest win is ${proof}.`,
-        '',
-        `If useful, I can send a one-page sample built around your ${roleLabel} context.`,
-        '',
-        binaryCtaLine(asset, `${roleLabel} transition context`),
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (channel === 'search_firms') {
-    const focus = row.persona_focus || row.role_bucket || row.title || 'SEARCH'
-    return {
-      subject: `Bad idea to send a 1-page workflow for ${company} mandates?`,
-      body: [
-        `${firstName},`,
-        '',
-        `I have been following your work at ${company}, and I thought this might be useful for ${focus.toUpperCase()} transitions.`,
-        '',
-        'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
-        '',
-        'Would it be a bad idea if I sent a one-page example tailored to your mandate mix?',
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  if (channel === 'coaches') {
-    const focus = focusText(row.persona_focus || row.role_bucket || row.title)
-    const proof = coachProofPointForFocus(focus)
-    const asset = coachAssetForFocus(focus)
-    return {
-      subject: `Bad idea to send a 1-page executive transition conversation flow for ${company}?`,
-      body: [
-        `Hi ${firstName},`,
-        '',
-        `I have been following your work at ${company}, and I thought this might be useful for the executives you support.`,
-        '',
-        'Starting Monday gives executive coaches a hard-edged execution layer: company targeting, interview narrative discipline, and outreach workflows that hold up under pressure.',
-        '',
-        coachStakesLineForFocus(focus, company),
-        '',
-        microProofLine('coach', focus),
-        '',
-        `The concrete proof point is ${proof}.`,
-        '',
-        costOfInactionLine('coach'),
-        '',
-        `If useful, I can send ${asset} so you can see exactly how it changes first-touch conversation quality.`,
-        '',
-        binaryCtaLine(asset, 'coach practice'),
-        '',
-        'Rich',
-        'startingmonday.app',
-      ].join('\n'),
-    }
-  }
-
-  return {
-    subject: `Bad idea to send a 1-page executive transition conversation flow for ${company}?`,
-    body: [
-      `${firstName},`,
-      '',
-      `I have been following your work at ${company}, and I thought this might be useful for your transition cohorts.`,
-      '',
-      'Starting Monday helps outplacement teams enforce one measurable execution standard across targeting, narrative quality, and first-conversation readiness.',
-      '',
-      outplacementStakesLine(focusText(row.persona_focus || row.role_bucket), company),
-      '',
-      microProofLine('outplacement', focusText(row.persona_focus || row.role_bucket)),
-      '',
-      `The concrete proof point is ${outplacementProofPoint(focusText(row.persona_focus || row.role_bucket))}.`,
-      '',
-      costOfInactionLine('outplacement'),
-      '',
-      `For ${/programs?$/i.test(focusText(row.persona_focus || row.role_bucket)) ? focusText(row.persona_focus || row.role_bucket) : `${focusText(row.persona_focus || row.role_bucket)} programs`}, the operating asset is ${outplacementAssetForFocus(focusText(row.persona_focus || row.role_bucket))}.`,
-      '',
-      binaryCtaLine(outplacementAssetForFocus(focusText(row.persona_focus || row.role_bucket)), 'transition cohort'),
-      '',
-      'Rich',
-      'startingmonday.app',
-    ].join('\n'),
-  }
+  return templateEngine.buildLatestTemplateDraft({
+    channel,
+    firstName,
+    company,
+    roleLabel,
+    focus: row.persona_focus || row.role_bucket || row.title || roleLabel,
+    step: row.step,
+  })
 }
 
 function buildDefaultSubject(row: CsvRow): string {

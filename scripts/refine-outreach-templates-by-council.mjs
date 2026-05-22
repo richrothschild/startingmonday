@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import templateEngine from '../src/lib/outreach/template-engine.cjs'
 
 const ROOT = process.cwd()
 
@@ -337,6 +338,7 @@ function isPersonRow(row) {
 function inferChannel(row, relPath) {
   const hint = `${rowGet(row, ['role_bucket']) || ''} ${rowGet(row, ['channel']) || ''} ${rowGet(row, ['persona_focus']) || ''} ${rowGet(row, ['title']) || ''} ${relPath}`.toUpperCase()
   if (hint.includes('COACH')) return 'coach'
+  if (hint.includes('SEARCH')) return 'search_firms'
   if (hint.includes('OUTPLACEMENT')) return 'outplacement'
   return 'executive'
 }
@@ -345,26 +347,57 @@ function buildBodyAndSubject(row, relPath) {
   const channel = inferChannel(row, relPath)
   const rb = focusText(String(rowGet(row, ['role_bucket', 'persona_focus', 'title']) || 'Executive'))
   const company = companyName(row)
+  const first = firstName(row)
   const step = String(rowGet(row, ['step'])).trim().toLowerCase()
 
   if (channel === 'coach') {
-    return { body: coachBody(row), subject: subject(row) }
+    return templateEngine.buildLatestTemplateDraft({
+      channel: 'coaches',
+      firstName: first,
+      company,
+      roleLabel: rb,
+      focus: rb,
+    })
   }
 
   if (channel === 'outplacement') {
-    return { body: outplacementBody(row), subject: subject(row) }
+    return templateEngine.buildLatestTemplateDraft({
+      channel: 'outplacement_firms',
+      firstName: first,
+      company,
+      roleLabel: rb,
+      focus: rb,
+    })
+  }
+
+  if (channel === 'search_firms') {
+    return templateEngine.buildLatestTemplateDraft({
+      channel: 'search_firms',
+      firstName: first,
+      company,
+      roleLabel: rb,
+      focus: rb,
+    })
   }
 
   if (step.startsWith('followup_')) {
-    const body = fillExecutivePlaceholders(executiveFollowupBody(rb, step), row)
-    return {
-      body,
-      subject: executiveSubjectForStep(rb, company, step),
-    }
+    return templateEngine.buildLatestTemplateDraft({
+      channel: 'executives',
+      firstName: first,
+      company,
+      roleLabel: rb,
+      focus: rb,
+      step,
+    })
   }
 
-  const body = fillExecutivePlaceholders(executiveBodyForRole(rb), row)
-  return { body, subject: subject(row) }
+  return templateEngine.buildLatestTemplateDraft({
+    channel: 'executives',
+    firstName: first,
+    company,
+    roleLabel: rb,
+    focus: rb,
+  })
 }
 
 async function updateGenericPersonFile(relPath) {
@@ -441,98 +474,25 @@ async function updateOutplacementFile(relPath) {
 
 function executiveBodyForRole(roleBucket) {
   const rb = roleBucket || 'Executive'
-  const proof = proofLineForFocus(rb)
-  const stakes = stakesLineForFocus(rb, '{company_name}')
-  const cta = ctaVariants(rb)
-  const asset = benchmarkAssetForFocus(rb)
-  return [
-    'Hi {first_name},',
-    '',
-    `I have been following your work at {company_name}, and I thought this might be useful for ${rb} transitions.`,
-    '',
-    'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
-    '',
-    stakes,
-    '',
-    microProofLine('executive', rb),
-    '',
-    `The clearest proof point for ${rb} leaders is ${proof}.`,
-    '',
-    costOfInactionLine('executive', rb),
-    '',
-    `For ${rb} candidates, the biggest win is ${proof}.`,
-    '',
-    cta.sample,
-    '',
-    binaryCtaLine(asset, `${rb} transition context`),
-    '',
-    'Rich',
-    'startingmonday.app',
-  ].join('\n')
+  return templateEngine.buildLatestTemplateDraft({
+    channel: 'executives',
+    firstName: '{first_name}',
+    company: '{company_name}',
+    roleLabel: rb,
+    focus: rb,
+  }).body
 }
 
 function executiveFollowupBody(roleBucket, step) {
-  const focus = roleBucket || 'Executive'
-  const proof = proofLineForFocus(focus)
-  const stakes = stakesLineForFocus(focus, '{company_name}')
-  const cta = ctaVariants(focus)
-  const benchmarkAsset = benchmarkAssetForFocus(focus)
-  if (step === 'followup_1') {
-    return [
-      'Hi {first_name},',
-      '',
-      `I have been following your work at {company_name}, and I wanted to follow up on my earlier note about ${focus} transitions.`,
-      '',
-      stakes,
-      '',
-      microProofLine('executive', focus),
-      '',
-      `For ${focus} candidates, that is where ${proof} usually shows up in the first serious conversation.`,
-      '',
-      costOfInactionLine('executive', focus),
-      '',
-      cta.sample,
-      '',
-      binaryCtaLine(benchmarkAsset, `${focus} transition context`),
-      '',
-      'Rich',
-      'startingmonday.app',
-    ].join('\n')
-  }
-  if (step === 'followup_2') {
-    return [
-      'Hi {first_name},',
-      '',
-      `I have been following your work at {company_name}, and I had one more thought on ${focus} transitions.`,
-      '',
-      `I can also send ${benchmarkAsset} so you can see how the first week, first pitch, and first follow-up should look for this role.`,
-      '',
-      `For ${focus} leaders, that is where ${proof} becomes visible in a way that is hard to fake and easy to evaluate.`,
-      '',
-      costOfInactionLine('executive', focus),
-      '',
-      binaryCtaLine(benchmarkAsset, `${focus} transition context`),
-      '',
-      'Rich',
-      'startingmonday.app',
-    ].join('\n')
-  }
-  return [
-    'Hi {first_name},',
-    '',
-    `I have been following your work at {company_name}, and I am closing the loop on my note about ${focus} transitions.`,
-    '',
-    `If timing is not right, no problem. If it is, I can send one concise example plus ${benchmarkAsset} so you can judge it quickly.`,
-    '',
-    costOfInactionLine('executive', focus),
-    '',
-    `That is usually the cleanest way to show ${breakupHookForFocus(focus)} without overexplaining it.`,
-    '',
-    binaryCtaLine(benchmarkAsset, `${focus} transition context`),
-    '',
-    'Rich',
-    'startingmonday.app',
-  ].join('\n')
+  const rb = roleBucket || 'Executive'
+  return templateEngine.buildLatestTemplateDraft({
+    channel: 'executives',
+    firstName: '{first_name}',
+    company: '{company_name}',
+    roleLabel: rb,
+    focus: rb,
+    step,
+  }).body
 }
 
 async function rewriteExecutiveBlocks(relPath) {
