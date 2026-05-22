@@ -309,7 +309,18 @@ export default function OutplacementEconomicsPage() {
           </p>
         </header>
 
-        <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7 mb-10">
+        <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50 mb-10">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#pilot-first" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pilot first</a>
+            <a href="#partner-models" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner models</a>
+            <a href="#decision-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Decision scorecard</a>
+            <a href="#commercial-examples" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Commercial examples</a>
+            <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
+          </div>
+        </section>
+
+        <section id="pilot-first" className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7 mb-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
             Pilot first
           </p>
@@ -321,10 +332,10 @@ export default function OutplacementEconomicsPage() {
           </div>
         </section>
 
-        <section className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+        <section id="partner-models" className="mb-10">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
             Partner models
-          </p>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {PARTNER_PLANS.map((plan) => (
               <div key={plan.name} className="border border-slate-200 rounded-2xl p-5 bg-white">
@@ -337,9 +348,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             What is included
-          </p>
+          </h2>
           <ul className="space-y-3">
             {WHAT_IS_INCLUDED.map((item) => (
               <li key={item} className="flex items-start gap-2.5 text-[14px] text-slate-700 leading-relaxed">
@@ -350,10 +361,10 @@ export default function OutplacementEconomicsPage() {
           </ul>
         </section>
 
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+        <section id="decision-scorecard" className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             30-day decision scorecard
-          </p>
+          </h2>
           <div className="space-y-3">
             {SCORECARD_METRICS.map((row) => (
               <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-white">
@@ -365,9 +376,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
             Commercial notes
-          </p>
+          </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
             {COMMERCIAL_NOTES.map((note) => (
               <p key={note}>{note}</p>
@@ -376,9 +387,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Cohort sizing scenarios for procurement
-          </p>
+          </h2>
           <div className="space-y-3">
             {COHORT_SCENARIOS.map((row) => (
               <div key={row.cohort} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
@@ -393,9 +404,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Quantified current-model vs operating-layer outcomes
-          </p>
+          </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
             <table className="min-w-full text-left text-[13px]">
               <thead className="bg-slate-100 text-slate-700">
@@ -421,10 +432,10 @@ export default function OutplacementEconomicsPage() {
           </p>
         </section>
 
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+        <section id="commercial-examples" className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Commercial examples by term and seat mix (illustrative)
-          </p>
+          </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
             <table className="min-w-full text-left text-[13px]">
               <thead className="bg-slate-100 text-slate-700">
@@ -455,9 +466,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Quote-level packaging framework
-          </p>
+          </h2>
           <div className="space-y-3">
             {QUOTE_PACKAGING.map((row) => (
               <div key={row.packageName} className="border border-slate-200 rounded-lg p-4 bg-white">
@@ -473,9 +484,9 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Contract-linked quote package language
-          </p>
+          </h2>
           <p className="text-[14px] text-slate-700 leading-relaxed mb-3">
             Commercial approval should reference signed package artifacts: Order Form scope, MSA service boundaries, and pilot acceptance schedule.
           </p>
@@ -625,10 +636,10 @@ export default function OutplacementEconomicsPage() {
           </ul>
         </section>
 
-        <section className="border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+        <section id="next-step" className="border border-slate-200 rounded-2xl p-6 bg-white">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
-          </p>
+          </h2>
           <div className="border border-orange-200 rounded-lg p-4 bg-orange-50/50 mb-5">
             <p className="text-[12px] font-semibold text-slate-900 mb-1">Short objection response</p>
             <p className="text-[12px] text-slate-700 leading-relaxed">Worried this creates commitment pressure? It does not. Pilot is scoped as a decision gate with a documented clean-no exit path.</p>

@@ -102,7 +102,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /for-cio,src/app/for-cio/page.tsx,marketing,100,A+,true,148,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,76,C+,false,213,5,6,15,6,0,0,1,0,false,true,true,No explicit CTA language | Missing trust/confidentiality cues
 /for-ciso,src/app/for-ciso/page.tsx,marketing,92,A-,true,147,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
-/for-coaches,src/app/for-coaches/page.tsx,marketing,57,C-,false,802,15,10,112,24,0,0,10,0,true,true,true,Extreme scroll burden | No explicit CTA language
+/for-coaches,src/app/for-coaches/page.tsx,marketing,75,C+,false,820,16,11,112,30,0,0,10,1,true,true,true,Extreme scroll burden
 /for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,78,C+,false,199,7,1,26,4,0,0,1,2,false,false,true,Weak heading hierarchy | Missing trust/confidentiality cues | Missing outcome metrics
 /for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,4,6,17,10,0,0,0,2,true,true,true,No major static UX risks detected
 /for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,74,C,false,79,3,1,6,2,0,0,2,0,true,false,false,No explicit CTA language | Missing outcome metrics
@@ -113,7 +113,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,86,B,false,241,7,8,17,9,0,0,1,4,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
 /for-media-partners,src/app/for-media-partners/page.tsx,marketing,86,B,false,243,6,7,20,6,0,0,1,1,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
 /for-outplacement,src/app/for-outplacement/page.tsx,marketing,75,C+,false,718,19,20,59,18,0,0,5,2,true,true,true,Extreme scroll burden
-/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,74,C,false,681,20,1,64,10,0,0,5,5,true,true,true,Weak heading hierarchy | High scroll burden
+/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,82,B-,false,692,21,12,54,15,0,0,5,5,true,true,true,High scroll burden
 /for-outplacement/executive-summary,src/app/for-outplacement/executive-summary/page.tsx,marketing,100,A+,true,138,6,1,13,5,0,0,3,3,true,true,true,No major static UX risks detected
 /for-outplacement/faq,src/app/for-outplacement/faq/page.tsx,marketing,100,A+,true,238,3,4,9,9,0,0,0,6,true,true,true,No major static UX risks detected
 /for-outplacement/metric-dictionary,src/app/for-outplacement/metric-dictionary/page.tsx,marketing,100,A+,true,132,3,1,5,5,0,0,0,2,true,true,true,No major static UX risks detected

@@ -269,7 +269,25 @@ export default function ForCoachesPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
 
-          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+          <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-4">
+              <a href="#why-coaches-buy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why coaches buy</a>
+              <a href="#role-boundary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role boundary</a>
+              <a href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Execution rhythm</a>
+              <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/partners#apply" className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+                Get started with a 30-day coach preview
+              </Link>
+              <Link href="/for-coaches/faq" className="inline-block border border-slate-300 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded hover:border-slate-500 transition-colors">
+                Read coach FAQ before preview
+              </Link>
+            </div>
+          </section>
+
+          <section id="why-coaches-buy" className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Why coaches buy
             </p>
@@ -367,7 +385,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+          <section id="role-boundary" className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Role boundary
             </p>
@@ -416,7 +434,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="buy-signals">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               What coaches said they would buy for
             </p>
@@ -443,7 +461,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="credibility-play">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               The coach credibility play
             </p>
@@ -466,7 +484,7 @@ export default function ForCoachesPage() {
             </p>
           </section>
 
-          <section>
+          <section id="sample-output">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Sample output
             </p>
@@ -484,7 +502,7 @@ export default function ForCoachesPage() {
             />
           </section>
 
-          <section>
+          <section id="shared-intelligence">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Shared intelligence with clients
             </p>
@@ -546,7 +564,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="coach-fit">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where this fits best
             </p>
