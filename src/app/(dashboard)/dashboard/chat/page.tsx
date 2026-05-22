@@ -210,6 +210,7 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col font-sans bg-white">
+      <h1 className="sr-only">Career advisor chat</h1>
       {actionToast && (
         <ActionToast message={actionToast} onDismiss={() => setActionToast(null)} />
       )}
@@ -264,6 +265,14 @@ export default function ChatPage() {
       </header>
 
       <div className="flex-1 overflow-y-auto">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-1">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#chat-empty-state" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Starter prompts</a>
+            <a href="#chat-thread" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Conversation</a>
+            <a href="#chat-composer" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Composer</a>
+          </div>
+        </section>
         {loadingHistory ? (
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 flex items-center gap-2 text-slate-300">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block" />
@@ -271,7 +280,7 @@ export default function ChatPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:300ms]" />
           </div>
         ) : messages.length === 0 ? (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+          <div id="chat-empty-state" className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
             <p className="text-[22px] font-bold text-slate-900 mb-2">
               What would you like to work on?
             </p>
@@ -312,7 +321,7 @@ export default function ChatPage() {
             </div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
+          <div id="chat-thread" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -342,7 +351,7 @@ export default function ChatPage() {
         )}
       </div>
 
-      <div className="shrink-0 border-t border-slate-200 bg-white px-6 py-4">
+      <div id="chat-composer" className="shrink-0 border-t border-slate-200 bg-white px-6 py-4">
         <div className="max-w-3xl mx-auto px-4 sm:px-0 flex gap-3 items-end">
           <textarea
             ref={textareaRef}

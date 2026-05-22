@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'What We Learned from the Pilot - Starting Monday',
@@ -64,16 +65,30 @@ export default function PilotFindingsPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+        <h1 className="sr-only">What We Learned from the Pilot</h1>
+        <section className="border border-slate-200 rounded-lg p-4 bg-white">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
+            <a href="#pilot-signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pilot signals</a>
+            <a href="#what-changed" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">What changed</a>
+            <a href="#next-measures" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next measures</a>
+            <a href="#evidence-action" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Evidence action</a>
+          </div>
+          <p className="text-[12px] text-slate-500 leading-relaxed">
+            Confidence note: pilot results are directional and should be interpreted with sample-size and context limits.
+          </p>
+        </section>
+
         <p>
           This is the non-promotional version of what the pilot suggests: the system appears most useful when it reduces ambiguity, surfaces the next best move, and keeps the campaign moving between formal sessions.
         </p>
 
-        <section className="border border-slate-200 rounded-lg p-5 bg-slate-50">
+        <section id="pilot-signals" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pilot signal chart</p>
           <MiniBarChart />
         </section>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">What changed</h2>
+        <h2 id="what-changed" className="text-[22px] font-bold text-slate-900 pt-4">What changed</h2>
         <ul className="list-disc pl-5 space-y-2">
           {LESSONS.map(item => <li key={item}>{item}</li>)}
         </ul>
@@ -83,7 +98,7 @@ export default function PilotFindingsPage() {
           The platform does not replace judgment, coaching, or search relationships. It appears to work when it gives those inputs a better operating layer.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">What we should do next</h2>
+        <h2 id="next-measures" className="text-[22px] font-bold text-slate-900 pt-4">What we should do next</h2>
         <ol className="list-decimal pl-5 space-y-2">
           <li>Keep instrumenting signal-to-action timing.</li>
           <li>Track how often prep briefs are used before live conversations.</li>
@@ -94,6 +109,16 @@ export default function PilotFindingsPage() {
         <p>
           The main lesson is simple: when leaders and coaches have the right structure between sessions, the session itself becomes more strategic.
         </p>
+
+        <section id="evidence-action" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
+          <h2 className="text-[18px] font-bold text-slate-900 mb-2">Turn pilot findings into operating practice</h2>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
+            Review methods, references, and linked evidence so your team can separate observed signal from interpretation.
+          </p>
+          <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+            Open evidence room
+          </Link>
+        </section>
       </div>
     </BlogPost>
   )
