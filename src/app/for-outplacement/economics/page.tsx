@@ -327,7 +327,6 @@ export default function OutplacementEconomicsPage() {
           <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed">
             <p>Most partners begin with one cohort and a 30-day pass/fail review before expanding seats.</p>
             <p>This keeps procurement risk low while giving counselor teams enough workflow exposure to judge fit.</p>
-            <p>The goal is to validate measurable momentum lift, not just product satisfaction.</p>
             <p className="font-semibold text-slate-800">Pilot is a decision instrument, not a commitment instrument.</p>
           </div>
         </section>
@@ -465,177 +464,6 @@ export default function OutplacementEconomicsPage() {
           </p>
         </section>
 
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Quote-level packaging framework
-          </h2>
-          <div className="space-y-3">
-            {QUOTE_PACKAGING.map((row) => (
-              <div key={row.packageName} className="border border-slate-200 rounded-lg p-4 bg-white">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.packageName}</p>
-                <p className="text-[13px] text-slate-600 mb-1">{row.details}</p>
-                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Quote inputs: </span>{row.quoteInputs}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
-            Final approval packages should use quoted commercial terms issued against agreed scope, not only illustrative planning examples.
-          </p>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Contract-linked quote package language
-          </h2>
-          <p className="text-[14px] text-slate-700 leading-relaxed mb-3">
-            Commercial approval should reference signed package artifacts: Order Form scope, MSA service boundaries, and pilot acceptance schedule.
-          </p>
-          <ul className="space-y-2">
-            <li className="text-[14px] text-slate-700 leading-relaxed">+ Package statement must include seat counts, term, named deliverables, and sponsor owner.</li>
-            <li className="text-[14px] text-slate-700 leading-relaxed">+ Pilot acceptance criteria must be listed as measurable thresholds, not narrative goals.</li>
-            <li className="text-[14px] text-slate-700 leading-relaxed">+ Expansion terms should be conditional on documented day-30 or day-60 decision evidence.</li>
-          </ul>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Example redline-ready quote excerpt
-          </p>
-          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-            {REDLINE_READY_QUOTE_EXCERPT.map((line) => (
-              <p key={line} className="text-[12px] text-slate-700 font-mono leading-relaxed">{line}</p>
-            ))}
-          </div>
-          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
-            This is an illustrative drafting block. Replace proposed clause IDs with final legal numbering once template schedules are finalized.
-          </p>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            SLA and contract-clause mapping
-          </p>
-          <div className="space-y-3">
-            {CONTRACT_SLA_MAP.map((row) => (
-              <div key={row.clause} className="border border-slate-200 rounded-lg p-4 bg-white">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.clause}</p>
-                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Clause ID: </span>{row.clauseId}</p>
-                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Contract language: </span>{row.contractualLanguage}</p>
-                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Default position: </span>{row.defaultPosition}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-[12px] text-slate-500 mt-3 leading-relaxed">
-            Clause IDs are proposed placeholders to speed legal mapping and should be replaced with final schedule references at template freeze.
-          </p>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Methodology disclosure mini-section
-          </p>
-          <ul className="space-y-2">
-            {METHOD_DISCLOSURE.map((item) => (
-              <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Enterprise KPI mapping (CHRO and procurement lens)
-          </p>
-          <div className="space-y-3">
-            {EMPLOYER_KPI_MAP.map((row) => (
-              <div key={row.buyerMetric} className="border border-slate-200 rounded-lg p-4 bg-white">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.buyerMetric}</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">{row.mappedSignal}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Conservative business impact framing
-          </p>
-          <div className="space-y-3">
-            {BUSINESS_IMPACT.map((row) => (
-              <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.metric}</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">{row.conservative}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Owner and meeting cadence matrix
-          </p>
-          <div className="space-y-3">
-            {OWNER_MATRIX.map((row) => (
-              <div key={row.meeting} className="border border-slate-200 rounded-lg p-4 bg-white">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.meeting}</p>
-                <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Owner: </span>{row.owner}</p>
-                <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Required output: </span>{row.output}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Owner accountability (RACI variant for larger partner teams)
-          </p>
-          <div className="overflow-x-auto border border-slate-200 rounded-lg">
-            <table className="min-w-full text-left text-[13px]">
-              <thead className="bg-slate-100 text-slate-700">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">Deliverable</th>
-                  <th className="px-4 py-3 font-semibold">Responsible</th>
-                  <th className="px-4 py-3 font-semibold">Accountable</th>
-                  <th className="px-4 py-3 font-semibold">Consulted</th>
-                  <th className="px-4 py-3 font-semibold">Informed</th>
-                </tr>
-              </thead>
-              <tbody>
-                {RACI_ROWS.map((row) => (
-                  <tr key={row.deliverable} className="border-t border-slate-200 bg-white">
-                    <td className="px-4 py-3 text-slate-900 font-medium">{row.deliverable}</td>
-                    <td className="px-4 py-3 text-slate-600">{row.responsible}</td>
-                    <td className="px-4 py-3 text-slate-700">{row.accountable}</td>
-                    <td className="px-4 py-3 text-slate-600">{row.consulted}</td>
-                    <td className="px-4 py-3 text-slate-600">{row.informed}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Sample weekly partner report
-          </p>
-          <ul className="space-y-2">
-            {SAMPLE_WEEKLY_REPORT.map((line) => (
-              <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
-            Friday MBR-lite packet template (with definitions)
-          </p>
-          <ul className="space-y-2">
-            {WEEKLY_PACKET_TEMPLATE.map((line) => (
-              <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
-            ))}
-          </ul>
-        </section>
-
         <section id="next-step" className="border border-slate-200 rounded-2xl p-6 bg-white">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
@@ -680,9 +508,6 @@ export default function OutplacementEconomicsPage() {
           </div>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-4">
             Clean no path: if pilot criteria are not met at day 30, close without expansion commitment and retain the decision artifacts.
-          </p>
-          <p className="text-[12px] text-slate-500 leading-relaxed mt-2">
-            Day-30 pause path: if evidence is mixed, pause expansion, run one corrective 30-day cycle, and decide at day 60 with the same scorecard definitions.
           </p>
         </section>
       </main>

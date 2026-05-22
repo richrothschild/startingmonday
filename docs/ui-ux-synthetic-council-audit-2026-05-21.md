@@ -18,17 +18,17 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 123
-- Flagged pages (below excellent): 34
+- Excellent pages (A- or better): 124
+- Flagged pages (below excellent): 33
 - High-risk pages (score < 80): 5
-- Site excellence rate: 78.3%
+- Site excellence rate: 79.0%
 
 ## Results by Page Category
 
 | Category | Pages | Avg score | Excellent | Flagged |
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
-| blog | 30 | 91.6 | 28 | 2 |
+| blog | 30 | 92.2 | 29 | 1 |
 | dashboard | 57 | 90.3 | 37 | 20 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
@@ -41,7 +41,7 @@ Excellence threshold: score >= 90 (A- or better).
 | Missing outcome metrics | 21 |
 | Weak heading hierarchy | 19 |
 | Low action density for workflow page | 15 |
-| Insufficient content chunking | 10 |
+| Insufficient content chunking | 9 |
 | Missing trust/confidentiality cues | 8 |
 | Moderate scroll burden | 8 |
 | High scroll burden | 7 |
@@ -87,7 +87,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /blog/retained-search-candidate-preparation | 92 | A- | Yes | blog | src/app/blog/retained-search-candidate-preparation/page.tsx | Missing H1 |
 | /blog/retained-search-firms | 92 | A- | Yes | blog | src/app/blog/retained-search-firms/page.tsx | Missing H1 |
 | /blog/target-company-list | 92 | A- | Yes | blog | src/app/blog/target-company-list/page.tsx | Missing H1 |
-| /blog/target-company-list-cto | 82 | B- | No | blog | src/app/blog/target-company-list-cto/page.tsx | Insufficient content chunking; Dense copy blocks |
+| /blog/target-company-list-cto | 100 | A+ | Yes | blog | src/app/blog/target-company-list-cto/page.tsx | No major static UX risks detected |
 | /blog/technology-executive-transition-chro | 92 | A- | Yes | blog | src/app/blog/technology-executive-transition-chro/page.tsx | Missing H1 |
 | /blog/vp-job-search-different-rules | 92 | A- | Yes | blog | src/app/blog/vp-job-search-different-rules/page.tsx | Missing H1 |
 | /blog/vp-to-cio-transition | 92 | A- | Yes | blog | src/app/blog/vp-to-cio-transition/page.tsx | Missing H1 |
