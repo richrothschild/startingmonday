@@ -271,7 +271,17 @@ export function DemoContent({
           </p>
         </div>
 
-        <section className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
+        <nav className="mb-8 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick navigation</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
+            <a href="#demo-context" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Context</a>
+            <a href="#run-demo" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Run demo</a>
+            <a href="#brief-output" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Brief output</a>
+            <a href="#full-account" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Full account value</a>
+          </div>
+        </nav>
+
+        <section id="demo-context" className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Before you run the demo</p>
           <div className="space-y-4">
             <div>
@@ -324,55 +334,59 @@ export function DemoContent({
         </section>
 
         {/* Input form */}
-        <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded p-6 flex flex-col gap-4 mb-8">
-          <div>
-            <label className={labelCls}>Company <span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              value={company}
-              onChange={e => setCompany(e.target.value)}
-              placeholder="Salesforce"
-              required
-              disabled={loading}
-              className={inputCls}
-            />
-          </div>
-          <div>
-            <label className={labelCls}>Role <span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              value={role}
-              onChange={e => setRole(e.target.value)}
-              placeholder="Chief Information Officer"
-              required
-              disabled={loading}
-              className={inputCls}
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={!company.trim() || !role.trim() || loading}
-            className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
-          >
-            {loading ? 'Generating...' : content ? 'Regenerate' : 'Generate prep brief'}
-          </button>
-          {requestStatus && <p className="text-[12px] text-slate-500">{requestStatus}</p>}
-          {firstTokenSlow && <p className="text-[12px] text-slate-500">First response chunk is taking longer than usual.</p>}
-          {lastRequest && !loading && (
+        <section id="run-demo" className="mb-8">
+          <h2 className="text-[18px] font-bold text-slate-900 mb-3">Run the demo</h2>
+          <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded p-6 flex flex-col gap-4">
+            <div>
+              <label className={labelCls}>Company <span className="text-red-500">*</span></label>
+              <input
+                type="text"
+                value={company}
+                onChange={e => setCompany(e.target.value)}
+                placeholder="Salesforce"
+                required
+                disabled={loading}
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Role <span className="text-red-500">*</span></label>
+              <input
+                type="text"
+                value={role}
+                onChange={e => setRole(e.target.value)}
+                placeholder="Chief Information Officer"
+                required
+                disabled={loading}
+                className={inputCls}
+              />
+            </div>
             <button
-              type="button"
-              onClick={handleRetryLastRequest}
-              className="text-[12px] text-slate-600 underline underline-offset-2 hover:text-slate-900 self-start"
+              type="submit"
+              disabled={!company.trim() || !role.trim() || loading}
+              className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
             >
-              Retry last request
+              {loading ? 'Generating...' : content ? 'Regenerate' : 'Generate prep brief'}
             </button>
-          )}
-          {error && <p className="text-[13px] text-red-600">{error}</p>}
-        </form>
+            {requestStatus && <p className="text-[12px] text-slate-500">{requestStatus}</p>}
+            {firstTokenSlow && <p className="text-[12px] text-slate-500">First response chunk is taking longer than usual.</p>}
+            {lastRequest && !loading && (
+              <button
+                type="button"
+                onClick={handleRetryLastRequest}
+                className="text-[12px] text-slate-600 underline underline-offset-2 hover:text-slate-900 self-start"
+              >
+                Retry last request
+              </button>
+            )}
+            {error && <p className="text-[13px] text-red-600">{error}</p>}
+          </form>
+        </section>
 
         {/* Brief */}
         {(content || loading) && (
-          <div className="relative" ref={briefRef}>
+          <section id="brief-output" className="relative" ref={briefRef}>
+            <h2 className="text-[18px] font-bold text-slate-900 mb-3">Brief output</h2>
             {/* Visible content */}
             <div className="bg-white border border-slate-200 rounded p-6 sm:p-8">
               {renderBrief(visibleContent, loading)}
@@ -441,13 +455,14 @@ export function DemoContent({
                 </Link>
               </div>
             )}
-          </div>
+          </section>
         )}
 
         {/* Pre-generation context */}
         {!content && !loading && (
-          <div className="border-t border-slate-100 pt-8">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-5">What you get with a full account</p>
+          <section id="full-account" className="border-t border-slate-100 pt-8">
+            <h2 className="text-[18px] font-bold text-slate-900 mb-3">What you get with a full account</h2>
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-5">Included capabilities</p>
             <div className="flex flex-col gap-3">
               {[
                 'This brief, auto-generated for each target company before high-stakes conversations',
@@ -473,7 +488,7 @@ export function DemoContent({
               </Link>
               <p className="text-[12px] text-slate-400 sm:mt-2.5">30 days free. No credit card.</p>
             </div>
-          </div>
+          </section>
         )}
 
       </main>
