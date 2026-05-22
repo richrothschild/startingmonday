@@ -80,8 +80,18 @@ export default function CoachesGuidePage() {
       <div className="px-4 sm:px-6 py-12 sm:py-16">
         <div className="max-w-2xl mx-auto space-y-14">
 
+          <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+              <a href="#coach-fit" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Coach fit</a>
+              <a href="#coach-playbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Coach playbook</a>
+              <a href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Execution rhythm</a>
+              <a href="#coach-practice" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">For your practice</a>
+            </div>
+          </section>
+
           {/* What it is */}
-          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+          <section id="coach-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
             <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
             <p>
               Starting Monday is an AI-powered job search platform built for VP and C-suite executives.
@@ -116,22 +126,27 @@ export default function CoachesGuidePage() {
           </section>
 
           {/* How coaches use it */}
-          <section className="space-y-6">
+          <section id="coach-playbook" className="space-y-6">
             <h2 className="text-[22px] font-bold text-slate-900">How coaches use it</h2>
             <div className="space-y-8">
               {FEATURES.map(f => (
-                <div key={f.name} className="border-l-2 border-orange-500 pl-5">
-                  <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
-                  <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forCoach}</p>
-                  <p className="text-[13px] text-slate-500 leading-relaxed">
-                    <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
-                  </p>
-                </div>
+                <details key={f.name} className="border-l-2 border-orange-500 pl-5 group" open>
+                  <summary className="list-none cursor-pointer flex items-center justify-between">
+                    <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600">{f.name}</p>
+                    <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
+                  </summary>
+                  <div className="mt-2">
+                    <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forCoach}</p>
+                    <p className="text-[13px] text-slate-500 leading-relaxed">
+                      <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
+                    </p>
+                  </div>
+                </details>
               ))}
             </div>
           </section>
 
-          <section className="space-y-6">
+          <section id="execution-rhythm" className="space-y-6">
             <h2 className="text-[22px] font-bold text-slate-900">Execution rhythm your clients follow</h2>
             <p className="text-[15px] text-slate-700 leading-relaxed">
               Keep the cadence language consistent in every client kickoff: Monday morning review, every morning action, and prep brief before each interview.
@@ -171,7 +186,7 @@ export default function CoachesGuidePage() {
           </section>
 
           {/* For your practice */}
-          <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+          <section id="coach-practice" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
             <h2 className="text-[22px] font-bold text-slate-900">For your practice</h2>
             <p>
               The simplest way to start: recommend Starting Monday to your next client entering
@@ -193,6 +208,9 @@ export default function CoachesGuidePage() {
                 </li>
               ))}
             </ul>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Confidentiality standard: client data is private by default and coaching visibility is controlled by the client.
+              </p>
           </section>
 
           {/* Apply CTA */}
@@ -210,7 +228,7 @@ export default function CoachesGuidePage() {
               href="/partners#apply"
               className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
             >
-              Apply now &rarr;
+              Get started now &rarr;
             </Link>
             <p className="text-[13px] text-slate-400 mt-4">
               Want to see the platform first?{' '}

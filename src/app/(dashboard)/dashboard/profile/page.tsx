@@ -172,6 +172,18 @@ export default async function ProfilePage({
           </div>
         </div>
 
+        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4 max-w-xl">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#section-identity" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Identity</a>
+            <a href="#section-targets" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Targets</a>
+            <a href="#section-positioning" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Positioning</a>
+            <a href="#section-resume" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Resume</a>
+            <a href="#section-briefing" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Briefing</a>
+            <a href="#section-data-privacy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Data and privacy</a>
+          </div>
+        </section>
+
         {/* Profile progress bar */}
         <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3.5 max-w-xl flex items-center gap-4">
           <div className="flex items-center gap-1.5 shrink-0">
@@ -723,7 +735,7 @@ export default async function ProfilePage({
 
           </form>
         </div>
-        <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+        <div id="section-linkedin-support" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
             LinkedIn profile
           </p>
@@ -741,7 +753,7 @@ export default async function ProfilePage({
           </p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+        <div id="section-data-privacy" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
             Data and privacy
           </p>

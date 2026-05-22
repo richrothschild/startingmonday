@@ -110,7 +110,7 @@ export default function PartnersPage() {
                 href="#apply"
                 className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors"
               >
-                Apply as a partner &rarr;
+                Get started as a partner &rarr;
               </a>
               <Link
                 href="/dashboard/partner"
@@ -124,8 +124,21 @@ export default function PartnersPage() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
 
+          <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-2">
+              <a href="#partner-types" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner types</a>
+              <a href="#partner-tiers" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner tiers</a>
+              <a href="#other-partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Also built for</a>
+              <a href="#apply" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Apply</a>
+            </div>
+            <p className="text-[12px] text-slate-500 leading-relaxed">
+              Trust standard: referral attribution is transparent and candidate account data stays private by default.
+            </p>
+          </section>
+
           {/* Per-category value props */}
-          <section>
+          <section id="partner-types">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
               Who we work with
             </p>
@@ -163,7 +176,7 @@ export default function PartnersPage() {
           </section>
 
           {/* Partner tiers */}
-          <section className="border-t border-slate-100 pt-12">
+          <section id="partner-tiers" className="border-t border-slate-100 pt-12">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-6">
               Partner tiers
             </p>
@@ -210,7 +223,7 @@ export default function PartnersPage() {
           </section>
 
           {/* Other partner types */}
-          <section className="border-t border-slate-100 pt-12">
+          <section id="other-partners" className="border-t border-slate-100 pt-12">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Also built for
             </p>
