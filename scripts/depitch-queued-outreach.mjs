@@ -1,5 +1,9 @@
-import 'dotenv/config'
+import { config as loadEnv } from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
+
+// Load env files in Next.js-like precedence for local script runs.
+loadEnv({ path: '.env' })
+loadEnv({ path: '.env.local', override: true })
 
 const DEFAULT_SENDER = 'richard@startingmonday.app'
 const APPLY = process.argv.includes('--apply')
