@@ -18,10 +18,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 124
-- Flagged pages (below excellent): 33
-- High-risk pages (score < 80): 5
-- Site excellence rate: 79.0%
+- Excellent pages (A- or better): 125
+- Flagged pages (below excellent): 32
+- High-risk pages (score < 80): 4
+- Site excellence rate: 79.6%
 
 ## Results by Page Category
 
@@ -29,7 +29,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
 | blog | 30 | 92.2 | 29 | 1 |
-| dashboard | 57 | 90.3 | 37 | 20 |
+| dashboard | 57 | 90.7 | 38 | 19 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
 
@@ -45,7 +45,7 @@ Excellence threshold: score >= 90 (A- or better).
 | Missing trust/confidentiality cues | 8 |
 | Moderate scroll burden | 8 |
 | High scroll burden | 7 |
-| Extreme scroll burden | 5 |
+| Extreme scroll burden | 4 |
 
 ## High-Risk Pages (Score < 80)
 
@@ -54,7 +54,6 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
-| /dashboard/outreach | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/profile | 75 | C+ | dashboard | Extreme scroll burden |
 
 ## Full Page-by-Page Audit
@@ -140,7 +139,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/kanban | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/kanban/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/offers | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/offers/page.tsx | Weak heading hierarchy |
 | /dashboard/outplacement | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/outplacement/page.tsx | Low action density for workflow page |
-| /dashboard/outreach | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/outreach/page.tsx | Extreme scroll burden |
+| /dashboard/outreach | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/outreach/page.tsx | No major static UX risks detected |
 | /dashboard/partner | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/partner/page.tsx | No major static UX risks detected |
 | /dashboard/pilot-outreach | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
 | /dashboard/placed | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/placed/page.tsx | No major static UX risks detected |
