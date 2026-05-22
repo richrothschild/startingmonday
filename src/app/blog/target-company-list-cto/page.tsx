@@ -35,6 +35,18 @@ export default function TargetCompanyListCtoPage() {
       url="https://startingmonday.app/blog/target-company-list-cto"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+        <h1 className="sr-only">How to Build a Better CTO Target Company List</h1>
+
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#most-important-question" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Most important question</a>
+            <a href="#what-belongs" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">What belongs on list</a>
+            <a href="#how-to-find" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">How to find companies</a>
+            <a href="#signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Signals</a>
+            <a href="#clarity" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Clarity</a>
+          </div>
+        </section>
 
         <p>
           The CIO role has a definition. The CTO role has a spectrum.
@@ -55,7 +67,7 @@ export default function TargetCompanyListCtoPage() {
           every signal you watch, and every conversation you have.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The most important question first</h2>
+        <h2 id="most-important-question" className="text-[22px] font-bold text-slate-900 pt-4">The most important question first</h2>
 
         <p>
           Not &ldquo;what type of company?&rdquo; but &ldquo;what type of CTO am I?&rdquo;
@@ -81,7 +93,7 @@ export default function TargetCompanyListCtoPage() {
           should contain companies that need the version of the CTO you actually are.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">What belongs on the list</h2>
+        <h2 id="what-belongs" className="text-[22px] font-bold text-slate-900 pt-4">What belongs on the list</h2>
 
         <p>
           Company type, not just company size. This is where the CTO list diverges most sharply from
@@ -125,7 +137,7 @@ export default function TargetCompanyListCtoPage() {
           the companies on your list are actually building.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">How to find the companies</h2>
+        <h2 id="how-to-find" className="text-[22px] font-bold text-slate-900 pt-4">How to find the companies</h2>
 
         <p>
           The sources for a CTO list are different from a CIO list in important ways. Retained search
@@ -183,7 +195,7 @@ export default function TargetCompanyListCtoPage() {
           the search yet.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The signals that precede a CTO search</h2>
+        <h2 id="signals" className="text-[22px] font-bold text-slate-900 pt-4">The signals that precede a CTO search</h2>
 
         <p>
           CTO searches often appear with less lead time than CIO searches and move faster once they
@@ -238,7 +250,7 @@ export default function TargetCompanyListCtoPage() {
           moving and why. When the signal appears, be the candidate who was already in motion.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The clarity that makes everything else work</h2>
+        <h2 id="clarity" className="text-[22px] font-bold text-slate-900 pt-4">The clarity that makes everything else work</h2>
 
         <p>
           The executives who build the best CTO target lists start with an honest answer to a
@@ -250,6 +262,20 @@ export default function TargetCompanyListCtoPage() {
           That clarity is what turns a list of interesting companies into a search campaign with
           direction. Without it, the list is aspirational. With it, the list is a strategy.
         </p>
+
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-5 mt-8">
+          <h2 className="text-[18px] font-bold text-slate-900 mb-2">Apply this to your next week</h2>
+          <p>
+            Trust and confidentiality: treat your target list and outreach notes as private campaign assets,
+            and share specifics only with trusted advisors.
+          </p>
+          <p className="mt-2">
+            Outcome metric: aim to identify 12 to 18 priority companies and 2 to 3 new conversations per week.
+          </p>
+          <p className="mt-2">
+            CTA: get started now by building your CTO target list and monitoring it for role-opening signals.
+          </p>
+        </section>
 
       </div>
     </BlogPost>

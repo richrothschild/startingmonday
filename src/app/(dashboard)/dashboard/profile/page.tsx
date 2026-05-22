@@ -222,7 +222,7 @@ export default async function ProfilePage({
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-8 max-w-xl">
+        <section id="profile-editor" className="bg-white border border-slate-200 rounded p-8 max-w-xl">
 
           {saved && (
             <div className="mb-6 px-4 py-3 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
@@ -246,10 +246,13 @@ export default async function ProfilePage({
           <form id="profile-form" action={saveProfile} className="flex flex-col gap-6">
 
             {/* Search level */}
-            <div id="section-identity">
-              <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+            <section id="section-identity">
+              <h2 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Identity and role
+              </h2>
+              <h3 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
                 Search level
-              </p>
+              </h3>
               <div className="flex flex-col gap-2">
                 {[
                   { value: 'csuite', label: 'C-Suite',         sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
@@ -277,13 +280,13 @@ export default async function ProfilePage({
                 ))}
               </div>
               <p className="mt-1.5 text-[12px] text-slate-400">Calibrates interview prep briefs and AI coaching to your actual level.</p>
-            </div>
+            </section>
 
             {/* Role type */}
             <div>
-              <p className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+              <h3 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
                 Role type
-              </p>
+              </h3>
               <div className="flex flex-col gap-2">
                 {[
                   { value: 'cio',          label: 'CIO',                        sub: 'Chief Information Officer' },
@@ -365,7 +368,10 @@ export default async function ProfilePage({
             </div>
 
             {/* Target titles */}
-            <div id="section-targets">
+            <section id="section-targets">
+              <h2 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Targets
+              </h2>
               <label htmlFor="target_titles" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Target titles
               </label>
@@ -376,7 +382,7 @@ export default async function ProfilePage({
                 placeholder="Type a title and press Enter - CIO, VP of Technology…"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Press Enter or comma after each. Used to score job matches in company scans.</p>
-            </div>
+            </section>
 
             {/* Target sectors */}
             <div>
@@ -407,7 +413,10 @@ export default async function ProfilePage({
             </div>
 
             {/* Positioning summary */}
-            <div id="section-positioning">
+            <section id="section-positioning">
+              <h2 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Positioning
+              </h2>
               <PositioningGeneratorTextarea
                 defaultValue={positioningSummary}
                 resumeText={resumeText}
@@ -417,7 +426,7 @@ export default async function ProfilePage({
                 currentTitle={profile?.current_title ?? ''}
                 currentCompany={profile?.current_company ?? ''}
               />
-            </div>
+            </section>
 
             {/* LinkedIn URL */}
             <div>
@@ -443,7 +452,10 @@ export default async function ProfilePage({
             </div>
 
             {/* LinkedIn PDF Upload */}
-            <div id="section-linkedin-upload" className="mb-6">
+            <section id="section-linkedin-upload" className="mb-6">
+              <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                LinkedIn profile upload
+              </h2>
               <label className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5 block">
                 LinkedIn profile PDF
               </label>
@@ -451,10 +463,13 @@ export default async function ProfilePage({
                 Download your LinkedIn profile as a PDF (Profile &rarr; More &rarr; Save to PDF) and upload it here. This is used to extract your LinkedIn summary, experience, and headline for your profile and AI briefs.
               </p>
               <ProfileLinkedinUpload />
-            </div>
+            </section>
 
             {/* Resume */}
-            <div id="section-resume">
+            <section id="section-resume">
+              <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Resume and interview evidence
+              </h2>
               <div className="flex items-center justify-between mb-1.5">
                 <label htmlFor="resume_text" className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">
                   Resume / career history
@@ -479,7 +494,6 @@ export default async function ProfilePage({
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y leading-relaxed font-mono text-[12px]"
               />
               <p className="mt-1.5 text-[12px] text-slate-400">Used in interview prep briefs and AI context.</p>
-            </div>
 
             {/* Career verification */}
             <CareerVerificationPanel
@@ -658,9 +672,13 @@ export default async function ProfilePage({
                 )}
               </div>
             )}
+            </section>
 
             {/* Briefing time */}
-            <div id="section-briefing">
+            <section id="section-briefing">
+              <h2 className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                Briefing setup
+              </h2>
               <label htmlFor="briefing_time" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                 Daily briefing time
               </label>
@@ -676,7 +694,6 @@ export default async function ProfilePage({
                   {profile.briefing_timezone}
                 </p>
               )}
-            </div>
 
             {/* Briefing days */}
             <div>
@@ -723,6 +740,7 @@ export default async function ProfilePage({
                 Use a personal email if an assistant manages your work inbox.
               </p>
             </div>
+            </section>
 
             <div>
               <button
@@ -734,11 +752,11 @@ export default async function ProfilePage({
             </div>
 
           </form>
-        </div>
-        <div id="section-linkedin-support" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+        </section>
+        <section id="section-linkedin-support" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+          <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
             LinkedIn profile
-          </p>
+          </h2>
           <p className="text-[13px] text-slate-500 leading-relaxed">
             A strong LinkedIn profile is often the first thing a hiring team checks before reaching out.{' '}
             <a
@@ -751,12 +769,12 @@ export default async function ProfilePage({
             </a>{' '}
             is one of the most established services for executive-level profile optimization.
           </p>
-        </div>
+        </section>
 
-        <div id="section-data-privacy" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
+        <section id="section-data-privacy" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
+          <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
             Data and privacy
-          </p>
+          </h2>
 
           <div className="mb-5">
             <p className="text-[12px] font-semibold text-slate-700 mb-1">Download your data</p>
@@ -788,7 +806,7 @@ export default async function ProfilePage({
               </button>
             </form>
           </div>
-        </div>
+        </section>
 
       </main>
 

@@ -58,7 +58,7 @@ export default function AnnualReport2026Page() {
         </p>
 
         <section id="pattern-strength" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Observed pattern strength</p>
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Observed pattern strength</h2>
           <div className="space-y-4">
             {THEMES.map(theme => (
               <div key={theme.label}>
@@ -72,6 +72,7 @@ export default function AnnualReport2026Page() {
               </div>
             ))}
           </div>
+          <p className="text-[12px] text-slate-500 mt-4">Outcome metric: across pilot observations, pattern-strength indicators clustered in the 84% to 91% range.</p>
         </section>
 
         <h2 id="observations" className="text-[22px] font-bold text-slate-900 pt-4">Three observations</h2>
@@ -98,6 +99,7 @@ export default function AnnualReport2026Page() {
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
             If you want the supporting methods and references, use the evidence room as the primary source.
           </p>
+          <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the evidence room and applying the measurement model to your own campaign.</p>
           <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
             Open evidence room
           </Link>

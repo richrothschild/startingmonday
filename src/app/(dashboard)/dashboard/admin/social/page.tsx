@@ -63,12 +63,23 @@ export default async function SocialAdminPage() {
           </p>
         </div>
 
+        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#post-history" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Post history</a>
+            <a href="#daily-workflow" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Daily workflow</a>
+            <a href="#cio-outreach" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">CIO outreach</a>
+            <a href="#council-review" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Council review</a>
+            <a href="#pillar-legend" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pillar legend</a>
+          </div>
+        </section>
+
         <SocialClient />
 
         {/* Post history */}
         {posts.length > 0 && (
-          <div className="mt-10">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Post History (30 days)</p>
+          <section id="post-history" className="mt-10">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Post History (30 days)</h2>
             <div className="bg-white border border-slate-200 rounded overflow-hidden">
               <table className="w-full text-[12px]">
                 <thead>
@@ -105,15 +116,15 @@ export default async function SocialAdminPage() {
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Liz instructions */}
-        <div className="mt-10 bg-white border border-slate-200 rounded p-6">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow — Monday Through Friday</p>
+        <section id="daily-workflow" className="mt-10 bg-white border border-slate-200 rounded p-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow -- Monday Through Friday</h2>
 
           <div className="mb-6 border border-blue-200 bg-blue-50/40 rounded p-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-blue-700 mb-2">Executive Coach Outreach Guide For Liz</p>
+            <h3 className="text-[11px] font-bold tracking-[0.08em] uppercase text-blue-700 mb-2">Executive Coach Outreach Guide For Liz</h3>
             <p className="text-[13px] text-slate-700 leading-relaxed mb-3">
               The full step-by-step guide, coach-finding criteria, and message options are in:
               {' '}
@@ -175,7 +186,7 @@ export default async function SocialAdminPage() {
           </ol>
 
           <div className="mt-6 pt-5 border-t border-slate-100">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</p>
+            <h3 id="cio-outreach" className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</h3>
             <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one two-sentence body, then send same day.</p>
             <div className="bg-slate-50 border border-slate-200 rounded p-4">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct And Memorable</p>
@@ -197,7 +208,7 @@ export default async function SocialAdminPage() {
             </div>
 
             <div className="mt-5 pt-4 border-t border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Executive Coach Outreach - Quick Use</p>
+              <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Executive Coach Outreach - Quick Use</h3>
               <p className="text-[12px] text-slate-600 mb-3">
                 Steps and message options are now on this page and fully documented in the guide above.
               </p>
@@ -210,8 +221,8 @@ export default async function SocialAdminPage() {
               </ol>
             </div>
 
-            <div className="mt-5 pt-4 border-t border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Synthetic Council Review - Sales Marketing And Pricing</p>
+            <div id="council-review" className="mt-5 pt-4 border-t border-slate-100">
+              <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Synthetic Council Review - Sales Marketing And Pricing</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-[12px] text-left border border-slate-200 rounded overflow-hidden">
                   <thead>
@@ -254,8 +265,8 @@ export default async function SocialAdminPage() {
           </div>
 
           {/* Pillar legend */}
-          <div className="mt-6 pt-5 border-t border-slate-100">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</p>
+          <div id="pillar-legend" className="mt-6 pt-5 border-t border-slate-100">
+            <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 { label: 'Search Craft', desc: 'Practical advice for running a senior executive job search' },
@@ -277,7 +288,7 @@ export default async function SocialAdminPage() {
               This page: <span className="font-mono text-slate-600">https://startingmonday.app/dashboard/admin/social</span>
             </p>
           </div>
-        </div>
+        </section>
 
       </main>
     </div>

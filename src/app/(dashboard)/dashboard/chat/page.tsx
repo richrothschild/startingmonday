@@ -280,7 +280,7 @@ export default function ChatPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:300ms]" />
           </div>
         ) : messages.length === 0 ? (
-          <div id="chat-empty-state" className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+          <section id="chat-empty-state" className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
             <p className="text-[22px] font-bold text-slate-900 mb-2">
               What would you like to work on?
             </p>
@@ -289,7 +289,7 @@ export default function ChatPage() {
             </p>
             <div className="flex flex-col gap-6">
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Ask</p>
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Ask</h2>
                 <div className="flex flex-col gap-2">
                   {ASK_PROMPTS.map(prompt => (
                     <button
@@ -304,7 +304,7 @@ export default function ChatPage() {
                 </div>
               </div>
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Tell me to</p>
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Tell me to</h2>
                 <div className="flex flex-col gap-2">
                   {DO_PROMPTS.map(prompt => (
                     <button
@@ -319,9 +319,9 @@ export default function ChatPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         ) : (
-          <div id="chat-thread" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
+          <section id="chat-thread" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -347,7 +347,7 @@ export default function ChatPage() {
               </div>
             ))}
             <div ref={bottomRef} />
-          </div>
+          </section>
         )}
       </div>
 

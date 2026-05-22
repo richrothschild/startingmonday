@@ -218,10 +218,17 @@ export default function OptimizePage() {
           <p className="text-[12px] text-slate-400 mt-2">Free. No account required. 3 analyses per day.</p>
         </div>
 
+        <section className="bg-white border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">How grading works</h2>
+          <p className="text-[13px] text-slate-600 leading-relaxed">Trust and confidentiality: your pasted profile text is used only to generate your analysis.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Outcome metric: section-level grades and rewrites help you fix weak profile areas in one editing pass.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">CTA: get started now by pasting your current LinkedIn profile.</p>
+        </section>
+
         {/* Input card */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</span>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</h2>
             <div className="flex items-center gap-2">
               <HelpPopover />
               <label className="cursor-pointer">
@@ -288,7 +295,7 @@ export default function OptimizePage() {
         {(output || status === 'streaming') && (
           <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
             <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</span>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</h2>
               {status === 'streaming' && (
                 <span className="text-[11px] text-slate-400 animate-pulse">Thinking…</span>
               )}

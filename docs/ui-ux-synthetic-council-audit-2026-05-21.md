@@ -18,63 +18,48 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 99
-- Flagged pages (below excellent): 58
-- High-risk pages (score < 80): 34
-- Site excellence rate: 63.1%
+- Excellent pages (A- or better): 110
+- Flagged pages (below excellent): 47
+- High-risk pages (score < 80): 19
+- Site excellence rate: 70.1%
 
 ## Results by Page Category
 
 | Category | Pages | Avg score | Excellent | Flagged |
 |---|---:|---:|---:|---:|
 | auth | 2 | 75.0 | 0 | 2 |
-| blog | 30 | 91.3 | 28 | 2 |
-| dashboard | 57 | 86.8 | 32 | 25 |
+| blog | 30 | 91.6 | 28 | 2 |
+| dashboard | 57 | 89.2 | 34 | 23 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 86.8 | 34 | 29 |
+| marketing | 63 | 90.9 | 43 | 20 |
 
 ## Most Common Non-Excellent Patterns
 
 | Pattern | Page count |
 |---|---:|
-| Missing H1 | 37 |
-| Weak heading hierarchy | 33 |
-| Missing outcome metrics | 33 |
-| Insufficient content chunking | 22 |
-| Low action density for workflow page | 19 |
-| Missing trust/confidentiality cues | 16 |
-| No explicit CTA language | 13 |
+| Missing H1 | 36 |
+| Weak heading hierarchy | 26 |
+| Missing outcome metrics | 24 |
+| Low action density for workflow page | 18 |
+| Insufficient content chunking | 15 |
+| Missing trust/confidentiality cues | 12 |
 | Extreme scroll burden | 7 |
 | Moderate scroll burden | 6 |
+| High scroll burden | 6 |
 
 ## High-Risk Pages (Score < 80)
 
 | Route | Score | Grade | Category | Top flags |
 |---|---:|---:|---|---|
-| /dashboard/profile | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
-| /dashboard | 57 | C- | dashboard | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
-| /dashboard/admin/social | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Dense copy blocks |
-| /dashboard/briefing | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
-| /dashboard/contacts/[id] | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
-| /feedback | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
-| /search-firms/sample-cfo-brief | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
-| /team/join/[token] | 68 | C- | marketing | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
-| /intelligence/[slug] | 70 | C | marketing | Weak heading hierarchy; Insufficient content chunking; Missing trust/confidentiality cues |
-| /annual-report-2026 | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
-| /blog/target-company-list-cto | 74 | C | blog | Missing H1; Insufficient content chunking; Dense copy blocks |
-| /dashboard/admin/outreach-analytics | 74 | C | dashboard | Weak heading hierarchy; High scroll burden |
-| /dashboard/chat | 74 | C | dashboard | Weak heading hierarchy; Insufficient content chunking; Moderate scroll burden |
 | /demo | 74 | C | marketing | High scroll burden; CTA overload |
-| /demo/presenter | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
-| /evaluate | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
-| /for-coaches/trust-pack | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
 | /founder-note | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
 | /optimize | 74 | C | marketing | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
-| /research-brief | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
 | /signup | 74 | C | auth | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
+| /dashboard | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/outreach | 75 | C+ | dashboard | Extreme scroll burden |
+| /dashboard/profile | 75 | C+ | dashboard | Extreme scroll burden |
 | /for-coaches | 75 | C+ | marketing | Extreme scroll burden |
 | /for-outplacement | 75 | C+ | marketing | Extreme scroll burden |
 | /dashboard/admin/crm | 76 | C+ | dashboard | Weak heading hierarchy; Insufficient content chunking; Low action density for workflow page |
@@ -92,7 +77,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---|---|---|---|
 | / | 92 | A- | Yes | marketing | src/app/page.tsx | Weak heading hierarchy |
 | /about | 92 | A- | Yes | marketing | src/app/about/page.tsx | Missing outcome metrics |
-| /annual-report-2026 | 74 | C | No | marketing | src/app/annual-report-2026/page.tsx | No explicit CTA language; Missing outcome metrics |
+| /annual-report-2026 | 100 | A+ | Yes | marketing | src/app/annual-report-2026/page.tsx | No major static UX risks detected |
 | /blog | 100 | A+ | Yes | blog | src/app/blog/page.tsx | No major static UX risks detected |
 | /blog/cio-board-presentation | 92 | A- | Yes | blog | src/app/blog/cio-board-presentation/page.tsx | Missing H1 |
 | /blog/cio-compensation-negotiation | 92 | A- | Yes | blog | src/app/blog/cio-compensation-negotiation/page.tsx | Missing H1 |
@@ -116,7 +101,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /blog/retained-search-candidate-preparation | 92 | A- | Yes | blog | src/app/blog/retained-search-candidate-preparation/page.tsx | Missing H1 |
 | /blog/retained-search-firms | 92 | A- | Yes | blog | src/app/blog/retained-search-firms/page.tsx | Missing H1 |
 | /blog/target-company-list | 92 | A- | Yes | blog | src/app/blog/target-company-list/page.tsx | Missing H1 |
-| /blog/target-company-list-cto | 74 | C | No | blog | src/app/blog/target-company-list-cto/page.tsx | Missing H1; Insufficient content chunking; Dense copy blocks |
+| /blog/target-company-list-cto | 82 | B- | No | blog | src/app/blog/target-company-list-cto/page.tsx | Insufficient content chunking; Dense copy blocks |
 | /blog/technology-executive-transition-chro | 92 | A- | Yes | blog | src/app/blog/technology-executive-transition-chro/page.tsx | Missing H1 |
 | /blog/vp-job-search-different-rules | 92 | A- | Yes | blog | src/app/blog/vp-job-search-different-rules/page.tsx | Missing H1 |
 | /blog/vp-to-cio-transition | 92 | A- | Yes | blog | src/app/blog/vp-to-cio-transition/page.tsx | Missing H1 |
@@ -127,7 +112,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /coaches-guide | 92 | A- | Yes | marketing | src/app/coaches-guide/page.tsx | Missing outcome metrics |
 | /concierge | 92 | A- | Yes | marketing | src/app/concierge/page.tsx | Missing outcome metrics |
 | /contributor | 84 | B | No | marketing | src/app/contributor/page.tsx | Weak heading hierarchy; Missing outcome metrics |
-| /dashboard | 57 | C- | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
+| /dashboard | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | Extreme scroll burden |
 | /dashboard/admin | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | Extreme scroll burden |
 | /dashboard/admin/b2b | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/page.tsx | Weak heading hierarchy |
 | /dashboard/admin/b2b/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx | No major static UX risks detected |
@@ -141,17 +126,17 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/admin/linkedin-company-launch | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx | Low action density for workflow page |
 | /dashboard/admin/metrics | 76 | C+ | No | dashboard | src/app/(dashboard)/dashboard/admin/metrics/page.tsx | Weak heading hierarchy; Insufficient content chunking; Low action density for workflow page |
 | /dashboard/admin/operations | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/operations/page.tsx | No major static UX risks detected |
-| /dashboard/admin/outreach-analytics | 74 | C | No | dashboard | src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx | Weak heading hierarchy; High scroll burden |
+| /dashboard/admin/outreach-analytics | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx | High scroll burden |
 | /dashboard/admin/product | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/product/page.tsx | No major static UX risks detected |
 | /dashboard/admin/revenue | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/revenue/page.tsx | No major static UX risks detected |
-| /dashboard/admin/social | 66 | C- | No | dashboard | src/app/(dashboard)/dashboard/admin/social/page.tsx | Weak heading hierarchy; Insufficient content chunking; Dense copy blocks |
+| /dashboard/admin/social | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/social/page.tsx | No major static UX risks detected |
 | /dashboard/admin/speakers | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/speakers/page.tsx | No major static UX risks detected |
 | /dashboard/admin/team | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/team/page.tsx | Low action density for workflow page |
 | /dashboard/admin/traces | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/traces/page.tsx | Weak heading hierarchy |
 | /dashboard/admin/traces/rubric | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx | Low action density for workflow page |
-| /dashboard/briefing | 66 | C- | No | dashboard | src/app/(dashboard)/dashboard/briefing/page.tsx | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
+| /dashboard/briefing | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/briefing/page.tsx | High scroll burden |
 | /dashboard/calendar | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/calendar/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/chat | 74 | C | No | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | Weak heading hierarchy; Insufficient content chunking; Moderate scroll burden |
+| /dashboard/chat | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | Moderate scroll burden |
 | /dashboard/coach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/coach/page.tsx | Weak heading hierarchy; Insufficient content chunking |
 | /dashboard/coach/[clientId] | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx | Low action density for workflow page |
 | /dashboard/companies/[id] | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Extreme scroll burden |
@@ -159,7 +144,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/companies/new | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/new/page.tsx | Weak heading hierarchy |
 | /dashboard/concierge | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/concierge/page.tsx | Weak heading hierarchy |
 | /dashboard/contacts | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/page.tsx | Weak heading hierarchy |
-| /dashboard/contacts/[id] | 66 | C- | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/page.tsx | Weak heading hierarchy; Insufficient content chunking; High scroll burden |
+| /dashboard/contacts/[id] | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/page.tsx | High scroll burden |
 | /dashboard/contacts/[id]/edit | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx | Weak heading hierarchy |
 | /dashboard/contacts/[id]/outreach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/discover | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/discover/page.tsx | Weak heading hierarchy; Insufficient content chunking |
@@ -174,7 +159,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/pilot-outreach | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
 | /dashboard/placed | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/placed/page.tsx | No major static UX risks detected |
 | /dashboard/positioning | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/positioning/page.tsx | No major static UX risks detected |
-| /dashboard/profile | 49 | C- | No | dashboard | src/app/(dashboard)/dashboard/profile/page.tsx | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
+| /dashboard/profile | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/profile/page.tsx | Extreme scroll burden |
 | /dashboard/profile/tailor | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/profile/tailor/page.tsx | No major static UX risks detected |
 | /dashboard/salary | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/salary/page.tsx | Low action density for workflow page |
 | /dashboard/signals | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/signals/page.tsx | Weak heading hierarchy; Insufficient content chunking |
@@ -185,10 +170,10 @@ Excellence threshold: score >= 90 (A- or better).
 | /demo/cio | 92 | A- | Yes | marketing | src/app/demo/cio/page.tsx | Missing outcome metrics |
 | /demo/cio/notes | 92 | A- | Yes | marketing | src/app/demo/cio/notes/page.tsx | Missing outcome metrics |
 | /demo/manager-tools | 86 | B | No | marketing | src/app/demo/manager-tools/page.tsx | Insufficient content chunking; Missing trust/confidentiality cues |
-| /demo/presenter | 74 | C | No | marketing | src/app/demo/presenter/page.tsx | No explicit CTA language; Missing outcome metrics |
-| /evaluate | 74 | C | No | marketing | src/app/evaluate/page.tsx | No explicit CTA language; Missing outcome metrics |
+| /demo/presenter | 100 | A+ | Yes | marketing | src/app/demo/presenter/page.tsx | No major static UX risks detected |
+| /evaluate | 100 | A+ | Yes | marketing | src/app/evaluate/page.tsx | No major static UX risks detected |
 | /evidence-room | 100 | A+ | Yes | marketing | src/app/evidence-room/page.tsx | No major static UX risks detected |
-| /feedback | 68 | C- | No | marketing | src/app/feedback/page.tsx | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
+| /feedback | 100 | A+ | Yes | marketing | src/app/feedback/page.tsx | No major static UX risks detected |
 | /for-cdo | 92 | A- | Yes | marketing | src/app/for-cdo/page.tsx | Missing outcome metrics |
 | /for-cio | 100 | A+ | Yes | marketing | src/app/for-cio/page.tsx | No major static UX risks detected |
 | /for-cio-associations | 76 | C+ | No | marketing | src/app/for-cio-associations/page.tsx | No explicit CTA language; Missing trust/confidentiality cues |
@@ -196,7 +181,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-coaches | 75 | C+ | No | marketing | src/app/for-coaches/page.tsx | Extreme scroll burden |
 | /for-coaches/economics | 78 | C+ | No | marketing | src/app/for-coaches/economics/page.tsx | Weak heading hierarchy; Missing trust/confidentiality cues; Missing outcome metrics |
 | /for-coaches/faq | 100 | A+ | Yes | marketing | src/app/for-coaches/faq/page.tsx | No major static UX risks detected |
-| /for-coaches/trust-pack | 74 | C | No | marketing | src/app/for-coaches/trust-pack/page.tsx | No explicit CTA language; Missing outcome metrics |
+| /for-coaches/trust-pack | 100 | A+ | Yes | marketing | src/app/for-coaches/trust-pack/page.tsx | No major static UX risks detected |
 | /for-coo | 100 | A+ | Yes | marketing | src/app/for-coo/page.tsx | No major static UX risks detected |
 | /for-cpo | 92 | A- | Yes | marketing | src/app/for-cpo/page.tsx | Missing outcome metrics |
 | /for-data-officer | 100 | A+ | Yes | marketing | src/app/for-data-officer/page.tsx | No major static UX risks detected |
@@ -220,7 +205,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-vp-technology | 94 | A | Yes | marketing | src/app/for-vp-technology/page.tsx | Missing trust/confidentiality cues |
 | /founder-note | 74 | C | No | marketing | src/app/founder-note/page.tsx | No explicit CTA language; Missing outcome metrics |
 | /guide | 92 | A- | Yes | marketing | src/app/guide/page.tsx | Missing outcome metrics |
-| /intelligence/[slug] | 70 | C | No | marketing | src/app/intelligence/[slug]/page.tsx | Weak heading hierarchy; Insufficient content chunking; Missing trust/confidentiality cues |
+| /intelligence/[slug] | 100 | A+ | Yes | marketing | src/app/intelligence/[slug]/page.tsx | No major static UX risks detected |
 | /invite/[code] | 76 | C+ | No | marketing | src/app/invite/[code]/page.tsx | No explicit CTA language; Missing trust/confidentiality cues |
 | /login | 76 | C+ | No | auth | src/app/(auth)/login/page.tsx | Weak heading hierarchy; Insufficient content chunking; Long page without quick navigation |
 | /mark-demo | 92 | A- | Yes | marketing | src/app/mark-demo/page.tsx | Missing outcome metrics |
@@ -234,16 +219,16 @@ Excellence threshold: score >= 90 (A- or better).
 | /pricing | 92 | A- | Yes | marketing | src/app/pricing/page.tsx | Weak heading hierarchy |
 | /privacy | 100 | A+ | Yes | legal | src/app/privacy/page.tsx | No major static UX risks detected |
 | /references | 92 | A- | Yes | marketing | src/app/references/page.tsx | Weak heading hierarchy |
-| /research-brief | 74 | C | No | marketing | src/app/research-brief/page.tsx | No explicit CTA language; Missing outcome metrics |
+| /research-brief | 100 | A+ | Yes | marketing | src/app/research-brief/page.tsx | No major static UX risks detected |
 | /sales-marketing-plan | 82 | B- | No | marketing | src/app/sales-marketing-plan/page.tsx | High scroll burden |
 | /search-firms | 94 | A | Yes | marketing | src/app/search-firms/page.tsx | Missing trust/confidentiality cues |
-| /search-firms/sample-cfo-brief | 68 | C- | No | marketing | src/app/search-firms/sample-cfo-brief/page.tsx | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
+| /search-firms/sample-cfo-brief | 100 | A+ | Yes | marketing | src/app/search-firms/sample-cfo-brief/page.tsx | No major static UX risks detected |
 | /security | 100 | A+ | Yes | legal | src/app/security/page.tsx | No major static UX risks detected |
 | /settings/billing | 84 | B | No | dashboard | src/app/(dashboard)/settings/billing/page.tsx | Missing H1; Low action density for workflow page |
 | /settings/security | 92 | A- | Yes | dashboard | src/app/(dashboard)/settings/security/page.tsx | Low action density for workflow page |
 | /settings/team | 92 | A- | Yes | dashboard | src/app/(dashboard)/settings/team/page.tsx | Low action density for workflow page |
 | /signup | 74 | C | No | auth | src/app/(auth)/signup/page.tsx | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
-| /team/join/[token] | 68 | C- | No | marketing | src/app/team/join/[token]/page.tsx | No explicit CTA language; Missing trust/confidentiality cues; Missing outcome metrics |
+| /team/join/[token] | 100 | A+ | Yes | marketing | src/app/team/join/[token]/page.tsx | No major static UX risks detected |
 | /terms | 92 | A- | Yes | legal | src/app/terms/page.tsx | Missing H1 |
 | /unsubscribe/[code] | 92 | A- | Yes | legal | src/app/unsubscribe/[code]/page.tsx | Missing H1 |
 | /unsubscribe/confirmed | 100 | A+ | Yes | legal | src/app/unsubscribe/confirmed/page.tsx | No major static UX risks detected |

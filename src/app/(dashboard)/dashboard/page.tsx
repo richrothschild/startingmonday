@@ -617,9 +617,9 @@ export default async function DashboardPage({
           </div>
         </section>
 
-        <div className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</p>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</h2>
             <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -632,11 +632,11 @@ export default async function DashboardPage({
               </Link>
             )}
           </div>
-        </div>
+        </section>
 
-        <div id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+        <section id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</p>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
             <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
             <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
               {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
@@ -656,7 +656,7 @@ export default async function DashboardPage({
               View due today
             </Link>
           </div>
-        </div>
+        </section>
 
         {/* Profile quick-save confirmation */}
         {profile_saved && (
@@ -783,10 +783,10 @@ export default async function DashboardPage({
 
         {/* Quick profile shortcut - shown when profile is very thin */}
         {profileScore < 40 && (
-          <div className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
+          <section className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
               Quick start
-            </div>
+            </h2>
             <p className="text-[13px] text-slate-300 mb-4">
               3 fields. Unlocks your first prep brief in under 3 minutes.
             </p>
@@ -827,7 +827,7 @@ export default async function DashboardPage({
                 </Link>
               </div>
             </form>
-          </div>
+          </section>
         )}
 
         {/* Stats */}
@@ -875,8 +875,8 @@ export default async function DashboardPage({
 
         {/* Proactive intelligence cards � pipeline gap summary */}
         {totalCount >= 3 && numIntelGaps > 0 && (
-          <div className="mb-6 sm:mb-8">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</p>
+          <section id="attention-gaps" className="mb-6 sm:mb-8">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</h2>
             <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
               {companiesWithoutContact.length > 0 && (
                 <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
@@ -917,15 +917,15 @@ export default async function DashboardPage({
                 </Link>
               )}
             </div>
-          </div>
+          </section>
         )}
 
         <OpportunityRadar />
 
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</p>
+          <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
               Most executives in transition try to do everything at once and end up paralyzed. The research says differently: one focused action per day compounds faster than a week of scattered effort.
@@ -940,13 +940,13 @@ export default async function DashboardPage({
             <p className="text-[12px] text-slate-500 mt-4">
               You can come back for the rest. The system will be here.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Campaign path welcome � first 7 days, empty pipeline */}
         {showCampaignWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</p>
+          <section id="campaign-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
               Most executive roles never get posted. They get filled through relationships and signals before a search is ever authorized. The executives who land well do not wait for postings. They are already watching the right companies when timing shifts.
@@ -961,13 +961,13 @@ export default async function DashboardPage({
             <p className="text-[12px] text-slate-500 mt-4">
               Aim for 10 to 15 companies. Add career page URLs as you go � we scan for openings before they go public.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Watcher path welcome � first 7 days, empty pipeline */}
         {showWatcherWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</p>
+          <section id="watcher-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
               The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
@@ -982,7 +982,7 @@ export default async function DashboardPage({
             <p className="text-[12px] text-slate-500 mt-4">
               No pressure to act on anything. You will know when the timing shifts.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Persistent Next Best Action Prompt */}
@@ -1102,8 +1102,8 @@ export default async function DashboardPage({
         )}
 
         {/* Social proof benchmarks */}
-        <div className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</p>
+        <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
@@ -1118,15 +1118,15 @@ export default async function DashboardPage({
               <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
             </div>
           </div>
-        </div>
+        </section>
 
         <ActivityChart data={weekSlots} />
         <PipelineVelocity companies={velocityRows} />
 
         {/* Week 3 coaching prompt - appears Day 18-28 after onboarding */}
         {showWeek3Prompt && (
-          <div className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</p>
+          <section id="week-3-checkin" className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</h2>
             <p className="text-[14px] font-semibold text-slate-900 mb-1">Most searches lose momentum around now.</p>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
               Three things that keep searches moving: add companies weekly, complete follow-ups within 48 hours, and run a prep brief before any conversation.
@@ -1139,12 +1139,14 @@ export default async function DashboardPage({
                 View actions due
               </Link>
             </div>
-          </div>
+          </section>
         )}
 
 
         {/* Quick Actions */}
-        <div id="quick-actions" className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-2">
+        <section id="quick-actions" className="mb-6 sm:mb-2">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
@@ -1164,12 +1166,13 @@ export default async function DashboardPage({
               <p className="text-[11px] text-slate-400 mt-0.5">{a.sub}</p>
             </Link>
           ))}
-        </div>
+          </div>
+        </section>
 
         {/* How-To + Interview Prep (in-context guidance) */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
+        <section id="weekly-playbook" className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
           <div className="flex items-center justify-between gap-3 mb-3">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</h2>
             <TrackLink href="/dashboard/start" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'setup_guide' }} className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
               Full setup guide -&gt;
             </TrackLink>
@@ -1197,7 +1200,7 @@ export default async function DashboardPage({
               </p>
             </TrackLink>
           </div>
-        </div>
+        </section>
 
         <SearchControlsPanel
           initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
@@ -1206,11 +1209,11 @@ export default async function DashboardPage({
         />
 
         {/* Today */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
+        <section id="today" className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Today
-            </span>
+            </h2>
             {(followUps ?? []).length > 0 && (
               <span className="text-[12px] font-semibold text-red-600">
                 {followUps!.length} {followUps!.length === 1 ? 'item' : 'items'}
@@ -1246,16 +1249,16 @@ export default async function DashboardPage({
               })}
             </div>
           )}
-        </div>
+        </section>
 
         {/* Warm Paths */}
         {warmPaths.length > 0 && (
-          <div className="bg-white border border-green-200 rounded overflow-hidden mb-8">
+          <section id="warm-paths" className="bg-white border border-green-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-green-100 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-700">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-700">
                   Warm Paths
-                </span>
+                </h2>
                 <span className="text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-semibold">
                   {warmPaths.length} {warmPaths.length === 1 ? 'opportunity' : 'opportunities'}
                 </span>
@@ -1304,16 +1307,16 @@ export default async function DashboardPage({
                 )
               })}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Pattern Alerts */}
         {patternAlerts.length > 0 && (
-          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
+          <section id="pattern-alerts" className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
                 Pattern Alerts
-              </span>
+              </h2>
               <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
                 See all ?
               </Link>
@@ -1355,16 +1358,16 @@ export default async function DashboardPage({
                 )
               })}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Signals */}
         {signals.length > 0 && (
-          <div className="bg-white border border-amber-200 rounded overflow-hidden mb-8">
+          <section id="company-signals" className="bg-white border border-amber-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-amber-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600">
                 Company Signals
-              </span>
+              </h2>
               <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
                 See all ?
               </Link>
@@ -1402,17 +1405,17 @@ export default async function DashboardPage({
                 )
               })}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Setup checklist - visible until all 6 steps are complete */}
         {!activation.isComplete && !hasFilters && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
+          <section id="search-setup" className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-slate-100">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                   Search setup
-                </span>
+                </h2>
                 <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
                   View details &rarr;
                 </Link>
@@ -1459,7 +1462,7 @@ export default async function DashboardPage({
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Suggestions - shown until dismissed or pipeline grows */}
@@ -1467,12 +1470,12 @@ export default async function DashboardPage({
 
         {/* Pipeline Pulse - Executive only */}
         {isExecutive && (
-          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
+          <section id="pipeline-pulse" className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
                   Pipeline Pulse
-                </span>
+                </h2>
                 <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
                   Executive
                 </span>
@@ -1511,16 +1514,16 @@ export default async function DashboardPage({
                 <div className="text-[11px] text-slate-400 mt-0.5">active companies</div>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Pipeline */}
-        <div id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
 
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Pipeline
-            </span>
+            </h2>
             <div className="flex items-center gap-4">
               <span className="text-[12px] text-slate-400">
                 {hasFilters && totalFiltered === 0
@@ -1667,7 +1670,7 @@ export default async function DashboardPage({
           </div>
         )}
 
-        </div>
+        </section>
       </main>
       <HelpQuickButton source="dashboard" />
     </div>
