@@ -36,7 +36,7 @@ route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveL
 /coaches-guide,src/app/coaches-guide/page.tsx,marketing,92,A-,true,262,224,262,8,9,28,28,10,0,0,1,4,1,0,true,false,true,Missing outcome metrics
 /concierge,src/app/concierge/page.tsx,marketing,92,A-,true,23,13,23,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
 /contributor,src/app/contributor/page.tsx,marketing,84,B,false,209,81,209,0,1,5,5,1,0,0,0,2,0,0,true,false,false,Weak heading hierarchy | Missing outcome metrics
-/dashboard,src/app/(dashboard)/dashboard/page.tsx,dashboard,75,C+,false,1679,1259,1259,19,21,60,60,81,7,10,1,2,0,0,false,true,true,Extreme scroll burden
+/dashboard,src/app/(dashboard)/dashboard/page.tsx,dashboard,82,B-,false,1699,1279,826,19,21,60,32,81,7,10,1,2,2,2,false,true,true,High scroll burden
 /dashboard/admin,src/app/(dashboard)/dashboard/admin/page.tsx,dashboard,100,A+,true,1133,672,487,8,9,30,23,15,0,0,0,2,8,8,false,true,true,No major static UX risks detected
 /dashboard/admin/b2b,src/app/(dashboard)/dashboard/admin/b2b/page.tsx,dashboard,100,A+,true,191,123,123,0,1,5,5,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
 /dashboard/admin/b2b/[id],src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx,dashboard,100,A+,true,314,263,197,3,4,3,3,5,5,19,0,0,3,3,false,false,false,No major static UX risks detected

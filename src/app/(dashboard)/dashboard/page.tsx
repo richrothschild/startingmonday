@@ -752,6 +752,13 @@ export default async function DashboardPage({
           </div>
         )}
 
+        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Profile and intelligence modules</span>
+            <span className="text-[11px] text-slate-400">Open</span>
+          </summary>
+          <div className="px-5 py-5">
+
         {/* Profile completeness score */}
         {profileScore < 100 && (
           <Link
@@ -922,6 +929,9 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
+          </div>
+        </details>
+
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
           <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
@@ -1007,6 +1017,13 @@ export default async function DashboardPage({
             source="dashboard_default"
           />
         )}
+
+        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly performance and advanced modules</span>
+            <span className="text-[11px] text-slate-400">Open</span>
+          </summary>
+          <div className="px-5 py-5">
 
         {/* Weekly commitment device */}
         {(() => {
@@ -1516,6 +1533,9 @@ export default async function DashboardPage({
             </div>
           </section>
         )}
+
+          </div>
+        </details>
 
         {/* Pipeline */}
         <section id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
