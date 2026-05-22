@@ -78,9 +78,6 @@ export default function ForCoachesPage() {
             </div>
           </div>
           <CoachPreviewActions />
-          <p className="text-[12px] text-slate-400 mt-3">
-            Would it be unreasonable to test this with two clients for 30 days before making a rollout decision?
-          </p>
         </div>
       </header>
 
@@ -199,54 +196,38 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section id="role-boundary" className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              Role boundary
-            </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
-              Starting Monday supports coaching. It does not replace it.
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">Platform owns</p>
-                <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.platform.slice(0, 2).map((line) => (
-                    <li key={line}>• {line}</li>
-                  ))}
-                </ul>
+          <details id="role-boundary" className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+            <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Role boundary</p>
+                <p className="text-[16px] font-semibold text-slate-900">Starting Monday supports coaching. It does not replace it.</p>
               </div>
-              <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">Coach owns</p>
-                <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.coach.slice(0, 2).map((line) => (
-                    <li key={line}>• {line}</li>
-                  ))}
-                </ul>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div className="px-6 sm:px-7 pb-7 border-t border-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5">
+                <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                  <p className="text-[12px] font-semibold text-slate-900 mb-2">Platform owns</p>
+                  <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
+                    {ROLE_BOUNDARY.platform.slice(0, 2).map((line) => (
+                      <li key={line}>• {line}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
+                  <p className="text-[12px] font-semibold text-slate-900 mb-2">Coach owns</p>
+                  <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
+                    {ROLE_BOUNDARY.coach.slice(0, 2).map((line) => (
+                      <li key={line}>• {line}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
+              <p className="text-[12px] text-slate-500 mt-4">
+                Need compliance-ready details? Read the <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Coach Trust Pack</Link>.
+              </p>
             </div>
-            <p className="text-[12px] text-slate-500 mt-4">
-              Need compliance-ready details? Read the <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-700 transition-colors">Coach Trust Pack</Link>.
-            </p>
-          </section>
-
-          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              30-second skim
-            </p>
-            <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed mb-5">
-              <p><span className="font-semibold text-slate-900">Who it is for:</span> executive coaches working with senior technology leaders in transition or positioning.</p>
-              <p><span className="font-semibold text-slate-900">What changes:</span> less session time rebuilding context, more time on strategy, judgment, and accountability.</p>
-              <p><span className="font-semibold text-slate-900">How to try it:</span> {PREVIEW_SENTENCE}</p>
-            </div>
-            <div className="flex flex-wrap gap-4 text-[13px]">
-              <Link href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-                See the operating rhythm
-              </Link>
-              <Link href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-                Jump to next step
-              </Link>
-            </div>
-          </section>
+          </details>
 
           <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
             <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
@@ -400,31 +381,20 @@ export default function ForCoachesPage() {
             </div>
           </details>
 
-          <section id="next-step" className="border-t border-slate-100 pt-10">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              What this is not
-            </p>
-            <div className="space-y-4 text-[14px] text-slate-600 leading-relaxed max-w-xl">
+          <details id="next-step" className="group border-t border-slate-100 pt-10">
+            <summary className="list-none cursor-pointer flex items-center justify-between gap-4 hover:text-slate-700 transition-colors">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">What this is not</p>
+                <p className="text-[16px] font-semibold text-slate-900">Scope guardrails for coaches evaluating fit</p>
+              </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div className="space-y-4 text-[14px] text-slate-600 leading-relaxed max-w-xl mt-4">
               <p>It is not a replacement for coaching. It does not replace judgment, accountability, or the human work of helping a senior leader manage uncertainty and narrative.</p>
               <p>It is not generic job-search automation. It is a signal, preparation, and execution layer built for senior technology leaders running confidential, relationship-driven searches.</p>
               <p>It is not dramatic market prophecy. The value is disciplined early-signal tracking, shared context between sessions, and better preparation before high-stakes conversations.</p>
             </div>
-          </section>
-
-          <section className="border-t border-slate-100 pt-10">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              The coaching practice that compounds
-            </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-              This is not about giving your clients a tool. It is about running a more consistent coaching process when a client is in active transition. The practical gain is simpler: less session time rebuilding context, better weekly visibility, and cleaner preparation before high-stakes conversations.
-            </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-2">
-              If the preview works, the coach should expect three things in the first 30 days: clearer pipeline visibility, faster identification of where a client is stalling, and better prep quality before important calls.
-            </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed">
-              Built for coaches who want a disciplined between-session layer without changing the core coaching relationship.
-            </p>
-          </section>
+          </details>
 
           <section className="border-t border-slate-100 pt-10">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
@@ -433,9 +403,6 @@ export default function ForCoachesPage() {
             <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
               Start with the preview. Review pricing and FAQ only if the workflow fits.
             </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
-              You only need to send this page. {PREVIEW_SENTENCE} If a coach wants the details, the FAQ and economics pages are here without crowding the first conversation.
-            </p>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-6 text-[13px]">
               <Link href="/for-coaches/faq" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
@@ -462,61 +429,68 @@ export default function ForCoachesPage() {
 
       <section className="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 py-10 sm:py-14">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">More resources</p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">Questions? We&rsquo;ve got answers.</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <Link href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/faq.svg" alt="FAQ icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
-                  <p className="text-[12px] text-slate-500">Objections & responses</p>
-                </div>
-              </Link>
-              <Link href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/security.svg" alt="Security icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
-                  <p className="text-[12px] text-slate-500">Privacy & compliance</p>
-                </div>
-              </Link>
-              <Link href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/security.svg" alt="Trust pack icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</p>
-                  <p className="text-[12px] text-slate-500">No recruiter-side sharing + controls</p>
-                </div>
-              </Link>
-              <Link href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/pricing.svg" alt="Pricing icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
-                  <p className="text-[12px] text-slate-500">Investment & ROI</p>
-                </div>
-              </Link>
-              <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/feedback.svg" alt="Feedback icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Feedback</p>
-                  <p className="text-[12px] text-slate-500">Share your thoughts</p>
-                </div>
-              </a>
-              <Link href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/evidence.svg" alt="Evidence icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
-                  <p className="text-[12px] text-slate-500">Research & references</p>
-                </div>
-              </Link>
-              <Link href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
-                <Image src="/brand/icon-exploration-v1/partner.svg" alt="Partner program icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
-                  <p className="text-[12px] text-slate-500">Affiliate & referral</p>
-                </div>
-              </Link>
+          <details className="group bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <summary className="list-none cursor-pointer px-6 sm:px-8 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">More resources</p>
+                <p className="text-[16px] font-semibold text-slate-900">Questions? We&rsquo;ve got answers.</p>
+              </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div className="px-6 sm:px-8 pb-8 border-t border-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-5">
+                <Link href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/faq.svg" alt="FAQ icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
+                    <p className="text-[12px] text-slate-500">Objections & responses</p>
+                  </div>
+                </Link>
+                <Link href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/security.svg" alt="Security icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
+                    <p className="text-[12px] text-slate-500">Privacy & compliance</p>
+                  </div>
+                </Link>
+                <Link href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/security.svg" alt="Trust pack icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</p>
+                    <p className="text-[12px] text-slate-500">No recruiter-side sharing + controls</p>
+                  </div>
+                </Link>
+                <Link href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/pricing.svg" alt="Pricing icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
+                    <p className="text-[12px] text-slate-500">Investment & ROI</p>
+                  </div>
+                </Link>
+                <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/feedback.svg" alt="Feedback icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Feedback</p>
+                    <p className="text-[12px] text-slate-500">Share your thoughts</p>
+                  </div>
+                </a>
+                <Link href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/evidence.svg" alt="Evidence icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
+                    <p className="text-[12px] text-slate-500">Research & references</p>
+                  </div>
+                </Link>
+                <Link href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
+                  <Image src="/brand/icon-exploration-v1/partner.svg" alt="Partner program icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
+                    <p className="text-[12px] text-slate-500">Affiliate & referral</p>
+                  </div>
+                </Link>
+              </div>
             </div>
-          </div>
+          </details>
         </div>
       </section>
 
