@@ -29,7 +29,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---:|---:|
 | auth | 2 | 75.0 | 0 | 2 |
 | blog | 30 | 91.3 | 28 | 2 |
-| dashboard | 57 | 85.9 | 32 | 25 |
+| dashboard | 57 | 86.8 | 32 | 25 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 86.8 | 34 | 29 |
 
@@ -38,21 +38,19 @@ Excellence threshold: score >= 90 (A- or better).
 | Pattern | Page count |
 |---|---:|
 | Missing H1 | 37 |
-| Weak heading hierarchy | 35 |
+| Weak heading hierarchy | 33 |
 | Missing outcome metrics | 33 |
-| Insufficient content chunking | 24 |
+| Insufficient content chunking | 22 |
 | Low action density for workflow page | 19 |
 | Missing trust/confidentiality cues | 16 |
 | No explicit CTA language | 13 |
-| Dense copy blocks | 7 |
 | Extreme scroll burden | 7 |
+| Moderate scroll burden | 6 |
 
 ## High-Risk Pages (Score < 80)
 
 | Route | Score | Grade | Category | Top flags |
 |---|---:|---:|---|---|
-| /dashboard/admin | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
-| /dashboard/companies/[id] | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard/profile | 49 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
 | /dashboard | 57 | C- | dashboard | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
 | /dashboard/admin/social | 66 | C- | dashboard | Weak heading hierarchy; Insufficient content chunking; Dense copy blocks |
@@ -74,6 +72,8 @@ Excellence threshold: score >= 90 (A- or better).
 | /optimize | 74 | C | marketing | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
 | /research-brief | 74 | C | marketing | No explicit CTA language; Missing outcome metrics |
 | /signup | 74 | C | auth | Insufficient content chunking; Moderate scroll burden; Long page without quick navigation |
+| /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
+| /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/outreach | 75 | C+ | dashboard | Extreme scroll burden |
 | /for-coaches | 75 | C+ | marketing | Extreme scroll burden |
 | /for-outplacement | 75 | C+ | marketing | Extreme scroll burden |
@@ -128,7 +128,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /concierge | 92 | A- | Yes | marketing | src/app/concierge/page.tsx | Missing outcome metrics |
 | /contributor | 84 | B | No | marketing | src/app/contributor/page.tsx | Weak heading hierarchy; Missing outcome metrics |
 | /dashboard | 57 | C- | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | Insufficient content chunking; Extreme scroll burden; Dense copy blocks |
-| /dashboard/admin | 49 | C- | No | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
+| /dashboard/admin | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | Extreme scroll burden |
 | /dashboard/admin/b2b | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/page.tsx | Weak heading hierarchy |
 | /dashboard/admin/b2b/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx | No major static UX risks detected |
 | /dashboard/admin/b2b/new | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx | No major static UX risks detected |
@@ -154,7 +154,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/chat | 74 | C | No | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | Weak heading hierarchy; Insufficient content chunking; Moderate scroll burden |
 | /dashboard/coach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/coach/page.tsx | Weak heading hierarchy; Insufficient content chunking |
 | /dashboard/coach/[clientId] | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx | Low action density for workflow page |
-| /dashboard/companies/[id] | 49 | C- | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Weak heading hierarchy; Insufficient content chunking; Extreme scroll burden |
+| /dashboard/companies/[id] | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Extreme scroll burden |
 | /dashboard/companies/[id]/prep | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/companies/new | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/new/page.tsx | Weak heading hierarchy |
 | /dashboard/concierge | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/concierge/page.tsx | Weak heading hierarchy |

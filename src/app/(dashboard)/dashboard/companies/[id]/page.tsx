@@ -309,13 +309,25 @@ export default async function CompanyPage({
           </div>
         </div>
 
+        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#company-details" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company details</a>
+            <a href="#people" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">People</a>
+            <a href="#documents" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Documents</a>
+            <a href="#job-scan" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Job scan</a>
+            <a href="#signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Signals</a>
+            <a href="#interview-sessions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Interview sessions</a>
+          </div>
+        </section>
+
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
           {/* Edit form */}
-          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <section id="company-details" className="bg-white border border-slate-200 rounded p-5 sm:p-8">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Company details
-            </div>
+            </h2>
 
             {errorMsg && (
               <div className="mb-5 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
@@ -668,7 +680,7 @@ export default async function CompanyPage({
                 </button>
               </form>
             </div>
-          </div>
+          </section>
 
           {/* Follow-ups sidebar */}
           <div className="flex flex-col gap-4">
@@ -830,11 +842,11 @@ export default async function CompanyPage({
         })()}
 
         {/* Contacts */}
-        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="people" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               People
-            </span>
+            </h2>
             <span className="text-[12px] text-slate-400">
               {(contacts ?? []).length} {(contacts ?? []).length === 1 ? 'contact' : 'contacts'}
             </span>
@@ -996,10 +1008,10 @@ export default async function CompanyPage({
               </div>
             </form>
           </div>
-        </div>
+        </section>
 
         {/* Documents */}
-        <div id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
@@ -1086,14 +1098,14 @@ export default async function CompanyPage({
               </div>
             </form>
           </div>
-        </div>
+        </section>
 
         {/* Scan results */}
-        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="job-scan" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Job Scan
-            </span>
+            </h2>
             {latestScan ? (
               <span className="text-[12px] text-slate-400">
                 Last scanned {new Date(latestScan.scanned_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -1217,14 +1229,14 @@ export default async function CompanyPage({
               )}
             </div>
           )}
-        </div>
+        </section>
 
         {/* Signals */}
-        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="signals" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Signals
-            </span>
+            </h2>
             <LogSignalForm companyId={company.id} />
           </div>
 
@@ -1268,15 +1280,15 @@ export default async function CompanyPage({
               })}
             </div>
           )}
-        </div>
+        </section>
 
         {/* Interview Logs */}
-        <div className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="interview-sessions" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Interview Sessions
-              </span>
+              </h2>
               <p className="text-[12px] text-slate-400 mt-0.5">Each session sharpens your next prep brief.</p>
             </div>
             <span className="text-[12px] text-slate-400 shrink-0">
@@ -1412,7 +1424,7 @@ export default async function CompanyPage({
               </div>
             </form>
           </div>
-        </div>
+        </section>
 
       </main>
     </div>
