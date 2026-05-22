@@ -139,7 +139,6 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
         <div className="max-w-5xl mx-auto">
-          <h1 className="sr-only">Starting Monday executive search intelligence platform</h1>
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
             <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
