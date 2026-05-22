@@ -103,7 +103,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,100,A+,true,217,5,6,17,6,0,0,1,2,true,true,true,No major static UX risks detected
 /for-ciso,src/app/for-ciso/page.tsx,marketing,92,A-,true,147,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
 /for-coaches,src/app/for-coaches/page.tsx,marketing,75,C+,false,816,16,11,112,30,0,0,10,1,true,true,true,Extreme scroll burden
-/for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,78,C+,false,199,7,1,26,4,0,0,1,2,false,false,true,Weak heading hierarchy | Missing trust/confidentiality cues | Missing outcome metrics
+/for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,100,A+,true,201,7,9,20,4,0,0,1,2,true,true,true,No major static UX risks detected
 /for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,4,6,17,10,0,0,0,2,true,true,true,No major static UX risks detected
 /for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,100,A+,true,93,5,7,5,6,0,0,2,1,true,true,true,No major static UX risks detected
 /for-coo,src/app/for-coo/page.tsx,marketing,100,A+,true,147,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected

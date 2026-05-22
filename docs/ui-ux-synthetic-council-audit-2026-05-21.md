@@ -18,10 +18,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 120
-- Flagged pages (below excellent): 37
-- High-risk pages (score < 80): 8
-- Site excellence rate: 76.4%
+- Excellent pages (A- or better): 121
+- Flagged pages (below excellent): 36
+- High-risk pages (score < 80): 7
+- Site excellence rate: 77.1%
 
 ## Results by Page Category
 
@@ -31,18 +31,18 @@ Excellence threshold: score >= 90 (A- or better).
 | blog | 30 | 91.6 | 28 | 2 |
 | dashboard | 57 | 90.3 | 37 | 20 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 92.8 | 48 | 15 |
+| marketing | 63 | 93.1 | 49 | 14 |
 
 ## Most Common Non-Excellent Patterns
 
 | Pattern | Page count |
 |---|---:|
 | Missing H1 | 36 |
-| Missing outcome metrics | 22 |
-| Weak heading hierarchy | 21 |
+| Missing outcome metrics | 21 |
+| Weak heading hierarchy | 20 |
 | Low action density for workflow page | 15 |
 | Insufficient content chunking | 10 |
-| Missing trust/confidentiality cues | 9 |
+| Missing trust/confidentiality cues | 8 |
 | Moderate scroll burden | 8 |
 | Extreme scroll burden | 7 |
 | High scroll burden | 5 |
@@ -58,7 +58,6 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/profile | 75 | C+ | dashboard | Extreme scroll burden |
 | /for-coaches | 75 | C+ | marketing | Extreme scroll burden |
 | /for-outplacement | 75 | C+ | marketing | Extreme scroll burden |
-| /for-coaches/economics | 78 | C+ | marketing | Weak heading hierarchy; Missing trust/confidentiality cues; Missing outcome metrics |
 
 ## Full Page-by-Page Audit
 
@@ -168,7 +167,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-cio-associations | 100 | A+ | Yes | marketing | src/app/for-cio-associations/page.tsx | No major static UX risks detected |
 | /for-ciso | 92 | A- | Yes | marketing | src/app/for-ciso/page.tsx | Missing outcome metrics |
 | /for-coaches | 75 | C+ | No | marketing | src/app/for-coaches/page.tsx | Extreme scroll burden |
-| /for-coaches/economics | 78 | C+ | No | marketing | src/app/for-coaches/economics/page.tsx | Weak heading hierarchy; Missing trust/confidentiality cues; Missing outcome metrics |
+| /for-coaches/economics | 100 | A+ | Yes | marketing | src/app/for-coaches/economics/page.tsx | No major static UX risks detected |
 | /for-coaches/faq | 100 | A+ | Yes | marketing | src/app/for-coaches/faq/page.tsx | No major static UX risks detected |
 | /for-coaches/trust-pack | 100 | A+ | Yes | marketing | src/app/for-coaches/trust-pack/page.tsx | No major static UX risks detected |
 | /for-coo | 100 | A+ | Yes | marketing | src/app/for-coo/page.tsx | No major static UX risks detected |
