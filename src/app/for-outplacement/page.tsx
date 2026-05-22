@@ -371,7 +371,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How outplacement firms use it</h2>
               <div className="space-y-8">
-                {FEATURES.map(f => (
+                {FEATURES.slice(0, 3).map(f => (
                   <div key={f.name} className="border-l-2 border-orange-500 pl-5">
                     <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
                     <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forFirm}</p>
@@ -386,7 +386,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">Pilot proof snapshot</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {PROOF_METRICS.map((m) => (
+                {PROOF_METRICS.slice(0, 3).map((m) => (
                   <div key={m.label} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[26px] font-bold text-orange-600 leading-none mb-2">{m.value}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed">{m.label}</p>
@@ -404,7 +404,7 @@ export default function ForOutplacementPage() {
                 We do not publish partner names without permission. Instead, we share consistent outcome patterns, methodology notes, and scorecard structure you can validate in your own pilot.
               </p>
               <div className="space-y-3">
-                {ANON_SOCIAL_PROOF.map((item) => (
+                {ANON_SOCIAL_PROOF.slice(0, 2).map((item) => (
                   <div key={item.title} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.title}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
@@ -419,7 +419,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50">
               <h2 className="text-[22px] font-bold text-slate-900">Methodology and claim-discipline mini-spec</h2>
               <ul className="space-y-2 text-[14px] text-slate-700 leading-relaxed pl-1">
-                {METHODOLOGY_NOTES.map((note) => (
+                {METHODOLOGY_NOTES.slice(0, 3).map((note) => (
                   <li key={note}>+ {note}</li>
                 ))}
               </ul>
@@ -428,7 +428,7 @@ export default function ForOutplacementPage() {
               </p>
               <div className="space-y-2">
                 <p className="text-[12px] font-semibold text-slate-900">Peer-validated artifact types (redacted):</p>
-                {PEER_VALIDATED_ARTIFACTS.map((artifact) => (
+                {PEER_VALIDATED_ARTIFACTS.slice(0, 2).map((artifact) => (
                   <p key={artifact} className="text-[12px] text-slate-600">+ {artifact}</p>
                 ))}
               </div>
@@ -446,7 +446,7 @@ export default function ForOutplacementPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {COMPARISON_ROWS.map((row) => (
+                    {COMPARISON_ROWS.slice(0, 3).map((row) => (
                       <tr key={row.dimension} className="border-t border-slate-200 bg-white">
                         <td className="px-4 py-3 text-slate-900 font-medium">{row.dimension}</td>
                         <td className="px-4 py-3 text-slate-600">{row.current}</td>
@@ -461,7 +461,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">30-day partner scorecard</h2>
               <div className="space-y-3">
-                {PILOT_SCORECARD.map((row) => (
+                {PILOT_SCORECARD.slice(0, 3).map((row) => (
                   <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.metric}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed">{row.success}</p>
@@ -473,7 +473,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">Pilot implementation model</h2>
               <div className="space-y-3">
-                {PILOT_IMPLEMENTATION_STEPS.map((step) => (
+                {PILOT_IMPLEMENTATION_STEPS.slice(0, 4).map((step) => (
                   <div key={step.week} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{step.week}: {step.action}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed mb-1"><span className="font-semibold text-slate-700">Owner: </span>{step.owner}</p>
@@ -486,7 +486,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">Weekly operating cadence</h2>
               <ul className="space-y-2 pl-1">
-                {WEEKLY_CADENCE.map((line) => (
+                {WEEKLY_CADENCE.slice(0, 3).map((line) => (
                   <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
                 ))}
               </ul>
@@ -507,7 +507,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">Governance meeting cadence</h2>
               <div className="space-y-3">
-                {GOVERNANCE_MEETINGS.map((meeting) => (
+                {GOVERNANCE_MEETINGS.slice(0, 2).map((meeting) => (
                   <div key={meeting.cadence} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{meeting.cadence}</p>
                     <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Decision owner: </span>{meeting.owner}</p>
@@ -529,7 +529,7 @@ export default function ForOutplacementPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {SESSION_YIELD_METRICS.map((row) => (
+                    {SESSION_YIELD_METRICS.slice(0, 2).map((row) => (
                       <tr key={row.metric} className="border-t border-slate-200 bg-white">
                         <td className="px-4 py-3 text-slate-900 font-medium">{row.metric}</td>
                         <td className="px-4 py-3 text-slate-600">{row.before}</td>
@@ -540,7 +540,7 @@ export default function ForOutplacementPage() {
                 </table>
               </div>
               <div className="space-y-2">
-                {COUNSELOR_QUOTES.map((item) => (
+                {COUNSELOR_QUOTES.slice(0, 1).map((item) => (
                   <div key={item.quote} className="border-l-2 border-orange-500 pl-4 py-1">
                     <p className="text-[13px] text-slate-700 italic">"{item.quote}"</p>
                     <p className="text-[12px] text-slate-500 mt-1">{item.attribution}</p>
@@ -583,7 +583,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">Common objections</h2>
               <div className="space-y-3">
-                {OBJECTIONS.map((o) => (
+                {OBJECTIONS.slice(0, 2).map((o) => (
                   <div key={o.objection} className="border-l-2 border-orange-500 bg-orange-50/40 rounded-r-lg p-4">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{o.objection}</p>
                     <p className="text-[13px] text-slate-700 leading-relaxed">{o.response}</p>
@@ -613,8 +613,6 @@ export default function ForOutplacementPage() {
                   'Activation tracking: see which executives have enrolled and are active',
                   'Active plan ($199/month per seat) includes all AI features',
                   'Intelligence plan ($49/month per seat) for executives not yet in active search mode',
-                  'Volume discounts available for program cohorts of 5 or more seats',
-                  'Apply to the partner program at startingmonday.app/partners to discuss bulk seat pricing, activation tracking, and preferred partner arrangements',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
@@ -626,9 +624,6 @@ export default function ForOutplacementPage() {
                 <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View outplacement economics
                 </Link>
-                <Link href="/for-outplacement/metric-dictionary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
-                  Open metric dictionary
-                </Link>
                 <Link href="/for-outplacement/operating-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   Open printable operating scorecard
                 </Link>
@@ -637,12 +632,6 @@ export default function ForOutplacementPage() {
                 </Link>
                 <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
                   View trust and governance pack
-                </Link>
-                <Link href="/for-outplacement/executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
-                  View committee one-pager
-                </Link>
-                <Link href="/for-outplacement/runbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
-                  Open pilot runbook and kit
                 </Link>
               </div>
             </section>
@@ -658,6 +647,7 @@ export default function ForOutplacementPage() {
               <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
                 Fill out the application and we will follow up within 2 business days with pilot structure, seat options, and implementation details for your cohort.
               </p>
+              <p className="text-[12px] text-slate-500 mb-4">CTA: get started now by submitting the partner application.</p>
               <div className="border border-slate-200 rounded-lg p-4 bg-white mb-6">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">What happens next</p>
                 <ul className="space-y-1 text-[12px] text-slate-600 leading-relaxed">

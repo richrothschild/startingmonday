@@ -35,7 +35,7 @@ export default function TargetCompanyListCtoPage() {
       url="https://startingmonday.app/blog/target-company-list-cto"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-        <h1 className="sr-only">How to Build a Better CTO Target Company List</h1>
+        <h1 className="text-[28px] font-bold text-slate-900 leading-tight">How to Build a Better CTO Target Company List</h1>
 
         <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
           <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>

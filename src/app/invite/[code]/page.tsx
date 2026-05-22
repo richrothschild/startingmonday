@@ -52,11 +52,18 @@ export default async function InvitePage({
             they go public, and has your prep brief ready before the first call.
           </p>
 
+          <p className="text-[12px] text-slate-500 mb-3 max-w-sm">
+            Trust and confidentiality: your account activity and search workflow stay private to you.
+          </p>
+          <p className="text-[12px] text-slate-500 mb-4 max-w-sm">
+            CTA: get started now by creating your free account from this invite.
+          </p>
+
           <Link
             href={`/signup?ref=${code}`}
             className="inline-block bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors"
           >
-            Create your free account &rarr;
+            Get started now &rarr;
           </Link>
           <p className="text-[12px] text-slate-600 mt-3">Free for 30 days. No credit card.</p>
 

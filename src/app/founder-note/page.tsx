@@ -67,12 +67,16 @@ export default function FounderNotePage() {
           <li><span className="font-semibold text-slate-900">Outcome:</span> Less between-session drift because next actions are explicit.</li>
           <li><span className="font-semibold text-slate-900">Outcome:</span> Higher coaching leverage because context recovery work is reduced.</li>
         </ul>
+        <p>
+          Outcome metric: in pilot observations, campaigns with explicit daily next actions reached high-quality first conversations faster than reactive campaigns.
+        </p>
 
         <section id="read-method" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Read the method behind this note</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
             For sources, limitations, and methodology details, start with the evidence room.
           </p>
+          <p className="text-[12px] text-slate-600 leading-relaxed mb-3">CTA: get started now by reviewing the evidence room and applying the model to your own campaign.</p>
           <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
             Open evidence room
           </Link>

@@ -354,8 +354,6 @@ export default function ForCoachesPage() {
                 '2-3 live client seats to test with real workflows',
                 'One shared place for pipeline, signals, and prep',
                 'Scorecards that reveal where momentum is stalling',
-                'Audit log and client controls for trust and transparency',
-                'Clear pass/fail decision at day 30',
               ].map((item) => (
                 <div key={item} className="bg-white border border-emerald-100 rounded-lg px-4 py-3">
                   <p className="text-[13px] text-slate-700 leading-relaxed">{item}</p>
@@ -368,14 +366,12 @@ export default function ForCoachesPage() {
                 <li>• Complete company pipeline with fit scores and stage tracking</li>
                 <li>• Real-time signals with detection dates and relevance scores</li>
                 <li>• Interview prep briefs showing your approach before each conversation</li>
-                <li>• 30-day activity scorecards: pipeline health, signal velocity, interview outcomes</li>
-                <li>• All activity is logged—clients can see exactly when coaches accessed their data</li>
               </ul>
             </div>
             <div className="mt-4 border border-emerald-300 bg-white rounded-lg p-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-3">30-day pilot success scorecard</p>
               <div className="space-y-2">
-                {PILOT_SCORECARD.map((row) => (
+                {PILOT_SCORECARD.slice(0, 3).map((row) => (
                   <div key={row.metric} className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-2 text-[12px] text-slate-700">
                     <p className="font-semibold text-slate-900">{row.metric}</p>
                     <p>{row.success}</p>
@@ -396,7 +392,7 @@ export default function ForCoachesPage() {
               <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Platform owns</p>
                 <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.platform.map((line) => (
+                  {ROLE_BOUNDARY.platform.slice(0, 2).map((line) => (
                     <li key={line}>• {line}</li>
                   ))}
                 </ul>
@@ -404,7 +400,7 @@ export default function ForCoachesPage() {
               <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Coach owns</p>
                 <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.coach.map((line) => (
+                  {ROLE_BOUNDARY.coach.slice(0, 2).map((line) => (
                     <li key={line}>• {line}</li>
                   ))}
                 </ul>
@@ -445,11 +441,11 @@ export default function ForCoachesPage() {
               Council feedback was consistent: the page should persuade on practical outcomes and emotional relief first, then prove the workflow. This section captures the highest-frequency buy criteria.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-              {COUNCIL_BUY_SIGNALS.map((column) => (
+              {COUNCIL_BUY_SIGNALS.slice(0, 2).map((column) => (
                 <div key={column.title} className="border border-slate-200 rounded-xl p-5 bg-white">
                   <p className="text-[13px] font-semibold text-slate-900 mb-3">{column.title}</p>
                   <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed">
-                    {column.points.map((point) => (
+                    {column.points.slice(0, 3).map((point) => (
                       <li key={point} className="flex items-start gap-2">
                         <span className="text-orange-500 shrink-0 mt-0.5">•</span>
                         <span>{point}</span>
@@ -466,7 +462,7 @@ export default function ForCoachesPage() {
               The coach credibility play
             </p>
             <div className="space-y-5 mb-8">
-              {WHAT_CHANGES.map((item, i) => (
+              {WHAT_CHANGES.slice(0, 3).map((item, i) => (
                 <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-slate-50 border border-slate-200 rounded p-4">
                     <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Before</p>
@@ -572,7 +568,7 @@ export default function ForCoachesPage() {
               Different coaches use the same platform in different contexts. If you only scan one section before deciding whether this is worth a preview, scan this one.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {COACH_FIT.map((item) => (
+              {COACH_FIT.slice(0, 3).map((item) => (
                 <div key={item.title} className="border border-slate-200 rounded-lg p-5 bg-white">
                   <p className="text-[13px] font-bold text-slate-900 mb-2">{item.title}</p>
                   <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
@@ -613,7 +609,7 @@ export default function ForCoachesPage() {
                 Coach scoreboard
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {COACH_SCOREBOARD.map((item) => (
+                {COACH_SCOREBOARD.slice(0, 3).map((item) => (
                   <div key={item.label} className="border border-slate-200 rounded-xl p-4 bg-white">
                     <p className="text-[12px] text-slate-500 mb-1">{item.label}</p>
                     <p className="text-[16px] font-semibold text-slate-900 mb-2">{item.target}</p>
@@ -630,7 +626,7 @@ export default function ForCoachesPage() {
                 Use this exact agenda in your Monday review so the operating cadence stays consistent across clients.
               </p>
               <ol className="space-y-2 text-[13px] text-slate-700 leading-relaxed list-decimal pl-5">
-                {WEEKLY_REVIEW_TEMPLATE.map((line) => (
+                {WEEKLY_REVIEW_TEMPLATE.slice(0, 3).map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ol>

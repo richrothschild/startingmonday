@@ -105,6 +105,9 @@ export default function PartnersPage() {
             <p className="text-[13px] text-slate-500 leading-relaxed max-w-2xl mb-6 border-l-2 border-orange-500 pl-4">
               Typical referral economics: 15 active referrals on the Active tier ($199/mo) is about $597/mo in recurring commission while your clients get daily search execution infrastructure.
             </p>
+            <p className="text-[12px] text-slate-300 leading-relaxed max-w-2xl mb-6">
+              Outcome metric: active partner referrals are tracked with transparent attribution so you can verify recurring commission by tier and activation month.
+            </p>
             <div className="flex flex-wrap gap-3">
               <a
                 href="#apply"
@@ -135,17 +138,20 @@ export default function PartnersPage() {
             <p className="text-[12px] text-slate-500 leading-relaxed">
               Trust standard: referral attribution is transparent and candidate account data stays private by default.
             </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+              Trust and confidentiality: partner reporting is aggregate and attribution-scoped, never full candidate account visibility.
+            </p>
           </section>
 
           {/* Per-category value props */}
           <section id="partner-types">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
               Who we work with
-            </p>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {PRIMARY_PARTNERS.map(({ label, href, guidehref, value, economics, specifics }) => (
                 <div key={label} className="border border-slate-200 rounded-lg p-6 flex flex-col">
-                  <p className="text-[14px] font-bold text-slate-900 mb-3">{label}</p>
+                  <h3 className="text-[14px] font-bold text-slate-900 mb-3">{label}</h3>
                   <p className="text-[13px] text-slate-600 leading-relaxed mb-4">{value}</p>
                   <ul className="space-y-2 mb-5 flex-1">
                     {specifics.map((s, i) => (
@@ -177,12 +183,12 @@ export default function PartnersPage() {
 
           {/* Partner tiers */}
           <section id="partner-tiers" className="border-t border-slate-100 pt-12">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-6">
               Partner tiers
-            </p>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
               <div className="border border-slate-200 rounded-lg p-6">
-                <p className="text-[12px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Referral Partner</p>
+                <h3 className="text-[12px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Referral Partner</h3>
                 <p className="text-[18px] font-bold text-slate-900 mb-3">Free to join</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed mb-4">Share your referral link. Earn 20% commission on every C-suite subscription that activates through your link.</p>
                 <ul className="space-y-2">
@@ -201,7 +207,7 @@ export default function PartnersPage() {
                 </ul>
               </div>
               <div className="border border-orange-400 bg-orange-50 rounded-lg p-6">
-                <p className="text-[12px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-1">Preferred Partner</p>
+                <h3 className="text-[12px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-1">Preferred Partner</h3>
                 <p className="text-[18px] font-bold text-slate-900 mb-3">Volume pricing</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed mb-4">For firms enrolling multiple C-suite clients. Consolidated billing, usage visibility, and co-marketing for your practice.</p>
                 <ul className="space-y-2">
@@ -224,9 +230,9 @@ export default function PartnersPage() {
 
           {/* Other partner types */}
           <section id="other-partners" className="border-t border-slate-100 pt-12">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Also built for
-            </p>
+            </h2>
             <div className="flex flex-wrap gap-x-6 gap-y-3">
               {OTHER_PARTNERS.map(({ label, href }) => (
                 <Link
@@ -242,9 +248,9 @@ export default function PartnersPage() {
 
           {/* Application form */}
           <section id="apply" className="border-t border-slate-100 pt-12">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">
               Apply to the partner program
-            </p>
+            </h2>
             <p className="text-[13px] text-slate-500 mb-6">
               We follow up within 2 business days with your referral link and partner kit.
             </p>

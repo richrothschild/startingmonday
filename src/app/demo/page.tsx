@@ -239,12 +239,6 @@ export function DemoContent({
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-5">
-            <Link href="/demo/cio" className="text-[13px] text-slate-400 hover:text-white transition-colors">
-              CIO demo
-            </Link>
-            <Link href="/demo/presenter" className="text-[13px] text-slate-400 hover:text-white transition-colors">
-              Presenter mode
-            </Link>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Log in
             </Link>
@@ -252,7 +246,7 @@ export function DemoContent({
               href="/signup"
               className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
-              Try free
+              Get started now
             </Link>
           </div>
         </div>
@@ -274,16 +268,6 @@ export function DemoContent({
           <p className="text-[12px] text-slate-500 leading-relaxed mt-1">CTA: get started now and generate a company-specific prep brief.</p>
         </div>
 
-        <nav className="mb-8 rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#demo-context" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Context</a>
-            <a href="#run-demo" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Run demo</a>
-            <a href="#brief-output" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Brief output</a>
-            <a href="#full-account" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Full account value</a>
-          </div>
-        </nav>
-
         <section id="demo-context" className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
           <h2 className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Before you run the demo</h2>
           <div className="space-y-4">
@@ -291,12 +275,6 @@ export function DemoContent({
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Why this company context matters</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
                 Executive searches are won on context quality, not volume. This brief is built to reduce reactive behavior and improve relationship quality with a clear point of view, likely objections, and peer-level questions.
-              </p>
-            </div>
-            <div>
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">How signal windows are identified</p>
-              <p className="text-[13px] text-slate-600 leading-relaxed">
-                We track executive moves, disclosures, company announcements, and career page changes. When signals cluster, the platform flags likely transition windows before broad-market posting channels catch up.
               </p>
             </div>
             <div>
@@ -310,27 +288,8 @@ export function DemoContent({
           </div>
           <p className="text-[12px] text-slate-500 mt-4">
             Pilot snapshot (Jan-May 2026): 81% reached first interview in 30 days, denominator 27 executives.{' '}
-            <Link href="/blog/how-we-estimate-early-role-signals" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
-              Method and sources
-            </Link>
-            {' '}·{' '}
             <Link href="/references" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
               Evidence and references
-            </Link>
-            .
-          </p>
-          <p className="text-[12px] text-slate-500 mt-2">
-            Further reading:{' '}
-            <Link href="/blog/executive-hiring-patterns-2026" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
-              executive hiring patterns
-            </Link>
-            {' '}·{' '}
-            <Link href="/blog/why-executive-recruiters-go-quiet" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
-              why recruiters go quiet
-            </Link>
-            {' '}·{' '}
-            <Link href="/blog/why-starting-monday-exists" className="underline underline-offset-2 hover:text-slate-800 transition-colors">
-              why we built Starting Monday
             </Link>
             .
           </p>
@@ -430,7 +389,7 @@ export function DemoContent({
                       disabled={!email.trim() || submitting}
                       className="bg-slate-900 hover:bg-slate-700 disabled:opacity-30 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed shrink-0"
                     >
-                      {submitting ? 'One moment...' : 'See the full brief'}
+                      {submitting ? 'One moment...' : 'Unlock full brief'}
                     </button>
                   </form>
                   {emailError && <p className="mt-2 text-[12px] text-red-600">{emailError}</p>}
@@ -467,14 +426,10 @@ export function DemoContent({
             <h2 className="text-[18px] font-bold text-slate-900 mb-3">What you get with a full account</h2>
             <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-5">Included capabilities</p>
             <div className="flex flex-col gap-3">
-              {[
+                {[
                 'This brief, auto-generated for each target company before high-stakes conversations',
                 'Signal intelligence on every target company with pattern alerts before roles are broadly posted',
                 'Behavior support: daily priorities that reduce reactive moves and improve execution consistency',
-                'Relationship support: sharper outreach timing and follow-through prompts for critical stakeholders',
-                'Contact tracker with outreach drafting and recruiter firm grouping',
-                'Daily morning briefing with your signals, open actions, and pending matches',
-                'AI career advisor with pipeline visibility to help you choose right-fit opportunities',
               ].map((item, i) => (
                 <div key={i} className="flex gap-3 items-start">
                   <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
@@ -487,7 +442,7 @@ export function DemoContent({
                 href="/signup"
                 className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start free trial &rarr;
+                Get started now
               </Link>
               <p className="text-[12px] text-slate-400 sm:mt-2.5">30 days free. No credit card.</p>
             </div>

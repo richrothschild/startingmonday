@@ -753,24 +753,6 @@ export default async function ProfilePage({
 
           </form>
         </section>
-        <section id="section-linkedin-support" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
-          <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
-            LinkedIn profile
-          </h2>
-          <p className="text-[13px] text-slate-500 leading-relaxed">
-            A strong LinkedIn profile is often the first thing a hiring team checks before reaching out.{' '}
-            <a
-              href="https://www.linkedin-makeover.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-900 underline underline-offset-2 hover:text-slate-600"
-            >
-              LinkedIn-Makeover.com
-            </a>{' '}
-            is one of the most established services for executive-level profile optimization.
-          </p>
-        </section>
-
         <section id="section-data-privacy" className="bg-white border border-slate-200 rounded p-6 max-w-xl mt-6">
           <h2 className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">
             Data and privacy
