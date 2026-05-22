@@ -271,11 +271,7 @@ export default function LoginPage() {
               </button>
 
               <p className="text-[12px] text-slate-500 -mt-1">
-                Signed up with Google or Apple? Use that provider to sign in first, then set a password at{' '}
-                <Link href="/settings/security" className="text-slate-700 font-semibold hover:text-slate-900">
-                  Settings → Security
-                </Link>
-                .
+                Signed up with Google or Apple? Use that provider to sign in first, then open Settings → Security from your account menu to set a password.
               </p>
 
 

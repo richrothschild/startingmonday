@@ -95,9 +95,7 @@ export default function SecurityPage() {
           <section className="pt-10">
             <h2 className="text-[16px] font-bold text-slate-900 mb-4">Deleting your data</h2>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
-              You can delete your sensitive career context at any time from your{' '}
-              <Link href="/dashboard/profile" className="text-slate-800 underline">Profile page</Link>{' '}
-              using the &quot;Delete sensitive notes&quot; option. This clears your positioning summary, beyond-resume notes, and verified career history. Your account, email, and pipeline remain active.
+              You can delete your sensitive career context at any time from your profile page after signing in, using the &quot;Delete sensitive notes&quot; option. This clears your positioning summary, beyond-resume notes, and verified career history. Your account, email, and pipeline remain active.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed">
               To delete your account and all associated data permanently, go to Settings and use the account deletion option. All records are removed from our systems within 30 days.

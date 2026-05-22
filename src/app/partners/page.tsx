@@ -116,7 +116,7 @@ export default function PartnersPage() {
                 Get started as a partner &rarr;
               </a>
               <Link
-                href="/dashboard/partner"
+                href="/login"
                 className="inline-block border border-slate-600 hover:border-slate-400 text-slate-300 text-[13px] px-5 py-2.5 rounded transition-colors"
               >
                 Already a partner? Sign in &rarr;
