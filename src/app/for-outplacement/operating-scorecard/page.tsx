@@ -86,6 +86,8 @@ export default function OutplacementOperatingScorecardPage() {
         </section>
 
         <section className="border border-slate-200 rounded-xl p-5 bg-white print:hidden">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Next step</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mb-3">CTA: get started now by applying this scorecard in your next weekly review.</p>
           <div className="flex flex-wrap gap-4 text-[13px]">
             <Link href="/for-outplacement/metric-dictionary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Open canonical metric dictionary

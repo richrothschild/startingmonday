@@ -240,9 +240,9 @@ export default function OutplacementTrustPackPage() {
         </header>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Trust pillars
-          </p>
+          </h2>
           <div className="space-y-3">
             {TRUST_PILLARS.map((item) => (
               <div key={item.title} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
@@ -254,9 +254,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Procurement and legal checklist
-          </p>
+          </h2>
           <ul className="space-y-2">
             {PROCUREMENT_CHECKLIST.map((item) => (
               <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
@@ -265,9 +265,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Consolidated trust artifact index (owner + refresh cadence)
-          </p>
+          </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
             <table className="min-w-full text-left text-[13px]">
               <thead className="bg-slate-100 text-slate-700">
@@ -298,9 +298,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Legal boundary summary
-          </p>
+          </h2>
           <div className="space-y-3">
             {LEGAL_BOUNDARIES.map((row) => (
               <div key={row.topic} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
@@ -312,9 +312,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             SLA and attestation clause mapping
-          </p>
+          </h2>
           <div className="space-y-3">
             {SLA_ATTESTATION_MAP.map((row) => (
               <div key={row.domain} className="border border-slate-200 rounded-lg p-4 bg-white">
@@ -328,9 +328,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Lightweight authority badges and attestation index
-          </p>
+          </h2>
           <div className="space-y-3">
             {ATTESTATION_INDEX.map((row) => (
               <div key={row.item} className="border border-slate-200 rounded-lg p-4 bg-slate-50">
@@ -342,9 +342,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Confidentiality by design
-          </p>
+          </h2>
           <p className="text-[14px] text-slate-700 leading-relaxed">
             Sensitive transitions require minimum-necessary visibility, explicit permission scopes, and traceable access patterns. Partner and counselor views should align to program need, not blanket visibility, especially for regulated or high-profile cohorts.
           </p>
@@ -356,9 +356,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Board-safe claims policy
-          </p>
+          </h2>
           <ul className="space-y-2">
             {CLAIMS_POLICY.map((item) => (
               <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
@@ -367,9 +367,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Staged KPI model (30/60/90)
-          </p>
+          </h2>
           <div className="space-y-3">
             {KPI_STAGES.map((row) => (
               <div key={row.stage} className="border border-slate-200 rounded-lg p-4 bg-white">
@@ -381,9 +381,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Trust artifact index and request flow
-          </p>
+          </h2>
           <ul className="space-y-2">
             {TRUST_ARTIFACT_INDEX.map((item) => (
               <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
@@ -395,9 +395,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Artifact maintenance ownership
-          </p>
+          </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
             <table className="min-w-full text-left text-[13px]">
               <thead className="bg-slate-100 text-slate-700">
@@ -421,9 +421,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
             Pilot review timeline
-          </p>
+          </h2>
           <div className="space-y-3">
             {REVIEW_TIMELINE.map((row) => (
               <div key={row.phase} className="border border-slate-200 rounded-lg p-4 bg-white">
@@ -435,9 +435,9 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
-          </p>
+          </h2>
           <div className="border border-orange-200 rounded-lg p-4 bg-orange-50/50 mb-5">
             <p className="text-[12px] font-semibold text-slate-900 mb-1">Short objection response</p>
             <p className="text-[12px] text-slate-700 leading-relaxed">Concerned this expands governance burden? The trust pack is designed to reduce uncertainty with explicit artifacts and clear decision gates.</p>

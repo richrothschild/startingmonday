@@ -18,10 +18,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 121
-- Flagged pages (below excellent): 36
-- High-risk pages (score < 80): 7
-- Site excellence rate: 77.1%
+- Excellent pages (A- or better): 123
+- Flagged pages (below excellent): 34
+- High-risk pages (score < 80): 5
+- Site excellence rate: 78.3%
 
 ## Results by Page Category
 
@@ -31,7 +31,7 @@ Excellence threshold: score >= 90 (A- or better).
 | blog | 30 | 91.6 | 28 | 2 |
 | dashboard | 57 | 90.3 | 37 | 20 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 93.1 | 49 | 14 |
+| marketing | 63 | 93.8 | 51 | 12 |
 
 ## Most Common Non-Excellent Patterns
 
@@ -39,13 +39,13 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|
 | Missing H1 | 36 |
 | Missing outcome metrics | 21 |
-| Weak heading hierarchy | 20 |
+| Weak heading hierarchy | 19 |
 | Low action density for workflow page | 15 |
 | Insufficient content chunking | 10 |
 | Missing trust/confidentiality cues | 8 |
 | Moderate scroll burden | 8 |
-| Extreme scroll burden | 7 |
-| High scroll burden | 5 |
+| High scroll burden | 7 |
+| Extreme scroll burden | 5 |
 
 ## High-Risk Pages (Score < 80)
 
@@ -56,8 +56,6 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/outreach | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/profile | 75 | C+ | dashboard | Extreme scroll burden |
-| /for-coaches | 75 | C+ | marketing | Extreme scroll burden |
-| /for-outplacement | 75 | C+ | marketing | Extreme scroll burden |
 
 ## Full Page-by-Page Audit
 
@@ -166,7 +164,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-cio | 100 | A+ | Yes | marketing | src/app/for-cio/page.tsx | No major static UX risks detected |
 | /for-cio-associations | 100 | A+ | Yes | marketing | src/app/for-cio-associations/page.tsx | No major static UX risks detected |
 | /for-ciso | 92 | A- | Yes | marketing | src/app/for-ciso/page.tsx | Missing outcome metrics |
-| /for-coaches | 75 | C+ | No | marketing | src/app/for-coaches/page.tsx | Extreme scroll burden |
+| /for-coaches | 82 | B- | No | marketing | src/app/for-coaches/page.tsx | High scroll burden |
 | /for-coaches/economics | 100 | A+ | Yes | marketing | src/app/for-coaches/economics/page.tsx | No major static UX risks detected |
 | /for-coaches/faq | 100 | A+ | Yes | marketing | src/app/for-coaches/faq/page.tsx | No major static UX risks detected |
 | /for-coaches/trust-pack | 100 | A+ | Yes | marketing | src/app/for-coaches/trust-pack/page.tsx | No major static UX risks detected |
@@ -176,15 +174,15 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-financial-advisors | 86 | B | No | marketing | src/app/for-financial-advisors/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
 | /for-fractional-executives | 86 | B | No | marketing | src/app/for-fractional-executives/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
 | /for-media-partners | 86 | B | No | marketing | src/app/for-media-partners/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |
-| /for-outplacement | 75 | C+ | No | marketing | src/app/for-outplacement/page.tsx | Extreme scroll burden |
+| /for-outplacement | 82 | B- | No | marketing | src/app/for-outplacement/page.tsx | High scroll burden |
 | /for-outplacement/economics | 82 | B- | No | marketing | src/app/for-outplacement/economics/page.tsx | High scroll burden |
 | /for-outplacement/executive-summary | 100 | A+ | Yes | marketing | src/app/for-outplacement/executive-summary/page.tsx | No major static UX risks detected |
 | /for-outplacement/faq | 100 | A+ | Yes | marketing | src/app/for-outplacement/faq/page.tsx | No major static UX risks detected |
 | /for-outplacement/metric-dictionary | 100 | A+ | Yes | marketing | src/app/for-outplacement/metric-dictionary/page.tsx | No major static UX risks detected |
-| /for-outplacement/operating-scorecard | 82 | B- | No | marketing | src/app/for-outplacement/operating-scorecard/page.tsx | No explicit CTA language |
+| /for-outplacement/operating-scorecard | 100 | A+ | Yes | marketing | src/app/for-outplacement/operating-scorecard/page.tsx | No major static UX risks detected |
 | /for-outplacement/runbook | 100 | A+ | Yes | marketing | src/app/for-outplacement/runbook/page.tsx | No major static UX risks detected |
 | /for-outplacement/security-overview | 92 | A- | Yes | marketing | src/app/for-outplacement/security-overview/page.tsx | Missing outcome metrics |
-| /for-outplacement/trust-pack | 82 | B- | No | marketing | src/app/for-outplacement/trust-pack/page.tsx | Weak heading hierarchy; Moderate scroll burden |
+| /for-outplacement/trust-pack | 90 | A- | Yes | marketing | src/app/for-outplacement/trust-pack/page.tsx | Moderate scroll burden |
 | /for-pe-partners | 92 | A- | Yes | marketing | src/app/for-pe-partners/page.tsx | Missing outcome metrics |
 | /for-pe-teams | 92 | A- | Yes | marketing | src/app/for-pe-teams/page.tsx | Missing outcome metrics |
 | /for-relocation | 86 | B | No | marketing | src/app/for-relocation/page.tsx | Missing trust/confidentiality cues; Missing outcome metrics |

@@ -102,14 +102,14 @@ export default async function ProfilePage({
   const digitalTransformationDelivered = (roleCtx.digital_transformation_delivered as string | null) ?? ''
 
   const BEYOND_RESUME_PLACEHOLDERS: Record<string, string> = {
-    cio:          'What transformation have you driven that does not appear in your title? What is your model for the CIO-CEO relationship? What is the biggest technology decision you made under pressure?',
-    cto:          'What did you actually build? What architectural decision are you most proud of? What technical debt did you inherit and what did you do with it?',
-    cdo_data:     'What was the data maturity of the organization when you joined? What business decision changed because of what you built? What does your data platform actually look like?',
-    cdo_digital:  'What does your background give you that a pure technologist does not have? What business transformation did you drive? What did the customer experience look like before and after?',
-    ciso:         "What frameworks have you implemented? What was the board's security awareness when you started vs when you left? What breach or regulatory event shaped your approach?",
-    cpo:          "What is your product philosophy? What product are you most proud of and why? What metric did you move? What product bet was wrong and what did you learn?",
-    coo:          "What is your model for the CEO-COO relationship? What operational phase have you navigated that does not appear in your title? What broke and how did you fix it?",
-    vp_technology:'What does your scope actually look like beyond your title? What is the largest team you have built or inherited? Where have you had P&L or budget ownership?',
+    cio:          'Highlight your transformation record, CIO-CEO operating model, and one high-stakes decision.',
+    cto:          'Summarize what you built, a key architecture choice, and how you handled inherited debt.',
+    cdo_data:     'Describe starting data maturity, platform progress, and one business decision that improved.',
+    cdo_digital:  'Describe your nontraditional edge and one digital transformation outcome.',
+    ciso:         "List implemented frameworks, board maturity progress, and one defining security moment.",
+    cpo:          "State product philosophy, strongest launch, and one metric shift.",
+    coo:          "Summarize CEO-COO model, operating scope, and one recovery example.",
+    vp_technology:'Summarize real scope, team scale, and budget ownership.',
   }
   const beyondResumePlaceholder = (profile?.role_type ? BEYOND_RESUME_PLACEHOLDERS[profile.role_type] : null)
     ?? "What motivates you, your leadership philosophy, things you're proud of that don't fit in a resume..."
@@ -255,9 +255,9 @@ export default async function ProfilePage({
               </h3>
               <div className="flex flex-col gap-2">
                 {[
-                  { value: 'csuite', label: 'C-Suite',         sub: 'CEO, CFO, CTO, COO, CIO, CHRO, etc.' },
-                  { value: 'vp',     label: 'VP / SVP',        sub: 'VP, SVP, or EVP targeting C-suite or a larger VP role' },
-                  { value: 'board',  label: 'Board / Advisor', sub: 'Board seat, operating partner, or advisory role' },
+                  { value: 'csuite', label: 'C-Suite' },
+                  { value: 'vp',     label: 'VP / SVP' },
+                  { value: 'board',  label: 'Board / Advisor' },
                 ].map(opt => (
                   <label
                     key={opt.value}
@@ -274,7 +274,6 @@ export default async function ProfilePage({
                       <p className="text-[13px] font-semibold leading-none mb-0.5">
                         <span className="[label:has(:checked)_&]:text-white text-slate-900 font-semibold">{opt.label}</span>
                       </p>
-                      <p className="text-[12px] text-slate-400 [label:has(:checked)_&]:text-slate-400 mt-0.5">{opt.sub}</p>
                     </div>
                   </label>
                 ))}
@@ -289,15 +288,15 @@ export default async function ProfilePage({
               </h3>
               <div className="flex flex-col gap-2">
                 {[
-                  { value: 'cio',          label: 'CIO',                        sub: 'Chief Information Officer' },
-                  { value: 'cto',          label: 'CTO',                        sub: 'Chief Technology Officer' },
-                  { value: 'cdo_data',     label: 'CDO - Data & Analytics',     sub: 'Chief Data Officer, analytics and data products' },
-                  { value: 'cdo_digital',  label: 'CDO - Digital',              sub: 'Chief Digital Officer, digital transformation' },
-                  { value: 'ciso',         label: 'CISO',                       sub: 'Chief Information Security Officer' },
-                  { value: 'cpo',          label: 'CPO',                        sub: 'Chief Product Officer' },
-                  { value: 'coo',          label: 'COO',                        sub: 'Chief Operating Officer' },
-                  { value: 'vp_technology',label: 'VP of Technology',           sub: 'VP, SVP, or EVP of Technology or Engineering' },
-                  { value: 'other_csuite', label: 'Other C-Suite',              sub: 'CEO, CFO, CHRO, or other executive function' },
+                  { value: 'cio',          label: 'CIO' },
+                  { value: 'cto',          label: 'CTO' },
+                  { value: 'cdo_data',     label: 'CDO - Data & Analytics' },
+                  { value: 'cdo_digital',  label: 'CDO - Digital' },
+                  { value: 'ciso',         label: 'CISO' },
+                  { value: 'cpo',          label: 'CPO' },
+                  { value: 'coo',          label: 'COO' },
+                  { value: 'vp_technology',label: 'VP of Technology' },
+                  { value: 'other_csuite', label: 'Other C-Suite' },
                 ].map(opt => (
                   <label
                     key={opt.value}
@@ -314,7 +313,6 @@ export default async function ProfilePage({
                       <p className="text-[13px] font-semibold leading-none mb-0.5">
                         <span className="[label:has(:checked)_&]:text-white text-slate-900 font-semibold">{opt.label}</span>
                       </p>
-                      <p className="text-[12px] text-slate-400 [label:has(:checked)_&]:text-slate-400 mt-0.5">{opt.sub}</p>
                     </div>
                   </label>
                 ))}
@@ -760,9 +758,6 @@ export default async function ProfilePage({
 
           <div className="mb-5">
             <p className="text-[12px] font-semibold text-slate-700 mb-1">Download your data</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mb-2">
-              Export everything stored in your account as a JSON file: profile, companies, contacts, follow-ups, signals, and brief history.
-            </p>
             <a
               href="/api/profile/export"
               className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-300 hover:border-slate-500 px-4 py-2 rounded transition-colors"
@@ -773,12 +768,7 @@ export default async function ProfilePage({
 
           <div className="border-t border-slate-100 pt-5">
             <p className="text-[12px] font-semibold text-slate-700 mb-1">Delete sensitive data</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mb-1">
-              Removes your positioning summary, beyond-resume notes, and verified career history.
-            </p>
-            <p className="text-[12px] text-slate-400 leading-relaxed mb-3">
-              Does not affect your account, login, companies, contacts, or follow-ups.
-            </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-3">Removes profile notes only. Your account and pipeline data remain unchanged.</p>
             <form action={deleteNotes}>
               <button
                 type="submit"

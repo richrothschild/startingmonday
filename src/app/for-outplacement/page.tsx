@@ -416,48 +416,6 @@ export default function ForOutplacementPage() {
               </p>
             </section>
 
-            <section className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50">
-              <h2 className="text-[22px] font-bold text-slate-900">Methodology and claim-discipline mini-spec</h2>
-              <ul className="space-y-2 text-[14px] text-slate-700 leading-relaxed pl-1">
-                {METHODOLOGY_NOTES.slice(0, 3).map((note) => (
-                  <li key={note}>+ {note}</li>
-                ))}
-              </ul>
-              <p className="text-[12px] text-slate-500 leading-relaxed">
-                Designed with partner cohorts using repeatable scorecard definitions so partner and client HR can agree on the same decision math.
-              </p>
-              <div className="space-y-2">
-                <p className="text-[12px] font-semibold text-slate-900">Peer-validated artifact types (redacted):</p>
-                {PEER_VALIDATED_ARTIFACTS.slice(0, 2).map((artifact) => (
-                  <p key={artifact} className="text-[12px] text-slate-600">+ {artifact}</p>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Current model vs operating-layer model</h2>
-              <div className="overflow-x-auto border border-slate-200 rounded-lg">
-                <table className="min-w-full text-left text-[13px]">
-                  <thead className="bg-slate-100 text-slate-700">
-                    <tr>
-                      <th className="px-4 py-3 font-semibold">Dimension</th>
-                      <th className="px-4 py-3 font-semibold">Current outplacement model</th>
-                      <th className="px-4 py-3 font-semibold">With operating layer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {COMPARISON_ROWS.slice(0, 3).map((row) => (
-                      <tr key={row.dimension} className="border-t border-slate-200 bg-white">
-                        <td className="px-4 py-3 text-slate-900 font-medium">{row.dimension}</td>
-                        <td className="px-4 py-3 text-slate-600">{row.current}</td>
-                        <td className="px-4 py-3 text-slate-700">{row.operatingLayer}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">30-day partner scorecard</h2>
               <div className="space-y-3">
@@ -465,85 +423,6 @@ export default function ForOutplacementPage() {
                   <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-white">
                     <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.metric}</p>
                     <p className="text-[13px] text-slate-600 leading-relaxed">{row.success}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Pilot implementation model</h2>
-              <div className="space-y-3">
-                {PILOT_IMPLEMENTATION_STEPS.slice(0, 4).map((step) => (
-                  <div key={step.week} className="border border-slate-200 rounded-lg p-4 bg-white">
-                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{step.week}: {step.action}</p>
-                    <p className="text-[13px] text-slate-600 leading-relaxed mb-1"><span className="font-semibold text-slate-700">Owner: </span>{step.owner}</p>
-                    <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Expected outcome: </span>{step.outcome}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Weekly operating cadence</h2>
-              <ul className="space-y-2 pl-1">
-                {WEEKLY_CADENCE.slice(0, 3).map((line) => (
-                  <li key={line} className="text-[14px] text-slate-700 leading-relaxed">+ {line}</li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Role boundaries and accountability</h2>
-              <div className="space-y-3">
-                {ROLE_MATRIX.map((row) => (
-                  <div key={row.role} className="border border-slate-200 rounded-lg p-4 bg-white">
-                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.role}</p>
-                    <p className="text-[13px] text-slate-600 leading-relaxed">{row.owns}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Governance meeting cadence</h2>
-              <div className="space-y-3">
-                {GOVERNANCE_MEETINGS.slice(0, 2).map((meeting) => (
-                  <div key={meeting.cadence} className="border border-slate-200 rounded-lg p-4 bg-white">
-                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{meeting.cadence}</p>
-                    <p className="text-[13px] text-slate-600 mb-1"><span className="font-semibold text-slate-700">Decision owner: </span>{meeting.owner}</p>
-                    <p className="text-[13px] text-slate-600"><span className="font-semibold text-slate-700">Required output: </span>{meeting.requiredOutput}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-[22px] font-bold text-slate-900">Counselor session-yield outcomes</h2>
-              <div className="overflow-x-auto border border-slate-200 rounded-lg">
-                <table className="min-w-full text-left text-[13px]">
-                  <thead className="bg-slate-100 text-slate-700">
-                    <tr>
-                      <th className="px-4 py-3 font-semibold">Metric</th>
-                      <th className="px-4 py-3 font-semibold">Before operating layer</th>
-                      <th className="px-4 py-3 font-semibold">Target after launch</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {SESSION_YIELD_METRICS.slice(0, 2).map((row) => (
-                      <tr key={row.metric} className="border-t border-slate-200 bg-white">
-                        <td className="px-4 py-3 text-slate-900 font-medium">{row.metric}</td>
-                        <td className="px-4 py-3 text-slate-600">{row.before}</td>
-                        <td className="px-4 py-3 text-slate-700">{row.after}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="space-y-2">
-                {COUNSELOR_QUOTES.slice(0, 1).map((item) => (
-                  <div key={item.quote} className="border-l-2 border-orange-500 pl-4 py-1">
-                    <p className="text-[13px] text-slate-700 italic">"{item.quote}"</p>
-                    <p className="text-[12px] text-slate-500 mt-1">{item.attribution}</p>
                   </div>
                 ))}
               </div>

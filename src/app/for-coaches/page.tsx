@@ -25,14 +25,6 @@ const WHAT_CHANGES = [
     before: 'Your client is preparing for interviews the night before with a web search and a printout.',
     after: 'The prep brief is usually ready in about a minute. Win thesis, likely objections, peer-level questions, what to leave out. You can read it before the session.',
   },
-  {
-    before: 'You cannot track 30 companies between sessions. Things happen and your client misses the window.',
-    after: 'The intelligence scanner watches every company on their target list. When signals cluster into a pre-search pattern, you both know.',
-  },
-  {
-    before: 'Session time is split between strategy and research catch-up.',
-    after: 'Session time is strategy. The platform handles the research, the tracking, and the daily briefing.',
-  },
 ]
 
 const SAMPLE_SIGNAL_ITEMS = [
@@ -49,9 +41,9 @@ const FULL_SAMPLE_SIGNAL_BRIEF = {
     'Two VP-level technology openings posted within 48 hours',
     'Private equity operating partner added to the board this week',
   ],
-  impact: 'Post-acquisition integration risk visible. Finance function reshaping.',
-  recommendedAction: 'Before 10am: send reconnection note to former COO now at Vista Equity Partners. Update company status from Watchlist to Active Outreach.',
-  waitlistAction: 'Monitor for new CFO search details; likely 60-90 day runway before external hires begin interviewing.',
+  impact: 'Post-acquisition integration risk visible.',
+  recommendedAction: 'Send one reconnection note today and move status to Active Outreach.',
+  waitlistAction: 'Monitor for formal CFO mandate details.',
 }
 
 const SAMPLE_PREP_BRIEF_POINTS = [
@@ -64,20 +56,18 @@ const FULL_SAMPLE_PREP_BRIEF = {
   company: 'Meridian Systems',
   role: 'EVP, Technology Integration',
   search: 'PE-backed post-acquisition integration lead',
-  winThesis: 'Stabilize a post-acquisition technology stack without slowing revenue operations. The PE fund has 24 months to prove integration value before exit.',
-  yourBackground: '12 years leading technology consolidation across 4 acquisitions. Last role: CTO at a $400M SaaS company during acquisition by Insight Partners. 18-month integration completed 3 months early.',
+  winThesis: 'Stabilize post-acquisition technology without slowing revenue operations.',
+  yourBackground: '12 years leading technology consolidation across four acquisitions.',
   likelyObjections: [
-    'Your turnaround depth may outweigh their need for a product-led growth mindset',
-    'Will you stay focused on process or get pulled into long-term product strategy?',
-    'How do we know you can balance pace with risk?',
+    'Is your turnaround depth balanced with product-led growth needs?',
+    'Can you balance pace with risk?',
   ],
   peerLevelQuestions: [
-    'How is the board measuring integration success across the first two operating reviews?',
-    'What is the appetite for replacing vs. consolidating the inherited tech stack?',
-    'How much travel is expected in the first 90 days?',
+    'How is the board measuring integration success this quarter?',
+    'What is the appetite for replacing vs consolidating inherited systems?',
   ],
-  whatToLeaveOut: 'Do not lead with the detail of your acquisition timeline. Lead with the outcome: 18-month integration completed 3 months early with zero revenue impact.',
-  preparedTalking: '2-minute summary ready. The brief above is what the coach will review before your session.',
+  whatToLeaveOut: 'Do not lead with timeline detail. Lead with integration outcomes.',
+  preparedTalking: 'Two-minute summary ready before session.',
 }
 
 const PROOF_METRICS = [
@@ -88,10 +78,6 @@ const PROOF_METRICS = [
   {
     value: '9 days',
     label: 'median time from setup to first qualified outreach in the same cohort',
-  },
-  {
-    value: '43%',
-    label: 'of early adopting coaches brought the daily briefing into coaching sessions within the first month',
   },
   {
     value: '27',
@@ -110,11 +96,7 @@ const COACH_FIT = [
   },
   {
     title: 'Search-affiliate coaches',
-    detail: 'Best fit when interview prep quality and live pipeline visibility affect placement outcomes immediately.',
-  },
-  {
-    title: 'Board and governance coaches',
-    detail: 'Best fit when clients need relationship maintenance and signal monitoring over a longer positioning horizon.',
+    detail: 'Best fit when interview prep quality and pipeline visibility affect placement outcomes immediately.',
   },
 ]
 
@@ -150,7 +132,6 @@ const COUNCIL_BUY_SIGNALS = [
       'Clients arrive prepared for high-stakes meetings',
       'Less session time rebuilding context from memory',
       'Faster first interviews and cleaner weekly momentum',
-      'Coach can spot stalls before the client loses confidence',
     ],
   },
   {
@@ -159,7 +140,6 @@ const COUNCIL_BUY_SIGNALS = [
       '"I am spending too much time on prep and admin, not strategy"',
       '"My client is too busy, so important prep gets skipped"',
       '"I do not want to coach half-blind between sessions"',
-      '"I need to feel in control of every client account"',
     ],
   },
   {
@@ -167,7 +147,6 @@ const COUNCIL_BUY_SIGNALS = [
     points: [
       'Shared coach-client signal and pipeline visibility',
       'Prep briefs usually ready in about a minute',
-      'Daily focus prompts so clients make one good move each morning',
       '30-day pass/fail scorecard before any rollout decision',
     ],
   },
@@ -181,10 +160,6 @@ const PILOT_SCORECARD = [
   {
     metric: 'Week 1 prep quality',
     success: 'At least one prep brief reviewed before a real conversation.',
-  },
-  {
-    metric: 'Session yield',
-    success: 'Coach reports less context rebuild and more strategic depth in sessions.',
   },
   {
     metric: 'Day-30 decision',
@@ -201,14 +176,12 @@ const ROLE_BOUNDARY = {
   coach: [
     'Owns strategic judgment, narrative calibration, and accountability coaching',
     'Decides where to focus client effort and when to change search strategy',
-    'Interprets context and drives high-stakes decision quality',
   ],
 }
 
 const WEEKLY_REVIEW_TEMPLATE = [
   'What changed in signals since last week, and which two changes matter most?',
   'Which companies moved stage, and which are stalled?',
-  'Which prep brief will shape this week\'s highest-stakes conversation?',
   'What one action must happen before next session to protect momentum?',
 ]
 
@@ -498,68 +471,6 @@ export default function ForCoachesPage() {
             />
           </section>
 
-          <section id="shared-intelligence">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              Shared intelligence with clients
-            </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
-              Coach and client see the same data. No silos, no secrets.
-            </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-lg">
-              Coaches and clients share the same pipeline view, signal detection, and prep briefs. This eliminates the translation layer. When a coach asks "Did you see the signal about the CFO?" the client already knows—because they saw it when it happened, and the coach saw them see it.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="border border-slate-200 rounded-2xl p-5 bg-white">
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">Coach perspective</p>
-                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>See which signals clients acted on</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Know exactly when prep briefs were reviewed</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Track accountability between sessions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Reduce misalignment on what clients actually know</span>
-                  </li>
-                </ul>
-                <Link href="/for-coaches/faq#sharing" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                  Learn more about sharing →
-                </Link>
-              </div>
-              <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">Client perspective</p>
-                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Full control over coach data access</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Audit log shows when coaches viewed what</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Grant or revoke access anytime</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>See exactly what each coach can access</span>
-                  </li>
-                </ul>
-                <Link href="/for-coaches/faq#client-control" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                  Learn more about client controls →
-                </Link>
-              </div>
-            </div>
-          </section>
-
           <section id="coach-fit">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where this fits best
@@ -630,35 +541,6 @@ export default function ForCoachesPage() {
                   <li key={line}>{line}</li>
                 ))}
               </ol>
-            </div>
-          </section>
-
-          <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              What changes for your clients
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">They stop missing signals</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Signals are surfaced while they sleep. Executive departures, board changes, funding, and career page postings are tracked automatically. They act before the market moves.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">They walk in prepared</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Win thesis, likely objections, peer-level questions, what to leave out. Usually ready in about a minute. Accurate to the specific company and role. You see the brief before the session.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Nothing goes cold</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Every company, contact, and conversation tracked. You can view their pipeline between sessions. Dormancy is a thing of the past.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">One decision each morning</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Overnight signals and a prioritized action list in their inbox before the market opens. Instead of thirty decisions, they make one. You help them focus on what matters most.</p>
-              </div>
-            </div>
-            <div className="flex gap-3 text-[12px]">
-              <Link href="/for-coaches/faq#client-benefits" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                Learn more about client benefits →
-              </Link>
             </div>
           </section>
 
