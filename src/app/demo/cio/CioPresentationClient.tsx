@@ -518,7 +518,7 @@ export function CioPresentationClient() {
     })
   }
 
-  function useInBrief(companyName: string) {
+  function loadInBrief(companyName: string) {
     setCompanyBriefCompany(companyName)
     setTailoredCompany(companyName)
   }
@@ -607,7 +607,7 @@ export function CioPresentationClient() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => useInBrief(company.name)}
+                      onClick={() => loadInBrief(company.name)}
                       className="text-[12px] px-3 py-1.5 rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 transition-colors"
                     >
                       Use in live brief
