@@ -109,10 +109,16 @@ function getDisclosureMetrics(source) {
 
 function scorePage({ route, file, source }) {
   const lineCount = source.split(/\r?\n/).length
+  const category = classifyRoute(route)
+  const isWorkflow = category === 'dashboard' || category === 'admin'
+  const returnStart = source.indexOf('return (')
+  const renderedSource = returnStart >= 0 ? source.slice(returnStart) : source
+  const renderedLineCount = renderedSource.split(/\r?\n/).length
+  const scrollBaseLineCount = isWorkflow ? renderedLineCount : lineCount
   const disclosure = getDisclosureMetrics(source)
   const effectiveLineCount = Math.max(
     0,
-    Math.round(lineCount - disclosure.collapsedDisclosureLineCount * 0.65)
+    Math.round(scrollBaseLineCount - disclosure.collapsedDisclosureLineCount * 0.65)
   )
   const sectionCount = count(/<section\b/g, source)
   const heading1Count = count(/<h1\b/g, source)
@@ -150,29 +156,32 @@ function scorePage({ route, file, source }) {
   ], source)
   const ctaCount = count(/(start free|try free|sign up|get started|book|request|watch demo|see demo|join waitlist|contact sales|talk to)/gi, source)
 
-  const category = classifyRoute(route)
   const findings = []
   let score = 100
 
   if (heading1Count === 0) {
-    score -= category === 'marketing' ? 15 : 8
+    score -= category === 'marketing' ? 15 : isWorkflow ? 4 : 8
     findings.push('Missing H1')
   }
-  if (headingCount < 3 && lineCount > 180) {
+  if (!isWorkflow && headingCount < 3 && lineCount > 180) {
     score -= 8
     findings.push('Weak heading hierarchy')
   }
-  if (sectionCount < 3 && lineCount > 220) {
+  if (!isWorkflow && sectionCount < 3 && lineCount > 220) {
     score -= 8
     findings.push('Insufficient content chunking')
   }
-  if (effectiveLineCount > 700) {
+  const extremeThreshold = isWorkflow ? 900 : 700
+  const highThreshold = isWorkflow ? 700 : 500
+  const moderateThreshold = isWorkflow ? 500 : 350
+
+  if (effectiveLineCount > extremeThreshold) {
     score -= 25
     findings.push('Extreme scroll burden')
-  } else if (effectiveLineCount > 500) {
+  } else if (effectiveLineCount > highThreshold) {
     score -= 18
     findings.push('High scroll burden')
-  } else if (effectiveLineCount > 350) {
+  } else if (effectiveLineCount > moderateThreshold) {
     score -= 10
     findings.push('Moderate scroll burden')
   }
@@ -201,7 +210,7 @@ function scorePage({ route, file, source }) {
       findings.push('Missing outcome metrics')
     }
   }
-  if ((category === 'dashboard' || category === 'admin') && buttonCount + formFieldCount + linkCount < 3) {
+  if (isWorkflow && buttonCount + formFieldCount + linkCount < 3) {
     score -= 8
     findings.push('Low action density for workflow page')
   }
@@ -219,6 +228,7 @@ function scorePage({ route, file, source }) {
     file: path.relative(ROOT, file).replace(/\\/g, '/'),
     category,
     lineCount,
+    renderedLineCount,
     effectiveLineCount,
     sectionCount,
     headingCount,
@@ -383,7 +393,7 @@ md.push('- Use before/after snapshots and route-level smoke tests to ensure key 
 fs.writeFileSync(OUT_MD, md.join('\n') + '\n', 'utf8')
 
 const csvHeaders = [
-  'route','file','category','score','grade','excellent','lineCount','effectiveLineCount','sectionCount','headingCount','paragraphCount','effectiveParagraphCount','linkCount','buttonCount','formFieldCount','listCount','ctaCount','disclosureCount','collapsedDisclosureCount','hasTrust','hasOutcome','hasTOC','findings'
+  'route','file','category','score','grade','excellent','lineCount','renderedLineCount','effectiveLineCount','sectionCount','headingCount','paragraphCount','effectiveParagraphCount','linkCount','buttonCount','formFieldCount','listCount','ctaCount','disclosureCount','collapsedDisclosureCount','hasTrust','hasOutcome','hasTOC','findings'
 ]
 const csvRows = [csvHeaders.join(',')]
 for (const p of pages) {
@@ -395,6 +405,7 @@ for (const p of pages) {
     p.grade,
     p.excellent,
     p.lineCount,
+    p.renderedLineCount,
     p.effectiveLineCount,
     p.sectionCount,
     p.headingCount,

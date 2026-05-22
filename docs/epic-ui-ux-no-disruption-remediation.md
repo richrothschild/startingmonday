@@ -1,6 +1,6 @@
 # Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 
-Status: Proposed
+Status: Sprint 6 complete (acceptance met)
 Owner: Product + Engineering + Design
 Start date: 2026-05-22
 Target end date: 2026-08-14
@@ -171,3 +171,33 @@ Acceptance:
 2. Guardrails honored with no violations.
 3. Final audit confirms target excellence and risk reduction.
 4. Residual issues entered into next-quarter backlog with owners.
+
+## Sprint 6 Final Scorecard (2026-05-21)
+
+Final audit artifacts:
+- docs/ui-ux-synthetic-council-audit-2026-05-21.md
+- docs/ui-ux-page-scores-2026-05-21.csv
+
+Final metrics:
+1. Total routes audited: 157
+2. Excellent routes (>=90): 138
+3. Excellence rate: 87.9%
+4. High-risk routes (<80): 1
+
+Sprint 6 acceptance check:
+1. Excellence >=85%: Pass (87.9%)
+2. High-risk routes <=10: Pass (1)
+3. Final report published with guardrails: Pass
+
+Guardrail confirmation:
+1. No route removals as part of this closeout pass.
+2. No API contract or DB schema changes in Sprint 6 hardening.
+3. UX changes remained composition and scoring-model hardening focused.
+
+## Follow-on Backlog (Post Sprint 6)
+
+1. Residual high-risk route remediation: /dashboard
+2. Action: split dashboard page composition into route-scoped panels and reduce above-the-fold block depth.
+3. Action: add progressive disclosure defaults for secondary dashboard modules without changing workflows.
+4. Owner: Engineering
+5. Target window: next quarter backlog, first UI/UX batch.

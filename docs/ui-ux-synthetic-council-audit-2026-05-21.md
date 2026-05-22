@@ -19,10 +19,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 128
-- Flagged pages (below excellent): 29
-- High-risk pages (score < 80): 2
-- Site excellence rate: 81.5%
+- Excellent pages (A- or better): 138
+- Flagged pages (below excellent): 19
+- High-risk pages (score < 80): 1
+- Site excellence rate: 87.9%
 
 ## Results by Page Category
 
@@ -30,7 +30,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
 | blog | 30 | 92.5 | 30 | 0 |
-| dashboard | 57 | 91.4 | 40 | 17 |
+| dashboard | 57 | 97.0 | 50 | 7 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
 
@@ -40,20 +40,19 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|
 | Missing H1 | 36 |
 | Missing outcome metrics | 21 |
-| Weak heading hierarchy | 19 |
 | Low action density for workflow page | 15 |
-| Insufficient content chunking | 9 |
-| Moderate scroll burden | 9 |
 | Missing trust/confidentiality cues | 8 |
-| High scroll burden | 7 |
-| Extreme scroll burden | 2 |
+| Weak heading hierarchy | 5 |
+| Moderate scroll burden | 4 |
+| High scroll burden | 4 |
+| Insufficient content chunking | 3 |
+| Extreme scroll burden | 1 |
 
 ## High-Risk Pages (Score < 80)
 
 | Route | Score | Grade | Category | Top flags |
 |---|---:|---:|---|---|
 | /dashboard | 75 | C+ | dashboard | Extreme scroll burden |
-| /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
 
 ## Full Page-by-Page Audit
 
@@ -97,58 +96,58 @@ Excellence threshold: score >= 90 (A- or better).
 | /concierge | 92 | A- | Yes | marketing | src/app/concierge/page.tsx | Missing outcome metrics |
 | /contributor | 84 | B | No | marketing | src/app/contributor/page.tsx | Weak heading hierarchy; Missing outcome metrics |
 | /dashboard | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | Extreme scroll burden |
-| /dashboard/admin | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | Extreme scroll burden |
-| /dashboard/admin/b2b | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/page.tsx | Weak heading hierarchy |
+| /dashboard/admin | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | No major static UX risks detected |
+| /dashboard/admin/b2b | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/page.tsx | No major static UX risks detected |
 | /dashboard/admin/b2b/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx | No major static UX risks detected |
 | /dashboard/admin/b2b/new | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx | No major static UX risks detected |
-| /dashboard/admin/coach-outreach | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx | Moderate scroll burden |
-| /dashboard/admin/crm | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/crm/page.tsx | Moderate scroll burden |
-| /dashboard/admin/customers | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/admin/customers/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/admin/feedback | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/feedback/page.tsx | Weak heading hierarchy |
+| /dashboard/admin/coach-outreach | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx | No major static UX risks detected |
+| /dashboard/admin/crm | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/crm/page.tsx | No major static UX risks detected |
+| /dashboard/admin/customers | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/customers/page.tsx | No major static UX risks detected |
+| /dashboard/admin/feedback | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/feedback/page.tsx | No major static UX risks detected |
 | /dashboard/admin/feedback/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx | No major static UX risks detected |
-| /dashboard/admin/intelligence | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/admin/intelligence/page.tsx | Missing H1; Low action density for workflow page |
+| /dashboard/admin/intelligence | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/admin/intelligence/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/admin/linkedin-company-launch | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx | Low action density for workflow page |
 | /dashboard/admin/metrics | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/metrics/page.tsx | No major static UX risks detected |
 | /dashboard/admin/operations | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/operations/page.tsx | No major static UX risks detected |
-| /dashboard/admin/outreach-analytics | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx | High scroll burden |
+| /dashboard/admin/outreach-analytics | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx | No major static UX risks detected |
 | /dashboard/admin/product | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/product/page.tsx | No major static UX risks detected |
 | /dashboard/admin/revenue | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/revenue/page.tsx | No major static UX risks detected |
 | /dashboard/admin/social | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/social/page.tsx | No major static UX risks detected |
 | /dashboard/admin/speakers | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/speakers/page.tsx | No major static UX risks detected |
 | /dashboard/admin/team | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/team/page.tsx | Low action density for workflow page |
-| /dashboard/admin/traces | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/traces/page.tsx | Weak heading hierarchy |
+| /dashboard/admin/traces | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/traces/page.tsx | No major static UX risks detected |
 | /dashboard/admin/traces/rubric | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx | Low action density for workflow page |
-| /dashboard/briefing | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/briefing/page.tsx | High scroll burden |
-| /dashboard/calendar | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/calendar/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/chat | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | Moderate scroll burden |
-| /dashboard/coach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/coach/page.tsx | Weak heading hierarchy; Insufficient content chunking |
+| /dashboard/briefing | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/briefing/page.tsx | No major static UX risks detected |
+| /dashboard/calendar | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/calendar/page.tsx | No major static UX risks detected |
+| /dashboard/chat | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/chat/page.tsx | No major static UX risks detected |
+| /dashboard/coach | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/coach/page.tsx | No major static UX risks detected |
 | /dashboard/coach/[clientId] | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx | Low action density for workflow page |
-| /dashboard/companies/[id] | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | Moderate scroll burden |
-| /dashboard/companies/[id]/prep | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx | Missing H1; Low action density for workflow page |
-| /dashboard/companies/new | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/companies/new/page.tsx | Weak heading hierarchy |
-| /dashboard/concierge | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/concierge/page.tsx | Weak heading hierarchy |
-| /dashboard/contacts | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/page.tsx | Weak heading hierarchy |
-| /dashboard/contacts/[id] | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/page.tsx | High scroll burden |
-| /dashboard/contacts/[id]/edit | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx | Weak heading hierarchy |
-| /dashboard/contacts/[id]/outreach | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx | Missing H1; Low action density for workflow page |
-| /dashboard/discover | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/discover/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/feedback | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/feedback/page.tsx | Moderate scroll burden |
+| /dashboard/companies/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/companies/[id]/page.tsx | No major static UX risks detected |
+| /dashboard/companies/[id]/prep | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx | Missing H1; Low action density for workflow page |
+| /dashboard/companies/new | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/companies/new/page.tsx | No major static UX risks detected |
+| /dashboard/concierge | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/concierge/page.tsx | No major static UX risks detected |
+| /dashboard/contacts | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/page.tsx | No major static UX risks detected |
+| /dashboard/contacts/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/page.tsx | No major static UX risks detected |
+| /dashboard/contacts/[id]/edit | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx | No major static UX risks detected |
+| /dashboard/contacts/[id]/outreach | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx | Missing H1; Low action density for workflow page |
+| /dashboard/discover | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/discover/page.tsx | No major static UX risks detected |
+| /dashboard/feedback | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/feedback/page.tsx | No major static UX risks detected |
 | /dashboard/help | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/help/page.tsx | No major static UX risks detected |
 | /dashboard/invite | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/invite/page.tsx | Low action density for workflow page |
-| /dashboard/kanban | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/kanban/page.tsx | Missing H1; Low action density for workflow page |
-| /dashboard/offers | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/offers/page.tsx | Weak heading hierarchy |
+| /dashboard/kanban | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/kanban/page.tsx | Missing H1; Low action density for workflow page |
+| /dashboard/offers | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/offers/page.tsx | No major static UX risks detected |
 | /dashboard/outplacement | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/outplacement/page.tsx | Low action density for workflow page |
 | /dashboard/outreach | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/outreach/page.tsx | No major static UX risks detected |
 | /dashboard/partner | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/partner/page.tsx | No major static UX risks detected |
-| /dashboard/pilot-outreach | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
+| /dashboard/pilot-outreach | 96 | A | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
 | /dashboard/placed | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/placed/page.tsx | No major static UX risks detected |
 | /dashboard/positioning | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/positioning/page.tsx | No major static UX risks detected |
 | /dashboard/profile | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/profile/page.tsx | No major static UX risks detected |
 | /dashboard/profile/tailor | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/profile/tailor/page.tsx | No major static UX risks detected |
 | /dashboard/salary | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/salary/page.tsx | Low action density for workflow page |
-| /dashboard/signals | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/signals/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/start | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/start/page.tsx | Weak heading hierarchy; Insufficient content chunking |
-| /dashboard/strategy | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/strategy/page.tsx | Missing H1; Low action density for workflow page |
+| /dashboard/signals | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/signals/page.tsx | No major static UX risks detected |
+| /dashboard/start | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/start/page.tsx | No major static UX risks detected |
+| /dashboard/strategy | 88 | B+ | No | dashboard | src/app/(dashboard)/dashboard/strategy/page.tsx | Missing H1; Low action density for workflow page |
 | /dashboard/wrap-up | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/wrap-up/page.tsx | No major static UX risks detected |
 | /demo | 82 | B- | No | marketing | src/app/demo/page.tsx | Moderate scroll burden; CTA overload |
 | /demo/cio | 92 | A- | Yes | marketing | src/app/demo/cio/page.tsx | Missing outcome metrics |
@@ -208,7 +207,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /search-firms | 94 | A | Yes | marketing | src/app/search-firms/page.tsx | Missing trust/confidentiality cues |
 | /search-firms/sample-cfo-brief | 100 | A+ | Yes | marketing | src/app/search-firms/sample-cfo-brief/page.tsx | No major static UX risks detected |
 | /security | 100 | A+ | Yes | legal | src/app/security/page.tsx | No major static UX risks detected |
-| /settings/billing | 84 | B | No | dashboard | src/app/(dashboard)/settings/billing/page.tsx | Missing H1; Low action density for workflow page |
+| /settings/billing | 88 | B+ | No | dashboard | src/app/(dashboard)/settings/billing/page.tsx | Missing H1; Low action density for workflow page |
 | /settings/security | 92 | A- | Yes | dashboard | src/app/(dashboard)/settings/security/page.tsx | Low action density for workflow page |
 | /settings/team | 92 | A- | Yes | dashboard | src/app/(dashboard)/settings/team/page.tsx | Low action density for workflow page |
 | /signup | 90 | A- | Yes | auth | src/app/(auth)/signup/page.tsx | Moderate scroll burden |

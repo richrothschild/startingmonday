@@ -10,6 +10,12 @@ Items here are validated ideas deferred from the active roadmap. Each entry incl
 
 Use this section during review to decide what Chris can own now, what to queue next, and what to defer.
 
+### Sprint 6 UI/UX Residual (New)
+
+| ID | Item | Why next | Suggested owner | Effort |
+| --- | --- | --- | --- | --- |
+| UX-R1 | Dashboard route decomposition and disclosure hardening (`/dashboard`) | Only remaining high-risk route in final Sprint 6 council audit; highest leverage to clear residual scroll burden | Chris (frontend) | M |
+
 ### Decision Rules
 
 1. Pull items that are implementation-ready and low-coupling first.
