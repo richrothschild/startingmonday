@@ -144,6 +144,15 @@ export default function ForCoachesPage() {
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
                 Early pilot signal is directional but useful: 81 percent of the Jan.-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
               </p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                Value does not stop at day 30: teams keep the same shared workflow in month two and use quarterly reviews to maintain coaching continuity.
+              </p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                When a pilot passes on prep quality and weekly signal action, coaches usually see stronger sustained client engagement because the between-session rhythm is already in place.
+              </p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                Mini-proof for long-cycle coaching: the same signal layer tracks board-level governance shifts and multiple parallel opportunities in one timeline, so strategy does not reset each month.
+              </p>
               <p className="text-[12px] text-slate-500 leading-relaxed">
                 Denominator: 27 pilot executives. Use this as decision support, then validate fit with your own 30-day pass-fail test.
               </p>
