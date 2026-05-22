@@ -50,6 +50,14 @@ function daysLeft(trialEndsAt: string | null): string {
   return `${diff}d`
 }
 
+function daysAgo(isoDate: string | undefined): string {
+  if (!isoDate) return '--'
+  const days = Math.floor((Date.now() - new Date(isoDate).getTime()) / 86_400_000)
+  if (days === 0) return 'Today'
+  if (days === 1) return '1d'
+  return `${days}d`
+}
+
 export default async function CustomersPage({
   searchParams,
 }: {
@@ -94,6 +102,49 @@ export default async function CustomersPage({
 
   const users = (allUsers ?? []) as UserRow[]
   const allStatUsers = statsUsers ?? []
+
+  // Activation score + last active per user
+  const userIds = users.map(u => u.id)
+  const since90d = new Date(Date.now() - 90 * 86_400_000).toISOString()
+  const [
+    { data: profileRows },
+    { data: companyRows },
+    { data: briefRows },
+    { data: contactRows },
+    { data: followUpRows },
+    { data: recentEventRows },
+  ] = userIds.length > 0
+    ? await Promise.all([
+        admin.from('user_profiles').select('user_id, positioning_summary, briefing_time').in('user_id', userIds),
+        admin.from('companies').select('user_id').in('user_id', userIds).is('archived_at', null),
+        admin.from('briefs').select('user_id').in('user_id', userIds).eq('type', 'prep'),
+        admin.from('contacts').select('user_id').in('user_id', userIds),
+        admin.from('follow_ups').select('user_id').in('user_id', userIds),
+        admin.from('user_events').select('user_id, created_at').in('user_id', userIds)
+          .gte('created_at', since90d).order('created_at', { ascending: false }).limit(5000),
+      ])
+    : [
+        { data: [] }, { data: [] }, { data: [] },
+        { data: [] }, { data: [] }, { data: [] },
+      ]
+
+  const hasResume   = new Set(profileRows?.filter((p: { positioning_summary: string | null }) => (p.positioning_summary?.length ?? 0) >= 100).map((p: { user_id: string }) => p.user_id) ?? [])
+  const hasBriefing = new Set(profileRows?.filter((p: { briefing_time: string | null }) => p.briefing_time).map((p: { user_id: string }) => p.user_id) ?? [])
+  const hasCompany  = new Set(companyRows?.map((r: { user_id: string }) => r.user_id) ?? [])
+  const hasBrief    = new Set(briefRows?.map((r: { user_id: string }) => r.user_id) ?? [])
+  const hasContact  = new Set(contactRows?.map((r: { user_id: string }) => r.user_id) ?? [])
+  const hasFollowUp = new Set(followUpRows?.map((r: { user_id: string }) => r.user_id) ?? [])
+
+  const lastActiveMap: Record<string, string> = {}
+  for (const e of (recentEventRows ?? []) as { user_id: string; created_at: string }[]) {
+    if (!lastActiveMap[e.user_id]) lastActiveMap[e.user_id] = e.created_at
+  }
+
+  function activationScore(uid: string): number {
+    return (hasResume.has(uid) ? 1 : 0) + (hasCompany.has(uid) ? 1 : 0) +
+           (hasBrief.has(uid) ? 1 : 0) + (hasContact.has(uid) ? 1 : 0) +
+           (hasBriefing.has(uid) ? 1 : 0) + (hasFollowUp.has(uid) ? 1 : 0)
+  }
 
   // Conversion stats
   const converted = allStatUsers.filter(u => u.subscription_status === 'active').length
@@ -241,6 +292,8 @@ export default async function CustomersPage({
                     <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400">Joined</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center hidden sm:table-cell">Score</th>
+                    <th className="px-4 py-2.5 font-semibold text-slate-400 hidden md:table-cell">Last active</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400 hidden lg:table-cell">Source</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Onboard</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Co. added</th>
@@ -267,6 +320,16 @@ export default async function CustomersPage({
                         </td>
                         <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
                           {new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </td>
+                        <td className="px-4 py-3 text-center hidden sm:table-cell">
+                          {(() => {
+                            const score = activationScore(u.id)
+                            const color = score >= 5 ? 'text-green-600' : score >= 3 ? 'text-amber-600' : 'text-slate-400'
+                            return <span className={`font-bold ${color}`}>{score}/6</span>
+                          })()}
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 hidden md:table-cell whitespace-nowrap">
+                          {daysAgo(lastActiveMap[u.id])}
                         </td>
                         <td className="px-4 py-3 text-slate-400 font-mono text-[11px] hidden lg:table-cell">
                           {u.signup_source ?? '--'}
