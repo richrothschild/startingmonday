@@ -235,8 +235,11 @@ cron.schedule('0 21 * * 0', () => runJob('ui-ux-weekly-review-job', runUiUxWeekl
 // Weekly site-wide link integrity review summary + safe auto-fix pass: Sunday 20:30 UTC
 cron.schedule('30 20 * * 0', () => runJob('link-integrity-weekly-review-job', runLinkIntegrityWeeklyReviewJob))
 
+// Pre-send outreach tone guard auto-remediation: daily at 14:45 UTC before outreach windows
+cron.schedule('45 14 * * *', () => runJob('outreach-tone-presend-job', () => runOutreachToneGuardJob('presend')))
+
 // Weekly outreach human-tone guard report: Sunday 20:45 UTC
-cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', runOutreachToneGuardJob))
+cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', () => runOutreachToneGuardJob('weekly')))
 
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
@@ -244,7 +247,7 @@ cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', runOutreach
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-guard-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

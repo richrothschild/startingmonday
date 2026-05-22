@@ -1,10 +1,15 @@
 import { config as loadEnv } from 'dotenv'
+import { readdir, readFile, writeFile } from 'node:fs/promises'
+import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 
 loadEnv({ path: '.env' })
 loadEnv({ path: '.env.local', override: true })
 
 const PASS_THRESHOLD = Number(process.env.OUTREACH_TONE_GUARD_PASS_THRESHOLD ?? 85)
+const OUTREACH_DIR = path.join(process.cwd(), 'docs', 'outreach')
+const WRITE_JSON = process.argv.includes('--write-json')
+const JSON_PATH = path.join(process.cwd(), 'docs', 'outreach-human-tone-audit.json')
 
 function words(input) {
   return (input ?? '')
@@ -62,8 +67,8 @@ const HARD_CTA_PATTERNS = [/book\s+(a\s+)?call\s+now/i, /send\s+it\s+or\s+pass/i
 
 function evaluateRow(row, duplicateCount) {
   const subject = row.subject ?? ''
-  const body = row.message_body ?? ''
-  const recipientName = (row.recipient_name ?? '').trim()
+  const body = row.body ?? ''
+  const recipientName = (row.recipientName ?? '').trim()
   const firstName = recipientName.split(/\s+/)[0]?.toLowerCase() ?? ''
 
   const metrics = []
@@ -143,80 +148,88 @@ function evaluateRow(row, duplicateCount) {
   }
 }
 
+function parseCsv(content) {
+  if (!content.trim()) return { headers: [], rows: [] }
+  const records = []
+  let row = []
+  let current = ''
+  let inQuotes = false
+
+  for (let i = 0; i < content.length; i++) {
+    const ch = content[i]
+
+    if (ch === '"') {
+      if (inQuotes && content[i + 1] === '"') {
+        current += '"'
+        i++
+      } else {
+        inQuotes = !inQuotes
+      }
+      continue
+    }
+
+    if (ch === ',' && !inQuotes) {
+      row.push(current)
+      current = ''
+      continue
+    }
+
+    if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && content[i + 1] === '\n') i++
+      row.push(current)
+      current = ''
+      if (row.some((cell) => cell.length > 0)) records.push(row)
+      row = []
+      continue
+    }
+
+    current += ch
+  }
+
+  if (current.length > 0 || row.length > 0) {
+    row.push(current)
+    if (row.some((cell) => cell.length > 0)) records.push(row)
+  }
+
+  if (records.length === 0) return { headers: [], rows: [] }
+
+  const [headers, ...lines] = records
+  const rows = lines.map((cols) => {
+    const mapped = {}
+    for (let i = 0; i < headers.length; i++) mapped[headers[i]] = cols[i] ?? ''
+    return mapped
+  })
+
+  return { headers, rows }
+}
+
+function findHeader(headers, patterns) {
+  return headers.find((h) => patterns.some((p) => p.test(h)))
+}
+
+function inferChannel(fileName, rowChannel) {
+  const lower = `${fileName} ${rowChannel ?? ''}`.toLowerCase()
+  if (lower.includes('coach')) return 'coaches'
+  if (lower.includes('outplacement')) return 'outplacement_firms'
+  if (lower.includes('search')) return 'search_firms'
+  if (lower.includes('executive')) return 'executives'
+  return rowChannel || 'unknown'
+}
+
 function isQueuedUnsentStatus(status) {
   const normalized = (status ?? '').toLowerCase().trim()
   if (!normalized) return true
   return ['pending', 'queued', 'draft', 'scheduled'].includes(normalized)
 }
 
-async function main() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-  if (!supabaseUrl || !serviceRoleKey) {
-    console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
-    process.exit(1)
-  }
-
-  const supabase = createClient(supabaseUrl, serviceRoleKey)
-
-  const pageSize = 1000
-  let from = 0
-  const allRows = []
-
-  while (true) {
-    const { data, error } = await supabase
-      .from('outreach_logs')
-      .select('id, recipient_name, recipient_email, sender_email, subject, message_body, delivery_status, outreach_channel, sent_at')
-      .is('sent_at', null)
-      .order('id', { ascending: false })
-      .range(from, from + pageSize - 1)
-
-    if (error) {
-      console.error(`Failed to fetch outreach logs: ${error.message}`)
-      process.exit(1)
-    }
-
-    const rows = data ?? []
-    allRows.push(...rows)
-    if (rows.length < pageSize) break
-    from += pageSize
-  }
-
-  const queuedRows = allRows.filter((row) => isQueuedUnsentStatus(row.delivery_status))
-
-  if (!queuedRows.length) {
-    console.log('No queued outreach rows found.')
-    return
-  }
-
-  const skeletonCount = new Map()
-  for (const row of queuedRows) {
-    const skeleton = normalizeSkeleton(row.subject ?? '', row.message_body ?? '')
-    skeletonCount.set(skeleton, (skeletonCount.get(skeleton) ?? 0) + 1)
-  }
-
-  const scored = queuedRows.map((row) => {
-    const skeleton = normalizeSkeleton(row.subject ?? '', row.message_body ?? '')
-    const duplicateCount = skeletonCount.get(skeleton) ?? 1
-    const result = evaluateRow(row, duplicateCount)
-    return {
-      id: row.id,
-      channel: row.outreach_channel ?? 'unknown',
-      status: row.delivery_status ?? 'pending',
-      recipient_email: row.recipient_email ?? '',
-      subject: row.subject ?? '',
-      ...result,
-    }
-  })
-
-  const passed = scored.filter((row) => row.passed).length
-  const failed = scored.length - passed
-  const averageScore = Number((scored.reduce((sum, row) => sum + row.score, 0) / scored.length).toFixed(1))
-  const passRate = Number(((passed / scored.length) * 100).toFixed(1))
+function summarize(scoredRows) {
+  const passed = scoredRows.filter((row) => row.passed).length
+  const failed = scoredRows.length - passed
+  const averageScore = scoredRows.length ? Number((scoredRows.reduce((sum, row) => sum + row.score, 0) / scoredRows.length).toFixed(1)) : 0
+  const passRate = scoredRows.length ? Number(((passed / scoredRows.length) * 100).toFixed(1)) : 0
 
   const byChannelMap = new Map()
-  for (const row of scored) {
+  for (const row of scoredRows) {
     const list = byChannelMap.get(row.channel) ?? []
     list.push(row)
     byChannelMap.set(row.channel, list)
@@ -228,59 +241,167 @@ async function main() {
       const channelFailed = rows.length - channelPassed
       const channelAvg = Number((rows.reduce((sum, r) => sum + r.score, 0) / rows.length).toFixed(1))
       const channelPassRate = Number(((channelPassed / rows.length) * 100).toFixed(1))
-      return {
-        channel,
-        total: rows.length,
-        passed: channelPassed,
-        failed: channelFailed,
-        averageScore: channelAvg,
-        passRate: channelPassRate,
-      }
+      return { channel, total: rows.length, passed: channelPassed, failed: channelFailed, averageScore: channelAvg, passRate: channelPassRate }
     })
     .sort((a, b) => a.averageScore - b.averageScore)
 
-  const topFails = [...scored]
-    .filter((row) => !row.passed)
-    .sort((a, b) => a.score - b.score)
-    .slice(0, 15)
+  return {
+    total: scoredRows.length,
+    passed,
+    failed,
+    averageScore,
+    passRate,
+    byChannel,
+    worst: [...scoredRows].filter((r) => !r.passed).sort((a, b) => a.score - b.score).slice(0, 20),
+  }
+}
+
+async function loadDbRows() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+  }
+
+  const supabase = createClient(supabaseUrl, serviceRoleKey)
+
+  const pageSize = 1000
+  let from = 0
+  const allRows = []
+
+  while (true) {
+    const { data, error } = await supabase
+      .from('outreach_logs')
+      .select('id, recipient_name, recipient_email, subject, message_body, delivery_status, outreach_channel, channel, sent_at')
+      .order('id', { ascending: true })
+      .range(from, from + pageSize - 1)
+
+    if (error) throw new Error(`Failed to fetch outreach logs: ${error.message}`)
+
+    const rows = data ?? []
+    allRows.push(...rows)
+    if (rows.length < pageSize) break
+    from += pageSize
+  }
+
+  return allRows.map((row) => ({
+    source: 'db',
+    id: row.id,
+    recipientName: row.recipient_name ?? '',
+    recipientEmail: row.recipient_email ?? '',
+    subject: row.subject ?? '',
+    body: row.message_body ?? '',
+    status: row.delivery_status ?? 'unknown',
+    queued: isQueuedUnsentStatus(row.delivery_status) && !row.sent_at,
+    channel: row.outreach_channel ?? row.channel ?? 'unknown',
+    file: null,
+  }))
+}
+
+async function loadCsvRows() {
+  const files = await readdir(OUTREACH_DIR)
+  const csvFiles = files.filter((name) => name.toLowerCase().endsWith('.csv'))
+
+  const rows = []
+  for (const fileName of csvFiles) {
+    const filePath = path.join(OUTREACH_DIR, fileName)
+    const raw = await readFile(filePath, 'utf8')
+    const parsed = parseCsv(raw)
+    if (!parsed.headers.length || !parsed.rows.length) continue
+
+    const subjectKey = findHeader(parsed.headers, [/subject/i])
+    const bodyKey = findHeader(parsed.headers, [/message_body/i, /email_text/i, /default_body/i, /^body$/i])
+    const nameKey = findHeader(parsed.headers, [/recipient_name/i, /full_name/i, /^name$/i])
+    const emailKey = findHeader(parsed.headers, [/recipient_email/i, /^email$/i, /email_address/i])
+    const channelKey = findHeader(parsed.headers, [/outreach_channel/i, /^channel$/i])
+
+    if (!subjectKey || !bodyKey) continue
+
+    for (let i = 0; i < parsed.rows.length; i++) {
+      const row = parsed.rows[i]
+      rows.push({
+        source: 'csv',
+        id: `${fileName}:${i + 2}`,
+        recipientName: (nameKey ? row[nameKey] : '') ?? '',
+        recipientEmail: (emailKey ? row[emailKey] : '') ?? '',
+        subject: row[subjectKey] ?? '',
+        body: row[bodyKey] ?? '',
+        status: 'csv',
+        queued: true,
+        channel: inferChannel(fileName, channelKey ? row[channelKey] : ''),
+        file: fileName,
+      })
+    }
+  }
+
+  return rows
+}
+
+function scoreRows(items) {
+  const skeletonCount = new Map()
+  for (const item of items) {
+    const skeleton = normalizeSkeleton(item.subject, item.body)
+    skeletonCount.set(skeleton, (skeletonCount.get(skeleton) ?? 0) + 1)
+  }
+
+  return items.map((item) => {
+    const skeleton = normalizeSkeleton(item.subject, item.body)
+    const duplicateCount = skeletonCount.get(skeleton) ?? 1
+    const result = evaluateRow(item, duplicateCount)
+    return { ...item, ...result }
+  })
+}
+
+async function main() {
+  const dbRows = await loadDbRows()
+  const csvRows = await loadCsvRows()
+
+  const allRows = [...dbRows, ...csvRows]
+  const scoredRows = scoreRows(allRows)
+  const summary = summarize(scoredRows)
+
+  const dbSummary = summarize(scoredRows.filter((row) => row.source === 'db'))
+  const queuedDbSummary = summarize(scoredRows.filter((row) => row.source === 'db' && row.queued))
+  const csvSummary = summarize(scoredRows.filter((row) => row.source === 'csv'))
 
   console.log(`Threshold: ${PASS_THRESHOLD}`)
-  console.log(`Queued rows scanned: ${queuedRows.length}`)
-  console.log(`Passed: ${passed}`)
-  console.log(`Failed: ${failed}`)
-  console.log(`Average score: ${averageScore}`)
-  console.log(`Pass rate: ${passRate}%`)
   console.log('')
-  console.log('By channel:')
-  for (const channel of byChannel) {
+  console.log(`ALL SOURCES: total ${summary.total}, passed ${summary.passed}, failed ${summary.failed}, avg ${summary.averageScore}, pass ${summary.passRate}%`)
+  console.log(`DB (all outreach_logs): total ${dbSummary.total}, passed ${dbSummary.passed}, failed ${dbSummary.failed}, avg ${dbSummary.averageScore}, pass ${dbSummary.passRate}%`)
+  console.log(`DB (queued unsent): total ${queuedDbSummary.total}, passed ${queuedDbSummary.passed}, failed ${queuedDbSummary.failed}, avg ${queuedDbSummary.averageScore}, pass ${queuedDbSummary.passRate}%`)
+  console.log(`CSV (docs/outreach): total ${csvSummary.total}, passed ${csvSummary.passed}, failed ${csvSummary.failed}, avg ${csvSummary.averageScore}, pass ${csvSummary.passRate}%`)
+  console.log('')
+
+  console.log('By channel (all sources):')
+  for (const channel of summary.byChannel) {
     console.log(`- ${channel.channel}: total ${channel.total}, passed ${channel.passed}, failed ${channel.failed}, avg ${channel.averageScore}, pass ${channel.passRate}%`)
   }
 
-  if (topFails.length) {
+  if (summary.worst.length) {
     console.log('')
-    console.log('Top failed rows:')
-    for (const row of topFails) {
-      console.log(`- id ${row.id} [${row.channel}] score ${row.score} (${row.recipient_email}) :: ${row.reasons.slice(0, 2).join(' | ')}`)
+    console.log('Worst failing rows (top 20):')
+    for (const row of summary.worst.slice(0, 20)) {
+      const locator = row.source === 'csv' ? row.id : `db:${row.id}`
+      console.log(`- ${locator} [${row.channel}] score ${row.score} :: ${row.reasons.slice(0, 2).join(' | ')}`)
     }
   }
 
   const report = {
     generatedAt: new Date().toISOString(),
     threshold: PASS_THRESHOLD,
-    summary: {
-      queuedRows: queuedRows.length,
-      scoredRows: scored.length,
-      passed,
-      failed,
-      averageScore,
-      passRate,
-    },
-    byChannel,
-    topFails,
+    summary,
+    dbSummary,
+    queuedDbSummary,
+    csvSummary,
+    worstFailures: summary.worst,
   }
 
-  console.log('')
-  console.log(JSON.stringify(report, null, 2))
+  if (WRITE_JSON) {
+    await writeFile(JSON_PATH, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
+    console.log('')
+    console.log(`Wrote JSON report: ${JSON_PATH}`)
+  }
 }
 
 main().catch((error) => {
