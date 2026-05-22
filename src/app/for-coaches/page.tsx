@@ -51,7 +51,7 @@ export default function ForCoachesPage() {
             Coach Partner Preview
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            <span className="block sm:whitespace-nowrap">Easily stay on top of every client in one place.</span>
+            <span className="block sm:whitespace-nowrap">Stay on top of every client in one place.</span>
             <span className="block">Clients arrive prepared.</span>
             <span className="block">You stay in strategy.</span>
           </h1>
