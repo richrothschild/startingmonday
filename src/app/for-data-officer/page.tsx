@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Chief Data Officers - Find the Companies Where Data Is Genuinely Strategic',
@@ -108,6 +109,21 @@ export default function ForDataOfficerPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <h1 className="sr-only">Starting Monday for Chief Data Officer searches</h1>
+      <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
+            <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
+            <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
+            <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
+            <a href="#start-now" className="text-slate-300 hover:text-white underline underline-offset-2">Start now</a>
+          </div>
+          <Link href="/signup" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
+            Start free trial
+          </Link>
+        </div>
+      </section>
       <LandingPage
         hero={{
           eyebrow: 'Most Chief Data Officer titles are not C-suite mandates. Find the ones that are.',

@@ -98,17 +98,17 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /evaluate,src/app/evaluate/page.tsx,marketing,74,C,false,97,2,3,4,3,0,0,0,0,true,false,false,No explicit CTA language | Missing outcome metrics
 /evidence-room,src/app/evidence-room/page.tsx,marketing,100,A+,true,128,3,1,12,7,0,0,1,1,true,true,true,No major static UX risks detected
 /feedback,src/app/feedback/page.tsx,marketing,68,C-,false,84,0,2,4,0,1,1,0,0,false,false,false,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
-/for-cdo,src/app/for-cdo/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-cdo,src/app/for-cdo/page.tsx,marketing,92,A-,true,147,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
 /for-cio,src/app/for-cio/page.tsx,marketing,100,A+,true,148,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,76,C+,false,213,5,6,15,6,0,0,1,0,false,true,true,No explicit CTA language | Missing trust/confidentiality cues
-/for-ciso,src/app/for-ciso/page.tsx,marketing,59,C-,false,131,0,0,0,0,0,0,0,0,true,false,false,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-ciso,src/app/for-ciso/page.tsx,marketing,92,A-,true,147,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
 /for-coaches,src/app/for-coaches/page.tsx,marketing,57,C-,false,802,15,10,112,24,0,0,10,0,true,true,true,Extreme scroll burden | No explicit CTA language
 /for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,78,C+,false,199,7,1,26,4,0,0,1,2,false,false,true,Weak heading hierarchy | Missing trust/confidentiality cues | Missing outcome metrics
 /for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,4,6,17,10,0,0,0,2,true,true,true,No major static UX risks detected
 /for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,74,C,false,79,3,1,6,2,0,0,2,0,true,false,false,No explicit CTA language | Missing outcome metrics
-/for-coo,src/app/for-coo/page.tsx,marketing,67,C-,false,131,0,0,0,0,0,0,0,0,true,true,false,Missing H1 | No explicit CTA language
+/for-coo,src/app/for-coo/page.tsx,marketing,100,A+,true,147,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-cpo,src/app/for-cpo/page.tsx,marketing,92,A-,true,145,1,2,0,5,0,0,0,1,true,false,true,Missing outcome metrics
-/for-data-officer,src/app/for-data-officer/page.tsx,marketing,59,C-,false,130,0,0,0,0,0,0,0,0,true,false,true,Missing H1 | No explicit CTA language | Missing outcome metrics
+/for-data-officer,src/app/for-data-officer/page.tsx,marketing,100,A+,true,146,1,2,0,5,0,0,0,1,true,true,true,No major static UX risks detected
 /for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,68,C-,false,231,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,68,C-,false,227,6,7,17,6,0,0,1,0,false,false,true,No explicit CTA language | Missing trust/confidentiality cues | Missing outcome metrics
 /for-media-partners,src/app/for-media-partners/page.tsx,marketing,86,B,false,243,6,7,20,6,0,0,1,1,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
