@@ -57,11 +57,14 @@ function checkForbidden(text) {
 function checkFirstSentence(text) {
   const lines = (text ?? '').replace(/\r\n/g, '\n').split('\n').map(l => l.trim()).filter(Boolean)
   if (lines.length < 2) return false
-  return lines[1].startsWith('I have been following')
+  const first = lines[1]
+  return first.startsWith('I have been following') || first.startsWith('You work with senior leaders')
 }
 
 function checkSubject(subject) {
-  return /^Bad idea to send a 1-page .+ conversation flow for .+\?$/.test(subject)
+  const s = (subject ?? '').trim()
+  return /^Bad idea to send a 1-page .+ conversation flow for .+\?$/.test(s)
+    || /^Quick question on .+/.test(s)
 }
 
 async function main() {

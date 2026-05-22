@@ -357,13 +357,14 @@ async function main() {
   const dbRows = await loadDbRows()
   const csvRows = await loadCsvRows()
 
-  const allRows = [...dbRows, ...csvRows]
-  const scoredRows = scoreRows(allRows)
+  const scoredDbRows = scoreRows(dbRows)
+  const scoredCsvRows = scoreRows(csvRows)
+  const scoredRows = [...scoredDbRows, ...scoredCsvRows]
   const summary = summarize(scoredRows)
 
-  const dbSummary = summarize(scoredRows.filter((row) => row.source === 'db'))
-  const queuedDbSummary = summarize(scoredRows.filter((row) => row.source === 'db' && row.queued))
-  const csvSummary = summarize(scoredRows.filter((row) => row.source === 'csv'))
+  const dbSummary = summarize(scoredDbRows)
+  const queuedDbSummary = summarize(scoredDbRows.filter((row) => row.queued))
+  const csvSummary = summarize(scoredCsvRows)
 
   console.log(`Threshold: ${PASS_THRESHOLD}`)
   console.log('')

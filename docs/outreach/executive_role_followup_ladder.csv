@@ -1,5 +1,5 @@
 role_bucket,step,send_delay_days,subject,email_text,status
-CFO,followup_1,3,Bad idea to send a 1-page CFO transition conversation flow for {company_name}?,"Hi {first_name},
+CFO,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CFO transitions.
 
@@ -9,15 +9,15 @@ In recent CFO-track transitions, first conversations improved when board languag
 
 For CFO candidates, that is where faster translation of finance credibility into board-readable transition narratives usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your CFO context.
 
-If useful, reply ""send it"" and I will send the CFO board-readiness scorecard for your CFO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CFO,followup_2,7,Bad idea to send a 1-page senior CFO transition conversation flow for {company_name}?,"Hi {first_name},
+CFO,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on CFO transitions.
 
@@ -25,27 +25,27 @@ I can also send the CFO board-readiness scorecard so you can see how the first w
 
 For CFO leaders, that is where faster translation of finance credibility into board-readable transition narratives becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the CFO board-readiness scorecard for your CFO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CFO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CFO leaders at {company_name}?,"Hi {first_name},
+CFO,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about CFO transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the CFO board-readiness scorecard so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how finance credibility becomes board-ready in the first conversation without overexplaining it.
 
-If useful, reply ""send it"" and I will send the CFO board-readiness scorecard for your CFO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CTO,followup_1,3,Bad idea to send a 1-page CTO transition conversation flow for {company_name}?,"Hi {first_name},
+CTO,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CTO transitions.
 
@@ -55,15 +55,15 @@ In recent CTO-track transitions, response quality improved when technical depth 
 
 For CTO candidates, that is where clearer architecture-to-business messaging before first stakeholder interviews usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your CTO context.
 
-If useful, reply ""send it"" and I will send the CTO architecture-to-business benchmark for your CTO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CTO,followup_2,7,Bad idea to send a 1-page senior CTO transition conversation flow for {company_name}?,"Hi {first_name},
+CTO,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on CTO transitions.
 
@@ -71,27 +71,27 @@ I can also send the CTO architecture-to-business benchmark so you can see how th
 
 For CTO leaders, that is where clearer architecture-to-business messaging before first stakeholder interviews becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the CTO architecture-to-business benchmark for your CTO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CTO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CTO leaders at {company_name}?,"Hi {first_name},
+CTO,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about CTO transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the CTO architecture-to-business benchmark so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how technical depth becomes a business-facing narrative without overexplaining it.
 
-If useful, reply ""send it"" and I will send the CTO architecture-to-business benchmark for your CTO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-COO,followup_1,3,Bad idea to send a 1-page COO transition conversation flow for {company_name}?,"Hi {first_name},
+COO,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about COO transitions.
 
@@ -101,15 +101,15 @@ In recent COO-track transitions, conversion improved when execution stories incl
 
 For COO candidates, that is where stronger execution-cadence proof in early outreach and screening calls usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your COO context.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your COO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-COO,followup_2,7,Bad idea to send a 1-page senior COO transition conversation flow for {company_name}?,"Hi {first_name},
+COO,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on COO transitions.
 
@@ -117,27 +117,27 @@ I can also send the COO sequencing and operating cadence benchmark so you can se
 
 For COO leaders, that is where stronger execution-cadence proof in early outreach and screening calls becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your COO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-COO,followup_3,12,Bad idea to send a 1-page transition conversation flow for COO leaders at {company_name}?,"Hi {first_name},
+COO,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about COO transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the COO sequencing and operating cadence benchmark so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how operating scale becomes a cleaner story of sequencing and leverage without overexplaining it.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your COO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CDO,followup_1,3,Bad idea to send a 1-page CDO transition conversation flow for {company_name}?,"Hi {first_name},
+CDO,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CDO transitions.
 
@@ -147,15 +147,15 @@ In recent executive transitions, progression improved when role-specific narrati
 
 For CDO candidates, that is where cleaner role-specific positioning supported by measurable execution evidence usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your CDO context.
 
-If useful, reply ""send it"" and I will send the role-specific benchmark sheet for your CDO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CDO,followup_2,7,Bad idea to send a 1-page senior CDO transition conversation flow for {company_name}?,"Hi {first_name},
+CDO,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on CDO transitions.
 
@@ -163,27 +163,27 @@ I can also send the role-specific benchmark sheet so you can see how the first w
 
 For CDO leaders, that is where cleaner role-specific positioning supported by measurable execution evidence becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the role-specific benchmark sheet for your CDO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CDO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CDO leaders at {company_name}?,"Hi {first_name},
+CDO,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about CDO transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the role-specific benchmark sheet so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how role depth becomes a clearer first conversation without overexplaining it.
 
-If useful, reply ""send it"" and I will send the role-specific benchmark sheet for your CDO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CISO,followup_1,3,Bad idea to send a 1-page CISO transition conversation flow for {company_name}?,"Hi {first_name},
+CISO,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about CISO transitions.
 
@@ -193,15 +193,15 @@ In recent CISO-track transitions, momentum improved when risk language was frame
 
 For CISO candidates, that is where higher-confidence risk and resilience framing for non-technical decision-makers usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your CISO context.
 
-If useful, reply ""send it"" and I will send the CISO risk narrative benchmark for your CISO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CISO,followup_2,7,Bad idea to send a 1-page senior CISO transition conversation flow for {company_name}?,"Hi {first_name},
+CISO,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on CISO transitions.
 
@@ -209,27 +209,27 @@ I can also send the CISO risk narrative benchmark so you can see how the first w
 
 For CISO leaders, that is where higher-confidence risk and resilience framing for non-technical decision-makers becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the CISO risk narrative benchmark for your CISO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-CISO,followup_3,12,Bad idea to send a 1-page transition conversation flow for CISO leaders at {company_name}?,"Hi {first_name},
+CISO,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about CISO transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the CISO risk narrative benchmark so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how security depth becomes risk language a business leader can use without overexplaining it.
 
-If useful, reply ""send it"" and I will send the CISO risk narrative benchmark for your CISO transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP,followup_1,3,Bad idea to send a 1-page VP transition conversation flow for {company_name}?,"Hi {first_name},
+VP,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about VP transitions.
 
@@ -239,15 +239,15 @@ In recent executive transitions, progression improved when role-specific narrati
 
 For VP candidates, that is where clearer next-scope readiness proof supported by concrete execution examples usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your VP context.
 
-If useful, reply ""send it"" and I will send the next-scope readiness benchmark for your VP transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP,followup_2,7,Bad idea to send a 1-page senior VP transition conversation flow for {company_name}?,"Hi {first_name},
+VP,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on VP transitions.
 
@@ -255,27 +255,27 @@ I can also send the next-scope readiness benchmark so you can see how the first 
 
 For VP leaders, that is where clearer next-scope readiness proof supported by concrete execution examples becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the next-scope readiness benchmark for your VP transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP,followup_3,12,Bad idea to send a 1-page transition conversation flow for VP leaders at {company_name}?,"Hi {first_name},
+VP,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about VP transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the next-scope readiness benchmark so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how next-scope readiness becomes something concrete instead of aspirational without overexplaining it.
 
-If useful, reply ""send it"" and I will send the next-scope readiness benchmark for your VP transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP Operations,followup_1,3,Bad idea to send a 1-page VP Operations transition conversation flow for {company_name}?,"Hi {first_name},
+VP Operations,followup_1,3,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I wanted to follow up on my earlier note about VP Operations transitions.
 
@@ -285,15 +285,15 @@ In recent COO-track transitions, conversion improved when execution stories incl
 
 For VP Operations candidates, that is where stronger execution-cadence proof in early outreach and screening calls usually shows up in the first serious conversation.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 If useful, I can send a one-page sample built around your VP Operations context.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your VP Operations transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP Operations,followup_2,7,Bad idea to send a 1-page senior VP Operations transition conversation flow for {company_name}?,"Hi {first_name},
+VP Operations,followup_2,7,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I had one more thought on VP Operations transitions.
 
@@ -301,23 +301,23 @@ I can also send the COO sequencing and operating cadence benchmark so you can se
 
 For VP Operations leaders, that is where stronger execution-cadence proof in early outreach and screening calls becomes visible in a way that is hard to fake and easy to evaluate.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your VP Operations transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
-VP Operations,followup_3,12,Bad idea to send a 1-page transition conversation flow for VP Operations leaders at {company_name}?,"Hi {first_name},
+VP Operations,followup_3,12,Quick question on executive transition workflows,"Hi {first_name},
 
 I have been following your work at {company_name}, and I am closing the loop on my note about VP Operations transitions.
 
 If timing is not right, no problem. If it is, I can send one concise example plus the COO sequencing and operating cadence benchmark so you can judge it quickly.
 
-If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+If this is not relevant right now, no worries.
 
 That is usually the cleanest way to show how operating scale becomes a cleaner story of sequencing and leverage without overexplaining it.
 
-If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your VP Operations transition context. If not relevant, reply ""pass"" and I will close this out.
+If useful, If helpful, I can send a one-page example. If not useful right now, no worries.
 
 Rich
 startingmonday.app",ready
