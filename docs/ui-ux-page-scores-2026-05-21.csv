@@ -90,7 +90,7 @@ route,file,category,score,grade,excellent,lineCount,sectionCount,headingCount,pa
 /dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,84,B,false,279,0,2,11,3,0,0,0,1,false,true,false,Weak heading hierarchy | Insufficient content chunking
 /dashboard/strategy,src/app/(dashboard)/dashboard/strategy/page.tsx,dashboard,84,B,false,32,0,0,0,0,0,0,0,0,false,false,false,Missing H1 | Low action density for workflow page
 /dashboard/wrap-up,src/app/(dashboard)/dashboard/wrap-up/page.tsx,dashboard,100,A+,true,95,0,1,4,4,1,1,0,0,false,false,false,No major static UX risks detected
-/demo,src/app/demo/page.tsx,marketing,82,B-,false,464,4,7,21,6,3,3,1,32,true,true,true,Moderate scroll burden | CTA overload
+/demo,src/app/demo/page.tsx,marketing,82,B-,false,445,4,7,19,5,3,3,1,27,true,true,true,Moderate scroll burden | CTA overload
 /demo/cio,src/app/demo/cio/page.tsx,marketing,92,A-,true,24,1,1,2,1,0,0,0,1,true,false,false,Missing outcome metrics
 /demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,92,A-,true,24,1,1,2,1,0,0,0,1,true,false,false,Missing outcome metrics
 /demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,86,B,false,314,0,3,11,5,1,2,0,4,false,true,true,Insufficient content chunking | Missing trust/confidentiality cues

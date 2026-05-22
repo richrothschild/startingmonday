@@ -246,7 +246,7 @@ export function DemoContent({
               href="/signup"
               className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
-              Get started now
+              Create account
             </Link>
           </div>
         </div>
@@ -265,7 +265,7 @@ export function DemoContent({
           </p>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-2">Trust and confidentiality: demo requests are used only to generate this brief and are not sold or shared.</p>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Outcome metric: pilots showed 81% reached first interview in 30 days (n=27).</p>
-          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">CTA: get started now and generate a company-specific prep brief.</p>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Generate one company-specific brief to review likely questions and risk points before live conversations.</p>
         </div>
 
         <section id="demo-context" className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
@@ -328,7 +328,7 @@ export function DemoContent({
               disabled={!company.trim() || !role.trim() || loading}
               className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
             >
-              {loading ? 'Generating...' : content ? 'Regenerate' : 'Get started now'}
+              {loading ? 'Generating...' : content ? 'Regenerate' : 'Generate brief'}
             </button>
             {requestStatus && <p className="text-[12px] text-slate-500">{requestStatus}</p>}
             {firstTokenSlow && <p className="text-[12px] text-slate-500">First response chunk is taking longer than usual.</p>}
@@ -393,30 +393,11 @@ export function DemoContent({
                     </button>
                   </form>
                   {emailError && <p className="mt-2 text-[12px] text-red-600">{emailError}</p>}
-                  <p className="mt-3 text-[11px] text-slate-400">Free 30-day trial. No credit card.</p>
+                  <p className="mt-3 text-[11px] text-slate-400">No credit card required.</p>
                 </div>
               </div>
             )}
 
-            {/* Post-reveal CTA */}
-            {revealed && !loading && content && (
-              <div className="mt-6 bg-slate-900 rounded px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <p className="text-[14px] font-semibold text-white mb-0.5">
-                    Get this before every interview. Build better relationships before the process gets crowded.
-                  </p>
-                  <p className="text-[12px] text-slate-400">
-                    Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you can engage earlier with stronger context and better role-fit judgment.
-                  </p>
-                </div>
-                <Link
-                  href="/signup"
-                  className="shrink-0 bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors"
-                >
-                  Start free trial &rarr;
-                </Link>
-              </div>
-            )}
           </section>
         )}
 
@@ -442,7 +423,7 @@ export function DemoContent({
                 href="/signup"
                 className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Get started now
+                Create account
               </Link>
               <p className="text-[12px] text-slate-400 sm:mt-2.5">30 days free. No credit card.</p>
             </div>
