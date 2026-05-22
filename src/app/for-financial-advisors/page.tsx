@@ -85,8 +85,17 @@ export default function ForFinancialAdvisorsPage() {
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
 
+            <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+              <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+                <a href="#advisor-fit" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Advisor fit</a>
+                <a href="#advisor-playbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Advisor playbook</a>
+                <a href="#practice" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">For your practice</a>
+              </div>
+            </section>
+
             {/* What it is */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="advisor-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
                 Starting Monday is an AI-powered job search platform built for VP and C-suite executives.
@@ -128,17 +137,22 @@ export default function ForFinancialAdvisorsPage() {
             </section>
 
             {/* How advisors use it */}
-            <section className="space-y-6">
+            <section id="advisor-playbook" className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How financial advisors use it</h2>
               <div className="space-y-8">
                 {FEATURES.map(f => (
-                  <div key={f.name} className="border-l-2 border-orange-500 pl-5">
-                    <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
-                    <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forAdvisor}</p>
-                    <p className="text-[13px] text-slate-500 leading-relaxed">
-                      <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
-                    </p>
-                  </div>
+                  <details key={f.name} className="border-l-2 border-orange-500 pl-5 group" open>
+                    <summary className="list-none cursor-pointer flex items-center justify-between">
+                      <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600">{f.name}</p>
+                      <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
+                    </summary>
+                    <div className="mt-2">
+                      <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forAdvisor}</p>
+                      <p className="text-[13px] text-slate-500 leading-relaxed">
+                        <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
+                      </p>
+                    </div>
+                  </details>
                 ))}
               </div>
             </section>
@@ -159,7 +173,7 @@ export default function ForFinancialAdvisorsPage() {
             </section>
 
             {/* For your practice */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="practice" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">For your practice</h2>
               <p>
                 The simplest way to start: recommend Starting Monday to your next client who is

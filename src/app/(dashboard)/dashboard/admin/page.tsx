@@ -492,6 +492,16 @@ export default async function AdminPage() {
           )}
         </div>
 
+        <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
+            <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
+            <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
+            <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+          </div>
+        </section>
+
         <div className="mb-8">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -635,7 +645,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Subscriber summary */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           {[
             { label: 'Total users',   value: totalUsers    ?? 0 },
             { label: 'Active (paid)', value: paidUsers     ?? 0 },
@@ -650,7 +660,7 @@ export default async function AdminPage() {
         </div>
 
         {/* System health */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <div id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
           <div className="flex items-center gap-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
@@ -685,7 +695,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Internal pages + permissions */}
-        <div className="space-y-4 mb-6">
+        <div id="internal-pages" className="space-y-4 mb-6">
           {PAGE_GROUPS.map((group) => (
             <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
               <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
@@ -970,7 +980,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Partners */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <div id="partners" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Partners ({partners.length})</span>
           </div>

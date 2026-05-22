@@ -607,6 +607,16 @@ export default async function DashboardPage({
             </p>
         </div>
 
+        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#start-here" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start here</a>
+            <a href="#momentum-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Momentum</a>
+            <a href="#quick-actions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Quick actions</a>
+            <a href="#pipeline" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pipeline</a>
+          </div>
+        </section>
+
         <div className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</p>
@@ -624,7 +634,7 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+        <div id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <div className="flex-1 min-w-0">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</p>
             <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
@@ -821,7 +831,7 @@ export default async function DashboardPage({
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div id="momentum-overview" className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           {stats.map(({ value, label, alert, amber, href }) => {
             const inner = (
               <>
@@ -1134,7 +1144,7 @@ export default async function DashboardPage({
 
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-2">
+        <div id="quick-actions" className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-2">
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
