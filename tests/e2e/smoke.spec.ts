@@ -16,6 +16,21 @@ test('dashboard loads and shows pipeline', async ({ page }) => {
   await expect(page.getByText('Company Pipeline')).toBeVisible()
 })
 
+test('outreach coach compose pane renders latest hard-edged marker', async ({ page }) => {
+  await skipIfAuthUnavailable(page)
+  await page.goto('/dashboard/outreach')
+  await expect(page.getByRole('heading', { name: 'Outreach Hub' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Coaches', exact: true }).click()
+
+  const coachRows = page.locator('button').filter({ hasText: 'Review and send on right' })
+  const coachCount = await coachRows.count()
+  test.skip(coachCount === 0, 'Skipping coach outreach assertion: no coach queue rows available in this environment')
+
+  await coachRows.first().click()
+  await expect(page.getByLabel('Email message')).toHaveValue(/hard-edged execution layer/)
+})
+
 // ─── Companies ───────────────────────────────────────────────────────────────
 
 test('add company appears in pipeline then can be archived', async ({ page }) => {
