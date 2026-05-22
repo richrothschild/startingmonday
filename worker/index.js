@@ -29,6 +29,7 @@ import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
 import { runSocialPostJob } from './jobs/social-post-job.js'
 import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
 import { runLeadScoringJob } from './jobs/lead-scoring-job.js'
+import { runUiUxWeeklyReviewJob } from './jobs/ui-ux-weekly-review-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -226,13 +227,16 @@ cron.schedule('35 8 * * 5', () => runJob('social-post-job', runSocialPostJob), {
 // LinkedIn engagement sync — runs daily at 6pm CT to pull latest likes/comments
 cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLinkedInEngagementJob), { timezone: 'America/Chicago' })
 
+// Weekly site-wide UI/UX council review summary: Sunday 21:00 UTC
+cron.schedule('0 21 * * 0', () => runJob('ui-ux-weekly-review-job', runUiUxWeeklyReviewJob))
+
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
 // Logs warnings to Railway for any demo data gaps — does not block startup.
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'ui-ux-weekly-review-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
