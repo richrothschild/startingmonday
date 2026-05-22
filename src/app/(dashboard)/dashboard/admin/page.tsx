@@ -695,7 +695,11 @@ export default async function AdminPage() {
         </section>
 
         {/* Internal pages + permissions */}
-        <section id="internal-pages" className="space-y-4 mb-6">
+        <details id="internal-pages" className="space-y-4 mb-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            Internal pages + permissions
+          </summary>
+          <div className="pt-4 space-y-4">
           {PAGE_GROUPS.map((group) => (
             <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
               <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
@@ -736,13 +740,15 @@ export default async function AdminPage() {
               </table>
             </div>
           ))}
-        </section>
+          </div>
+        </details>
 
         {/* Internal APIs + permissions */}
-        <section id="internal-apis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal APIs</h2>
-          </div>
+        <details id="internal-apis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Internal APIs + permissions
+          </summary>
+          <div>
           <table className="w-full text-[12px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -766,7 +772,8 @@ export default async function AdminPage() {
               ))}
             </tbody>
           </table>
-        </section>
+          </div>
+        </details>
 
         {/* Six-actions funnel */}
         <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
@@ -896,10 +903,11 @@ export default async function AdminPage() {
         </section>
 
         {/* Active trial users */}
-        <section id="active-trials" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Active Trials ({trialUsers.length})</h2>
-          </div>
+        <details id="active-trials" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Active Trials ({trialUsers.length})
+          </summary>
+          <div>
           {trialUsers.length === 0 ? (
             <p className="px-6 py-5 text-[13px] text-slate-400">No active trials.</p>
           ) : (
@@ -943,10 +951,13 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </section>
+          </div>
+        </details>
 
         {/* Signal → action rate */}
-        <section id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
+          <div className="pt-4">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</h2>
           <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
           {signalRows.length === 0 ? (
@@ -977,13 +988,15 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </section>
+          </div>
+        </details>
 
         {/* Partners */}
-        <section id="partners" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Partners ({partners.length})</h2>
-          </div>
+        <details id="partners" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Partners ({partners.length})
+          </summary>
+          <div>
           {partners.length === 0 ? (
             <p className="px-6 py-5 text-[13px] text-slate-400">No partners yet.</p>
           ) : (
@@ -1019,14 +1032,16 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </section>
+          </div>
+        </details>
 
         {/* B2B Accounts */}
         {b2bAccounts.length > 0 && (
-          <section id="b2b-accounts" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">B2B Accounts ({b2bAccounts.length})</h2>
-            </div>
+          <details id="b2b-accounts" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+              B2B Accounts ({b2bAccounts.length})
+            </summary>
+            <div>
             <table className="w-full text-[12px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -1049,15 +1064,17 @@ export default async function AdminPage() {
                 ))}
               </tbody>
             </table>
-          </section>
+            </div>
+          </details>
         )}
 
         {/* Placements */}
         {placements.length > 0 && (
-          <section id="placements" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Placements ({placements.length})</h2>
-            </div>
+          <details id="placements" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+              Placements ({placements.length})
+            </summary>
+            <div>
             <table className="w-full text-[12px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -1078,11 +1095,14 @@ export default async function AdminPage() {
                 ))}
               </tbody>
             </table>
-          </section>
+            </div>
+          </details>
         )}
 
         {/* Brief quality */}
-        <section id="brief-quality" className="bg-white border border-slate-200 rounded p-6">
+        <details id="brief-quality" className="bg-white border border-slate-200 rounded p-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Brief Quality (30d)</summary>
+          <div className="pt-4">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</h2>
           <p className="text-[12px] text-slate-400 mb-5">Context richness at generation time (n={logs.length})</p>
           {logs.length === 0 ? (
@@ -1103,7 +1123,8 @@ export default async function AdminPage() {
               ))}
             </div>
           )}
-        </section>
+          </div>
+        </details>
 
       </main>
     </div>

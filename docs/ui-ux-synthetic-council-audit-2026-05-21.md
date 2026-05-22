@@ -18,10 +18,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 125
-- Flagged pages (below excellent): 32
-- High-risk pages (score < 80): 4
-- Site excellence rate: 79.6%
+- Excellent pages (A- or better): 126
+- Flagged pages (below excellent): 31
+- High-risk pages (score < 80): 3
+- Site excellence rate: 80.3%
 
 ## Results by Page Category
 
@@ -29,7 +29,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
 | blog | 30 | 92.2 | 29 | 1 |
-| dashboard | 57 | 90.7 | 38 | 19 |
+| dashboard | 57 | 91.1 | 39 | 18 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
 
@@ -45,7 +45,7 @@ Excellence threshold: score >= 90 (A- or better).
 | Missing trust/confidentiality cues | 8 |
 | Moderate scroll burden | 8 |
 | High scroll burden | 7 |
-| Extreme scroll burden | 4 |
+| Extreme scroll burden | 3 |
 
 ## High-Risk Pages (Score < 80)
 
@@ -54,7 +54,6 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/admin | 75 | C+ | dashboard | Extreme scroll burden |
 | /dashboard/companies/[id] | 75 | C+ | dashboard | Extreme scroll burden |
-| /dashboard/profile | 75 | C+ | dashboard | Extreme scroll burden |
 
 ## Full Page-by-Page Audit
 
@@ -144,7 +143,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /dashboard/pilot-outreach | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/pilot-outreach/page.tsx | Missing H1 |
 | /dashboard/placed | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/placed/page.tsx | No major static UX risks detected |
 | /dashboard/positioning | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/positioning/page.tsx | No major static UX risks detected |
-| /dashboard/profile | 75 | C+ | No | dashboard | src/app/(dashboard)/dashboard/profile/page.tsx | Extreme scroll burden |
+| /dashboard/profile | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/profile/page.tsx | No major static UX risks detected |
 | /dashboard/profile/tailor | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/profile/tailor/page.tsx | No major static UX risks detected |
 | /dashboard/salary | 92 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/salary/page.tsx | Low action density for workflow page |
 | /dashboard/signals | 84 | B | No | dashboard | src/app/(dashboard)/dashboard/signals/page.tsx | Weak heading hierarchy; Insufficient content chunking |
