@@ -16,6 +16,44 @@ test('dashboard loads and shows pipeline', async ({ page }) => {
   await expect(page.getByText('Company Pipeline')).toBeVisible()
 })
 
+test('outreach coach compose pane renders latest hard-edged marker', async ({ page }) => {
+  await skipIfAuthUnavailable(page)
+  await page.goto('/dashboard/outreach')
+  await expect(page.getByRole('heading', { name: 'Outreach Hub' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Coaches', exact: true }).click()
+
+  const coachRows = page.locator('button').filter({ hasText: 'Review and send on right' })
+  const coachCount = await coachRows.count()
+  test.skip(coachCount === 0, 'Skipping coach outreach assertion: no coach queue rows available in this environment')
+
+  await coachRows.first().click()
+  await expect(page.getByLabel('Email message')).toHaveValue(/hard-edged execution layer/)
+})
+
+test('outreach compose pane shows latest markers for executives coaches and search firms', async ({ page }) => {
+  await skipIfAuthUnavailable(page)
+  await page.goto('/dashboard/outreach')
+  await expect(page.getByRole('heading', { name: 'Outreach Hub' })).toBeVisible()
+
+  const channels: Array<{ label: 'Executives' | 'Coaches' | 'Search Firms'; marker: RegExp }> = [
+    { label: 'Executives', marker: /If this is ignored, the cost is usually|reply "send it"/ },
+    { label: 'Coaches', marker: /hard-edged execution layer/ },
+    { label: 'Search Firms', marker: /mandate mix|reply "send it"/ },
+  ]
+
+  for (const channel of channels) {
+    await page.getByRole('button', { name: channel.label, exact: true }).click()
+
+    const rows = page.locator('button').filter({ hasText: 'Review and send on right' })
+    const count = await rows.count()
+    if (count === 0) continue
+
+    await rows.first().click()
+    await expect(page.getByLabel('Email message')).toHaveValue(channel.marker)
+  }
+})
+
 // ─── Companies ───────────────────────────────────────────────────────────────
 
 test('add company appears in pipeline then can be archived', async ({ page }) => {

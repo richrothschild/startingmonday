@@ -1,5 +1,8 @@
-import 'dotenv/config'
+import { config as loadEnv } from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
+
+loadEnv({ path: '.env' })
+loadEnv({ path: '.env.local', override: true })
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -11,30 +14,36 @@ if (!supabaseUrl || !serviceRoleKey) {
 
 const supabase = createClient(supabaseUrl, serviceRoleKey)
 
-function ensureDomainBelowName(text) {
-  const normalized = (text ?? '').toString().replace(/\r\n/g, '\n')
-  if (!normalized.trim()) return { value: normalized, changed: false }
+function normalizeSignature(text) {
+  let normalized = (text ?? '').toString().replace(/\r\n/g, '\n').trim()
+  if (!normalized) return { value: normalized, changed: false }
 
-  const lines = normalized.split('\n')
-  const nameLines = new Set(['rich', 'rich rothschild', 'richard rothschild'])
-  const out = []
-  let changed = false
+  normalized = normalized
+    .replace(/\n*---\nStarting Monday\nIf you prefer no further outreach, reply with "unsubscribe" and I will stop\.\s*$/i, '')
+    .trim()
 
-  for (let i = 0; i < lines.length; i++) {
-    const current = lines[i]
-    const currentNorm = current.trim().toLowerCase()
-    out.push(current)
+  const trailingSignaturePatterns = [
+    /\n*Best,?\s*\n\s*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Best,?\s*\n\s*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*startingmonday\.app\s*$/i,
+  ]
 
-    if (nameLines.has(currentNorm)) {
-      const nextNorm = (lines[i + 1] ?? '').trim().toLowerCase()
-      if (nextNorm !== 'startingmonday.app') {
-        out.push('startingmonday.app')
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const pattern of trailingSignaturePatterns) {
+      const next = normalized.replace(pattern, '').trim()
+      if (next !== normalized) {
+        normalized = next
         changed = true
       }
     }
   }
 
-  return { value: out.join('\n'), changed }
+  const value = `${normalized}\n\nRich\nstartingmonday.app`
+  return { value, changed: value !== (text ?? '').toString().replace(/\r\n/g, '\n').trim() }
 }
 
 async function main() {
@@ -62,7 +71,7 @@ async function main() {
     scanned += rows.length
 
     for (const row of rows) {
-      const { value, changed: rowChanged } = ensureDomainBelowName(row.message_body)
+      const { value, changed: rowChanged } = normalizeSignature(row.message_body)
       if (!rowChanged) continue
 
       const nextPreview = value.slice(0, 200)

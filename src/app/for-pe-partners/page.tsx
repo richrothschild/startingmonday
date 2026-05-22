@@ -80,6 +80,16 @@ export default function ForPePartnersPage() {
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
 
+            <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+              <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+                <a href="#timeline-problem" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Timeline problem</a>
+                <a href="#partner-usage" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">How partners use it</a>
+                <a href="#network" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive network</a>
+                <a href="#partner-cta" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Get started</a>
+              </div>
+            </section>
+
             {/* What it is */}
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
@@ -98,7 +108,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* The gap */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="timeline-problem" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">The timeline problem</h2>
               <p>
                 A portfolio company technology leadership gap has a direct cost. Every week without
@@ -116,10 +126,13 @@ export default function ForPePartnersPage() {
                 Starting Monday does not replace the search firm. It gives the executive the
                 preparation infrastructure to show up as the right person when the moment comes.
               </p>
+              <p className="text-[13px] text-slate-500">
+                Evidence cue: compressing first-round decision quality reduces avoidable mandate resets.
+              </p>
             </section>
 
             {/* How operating partners use it */}
-            <section className="space-y-6">
+            <section id="partner-usage" className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How operating partners use it</h2>
               <div className="space-y-8">
                 {FEATURES.map(f => (
@@ -135,7 +148,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* For your network */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="network" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">For your executive network</h2>
               <p>
                 PE operating partners typically maintain relationships with 20 to 50 senior technology
@@ -163,7 +176,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* Apply CTA */}
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
+            <section id="partner-cta" className="bg-slate-50 border border-slate-200 rounded-lg p-7">
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
                 Ready to partner?
               </p>
@@ -177,7 +190,7 @@ export default function ForPePartnersPage() {
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                Apply now &rarr;
+                Get started now &rarr;
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}

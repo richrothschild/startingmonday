@@ -41,6 +41,8 @@ function toHtml(text: string): string {
 
 function withComplianceFooter(messageText: string): string {
   const trimmed = messageText.trim()
+    .replace(/\n*---\nStarting Monday\nIf you prefer no further outreach, reply with "unsubscribe" and I will stop\.\s*$/i, '')
+    .trim()
   return [
     trimmed,
     '',
@@ -51,19 +53,32 @@ function withComplianceFooter(messageText: string): string {
 }
 
 function ensureSignatureLine(messageText: string): string {
-  const normalized = messageText.replace(/\r\n/g, '\n').trim()
+  let normalized = messageText.replace(/\r\n/g, '\n').trim()
   if (!normalized) return normalized
 
-  if (normalized.includes('\nRich\nstartingmonday.app')) {
-    return normalized
-  }
+  // Remove any existing compliance footer so we only add one canonical footer later.
+  normalized = normalized
+    .replace(/\n*---\nStarting Monday\nIf you prefer no further outreach, reply with "unsubscribe" and I will stop\.\s*$/i, '')
+    .trim()
 
-  if (normalized.endsWith('\nRich')) {
-    return `${normalized}\nstartingmonday.app`
-  }
+  const trailingSignaturePatterns = [
+    /\n*Best,?\s*\n\s*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Best,?\s*\n\s*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*startingmonday\.app\s*$/i,
+  ]
 
-  if (normalized.endsWith('Rich')) {
-    return `${normalized}\nstartingmonday.app`
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const pattern of trailingSignaturePatterns) {
+      const next = normalized.replace(pattern, '').trim()
+      if (next !== normalized) {
+        normalized = next
+        changed = true
+      }
+    }
   }
 
   return `${normalized}\n\nRich\nstartingmonday.app`

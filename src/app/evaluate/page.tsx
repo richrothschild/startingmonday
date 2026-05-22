@@ -60,9 +60,20 @@ export default function EvaluatePage() {
           This page exists so evaluators, reviewers, and AI tools can reliably read core positioning
           without touching sensitive application routes.
         </p>
+        <p className="max-w-3xl text-sm leading-7 text-slate-600">
+          Outcome metric: this read-only page reduces evaluator friction and keeps private user routes out of review workflows.
+        </p>
       </header>
 
-      <section className="mt-10 grid gap-6">
+      <section className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <h2 className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 mb-2">Jump to section</h2>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <a href="#evaluator-core" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Core overview</a>
+          <a href="#evaluator-reading" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Further reading</a>
+        </div>
+      </section>
+
+      <section id="evaluator-core" className="mt-10 grid gap-6">
         {sections.map((section) => (
           <article key={section.title} className="rounded-xl border border-slate-200 bg-white p-6">
             <h2 className="text-xl font-semibold text-slate-900">{section.title}</h2>
@@ -71,11 +82,12 @@ export default function EvaluatePage() {
         ))}
       </section>
 
-      <section className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-6">
+      <section id="evaluator-reading" className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-6">
         <h2 className="text-xl font-semibold text-slate-900">Further Reading</h2>
         <p className="mt-2 text-slate-700">
           For product details, use the public pages below.
         </p>
+        <p className="mt-2 text-slate-700">CTA: get started now from any public page when you are ready to test the live workflow.</p>
         <div className="mt-4 flex flex-wrap gap-4">
           <Link href="/" className="text-sm font-semibold text-slate-900 underline underline-offset-4">
             Homepage

@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -300,11 +300,11 @@ export default async function AdminPage() {
       note: briefingViewers14d.size > 0 ? `Viewers n=${briefingViewers14d.size}` : 'No briefing viewers in window',
     },
     {
-      label: 'Monitor retention (30d)',
+      label: 'Intelligence retention (30d)',
       threshold: '>= 70%',
       value: monitorRetention30d === null ? 'N/A' : `${monitorRetention30d}%`,
       status: monitorRetention30d === null ? 'gray' : monitorRetention30d >= 70 ? 'green' : monitorRetention30d >= 60 ? 'yellow' : 'red',
-      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Monitor cohort yet',
+      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Intelligence cohort yet',
     },
     {
       label: 'Upgrade pull (30d)',
@@ -423,7 +423,7 @@ export default async function AdminPage() {
       rate: ended > 0 ? Math.round((converted / ended) * 100) : 0,
     }))
 
-  // Signal → action rate by signal type
+  // Signal to action rate by signal type
   const actedSignalIds = new Set((signalActions ?? []).map(a => a.signal_id).filter((id): id is string => id !== null))
   const signalTypeCounts: Record<string, { total: number; acted: number }> = {}
   for (const s of (allSignals ?? []) as { id: string; signal_type: string }[]) {
@@ -470,7 +470,7 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Dashboard</Link>
           </div>
         </div>
       </header>
@@ -491,6 +491,16 @@ export default async function AdminPage() {
             </Link>
           )}
         </div>
+
+        <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
+            <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
+            <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
+            <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+          </div>
+        </section>
 
         <div className="mb-8">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
@@ -536,7 +546,7 @@ export default async function AdminPage() {
           </div>
           <div className="mt-3">
             <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> • view runbooks
+              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
@@ -607,10 +617,10 @@ export default async function AdminPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="go-no-go" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</p>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</h2>
               <p className="text-[12px] text-slate-400 mt-1">Auto-evaluated from current measurable thresholds.</p>
             </div>
             <div className={`text-[12px] font-bold px-3 py-1.5 rounded border ${statusClass(decision.status)}`}>
@@ -632,10 +642,10 @@ export default async function AdminPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Subscriber summary */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           {[
             { label: 'Total users',   value: totalUsers    ?? 0 },
             { label: 'Active (paid)', value: paidUsers     ?? 0 },
@@ -647,10 +657,10 @@ export default async function AdminPage() {
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
-        </div>
+        </section>
 
         {/* System health */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
           <div className="flex items-center gap-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
@@ -666,13 +676,13 @@ export default async function AdminPage() {
               <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Team summary */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <section id="team-summary" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</span>
-            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage →</Link>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
+            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage Team</Link>
           </div>
           <div className="divide-y divide-slate-50">
             {teamMembers.map(m => (
@@ -682,10 +692,14 @@ export default async function AdminPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Internal pages + permissions */}
-        <div className="space-y-4 mb-6">
+        <details id="internal-pages" className="space-y-4 mb-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            Internal pages + permissions
+          </summary>
+          <div className="pt-4 space-y-4">
           {PAGE_GROUPS.map((group) => (
             <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
               <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
@@ -726,13 +740,15 @@ export default async function AdminPage() {
               </table>
             </div>
           ))}
-        </div>
+          </div>
+        </details>
 
         {/* Internal APIs + permissions */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal APIs</span>
-          </div>
+        <details id="internal-apis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Internal APIs + permissions
+          </summary>
+          <div>
           <table className="w-full text-[12px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -756,11 +772,12 @@ export default async function AdminPage() {
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </details>
 
         {/* Six-actions funnel */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</div>
+        <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</h2>
           <p className="text-[12px] text-slate-400 mb-6">Trialing + active users (n={activeUserIds.size})</p>
           <FunnelChart data={funnelData} />
           <table className="w-full mt-4 text-[12px]">
@@ -781,11 +798,11 @@ export default async function AdminPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
 
         {/* Event volume */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</div>
+        <section id="event-volume" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</h2>
           <p className="text-[12px] text-slate-400 mb-6">7d counts in right column</p>
           {eventVolumeData.length === 0 ? (
             <p className="text-[13px] text-slate-400">No events yet.</p>
@@ -812,11 +829,11 @@ export default async function AdminPage() {
               </table>
             </>
           )}
-        </div>
+        </section>
 
         {/* Trial conversion */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</div>
+        <section id="trial-conversion" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</h2>
           <p className="text-[12px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
           <div className={`mb-5 border rounded p-4 ${linkedInAdsGatePass ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'}`}>
             <div className="flex items-center justify-between gap-3 mb-1">
@@ -883,13 +900,14 @@ export default async function AdminPage() {
               )}
             </>
           )}
-        </div>
+        </section>
 
         {/* Active trial users */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Active Trials ({trialUsers.length})</span>
-          </div>
+        <details id="active-trials" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Active Trials ({trialUsers.length})
+          </summary>
+          <div>
           {trialUsers.length === 0 ? (
             <p className="px-6 py-5 text-[13px] text-slate-400">No active trials.</p>
           ) : (
@@ -933,11 +951,14 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </div>
+          </div>
+        </details>
 
-        {/* Signal → action rate */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</div>
+        {/* Signal to action rate */}
+        <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
+          <div className="pt-4">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
           <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
           {signalRows.length === 0 ? (
             <p className="text-[13px] text-slate-400">No signals yet.</p>
@@ -967,13 +988,15 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </div>
+          </div>
+        </details>
 
         {/* Partners */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Partners ({partners.length})</span>
-          </div>
+        <details id="partners" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+            Partners ({partners.length})
+          </summary>
+          <div>
           {partners.length === 0 ? (
             <p className="px-6 py-5 text-[13px] text-slate-400">No partners yet.</p>
           ) : (
@@ -1009,14 +1032,16 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </div>
+          </div>
+        </details>
 
         {/* B2B Accounts */}
         {b2bAccounts.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">B2B Accounts ({b2bAccounts.length})</span>
-            </div>
+          <details id="b2b-accounts" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+              B2B Accounts ({b2bAccounts.length})
+            </summary>
+            <div>
             <table className="w-full text-[12px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -1039,15 +1064,17 @@ export default async function AdminPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
+          </details>
         )}
 
         {/* Placements */}
         {placements.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Placements ({placements.length})</span>
-            </div>
+          <details id="placements" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
+              Placements ({placements.length})
+            </summary>
+            <div>
             <table className="w-full text-[12px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100 text-left">
@@ -1068,12 +1095,15 @@ export default async function AdminPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
+          </details>
         )}
 
         {/* Brief quality */}
-        <div className="bg-white border border-slate-200 rounded p-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</div>
+        <details id="brief-quality" className="bg-white border border-slate-200 rounded p-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Brief Quality (30d)</summary>
+          <div className="pt-4">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</h2>
           <p className="text-[12px] text-slate-400 mb-5">Context richness at generation time (n={logs.length})</p>
           {logs.length === 0 ? (
             <p className="text-[13px] text-slate-400">No briefs logged yet.</p>
@@ -1093,7 +1123,8 @@ export default async function AdminPage() {
               ))}
             </div>
           )}
-        </div>
+          </div>
+        </details>
 
       </main>
     </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
@@ -136,6 +137,29 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="sr-only">Starting Monday executive search intelligence platform</h1>
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
+            <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
+            <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
+            <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
+            <a href="#faq" className="text-slate-300 hover:text-white underline underline-offset-2">FAQ</a>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/signup" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
+              Get started free
+            </Link>
+            <Link href="/method-and-evidence" className="inline-block text-[12px] font-semibold text-slate-200 border border-slate-700 px-4 py-1.5 rounded hover:border-slate-500 transition-colors">
+              Review method and evidence
+            </Link>
+          </div>
+          <p className="text-[12px] text-slate-400 mt-3 leading-relaxed">
+            Confidential by default. Outcome focus: earlier signal detection, better prep quality, and stronger first-conversation timing.
+          </p>
+        </div>
+      </section>
       <LandingPage
         hero={{
           eyebrow: 'The search doesn\'t start when you decide to search. It starts weeks or months earlier. Most searches are shaped before the posting exists.',

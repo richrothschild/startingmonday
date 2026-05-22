@@ -81,7 +81,7 @@ export default async function PartnerDashboardPage() {
   })).sort((a, b) => new Date(b.joinedDate).getTime() - new Date(a.joinedDate).getTime())
 
   const tierLabel: Record<string, string> = {
-    passive: 'Monitor', active: 'Active', executive: 'Executive', free: 'Free',
+    passive: 'Intelligence', active: 'Active', executive: 'Executive', free: 'Free',
   }
   const statusColor: Record<string, string> = {
     active: 'bg-green-50 text-green-700',
@@ -114,7 +114,7 @@ export default async function PartnerDashboardPage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Partner Dashboard</p>
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Partner Dashboard</h2>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Welcome, {partner.name.split(' ')[0]}.</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
             Partner since {new Date(partner.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.
@@ -122,8 +122,34 @@ export default async function PartnerDashboardPage() {
           </p>
         </div>
 
+        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#partner-stats" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Stats</a>
+            <a href="#partner-referral-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Referral link</a>
+            <a href="#partner-subscribers" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
+            <a href="#partner-commission" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Commission model</a>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+          <h2 className="sr-only">Quick actions</h2>
+          <Link href="/partners#apply" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Partnership terms</p>
+            <p className="text-[12px] text-slate-500 mt-1">Review partner program details and commission rules.</p>
+          </Link>
+          <Link href="/dashboard/admin/customers" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open customers</p>
+            <p className="text-[12px] text-slate-500 mt-1">Inspect converted subscribers and plan mix.</p>
+          </Link>
+          <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Back to dashboard</p>
+            <p className="text-[12px] text-slate-500 mt-1">Return to your main campaign workspace.</p>
+          </Link>
+        </section>
+
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <section id="partner-stats" className="grid grid-cols-3 gap-4 mb-8">
           {[
             { label: 'Total referred',       value: String(totalReferred) },
             { label: 'Active subscribers',   value: String(activeSubscribers.length) },
@@ -134,7 +160,7 @@ export default async function PartnerDashboardPage() {
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
-        </div>
+        </section>
 
         {/* Coach seats */}
         <SeatPurchase
@@ -143,8 +169,8 @@ export default async function PartnerDashboardPage() {
         />
 
         {/* Referral link */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Your referral link</p>
+        <section id="partner-referral-link" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Your referral link</h2>
           <div className="flex items-center gap-3 flex-wrap">
             <code className="flex-1 text-[13px] bg-slate-50 border border-slate-200 rounded px-4 py-2.5 text-slate-700 font-mono min-w-0 truncate">
               {referralLink}
@@ -156,17 +182,17 @@ export default async function PartnerDashboardPage() {
           <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
             Share this link with your clients. When they sign up and convert to a paid plan, you earn {partner.commission_pct}% of their monthly subscription for as long as they remain active.
           </p>
-        </div>
+        </section>
 
         {/* Export CSV button */}
         <ExportCsvButton rows={csvRows} />
 
         {/* Subscriber table */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <section id="partner-subscribers" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Referred Subscribers ({totalReferred})
-            </span>
+            </h2>
           </div>
           {displayRows.length === 0 ? (
             <p className="px-6 py-8 text-[13px] text-slate-400">
@@ -206,17 +232,17 @@ export default async function PartnerDashboardPage() {
               </tbody>
             </table>
           )}
-        </div>
+        </section>
 
         {/* Commission explanation */}
-        <div className="bg-white border border-slate-200 rounded p-6">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">How commissions work</p>
+        <section id="partner-commission" className="bg-white border border-slate-200 rounded p-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">How commissions work</h2>
           <div className="flex flex-col gap-2">
             {[
               'Share your referral link with executives you work with.',
               `When they sign up and start a paid subscription, you earn ${partner.commission_pct}% of their monthly fee.`,
               'Commissions are calculated on the 1st of each month and paid via Stripe.',
-              'Monitor tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
+              'Intelligence tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
               'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">
@@ -225,7 +251,7 @@ export default async function PartnerDashboardPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
       </main>
     </div>

@@ -74,6 +74,7 @@ Cron Schedule:
 | Follow-up reminders | Daily 06:00 | Nudges for pending action items |
 | Momentum score | Sunday 23:00 | Weekly engagement score calculation |
 | Weekly report | Sunday 23:30 | Weekly digest email |
+| UI/UX weekly review | Sunday 21:00 | Full-page UX audit and summary delivery (email + optional Slack) |
 | Usage monitor | Daily 09:00 | Token usage tracking |
 | Trial reminders | Daily 10:00 | T-3 and T-0 trial expiration emails |
 | Activation reminder | Daily 10:30 | Day-3 and day-7 nudge for incomplete setup |

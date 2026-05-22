@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { canUserSeeAdminHeader } from '@/lib/staff'
 import { TeamSettings } from './team-settings'
 import { ClientCoachAccessManager } from '@/components/client/coach-access-manager'
 
@@ -17,7 +18,7 @@ export default async function TeamSettingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
-  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
+  const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
 
   const { data: rawSeats } = await supabase
     .from('team_seats')

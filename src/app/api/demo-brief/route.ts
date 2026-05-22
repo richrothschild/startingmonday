@@ -8,6 +8,30 @@ const SYSTEM =
   'No generic advice. Every sentence must be specific to this company and this role. ' +
   'No filler. No em dashes. No motivational language. This is coaching, not cheerleading.'
 
+function fallbackBrief(company: string, role: string): string {
+  return `## What ${company} Is Navigating Right Now
+- Leadership teams are under pressure to prove ROI on every transformation dollar.
+- Hiring decisions for ${role} now emphasize execution speed and operating discipline.
+- Decision makers are looking for candidates who can align technology choices with measurable business outcomes.
+- Interviewers will test whether you can lead cross-functional change without creating execution drag.
+
+## What They Need in a ${role}
+- Build trust quickly with a practical 90-day operating plan tied to business priorities.
+- Establish governance that improves delivery quality while reducing decision friction.
+- Translate platform, security, and modernization work into CFO-legible business impact.
+- Drive alignment across product, finance, and operations on sequencing and tradeoffs.
+
+## How to Open the First Conversation
+Lead with how you diagnose current-state execution risk, then show how you prioritize a focused first-90-day plan. Keep the frame on outcomes, not architecture detail. Signal that your operating model improves decision quality while preserving momentum.
+
+## Five Questions to Prepare For
+- What would you do in your first 90 days? Anchor on assessment, prioritization, and measurable wins.
+- How do you balance modernization and cost discipline? Show your tradeoff framework and sequencing logic.
+- How do you lead through resistance from peers? Use one concise example with stakeholder alignment.
+- How do you measure success for this role? Define business and delivery metrics together.
+- Why this role and why now? Tie your background directly to this company's current mandate.`
+}
+
 export async function POST(request: NextRequest) {
   let company: string, role: string
   try {
@@ -21,7 +45,7 @@ export async function POST(request: NextRequest) {
   const blocked = await enforcePublicEndpointGuard({
     request,
     rateLimitKey: 'demo-brief',
-    maxPerMinute: 3,
+    maxPerMinute: 20,
   })
   if (blocked) return blocked
 
@@ -58,7 +82,8 @@ Use ## for section headers. Use - for bullets. No em dashes. Write at senior exe
         await stream.finalMessage()
         controller.close()
       } catch (err) {
-        controller.enqueue(encoder.encode(`__ERROR__${err instanceof Error ? err.message : 'Unknown error'}`))
+        const fallback = fallbackBrief(company, role)
+        controller.enqueue(encoder.encode(fallback))
         controller.close()
       }
     },

@@ -11,6 +11,15 @@ export type StaffMember = {
   created_by: string | null
 }
 
+export function hasAdminHeaderAccess(staff: StaffMember | null): boolean {
+  return staff?.role === 'owner' || staff?.role === 'admin'
+}
+
+export async function canUserSeeAdminHeader(email: string): Promise<boolean> {
+  const staff = await getStaffMember(email)
+  return hasAdminHeaderAccess(staff)
+}
+
 export async function getStaffMember(email: string): Promise<StaffMember | null> {
   try {
     const admin = createAdminClient()

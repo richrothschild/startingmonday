@@ -275,6 +275,20 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
 
+          <div className="mt-6 rounded-lg border border-slate-700 bg-slate-800/60 p-4">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+              <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
+              <a href="#search-model" className="text-slate-300 hover:text-white underline underline-offset-2">Search model</a>
+              <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
+              <a href="#feature-stack" className="text-slate-300 hover:text-white underline underline-offset-2">Feature stack</a>
+              <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
+              <a href="#trust" className="text-slate-300 hover:text-white underline underline-offset-2">Trust and privacy</a>
+              <a href="#faq" className="text-slate-300 hover:text-white underline underline-offset-2">FAQ</a>
+              <a href="#start-now" className="text-slate-300 hover:text-white underline underline-offset-2">Start now</a>
+            </div>
+          </div>
+
           <div className="mt-8 max-w-4xl rounded-lg border border-slate-700 bg-slate-800/70 p-5">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Why this is credible</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -324,7 +338,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Objection Discovery — addressing real executive concerns */}
-      <section className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
+      <section id="fit-check" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-[20px] font-bold text-white mb-10 leading-snug">
             You might be thinking: Here's exactly where we fit in.
@@ -364,7 +378,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Persona self-selection — immediately after hero per Kahneman: System 1 before System 2 */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+      <section id="situations" className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-7">
             The hardest part isn&rsquo;t finding the role. It&rsquo;s admitting you&rsquo;re looking for one.
@@ -400,7 +414,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Differentiation + category claim */}
-      <section className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
+      <section id="category-positioning" className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-4 leading-snug">
             Signal intelligence for C-suite searches.
@@ -416,7 +430,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Before/After contrast */}
-      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="search-model" className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Two ways to search
@@ -460,7 +474,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Intelligence Scanner spotlight */}
-      <section className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-800">
+      <section id="signal-scanner" className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-800">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Intelligence Scanner
@@ -530,7 +544,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Features */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="feature-stack" className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-8 sm:mb-10">
             What it does
@@ -557,7 +571,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       <SamplePrepBrief />
       {/* Board & Advisory positioning */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="long-horizon" className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Multi-year positioning
@@ -583,12 +597,20 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           </div>
           <div className="mt-10 bg-white border border-slate-200 rounded-lg p-6 max-w-3xl">
-            <p className="text-[14px] text-slate-700 leading-relaxed">
-              <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
-            </p>
-            <p className="text-[14px] text-slate-700 leading-relaxed mt-4">
-              <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
-            </p>
+            <details className="group">
+              <summary className="cursor-pointer text-[14px] font-semibold text-slate-900 list-none flex items-center justify-between">
+                <span>Advanced use cases and cadence details</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
+              </summary>
+              <div className="mt-4 space-y-4">
+                <p className="text-[14px] text-slate-700 leading-relaxed">
+                  <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
+                </p>
+                <p className="text-[14px] text-slate-700 leading-relaxed">
+                  <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
+                </p>
+              </div>
+            </details>
           </div>
         </div>
       </section>
@@ -622,7 +644,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Stats */}
-      <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20">
+      <section id="proof-metrics" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
             <div>
@@ -659,7 +681,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
 
       {/* Verified Metrics Panel */}
-      <section className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+      <section id="verified-evidence" className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-[18px] font-bold text-slate-900 mb-4">Verified pilot evidence</h3>
           <p className="text-[12px] text-slate-500 mb-5">Verification-first policy: we publish named testimonials only after explicit permission and outcome verification.</p>
@@ -682,7 +704,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
+      <section id="brief-reading" className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             From the brief
@@ -707,7 +729,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <PricingSection trialNote={hero.trialNote} />
 
       {/* Trust */}
-      <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="trust" className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Your search is confidential
@@ -745,7 +767,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
           }} />
-          <section className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+          <section id="faq" className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
             <div className="max-w-3xl mx-auto">
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
                 Common questions
@@ -767,7 +789,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       )}
 
       {/* Persona cross-links */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">
+      <section id="persona-links" className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
             Also built for
@@ -790,7 +812,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Partner channel band */}
-      <section className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
+      <section id="partner-links" className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
@@ -820,7 +842,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Final CTA */}
-      <section className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
+      <section id="start-now" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[30px] sm:text-[36px] font-bold text-white mb-4 leading-tight">
             The signal comes before<br />the search begins.<br />Be watching when it does.

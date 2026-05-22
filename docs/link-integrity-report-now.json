@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-05-22T17:09:21.146Z",
+  "fixMode": false,
+  "summary": {
+    "filesScanned": 555,
+    "totalLinks": 921,
+    "internalLinks": 813,
+    "externalLinks": 108,
+    "brokenInternal": 0,
+    "brokenExternal": 0,
+    "restrictedExternal": 3,
+    "autoFixes": 0
+  },
+  "autoFixes": [],
+  "brokenInternal": [],
+  "brokenExternal": [],
+  "restrictedExternal": [
+    {
+      "url": "https://www.manager-tools.com/2016/09/job-search-tracking",
+      "status": 403,
+      "method": "HEAD",
+      "refs": [
+        {
+          "file": "src/app/(dashboard)/dashboard/page.tsx",
+          "line": 1110
+        },
+        {
+          "file": "src/components/DraftPanel.tsx",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "https://www.manager-tools.com/career-tools-basics",
+      "status": 403,
+      "method": "HEAD",
+      "refs": [
+        {
+          "file": "src/app/(dashboard)/dashboard/page.tsx",
+          "line": 1112
+        }
+      ]
+    },
+    {
+      "url": "https://coachingfederation.org/research",
+      "status": 403,
+      "method": "HEAD",
+      "refs": [
+        {
+          "file": "src/app/references/page.tsx",
+          "line": 88
+        }
+      ]
+    }
+  ]
+}

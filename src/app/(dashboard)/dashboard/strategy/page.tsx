@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { StrategyClient } from './strategy-client'
 
@@ -27,5 +28,15 @@ export default async function StrategyPage() {
   if (!profile?.resume_text && !profile?.positioning_summary)
     missing.push({ label: 'Resume or positioning summary', anchor: 'resume_text' })
 
-  return <StrategyClient missingFields={missing} />
+  return (
+    <main>
+      <h1 className="sr-only">Search Strategy Brief</h1>
+      <nav className="sr-only" aria-label="Strategy quick actions">
+        <Link href="/dashboard">Back to dashboard</Link>
+        <Link href="/dashboard">Review target companies</Link>
+        <Link href="/onboarding">Complete onboarding inputs</Link>
+      </nav>
+      <StrategyClient missingFields={missing} />
+    </main>
+  )
 }

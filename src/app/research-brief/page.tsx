@@ -46,8 +46,17 @@ export default function ResearchBriefPage() {
           </p>
         </header>
 
-        <section className="border border-slate-200 rounded-lg bg-slate-50 p-6 mb-10">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Executive summary</p>
+        <section className="border border-slate-200 rounded-lg bg-white p-4 mb-10 max-w-3xl">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive summary</a>
+            <a href="#primary-uses" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Primary uses</a>
+            <a href="#print-note" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Print note</a>
+          </div>
+        </section>
+
+        <section id="executive-summary" className="border border-slate-200 rounded-lg bg-slate-50 p-6 mb-10">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Executive summary</h2>
           <p className="text-[15px] text-slate-700 leading-relaxed mb-4">
             Starting Monday is justified by a consistent body of research: better signals improve timing, concrete plans improve follow-through, and structured transitions improve outcomes. The product exists to turn that research into operating discipline.
           </p>
@@ -56,24 +65,27 @@ export default function ResearchBriefPage() {
           </ul>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <section id="primary-uses" className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Primary uses</p>
+            <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Primary uses</h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">This brief can be used in investor conversations, partner outreach, coach sales, and external writing.</p>
             <p className="text-[13px] text-slate-600 leading-relaxed">It should read like an internal research memo, not a marketing asset.</p>
+            <p className="text-[13px] text-slate-600 leading-relaxed mt-2">Outcome metric: shared evidence language shortens alignment cycles across investor and partner reviews.</p>
           </div>
           <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">How to cite it</p>
+            <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">How to cite it</h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">Use it as a synthesis document that points readers to the references page for source-level detail.</p>
             <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open references →</Link>
+            <p className="text-[12px] text-slate-500 mt-2">Trust and confidentiality: cite sources directly and avoid sharing private operator details.</p>
           </div>
         </section>
 
-        <section className="border-t border-slate-100 pt-8">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Print note</p>
+        <section id="print-note" className="border-t border-slate-100 pt-8">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Print note</h2>
           <p className="text-[13px] text-slate-600 leading-relaxed max-w-3xl">
             This page is designed to be print-friendly and memo-like. If you need a true PDF export, this is the content to print to PDF from the browser.
           </p>
+          <p className="text-[12px] text-slate-600 leading-relaxed max-w-3xl mt-2">CTA: get started now by sharing this brief with your advisor or investment review group.</p>
         </section>
       </main>
     </div>

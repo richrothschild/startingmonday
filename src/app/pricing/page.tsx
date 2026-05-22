@@ -4,7 +4,7 @@ import { PricingCards } from './pricing-cards'
 
 export const metadata: Metadata = {
   title: 'Pricing - Starting Monday for C-suite searches',
-  description: 'Simple pricing for C-suite executive searches. Improve campaign behavior, relationship quality, and right-role decisions with Monitor ($49), Active ($199), or Executive ($499).',
+  description: 'Simple pricing for C-suite executive searches. Improve campaign behavior, relationship quality, and right-role decisions with Intelligence ($49), Active ($199), or Executive ($499).',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
     title: 'Pricing - Starting Monday for C-suite searches',
@@ -54,7 +54,7 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
-                tier: 'Monitor — $49/mo',
+                tier: 'Intelligence — $49/mo',
                 who: 'Best for executives who are not in active search yet but want to build disciplined market awareness before urgency hits.',
               },
               {
@@ -82,7 +82,7 @@ export default function PricingPage() {
             What outcomes to expect
           </p>
           <div className="space-y-3 text-[13px] text-slate-700 leading-relaxed">
-            <p><span className="font-semibold text-slate-900">Monitor:</span> stronger search behavior before urgency: earlier signal visibility and cleaner target focus.</p>
+            <p><span className="font-semibold text-slate-900">Intelligence:</span> stronger search behavior before urgency: earlier signal visibility and cleaner target focus.</p>
             <p><span className="font-semibold text-slate-900">Active:</span> better weekly execution: sharper outreach, stronger relationship follow-through, and consistent pipeline momentum.</p>
             <p><span className="font-semibold text-slate-900">Executive:</span> right-role optimization: full-depth context and preparation for the conversations that determine final fit.</p>
           </div>
@@ -212,7 +212,7 @@ export default function PricingPage() {
               },
               {
                 q: 'What if I pick the wrong tier to start?',
-                a: 'Start where you are now. Most executives begin on Monitor or Active, then upgrade when the campaign becomes urgent.',
+                a: 'Start where you are now. Most executives begin on Intelligence or Active, then upgrade when the campaign becomes urgent.',
               },
               {
                 q: 'Is there a long-term contract?',

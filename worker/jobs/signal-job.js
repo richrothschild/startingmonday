@@ -20,10 +20,33 @@ import { fetchPdlExecs } from '../signals/fetch-pdl-execs.js'
 import { diffExecSnapshot } from '../signals/diff-exec-snapshot.js'
 import { correlateSignals } from '../signals/correlate-signals.js'
 import { generateOutreachDraft } from '../signals/generate-outreach-draft.js'
+import {
+  inferSourceKindFromUrl,
+  inferFocusTags,
+  extractEvidenceSnippets,
+  extractPartnershipEntities,
+} from '../signals/signal-meta.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
 const SIGNAL_LOCK_KEY = 7329841025n
+
+function buildSignalMetadata(article, result, override = {}) {
+  const sourceKind = override.sourceKind ?? inferSourceKindFromUrl(override.sourceUrl ?? article?.link ?? null)
+  const focusTags = override.focusTags ?? inferFocusTags(override.signalType ?? result?.signal_type, result?.focus_tags ?? [])
+  const evidenceSnippets = override.evidenceSnippets ?? extractEvidenceSnippets(article, result?.evidence_snippets ?? [])
+  const partnerEntities = override.partnerEntities ?? extractPartnershipEntities(article, result?.partner_entities ?? [])
+
+  return {
+    confidence: typeof result?.confidence === 'number' ? result.confidence : null,
+    sourceKind,
+    focusTags,
+    evidenceSnippets,
+    partnerEntities,
+    filingForm: override.filingForm ?? article?.filingForm ?? null,
+    filingItems: override.filingItems ?? article?.filingItems ?? [],
+  }
+}
 
 export async function runSignalJob() {
   const supabase = getSupabase()
@@ -89,8 +112,15 @@ export async function runSignalJob() {
           const articles = await fetchCompanyNews(company.name)
           for (const article of articles) {
             const result = await classifySignal(company.name, article, roleType)
-            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
-            if (!result.signal_type || !result.signal_summary) continue
+            const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+            const inferredPartnership = inferredPartners.length > 0
+            const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+            if (!isStrongSignal) continue
+            const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+            const normalizedSummary = inferredPartnership
+              ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+              : result.signal_summary
+            if (!normalizedSignalType || !normalizedSummary) continue
 
             const signalDate = article.pubDate
               ? new Date(article.pubDate).toISOString().split('T')[0]
@@ -99,16 +129,23 @@ export async function runSignalJob() {
             const { skipped } = await writeSignal(supabase, {
               companyId:     company.id,
               userId:        user.id,
-              signalType:    result.signal_type,
-              signalSummary: result.signal_summary,
+              signalType:    normalizedSignalType,
+              signalSummary: normalizedSummary,
               sourceUrl:     article.link,
               signalDate,
               outreachAngle: result.outreach_angle ?? null,
+              ...buildSignalMetadata(article, result, {
+                signalType: normalizedSignalType,
+                partnerEntities: inferredPartners,
+                focusTags: inferredPartnership
+                  ? inferFocusTags('partnership', result.focus_tags ?? [])
+                  : undefined,
+              }),
             })
 
             if (!skipped) {
               signalsFound++
-              logger.info('signal-job: new signal', { company: company.name, type: result.signal_type })
+              logger.info('signal-job: new signal', { company: company.name, type: normalizedSignalType })
             }
           }
 
@@ -117,21 +154,35 @@ export async function runSignalJob() {
             const pressArticles = await findPressRoomArticles(company.company_url)
             for (const article of pressArticles) {
               const result = await classifySignal(company.name, article, roleType)
-              if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
-              if (!result.signal_type || !result.signal_summary) continue
+              const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+              const inferredPartnership = inferredPartners.length > 0
+              const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+              if (!isStrongSignal) continue
+              const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+              const normalizedSummary = inferredPartnership
+                ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+                : result.signal_summary
+              if (!normalizedSignalType || !normalizedSummary) continue
 
               const { skipped } = await writeSignal(supabase, {
                 companyId:     company.id,
                 userId:        user.id,
-                signalType:    result.signal_type,
-                signalSummary: result.signal_summary,
+                signalType:    normalizedSignalType,
+                signalSummary: normalizedSummary,
                 sourceUrl:     article.link,
                 signalDate:    new Date().toISOString().split('T')[0],
                 outreachAngle: result.outreach_angle ?? null,
+                ...buildSignalMetadata(article, result, {
+                  signalType: normalizedSignalType,
+                  partnerEntities: inferredPartners,
+                  focusTags: inferredPartnership
+                    ? inferFocusTags('partnership', result.focus_tags ?? [])
+                    : undefined,
+                }),
               })
               if (!skipped) {
                 signalsFound++
-                logger.info('signal-job: press room signal', { company: company.name, type: result.signal_type })
+                logger.info('signal-job: press room signal', { company: company.name, type: normalizedSignalType })
               }
             }
           }
@@ -156,6 +207,7 @@ export async function runSignalJob() {
               sourceUrl:     article.link,
               signalDate,
               outreachAngle: result.outreach_angle ?? null,
+              ...buildSignalMetadata(article, result),
             })
             if (!skipped) {
               signalsFound++
@@ -175,6 +227,9 @@ export async function runSignalJob() {
               sourceUrl:     `sec-trend://${company.id}/${weekSlot}`,
               signalDate:    new Date().toISOString().split('T')[0],
               outreachAngle: secTrend.outreach_angle ?? null,
+              sourceKind: 'sec_filing',
+              focusTags: inferFocusTags('filing_trend'),
+              evidenceSnippets: [secTrend.signal_summary],
             })
             if (!skipped) {
               signalsFound++
@@ -195,6 +250,9 @@ export async function runSignalJob() {
                 sourceUrl:     null,
                 signalDate:    today,
                 outreachAngle: change.outreach_angle,
+                sourceKind: 'sec_filing',
+                focusTags: inferFocusTags('board_change'),
+                evidenceSnippets: [change.signal_summary],
               })
               if (!skipped) {
                 signalsFound++
@@ -219,6 +277,9 @@ export async function runSignalJob() {
                 sourceUrl:     null,
                 signalDate:    sig.filing_date,
                 outreachAngle: sig.outreach_angle,
+                sourceKind: 'sec_filing',
+                focusTags: ['governance', 'leadership'],
+                evidenceSnippets: [sig.signal_summary],
               })
               if (!skipped) {
                 signalsFound++
@@ -243,6 +304,9 @@ export async function runSignalJob() {
                 sourceUrl:     null,
                 signalDate:    sig.signalDate,
                 outreachAngle: sig.outreach_angle,
+                sourceKind: 'sec_filing',
+                focusTags: ['governance', 'leadership'],
+                evidenceSnippets: [sig.signal_summary],
               })
               if (!skipped) {
                 signalsFound++
@@ -255,8 +319,15 @@ export async function runSignalJob() {
           const prArticles = await fetchPrWire(company.name)
           for (const article of prArticles) {
             const result = await classifySignal(company.name, article, roleType)
-            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
-            if (!result.signal_type || !result.signal_summary) continue
+            const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+            const inferredPartnership = inferredPartners.length > 0
+            const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+            if (!isStrongSignal) continue
+            const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+            const normalizedSummary = inferredPartnership
+              ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+              : result.signal_summary
+            if (!normalizedSignalType || !normalizedSummary) continue
 
             const signalDate = article.pubDate
               ? new Date(article.pubDate).toISOString().split('T')[0]
@@ -265,15 +336,22 @@ export async function runSignalJob() {
             const { skipped } = await writeSignal(supabase, {
               companyId:     company.id,
               userId:        user.id,
-              signalType:    result.signal_type,
-              signalSummary: result.signal_summary,
+              signalType:    normalizedSignalType,
+              signalSummary: normalizedSummary,
               sourceUrl:     article.link,
               signalDate,
               outreachAngle: result.outreach_angle ?? null,
+              ...buildSignalMetadata(article, result, {
+                signalType: normalizedSignalType,
+                partnerEntities: inferredPartners,
+                focusTags: inferredPartnership
+                  ? inferFocusTags('partnership', result.focus_tags ?? [])
+                  : undefined,
+              }),
             })
             if (!skipped) {
               signalsFound++
-              logger.info('signal-job: PR wire signal', { company: company.name, type: result.signal_type })
+              logger.info('signal-job: PR wire signal', { company: company.name, type: normalizedSignalType })
             }
           }
 
@@ -281,8 +359,15 @@ export async function runSignalJob() {
           const bizArticles = await fetchBizJournalMentions(company.name)
           for (const article of bizArticles) {
             const result = await classifySignal(company.name, article, roleType)
-            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
-            if (!result.signal_type || !result.signal_summary) continue
+            const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+            const inferredPartnership = inferredPartners.length > 0
+            const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+            if (!isStrongSignal) continue
+            const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+            const normalizedSummary = inferredPartnership
+              ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+              : result.signal_summary
+            if (!normalizedSignalType || !normalizedSummary) continue
 
             const signalDate = article.pubDate
               ? new Date(article.pubDate).toISOString().split('T')[0]
@@ -291,15 +376,22 @@ export async function runSignalJob() {
             const { skipped } = await writeSignal(supabase, {
               companyId:     company.id,
               userId:        user.id,
-              signalType:    result.signal_type,
-              signalSummary: result.signal_summary,
+              signalType:    normalizedSignalType,
+              signalSummary: normalizedSummary,
               sourceUrl:     article.link,
               signalDate,
               outreachAngle: result.outreach_angle ?? null,
+              ...buildSignalMetadata(article, result, {
+                signalType: normalizedSignalType,
+                partnerEntities: inferredPartners,
+                focusTags: inferredPartnership
+                  ? inferFocusTags('partnership', result.focus_tags ?? [])
+                  : undefined,
+              }),
             })
             if (!skipped) {
               signalsFound++
-              logger.info('signal-job: bizjournal signal', { company: company.name, type: result.signal_type })
+              logger.info('signal-job: bizjournal signal', { company: company.name, type: normalizedSignalType })
             }
           }
 
@@ -307,8 +399,15 @@ export async function runSignalJob() {
           const tradeArticles = await fetchTradePressArticles(company.name)
           for (const article of tradeArticles) {
             const result = await classifySignal(company.name, article, roleType)
-            if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
-            if (!result.signal_type || !result.signal_summary) continue
+            const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+            const inferredPartnership = inferredPartners.length > 0
+            const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+            if (!isStrongSignal) continue
+            const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+            const normalizedSummary = inferredPartnership
+              ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+              : result.signal_summary
+            if (!normalizedSignalType || !normalizedSummary) continue
 
             const signalDate = article.pubDate
               ? new Date(article.pubDate).toISOString().split('T')[0]
@@ -317,15 +416,22 @@ export async function runSignalJob() {
             const { skipped } = await writeSignal(supabase, {
               companyId:     company.id,
               userId:        user.id,
-              signalType:    result.signal_type,
-              signalSummary: result.signal_summary,
+              signalType:    normalizedSignalType,
+              signalSummary: normalizedSummary,
               sourceUrl:     article.link,
               signalDate,
               outreachAngle: result.outreach_angle ?? null,
+              ...buildSignalMetadata(article, result, {
+                signalType: normalizedSignalType,
+                partnerEntities: inferredPartners,
+                focusTags: inferredPartnership
+                  ? inferFocusTags('partnership', result.focus_tags ?? [])
+                  : undefined,
+              }),
             })
             if (!skipped) {
               signalsFound++
-              logger.info('signal-job: trade press signal', { company: company.name, type: result.signal_type })
+              logger.info('signal-job: trade press signal', { company: company.name, type: normalizedSignalType })
             }
           }
 
@@ -340,6 +446,9 @@ export async function runSignalJob() {
               sourceUrl:     sig.sourceUrl,
               signalDate:    new Date().toISOString().split('T')[0],
               outreachAngle: sig.outreach_angle,
+              sourceKind: 'regulatory_calendar',
+              focusTags: inferFocusTags('regulatory_change'),
+              evidenceSnippets: [sig.signal_summary],
             })
             if (!skipped) {
               signalsFound++
@@ -369,6 +478,7 @@ export async function runSignalJob() {
                 sourceUrl:     article.link,
                 signalDate,
                 outreachAngle: result.outreach_angle ?? null,
+                ...buildSignalMetadata(article, result, { signalType: article._predictleadsType }),
               })
               if (!skipped) {
                 signalsFound++
@@ -390,6 +500,9 @@ export async function runSignalJob() {
                 sourceUrl:     round.sourceUrl,
                 signalDate:    round.announcedOn,
                 outreachAngle: outreach_angle,
+                sourceKind: inferSourceKindFromUrl(round.sourceUrl),
+                focusTags: inferFocusTags('funding'),
+                evidenceSnippets: [signal_summary],
               })
               if (!skipped) {
                 signalsFound++
@@ -422,6 +535,9 @@ export async function runSignalJob() {
                     sourceUrl:     exec.linkedin_url ? `${exec.linkedin_url}#departure` : null,
                     signalDate:    today,
                     outreachAngle,
+                    sourceKind: 'executive_snapshot',
+                    focusTags: inferFocusTags('exec_departure'),
+                    evidenceSnippets: [`${exec.name} (${exec.title}) departed ${company.name}.`],
                   })
                   if (!skipped) {
                     signalsFound++
@@ -464,6 +580,9 @@ export async function runSignalJob() {
                     sourceUrl:     exec.linkedin_url ? `${exec.linkedin_url}#hire` : null,
                     signalDate:    today,
                     outreachAngle: `A new ${exec.title} at ${company.name} often builds new relationships early in tenure. This is a strong moment to introduce yourself.`,
+                    sourceKind: 'executive_snapshot',
+                    focusTags: inferFocusTags('exec_hire'),
+                    evidenceSnippets: [`${exec.name} joined ${company.name} as ${exec.title}.`],
                   })
                   if (!skipped) {
                     signalsFound++
@@ -498,6 +617,9 @@ export async function runSignalJob() {
                 sourceUrl:     `pattern://${correlation.pattern_name.toLowerCase().replace(/\s+/g, '_')}/${weekSlot}`,
                 signalDate:    new Date().toISOString().split('T')[0],
                 outreachAngle: correlation.outreach_angle ?? null,
+                sourceKind: 'pattern_correlation',
+                focusTags: ['leadership', 'operations'],
+                evidenceSnippets: [correlation.pattern_summary],
               })
               if (!skipped) {
                 signalsFound++

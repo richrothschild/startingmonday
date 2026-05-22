@@ -184,6 +184,29 @@ export default function ManagerToolsDemoPage() {
           </p>
         </div>
 
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          {[
+            ['~1 minute', 'Typical prep brief generation window before a live conversation'],
+            ['3 layers', 'Company context, likely objections, and peer-level questions in one artifact'],
+            ['0 uploads required', 'The live example below is generated without a manual brief-writing workflow'],
+          ].map(([value, label]) => (
+            <div key={value} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-[22px] font-bold text-slate-900 mb-1">{value}</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">{label}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mb-10 rounded-xl border border-emerald-200 bg-emerald-50/40 p-5">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and use boundary</p>
+          <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+            This demo uses generated sample material for evaluation only. Customer searches, prep notes, and pipeline data stay private to the account owner and invited collaborators.
+          </p>
+          <p className="text-[12px] text-slate-600 leading-relaxed">
+            Verification path: use the live example, generate your own brief, then compare whether it reduces last-minute prep time before a real interview.
+          </p>
+        </section>
+
         {/* Pre-loaded brief: Salesforce / VP of IT */}
         <div className="mb-4">
           <div className="flex items-center gap-3 mb-4">
@@ -282,20 +305,29 @@ export default function ManagerToolsDemoPage() {
         {/* CTA */}
         <div className="border-t border-slate-100 pt-10">
           <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-4">What a full account includes</p>
-          <div className="flex flex-col gap-3 mb-8">
-            {[
-              'This brief auto-generated for every company in the pipeline, updated as new signals come in',
-              'Intelligence monitoring on every target company: exec moves, 8-K filings, funding rounds, career page changes - with pattern alerts before roles are ever posted',
-              'Contact tracker with outreach drafting and recruiter firm grouping',
-              'Daily morning briefing: signals, open actions, and pending matches in one email before the workday starts',
-              'AI career advisor with full visibility into the pipeline, history, and search progress',
-            ].map((item, i) => (
-              <div key={i} className="flex gap-3 items-start">
-                <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
-                <p className="text-[13px] text-slate-500 leading-relaxed">{item}</p>
+          <details className="group rounded-xl border border-slate-200 bg-white overflow-hidden mb-8">
+            <summary className="list-none cursor-pointer px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+              <div>
+                <p className="text-[14px] font-semibold text-slate-900">Expand full account capabilities</p>
+                <p className="text-[12px] text-slate-500 mt-1">Signals, pipeline, briefing, outreach, and advisor support</p>
               </div>
-            ))}
-          </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div className="px-5 pb-5 pt-1 border-t border-slate-100 flex flex-col gap-3">
+              {[
+                'This brief auto-generated for every company in the pipeline, updated as new signals come in',
+                'Intelligence monitoring on every target company: exec moves, 8-K filings, funding rounds, career page changes, and pattern alerts before roles are posted',
+                'Contact tracker with outreach drafting and recruiter firm grouping',
+                'Daily morning briefing: signals, open actions, and pending matches in one email before the workday starts',
+                'AI career advisor with visibility into the pipeline, history, and search progress',
+              ].map((item, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+          </details>
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <Link
               href="/signup"

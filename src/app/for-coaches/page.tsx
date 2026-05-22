@@ -4,6 +4,21 @@ import Image from 'next/image'
 import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
 import { BrandIcon } from '@/components/BrandIcon'
+import {
+  WHAT_CHANGES,
+  SAMPLE_SIGNAL_ITEMS,
+  FULL_SAMPLE_SIGNAL_BRIEF,
+  SAMPLE_PREP_BRIEF_POINTS,
+  FULL_SAMPLE_PREP_BRIEF,
+  PROOF_METRICS,
+  COACH_FIT,
+  COACH_SCOREBOARD,
+  PREVIEW_SENTENCE,
+  COUNCIL_BUY_SIGNALS,
+  PILOT_SCORECARD,
+  ROLE_BOUNDARY,
+  WEEKLY_REVIEW_TEMPLATE,
+} from './page-content'
 
 export const metadata: Metadata = {
   title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
@@ -15,202 +30,6 @@ export const metadata: Metadata = {
     url: 'https://startingmonday.app/for-coaches',
   },
 }
-
-const WHAT_CHANGES = [
-  {
-    before: 'You rebuild context at the start of every session because your client has not tracked anything.',
-    after: 'You have pipeline view access. You arrive knowing exactly where they are and what moved since your last call.',
-  },
-  {
-    before: 'Your client is preparing for interviews the night before with a web search and a printout.',
-    after: 'The prep brief is usually ready in about a minute. Win thesis, likely objections, peer-level questions, what to leave out. You can read it before the session.',
-  },
-  {
-    before: 'You cannot track 30 companies between sessions. Things happen and your client misses the window.',
-    after: 'The intelligence scanner watches every company on their target list. When signals cluster into a pre-search pattern, you both know.',
-  },
-  {
-    before: 'Session time is split between strategy and research catch-up.',
-    after: 'Session time is strategy. The platform handles the research, the tracking, and the daily briefing.',
-  },
-]
-
-const SAMPLE_SIGNAL_ITEMS = [
-  'CFO departure disclosed in an 8-K after market close',
-  'Two VP-level technology openings posted within 48 hours',
-  'Private equity operating partner added to the board this week',
-]
-
-const FULL_SAMPLE_SIGNAL_BRIEF = {
-  company: 'Meridian Systems',
-  date: 'March 14, 2026',
-  signals: [
-    'CFO departure disclosed in an 8-K after market close',
-    'Two VP-level technology openings posted within 48 hours',
-    'Private equity operating partner added to the board this week',
-  ],
-  impact: 'Post-acquisition integration risk visible. Finance function reshaping.',
-  recommendedAction: 'Before 10am: send reconnection note to former COO now at Vista Equity Partners. Update company status from Watchlist to Active Outreach.',
-  waitlistAction: 'Monitor for new CFO search details; likely 60-90 day runway before external hires begin interviewing.',
-}
-
-const SAMPLE_PREP_BRIEF_POINTS = [
-  'Win thesis: stabilize a post-acquisition technology stack without slowing revenue operations.',
-  'Likely objection: concern that your turnaround depth outweighs product-led growth experience.',
-  'Peer-level question: how is the board measuring integration success across the first two operating reviews?',
-]
-
-const FULL_SAMPLE_PREP_BRIEF = {
-  company: 'Meridian Systems',
-  role: 'EVP, Technology Integration',
-  search: 'PE-backed post-acquisition integration lead',
-  winThesis: 'Stabilize a post-acquisition technology stack without slowing revenue operations. The PE fund has 24 months to prove integration value before exit.',
-  yourBackground: '12 years leading technology consolidation across 4 acquisitions. Last role: CTO at a $400M SaaS company during acquisition by Insight Partners. 18-month integration completed 3 months early.',
-  likelyObjections: [
-    'Your turnaround depth may outweigh their need for a product-led growth mindset',
-    'Will you stay focused on process or get pulled into long-term product strategy?',
-    'How do we know you can balance pace with risk?',
-  ],
-  peerLevelQuestions: [
-    'How is the board measuring integration success across the first two operating reviews?',
-    'What is the appetite for replacing vs. consolidating the inherited tech stack?',
-    'How much travel is expected in the first 90 days?',
-  ],
-  whatToLeaveOut: 'Do not lead with the detail of your acquisition timeline. Lead with the outcome: 18-month integration completed 3 months early with zero revenue impact.',
-  preparedTalking: '2-minute summary ready. The brief above is what the coach will review before your session.',
-}
-
-const PROOF_METRICS = [
-  {
-    value: '81%',
-    label: 'of the Jan-May 2026 executive pilot cohort reached a first interview within 30 days',
-  },
-  {
-    value: '9 days',
-    label: 'median time from setup to first qualified outreach in the same cohort',
-  },
-  {
-    value: '43%',
-    label: 'of early adopting coaches brought the daily briefing into coaching sessions within the first month',
-  },
-  {
-    value: '27',
-    label: 'executives included in the current verified pilot evidence snapshot',
-  },
-]
-
-const COACH_FIT = [
-  {
-    title: 'Career transition coaches',
-    detail: 'Best fit when clients need speed, accountability, and earlier signal visibility in the first 30-90 days.',
-  },
-  {
-    title: 'VP-to-CXO coaches',
-    detail: 'Best fit when clients need long-cycle narrative discipline and shared context across months, not just weeks.',
-  },
-  {
-    title: 'Search-affiliate coaches',
-    detail: 'Best fit when interview prep quality and live pipeline visibility affect placement outcomes immediately.',
-  },
-  {
-    title: 'Board and governance coaches',
-    detail: 'Best fit when clients need relationship maintenance and signal monitoring over a longer positioning horizon.',
-  },
-]
-
-const COACH_SCOREBOARD = [
-  {
-    label: 'Companies updated weekly',
-    target: '3-5',
-    note: 'If fewer are moving, the pipeline is drifting or too broad.',
-  },
-  {
-    label: 'Signal actions taken',
-    target: '5+',
-    note: 'Notes sent, intro asks made, or follow-ups rescheduled from real signal movement.',
-  },
-  {
-    label: 'Prep briefs reviewed',
-    target: '1+',
-    note: 'At least one real high-stakes conversation should be prepared at depth during the week.',
-  },
-  {
-    label: '30-day checkpoint',
-    target: 'First interview or a clearer block',
-    note: 'By day 30, the coach should know whether the issue is signal response, outreach quality, or positioning.',
-  },
-]
-
-const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and a simple way to easily stay on top of each client in one place.'
-
-const COUNCIL_BUY_SIGNALS = [
-  {
-    title: 'Outcomes they will pay for',
-    points: [
-      'Clients arrive prepared for high-stakes meetings',
-      'Less session time rebuilding context from memory',
-      'Faster first interviews and cleaner weekly momentum',
-      'Coach can spot stalls before the client loses confidence',
-    ],
-  },
-  {
-    title: 'Feelings to address directly',
-    points: [
-      '"I am spending too much time on prep and admin, not strategy"',
-      '"My client is too busy, so important prep gets skipped"',
-      '"I do not want to coach half-blind between sessions"',
-      '"I need to feel in control of every client account"',
-    ],
-  },
-  {
-    title: 'What Starting Monday offers',
-    points: [
-      'Shared coach-client signal and pipeline visibility',
-      'Prep briefs usually ready in about a minute',
-      'Daily focus prompts so clients make one good move each morning',
-      '30-day pass/fail scorecard before any rollout decision',
-    ],
-  },
-]
-
-const PILOT_SCORECARD = [
-  {
-    metric: 'Week 1 signal action',
-    success: 'At least one signal-driven action logged for each pilot client.',
-  },
-  {
-    metric: 'Week 1 prep quality',
-    success: 'At least one prep brief reviewed before a real conversation.',
-  },
-  {
-    metric: 'Session yield',
-    success: 'Coach reports less context rebuild and more strategic depth in sessions.',
-  },
-  {
-    metric: 'Day-30 decision',
-    success: 'Clear pass/fail on workflow fit for your practice before paying.',
-  },
-]
-
-const ROLE_BOUNDARY = {
-  platform: [
-    'Detects signal movement and keeps the pipeline current between sessions',
-    'Generates prep briefs and tracks execution activity',
-    'Surfaces weekly risk markers and overdue actions',
-  ],
-  coach: [
-    'Owns strategic judgment, narrative calibration, and accountability coaching',
-    'Decides where to focus client effort and when to change search strategy',
-    'Interprets context and drives high-stakes decision quality',
-  ],
-}
-
-const WEEKLY_REVIEW_TEMPLATE = [
-  'What changed in signals since last week, and which two changes matter most?',
-  'Which companies moved stage, and which are stalled?',
-  'Which prep brief will shape this week\'s highest-stakes conversation?',
-  'What one action must happen before next session to protect momentum?',
-]
 
 export default function ForCoachesPage() {
   return (
@@ -269,7 +88,25 @@ export default function ForCoachesPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
 
-          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+          <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-4">
+              <a href="#why-coaches-buy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why coaches buy</a>
+              <a href="#role-boundary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role boundary</a>
+              <a href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Execution rhythm</a>
+              <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/partners#apply" className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+                Get started with a 30-day coach preview
+              </Link>
+              <Link href="/for-coaches/faq" className="inline-block border border-slate-300 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded hover:border-slate-500 transition-colors">
+                Read coach FAQ before preview
+              </Link>
+            </div>
+          </section>
+
+          <section id="why-coaches-buy" className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Why coaches buy
             </p>
@@ -336,8 +173,6 @@ export default function ForCoachesPage() {
                 '2-3 live client seats to test with real workflows',
                 'One shared place for pipeline, signals, and prep',
                 'Scorecards that reveal where momentum is stalling',
-                'Audit log and client controls for trust and transparency',
-                'Clear pass/fail decision at day 30',
               ].map((item) => (
                 <div key={item} className="bg-white border border-emerald-100 rounded-lg px-4 py-3">
                   <p className="text-[13px] text-slate-700 leading-relaxed">{item}</p>
@@ -350,14 +185,12 @@ export default function ForCoachesPage() {
                 <li>• Complete company pipeline with fit scores and stage tracking</li>
                 <li>• Real-time signals with detection dates and relevance scores</li>
                 <li>• Interview prep briefs showing your approach before each conversation</li>
-                <li>• 30-day activity scorecards: pipeline health, signal velocity, interview outcomes</li>
-                <li>• All activity is logged—clients can see exactly when coaches accessed their data</li>
               </ul>
             </div>
             <div className="mt-4 border border-emerald-300 bg-white rounded-lg p-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-3">30-day pilot success scorecard</p>
               <div className="space-y-2">
-                {PILOT_SCORECARD.map((row) => (
+                {PILOT_SCORECARD.slice(0, 3).map((row) => (
                   <div key={row.metric} className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-2 text-[12px] text-slate-700">
                     <p className="font-semibold text-slate-900">{row.metric}</p>
                     <p>{row.success}</p>
@@ -367,7 +200,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+          <section id="role-boundary" className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Role boundary
             </p>
@@ -378,7 +211,7 @@ export default function ForCoachesPage() {
               <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Platform owns</p>
                 <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.platform.map((line) => (
+                  {ROLE_BOUNDARY.platform.slice(0, 2).map((line) => (
                     <li key={line}>• {line}</li>
                   ))}
                 </ul>
@@ -386,7 +219,7 @@ export default function ForCoachesPage() {
               <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">Coach owns</p>
                 <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-                  {ROLE_BOUNDARY.coach.map((line) => (
+                  {ROLE_BOUNDARY.coach.slice(0, 2).map((line) => (
                     <li key={line}>• {line}</li>
                   ))}
                 </ul>
@@ -416,7 +249,16 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section>
+          <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+            <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+                <p className="text-[16px] font-semibold text-slate-900">Expand buy signals, credibility play, sample output, fit, and operating rhythm</p>
+              </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div className="px-6 sm:px-7 pb-7 border-t border-slate-100 space-y-10">
+          <section id="buy-signals">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               What coaches said they would buy for
             </p>
@@ -427,11 +269,11 @@ export default function ForCoachesPage() {
               Council feedback was consistent: the page should persuade on practical outcomes and emotional relief first, then prove the workflow. This section captures the highest-frequency buy criteria.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-              {COUNCIL_BUY_SIGNALS.map((column) => (
+              {COUNCIL_BUY_SIGNALS.slice(0, 2).map((column) => (
                 <div key={column.title} className="border border-slate-200 rounded-xl p-5 bg-white">
                   <p className="text-[13px] font-semibold text-slate-900 mb-3">{column.title}</p>
                   <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed">
-                    {column.points.map((point) => (
+                    {column.points.slice(0, 3).map((point) => (
                       <li key={point} className="flex items-start gap-2">
                         <span className="text-orange-500 shrink-0 mt-0.5">•</span>
                         <span>{point}</span>
@@ -443,12 +285,12 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="credibility-play">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               The coach credibility play
             </p>
             <div className="space-y-5 mb-8">
-              {WHAT_CHANGES.map((item, i) => (
+              {WHAT_CHANGES.slice(0, 3).map((item, i) => (
                 <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-slate-50 border border-slate-200 rounded p-4">
                     <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Before</p>
@@ -466,7 +308,7 @@ export default function ForCoachesPage() {
             </p>
           </section>
 
-          <section>
+          <section id="sample-output">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Sample output
             </p>
@@ -484,69 +326,7 @@ export default function ForCoachesPage() {
             />
           </section>
 
-          <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              Shared intelligence with clients
-            </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
-              Coach and client see the same data. No silos, no secrets.
-            </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-lg">
-              Coaches and clients share the same pipeline view, signal detection, and prep briefs. This eliminates the translation layer. When a coach asks "Did you see the signal about the CFO?" the client already knows—because they saw it when it happened, and the coach saw them see it.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="border border-slate-200 rounded-2xl p-5 bg-white">
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">Coach perspective</p>
-                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>See which signals clients acted on</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Know exactly when prep briefs were reviewed</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Track accountability between sessions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Reduce misalignment on what clients actually know</span>
-                  </li>
-                </ul>
-                <Link href="/for-coaches/faq#sharing" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                  Learn more about sharing →
-                </Link>
-              </div>
-              <div className="border border-orange-200 rounded-2xl p-5 bg-orange-50/40">
-                <p className="text-[14px] font-semibold text-slate-900 mb-3">Client perspective</p>
-                <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed mb-4">
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Full control over coach data access</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Audit log shows when coaches viewed what</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>Grant or revoke access anytime</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-500 shrink-0 mt-0.5">✓</span>
-                    <span>See exactly what each coach can access</span>
-                  </li>
-                </ul>
-                <Link href="/for-coaches/faq#client-control" className="text-[12px] text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                  Learn more about client controls →
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          <section>
+          <section id="coach-fit">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where this fits best
             </p>
@@ -554,7 +334,7 @@ export default function ForCoachesPage() {
               Different coaches use the same platform in different contexts. If you only scan one section before deciding whether this is worth a preview, scan this one.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {COACH_FIT.map((item) => (
+              {COACH_FIT.slice(0, 3).map((item) => (
                 <div key={item.title} className="border border-slate-200 rounded-lg p-5 bg-white">
                   <p className="text-[13px] font-bold text-slate-900 mb-2">{item.title}</p>
                   <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
@@ -595,7 +375,7 @@ export default function ForCoachesPage() {
                 Coach scoreboard
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {COACH_SCOREBOARD.map((item) => (
+                {COACH_SCOREBOARD.slice(0, 3).map((item) => (
                   <div key={item.label} className="border border-slate-200 rounded-xl p-4 bg-white">
                     <p className="text-[12px] text-slate-500 mb-1">{item.label}</p>
                     <p className="text-[16px] font-semibold text-slate-900 mb-2">{item.target}</p>
@@ -612,41 +392,14 @@ export default function ForCoachesPage() {
                 Use this exact agenda in your Monday review so the operating cadence stays consistent across clients.
               </p>
               <ol className="space-y-2 text-[13px] text-slate-700 leading-relaxed list-decimal pl-5">
-                {WEEKLY_REVIEW_TEMPLATE.map((line) => (
+                {WEEKLY_REVIEW_TEMPLATE.slice(0, 3).map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ol>
             </div>
           </section>
-
-          <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              What changes for your clients
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">They stop missing signals</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Signals are surfaced while they sleep. Executive departures, board changes, funding, and career page postings are tracked automatically. They act before the market moves.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">They walk in prepared</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Win thesis, likely objections, peer-level questions, what to leave out. Usually ready in about a minute. Accurate to the specific company and role. You see the brief before the session.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Nothing goes cold</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Every company, contact, and conversation tracked. You can view their pipeline between sessions. Dormancy is a thing of the past.</p>
-              </div>
-              <div className="border-t border-slate-100 pt-4">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1.5">One decision each morning</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Overnight signals and a prioritized action list in their inbox before the market opens. Instead of thirty decisions, they make one. You help them focus on what matters most.</p>
-              </div>
             </div>
-            <div className="flex gap-3 text-[12px]">
-              <Link href="/for-coaches/faq#client-benefits" className="text-orange-600 hover:text-orange-700 font-semibold underline underline-offset-2">
-                Learn more about client benefits →
-              </Link>
-            </div>
-          </section>
+          </details>
 
           <section id="next-step" className="border-t border-slate-100 pt-10">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">

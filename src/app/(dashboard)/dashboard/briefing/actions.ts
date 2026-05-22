@@ -6,7 +6,7 @@ import { logEvent } from '@/lib/events'
 
 const ALLOWED_TARGETS = new Set([
   '/dashboard/signals',
-  '/dashboard/companies',
+  '/dashboard',
   '/dashboard/calendar',
 ])
 

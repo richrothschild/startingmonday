@@ -25,10 +25,10 @@ function FeedbackForm() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="mb-8">
-        <p className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 mb-4">
+      <section className="mb-8">
+        <h2 className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 mb-4">
           Starting Monday
-        </p>
+        </h2>
         {state === 'done' ? (
           <>
             <h1 className="text-[22px] font-bold text-slate-900 mb-2">Thank you.</h1>
@@ -44,7 +44,22 @@ function FeedbackForm() {
             </p>
           </>
         )}
-      </div>
+      </section>
+
+      {state !== 'done' && (
+        <section className="mb-4 rounded border border-slate-200 bg-white/70 p-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">How this is used</h2>
+          <p className="text-[12px] text-slate-500 leading-relaxed">
+            We use short quotes to improve product messaging. We do not publish private details from your account.
+          </p>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+            Trust and confidentiality: your note stays confidential unless you explicitly approve public use.
+          </p>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+            Outcome metric: one sentence each week directly shapes what we ship in the next 7-day sprint.
+          </p>
+        </section>
+      )}
 
       {state !== 'done' && (
         <form onSubmit={handleSubmit}>
@@ -64,8 +79,9 @@ function FeedbackForm() {
             disabled={!text.trim() || state === 'submitting'}
             className="w-full bg-slate-900 text-white text-[13px] font-bold py-3 rounded hover:bg-slate-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {state === 'submitting' ? 'Sending...' : 'Submit'}
+            {state === 'submitting' ? 'Sending...' : 'Get started now'}
           </button>
+          <p className="text-[11px] text-slate-400 mt-2">CTA: get started now and submit one sentence.</p>
         </form>
       )}
     </div>

@@ -1,8 +1,155 @@
-role_bucket,subject_line_1,subject_line_2,email_body_core,cta_line
-CFO,"A specific finance angle","A quick thought on transformation economics","I work on executive positioning and outreach for leaders navigating high-stakes transitions. In practice, the messages that get traction with finance audiences are the ones that show capital discipline, measurable operating impact, and a credible understanding of how transformation changes the economics of the business.","If useful, I can send a very short note on the angle I think may be most relevant to your lens."
-CTO,"A technology leadership angle","A quick note on technical narrative","I work on executive positioning and outreach for senior technology leaders. The strongest responses tend to come when the message shows architectural judgment, integration reality, and the business logic underneath technical change rather than generic innovation language.","If useful, I can send a concise note on the angle that struck me as most relevant."
-COO,"A specific operating angle","A quick thought on execution leadership","I work on executive positioning and outreach for senior operators. The messages that tend to resonate are the ones that show operating cadence, transformation discipline, and an ability to scale complexity without turning the note into abstract strategy language.","If useful, I can send a short note on the specific angle I had in mind."
-CDO,"A data and AI angle","A quick thought on data leadership","I work on executive positioning and outreach for leaders operating at the intersection of data, AI, and enterprise change. The strongest messages usually show a clear connection between governance, business value, and the practical operating work required to make data strategy real.","If helpful, I can send a very short note on the angle that seemed most relevant."
-CISO,"A resilience and risk angle","A quick note on security leadership framing","I work on executive positioning and outreach for senior security leaders. The messages that tend to land best are the ones that translate resilience, risk judgment, and operating credibility into language that boards and non-technical executives can assess quickly.","If useful, I can send a short note on the specific leadership angle I think aligns with that lens."
-VP,"A step-up or scope angle","A quick thought on broader mandate positioning","I work on executive positioning and outreach for senior vice presidents and operators moving toward broader mandates. The strongest notes usually show concrete execution credibility, enterprise scope, and why the next-step narrative is believable now rather than someday.","If useful, I can send a very short note on the angle I think is most relevant."
-VP Operations,"A practical operating angle","A quick note on infrastructure and execution","I work on executive positioning and outreach for senior operators. The most effective notes make concrete execution work legible as broader leadership capability, especially when the recipient values infrastructure, reliability, and disciplined operating scale.","If useful, I can send a short note on the angle I think may resonate most."
+role_bucket,subject_line_1,subject_line_2,email_body_core,cta_line,subject_variant_a,subject_variant_b,subject_variant_c,cta_variant_a,cta_variant_b
+CFO,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,Bad idea to send a 1-page executive transition conversation flow for CFO leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for CFO transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For CFO leaders at {company_name}, the real risk is sounding competent but not board-ready when the first serious conversation starts.
+
+In recent CFO-track transitions, first conversations improved when board language and capital allocation logic were explicit from minute one.
+
+The clearest proof point for CFO leaders is faster translation of finance credibility into board-readable transition narratives.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For CFO candidates, the biggest win is faster translation of finance credibility into board-readable transition narratives.
+
+If useful, I can send a one-page sample built around your CFO context.
+
+If useful, reply ""send it"" and I will send the CFO board-readiness scorecard for your CFO transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your CFO context.",Bad idea to send a 1-page CFO transition conversation flow for {company_name}?,3 ways CFO leaders improve transition momentum in 30 days?,How CFO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CFO context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+CTO,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,Bad idea to send a 1-page executive transition conversation flow for CTO leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for CTO transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For CTO leaders at {company_name}, the real risk is being seen as technically strong but too abstract for a CEO, board, or investor audience.
+
+In recent CTO-track transitions, response quality improved when technical depth was translated into operating outcomes and decision impact.
+
+The clearest proof point for CTO leaders is clearer architecture-to-business messaging before first stakeholder interviews.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For CTO candidates, the biggest win is clearer architecture-to-business messaging before first stakeholder interviews.
+
+If useful, I can send a one-page sample built around your CTO context.
+
+If useful, reply ""send it"" and I will send the CTO architecture-to-business benchmark for your CTO transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your CTO context.",Bad idea to send a 1-page CTO transition conversation flow for {company_name}?,3 ways CTO leaders improve transition momentum in 30 days?,How CTO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CTO context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+COO,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,Bad idea to send a 1-page executive transition conversation flow for COO leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for COO transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For COO leaders at {company_name}, the real risk is being known for execution without proving the scale and sequencing that the next role requires.
+
+In recent COO-track transitions, conversion improved when execution stories included sequencing decisions and operating leverage proof.
+
+The clearest proof point for COO leaders is stronger execution-cadence proof in early outreach and screening calls.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For COO candidates, the biggest win is stronger execution-cadence proof in early outreach and screening calls.
+
+If useful, I can send a one-page sample built around your COO context.
+
+If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your COO transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your COO context.",Bad idea to send a 1-page COO transition conversation flow for {company_name}?,3 ways COO leaders improve transition momentum in 30 days?,How COO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your COO context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+CDO,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,Bad idea to send a 1-page executive transition conversation flow for CDO leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for CDO transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For CDO leaders at {company_name}, the real risk is sounding credible in theory but not specific enough to move the conversation forward.
+
+In recent executive transitions, progression improved when role-specific narratives were tested and revised before high-stakes conversations.
+
+The clearest proof point for CDO leaders is cleaner role-specific positioning supported by measurable execution evidence.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For CDO candidates, the biggest win is cleaner role-specific positioning supported by measurable execution evidence.
+
+If useful, I can send a one-page sample built around your CDO context.
+
+If useful, reply ""send it"" and I will send the role-specific benchmark sheet for your CDO transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your CDO context.",Bad idea to send a 1-page CDO transition conversation flow for {company_name}?,3 ways CDO leaders improve transition momentum in 30 days?,How CDO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CDO context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+CISO,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,Bad idea to send a 1-page executive transition conversation flow for CISO leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for CISO transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For CISO leaders at {company_name}, the real risk is having the right expertise but losing the room before the business impact lands.
+
+In recent CISO-track transitions, momentum improved when risk language was framed in business continuity and trust terms.
+
+The clearest proof point for CISO leaders is higher-confidence risk and resilience framing for non-technical decision-makers.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For CISO candidates, the biggest win is higher-confidence risk and resilience framing for non-technical decision-makers.
+
+If useful, I can send a one-page sample built around your CISO context.
+
+If useful, reply ""send it"" and I will send the CISO risk narrative benchmark for your CISO transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your CISO context.",Bad idea to send a 1-page CISO transition conversation flow for {company_name}?,3 ways CISO leaders improve transition momentum in 30 days?,How CISO leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your CISO context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+VP,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,Bad idea to send a 1-page executive transition conversation flow for VP leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for VP transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For VP leaders at {company_name}, the real risk is sounding ready for more scope without proving what changes at the higher level.
+
+In recent executive transitions, progression improved when role-specific narratives were tested and revised before high-stakes conversations.
+
+The clearest proof point for VP leaders is clearer next-scope readiness proof supported by concrete execution examples.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For VP candidates, the biggest win is clearer next-scope readiness proof supported by concrete execution examples.
+
+If useful, I can send a one-page sample built around your VP context.
+
+If useful, reply ""send it"" and I will send the next-scope readiness benchmark for your VP transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your VP context.",Bad idea to send a 1-page VP transition conversation flow for {company_name}?,3 ways VP leaders improve transition momentum in 30 days?,How VP leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your VP context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."
+VP Operations,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,Bad idea to send a 1-page executive transition conversation flow for VP Operations leaders?,"Hi {first_name},
+
+I have been following your work at {company_name}, and I thought this might be useful for VP Operations transitions.
+
+Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.
+
+For VP Operations leaders at {company_name}, the real risk is being known for execution without proving the scale and sequencing that the next role requires.
+
+In recent COO-track transitions, conversion improved when execution stories included sequencing decisions and operating leverage proof.
+
+The clearest proof point for VP Operations leaders is stronger execution-cadence proof in early outreach and screening calls.
+
+If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.
+
+For VP Operations candidates, the biggest win is stronger execution-cadence proof in early outreach and screening calls.
+
+If useful, I can send a one-page sample built around your VP Operations context.
+
+If useful, reply ""send it"" and I will send the COO sequencing and operating cadence benchmark for your VP Operations transition context. If not relevant, reply ""pass"" and I will close this out.
+
+Rich
+startingmonday.app","If useful, I can send a one-page sample built around your VP Operations context.",Bad idea to send a 1-page VP Operations transition conversation flow for {company_name}?,3 ways VP Operations leaders improve transition momentum in 30 days?,How VP Operations leaders at {company_name} can tighten transition conversations?,"If useful, I can send a one-page sample built around your VP Operations context.","If useful, I can share the 30-day benchmark sheet and walk you through a 20-minute pilot with 3 success criteria."

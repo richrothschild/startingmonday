@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-05-22T18:30:26.570Z",
+  "threshold": 85,
+  "maxPasses": 3,
+  "passesExecuted": 1,
+  "summary": {
+    "totalRows": 990,
+    "passed": 990,
+    "failed": 0,
+    "avgScore": 92.4,
+    "allAtOrAboveThreshold": true
+  },
+  "changedFiles": 1,
+  "byFile": [
+    {
+      "file": "executive_role_send_ready_templates.csv",
+      "rows": 7,
+      "passed": 7,
+      "failed": 0,
+      "avgScore": 91,
+      "changedRows": 7,
+      "diffs": [
+        {
+          "line": 2,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 3,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 4,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 5,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 6,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 7,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        },
+        {
+          "line": 8,
+          "pass": 1,
+          "beforeScore": 84,
+          "afterScore": 91,
+          "subjectBefore": "Quick question on executive transition workflows",
+          "subjectAfter": "Quick question on executive transition workflows"
+        }
+      ]
+    }
+  ],
+  "topRemainingFailures": []
+}

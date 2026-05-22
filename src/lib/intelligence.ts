@@ -128,6 +128,11 @@ const SIGNAL_LABELS: Record<string, string> = {
   new_product:    'New Product',
   award:          'Award',
   filing_trend:   'Filing Trend',
+  partnership:    'Partnership',
+  board_change:   'Board Change',
+  regulatory_change: 'Regulatory Change',
+  activist_entry: 'Activist Entry',
+  insider_sale:   'Insider Sale',
 }
 
 export function signalLabel(type: string): string {
@@ -145,4 +150,9 @@ export const SIGNAL_COLORS: Record<string, string> = {
   new_product:    'bg-indigo-50 text-indigo-700',
   award:          'bg-yellow-50 text-yellow-700',
   filing_trend:   'bg-slate-100 text-slate-600',
+  partnership:    'bg-cyan-50 text-cyan-700',
+  board_change:   'bg-violet-50 text-violet-700',
+  regulatory_change: 'bg-fuchsia-50 text-fuchsia-700',
+  activist_entry: 'bg-rose-50 text-rose-700',
+  insider_sale:   'bg-stone-100 text-stone-700',
 }

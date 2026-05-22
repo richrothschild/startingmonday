@@ -160,9 +160,35 @@ export default async function MetricsPage() {
           </p>
         </div>
 
+        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#metrics-definitions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Definitions</a>
+            <a href="#metrics-high-low" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">High and low</a>
+            <a href="#metrics-groups" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Group detail</a>
+            <a href="#metrics-trends" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Trend dashboard</a>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+          <h2 className="sr-only">Quick actions</h2>
+          <Link href="/dashboard/admin/crm" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open CRM</p>
+            <p className="text-[12px] text-slate-500 mt-1">Compare lead routing against score movement.</p>
+          </Link>
+          <Link href="/dashboard/admin/outreach-analytics" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open outreach analytics</p>
+            <p className="text-[12px] text-slate-500 mt-1">Review channel outcomes and delivery quality.</p>
+          </Link>
+          <Link href="/dashboard/admin" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Back to admin</p>
+            <p className="text-[12px] text-slate-500 mt-1">Return to operational dashboard controls.</p>
+          </Link>
+        </section>
+
         {/* Score methodology */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Score definitions</div>
+        <section id="metrics-definitions" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Score definitions</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { label: 'Emotion',       desc: 'Does this action make the user feel something? 1 = administrative, 10 = peak emotional moment (offer accepted, first prep brief).' },
@@ -175,12 +201,12 @@ export default async function MetricsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Top and bottom */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <section id="metrics-high-low" className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="bg-white border border-green-200 rounded p-5">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-600 mb-3">Highest composite</div>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-600 mb-3">Highest composite</h2>
             {top3.map(row => (
               <div key={row.event_name} className="flex items-center justify-between py-2.5 border-b border-slate-50 last:border-0">
                 <div>
@@ -192,7 +218,7 @@ export default async function MetricsPage() {
             ))}
           </div>
           <div className="bg-white border border-red-100 rounded p-5">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-red-500 mb-3">Lowest composite — review for friction or low impact</div>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-red-500 mb-3">Lowest composite - review for friction or low impact</h2>
             {bottom3.map(row => (
               <div key={row.event_name} className="flex items-center justify-between py-2.5 border-b border-slate-50 last:border-0">
                 <div>
@@ -203,9 +229,10 @@ export default async function MetricsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Full report by group */}
+        <section id="metrics-groups">
         {GROUP_ORDER.map(group => {
           const items = byGroup[group]
           if (!items) return null
@@ -213,9 +240,9 @@ export default async function MetricsPage() {
           return (
             <div key={group} className="bg-white border border-slate-200 rounded overflow-hidden mb-4">
               <div className="px-6 py-[14px] border-b border-slate-200">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                   {GROUP_LABELS[group]}
-                </span>
+                </h2>
               </div>
               <table className="w-full text-[12px]">
                 <thead>
@@ -246,17 +273,18 @@ export default async function MetricsPage() {
             </div>
           )
         })}
+        </section>
 
         {/* Trend dashboard */}
-        <div className="bg-white border border-slate-200 rounded p-6 mt-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
+        <section id="metrics-trends" className="bg-white border border-slate-200 rounded p-6 mt-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
             Weekly Event Volume by Group (12 weeks)
-          </div>
+          </h2>
           <p className="text-[12px] text-slate-400 mb-6">
             Click a group button below the chart to drill into event-level detail.
           </p>
           <MetricsCharts weeklyData={weeklyData} groupDetails={groupDetails} />
-        </div>
+        </section>
 
       </main>
     </div>

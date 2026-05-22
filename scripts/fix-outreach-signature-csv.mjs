@@ -81,30 +81,36 @@ function isEmailBodyColumn(header) {
   return /(^|_)(email_text|default_body|message_body|followup_text|draft_text|body)$/i.test(header)
 }
 
-function ensureDomainBelowName(text) {
-  const normalized = (text ?? '').toString().replace(/\r\n/g, '\n')
-  if (!normalized.trim()) return { value: normalized, changed: false }
+function normalizeSignature(text) {
+  let normalized = (text ?? '').toString().replace(/\r\n/g, '\n').trim()
+  if (!normalized) return { value: normalized, changed: false }
 
-  const lines = normalized.split('\n')
-  const nameLines = new Set(['rich', 'rich rothschild', 'richard rothschild'])
-  const out = []
-  let changed = false
+  normalized = normalized
+    .replace(/\n*---\nStarting Monday\nIf you prefer no further outreach, reply with "unsubscribe" and I will stop\.\s*$/i, '')
+    .trim()
 
-  for (let i = 0; i < lines.length; i++) {
-    const current = lines[i]
-    const currentNorm = current.trim().toLowerCase()
-    out.push(current)
+  const trailingSignaturePatterns = [
+    /\n*Best,?\s*\n\s*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Best,?\s*\n\s*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Richard Rothschild\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*Rich\s*\n\s*startingmonday\.app\s*$/i,
+    /\n*startingmonday\.app\s*$/i,
+  ]
 
-    if (nameLines.has(currentNorm)) {
-      const nextNorm = (lines[i + 1] ?? '').trim().toLowerCase()
-      if (nextNorm !== 'startingmonday.app') {
-        out.push('startingmonday.app')
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const pattern of trailingSignaturePatterns) {
+      const next = normalized.replace(pattern, '').trim()
+      if (next !== normalized) {
+        normalized = next
         changed = true
       }
     }
   }
 
-  return { value: out.join('\n'), changed }
+  const value = `${normalized}\n\nRich\nstartingmonday.app`
+  return { value, changed: value !== (text ?? '').toString().replace(/\r\n/g, '\n').trim() }
 }
 
 async function main() {
@@ -129,7 +135,7 @@ async function main() {
       let rowTouched = false
       for (const header of editableHeaders) {
         const existing = row[header] ?? ''
-        const { value, changed } = ensureDomainBelowName(existing)
+        const { value, changed } = normalizeSignature(existing)
         if (changed) {
           row[header] = value
           fieldsChanged++

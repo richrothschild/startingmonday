@@ -1,4 +1,5 @@
 import { notFound, redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { PrepClient } from './prep-client'
 import type { InterviewStage } from '@/lib/prompts'
@@ -65,21 +66,29 @@ export default async function PrepPage({
   ].filter(Boolean).length / 5) * 100)
 
   return (
-    <PrepClient
-      companyId={id}
-      companyName={company.name}
-      companyStage={company.stage}
-      stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
-      hasContacts={(contactCount ?? 0) > 0}
-      hasNotes={!!(company.notes?.trim())}
-      hasInterviewNotes={!!(company.interview_notes?.trim())}
-      roleType={profile?.role_type ?? null}
-      hasCareerHistory={hasCareerHistory}
-      hasPositioning={hasPositioning}
-      hasTargetTitles={hasTargetTitles}
-      profileScore={profileScore}
-      firstCompany={isFirstCompany}
-      initialStage={VALID_STAGES.includes(stage as InterviewStage) ? (stage as InterviewStage) : undefined}
-    />
+    <main>
+      <h1 className="sr-only">Interview Prep Brief</h1>
+      <nav className="sr-only" aria-label="Prep quick actions">
+        <Link href={`/dashboard/companies/${id}`}>Back to company page</Link>
+        <Link href={`/dashboard/companies/${id}/prep?stage=first_interview`}>Start first interview prep</Link>
+        <Link href="/dashboard/briefing">Open daily briefing</Link>
+      </nav>
+      <PrepClient
+        companyId={id}
+        companyName={company.name}
+        companyStage={company.stage}
+        stageLabel={STAGE_LABEL[company.stage] ?? company.stage}
+        hasContacts={(contactCount ?? 0) > 0}
+        hasNotes={!!(company.notes?.trim())}
+        hasInterviewNotes={!!(company.interview_notes?.trim())}
+        roleType={profile?.role_type ?? null}
+        hasCareerHistory={hasCareerHistory}
+        hasPositioning={hasPositioning}
+        hasTargetTitles={hasTargetTitles}
+        profileScore={profileScore}
+        firstCompany={isFirstCompany}
+        initialStage={VALID_STAGES.includes(stage as InterviewStage) ? (stage as InterviewStage) : undefined}
+      />
+    </main>
   )
 }

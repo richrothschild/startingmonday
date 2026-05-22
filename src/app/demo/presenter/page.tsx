@@ -48,18 +48,30 @@ export default function PresenterDemoPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <section className="mb-6 bg-white border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#presenter-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Presenter overview</a>
+            <a href="#talk-track" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Talk track</a>
+            <a href="#demo-sequence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Demo sequence</a>
+          </div>
+        </section>
+
         <section className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 mb-8">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Presenter mode</p>
+          <div id="presenter-overview" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Presenter mode</h2>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-slate-900 leading-[1.1] mb-4">
               A five-minute CIO demo you can walk him through.
             </h1>
             <p className="text-[15px] text-slate-600 leading-relaxed mb-6 max-w-2xl">
               Start with the problem, show the live brief, then close on the operating cadence. This route opens on a strong sample and auto-runs the brief so you can present without typing.
             </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-2">Trust and confidentiality: presenter runs are private to your session and not exposed publicly.</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-2">Outcome metric: present a complete CIO workflow in under 5 minutes.</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-6">CTA: get started now with full presenter view.</p>
             <div className="flex flex-wrap gap-3">
               <Link href="/demo/presenter?full=1" className="inline-flex items-center justify-center rounded bg-slate-950 text-white px-4 py-2.5 text-[13px] font-semibold hover:bg-slate-800 transition-colors">
-                Open full presenter view
+                Get started now
               </Link>
               <Link href="/demo/manager-tools" className="inline-flex items-center justify-center rounded border border-slate-200 bg-white text-slate-700 px-4 py-2.5 text-[13px] font-semibold hover:border-slate-400 transition-colors">
                 View manager tools example
@@ -67,8 +79,8 @@ export default function PresenterDemoPage() {
             </div>
           </div>
 
-          <div className="bg-slate-950 text-white rounded-2xl p-6 sm:p-8 shadow-sm">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-4">Talk track</p>
+          <div id="talk-track" className="bg-slate-950 text-white rounded-2xl p-6 sm:p-8 shadow-sm">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-4">Talk track</h2>
             <div className="space-y-3">
               {TALK_TRACK.map((line) => (
                 <div key={line} className="text-[14px] leading-relaxed text-slate-200">
@@ -77,7 +89,7 @@ export default function PresenterDemoPage() {
               ))}
             </div>
             <div className="mt-6 border-t border-slate-800 pt-5">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">What to show the CIO</p>
+              <h3 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">What to show the CIO</h3>
               <div className="space-y-3">
                 {STEPS.map((step) => (
                   <div key={step.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
@@ -90,9 +102,9 @@ export default function PresenterDemoPage() {
           </div>
         </section>
 
-        <section className="mb-8">
+        <section id="demo-sequence" className="mb-8">
           <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Demo sequence</p>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Demo sequence</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">1. Open with CIO context</p>
