@@ -19,10 +19,10 @@ Excellence threshold: score >= 90 (A- or better).
 ## Overall Results
 
 - Total pages audited: 157
-- Excellent pages (A- or better): 138
-- Flagged pages (below excellent): 19
+- Excellent pages (A- or better): 139
+- Flagged pages (below excellent): 18
 - High-risk pages (score < 80): 0
-- Site excellence rate: 87.9%
+- Site excellence rate: 88.5%
 
 ## Results by Page Category
 
@@ -30,7 +30,7 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|---:|---:|---:|
 | auth | 2 | 91.0 | 2 | 0 |
 | blog | 30 | 92.5 | 30 | 0 |
-| dashboard | 57 | 97.1 | 50 | 7 |
+| dashboard | 57 | 97.2 | 51 | 6 |
 | legal | 5 | 96.8 | 5 | 0 |
 | marketing | 63 | 93.8 | 51 | 12 |
 
@@ -43,8 +43,8 @@ Excellence threshold: score >= 90 (A- or better).
 | Low action density for workflow page | 15 |
 | Missing trust/confidentiality cues | 8 |
 | Weak heading hierarchy | 5 |
-| High scroll burden | 5 |
-| Moderate scroll burden | 4 |
+| Moderate scroll burden | 5 |
+| High scroll burden | 4 |
 | Insufficient content chunking | 3 |
 | CTA overload | 1 |
 
@@ -93,7 +93,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /coaches-guide | 92 | A- | Yes | marketing | src/app/coaches-guide/page.tsx | Missing outcome metrics |
 | /concierge | 92 | A- | Yes | marketing | src/app/concierge/page.tsx | Missing outcome metrics |
 | /contributor | 84 | B | No | marketing | src/app/contributor/page.tsx | Weak heading hierarchy; Missing outcome metrics |
-| /dashboard | 82 | B- | No | dashboard | src/app/(dashboard)/dashboard/page.tsx | High scroll burden |
+| /dashboard | 90 | A- | Yes | dashboard | src/app/(dashboard)/dashboard/page.tsx | Moderate scroll burden |
 | /dashboard/admin | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/page.tsx | No major static UX risks detected |
 | /dashboard/admin/b2b | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/page.tsx | No major static UX risks detected |
 | /dashboard/admin/b2b/[id] | 100 | A+ | Yes | dashboard | src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx | No major static UX risks detected |
