@@ -365,7 +365,8 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
-  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
+  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
+  const isRothschildAdmin = adminHeaderEmails.has((user.email ?? '').toLowerCase())
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0

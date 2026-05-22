@@ -26,7 +26,8 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   accountName: string | null
   isPlaced?: boolean
 }) {
-  const isRothschildAdmin = accountEmail.toLowerCase() === 'rothschild@gmail.com'
+  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
+  const isRothschildAdmin = adminHeaderEmails.has(accountEmail.toLowerCase())
   const [paused, setPaused] = useState(sub.isPaused)
   const [now] = useState(() => Date.now())
   const [pauseDays, setPauseDays] = useState(14)

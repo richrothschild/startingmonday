@@ -17,7 +17,8 @@ export default async function TeamSettingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
-  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
+  const adminHeaderEmails = new Set(['rothschild@gmail.com', 'chriskgoodwin@gmail.com'])
+  const isRothschildAdmin = adminHeaderEmails.has((user.email ?? '').toLowerCase())
 
   const { data: rawSeats } = await supabase
     .from('team_seats')
