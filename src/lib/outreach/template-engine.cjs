@@ -124,26 +124,26 @@ function microProofLine(channel, focus) {
 
 function costOfInactionLine(channel) {
   if (channel === CHANNELS.COACHES) {
-    return 'If this is ignored, the cost is usually another cycle of well-qualified clients getting filtered out because their first narrative is not decision-grade.'
+    return 'If this is not relevant right now, no problem - timing matters more than forcing another initiative.'
   }
   if (channel === CHANNELS.OUTPLACEMENT_FIRMS) {
-    return 'If this is ignored, the cost is usually program activity without qualified progression, which lowers confidence in cohort outcomes.'
+    return 'If this is not relevant right now, no problem - the right use case is when cohorts need cleaner progression quality.'
   }
-  return 'If this is ignored, the cost is usually losing qualified opportunities before the role-fit conversation ever gets a fair read.'
+  return 'If this is not relevant right now, no problem - I would rather keep this useful than push timing.'
 }
 
 function binaryCtaLine(asset, audience) {
-  return `If useful, reply "send it" and I will send ${asset} for your ${audience}. If not relevant, reply "pass" and I will close this out.`
+  return `If helpful, I can send ${asset} for your ${audience}. If not useful right now, no worries and I will leave it here.`
 }
 
 function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, step }) {
   const transitionFocus = focusText(focus || roleLabel || 'Executive')
   const benchmarkAsset = benchmarkAssetForFocus(transitionFocus)
   const subject = step === 'followup_2'
-    ? `Bad idea to send a 1-page senior ${roleLabel} transition conversation flow for ${company}?`
+    ? `Quick question on senior ${roleLabel} transition conversations at ${company}`
     : step === 'followup_3'
-      ? `Bad idea to send a 1-page transition conversation flow for ${roleLabel} leaders at ${company}?`
-      : `Bad idea to send a 1-page ${roleLabel} transition conversation flow for ${company}?`
+      ? `Quick question on ${roleLabel} transition conversations at ${company}`
+      : `Quick question on ${roleLabel} transition conversations at ${company}`
 
   if (step === 'followup_1') {
     return {
@@ -234,13 +234,13 @@ function buildLatestTemplateDraft({ channel, firstName, company, roleLabel, focu
     const asset = benchmarkAssetForFocus(transitionFocus)
     const proof = proofLineForFocus(transitionFocus)
     return {
-      subject: `Bad idea to send a 1-page ${safeRoleLabel} conversation flow for ${safeCompany}?`,
+      subject: `Quick question on ${safeRoleLabel} transition conversations at ${safeCompany}`,
       body: [
         `${safeFirstName},`,
         '',
         `I have been following your work at ${safeCompany}, and I thought this might be useful for ${safeRoleLabel} transitions.`,
         '',
-        'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
+        'I built Starting Monday as a practical execution system for senior leaders: target-company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
         '',
         stakesLineForFocus(transitionFocus, safeCompany),
         '',
@@ -264,15 +264,15 @@ function buildLatestTemplateDraft({ channel, firstName, company, roleLabel, focu
 
   if (channel === CHANNELS.SEARCH_FIRMS) {
     return {
-      subject: `Bad idea to send a 1-page workflow for ${safeCompany} mandates?`,
+      subject: `Quick question on ${safeCompany} mandate readiness`,
       body: [
         `${safeFirstName},`,
         '',
         `I have been following your work at ${safeCompany}, and I thought this might be useful for ${transitionFocus.toUpperCase()} transitions.`,
         '',
-        'Starting Monday gives senior leaders a practical execution system: target company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
+        'I built Starting Monday as a practical execution system: target-company intelligence, role-specific prep briefs, and outreach workflows that improve signal quality in first-touch conversations.',
         '',
-        'Would it be a bad idea if I sent a one-page example tailored to your mandate mix?',
+        'If useful, I can send a one-page example tailored to your mandate mix so you can decide quickly if it is relevant.',
         '',
         'Rich',
         'startingmonday.app',
@@ -284,13 +284,13 @@ function buildLatestTemplateDraft({ channel, firstName, company, roleLabel, focu
     const proof = coachProofPointForFocus(transitionFocus)
     const asset = coachAssetForFocus(transitionFocus)
     return {
-      subject: `Bad idea to send a 1-page executive transition conversation flow for ${safeCompany}?`,
+      subject: `Quick question on executive transition readiness for ${safeCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         `I have been following your work at ${safeCompany}, and I thought this might be useful for the executives you support.`,
         '',
-        'Starting Monday gives executive coaches a hard-edged execution layer: company targeting, interview narrative discipline, and outreach workflows that hold up under pressure.',
+        'I built Starting Monday to give executive coaches a practical execution layer: company targeting, interview narrative discipline, and outreach workflows that hold up under pressure.',
         '',
         coachStakesLineForFocus(transitionFocus, safeCompany),
         '',
@@ -313,7 +313,7 @@ function buildLatestTemplateDraft({ channel, firstName, company, roleLabel, focu
   const outplacementAsset = outplacementAssetForFocus(transitionFocus)
   const outplacementFocusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   return {
-    subject: `Bad idea to send a 1-page executive transition conversation flow for ${safeCompany}?`,
+    subject: `Quick question on transition cohort readiness for ${safeCompany}`,
     body: [
       `Hi ${safeFirstName},`,
       '',
