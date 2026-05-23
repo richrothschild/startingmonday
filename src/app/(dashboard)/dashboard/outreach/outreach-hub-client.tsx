@@ -47,6 +47,40 @@ type Props = {
   fromAddressLabel: string
 }
 
+function firstNameOf(fullName: string): string {
+  const first = fullName.trim().split(/\s+/)[0]
+  return first && first.length > 0 ? first : 'there'
+}
+
+function day1Message10Draft(fullName: string): { subject: string; body: string } {
+  const firstName = firstNameOf(fullName)
+  return {
+    subject: 'Would it be unreasonable to test this with 2 clients?',
+    body: [
+      `Hi ${firstName},`,
+      '',
+      'We built Starting Monday for coaches supporting senior executives in transition. The goal is simple: less admin drag, better-prepared clients, stronger sessions.',
+      '',
+      'Would it be unreasonable to run a 30-day test with 2 clients and keep it only if outcomes improve?',
+      '',
+      'If yes, I will send the setup checklist.',
+      '',
+      'Rich',
+    ].join('\n'),
+  }
+}
+
+function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
+  if (row.campaignTag === 'coach_day1_60' && (indexInFiltered + 1) % 5 === 0) {
+    return day1Message10Draft(row.fullName)
+  }
+
+  return {
+    subject: row.defaultSubject,
+    body: row.defaultBody,
+  }
+}
+
 function statusBadge(status: string): string {
   if (status === 'reached_out') return 'bg-blue-50 text-blue-700'
   if (status === 'in_conversation') return 'bg-amber-50 text-amber-700'
@@ -125,12 +159,22 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
 
+  useEffect(() => {
+    const row = filtered[selectedIndex] ?? filtered[0]
+    if (!row) return
+    const idx = filtered[selectedIndex] ? selectedIndex : 0
+    const prefill = prefillForRow(row, idx)
+    setSubject(prefill.subject)
+    setMessageText(prefill.body)
+  }, [filtered, selectedIndex])
+
   function resetComposerFor(index: number) {
     const next = filtered[index]
     if (!next) return
     setSelectedIndex(index)
-    setSubject(next.defaultSubject)
-    setMessageText(next.defaultBody)
+    const prefill = prefillForRow(next, index)
+    setSubject(prefill.subject)
+    setMessageText(prefill.body)
     setError(null)
     setSuccess(null)
     setGuardrailWarnings([])
