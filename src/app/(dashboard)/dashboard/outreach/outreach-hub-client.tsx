@@ -39,6 +39,7 @@ type ProspectRow = {
   outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
   fitTier: 'strong' | 'medium'
   personaFocus: string
+  campaignTag?: 'coach_day1_60'
 }
 
 type Props = {
@@ -65,6 +66,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [statusFilter, setStatusFilter] = useState('all')
   const [confidenceFilter, setConfidenceFilter] = useState<'all' | 'high' | 'medium' | 'low'>('high')
   const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'>('executives')
+  const [activeCampaign, setActiveCampaign] = useState<'all' | 'coach_day1_60'>('all')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
   const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
@@ -109,6 +111,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     const q = search.trim().toLowerCase()
     return items.filter((r) => {
       const matchesChannel = r.outreachChannel === activeChannel
+      const matchesCampaign = activeCampaign === 'all' || r.campaignTag === activeCampaign
       const matchesStatus = statusFilter === 'all' || r.status === statusFilter
       const matchesConfidence = confidenceFilter === 'all' || r.emailConfidence === confidenceFilter
       const matchesQuery = !q
@@ -116,9 +119,9 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         || r.company.toLowerCase().includes(q)
         || r.roleBucket.toLowerCase().includes(q)
         || r.email.toLowerCase().includes(q)
-      return matchesChannel && matchesStatus && matchesConfidence && matchesQuery
+      return matchesChannel && matchesCampaign && matchesStatus && matchesConfidence && matchesQuery
     })
-  }, [items, search, statusFilter, confidenceFilter, activeChannel])
+  }, [items, search, statusFilter, confidenceFilter, activeChannel, activeCampaign])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
 
@@ -262,6 +265,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               type="button"
               onClick={() => {
                 setActiveChannel(option.value)
+                setActiveCampaign('all')
                 setSelectedIndex(0)
                 setSearch('')
               }}
@@ -275,6 +279,23 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               {option.label}
             </button>
           ))}
+          <button
+            type="button"
+            onClick={() => {
+              setActiveChannel('coaches')
+              setActiveCampaign('coach_day1_60')
+              setSelectedIndex(0)
+              setSearch('')
+            }}
+            className={[
+              'text-[12px] font-semibold px-3 py-1.5 rounded border transition-colors',
+              activeChannel === 'coaches' && activeCampaign === 'coach_day1_60'
+                ? 'bg-orange-600 text-white border-orange-600'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
+            ].join(' ')}
+          >
+            Day 1 Coach List (60)
+          </button>
         </div>
       </div>
 

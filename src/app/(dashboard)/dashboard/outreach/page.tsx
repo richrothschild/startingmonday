@@ -33,7 +33,7 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
@@ -53,6 +53,7 @@ export default async function OutreachHubPage() {
     readOutreachCsv('outplacement_firms_prospecting_100.csv'),
     readOutreachCsv('search_firms_prospecting_curated_top25.csv'),
     readOutreachCsv('coaches_prospecting_curated_top25.csv'),
+    readOutreachCsv('day1_coach_target_list_60.csv'),
     supabase
       .from('contacts')
       .select('email, outreach_status')
@@ -78,6 +79,56 @@ export default async function OutreachHubPage() {
   const executiveCompanySizeLookup = buildExecutiveCompanySizeLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
+
+  function firstNameOf(fullName: string): string {
+    return (fullName.trim().split(/\s+/)[0] ?? 'there').trim()
+  }
+
+  function buildDay1CoachDraft(fullName: string): { subject: string; body: string } {
+    const firstName = firstNameOf(fullName)
+    const subject = `${firstName}, quick idea to cut session context rebuild`
+    const body = [
+      `Hi ${firstName},`,
+      '',
+      'Most executive coaches I talk with share one friction point: too much paid session time goes to reconstructing what happened since last week.',
+      '',
+      'Starting Monday gives coaches one place for signal monitoring, prep briefs, and pipeline movement so sessions stay in strategy.',
+      '',
+      'If useful, I can send one sample prep brief and the 30-day pilot scorecard. You can decide quickly whether it fits your practice.',
+      '',
+      'Rich',
+    ].join('\n')
+
+    return { subject, body }
+  }
+
+  const day1CoachRows: ClientRow[] = day1CoachTargetList.rows
+    .map((row) => {
+      const fullName = (row.full_name ?? '').trim()
+      const email = (row.email ?? '').trim().toLowerCase()
+      if (!fullName || !email) return null
+
+      const draft = buildDay1CoachDraft(fullName)
+
+      return {
+        fullName,
+        roleBucket: row.title ?? 'Executive Coach',
+        company: row.company ?? '',
+        email,
+        emailConfidence: inferEmailConfidence(row),
+        status: normalizeStatus(row.status),
+        emailOpening: `Hi ${firstNameOf(fullName)},`,
+        emailBodyCore: draft.body,
+        defaultSubject: draft.subject,
+        defaultBody: draft.body,
+        outreachChannel: 'coaches' as const,
+        fitTier: 'strong',
+        personaFocus: 'Executive transition coaches in the Day 1 sprint target batch',
+        campaignTag: 'coach_day1_60' as const,
+      }
+    })
+    .filter((row): row is ClientRow => row !== null)
+
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
     .map((row): ClientRow | null => {
@@ -125,6 +176,7 @@ export default async function OutreachHubPage() {
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CFO, COO, CIO, CHRO, CRO searches',
     })),
+    ...day1CoachRows,
     ...prioritizedCoaches.rows.map((row) => ({
       ...(() => {
         const draft = buildStandardizedDraft(row, 'coaches')
@@ -144,6 +196,7 @@ export default async function OutreachHubPage() {
       outreachChannel: 'coaches' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CIO, CTO, CISO, COO, CFO transitions',
+      campaignTag: undefined,
     })),
     ...outplacementRaw.rows.map((row) => ({
       ...(() => {
@@ -164,6 +217,7 @@ export default async function OutreachHubPage() {
       outreachChannel: 'outplacement_firms' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'Executive transition and career mobility programs',
+      campaignTag: undefined,
     })),
   ].filter(row => !!row.fullName && !!row.email)
 
@@ -194,6 +248,7 @@ export default async function OutreachHubPage() {
   const executiveCount = clientRows.filter(r => r.outreachChannel === 'executives').length
   const searchFirmCount = clientRows.filter(r => r.outreachChannel === 'search_firms').length
   const coachCount = clientRows.filter(r => r.outreachChannel === 'coaches').length
+  const day1CoachCount = clientRows.filter(r => r.campaignTag === 'coach_day1_60').length
   const outplacementCount = clientRows.filter(r => r.outreachChannel === 'outplacement_firms').length
   const strongCount = clientRows.filter(r => r.fitTier === 'strong').length
   const mediumCount = clientRows.filter(r => r.fitTier === 'medium').length
@@ -243,12 +298,30 @@ export default async function OutreachHubPage() {
             <p className="text-[13px] font-semibold text-slate-900">Search Firms: {searchFirmCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Coaches: {coachCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Outplacement Firms: {outplacementCount}</p>
+            <p className="text-[12px] text-orange-600 font-semibold mt-2">Day 1 Coach Sprint List: {day1CoachCount}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>
             <p className="text-[13px] font-semibold text-slate-900 mt-1">Strong fit: {strongCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Medium fit: {mediumCount}</p>
             <p className="text-[12px] text-slate-500 mt-1">Strong-fit rows should be worked first</p>
+          </div>
+        </section>
+
+        <section className="bg-white border border-orange-200 rounded p-5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-600 mb-2">New Section: Day 1 Coach Sprint</p>
+          <h2 className="text-[18px] font-bold text-slate-900 leading-tight">Run the 60-target coach list with prefilled outreach drafts</h2>
+          <p className="text-[13px] text-slate-600 mt-2 max-w-3xl">
+            Use the <span className="font-semibold text-slate-900">Day 1 Coach List (60)</span> button in the outreach workbench channel bar.
+            It filters to the Day 1 targets and preloads each contact with the Day 1 sprint email copy from the coach traction plan.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a href="#outreach-workbench" className="inline-flex items-center bg-slate-900 text-white text-[12px] font-semibold px-3 py-2 rounded hover:bg-slate-700 transition-colors">
+              Open Outreach Workbench
+            </a>
+            <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[12px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
+              View Cadence Checklist
+            </a>
           </div>
         </section>
 

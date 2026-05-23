@@ -25,6 +25,7 @@ export type ClientRow = {
   outreachChannel: OutreachChannel
   fitTier: 'strong' | 'medium'
   personaFocus: string
+  campaignTag?: 'coach_day1_60'
 }
 
 export type ContactStatusRow = {
