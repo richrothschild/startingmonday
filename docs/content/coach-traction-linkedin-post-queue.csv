@@ -1,0 +1,5 @@
+queue_id,day_label,publish_date,publish_time_pt,timezone,post_type,theme,cta,status,draft_reference,owner,notes
+LQ-CT-001,Day 1,2026-05-26,07:30,America/Los_Angeles,Founder text post,Cost of context rebuild,Comment "checklist",queued,docs/content/linkedin-post-day1-cost-of-context-rebuild.md,Rich,Post first then send first 10 connection requests
+LQ-CT-002,Day 4,2026-05-29,07:40,America/Los_Angeles,Founder text post,Proof-oriented metric post,Reply "scorecard",queued,docs/content/coach-traction-linkedin-post-queue.md#day-4-proof-post,Rich,Use one real metric from week 1 tracker
+LQ-CT-003,Day 7,2026-06-03,07:35,America/Los_Angeles,Founder text post,Sprint learning recap,Comment "lessons",queued,docs/content/coach-traction-linkedin-post-queue.md#day-7-recap-post,Rich,Summarize wins/losses and one script change
+LQ-CT-004,Day 10,2026-06-08,07:30,America/Los_Angeles,Founder text post,Coach use-case narrative,Reply "case",queued,docs/content/coach-traction-linkedin-post-queue.md#day-10-coach-use-case-post,Rich,Anchor to one anonymized pilot story
