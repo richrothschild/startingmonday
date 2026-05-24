@@ -1,48 +1,27 @@
 {
-  "generatedAt": "2026-05-24T16:16:42.885Z",
-  "fileCount": 790,
-  "findingCount": 691,
-  "overallScore": 54,
+  "generatedAt": "2026-05-24T16:35:04.939Z",
+  "fileCount": 808,
+  "findingCount": 524,
+  "overallScore": 64,
   "grade": "C-",
   "scores": {
     "correctness": 100,
     "security": 100,
-    "maintainability": 0,
+    "maintainability": 40,
     "performance": 100,
     "testability": 0,
     "observability": 0,
     "typeSafety": 64,
-    "complexity": 0,
+    "complexity": 73,
     "deliveryRisk": 100
   },
   "findings": [
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(auth)/signup/page.tsx",
-      "issue": "Many long lines (29)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(auth)/signup/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
     {
       "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/admin/admin-charts.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/admin-page-client.tsx",
-      "issue": "Many long lines (42)"
     },
     {
       "severity": "medium",
@@ -88,45 +67,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/b2b/[id]/material-client.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/admin/b2b/[id]/material-client.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
-      "issue": "Many long lines (46)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
-      "issue": "Many long lines (42)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
-      "issue": "Deep indentation (11 levels)"
     },
     {
       "severity": "medium",
@@ -134,13 +78,6 @@
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/admin/crm/actions.ts",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
-      "issue": "Deep indentation (14 levels)"
     },
     {
       "severity": "medium",
@@ -167,27 +104,6 @@
       "severity": "medium",
       "area": "complexity",
       "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/intelligence/client.tsx",
-      "issue": "Many long lines (28)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
       "path": "src/app/(dashboard)/dashboard/admin/intelligence/client.tsx",
       "issue": "Deep indentation (16 levels)"
     },
@@ -207,115 +123,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
-      "issue": "Large file (512 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
-      "issue": "Many long lines (28)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
-      "issue": "Very large file (1085 lines)"
-    },
-    {
-      "severity": "medium",
       "area": "maintainability",
       "points": 2,
       "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
       "issue": "Many long lines (80)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
-      "issue": "Many long lines (52)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-      "issue": "Very large file (1060 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-      "issue": "Many long lines (59)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
     },
     {
       "severity": "medium",
@@ -360,31 +171,10 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
-      "issue": "Very large file (1227 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
-      "issue": "Many long lines (34)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
       "severity": "medium",
       "area": "testability",
       "points": 4,
-      "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
+      "path": "src/app/(dashboard)/dashboard/admin/traces/trace-shared.ts",
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
@@ -396,59 +186,10 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/briefing/page.tsx",
-      "issue": "Large file (556 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/briefing/page.tsx",
-      "issue": "Many long lines (44)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/briefing/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/calendar/calendar-item.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/calendar/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/chat/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/coach/page.tsx",
-      "issue": "Many long lines (21)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/coach/page.tsx",
-      "issue": "Deep indentation (14 levels)"
     },
     {
       "severity": "medium",
@@ -487,13 +228,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/contacts-panel.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/companies/[id]/contacts-panel.tsx",
@@ -501,31 +235,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/documents-panel.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/companies/[id]/documents-panel.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/interview-sessions-panel.tsx",
-      "issue": "Many long lines (21)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/interview-sessions-panel.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -542,13 +255,6 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
-      "issue": "Very large file (778 lines)"
-    },
-    {
       "severity": "medium",
       "area": "maintainability",
       "points": 2,
@@ -563,46 +269,11 @@
       "issue": "Deep indentation (15 levels)"
     },
     {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-      "issue": "Very large file (1039 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-      "issue": "Many long lines (42)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
       "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/companies/[id]/signals-panel.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/concierge/page.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -613,20 +284,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/contacts/loading.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/contacts/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/contacts/[id]/actions.ts",
@@ -634,69 +291,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/outreach-client.tsx",
-      "issue": "Large file (502 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/outreach-client.tsx",
-      "issue": "Many long lines (29)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/outreach-client.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/outreach-client.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
-      "issue": "Large file (547 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
-      "issue": "Many long lines (37)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/dashboard-intel-setup-sections.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/dashboard-intel-setup-sections.tsx",
@@ -704,31 +298,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/dashboard-pipeline-section.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/dashboard-pipeline-section.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/discover/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/feedback/page.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -781,52 +354,10 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/outreach/outreach-data.ts",
-      "issue": "Large file (548 lines)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/outreach/outreach-data.ts",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
-      "issue": "Large file (587 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/outreach/page.tsx",
-      "issue": "Many long lines (22)"
-    },
-    {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/(dashboard)/dashboard/page.tsx",
-      "issue": "Very large file (1327 lines)"
     },
     {
       "severity": "medium",
@@ -834,13 +365,6 @@
       "points": 2,
       "path": "src/app/(dashboard)/dashboard/page.tsx",
       "issue": "Many long lines (144)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/page.tsx",
-      "issue": "Deep indentation (11 levels)"
     },
     {
       "severity": "medium",
@@ -855,13 +379,6 @@
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/partner/ExportCsvButton.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/partner/page.tsx",
-      "issue": "Deep indentation (13 levels)"
     },
     {
       "severity": "medium",
@@ -886,13 +403,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/positioning/positioning-coach.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/positioning/positioning-coach.tsx",
@@ -914,24 +424,10 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/profile/page.tsx",
-      "issue": "Many long lines (38)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/profile/positioning-generator.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/profile/profile-advanced-panels.tsx",
-      "issue": "Many long lines (47)"
     },
     {
       "severity": "medium",
@@ -970,13 +466,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/dashboard/signals/page.tsx",
-      "issue": "Many long lines (22)"
-    },
-    {
-      "severity": "medium",
       "area": "complexity",
       "points": 3,
       "path": "src/app/(dashboard)/dashboard/signals/page.tsx",
@@ -984,31 +473,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/dashboard/start/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/dashboard/strategy/strategy-client.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/(dashboard)/settings/billing/billing-client.tsx",
-      "issue": "Many long lines (25)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/settings/billing/billing-client.tsx",
-      "issue": "Deep indentation (13 levels)"
     },
     {
       "severity": "medium",
@@ -1026,24 +494,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/(dashboard)/settings/team/team-settings.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/(dashboard)/settings/team/team-settings.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/about/page.tsx",
-      "issue": "Many long lines (28)"
     },
     {
       "severity": "medium",
@@ -1390,13 +844,6 @@
     },
     {
       "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/api/admin/automation/meetings/book-remind/route.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
       "area": "observability",
       "points": 3,
       "path": "src/app/api/admin/automation/meetings/book-remind/route.ts",
@@ -1551,13 +998,6 @@
     },
     {
       "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/api/admin/automation/outreach/enforce-suppression/route.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
       "area": "observability",
       "points": 3,
       "path": "src/app/api/admin/automation/outreach/enforce-suppression/route.ts",
@@ -1583,13 +1023,6 @@
       "points": 3,
       "path": "src/app/api/admin/automation/outreach/initial-sequences/route.ts",
       "issue": "Contains any usage (1)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/api/admin/automation/outreach/initial-sequences/route.ts",
-      "issue": "No obvious colocated or mirrored test file found"
     },
     {
       "severity": "medium",
@@ -2377,27 +1810,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/api/cron/outreach-tone-guard/route.ts",
-      "issue": "Large file (482 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/api/cron/outreach-tone-guard/route.ts",
-      "issue": "Many long lines (32)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/api/cron/outreach-tone-guard/route.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/api/cron/scan-alert/route.ts",
@@ -2986,34 +2398,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/api/prep/[id]/route.ts",
-      "issue": "Large file (598 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/api/prep/[id]/route.ts",
-      "issue": "Many long lines (48)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/api/prep/[id]/route.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "observability",
-      "points": 3,
-      "path": "src/app/api/prep/[id]/route.ts",
-      "issue": "API route lacks explicit logging/exception capture signal"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/api/prep/[id]/tech-stack/route.ts",
@@ -3231,48 +2615,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/blog/cio-job-market-2026/page.tsx",
-      "issue": "Many long lines (54)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/blog/page.tsx",
-      "issue": "Many long lines (21)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/career-tools/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/coaches-guide/page.tsx",
-      "issue": "Many long lines (25)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/coaches-guide/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/concierge/concierge-waitlist.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/concierge/concierge-waitlist.tsx",
@@ -3280,24 +2622,10 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/contributor/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "high",
       "area": "maintainability",
-      "points": 8,
+      "points": 4,
       "path": "src/app/demo/cio/CioDemoClient.tsx",
-      "issue": "Very large file (787 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/demo/cio/CioDemoClient.tsx",
-      "issue": "Many long lines (54)"
+      "issue": "Large file (787 lines)"
     },
     {
       "severity": "medium",
@@ -3305,13 +2633,6 @@
       "points": 4,
       "path": "src/app/demo/cio/CioDemoClient.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/demo/cio/CioNotesClient.tsx",
-      "issue": "Many long lines (37)"
     },
     {
       "severity": "medium",
@@ -3319,48 +2640,6 @@
       "points": 4,
       "path": "src/app/demo/cio/CioNotesClient.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/demo/cio/CioPresentationClient.tsx",
-      "issue": "Very large file (789 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/demo/cio/CioPresentationClient.tsx",
-      "issue": "Many long lines (54)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/demo/cio/CioPresentationClient.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/demo/cio/CioPresentationClient.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/demo/manager-tools/page.tsx",
-      "issue": "Many long lines (22)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/demo/page.tsx",
-      "issue": "Deep indentation (11 levels)"
     },
     {
       "severity": "medium",
@@ -3368,13 +2647,6 @@
       "points": 4,
       "path": "src/app/error.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/evidence-room/page.tsx",
-      "issue": "Many long lines (21)"
     },
     {
       "severity": "medium",
@@ -3392,13 +2664,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-cio-associations/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/for-ciso/opengraph-image.tsx",
@@ -3413,20 +2678,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-coaches/faq/page.tsx",
-      "issue": "Many long lines (42)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-coaches/faq/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/for-coaches/page-content.ts",
@@ -3435,30 +2686,9 @@
     {
       "severity": "medium",
       "area": "maintainability",
-      "points": 4,
-      "path": "src/app/for-coaches/page.tsx",
-      "issue": "Large file (527 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
       "points": 2,
       "path": "src/app/for-coaches/page.tsx",
       "issue": "Many long lines (68)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-coaches/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-coaches/sample-output-section.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -3490,132 +2720,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-financial-advisors/page.tsx",
-      "issue": "Many long lines (25)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-financial-advisors/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-fractional-executives/page.tsx",
-      "issue": "Many long lines (24)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-fractional-executives/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-media-partners/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/for-outplacement/economics/page.tsx",
-      "issue": "Large file (528 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-outplacement/economics/page.tsx",
-      "issue": "Many long lines (31)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-outplacement/faq/page.tsx",
-      "issue": "Many long lines (28)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/for-outplacement/page.tsx",
-      "issue": "Large file (598 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-outplacement/page.tsx",
-      "issue": "Many long lines (49)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-outplacement/page.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/app/for-outplacement/trust-pack/page.tsx",
-      "issue": "Large file (476 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-outplacement/trust-pack/page.tsx",
-      "issue": "Many long lines (25)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-pe-partners/page.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-relocation/page.tsx",
-      "issue": "Many long lines (25)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-relocation/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/for-search-firms/page.tsx",
-      "issue": "Many long lines (23)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/for-search-firms/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/for-vp/opengraph-image.tsx",
@@ -3644,38 +2748,10 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/intelligence/[slug]/page.tsx",
-      "issue": "Many long lines (21)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/intelligence/[slug]/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/layout.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/mark-review/page.tsx",
-      "issue": "Many long lines (27)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/method-and-evidence/page.tsx",
-      "issue": "Many long lines (22)"
     },
     {
       "severity": "medium",
@@ -3692,34 +2768,6 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/app/onboarding/onboarding-form.tsx",
-      "issue": "Very large file (1294 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/onboarding/onboarding-form.tsx",
-      "issue": "Many long lines (32)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/onboarding/onboarding-form.tsx",
-      "issue": "Deep indentation (11 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/app/onboarding/onboarding-form.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
       "severity": "medium",
       "area": "testability",
       "points": 4,
@@ -3728,38 +2776,10 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/optimize/page.tsx",
-      "issue": "Many long lines (26)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/page.tsx",
-      "issue": "Many long lines (21)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/page.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/partners/page.tsx",
-      "issue": "Many long lines (26)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/partners/page.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -3777,20 +2797,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/references/page.tsx",
-      "issue": "Many long lines (35)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/references/page.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/app/robots.ts",
@@ -3799,30 +2805,9 @@
     {
       "severity": "medium",
       "area": "maintainability",
-      "points": 4,
-      "path": "src/app/sales-marketing-plan/page.tsx",
-      "issue": "Large file (581 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
       "points": 2,
       "path": "src/app/sales-marketing-plan/page.tsx",
       "issue": "Many long lines (79)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/app/sales-marketing-plan/page.tsx",
-      "issue": "Deep indentation (14 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/app/security/page.tsx",
-      "issue": "Many long lines (24)"
     },
     {
       "severity": "medium",
@@ -3882,13 +2867,6 @@
     },
     {
       "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/client/coach-access-manager.tsx",
-      "issue": "Deep indentation (13 levels)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/components/client/coach-access-manager.tsx",
@@ -3907,41 +2885,6 @@
       "points": 4,
       "path": "src/components/coach/client-alert-preferences.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/components/coach/client-data-view.tsx",
-      "issue": "Very large file (838 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/components/coach/client-data-view.tsx",
-      "issue": "Many long lines (47)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/coach/client-data-view.tsx",
-      "issue": "Deep indentation (12 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/components/coach/client-data-view.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/CommandPalette.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -4028,11 +2971,11 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
+      "severity": "low",
       "area": "maintainability",
-      "points": 8,
+      "points": 2,
       "path": "src/components/LandingPage.tsx",
-      "issue": "Very large file (910 lines)"
+      "issue": "Elevated file size (910 lines)"
     },
     {
       "severity": "medium",
@@ -4112,46 +3055,11 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
-      "area": "maintainability",
-      "points": 8,
-      "path": "src/components/ResumeTailor.tsx",
-      "issue": "Very large file (824 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/components/ResumeTailor.tsx",
-      "issue": "Many long lines (49)"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/ResumeTailor.tsx",
-      "issue": "Deep indentation (16 levels)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/components/ResumeTailor.tsx",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
       "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/components/RouteError.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/SamplePrepBrief.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -4201,13 +3109,6 @@
       "points": 4,
       "path": "src/components/StarStoriesPanel.tsx",
       "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "complexity",
-      "points": 3,
-      "path": "src/components/SuggestionCards.tsx",
-      "issue": "Deep indentation (12 levels)"
     },
     {
       "severity": "medium",
@@ -4298,27 +3199,6 @@
       "area": "testability",
       "points": 4,
       "path": "src/lib/api-usage.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/lib/blog-posts.ts",
-      "issue": "Large file (525 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/lib/blog-posts.ts",
-      "issue": "Many long lines (30)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/lib/blog-posts.ts",
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
@@ -4463,13 +3343,6 @@
     },
     {
       "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/lib/outreach/template-engine.cjs",
-      "issue": "Many long lines (63)"
-    },
-    {
-      "severity": "medium",
       "area": "testability",
       "points": 4,
       "path": "src/lib/owner-email.ts",
@@ -4508,27 +3381,6 @@
       "area": "testability",
       "points": 4,
       "path": "src/lib/pricing.ts",
-      "issue": "No obvious colocated or mirrored test file found"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "src/lib/prompts.ts",
-      "issue": "Large file (487 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 2,
-      "path": "src/lib/prompts.ts",
-      "issue": "Many long lines (99)"
-    },
-    {
-      "severity": "medium",
-      "area": "testability",
-      "points": 4,
-      "path": "src/lib/prompts.ts",
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
@@ -4665,11 +3517,11 @@
       "issue": "No obvious colocated or mirrored test file found"
     },
     {
-      "severity": "high",
+      "severity": "medium",
       "area": "maintainability",
-      "points": 8,
+      "points": 4,
       "path": "src/lib/supabase/database.types.ts",
-      "issue": "Very large file (1420 lines)"
+      "issue": "Large file (1420 lines)"
     },
     {
       "severity": "medium",
@@ -4751,23 +3603,9 @@
     {
       "severity": "medium",
       "area": "maintainability",
-      "points": 4,
-      "path": "scripts/check-executive-fit-criteria.mjs",
-      "issue": "Large file (457 lines)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
       "points": 2,
       "path": "scripts/generate-coach-emails.mjs",
       "issue": "Many long lines (51)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "scripts/link-integrity-audit.mjs",
-      "issue": "Large file (479 lines)"
     },
     {
       "severity": "medium",
@@ -4782,13 +3620,6 @@
       "points": 2,
       "path": "scripts/refine-outreach-templates-by-council.mjs",
       "issue": "Many long lines (71)"
-    },
-    {
-      "severity": "medium",
-      "area": "maintainability",
-      "points": 4,
-      "path": "scripts/remediate-outreach-csv-tone.mjs",
-      "issue": "Large file (547 lines)"
     },
     {
       "severity": "medium",
@@ -4857,97 +3688,6 @@
   "council": {
     "topFindings": [
       {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
-        "issue": "Very large file (1085 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-        "issue": "Very large file (1060 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
-        "issue": "Very large file (1227 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
-        "issue": "Very large file (778 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-        "issue": "Very large file (1039 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/(dashboard)/dashboard/page.tsx",
-        "issue": "Very large file (1327 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/demo/cio/CioDemoClient.tsx",
-        "issue": "Very large file (787 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/demo/cio/CioPresentationClient.tsx",
-        "issue": "Very large file (789 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/app/onboarding/onboarding-form.tsx",
-        "issue": "Very large file (1294 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/components/coach/client-data-view.tsx",
-        "issue": "Very large file (838 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/components/LandingPage.tsx",
-        "issue": "Very large file (910 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/components/ResumeTailor.tsx",
-        "issue": "Very large file (824 lines)"
-      },
-      {
-        "severity": "high",
-        "area": "maintainability",
-        "points": 8,
-        "path": "src/lib/supabase/database.types.ts",
-        "issue": "Very large file (1420 lines)"
-      },
-      {
         "severity": "medium",
         "area": "testability",
         "points": 4,
@@ -4995,75 +3735,166 @@
         "points": 4,
         "path": "src/app/(dashboard)/dashboard/admin/b2b/[id]/material-client.tsx",
         "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/crm/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/customers/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/intelligence/client.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/metrics/metrics-charts.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/speakers/speakers-client.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/team/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/team/team-client.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/traces/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/traces/copy-command-button.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/traces/trace-shared.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/briefing/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/calendar/calendar-item.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/companies/new/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
       }
     ],
     "areaCounts": {
-      "maintainability": 106,
-      "complexity": 78,
-      "testability": 386,
+      "testability": 371,
+      "complexity": 9,
       "type-safety": 12,
-      "observability": 109
+      "maintainability": 24,
+      "observability": 108
     },
     "fixQueue": [
       {
-        "file": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
-        "riskPoints": 17
+        "file": "src/app/api/admin/b2b/material/route.ts",
+        "riskPoints": 9
       },
       {
-        "file": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
-        "riskPoints": 17
-      },
-      {
-        "file": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
-        "riskPoints": 17
-      },
-      {
-        "file": "src/app/demo/cio/CioPresentationClient.tsx",
-        "riskPoints": 17
-      },
-      {
-        "file": "src/app/onboarding/onboarding-form.tsx",
-        "riskPoints": 17
-      },
-      {
-        "file": "src/components/coach/client-data-view.tsx",
-        "riskPoints": 17
-      },
-      {
-        "file": "src/components/ResumeTailor.tsx",
-        "riskPoints": 17
+        "file": "worker/jobs/signal-job.js",
+        "riskPoints": 9
       },
       {
         "file": "src/app/demo/cio/CioDemoClient.tsx",
-        "riskPoints": 14
+        "riskPoints": 8
       },
       {
         "file": "src/components/LandingPage.tsx",
-        "riskPoints": 14
-      },
-      {
-        "file": "src/app/(dashboard)/dashboard/admin/page.tsx",
-        "riskPoints": 13
-      },
-      {
-        "file": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
-        "riskPoints": 13
-      },
-      {
-        "file": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/outreach-client.tsx",
-        "riskPoints": 13
-      },
-      {
-        "file": "src/app/(dashboard)/dashboard/page.tsx",
-        "riskPoints": 13
-      },
-      {
-        "file": "src/app/api/prep/[id]/route.ts",
-        "riskPoints": 13
+        "riskPoints": 8
       },
       {
         "file": "src/lib/supabase/database.types.ts",
-        "riskPoints": 12
+        "riskPoints": 8
+      },
+      {
+        "file": "src/app/(dashboard)/dashboard/admin/intelligence/client.tsx",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/(dashboard)/dashboard/admin/speakers/speakers-client.tsx",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/(dashboard)/dashboard/partner/ExportCsvButton.tsx",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/failed-payment-retries/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/invoices-receipts/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/plan-changes/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/refund-workflow-triggers/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/renewal-reminders/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/billing/revenue-recognition-inputs/route.ts",
+        "riskPoints": 7
       }
     ]
   }

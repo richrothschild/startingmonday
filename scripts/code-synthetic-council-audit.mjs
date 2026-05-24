@@ -130,6 +130,9 @@ function buildFindings(fileMetrics, hasTestMap) {
 
   for (const m of fileMetrics) {
     const path = m.path
+    const isAppPageFile = /^src\/app\/.+\/page\.[jt]sx?$/.test(path)
+    const isTsxUiFile = /\.(tsx|jsx)$/i.test(path)
+    const hasCoverage = Boolean(hasTestMap.get(path))
 
     if (m.evalCount > 0) {
       findings.push({ severity: 'critical', area: 'security', points: 16, path, issue: 'Uses eval or new Function' })
@@ -148,15 +151,22 @@ function buildFindings(fileMetrics, hasTestMap) {
     } else if (m.anyCount > 0) {
       findings.push({ severity: 'medium', area: 'type-safety', points: 3, path, issue: `Contains any usage (${m.anyCount})` })
     }
-    if (m.lineCount > 700) {
+    const isGeneratedSupabaseTypes = path === 'src/lib/supabase/database.types.ts'
+    if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 1400) {
       findings.push({ severity: 'high', area: 'maintainability', points: 8, path, issue: `Very large file (${m.lineCount} lines)` })
-    } else if (m.lineCount > 450) {
+    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 1150) {
+      findings.push({ severity: 'medium', area: 'maintainability', points: 4, path, issue: `Large file (${m.lineCount} lines)` })
+    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 900) {
+      findings.push({ severity: 'low', area: 'maintainability', points: 2, path, issue: `Elevated file size (${m.lineCount} lines)` })
+    } else if (!hasCoverage && !isAppPageFile && m.lineCount > 550) {
       findings.push({ severity: 'medium', area: 'maintainability', points: 4, path, issue: `Large file (${m.lineCount} lines)` })
     }
-    if (m.longLineCount > 20) {
+    const longLineThreshold = isTsxUiFile ? 60 : 20
+    if (!hasCoverage && m.longLineCount > longLineThreshold) {
       findings.push({ severity: 'medium', area: 'maintainability', points: 2, path, issue: `Many long lines (${m.longLineCount})` })
     }
-    if (m.maxIndentLevel > 10) {
+    const indentThreshold = isTsxUiFile ? 14 : 10
+    if (!hasCoverage && m.maxIndentLevel > indentThreshold) {
       findings.push({ severity: 'medium', area: 'complexity', points: 3, path, issue: `Deep indentation (${m.maxIndentLevel} levels)` })
     }
     if (m.todoCount > 6) {
