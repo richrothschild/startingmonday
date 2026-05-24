@@ -1,0 +1,36 @@
+name: Weekly Code Council Audit
+
+on:
+  schedule:
+    - cron: '30 14 * * 1'
+  workflow_dispatch:
+
+jobs:
+  code-council-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run code synthetic council audit
+        run: npm run audit:code-council
+
+      - name: Upload council audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: weekly-code-council-audit
+          path: |
+            docs/code-synthetic-council-audit.latest.md
+            docs/code-synthetic-council-audit.latest.json
+          retention-days: 14

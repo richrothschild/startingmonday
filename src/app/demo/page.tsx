@@ -3,16 +3,10 @@ import Link from 'next/link'
 import { useState, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
-
-function renderInline(str: string): string {
-  return escapeHtml(str).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+function renderInline(str: string) {
+  return str.split(/\*\*(.+?)\*\*/g).map((chunk, index) => (
+    index % 2 === 1 ? <strong key={index}>{chunk}</strong> : <span key={index}>{chunk}</span>
+  ))
 }
 
 function renderBrief(text: string, isStreaming: boolean) {
@@ -31,7 +25,7 @@ function renderBrief(text: string, isStreaming: boolean) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
-          <span dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+          <span>{renderInline(line.slice(2))}</span>
         </div>
       )
     }
@@ -40,8 +34,9 @@ function renderBrief(text: string, isStreaming: boolean) {
       <p
         key={i}
         className="text-[14px] text-slate-700 leading-relaxed mb-2.5"
-        dangerouslySetInnerHTML={{ __html: renderInline(line) }}
-      />
+      >
+        {renderInline(line)}
+      </p>
     )
   }).concat(
     isStreaming ? [
