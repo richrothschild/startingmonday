@@ -20,22 +20,31 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
-function assertExists(filePath) {
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Missing required audit input: ${path.relative(ROOT, filePath).replace(/\\/g, '/')}`)
+function readJsonIfExists(filePath) {
+  if (!fs.existsSync(filePath)) return null
+  try {
+    return readJson(filePath)
+  } catch {
+    return null
   }
 }
 
-function toSummary(council, debt, security, guardRegressionStatus) {
+function toSummary(council, debt, security, statuses) {
   return {
     generatedAt: new Date().toISOString(),
     guardRegression: {
-      status: guardRegressionStatus,
+      status: statuses.guardRegressionStatus,
+    },
+    checks: {
+      importGuardStatus: statuses.importGuardStatus,
+      councilStatus: statuses.councilStatus,
+      debtStatus: statuses.debtStatus,
+      securityStatus: statuses.securityStatus,
     },
     council: {
-      score: council.overallScore,
-      grade: council.grade,
-      findings: council.findingCount,
+      score: council?.overallScore ?? 'unknown',
+      grade: council?.grade ?? 'unknown',
+      findings: council?.findingCount ?? 'unknown',
       parserCorruptionCount: council.blindspotReview?.parserCorruptionCount ?? 0,
       placeholderBaselineCount: council.blindspotReview?.placeholderBaselineCount ?? null,
     },
@@ -64,6 +73,13 @@ function buildMarkdown(summary) {
   md.push('## Guard Regression')
   md.push('')
   md.push(`- check-api-guards regression test: ${summary.guardRegression.status}`)
+  md.push('')
+  md.push('## Check Statuses')
+  md.push('')
+  md.push(`- import corruption guard: ${summary.checks.importGuardStatus}`)
+  md.push(`- council audit: ${summary.checks.councilStatus}`)
+  md.push(`- debt audit: ${summary.checks.debtStatus}`)
+  md.push(`- security audit: ${summary.checks.securityStatus}`)
   md.push('')
   md.push('## Council')
   md.push('')
@@ -94,6 +110,7 @@ function buildSlackText(summary) {
   return [
     '*Weekly Unified Audit*',
     `Guard regression: ${summary.guardRegression.status}`,
+    `Checks: import-guard=${summary.checks.importGuardStatus}, council=${summary.checks.councilStatus}, debt=${summary.checks.debtStatus}, security=${summary.checks.securityStatus}`,
     `Council: ${summary.council.score} (${summary.council.grade}), findings=${summary.council.findings}, parser-corruption=${summary.council.parserCorruptionCount}`,
     `Debt: typecheck=${summary.debt.typecheckStatus}, lint=${summary.debt.lintStatus}, placeholders=${summary.debt.placeholderCount}, outdated=${summary.debt.outdatedCount}`,
     `Security: critical=${summary.security.criticalVulns}, high=${summary.security.highVulns}, auth-gaps=${summary.security.trueAuthGaps}, secret-hits=${summary.security.hardcodedSecretHits}`,
@@ -101,16 +118,19 @@ function buildSlackText(summary) {
 }
 
 function main() {
-  assertExists(INPUTS.council)
-  assertExists(INPUTS.debt)
-  assertExists(INPUTS.security)
+  const council = readJsonIfExists(INPUTS.council)
+  const debt = readJsonIfExists(INPUTS.debt)
+  const security = readJsonIfExists(INPUTS.security)
 
-  const council = readJson(INPUTS.council)
-  const debt = readJson(INPUTS.debt)
-  const security = readJson(INPUTS.security)
-  const guardRegressionStatus = process.env.GUARD_REGRESSION_STATUS ?? 'not_run'
+  const statuses = {
+    guardRegressionStatus: process.env.GUARD_REGRESSION_STATUS ?? 'not_run',
+    importGuardStatus: process.env.IMPORT_GUARD_STATUS ?? 'not_run',
+    councilStatus: process.env.COUNCIL_AUDIT_STATUS ?? 'not_run',
+    debtStatus: process.env.DEBT_AUDIT_STATUS ?? 'not_run',
+    securityStatus: process.env.SECURITY_AUDIT_STATUS ?? 'not_run',
+  }
 
-  const summary = toSummary(council, debt, security, guardRegressionStatus)
+  const summary = toSummary(council, debt, security, statuses)
   const markdown = buildMarkdown(summary)
   const slackText = buildSlackText(summary)
 

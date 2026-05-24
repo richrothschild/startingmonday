@@ -29,20 +29,32 @@ jobs:
         run: npx vitest run src/lib/check-api-guards-regression.test.ts
 
       - name: Guard import corruption from generated observability inserts
+        id: import_guard
+        continue-on-error: true
         run: npm run guard:observability-imports
 
       - name: Council audit
+        id: council_audit
+        continue-on-error: true
         run: npm run audit:code-council:strict
 
       - name: Technical debt deep-dive audit
+        id: debt_audit
+        continue-on-error: true
         run: npm run audit:debt-deep-dive
 
       - name: Security deep-dive audit
+        id: security_audit
+        continue-on-error: true
         run: npm run audit:security-deep-dive
 
       - name: Compose unified report
         env:
           GUARD_REGRESSION_STATUS: ${{ steps.guard_regression.outcome }}
+          IMPORT_GUARD_STATUS: ${{ steps.import_guard.outcome }}
+          COUNCIL_AUDIT_STATUS: ${{ steps.council_audit.outcome }}
+          DEBT_AUDIT_STATUS: ${{ steps.debt_audit.outcome }}
+          SECURITY_AUDIT_STATUS: ${{ steps.security_audit.outcome }}
         run: npm run audit:weekly-unified-report
 
       - name: Upload unified audit artifacts
@@ -131,7 +143,28 @@ jobs:
       - name: Fail workflow on guard regression failure
         if: always()
         run: |
+          failed=0
           if [ "${{ steps.guard_regression.outcome }}" != "success" ]; then
             echo "Guard checker regression test failed"
+            failed=1
+          fi
+          if [ "${{ steps.import_guard.outcome }}" != "success" ]; then
+            echo "Import corruption guard failed"
+            failed=1
+          fi
+          if [ "${{ steps.council_audit.outcome }}" != "success" ]; then
+            echo "Council audit failed"
+            failed=1
+          fi
+          if [ "${{ steps.debt_audit.outcome }}" != "success" ]; then
+            echo "Debt audit failed"
+            failed=1
+          fi
+          if [ "${{ steps.security_audit.outcome }}" != "success" ]; then
+            echo "Security audit failed"
+            failed=1
+          fi
+
+          if [ "$failed" -eq 1 ]; then
             exit 1
           fi
