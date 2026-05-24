@@ -27,7 +27,7 @@ body {
 
 /* Content spacer: reserve space for the fixed bottom nav + iOS home indicator */
 .nav-content-spacer {
-  padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {

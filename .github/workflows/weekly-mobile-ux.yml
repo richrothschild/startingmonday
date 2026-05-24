@@ -1,0 +1,43 @@
+name: Weekly Mobile UX Audit
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+jobs:
+  mobile-ux-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PLAYWRIGHT_BASE_URL: ${{ secrets.PLAYWRIGHT_BASE_URL }}
+      PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+      PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+      PLAYWRIGHT_NONSTAFF_EMAIL: ${{ secrets.PLAYWRIGHT_NONSTAFF_EMAIL }}
+      PLAYWRIGHT_NONSTAFF_PASSWORD: ${{ secrets.PLAYWRIGHT_NONSTAFF_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run mobile UX rubric suite
+        run: npx playwright test tests/e2e/mobile-ui.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-mobile-ux-playwright-report
+          path: playwright-report/
+          retention-days: 14

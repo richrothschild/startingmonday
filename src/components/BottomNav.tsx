@@ -109,7 +109,7 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={[
-                'flex-1 flex flex-col items-center justify-center gap-1.5 py-2.5 min-h-[60px] tap-highlight-transparent border-t-2',
+                'flex-1 flex flex-col items-center justify-center gap-1.5 py-2 min-h-[56px] tap-highlight-transparent border-t-2',
                 active ? 'border-slate-900 bg-slate-50/70' : 'border-transparent',
               ].join(' ')}
             >

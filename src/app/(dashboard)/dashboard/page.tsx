@@ -16,7 +16,7 @@ import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
-import { canUserSeeAdminHeader } from '@/lib/staff'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
 
@@ -363,7 +363,9 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
-  const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
+  const staffMember = await getStaffMember(user.email ?? '')
+  const isRothschildAdmin = hasAdminHeaderAccess(staffMember)
+  const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -426,6 +428,9 @@ export default async function DashboardPage({
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
               <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
+              {canUseOutreachHub && (
+                <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Outreach</Link>
+              )}
               <div className="ml-auto flex items-center gap-4 shrink-0">
                 <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
@@ -528,10 +533,12 @@ export default async function DashboardPage({
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
               <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
             </Link>
-            <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
-              <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
-            </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
+              </Link>
+            )}
           </div>
 
           <div className="mt-10 text-center">
@@ -561,7 +568,9 @@ export default async function DashboardPage({
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
             <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            )}
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
@@ -605,11 +614,11 @@ export default async function DashboardPage({
 
         <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-2 text-[12px]">
-            <a href="#start-here" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
-            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
-            <a href="#quick-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick actions</a>
-            <a href="#pipeline" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
+            <a href="#start-here" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
+            <a href="#momentum-overview" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
+            <a href="#quick-actions" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick actions</a>
+            <a href="#pipeline" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
           </div>
         </section>
 
@@ -622,9 +631,11 @@ export default async function DashboardPage({
             <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
               Briefing
             </Link>
-            <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Outreach
-            </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+                Outreach
+              </Link>
+            )}
             {isRothschildAdmin && (
               <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
                 Admin
