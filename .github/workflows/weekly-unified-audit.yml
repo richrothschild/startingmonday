@@ -55,7 +55,7 @@ jobs:
           COUNCIL_AUDIT_STATUS: ${{ steps.council_audit.outcome }}
           DEBT_AUDIT_STATUS: ${{ steps.debt_audit.outcome }}
           SECURITY_AUDIT_STATUS: ${{ steps.security_audit.outcome }}
-        run: npm run audit:weekly-unified-report
+        run: node scripts/weekly-unified-audit-report.mjs
 
       - name: Upload unified audit artifacts
         if: always()
@@ -82,12 +82,11 @@ jobs:
             exit 0
           fi
 
-          if [ ! -f docs/weekly-unified-audit.slack.txt ]; then
-            echo "Unified Slack summary missing" >&2
-            exit 1
+          if [ -f docs/weekly-unified-audit.slack.txt ]; then
+            SUMMARY=$(cat docs/weekly-unified-audit.slack.txt)
+          else
+            SUMMARY="Weekly unified audit summary unavailable (report generation failed)."
           fi
-
-          SUMMARY=$(cat docs/weekly-unified-audit.slack.txt)
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           payload=$(jq -n --arg summary "$SUMMARY" --arg runUrl "$RUN_URL" '{
