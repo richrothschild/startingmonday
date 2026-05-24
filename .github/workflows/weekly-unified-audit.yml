@@ -1,0 +1,137 @@
+name: Weekly Unified Audit
+
+on:
+  schedule:
+    - cron: '0 15 * * 0'
+  workflow_dispatch:
+
+jobs:
+  unified-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Guard checker regression test
+        id: guard_regression
+        continue-on-error: true
+        run: npx vitest run src/lib/check-api-guards-regression.test.ts
+
+      - name: Guard import corruption from generated observability inserts
+        run: npm run guard:observability-imports
+
+      - name: Council audit
+        run: npm run audit:code-council:strict
+
+      - name: Technical debt deep-dive audit
+        run: npm run audit:debt-deep-dive
+
+      - name: Security deep-dive audit
+        run: npm run audit:security-deep-dive
+
+      - name: Compose unified report
+        env:
+          GUARD_REGRESSION_STATUS: ${{ steps.guard_regression.outcome }}
+        run: npm run audit:weekly-unified-report
+
+      - name: Upload unified audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: weekly-unified-audit
+          path: |
+            docs/code-synthetic-council-audit.latest.md
+            docs/code-synthetic-council-audit.latest.json
+            docs/technical-debt-audit.latest.md
+            docs/technical-debt-audit.latest.json
+            docs/security-deep-dive-audit.latest.md
+            docs/security-deep-dive-audit.latest.json
+            docs/weekly-unified-audit.latest.md
+            docs/weekly-unified-audit.latest.json
+
+      - name: Send Slack weekly unified audit report
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL not configured; skipping Slack report"
+            exit 0
+          fi
+
+          if [ ! -f docs/weekly-unified-audit.slack.txt ]; then
+            echo "Unified Slack summary missing" >&2
+            exit 1
+          fi
+
+          SUMMARY=$(cat docs/weekly-unified-audit.slack.txt)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          payload=$(jq -n --arg summary "$SUMMARY" --arg runUrl "$RUN_URL" '{
+            text: "Weekly unified audit completed",
+            blocks: [
+              {
+                type: "section",
+                text: {
+                  type: "mrkdwn",
+                  text: "*Weekly Unified Audit*\n\($summary)\n\n<\($runUrl)|Open workflow run>"
+                }
+              }
+            ]
+          }')
+
+          curl -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
+
+      - name: Send weekly unified audit email
+        if: always()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_ADDRESS: ${{ secrets.RESEND_FROM_ADDRESS }}
+          WEEKLY_AUDIT_EMAIL_TO: ${{ secrets.WEEKLY_AUDIT_EMAIL_TO }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ] || [ -z "$WEEKLY_AUDIT_EMAIL_TO" ]; then
+            echo "RESEND_API_KEY or WEEKLY_AUDIT_EMAIL_TO not configured; skipping email report"
+            exit 0
+          fi
+
+          if [ ! -f docs/weekly-unified-audit.email.txt ]; then
+            echo "Unified email summary missing" >&2
+            exit 1
+          fi
+
+          FROM=${RESEND_FROM_ADDRESS:-briefing@startingmonday.app}
+          BODY=$(cat docs/weekly-unified-audit.email.txt)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          DATE=$(date -u +"%Y-%m-%d")
+
+          textPayload=$(printf '%s\n\nWorkflow run: %s\n' "$BODY" "$RUN_URL")
+          json=$(jq -n \
+            --arg from "$FROM" \
+            --arg to "$WEEKLY_AUDIT_EMAIL_TO" \
+            --arg subject "Starting Monday Weekly Unified Audit - $DATE" \
+            --arg text "$textPayload" \
+            '{from:$from,to:[$to],subject:$subject,text:$text}')
+
+          curl -sS -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$json"
+
+      - name: Fail workflow on guard regression failure
+        if: always()
+        run: |
+          if [ "${{ steps.guard_regression.outcome }}" != "success" ]; then
+            echo "Guard checker regression test failed"
+            exit 1
+          fi

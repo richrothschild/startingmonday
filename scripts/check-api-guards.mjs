@@ -9,6 +9,7 @@ const GUARD_PATTERNS = [
   'requireAuth',
   'requireFeatureAccess',
   'requirePrepAccess',
+  'requireAutomationAccess',
   'getStaffMember',
   'validateCronRequest',
   'enforcePublicEndpointGuard',
