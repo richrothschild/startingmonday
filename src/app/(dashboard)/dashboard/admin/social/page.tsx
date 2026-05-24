@@ -13,6 +13,18 @@ const PILLAR_LABELS: Record<string, string> = {
   engagement:    'Engagement',
 }
 
+function getNoteToken(notes: string | null | undefined, key: string): string | null {
+  if (!notes) return null
+  const prefix = `${key}=`
+  const token = notes
+    .split('|')
+    .map(part => part.trim())
+    .find(part => part.startsWith(prefix))
+  if (!token) return null
+  const value = token.slice(prefix.length).trim()
+  return value || null
+}
+
 export default async function SocialAdminPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -21,13 +33,13 @@ export default async function SocialAdminPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const admin = createAdminClient()
+  const admin = createAdminClient() as any
 
   // Post history - last 30 days
   const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const { data: history } = await admin
     .from('social_posts')
-    .select('id, post_date, pillar, is_posted, posted_at, buffer_scheduled_at, draft_text')
+    .select('id, post_date, pillar, is_posted, posted_at, buffer_scheduled_at, draft_text, notes')
     .gte('post_date', since30d)
     .order('post_date', { ascending: false })
 
@@ -39,7 +51,14 @@ export default async function SocialAdminPage() {
     posted_at: string | null
     buffer_scheduled_at: string | null
     draft_text: string
+    notes: string | null
   }[]
+
+  const { data: googleCalendarIntegration } = await admin
+    .from('google_calendar_integrations')
+    .select('id, calendar_id, active, last_synced_at, updated_at')
+    .eq('user_id', user.id)
+    .maybeSingle()
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -61,16 +80,85 @@ export default async function SocialAdminPage() {
           <p className="text-[13px] text-slate-500 mt-1.5">
             Daily weekday draft by audience - review, edit, copy, and mark posted.
           </p>
+          <div className="mt-3">
+            <a
+              href="#content-checker"
+              className="inline-flex items-center text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Content Checker
+            </a>
+          </div>
         </div>
 
         <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
             <a href="#post-history" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Post history</a>
+            <a href="#google-calendar" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Google Calendar sync</a>
             <a href="#daily-workflow" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Daily workflow</a>
             <a href="#cio-outreach" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">CIO outreach</a>
             <a href="#council-review" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Council review</a>
             <a href="#pillar-legend" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pillar legend</a>
+          </div>
+        </section>
+
+        <section id="google-calendar" className="mb-6 bg-white border border-slate-200 rounded p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <h2 className="text-[16px] font-bold text-slate-900">Google Calendar sync</h2>
+              <p className="text-[13px] text-slate-500 mt-1.5 max-w-2xl">
+                Connect Google Calendar to sync the posting reminder schedule directly instead of relying on manual .ics imports.
+              </p>
+              <p className="text-[12px] text-slate-500 mt-1.5">
+                Source calendar: <span className="font-semibold text-slate-700">startingmonday-posting-reminders.ics</span>
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:items-end gap-2">
+              {googleCalendarIntegration?.active ? (
+                <span className="inline-flex w-fit text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded">
+                  Connected
+                </span>
+              ) : (
+                <span className="inline-flex w-fit text-[11px] font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded">
+                  Not connected
+                </span>
+              )}
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="/api/google-calendar/connect?returnTo=/dashboard/admin/social"
+                  className="inline-flex items-center justify-center text-[12px] font-semibold bg-slate-900 text-white px-3.5 py-2 rounded hover:bg-slate-800 transition-colors"
+                >
+                  {googleCalendarIntegration?.active ? 'Reconnect' : 'Connect Google Calendar'}
+                </a>
+                {googleCalendarIntegration?.active && (
+                  <form action="/api/google-calendar/disconnect" method="post">
+                    <input type="hidden" name="returnTo" value="/dashboard/admin/social" />
+                    <button
+                      type="submit"
+                      className="inline-flex items-center justify-center text-[12px] font-semibold border border-slate-300 text-slate-700 px-3.5 py-2 rounded hover:border-slate-400 hover:text-slate-900 transition-colors"
+                    >
+                      Disconnect
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3 text-[12px] text-slate-600">
+            <div className="rounded bg-slate-50 border border-slate-200 p-3">
+              <p className="font-semibold text-slate-800 mb-1">Calendar</p>
+              <p>{googleCalendarIntegration?.calendar_id ?? 'primary'}</p>
+            </div>
+            <div className="rounded bg-slate-50 border border-slate-200 p-3">
+              <p className="font-semibold text-slate-800 mb-1">Last sync</p>
+              <p>{googleCalendarIntegration?.last_synced_at ? new Date(googleCalendarIntegration.last_synced_at).toLocaleString() : 'Not synced yet'}</p>
+            </div>
+            <div className="rounded bg-slate-50 border border-slate-200 p-3">
+              <p className="font-semibold text-slate-800 mb-1">Notes</p>
+              <p>Refreshes on the cron schedule and after the first OAuth connection.</p>
+            </div>
           </div>
         </section>
 
@@ -87,11 +175,16 @@ export default async function SocialAdminPage() {
                     <th className="px-5 py-3 font-semibold text-slate-400">Date</th>
                     <th className="px-4 py-3 font-semibold text-slate-400">Pillar</th>
                     <th className="px-4 py-3 font-semibold text-slate-400">Status</th>
+                    <th className="px-4 py-3 font-semibold text-slate-400">Council</th>
                     <th className="px-4 py-3 font-semibold text-slate-400 hidden sm:table-cell">Preview</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
-                  {posts.map(p => (
+                  {posts.map(p => {
+                    const councilPass = getNoteToken(p.notes, 'council_pass') === 'true'
+                    const emotionalAngle = getNoteToken(p.notes, 'emotional_angle')
+
+                    return (
                     <tr key={p.id}>
                       <td className="px-5 py-3 font-semibold text-slate-900 whitespace-nowrap">
                         {new Date(p.post_date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
@@ -108,11 +201,24 @@ export default async function SocialAdminPage() {
                           <span className="text-[11px] font-bold bg-slate-100 text-slate-400 px-2 py-0.5 rounded">Draft</span>
                         )}
                       </td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-col gap-1">
+                          <span className={`inline-block text-[11px] font-bold px-2 py-0.5 rounded w-fit ${
+                            councilPass ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
+                          }`}>
+                            {councilPass ? 'Pass' : 'Fail'}
+                          </span>
+                          <span className="text-[10px] text-slate-500">
+                            {emotionalAngle ? emotionalAngle.replace('_', ' ') : 'No angle'}
+                          </span>
+                        </div>
+                      </td>
                       <td className="px-4 py-3 text-slate-400 hidden sm:table-cell max-w-xs truncate">
                         {p.draft_text.split('\n')[0].slice(0, 80)}
                       </td>
                     </tr>
-                  ))}
+                    )
+                  })}
                 </tbody>
               </table>
             </div>

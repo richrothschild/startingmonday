@@ -102,32 +102,32 @@ export default async function OutreachHubPage() {
     return { subject, body }
   }
 
-  const day1CoachRows: ClientRow[] = day1CoachTargetList.rows
-    .map((row) => {
-      const fullName = (row.full_name ?? '').trim()
-      const email = (row.email ?? '').trim().toLowerCase()
-      if (!fullName || !email) return null
+  const day1CoachRows: ClientRow[] = day1CoachTargetList.rows.reduce<ClientRow[]>((acc, row) => {
+    const fullName = (row.full_name ?? '').trim()
+    const email = (row.email ?? '').trim().toLowerCase()
+    if (!fullName || !email) return acc
 
-      const draft = buildDay1CoachDraft(fullName)
+    const draft = buildDay1CoachDraft(fullName)
 
-      return {
-        fullName,
-        roleBucket: row.title ?? 'Executive Coach',
-        company: row.company ?? '',
-        email,
-        emailConfidence: inferEmailConfidence(row),
-        status: normalizeStatus(row.status),
-        emailOpening: `Hi ${firstNameOf(fullName)},`,
-        emailBodyCore: draft.body,
-        defaultSubject: draft.subject,
-        defaultBody: draft.body,
-        outreachChannel: 'coaches' as const,
-        fitTier: 'strong',
-        personaFocus: 'Executive transition coaches in the Day 1 sprint target batch',
-        campaignTag: 'coach_day1_60' as const,
-      }
+    acc.push({
+      fullName,
+      roleBucket: row.title ?? 'Executive Coach',
+      company: row.company ?? '',
+      email,
+      emailConfidence: inferEmailConfidence(row),
+      status: normalizeStatus(row.status),
+      emailOpening: `Hi ${firstNameOf(fullName)},`,
+      emailBodyCore: draft.body,
+      defaultSubject: draft.subject,
+      defaultBody: draft.body,
+      outreachChannel: 'coaches' as const,
+      fitTier: 'strong',
+      personaFocus: 'Executive transition coaches in the Day 1 sprint target batch',
+      campaignTag: 'coach_day1_60' as const,
     })
-    .filter((row): row is ClientRow => row !== null)
+
+    return acc
+  }, [])
 
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
@@ -274,6 +274,14 @@ export default async function OutreachHubPage() {
           <p className="text-[13px] text-slate-500 mt-1">
             Internal outbound operating center: executives, search firms, and coaches with one-click send and auto follow-up reminders.
           </p>
+          <div className="mt-3">
+            <Link
+              href="/dashboard/admin/social#content-checker"
+              className="inline-flex items-center text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Content Checker
+            </Link>
+          </div>
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4">
