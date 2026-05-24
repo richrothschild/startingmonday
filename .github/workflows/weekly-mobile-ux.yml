@@ -17,10 +17,10 @@ jobs:
       PLAYWRIGHT_NONSTAFF_PASSWORD: ${{ secrets.PLAYWRIGHT_NONSTAFF_PASSWORD }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: weekly-mobile-ux-playwright-report
           path: playwright-report/
@@ -44,7 +44,7 @@ jobs:
 
       - name: Upload mobile route coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: weekly-mobile-route-coverage
           path: |
