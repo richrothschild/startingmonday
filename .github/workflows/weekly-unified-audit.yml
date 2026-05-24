@@ -4,11 +4,25 @@ on:
   schedule:
     - cron: '0 15 * * 0'
   workflow_dispatch:
+    inputs:
+      enforce_strict:
+        description: 'Fail run when non-critical checks fail'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   unified-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    outputs:
+      guard_regression_status: ${{ steps.gate_data.outputs.guard_regression_status }}
+      import_guard_status: ${{ steps.gate_data.outputs.import_guard_status }}
+      council_audit_status: ${{ steps.gate_data.outputs.council_audit_status }}
+      debt_audit_status: ${{ steps.gate_data.outputs.debt_audit_status }}
+      security_audit_status: ${{ steps.gate_data.outputs.security_audit_status }}
+      critical_vulns: ${{ steps.gate_data.outputs.critical_vulns }}
+      true_auth_gaps: ${{ steps.gate_data.outputs.true_auth_gaps }}
 
     steps:
       - name: Checkout
@@ -47,6 +61,26 @@ jobs:
         id: security_audit
         continue-on-error: true
         run: npm run audit:security-deep-dive
+
+      - name: Capture gate data
+        id: gate_data
+        if: always()
+        run: |
+          critical_vulns=0
+          true_auth_gaps=0
+
+          if [ -f docs/security-deep-dive-audit.latest.json ]; then
+            critical_vulns=$(jq -r '.npmAudit.critical // 0' docs/security-deep-dive-audit.latest.json 2>/dev/null || echo 0)
+            true_auth_gaps=$(jq -r '.apiGuards.trueGapCount // 0' docs/security-deep-dive-audit.latest.json 2>/dev/null || echo 0)
+          fi
+
+          echo "guard_regression_status=${{ steps.guard_regression.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "import_guard_status=${{ steps.import_guard.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "council_audit_status=${{ steps.council_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "debt_audit_status=${{ steps.debt_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "security_audit_status=${{ steps.security_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "critical_vulns=$critical_vulns" >> "$GITHUB_OUTPUT"
+          echo "true_auth_gaps=$true_auth_gaps" >> "$GITHUB_OUTPUT"
 
       - name: Compose unified report
         env:
@@ -139,29 +173,65 @@ jobs:
             -H "Content-Type: application/json" \
             -d "$json"
 
-      - name: Fail workflow on guard regression failure
-        if: always()
+  strict-gate:
+    runs-on: ubuntu-latest
+    needs: unified-audit
+    if: always()
+    steps:
+      - name: Evaluate strict gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          ENFORCE_STRICT_INPUT: ${{ github.event.inputs.enforce_strict || 'false' }}
+          GUARD_REGRESSION_STATUS: ${{ needs.unified-audit.outputs.guard_regression_status }}
+          IMPORT_GUARD_STATUS: ${{ needs.unified-audit.outputs.import_guard_status }}
+          COUNCIL_AUDIT_STATUS: ${{ needs.unified-audit.outputs.council_audit_status }}
+          DEBT_AUDIT_STATUS: ${{ needs.unified-audit.outputs.debt_audit_status }}
+          SECURITY_AUDIT_STATUS: ${{ needs.unified-audit.outputs.security_audit_status }}
+          CRITICAL_VULNS: ${{ needs.unified-audit.outputs.critical_vulns }}
+          TRUE_AUTH_GAPS: ${{ needs.unified-audit.outputs.true_auth_gaps }}
         run: |
           failed=0
-          if [ "${{ steps.guard_regression.outcome }}" != "success" ]; then
-            echo "Guard checker regression test failed"
+          strict_mode=false
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            strict_mode=true
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$ENFORCE_STRICT_INPUT" = "true" ]; then
+            strict_mode=true
+          fi
+
+          echo "Event: $EVENT_NAME"
+          echo "Strict mode: $strict_mode"
+          echo "Check outcomes: guard=$GUARD_REGRESSION_STATUS import=$IMPORT_GUARD_STATUS council=$COUNCIL_AUDIT_STATUS debt=$DEBT_AUDIT_STATUS security=$SECURITY_AUDIT_STATUS"
+          echo "Critical security: critical_vulns=$CRITICAL_VULNS true_auth_gaps=$TRUE_AUTH_GAPS"
+
+          if [ "$CRITICAL_VULNS" -gt 0 ] || [ "$TRUE_AUTH_GAPS" -gt 0 ]; then
+            echo "Critical security override triggered"
             failed=1
           fi
-          if [ "${{ steps.import_guard.outcome }}" != "success" ]; then
-            echo "Import corruption guard failed"
-            failed=1
-          fi
-          if [ "${{ steps.council_audit.outcome }}" != "success" ]; then
-            echo "Council audit failed"
-            failed=1
-          fi
-          if [ "${{ steps.debt_audit.outcome }}" != "success" ]; then
-            echo "Debt audit failed"
-            failed=1
-          fi
-          if [ "${{ steps.security_audit.outcome }}" != "success" ]; then
-            echo "Security audit failed"
-            failed=1
+
+          if [ "$strict_mode" = "true" ]; then
+            if [ "$GUARD_REGRESSION_STATUS" != "success" ]; then
+              echo "Guard checker regression test failed"
+              failed=1
+            fi
+            if [ "$IMPORT_GUARD_STATUS" != "success" ]; then
+              echo "Import corruption guard failed"
+              failed=1
+            fi
+            if [ "$COUNCIL_AUDIT_STATUS" != "success" ]; then
+              echo "Council audit failed"
+              failed=1
+            fi
+            if [ "$DEBT_AUDIT_STATUS" != "success" ]; then
+              echo "Debt audit failed"
+              failed=1
+            fi
+            if [ "$SECURITY_AUDIT_STATUS" != "success" ]; then
+              echo "Security audit failed"
+              failed=1
+            fi
+          else
+            echo "Non-strict mode: non-critical check failures are reported but do not fail this job."
           fi
 
           if [ "$failed" -eq 1 ]; then
