@@ -418,7 +418,7 @@ export default async function DashboardPage({
     return (
       <div className="min-h-screen bg-slate-100 font-sans">
         <header className="bg-slate-900">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
             <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
@@ -436,18 +436,18 @@ export default async function DashboardPage({
                 <LogoutButton label="Sign out" />
               </div>
             </div>
-            <div className="flex sm:hidden items-center gap-4 ml-auto">
-              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
-              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
-              <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white">Feedback</Link>
-              {isRothschildAdmin && (
-                <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
-              )}
+            <div className="flex sm:hidden items-center gap-2 ml-auto">
+              <Link
+                href="/dashboard"
+                className="inline-flex min-h-[44px] items-center rounded-md border border-orange-500/40 bg-orange-500/10 px-3 text-[12px] font-semibold text-orange-300 hover:text-white"
+              >
+                Dashboard
+              </Link>
               <LogoutButton label="Sign out" />
             </div>
           </div>
         </header>
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
           <div className="mb-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
@@ -549,7 +549,7 @@ export default async function DashboardPage({
 
       {/* Nav */}
       <header className="bg-slate-900">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -578,39 +578,38 @@ export default async function DashboardPage({
             </div>
           </div>
           {/* Mobile nav */}
-          <div className="flex sm:hidden items-center gap-4 ml-auto">
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
-            <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 whitespace-nowrap">Admin</Link>
-            )}
+          <div className="flex sm:hidden items-center gap-2 ml-auto">
+            <Link
+              href="/dashboard/briefing"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Briefing
+            </Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
 
         {/* Welcome */}
-        <div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
             {greeting}, {firstName}.
           </h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
-            <p className="text-[13px] text-slate-400 mt-2 leading-relaxed">
-              Start with the briefing, then work the next relationship and the next action.
-            </p>
+          <p className="text-[13px] text-slate-600 mt-1.5">{today}</p>
+          <p className="text-[13px] text-slate-500 mt-2 leading-relaxed max-w-[38ch]">
+            Start with the briefing, then work the next relationship and the next action.
+          </p>
         </div>
 
         <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#start-here" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start here</a>
-            <a href="#momentum-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Momentum</a>
-            <a href="#quick-actions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Quick actions</a>
-            <a href="#pipeline" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pipeline</a>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#start-here" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
+            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
+            <a href="#quick-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick actions</a>
+            <a href="#pipeline" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
           </div>
         </section>
 
@@ -620,11 +619,14 @@ export default async function DashboardPage({
             <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Dashboard
+            <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Briefing
+            </Link>
+            <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Outreach
             </Link>
             {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
                 Admin
               </Link>
             )}
@@ -635,20 +637,20 @@ export default async function DashboardPage({
           <div className="flex-1 min-w-0">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
             <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">
               {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-col w-full sm:w-auto sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <Link
               href="/dashboard/briefing"
-              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
             >
               Open briefing
             </Link>
             <Link
               href="/dashboard/calendar"
-              className="inline-block border border-slate-200 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
             >
               View due today
             </Link>

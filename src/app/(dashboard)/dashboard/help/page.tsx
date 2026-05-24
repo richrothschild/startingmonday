@@ -19,7 +19,7 @@ export default async function HelpPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <Link href="/dashboard" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
@@ -30,18 +30,23 @@ export default async function HelpPage() {
             <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
           </div>
-          <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
-            <LogoutButton label="Out" />
+          <div className="flex sm:hidden items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
 
         <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Help &amp; Getting Started</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">Everything you need to run a disciplined search.</p>
+          <p className="text-[13px] text-slate-600 mt-1.5">Everything you need to run a disciplined search.</p>
         </div>
 
         {/* Setup checklist */}

@@ -100,7 +100,7 @@ export function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-slate-200 safe-area-pb">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-slate-200 shadow-[0_-4px_18px_rgba(15,23,42,0.06)] safe-area-pb">
       <div className="flex items-stretch">
         {NAV_ITEMS.map(item => {
           const active = isActive(item.href)
@@ -108,13 +108,16 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 flex flex-col items-center justify-center gap-1 py-3 min-h-[56px] tap-highlight-transparent"
+              className={[
+                'flex-1 flex flex-col items-center justify-center gap-1.5 py-2.5 min-h-[60px] tap-highlight-transparent border-t-2',
+                active ? 'border-slate-900 bg-slate-50/70' : 'border-transparent',
+              ].join(' ')}
             >
               {item.icon(active)}
               <span
                 className={[
-                  'text-[10px] font-semibold tracking-wide',
-                  active ? 'text-slate-900' : 'text-slate-400',
+                  'text-[12px] tracking-wide',
+                  active ? 'font-bold text-slate-900' : 'font-semibold text-slate-500',
                 ].join(' ')}
               >
                 {item.label}
