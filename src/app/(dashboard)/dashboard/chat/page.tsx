@@ -237,26 +237,26 @@ export default function ChatPage() {
       )}
 
       <header className="bg-slate-900 shrink-0">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between gap-3">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-6">
             {messages.length > 0 && !loading && !loadingHistory && (
               <button
                 type="button"
                 onClick={clearConversation}
-                className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors bg-transparent border-0 cursor-pointer"
+                className="hidden sm:inline-flex text-[12px] text-slate-400 hover:text-slate-300 transition-colors bg-transparent border-0 cursor-pointer"
               >
                 Clear
               </button>
             )}
-            <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">
+            <span className="hidden sm:inline text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">
               Chat
             </span>
             <Link
               href="/dashboard"
-              className="text-[13px] text-slate-300 hover:text-white transition-colors"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
             >
               ← Dashboard
             </Link>
@@ -267,10 +267,10 @@ export default function ChatPage() {
       <div className="flex-1 overflow-y-auto">
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-1">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#chat-empty-state" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Starter prompts</a>
-            <a href="#chat-thread" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Conversation</a>
-            <a href="#chat-composer" className="text-slate-500 hover:text-slate-700 underline underline-offset-2">Composer</a>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#chat-empty-state" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Starter prompts</a>
+            <a href="#chat-thread" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Conversation</a>
+            <a href="#chat-composer" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Composer</a>
           </div>
         </section>
         {loadingHistory ? (

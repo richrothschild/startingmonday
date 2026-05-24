@@ -258,17 +258,17 @@ export default async function OutreachHubPage() {
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+          <Link href="/dashboard" className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors">
             ← Dashboard
           </Link>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-10 space-y-6">
         <div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1">
@@ -286,11 +286,11 @@ export default async function OutreachHubPage() {
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#outreach-snapshot" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Snapshot</a>
-            <a href="#outreach-workbench" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Outreach workbench</a>
-            <a href="#outreach-cadence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Cadence</a>
-            <a href="#outreach-links" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Linked tools</a>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#outreach-snapshot" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Snapshot</a>
+            <a href="#outreach-workbench" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Outreach workbench</a>
+            <a href="#outreach-cadence" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Cadence</a>
+            <a href="#outreach-links" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Linked tools</a>
           </div>
         </section>
 
