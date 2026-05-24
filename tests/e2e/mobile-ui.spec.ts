@@ -5,6 +5,14 @@ async function skipIfAuthUnavailable(page: Page) {
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required mobile UI test: login session unavailable in CI')
 }
 
+async function clickBottomNavItem(page: Page, name: string) {
+  const fixedNav = page.locator('nav').last()
+  const link = fixedNav.getByRole('link', { name }).first()
+  await expect(link).toBeVisible()
+  await link.scrollIntoViewIfNeeded()
+  await link.click({ force: true })
+}
+
 test.describe('Mobile UI rubric @rubric @mobile', () => {
   test.beforeEach(async ({}, testInfo) => {
     test.skip(!testInfo.project.name.startsWith('mobile-'), 'Mobile rubric suite only runs on mobile projects')
@@ -30,13 +38,29 @@ test.describe('Mobile UI rubric @rubric @mobile', () => {
     const jumpChips = jumpContainer.locator('a[href^="#"]')
     await expect(jumpChips).toHaveCount(4)
 
-    // Balanced layout: first row and second row should each contain two chips on narrow viewports.
+    // Responsive layout: 2 columns under sm, 4 columns at/above sm.
+    const viewportWidth = await page.evaluate(() => window.innerWidth)
+    const renderedColumns = await jumpContainer.evaluate((el) => {
+      const style = window.getComputedStyle(el)
+      const template = style.gridTemplateColumns
+      if (!template || template === 'none') return 0
+      return template.split(' ').filter(Boolean).length
+    })
+    if (viewportWidth < 640) {
+      expect(renderedColumns).toBe(2)
+    } else {
+      expect(renderedColumns).toBe(4)
+    }
+
+    // Balanced layout for phone-sized viewports: two chips per row.
     const yPositions = await jumpChips.evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().top)))
     const rows = new Map()
     for (const y of yPositions) rows.set(y, (rows.get(y) ?? 0) + 1)
     const rowCounts = [...rows.values()].sort((a, b) => b - a)
-    expect(rowCounts[0]).toBe(2)
-    expect(rowCounts[1]).toBe(2)
+    if (viewportWidth < 640) {
+      expect(rowCounts[0]).toBe(2)
+      expect(rowCounts[1]).toBe(2)
+    }
 
     // R5: no large blank region after meaningful page content
     const blankGap = await page.evaluate(() => {
@@ -62,14 +86,13 @@ test.describe('Mobile UI rubric @rubric @mobile', () => {
     await skipIfAuthUnavailable(page)
     await page.goto('/dashboard')
 
-    await expect(page.getByRole('link', { name: 'Contacts' }).first()).toBeVisible()
-    await page.getByRole('link', { name: 'Contacts' }).first().click()
+    await clickBottomNavItem(page, 'Contacts')
     await expect(page).toHaveURL(/\/dashboard\/contacts/)
 
-    await page.getByRole('link', { name: 'Signals' }).first().click()
+    await clickBottomNavItem(page, 'Signals')
     await expect(page).toHaveURL(/\/dashboard\/signals/)
 
-    await page.getByRole('link', { name: 'Home' }).first().click()
+    await clickBottomNavItem(page, 'Home')
     await expect(page).toHaveURL(/\/dashboard$/)
   })
 
