@@ -65,3 +65,4 @@ Date: 2026-05-25
 - Production validation exports (JSON): docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json
 - Production validation exports (CSV): docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.csv
 - Export manifest rerun log: docs/strategy/emi-sprints/artifacts/emi-production-export-manifest-2026-05-25.md
+- Full council post-deploy review: docs/strategy/emi-post-deploy-full-council-review-2026-05-25.md

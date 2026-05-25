@@ -456,4 +456,5 @@ Primary completion evidence:
 3. docs/development/emi-artifacts-implementation-tickets.md
 4. docs/development/emi-engineering-board-now-next-later.md
 5. docs/strategy/emi-sprints/artifacts/sprint-6-final-success-criteria-audit.md
+6. docs/strategy/emi-post-deploy-full-council-review-2026-05-25.md
 
