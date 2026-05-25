@@ -427,7 +427,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           {/* Founder Trust Block - after situation self-selection */}
           <div className="bg-slate-800 rounded-lg px-5 py-4 mt-8 text-left shadow-md border border-slate-700">
             <p className="text-[15px] text-white font-semibold mb-1">From the founder</p>
-            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, email me directly: <a href="mailto:contact@startingmonday.app" className="underline hover:text-orange-400">contact@startingmonday.app</a> — <span className="italic">Richard Rothschild, Founder</span></p>
+            <p className="text-[14px] text-slate-200 leading-relaxed">I built Starting Monday for executives who need total privacy, real leverage, and a process that works at the highest level. If you have questions before starting, use the <Link href="/concierge" className="underline hover:text-orange-400">concierge contact path</Link> — <span className="italic">Richard Rothschild, Founder</span></p>
           </div>
         </div>
       </section>
