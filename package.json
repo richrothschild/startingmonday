@@ -30,6 +30,7 @@
         "security:api-guards:json": "node scripts/check-api-guards.mjs --json",
         "security:api-guards:strict": "node scripts/check-api-guards.mjs --strict",
         "guard:observability-imports": "node scripts/check-observability-import-guard.mjs",
+        "guard:untracked-tests": "node scripts/check-untracked-tests.mjs",
         "audit:code-council": "node scripts/code-synthetic-council-audit.mjs",
         "audit:code-council:strict": "node scripts/code-synthetic-council-audit.mjs --strict",
         "audit:hero-council": "node scripts/hero-dual-track-council-audit.mjs",
