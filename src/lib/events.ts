@@ -22,6 +22,16 @@ export type UserEventName =
   | 'briefing_action_clicked'
   | 'search_paused'
   | 'search_resumed'
+  | 'channel_entry_clicked'
+  | 'persona_route_selected'
+  | 'trust_block_viewed'
+  | 'trust_block_interacted'
+  | 'micro_product_boundary_viewed'
+  | 'onboarding_started'
+  | 'onboarding_step_completed'
+  | 'onboarding_nudge_shown'
+  | 'onboarding_low_energy_enabled'
+  | 'onboarding_first_value_ready'
 
 type EventProperties = Record<string, string | number | boolean | null>
 

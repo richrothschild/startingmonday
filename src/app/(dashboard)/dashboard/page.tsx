@@ -19,6 +19,7 @@ import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocit
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -209,30 +210,16 @@ export default async function DashboardPage({
   const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
 
   // Build weekly activity chart data (last 10 weeks)
-  function getWeekMonday(date: Date): Date {
-    const d = new Date(date)
-    const day = d.getDay()
-    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
-    d.setHours(0, 0, 0, 0)
-    return d
-  }
-  function weekLabel(d: Date): string {
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  }
   const weekSlots: WeekActivity[] = []
   for (let i = 9; i >= 0; i--) {
     const d = new Date(Date.now() - i * 7 * 24 * 60 * 60 * 1000)
     weekSlots.push({ week: weekLabel(getWeekMonday(d)), companies: 0, contacts: 0, briefs: 0, followUps: 0 })
   }
-  function bumpWeek(dateStr: string, key: keyof Omit<WeekActivity, 'week'>) {
-    const label = weekLabel(getWeekMonday(new Date(dateStr)))
-    const slot = weekSlots.find(s => s.week === label)
-    if (slot) slot[key]++
-  }
-  for (const r of (actCompanies ?? [])) bumpWeek(r.created_at, 'companies')
-  for (const r of (actContacts  ?? [])) bumpWeek(r.created_at, 'contacts')
-  for (const r of (actBriefs    ?? [])) bumpWeek(r.created_at, 'briefs')
-  for (const r of (actFollowUps ?? [])) bumpWeek(r.created_at, 'followUps')
+  const weekMap = new Map(weekSlots.map((slot) => [slot.week, slot]))
+  for (const r of actCompanies ?? []) bumpWeek(weekMap, r.created_at, 'companies')
+  for (const r of actContacts ?? []) bumpWeek(weekMap, r.created_at, 'contacts')
+  for (const r of actBriefs ?? []) bumpWeek(weekMap, r.created_at, 'briefs')
+  for (const r of actFollowUps ?? []) bumpWeek(weekMap, r.created_at, 'followUps')
 
   const allActivityDates = [
     ...(actCompanies ?? []).map(r => r.created_at),
