@@ -6,36 +6,31 @@ Use this on Day 1 of the coach traction sprint.
 
 Most executive coaching sessions do not fail in the room.
 
-They fail in the days before the room.
+They fail in the six days before the room.
 
-The hidden tax is context rebuild:
+By the time the call starts, 20 to 30 minutes are gone to context rebuild:
 
-1. "What changed since last week?"
-2. "Which target companies moved?"
-3. "What happened after that intro?"
+"What changed?"
+"Who moved?"
+"Did that intro go anywhere?"
 
-You can burn half a paid session just rebuilding the timeline.
+That is not a coaching problem.
+That is an operating-system problem.
 
-That is not coaching quality. That is operating-system debt.
+The coaches I respect most now treat between-session execution as part of delivery, not admin.
 
-The coaches I respect most are now treating between-session execution as part of delivery, not admin.
+When that layer is visible, sessions start in strategy, not recap.
 
-Signals tracked.
-Prep briefs ready.
-Pipeline decisions visible.
-
-Result: less recap, more strategy.
-
-If you coach senior executives in transition and want the 1-page week-1 checklist we are using in pilot workflows, comment "checklist" and I will send it.
+If you coach senior executives in transition and want the week-1 checklist we are testing in pilot workflows, comment "checklist" and I will send it.
 
 ## Alternate short version (if you want a tighter post)
 
 Executive coaching bottleneck:
 not session quality, but between-session drift.
 
-If half the meeting is recap, your highest-value work starts too late.
+If 20 minutes of a paid session disappear to recap, strategy starts too late.
 
-The fix is simple:
+The practical fix:
 
 1. signal visibility,
 2. prep context before the call,

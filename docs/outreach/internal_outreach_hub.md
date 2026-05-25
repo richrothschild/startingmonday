@@ -60,6 +60,10 @@ Import this file into Google Calendar or Outlook:
 
 - `public/calendar/starting-monday-outreach-reminders.ics`
 
+Calendar sync plan and future API workflow:
+
+- [docs/google-calendar-integration-plan.md](../google-calendar-integration-plan.md)
+
 ## Weekly Governance
 
 - Pre-scale operator scorecard: `docs/status/pre-scale-weekly-operator-scorecard.md`

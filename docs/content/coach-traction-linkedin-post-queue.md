@@ -16,72 +16,100 @@ Primary queue CSV: docs/content/coach-traction-linkedin-post-queue.csv
 
 ## Day 1 Post
 
-Use existing draft in:
-docs/content/linkedin-post-day1-cost-of-context-rebuild.md
+Most executive coaching sessions do not fail in the room.
+
+They fail in the six days before the room.
+
+By the time the call starts, 20 to 30 minutes are gone to context rebuild:
+
+"What changed?"
+"Who moved?"
+"Did that intro go anywhere?"
+
+That is not a coaching problem.
+That is an operating-system problem.
+
+Nobody hires an elite coach for recap theater.
+
+The coaches we see winning this quarter do one thing differently:
+they treat between-session execution as part of delivery, not admin.
+
+When that happens, sessions start in strategy, not recap.
+
+If you coach senior leaders in transition and want the week-1 checklist we are testing, reply "checklist".
 
 ## Day 4 Proof Post
 
-Most executive coaching sessions are high quality.
-The hidden problem is not quality. It is context loss between sessions.
+The strongest coach we spoke with this week said it best:
+"My sessions are good. The gap between sessions is where outcomes get lost."
 
-Early sprint data from coach outreach made that obvious.
+That pattern keeps repeating.
 
-In our first week, the strongest coach conversations all centered on one operational pain:
-paid time getting consumed by recap instead of strategy.
+The bottleneck is not coaching quality.
+The bottleneck is context drift between calls.
 
-The coaches who moved fastest to pilot did one thing differently.
-They treated between-session execution as part of delivery.
+Nobody hires an elite coach for recap theater.
 
-When that layer is visible:
+In our pilot conversations, coaches who moved fastest to a trial had one shared move:
+they made between-session execution part of the service.
 
-1. signal actions happen earlier,
-2. prep context is stronger,
-3. strategy conversations start sooner.
+Result: less rewind, earlier signal moves, stronger strategy time.
 
-If you coach senior leaders in transition and want the 30-day pass/fail scorecard we are using, reply "scorecard".
+If you coach senior leaders in transition and want the 30-day pass or fail scorecard we are using, reply "scorecard".
 
 ## Day 7 Recap Post
 
-Week one insight from our coach traction sprint:
-most outreach scripts fail because they ask for interest, not relevance.
+Emotional angle: candid humility + practical relief
 
-The best responses came when we led with one concrete friction point:
-"paid session time lost to context rebuild."
+Week-one lesson from our coach traction sprint:
+our outreach improved the moment we stopped asking for interest and started naming friction.
 
-What we changed mid-week:
+The friction was specific:
+paid session time lost to context rebuild.
 
-1. tighter message,
-2. smaller ask,
-3. explicit 30-day pass/fail pilot.
+I missed this at first.
+I thought we had a messaging problem.
+We had a relevance problem.
 
-What improved:
-more direct replies and clearer yes/no decisions.
+Mid-week, we changed three things:
 
-What did not:
-long feature-heavy messages.
+1. one sharper pain statement,
+2. one smaller ask,
+3. one explicit 30-day pass or fail pilot.
 
-If you are building in executive coaching or transition support, reply "lessons" and I will send the exact message pattern we are using.
+Reply quality improved fast.
+Decision speed improved too.
+Pressure dropped on both sides.
+
+What still underperformed:
+long, feature-heavy messages.
+
+If you are building in executive coaching or transition support, reply "lessons" and I will send the exact message pattern.
 
 ## Day 10 Coach Use-Case Post
 
-A coach told me this week:
-"My client work is not the issue. The between-session drift is the issue."
+Emotional angle: conviction + forward momentum
 
-That is the pattern we keep seeing.
+A coach in our pilot told me:
+"The coaching is not broken. The week between sessions is."
 
-The session is good.
-Then a week of execution noise wipes out momentum.
+That one line explains most transition drag.
 
-A practical fix that works:
+The call is strong.
+Then execution noise eats the next six days.
+
+The practical fix we keep seeing work:
 
 1. one shared pipeline view,
 2. one prep brief before each high-stakes conversation,
 3. one weekly momentum checkpoint.
 
-No theory.
-Just better execution hygiene between sessions.
+This is not theory.
+It is a better operating rhythm.
 
-If you coach VP-to-CXO or C-suite transitions and want a one-page implementation checklist, reply "case".
+When coaches install this rhythm, clients show up calmer, sharper, and better prepared for real decisions.
+
+If you coach VP-to-CXO or C-suite transitions and want the one-page implementation checklist, reply "case".
 
 ## Posting Checklist (Use Before Publish)
 

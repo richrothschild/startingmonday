@@ -85,3 +85,15 @@ These people were discussed as possible future additions or reference lenses. Th
 **Main content/source:** Amazon shareholder letters
 
 **Key points to apply:** Prioritize long-term free cash flow, customer obsession, invention, high standards, reversible decision speed, and operating mechanisms.
+
+---
+
+## James Clear
+
+**Potential council role:** Habit systems, behavior design, and implementation consistency.
+
+**First principles:** Outcomes are lagging indicators of systems; small behavior changes compound when friction is reduced and cues are explicit.
+
+**Main content/source:** Atomic Habits
+
+**Key points to apply:** Design product and operating workflows around clear cues, low-friction actions, immediate feedback loops, and consistent weekly cadence so implementation does not depend on willpower.

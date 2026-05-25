@@ -67,6 +67,7 @@ The world-class version of this system is not "ask an AI council what to do." It
 - Richard Thaler
 - Robert Cialdini
 - Chris Voss
+- James Clear
 
 ### Sub-council placement
 
@@ -75,3 +76,4 @@ The world-class version of this system is not "ask an AI council what to do." It
 - Chris Voss -> Outreach Sales Synthetic Council
 - Robert Cialdini -> Outreach Sales Synthetic Council
 - Naval Ravikant -> Business Development Partnerships Synthetic Council
+- James Clear -> Management Synthetic Council and Voss Cialdini Horstman Synthetic Council

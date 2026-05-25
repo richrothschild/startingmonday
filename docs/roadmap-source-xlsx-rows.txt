@@ -1,0 +1,374 @@
+﻿Issue ID | Parent ID | Issue Type | Summary | Description | Acceptance Criteria | Priority | Labels | Components | Story Points | Status | Original Backlog Idea | Dependencies / Notes
+EPIC-001 |  | Epic | Product Strategy & Roadmap | Define the product vision, roadmap, decision framework, and supporting strategic docs for Starting Monday. | Epic owner named; child tasks prioritized; success metrics defined; open decisions listed | High | starting-monday,epic,roadmap | Product |  | To Do |  | 
+EPIC-002 |  | Epic | UX/UI Quality System | Build a repeatable human and synthetic quality system for UX, UI, content, onboarding, and release readiness. | Review system defined; scoring rubrics created; human gate documented; MVP test suite scoped | High | starting-monday,epic,ux,ui,quality | UX,UI,QA |  | To Do |  | 
+EPIC-003 |  | Epic | Content, Authority & SEO Engine | Create the content, SEO, research, and publishing capability required to become an authority in executive job transition. | Content strategy defined; SEO baseline captured; article engine scoped; research database started | High | starting-monday,epic,content,seo | Marketing,Content |  | To Do |  | 
+EPIC-004 |  | Epic | Outreach, Sales & Lead Generation Engine | Automate outbound outreach, lead discovery, sales enablement, B2B prep, and campaign learning loops. | Outreach requirements defined; lead workflow prototyped; A/B testing model created; sales assets organized | High | starting-monday,epic,sales,outreach | Sales,Marketing |  | To Do |  | 
+EPIC-005 |  | Epic | User Journeys, Personas & Onboarding | Design persona-specific paths, improved onboarding, and experience patterns for different executive users. | Personas defined; onboarding audited; first-value path improved; analytics specified | High | starting-monday,epic,onboarding,personas | Product,UX |  | To Do |  | 
+EPIC-006 |  | Epic | Intelligence, Analytics & Pattern Recognition | Improve intelligence scanning, opportunity scoring, page/mobile performance monitoring, and insight generation. | Scanner audited; scoring model designed; monitoring requirements defined; pattern engine MVP scoped | High | starting-monday,epic,intelligence,analytics | Product,Engineering,Analytics |  | To Do |  | 
+EPIC-007 |  | Epic | Market Expansion & Offers | Develop search firm pages, outplacement offers, less-senior role paths, and adjacent-market offerings. | Search firm and outplacement offers drafted; adjacent-channel recommendation made | Medium | starting-monday,epic,market-expansion | Product,Marketing,Sales |  | To Do |  | 
+EPIC-008 |  | Epic | Synthetic Operating Model | Explore and prototype synthetic departments and synthetic-company operating capabilities. | Operating model defined; governance policy drafted; at least one prototype evaluated | Medium | starting-monday,epic,synthetic-company | Operations,Product |  | To Do |  | 
+TASK-001 | EPIC-001 | Task | Create product roadmap operating model | Backlog idea 4: Create product roadmap operating model. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create product roadmap operating model' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | roadmap,strategy | Product | 5 | To Do | 4 | 
+TASK-002 | EPIC-001 | Task | Prioritize initial roadmap themes and sequencing | Backlog idea 4: Prioritize initial roadmap themes and sequencing. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prioritize initial roadmap themes and sequencing' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | roadmap,prioritization | Product | 3 | To Do | 4 | Depends on roadmap operating model
+TASK-003 | EPIC-001 | Task | Draft shareable product vision and roadmap document | Backlog idea 18: Draft shareable product vision and roadmap document. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Draft shareable product vision and roadmap document' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | vision,roadmap | Product,Strategy | 5 | To Do | 18 | Depends on roadmap operating model
+TASK-004 | EPIC-001 | Task | Audit existing product improvement specs | Backlog idea 17: Audit existing product improvement specs. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Audit existing product improvement specs' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | docs,strategy | Product | 5 | To Do | 17 | Needs source docs
+TASK-005 | EPIC-001 | Task | Refine Internal Starting Monday Product Improvement Spec | Backlog idea 17: Refine Internal Starting Monday Product Improvement Spec. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Refine Internal Starting Monday Product Improvement Spec' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | docs,spec | Product | 3 | To Do | 17 | Needs source doc
+TASK-006 | EPIC-001 | Task | Refine Premium Executive User Feature Spec | Backlog idea 17: Refine Premium Executive User Feature Spec. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Refine Premium Executive User Feature Spec' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | docs,premium,spec | Product | 3 | To Do | 17 | Needs source doc
+TASK-007 | EPIC-001 | Task | Refine Board-Ready Intelligence Layer Spec | Backlog idea 17: Refine Board-Ready Intelligence Layer Spec. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Refine Board-Ready Intelligence Layer Spec' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | docs,intelligence,spec | Product,Intelligence | 3 | To Do | 17 | Needs source doc
+TASK-008 | EPIC-001 | Task | Refine Founder SaaS Spinout Spec | Backlog idea 17: Refine Founder SaaS Spinout Spec. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Refine Founder SaaS Spinout Spec' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Low | docs,saas,strategy | Product | 3 | To Do | 17 | Needs source doc
+TASK-009 | EPIC-002 | Task | Define synthetic UX council model | Backlog idea 1: Define synthetic UX council model. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define synthetic UX council model' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ux,synthetic-review | UX,QA | 5 | To Do | 1 | 
+TASK-010 | EPIC-002 | Task | Create UX test persona templates | Backlog idea 1: Create UX test persona templates. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create UX test persona templates' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ux,personas | UX,QA | 5 | To Do | 1 | Depends on synthetic UX council model
+TASK-011 | EPIC-002 | Task | Create UX scoring rubric and quality guide | Backlog idea 1: Create UX scoring rubric and quality guide. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create UX scoring rubric and quality guide' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ux,quality | UX,QA | 5 | To Do | 1 | 
+TASK-012 | EPIC-002 | Task | Prototype automated UX journey test suite | Backlog idea 1: Prototype automated UX journey test suite. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype automated UX journey test suite' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ux,automation,synthetic-review | UX,Engineering,QA | 8 | To Do | 1 | Depends on persona templates and rubric
+TASK-013 | EPIC-002 | Task | Design human UX review board gate | Backlog idea 1: Design human UX review board gate. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design human UX review board gate' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | ux,governance | UX,QA | 3 | To Do | 1 | 
+TASK-014 | EPIC-002 | Task | Define synthetic UI council model | Backlog idea 2: Define synthetic UI council model. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define synthetic UI council model' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ui,synthetic-review | UI,QA | 3 | To Do | 2 | 
+TASK-015 | EPIC-002 | Task | Create UI scoring rubric and visual standards guide | Backlog idea 2: Create UI scoring rubric and visual standards guide. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create UI scoring rubric and visual standards guide' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | ui,quality | UI,Design | 5 | To Do | 2 | 
+TASK-016 | EPIC-002 | Task | Create combined UI/UX/content review standards guide | Backlog idea 7: Create combined UI/UX/content review standards guide. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create combined UI/UX/content review standards guide' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | standards,quality | Design,Product,QA | 5 | To Do | 7 | 
+TASK-017 | EPIC-002 | Task | Audit briefing email copy quality | Backlog idea 8: Audit briefing email copy quality. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Audit briefing email copy quality' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | email,copy | Content,Product | 3 | To Do | 8 | 
+TASK-018 | EPIC-002 | Task | Rewrite briefing email templates | Backlog idea 8: Rewrite briefing email templates. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Rewrite briefing email templates' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | email,copy | Content | 5 | To Do | 8 | Depends on copy audit
+TASK-019 | EPIC-002 | Task | Implement briefing email copy QA checks | Backlog idea 8: Implement briefing email copy QA checks. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Implement briefing email copy QA checks' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | email,qa,automation | Content,QA,Engineering | 5 | To Do | 8 | Depends on rewritten templates
+TASK-020 | EPIC-003 | Task | Define authority content strategy | Backlog idea 3: Define authority content strategy. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define authority content strategy' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | content,authority | Marketing,Content | 5 | To Do | 3 | 
+TASK-021 | EPIC-003 | Task | Design automated article and blog generation workflow | Backlog idea 3: Design automated article and blog generation workflow. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design automated article and blog generation workflow' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | content,automation | Marketing,Engineering | 5 | To Do | 3 | Depends on content strategy
+TASK-022 | EPIC-003 | Task | Build MVP content generation pipeline | Backlog idea 3: Build MVP content generation pipeline. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build MVP content generation pipeline' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | content,automation,mvp | Marketing,Engineering | 8 | To Do | 3 | Depends on generation workflow
+TASK-023 | EPIC-003 | Task | Create channel submission playbook | Backlog idea 3: Create channel submission playbook. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create channel submission playbook' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | content,distribution | Marketing | 5 | To Do | 3 | 
+TASK-024 | EPIC-003 | Task | Create content style guide | Backlog idea 6: Create content style guide. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create content style guide' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | style-guide,content | Content,Marketing | 5 | To Do | 6 | 
+TASK-025 | EPIC-003 | Task | Create user education article backlog | Backlog idea 16: Create user education article backlog. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create user education article backlog' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | articles,education | Content | 3 | To Do | 16 | Depends on content strategy
+TASK-026 | EPIC-003 | Task | Draft flagship article: How we think about a job search | Backlog idea 16: Draft flagship article: How we think about a job search. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Draft flagship article: How we think about a job search' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | articles | Content | 3 | To Do | 16 | Depends on content style guide
+TASK-027 | EPIC-003 | Task | Draft flagship article: Luck favors the prepared | Backlog idea 16: Draft flagship article: Luck favors the prepared. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Draft flagship article: Luck favors the prepared' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | articles | Content | 3 | To Do | 16 | Depends on content style guide
+TASK-028 | EPIC-003 | Task | Create SEO baseline audit for Google and Bing | Backlog idea 20: Create SEO baseline audit for Google and Bing. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create SEO baseline audit for Google and Bing' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | seo | Marketing,Engineering | 5 | To Do | 20 | 
+TASK-029 | EPIC-003 | Task | Implement priority SEO improvements | Backlog idea 20: Implement priority SEO improvements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Implement priority SEO improvements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | seo,implementation | Marketing,Engineering | 8 | To Do | 20 | Depends on SEO baseline audit
+TASK-030 | EPIC-003 | Task | Evaluate YouTube credibility channel strategy | Backlog idea 25: Evaluate YouTube credibility channel strategy. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Evaluate YouTube credibility channel strategy' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Low | youtube,content | Marketing | 3 | To Do | 25 | 
+TASK-031 | EPIC-003 | Task | Create job-search research database structure | Backlog idea 28: Create job-search research database structure. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create job-search research database structure' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | research,database | Research,Content | 5 | To Do | 28 | 
+TASK-032 | EPIC-003 | Task | Seed job-search research database | Backlog idea 28: Seed job-search research database. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Seed job-search research database' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | research | Research,Content | 5 | To Do | 28 | Depends on database structure
+TASK-033 | EPIC-004 | Task | Define outreach engine requirements | Backlog idea 5: Define outreach engine requirements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define outreach engine requirements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | outreach,requirements | Sales,Marketing,Product | 5 | To Do | 5 | 
+TASK-034 | EPIC-004 | Task | Build outreach scheduling MVP | Backlog idea 5: Build outreach scheduling MVP. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build outreach scheduling MVP' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | outreach,automation,mvp | Sales,Marketing,Engineering | 5 | To Do | 5 | Depends on requirements
+TASK-035 | EPIC-004 | Task | Build outreach A/B testing feedback loop | Backlog idea 5: Build outreach A/B testing feedback loop. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build outreach A/B testing feedback loop' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | outreach,ab-testing | Sales,Marketing,Engineering | 8 | To Do | 5 | Depends on scheduling MVP
+TASK-036 | EPIC-004 | Task | Define sales-call site requirements | Backlog idea 24: Define sales-call site requirements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define sales-call site requirements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | sales,b2b | Sales,Product | 5 | To Do | 24 | 
+TASK-037 | EPIC-004 | Task | Create sales intelligence brief template | Backlog idea 24: Create sales intelligence brief template. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create sales intelligence brief template' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | sales,intelligence | Sales,Content | 3 | To Do | 24 | Depends on intelligence scanner work
+TASK-038 | EPIC-004 | Task | Build sales collateral and demo asset library | Backlog idea 24: Build sales collateral and demo asset library. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build sales collateral and demo asset library' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | sales,collateral | Sales,Marketing | 5 | To Do | 24 | 
+TASK-039 | EPIC-004 | Task | Define lead-finding engine requirements | Backlog idea 27: Define lead-finding engine requirements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define lead-finding engine requirements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | leads,requirements | Sales,Marketing,Product | 5 | To Do | 27 | 
+TASK-040 | EPIC-004 | Task | Prototype lead discovery workflow | Backlog idea 27: Prototype lead discovery workflow. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype lead discovery workflow' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | leads,automation,mvp | Sales,Engineering | 8 | To Do | 27 | Depends on lead engine requirements
+TASK-041 | EPIC-004 | Task | Create lead compliance and data-use checklist | Backlog idea 27: Create lead compliance and data-use checklist. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create lead compliance and data-use checklist' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | leads,compliance | Sales,Legal,Marketing | 3 | To Do | 27 | 
+TASK-042 | EPIC-005 | Task | Define priority user personas and decision paths | Backlog idea 11: Define priority user personas and decision paths. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define priority user personas and decision paths' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | personas,ux | Product,UX | 5 | To Do | 11 | 
+TASK-043 | EPIC-005 | Task | Design self-selecting persona UX flow | Backlog idea 11: Design self-selecting persona UX flow. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design self-selecting persona UX flow' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | personas,ux | UX,Product | 5 | To Do | 11 | Depends on priority personas
+TASK-044 | EPIC-005 | Task | Implement persona path MVP | Backlog idea 11: Implement persona path MVP. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Implement persona path MVP' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | personas,mvp | Engineering,UX | 8 | To Do | 11 | Depends on UX flow
+TASK-045 | EPIC-005 | Task | Define Ideas page requirements | Backlog idea 12: Define Ideas page requirements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define Ideas page requirements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | ideas,community | Product | 3 | To Do | 12 | 
+TASK-046 | EPIC-005 | Task | Design Ideas page MVP | Backlog idea 12: Design Ideas page MVP. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design Ideas page MVP' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | ideas,ux | UX,Product | 5 | To Do | 12 | Depends on requirements
+TASK-047 | EPIC-005 | Task | Implement Ideas page MVP | Backlog idea 12: Implement Ideas page MVP. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Implement Ideas page MVP' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | ideas,mvp | Engineering | 8 | To Do | 12 | Depends on design
+TASK-048 | EPIC-005 | Task | Audit onboarding experience | Backlog idea 15: Audit onboarding experience. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Audit onboarding experience' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | onboarding,ux | UX,Product | 3 | To Do | 15 | 
+TASK-049 | EPIC-005 | Task | Redesign onboarding experience | Backlog idea 15: Redesign onboarding experience. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Redesign onboarding experience' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | onboarding,ux | UX,Content | 5 | To Do | 15 | Depends on onboarding audit
+TASK-050 | EPIC-005 | Task | Instrument onboarding analytics | Backlog idea 15: Instrument onboarding analytics. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Instrument onboarding analytics' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | onboarding,analytics | Analytics,Engineering | 5 | To Do | 15 | Depends on redesign
+TASK-051 | EPIC-006 | Task | Audit current intelligence scanner | Backlog idea 13: Audit current intelligence scanner. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Audit current intelligence scanner' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | intelligence,audit | Product,Engineering | 5 | To Do | 13 | 
+TASK-052 | EPIC-006 | Task | Expand intelligence scanner use cases | Backlog idea 13: Expand intelligence scanner use cases. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Expand intelligence scanner use cases' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | intelligence,strategy | Product | 3 | To Do | 13 | Depends on scanner audit
+TASK-053 | EPIC-006 | Task | Define opportunity quadrant scoring model | Backlog idea 19: Define opportunity quadrant scoring model. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define opportunity quadrant scoring model' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | scoring,visualization | Product,Analytics | 5 | To Do | 19 | 
+TASK-054 | EPIC-006 | Task | Design opportunity quadrant UI | Backlog idea 19: Design opportunity quadrant UI. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design opportunity quadrant UI' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | visualization,ui | UI,UX | 5 | To Do | 19 | Depends on scoring model
+TASK-055 | EPIC-006 | Task | Prototype opportunity quadrant with sample data | Backlog idea 19: Prototype opportunity quadrant with sample data. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype opportunity quadrant with sample data' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | visualization,prototype | Engineering,Analytics | 8 | To Do | 19 | Depends on UI design
+TASK-056 | EPIC-006 | Task | Define page performance monitoring requirements | Backlog idea 21: Define page performance monitoring requirements. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define page performance monitoring requirements' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | performance,monitoring | Engineering,Ops | 3 | To Do | 21 | 
+TASK-057 | EPIC-006 | Task | Implement PageSpeed monitoring and alerting | Backlog idea 21: Implement PageSpeed monitoring and alerting. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Implement PageSpeed monitoring and alerting' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | performance,monitoring | Engineering,Ops | 5 | To Do | 21 | Depends on requirements
+TASK-058 | EPIC-006 | Task | Research mobile UX and poor-network detection options | Backlog idea 22: Research mobile UX and poor-network detection options. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Research mobile UX and poor-network detection options' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | mobile,performance,research | Engineering,UX | 5 | To Do | 22 | 
+TASK-059 | EPIC-006 | Task | Define adaptive mobile delivery patterns | Backlog idea 22: Define adaptive mobile delivery patterns. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define adaptive mobile delivery patterns' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | mobile,performance | Engineering,UX | 5 | To Do | 22 | Depends on research
+TASK-060 | EPIC-006 | Task | Define pattern recognition engine concept | Backlog idea 23: Define pattern recognition engine concept. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define pattern recognition engine concept' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | analytics,pattern-recognition | Product,Analytics | 5 | To Do | 23 | 
+TASK-061 | EPIC-006 | Task | Design improvement-insight feedback loop | Backlog idea 23: Design improvement-insight feedback loop. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Design improvement-insight feedback loop' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | analytics,automation | Product,QA,Analytics | 5 | To Do | 23 | Depends on concept
+TASK-062 | EPIC-006 | Task | Prototype pattern recognition insight report | Backlog idea 23: Prototype pattern recognition insight report. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype pattern recognition insight report' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | analytics,prototype | Analytics,Engineering | 8 | To Do | 23 | Depends on feedback loop
+TASK-063 | EPIC-007 | Task | Define search firm page strategy | Backlog idea 9: Define search firm page strategy. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define search firm page strategy' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | search-firms,pages | Marketing,Product | 3 | To Do | 9 | 
+TASK-064 | EPIC-007 | Task | Build search firm page content drafts | Backlog idea 9: Build search firm page content drafts. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build search firm page content drafts' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | search-firms,content | Content,Marketing | 5 | To Do | 9 | Depends on page strategy
+TASK-065 | EPIC-007 | Task | Define outplacement offer strategy | Backlog idea 10: Define outplacement offer strategy. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define outplacement offer strategy' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | outplacement,strategy | Product,Sales | 5 | To Do | 10 | 
+TASK-066 | EPIC-007 | Task | Build outplacement page content drafts | Backlog idea 10: Build outplacement page content drafts. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Build outplacement page content drafts' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | outplacement,content | Content,Marketing | 5 | To Do | 10 | Depends on offer strategy
+TASK-067 | EPIC-007 | Task | Evaluate less-senior/new-grad channel | Backlog idea 14: Evaluate less-senior/new-grad channel. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Evaluate less-senior/new-grad channel' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Low | market-expansion,strategy | Product,Strategy | 5 | To Do | 14 | 
+TASK-068 | EPIC-007 | Task | Define MVP for adjacent role channel if approved | Backlog idea 14: Define MVP for adjacent role channel if approved. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define MVP for adjacent role channel if approved' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Low | market-expansion,mvp | Product | 3 | To Do | 14 | Depends on evaluation
+TASK-069 | EPIC-008 | Task | Define synthetic department operating model | Backlog idea 26: Define synthetic department operating model. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Define synthetic department operating model' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | synthetic-company,strategy | Operations,Product | 5 | To Do | 26 | 
+TASK-070 | EPIC-008 | Task | Prototype synthetic marketing department | Backlog idea 26: Prototype synthetic marketing department. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype synthetic marketing department' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | synthetic-company,marketing,prototype | Marketing,Operations | 8 | To Do | 26 | Depends on operating model
+TASK-071 | EPIC-008 | Task | Prototype synthetic QA department | Backlog idea 26: Prototype synthetic QA department. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Prototype synthetic QA department' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Medium | synthetic-company,qa,prototype | QA,Operations | 8 | To Do | 26 | Depends on operating model
+TASK-072 | EPIC-008 | Task | Create synthetic department governance and risk policy | Backlog idea 26: Create synthetic department governance and risk policy. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Create synthetic department governance and risk policy' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | High | synthetic-company,governance,risk | Operations,Legal,Security | 5 | To Do | 26 | 
+TASK-073 | EPIC-008 | Task | Evaluate synthetic company economics | Backlog idea 26: Evaluate synthetic company economics. Refined as a team-managed Jira Software task with clear scope small enough to plan, assign, and track. | - Scope for 'Evaluate synthetic company economics' is documented
+- Owner/reviewer is identified
+- Output artifact or implementation path is created
+- Acceptance criteria and follow-on tasks are captured
+- Product-quality review is completed before Done | Low | synthetic-company,economics | Operations,Strategy | 5 | To Do | 26 | Depends on prototypes

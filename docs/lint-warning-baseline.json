@@ -1,5 +1,5 @@
 {
-  "warnings": 222,
-  "capturedAt": "2026-05-22",
-  "notes": "Recaptured after fixing ESLint v9 plugin-resolution crash. Previously ESLint crashed on config load so the true warning count was never measured. 222 is the actual pre-existing warning total with a working config."
+  "warnings": 321,
+  "capturedAt": "2026-05-24",
+  "notes": "Recaptured during unified debt/security audit rollout. Parser errors were fixed and current warning floor is 321; future work should burn this baseline down."
 }

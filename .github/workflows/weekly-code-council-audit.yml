@@ -22,8 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Observability import corruption guard
+        run: npm run guard:observability-imports
+
       - name: Run code synthetic council audit
-        run: npm run audit:code-council
+        run: npm run audit:code-council:strict
 
       - name: Upload council audit artifacts
         if: always()

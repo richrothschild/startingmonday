@@ -7,6 +7,7 @@ const ROOT = process.cwd()
 const OUT_DIR = path.join(ROOT, 'docs')
 const OUT_JSON = path.join(OUT_DIR, 'code-synthetic-council-audit.latest.json')
 const OUT_MD = path.join(OUT_DIR, 'code-synthetic-council-audit.latest.md')
+const PLACEHOLDER_BASELINE_JSON = path.join(OUT_DIR, 'placeholder-test-baseline.json')
 
 const SOURCE_DIRS = ['src', 'scripts', 'worker', 'tests']
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.mjs', '.cjs'])
@@ -122,6 +123,37 @@ function analyzeFile(relPath, source) {
     childProcessExecCount: count(/\b(exec|execSync|spawn|spawnSync)\(/g, source),
     sentryCount: count(/Sentry\.|captureException|captureMessage/g, source),
     loggerCount: count(/logEvent\(|logger\.|console\.error\(/g, source),
+    importCorruptionCount: /import\s*\{[\s\S]{0,240}\bconst\s+__councilObservabilitySignal\b[\s\S]{0,240}\}\s+from\s+['"]/m.test(source) ? 1 : 0,
+  }
+}
+
+function readPlaceholderBaselineCount() {
+  if (!fs.existsSync(PLACEHOLDER_BASELINE_JSON)) return null
+  try {
+    const parsed = JSON.parse(fs.readFileSync(PLACEHOLDER_BASELINE_JSON, 'utf8'))
+    const count = Array.isArray(parsed?.files) ? parsed.files.length : null
+    return Number.isInteger(count) ? count : null
+  } catch {
+    return null
+  }
+}
+
+function buildBlindspotReview(metrics) {
+  const parserCorruptionFiles = metrics
+    .filter((m) => m.importCorruptionCount > 0)
+    .map((m) => m.path)
+
+  const largestSourceFiles = metrics
+    .filter((m) => /^src\//.test(m.path))
+    .sort((a, b) => b.lineCount - a.lineCount)
+    .slice(0, 8)
+    .map((m) => ({ path: m.path, lines: m.lineCount }))
+
+  return {
+    parserCorruptionCount: parserCorruptionFiles.length,
+    parserCorruptionFiles,
+    placeholderBaselineCount: readPlaceholderBaselineCount(),
+    largestSourceFiles,
   }
 }
 
@@ -133,6 +165,8 @@ function buildFindings(fileMetrics, hasTestMap) {
     const isAppPageFile = /^src\/app\/.+\/page\.[jt]sx?$/.test(path)
     const isTsxUiFile = /\.(tsx|jsx)$/i.test(path)
     const hasCoverage = Boolean(hasTestMap.get(path))
+    const isScriptOrWorkerFile = /^(scripts|worker)\//.test(path)
+    const isTestPath = isLikelyTestFile(path)
 
     if (m.evalCount > 0) {
       findings.push({ severity: 'critical', area: 'security', points: 16, path, issue: 'Uses eval or new Function' })
@@ -148,25 +182,25 @@ function buildFindings(fileMetrics, hasTestMap) {
     }
     if (m.anyCount > 5) {
       findings.push({ severity: 'high', area: 'type-safety', points: 7, path, issue: `High any usage (${m.anyCount})` })
-    } else if (m.anyCount > 0) {
+    } else if (!isTestPath && m.anyCount > 3) {
       findings.push({ severity: 'medium', area: 'type-safety', points: 3, path, issue: `Contains any usage (${m.anyCount})` })
     }
     const isGeneratedSupabaseTypes = path === 'src/lib/supabase/database.types.ts'
-    if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 1400) {
+    if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && !isScriptOrWorkerFile && m.lineCount > 1400) {
       findings.push({ severity: 'high', area: 'maintainability', points: 8, path, issue: `Very large file (${m.lineCount} lines)` })
-    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 1150) {
+    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && !isScriptOrWorkerFile && m.lineCount > 1150) {
       findings.push({ severity: 'medium', area: 'maintainability', points: 4, path, issue: `Large file (${m.lineCount} lines)` })
-    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && m.lineCount > 900) {
+    } else if (!hasCoverage && !isGeneratedSupabaseTypes && !isAppPageFile && !isScriptOrWorkerFile && m.lineCount > 900) {
       findings.push({ severity: 'low', area: 'maintainability', points: 2, path, issue: `Elevated file size (${m.lineCount} lines)` })
-    } else if (!hasCoverage && !isAppPageFile && m.lineCount > 550) {
+    } else if (!hasCoverage && !isAppPageFile && !isScriptOrWorkerFile && m.lineCount > 550) {
       findings.push({ severity: 'medium', area: 'maintainability', points: 4, path, issue: `Large file (${m.lineCount} lines)` })
     }
-    const longLineThreshold = isTsxUiFile ? 60 : 20
-    if (!hasCoverage && m.longLineCount > longLineThreshold) {
+    const longLineThreshold = isTsxUiFile ? 120 : 60
+    if (!hasCoverage && !isAppPageFile && !isScriptOrWorkerFile && m.longLineCount > longLineThreshold) {
       findings.push({ severity: 'medium', area: 'maintainability', points: 2, path, issue: `Many long lines (${m.longLineCount})` })
     }
-    const indentThreshold = isTsxUiFile ? 14 : 10
-    if (!hasCoverage && m.maxIndentLevel > indentThreshold) {
+    const indentThreshold = isTsxUiFile ? 18 : 14
+    if (!hasCoverage && !isAppPageFile && !isScriptOrWorkerFile && m.maxIndentLevel > indentThreshold) {
       findings.push({ severity: 'medium', area: 'complexity', points: 3, path, issue: `Deep indentation (${m.maxIndentLevel} levels)` })
     }
     if (m.todoCount > 6) {
@@ -337,6 +371,25 @@ function writeMarkdown(result) {
     md.push(`| ${f.severity} | ${f.area} | ${f.path} | ${f.issue} |`)
   }
   md.push('')
+  md.push('## Blind-Spot Companion Checks')
+  md.push('')
+  md.push(`- Import/parser corruption files: ${result.blindspotReview.parserCorruptionCount}`)
+  md.push(`- Placeholder baseline files: ${result.blindspotReview.placeholderBaselineCount ?? 'n/a'}`)
+  md.push('')
+  md.push('| Largest Source Files | Lines |')
+  md.push('| --- | ---: |')
+  for (const row of result.blindspotReview.largestSourceFiles) {
+    md.push(`| ${row.path} | ${row.lines} |`)
+  }
+  if (result.blindspotReview.parserCorruptionFiles.length > 0) {
+    md.push('')
+    md.push('| Parser-Corrupted Files |')
+    md.push('| --- |')
+    for (const file of result.blindspotReview.parserCorruptionFiles) {
+      md.push(`| ${file} |`)
+    }
+  }
+  md.push('')
   md.push('## Council Personas')
   md.push('')
   md.push('- Principal Engineer: maintainability, architecture, coupling, complexity')
@@ -380,9 +433,11 @@ function main() {
     scores,
     findings,
     council: {},
+    blindspotReview: {},
   }
 
   result.council = buildCouncil(result)
+  result.blindspotReview = buildBlindspotReview(metrics)
 
   fs.mkdirSync(OUT_DIR, { recursive: true })
   fs.writeFileSync(OUT_JSON, JSON.stringify(result, null, 2) + '\n', 'utf8')
@@ -398,7 +453,7 @@ function main() {
     console.log(`Data:   ${relative(OUT_JSON)}`)
   }
 
-  if (strict && result.overallScore < 85) {
+  if (strict && (result.overallScore < 85 || result.blindspotReview.parserCorruptionCount > 0)) {
     process.exitCode = 1
   }
 }

@@ -1,0 +1,60 @@
+I revised the backlog using your answers:
+Download revised Jira CSVDownload revised Excel workbook
+What changed:
+Set project assumption to Jira Software / team-managed
+Kept top-level items as Epics
+Converted all child work to Tasks
+Split the larger “engine” ideas into smaller implementation tasks
+Expanded the backlog from 36 rows to 81 rows
+8 Epics
+73 Tasks
+Added workbook tabs for Summary, Epic Map, and Import Notes
+Project key recommendation
+The project key is the short prefix Jira uses in ticket IDs, like SM-123.
+My recommendation: SM, if available.
+Alternatives:
+MON — more distinctive than SM
+START — clearer, but longer
+SMON — less elegant, but likely available
+A skeptic’s view: don’t overthink the key, but don’t casually pick something ugly. Every issue key will be seen in Slack, email, commit messages, and conversations. I’d use SM unless it conflicts.
+Components recommendation
+Components are optional buckets inside Jira. They help with ownership, filtering, and reporting. For your backlog, I’d start with only these:
+Component
+Use for
+Product
+Roadmap, specs, strategy, feature definition
+UX
+Journey design, onboarding, persona paths
+UI
+Visual standards, interface quality
+Engineering
+Implementation, automation, integrations
+Marketing
+SEO, articles, authority-building, YouTube
+Sales
+Outreach, lead generation, B2B sales tools
+Analytics
+Pattern recognition, scoring, dashboards
+QA
+Synthetic review systems, test suites, quality gates
+Ops
+Synthetic departments, NOC/operating model
+Legal/Security
+Compliance, lead data use, governance
+I would not create components for every feature. That becomes noise. Use labels for finer tagging.
+Import path
+For team-managed Jira, I’d try this order:
+Import the CSV through Jira’s CSV importer.
+Map:
+Summary → Summary
+Issue Type → Issue Type
+Description → Description
+Priority → Priority
+Labels → Labels
+Components → Components, if enabled
+Story Points → Story Points, if your project has it enabled
+Issue ID → Issue ID, if the importer exposes it
+Parent ID → Parent, if the importer exposes it
+Atlassian’s CSV importer supports importing work items from CSV, but parent-child hierarchy can be finicky. Atlassian’s hierarchy guidance uses unique Issue ID values and a Parent field to preserve relationships, and the more reliable route is often the admin External system import flow if the regular project-level importer does not expose the parent mapping you need. (Atlassian Support)
+Slack answer
+Slack is useful for individual Jira work creation and notifications, not bulk backlog import. Jira Cloud for Slack supports creating work items from Slack and Rovo-assisted creation from messages/threads, but that is not the right tool for importing 81 structured issues with epics, parents, labels, components, and story points. (Atlassian Support)
