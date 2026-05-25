@@ -5,6 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 import { SamplePrepBrief } from '@/components/SamplePrepBrief'
 import { TrackLink } from '@/components/TrackLink'
+import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export interface SituationCard {
@@ -131,6 +132,13 @@ const TRUST_ITEMS = [
     body: 'At any time, from Settings, you can permanently delete your account and all associated data. No friction. No waiting period.',
   },
 ]
+
+const CHANNEL_BEST_FOR: Record<string, string> = {
+  executives: 'Best for active or near-term C-suite transitions',
+  coaches: 'Best for coach-led execution between client sessions',
+  outplacement: 'Best for cohort delivery and measurable 30-day momentum',
+  search_firms: 'Best for retained-search kickoff quality and shortlist speed',
+}
 
 
 export function LandingPage({ hero, situations, faqs, showPersonaSelector }: LandingPageProps) {
@@ -284,6 +292,48 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[12px] text-slate-300 mt-4 font-medium">
             Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
+
+          <div className="mt-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
+            <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
+              Choose the path that matches your context. Messaging, proof, and next actions adapt to your role.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {CHANNEL_ROUTE_SPECS.map((spec) => (
+                <TrackLink
+                  key={spec.channel}
+                  href={spec.route}
+                  event={EVENT_NAMES.channelEntryClicked}
+                  logToUserEvents
+                  properties={{
+                    channel: spec.channel,
+                    cta_label: 'hero_channel_ia_card',
+                    source_page: '/',
+                  }}
+                  className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
+                >
+                  <p className="text-[13px] font-semibold text-white">{spec.label}</p>
+                  <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
+                </TrackLink>
+              ))}
+            </div>
+            <div className="mt-4 pt-4 border-t border-slate-700">
+              <p className="text-[12px] text-slate-400 mb-2">Not sure which path fits yet?</p>
+              <TrackLink
+                href="/executives"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{
+                  channel: 'executives',
+                  cta_label: 'hero_channel_ia_default',
+                  source_page: '/',
+                }}
+                className="inline-block text-[12px] font-semibold text-orange-300 underline underline-offset-2 hover:text-orange-200 transition-colors"
+              >
+                Start with the executive path and refine from there
+              </TrackLink>
+            </div>
+          </div>
 
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">

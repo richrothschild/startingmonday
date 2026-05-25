@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { ChannelEntryStrip } from '@/components/home/ChannelEntryStrip'
 
 export const metadata: Metadata = {
   title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
@@ -146,7 +145,6 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <ChannelEntryStrip />
       <LandingPage
         hero={{
           eyebrow: 'Most executive searches are shaped before the posting exists. The window opens earlier than most candidates expect.',
