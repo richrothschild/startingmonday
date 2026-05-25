@@ -14,8 +14,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'executives',
     label: 'Executives',
-    route: '/executives',
-    targetCanonicalRoute: '/executives',
+    route: '/for-vp',
+    targetCanonicalRoute: '/for-vp',
     primaryCtaLabel: 'Enter executive path',
     hero: 'Run a private, signal-first campaign before roles are posted.',
     trust: 'Private by default. No employer visibility.',
@@ -23,8 +23,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'coaches',
     label: 'Coaches',
-    route: '/coaches',
-    targetCanonicalRoute: '/coaches',
+    route: '/for-coaches',
+    targetCanonicalRoute: '/for-coaches',
     primaryCtaLabel: 'Enter coach path',
     hero: 'Give clients structure between sessions without adding admin drag.',
     trust: 'Built to amplify coaching strategy time, not replace coaching.',
@@ -32,8 +32,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'outplacement',
     label: 'Outplacement',
-    route: '/outplacement',
-    targetCanonicalRoute: '/outplacement',
+    route: '/for-outplacement',
+    targetCanonicalRoute: '/for-outplacement',
     primaryCtaLabel: 'Enter outplacement path',
     hero: 'Improve cohort momentum with a measurable 30-day operating cadence.',
     trust: 'Board-safe claims and KPI clarity for buyer confidence.',
@@ -41,8 +41,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'search_firms',
     label: 'Search Firms',
-    route: '/search-firms',
-    targetCanonicalRoute: '/search-firms',
+    route: '/for-search-firms',
+    targetCanonicalRoute: '/for-search-firms',
     primaryCtaLabel: 'Enter search-firm path',
     hero: 'Strengthen kickoff quality and shortlist velocity on retained mandates.',
     trust: 'Role-specific preparation depth before first-round interviews.',

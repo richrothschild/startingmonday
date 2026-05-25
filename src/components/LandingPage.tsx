@@ -46,22 +46,6 @@ export interface LandingPageProps {
   showPersonaSelector?: boolean
 }
 
-const REACTIVE_ITEMS = [
-  'Checking job boards daily, hoping something surfaces',
-  'Applying cold to posted roles where 200 others already applied',
-  'Preparing the night before an interview',
-  'Losing track of who said what and when',
-  'Waiting for recruiters to call',
-]
-
-const CAMPAIGN_ITEMS = [
-  'Watching target companies for signals before a search opens',
-  'Building relationships before a role is ever authorized',
-  'Walking in with a brief assembled from their company and your record',
-  'Every conversation tracked, staged, and followed up',
-  'Positioned in the right places before the search goes to a firm',
-]
-
 const FEATURES = [
   {
     label: 'Level-Calibrated AI',
@@ -118,21 +102,6 @@ const PERSONA_LINKS = [
   { href: '/for-pe-partners', label: 'PE and transformation operators' },
 ]
 
-const TRUST_ITEMS = [
-  {
-    heading: 'We never train AI on your data',
-    body: 'Your resume, pipeline, and notes are yours. We use them to generate your briefs and nothing else. They are never used to train or fine-tune AI models.',
-  },
-  {
-    heading: 'Your employer will not find out',
-    body: 'We have no relationship with employers, search firms, or recruiters. Your account, your targets, and your activity are entirely private. We do not sell leads.',
-  },
-  {
-    heading: 'You can delete everything',
-    body: 'At any time, from Settings, you can permanently delete your account and all associated data. No friction. No waiting period.',
-  },
-]
-
 const CHANNEL_BEST_FOR: Record<string, string> = {
   executives: 'Best for active or near-term C-suite transitions',
   coaches: 'Best for coach-led execution between client sessions',
@@ -169,22 +138,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </Link>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" title="Log in to your account" aria-label="Log in">
               Log in
-            </Link>
-            <Link
-              href="/demo"
-              className="hidden sm:inline text-[13px] font-semibold text-orange-300 border border-orange-400 px-4 py-1.5 rounded hover:bg-orange-500 hover:text-slate-900 hover:border-orange-500 transition-colors"
-              title="See a live product demo"
-              aria-label="See product demo"
-            >
-              See it in action
-            </Link>
-            <Link
-              href="/signup"
-              className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
-              title="Start your free trial in minutes"
-              aria-label="Try Starting Monday free"
-            >
-              Try free
             </Link>
           </div>
         </div>
@@ -241,6 +194,48 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
           </p>
 
+          <div className="mb-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
+            <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
+              Choose the path that matches your context. Messaging, proof, and next actions adapt to your role.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {CHANNEL_ROUTE_SPECS.map((spec) => (
+                <TrackLink
+                  key={spec.channel}
+                  href={spec.route}
+                  event={EVENT_NAMES.channelEntryClicked}
+                  logToUserEvents
+                  properties={{
+                    channel: spec.channel,
+                    cta_label: 'hero_channel_ia_card',
+                    source_page: '/',
+                  }}
+                  className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
+                >
+                  <p className="text-[13px] font-semibold text-white">{spec.label}</p>
+                  <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
+                </TrackLink>
+              ))}
+            </div>
+            <div className="mt-4 pt-4 border-t border-slate-700">
+              <p className="text-[12px] text-slate-400 mb-2">Not sure which path fits yet?</p>
+              <TrackLink
+                href="/for-vp"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{
+                  channel: 'executives',
+                  cta_label: 'hero_channel_ia_default',
+                  source_page: '/',
+                }}
+                className="inline-block text-[12px] font-semibold text-orange-300 underline underline-offset-2 hover:text-orange-200 transition-colors"
+              >
+                Start with the executive path and refine from there
+              </TrackLink>
+            </div>
+          </div>
+
           {hero.claimMethodLabel && hero.claimMethodHref && (
             <p className="text-[12px] text-slate-400 mb-7">
               <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
@@ -282,7 +277,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div>
               <Link
                 href="/demo"
-                className="inline-block text-[14px] font-bold text-white border border-orange-500 bg-orange-500 px-7 py-3.5 rounded hover:bg-orange-600 hover:border-orange-600 transition-colors"
+                className="inline-block text-[14px] font-bold text-white border border-slate-500 px-7 py-3.5 rounded hover:border-slate-300 transition-colors"
               >
                 See it in action &rarr;
               </Link>
@@ -293,82 +288,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
 
-          <div className="mt-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
-              Choose the path that matches your context. Messaging, proof, and next actions adapt to your role.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {CHANNEL_ROUTE_SPECS.map((spec) => (
-                <TrackLink
-                  key={spec.channel}
-                  href={spec.route}
-                  event={EVENT_NAMES.channelEntryClicked}
-                  logToUserEvents
-                  properties={{
-                    channel: spec.channel,
-                    cta_label: 'hero_channel_ia_card',
-                    source_page: '/',
-                  }}
-                  className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
-                >
-                  <p className="text-[13px] font-semibold text-white">{spec.label}</p>
-                  <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
-                </TrackLink>
-              ))}
-            </div>
-            <div className="mt-4 pt-4 border-t border-slate-700">
-              <p className="text-[12px] text-slate-400 mb-2">Not sure which path fits yet?</p>
-              <TrackLink
-                href="/executives"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{
-                  channel: 'executives',
-                  cta_label: 'hero_channel_ia_default',
-                  source_page: '/',
-                }}
-                className="inline-block text-[12px] font-semibold text-orange-300 underline underline-offset-2 hover:text-orange-200 transition-colors"
-              >
-                Start with the executive path and refine from there
-              </TrackLink>
-            </div>
-          </div>
-
-          {showPersonaSelector && (
-            <p className="text-[12px] text-slate-600 mt-6">
-              Searching at a specific level?{' '}
-              <TrackLink
-                href="/for-vp"
-                event={EVENT_NAMES.personaRouteSelected}
-                logToUserEvents
-                properties={{
-                  channel: 'executives',
-                  persona: 'vp_to_c_suite',
-                  source_route: '/',
-                  target_route: '/for-vp',
-                }}
-                className="text-slate-400 hover:text-slate-200 underline transition-colors"
-              >
-                For VPs making the move
-              </TrackLink>
-              {' · '}
-              <TrackLink
-                href="/for-cio"
-                event={EVENT_NAMES.personaRouteSelected}
-                logToUserEvents
-                properties={{
-                  channel: 'executives',
-                  persona: 'cio_cto_transition',
-                  source_route: '/',
-                  target_route: '/for-cio',
-                }}
-                className="text-slate-400 hover:text-slate-200 underline transition-colors"
-              >
-                For the C-Suite
-              </TrackLink>
-            </p>
-          )}
         </div>
 
         {/* Dashboard preview */}
@@ -513,66 +432,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      {/* Differentiation + category claim */}
-      <section id="category-positioning" className="bg-white px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-[20px] sm:text-[24px] font-bold text-slate-900 mb-4 leading-snug">
-            Signal intelligence for C-suite searches.
-          </h2>
-          <p className="text-[16px] text-slate-500 leading-relaxed mb-3">
-            Not a job board. Built to complement executive coaching.{' '}
-            <span className="text-slate-900 font-semibold">The infrastructure for a campaign.</span>
-          </p>
-          <p className="text-[14px] text-slate-400 leading-relaxed sm:whitespace-nowrap">
-            LinkedIn Premium is $70 a month and gives you a better job board. Starting Monday is the signal layer between that and a search firm.
-          </p>
-        </div>
-      </section>
-
-      {/* Before/After contrast */}
-      <section id="search-model" className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-            Two ways to search
-          </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-3 max-w-xl leading-snug">
-            There is the reactive search.<br />And there is the campaign.
-          </h2>
-          <p className="text-[14px] text-slate-500 mb-10 max-w-xl leading-relaxed">
-            One feels like waiting. The other feels like control. The difference is what you know and when you know it.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl">
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-5">Reactive search</p>
-              <ul className="space-y-3">
-                {REACTIVE_ITEMS.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-slate-300 shrink-0 mt-0.5 text-[12px]">--</span>
-                    <span className="text-[13px] text-slate-500 leading-snug">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-5">Campaign mindset</p>
-              <ul className="space-y-3">
-                {CAMPAIGN_ITEMS.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-orange-500 shrink-0 mt-0.5 text-[12px] font-bold">+</span>
-                    <span className="text-[13px] text-slate-300 leading-snug">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 max-w-2xl">
-            <p className="text-[14px] text-slate-500 leading-relaxed">
-              Executives who reach a target company before a search is posted are often more likely to get the first interview than those who apply after a posting goes live. The window between early signals and formal search can close quickly.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Intelligence Scanner spotlight */}
       <section id="signal-scanner" className="bg-slate-900 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-800">
         <div className="max-w-5xl mx-auto">
@@ -587,6 +446,29 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[15px] text-slate-400 leading-relaxed mb-5">
                 Executive departures. 8-K filings. Funding rounds. Acquisition announcements. We monitor all of it for every company you are tracking. When signals cluster into a pattern, we name it. This company has a transition window. Reach out now, before the formal search begins.
               </p>
+              <details className="mb-5 rounded-md border border-slate-700 bg-slate-800/60 px-4 py-3">
+                <summary className="cursor-pointer text-[12px] font-semibold tracking-[0.08em] uppercase text-slate-300">Reactive search vs campaign mindset</summary>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Reactive search</p>
+                    <ul className="space-y-1.5 text-[12px] text-slate-400 leading-relaxed list-disc pl-4">
+                      <li>Checking job boards daily, hoping something surfaces.</li>
+                      <li>Applying cold to posted roles where hundreds already applied.</li>
+                      <li>Preparing the night before an interview.</li>
+                      <li>Losing track of who said what and when.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 mb-2">Campaign mindset</p>
+                    <ul className="space-y-1.5 text-[12px] text-slate-300 leading-relaxed list-disc pl-4">
+                      <li>Watching targets for signals before a search opens.</li>
+                      <li>Building relationships before a role is authorized.</li>
+                      <li>Walking in with a brief assembled from company context.</li>
+                      <li>Tracking every conversation with clear follow-through.</li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
               <div className="flex flex-wrap gap-2 mb-6">
                 {['News', '8-K Filings', 'Exec Snapshots', 'Funding Rounds', 'PR Wire', 'Career Pages'].map(src => (
                   <span key={src} className="text-[10px] font-semibold text-slate-500 border border-slate-700 rounded px-2 py-1">
@@ -595,10 +477,10 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 ))}
               </div>
               <Link
-                href="/signup"
-                className="inline-block text-[13px] font-semibold text-slate-900 bg-orange-500 px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+                href="/method-and-evidence"
+                className="inline-block text-[13px] font-semibold text-slate-100 border border-slate-500 px-5 py-2.5 rounded hover:border-slate-300 transition-colors"
               >
-                Start your campaign &rarr;
+                Review method and evidence &rarr;
               </Link>
               <p className="text-[12px] text-slate-600 mt-4 leading-relaxed">
                 We continuously process signals from companies being tracked by executives in active search. Yours update every 48 hours.
@@ -667,69 +549,64 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             )})}
           </div>
           <div className="mt-8 text-center">
-            <Link
-              href="/signup"
-              className="inline-block bg-orange-500 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
-            >
-              Start your campaign &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-400 mt-2">{hero.trialNote}</p>
+            <p className="text-[12px] text-slate-500">Feature details expanded for scan speed; conversion paths stay concentrated in the hero and close.</p>
           </div>
         </div>
       </section>
 
       <SamplePrepBrief />
       {/* Board & Advisory positioning */}
-      <section id="long-horizon" className="bg-slate-50 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
+      <section id="long-horizon" className="bg-slate-50 px-4 sm:px-6 py-12 sm:py-14 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-            Multi-year positioning
-          </p>
-          <h2 className="text-[26px] sm:text-[32px] font-bold text-slate-900 mb-4 leading-tight max-w-3xl">
-            Board seeking, advisor roles, or C-suite positioning on your own timeline.
-          </h2>
-          <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl mb-10">
-            Board and advisory paths run on multi-year relationship momentum. Starting Monday keeps your research, signal watch, and outreach cadence active so nothing goes cold.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
-            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
-              <p className="text-[14px] font-semibold text-slate-900 mb-2">Monitor Board Composition</p>
-              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
-                <li>Track governance changes across target companies in one view.</li>
-                <li>Spot board-seat and PE transition openings earlier.</li>
-              </ul>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
-              <p className="text-[14px] font-semibold text-slate-900 mb-2">Maintain Relationship Momentum</p>
-              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
-                <li>Keep long-horizon outreach cadence alive with less overhead.</li>
-                <li>Prevent key sponsor and board-track relationships from going cold.</li>
-              </ul>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
-              <p className="text-[14px] font-semibold text-slate-900 mb-2">Evolve Your Narrative</p>
-              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
-                <li>Refresh your board/advisor narrative as market conditions shift.</li>
-                <li>Anchor outreach in fresh, company-specific signals.</li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-10 bg-white border border-slate-200 rounded-lg p-6 max-w-3xl">
-            <details className="group">
-              <summary className="cursor-pointer text-[14px] font-semibold text-slate-900 list-none flex items-center justify-between">
-                <span>Advanced use cases and cadence details</span>
-                <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
-              </summary>
-              <div className="mt-4 space-y-4">
+          <details className="group rounded-lg border border-slate-200 bg-white p-5 sm:p-6" open={false}>
+            <summary className="cursor-pointer list-none">
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-2">
+                Multi-year positioning
+              </p>
+              <h2 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
+                Board seeking, advisor roles, or C-suite positioning on your own timeline.
+              </h2>
+              <p className="text-[14px] text-slate-600 leading-relaxed mt-3 max-w-2xl">
+                Expand to view long-horizon operating guidance for board, advisory, and PE-network momentum.
+              </p>
+            </summary>
+            <div className="mt-8">
+              <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl mb-8">
+                Board and advisory paths run on multi-year relationship momentum. Starting Monday keeps your research, signal watch, and outreach cadence active so nothing goes cold.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 sm:p-6">
+                  <p className="text-[14px] font-semibold text-slate-900 mb-2">Monitor Board Composition</p>
+                  <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                    <li>Track governance changes across target companies in one view.</li>
+                    <li>Spot board-seat and PE transition openings earlier.</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 sm:p-6">
+                  <p className="text-[14px] font-semibold text-slate-900 mb-2">Maintain Relationship Momentum</p>
+                  <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                    <li>Keep long-horizon outreach cadence alive with less overhead.</li>
+                    <li>Prevent key sponsor and board-track relationships from going cold.</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 sm:p-6">
+                  <p className="text-[14px] font-semibold text-slate-900 mb-2">Evolve Your Narrative</p>
+                  <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                    <li>Refresh your board/advisor narrative as market conditions shift.</li>
+                    <li>Anchor outreach in fresh, company-specific signals.</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-8 bg-slate-50 border border-slate-200 rounded-lg p-6 max-w-3xl">
                 <p className="text-[14px] text-slate-700 leading-relaxed">
                   <span className="font-semibold">For PE-backed companies:</span> Track portfolio company signals and governance composition. Build relationships with operating partners before board opportunities are formal. Stay top-of-mind over 24-36 months.
                 </p>
-                <p className="text-[14px] text-slate-700 leading-relaxed">
+                <p className="text-[14px] text-slate-700 leading-relaxed mt-4">
                   <span className="font-semibold">For advisors:</span> Monitor 8-K filings and funding rounds at 30+ portfolio companies. Maintain weekly outreach without it feeling like work. Track which companies you're advising and which conversations are active.
                 </p>
               </div>
-            </details>
-          </div>
+            </div>
+          </details>
         </div>
       </section>
       {/* Operating cadence */}
@@ -770,117 +647,75 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
 
-      {/* Stats */}
-      <section id="proof-metrics" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
-            <div>
+      {/* Proof + Metrics */}
+      <section id="proof-metrics" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-800">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3 text-center">
+            Proof + Metrics
+          </p>
+          <h2 className="text-[24px] sm:text-[28px] font-bold text-white text-center mb-10 leading-snug">
+            Measurable evidence, verification context, and the operating window.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
+            <div className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-5">
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">10+</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">Intelligence sources per target company: SEC filings, exec moves, news, business journals, PR wire, trade press, and career pages</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-300 leading-relaxed">Intelligence sources per target company: SEC filings, exec moves, news, business journals, PR wire, trade press, and career pages.</p>
             </div>
-            <div>
+            <div className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-5">
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">60s</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">To generate a role-specific prep brief with company context, likely objections, and peer-level questions</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-300 leading-relaxed">To generate a role-specific prep brief with company context, likely objections, and peer-level questions.</p>
             </div>
-            <div>
+            <div className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-5">
               <p className="text-[28px] sm:text-[34px] font-bold text-white leading-none mb-2">11 days</p>
-              <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">
-                average window between the first signal and a search going to a retained firm &mdash; the whole game at this level.{' '}
-                <Link href="/blog/how-we-estimate-early-role-signals" className="underline hover:text-slate-300 transition-colors">
-                  How we estimate the timing window (method and sources)
-                </Link>
-              </p>
+              <p className="text-[12px] sm:text-[13px] text-slate-300 leading-relaxed">Average window between first signal and retained-search handoff.</p>
+              <Link href="/blog/how-we-estimate-early-role-signals" className="text-[12px] underline text-slate-200 hover:text-white transition-colors">
+                Method and source notes
+              </Link>
             </div>
           </div>
 
-          <div className="mt-12 sm:mt-14 border-t border-slate-800 pt-10 sm:pt-12 text-center">
-            <p className="text-[13px] text-slate-500 mb-5">Built for senior executives in active search.</p>
-            <Link
-              href="/demo"
-              className="inline-block text-[14px] text-slate-300 border border-slate-600 px-7 py-3 rounded hover:border-slate-400 hover:text-white transition-colors"
-            >
-              See a live prep brief &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-600 mt-2.5">No account required</p>
+          <div className="mt-8 bg-white rounded-lg border border-slate-200 px-5 sm:px-6 py-6 text-slate-900">
+            <h3 className="text-[18px] font-bold mb-3 text-center">Verified pilot evidence</h3>
+            <p className="text-[12px] text-slate-600 mb-5 text-center">Verification-first policy: we publish outcomes only after explicit permission and methodology checks.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-8 mb-4 text-center">
+              <div>
+                <p className="text-[28px] font-bold text-green-600 leading-none mb-1">81%</p>
+                <p className="text-[13px] text-slate-700">Reached first interview inside 30 days</p>
+              </div>
+              <div>
+                <p className="text-[28px] font-bold text-green-600 leading-none mb-1">27</p>
+                <p className="text-[13px] text-slate-700">Pilot executives in Jan-May 2026 cohort</p>
+              </div>
+              <div>
+                <p className="text-[28px] font-bold text-green-600 leading-none mb-1">9 days</p>
+                <p className="text-[13px] text-slate-700">Median time to first qualified outreach from setup</p>
+              </div>
+            </div>
+            <p className="text-[12px] text-slate-500 text-center">Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.</p>
           </div>
-        </div>
-      </section>
 
-
-      {/* Verified Metrics Panel */}
-      <section id="verified-evidence" className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-[18px] font-bold text-slate-900 mb-4">Verified pilot evidence</h3>
-          <p className="text-[12px] text-slate-500 mb-5">Verification-first policy: we publish named testimonials only after explicit permission and outcome verification.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-            <div>
-              <p className="text-[28px] font-bold text-green-600 leading-none mb-1">81%</p>
-              <p className="text-[13px] text-slate-700">Reached first interview inside 30 days</p>
-            </div>
-            <div>
-              <p className="text-[28px] font-bold text-green-600 leading-none mb-1">27</p>
-              <p className="text-[13px] text-slate-700">Pilot executives in Jan-May 2026 cohort</p>
-            </div>
-            <div>
-              <p className="text-[28px] font-bold text-green-600 leading-none mb-1">9 days</p>
-              <p className="text-[13px] text-slate-700">Median time to first qualified outreach from setup</p>
+          <div className="mt-8 border-t border-slate-700 pt-7">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3 text-center">From the brief</p>
+            <div className="flex flex-col gap-2 max-w-3xl mx-auto">
+              <Link href="/blog/executive-hiring-patterns-2026" className="text-[13px] text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
+                We analyzed 300+ executive hiring profiles: what actually gets senior leaders interviewed.
+              </Link>
+              <Link href="/blog/why-executive-recruiters-go-quiet" className="text-[13px] text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
+                Why executive recruiters go quiet and how senior candidates can break the pattern.
+              </Link>
+              <Link href="/blog/why-starting-monday-exists" className="text-[13px] text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
+                Why Starting Monday exists: executive search is not a resume problem.
+              </Link>
             </div>
           </div>
-          <p className="text-[12px] text-slate-500 mb-1">Updated May 2026. Denominator: 27 pilot executives. Window: Jan-May 2026.</p>
-          <p className="text-[12px] text-slate-400">Method: includes users who completed onboarding and launched at least one tracked outreach. Results vary by sector, narrative quality, and campaign consistency.</p>
-        </div>
-      </section>
 
-      <section id="brief-reading" className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-            From the brief
-          </p>
-          <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
-            Practical guidance for C-suite and VP candidates running active campaigns.
-          </p>
-          <div className="flex flex-col gap-2">
-            <Link href="/blog/executive-hiring-patterns-2026" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-              We Analyzed 300+ Executive Hiring Profiles. Here Is What Actually Gets Senior Leaders Interviewed.
-            </Link>
-            <Link href="/blog/why-executive-recruiters-go-quiet" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-              Why Executive Recruiters Go Quiet (And How Senior Candidates Can Break the Pattern)
-            </Link>
-            <Link href="/blog/why-starting-monday-exists" className="text-[13px] text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
-              Why Starting Monday Exists: Executive Search Is Not a Resume Problem
-            </Link>
+          <div className="mt-9 text-center">
+            <p className="text-[13px] text-slate-400 mb-4">Built for senior executives in active search.</p>
           </div>
         </div>
       </section>
 
       <PricingSection trialNote={hero.trialNote} />
-
-      {/* Trust */}
-      <section id="trust" className="bg-white px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
-            Your search is confidential
-          </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-10 max-w-xl leading-snug">
-            You&rsquo;re sharing your real situation.<br />You should know exactly how we handle it.
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
-            {TRUST_ITEMS.map(item => (
-              <div key={item.heading} className="border-t border-slate-100 pt-5">
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.heading}</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">{item.body}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8 text-[12px] text-slate-400">
-            Full details in our{' '}
-            <a href="/privacy" className="underline hover:text-slate-600 transition-colors">
-              Privacy Policy
-            </a>
-            .
-          </p>
-        </div>
-      </section>
 
       {/* FAQ */}
       {faqs && faqs.length > 0 && (
@@ -915,59 +750,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </>
       )}
 
-      {/* Persona cross-links */}
-      <section id="persona-links" className="bg-slate-50 px-4 sm:px-6 py-10 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
-            Also built for
-          </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {PERSONA_LINKS.map(p => (
-              <Link
-                key={p.href}
-                href={p.href}
-                className="text-[13px] text-slate-500 hover:text-slate-900 transition-colors"
-              >
-                {p.label} &rarr;
-              </Link>
-            ))}
-          </div>
-          <p className="text-[13px] text-slate-400 mt-8 pt-6 border-t border-slate-200">
-            Already a member? Invite a peer in active search &mdash; both of you get an extra free month. Find your invite link in your account dashboard.
-          </p>
-        </div>
-      </section>
-
-      {/* Partner channel band */}
-      <section id="partner-links" className="bg-white px-4 sm:px-6 py-10 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-2">For Partners</p>
-              <p className="text-[16px] font-bold text-slate-900 mb-1">Do you work with executives in transition?</p>
-              <p className="text-[13px] text-slate-500 leading-relaxed max-w-xl">
-                Executive coaches, retained search firms, outplacement providers, and PE talent teams use Starting Monday to give their clients an intelligence and preparation advantage. Coaches can carry each client&apos;s briefs and signal history into every session. Earn 20% commission on every active referral — Active plan referrals pay $39.80 per client/month.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 shrink-0">
-              <Link
-                href="/partners"
-                className="text-[13px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-5 py-2.5 rounded transition-colors whitespace-nowrap text-center"
-              >
-                Partner program &rarr;
-              </Link>
-              <div className="flex items-center gap-3 text-[12px] text-slate-400 justify-center">
-                <Link href="/for-coaches" className="hover:text-slate-700 transition-colors">Coaches</Link>
-                <span>&middot;</span>
-                <Link href="/for-search-firms" className="hover:text-slate-700 transition-colors">Search firms</Link>
-                <span>&middot;</span>
-                <Link href="/for-pe-teams" className="hover:text-slate-700 transition-colors">PE teams</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section id="start-now" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
@@ -987,12 +769,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Start your campaign &rarr;
           </Link>
           <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
-          <p className="text-[13px] text-slate-400 mt-4">
-            Want to see it first?{' '}
-            <Link href="/demo" className="text-slate-400 hover:text-slate-200 underline transition-colors">
-              See it in action - try a live prep brief &rarr;
-            </Link>
-          </p>
         </div>
       </section>
 
@@ -1001,14 +777,26 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto">
+          <div className="mb-5 pb-5 border-b border-slate-800">
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-500 mb-3">Utility rail</p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] text-slate-400">
+              <Link href="/partners" className="hover:text-slate-200 transition-colors">Partner program</Link>
+              <Link href="/for-coaches" className="hover:text-slate-200 transition-colors">Coaches</Link>
+              <Link href="/for-search-firms" className="hover:text-slate-200 transition-colors">Search firms</Link>
+              <Link href="/for-pe-teams" className="hover:text-slate-200 transition-colors">PE teams</Link>
+              <span className="text-slate-600">|</span>
+              {PERSONA_LINKS.slice(0, showPersonaSelector ? PERSONA_LINKS.length : 5).map((p) => (
+                <Link key={p.href} href={p.href} className="hover:text-slate-200 transition-colors">
+                  {p.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-slate-800">
             <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
-              <Link href="/partners" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Partners</Link>
-              <Link href="/for-search-firms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">For Search Firms</Link>
-
               <Link href="/blog" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Blog</Link>
               <Link href="/about" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">About</Link>
               <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
@@ -1018,6 +806,9 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
             </div>
           </div>
+          <p className="text-[11px] text-slate-500 mb-2">
+            Legal trust line: privacy-first by design, no employer visibility, and no sale of user search activity.
+          </p>
           <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
           </p>
