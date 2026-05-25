@@ -1,0 +1,68 @@
+name: Send Epic Summary To Slack
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send-epic-summary:
+    name: Send epic summary message
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate Slack webhook and summary file
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is missing"
+            exit 1
+          fi
+
+          if [ ! -f docs/epic-council-score-95-summary.slack.txt ]; then
+            echo "Summary file is missing: docs/epic-council-score-95-summary.slack.txt"
+            exit 1
+          fi
+
+      - name: Send summary to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SUMMARY=$(cat docs/epic-council-score-95-summary.slack.txt)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          payload=$(jq -n \
+            --arg summary "$SUMMARY" \
+            --arg runUrl "$RUN_URL" \
+            '{
+              text: "Council Score 95 epic summary",
+              blocks: [
+                {
+                  type: "header",
+                  text: {
+                    type: "plain_text",
+                    text: "Council Score 95 Epic Summary"
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: $summary
+                  }
+                },
+                {
+                  type: "context",
+                  elements: [
+                    {
+                      type: "mrkdwn",
+                      text: "Workflow run: <\($runUrl)|Open run>"
+                    }
+                  ]
+                }
+              ]
+            }')
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
