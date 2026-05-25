@@ -272,3 +272,74 @@ jobs:
                 }
               ]
             }
+
+  notify-test-summary:
+    name: Post test summary report
+    runs-on: ubuntu-latest
+    needs: [predeploy-gates, semgrep, playwright, pre-prod-gate]
+    if: always()
+
+    steps:
+      - name: Build summary message
+        id: summary
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          PREDEPLOY="${{ needs.predeploy-gates.result }}"
+          SEMGREP="${{ needs.semgrep.result }}"
+          PLAYWRIGHT="${{ needs.playwright.result }}"
+          PREPROD="${{ needs.pre-prod-gate.result }}"
+
+          STATUS="PASS"
+          if [ "$PREDEPLOY" = "failure" ] || [ "$SEMGREP" = "failure" ] || [ "$PLAYWRIGHT" = "failure" ] || [ "$PREPROD" = "failure" ]; then
+            STATUS="FAIL"
+          fi
+
+          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$PREPROD" "$RUN_URL")
+
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$SUMMARY" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Post Slack summary
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SUMMARY_TEXT: ${{ steps.summary.outputs.summary }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL not configured; skipping Slack summary"
+            exit 0
+          fi
+
+          payload=$(jq -n --arg text "$SUMMARY_TEXT" '{text:$text}')
+          curl -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
+
+      - name: Send email summary
+        if: always()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_ADDRESS: ${{ secrets.RESEND_FROM_ADDRESS }}
+          WEEKLY_AUDIT_EMAIL_TO: ${{ secrets.WEEKLY_AUDIT_EMAIL_TO }}
+          SUMMARY_TEXT: ${{ steps.summary.outputs.summary }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "RESEND_API_KEY not configured; skipping email summary"
+            exit 0
+          fi
+
+          FROM=${RESEND_FROM_ADDRESS:-briefing@startingmonday.app}
+          TO=${WEEKLY_AUDIT_EMAIL_TO:-richard@startingmonday.app}
+          DATE=$(date -u +"%Y-%m-%d")
+
+          payload=$(jq -n \
+            --arg from "$FROM" \
+            --arg to "$TO" \
+            --arg subject "Starting Monday CI Test Summary - $DATE" \
+            --arg text "$SUMMARY_TEXT" \
+            '{from:$from,to:[$to],subject:$subject,text:$text}')
+
+          curl -sS -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$payload"

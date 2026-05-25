@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-05-25T13:33:43.429Z",
+  "scope": {
+    "pageFile": "src/app/page.tsx",
+    "componentFile": "src/components/LandingPage.tsx",
+    "area": "hero top fold"
+  },
+  "council": {
+    "boardModel": "dual-track",
+    "trackA": {
+      "name": "Conversion Council",
+      "members": [
+        "Conversion Scientist",
+        "Growth Product Lead",
+        "Lifecycle Strategist",
+        "Analytics Lead"
+      ]
+    },
+    "trackB": {
+      "name": "Clarity Council",
+      "members": [
+        "Information Architect",
+        "UX Psychologist",
+        "Editorial Lead",
+        "Accessibility Specialist"
+      ]
+    },
+    "arbitration": "Product + UX tie-break arbitration",
+    "operatingCouncil": [
+      "Conversion Scientist",
+      "Growth Product Lead",
+      "Lifecycle Strategist",
+      "Analytics Lead",
+      "Information Architect",
+      "UX Psychologist",
+      "Editorial Lead",
+      "Accessibility Specialist",
+      "Frontend Performance Engineer"
+    ]
+  },
+  "policy": {
+    "conversionPassThreshold": 90,
+    "clarityPassThreshold": 90,
+    "metricHardStopThreshold": 80,
+    "releaseStatus": "pass",
+    "passDualTrack": true,
+    "hardStopTriggered": false,
+    "hardStopMetrics": []
+  },
+  "signals": {
+    "topFoldWords": 80,
+    "textBlockCount": 5,
+    "fontSizeCount": 2,
+    "averageSentenceWords": 7.3,
+    "topFoldActionChoices": 5
+  },
+  "tracks": {
+    "conversion": {
+      "score": 95,
+      "metrics": [
+        {
+          "key": "value_prop_focus",
+          "label": "Value proposition focus",
+          "score": 100,
+          "actual": "6 H1 words / 11 preamble words",
+          "target": "H1 <= 9 words and preamble <= 14 words"
+        },
+        {
+          "key": "cta_discipline",
+          "label": "CTA discipline",
+          "score": 91,
+          "actual": 5,
+          "target": "<= 4 top-fold action choices"
+        },
+        {
+          "key": "trust_signal_balance",
+          "label": "Trust signal balance",
+          "score": 90,
+          "actual": "privacy=true method_evidence=true scrutiny=false",
+          "target": "privacy + evidence + credibility cues present"
+        },
+        {
+          "key": "proof_specificity",
+          "label": "Proof specificity",
+          "score": 92,
+          "actual": true,
+          "target": "explicit quantified outcome or time signal"
+        },
+        {
+          "key": "scan_efficiency",
+          "label": "Scan efficiency",
+          "score": 100,
+          "actual": "80 words / 5 blocks",
+          "target": "<= 85 words and <= 5 blocks"
+        }
+      ]
+    },
+    "clarity": {
+      "score": 98,
+      "metrics": [
+        {
+          "key": "copy_brevity",
+          "label": "Copy brevity",
+          "score": 100,
+          "actual": 80,
+          "target": "<= 90 words"
+        },
+        {
+          "key": "hierarchy_simplicity",
+          "label": "Hierarchy simplicity",
+          "score": 100,
+          "actual": 2,
+          "target": "<= 4 font sizes"
+        },
+        {
+          "key": "information_chunking",
+          "label": "Information chunking",
+          "score": 100,
+          "actual": 5,
+          "target": "<= 5 text blocks"
+        },
+        {
+          "key": "reading_flow",
+          "label": "Reading flow",
+          "score": 100,
+          "actual": 7.3,
+          "target": "<= 16 words per sentence average"
+        },
+        {
+          "key": "decision_path_clarity",
+          "label": "Decision path clarity",
+          "score": 92,
+          "actual": 5,
+          "target": "<= 4 top-fold action choices"
+        }
+      ]
+    }
+  }
+}

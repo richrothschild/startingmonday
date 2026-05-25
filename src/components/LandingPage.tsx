@@ -146,29 +146,26 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <main>
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[16px] sm:text-[21px] text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line">
+          <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line">
             {hero.eyebrow}
           </p>
-          <h1 className="text-[36px] sm:text-[46px] font-bold text-white leading-[1.1] tracking-tight mb-5">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5">
             {hero.h1Lines.map((line, i) => (
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
           </h1>
           {hero.bodyPreamble && (
-            <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line">
+            <p className="text-sm text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line">
               {hero.bodyPreamble}
             </p>
           )}
-          <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
+          <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4">
             {hero.body}
-          </p>
-          <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-5">
-            Built for executive scrutiny: every brief, recommendation, and next step is calibrated for C-suite transitions.
           </p>
 
           {/* Competitive edge / FOMO */}
           {hero.competitiveEdge && (
-            <p className="text-[13px] text-orange-300 leading-relaxed max-w-xl mb-6 font-medium inline-flex items-start gap-1.5">
+            <p className="text-sm text-orange-300 leading-relaxed max-w-xl mb-6 font-medium inline-flex items-start gap-1.5">
               <BrandIcon name="performance" className="h-4 w-4 text-orange-400 mt-[1px] shrink-0" />
               <span>{hero.competitiveEdge}</span>
             </p>
@@ -186,16 +183,16 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           )}
 
           {/* Confidentiality promise - moved to before the main CTA for trust anchor */}
-          <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
+          <p className="text-xs font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
             Private by default
           </p>
-          <p className="text-[13px] text-slate-500 mb-8">
+          <p className="text-sm text-slate-500 mb-8">
             Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
           </p>
 
           <div className="mb-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
+            <p className="text-xs font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
             <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
               Choose the path that matches your context. Messaging, proof, and next actions adapt to your role.
             </p>

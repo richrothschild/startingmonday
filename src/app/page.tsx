@@ -147,21 +147,20 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Most executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
+          eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
           h1Lines: ['Be ready before', 'the search opens.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Starting Monday is the private operating system for senior executive search.',
-          body: 'You keep your coach, recruiter, and network. We provide the execution layer: early transition signals, relationship cadence, and prep briefs in about 60 seconds so every conversation starts with better context.',
+          bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
+          body: 'Keep your coach, recruiter, and network. We add the execution layer: early transition signals, relationship cadence, and prep briefs in 60 seconds for stronger conversations.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
             'Act early on signal changes and walk into conversations prepared.',
           ],
           trialNote: 'Free for 30 days. No credit card. No employer visibility.',
-          competitiveEdge: 'Operating cadence: weekly pipeline review, daily signal briefing, and brief-driven prep before each high-stakes conversation.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}

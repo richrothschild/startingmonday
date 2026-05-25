@@ -1,0 +1,11 @@
+# Hero Dual-Track Council Audit
+
+Release status: PASS
+Conversion score: 95
+Clarity score: 98
+Hard stop triggered: no
+
+Hard-stop metrics (<80):
+- none
+
+Signals: words=80, blocks=5, font_sizes=2, action_choices=5

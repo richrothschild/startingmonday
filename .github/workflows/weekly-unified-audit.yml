@@ -19,6 +19,7 @@ jobs:
       guard_regression_status: ${{ steps.gate_data.outputs.guard_regression_status }}
       import_guard_status: ${{ steps.gate_data.outputs.import_guard_status }}
       council_audit_status: ${{ steps.gate_data.outputs.council_audit_status }}
+      hero_council_status: ${{ steps.gate_data.outputs.hero_council_status }}
       debt_audit_status: ${{ steps.gate_data.outputs.debt_audit_status }}
       security_audit_status: ${{ steps.gate_data.outputs.security_audit_status }}
       critical_vulns: ${{ steps.gate_data.outputs.critical_vulns }}
@@ -52,6 +53,11 @@ jobs:
         continue-on-error: true
         run: npm run audit:code-council:strict
 
+      - name: Hero dual-track council audit
+        id: hero_council_audit
+        continue-on-error: true
+        run: npm run audit:hero-council:strict
+
       - name: Technical debt deep-dive audit
         id: debt_audit
         continue-on-error: true
@@ -77,6 +83,7 @@ jobs:
           echo "guard_regression_status=${{ steps.guard_regression.outcome }}" >> "$GITHUB_OUTPUT"
           echo "import_guard_status=${{ steps.import_guard.outcome }}" >> "$GITHUB_OUTPUT"
           echo "council_audit_status=${{ steps.council_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "hero_council_status=${{ steps.hero_council_audit.outcome }}" >> "$GITHUB_OUTPUT"
           echo "debt_audit_status=${{ steps.debt_audit.outcome }}" >> "$GITHUB_OUTPUT"
           echo "security_audit_status=${{ steps.security_audit.outcome }}" >> "$GITHUB_OUTPUT"
           echo "critical_vulns=$critical_vulns" >> "$GITHUB_OUTPUT"
@@ -87,6 +94,7 @@ jobs:
           GUARD_REGRESSION_STATUS: ${{ steps.guard_regression.outcome }}
           IMPORT_GUARD_STATUS: ${{ steps.import_guard.outcome }}
           COUNCIL_AUDIT_STATUS: ${{ steps.council_audit.outcome }}
+          HERO_COUNCIL_STATUS: ${{ steps.hero_council_audit.outcome }}
           DEBT_AUDIT_STATUS: ${{ steps.debt_audit.outcome }}
           SECURITY_AUDIT_STATUS: ${{ steps.security_audit.outcome }}
         run: node scripts/weekly-unified-audit-report.mjs
@@ -99,6 +107,8 @@ jobs:
           path: |
             docs/code-synthetic-council-audit.latest.md
             docs/code-synthetic-council-audit.latest.json
+            docs/hero-dual-track-council.latest.md
+            docs/hero-dual-track-council.latest.json
             docs/technical-debt-audit.latest.md
             docs/technical-debt-audit.latest.json
             docs/security-deep-dive-audit.latest.md
@@ -145,8 +155,8 @@ jobs:
           RESEND_FROM_ADDRESS: ${{ secrets.RESEND_FROM_ADDRESS }}
           WEEKLY_AUDIT_EMAIL_TO: ${{ secrets.WEEKLY_AUDIT_EMAIL_TO }}
         run: |
-          if [ -z "$RESEND_API_KEY" ] || [ -z "$WEEKLY_AUDIT_EMAIL_TO" ]; then
-            echo "RESEND_API_KEY or WEEKLY_AUDIT_EMAIL_TO not configured; skipping email report"
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "RESEND_API_KEY not configured; skipping email report"
             exit 0
           fi
 
@@ -156,6 +166,7 @@ jobs:
           fi
 
           FROM=${RESEND_FROM_ADDRESS:-briefing@startingmonday.app}
+          TO=${WEEKLY_AUDIT_EMAIL_TO:-richard@startingmonday.app}
           BODY=$(cat docs/weekly-unified-audit.email.txt)
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           DATE=$(date -u +"%Y-%m-%d")
@@ -163,7 +174,7 @@ jobs:
           textPayload=$(printf '%s\n\nWorkflow run: %s\n' "$BODY" "$RUN_URL")
           json=$(jq -n \
             --arg from "$FROM" \
-            --arg to "$WEEKLY_AUDIT_EMAIL_TO" \
+            --arg to "$TO" \
             --arg subject "Starting Monday Weekly Unified Audit - $DATE" \
             --arg text "$textPayload" \
             '{from:$from,to:[$to],subject:$subject,text:$text}')
@@ -185,6 +196,7 @@ jobs:
           GUARD_REGRESSION_STATUS: ${{ needs.unified-audit.outputs.guard_regression_status }}
           IMPORT_GUARD_STATUS: ${{ needs.unified-audit.outputs.import_guard_status }}
           COUNCIL_AUDIT_STATUS: ${{ needs.unified-audit.outputs.council_audit_status }}
+          HERO_COUNCIL_STATUS: ${{ needs.unified-audit.outputs.hero_council_status }}
           DEBT_AUDIT_STATUS: ${{ needs.unified-audit.outputs.debt_audit_status }}
           SECURITY_AUDIT_STATUS: ${{ needs.unified-audit.outputs.security_audit_status }}
           CRITICAL_VULNS: ${{ needs.unified-audit.outputs.critical_vulns }}
@@ -201,7 +213,7 @@ jobs:
 
           echo "Event: $EVENT_NAME"
           echo "Strict mode: $strict_mode"
-          echo "Check outcomes: guard=$GUARD_REGRESSION_STATUS import=$IMPORT_GUARD_STATUS council=$COUNCIL_AUDIT_STATUS debt=$DEBT_AUDIT_STATUS security=$SECURITY_AUDIT_STATUS"
+          echo "Check outcomes: guard=$GUARD_REGRESSION_STATUS import=$IMPORT_GUARD_STATUS council=$COUNCIL_AUDIT_STATUS hero=$HERO_COUNCIL_STATUS debt=$DEBT_AUDIT_STATUS security=$SECURITY_AUDIT_STATUS"
           echo "Critical security: critical_vulns=$CRITICAL_VULNS true_auth_gaps=$TRUE_AUTH_GAPS"
 
           if [ "$CRITICAL_VULNS" -gt 0 ] || [ "$TRUE_AUTH_GAPS" -gt 0 ]; then
@@ -220,6 +232,10 @@ jobs:
             fi
             if [ "$COUNCIL_AUDIT_STATUS" != "success" ]; then
               echo "Council audit failed"
+              failed=1
+            fi
+            if [ "$HERO_COUNCIL_STATUS" != "success" ]; then
+              echo "Hero dual-track council audit failed"
               failed=1
             fi
             if [ "$DEBT_AUDIT_STATUS" != "success" ]; then
