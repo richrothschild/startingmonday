@@ -4,6 +4,20 @@ import { createClient } from '@/lib/supabase/server'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 
+type AnthropicDocumentBlock = {
+  type: 'document'
+  source: {
+    type: 'base64'
+    media_type: 'application/pdf'
+    data: string
+  }
+}
+
+type AnthropicTextBlock = {
+  type: 'text'
+  text: string
+}
+
 const MAX_BYTES = 5 * 1024 * 1024
 const MAX_TEXT = 12000
 
@@ -34,8 +48,7 @@ export async function POST(request: NextRequest) {
   let text: string
   try {
     // Use Claude's native PDF support for robust extraction from LinkedIn exports.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const content: any[] = [
+    const content: Array<AnthropicDocumentBlock | AnthropicTextBlock> = [
       {
         type: 'document',
         source: { type: 'base64', media_type: 'application/pdf', data: buffer.toString('base64') },

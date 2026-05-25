@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   let email: string

@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { createClient } from '@/lib/supabase/server'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const DAILY_LIMIT = 3
 

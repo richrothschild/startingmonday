@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM =
   'You are a senior executive coach preparing a candidate for a high-stakes interview. ' +

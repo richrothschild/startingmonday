@@ -4,6 +4,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)

@@ -1,8 +1,8 @@
 import { saveAs } from 'file-saver';
 
-export function exportToCsv(filename: string, rows: Record<string, any>[]) {
+export function exportToCsv(filename: string, rows: Record<string, unknown>[]) {
   if (!rows.length) return;
-  const replacer = (key: string, value: any) => value === null || value === undefined ? '' : value;
+  const replacer = (_key: string, value: unknown) => value === null || value === undefined ? '' : value;
   const header = Object.keys(rows[0]);
   const csv = [
     header.join(','),

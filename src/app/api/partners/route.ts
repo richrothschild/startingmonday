@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 import { getOwnerEmail } from '@/lib/owner-email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function escHtml(s: string): string {
   return s

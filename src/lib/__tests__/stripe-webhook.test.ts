@@ -27,7 +27,7 @@ vi.mock('@supabase/supabase-js', () => ({
           ? { error: state.processedInsertError }
           : { error: state.usersUpdateError, data: state.usersUpdateData }
 
-      const c: any = {
+      const c = {
         insert: vi.fn().mockResolvedValue(resolveWith),
         update: vi.fn(),
         eq: vi.fn(),

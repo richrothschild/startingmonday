@@ -18,26 +18,31 @@ function routeIssue(issue: string): { slug: string; reason: string } {
 }
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
+  try {
+    const authCheck = await requireAuth(request)
+    if (!authCheck.ok) return authCheck.response
 
-  const auth = await requireStaffAutomationAccess(request)
-  if (!auth.ok) return auth.response
+    const auth = await requireStaffAutomationAccess(request)
+    if (!auth.ok) return auth.response
 
-  const { userId, supabase } = auth
-  const sb = supabase as any
-  const body = await request.json().catch(() => ({}))
-  const issueText = (body?.issueText ?? '').toString().trim()
+    const { userId, supabase } = auth
+    const sb = supabase as any
+    const body = await request.json().catch(() => ({}))
+    const issueText = (body?.issueText ?? '').toString().trim()
 
-  if (!issueText) return NextResponse.json({ error: 'issueText is required' }, { status: 400 })
+    if (!issueText) return NextResponse.json({ error: 'issueText is required' }, { status: 400 })
 
-  const route = routeIssue(issueText)
-  await sb.from('help_center_routing_logs').insert({
-    user_id: userId,
-    issue_text: issueText,
-    routed_article_slug: route.slug,
-    route_reason: route.reason,
-  })
+    const route = routeIssue(issueText)
+    await sb.from('help_center_routing_logs').insert({
+      user_id: userId,
+      issue_text: issueText,
+      routed_article_slug: route.slug,
+      route_reason: route.reason,
+    })
 
-  return NextResponse.json({ ok: true, articleSlug: route.slug, reason: route.reason })
+    return NextResponse.json({ ok: true, articleSlug: route.slug, reason: route.reason })
+  } catch (error) {
+    console.error('[customer-ops.help-center-routing] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

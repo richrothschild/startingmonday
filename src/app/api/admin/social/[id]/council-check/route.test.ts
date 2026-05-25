@@ -45,7 +45,7 @@ describe('admin social council-check route', () => {
       state.fromCalls += 1
 
       if (state.fromCalls === 1) {
-        const chain: any = {
+        const chain = {
           select: vi.fn(() => chain),
           eq: vi.fn(() => chain),
           single: vi.fn(async () => ({
@@ -62,7 +62,7 @@ describe('admin social council-check route', () => {
       }
 
       if (state.fromCalls === 2) {
-        const chain: any = {
+        const chain = {
           select: vi.fn(() => chain),
           lt: vi.fn(() => chain),
           order: vi.fn(() => chain),
@@ -72,7 +72,7 @@ describe('admin social council-check route', () => {
         return chain
       }
 
-      const chain: any = {
+      const chain = {
         update: vi.fn((payload: Record<string, unknown>) => {
           state.updatePayload = payload
           return chain

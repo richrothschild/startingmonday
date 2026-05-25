@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type WebhookPayload = {
   type?: string

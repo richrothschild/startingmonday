@@ -4,6 +4,7 @@ import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { runLeadScoringPass } from '@/lib/lead-scoring-runner'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type ScoreRequest = {
   limit?: number

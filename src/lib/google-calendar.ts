@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { APP_URL } from '@/lib/config'
 
 const GOOGLE_AUTH_BASE = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -216,7 +217,7 @@ async function googleCalendarRequest(opts: {
 }
 
 async function requestCalendarApi(opts: {
-  admin: any
+  admin: SupabaseClient
   integration: GoogleCalendarIntegrationRow
   method: 'POST' | 'PATCH'
   path: string
@@ -273,7 +274,7 @@ function buildCalendarEventBody(reminder: GoogleCalendarReminder): Record<string
   }
 }
 
-export async function syncGoogleCalendarIntegration(admin: any, integration: GoogleCalendarIntegrationRow): Promise<{
+export async function syncGoogleCalendarIntegration(admin: SupabaseClient, integration: GoogleCalendarIntegrationRow): Promise<{
   created: number
   updated: number
   skipped: number

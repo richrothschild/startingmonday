@@ -4,6 +4,7 @@ import {
   Document, Packer, Paragraph, TextRun, HeadingLevel,
   AlignmentType, convertInchesToTwip,
 } from 'docx'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function parseLine(line: string): Paragraph {
   if (line.startsWith('## ')) {

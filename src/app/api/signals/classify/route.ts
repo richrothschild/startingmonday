@@ -6,6 +6,11 @@ import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { SignalsClassifyBodySchema, firstZodError } from '@/lib/schemas'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { captureServerEvent } from '@/lib/posthog-server'
+import {
+  computePersonaRelevance,
+  computeSignalConfidence,
+  enrichSignalProfileContext,
+} from '@/lib/intelligence-quality'
 
 const SIGNAL_TYPES = ['funding', 'exec_departure', 'exec_hire', 'acquisition', 'expansion', 'layoffs', 'ipo', 'new_product', 'award']
 
@@ -43,6 +48,12 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (!company) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+
+  const { data: profile } = await supabase
+    .from('user_profiles')
+    .select('role_type, search_persona')
+    .eq('user_id', userId)
+    .single()
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -82,6 +93,24 @@ Extract the following as valid JSON with no markdown fences:
     parsed.signal_type = 'other' in SIGNAL_TYPES ? 'other' : 'new_product'
   }
 
+  const profileContext = enrichSignalProfileContext({
+    roleType: profile?.role_type,
+    searchPersona: profile?.search_persona,
+  })
+
+  const relevance = computePersonaRelevance(parsed.signal_type, {
+    roleType: profile?.role_type,
+    searchPersona: profile?.search_persona,
+  })
+
+  const confidence = computeSignalConfidence({
+    signalType: parsed.signal_type,
+    sourceKind: 'manual_news',
+    hasSourceUrl: !!sourceUrl,
+    evidenceCount: 1,
+    signalDate: parsed.signal_date,
+  })
+
   const { error } = await supabase.from('company_signals').insert({
     company_id: companyId,
     user_id: userId,
@@ -90,6 +119,13 @@ Extract the following as valid JSON with no markdown fences:
     outreach_angle: parsed.outreach_angle ?? null,
     signal_date: parsed.signal_date,
     source_url: sourceUrl ?? null,
+    source_kind: 'manual_news',
+    confidence,
+    focus_tags: [parsed.signal_type],
+    evidence_snippets: [text.slice(0, 280)],
+    profile_channel: profileContext.profileChannel,
+    profile_persona: profileContext.profilePersona,
+    relevance_score: relevance,
   })
 
   if (error) return NextResponse.json({ error: 'Failed to save signal.' }, { status: 500 })

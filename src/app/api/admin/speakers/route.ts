@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 // GET: list speakers with appearances, optional filters: ?status=&q=&conference=&year=
 export async function GET(request: NextRequest) {

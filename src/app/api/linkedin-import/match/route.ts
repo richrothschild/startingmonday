@@ -17,6 +17,7 @@
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function normalizeCompanyName(raw: string | null | undefined): string | null {
   if (!raw) return null

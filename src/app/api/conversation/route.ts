@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function GET(request: NextRequest) {
   const auth = await requireAuth(request)

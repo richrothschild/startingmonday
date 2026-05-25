@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { PREP_SYSTEM } from '@/lib/prompts'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 // Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
 // Designed to show the full brief depth to Mark Horstman without exposing any real user data.

@@ -2,6 +2,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function weekRange(refDate?: string): { start: string; end: string } {
   const base = refDate ? new Date(refDate) : new Date()

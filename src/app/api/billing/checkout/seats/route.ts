@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStripe } from '@/lib/stripe'
 import { APP_URL } from '@/lib/config'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function getSeatPriceId(plan: string): string {
   const envKey = `STRIPE_PRICE_PARTNER_${plan.toUpperCase()}`

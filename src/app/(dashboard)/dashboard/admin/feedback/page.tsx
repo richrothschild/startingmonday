@@ -44,6 +44,18 @@ type FeedbackMetric = {
   exceeds7d: boolean
 }
 
+type StaffMembersQuery = {
+  select: (columns: string) => {
+    eq: (column: string, value: unknown) => {
+      eq: (column: string, value: unknown) => {
+        single: () => Promise<{ data: { id: string } | null }>
+      }
+    }
+  }
+}
+
+type FeedbackMetricRow = Omit<FeedbackMetric, 'hoursOld' | 'timeToFirstResponse' | 'timeToDecision' | 'exceeds24h' | 'exceeds7d'>
+
 export default async function FeedbackAdminPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -51,7 +63,7 @@ export default async function FeedbackAdminPage() {
   if (!user) redirect('/login')
 
   // Check staff status
-  const staffQuery = supabase.from('staff_members') as any
+  const staffQuery = supabase.from('staff_members') as unknown as StaffMembersQuery
   const { data: staffMember } = await staffQuery
     .select('id')
     .eq('user_id', user.id)
@@ -72,7 +84,7 @@ export default async function FeedbackAdminPage() {
   }
 
   // Fetch feedback items with stats
-  const result = await supabase
+  const { data: feedbackItems, error } = await supabase
     .from('feedback_items')
     .select(`
       *,
@@ -81,9 +93,7 @@ export default async function FeedbackAdminPage() {
       feedback_status_history(count)
     `)
     .order('created_at', { ascending: false })
-    .limit(100) as any
-
-  const { data: feedbackItems, error } = result
+    .limit(100)
 
   if (error) {
     console.error('Error fetching feedback:', error)
@@ -91,7 +101,8 @@ export default async function FeedbackAdminPage() {
 
   // Calculate SLA metrics
   const now = new Date()
-  const metrics: FeedbackMetric[] = (feedbackItems || []).map((item: any) => {
+  const metricRows = (feedbackItems || []) as unknown as FeedbackMetricRow[]
+  const metrics: FeedbackMetric[] = metricRows.map((item) => {
     const createdAt = new Date(item.created_at)
     const hoursOld = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60)
 

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { APP_URL } from '@/lib/config'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const DEFAULT_RETURN_TO = '/dashboard/admin/social'
 

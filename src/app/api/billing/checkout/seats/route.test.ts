@@ -33,7 +33,7 @@ describe('billing checkout seats route', () => {
     state.stripeSessionCreate.mockResolvedValue({ url: 'https://stripe.test/session' })
 
     state.from.mockImplementation((table: string) => {
-      const chain: any = {
+      const chain = {
         select: vi.fn(() => chain),
         eq: vi.fn(() => chain),
         single: vi.fn(async () => {

@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type ArchetypeKey =
   | 'cio'
