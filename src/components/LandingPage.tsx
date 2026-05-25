@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 import { SamplePrepBrief } from '@/components/SamplePrepBrief'
+import { TrackLink } from '@/components/TrackLink'
+import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export interface SituationCard {
   id: string
@@ -95,6 +97,14 @@ const FEATURES = [
   },
 ]
 
+function splitFeatureBody(body: string) {
+  const sentences = body.split(/(?<=[.!?])\s+/).filter(Boolean)
+  return {
+    summary: sentences[0] ?? body,
+    detail: sentences[1] ?? '',
+  }
+}
+
 const PERSONA_LINKS = [
   { href: '/for-cio', label: 'CIO and CTO search' },
   { href: '/for-vp', label: 'VP to CIO transition' },
@@ -184,22 +194,6 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
             ))}
           </h1>
-          {hero.claimMethodLabel && hero.claimMethodHref && (
-            <p className="text-[13px] text-slate-400 mb-4">
-              <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
-                {hero.claimMethodLabel}
-              </Link>
-              {hero.claimEvidenceLabel && hero.claimEvidenceHref && (
-                <>
-                  {' '}
-                  ·{' '}
-                  <Link href={hero.claimEvidenceHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
-                    {hero.claimEvidenceLabel}
-                  </Link>
-                </>
-              )}
-            </p>
-          )}
           {hero.bodyPreamble && (
             <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line">
               {hero.bodyPreamble}
@@ -208,7 +202,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-3">
             {hero.body}
           </p>
-          <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-6">
+          <p className="text-[13px] text-slate-400 leading-relaxed max-w-xl mb-5">
             Built for executive scrutiny: every brief, recommendation, and next step is calibrated for C-suite transitions.
           </p>
 
@@ -239,6 +233,23 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <p className="text-[13px] text-slate-500 mb-8">
             Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
           </p>
+
+          {hero.claimMethodLabel && hero.claimMethodHref && (
+            <p className="text-[12px] text-slate-400 mb-7">
+              <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+                {hero.claimMethodLabel}
+              </Link>
+              {hero.claimEvidenceLabel && hero.claimEvidenceHref && (
+                <>
+                  {' '}
+                  ·{' '}
+                  <Link href={hero.claimEvidenceHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+                    {hero.claimEvidenceLabel}
+                  </Link>
+                </>
+              )}
+            </p>
+          )}
 
           {hero.steps && hero.steps.length > 0 && (
             <div className="flex flex-col gap-2.5 mb-9">
@@ -275,63 +286,69 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
           </p>
 
-          <div className="mt-6 rounded-lg border border-slate-700 bg-slate-800/60 p-4">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-              <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
-              <a href="#search-model" className="text-slate-300 hover:text-white underline underline-offset-2">Search model</a>
-              <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
-              <a href="#feature-stack" className="text-slate-300 hover:text-white underline underline-offset-2">Feature stack</a>
-              <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
-              <a href="#trust" className="text-slate-300 hover:text-white underline underline-offset-2">Trust and privacy</a>
-              <a href="#faq" className="text-slate-300 hover:text-white underline underline-offset-2">FAQ</a>
-              <a href="#start-now" className="text-slate-300 hover:text-white underline underline-offset-2">Start now</a>
-            </div>
-          </div>
-
-          <div className="mt-8 max-w-4xl rounded-lg border border-slate-700 bg-slate-800/70 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Why this is credible</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Link href="/references" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
-                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">References</p>
-                <p className="text-[12px] text-slate-400 leading-relaxed">Peer-reviewed coaching, transition, and behavior-change sources mapped to each claim.</p>
-              </Link>
-              <Link href="/method-and-evidence" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
-                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">Method</p>
-                <p className="text-[12px] text-slate-400 leading-relaxed">How we estimate early role timing and keep uncertainty visible.</p>
-              </Link>
-              <Link href="/evidence-room" className="group block rounded-md border border-slate-700 bg-slate-900/70 p-4 hover:border-orange-500 transition-colors">
-                <p className="text-[13px] font-semibold text-white mb-1 group-hover:text-orange-300 transition-colors">Evidence room</p>
-                <p className="text-[12px] text-slate-400 leading-relaxed">Claims, pilot metrics, update history, and the memo-style research brief.</p>
-              </Link>
-            </div>
-          </div>
-
           {showPersonaSelector && (
             <p className="text-[12px] text-slate-600 mt-6">
               Searching at a specific level?{' '}
-              <Link href="/for-vp" className="text-slate-400 hover:text-slate-200 underline transition-colors">
+              <TrackLink
+                href="/for-vp"
+                event={EVENT_NAMES.personaRouteSelected}
+                logToUserEvents
+                properties={{
+                  channel: 'executives',
+                  persona: 'vp_to_c_suite',
+                  source_route: '/',
+                  target_route: '/for-vp',
+                }}
+                className="text-slate-400 hover:text-slate-200 underline transition-colors"
+              >
                 For VPs making the move
-              </Link>
+              </TrackLink>
               {' · '}
-              <Link href="/for-cio" className="text-slate-400 hover:text-slate-200 underline transition-colors">
+              <TrackLink
+                href="/for-cio"
+                event={EVENT_NAMES.personaRouteSelected}
+                logToUserEvents
+                properties={{
+                  channel: 'executives',
+                  persona: 'cio_cto_transition',
+                  source_route: '/',
+                  target_route: '/for-cio',
+                }}
+                className="text-slate-400 hover:text-slate-200 underline transition-colors"
+              >
                 For the C-Suite
-              </Link>
+              </TrackLink>
             </p>
           )}
         </div>
 
         {/* Dashboard preview */}
         <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
-          <div className="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
-            <Image
-              src="/public.dashboard.screenshot.png"
-              alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
-              width={1262}
-              height={932}
-              className="w-full h-auto"
-              priority
-            />
+          <div className="max-w-3xl mx-auto text-center mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Product preview</p>
+            <p className="text-[14px] text-slate-400 leading-relaxed">
+              The morning briefing view shows what changed overnight and what to act on first.
+            </p>
+          </div>
+          <div className="relative">
+            <div className="absolute -inset-2 sm:-inset-3 rounded-2xl bg-gradient-to-r from-orange-500/20 via-sky-500/10 to-indigo-500/20 blur-xl" />
+            <div className="relative rounded-2xl border border-slate-700 bg-slate-950 p-2 sm:p-3 shadow-2xl">
+              <div className="flex items-center gap-2 px-2 pb-2 border-b border-slate-800 text-[11px] text-slate-500">
+                <span className="w-2 h-2 rounded-full bg-slate-700" />
+                <span className="w-2 h-2 rounded-full bg-slate-700" />
+                <span className="w-2 h-2 rounded-full bg-slate-700" />
+                <span className="ml-2">Morning briefing</span>
+                <span className="ml-auto rounded-full border border-slate-700 bg-slate-900 px-2 py-0.5 text-slate-300">Focused view</span>
+              </div>
+              <Image
+                src="/public.dashboard.screenshot.png"
+                alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
+                width={1262}
+                height={932}
+                className="w-full h-auto rounded-xl"
+                priority
+              />
+            </div>
           </div>
         </div>
 
@@ -544,18 +561,27 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Features */}
-      <section id="feature-stack" className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="feature-stack" className="bg-slate-50 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-8 sm:mb-10">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-7 sm:mb-8">
             What it does
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-lg overflow-hidden">
-            {FEATURES.map(f => (
-              <div key={f.label} className="bg-white p-5 sm:p-8">
-                <p className="text-[13px] font-bold text-slate-900 mb-3">{f.label}</p>
-                <p className="text-[14px] text-slate-500 leading-relaxed">{f.body}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {FEATURES.map(f => {
+              const copy = splitFeatureBody(f.body)
+              return (
+              <div key={f.label} className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
+                <p className="text-[14px] font-semibold text-slate-900 mb-2">{f.label}</p>
+                <p className="text-[14px] text-slate-700 leading-relaxed">{copy.summary}</p>
+                {copy.detail && (
+                  <p className="text-[13px] text-slate-500 leading-relaxed mt-2">{copy.detail}</p>
+                )}
+                <details className="mt-3">
+                  <summary className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 cursor-pointer">See full capability</summary>
+                  <p className="text-[13px] text-slate-500 leading-relaxed mt-2">{f.body}</p>
+                </details>
               </div>
-            ))}
+            )})}
           </div>
           <div className="mt-8 text-center">
             <Link
@@ -571,7 +597,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
       <SamplePrepBrief />
       {/* Board & Advisory positioning */}
-      <section id="long-horizon" className="bg-slate-50 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-100">
+      <section id="long-horizon" className="bg-slate-50 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Multi-year positioning
@@ -580,20 +606,29 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             Board seeking, advisor roles, or C-suite positioning on your own timeline.
           </h2>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl mb-10">
-            Board seats and advisory roles require different discipline than active search. You're building relationships over years, not months. Starting Monday handles the research and momentum so you don't go cold.
+            Board and advisory paths run on multi-year relationship momentum. Starting Monday keeps your research, signal watch, and outreach cadence active so nothing goes cold.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
-            <div className="bg-white border border-slate-200 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-slate-900 mb-2">Monitor Board Composition</p>
-              <p className="text-[13px] text-slate-600 leading-relaxed">Track governance changes at 50+ target companies simultaneously. When new board seats open or PE transitions require independent directors, you know immediately.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
+            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Monitor Board Composition</p>
+              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                <li>Track governance changes across target companies in one view.</li>
+                <li>Spot board-seat and PE transition openings earlier.</li>
+              </ul>
             </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-slate-900 mb-2">Maintain Relationship Momentum</p>
-              <p className="text-[13px] text-slate-600 leading-relaxed">Nothing goes cold when you're tracking 100+ relationships across 3 years. Quarterly outreach cadence stays active without consuming your attention.</p>
+            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Maintain Relationship Momentum</p>
+              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                <li>Keep long-horizon outreach cadence alive with less overhead.</li>
+                <li>Prevent key sponsor and board-track relationships from going cold.</li>
+              </ul>
             </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-slate-900 mb-2">Evolve Your Narrative</p>
-              <p className="text-[13px] text-slate-600 leading-relaxed">Your board story changes as markets shift. Update your narrative quarterly. Reference fresh signals from companies you're tracking when you reach out.</p>
+            <div className="bg-white border border-slate-200 rounded-lg p-5 sm:p-6">
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Evolve Your Narrative</p>
+              <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed list-disc pl-4">
+                <li>Refresh your board/advisor narrative as market conditions shift.</li>
+                <li>Anchor outreach in fresh, company-specific signals.</li>
+              </ul>
             </div>
           </div>
           <div className="mt-10 bg-white border border-slate-200 rounded-lg p-6 max-w-3xl">
@@ -615,29 +650,38 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
         </div>
       </section>
       {/* Operating cadence */}
-      <section id="operating-cadence" className="bg-white px-4 sm:px-6 py-12 sm:py-16 border-b border-slate-100">
+      <section id="operating-cadence" className="bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             How it runs
           </p>
-          <h2 className="text-[22px] font-bold text-slate-900 mb-8 max-w-xl leading-snug">
+          <h2 className="text-[22px] font-bold text-slate-900 mb-9 max-w-xl leading-snug">
             Three touchpoints. No wasted motion.
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
             <div className="border-t-2 border-orange-500 pt-5">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Monday morning</p>
-              <p className="text-[15px] font-semibold text-slate-900 mb-2">Review your pipeline.</p>
-              <p className="text-[13px] text-slate-500 leading-relaxed">Update stages. Drop what has gone cold. Identify who moves to outreach this week.</p>
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Review your pipeline.</p>
+              <ul className="space-y-1.5 text-[13px] text-slate-500 leading-relaxed list-disc pl-4">
+                <li>Update stages and remove stale opportunities.</li>
+                <li>Pick who moves to outreach this week.</li>
+              </ul>
             </div>
             <div className="border-t-2 border-slate-200 pt-5">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Every morning</p>
-              <p className="text-[15px] font-semibold text-slate-900 mb-2">Act on overnight signals.</p>
-              <p className="text-[13px] text-slate-500 leading-relaxed">One decision: which company to contact first. The briefing surfaces it. You act.</p>
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Act on overnight signals.</p>
+              <ul className="space-y-1.5 text-[13px] text-slate-500 leading-relaxed list-disc pl-4">
+                <li>Use the briefing to pick your first high-value action.</li>
+                <li>Turn signal movement into same-day outreach.</li>
+              </ul>
             </div>
             <div className="border-t-2 border-slate-200 pt-5">
               <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Before each interview</p>
-              <p className="text-[15px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
-              <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute. Your win thesis, their likely objections, the questions a peer would ask. Walk in ready.</p>
+              <p className="text-[14px] font-semibold text-slate-900 mb-2">Run the prep brief.</p>
+              <ul className="space-y-1.5 text-[13px] text-slate-500 leading-relaxed list-disc pl-4">
+                <li>Generate your win thesis and likely objections in about a minute.</li>
+                <li>Walk in with sharper questions and tighter positioning.</li>
+              </ul>
             </div>
           </div>
         </div>
