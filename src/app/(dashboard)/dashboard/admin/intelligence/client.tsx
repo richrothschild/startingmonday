@@ -156,13 +156,21 @@ export function IntelligenceAdminClient({
             <h1 className="text-[22px] font-bold text-slate-900">Company Intelligence</h1>
             <p className="text-[13px] text-slate-500 mt-1">Manage public intelligence pages and generate ungated links for B2B demos.</p>
           </div>
-          <button
-            type="button"
-            onClick={() => setAddOpen(true)}
-            className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0"
-          >
-            + Add company
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard/admin/intelligence/qa"
+              className="border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-[13px] font-semibold px-4 py-2.5 rounded transition-colors"
+            >
+              QA scorecard
+            </Link>
+            <button
+              type="button"
+              onClick={() => setAddOpen(true)}
+              className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0"
+            >
+              + Add company
+            </button>
+          </div>
         </div>
 
         {/* Add company modal */}
