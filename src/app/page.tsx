@@ -147,7 +147,7 @@ export default function HomePage() {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Most executive searches are shaped before the posting exists. The window opens earlier than most candidates expect.',
+          eyebrow: 'Most executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
           h1Lines: ['Be ready before', 'the search opens.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',

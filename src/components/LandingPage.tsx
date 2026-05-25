@@ -146,7 +146,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       <main>
       <section className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[16px] sm:text-[21px] text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7">
+          <p className="text-[16px] sm:text-[21px] text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line">
             {hero.eyebrow}
           </p>
           <h1 className="text-[36px] sm:text-[46px] font-bold text-white leading-[1.1] tracking-tight mb-5">
