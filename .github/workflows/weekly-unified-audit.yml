@@ -122,8 +122,13 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           if [ -z "$SLACK_WEBHOOK_URL" ]; then
-            echo "SLACK_WEBHOOK_URL not configured; skipping Slack report"
-            exit 0
+            echo "SLACK_WEBHOOK_URL not configured; failing delivery check" >&2
+            exit 1
+          fi
+
+          if ! echo "$SLACK_WEBHOOK_URL" | grep -Eq '^https://hooks\.slack\.com/services/'; then
+            echo "SLACK_WEBHOOK_URL is not a valid Slack Incoming Webhook URL" >&2
+            exit 1
           fi
 
           if [ -f docs/weekly-unified-audit.slack.txt ]; then
@@ -146,7 +151,11 @@ jobs:
             ]
           }')
 
-          curl -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
+          slackResponse=$(curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL")
+          if [ "$slackResponse" != "ok" ]; then
+            echo "Unexpected Slack webhook response: $slackResponse" >&2
+            exit 1
+          fi
 
       - name: Send weekly unified audit email
         if: always()
@@ -156,8 +165,8 @@ jobs:
           WEEKLY_AUDIT_EMAIL_TO: ${{ secrets.WEEKLY_AUDIT_EMAIL_TO }}
         run: |
           if [ -z "$RESEND_API_KEY" ]; then
-            echo "RESEND_API_KEY not configured; skipping email report"
-            exit 0
+            echo "RESEND_API_KEY not configured; failing delivery check" >&2
+            exit 1
           fi
 
           if [ ! -f docs/weekly-unified-audit.email.txt ]; then
@@ -179,10 +188,16 @@ jobs:
             --arg text "$textPayload" \
             '{from:$from,to:[$to],subject:$subject,text:$text}')
 
-          curl -sS -X POST "https://api.resend.com/emails" \
+          resendResponse=$(curl --fail-with-body -sS -X POST "https://api.resend.com/emails" \
             -H "Authorization: Bearer $RESEND_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "$json"
+            -d "$json")
+
+          resendId=$(echo "$resendResponse" | jq -r '.id // empty')
+          if [ -z "$resendId" ]; then
+            echo "Resend did not return a message id: $resendResponse" >&2
+            exit 1
+          fi
 
   strict-gate:
     runs-on: ubuntu-latest
