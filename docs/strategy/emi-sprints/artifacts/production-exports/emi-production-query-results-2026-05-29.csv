@@ -1,0 +1,7 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q1,emi_language_adoption_percent,,no_data,weekly_kpi_summary_runs.summary_payload,2026-05-25T23:44:33.141Z,2026-05-29
+Q2,assessment_completion_percent,,no_data,started=0;completed=1,2026-05-25T23:44:33.141Z,2026-05-29
+Q3,day7_return_percent,,no_data,no emi_onboarding_started users,2026-05-25T23:44:33.141Z,2026-05-29
+Q4,proof_assets_published_count,7,ok_fallback,social_posts.is_posted in last 90d,2026-05-25T23:44:33.141Z,2026-05-29
+Q5,b2b_pilot_conversion_percent,,no_data,denominator=0;numerator=0,2026-05-25T23:44:33.141Z,2026-05-29
+Q6,tier1_claim_compliance_percent,6.02,ok,total=299;compliant=18,2026-05-25T23:44:33.141Z,2026-05-29
