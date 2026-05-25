@@ -52,7 +52,7 @@ export default async function MetricsPage() {
   if (!staff) notFound()
 
   const admin = createAdminClient()
-  const now = new Date()
+  const now = Date.now()
   const since7d  = new Date(now - 7  * 86_400_000).toISOString()
   const since30d = new Date(now - 30 * 86_400_000).toISOString()
   const since84d = new Date(now - 84 * 86_400_000).toISOString()

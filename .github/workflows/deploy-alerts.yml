@@ -3,15 +3,29 @@ name: Deployment Alerts
 on:
   deployment_status:
 
+permissions:
+  contents: read
+  deployments: read
+
 jobs:
   notify-failed-deploy:
-    if: github.event.deployment_status.state == 'failure' || github.event.deployment_status.state == 'error'
+    if: github.event.deployment_status.state == 'failure' || github.event.deployment_status.state == 'error' || github.event.deployment_status.state == 'inactive'
     runs-on: ubuntu-latest
 
     env:
       RUNBOOK_URL: https://github.com/${{ github.repository }}/blob/main/docs/sre/runbooks/deployment-stalled.md
+      DEPLOY_SHA: ${{ github.event.deployment.sha || github.sha }}
 
     steps:
+      - name: Validate Slack webhook
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Missing required secret: SLACK_WEBHOOK_URL"
+            exit 1
+          fi
+
       - name: Send Slack alert for failed deployment
         uses: slackapi/slack-github-action@v1.24.0
         env:
@@ -41,11 +55,15 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
+                      "text": "*Description:*\n${{ github.event.deployment_status.description }}"
+                    },
+                    {
+                      "type": "mrkdwn",
                       "text": "*Repository:*\n${{ github.repository }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                      "text": "*Commit:*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ env.DEPLOY_SHA }}|${{ env.DEPLOY_SHA }}>"
                     }
                   ]
                 },
@@ -53,7 +71,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<${{ github.server_url }}/${{ github.repository }}/deployments|Open deployments in GitHub> | <${{ env.RUNBOOK_URL }}|Runbook: deployment stalled>"
+                    "text": "<${{ github.event.deployment_status.target_url }}|Open Railway deployment details> | <${{ github.server_url }}/${{ github.repository }}/deployments|Open deployments in GitHub> | <${{ env.RUNBOOK_URL }}|Runbook: deployment stalled>"
                   }
                 }
               ]

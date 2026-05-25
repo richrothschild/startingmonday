@@ -221,6 +221,9 @@ jobs:
           if [[ "${{ needs.predeploy-gates.result }}" == "failure" ]]; then
             echo "job_name=Predeploy gates (lint, typecheck, build, smoke)" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.pre-prod-gate.result }}" == "failure" ]]; then
+            echo "job_name=Pre-production synthetic gate" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.semgrep.result }}" == "failure" ]]; then
             echo "job_name=Semgrep security scan" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
@@ -258,11 +261,11 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Failed Step:*\n${{ steps.failed-job.outputs.job_name }}"
+                      "text": "*Failed Job:*\n${{ steps.failed-job.outputs.job_name }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>"
+                      "text": "*Commit:*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
                     }
                   ]
                 },

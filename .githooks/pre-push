@@ -4,4 +4,11 @@ set -e
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
 
+if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
+	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
+else
+	echo "push Railway preflight build..."
+	npm run build
+fi
+
 echo "ok"
