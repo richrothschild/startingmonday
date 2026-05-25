@@ -48,6 +48,7 @@ export const PAGE_GROUPS: PageGroup[] = [
       { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
       { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/channel-benchmarks', label: 'Channel Benchmarks', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
     ],
