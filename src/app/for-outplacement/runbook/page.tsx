@@ -57,6 +57,10 @@ const INTERVENTION_ACTIONS = [
 
 const DOWNLOADS = [
   {
+    label: 'Download pilot operator pack (markdown)',
+    href: '/downloads/outplacement-pilot-operator-pack.md',
+  },
+  {
     label: 'Download pilot runbook (markdown)',
     href: '/downloads/outplacement-pilot-runbook.md',
   },

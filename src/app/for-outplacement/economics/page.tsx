@@ -510,6 +510,9 @@ export default function OutplacementEconomicsPage() {
             <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Open trust and governance pack
             </Link>
+            <Link href="/proof/roi-calculator" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open ROI calculator by channel and role
+            </Link>
             <Link href="/for-outplacement/faq" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Read outplacement FAQ
             </Link>
