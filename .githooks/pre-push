@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+
+echo "push clean-worktree guard..."
+npm run guard:push-clean-worktree
+
+echo "ok"
