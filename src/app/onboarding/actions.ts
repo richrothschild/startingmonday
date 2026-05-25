@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { OnboardingFormSchema } from '@/lib/schemas'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
+import { computeElapsedSeconds, isTransitionFirstCohort, normalizeOnboardingChannel } from '@/lib/onboarding-speed'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -15,6 +16,16 @@ export async function completeOnboarding(formData: FormData) {
   if (!user) redirect('/login')
 
   const searchPersona       = (formData.get('search_persona') as string) || null
+  const onboardingChannel   = normalizeOnboardingChannel((formData.get('onboarding_channel') as string) || null)
+  const onboardingLowEnergy = (formData.get('onboarding_low_energy') as string) === 'true'
+  const onboardingStartedAt = (formData.get('onboarding_started_at') as string ?? '').trim() || null
+  const elapsedSecondsRaw   = Number(formData.get('onboarding_elapsed_seconds') as string ?? '0')
+  const elapsedSeconds      = Number.isFinite(elapsedSecondsRaw) && elapsedSecondsRaw > 0
+    ? Math.round(elapsedSecondsRaw)
+    : computeElapsedSeconds(onboardingStartedAt)
+  const manualFieldsBaseline = Number(formData.get('manual_fields_baseline') as string ?? '0')
+  const manualFieldsRequired = Number(formData.get('manual_fields_required') as string ?? '0')
+  const manualFieldsReductionRate = Number(formData.get('manual_fields_reduction_rate') as string ?? '0')
   const fullName            = (formData.get('full_name') as string ?? '').trim() || null
   const currentTitle        = (formData.get('current_title') as string ?? '').trim() || null
   const currentCompany      = (formData.get('current_company') as string ?? '').trim() || null
@@ -59,6 +70,8 @@ export async function completeOnboarding(formData: FormData) {
     (employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic') ? 'watcher' :
     (employmentStatus === 'between_roles' && searchTimeline === 'immediately') ? 'nurture' :
     'campaign'
+  const transitionFirst = isTransitionFirstCohort(employmentStatus, searchTimeline)
+  const underTenMinutes = elapsedSeconds > 0 && elapsedSeconds <= 600
 
   const now = new Date().toISOString()
 
@@ -112,12 +125,28 @@ export async function completeOnboarding(formData: FormData) {
     search_persona: searchPersona ?? '',
     employment_status: employmentStatus ?? '',
     company_count: companyNamesList.length,
+    onboarding_channel: onboardingChannel,
+    onboarding_low_energy: onboardingLowEnergy,
+    onboarding_elapsed_seconds: elapsedSeconds,
+    onboarding_under_ten_minutes: underTenMinutes,
+    transition_first: transitionFirst,
+    manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
+    manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
+    manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
   })
   await logEvent(user.id, 'onboarding_completed', {
     search_path: searchPath,
     search_persona: searchPersona ?? '',
     employment_status: employmentStatus ?? '',
     company_count: companyNamesList.length,
+    onboarding_channel: onboardingChannel,
+    onboarding_low_energy: onboardingLowEnergy,
+    onboarding_elapsed_seconds: elapsedSeconds,
+    onboarding_under_ten_minutes: underTenMinutes,
+    transition_first: transitionFirst,
+    manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
+    manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
+    manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
   })
 
   redirect('/dashboard/start')
