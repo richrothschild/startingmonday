@@ -9,6 +9,7 @@
         "dev": "next dev",
         "deps:check": "node scripts/check-dependency-policy.mjs",
         "build": "npm run prebuild:guard && next build",
+        "railway:preflight": "npm run build",
         "prebuild:guard": "node scripts/prebuild-guard.mjs",
         "start": "next start",
         "lint": "eslint",
