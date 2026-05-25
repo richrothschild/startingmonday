@@ -1,7 +1,6 @@
 import { BrandIcon } from '@/components/BrandIcon'
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
-import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { PricingSection } from '@/components/PricingSection'
 import { SamplePrepBrief } from '@/components/SamplePrepBrief'
@@ -324,30 +323,64 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
         {/* Dashboard preview */}
         <div className="mt-14 sm:mt-16 max-w-5xl mx-auto px-0">
-          <div className="max-w-3xl mx-auto text-center mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Product preview</p>
-            <p className="text-[14px] text-slate-400 leading-relaxed">
-              The morning briefing view shows what changed overnight and what to act on first.
+          <div className="max-w-4xl mx-auto mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2 text-center">Current-state briefing view</p>
+            <p className="text-[14px] text-slate-400 leading-relaxed text-center mb-5">
+              One screen aligned to the hero promise: what changed overnight, what to do first, and why now.
             </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[12px]">
+              <div className="rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-slate-300">
+                <span className="font-semibold text-orange-300">What changed overnight:</span> signal and leadership movement
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-slate-300">
+                <span className="font-semibold text-orange-300">What to do first:</span> one highest-value outreach action
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-slate-300">
+                <span className="font-semibold text-orange-300">Why now:</span> timing window closes before formal posting
+              </div>
+            </div>
           </div>
           <div className="relative">
             <div className="absolute -inset-2 sm:-inset-3 rounded-2xl bg-gradient-to-r from-orange-500/20 via-sky-500/10 to-indigo-500/20 blur-xl" />
-            <div className="relative rounded-2xl border border-slate-700 bg-slate-950 p-2 sm:p-3 shadow-2xl">
-              <div className="flex items-center gap-2 px-2 pb-2 border-b border-slate-800 text-[11px] text-slate-500">
+            <div className="relative rounded-2xl border border-slate-700 bg-slate-950 p-3 sm:p-4 shadow-2xl">
+              <div className="flex items-center gap-2 px-1 pb-3 border-b border-slate-800 text-[11px] text-slate-500">
                 <span className="w-2 h-2 rounded-full bg-slate-700" />
                 <span className="w-2 h-2 rounded-full bg-slate-700" />
                 <span className="w-2 h-2 rounded-full bg-slate-700" />
                 <span className="ml-2">Morning briefing</span>
                 <span className="ml-auto rounded-full border border-slate-700 bg-slate-900 px-2 py-0.5 text-slate-300">Focused view</span>
               </div>
-              <Image
-                src="/public.dashboard.screenshot.png"
-                alt="Starting Monday dashboard showing pipeline stats, company signals, and opportunity radar"
-                width={1262}
-                height={932}
-                className="w-full h-auto rounded-xl"
-                priority
-              />
+              <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 rounded-xl border border-slate-800 bg-slate-900 p-4">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Overnight changes</p>
+                  <div className="space-y-3">
+                    <div className="rounded-lg border border-orange-500/30 bg-slate-950 p-3">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <p className="text-[13px] font-semibold text-white">Accenture</p>
+                        <span className="text-[10px] font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/30 px-2 py-0.5 rounded-full">Pattern alert</span>
+                      </div>
+                      <p className="text-[12px] text-slate-300 leading-relaxed">Leadership bench shift plus deal integration signal suggests a near-term VP Technology window.</p>
+                    </div>
+                    <div className="rounded-lg border border-slate-700 bg-slate-950 p-3">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <p className="text-[13px] font-semibold text-white">Workday</p>
+                        <span className="text-[10px] font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">Exec departure</span>
+                      </div>
+                      <p className="text-[12px] text-slate-300 leading-relaxed">CIO role is open with no formal posting yet, creating an early outreach window.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">First action</p>
+                  <p className="text-[13px] font-semibold text-white mb-2">Contact first:</p>
+                  <p className="text-[12px] text-slate-300 leading-relaxed mb-3">SVP Platform at Accenture. Reference the integration timeline and open VP scope in your message.</p>
+                  <div className="rounded-md border border-orange-500/40 bg-orange-500/10 px-3 py-2">
+                    <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-300">Why now</p>
+                    <p className="text-[12px] text-slate-200 leading-relaxed mt-1">This window typically closes before the role is visible on major job boards.</p>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-3">Estimated prep time: 5 minutes</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
