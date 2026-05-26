@@ -68,7 +68,9 @@ jobs:
           EMI_SMOKE_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           EMI_SMOKE_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           EMI_SMOKE_OUTPUT_JSON: '1'
-        run: npm run emi:smoke:postdeploy:json
+        run: |
+          set -o pipefail
+          npm run emi:smoke:postdeploy:json | tee emi-postdeploy-smoke.json
 
       - name: Run P0 synthetic suite against production
         id: synthetics
@@ -147,6 +149,15 @@ jobs:
           SHA="${{ github.sha }}"
           ENV="${{ github.event.deployment.environment || 'production' }}"
           EMI_STATUS="${{ steps.emi_smoke.outcome || 'unknown' }}"
+          EMI_FAILURES=""
+
+          if [ -f emi-postdeploy-smoke.json ]; then
+            EMI_FAILURES=$(node -e "
+            const fs = require('fs')
+            const data = JSON.parse(fs.readFileSync('emi-postdeploy-smoke.json', 'utf8'))
+            process.stdout.write((data.failures || []).join('; '))
+            ")
+          fi
 
           cat >> "$GITHUB_STEP_SUMMARY" <<EOF
           ## Post-Deploy Synthetic Gate
@@ -160,6 +171,11 @@ jobs:
           | EMI smoke gate | ${EMI_STATUS} |
           | Status | $( [ "${FAILED:-0}" = "0" ] && echo "PASS" || echo "FAIL" ) |
           EOF
+
+          if [ -n "$EMI_FAILURES" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "EMI smoke failures: ${EMI_FAILURES}" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Alert on post-deploy synthetic failure
         if: steps.synthetics.outputs.failed > 0
@@ -215,5 +231,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: post-deploy-synthetic-results
-          path: post-deploy-synthetic-results.json
+          path: |
+            post-deploy-synthetic-results.json
+            emi-postdeploy-smoke.json
           retention-days: 30

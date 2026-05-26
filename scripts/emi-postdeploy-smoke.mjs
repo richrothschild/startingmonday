@@ -94,11 +94,11 @@ function evaluate(weekly, validation) {
   const failures = []
 
   if (weekly.status !== 200 || weekly.body?.ok !== true) {
-    failures.push('weekly-kpi-summaries failed')
+    failures.push(`weekly-kpi-summaries failed status=${weekly.status} body=${weekly.rawBody}`)
   }
 
   if (validation.status !== 200 || validation.body?.ok !== true) {
-    failures.push('emi-validation-reruns request failed')
+    failures.push(`emi-validation-reruns request failed status=${validation.status} body=${validation.rawBody}`)
   } else {
     if (validation.body.status !== 'ok') {
       failures.push(`validation status=${String(validation.body.status)}`)
