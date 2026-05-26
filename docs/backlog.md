@@ -34,6 +34,7 @@ Use this section during review to decide what Chris can own now, what to queue n
 | B3 | Turnstile re-enable on auth/public endpoints | Abuse prevention risk grows with traffic; implementation already exists | Chris (backend) | S |
 | B4 | Migration rollback playbooks | Reduces blast radius on schema changes touching production data | Chris (backend/data) | M |
 | B5 | Semgrep Cloud onboarding completion | Turns existing scan into managed security workflow with visibility | Chris (platform) | S |
+| B15 | EMI smoke auth hardening (service token) | Replace staff-session cookie automation with secure non-user trigger for CI safety | Chris (platform/security) | S |
 
 #### Next (Start after one Now item ships)
 

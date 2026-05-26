@@ -2,8 +2,11 @@
 
 const BASE_URL = process.env.EMI_SMOKE_BASE_URL ?? 'https://startingmonday.app'
 const SESSION_COOKIE = process.env.EMI_SMOKE_SESSION_COOKIE ?? ''
+const AUTH_EMAIL = process.env.EMI_SMOKE_EMAIL ?? ''
+const AUTH_PASSWORD = process.env.EMI_SMOKE_PASSWORD ?? ''
 const OUTPUT_JSON = process.env.EMI_SMOKE_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = 20000
+let authCookieHeader = SESSION_COOKIE
 
 function trimSlash(url) {
   return url.endsWith('/') ? url.slice(0, -1) : url
@@ -28,7 +31,7 @@ async function postJson(path, body) {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        cookie: SESSION_COOKIE,
+        cookie: authCookieHeader,
       },
       body: JSON.stringify(body),
       signal: controller.signal,
@@ -53,6 +56,38 @@ async function postJson(path, body) {
   } finally {
     clearTimeout(timeout)
   }
+}
+
+function parseCookieHeader(setCookieValues) {
+  if (!Array.isArray(setCookieValues) || setCookieValues.length === 0) return ''
+  return setCookieValues
+    .map((value) => String(value).split(';')[0]?.trim())
+    .filter(Boolean)
+    .join('; ')
+}
+
+async function buildAuthCookie() {
+  if (SESSION_COOKIE) return SESSION_COOKIE
+  if (!AUTH_EMAIL || !AUTH_PASSWORD) return ''
+
+  const url = `${trimSlash(BASE_URL)}/api/auth/verify-and-signin`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: AUTH_EMAIL, password: AUTH_PASSWORD }),
+  })
+
+  const setCookieValues = typeof res.headers.getSetCookie === 'function'
+    ? res.headers.getSetCookie()
+    : []
+
+  const cookieHeader = parseCookieHeader(setCookieValues)
+  if (!res.ok || !cookieHeader) {
+    const body = await res.text().catch(() => '')
+    throw new Error(`Failed to authenticate smoke user (status=${res.status}) ${body.slice(0, 180)}`)
+  }
+
+  return cookieHeader
 }
 
 function evaluate(weekly, validation) {
@@ -80,11 +115,15 @@ function evaluate(weekly, validation) {
 }
 
 async function main() {
-  if (!SESSION_COOKIE) {
-    console.error('Missing EMI_SMOKE_SESSION_COOKIE. Provide an authenticated Cookie header value for a staff session.')
+  const authCookie = await buildAuthCookie()
+  if (!authCookie) {
+    console.error('Missing smoke authentication. Set EMI_SMOKE_SESSION_COOKIE or EMI_SMOKE_EMAIL and EMI_SMOKE_PASSWORD.')
     process.exitCode = 1
     return
   }
+
+  const originalCookie = authCookieHeader
+  authCookieHeader = authCookie
 
   const weekly = await postJson('/api/admin/automation/reporting/weekly-kpi-summaries', {})
   const validation = await postJson('/api/admin/automation/reporting/emi-validation-reruns', {})
@@ -121,6 +160,8 @@ async function main() {
   if (failures.length) {
     process.exitCode = 1
   }
+
+  authCookieHeader = originalCookie
 }
 
 main().catch((error) => {

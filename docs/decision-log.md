@@ -118,15 +118,22 @@ Add a row when making any decision that costs more than a week of effort or that
 **Review date:** 2026-06-30
 
 Evidence (production):
+
 - Weekly snapshot run id: `8d41ddbf-aa19-4045-a3a0-7560972aaa8e`
 - Validation rerun id: `5b9def8b-951b-49a7-b3e9-816e30dd32d7`
 - Frozen baseline values:
-	- `emi_language_adoption_percent`: 100
-	- `assessment_completion_percent`: 100
-	- `day7_return_percent`: 0
-	- `proof_assets_published_count`: 3
-	- `b2b_pilot_conversion_percent`: 28.57
-	- `tier1_claim_compliance_percent`: 100
+
+  - `emi_language_adoption_percent`: 100
+  - `assessment_completion_percent`: 100
+  - `day7_return_percent`: 0
+  - `proof_assets_published_count`: 3
+  - `b2b_pilot_conversion_percent`: 28.57
+  - `tier1_claim_compliance_percent`: 100
+
+Operational decision (seed rows):
+
+- Keep current `EMI Seed Prospect` rows in production as calibration fixtures for weekly EMI validation until tokenized automation lands.
+- Revisit removal decision at next review date after secure service-token trigger is in place.
 
 ---
 

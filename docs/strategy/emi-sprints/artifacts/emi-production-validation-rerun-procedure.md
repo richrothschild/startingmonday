@@ -70,7 +70,9 @@ Purpose: Re-run EMI production validation in a consistent, audit-ready workflow.
 1. The rerun alerting path is implemented in `src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts`.
 2. The route reads canonical `emi_kpi_snapshots`, compares them to published sprint reference values, and writes a `scheduled_job_observability_runs` record.
 3. Any mismatch or consecutive null streak causes automation alert creation through the existing observability trigger path.
-4. Post-deploy smoke command: run `npm run emi:smoke:postdeploy` with `EMI_SMOKE_SESSION_COOKIE` set to an authenticated staff session cookie value.
+4. Post-deploy smoke command: run `npm run emi:smoke:postdeploy` with either:
+  - `EMI_SMOKE_SESSION_COOKIE` set to an authenticated staff session cookie value, or
+  - `EMI_SMOKE_EMAIL` and `EMI_SMOKE_PASSWORD` set to a staff automation account.
 5. Smoke check pass criteria: weekly snapshot returns `ok`, validation returns `status=ok`, `mismatchCount=0`, and `nullStreakCount=0`.
 6. Export-file generation and manifest markdown updates still require an operator step in the repository workspace.
 
