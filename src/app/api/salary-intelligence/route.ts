@@ -26,12 +26,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Monthly token limit reached.' }, { status: 429 })
   }
 
-  let role: string, company: string, location: string
+  let role: string, company: string, location: string, sector: string, level: string, company_stage: string
   try {
     const body = await request.json()
-    role     = typeof body.role     === 'string' ? body.role.trim()     : ''
-    company  = typeof body.company  === 'string' ? body.company.trim()  : ''
-    location = typeof body.location === 'string' ? body.location.trim() : ''
+    role          = typeof body.role          === 'string' ? body.role.trim()          : ''
+    company       = typeof body.company       === 'string' ? body.company.trim()       : ''
+    location      = typeof body.location      === 'string' ? body.location.trim()      : ''
+    sector        = typeof body.sector        === 'string' ? body.sector.trim()        : ''
+    level         = typeof body.level         === 'string' ? body.level.trim()         : ''
+    company_stage = typeof body.company_stage === 'string' ? body.company_stage.trim() : ''
   } catch {
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
   }
@@ -46,26 +49,49 @@ export async function POST(request: NextRequest) {
     .eq('user_id', userId)
     .single()
 
-  const locationStr = location || 'United States'
-  const backgroundStr = profile?.positioning_summary
+  const locationStr     = location      || 'United States'
+  const sectorStr       = sector        ? `\nSector: ${sector}`                : ''
+  const levelStr        = level         ? `\nLevel: ${level}`                  : ''
+  const companyStageStr = company_stage ? `\nCompany stage: ${company_stage}`  : ''
+  const backgroundStr   = profile?.positioning_summary
     ? `\nCandidate background: ${profile.positioning_summary.slice(0, 400)}`
     : profile?.current_title
     ? `\nCandidate current title: ${profile.current_title}`
     : ''
 
-  const prompt = `You are a compensation expert advising a senior executive entering salary negotiations. Provide a specific, defensible compensation analysis.
+  const prompt = `You are a compensation expert advising a senior executive entering salary negotiations. Provide a specific, defensible compensation analysis broken down by component.
 
 Role: ${role}
 Company: ${company}
-Location: ${locationStr}${backgroundStr}
+Location: ${locationStr}${sectorStr}${levelStr}${companyStageStr}${backgroundStr}
 
 Return a JSON object with exactly this structure:
 {
-  "low": number (floor in USD, total cash comp),
-  "target": number (realistic target, total cash comp),
-  "ceiling": number (stretch ceiling with leverage, total cash comp),
+  "low": number (floor total cash comp in USD),
+  "target": number (realistic target total cash comp in USD),
+  "ceiling": number (stretch ceiling total cash comp in USD),
   "currency": "USD",
-  "notes": "2-3 sentences on what drives the range at this company specifically - size, stage, sector, comp philosophy",
+  "base": {
+    "low": number,
+    "target": number,
+    "ceiling": number
+  },
+  "bonus": {
+    "target_pct": number (target bonus as % of base, e.g. 30),
+    "max_pct": number (max bonus as % of base, e.g. 50),
+    "notes": "1 sentence on bonus structure at this company/stage"
+  },
+  "equity": {
+    "range": "e.g. $800K–$1.5M RSUs over 4 years or 0.1%–0.25% options",
+    "vesting": "e.g. 4-year with 1-year cliff",
+    "notes": "1 sentence on equity norms at this stage/sector"
+  },
+  "levers": [
+    "Specific negotiation lever 1 (e.g. signing bonus to offset unvested equity)",
+    "Specific negotiation lever 2 (e.g. accelerated vesting on change of control)",
+    "Specific negotiation lever 3 (e.g. performance bonus tied to defined milestones)"
+  ],
+  "notes": "2-3 sentences on what drives the range at this company specifically",
   "negotiation_script": "4-6 sentences. Exact language to use when they present the offer. Start with acknowledgment, move to anchor at ceiling, reference market data, ask for time.",
   "pushback_responses": [
     { "objection": "That is our standard band for this role", "response": "2-3 sentence counter" },
@@ -82,7 +108,7 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
   try {
     const message = await anthropic.messages.create({
       model,
-      max_tokens: 1000,
+      max_tokens: 1200,
       messages: [{ role: 'user', content: prompt }],
     })
 
@@ -96,7 +122,7 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
       promptTokens: message.usage.input_tokens ?? 0,
       completionTokens: message.usage.output_tokens ?? 0,
       latencyMs: Date.now() - startMs,
-      inputSnapshot: { role, company, location: locationStr },
+      inputSnapshot: { role, company, location: locationStr, sector, level, company_stage },
       outputSnapshot: raw,
     })
 

@@ -24,10 +24,10 @@ async function sendSlack({ subject, body }) {
     return
   }
 
-  const token = process.env.SLACK_BOT_TOKEN || process.env.SLACK_USER_TOKEN
+  const token = process.env.SLACK_BOT_TOKEN || process.env.SLACK_USER_TOKEN || process.env.SLACK_TOKEN
   const channel = process.env.SLACK_ALERT_CHANNEL_ID || process.env.SLACK_CHANNEL_ID
   if (!token || !channel) {
-    throw new Error('Slack is not configured (set SLACK_WEBHOOK_URL or SLACK_BOT_TOKEN/SLACK_USER_TOKEN + SLACK_ALERT_CHANNEL_ID)')
+    throw new Error('Slack is not configured (set SLACK_WEBHOOK_URL or SLACK_BOT_TOKEN/SLACK_USER_TOKEN/SLACK_TOKEN + SLACK_ALERT_CHANNEL_ID)')
   }
 
   const res = await fetch('https://slack.com/api/chat.postMessage', {
