@@ -6,6 +6,7 @@ import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
 import { mapStripeStatus } from '@/lib/stripe-status'
 import { getOwnerEmail } from '@/lib/owner-email'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign', 'coach'])
 const OWNER_EMAIL = getOwnerEmail()
@@ -103,6 +104,7 @@ export async function POST(request: NextRequest) {
           ...(customerId ? { stripe_customer_id: customerId } : {}),
         }).eq('id', userId).select('email').single()
         updateError = error
+        captureServerEvent(userId, 'trial_converted', { plan })
         if (updatedUser?.email) {
           sendEmail({
             to: OWNER_EMAIL ?? '',
