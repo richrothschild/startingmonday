@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes
+Q5,b2b_pilot_conversion_percent,0,ok,"weekly_kpi_summary_runs.summary_payload"

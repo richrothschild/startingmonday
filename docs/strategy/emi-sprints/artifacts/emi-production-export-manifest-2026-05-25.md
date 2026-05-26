@@ -47,3 +47,20 @@ Run metadata:
 | Q4 | proof_assets_published_count | 7 | ok_fallback | docs/strategy/emi-sprints/artifacts/production-exports/q4-proof_assets_published_count-2026-05-29.csv |
 | Q5 | b2b_pilot_conversion_percent | N/A | no_data | docs/strategy/emi-sprints/artifacts/production-exports/q5-b2b_pilot_conversion_percent-2026-05-29.csv |
 | Q6 | tier1_claim_compliance_percent | 6.02 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q6-tier1_claim_compliance_percent-2026-05-29.csv |
+
+### Rerun Date: 2026-05-26
+
+Run metadata:
+
+1. Executed at (UTC): 2026-05-26T00:47:24.489Z
+2. Combined JSON export: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-26.json
+3. Combined CSV export: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-26.csv
+
+| Query ID | Metric | Result value | Status | Export file path |
+| --- | --- | --- | --- | --- |
+| Q1 | emi_language_adoption_percent | 0 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q1-emi_language_adoption_percent-2026-05-26.csv |
+| Q2 | assessment_completion_percent | 0 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q2-assessment_completion_percent-2026-05-26.csv |
+| Q3 | day7_return_percent | 0 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q3-day7_return_percent-2026-05-26.csv |
+| Q4 | proof_assets_published_count | 7 | ok_fallback | docs/strategy/emi-sprints/artifacts/production-exports/q4-proof_assets_published_count-2026-05-26.csv |
+| Q5 | b2b_pilot_conversion_percent | 0 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q5-b2b_pilot_conversion_percent-2026-05-26.csv |
+| Q6 | tier1_claim_compliance_percent | 6.08 | ok | docs/strategy/emi-sprints/artifacts/production-exports/q6-tier1_claim_compliance_percent-2026-05-26.csv |
