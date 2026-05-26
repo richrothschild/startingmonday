@@ -137,9 +137,9 @@ export function PricingCards() {
               ))}
             </ul>
             <Link
-              href="/signup"
+              href="/signup?from=pricing"
               data-emi-cta={`pricing_plan_${plan.key}`}
-              data-emi-to="/signup"
+              data-emi-to="/signup?from=pricing"
               className={`block text-center text-[14px] font-semibold px-6 py-3 rounded transition-colors ${
                 plan.featured
                   ? 'bg-orange-500 text-white hover:bg-orange-600'

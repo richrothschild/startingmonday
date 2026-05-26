@@ -30,6 +30,7 @@ const FOR_WHO = [
 export function ConciergeWaitlist() {
   const searchParams = useSearchParams()
   const isBetaProgram = (searchParams.get('program') ?? '').toLowerCase() === 'beta'
+  const source = (searchParams.get('from') ?? '').toLowerCase()
   const ph = usePostHog()
 
   const [email, setEmail] = useState('')
@@ -121,7 +122,7 @@ export function ConciergeWaitlist() {
               Log in
             </Link>
             <Link
-              href="/signup"
+              href="/signup?from=concierge"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Try free
@@ -155,6 +156,11 @@ export function ConciergeWaitlist() {
               ? 'This is a private intake for senior leaders running high-stakes transitions. Share concise context, and we will reply personally with clear next steps.'
               : 'Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.'}
           </p>
+          {source === 'landing' && (
+            <p className="text-[12px] text-slate-500 mt-4">
+              You came from the main landing flow. This page is the high-touch path when you want founder-reviewed direction before full self-serve onboarding.
+            </p>
+          )}
         </div>
       </header>
 
