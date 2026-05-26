@@ -248,7 +248,10 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  await sb.from('emi_kpi_snapshots').upsert(snapshots, { onConflict: 'metric_name,week_start,week_end' })
+  const snapshotWrite = await sb.from('emi_kpi_snapshots').upsert(snapshots, { onConflict: 'metric_name,week_start,week_end' })
+  if (snapshotWrite.error) {
+    __councilObservabilitySignal('[weekly-kpi-summaries] snapshot write skipped', snapshotWrite.error)
+  }
 
   const metricsMap = Object.fromEntries(
     snapshots.map((snapshot) => [snapshot.metric_name, { value: snapshot.metric_value, status: snapshot.metric_status, source: snapshot.source_table, notes: snapshot.source_notes }])
@@ -272,5 +275,5 @@ export async function POST(request: NextRequest) {
     .select('id')
     .single()
 
-  return NextResponse.json({ ok: true, runId: data?.id, weekStart: start, weekEnd: end, summaryPayload, snapshots })
+  return NextResponse.json({ ok: true, runId: data?.id, weekStart: start, weekEnd: end, summaryPayload, snapshots, snapshotWriteError: snapshotWrite.error?.message ?? null })
 }

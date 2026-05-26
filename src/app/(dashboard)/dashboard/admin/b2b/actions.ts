@@ -60,10 +60,18 @@ export async function updateProspectStage(formData: FormData) {
     updatePayload.pilot_approved_at = new Date().toISOString()
   }
 
-  await admin
+  const primaryUpdate = await admin
     .from('b2b_prospects')
     .update(updatePayload)
     .eq('id', id)
+
+  // Fallback for environments where timestamp columns are not migrated yet.
+  if (primaryUpdate.error) {
+    await admin
+      .from('b2b_prospects')
+      .update({ stage, updated_at: new Date().toISOString() })
+      .eq('id', id)
+  }
 
   revalidatePath('/dashboard/admin/b2b')
   revalidatePath(`/dashboard/admin/b2b/${id}`)
