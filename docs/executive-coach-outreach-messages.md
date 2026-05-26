@@ -6,24 +6,31 @@ Purpose: Ready-to-send Sales Navigator outreach sequence for executive coaches.
 
 Subject:
 
-[First Name], would it be unreasonable to make every client meeting prep-ready?
+[First Name], reduce context rebuild between sessions
 
 Body:
 
 Hi [First Name],
 
-Quick observation from the coaching practices we speak with: too much paid session time gets spent rebuilding context instead of making strategic decisions.
+Coaches usually lose the most momentum when between-session prep runs on memory and scattered notes.
 
-Starting Monday gives you one place to stay on top of each client between sessions: signal monitoring, prep briefs, and pipeline accountability.
+The decision is whether to keep that manual or run one simple loop so clients arrive prepared and sessions stay strategy-first.
 
-The practical effect is simple: clients arrive prepared, you spend less time on admin, and more of the session stays in judgment, narrative, and strategy.
+In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.
 
 You can see the overview here: <https://startingmonday.app/for-coaches>
 
-If helpful, reply yes and I will send two sample prep briefs so you can decide in under five minutes whether it fits your practice.
+Reply yes and I will send one sample prep brief for your coaching context. Reply pass and I will close the loop.
 
 Rich
 startingmonday.app
+
+### Emotional-State First-Line Variants
+
+- Panic: your clients are under pressure to create visible momentum in the first 72 hours.
+- Optionality: your clients need low-noise market motion without signaling active search.
+- Burnout: your clients need lower decision load so execution does not stall.
+- Board-track: your clients need governance-ready narrative quality in the first two conversations.
 
 ## Subject Line Options (A/B)
 
@@ -36,19 +43,19 @@ startingmonday.app
 
 Subject:
 
-[First Name], would it be a mistake to keep prepping manually?
+[First Name], keep prep manual or simplify it?
 
 Body:
 
 Hi [First Name],
 
-How would you feel if your clients were prepared for every high-stakes conversation, without you spending extra hours between sessions?
+Coaching quality usually drops when between-session execution runs on memory.
 
-Most coaches we talk to are still doing the between-session layer manually: tracking signals in one tool, prep in another, and accountability in memory.
+If useful, I can send a 60-second sample mapped to your client profile.
 
-Starting Monday brings that into one operating layer so you can easily stay on top of each client in one place.
+In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.
 
-If this is useful, reply yes and I will send a 60-second sample plus two prep briefs.
+Reply yes for the sample, or reply pass and I will close the loop.
 
 Rich
 startingmonday.app
@@ -78,23 +85,23 @@ Use one specific signal from their profile or recent post.
 
 Template:
 
-[First Name] - saw your post on [topic]. I built a platform coaches use to help you easily stay on top of each client in one place, with monitoring, prep briefs, and pipeline visibility. Open to a quick 15-minute intro?
+[First Name] - saw your post on [topic]. Coaches usually lose momentum when context rebuild eats session time. Open to a quick 15-minute yes/pass intro?
 
 Career transition variant:
 
-[First Name] - noticed your work helping leaders navigate transitions. We built a platform that helps you easily stay on top of each client in one place so you spend less time rebuilding context. Worth a 15-minute look?
+[First Name] - noticed your work helping leaders navigate transitions. This helps you spend less time rebuilding context and more time in strategy. Worth a quick 15-minute look?
 
 VP-to-CXO variant:
 
-[First Name] - your CXO positioning perspective stood out. We built a platform that helps you easily stay on top of each client in one place, so momentum does not stall between sessions. Open to a quick 15-minute intro?
+[First Name] - your CXO positioning perspective stood out. This keeps momentum from stalling between sessions without adding prep overhead. Open to a quick 15-minute intro?
 
 Search-process variant:
 
-[First Name] - saw your interview prep content. We built a platform that helps you easily stay on top of each client in one place, so prep gets sharper and faster before each session. Worth a quick 15-minute look?
+[First Name] - saw your interview prep content. This helps keep prep sharper and faster before each session. Worth a quick 15-minute look?
 
 Board/governance variant:
 
-[First Name] - noticed your board advisory focus. We built a platform that helps you easily stay on top of each client in one place and maintain strategic relationships at scale between coaching sessions. Open to a quick 15-minute intro?
+[First Name] - noticed your board advisory focus. This helps clients show governance readiness earlier while keeping your between-session work lighter. Open to a quick 15-minute intro?
 
 ## 2) Day 1 Email First Touch
 
@@ -102,25 +109,21 @@ Template:
 
 Subject:
 
-[First Name], would it be unreasonable to make every client meeting prep-ready?
+[First Name], one coaching readiness benchmark
 
 Body:
 
 Hi [First Name],
 
-Most coaches I speak with feel the same pressure: clients are too busy to prepare, and paid session time gets spent rebuilding context instead of making strategic decisions.
+Most coaches lose momentum when between-session prep is rebuilt manually each week.
 
-Starting Monday helps you easily stay on top of each client in one place between sessions - signals, prep briefs, and accountability in one operating layer.
+The decision is whether the next 30 days should stay manual or run on one simple coaching readiness loop.
 
-Result: clients arrive better prepared, you spend less time on admin, and your sessions stay high-value and strategy-first.
+In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.
 
 Check out <https://startingmonday.app/for-coaches> to see how other coaches use it.
 
-Would it be unreasonable to test this with two clients for 30 days before deciding whether it fits your practice?
-
-If useful, I can show you a live brief in 60 seconds on a 15-minute call.
-
-If you prefer, I can also send two sample prep briefs before we talk.
+Reply yes for a 15-minute walkthrough and one sample prep brief. Reply pass and I will close the loop.
 
 [Calendar Link]
 
@@ -130,28 +133,33 @@ Use this only if they accepted the connection or viewed the profile but did not 
 
 [First Name] - circling back because the pressure you described is the one most coaches mention: clients are busy, and prep gets rebuilt from scratch each week.
 
-Starting Monday was built to help you easily stay on top of each client in one place, so you spend less time rebuilding context and more time in strategy.
+This was built to reduce context rebuild so you spend more time in strategy.
 
-If it would help, I can send a 60-second screen recording instead of a call.
+If useful, I can send a 60-second screen recording instead of a call.
 
 ## 4) Day 7 Email Proof Sample
 
 Subject:
 
-Two sample prep briefs for [First Name]
+One sample prep brief for [First Name]
 
 Body:
 
 Hi [First Name],
 
-As promised, here are two examples of the kind of prep support coaches use with Starting Monday:
+By week two, most coaching value is won or lost in the between-session layer.
+
+As promised, here is one example of the prep support coaches use with Starting Monday:
 
 - 1-page client brief: signals, current priorities, and the next decision to make.
-- Meeting prep brief: what changed since the last session, what matters now, and what to ask next.
 
-The point is not more admin. It is to help you easily stay on top of each client in one place without rebuilding context every week.
+The decision is whether this quality bar is worth standardizing across your current client set.
 
-If you want, I can show you how this would look for one of your current clients on a 15-minute call.
+If yes, I can show you what this looks like for one client in 15 minutes.
+
+In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.
+
+Reply yes for the walkthrough. Reply pass and I will close the loop.
 
 Rich
 
@@ -161,7 +169,7 @@ Use this as a short value-add message or post reply, not a second pitch.
 
 [First Name] - one pattern keeps coming up with coaches: the session itself is usually not the bottleneck. The between-session layer is.
 
-That is why we built Starting Monday to help you easily stay on top of each client in one place, with the signals and prep context already organized before the call.
+The common bottleneck is between-session clarity, not session quality.
 
 If useful, I can send a 3-minute walkthrough that shows the workflow.
 
@@ -169,7 +177,7 @@ If useful, I can send a 3-minute walkthrough that shows the workflow.
 
 Subject:
 
-Would it be unreasonable to test this with two clients for 30 days?
+Run a 30-day EMI test on two clients?
 
 Body:
 
@@ -177,11 +185,11 @@ Hi [First Name],
 
 Most coaches do not want another tool unless it clearly reduces friction.
 
-That is a fair filter. My suggestion is a small test: use Starting Monday with two clients for 30 days and judge it on whether it helps you easily stay on top of each client in one place without adding work.
+The decision is simple: keep manual between-session prep, or run a reversible 30-day test with two clients.
 
-If it does not reduce prep time or context rebuild, stop. If it does, keep it.
+In our Jan-May 2026 pilot cohort (n=27), results were directional and varied by market and execution quality.
 
-If you want, I can send a simple setup checklist so the test takes under 10 minutes to start.
+Reply yes and I will send the setup checklist. Reply pass and I will close the loop.
 
 Rich
 
@@ -195,13 +203,11 @@ Body:
 
 Hi [First Name],
 
-No pressure if timing is not right.
+Closing the loop for now.
 
-I do not want to crowd your inbox. If a 30-day test on two clients is not relevant right now, I will close the loop.
+If timing changes, reply yes and I will send the 30-day setup checklist.
 
-If timing changes, reply with "2 clients" and I will send the setup.
-
-Either way, appreciate the work you do.
+If not useful right now, reply pass and I will archive this thread.
 
 ## Short Channel Rules
 

@@ -1,7 +1,65 @@
 import { describe, expect, it } from 'vitest'
+import { buildStandardizedDraft, mapTriggerInputs, type CsvRow } from './outreach-data'
 
-describe('src/app/(dashboard)/dashboard/outreach/outreach-data.ts placeholder coverage', () => {
-  it('marks module as covered for council traceability', () => {
-    expect(true).toBe(true)
+describe('outreach-data trigger mapping', () => {
+  it('maps CRM and scraping fields into trigger inputs', () => {
+    const row: CsvRow = {
+      trigger_news: 'board approved a new CIO succession plan',
+      linkedin_post: 'your post on reducing interview prep drag',
+      personalization_line: 'your profile shows expanded healthcare scope',
+    }
+
+    expect(mapTriggerInputs(row)).toEqual({
+      newsTrigger: 'board approved a new CIO succession plan',
+      postTrigger: 'your post on reducing interview prep drag',
+      profileTrigger: 'your profile shows expanded healthcare scope',
+    })
+  })
+
+  it('falls back across supported aliases per trigger type', () => {
+    const row: CsvRow = {
+      news_summary: 'new mandate wave after quarter close',
+      post_summary: 'you shared a note on shortlist quality',
+      notes: 'your cohort now spans two new verticals',
+    }
+
+    expect(mapTriggerInputs(row)).toEqual({
+      newsTrigger: 'new mandate wave after quarter close',
+      postTrigger: 'you shared a note on shortlist quality',
+      profileTrigger: 'your cohort now spans two new verticals',
+    })
+  })
+
+  it('injects mapped triggers into generated templates automatically', () => {
+    const row: CsvRow = {
+      full_name: 'Maya Patel',
+      company: 'Northstar Health',
+      role_bucket: 'CIO',
+      persona_focus: 'CIO',
+      trigger_news: 'CIO succession plan announced after board review',
+    }
+
+    const draft = buildStandardizedDraft(row, 'executives')
+
+    expect(draft.subject).toContain('CIO first-call plan')
+    expect(draft.body).toContain('I saw CIO leadership changes after board review, and that usually adds pressure to early search conversations.')
+  })
+
+  it('can force template generation for coaches even when source defaults exist', () => {
+    const row: CsvRow = {
+      full_name: 'Dana Lee',
+      company: 'Summit Coaching',
+      role_bucket: 'Executive Coach',
+      persona_focus: 'Executive Coach',
+      post_trigger: 'your post on reducing prep drag between sessions',
+      default_subject: 'Legacy CSV subject',
+      default_body: 'Legacy CSV body',
+    }
+
+    const draft = buildStandardizedDraft(row, 'coaches', { forceTemplate: true })
+
+    expect(draft.subject).not.toBe('Legacy CSV subject')
+    expect(draft.body).not.toBe('Legacy CSV body')
+    expect(draft.body).toContain('I saw your post on reducing prep drag between sessions, and that pressure is real for most coaches.')
   })
 })

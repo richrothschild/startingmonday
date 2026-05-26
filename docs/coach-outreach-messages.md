@@ -29,30 +29,37 @@
 
 ### Base Template
 ```
-[Name] — noticed your expertise on [specific coaching topic]. Built a platform coaches trust to deliver high-impact results (pipeline visibility, prep briefs, momentum tracking). Let’s explore if it aligns—15 minutes?
+[Name] - saw your work on [specific coaching topic]. Coaches usually lose momentum when context rebuild eats session time. Open to a quick 15-minute yes/pass walkthrough?
 ```
 
 ### Persona Variants
 
 **Career Transition Specialist**
 ```
-[Name] — your insights on transition coaching stood out. Built a tool that accelerates client transitions while saving you hours on research. Let’s connect for 15 minutes?
+[Name] - your transition coaching insights stood out. This helps stabilize first-72-hour client momentum with less admin drag. Reply yes for a 15-minute walkthrough or pass.
 ```
 
 **VP-to-CXO Positioning Coach**
 ```
-[Name] — your focus on executive positioning is impressive. Built a platform that ensures clients maintain momentum across 12–24 months. Worth a quick 15-minute chat?
+[Name] - your VP-to-CXO positioning work is strong. This keeps optionality momentum steady without extra prep overhead. Yes for 15 minutes, or pass.
 ```
 
 **Executive Search Firm Coach**
 ```
-[Name] — your approach to interview prep caught my eye. Built a tool that gives you real-time visibility into client pipelines. Let’s discuss—15 minutes?
+[Name] - your interview prep approach caught my eye. This standardizes narrative quality before high-stakes search conversations. Yes for 15 minutes, or pass?
 ```
 
 **Board & Governance Coach**
 ```
-[Name] — noticed your work with board-seeking executives. Built a platform that tracks 50+ governance opportunities tailored to your clients. Let’s connect for 15 minutes?
+[Name] - noticed your board-track coaching work. This helps clients show governance readiness earlier, not just credentials. Yes for 15 minutes, or pass?
 ```
+
+### Emotional-State Mapping (Use In Personalization)
+
+- Panic: first 72-hour momentum and stabilization.
+- Optionality: low-noise cadence without active-search signaling.
+- Burnout: lower cognitive load with clear next actions.
+- Board-track: governance-ready narrative and board-fit proof.
 
 ---
 
@@ -65,7 +72,7 @@
 
 ### Template
 ```
-[Name], thanks for connecting! Coaches using our platform report faster client transitions and deeper engagement. Would love to show you how it works—15 minutes this week?
+[Name], thanks for connecting. The biggest coaching drag is context rebuild between sessions. In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality. Reply yes for a 15-minute walkthrough or pass.
 ```
 
 ---
@@ -79,7 +86,7 @@
 
 ### Template
 ```
-Hi [Name], following up to see if you’d like to explore our platform. Coaches say it’s a game-changer for client momentum and visibility. Let’s find 15 minutes this week?
+Hi [Name], quick follow-up. I can send one workflow sample that shows how coaches reduce between-session context rebuild. In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; directional evidence only, not a guarantee. Reply yes for the sample or pass.
 ```
 
 ---
@@ -93,12 +100,16 @@ Hi [Name], following up to see if you’d like to explore our platform. Coaches 
 
 ### Template
 ```
-Hi [Name], I know timing is everything. If now isn’t the right moment, no problem—just let me know. Coaches often revisit us when they’re ready to scale client impact. Wishing you continued success!
+Hi [Name], closing the loop for now. If useful, reply yes and I will send one concise sample pack. If not useful right now, reply pass and I will close the loop.
 ```
 
 ### Alternative (If New Signal Available)
 ```
-Saw you were recently interviewed on [publication] about [topic] — that’s exactly the kind of coaching we support. Happy to share a quick demo if you’re open to it. If not, no problem.
+Saw your recent [publication] interview on [topic]. The way you framed [specific point] is exactly where this can remove between-session friction.
+
+In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.
+
+Reply yes for a quick demo, or pass and I will close the loop.
 
 [Video link]
 ```

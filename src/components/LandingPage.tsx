@@ -163,6 +163,37 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {hero.body}
           </p>
 
+          <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Clear in 20 seconds</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                <p className="text-slate-400">What this is</p>
+                <p className="text-white mt-1">An executive search operating system anchored by one weekly Momentum Signal.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                <p className="text-slate-400">Who it is for</p>
+                <p className="text-white mt-1">Senior technology leaders in active or near-term transition.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                <p className="text-slate-400">Problem it solves</p>
+                <p className="text-white mt-1">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                <p className="text-slate-400">Why now</p>
+                <p className="text-white mt-1">High-value roles are shaped before formal posting windows appear.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-slate-700 bg-slate-800/80 p-5 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Founder credibility</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">
+              I built Starting Monday after running my own C-suite search and seeing how quickly timing and narrative quality decide outcomes.
+              My background is enterprise technology leadership and transformation operations, where outcomes mattered more than activity.
+              This product is the system I wanted when the stakes were real.
+            </p>
+          </div>
+
           <div className="rounded-lg border border-slate-700 bg-slate-800/70 p-5 mb-6">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">How this is different</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
@@ -171,8 +202,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <p className="text-slate-400 leading-relaxed">Great for posted roles. Usually late for senior searches where mandates are formed quietly.</p>
               </div>
               <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
-                <p className="text-white font-semibold mb-1">Starting Monday (EMI)</p>
-                <p className="text-slate-300 leading-relaxed">Built for pre-posting windows: executive signal intelligence, relationship cadence, and prep depth before formal search begins.</p>
+                <p className="text-white font-semibold mb-1">Starting Monday (Momentum Signal)</p>
+                <p className="text-slate-300 leading-relaxed">Built for pre-posting windows: one weekly Momentum Signal for executive motion, relationship cadence, and prep depth before formal search begins.</p>
               </div>
             </div>
           </div>
@@ -300,14 +331,14 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
               <Link
-                href="/signup"
-                data-emi-cta="hero_start_trial"
-                data-emi-to="/signup"
+                href="/concierge?program=beta"
+                data-emi-cta="hero_apply_beta"
+                data-emi-to="/concierge?program=beta"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Start free trial &rarr;
+                Apply for confidential beta &rarr;
               </Link>
-              <p className="text-[12px] text-slate-400 mt-2.5">{hero.trialNote}</p>
+              <p className="text-[12px] text-slate-400 mt-2.5">We are selecting 10 beta leaders now. No subscription required during beta.</p>
             </div>
             <div>
               <Link
@@ -322,8 +353,19 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           </div>
           <p className="text-[12px] text-slate-300 mt-4 font-medium">
-            Start in minutes: define your targets, set your level, and begin a disciplined daily cadence.
+            Low-friction start: share your context confidentially and we will confirm fit before any paid commitment.
           </p>
+
+          <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/50 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Beta criteria and privacy guardrails</p>
+            <ul className="space-y-1.5 text-[12px] text-slate-300 leading-relaxed list-disc pl-4">
+              <li>Fit: senior technology leaders in active transition or a near-term move.</li>
+              <li>Commitment: willing to run the operating cadence weekly for 30 days.</li>
+              <li>Feedback: willing to share what worked and what did not.</li>
+              <li>Privacy: your details are reviewed only by the founder and are never shared externally.</li>
+              <li>Control: you can request removal of your intake details at any time.</li>
+            </ul>
+          </div>
 
         </div>
 

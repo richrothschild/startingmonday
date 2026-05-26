@@ -81,6 +81,8 @@
         "evals:closeout:dry-run": "node scripts/closeout-prep-brief-evals.mjs --dry-run",
         "evals:closeout:force": "node scripts/closeout-prep-brief-evals.mjs --force",
         "evals:closeout:json": "node scripts/closeout-prep-brief-evals.mjs --dry-run --json",
+        "email:council:check": "npx tsx scripts/check-email-council-gate.ts",
+        "email:council:weekly-report": "node scripts/email-council-weekly-report.mjs",
         "evals:help": "node scripts/evals-help.mjs",
         "evals:help:status": "node scripts/evals-help.mjs --status",
         "evals:help:json": "node scripts/evals-help.mjs --json",
@@ -141,6 +143,7 @@
         "eslint-config-next": "16.2.6",
         "tailwindcss": "^4",
         "typescript": "^5",
+        "tsx": "^4.22.3",
         "vitest": "^4.1.5"
     }
 }

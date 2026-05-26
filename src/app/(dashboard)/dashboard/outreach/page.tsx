@@ -80,34 +80,22 @@ export default async function OutreachHubPage() {
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
 
-  function firstNameOf(fullName: string): string {
-    return (fullName.trim().split(/\s+/)[0] ?? 'there').trim()
-  }
-
-  function buildDay1CoachDraft(fullName: string): { subject: string; body: string } {
-    const firstName = firstNameOf(fullName)
-    const subject = `${firstName}, quick idea to cut session context rebuild`
-    const body = [
-      `Hi ${firstName},`,
-      '',
-      'Most executive coaches I talk with share one friction point: too much paid session time goes to reconstructing what happened since last week.',
-      '',
-      'Starting Monday gives coaches one place for signal monitoring, prep briefs, and pipeline movement so sessions stay in strategy.',
-      '',
-      'If useful, I can send one sample prep brief and the 30-day pilot scorecard. You can decide quickly whether it fits your practice.',
-      '',
-      'Rich',
-    ].join('\n')
-
-    return { subject, body }
-  }
-
   const day1CoachRows: ClientRow[] = day1CoachTargetList.rows.reduce<ClientRow[]>((acc, row) => {
     const fullName = (row.full_name ?? '').trim()
     const email = (row.email ?? '').trim().toLowerCase()
     if (!fullName || !email) return acc
 
-    const draft = buildDay1CoachDraft(fullName)
+    const coachRole = (row.title ?? '').trim() || 'Executive Coach'
+    const coachFocus = (row.persona ?? '').trim() || 'Executive transitions'
+    const draft = buildStandardizedDraft(
+      {
+        ...row,
+        role_bucket: coachRole,
+        persona_focus: coachFocus,
+      },
+      'coaches',
+      { forceTemplate: true },
+    )
 
     acc.push({
       fullName,
@@ -116,7 +104,7 @@ export default async function OutreachHubPage() {
       email,
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
-      emailOpening: `Hi ${firstNameOf(fullName)},`,
+      emailOpening: row.email_opening ?? '',
       emailBodyCore: draft.body,
       defaultSubject: draft.subject,
       defaultBody: draft.body,
@@ -134,7 +122,7 @@ export default async function OutreachHubPage() {
     .map((row): ClientRow | null => {
       const personaFit = executivePersonaFit(row, executiveFitLookup, executiveCompanySizeLookup)
       if (!personaFit) return null
-      const standardizedDraft = buildStandardizedDraft(row, 'executives')
+      const standardizedDraft = buildStandardizedDraft(row, 'executives', { forceTemplate: true })
 
       return {
         fullName: row.full_name ?? '',
@@ -158,7 +146,7 @@ export default async function OutreachHubPage() {
     ...executivePersonaRows,
     ...prioritizedSearchFirms.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'search_firms')
+        const draft = buildStandardizedDraft(row, 'search_firms', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
@@ -179,7 +167,7 @@ export default async function OutreachHubPage() {
     ...day1CoachRows,
     ...prioritizedCoaches.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'coaches')
+        const draft = buildStandardizedDraft(row, 'coaches', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
@@ -200,7 +188,7 @@ export default async function OutreachHubPage() {
     })),
     ...outplacementRaw.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'outplacement_firms')
+        const draft = buildStandardizedDraft(row, 'outplacement_firms', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
