@@ -108,12 +108,14 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
   try {
     const message = await anthropic.messages.create({
       model,
-      max_tokens: 1200,
+      max_tokens: 2500,
       messages: [{ role: 'user', content: prompt }],
     })
 
     const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : ''
-    const result = JSON.parse(raw)
+    const jsonMatch = raw.match(/\{[\s\S]*\}/)
+    if (!jsonMatch) throw new Error('No JSON found in response')
+    const result = JSON.parse(jsonMatch[0])
 
     recordTrace({
       supabase, userId,
