@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -38,6 +40,9 @@ export async function POST(request: NextRequest) {
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'quick_add_error', error: error.message, userId }))
     return NextResponse.json({ error: 'Failed to add company' }, { status: 500 })
   }
+
+  await logEvent(userId, 'company_added', { source: 'quick_add' })
+  captureServerEvent(userId, 'company_added', { source: 'quick_add' })
 
   return NextResponse.json({ id: data.id, name: data.name, stage: data.stage })
 }

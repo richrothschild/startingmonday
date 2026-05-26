@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
+import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -86,7 +88,10 @@ ${text}
 
   if (match) {
     try {
-      return Response.json(JSON.parse(match[0]))
+      const parsed = JSON.parse(match[0])
+      await logEvent(userId, 'linkedin_imported', { full_parse: true })
+      captureServerEvent(userId, 'linkedin_imported', { full_parse: true })
+      return Response.json(parsed)
     } catch {
       // fall through to raw-text fallback
     }
@@ -94,6 +99,8 @@ ${text}
 
   // Claude returned something unparseable. Return the paste text itself as resume_text
   // so the user's input is never lost. The frontend detects importThin and shows a soft notice.
+  await logEvent(userId, 'linkedin_imported', { full_parse: false })
+  captureServerEvent(userId, 'linkedin_imported', { full_parse: false })
   return Response.json({
     full_name: null,
     current_title: null,
