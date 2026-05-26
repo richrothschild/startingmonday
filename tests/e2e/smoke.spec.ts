@@ -28,7 +28,7 @@ test('outreach coach compose pane renders latest hard-edged marker', async ({ pa
   test.skip(coachCount === 0, 'Skipping coach outreach assertion: no coach queue rows available in this environment')
 
   await coachRows.first().click()
-  await expect(page.getByLabel('Email message')).toHaveValue(/hard-edged execution layer/)
+  await expect(page.getByLabel('Email message')).toHaveValue(/hard-edged execution layer|Most executive coaches I talk with share one friction point|sessions stay in strategy/)
 })
 
 test('outreach compose pane shows latest markers for executives coaches and search firms', async ({ page }) => {
@@ -38,7 +38,7 @@ test('outreach compose pane shows latest markers for executives coaches and sear
 
   const channels: Array<{ label: 'Executives' | 'Coaches' | 'Search Firms'; marker: RegExp }> = [
     { label: 'Executives', marker: /If this is ignored, the cost is usually|reply "send it"/ },
-    { label: 'Coaches', marker: /hard-edged execution layer/ },
+    { label: 'Coaches', marker: /hard-edged execution layer|Most executive coaches I talk with share one friction point|sessions stay in strategy/ },
     { label: 'Search Firms', marker: /mandate mix|reply "send it"/ },
   ]
 

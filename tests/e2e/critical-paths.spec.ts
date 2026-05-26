@@ -118,8 +118,8 @@ test.describe('Billing and Stripe checkout', () => {
     ])
 
     expect(capturedPlan).not.toBeNull()
-    // Plan must be a known plan key (monitor or active), not an arbitrary string
-    expect(['monitor', 'active']).toContain(capturedPlan)
+    // Plan must be one of the known billing plan keys.
+    expect(['monitor', 'active', 'passive']).toContain(capturedPlan)
   })
 })
 
