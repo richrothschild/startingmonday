@@ -1,7 +1,7 @@
 # Growth Metrics Gate
 
 Status: PASS
-Checked at: 2026-05-26T20:40:47.509Z
+Checked at: 2026-05-26T21:03:23.431Z
 
 ## Checks
 - qualified_signup_rate: PASS (value: 0.074, threshold: min 0.06)

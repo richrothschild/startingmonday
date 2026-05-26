@@ -271,11 +271,11 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
 
         <section id="start-now" data-emi-section="final_cta_block" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-[30px] sm:text-[36px] font-bold text-white mb-4 leading-tight">
+            <h2 className="text-[34px] sm:text-[44px] font-bold text-slate-50 mb-4 leading-tight">
               The signal comes before<br />the search begins.<br />Be ready when it does.
             </h2>
-            <p className="text-[15px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
-              Keep this page focused and start fast. If you want the deeper details, use method and evidence, evidence room, or the demo.
+            <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Start with one confidential brief, and we will confirm fit fast. If you want proof first, use method and evidence, the evidence room, or the live demo.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link
