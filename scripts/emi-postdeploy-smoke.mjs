@@ -114,10 +114,65 @@ function evaluate(weekly, validation) {
   return failures
 }
 
+function emitSummary(summary) {
+  if (OUTPUT_JSON) {
+    console.log(JSON.stringify(summary, null, 2))
+    return
+  }
+
+  console.log(`EMI postdeploy smoke: ${summary.passed ? 'PASS' : 'FAIL'}`)
+  console.log(`weekly run: ${summary.weeklyRunId ?? 'n/a'} (${summary.checks?.weekly?.status ?? 'n/a'})`)
+  console.log(`validation run: ${summary.validationRunId ?? 'n/a'} (${summary.checks?.validation?.status ?? 'n/a'})`)
+  console.log(`validation status=${summary.validationStatus ?? 'n/a'} mismatchCount=${String(summary.mismatchCount)} nullStreakCount=${String(summary.nullStreakCount)}`)
+  if (summary.failures?.length) {
+    console.log('failures:')
+    for (const reason of summary.failures) {
+      console.log(`- ${reason}`)
+    }
+  }
+}
+
 async function main() {
-  const authCookie = await buildAuthCookie()
+  let authCookie = ''
+  try {
+    authCookie = await buildAuthCookie()
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'authentication bootstrap failed'
+    emitSummary({
+      ts: new Date().toISOString(),
+      baseUrl: BASE_URL,
+      weeklyRunId: null,
+      validationRunId: null,
+      validationStatus: null,
+      mismatchCount: null,
+      nullStreakCount: null,
+      passed: false,
+      failures: [message],
+      checks: {
+        weekly: { status: 0 },
+        validation: { status: 0 },
+      },
+    })
+    process.exitCode = 1
+    return
+  }
+
   if (!authCookie) {
-    console.error('Missing smoke authentication. Set EMI_SMOKE_SESSION_COOKIE or EMI_SMOKE_EMAIL and EMI_SMOKE_PASSWORD.')
+    emitSummary({
+      ts: new Date().toISOString(),
+      baseUrl: BASE_URL,
+      weeklyRunId: null,
+      validationRunId: null,
+      validationStatus: null,
+      mismatchCount: null,
+      nullStreakCount: null,
+      passed: false,
+      failures: ['Missing smoke authentication. Set EMI_SMOKE_SESSION_COOKIE or EMI_SMOKE_EMAIL and EMI_SMOKE_PASSWORD.'],
+      checks: {
+        weekly: { status: 0 },
+        validation: { status: 0 },
+      },
+    })
     process.exitCode = 1
     return
   }
@@ -142,20 +197,7 @@ async function main() {
     checks: { weekly, validation },
   }
 
-  if (OUTPUT_JSON) {
-    console.log(JSON.stringify(summary, null, 2))
-  } else {
-    console.log(`EMI postdeploy smoke: ${summary.passed ? 'PASS' : 'FAIL'}`)
-    console.log(`weekly run: ${summary.weeklyRunId ?? 'n/a'} (${weekly.status})`)
-    console.log(`validation run: ${summary.validationRunId ?? 'n/a'} (${validation.status})`)
-    console.log(`validation status=${summary.validationStatus ?? 'n/a'} mismatchCount=${String(summary.mismatchCount)} nullStreakCount=${String(summary.nullStreakCount)}`)
-    if (failures.length) {
-      console.log('failures:')
-      for (const reason of failures) {
-        console.log(`- ${reason}`)
-      }
-    }
-  }
+  emitSummary(summary)
 
   if (failures.length) {
     process.exitCode = 1
@@ -166,6 +208,20 @@ async function main() {
 
 main().catch((error) => {
   const message = error instanceof Error ? error.message : 'emi smoke check failed'
-  console.error(message)
+  emitSummary({
+    ts: new Date().toISOString(),
+    baseUrl: BASE_URL,
+    weeklyRunId: null,
+    validationRunId: null,
+    validationStatus: null,
+    mismatchCount: null,
+    nullStreakCount: null,
+    passed: false,
+    failures: [message],
+    checks: {
+      weekly: { status: 0 },
+      validation: { status: 0 },
+    },
+  })
   process.exitCode = 1
 })
