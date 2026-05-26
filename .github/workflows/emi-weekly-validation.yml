@@ -52,7 +52,7 @@ jobs:
           EMI_SMOKE_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           EMI_SMOKE_OUTPUT_JSON: '1'
         run: |
-          npm run emi:smoke:postdeploy:json > emi-weekly-validation.json
+          node scripts/emi-postdeploy-smoke.mjs --json > emi-weekly-validation.json
 
       - name: Publish weekly summary
         if: always()

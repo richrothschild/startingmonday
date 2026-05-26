@@ -70,7 +70,7 @@ jobs:
           EMI_SMOKE_OUTPUT_JSON: '1'
         run: |
           set -o pipefail
-          npm run emi:smoke:postdeploy:json | tee emi-postdeploy-smoke.json
+          node scripts/emi-postdeploy-smoke.mjs --json | tee emi-postdeploy-smoke.json
 
       - name: Run P0 synthetic suite against production
         id: synthetics
