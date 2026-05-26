@@ -60,9 +60,6 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors" aria-label="Partner entry and info">
-              Partners
-            </Link>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" aria-label="Log in">
               Log in
             </Link>
@@ -317,7 +314,6 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
         <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
           <div className="max-w-5xl mx-auto">
             <div className="pb-5 mb-5 border-b border-slate-800 text-[12px] text-slate-400 flex flex-wrap gap-x-5 gap-y-2">
-              <Link href="/partners" className="hover:text-slate-300 transition-colors">Partners</Link>
               <Link href="/for-coaches" className="hover:text-slate-300 transition-colors">Coaches</Link>
               <Link href="/for-search-firms" className="hover:text-slate-300 transition-colors">Search firms</Link>
               <Link href="/for-outplacement" className="hover:text-slate-300 transition-colors">Outplacement firms</Link>
