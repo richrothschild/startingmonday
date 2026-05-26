@@ -2,6 +2,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { createAdminClient } from '@/lib/supabase/admin'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type KpiStatus = 'ok' | 'no_data' | 'query_error'
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
 
   const { userId, supabase } = auth
   const sb = supabase as any
+  const admin = createAdminClient() as any
   const body = await request.json().catch(() => ({}))
 
   const { start, end } = weekRange(body?.referenceDate)
@@ -239,7 +241,7 @@ export async function POST(request: NextRequest) {
     const b2bStartTs = b2bStartWindow.toISOString()
 
     let rows: Array<{ stage: string; created_at: string; archived_at: string | null; qualified_at?: string | null; pilot_approved_at?: string | null }> = []
-    const primary = await sb
+    const primary = await admin
       .from('b2b_prospects')
       .select('stage,created_at,archived_at,qualified_at,pilot_approved_at')
       .is('archived_at', null)
@@ -247,7 +249,7 @@ export async function POST(request: NextRequest) {
       .limit(10000)
 
     if (primary.error) {
-      const fallback = await sb
+      const fallback = await admin
         .from('b2b_prospects')
         .select('stage,created_at,archived_at')
         .is('archived_at', null)
