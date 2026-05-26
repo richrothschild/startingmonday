@@ -69,6 +69,6 @@ test('chat retry banner dismisses on X click', async ({ page }) => {
 
   await expect(page.getByText('Rate limit exceeded.')).toBeVisible({ timeout: 10_000 })
 
-  await page.getByRole('button', { name: 'Dismiss' }).first().click()
-  await expect(page.getByText('Rate limit exceeded.')).not.toBeVisible()
+  await page.getByRole('button', { name: 'Dismiss' }).last().click()
+  await expect(page.getByText('Rate limit exceeded.')).toHaveCount(0)
 })
