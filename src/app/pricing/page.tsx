@@ -28,9 +28,9 @@ export default function PricingPage() {
               Log in
             </Link>
             <Link
-              href="/signup"
+              href="/signup?from=pricing"
               data-emi-cta="pricing_nav_get_started"
-              data-emi-to="/signup"
+              data-emi-to="/signup?from=pricing"
               className="text-[13px] font-semibold bg-white text-slate-900 px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
             >
               Get started

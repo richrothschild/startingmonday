@@ -85,7 +85,7 @@ Status legend: Planned, In Progress, Deployed, Verified Live, Blocked
 |---|---|---|---|---|---|---|---|
 | Lane 0 | Landing baseline and Momentum Signal updates | WBS-0.1 to WBS-0.4 | 9782125, d2ad84c, b512f71, 9e2e3a8, 2b0be51, 781abb8, 156ad49, f7752c8 | dba6eb5d-d47a-48be-82cd-f0b15844b447 | Verified Live | Main landing confirms reduced text, CTA clarity, and balanced role-path block | Product + Eng |
 | Lane 1 | Mark pages revamp (first ship lane) | WBS-1.1 to WBS-1.5 | e268a32, e5e8887 | 50745548-c9cc-40b8-abac-3972b7ab059c | In Progress | Awaiting Railway SUCCESS, then live-page verification for /mark-review and /mark-review/summary | Product Marketing + Design + Eng |
-| Lane 2 | Main funnel continuity | WBS-2.1 to WBS-2.4 | TBD | TBD | Planned | TBD | Product Marketing + Eng |
+| Lane 2 | Main funnel continuity | WBS-2.1 to WBS-2.4 | pending commit | pending deployment | In Progress | Route handoff continuity edits underway across landing, pricing, concierge, and signup | Product Marketing + Eng |
 | Lane 3 | Persona and partner standardization | WBS-3.1 to WBS-3.4 | TBD | TBD | Planned | TBD | Design + Eng |
 | Lane 4 | Trust/governance visibility | WBS-4.1 to WBS-4.3 | TBD | TBD | Planned | TBD | Growth + Eng |
 

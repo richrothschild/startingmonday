@@ -148,9 +148,9 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
             <div className="flex flex-col sm:flex-row items-start gap-4">
               <div>
                 <Link
-                  href="/concierge?program=beta"
+                  href="/concierge?program=beta&from=landing"
                   data-emi-cta="hero_apply_beta"
-                  data-emi-to="/concierge?program=beta"
+                  data-emi-to="/concierge?program=beta&from=landing"
                   className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
                 >
                   Apply for confidential beta &rarr;
@@ -159,9 +159,9 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
               </div>
               <div>
                 <Link
-                  href="/demo"
+                  href="/demo?from=landing"
                   data-emi-cta="hero_see_demo"
-                  data-emi-to="/demo"
+                  data-emi-to="/demo?from=landing"
                   className="inline-block text-[14px] font-bold text-white border border-slate-500 px-7 py-3.5 rounded hover:border-slate-300 transition-colors"
                 >
                   See it in action &rarr;
@@ -281,17 +281,17 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link
-                href="/concierge?program=beta"
+                href="/concierge?program=beta&from=landing"
                 data-emi-cta="final_apply_beta"
-                data-emi-to="/concierge?program=beta"
+                data-emi-to="/concierge?program=beta&from=landing"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Apply for confidential beta &rarr;
               </Link>
               <Link
-                href="/demo"
+                href="/demo?from=landing"
                 data-emi-cta="final_see_demo"
-                data-emi-to="/demo"
+                data-emi-to="/demo?from=landing"
                 className="inline-block text-[14px] font-bold text-white border border-slate-500 px-8 py-3.5 rounded hover:border-slate-300 transition-colors"
               >
                 See demo first &rarr;

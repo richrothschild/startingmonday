@@ -13,6 +13,12 @@ type SituationContent = {
   cta: string
 }
 
+type EntryHandoff = {
+  title: string
+  body: string
+  nextStep: string
+}
+
 const SITUATION_COPY: Record<string, SituationContent> = {
   urgent: {
     title: 'You need to land well. Quickly.',
@@ -70,16 +76,36 @@ const SITUATION_COPY: Record<string, SituationContent> = {
   },
 }
 
+const ENTRY_HANDOFF: Record<string, EntryHandoff> = {
+  landing: {
+    title: 'You are continuing from the Motion Signal landing flow.',
+    body: 'This signup path keeps the same model: identify signal movement, choose one relationship action, and run weekly cadence with less friction.',
+    nextStep: 'Create your account, then set your first target list and morning briefing priority.',
+  },
+  pricing: {
+    title: 'You are continuing from pricing.',
+    body: 'You do not need to finalize tier selection right now. Start free, run the first weekly rhythm, then choose based on campaign intensity.',
+    nextStep: 'Create your account and begin with one target company plus one outreach priority.',
+  },
+  concierge: {
+    title: 'You are continuing from concierge.',
+    body: 'If you prefer self-serve first, this path gets you live quickly while preserving confidentiality and weekly operating discipline.',
+    nextStep: 'Create your account and launch your first briefing cycle today.',
+  },
+}
+
 export default function SignupPage() {
   const router = useRouter()
   const ph = usePostHog()
   const [email, setEmail] = useState('')
   const [situation, setSituation] = useState<string | null>(null)
+  const [entrySource, setEntrySource] = useState<string | null>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const from = params.get('from')
     if (from && SITUATION_COPY[from]) setSituation(from)
+    if (from && ENTRY_HANDOFF[from]) setEntrySource(from)
   }, [])
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -297,6 +323,14 @@ export default function SignupPage() {
                     <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
                   </>
+                )}
+                {entrySource && ENTRY_HANDOFF[entrySource] && (
+                  <div className="mt-4 rounded border border-slate-200 bg-white p-3">
+                    <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Continuity note</p>
+                    <p className="text-[12px] text-slate-700 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].title}</p>
+                    <p className="text-[12px] text-slate-600 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].body}</p>
+                    <p className="text-[12px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Next:</span> {ENTRY_HANDOFF[entrySource].nextStep}</p>
+                  </div>
                 )}
               </section>
 
