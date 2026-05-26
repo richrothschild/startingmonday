@@ -119,9 +119,17 @@ export default function ForVpPage() {
             <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
             <a href="#faq" className="text-slate-300 hover:text-white underline underline-offset-2">FAQ</a>
           </div>
-          <Link href="/signup" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
+          <Link href="/signup?from=vp-up" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
             Start free trial
           </Link>
+          <p className="text-[11px] text-slate-400 mt-2">
+            Confidential by default. No employer visibility, no recruiter visibility, and user-controlled data deletion.
+          </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
+            <Link href="/for-cio" className="text-slate-400 hover:text-white underline underline-offset-2">CIO path</Link>
+            <Link href="/for-ciso" className="text-slate-400 hover:text-white underline underline-offset-2">CISO path</Link>
+            <Link href="/for-search-firms" className="text-slate-400 hover:text-white underline underline-offset-2">Search-firm path</Link>
+          </div>
         </div>
       </section>
       <LandingPage
