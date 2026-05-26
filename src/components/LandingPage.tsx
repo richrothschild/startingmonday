@@ -317,27 +317,27 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
           <div className="max-w-5xl mx-auto">
             <div className="rounded-xl border border-slate-700 bg-slate-950/40 px-4 sm:px-5 py-4 sm:py-5 mb-6">
               <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400 mb-3">Role paths</p>
-              <div className="pb-4 mb-4 border-b border-slate-800 text-[14px] sm:text-[15px] font-medium text-slate-200 flex flex-wrap gap-x-6 gap-y-3">
-                <Link href="/for-coaches" className="hover:text-white transition-colors">Coaches</Link>
-                <Link href="/for-search-firms" className="hover:text-white transition-colors">Search firms</Link>
-                <Link href="/for-outplacement" className="hover:text-white transition-colors">Outplacement firms</Link>
-                <Link href="/for-pe-teams" className="hover:text-white transition-colors">PE teams</Link>
-                <Link href="/for-cio" className="hover:text-white transition-colors">CIO and CTO search</Link>
-                <Link href="/for-vp" className="hover:text-white transition-colors">VP to C-Suite</Link>
-                <Link href="/for-vp-technology" className="hover:text-white transition-colors">VP of Technology</Link>
-                <Link href="/for-cpo" className="hover:text-white transition-colors">Chief Product Officer</Link>
-                <Link href="/for-data-officer" className="hover:text-white transition-colors">Chief Data Officer</Link>
+              <div className="pb-4 mb-4 border-b border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-[14px] sm:text-[15px] font-medium text-slate-200">
+                <Link href="/for-coaches" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Coaches</Link>
+                <Link href="/for-search-firms" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Search firms</Link>
+                <Link href="/for-outplacement" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Outplacement firms</Link>
+                <Link href="/for-pe-teams" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">PE teams</Link>
+                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CIO and CTO search</Link>
+                <Link href="/for-vp" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">VP to C-Suite</Link>
+                <Link href="/for-vp-technology" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">VP of Technology</Link>
+                <Link href="/for-cpo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Product Officer</Link>
+                <Link href="/for-data-officer" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Data Officer</Link>
               </div>
 
-              <div className="text-[14px] sm:text-[15px] font-medium text-slate-200 flex flex-wrap gap-x-6 gap-y-3">
-                <Link href="/for-cdo" className="hover:text-white transition-colors">Chief Digital Officer</Link>
-                <Link href="/for-ciso" className="hover:text-white transition-colors">CISO</Link>
-                <Link href="/for-coo" className="hover:text-white transition-colors">COO</Link>
-                <span className="text-slate-300">CFO</span>
-                <span className="text-slate-300">CEO</span>
-                <Link href="/for-cio" className="hover:text-white transition-colors">CTO</Link>
-                <Link href="/for-cio" className="hover:text-white transition-colors">CIO</Link>
-                <Link href="/partners" className="hover:text-white transition-colors">Partner programs</Link>
+              <div className="text-[14px] sm:text-[15px] font-medium text-slate-200 grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                <Link href="/for-cdo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Digital Officer</Link>
+                <Link href="/for-ciso" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CISO</Link>
+                <Link href="/for-coo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">COO</Link>
+                <span className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-slate-300">CFO</span>
+                <span className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-slate-300">CEO</span>
+                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CTO</Link>
+                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CIO</Link>
+                <Link href="/partners" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Partner programs</Link>
               </div>
             </div>
 
