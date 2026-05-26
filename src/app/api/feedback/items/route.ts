@@ -7,7 +7,7 @@ import { withApiTelemetry } from '@/lib/telemetry'
 async function getHandler(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  // user may be null — browsing is public, voting/submitting requires auth
+  // user may be null; browsing is public, voting/submitting requires auth
 
   try {
     const searchParams = req.nextUrl.searchParams
