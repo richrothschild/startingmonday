@@ -86,8 +86,8 @@ Status legend: Planned, In Progress, Deployed, Verified Live, Blocked
 | Lane 0 | Landing baseline and Momentum Signal updates | WBS-0.1 to WBS-0.4 | 9782125, d2ad84c, b512f71, 9e2e3a8, 2b0be51, 781abb8, 156ad49, f7752c8 | dba6eb5d-d47a-48be-82cd-f0b15844b447 | Verified Live | Main landing confirms reduced text, CTA clarity, and balanced role-path block | Product + Eng |
 | Lane 1 | Mark pages revamp (first ship lane) | WBS-1.1 to WBS-1.5 | e268a32, e5e8887, a6f5d36 | 50745548-c9cc-40b8-abac-3972b7ab059c | Verified Live | Mark brief and summary deployed; tracker and lane status synced | Product Marketing + Design + Eng |
 | Lane 2 | Main funnel continuity | WBS-2.1 to WBS-2.4 | fe242ff, 0e403b0 | c8e884cd-e126-4353-85e4-ed90b68cede2, 74479d1d-ed22-4cce-a926-4f7f139eeda8 | Verified Live | Source-aware handoff continuity live across landing, pricing, concierge, signup, and demo | Product Marketing + Eng |
-| Lane 3 | Persona and partner standardization | WBS-3.1 to WBS-3.4 | pending commit | pending deployment | In Progress | Standardized quick-nav CTA handoffs and confidentiality blocks across primary persona and partner pages | Design + Eng |
-| Lane 4 | Trust/governance visibility | WBS-4.1 to WBS-4.3 | TBD | TBD | Planned | TBD | Growth + Eng |
+| Lane 3 | Persona and partner standardization | WBS-3.1 to WBS-3.4 | 8f26468 | a43f8907-9376-492f-ab8a-e193c20bc63b | In Progress | Awaiting latest deployment SUCCESS, then live verification for /for-vp, /for-cio, /for-ciso, /for-pe-partners, /for-search-firms | Design + Eng |
+| Lane 4 | Trust/governance visibility | WBS-4.1 to WBS-4.3 | 8f26468 + release note artifact | a43f8907-9376-492f-ab8a-e193c20bc63b | In Progress | Security and governance posture published; release artifact created in docs/content/release-note-2026-05-26-sitewide-execution-epic.md | Growth + Eng |
 
 ## Required Batch Gate (No Exceptions)
 Before any production-bound push in this epic:
