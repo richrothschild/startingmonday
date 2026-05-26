@@ -7,10 +7,7 @@ import { withApiTelemetry } from '@/lib/telemetry'
 async function getHandler(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  // user may be null — browsing is public, voting/submitting requires auth
 
   try {
     const searchParams = req.nextUrl.searchParams
@@ -56,9 +53,9 @@ async function getHandler(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch feedback' }, { status: 500 })
     }
 
-    // Check user votes for each item
+    // Check user votes only when authenticated
     const itemIds = (data || []).map((item: any) => item.id)
-    if (itemIds.length > 0) {
+    if (user && itemIds.length > 0) {
       const { data: userVotes } = await supabase
         .from('feedback_votes')
         .select('item_id')
