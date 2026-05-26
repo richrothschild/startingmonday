@@ -18,6 +18,8 @@
         "docs:check-commands": "node scripts/check-docs-commands.mjs",
         "monitor:smoke": "node scripts/production-smoke-check.mjs",
         "monitor:smoke:json": "node scripts/production-smoke-check.mjs --json",
+        "emi:smoke:postdeploy": "node scripts/emi-postdeploy-smoke.mjs",
+        "emi:smoke:postdeploy:json": "node scripts/emi-postdeploy-smoke.mjs --json",
         "slo:report": "node scripts/slo-report.mjs",
         "slo:report:json": "node scripts/slo-report.mjs --json",
         "integrity:check": "node scripts/check-data-integrity.mjs",
