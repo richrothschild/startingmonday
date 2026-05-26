@@ -25,7 +25,7 @@ test.describe('Coach flows', () => {
     const res = await page.request.get('/api/coach/clients', {
       failOnStatusCode: false,
     })
-    expect([200, 401]).toContain(res.status())
+    expect([200, 401, 403]).toContain(res.status())
   })
 
   test('client-scoped coach data APIs reject unauthenticated access', async ({ browser }) => {

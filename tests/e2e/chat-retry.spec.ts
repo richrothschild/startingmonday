@@ -40,8 +40,9 @@ test('chat shows retry banner on stream error and restores input', async ({ page
   // Input must be restored with the original message so the user can edit or resend
   await expect(textarea).toHaveValue(originalMessage)
 
-  // User's message should not be in the transcript (reverted)
-  await expect(page.getByText(originalMessage, { exact: true }).nth(1)).not.toBeVisible()
+  // The composer keeps user input restored; avoid asserting transcript text invisibility
+  // because the same text can appear in the textarea and trip strict matching.
+  await expect(page.locator('[data-role="chat-message"]')).toHaveCount(0)
 })
 
 test('chat retry banner dismisses on X click', async ({ page }) => {
@@ -68,6 +69,6 @@ test('chat retry banner dismisses on X click', async ({ page }) => {
 
   await expect(page.getByText('Rate limit exceeded.')).toBeVisible({ timeout: 10_000 })
 
-  await page.getByRole('button', { name: 'Dismiss' }).click()
+  await page.getByRole('button', { name: 'Dismiss' }).first().click()
   await expect(page.getByText('Rate limit exceeded.')).not.toBeVisible()
 })

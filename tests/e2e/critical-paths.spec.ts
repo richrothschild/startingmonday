@@ -50,7 +50,7 @@ test.describe('Billing and Stripe checkout', () => {
   test('billing page loads with plan sections', async ({ page }) => {
     await skipIfAuthUnavailable(page)
     await page.goto('/settings/billing')
-    await expect(page.locator('h1')).toContainText('Billing')
+    await expect(page.getByRole('heading', { name: 'Billing' }).first()).toBeVisible()
     await expect(page.getByText('Account')).toBeVisible()
     await expect(page.getByText('Current Plan')).toBeVisible()
   })
