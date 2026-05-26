@@ -57,6 +57,23 @@ export async function POST(request: NextRequest) {
       const plan = session.metadata?.plan
       const type = session.metadata?.type
 
+      if (type === 'micro_product') {
+        const microProductId = session.metadata?.microProductId
+        const microProductSlug = session.metadata?.microProductSlug
+        if (userId && microProductId) {
+          const { error } = await supabase.from('account_entitlements').insert({
+            user_id: userId,
+            micro_product_id: microProductId,
+            source_bundle_id: null,
+            entitlement_key: `${microProductSlug ?? 'micro_product'}_access`,
+            seat_limit: 1,
+            status: 'active',
+          })
+          updateError = error
+        }
+        break
+      }
+
       if (type === 'coach_seats') {
         // Coach purchased a seat bundle: credit seats to the partner record
         const partnerId = session.metadata?.partnerId
@@ -102,6 +119,29 @@ export async function POST(request: NextRequest) {
       const userId = sub.metadata?.userId
       const type = sub.metadata?.type
 
+      if (type === 'micro_product') {
+        const microProductId = sub.metadata?.microProductId
+        if (userId && microProductId) {
+          const entitlementStatus =
+            sub.status === 'active' || sub.status === 'trialing'
+              ? 'active'
+              : sub.status === 'canceled'
+                ? 'expired'
+                : 'revoked'
+          const { error } = await supabase
+            .from('account_entitlements')
+            .update({
+              status: entitlementStatus,
+              ends_at: entitlementStatus === 'active' ? null : new Date().toISOString(),
+            })
+            .eq('user_id', userId)
+            .eq('micro_product_id', microProductId)
+            .eq('status', 'active')
+          updateError = error
+        }
+        break
+      }
+
       if (type === 'coach_seats') {
         // Sync seat quantity when the coach changes their seat count
         const partnerId = sub.metadata?.partnerId
@@ -139,6 +179,21 @@ export async function POST(request: NextRequest) {
     case 'customer.subscription.deleted': {
       const sub = event.data.object as StripeSubWithPeriodEnd
       const type = sub.metadata?.type
+
+      if (type === 'micro_product') {
+        const userId = sub.metadata?.userId
+        const microProductId = sub.metadata?.microProductId
+        if (userId && microProductId) {
+          const { error } = await supabase
+            .from('account_entitlements')
+            .update({ status: 'expired', ends_at: new Date().toISOString() })
+            .eq('user_id', userId)
+            .eq('micro_product_id', microProductId)
+            .eq('status', 'active')
+          updateError = error
+        }
+        break
+      }
 
       if (type === 'coach_seats') {
         const partnerId = sub.metadata?.partnerId

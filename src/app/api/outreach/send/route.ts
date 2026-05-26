@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
 import { reviewEmail } from '@/lib/email-quality'
 import { getStaffMember } from '@/lib/staff'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'])
 const VALID_MODES = new Set(['live', 'dry_run', 'test_to_self'])

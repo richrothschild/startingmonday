@@ -7,6 +7,7 @@ import { DraftPanel } from '@/components/DraftPanel'
 import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
+import { rankSignals } from '@/lib/intelligence-quality'
 
 const PAGE_SIZE = 25
 
@@ -38,7 +39,7 @@ export default async function SignalsPage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name')
+    .select('full_name, role_type, search_persona')
     .eq('user_id', user.id)
     .single()
 
@@ -51,7 +52,7 @@ export default async function SignalsPage({
 
   let query = supabase
     .from('company_signals')
-    .select('id, signal_type, signal_summary, outreach_angle, outreach_draft, signal_date, source_url, company_id, companies(id, name)', { count: 'planned' })
+    .select('id, signal_type, signal_summary, outreach_angle, outreach_draft, signal_date, source_url, source_kind, confidence, focus_tags, profile_channel, profile_persona, relevance_score, company_id, companies(id, name)', { count: 'planned' })
     .eq('user_id', user.id)
     .order('signal_date', { ascending: false })
 
@@ -97,14 +98,33 @@ export default async function SignalsPage({
     outreach_draft: { subject: string; body: string } | null
     signal_date: string
     source_url: string | null
+    source_kind: string | null
+    confidence: number | null
+    focus_tags: string[] | null
+    profile_channel: string | null
+    profile_persona: string | null
+    relevance_score: number | null
     company_id: string
     companies: { id: string; name: string } | null
   }
 
-  // Warm signals (companies with a known contact) float to the top; date order preserved within each group
-  const signalList = ((signals ?? []) as unknown as Signal[]).sort(
-    (a, b) => (contactByCompany.has(a.company_id) ? 0 : 1) - (contactByCompany.has(b.company_id) ? 0 : 1)
-  )
+  const rawSignalList = (signals ?? []) as unknown as Signal[]
+
+  const rankedSignals = rankSignals(rawSignalList, {
+    roleType: profile?.role_type,
+    searchPersona: profile?.search_persona,
+  })
+
+  // Warm signals (companies with a known contact) float to the top after ranking.
+  const signalList = rankedSignals
+    .map((entry) => ({ ...entry.signal, _score: entry.score, _confidence: entry.confidence, _relevance: entry.relevance }))
+    .sort((a, b) => {
+      const warmDelta = (contactByCompany.has(a.company_id) ? 0 : 1) - (contactByCompany.has(b.company_id) ? 0 : 1)
+      if (warmDelta !== 0) return warmDelta
+      return b._score - a._score
+    })
+
+  const suppressedCount = Math.max(0, rawSignalList.length - rankedSignals.length)
 
   function buildUrl(params: Record<string, string | undefined>) {
     const sp = new URLSearchParams()
@@ -118,7 +138,7 @@ export default async function SignalsPage({
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="hidden sm:flex items-center gap-5">
             <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
@@ -128,14 +148,19 @@ export default async function SignalsPage({
             <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
           </div>
-          <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
-            <LogoutButton label="Out" />
+          <div className="flex sm:hidden items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         <div className="flex items-center gap-4 mb-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900">Company Signals</h1>
@@ -195,9 +220,16 @@ export default async function SignalsPage({
 
         {/* Signal list */}
         {signalList.length > 0 && (
-          <p className="text-[12px] text-slate-400 italic mb-4 leading-relaxed">
-            Use signals as a reason to reconnect with someone who already knows you. Cold outreach on a signal rarely lands at the executive level.
-          </p>
+          <div className="mb-4">
+            <p className="text-[12px] text-slate-400 italic leading-relaxed">
+              Use signals as a reason to reconnect with someone who already knows you. Cold outreach on a signal rarely lands at the executive level.
+            </p>
+            {suppressedCount > 0 && (
+              <p className="text-[12px] text-slate-500 mt-1">
+                Suppressed {suppressedCount} low-confidence or stale signal{suppressedCount !== 1 ? 's' : ''} using Sprint 5 quality filters.
+              </p>
+            )}
+          </div>
         )}
         {signalList.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded p-10 text-center">
@@ -234,6 +266,19 @@ export default async function SignalsPage({
                       <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
                     </div>
                     <p className="text-[13px] text-slate-700 leading-relaxed mb-2">{sig.signal_summary}</p>
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+                        Confidence {sig._confidence}
+                      </span>
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">
+                        Relevance {sig._relevance}
+                      </span>
+                      {sig.source_kind && (
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700">
+                          {sig.source_kind}
+                        </span>
+                      )}
+                    </div>
                     {sig.outreach_angle && (
                       <details className="group">
                         <summary className="text-[12px] text-amber-700 font-semibold cursor-pointer list-none hover:text-amber-900">

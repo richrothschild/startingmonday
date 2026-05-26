@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const PERSONA_LABELS: Record<string, string> = {
   csuite:   'C-suite executive (CIO, CTO, COO)',

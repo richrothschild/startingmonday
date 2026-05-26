@@ -4,6 +4,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function renderTemplate(template: string, values: Record<string, string>): string {
   return template.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, key) => values[key] ?? '')

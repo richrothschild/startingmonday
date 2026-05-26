@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q1,emi_language_adoption_percent,,no_data,weekly_kpi_summary_runs.summary_payload,2026-05-25T23:44:33.141Z,2026-05-29

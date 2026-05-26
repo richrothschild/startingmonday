@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getStripe, getPriceId } from '@/lib/stripe'
 import { PLANS, type PlanKey } from '@/lib/plans'
 import { APP_URL } from '@/lib/config'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)

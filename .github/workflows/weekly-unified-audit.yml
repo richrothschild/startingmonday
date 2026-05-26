@@ -1,0 +1,270 @@
+name: Weekly Unified Audit
+
+on:
+  schedule:
+    - cron: '0 15 * * 0'
+  workflow_dispatch:
+    inputs:
+      enforce_strict:
+        description: 'Fail run when non-critical checks fail'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  unified-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      guard_regression_status: ${{ steps.gate_data.outputs.guard_regression_status }}
+      import_guard_status: ${{ steps.gate_data.outputs.import_guard_status }}
+      council_audit_status: ${{ steps.gate_data.outputs.council_audit_status }}
+      hero_council_status: ${{ steps.gate_data.outputs.hero_council_status }}
+      debt_audit_status: ${{ steps.gate_data.outputs.debt_audit_status }}
+      security_audit_status: ${{ steps.gate_data.outputs.security_audit_status }}
+      critical_vulns: ${{ steps.gate_data.outputs.critical_vulns }}
+      true_auth_gaps: ${{ steps.gate_data.outputs.true_auth_gaps }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Guard checker regression test
+        id: guard_regression
+        continue-on-error: true
+        run: npx vitest run src/lib/check-api-guards-regression.test.ts
+
+      - name: Guard import corruption from generated observability inserts
+        id: import_guard
+        continue-on-error: true
+        run: npm run guard:observability-imports
+
+      - name: Council audit
+        id: council_audit
+        continue-on-error: true
+        run: npm run audit:code-council:strict
+
+      - name: Hero dual-track council audit
+        id: hero_council_audit
+        continue-on-error: true
+        run: npm run audit:hero-council:strict
+
+      - name: Technical debt deep-dive audit
+        id: debt_audit
+        continue-on-error: true
+        run: npm run audit:debt-deep-dive
+
+      - name: Security deep-dive audit
+        id: security_audit
+        continue-on-error: true
+        run: npm run audit:security-deep-dive
+
+      - name: Capture gate data
+        id: gate_data
+        if: always()
+        run: |
+          critical_vulns=0
+          true_auth_gaps=0
+
+          if [ -f docs/security-deep-dive-audit.latest.json ]; then
+            critical_vulns=$(jq -r '.npmAudit.critical // 0' docs/security-deep-dive-audit.latest.json 2>/dev/null || echo 0)
+            true_auth_gaps=$(jq -r '.apiGuards.trueGapCount // 0' docs/security-deep-dive-audit.latest.json 2>/dev/null || echo 0)
+          fi
+
+          echo "guard_regression_status=${{ steps.guard_regression.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "import_guard_status=${{ steps.import_guard.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "council_audit_status=${{ steps.council_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "hero_council_status=${{ steps.hero_council_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "debt_audit_status=${{ steps.debt_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "security_audit_status=${{ steps.security_audit.outcome }}" >> "$GITHUB_OUTPUT"
+          echo "critical_vulns=$critical_vulns" >> "$GITHUB_OUTPUT"
+          echo "true_auth_gaps=$true_auth_gaps" >> "$GITHUB_OUTPUT"
+
+      - name: Compose unified report
+        env:
+          GUARD_REGRESSION_STATUS: ${{ steps.guard_regression.outcome }}
+          IMPORT_GUARD_STATUS: ${{ steps.import_guard.outcome }}
+          COUNCIL_AUDIT_STATUS: ${{ steps.council_audit.outcome }}
+          HERO_COUNCIL_STATUS: ${{ steps.hero_council_audit.outcome }}
+          DEBT_AUDIT_STATUS: ${{ steps.debt_audit.outcome }}
+          SECURITY_AUDIT_STATUS: ${{ steps.security_audit.outcome }}
+        run: node scripts/weekly-unified-audit-report.mjs
+
+      - name: Upload unified audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: weekly-unified-audit
+          path: |
+            docs/code-synthetic-council-audit.latest.md
+            docs/code-synthetic-council-audit.latest.json
+            docs/hero-dual-track-council.latest.md
+            docs/hero-dual-track-council.latest.json
+            docs/technical-debt-audit.latest.md
+            docs/technical-debt-audit.latest.json
+            docs/security-deep-dive-audit.latest.md
+            docs/security-deep-dive-audit.latest.json
+            docs/weekly-unified-audit.latest.md
+            docs/weekly-unified-audit.latest.json
+
+      - name: Send Slack weekly unified audit report
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL not configured; failing delivery check" >&2
+            exit 1
+          fi
+
+          if ! echo "$SLACK_WEBHOOK_URL" | grep -Eq '^https://hooks\.slack\.com/services/'; then
+            echo "SLACK_WEBHOOK_URL is not a valid Slack Incoming Webhook URL" >&2
+            exit 1
+          fi
+
+          if [ -f docs/weekly-unified-audit.slack.txt ]; then
+            SUMMARY=$(cat docs/weekly-unified-audit.slack.txt)
+          else
+            SUMMARY="Weekly unified audit summary unavailable (report generation failed)."
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          payload=$(jq -n --arg summary "$SUMMARY" --arg runUrl "$RUN_URL" '{
+            text: "Weekly unified audit completed",
+            blocks: [
+              {
+                type: "section",
+                text: {
+                  type: "mrkdwn",
+                  text: "*Weekly Unified Audit*\n\($summary)\n\n<\($runUrl)|Open workflow run>"
+                }
+              }
+            ]
+          }')
+
+          slackResponse=$(curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL")
+          if [ "$slackResponse" != "ok" ]; then
+            echo "Unexpected Slack webhook response: $slackResponse" >&2
+            exit 1
+          fi
+
+      - name: Send weekly unified audit email
+        if: always()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_ADDRESS: ${{ secrets.RESEND_FROM_ADDRESS }}
+          WEEKLY_AUDIT_EMAIL_TO: ${{ secrets.WEEKLY_AUDIT_EMAIL_TO }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "RESEND_API_KEY not configured; failing delivery check" >&2
+            exit 1
+          fi
+
+          if [ ! -f docs/weekly-unified-audit.email.txt ]; then
+            echo "Unified email summary missing" >&2
+            exit 1
+          fi
+
+          FROM=${RESEND_FROM_ADDRESS:-briefing@startingmonday.app}
+          TO=${WEEKLY_AUDIT_EMAIL_TO:-richard@startingmonday.app}
+          BODY=$(cat docs/weekly-unified-audit.email.txt)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          DATE=$(date -u +"%Y-%m-%d")
+
+          textPayload=$(printf '%s\n\nWorkflow run: %s\n' "$BODY" "$RUN_URL")
+          json=$(jq -n \
+            --arg from "$FROM" \
+            --arg to "$TO" \
+            --arg subject "Starting Monday Weekly Unified Audit - $DATE" \
+            --arg text "$textPayload" \
+            '{from:$from,to:[$to],subject:$subject,text:$text}')
+
+          resendResponse=$(curl --fail-with-body -sS -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$json")
+
+          resendId=$(echo "$resendResponse" | jq -r '.id // empty')
+          if [ -z "$resendId" ]; then
+            echo "Resend did not return a message id: $resendResponse" >&2
+            exit 1
+          fi
+
+  strict-gate:
+    runs-on: ubuntu-latest
+    needs: unified-audit
+    if: always()
+    steps:
+      - name: Evaluate strict gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          ENFORCE_STRICT_INPUT: ${{ github.event.inputs.enforce_strict || 'false' }}
+          GUARD_REGRESSION_STATUS: ${{ needs.unified-audit.outputs.guard_regression_status }}
+          IMPORT_GUARD_STATUS: ${{ needs.unified-audit.outputs.import_guard_status }}
+          COUNCIL_AUDIT_STATUS: ${{ needs.unified-audit.outputs.council_audit_status }}
+          HERO_COUNCIL_STATUS: ${{ needs.unified-audit.outputs.hero_council_status }}
+          DEBT_AUDIT_STATUS: ${{ needs.unified-audit.outputs.debt_audit_status }}
+          SECURITY_AUDIT_STATUS: ${{ needs.unified-audit.outputs.security_audit_status }}
+          CRITICAL_VULNS: ${{ needs.unified-audit.outputs.critical_vulns }}
+          TRUE_AUTH_GAPS: ${{ needs.unified-audit.outputs.true_auth_gaps }}
+        run: |
+          failed=0
+          strict_mode=false
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            strict_mode=true
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$ENFORCE_STRICT_INPUT" = "true" ]; then
+            strict_mode=true
+          fi
+
+          echo "Event: $EVENT_NAME"
+          echo "Strict mode: $strict_mode"
+          echo "Check outcomes: guard=$GUARD_REGRESSION_STATUS import=$IMPORT_GUARD_STATUS council=$COUNCIL_AUDIT_STATUS hero=$HERO_COUNCIL_STATUS debt=$DEBT_AUDIT_STATUS security=$SECURITY_AUDIT_STATUS"
+          echo "Critical security: critical_vulns=$CRITICAL_VULNS true_auth_gaps=$TRUE_AUTH_GAPS"
+
+          if [ "$CRITICAL_VULNS" -gt 0 ] || [ "$TRUE_AUTH_GAPS" -gt 0 ]; then
+            echo "Critical security override triggered"
+            failed=1
+          fi
+
+          if [ "$strict_mode" = "true" ]; then
+            if [ "$GUARD_REGRESSION_STATUS" != "success" ]; then
+              echo "Guard checker regression test failed"
+              failed=1
+            fi
+            if [ "$IMPORT_GUARD_STATUS" != "success" ]; then
+              echo "Import corruption guard failed"
+              failed=1
+            fi
+            if [ "$COUNCIL_AUDIT_STATUS" != "success" ]; then
+              echo "Council audit failed"
+              failed=1
+            fi
+            if [ "$HERO_COUNCIL_STATUS" != "success" ]; then
+              echo "Hero dual-track council audit failed"
+              failed=1
+            fi
+            if [ "$DEBT_AUDIT_STATUS" != "success" ]; then
+              echo "Debt audit failed"
+              failed=1
+            fi
+            if [ "$SECURITY_AUDIT_STATUS" != "success" ]; then
+              echo "Security audit failed"
+              failed=1
+            fi
+          else
+            echo "Non-strict mode: non-critical check failures are reported but do not fail this job."
+          fi
+
+          if [ "$failed" -eq 1 ]; then
+            exit 1
+          fi

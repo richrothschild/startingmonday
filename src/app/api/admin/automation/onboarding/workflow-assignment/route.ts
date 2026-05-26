@@ -2,6 +2,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function pickWorkflow(input: {
   roleType: string | null

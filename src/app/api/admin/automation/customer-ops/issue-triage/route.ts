@@ -18,39 +18,44 @@ function triage(issue: string): { severity: 'low' | 'medium' | 'high'; category:
 }
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
+  try {
+    const authCheck = await requireAuth(request)
+    if (!authCheck.ok) return authCheck.response
 
-  const auth = await requireStaffAutomationAccess(request)
-  if (!auth.ok) return auth.response
+    const auth = await requireStaffAutomationAccess(request)
+    if (!auth.ok) return auth.response
 
-  const { userId, supabase } = auth
-  const sb = supabase as any
-  const body = await request.json().catch(() => ({}))
+    const { userId, supabase } = auth
+    const sb = supabase as any
+    const body = await request.json().catch(() => ({}))
 
-  const rawIssues = Array.isArray(body?.issues) ? body.issues : []
-  const issues = rawIssues
-    .map((v: unknown) => (typeof v === 'string' ? v.trim() : ''))
-    .filter(Boolean)
-    .slice(0, 100)
+    const rawIssues = Array.isArray(body?.issues) ? body.issues : []
+    const issues = rawIssues
+      .map((v: unknown) => (typeof v === 'string' ? v.trim() : ''))
+      .filter(Boolean)
+      .slice(0, 100)
 
-  if (issues.length === 0) {
-    return NextResponse.json({ error: 'issues[] is required' }, { status: 400 })
-  }
-
-  const rows = issues.map((issueText: string) => {
-    const t = triage(issueText)
-    return {
-      user_id: userId,
-      issue_text: issueText,
-      severity: t.severity,
-      category: t.category,
-      route_to: t.routeTo,
-      status: 'open',
+    if (issues.length === 0) {
+      return NextResponse.json({ error: 'issues[] is required' }, { status: 400 })
     }
-  })
 
-  const { data: inserted } = await sb.from('support_issue_triage').insert(rows).select('id, severity, category, route_to')
+    const rows = issues.map((issueText: string) => {
+      const t = triage(issueText)
+      return {
+        user_id: userId,
+        issue_text: issueText,
+        severity: t.severity,
+        category: t.category,
+        route_to: t.routeTo,
+        status: 'open',
+      }
+    })
 
-  return NextResponse.json({ ok: true, triaged: inserted?.length ?? 0, items: inserted ?? [] })
+    const { data: inserted } = await sb.from('support_issue_triage').insert(rows).select('id, severity, category, route_to')
+
+    return NextResponse.json({ ok: true, triaged: inserted?.length ?? 0, items: inserted ?? [] })
+  } catch (error) {
+    console.error('[customer-ops.issue-triage] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

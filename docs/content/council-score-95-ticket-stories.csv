@@ -1,0 +1,47 @@
+ticket_id,title,sprint,owner,acceptance_criteria,estimated_effort_points,status,dependencies
+S1-001,Approve channel and persona IA spec,1,Product Lead,"IA spec for Executive Coaches Outplacement Search Firms approved; persona matrix signed off by Product Design GTM",5,done,
+S1-002,Define council score measurement contract,1,Product Ops,"Scorecard template finalized; baseline loaded for all council members; owner assigned per metric",3,done,
+S1-003,Define micro-product taxonomy and naming,1,Product Strategy,"Micro-product names scope boundaries and not-for statements approved",3,done,S1-001
+S1-004,Create route map and URL architecture,1,Frontend Lead,"Route map includes channel and persona paths; URL conventions documented",5,done,S1-001
+S1-005,Instrument baseline analytics events,1,Data Engineer,"Event schema published; baseline funnel metrics visible in dashboard",5,done,S1-002
+S2-001,Build landing channel split UI,2,Frontend Engineer,"Landing page shows four channel entries with dedicated CTA and tracking",8,done,S1-001
+S2-002,Ship channel-specific hero copy blocks,2,Content Lead,"Each channel has audience-specific hero pain proof CTA sequence",5,done,S1-003
+S2-003,Add trust blocks per channel,2,Trust and Compliance Lead,"Trust proof appears above primary CTA on each channel page",5,done,S2-001
+S2-004,Launch staging experiment for channel entry CTR,2,Growth Lead,"A/B test live in staging; baseline and target CTR defined",3,done,S2-001
+S2-005,Implement channel benchmark dashboard,2,Data Engineer,"Channel CTR and downstream conversion benchmark visible by segment",3,done,S1-005
+S3-001,Executive persona route buttons and pages,3,Frontend Engineer,"All executive personas have dedicated button page and route telemetry",8,done,S2-001
+S3-002,Coaches persona route buttons and pages,3,Frontend Engineer,"All coach personas have dedicated button page and route telemetry",8,done,S2-001
+S3-003,Outplacement buyer-role routes,3,Frontend Engineer,"Practice leader ops counselor procurement role paths implemented and tracked",8,done,S2-001
+S3-004,Search-firm sub-persona routes,3,Frontend Engineer,"Search-firm sub-persona routes implemented with dedicated CTA and tracking",5,done,S2-001
+S3-005,Passive vs active executive mode split,3,Product Designer,"Mode selector and separate journey logic shipped and usability tested",8,done,S3-001
+S3-006,Persona-routing telemetry QA,3,QA Lead,"All persona route events validated in analytics with less than 2 percent loss",3,done,S3-001
+S4-001,Stripe micro-product pricing model setup,4,Revenue Ops Lead,"Stripe products prices coupons and billing intervals configured for first two micro-products",8,done,S1-003
+S4-002,Micro-product catalog schema and admin UX,4,Backend Engineer,"Catalog schema supports channel persona bundle status; admin CRUD operational",8,done,S4-001
+S4-003,B2B bundle and entitlement mapping,4,Backend Engineer,"Bundle SKUs map to entitlements; seat provisioning supports partner accounts",8,done,S4-001
+S4-004,Site embed points for micro-products,4,Frontend Engineer,"Micro-product cards embedded in channel pages and in-app upsell surfaces",5,done,S4-002
+S4-005,Micro-product rollout governance runbook,4,Product Ops,"Runbook covers launch criteria kill criteria ownership and review cadence",3,done,S4-002
+S5-001,Expand signal coverage by channel and persona,5,Intelligence Engineer,"Coverage matrix complete; new source connectors active for priority personas",8,done,
+S5-002,Implement confidence scoring pipeline,5,ML Engineer,"Every intelligence signal has confidence score and provenance metadata",8,done,S5-001
+S5-003,Persona-aware ranking logic,5,ML Engineer,"Ranking model uses persona context; relevance score improves against baseline",8,done,S5-002
+S5-004,False-positive and stale-signal suppression,5,Data Engineer,"Suppression rules reduce false positives and stale alerts by target threshold",5,done,S5-002
+S5-005,Intelligence QA scorecard and review loop,5,Product Ops,"Weekly QA scorecard published; actionability and trust metrics tracked",3,done,S5-003
+S6-001,Transition-first quickstart under 10 minutes,6,Onboarding PM,"Median new-user time-to-first-value below 10 minutes for transition cohort",8,done,S3-005
+S6-002,Progressive setup defaults and autofill,6,Backend Engineer,"Profile import and defaults reduce required manual fields by at least 40 percent",8,done,S6-001
+S6-003,Guided onboarding by channel and persona,6,Frontend Engineer,"Guided checklist adapts by channel persona and completion state",8,done,S3-001
+S6-004,Implementation timer and milestone nudges,6,Growth Engineer,"Timer and nudges shipped; completion rate improves versus baseline",5,done,S6-003
+S6-005,Cognitive-load reduction pass for low-energy mode,6,UX Designer,"Low-energy UI mode removes non-critical choices and improves completion",5,done,S3-005
+S7-001,Board-safe claims policy publication,7,Legal Lead,"Claims policy approved and published with day-30 day-60 day-90 KPI definitions",5,done,
+S7-002,Trust artifact index and request workflow,7,Trust and Compliance Lead,"Artifact index live with owner SLA and request process",5,done,S7-001
+S7-003,Economic ROI model for partner buyers,7,RevOps Analyst,"ROI calculator includes placement speed ops efficiency and cohort outcomes",5,done,S7-001
+S7-004,Counselor enablement kit launch,7,Partner Success Lead,"Enablement kit includes first-session script what-changed flow and objection handling",5,done,S3-003
+S7-005,Downloadable pilot operator pack,7,Program Operations Lead,"Operator pack supports no-custom launch with thresholds interventions ownership",5,done,S7-004
+S8-001,Run full multi-council re-review,8,Founder,"Main Executive Coaches Outplacement councils rerun on updated site and docs",3,done,S2-001
+S8-002,Generate member-level scorecards and gaps,8,Product Ops,"Scorecard per member includes delta evidence blockers and next action",3,done,S8-001
+S8-003,Close residual blockers to hit 95+,8,Cross-functional Tiger Team,"All members below 95 receive targeted fixes and retest within sprint",8,done,S8-002
+S8-004,Publish governance cadence for ongoing score maintenance,8,Product Ops,"Weekly biweekly monthly governance cadence documented and assigned",3,done,S8-002
+S8-005,Score closure sign-off,8,Founder,"Every council member score is 95 or higher and documented with evidence",2,done,S8-003
+META-001,Add James Clear to synthetic council roster,1,Content Lead,"James Clear appears in roster and placement docs",1,done,
+META-002,Add James Clear to Voss Cialdini Horstman council,1,Content Lead,"Council file includes James Clear lens questions and prompt updates",1,done,
+META-003,Create Digital Products Experts Panel,1,Product Strategy,"Panel file created with five experts rubric and measures",2,done,
+META-004,Create Executive Coach Products Experts Council,1,Product Strategy,"Council file created with five experts rubric and measures",2,done,
+META-005,Create Product Onboarding Experts Council,1,Product Strategy,"Council file created with five experts rubric and measures",2,done,

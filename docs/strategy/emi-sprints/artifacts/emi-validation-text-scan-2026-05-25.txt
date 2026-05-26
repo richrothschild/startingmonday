@@ -1,0 +1,117 @@
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-backlog.md:40: - KPI: assessment completion rate
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-backlog.md:94: - KPI: proposal-to-pilot conversion rate
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-backlog.md:105: - Output: denominator, timeframe, and confidence standard
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:25: 3. Daily Momentum Loop v1 shipped with >= 55 percent day-7 return for activated users.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:26: 4. Benchmark proof system publishes at least 3 denominator-backed proof artifacts.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:27: 5. B2B pilot conversion from qualified calls reaches >= 25 percent.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:269: - KPI: claims compliance pass rate in published assets
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:353: 1. Assessment completion rate >= 35 percent and first-value handoff <= 24 hours.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:367: 1. Day-7 return >= 50 percent in activated cohort.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:389: 1. Benchmark pipeline v1 with denominator and confidence metadata.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:390: 2. First three proof artifacts published.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:395: 1. 100 percent of tier-1 claims in active assets are denominator-backed.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-epic.md:428: - Mitigation: confidence labels, denominator rule, and claims checklist
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-executive-brief.md:14: 2. Buyer trust requires denominator-backed proof, not narrative alone.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-executive-brief.md:26: 2. EMI assessment completion at or above 40 percent.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-executive-brief.md:27: 3. Daily loop day-7 return at or above 55 percent.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-executive-brief.md:28: 4. Three denominator-backed benchmark proof artifacts published.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-executive-brief.md:29: 5. B2B pilot conversion from qualified opportunities at or above 25 percent.
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:15: - Current:
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:19: 2. EMI assessment completion >= 40 percent
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:20: - Current:
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:24: 3. Daily loop day-7 return >= 55 percent
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:25: - Current:
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:29: 4. Three benchmark proof artifacts published
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:30: - Current:
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:34: 5. B2B pilot conversion >= 25 percent
+C:\Users\roths\startingmonday\docs\strategy\executive-momentum-intelligence-scorecard.md:35: - Current:
+C:\Users\roths\startingmonday\docs\strategy\sprint-plan.md:121: - [ ] "Mark posted" button records the post as published (date, platform, pillar type)
+C:\Users\roths\startingmonday\docs\strategy\sprint-plan.md:199: **Definition of done:** At least 2 weeks of posts auto-published via Buffer without manual copy-paste. Comment digest email arriving daily. Performance metrics visible in the social dashboard.
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:10: - Current: 88 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:14: 2. EMI assessment completion >= 40 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:15: - Current: 42 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:19: 3. Daily loop day-7 return >= 55 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:20: - Current: 58 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:24: 4. Three benchmark proof artifacts published
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:25: - Current: 3 published
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:29: 5. B2B pilot conversion >= 25 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-scorecards\emi-weekly-scorecard-2026-05-25.md:30: - Current: 29 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\emi-sprint-execution-tracker.md:12: | Sprint 2 | Days 15-28 | EMI assessment launch | Complete | Assessment completion >= 35 percent |
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\emi-sprint-execution-tracker.md:13: | Sprint 3 | Days 29-42 | Daily momentum loop | Complete | Day-7 return >= 50 percent |
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\emi-sprint-execution-tracker.md:15: | Sprint 5 | Days 57-70 | Benchmark and proof system | Complete | 100 percent tier-1 claims denominator-backed |
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-1-category-and-objections.md:56: - Sprint result:
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-2-emi-assessment-launch.md:26: 1. Assessment completion rate
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-2-emi-assessment-launch.md:39: Assessment completion rate is at least 35 percent and first-value handoff is at most 24 hours.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-2-emi-assessment-launch.md:56: - Sprint result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-3-daily-momentum-loop.md:39: Day-7 return is at least 50 percent for activated cohort.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-3-daily-momentum-loop.md:56: - Sprint result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-4-coach-outplacement-enablement.md:28: 3. Proposal-to-pilot conversion rate
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-4-coach-outplacement-enablement.md:56: - Sprint result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-5-benchmark-and-proof-system.md:39: All tier-1 claims in active assets are denominator-backed.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-5-benchmark-and-proof-system.md:51: 5. Tier-1 claim compliance audit link:
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-5-benchmark-and-proof-system.md:56: - Sprint result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\sprint-6-scale-tune-and-lock.md:56: - Sprint result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-emi-positioning-brief.md:38: 3. Evidence-backed benchmark layer with denominator and confidence discipline.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-emi-positioning-brief.md:58: 3. Core proof: behavior and benchmark evidence with explicit denominator and timeframe.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-emi-positioning-brief.md:72: 3. Make confidence claims without denominator and timeframe.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-founder-narrative-kit.md:56: Claims are only trusted when denominator, timeframe, and confidence are explicit.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-objection-library-v1.md:73: - Next step: start legal pre-review with published controls.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-objection-library-v1.md:88: - Response: claims use denominator, timeframe, and confidence labels.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-trust-center-starter-pack.md:22: 3. No claims are published from single-account anecdotes.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-trust-center-starter-pack.md:29: 1. denominator
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-trust-center-starter-pack.md:38: 1. Assessment completion rate = completed assessments divided by started assessments.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-trust-center-starter-pack.md:39: 2. Day-7 return rate = activated users with one or more return sessions by day 7.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-1-trust-center-starter-pack.md:40: 3. B2B pilot conversion = approved pilots divided by qualified pilot opportunities.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-2-exit-metrics-snapshot.md:9: 1. Assessment completion rate >= 35 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-2-exit-metrics-snapshot.md:14: 1. Assessment completion rate: 42 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-2-exit-metrics-snapshot.md:22: Sprint 2 gate result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-2-funnel-analytics-dashboard.md:39: 1. Assessment completion rate
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-3-exit-metrics-snapshot.md:9: 1. Day-7 return >= 50 percent for activated cohort.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-3-exit-metrics-snapshot.md:13: 1. Day-7 return: 58 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-3-exit-metrics-snapshot.md:21: Sprint 3 gate result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-3-recovery-protocol-72-hour.md:44: 2. Day-level completion criteria published.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-4-exit-metrics-snapshot.md:16: 4. Proposal-to-pilot conversion rate (current cycle): 29 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-4-exit-metrics-snapshot.md:21: Sprint 4 gate result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-4-outplacement-pilot-runbook.md:24: - assessment completion and mode assignment
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-4-roi-calculator-model.md:35: Primary KPI: proposal-to-pilot conversion rate.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-benchmark-methodology.md:9: Establish an evidence standard so all tier-1 EMI claims are denominator-backed and confidence-labeled.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-benchmark-methodology.md:16: 2. Denominator
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-benchmark-methodology.md:34: 1. No tier-1 claim may be published without denominator.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-benchmark-pipeline-run-log.md:22: 2. Denominator present for all tier-1 outputs
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-exit-metrics-snapshot.md:9: All tier-1 claims in active assets are denominator-backed.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-exit-metrics-snapshot.md:13: 1. Tier-1 claim compliance: 100 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-exit-metrics-snapshot.md:20: Sprint 5 gate result: Pass
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-exit-metrics-snapshot.md:24: 1. Required denominator-backed threshold fully met.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-artifacts-index.md:9: Publish three denominator-backed proof artifacts to support evidence-first GTM and thought leadership.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-artifacts-index.md:11: ## Published Proof Artifacts
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-artifacts-index.md:14: 2. [Cadence Adherence and Day-7 Return Benchmark](docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-02-cadence-day7.md)
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-artifacts-index.md:19: 1. All three artifacts include denominator and timeframe.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-01-recovery-velocity.md:5: Status: Published
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-01-recovery-velocity.md:13: 1. Denominator: 214 activated displaced-segment users
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-01-recovery-velocity.md:15: 3. Metric: day-3 protocol completion and day-7 return relationship
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-01-recovery-velocity.md:20: Early structured recovery behavior is associated with higher day-7 return and improved weekly completion.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-02-cadence-day7.md:1: # Proof Asset 02: Cadence Adherence and Day-7 Return
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-02-cadence-day7.md:5: Status: Published
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-02-cadence-day7.md:9: Users with at least three completed actions in their first week show higher day-7 return than low-adherence users.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-02-cadence-day7.md:13: 1. Denominator: 389 activated users across segments
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-02-cadence-day7.md:15: 3. Metric: first-week action adherence and day-7 return
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-03-coach-uplift.md:5: Status: Published
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-proof-asset-03-coach-uplift.md:13: 1. Denominator: 126 coach-linked participants and 174 non-coach controls
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-tier1-claim-compliance-audit.md:1: # Sprint 5 Artifact: Tier-1 Claim Compliance Audit
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-tier1-claim-compliance-audit.md:9: Verify all active tier-1 claims are denominator-backed and publication-compliant.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-tier1-claim-compliance-audit.md:14: 2. Denominator present
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-5-tier1-claim-compliance-audit.md:26: Tier-1 claim compliance is 100 percent for active assets.
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-capstone-report.md:20: 2. Assessment completion: 42 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-capstone-report.md:21: 3. Day-7 return: 58 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-capstone-report.md:22: 4. Tier-1 claims denominator-backed: 100 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-capstone-report.md:23: 5. B2B pilot conversion: 29 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:10: - Result: 88 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:13: 2. EMI assessment completion >= 40 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:14: - Result: 42 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:17: 3. Daily loop day-7 return >= 55 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:18: - Result: 58 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:21: 4. Three denominator-backed benchmark proof artifacts published
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:22: - Result: 3 published
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:25: 5. B2B pilot conversion >= 25 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:26: - Result: 29 percent
+C:\Users\roths\startingmonday\docs\strategy\emi-sprints\artifacts\sprint-6-final-success-criteria-audit.md:31: Sprint 6 exit gate result: Pass

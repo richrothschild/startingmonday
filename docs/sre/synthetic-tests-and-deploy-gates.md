@@ -89,6 +89,7 @@ Run from two regions every 5 minutes (staggered by 2.5 minutes).
 2. Block rollout completion if any P0 synthetic fails
 3. Automatic rollback if 2 consecutive post-deploy synthetic runs fail
 4. 15-minute watch window with elevated telemetry sampling
+5. Run EMI post-deploy smoke gate (`npm run emi:smoke:postdeploy`) and fail the gate unless validation returns `status=ok`, `mismatchCount=0`, and `nullStreakCount=0`
 
 ## Rollback Rules
 

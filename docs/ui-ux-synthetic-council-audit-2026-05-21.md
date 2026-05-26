@@ -32,7 +32,7 @@ Excellence threshold: score >= 90 (A- or better).
 | blog | 30 | 92.5 | 30 | 0 |
 | dashboard | 57 | 98.5 | 57 | 0 |
 | legal | 5 | 96.8 | 5 | 0 |
-| marketing | 63 | 95.8 | 63 | 0 |
+| marketing | 63 | 96.0 | 63 | 0 |
 
 ## Most Common Non-Excellent Patterns
 
@@ -40,8 +40,8 @@ Excellence threshold: score >= 90 (A- or better).
 |---|---:|
 | Missing H1 | 30 |
 | Missing outcome metrics | 17 |
-| Moderate scroll burden | 9 |
 | Low action density for workflow page | 9 |
+| Moderate scroll burden | 8 |
 | Weak heading hierarchy | 4 |
 | Insufficient content chunking | 3 |
 | Missing trust/confidentiality cues | 3 |
@@ -157,7 +157,7 @@ Excellence threshold: score >= 90 (A- or better).
 | /for-cio | 100 | A+ | Yes | marketing | src/app/for-cio/page.tsx | No major static UX risks detected |
 | /for-cio-associations | 100 | A+ | Yes | marketing | src/app/for-cio-associations/page.tsx | No major static UX risks detected |
 | /for-ciso | 92 | A- | Yes | marketing | src/app/for-ciso/page.tsx | Missing outcome metrics |
-| /for-coaches | 90 | A- | Yes | marketing | src/app/for-coaches/page.tsx | Moderate scroll burden |
+| /for-coaches | 100 | A+ | Yes | marketing | src/app/for-coaches/page.tsx | No major static UX risks detected |
 | /for-coaches/economics | 100 | A+ | Yes | marketing | src/app/for-coaches/economics/page.tsx | No major static UX risks detected |
 | /for-coaches/faq | 100 | A+ | Yes | marketing | src/app/for-coaches/faq/page.tsx | No major static UX risks detected |
 | /for-coaches/trust-pack | 100 | A+ | Yes | marketing | src/app/for-coaches/trust-pack/page.tsx | No major static UX risks detected |

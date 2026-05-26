@@ -17,25 +17,30 @@ const scheduledJobSchema = z.object({
 })
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAutomationAccess(request)
-  if (!auth.ok) return auth.response
+  try {
+    const auth = await requireAutomationAccess(request)
+    if (!auth.ok) return auth.response
 
-  const { userId, supabase } = auth
-  const sb = asLooseSupabaseClient(supabase)
-  const parsedBody = await parseAutomationBody(request, scheduledJobSchema)
-  if (!parsedBody.ok) return parsedBody.response
-  const body = parsedBody.body
+    const { userId, supabase } = auth
+    const sb = asLooseSupabaseClient(supabase)
+    const parsedBody = await parseAutomationBody(request, scheduledJobSchema)
+    if (!parsedBody.ok) return parsedBody.response
+    const body = parsedBody.body
 
-  const jobName = (body.jobName ?? 'automation-worker').toString().trim().slice(0, 120)
-  const lastRunMinutesAgo = Math.max(0, Number(body.lastRunMinutesAgo ?? 0))
-  const failed = body.failed === true
-  const status = toStatus(lastRunMinutesAgo, failed)
+    const jobName = (body.jobName ?? 'automation-worker').toString().trim().slice(0, 120)
+    const lastRunMinutesAgo = Math.max(0, Number(body.lastRunMinutesAgo ?? 0))
+    const failed = body.failed === true
+    const status = toStatus(lastRunMinutesAgo, failed)
 
-  const { data } = await sb
-    .from('scheduled_job_observability_runs')
-    .insert({ user_id: userId, job_name: jobName, status, details: { last_run_minutes_ago: lastRunMinutesAgo, failed } })
-    .select('id')
-    .single()
+    const { data } = await sb
+      .from('scheduled_job_observability_runs')
+      .insert({ user_id: userId, job_name: jobName, status, details: { last_run_minutes_ago: lastRunMinutesAgo, failed } })
+      .select('id')
+      .single()
 
-  return NextResponse.json({ ok: true, runId: data?.id, jobName, status })
+    return NextResponse.json({ ok: true, runId: data?.id, jobName, status })
+  } catch (error) {
+    console.error('[engineering.scheduled-job-observability] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

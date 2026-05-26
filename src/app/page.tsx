@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
+import { PHProvider } from '@/components/PosthogProvider'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday - Signal intelligence for C-suite searches',
-  description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+  title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
+  description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,15 +19,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
+    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday - Signal intelligence for C-suite searches',
-    description: 'Signal intelligence for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
+    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -100,8 +101,17 @@ const jsonLd = {
       '@type': 'Organization',
       '@id': 'https://startingmonday.app/#organization',
       name: 'Starting Monday',
+      alternateName: ['StartingMonday', 'startingmonday.app'],
       url: 'https://startingmonday.app',
       logo: 'https://startingmonday.app/icon.png',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://startingmonday.app/#website',
+      url: 'https://startingmonday.app',
+      name: 'Starting Monday',
+      alternateName: ['StartingMonday', 'startingmonday.app'],
+      publisher: { '@id': 'https://startingmonday.app/#organization' },
     },
     {
       '@type': 'SoftwareApplication',
@@ -127,7 +137,7 @@ const jsonLd = {
       '@id': 'https://startingmonday.app/#webpage',
       url: 'https://startingmonday.app',
       name: 'Starting Monday - AI Career Platform for Senior Technology Executives',
-      isPartOf: { '@id': 'https://startingmonday.app/#organization' },
+      isPartOf: { '@id': 'https://startingmonday.app/#website' },
       description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
     },
   ],
@@ -135,53 +145,30 @@ const jsonLd = {
 
 export default function HomePage() {
   return (
-    <>
+    <PHProvider>
       <JsonLd data={jsonLd} />
-      <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="sr-only">Starting Monday executive search intelligence platform</h1>
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
-            <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
-            <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
-            <a href="#faq" className="text-slate-300 hover:text-white underline underline-offset-2">FAQ</a>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/signup" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
-              Get started free
-            </Link>
-            <Link href="/method-and-evidence" className="inline-block text-[12px] font-semibold text-slate-200 border border-slate-700 px-4 py-1.5 rounded hover:border-slate-500 transition-colors">
-              Review method and evidence
-            </Link>
-          </div>
-          <p className="text-[12px] text-slate-400 mt-3 leading-relaxed">
-            Confidential by default. Outcome focus: earlier signal detection, better prep quality, and stronger first-conversation timing.
-          </p>
-        </div>
-      </section>
+      <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
-          eyebrow: 'The search doesn\'t start when you decide to search. It starts weeks or months earlier. Most searches are shaped before the posting exists.',
-          h1Lines: ['Be ready.', 'Be early.'],
+          eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
+          h1Lines: ['Be ready before', 'the search opens.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'You might be thinking:\n"I have a coach." "I\'m using LinkedIn Premium." "I\'m working with a recruiter."\nThey\'re all right. Here\'s exactly where we fit in.',
-          body: 'Starting Monday operates the infrastructure layer: signal intelligence so you know about transitions before they\'re public, a relationship tracker so nothing goes cold, and a prep brief that runs in 60 seconds. You work with your coach and recruiters. We make sure you have the best context and earliest advantage they can build on.',
+          bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
+          body: 'Keep your coach, recruiter, and network. We add the execution layer: early transition signals, relationship cadence, and prep briefs in 60 seconds for stronger conversations.',
           steps: [
-            'Add the 20-50 companies where your next role likely lives.',
-            'Set your level, positioning narrative, and privacy settings (we never share your activity).',
-            'Watch for signals. Act on movement. Prepare rigorously before each conversation.',
+            'Track the companies where your next role is most likely to emerge.',
+            'Set your level and narrative once. Keep your search private by default.',
+            'Act early on signal changes and walk into conversations prepared.',
           ],
-          trialNote: 'Free for 30 days. No credit card. No access to your employer. Built for C-suite leaders who want the early advantage and the rigor.',
-          competitiveEdge: '⏰ The operating cadence: Monday pipeline review (5 min) → Daily signal briefing (2 min) → Pre-interview prep (5 min) = Disciplined search that lands better conversations.',
+          trialNote: 'Free for 30 days. No credit card. No employer visibility.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}
         showPersonaSelector
       />
-    </>
+    </PHProvider>
   )
 }

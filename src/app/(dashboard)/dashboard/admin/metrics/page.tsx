@@ -176,11 +176,19 @@ export default async function MetricsPage() {
             <p className="text-[13px] font-semibold text-slate-900">Open CRM</p>
             <p className="text-[12px] text-slate-500 mt-1">Compare lead routing against score movement.</p>
           </Link>
+          <Link href="/dashboard/admin/onboarding/qa" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open onboarding QA scorecard</p>
+            <p className="text-[12px] text-slate-500 mt-1">Review Sprint 6 implementation speed and low-energy mode adoption.</p>
+          </Link>
+          <Link href="/dashboard/admin/channel-benchmarks" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open channel benchmarks</p>
+            <p className="text-[12px] text-slate-500 mt-1">Review channel entry and persona routing by segment.</p>
+          </Link>
           <Link href="/dashboard/admin/outreach-analytics" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open outreach analytics</p>
             <p className="text-[12px] text-slate-500 mt-1">Review channel outcomes and delivery quality.</p>
           </Link>
-          <Link href="/dashboard/admin" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+          <Link href="/dashboard/admin" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors sm:col-span-3">
             <p className="text-[13px] font-semibold text-slate-900">Back to admin</p>
             <p className="text-[12px] text-slate-500 mt-1">Return to operational dashboard controls.</p>
           </Link>

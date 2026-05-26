@@ -47,6 +47,31 @@ jobs:
           echo "Waiting 30s for production to stabilize after deploy..."
           sleep 30
 
+      - name: Verify EMI smoke credentials are configured
+        env:
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+        run: |
+          if [ -z "$PLAYWRIGHT_TEST_EMAIL" ]; then
+            echo "Missing required secret: PLAYWRIGHT_TEST_EMAIL"
+            exit 1
+          fi
+          if [ -z "$PLAYWRIGHT_TEST_PASSWORD" ]; then
+            echo "Missing required secret: PLAYWRIGHT_TEST_PASSWORD"
+            exit 1
+          fi
+
+      - name: Run EMI post-deploy smoke check
+        id: emi_smoke
+        env:
+          EMI_SMOKE_BASE_URL: https://startingmonday.app
+          EMI_SMOKE_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          EMI_SMOKE_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          EMI_SMOKE_OUTPUT_JSON: '1'
+        run: |
+          set -o pipefail
+          node scripts/emi-postdeploy-smoke.mjs --json | tee emi-postdeploy-smoke.json
+
       - name: Run P0 synthetic suite against production
         id: synthetics
         env:
@@ -123,6 +148,16 @@ jobs:
           FAILED="${{ steps.synthetics.outputs.failed || '?' }}"
           SHA="${{ github.sha }}"
           ENV="${{ github.event.deployment.environment || 'production' }}"
+          EMI_STATUS="${{ steps.emi_smoke.outcome || 'unknown' }}"
+          EMI_FAILURES=""
+
+          if [ -f emi-postdeploy-smoke.json ]; then
+            EMI_FAILURES=$(node -e "
+            const fs = require('fs')
+            const data = JSON.parse(fs.readFileSync('emi-postdeploy-smoke.json', 'utf8'))
+            process.stdout.write((data.failures || []).join('; '))
+            ")
+          fi
 
           cat >> "$GITHUB_STEP_SUMMARY" <<EOF
           ## Post-Deploy Synthetic Gate
@@ -133,8 +168,14 @@ jobs:
           | Deploy SHA | ${SHA:0:8} |
           | Synthetics passed | ${PASSED} |
           | Synthetics failed | ${FAILED} |
+          | EMI smoke gate | ${EMI_STATUS} |
           | Status | $( [ "${FAILED:-0}" = "0" ] && echo "PASS" || echo "FAIL" ) |
           EOF
+
+          if [ -n "$EMI_FAILURES" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "EMI smoke failures: ${EMI_FAILURES}" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Alert on post-deploy synthetic failure
         if: steps.synthetics.outputs.failed > 0
@@ -190,5 +231,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: post-deploy-synthetic-results
-          path: post-deploy-synthetic-results.json
+          path: |
+            post-deploy-synthetic-results.json
+            emi-postdeploy-smoke.json
           retention-days: 30

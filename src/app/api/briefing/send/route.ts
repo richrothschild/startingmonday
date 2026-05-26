@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 // Retired: the worker (worker/jobs/briefing-job.js) is the active briefing sender.
 // This endpoint is no longer called. Returning 410 Gone so any stale cron

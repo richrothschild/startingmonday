@@ -66,7 +66,8 @@ export default function PrivacyPage() {
           </ul>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
             Starting Monday does not access Google Calendar, Gmail, Google Drive, Google Contacts,
-            or any other Google service. No data beyond the scopes listed above is requested or collected.
+            or any other Google service unless you explicitly connect an additional integration such as Google Calendar.
+            No data beyond the scopes you authorize is requested or collected.
           </p>
 
           <h3 className="text-[14px] font-semibold text-slate-900 mb-2">Data Usage</h3>

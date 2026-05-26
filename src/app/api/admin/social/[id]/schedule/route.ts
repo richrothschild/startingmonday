@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import { getNoteToken, hashDraftText } from '@/lib/social-council-check'
 
 export async function POST(
   request: NextRequest,
@@ -24,6 +25,18 @@ export async function POST(
     .single()
 
   if (fetchError || !post) return NextResponse.json({ error: 'Post not found' }, { status: 404 })
+
+  const councilPass = getNoteToken(post.notes, 'council_pass') === 'true'
+  const councilHash = getNoteToken(post.notes, 'council_text_hash')
+  const draftHash = hashDraftText((post.draft_text ?? '').trim())
+  const emotionalAngle = getNoteToken(post.notes, 'emotional_angle')
+
+  if (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle) {
+    return NextResponse.json({
+      error: 'Council check required before posting',
+      detail: 'Run the short-form council check and pass with current draft and emotional angle.',
+    }, { status: 412 })
+  }
 
   const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
   if (!makeWebhookUrl) {

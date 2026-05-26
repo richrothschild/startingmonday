@@ -1,0 +1,55 @@
+name: Weekly Growth Metrics Test
+
+on:
+  schedule:
+    - cron: '0 16 * * 5'
+  workflow_dispatch:
+
+jobs:
+  weekly-growth-metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export weekly metrics from PostHog
+        env:
+          POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+        run: npm run growth:metrics:export:strict
+
+      - name: Run growth synthetic council strict audit
+        run: npm run growth:council:strict
+
+      - name: Run weekly strict metrics test
+        run: npm run growth:metrics:strict
+
+      - name: Generate markdown artifacts
+        if: always()
+        run: |
+          npm run growth:council
+          npm run growth:metrics:gate
+
+      - name: Upload growth artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-growth-metrics
+          path: |
+            docs/growth/weekly-metrics.latest.json
+            docs/growth-synthetic-council.latest.json
+            docs/growth-synthetic-council.latest.md
+            docs/growth-metrics-gate.latest.json
+            docs/growth-metrics-gate.latest.md

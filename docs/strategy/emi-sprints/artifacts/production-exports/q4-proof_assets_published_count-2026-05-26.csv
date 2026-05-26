@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes
+Q4,proof_assets_published_count,7,ok_fallback,"social_posts.is_posted in last 90d"

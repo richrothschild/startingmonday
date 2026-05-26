@@ -21,6 +21,11 @@ export const ACTION_SCORES: Record<string, ActionScore> = {
   // Onboarding
   onboarding_completed:     { label: 'Onboarding completed',       group: 'onboarding',    emotion: 8, cognitive_load: 7, retention: 10 },
   activation_complete:      { label: 'Activation milestone (6)',   group: 'onboarding',    emotion: 9, cognitive_load: 1, retention: 10 },
+  onboarding_started:       { label: 'Onboarding started',         group: 'onboarding',    emotion: 5, cognitive_load: 2, retention: 7  },
+  onboarding_step_completed:{ label: 'Onboarding step completed',  group: 'onboarding',    emotion: 5, cognitive_load: 3, retention: 7  },
+  onboarding_nudge_shown:   { label: 'Onboarding nudge shown',     group: 'onboarding',    emotion: 4, cognitive_load: 1, retention: 6  },
+  onboarding_low_energy_enabled: { label: 'Low-energy mode enabled', group: 'onboarding',  emotion: 6, cognitive_load: 1, retention: 8  },
+  onboarding_first_value_ready: { label: 'Onboarding first value ready', group: 'onboarding', emotion: 8, cognitive_load: 2, retention: 9 },
 
   // Pipeline
   company_added:            { label: 'Company added',              group: 'pipeline',      emotion: 7, cognitive_load: 3, retention: 9  },

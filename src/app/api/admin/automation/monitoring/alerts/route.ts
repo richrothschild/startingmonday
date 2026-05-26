@@ -36,28 +36,33 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAutomationAccess(request)
-  if (!auth.ok) return auth.response
+  try {
+    const auth = await requireAutomationAccess(request)
+    if (!auth.ok) return auth.response
 
-  const { userId, supabase } = auth
-  const sb = asLooseSupabaseClient(supabase)
-  const parsedBody = await parseAutomationBody(request, updateAlertSchema)
-  if (!parsedBody.ok) return parsedBody.response
-  const body = parsedBody.body
+    const { userId, supabase } = auth
+    const sb = asLooseSupabaseClient(supabase)
+    const parsedBody = await parseAutomationBody(request, updateAlertSchema)
+    if (!parsedBody.ok) return parsedBody.response
+    const body = parsedBody.body
 
-  const alertId = body.alertId
-  const nextStatus = body.status
+    const alertId = body.alertId
+    const nextStatus = body.status
 
-  const { data, error } = await sb
-    .from('automation_alerts')
-    .update({ status: nextStatus, resolved_at: nextStatus === 'resolved' ? new Date().toISOString() : null })
-    .eq('id', alertId)
-    .eq('user_id', userId)
-    .select('id, status')
-    .maybeSingle()
+    const { data, error } = await sb
+      .from('automation_alerts')
+      .update({ status: nextStatus, resolved_at: nextStatus === 'resolved' ? new Date().toISOString() : null })
+      .eq('id', alertId)
+      .eq('user_id', userId)
+      .select('id, status')
+      .maybeSingle()
 
-  if (error) return NextResponse.json({ error: 'Failed to update alert' }, { status: 500 })
-  if (!data?.id) return NextResponse.json({ error: 'Alert not found' }, { status: 404 })
+    if (error) return NextResponse.json({ error: 'Failed to update alert' }, { status: 500 })
+    if (!data?.id) return NextResponse.json({ error: 'Alert not found' }, { status: 404 })
 
-  return NextResponse.json({ ok: true, alert: data })
+    return NextResponse.json({ ok: true, alert: data })
+  } catch (error) {
+    console.error('[monitoring.alerts] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

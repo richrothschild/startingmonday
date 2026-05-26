@@ -33,7 +33,7 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
@@ -53,6 +53,7 @@ export default async function OutreachHubPage() {
     readOutreachCsv('outplacement_firms_prospecting_100.csv'),
     readOutreachCsv('search_firms_prospecting_curated_top25.csv'),
     readOutreachCsv('coaches_prospecting_curated_top25.csv'),
+    readOutreachCsv('day1_coach_target_list_60.csv'),
     supabase
       .from('contacts')
       .select('email, outreach_status')
@@ -78,12 +79,50 @@ export default async function OutreachHubPage() {
   const executiveCompanySizeLookup = buildExecutiveCompanySizeLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
+
+  const day1CoachRows: ClientRow[] = day1CoachTargetList.rows.reduce<ClientRow[]>((acc, row) => {
+    const fullName = (row.full_name ?? '').trim()
+    const email = (row.email ?? '').trim().toLowerCase()
+    if (!fullName || !email) return acc
+
+    const coachRole = (row.title ?? '').trim() || 'Executive Coach'
+    const coachFocus = (row.persona ?? '').trim() || 'Executive transitions'
+    const draft = buildStandardizedDraft(
+      {
+        ...row,
+        role_bucket: coachRole,
+        persona_focus: coachFocus,
+      },
+      'coaches',
+      { forceTemplate: true },
+    )
+
+    acc.push({
+      fullName,
+      roleBucket: row.title ?? 'Executive Coach',
+      company: row.company ?? '',
+      email,
+      emailConfidence: inferEmailConfidence(row),
+      status: normalizeStatus(row.status),
+      emailOpening: row.email_opening ?? '',
+      emailBodyCore: draft.body,
+      defaultSubject: draft.subject,
+      defaultBody: draft.body,
+      outreachChannel: 'coaches' as const,
+      fitTier: 'strong',
+      personaFocus: 'Executive transition coaches in the Day 1 sprint target batch',
+      campaignTag: 'coach_day1_60' as const,
+    })
+
+    return acc
+  }, [])
+
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
     .map((row): ClientRow | null => {
       const personaFit = executivePersonaFit(row, executiveFitLookup, executiveCompanySizeLookup)
       if (!personaFit) return null
-      const standardizedDraft = buildStandardizedDraft(row, 'executives')
+      const standardizedDraft = buildStandardizedDraft(row, 'executives', { forceTemplate: true })
 
       return {
         fullName: row.full_name ?? '',
@@ -107,7 +146,7 @@ export default async function OutreachHubPage() {
     ...executivePersonaRows,
     ...prioritizedSearchFirms.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'search_firms')
+        const draft = buildStandardizedDraft(row, 'search_firms', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
@@ -125,9 +164,10 @@ export default async function OutreachHubPage() {
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CFO, COO, CIO, CHRO, CRO searches',
     })),
+    ...day1CoachRows,
     ...prioritizedCoaches.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'coaches')
+        const draft = buildStandardizedDraft(row, 'coaches', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
@@ -144,10 +184,11 @@ export default async function OutreachHubPage() {
       outreachChannel: 'coaches' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'CIO, CTO, CISO, COO, CFO transitions',
+      campaignTag: undefined,
     })),
     ...outplacementRaw.rows.map((row) => ({
       ...(() => {
-        const draft = buildStandardizedDraft(row, 'outplacement_firms')
+        const draft = buildStandardizedDraft(row, 'outplacement_firms', { forceTemplate: true })
         return {
           defaultSubject: draft.subject,
           defaultBody: draft.body,
@@ -164,6 +205,7 @@ export default async function OutreachHubPage() {
       outreachChannel: 'outplacement_firms' as const,
       fitTier: normalizeFitTier(row.fit_tier),
       personaFocus: row.persona_focus ?? 'Executive transition and career mobility programs',
+      campaignTag: undefined,
     })),
   ].filter(row => !!row.fullName && !!row.email)
 
@@ -194,6 +236,7 @@ export default async function OutreachHubPage() {
   const executiveCount = clientRows.filter(r => r.outreachChannel === 'executives').length
   const searchFirmCount = clientRows.filter(r => r.outreachChannel === 'search_firms').length
   const coachCount = clientRows.filter(r => r.outreachChannel === 'coaches').length
+  const day1CoachCount = clientRows.filter(r => r.campaignTag === 'coach_day1_60').length
   const outplacementCount = clientRows.filter(r => r.outreachChannel === 'outplacement_firms').length
   const strongCount = clientRows.filter(r => r.fitTier === 'strong').length
   const mediumCount = clientRows.filter(r => r.fitTier === 'medium').length
@@ -203,31 +246,39 @@ export default async function OutreachHubPage() {
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+          <Link href="/dashboard" className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors">
             ← Dashboard
           </Link>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-10 space-y-6">
         <div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1">
             Internal outbound operating center: executives, search firms, and coaches with one-click send and auto follow-up reminders.
           </p>
+          <div className="mt-3">
+            <Link
+              href="/dashboard/admin/social#content-checker"
+              className="inline-flex items-center text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Content Checker
+            </Link>
+          </div>
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#outreach-snapshot" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Snapshot</a>
-            <a href="#outreach-workbench" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Outreach workbench</a>
-            <a href="#outreach-cadence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Cadence</a>
-            <a href="#outreach-links" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Linked tools</a>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#outreach-snapshot" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Snapshot</a>
+            <a href="#outreach-workbench" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Outreach workbench</a>
+            <a href="#outreach-cadence" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Cadence</a>
+            <a href="#outreach-links" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Linked tools</a>
           </div>
         </section>
 
@@ -243,12 +294,30 @@ export default async function OutreachHubPage() {
             <p className="text-[13px] font-semibold text-slate-900">Search Firms: {searchFirmCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Coaches: {coachCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Outplacement Firms: {outplacementCount}</p>
+            <p className="text-[12px] text-orange-600 font-semibold mt-2">Day 1 Coach Sprint List: {day1CoachCount}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>
             <p className="text-[13px] font-semibold text-slate-900 mt-1">Strong fit: {strongCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Medium fit: {mediumCount}</p>
             <p className="text-[12px] text-slate-500 mt-1">Strong-fit rows should be worked first</p>
+          </div>
+        </section>
+
+        <section className="bg-white border border-orange-200 rounded p-5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-600 mb-2">New Section: Day 1 Coach Sprint</p>
+          <h2 className="text-[18px] font-bold text-slate-900 leading-tight">Run the 60-target coach list with prefilled outreach drafts</h2>
+          <p className="text-[13px] text-slate-600 mt-2 max-w-3xl">
+            Use the <span className="font-semibold text-slate-900">Day 1 Coach List (60)</span> button in the outreach workbench channel bar.
+            It filters to the Day 1 targets and preloads each contact with the Day 1 sprint email copy from the coach traction plan.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a href="#outreach-workbench" className="inline-flex items-center bg-slate-900 text-white text-[12px] font-semibold px-3 py-2 rounded hover:bg-slate-700 transition-colors">
+              Open Outreach Workbench
+            </a>
+            <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[12px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
+              View Cadence Checklist
+            </a>
           </div>
         </section>
 

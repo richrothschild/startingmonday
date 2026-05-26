@@ -1,9 +1,11 @@
 ﻿'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import type { UserSubscription } from '@/lib/subscription'
 import { PLANS, WAITLIST_PLANS } from '@/lib/plans'
 import type { BillingInterval } from '@/lib/plans'
+import { MICRO_PRODUCT_DEFINITIONS, formatMicroProductPrice } from '@/lib/micro-products'
 
 function fmtDate(d: Date | null) {
   if (!d) return null
@@ -35,6 +37,9 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
   const [portalError, setPortalError] = useState('')
   const [actionMessage, setActionMessage] = useState('')
   const [actionError, setActionError] = useState('')
+  const [microLoading, setMicroLoading] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  const highlightedAddOn = searchParams.get('addOn')
 
   async function handleCheckout(plan: 'passive' | 'active' | 'executive') {
     setLoading(plan)
@@ -123,6 +128,33 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 
   async function handleWaitlist(plan: string) {
     window.location.assign(`mailto:hello@startingmonday.app?subject=${encodeURIComponent(`${plan} plan interest`)}&body=${encodeURIComponent(`I am interested in the ${plan} plan. My account email is: ${accountEmail}`)}`)
+  }
+
+  async function handleMicroProductCheckout(slug: string) {
+    setMicroLoading(slug)
+    setActionError('')
+    setActionMessage('')
+    try {
+      const res = await fetch('/api/billing/checkout/micro-product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug }),
+      })
+      const data = await res.json().catch(() => ({ error: `Server error ${res.status}` }))
+      if (data.error) {
+        setActionError(data.error)
+        return
+      }
+      if (!data.url) {
+        setActionError('No checkout URL returned. Please try again.')
+        return
+      }
+      window.location.assign(data.url)
+    } catch (e) {
+      setActionError(`Add-on checkout failed: ${e}`)
+    } finally {
+      setMicroLoading(null)
+    }
   }
 
   const trialDaysLeft = sub.trialEndsAt
@@ -392,6 +424,35 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
             </div>
           </>
         )}
+
+        <div className="bg-white border border-slate-200 rounded p-6 mt-8">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Sprint 4 add-ons</p>
+              <p className="text-[13px] text-slate-500 mt-1">Micro-products for role-specific outcomes. Purchased separately from plan tier.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {MICRO_PRODUCT_DEFINITIONS.filter((item) => item.channel === 'executives').map((item) => {
+              const highlighted = highlightedAddOn === item.slug
+              return (
+                <div key={item.slug} className={`rounded border p-4 ${highlighted ? 'border-orange-500 bg-orange-50/40' : 'border-slate-200 bg-white'}`}>
+                  <p className="text-[14px] font-semibold text-slate-900">{item.name}</p>
+                  <p className="text-[13px] text-slate-500 mt-1 leading-relaxed">{item.summary}</p>
+                  <p className="text-[13px] font-semibold text-slate-900 mt-3">{formatMicroProductPrice(item.amountCents, item.defaultInterval)}</p>
+                  <button
+                    type="button"
+                    onClick={() => handleMicroProductCheckout(item.slug)}
+                    disabled={microLoading === item.slug}
+                    className="mt-3 w-full py-2.5 rounded text-[13px] font-semibold border-0 cursor-pointer disabled:opacity-50 bg-slate-900 text-white hover:bg-slate-700"
+                  >
+                    {microLoading === item.slug ? 'Redirecting…' : 'Buy add-on'}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </main>
     </div>
   )

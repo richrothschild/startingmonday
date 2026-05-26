@@ -2,6 +2,11 @@ import * as Sentry from '@sentry/nextjs'
 import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import {
+  computePersonaRelevance,
+  computeSignalConfidence,
+  enrichSignalProfileContext,
+} from '@/lib/intelligence-quality'
 
 const VACANCY_WINDOW_DAYS = 365
 
@@ -44,6 +49,12 @@ type CurrentExec = {
 type ExistingSignal = {
   company_id: string
   source_url: string | null
+}
+
+type UserProfile = {
+  user_id: string
+  role_type: string | null
+  search_persona: string | null
 }
 
 export async function GET(request: NextRequest) {
@@ -128,6 +139,16 @@ export async function GET(request: NextRequest) {
     companiesByCik[c.sec_cik].push(c)
   }
 
+  const userIds = [...new Set(companies.map((c) => c.user_id))]
+  const { data: rawProfiles } = await admin
+    .from('user_profiles')
+    .select('user_id, role_type, search_persona')
+    .in('user_id', userIds)
+  const profileByUserId = new Map<string, UserProfile>()
+  for (const profile of (rawProfiles ?? []) as unknown as UserProfile[]) {
+    profileByUserId.set(profile.user_id, profile)
+  }
+
   let inserted = 0
   let skipped = 0
 
@@ -145,6 +166,22 @@ export async function GET(request: NextRequest) {
       const roleLabel = TITLE_LABEL[vacancy.title_normalized ?? ''] ?? vacancy.title
       const depLabel = DEPARTURE_LABEL[vacancy.departure_type ?? ''] ?? 'departure'
       const summary = `${roleLabel} ${depLabel}. No replacement announced as of ${vacancy.end_date}.`
+      const profile = profileByUserId.get(company.user_id)
+      const profileContext = enrichSignalProfileContext({
+        roleType: profile?.role_type,
+        searchPersona: profile?.search_persona,
+      })
+      const relevance = computePersonaRelevance('exec_departure', {
+        roleType: profile?.role_type,
+        searchPersona: profile?.search_persona,
+      })
+      const confidence = computeSignalConfidence({
+        signalType: 'exec_departure',
+        sourceKind: 'sec_filing',
+        hasSourceUrl: !!accession,
+        evidenceCount: 2,
+        signalDate: vacancy.end_date as string,
+      })
 
       const { error: insErr } = await admin.from('company_signals').insert({
         company_id:     company.id,
@@ -153,6 +190,13 @@ export async function GET(request: NextRequest) {
         signal_summary: summary,
         signal_date:    vacancy.end_date as string,
         source_url:     accession,
+        source_kind:    'sec_filing',
+        confidence,
+        focus_tags: ['exec_departure', 'leadership_transition'],
+        evidence_snippets: [summary],
+        profile_channel: profileContext.profileChannel,
+        profile_persona: profileContext.profilePersona,
+        relevance_score: relevance,
       })
 
       if (insErr) {

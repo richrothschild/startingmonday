@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q2,assessment_completion_percent,,no_data,started=0;completed=1,2026-05-25T23:44:33.141Z,2026-05-29

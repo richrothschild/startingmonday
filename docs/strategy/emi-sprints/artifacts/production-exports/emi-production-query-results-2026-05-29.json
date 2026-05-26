@@ -1,0 +1,49 @@
+{
+  "run_date": "2026-05-29",
+  "executed_at_utc": "2026-05-25T23:44:33.141Z",
+  "source": "rerun_procedure_2026-05-25",
+  "results": [
+    {
+      "query_id": "Q1",
+      "metric": "emi_language_adoption_percent",
+      "value": null,
+      "status": "no_data",
+      "notes": "weekly_kpi_summary_runs.summary_payload"
+    },
+    {
+      "query_id": "Q2",
+      "metric": "assessment_completion_percent",
+      "value": null,
+      "status": "no_data",
+      "notes": "started=0;completed=1"
+    },
+    {
+      "query_id": "Q3",
+      "metric": "day7_return_percent",
+      "value": null,
+      "status": "no_data",
+      "notes": "no emi_onboarding_started users"
+    },
+    {
+      "query_id": "Q4",
+      "metric": "proof_assets_published_count",
+      "value": 7,
+      "status": "ok_fallback",
+      "notes": "social_posts.is_posted in last 90d"
+    },
+    {
+      "query_id": "Q5",
+      "metric": "b2b_pilot_conversion_percent",
+      "value": null,
+      "status": "no_data",
+      "notes": "denominator=0;numerator=0"
+    },
+    {
+      "query_id": "Q6",
+      "metric": "tier1_claim_compliance_percent",
+      "value": 6.02,
+      "status": "ok",
+      "notes": "total=299;compliant=18"
+    }
+  ]
+}

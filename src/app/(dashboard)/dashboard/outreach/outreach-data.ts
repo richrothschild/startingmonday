@@ -25,6 +25,7 @@ export type ClientRow = {
   outreachChannel: OutreachChannel
   fitTier: 'strong' | 'medium'
   personaFocus: string
+  campaignTag?: 'coach_day1_60'
 }
 
 export type ContactStatusRow = {
@@ -206,6 +207,54 @@ function companyToken(company: string | undefined): string {
   return value || 'your organization'
 }
 
+function firstNonEmpty(row: CsvRow, keys: string[]): string {
+  for (const key of keys) {
+    const value = (row[key] ?? '').trim()
+    if (value) return value
+  }
+  return ''
+}
+
+export function mapTriggerInputs(row: CsvRow): {
+  newsTrigger?: string
+  postTrigger?: string
+  profileTrigger?: string
+} {
+  const newsTrigger = firstNonEmpty(row, [
+    'trigger_news',
+    'news_trigger',
+    'recent_news',
+    'news_event',
+    'company_news',
+    'news_summary',
+  ])
+
+  const postTrigger = firstNonEmpty(row, [
+    'trigger_post',
+    'post_trigger',
+    'recent_post',
+    'linkedin_post',
+    'social_post',
+    'post_summary',
+  ])
+
+  const profileTrigger = firstNonEmpty(row, [
+    'trigger_profile',
+    'profile_trigger',
+    'profile_signal',
+    'personalization_line',
+    'profile_note',
+    'contact_note',
+    'notes',
+  ])
+
+  return {
+    ...(newsTrigger ? { newsTrigger } : {}),
+    ...(postTrigger ? { postTrigger } : {}),
+    ...(profileTrigger ? { profileTrigger } : {}),
+  }
+}
+
 function sourceTemplateDraft(row: CsvRow): { subject: string; body: string } | null {
   const subject = (row.default_subject ?? row.subject ?? row.email_subject ?? '').trim()
   const body = (row.default_body ?? row.email_body ?? row.email_text ?? row.email_body_core ?? '').trim()
@@ -218,14 +267,19 @@ function sourceTemplateDraft(row: CsvRow): { subject: string; body: string } | n
   }
 }
 
-export function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): { subject: string; body: string } {
+export function buildStandardizedDraft(
+  row: CsvRow,
+  channel: OutreachChannel,
+  options?: { forceTemplate?: boolean },
+): { subject: string; body: string } {
   const sourceDraft = sourceTemplateDraft(row)
-  if (sourceDraft) return sourceDraft
+  if (!options?.forceTemplate && sourceDraft) return sourceDraft
 
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
   const archetype = detectExecutiveRoleArchetype(row)
   const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'Executive')
+  const triggers = mapTriggerInputs(row)
 
   return templateEngine.buildLatestTemplateDraft({
     channel,
@@ -234,6 +288,10 @@ export function buildStandardizedDraft(row: CsvRow, channel: OutreachChannel): {
     roleLabel,
     focus: row.persona_focus || row.role_bucket || row.title || roleLabel,
     step: row.step,
+    state: row.state,
+    newsTrigger: triggers.newsTrigger,
+    postTrigger: triggers.postTrigger,
+    profileTrigger: triggers.profileTrigger,
   })
 }
 

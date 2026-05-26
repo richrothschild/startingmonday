@@ -1,0 +1,5 @@
+*Hero Dual-Track Council Audit*
+release_status=PASS
+conversion=95 clarity=98
+hard_stop=no
+signals: words=80, blocks=5, font_sizes=2, action_choices=5

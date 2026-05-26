@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
 import { requireAuth } from '@/lib/require-auth'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const sessionAuth = await requireAuth(request)

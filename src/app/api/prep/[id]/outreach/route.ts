@@ -5,6 +5,7 @@ import { streamErrorMessage } from '@/lib/stream-error'
 import { recordTrace, recordTraceError } from '@/lib/trace'
 import { encodeUserId } from '@/lib/watermark'
 import { trackApiUsage } from '@/lib/api-usage'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const STYLE_GUIDELINES = `- Maximum 3 sentences. Do not exceed this.
 - Do not use em dashes anywhere

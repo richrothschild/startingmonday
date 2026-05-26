@@ -49,37 +49,38 @@ The core tension they feel: they want to handle transitions professionally but t
 }
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return new Response('Unauthorized', { status: 401 })
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return new Response('Unauthorized', { status: 401 })
 
-  const staff = await getStaffMember(user.email ?? '')
-  if (!staff) return new Response('Forbidden', { status: 403 })
+    const staff = await getStaffMember(user.email ?? '')
+    if (!staff) return new Response('Forbidden', { status: 403 })
 
-  let body: {
-    prospectName: string
-    prospectType: string
-    estimatedSeats?: number | null
-    estimatedArr?: number | null
-    notes?: string | null
-    contactName?: string | null
-    contactTitle?: string | null
-    additionalContext?: string
-  }
-  try { body = await request.json() } catch {
-    return new Response('Invalid JSON', { status: 400 })
-  }
+    let body: {
+      prospectName: string
+      prospectType: string
+      estimatedSeats?: number | null
+      estimatedArr?: number | null
+      notes?: string | null
+      contactName?: string | null
+      contactTitle?: string | null
+      additionalContext?: string
+    }
+    try { body = await request.json() } catch {
+      return new Response('Invalid JSON', { status: 400 })
+    }
 
-  const { prospectName, prospectType, estimatedSeats, estimatedArr, notes, contactName, contactTitle, additionalContext } = body
+    const { prospectName, prospectType, estimatedSeats, estimatedArr, notes, contactName, contactTitle, additionalContext } = body
 
-  const typeContext = TYPE_CONTEXT[prospectType] ?? TYPE_CONTEXT.other
+    const typeContext = TYPE_CONTEXT[prospectType] ?? TYPE_CONTEXT.other
 
-  const newsItems = await fetchProspectNews(prospectName, prospectType)
-  const recentSignals = newsItems.length > 0
-    ? newsItems.map(n => `- ${n.title}${n.pubDate ? ` (${n.pubDate.slice(0, 10)})` : ''}${n.description ? ': ' + n.description.replace(/<[^>]+>/g, '').slice(0, 150) : ''}`).join('\n')
-    : ''
+    const newsItems = await fetchProspectNews(prospectName, prospectType)
+    const recentSignals = newsItems.length > 0
+      ? newsItems.map(n => `- ${n.title}${n.pubDate ? ` (${n.pubDate.slice(0, 10)})` : ''}${n.description ? ': ' + n.description.replace(/<[^>]+>/g, '').slice(0, 150) : ''}`).join('\n')
+      : ''
 
-  const prompt = `You are writing a leave-behind document for a B2B sales meeting. This document will sit on the desk of a decision-maker after Richard Rothschild leaves the room. It should read like material from a top-tier advisory firm: precise, confident, and specific to this organization. Not a pitch deck. Not a startup brochure.
+    const prompt = `You are writing a leave-behind document for a B2B sales meeting. This document will sit on the desk of a decision-maker after Richard Rothschild leaves the room. It should read like material from a top-tier advisory firm: precise, confident, and specific to this organization. Not a pitch deck. Not a startup brochure.
 
 PROSPECT
 Name: ${prospectName}
@@ -130,29 +131,34 @@ FORMAT RULES -- follow exactly:
 - Do not use parentheses for asides. Rewrite as a sentence.
 - Blank line between every paragraph and every section.`
 
-  const stream = await anthropic.messages.stream({
-    model: MODELS.sonnet,
-    max_tokens: 2000,
-    messages: [{ role: 'user', content: prompt }],
-  })
+    const stream = await anthropic.messages.stream({
+      model: MODELS.sonnet,
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: prompt }],
+    })
 
-  const encoder = new TextEncoder()
-  const readable = new ReadableStream({
-    async start(controller) {
-      try {
-        for await (const chunk of stream) {
-          if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
-            const text = chunk.delta.text.replace(/\\u2014/g, ',').replace(/#+\s?/g, '').replace(/\*\*/g, '')
-            controller.enqueue(encoder.encode(text))
+    const encoder = new TextEncoder()
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of stream) {
+            if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+              const text = chunk.delta.text.replace(/\\u2014/g, ',').replace(/#+\s?/g, '').replace(/\*\*/g, '')
+              controller.enqueue(encoder.encode(text))
+            }
           }
+        } catch (err) {
+          console.error('[admin.b2b-material] stream failed', err)
+          controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'b2b_material' })))
+        } finally {
+          controller.close()
         }
-      } catch (err) {
-        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'b2b_material' })))
-      } finally {
-        controller.close()
-      }
-    },
-  })
+      },
+    })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+    return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  } catch (error) {
+    console.error('[admin.b2b-material] request failed', error)
+    return new Response('Internal server error', { status: 500 })
+  }
 }

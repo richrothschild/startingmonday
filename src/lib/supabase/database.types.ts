@@ -295,6 +295,11 @@ export type Database = {
           confidence: number | null
           source_kind: string | null
           focus_tags: string[] | null
+          profile_channel: string | null
+          profile_persona: string | null
+          relevance_score: number | null
+          suppressed_at: string | null
+          suppression_reason: string | null
           evidence_snippets: string[] | null
           filing_form: string | null
           filing_items: string[] | null

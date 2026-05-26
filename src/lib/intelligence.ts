@@ -1,11 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { rankSignals } from '@/lib/intelligence-quality'
 
 export type IntelSignal = {
+  id: string
   signal_type: string
   signal_summary: string
   signal_date: string
   source_url: string | null
+  source_kind: string | null
+  confidence: number | null
+  focus_tags: string[] | null
 }
 
 export type IntelCompany = {
@@ -40,7 +45,7 @@ export async function getIntelSignals(companyName: string): Promise<IntelSignal[
   // service-role bypasses RLS; dedup by source_url
   const { data } = await admin
     .from('company_signals')
-    .select('signal_type, signal_summary, signal_date, source_url, companies!inner(name)')
+    .select('id, signal_type, signal_summary, signal_date, source_url, source_kind, confidence, focus_tags, companies!inner(name)')
     .ilike('companies.name', companyName)
     .neq('signal_type', 'pattern_alert')
     .order('signal_date', { ascending: false })
@@ -56,15 +61,20 @@ export async function getIntelSignals(companyName: string): Promise<IntelSignal[
     if (!seen.has(key)) {
       seen.add(key)
       deduped.push({
+        id:             row.id,
         signal_type:    row.signal_type,
         signal_summary: row.signal_summary,
         signal_date:    row.signal_date,
         source_url:     row.source_url,
+        source_kind:    row.source_kind,
+        confidence:     row.confidence,
+        focus_tags:     row.focus_tags,
       })
     }
     if (deduped.length >= 20) break
   }
-  return deduped
+  const ranked = rankSignals(deduped, { roleType: 'executive', searchPersona: 'active' })
+  return ranked.map((r) => ({ ...r.signal, confidence: r.confidence }))
 }
 
 export async function validateAccessToken(slug: string, token: string | null): Promise<boolean> {

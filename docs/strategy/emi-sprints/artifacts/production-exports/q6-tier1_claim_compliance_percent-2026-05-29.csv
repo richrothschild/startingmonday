@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q6,tier1_claim_compliance_percent,6.02,ok,total=299;compliant=18,2026-05-25T23:44:33.141Z,2026-05-29

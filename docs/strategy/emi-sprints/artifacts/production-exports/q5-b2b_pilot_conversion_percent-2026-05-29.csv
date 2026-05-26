@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q5,b2b_pilot_conversion_percent,,no_data,denominator=0;numerator=0,2026-05-25T23:44:33.141Z,2026-05-29

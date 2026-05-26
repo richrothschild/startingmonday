@@ -37,5 +37,36 @@ export default defineConfig({
         storageState: 'tests/e2e/.auth/user.json',
       },
     },
+    {
+      name: 'mobile-iphone',
+      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 3,
+        isMobile: true,
+        hasTouch: true,
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'mobile-android',
+      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Pixel 7'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'mobile-tablet',
+      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Galaxy Tab S4'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
   ],
 })

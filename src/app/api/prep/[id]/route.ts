@@ -56,6 +56,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
       } catch (err) {
         const feature = traceOpts?.feature ?? 'prep_brief'
         const errStr = err instanceof Error ? err.message : 'Unknown error'
+        console.error('[prep-route] stream failure', { feature, userId, model, error: errStr })
         recordTraceError({ feature, userId, model, latencyMs: Date.now() - startMs, error: errStr })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature, userId })))
         controller.close()

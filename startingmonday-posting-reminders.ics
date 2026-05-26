@@ -1,0 +1,308 @@
+BEGIN:VCALENDAR
+PRODID:-//Starting Monday//Posting Reminders//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Starting Monday Posting Reminders
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+UID:sm-20260525-linkedin-personal-issue1@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260525T123500Z
+DTEND:20260525T125000Z
+SUMMARY:Starting Monday - LinkedIn Personal - Issue 1
+DESCRIPTION:Post prompt: Launch Issue 1 on your personal LinkedIn. Lead with the week-two failure line, tell the pipeline-rebuild story, end with the subscribe CTA and a question. Use the full Week 1 copy ready to paste.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260525-linkedin-company-issue1@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260525T161000Z
+DTEND:20260525T162500Z
+SUMMARY:Starting Monday - LinkedIn Company - Issue 1
+DESCRIPTION:Post prompt: Publish the branded Issue 1 summary on the company page. Keep it concise, operator-focused, and include the free subscribe link.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260526-instagram-carousel-issue1@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260526T154000Z
+DTEND:20260526T155500Z
+SUMMARY:Starting Monday - Instagram Carousel - Issue 1
+DESCRIPTION:Post prompt: Publish the 6-slide Issue 1 carousel. Use hook > story beat > mistake > fix > action > CTA. Caption should invite comments and direct people to the subscribe link.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260526-instagram-stories-issue1@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260526T233000Z
+DTEND:20260526T234500Z
+SUMMARY:Starting Monday - Instagram Stories - Issue 1
+DESCRIPTION:Post prompt: Publish the 3-frame story sequence. Use the poll/question frame to drive replies and end with the brief subscribe CTA.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260528-email-issue1@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260528T122000Z
+DTEND:20260528T125000Z
+SUMMARY:Starting Monday - Email Send - Issue 1
+DESCRIPTION:Send prompt: Founding-subscriber email for Issue 1. Use the full newsletter draft and send only to explicit opt-ins.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260601-linkedin-personal-issue2@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260601T123500Z
+DTEND:20260601T125000Z
+SUMMARY:Starting Monday - LinkedIn Personal - Issue 2
+DESCRIPTION:Post prompt: Launch Issue 2 on your personal LinkedIn. Lead with the narrative discipline angle, use the 3-part spine, and close with the subscribe CTA.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260601-linkedin-company-issue2@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260601T161000Z
+DTEND:20260601T162500Z
+SUMMARY:Starting Monday - LinkedIn Company - Issue 2
+DESCRIPTION:Post prompt: Publish the company-page summary for Issue 2. Emphasize readiness as narrative discipline and include the free subscribe link.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260602-instagram-carousel-issue2@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260602T154000Z
+DTEND:20260602T155500Z
+SUMMARY:Starting Monday - Instagram Carousel - Issue 2
+DESCRIPTION:Post prompt: Publish the Issue 2 carousel. Show the narrative drift problem, the fix, and one practical action. Add the subscribe CTA in the caption.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260602-instagram-stories-issue2@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260602T233000Z
+DTEND:20260602T234500Z
+SUMMARY:Starting Monday - Instagram Stories - Issue 2
+DESCRIPTION:Post prompt: Publish the Issue 2 story frames. Use a poll or question sticker to generate replies and direct viewers to the brief.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260604-email-issue2@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260604T122000Z
+DTEND:20260604T125000Z
+SUMMARY:Starting Monday - Email Send - Issue 2
+DESCRIPTION:Send prompt: Founding-subscriber email for Issue 2. Use only explicit opt-ins and keep the subject aligned with the narrative discipline theme.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260608-linkedin-personal-issue3@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260608T123500Z
+DTEND:20260608T125000Z
+SUMMARY:Starting Monday - LinkedIn Personal - Issue 3
+DESCRIPTION:Post prompt: Launch Issue 3 on your personal LinkedIn. Focus on opportunity triage, the five-criteria scorecard, and a direct CTA.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260608-linkedin-company-issue3@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260608T161000Z
+DTEND:20260608T162500Z
+SUMMARY:Starting Monday - LinkedIn Company - Issue 3
+DESCRIPTION:Post prompt: Publish the company-page summary for Issue 3. Keep the message concise and frame decision quality as the point.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260609-instagram-carousel-issue3@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260609T154000Z
+DTEND:20260609T155500Z
+SUMMARY:Starting Monday - Instagram Carousel - Issue 3
+DESCRIPTION:Post prompt: Publish the Issue 3 carousel. Show the triage criteria, the weekly discipline metric, and the subscribe CTA.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260609-instagram-stories-issue3@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260609T233000Z
+DTEND:20260609T234500Z
+SUMMARY:Starting Monday - Instagram Stories - Issue 3
+DESCRIPTION:Post prompt: Publish the Issue 3 story frames. Use a quick poll or question and point to the newsletter for the full framework.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260611-email-issue3@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260611T122000Z
+DTEND:20260611T125000Z
+SUMMARY:Starting Monday - Email Send - Issue 3
+DESCRIPTION:Send prompt: Founding-subscriber email for Issue 3. Use only explicit opt-ins and keep the call-to-action consistent with the brief.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260615-linkedin-personal-issue4@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260615T123500Z
+DTEND:20260615T125000Z
+SUMMARY:Starting Monday - LinkedIn Personal - Issue 4
+DESCRIPTION:Post prompt: Launch Issue 4 on your personal LinkedIn. Emphasize post-placement maintenance and the monthly cadence that prevents drift.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260615-linkedin-company-issue4@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260615T161000Z
+DTEND:20260615T162500Z
+SUMMARY:Starting Monday - LinkedIn Company - Issue 4
+DESCRIPTION:Post prompt: Publish the company-page summary for Issue 4. Keep it tight, practical, and subscription-forward.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260616-instagram-carousel-issue4@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260616T154000Z
+DTEND:20260616T155500Z
+SUMMARY:Starting Monday - Instagram Carousel - Issue 4
+DESCRIPTION:Post prompt: Publish the Issue 4 carousel. Show the maintenance cadence, the checkpoint metric, and the newsletter CTA.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260616-instagram-stories-issue4@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260616T233000Z
+DTEND:20260616T234500Z
+SUMMARY:Starting Monday - Instagram Stories - Issue 4
+DESCRIPTION:Post prompt: Publish the Issue 4 story frames. Use a quiz or poll and direct people to the free brief.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260618-email-issue4@startingmonday
+DTSTAMP:20260523T000000Z
+DTSTART:20260618T122000Z
+DTEND:20260618T125000Z
+SUMMARY:Starting Monday - Email Send - Issue 4
+DESCRIPTION:Send prompt: Founding-subscriber email for Issue 4. Send only to explicit opt-ins and keep the message aligned with post-placement maintenance.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

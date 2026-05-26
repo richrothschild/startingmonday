@@ -16,9 +16,11 @@ import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
-import { canUserSeeAdminHeader } from '@/lib/staff'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -209,30 +211,16 @@ export default async function DashboardPage({
   const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
 
   // Build weekly activity chart data (last 10 weeks)
-  function getWeekMonday(date: Date): Date {
-    const d = new Date(date)
-    const day = d.getDay()
-    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
-    d.setHours(0, 0, 0, 0)
-    return d
-  }
-  function weekLabel(d: Date): string {
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  }
   const weekSlots: WeekActivity[] = []
   for (let i = 9; i >= 0; i--) {
     const d = new Date(Date.now() - i * 7 * 24 * 60 * 60 * 1000)
     weekSlots.push({ week: weekLabel(getWeekMonday(d)), companies: 0, contacts: 0, briefs: 0, followUps: 0 })
   }
-  function bumpWeek(dateStr: string, key: keyof Omit<WeekActivity, 'week'>) {
-    const label = weekLabel(getWeekMonday(new Date(dateStr)))
-    const slot = weekSlots.find(s => s.week === label)
-    if (slot) slot[key]++
-  }
-  for (const r of (actCompanies ?? [])) bumpWeek(r.created_at, 'companies')
-  for (const r of (actContacts  ?? [])) bumpWeek(r.created_at, 'contacts')
-  for (const r of (actBriefs    ?? [])) bumpWeek(r.created_at, 'briefs')
-  for (const r of (actFollowUps ?? [])) bumpWeek(r.created_at, 'followUps')
+  const weekMap = new Map(weekSlots.map((slot) => [slot.week, slot]))
+  for (const r of actCompanies ?? []) bumpWeek(weekMap, r.created_at, 'companies')
+  for (const r of actContacts ?? []) bumpWeek(weekMap, r.created_at, 'contacts')
+  for (const r of actBriefs ?? []) bumpWeek(weekMap, r.created_at, 'briefs')
+  for (const r of actFollowUps ?? []) bumpWeek(weekMap, r.created_at, 'followUps')
 
   const allActivityDates = [
     ...(actCompanies ?? []).map(r => r.created_at),
@@ -363,7 +351,9 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
-  const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
+  const staffMember = await getStaffMember(user.email ?? '')
+  const isRothschildAdmin = hasAdminHeaderAccess(staffMember)
+  const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -401,6 +391,105 @@ export default async function DashboardPage({
   const showCampaignWelcome = searchPath === 'campaign'  && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
   const showWatcherWelcome  = searchPath === 'watcher'   && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
 
+  const momentumScore = typeof momentumData?.momentum_score === 'number'
+    ? momentumData.momentum_score
+    : null
+  const momentumStatus: 'low' | 'medium' | 'strong' = momentumScore !== null
+    ? (momentumScore >= 70 ? 'strong' : momentumScore >= 40 ? 'medium' : 'low')
+    : ((signalCount + overdueCount + activeCount) >= 3 ? 'strong' : (signalCount + overdueCount + activeCount) > 0 ? 'medium' : 'low')
+
+  const relationshipAction: DailyMomentumAction = warmPaths[0]
+    ? {
+        id: 'relationship-action',
+        track: 'relationship',
+        title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
+        body: `${warmPaths[0].signal.signal_summary} gives you a concrete reason to re-engage. Use that signal while it is still fresh.`,
+        effortMinutes: 15,
+        href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
+        cta: 'Open outreach',
+      }
+    : overdueCount > 0
+      ? {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Clear the next relationship follow-up',
+          body: 'A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.',
+          effortMinutes: 15,
+          href: '/dashboard/calendar',
+          cta: 'Open calendar',
+        }
+      : {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Pick one warm relationship to move',
+          body: 'Open contacts, choose one person who can unblock a real conversation, and schedule the next step.',
+          effortMinutes: 15,
+          href: '/dashboard/contacts',
+          cta: 'Open contacts',
+        }
+
+  const readinessAction: DailyMomentumAction = interviewingCompany
+    ? {
+        id: 'readiness-action',
+        track: 'readiness',
+        title: `Generate prep for ${interviewingCompany.name}`,
+        body: 'If you already have a live conversation, readiness work outranks almost everything else.',
+        effortMinutes: 25,
+        href: `/dashboard/companies/${interviewingCompany.id}/prep`,
+        cta: 'Run prep brief',
+      }
+    : profileScore < 100
+      ? {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Tighten the profile inputs driving your search',
+          body: 'Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.',
+          effortMinutes: 20,
+          href: profileHref,
+          cta: 'Finish profile',
+        }
+      : {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Run one readiness pass before more outreach',
+          body: 'Use the strategy layer to sharpen what you will say before the next live conversation opens.',
+          effortMinutes: 20,
+          href: '/dashboard/strategy',
+          cta: 'Open strategy',
+        }
+
+  const focusAction: DailyMomentumAction = signalCount > 0
+    ? {
+        id: 'focus-action',
+        track: 'focus',
+        title: 'Review the freshest market signals',
+        body: 'New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.',
+        effortMinutes: 15,
+        href: '/dashboard/signals',
+        cta: 'Open signals',
+      }
+    : totalCount < 12
+      ? {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Add one more target company',
+          body: 'A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.',
+          effortMinutes: 15,
+          href: '/dashboard/companies/new',
+          cta: 'Add company',
+        }
+      : {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Convert today into a concrete next step',
+          body: 'If the pipeline already exists, pick the next visible move instead of expanding scope.',
+          effortMinutes: 10,
+          href: overdueCount > 0 ? '/dashboard/calendar' : '/dashboard/briefing',
+          cta: overdueCount > 0 ? 'View due today' : 'Open briefing',
+        }
+
+  const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
+
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
@@ -418,7 +507,7 @@ export default async function DashboardPage({
     return (
       <div className="min-h-screen bg-slate-100 font-sans">
         <header className="bg-slate-900">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
             <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
@@ -426,6 +515,9 @@ export default async function DashboardPage({
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
               <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
+              {canUseOutreachHub && (
+                <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Outreach</Link>
+              )}
               <div className="ml-auto flex items-center gap-4 shrink-0">
                 <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
@@ -436,18 +528,18 @@ export default async function DashboardPage({
                 <LogoutButton label="Sign out" />
               </div>
             </div>
-            <div className="flex sm:hidden items-center gap-4 ml-auto">
-              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
-              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
-              <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white">Feedback</Link>
-              {isRothschildAdmin && (
-                <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
-              )}
+            <div className="flex sm:hidden items-center gap-2 ml-auto">
+              <Link
+                href="/dashboard"
+                className="inline-flex min-h-[44px] items-center rounded-md border border-orange-500/40 bg-orange-500/10 px-3 text-[12px] font-semibold text-orange-300 hover:text-white"
+              >
+                Dashboard
+              </Link>
               <LogoutButton label="Sign out" />
             </div>
           </div>
         </header>
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
           <div className="mb-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
@@ -528,10 +620,12 @@ export default async function DashboardPage({
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
               <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
             </Link>
-            <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
-              <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
-            </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
+              </Link>
+            )}
           </div>
 
           <div className="mt-10 text-center">
@@ -549,7 +643,7 @@ export default async function DashboardPage({
 
       {/* Nav */}
       <header className="bg-slate-900">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -561,7 +655,9 @@ export default async function DashboardPage({
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
             <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            )}
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
@@ -578,39 +674,38 @@ export default async function DashboardPage({
             </div>
           </div>
           {/* Mobile nav */}
-          <div className="flex sm:hidden items-center gap-4 ml-auto">
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
-            <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 whitespace-nowrap">Admin</Link>
-            )}
+          <div className="flex sm:hidden items-center gap-2 ml-auto">
+            <Link
+              href="/dashboard/briefing"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Briefing
+            </Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
 
         {/* Welcome */}
-        <div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
             {greeting}, {firstName}.
           </h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
-            <p className="text-[13px] text-slate-400 mt-2 leading-relaxed">
-              Start with the briefing, then work the next relationship and the next action.
-            </p>
+          <p className="text-[13px] text-slate-600 mt-1.5">{today}</p>
+          <p className="text-[13px] text-slate-500 mt-2 leading-relaxed max-w-[38ch]">
+            Start with the briefing, then work the next relationship and the next action.
+          </p>
         </div>
 
         <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#start-here" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start here</a>
-            <a href="#momentum-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Momentum</a>
-            <a href="#quick-actions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Quick actions</a>
-            <a href="#pipeline" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pipeline</a>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
+            <a href="#start-here" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
+            <a href="#momentum-overview" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
+            <a href="#quick-actions" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick actions</a>
+            <a href="#pipeline" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
           </div>
         </section>
 
@@ -620,11 +715,16 @@ export default async function DashboardPage({
             <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Dashboard
+            <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Briefing
             </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+                Outreach
+              </Link>
+            )}
             {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
                 Admin
               </Link>
             )}
@@ -635,25 +735,31 @@ export default async function DashboardPage({
           <div className="flex-1 min-w-0">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
             <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">
               {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-col w-full sm:w-auto sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <Link
               href="/dashboard/briefing"
-              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
             >
               Open briefing
             </Link>
             <Link
               href="/dashboard/calendar"
-              className="inline-block border border-slate-200 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
             >
               View due today
             </Link>
           </div>
         </section>
+
+        <DailyMomentumPlan
+          actions={dailyMomentumActions}
+          dateKey={todayISO}
+          status={momentumStatus}
+        />
 
         {/* Profile quick-save confirmation */}
         {profile_saved && (

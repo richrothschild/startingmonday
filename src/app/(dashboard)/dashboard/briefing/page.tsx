@@ -456,7 +456,7 @@ export default async function BriefingPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -467,23 +467,28 @@ export default async function BriefingPage({
             <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
             <LogoutButton label="Sign out" />
           </div>
-          <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
-            <LogoutButton label="Out" />
+          <div className="flex sm:hidden items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
 
         <section className="mb-4 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#briefing-header" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Briefing header</a>
-            <a href="#briefing-metrics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Metrics</a>
-            <a href="#briefing-mode" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">View mode</a>
-            <a href="#briefing-accountability" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Accountability</a>
-            <a href="#today-actions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Today actions</a>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#briefing-header" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Briefing header</a>
+            <a href="#briefing-metrics" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Metrics</a>
+            <a href="#briefing-mode" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">View mode</a>
+            <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Accountability</a>
+            <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Today actions</a>
           </div>
         </section>
 

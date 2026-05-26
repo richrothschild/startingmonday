@@ -39,11 +39,46 @@ type ProspectRow = {
   outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
   fitTier: 'strong' | 'medium'
   personaFocus: string
+  campaignTag?: 'coach_day1_60'
 }
 
 type Props = {
   rows: ProspectRow[]
   fromAddressLabel: string
+}
+
+function firstNameOf(fullName: string): string {
+  const first = fullName.trim().split(/\s+/)[0]
+  return first && first.length > 0 ? first : 'there'
+}
+
+function day1Message10Draft(fullName: string): { subject: string; body: string } {
+  const firstName = firstNameOf(fullName)
+  return {
+    subject: 'Would it be unreasonable to test this with 2 clients?',
+    body: [
+      `Hi ${firstName},`,
+      '',
+      'We built Starting Monday for coaches supporting senior executives in transition. The goal is simple: less admin drag, better-prepared clients, stronger sessions.',
+      '',
+      'Would it be unreasonable to run a 30-day test with 2 clients and keep it only if outcomes improve?',
+      '',
+      'If yes, I will send the setup checklist.',
+      '',
+      'Rich',
+    ].join('\n'),
+  }
+}
+
+function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
+  if (row.campaignTag === 'coach_day1_60' && (indexInFiltered + 1) % 5 === 0) {
+    return day1Message10Draft(row.fullName)
+  }
+
+  return {
+    subject: row.defaultSubject,
+    body: row.defaultBody,
+  }
 }
 
 function statusBadge(status: string): string {
@@ -65,6 +100,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [statusFilter, setStatusFilter] = useState('all')
   const [confidenceFilter, setConfidenceFilter] = useState<'all' | 'high' | 'medium' | 'low'>('high')
   const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'>('executives')
+  const [activeCampaign, setActiveCampaign] = useState<'all' | 'coach_day1_60'>('all')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
   const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
@@ -109,6 +145,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     const q = search.trim().toLowerCase()
     return items.filter((r) => {
       const matchesChannel = r.outreachChannel === activeChannel
+      const matchesCampaign = activeCampaign === 'all' || r.campaignTag === activeCampaign
       const matchesStatus = statusFilter === 'all' || r.status === statusFilter
       const matchesConfidence = confidenceFilter === 'all' || r.emailConfidence === confidenceFilter
       const matchesQuery = !q
@@ -116,18 +153,28 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         || r.company.toLowerCase().includes(q)
         || r.roleBucket.toLowerCase().includes(q)
         || r.email.toLowerCase().includes(q)
-      return matchesChannel && matchesStatus && matchesConfidence && matchesQuery
+      return matchesChannel && matchesCampaign && matchesStatus && matchesConfidence && matchesQuery
     })
-  }, [items, search, statusFilter, confidenceFilter, activeChannel])
+  }, [items, search, statusFilter, confidenceFilter, activeChannel, activeCampaign])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
+
+  useEffect(() => {
+    const row = filtered[selectedIndex] ?? filtered[0]
+    if (!row) return
+    const idx = filtered[selectedIndex] ? selectedIndex : 0
+    const prefill = prefillForRow(row, idx)
+    setSubject(prefill.subject)
+    setMessageText(prefill.body)
+  }, [filtered, selectedIndex])
 
   function resetComposerFor(index: number) {
     const next = filtered[index]
     if (!next) return
     setSelectedIndex(index)
-    setSubject(next.defaultSubject)
-    setMessageText(next.defaultBody)
+    const prefill = prefillForRow(next, index)
+    setSubject(prefill.subject)
+    setMessageText(prefill.body)
     setError(null)
     setSuccess(null)
     setGuardrailWarnings([])
@@ -262,6 +309,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               type="button"
               onClick={() => {
                 setActiveChannel(option.value)
+                setActiveCampaign('all')
                 setSelectedIndex(0)
                 setSearch('')
               }}
@@ -275,6 +323,23 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               {option.label}
             </button>
           ))}
+          <button
+            type="button"
+            onClick={() => {
+              setActiveChannel('coaches')
+              setActiveCampaign('coach_day1_60')
+              setSelectedIndex(0)
+              setSearch('')
+            }}
+            className={[
+              'text-[12px] font-semibold px-3 py-1.5 rounded border transition-colors',
+              activeChannel === 'coaches' && activeCampaign === 'coach_day1_60'
+                ? 'bg-orange-600 text-white border-orange-600'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
+            ].join(' ')}
+          >
+            Day 1 Coach List (60)
+          </button>
         </div>
       </div>
 

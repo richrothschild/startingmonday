@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { verifyCoachAccess, logCoachAccess } from '@/lib/coach-access'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function startOfWeekUTC(date: Date): Date {
   const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))

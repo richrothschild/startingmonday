@@ -1,82 +1,30 @@
 import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
+import { getStripe } from '@/lib/stripe'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
+import { INTERNAL_APIS, PAGE_GROUPS, STEP_LABELS } from './admin-page-config'
 
-const STEP_LABELS: Record<string, string> = {
-  a1_resume:   'Resume uploaded',
-  a2_company:  'Company added',
-  a3_prep:     'Prep brief generated',
-  a4_contact:  'Contact added',
-  a5_briefing: 'Briefing configured',
-  a6_follow_up:'Follow-up set',
+type EmailCouncilLogEntry = {
+  ts: string
+  to?: string
+  channel?: string
+  subject?: string
+  blocked?: boolean
+  blockers?: string[]
+  warnings?: string[]
+  scores?: {
+    ejes?: number
+    open?: number
+    understand?: number
+    reply?: number
+    productLift?: number
+  }
 }
-
-type InternalPage = {
-  path: string
-  label: string
-  owner: string
-  admin: string
-  viewer: string
-  priority: 'core' | 'advanced'
-}
-
-const PAGE_GROUPS: Array<{
-  id: string
-  label: string
-  purpose: string
-  pages: InternalPage[]
-}> = [
-  {
-    id: 'revenue-growth',
-    label: 'Revenue & Growth',
-    purpose: 'Pipeline, customer conversion, demand generation, and GTM execution.',
-    pages: [
-      { path: '/dashboard/admin/revenue', label: 'Revenue Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/speakers', label: 'Conference Speakers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-    ],
-  },
-  {
-    id: 'product-intelligence',
-    label: 'Product & Intelligence',
-    purpose: 'Customer intelligence, quality signals, and product performance telemetry.',
-    pages: [
-      { path: '/dashboard/admin/product', label: 'Product Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-    ],
-  },
-  {
-    id: 'platform-operations',
-    label: 'Platform Operations',
-    purpose: 'Runbooks, access control, reliability, and operational governance.',
-    pages: [
-      { path: '/dashboard/admin/operations', label: 'Operations Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
-    ],
-  },
-]
-
-const INTERNAL_APIS = [
-  { path: '/api/outreach/draft',       label: 'Outreach Draft',        owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/send',        label: 'Outreach Send',         owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/status',      label: 'Outreach Status',       owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/suppression', label: 'Outreach Suppression',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/admin/automation/monitoring/alerts', label: 'Automation Alerts', owner: 'rw', admin: 'rw', viewer: '-' },
-]
 
 export default async function AdminPage() {
   const supabase = await createClient()
@@ -459,6 +407,96 @@ export default async function AdminPage() {
     role === 'admin' ? 'bg-blue-50 text-blue-700' :
     'bg-slate-100 text-slate-500'
 
+  // Email council quality telemetry from local score log
+  const emailCouncilLogPath = path.join(process.cwd(), '.logs', 'email-council-scores.jsonl')
+  let emailCouncilEntries: EmailCouncilLogEntry[] = []
+  try {
+    const raw = await readFile(emailCouncilLogPath, 'utf8')
+    emailCouncilEntries = raw
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line) as EmailCouncilLogEntry
+        } catch {
+          return null
+        }
+      })
+      .filter((entry): entry is EmailCouncilLogEntry => entry !== null)
+  } catch {
+    emailCouncilEntries = []
+  }
+
+  const nowMs = Date.now()
+  const oneDayMs = 24 * 60 * 60 * 1000
+  const sevenDayMs = 7 * oneDayMs
+
+  const councilLast24h = emailCouncilEntries.filter((entry) => {
+    const ts = Date.parse(entry.ts)
+    return Number.isFinite(ts) && nowMs - ts <= oneDayMs
+  })
+
+  const councilLast7d = emailCouncilEntries.filter((entry) => {
+    const ts = Date.parse(entry.ts)
+    return Number.isFinite(ts) && nowMs - ts <= sevenDayMs
+  })
+
+  const blockedSends24h = councilLast24h.filter((entry) => entry.blocked).length
+  const evaluated24h = councilLast24h.length
+  const passed24h = evaluated24h - blockedSends24h
+  const avgEjes24h = evaluated24h > 0
+    ? Math.round(councilLast24h.reduce((sum, entry) => sum + (entry.scores?.ejes ?? 0), 0) / evaluated24h)
+    : null
+
+  const blockerCounts = new Map<string, number>()
+  for (const entry of councilLast24h) {
+    for (const blocker of entry.blockers ?? []) {
+      blockerCounts.set(blocker, (blockerCounts.get(blocker) ?? 0) + 1)
+    }
+  }
+  const topBlockers = Array.from(blockerCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+
+  const councilChannelMap = new Map<string, { count: number; blocked: number; ejesSum: number }>()
+  for (const entry of councilLast7d) {
+    const key = entry.channel ?? 'general'
+    const current = councilChannelMap.get(key) ?? { count: 0, blocked: 0, ejesSum: 0 }
+    current.count += 1
+    current.blocked += entry.blocked ? 1 : 0
+    current.ejesSum += entry.scores?.ejes ?? 0
+    councilChannelMap.set(key, current)
+  }
+  const channelEjesTrend = Array.from(councilChannelMap.entries())
+    .map(([channel, stats]) => ({
+      channel,
+      evaluations: stats.count,
+      blockedRate: stats.count > 0 ? Math.round((stats.blocked / stats.count) * 100) : 0,
+      avgEjes: stats.count > 0 ? Math.round(stats.ejesSum / stats.count) : 0,
+    }))
+    .sort((a, b) => b.evaluations - a.evaluations)
+
+  const signups7d = cohort7.length
+
+  // MRR from Stripe (best-effort — falls back to null on error)
+  let stripeMrr: number | null = null
+  try {
+    const stripe = getStripe()
+    const subs = await stripe.subscriptions.list({ status: 'active', limit: 100 })
+    let totalCents = 0
+    for (const sub of subs.data) {
+      for (const item of sub.items.data) {
+        const cents = (item.price.unit_amount ?? 0) * (item.quantity ?? 1)
+        totalCents += item.price.recurring?.interval === 'year'
+          ? Math.round(cents / 12)
+          : cents
+      }
+    }
+    stripeMrr = Math.round(totalCents / 100)
+  } catch {
+    // Stripe unavailable — show null
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -496,9 +534,73 @@ export default async function AdminPage() {
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
             <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
+            <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
             <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
             <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
             <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+          </div>
+        </section>
+
+        <section id="email-council-health" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
+          <p className="text-[12px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day channel EJES trend.</p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
+            {[{
+              label: 'Evaluated (24h)',
+              value: evaluated24h,
+            }, {
+              label: 'Blocked (24h)',
+              value: blockedSends24h,
+            }, {
+              label: 'Passed (24h)',
+              value: passed24h,
+            }, {
+              label: 'Avg EJES (24h)',
+              value: avgEjes24h ?? 'N/A',
+            }].map((card) => (
+              <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
+                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Top blockers (24h)</p>
+              {topBlockers.length === 0 ? (
+                <p className="text-[12px] text-slate-500">No blockers logged in the last 24 hours.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {topBlockers.map(([blocker, count]) => (
+                    <li key={blocker} className="text-[12px] text-slate-700 flex items-start justify-between gap-3">
+                      <span className="leading-relaxed">{blocker}</span>
+                      <span className="text-[11px] font-bold text-slate-500">{count}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Channel EJES trend (7d)</p>
+              {channelEjesTrend.length === 0 ? (
+                <p className="text-[12px] text-slate-500">No channel score data yet.</p>
+              ) : (
+                <div className="space-y-2">
+                  {channelEjesTrend.map((row) => (
+                    <div key={row.channel} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-[12px]">
+                      <span className="text-slate-700">{row.channel}</span>
+                      <span className="text-slate-500">EJES {row.avgEjes}</span>
+                      <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${row.blockedRate === 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                        blocked {row.blockedRate}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
@@ -645,15 +747,17 @@ export default async function AdminPage() {
         </section>
 
         {/* Subscriber summary */}
-        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
           {[
-            { label: 'Total users',   value: totalUsers    ?? 0 },
-            { label: 'Active (paid)', value: paidUsers     ?? 0 },
-            { label: 'Trialing',      value: trialingUsers ?? 0 },
-            { label: 'Placed',        value: placements.length },
-          ].map(({ label, value }) => (
+            { label: 'Total users',   value: String(totalUsers    ?? 0), highlight: false },
+            { label: 'Active (paid)', value: String(paidUsers     ?? 0), highlight: false },
+            { label: 'Trialing',      value: String(trialingUsers ?? 0), highlight: false },
+            { label: 'Placed',        value: String(placements.length),  highlight: false },
+            { label: 'New (7d)',       value: String(signups7d),          highlight: false },
+            { label: 'Stripe MRR',    value: stripeMrr !== null ? `$${stripeMrr.toLocaleString()}` : '--', highlight: true },
+          ].map(({ label, value, highlight }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
-              <div className="text-[28px] font-bold text-slate-900">{value}</div>
+              <div className={`text-[28px] font-bold ${highlight ? 'text-orange-500' : 'text-slate-900'}`}>{value}</div>
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}

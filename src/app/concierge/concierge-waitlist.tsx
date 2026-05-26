@@ -1,6 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { usePostHog } from 'posthog-js/react'
 
 const INCLUDES = [
   'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
@@ -11,6 +13,14 @@ const INCLUDES = [
   'Direct channel to the founder between sessions for time-sensitive decisions',
 ]
 
+const BETA_INCLUDES = [
+  '30-day guided rollout focused on your immediate transition objective',
+  'Weekly Momentum Signal review and clear next-action plan',
+  'Confidential intake and founder-led fit review',
+  'No subscription required during beta participation',
+  'Direct feedback loop so your experience shapes the product roadmap',
+]
+
 const FOR_WHO = [
   { label: 'Active C-suite search', body: 'You are in motion. A board role, a CIO seat, or a CEO opportunity is on the table and you need full depth, not a tool.' },
   { label: 'High-stakes single opportunity', body: 'One company, one role. The intelligence and prep need to be flawless. A mistake here is not recoverable.' },
@@ -18,26 +28,82 @@ const FOR_WHO = [
 ]
 
 export function ConciergeWaitlist() {
+  const searchParams = useSearchParams()
+  const isBetaProgram = (searchParams.get('program') ?? '').toLowerCase() === 'beta'
+  const ph = usePostHog()
+
   const [email, setEmail] = useState('')
+  const [company, setCompany] = useState('')
+  const [role, setRole] = useState('')
+  const [situation, setSituation] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const formStarted = useRef(false)
+  const touchedFields = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    return () => {
+      if (submitted || !ph) return
+      const untouched = ['email', 'company', 'role', 'situation'].filter((field) => !touchedFields.current.has(field))
+      ph.capture('concierge_form_exit_before_submit', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+        untouched_fields: untouched,
+        touched_fields_count: touchedFields.current.size,
+      })
+    }
+  }, [isBetaProgram, ph, submitted])
+
+  function markFieldInteraction(field: 'email' | 'company' | 'role' | 'situation', value: string) {
+    if (!ph) return
+    touchedFields.current.add(field)
+    if (!formStarted.current) {
+      formStarted.current = true
+      ph.capture('concierge_form_started', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
+    }
+
+    ph.capture('concierge_field_blur', {
+      program: isBetaProgram ? 'beta' : 'concierge',
+      field,
+      has_value: value.trim().length > 0,
+    })
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim() || loading) return
+    ph?.capture('concierge_form_submit_attempt', {
+      program: isBetaProgram ? 'beta' : 'concierge',
+      has_company: Boolean(company.trim()),
+      has_role: Boolean(role.trim()),
+      has_situation: Boolean(situation.trim()),
+    })
     setLoading(true)
     setError('')
     try {
       const res = await fetch('/api/concierge-waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({
+          email: email.trim(),
+          company: company.trim(),
+          role: role.trim(),
+          situation: situation.trim(),
+          program: isBetaProgram ? 'beta' : 'concierge',
+        }),
       })
       if (!res.ok) throw new Error('Submission failed')
       setSubmitted(true)
+      ph?.capture('concierge_form_submitted', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
     } catch {
       setError('Something went wrong. Email us at contact@startingmonday.app.')
+      ph?.capture('concierge_form_submit_failed', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
     } finally {
       setLoading(false)
     }
@@ -67,15 +133,27 @@ export function ConciergeWaitlist() {
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-            Executive Concierge &mdash; $1,299/mo
+            {isBetaProgram ? 'Confidential Beta Cohort — Founder-Led, 10 Seats' : 'Executive Concierge &mdash; $1,299/mo'}
           </p>
           <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-5">
-            The analysis is done.<br />
-            The brief is written.<br />
-            The intelligence is running<br />before you wake up.
+            {isBetaProgram ? (
+              <>
+                Share your transition brief.<br />
+                We review it privately.<br />
+                If there is fit, we schedule a direct conversation.
+              </>
+            ) : (
+              <>
+                The analysis is done.<br />
+                The brief is written.<br />
+                The intelligence is running<br />before you wake up.
+              </>
+            )}
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
-            Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.
+            {isBetaProgram
+              ? 'This is a private intake for senior leaders running high-stakes transitions. Share concise context, and we will reply personally with clear next steps.'
+              : 'Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.'}
           </p>
         </div>
       </header>
@@ -87,10 +165,10 @@ export function ConciergeWaitlist() {
 
             <div>
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
-                What it includes
+                {isBetaProgram ? 'How beta works' : 'What it includes'}
               </p>
               <ul className="space-y-4 mb-8">
-                {INCLUDES.map((item, i) => (
+                {(isBetaProgram ? BETA_INCLUDES : INCLUDES).map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-orange-500 font-bold shrink-0 mt-0.5 text-[12px]">+</span>
                     <span className="text-[14px] text-slate-700 leading-relaxed">{item}</span>
@@ -98,23 +176,33 @@ export function ConciergeWaitlist() {
                 ))}
               </ul>
               <div className="border-t border-slate-100 pt-6">
-                <p className="text-[28px] font-bold text-slate-900 leading-none mb-1">
-                  $1,299<span className="text-[16px] font-normal text-slate-400">/mo</span>
-                </p>
-                <p className="text-[12px] text-slate-400 mb-0.5">or $13,999/yr</p>
-                <p className="text-[12px] text-slate-400">Application required. 30-day trial included when access opens.</p>
+                {isBetaProgram ? (
+                  <>
+                    <p className="text-[20px] font-bold text-slate-900 leading-none mb-1">No subscription during beta</p>
+                    <p className="text-[12px] text-slate-400 mb-0.5">10 seats total</p>
+                    <p className="text-[12px] text-slate-400">Selected participants get a 30-day guided rollout and give candid feedback.</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-[28px] font-bold text-slate-900 leading-none mb-1">
+                      $1,299<span className="text-[16px] font-normal text-slate-400">/mo</span>
+                    </p>
+                    <p className="text-[12px] text-slate-400 mb-0.5">or $13,999/yr</p>
+                    <p className="text-[12px] text-slate-400">Application required. 30-day trial included when access opens.</p>
+                  </>
+                )}
               </div>
             </div>
 
             <div>
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-5">
-                Request access
+                {isBetaProgram ? 'Private intake brief' : 'Request access'}
               </p>
               {submitted ? (
                 <div className="border border-slate-200 bg-slate-50 rounded p-6">
-                  <p className="text-[15px] font-semibold text-slate-900 mb-1">Request received.</p>
+                  <p className="text-[15px] font-semibold text-slate-900 mb-1">Brief received.</p>
                   <p className="text-[13px] text-slate-600 leading-relaxed">
-                    We review each application personally. You will hear from us directly.
+                    We review each submission personally. You will hear from us directly.
                   </p>
                 </div>
               ) : (
@@ -124,7 +212,7 @@ export function ConciergeWaitlist() {
                       htmlFor="c-email"
                       className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5"
                     >
-                      Work email
+                      Executive email
                     </label>
                     <input
                       id="c-email"
@@ -132,20 +220,87 @@ export function ConciergeWaitlist() {
                       required
                       value={email}
                       onChange={e => setEmail(e.target.value)}
+                      onBlur={(e) => markFieldInteraction('email', e.target.value)}
                       placeholder="you@company.com"
                       className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                     />
                   </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label
+                        htmlFor="c-company"
+                        className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5"
+                      >
+                        Current company
+                      </label>
+                      <input
+                        id="c-company"
+                        type="text"
+                        value={company}
+                        onChange={e => setCompany(e.target.value)}
+                        onBlur={(e) => markFieldInteraction('company', e.target.value)}
+                        placeholder="Current or most recent organization"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="c-role"
+                        className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5"
+                      >
+                        Target mandate
+                      </label>
+                      <input
+                        id="c-role"
+                        type="text"
+                        value={role}
+                        onChange={e => setRole(e.target.value)}
+                        onBlur={(e) => markFieldInteraction('role', e.target.value)}
+                        placeholder="Example: CIO, CTO, VP Engineering"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="c-situation"
+                      className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5"
+                    >
+                      Confidential transition brief
+                    </label>
+                    <textarea
+                      id="c-situation"
+                      rows={4}
+                      value={situation}
+                      onChange={e => setSituation(e.target.value)}
+                      onBlur={(e) => markFieldInteraction('situation', e.target.value)}
+                      placeholder="In 3-5 lines, describe your situation, timing, and the outcome you want next."
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                    />
+                  </div>
+                  {isBetaProgram && (
+                    <div className="rounded border border-slate-200 bg-slate-50 p-3">
+                      <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-600 mb-2">Selection criteria and confidentiality guardrails</p>
+                      <ul className="space-y-1 text-[12px] text-slate-600 leading-relaxed list-disc pl-4">
+                        <li>Fit: senior operator with an active or near-term transition objective.</li>
+                        <li>Commitment: able to run weekly cadence for 30 days.</li>
+                        <li>Feedback: willing to share direct feedback and outcomes.</li>
+                        <li>Privacy: intake details are reviewed by founder only and not shared externally.</li>
+                      </ul>
+                    </div>
+                  )}
                   {error && <p className="text-[13px] text-red-600">{error}</p>}
                   <button
                     type="submit"
                     disabled={loading || !email.trim()}
                     className="bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Sending...' : 'Request access'}
+                    {loading ? 'Sending...' : isBetaProgram ? 'Submit confidential brief' : 'Request access'}
                   </button>
                   <p className="text-[11px] text-slate-400 leading-relaxed">
-                    We review each application personally. No automated response.
+                    {isBetaProgram
+                      ? 'Every brief is reviewed by the founder. If there is fit, we will follow up directly.'
+                      : 'We review each application personally. No automated response.'}
                   </p>
                 </form>
               )}

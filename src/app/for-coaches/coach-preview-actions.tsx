@@ -14,6 +14,8 @@ export function CoachPreviewActions() {
     <div className="flex flex-col sm:flex-row gap-3">
       <TrackLink
         href="/partners#apply"
+        data-emi-cta="coaches_request_preview"
+        data-emi-to="/partners#apply"
         event={EVENT_NAME}
         properties={EVENT_PROPERTIES}
         className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
@@ -22,6 +24,8 @@ export function CoachPreviewActions() {
       </TrackLink>
       <TrackLink
         href="/demo?full=1"
+        data-emi-cta="coaches_watch_walkthrough"
+        data-emi-to="/demo?full=1"
         event="coach_preview_walkthrough_clicked"
         properties={{
           page: 'for-coaches',

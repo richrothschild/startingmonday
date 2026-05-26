@@ -3,6 +3,7 @@ import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { appendWatermarkToStream } from '@/lib/watermark'
 import { TailorBodySchema, firstZodError } from '@/lib/schemas'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
 

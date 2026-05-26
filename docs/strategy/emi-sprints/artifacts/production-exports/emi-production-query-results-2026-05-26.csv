@@ -1,0 +1,7 @@
+query_id,metric,value,status,notes
+Q1,emi_language_adoption_percent,0,ok,"emi_kpi_snapshots.ok"
+Q2,assessment_completion_percent,,no_data,"emi_kpi_snapshots.no_data"
+Q3,day7_return_percent,,no_data,"emi_kpi_snapshots.no_data"
+Q4,proof_assets_published_count,7,ok_fallback,"social_posts.is_posted in last 90d"
+Q5,b2b_pilot_conversion_percent,,no_data,"emi_kpi_snapshots.no_data"
+Q6,tier1_claim_compliance_percent,6.08,ok,"total=296;compliant=18"
