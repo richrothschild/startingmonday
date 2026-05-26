@@ -8,6 +8,9 @@ const ALLOWED_EVENTS: UserEventName[] = [
   'onboarding_nudge_shown',
   'onboarding_low_energy_enabled',
   'onboarding_first_value_ready',
+  'emi_assessment_started',
+  'emi_assessment_completed',
+  'emi_onboarding_started',
 ]
 
 export async function POST(request: Request) {
@@ -31,6 +34,14 @@ export async function POST(request: Request) {
   }
 
   await logEvent(user.id, eventName, body.properties ?? {})
+
+  // Keep canonical EMI event names populated even when UI emits legacy onboarding names.
+  if (eventName === 'onboarding_started') {
+    await Promise.all([
+      logEvent(user.id, 'emi_assessment_started', body.properties ?? {}),
+      logEvent(user.id, 'emi_onboarding_started', body.properties ?? {}),
+    ])
+  }
 
   return NextResponse.json({ ok: true })
 }

@@ -148,6 +148,20 @@ export async function completeOnboarding(formData: FormData) {
     manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
     manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
   })
+  await logEvent(user.id, 'emi_assessment_completed', {
+    search_path: searchPath,
+    search_persona: searchPersona ?? '',
+    employment_status: employmentStatus ?? '',
+    company_count: companyNamesList.length,
+    onboarding_channel: onboardingChannel,
+    onboarding_low_energy: onboardingLowEnergy,
+    onboarding_elapsed_seconds: elapsedSeconds,
+    onboarding_under_ten_minutes: underTenMinutes,
+    transition_first: transitionFirst,
+    manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
+    manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
+    manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
+  })
 
   redirect('/dashboard/start')
 }

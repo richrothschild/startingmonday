@@ -47,10 +47,22 @@ export async function updateProspectStage(formData: FormData) {
   const stage = str(formData, 'stage')
   if (!id || !stage) return
 
-  const admin = createAdminClient()
+  const admin = createAdminClient() as any
+  const updatePayload: Record<string, string> = {
+    stage,
+    updated_at: new Date().toISOString(),
+  }
+
+  if (['proposal_sent', 'negotiating', 'closed_won', 'closed_lost'].includes(stage)) {
+    updatePayload.qualified_at = new Date().toISOString()
+  }
+  if (stage === 'closed_won') {
+    updatePayload.pilot_approved_at = new Date().toISOString()
+  }
+
   await admin
     .from('b2b_prospects')
-    .update({ stage, updated_at: new Date().toISOString() })
+    .update(updatePayload)
     .eq('id', id)
 
   revalidatePath('/dashboard/admin/b2b')

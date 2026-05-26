@@ -32,6 +32,9 @@ export type UserEventName =
   | 'onboarding_nudge_shown'
   | 'onboarding_low_energy_enabled'
   | 'onboarding_first_value_ready'
+  | 'emi_assessment_started'
+  | 'emi_assessment_completed'
+  | 'emi_onboarding_started'
 
 type EventProperties = Record<string, string | number | boolean | null>
 
