@@ -276,7 +276,8 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
             </h2>
             <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
               <span className="block">Start with one confidential brief, and we will confirm fit fast.</span>
-              <span className="block">Prefer proof first? Review the method page, browse the evidence room, or watch the live demo.</span>
+              <span className="block">Prefer proof first? Review the method page and browse the evidence room,</span>
+              <span className="block">or watch the live demo.</span>
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link
