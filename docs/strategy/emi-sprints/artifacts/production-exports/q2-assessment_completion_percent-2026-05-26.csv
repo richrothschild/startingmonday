@@ -1,2 +1,2 @@
 query_id,metric,value,status,notes
-Q2,assessment_completion_percent,0,ok,"weekly_kpi_summary_runs.summary_payload"
+Q2,assessment_completion_percent,,no_data,"emi_kpi_snapshots.no_data"

@@ -1,2 +1,2 @@
 query_id,metric,value,status,notes
-Q3,day7_return_percent,0,ok,"weekly_kpi_summary_runs.summary_payload"
+Q3,day7_return_percent,,no_data,"emi_kpi_snapshots.no_data"

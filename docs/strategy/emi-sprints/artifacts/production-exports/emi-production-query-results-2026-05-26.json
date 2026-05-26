@@ -1,28 +1,28 @@
 {
   "run_date": "2026-05-26",
-  "executed_at_utc": "2026-05-26T00:47:24.489Z",
-  "source": "rerun_procedure_2026-05-25",
+  "executed_at_utc": "2026-05-26T01:22:21.595Z",
+  "source": "rerun_procedure_2026-05-25_post_migration_115",
   "results": [
     {
       "query_id": "Q1",
       "metric": "emi_language_adoption_percent",
       "value": 0,
       "status": "ok",
-      "notes": "weekly_kpi_summary_runs.summary_payload"
+      "notes": "emi_kpi_snapshots.ok"
     },
     {
       "query_id": "Q2",
       "metric": "assessment_completion_percent",
-      "value": 0,
-      "status": "ok",
-      "notes": "weekly_kpi_summary_runs.summary_payload"
+      "value": null,
+      "status": "no_data",
+      "notes": "emi_kpi_snapshots.no_data"
     },
     {
       "query_id": "Q3",
       "metric": "day7_return_percent",
-      "value": 0,
-      "status": "ok",
-      "notes": "weekly_kpi_summary_runs.summary_payload"
+      "value": null,
+      "status": "no_data",
+      "notes": "emi_kpi_snapshots.no_data"
     },
     {
       "query_id": "Q4",
@@ -34,9 +34,9 @@
     {
       "query_id": "Q5",
       "metric": "b2b_pilot_conversion_percent",
-      "value": 0,
-      "status": "ok",
-      "notes": "weekly_kpi_summary_runs.summary_payload"
+      "value": null,
+      "status": "no_data",
+      "notes": "emi_kpi_snapshots.no_data"
     },
     {
       "query_id": "Q6",
