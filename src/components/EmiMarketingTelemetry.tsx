@@ -9,7 +9,7 @@ type EmiMarketingTelemetryProps = {
   experimentId?: string
 }
 
-function getWeekStartISO(now: Date): string {
+export function getWeekStartISO(now: Date): string {
   const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
   const day = d.getUTCDay()
   const diff = day === 0 ? -6 : 1 - day
@@ -17,7 +17,7 @@ function getWeekStartISO(now: Date): string {
   return d.toISOString().slice(0, 10)
 }
 
-function getSessionId(): string {
+export function getSessionId(): string {
   if (typeof window === 'undefined') return 'server-session'
   const key = 'emi_session_id'
   const existing = window.sessionStorage.getItem(key)
