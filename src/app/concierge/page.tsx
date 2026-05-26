@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { ConciergeWaitlist } from './concierge-waitlist'
+import { PHProvider } from '@/components/PosthogProvider'
 
 export const metadata: Metadata = {
   title: 'Confidential Beta and Executive Concierge - Starting Monday',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ConciergePage() {
   return (
-    <>
+    <PHProvider>
       <section className="sr-only" aria-label="Executive concierge summary">
         <h1>Executive concierge application</h1>
         <p>Trust and confidentiality: application details remain private and are used only for beta or concierge enrollment review.</p>
@@ -20,6 +21,6 @@ export default function ConciergePage() {
       <Suspense>
         <ConciergeWaitlist />
       </Suspense>
-    </>
+    </PHProvider>
   )
 }

@@ -137,10 +137,102 @@ export function EmiMarketingTelemetry({
     const objectionElements = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-emi-objection]'))
     objectionElements.forEach((el) => el.addEventListener('toggle', objectionHandler))
 
+    const sectionVisibleSince = new Map<string, number>()
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const now = Date.now()
+      entries.forEach((entry) => {
+        const el = entry.target as HTMLElement
+        const sectionId = el.getAttribute('data-emi-section')
+        if (!sectionId) return
+
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          if (!sectionVisibleSince.has(sectionId)) {
+            sectionVisibleSince.set(sectionId, now)
+          }
+          return
+        }
+
+        const startedAt = sectionVisibleSince.get(sectionId)
+        if (!startedAt) return
+        sectionVisibleSince.delete(sectionId)
+
+        const dwellMs = now - startedAt
+        if (dwellMs < 1200) return
+        try {
+          ph.capture('emi_section_dwell', {
+            ...baseProps,
+            cta_id: null,
+            proof_id: null,
+            objection_id: null,
+            section_id: sectionId,
+            dwell_ms: dwellMs,
+          })
+        } catch {
+          // analytics must never block interaction
+        }
+      })
+    }, { threshold: [0.5] })
+
+    const sectionElements = Array.from(document.querySelectorAll<HTMLElement>('[data-emi-section]'))
+    sectionElements.forEach((el) => sectionObserver.observe(el))
+
+    const firedScrollMilestones = new Set<number>()
+    const onScroll = () => {
+      const root = document.documentElement
+      const scrollable = Math.max(root.scrollHeight - window.innerHeight, 1)
+      const pct = Math.round((window.scrollY / scrollable) * 100)
+      const milestones = [25, 50, 75, 100]
+
+      for (const milestone of milestones) {
+        if (pct < milestone || firedScrollMilestones.has(milestone)) continue
+        firedScrollMilestones.add(milestone)
+        try {
+          ph.capture('emi_scroll_depth', {
+            ...baseProps,
+            cta_id: null,
+            proof_id: null,
+            objection_id: null,
+            depth_pct: milestone,
+          })
+        } catch {
+          // analytics must never block interaction
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    const flushSectionDwell = () => {
+      const now = Date.now()
+      for (const [sectionId, startedAt] of sectionVisibleSince.entries()) {
+        const dwellMs = now - startedAt
+        if (dwellMs < 1200) continue
+        try {
+          ph.capture('emi_section_dwell', {
+            ...baseProps,
+            cta_id: null,
+            proof_id: null,
+            objection_id: null,
+            section_id: sectionId,
+            dwell_ms: dwellMs,
+          })
+        } catch {
+          // analytics must never block interaction
+        }
+      }
+      sectionVisibleSince.clear()
+    }
+
+    window.addEventListener('beforeunload', flushSectionDwell)
+
     return () => {
+      flushSectionDwell()
       ctaElements.forEach((el) => el.removeEventListener('click', ctaHandler))
       proofObserver.disconnect()
       objectionElements.forEach((el) => el.removeEventListener('toggle', objectionHandler))
+      sectionObserver.disconnect()
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('beforeunload', flushSectionDwell)
     }
   }, [experimentId, pageSlug, personaSegment, ph, weekStart])
 

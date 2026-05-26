@@ -3,6 +3,7 @@ import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
+import { PHProvider } from '@/components/PosthogProvider'
 
 export const metadata: Metadata = {
   title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
@@ -144,7 +145,7 @@ const jsonLd = {
 
 export default function HomePage() {
   return (
-    <>
+    <PHProvider>
       <JsonLd data={jsonLd} />
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
@@ -168,6 +169,6 @@ export default function HomePage() {
         faqs={FAQS}
         showPersonaSelector
       />
-    </>
+    </PHProvider>
   )
 }

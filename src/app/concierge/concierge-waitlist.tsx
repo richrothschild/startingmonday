@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { usePostHog } from 'posthog-js/react'
 
 const INCLUDES = [
   'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
@@ -29,6 +30,7 @@ const FOR_WHO = [
 export function ConciergeWaitlist() {
   const searchParams = useSearchParams()
   const isBetaProgram = (searchParams.get('program') ?? '').toLowerCase() === 'beta'
+  const ph = usePostHog()
 
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -37,10 +39,47 @@ export function ConciergeWaitlist() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const formStarted = useRef(false)
+  const touchedFields = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    return () => {
+      if (submitted || !ph) return
+      const untouched = ['email', 'company', 'role', 'situation'].filter((field) => !touchedFields.current.has(field))
+      ph.capture('concierge_form_exit_before_submit', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+        untouched_fields: untouched,
+        touched_fields_count: touchedFields.current.size,
+      })
+    }
+  }, [isBetaProgram, ph, submitted])
+
+  function markFieldInteraction(field: 'email' | 'company' | 'role' | 'situation', value: string) {
+    if (!ph) return
+    touchedFields.current.add(field)
+    if (!formStarted.current) {
+      formStarted.current = true
+      ph.capture('concierge_form_started', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
+    }
+
+    ph.capture('concierge_field_blur', {
+      program: isBetaProgram ? 'beta' : 'concierge',
+      field,
+      has_value: value.trim().length > 0,
+    })
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim() || loading) return
+    ph?.capture('concierge_form_submit_attempt', {
+      program: isBetaProgram ? 'beta' : 'concierge',
+      has_company: Boolean(company.trim()),
+      has_role: Boolean(role.trim()),
+      has_situation: Boolean(situation.trim()),
+    })
     setLoading(true)
     setError('')
     try {
@@ -57,8 +96,14 @@ export function ConciergeWaitlist() {
       })
       if (!res.ok) throw new Error('Submission failed')
       setSubmitted(true)
+      ph?.capture('concierge_form_submitted', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
     } catch {
       setError('Something went wrong. Email us at contact@startingmonday.app.')
+      ph?.capture('concierge_form_submit_failed', {
+        program: isBetaProgram ? 'beta' : 'concierge',
+      })
     } finally {
       setLoading(false)
     }
@@ -175,6 +220,7 @@ export function ConciergeWaitlist() {
                       required
                       value={email}
                       onChange={e => setEmail(e.target.value)}
+                      onBlur={(e) => markFieldInteraction('email', e.target.value)}
                       placeholder="you@company.com"
                       className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                     />
@@ -192,6 +238,7 @@ export function ConciergeWaitlist() {
                         type="text"
                         value={company}
                         onChange={e => setCompany(e.target.value)}
+                        onBlur={(e) => markFieldInteraction('company', e.target.value)}
                         placeholder="Current or most recent organization"
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                       />
@@ -208,6 +255,7 @@ export function ConciergeWaitlist() {
                         type="text"
                         value={role}
                         onChange={e => setRole(e.target.value)}
+                        onBlur={(e) => markFieldInteraction('role', e.target.value)}
                         placeholder="Example: CIO, CTO, VP Engineering"
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                       />
@@ -225,6 +273,7 @@ export function ConciergeWaitlist() {
                       rows={4}
                       value={situation}
                       onChange={e => setSituation(e.target.value)}
+                      onBlur={(e) => markFieldInteraction('situation', e.target.value)}
                       placeholder="In 3-5 lines, describe your situation, timing, and the outcome you want next."
                       className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                     />
