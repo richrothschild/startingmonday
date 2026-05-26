@@ -337,6 +337,12 @@ export async function POST(request: NextRequest) {
   const snapshotWrite = await sb.from('emi_kpi_snapshots').upsert(snapshots, { onConflict: 'metric_name,week_start,week_end' })
   if (snapshotWrite.error) {
     __councilObservabilitySignal('[weekly-kpi-summaries] snapshot write skipped', snapshotWrite.error)
+    return NextResponse.json({
+      error: 'Failed to persist EMI KPI snapshots',
+      details: snapshotWrite.error.message,
+      weekStart: start,
+      weekEnd: end,
+    }, { status: 500 })
   }
 
   const metricsMap = Object.fromEntries(
@@ -363,5 +369,5 @@ export async function POST(request: NextRequest) {
     .select('id')
     .single()
 
-  return NextResponse.json({ ok: true, runId: data?.id, weekStart: start, weekEnd: end, summaryPayload, snapshots, snapshotWriteError: snapshotWrite.error?.message ?? null })
+  return NextResponse.json({ ok: true, runId: data?.id, weekStart: start, weekEnd: end, summaryPayload, snapshots, snapshotWriteError: null })
 }
