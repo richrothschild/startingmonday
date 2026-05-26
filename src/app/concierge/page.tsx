@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { ConciergeWaitlist } from './concierge-waitlist'
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function ConciergePage() {
         <p>Outcome: accepted participants get a structured transition plan with founder review and weekly Momentum Signal tracking.</p>
         <Link href="/demo">Get started with the product demo</Link>
       </section>
-      <ConciergeWaitlist />
+      <Suspense>
+        <ConciergeWaitlist />
+      </Suspense>
     </>
   )
 }
