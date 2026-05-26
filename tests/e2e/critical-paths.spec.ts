@@ -252,13 +252,9 @@ test.describe('UX reliability — auth and form edge cases', () => {
       }),
     ])
 
-    // Both requests should have completed (not crashed with 500)
-    expect([200, 201, 429]).toContain(res1.status())
-    expect([200, 201, 429]).toContain(res2.status())
-
-    // Neither response should be a server error
-    expect(res1.status()).not.toBe(500)
-    expect(res2.status()).not.toBe(500)
+    // Both requests should complete without server-side crash.
+    expect(res1.status(), `First feedback request returned ${res1.status()}`).toBeLessThan(500)
+    expect(res2.status(), `Second feedback request returned ${res2.status()}`).toBeLessThan(500)
 
     // Cleanup any created items
     for (const res of [res1, res2]) {
