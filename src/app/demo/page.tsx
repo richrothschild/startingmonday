@@ -65,6 +65,12 @@ type DemoContentProps = {
   autoGenerate?: boolean
 }
 
+const ENTRY_HANDOFF: Record<string, string> = {
+  landing: 'You came from the landing flow. This demo is the proof-first path before account creation.',
+  pricing: 'You came from pricing. Use this brief run to confirm quality before selecting plan intensity.',
+  concierge: 'You came from concierge. This self-serve path lets you validate output quality immediately.',
+}
+
 type BriefRunPayload = {
   company: string
   role: string
@@ -78,6 +84,7 @@ export function DemoContent({
 }: DemoContentProps) {
   const searchParams = useSearchParams()
   const noGate = bypassGateProp || searchParams.get('full') === '1'
+  const source = (searchParams.get('from') ?? '').toLowerCase()
 
   const [company,  setCompany]  = useState(initialCompany)
   const [role,     setRole]     = useState(initialRole)
@@ -238,7 +245,7 @@ export function DemoContent({
               Log in
             </Link>
             <Link
-              href="/signup"
+              href="/signup?from=demo"
               className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Create account
@@ -259,6 +266,9 @@ export function DemoContent({
             Enter any company and role. See the same prep brief Starting Monday generates to improve search behavior, strengthen relationships, and help you pursue the right role, not the first role.
           </p>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-2">Trust and confidentiality: demo requests are used only to generate this brief and are not sold or shared.</p>
+          {source && ENTRY_HANDOFF[source] && (
+            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">{ENTRY_HANDOFF[source]}</p>
+          )}
           <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Outcome metric: pilots showed 81% reached first interview in 30 days (n=27).</p>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Generate one company-specific brief to review likely questions and risk points before live conversations.</p>
         </div>
