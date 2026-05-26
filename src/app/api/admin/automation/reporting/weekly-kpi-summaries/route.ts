@@ -7,7 +7,13 @@ const __councilObservabilitySignal = (...args: unknown[]) => console.error(...ar
 type KpiStatus = 'ok' | 'no_data' | 'query_error'
 
 type KpiSnapshot = {
-  metric_name: 'emi_language_adoption_percent' | 'assessment_completion_percent' | 'day7_return_percent' | 'b2b_pilot_conversion_percent'
+  metric_name:
+    | 'emi_language_adoption_percent'
+    | 'assessment_completion_percent'
+    | 'day7_return_percent'
+    | 'proof_assets_published_count'
+    | 'b2b_pilot_conversion_percent'
+    | 'tier1_claim_compliance_percent'
   metric_value: number | null
   metric_status: KpiStatus
   week_start: string
@@ -191,6 +197,41 @@ export async function POST(request: NextRequest) {
     })
   }
 
+  // Q4: Proof assets published count.
+  try {
+    const proofWindowStart = new Date(`${end}T23:59:59.999Z`)
+    proofWindowStart.setUTCDate(proofWindowStart.getUTCDate() - 90)
+    const proofWindowStartTs = proofWindowStart.toISOString()
+
+    const { count: publishedProofAssets } = await sb
+      .from('proof_assets')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'published')
+      .gte('published_at', proofWindowStartTs)
+      .lte('published_at', weekEndTs)
+
+    snapshots.push({
+      metric_name: 'proof_assets_published_count',
+      metric_value: publishedProofAssets ?? null,
+      metric_status: (publishedProofAssets ?? 0) > 0 ? 'ok' : 'no_data',
+      week_start: start,
+      week_end: end,
+      source_table: 'proof_assets',
+      source_notes: `published_assets=${publishedProofAssets ?? 0}`,
+    })
+  } catch (error) {
+    __councilObservabilitySignal('[weekly-kpi-summaries] Q4 failed', error)
+    snapshots.push({
+      metric_name: 'proof_assets_published_count',
+      metric_value: null,
+      metric_status: 'query_error',
+      week_start: start,
+      week_end: end,
+      source_table: 'proof_assets',
+      source_notes: 'query_error',
+    })
+  }
+
   // Q5: B2B pilot conversion percent.
   try {
     const b2bStartWindow = new Date(`${end}T23:59:59.999Z`)
@@ -248,6 +289,51 @@ export async function POST(request: NextRequest) {
     })
   }
 
+  // Q6: Tier-1 claim compliance percent.
+  try {
+    const { data: claimRows } = await sb
+      .from('tier1_claims')
+      .select('metric_definition,denominator,timeframe,confidence_label,status,audit_status')
+      .eq('status', 'active')
+      .limit(10000)
+
+    const activeClaims = claimRows ?? []
+    const compliantClaims = activeClaims.filter((row: {
+      metric_definition: string | null
+      denominator: number | null
+      timeframe: string | null
+      confidence_label: string | null
+      audit_status: string
+    }) => (
+      Boolean(row.metric_definition)
+      && row.denominator !== null
+      && Boolean(row.timeframe)
+      && Boolean(row.confidence_label)
+      && row.audit_status === 'compliant'
+    ))
+
+    snapshots.push({
+      metric_name: 'tier1_claim_compliance_percent',
+      metric_value: roundPct(compliantClaims.length, activeClaims.length),
+      metric_status: activeClaims.length > 0 ? 'ok' : 'no_data',
+      week_start: start,
+      week_end: end,
+      source_table: 'tier1_claims',
+      source_notes: `active_claims=${activeClaims.length};compliant_claims=${compliantClaims.length}`,
+    })
+  } catch (error) {
+    __councilObservabilitySignal('[weekly-kpi-summaries] Q6 failed', error)
+    snapshots.push({
+      metric_name: 'tier1_claim_compliance_percent',
+      metric_value: null,
+      metric_status: 'query_error',
+      week_start: start,
+      week_end: end,
+      source_table: 'tier1_claims',
+      source_notes: 'query_error',
+    })
+  }
+
   const snapshotWrite = await sb.from('emi_kpi_snapshots').upsert(snapshots, { onConflict: 'metric_name,week_start,week_end' })
   if (snapshotWrite.error) {
     __councilObservabilitySignal('[weekly-kpi-summaries] snapshot write skipped', snapshotWrite.error)
@@ -266,7 +352,9 @@ export async function POST(request: NextRequest) {
     emi_language_adoption_percent: metricsMap.emi_language_adoption_percent?.value ?? null,
     assessment_completion_percent: metricsMap.assessment_completion_percent?.value ?? null,
     day7_return_percent: metricsMap.day7_return_percent?.value ?? null,
+    proof_assets_published_count: metricsMap.proof_assets_published_count?.value ?? null,
     b2b_pilot_conversion_percent: metricsMap.b2b_pilot_conversion_percent?.value ?? null,
+    tier1_claim_compliance_percent: metricsMap.tier1_claim_compliance_percent?.value ?? null,
   }
 
   const { data } = await sb

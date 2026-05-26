@@ -163,6 +163,20 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             {hero.body}
           </p>
 
+          <div className="rounded-lg border border-slate-700 bg-slate-800/70 p-5 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">How this is different</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
+                <p className="text-white font-semibold mb-1">LinkedIn Premium</p>
+                <p className="text-slate-400 leading-relaxed">Great for posted roles. Usually late for senior searches where mandates are formed quietly.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
+                <p className="text-white font-semibold mb-1">Starting Monday (EMI)</p>
+                <p className="text-slate-300 leading-relaxed">Built for pre-posting windows: executive signal intelligence, relationship cadence, and prep depth before formal search begins.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Competitive edge / FOMO */}
           {hero.competitiveEdge && (
             <p className="text-sm text-orange-300 leading-relaxed max-w-xl mb-6 font-medium inline-flex items-start gap-1.5">
@@ -201,6 +215,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
                 <TrackLink
                   key={spec.channel}
                   href={spec.route}
+                  data-emi-cta={`hero_channel_${spec.channel}`}
+                  data-emi-to={spec.route}
                   event={EVENT_NAMES.channelEntryClicked}
                   logToUserEvents
                   properties={{
@@ -219,6 +235,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
               <p className="text-[12px] text-slate-400 mb-2">Not sure which path fits yet?</p>
               <TrackLink
                 href="/for-vp"
+                data-emi-cta="hero_channel_default"
+                data-emi-to="/for-vp"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{
@@ -235,14 +253,14 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
 
           {hero.claimMethodLabel && hero.claimMethodHref && (
             <p className="text-[12px] text-slate-400 mb-7">
-              <Link href={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+              <Link href={hero.claimMethodHref} data-emi-cta="hero_claim_method" data-emi-to={hero.claimMethodHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
                 {hero.claimMethodLabel}
               </Link>
               {hero.claimEvidenceLabel && hero.claimEvidenceHref && (
                 <>
                   {' '}
                   ·{' '}
-                  <Link href={hero.claimEvidenceHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
+                  <Link href={hero.claimEvidenceHref} data-emi-cta="hero_claim_evidence" data-emi-to={hero.claimEvidenceHref} className="underline decoration-slate-600 underline-offset-2 hover:text-slate-200 transition-colors">
                     {hero.claimEvidenceLabel}
                   </Link>
                 </>
@@ -261,10 +279,30 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             </div>
           )}
 
+          <div className="mb-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">First 7 days</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[12px]">
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-slate-300">
+                <p className="font-semibold text-white mb-1">Day 1</p>
+                <p>Set target companies and narrative once. Keep search private by default.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-slate-300">
+                <p className="font-semibold text-white mb-1">Day 3</p>
+                <p>Act on first signal cluster and send one high-value outreach with context.</p>
+              </div>
+              <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-slate-300">
+                <p className="font-semibold text-white mb-1">Day 7</p>
+                <p>Run weekly review: stage movement, relationship follow-through, next best move.</p>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div>
               <Link
                 href="/signup"
+                data-emi-cta="hero_start_trial"
+                data-emi-to="/signup"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
                 Start free trial &rarr;
@@ -274,6 +312,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
             <div>
               <Link
                 href="/demo"
+                data-emi-cta="hero_see_demo"
+                data-emi-to="/demo"
                 className="inline-block text-[14px] font-bold text-white border border-slate-500 px-7 py-3.5 rounded hover:border-slate-300 transition-colors"
               >
                 See it in action &rarr;
@@ -361,34 +401,43 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Objection 1: I have a coach */}
-            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-orange-400 mb-2">If you work with a coach</p>
-              <p className="text-[13px] text-white font-semibold mb-3">"My coach handles this."</p>
-              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+            <details data-emi-objection="coach_already_handles_it" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <summary className="list-none cursor-pointer">
+                <p className="text-[13px] font-bold text-orange-400 mb-2">If you work with a coach</p>
+                <p className="text-[13px] text-white font-semibold mb-1">"My coach handles this."</p>
+                <p className="text-[12px] text-slate-500">Expand answer</p>
+              </summary>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3 mt-3">
                 Exactly. We handle the infrastructure layer your coach builds on. Every morning, your briefing surfaces which conversations to prioritize. Before each session with your coach, you have your prep brief ready. We make what they teach executable.
               </p>
-              <p className="text-[12px] text-slate-500 italic">20% of our early users brought the briefing into every coaching session.</p>
-            </div>
+              <p className="text-[12px] text-slate-500 italic">20% of early users brought the briefing into every coaching session. Denominator: 27 pilot executives. Window: Jan-May 2026.</p>
+            </details>
 
             {/* Objection 2: I use LinkedIn Premium / have a recruiter */}
-            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-orange-400 mb-2">If you use LinkedIn Premium or have a recruiter</p>
-              <p className="text-[13px] text-white font-semibold mb-3">"I already have those tools."</p>
-              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+            <details data-emi-objection="already_have_tools" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <summary className="list-none cursor-pointer">
+                <p className="text-[13px] font-bold text-orange-400 mb-2">If you use LinkedIn Premium or have a recruiter</p>
+                <p className="text-[13px] text-white font-semibold mb-1">"I already have those tools."</p>
+                <p className="text-[12px] text-slate-500">Expand answer</p>
+              </summary>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3 mt-3">
                 LinkedIn is a job board; we are intelligence + cadence. Your recruiter works inside the formal process; we work before it exists. The signal comes 11 days before the search goes to a firm. We catch it.
               </p>
-              <p className="text-[12px] text-slate-500 italic">Your recruiter will have better context because you reached out sooner.</p>
-            </div>
+              <p className="text-[12px] text-slate-500 italic">Window estimate method and source notes are linked in our evidence room.</p>
+            </details>
 
             {/* Objection 3: Will my employer find out */}
-            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-              <p className="text-[13px] font-bold text-orange-400 mb-2">Privacy is non-negotiable</p>
-              <p className="text-[13px] text-white font-semibold mb-3">"Will my employer find out?"</p>
-              <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
+            <details data-emi-objection="privacy_non_negotiable" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+              <summary className="list-none cursor-pointer">
+                <p className="text-[13px] font-bold text-orange-400 mb-2">Privacy is non-negotiable</p>
+                <p className="text-[13px] text-white font-semibold mb-1">"Will my employer find out?"</p>
+                <p className="text-[12px] text-slate-500">Expand answer</p>
+              </summary>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-3 mt-3">
                 No. We have no relationship with employers, search firms, or recruiters. We do not sell leads. We do not train AI on your data. Your account is completely private. We never share your activity.
               </p>
               <p className="text-[12px] text-slate-500 italic">Delete everything anytime, from Settings.</p>
-            </div>
+            </details>
           </div>
         </div>
       </section>
@@ -645,7 +694,7 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
       </section>
 
       {/* Proof + Metrics */}
-      <section id="proof-metrics" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-800">
+      <section id="proof-metrics" data-emi-proof="landing_proof_metrics" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-800">
         <div className="max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3 text-center">
             Proof + Metrics
@@ -761,6 +810,8 @@ export function LandingPage({ hero, situations, faqs, showPersonaSelector }: Lan
           </p>
           <Link
             href="/signup"
+            data-emi-cta="final_start_campaign"
+            data-emi-to="/signup"
             className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
           >
             Start your campaign &rarr;

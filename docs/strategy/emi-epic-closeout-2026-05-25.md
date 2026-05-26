@@ -44,4 +44,6 @@ Completion evidence:
 
 Implementation caveat:
 
-1. Q4 and Q6 currently rely on documented proxy values due absent production tables in active schema; Q2, Q3, and Q5 are presently N/A due missing qualifying production events/states.
+1. Historical 2026-05-25 production exports used proxy values for Q4 and Q6 because the production schema did not yet include proof-assets and tier-1-claims tables at that time.
+2. Repo remediation now exists in `supabase/migrations/116_proof_assets_and_tier1_claims.sql` and canonical Q4/Q6 snapshot writes are implemented in `src/app/api/admin/automation/reporting/weekly-kpi-summaries/route.ts`.
+3. Production closeout still requires applying the migration and rerunning the export manifest so historical proxy rows are replaced with canonical outputs.

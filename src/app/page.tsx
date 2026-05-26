@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 
 export const metadata: Metadata = {
   title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
@@ -145,6 +146,7 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
           eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',

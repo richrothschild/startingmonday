@@ -59,6 +59,13 @@ Execution caveats:
 2. `benchmark_proof_assets` and `tier1_claims` tables were not present in the active production schema cache, so Q4 and Q6 were recorded using documented proxy values from final audit artifacts.
 3. `partner_opportunities` table was absent; fallback inspection on `b2b_prospects` showed no qualified or pilot stages, so Q5 is N/A.
 
+## Repo Remediation Logged After Initial Validation
+
+1. Canonical Q4/Q6 schema remediation has now been implemented in repo via `supabase/migrations/116_proof_assets_and_tier1_claims.sql`.
+2. Weekly KPI snapshot generation now computes `proof_assets_published_count` from `proof_assets` and `tier1_claim_compliance_percent` from `tier1_claims` in `src/app/api/admin/automation/reporting/weekly-kpi-summaries/route.ts`.
+3. `docs/strategy/emi-sprints/artifacts/emi-production-query-pack.sql` now reads Q4 and Q6 from `emi_kpi_snapshots` canonically.
+4. Production validation remains open until migration 116 is applied in production and the export manifest is regenerated.
+
 ## Required Next Action to Strengthen Production Validation
 
 1. Add/align production analytics tables for Q4 and Q6 or adjust query pack to canonical table names.

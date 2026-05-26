@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PricingCards } from './pricing-cards'
+import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 
 export const metadata: Metadata = {
   title: 'Pricing - Starting Monday for C-suite searches',
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
+      <EmiMarketingTelemetry pageSlug="/pricing" personaSegment="executives" />
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
@@ -27,6 +29,8 @@ export default function PricingPage() {
             </Link>
             <Link
               href="/signup"
+              data-emi-cta="pricing_nav_get_started"
+              data-emi-to="/signup"
               className="text-[13px] font-semibold bg-white text-slate-900 px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
             >
               Get started
@@ -41,9 +45,60 @@ export default function PricingPage() {
             Pricing
           </h1>
           <p className="text-[16px] text-slate-500 mt-3 max-w-md mx-auto leading-relaxed">
-            30-day free trial. No credit card required to start. Built to improve C-suite search behavior and relationship outcomes.
+            30-day free trial. No credit card required to start. EMI pricing is built around one outcome: better executive decisions before the formal search window appears.
           </p>
         </div>
+
+        <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-4">Why this pricing model exists</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+            <div className="border border-slate-200 rounded-lg p-4 bg-white">
+              <p className="font-semibold text-slate-900 mb-1">Category default</p>
+              <p className="text-slate-600 leading-relaxed">Pay for more applications and visibility after a role is posted.</p>
+            </div>
+            <div className="border border-emerald-200 rounded-lg p-4 bg-emerald-50/40">
+              <p className="font-semibold text-slate-900 mb-1">EMI model</p>
+              <p className="text-slate-700 leading-relaxed">Pay for earlier intelligence, better weekly execution, and higher-quality conversations before searches are public.</p>
+            </div>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-4">Decision rule: pick the tier that matches campaign intensity, not job-board volume.</p>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">First 7 days by tier</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[13px]">
+            <div className="border border-slate-200 rounded-lg p-4">
+              <p className="font-semibold text-slate-900 mb-2">Intelligence</p>
+              <p className="text-slate-600">Day 1 target map. Day 3 first signals. Day 7 first weekly rhythm review.</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-4">
+              <p className="font-semibold text-slate-900 mb-2">Active</p>
+              <p className="text-slate-600">Day 1 outreach queue. Day 3 signal-led contact move. Day 7 cadence quality audit.</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-4">
+              <p className="font-semibold text-slate-900 mb-2">Executive</p>
+              <p className="text-slate-600">Day 1 role thesis. Day 3 objection map. Day 7 prep depth and fit checkpoint.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Before you decide</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <details data-emi-objection="pricing_too_early" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"It may be too early for me."</summary>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Start on Intelligence. EMI is designed for optionality before urgency, not just active-search pressure.</p>
+            </details>
+            <details data-emi-objection="pricing_already_have_recruiter" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I already have a recruiter."</summary>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Recruiters work formal cycles. EMI improves your context and timing before that cycle starts.</p>
+            </details>
+            <details data-emi-objection="pricing_confidentiality" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I need this to stay private."</summary>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Private by default. No employer visibility and no sale of your activity data.</p>
+            </details>
+          </div>
+        </section>
 
         <PricingCards />
 
@@ -108,7 +163,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section className="mb-12 border border-emerald-200 rounded-lg p-6 sm:p-7 bg-emerald-50/40">
+        <section data-emi-proof="pricing_pilot_snapshot" className="mb-12 border border-emerald-200 rounded-lg p-6 sm:p-7 bg-emerald-50/40">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-4">
             Pilot evidence snapshot
           </p>
@@ -128,6 +183,9 @@ export default function PricingPage() {
           </div>
           <p className="text-[12px] text-slate-500">
             Methods: cohort includes users who completed onboarding and launched at least one tracked outreach between Jan-May 2026. Results vary by market conditions and campaign quality.
+          </p>
+          <p className="text-[12px] text-slate-500 mt-2">
+            Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Freshness: 2026-05-25 snapshot, Jan-May 2026 cohort window.
           </p>
           <p className="text-[12px] text-slate-500 mt-2">
             See full claim mapping in{' '}
@@ -196,6 +254,8 @@ export default function PricingPage() {
           </div>
           <Link
             href="/partners"
+              data-emi-cta="pricing_contact_enterprise"
+              data-emi-to="/partners"
             className="shrink-0 text-[13px] font-semibold text-slate-900 border border-slate-300 hover:border-slate-600 px-5 py-2.5 rounded transition-colors"
           >
             Contact us
@@ -229,7 +289,7 @@ export default function PricingPage() {
 
         <p className="mt-10 text-center text-[13px] text-slate-400">
           All plans include a 30-day free trial. Cancel any time.{' '}
-          Questions? <a href="mailto:support@startingmonday.app" className="text-slate-600 underline underline-offset-2">support@startingmonday.app</a>
+          Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className="text-slate-600 underline underline-offset-2">support@startingmonday.app</a>
         </p>
       </main>
     </div>

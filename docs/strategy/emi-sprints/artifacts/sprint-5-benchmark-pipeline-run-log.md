@@ -34,3 +34,4 @@ Primary KPI: benchmark freshness SLA attainment.
 ## Release Notes
 
 1. Pipeline run-log format finalized for weekly compliance review.
+2. Repo automation path now exists at `src/app/api/admin/automation/reporting/benchmark-pipeline-run-logs/route.ts` to record freshness and quality-check status into scheduled-job observability.

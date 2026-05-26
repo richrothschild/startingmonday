@@ -28,6 +28,7 @@ Purpose: Re-run EMI production validation in a consistent, audit-ready workflow.
 2. Run Q1-Q6 in production.
 - Preferred path: run SQL blocks from the query pack in Supabase SQL Editor.
 - Alternative path: run via psql if production connection is available.
+- Repo automation path: POST to `/api/admin/automation/reporting/emi-validation-reruns` after the weekly KPI snapshot job runs so canonical drift and null-streak alerts are recorded in automation observability.
 
 3. Export result artifacts.
 - Save one combined export and one per-query export when possible.
@@ -63,6 +64,13 @@ Purpose: Re-run EMI production validation in a consistent, audit-ready workflow.
 1. Raise a warning when any KPI differs from published value by more than 5 percentage points.
 2. Raise a warning when any query returns null for two consecutive weekly reruns.
 3. Open a schema-alignment ticket when a metric cannot be computed from canonical tables.
+
+## Runtime Automation Notes
+
+1. The rerun alerting path is implemented in `src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts`.
+2. The route reads canonical `emi_kpi_snapshots`, compares them to published sprint reference values, and writes a `scheduled_job_observability_runs` record.
+3. Any mismatch or consecutive null streak causes automation alert creation through the existing observability trigger path.
+4. Export-file generation and manifest markdown updates still require an operator step in the repository workspace.
 
 ## Definition of Complete Rerun
 

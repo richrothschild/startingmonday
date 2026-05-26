@@ -55,5 +55,6 @@ docs/strategy/emi-sprints/artifacts/sprint-3-exit-metrics-snapshot.md
 
 - Sprint result: Pass
 - What shipped: EMI-201, EMI-202, EMI-203, EMI-204 artifacts and exit metrics snapshot
+- Runtime note: EMI-201 now has a dashboard implementation via `src/components/DailyMomentumPlan.tsx` mounted on `src/app/(dashboard)/dashboard/page.tsx`.
 - What slipped: none
 - Remediation tickets created: none

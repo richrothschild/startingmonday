@@ -16,6 +16,7 @@ import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
@@ -390,6 +391,105 @@ export default async function DashboardPage({
   const showCampaignWelcome = searchPath === 'campaign'  && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
   const showWatcherWelcome  = searchPath === 'watcher'   && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
 
+  const momentumScore = typeof momentumData?.momentum_score === 'number'
+    ? momentumData.momentum_score
+    : null
+  const momentumStatus: 'low' | 'medium' | 'strong' = momentumScore !== null
+    ? (momentumScore >= 70 ? 'strong' : momentumScore >= 40 ? 'medium' : 'low')
+    : ((signalCount + overdueCount + activeCount) >= 3 ? 'strong' : (signalCount + overdueCount + activeCount) > 0 ? 'medium' : 'low')
+
+  const relationshipAction: DailyMomentumAction = warmPaths[0]
+    ? {
+        id: 'relationship-action',
+        track: 'relationship',
+        title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
+        body: `${warmPaths[0].signal.signal_summary} gives you a concrete reason to re-engage. Use that signal while it is still fresh.`,
+        effortMinutes: 15,
+        href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
+        cta: 'Open outreach',
+      }
+    : overdueCount > 0
+      ? {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Clear the next relationship follow-up',
+          body: 'A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.',
+          effortMinutes: 15,
+          href: '/dashboard/calendar',
+          cta: 'Open calendar',
+        }
+      : {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Pick one warm relationship to move',
+          body: 'Open contacts, choose one person who can unblock a real conversation, and schedule the next step.',
+          effortMinutes: 15,
+          href: '/dashboard/contacts',
+          cta: 'Open contacts',
+        }
+
+  const readinessAction: DailyMomentumAction = interviewingCompany
+    ? {
+        id: 'readiness-action',
+        track: 'readiness',
+        title: `Generate prep for ${interviewingCompany.name}`,
+        body: 'If you already have a live conversation, readiness work outranks almost everything else.',
+        effortMinutes: 25,
+        href: `/dashboard/companies/${interviewingCompany.id}/prep`,
+        cta: 'Run prep brief',
+      }
+    : profileScore < 100
+      ? {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Tighten the profile inputs driving your search',
+          body: 'Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.',
+          effortMinutes: 20,
+          href: profileHref,
+          cta: 'Finish profile',
+        }
+      : {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Run one readiness pass before more outreach',
+          body: 'Use the strategy layer to sharpen what you will say before the next live conversation opens.',
+          effortMinutes: 20,
+          href: '/dashboard/strategy',
+          cta: 'Open strategy',
+        }
+
+  const focusAction: DailyMomentumAction = signalCount > 0
+    ? {
+        id: 'focus-action',
+        track: 'focus',
+        title: 'Review the freshest market signals',
+        body: 'New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.',
+        effortMinutes: 15,
+        href: '/dashboard/signals',
+        cta: 'Open signals',
+      }
+    : totalCount < 12
+      ? {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Add one more target company',
+          body: 'A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.',
+          effortMinutes: 15,
+          href: '/dashboard/companies/new',
+          cta: 'Add company',
+        }
+      : {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Convert today into a concrete next step',
+          body: 'If the pipeline already exists, pick the next visible move instead of expanding scope.',
+          effortMinutes: 10,
+          href: overdueCount > 0 ? '/dashboard/calendar' : '/dashboard/briefing',
+          cta: overdueCount > 0 ? 'View due today' : 'Open briefing',
+        }
+
+  const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
+
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
@@ -654,6 +754,12 @@ export default async function DashboardPage({
             </Link>
           </div>
         </section>
+
+        <DailyMomentumPlan
+          actions={dailyMomentumActions}
+          dateKey={todayISO}
+          status={momentumStatus}
+        />
 
         {/* Profile quick-save confirmation */}
         {profile_saved && (

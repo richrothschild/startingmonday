@@ -35,6 +35,9 @@ export type UserEventName =
   | 'emi_assessment_started'
   | 'emi_assessment_completed'
   | 'emi_onboarding_started'
+  | 'emi_daily_loop_loaded'
+  | 'emi_action_completed'
+  | 'emi_daily_reflection_submitted'
 
 type EventProperties = Record<string, string | number | boolean | null>
 

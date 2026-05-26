@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
 import { BrandIcon } from '@/components/BrandIcon'
+import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import {
   WHAT_CHANGES,
   SAMPLE_SIGNAL_ITEMS,
@@ -21,8 +22,8 @@ import {
 } from './page-content'
 
 export const metadata: Metadata = {
-  title: 'Coach Partner Preview | Starting Monday for Executive Coaches',
-  description: 'A warm-intro page for executive coaches. See how Starting Monday gives clients a private signal and readiness layer between sessions so coaches can stay in strategy.',
+  title: 'EMI Coach Partner Preview | Starting Monday for Executive Coaches',
+  description: 'Executive Momentum Intelligence (EMI) for coaches: a private signal and readiness layer that improves between-session execution without adding admin drag.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches' },
   openGraph: {
     title: 'Coach Partner Preview | Starting Monday',
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
 export default function ForCoachesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
+      <EmiMarketingTelemetry pageSlug="/for-coaches" personaSegment="coaches" />
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
@@ -85,6 +87,28 @@ export default function ForCoachesPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
 
+          <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Decision lanes</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Economic buyer lane</p>
+                <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                  <li>• Improve interview momentum across active clients</li>
+                  <li>• Reduce paid-session context rebuild time</li>
+                  <li>• Validate pass/fail impact in 30 days</li>
+                </ul>
+              </div>
+              <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Practitioner lane</p>
+                <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
+                  <li>• Keep one shared view of pipeline and signal flow</li>
+                  <li>• Improve prep depth before high-stakes calls</li>
+                  <li>• Run a reliable Monday-through-Friday cadence</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50">
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
             <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-4">
@@ -94,10 +118,10 @@ export default function ForCoachesPage() {
               <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/partners#apply" className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+              <Link href="/partners#apply" data-emi-cta="coaches_top_preview_cta" data-emi-to="/partners#apply" className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
                 Get started with a 30-day coach preview
               </Link>
-              <Link href="/for-coaches/faq" className="inline-block border border-slate-300 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded hover:border-slate-500 transition-colors">
+              <Link href="/for-coaches/faq" data-emi-cta="coaches_read_faq_top" data-emi-to="/for-coaches/faq" className="inline-block border border-slate-300 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded hover:border-slate-500 transition-colors">
                 Read coach FAQ before preview
               </Link>
             </div>
@@ -139,7 +163,7 @@ export default function ForCoachesPage() {
                 </ul>
               </div>
             </div>
-            <div className="border border-slate-200 rounded-xl p-4 bg-white mb-4">
+            <div data-emi-proof="coaches_credibility_proof" className="border border-slate-200 rounded-xl p-4 bg-white mb-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-2">What makes this credible</p>
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
                 Early pilot signal is directional but useful: 81 percent of the Jan.-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
@@ -154,7 +178,7 @@ export default function ForCoachesPage() {
                 Mini-proof for long-cycle coaching: the same signal layer tracks board-level governance shifts and multiple parallel opportunities in one timeline, so strategy does not reset each month.
               </p>
               <p className="text-[12px] text-slate-500 leading-relaxed">
-                Denominator: 27 pilot executives. Use this as decision support, then validate fit with your own 30-day pass-fail test.
+                Denominator: 27 pilot executives. Window: Jan-May 2026. Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Use this as decision support, then validate fit with your own 30-day pass-fail test.
               </p>
             </div>
             <p className="text-[12px] text-slate-500 leading-relaxed">
@@ -206,7 +230,7 @@ export default function ForCoachesPage() {
             </div>
           </section>
 
-          <details id="role-boundary" className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+          <details id="role-boundary" data-emi-objection="coaches_replacement_risk" className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
             <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Role boundary</p>
@@ -239,7 +263,7 @@ export default function ForCoachesPage() {
             </div>
           </details>
 
-          <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+          <details data-emi-objection="coaches_needs_deep_dive_proof" className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
             <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
@@ -391,7 +415,7 @@ export default function ForCoachesPage() {
             </div>
           </details>
 
-          <details id="next-step" className="group border-t border-slate-100 pt-10">
+          <details id="next-step" data-emi-objection="coaches_scope_guardrail" className="group border-t border-slate-100 pt-10">
             <summary className="list-none cursor-pointer flex items-center justify-between gap-4 hover:text-slate-700 transition-colors">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">What this is not</p>
@@ -415,19 +439,19 @@ export default function ForCoachesPage() {
             </h2>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-6 text-[13px]">
-              <Link href="/for-coaches/faq" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              <Link href="/for-coaches/faq" data-emi-cta="coaches_read_faq_bottom" data-emi-to="/for-coaches/faq" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 <BrandIcon name="faq" className="h-4 w-4 text-orange-600" />
                 Read the coach FAQ
               </Link>
-              <Link href="/for-coaches/faq#security" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              <Link href="/for-coaches/faq#security" data-emi-cta="coaches_security_guide" data-emi-to="/for-coaches/faq#security" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 <BrandIcon name="security" className="h-4 w-4 text-orange-600" />
                 Data security guide
               </Link>
-              <Link href="/for-coaches/trust-pack" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              <Link href="/for-coaches/trust-pack" data-emi-cta="coaches_trust_pack" data-emi-to="/for-coaches/trust-pack" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 <BrandIcon name="trust" className="h-4 w-4 text-orange-600" />
                 Coach trust pack
               </Link>
-              <Link href="/for-coaches/economics" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              <Link href="/for-coaches/economics" data-emi-cta="coaches_pricing_economics" data-emi-to="/for-coaches/economics" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
                 <BrandIcon name="pricing" className="h-4 w-4 text-orange-600" />
                 Pricing & economics
               </Link>

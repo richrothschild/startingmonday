@@ -40,3 +40,4 @@ Primary KPI: daily action completion rate.
 
 1. One-screen plan structure finalized.
 2. Action selection and completion rules locked for v1.
+3. Runtime implementation now lives in `src/components/DailyMomentumPlan.tsx` and is mounted from `src/app/(dashboard)/dashboard/page.tsx`.

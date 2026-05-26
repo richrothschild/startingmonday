@@ -95,7 +95,7 @@ export function PricingCards() {
         <span className="text-green-600 font-bold text-[13px]">&#10003;</span>
         <p className="text-[13px] text-slate-500">
           Your employer cannot see your account or your search activity.{' '}
-          <Link href="/privacy#employer" className="underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
+          <Link href="/privacy#employer" data-emi-cta="pricing_privacy_explainer" data-emi-to="/privacy#employer" className="underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
         </p>
       </div>
 
@@ -138,6 +138,8 @@ export function PricingCards() {
             </ul>
             <Link
               href="/signup"
+              data-emi-cta={`pricing_plan_${plan.key}`}
+              data-emi-to="/signup"
               className={`block text-center text-[14px] font-semibold px-6 py-3 rounded transition-colors ${
                 plan.featured
                   ? 'bg-orange-500 text-white hover:bg-orange-600'
