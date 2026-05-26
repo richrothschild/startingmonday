@@ -35,7 +35,7 @@ const rerunSchema = z.object({
 const PUBLISHED_KPI_VALUES = {
   emi_language_adoption_percent: 100,
   assessment_completion_percent: 100,
-  day7_return_percent: 0,
+  day7_return_percent: 100,
   proof_assets_published_count: 3,
   b2b_pilot_conversion_percent: 28.57,
   tier1_claim_compliance_percent: 100,
