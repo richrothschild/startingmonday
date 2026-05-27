@@ -1,4 +1,4 @@
-// no-requireAuth: public endpoint — idea submissions and browsing require no account
+// no-requireAuth: public endpoint - idea submissions and browsing require no account
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { checkBurstLimit } from '@/lib/burst-limit'

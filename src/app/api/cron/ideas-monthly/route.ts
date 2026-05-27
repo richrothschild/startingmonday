@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
   const submissions = (rawData ?? []) as Submission[]
 
   if (submissions.length === 0) {
-    await postSlack(slackToken, `*Ideas Monthly Report — ${monthLabel}*\nNo submissions this month.`)
+    await postSlack(slackToken, `*Ideas Monthly Report -${monthLabel}*\nNo submissions this month.`)
     return NextResponse.json({ ok: true, month: monthLabel, count: 0 })
   }
 
@@ -108,7 +108,7 @@ Idea: ${sub.body}
     return `${i + 1}. *[${s.score}/10]* _(${CATEGORY_LABELS[s.category] ?? s.category})_ ${display}\n   ${preview}`
   }).join('\n\n')
 
-  const report = `*Ideas Monthly Report — ${monthLabel}*\n${submissions.length} submission${submissions.length !== 1 ? 's' : ''} received.\n\n${rows}`
+  const report = `*Ideas Monthly Report -${monthLabel}*\n${submissions.length} submission${submissions.length !== 1 ? 's' : ''} received.\n\n${rows}`
   await postSlack(slackToken, report)
 
   // Random winner from all submitters (one entry per email)
