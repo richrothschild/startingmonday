@@ -509,7 +509,6 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     const sendQueue: ProspectRow[] = []
 
     for (const target of followUpTargets) {
-      const draft = buildCrossChannelFollowUpDraft(target)
       const preflightRes = await fetch('/api/outreach/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -518,13 +517,13 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
           company: target.company,
           roleBucket: target.roleBucket,
           emailTo: target.email,
-          subject: draft.subject,
-          messageText: draft.body,
           statusAfter: 'reached_out',
           mode: 'dry_run',
           outreachChannel: target.outreachChannel,
           fitTier: target.fitTier,
           personaFocus: target.personaFocus,
+          useLatestTemplateDraft: true,
+          templateStep: 'followup_1',
           campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
           idempotencyKey: followUpIdempotencyKey(target),
         }),
@@ -561,7 +560,6 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       const batch = sendQueue.slice(i, i + FOLLOW_UP_BATCH_SIZE)
 
       const batchResults = await Promise.all(batch.map(async (target) => {
-        const draft = buildCrossChannelFollowUpDraft(target)
         const res = await fetch('/api/outreach/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -570,13 +568,13 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
             company: target.company,
             roleBucket: target.roleBucket,
             emailTo: target.email,
-            subject: draft.subject,
-            messageText: draft.body,
             statusAfter: 'reached_out',
             mode: sendMode,
             outreachChannel: target.outreachChannel,
             fitTier: target.fitTier,
             personaFocus: target.personaFocus,
+            useLatestTemplateDraft: true,
+            templateStep: 'followup_1',
             campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
             idempotencyKey: followUpIdempotencyKey(target),
           }),

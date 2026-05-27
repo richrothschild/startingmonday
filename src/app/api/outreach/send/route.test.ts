@@ -204,4 +204,37 @@ describe('outreach send route', () => {
     })
     expect(state.sendEmail).not.toHaveBeenCalled()
   })
+
+  it('builds follow-up emails from latest templates when requested', async () => {
+    state.sendEmail.mockResolvedValue({ data: { id: 'msg_321' } })
+
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        roleBucket: 'CFO',
+        emailTo: 'alex@example.com',
+        mode: 'test_to_self',
+        outreachChannel: 'executives',
+        useLatestTemplateDraft: true,
+        templateStep: 'followup_1',
+        campaignStep: 'followup_bulk_v1',
+        idempotencyKey: 'followup_bulk_v1:alex@example.com',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    await expect(res.json()).resolves.toMatchObject({
+      ok: true,
+      mode: 'test_to_self',
+      templateSource: 'latest_template_engine',
+    })
+    expect(state.sendEmail).toHaveBeenCalledTimes(1)
+    expect(state.sendEmail).toHaveBeenCalledWith(expect.objectContaining({
+      subject: expect.stringMatching(/\[TEST\]/),
+      channel: 'executives',
+    }))
+  })
 })

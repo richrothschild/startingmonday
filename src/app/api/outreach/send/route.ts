@@ -5,6 +5,7 @@ import { sendEmail } from '@/lib/email'
 import { autoRefineEmailDraft } from '@/lib/email-council'
 import { reviewEmail } from '@/lib/email-quality'
 import { getStaffMember } from '@/lib/staff'
+import templateEngine from '@/lib/outreach/template-engine.cjs'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'])
@@ -213,12 +214,32 @@ export async function POST(request: NextRequest) {
   const fitTier = (body?.fitTier ?? '').toString().trim().toLowerCase()
   const personaFocus = (body?.personaFocus ?? '').toString().trim()
   const campaignStep = (body?.campaignStep ?? '').toString().trim()
+  const templateStep = (body?.templateStep ?? '').toString().trim()
+  const useLatestTemplateDraft = body?.useLatestTemplateDraft === true
   const idempotencyKey = (body?.idempotencyKey ?? '').toString().trim()
   const emailTo = normalizeEmail(body?.emailTo)
-  const subject = (body?.subject ?? '').toString().trim()
-  const messageText = (body?.messageText ?? '').toString().trim()
+  let subject = (body?.subject ?? '').toString().trim()
+  let messageText = (body?.messageText ?? '').toString().trim()
   const statusAfter = (body?.statusAfter ?? 'reached_out').toString()
   const mode = (body?.mode ?? 'live').toString()
+
+  if (useLatestTemplateDraft) {
+    const firstName = fullName.trim().split(/\s+/)[0] || 'there'
+    const generated = templateEngine.buildLatestTemplateDraft({
+      channel: outreachChannel,
+      firstName,
+      company,
+      roleLabel: roleBucket || 'Executive',
+      focus: personaFocus || roleBucket || 'senior transition',
+      step: templateStep || campaignStep || 'followup_1',
+      state: '',
+      profileTrigger: '',
+      postTrigger: '',
+      newsTrigger: '',
+    })
+    subject = generated.subject.trim()
+    messageText = generated.body.trim()
+  }
 
   if (!fullName || !emailTo || !subject || !messageText) {
     return NextResponse.json({ error: 'fullName, emailTo, subject, and messageText are required.' }, { status: 400 })
@@ -237,6 +258,9 @@ export async function POST(request: NextRequest) {
   }
   if (campaignStep.length > 120) {
     return NextResponse.json({ error: 'campaignStep is too long.' }, { status: 400 })
+  }
+  if (templateStep.length > 120) {
+    return NextResponse.json({ error: 'templateStep is too long.' }, { status: 400 })
   }
   if (idempotencyKey.length > 160) {
     return NextResponse.json({ error: 'idempotencyKey is too long.' }, { status: 400 })
@@ -356,6 +380,8 @@ export async function POST(request: NextRequest) {
           send_error: councilMessage,
           idempotency_key: idempotencyKey || null,
           campaign_step: campaignStep || null,
+          template_step: templateStep || null,
+          template_source: useLatestTemplateDraft ? 'latest_template_engine' : 'custom_input',
           council_blockers: councilRefine.evaluation.blockers,
           council_warnings: councilRefine.evaluation.warnings,
           council_score: councilRefine.evaluation.scores,
@@ -433,6 +459,8 @@ export async function POST(request: NextRequest) {
         send_error: errorMessage,
         idempotency_key: idempotencyKey || null,
         campaign_step: campaignStep || null,
+        template_step: templateStep || null,
+        template_source: useLatestTemplateDraft ? 'latest_template_engine' : 'custom_input',
       },
     })
 
@@ -509,6 +537,8 @@ export async function POST(request: NextRequest) {
       email_source: 'outreach_send_route',
       idempotency_key: idempotencyKey || null,
       campaign_step: campaignStep || null,
+      template_step: templateStep || null,
+      template_source: useLatestTemplateDraft ? 'latest_template_engine' : 'custom_input',
     },
   })
 
@@ -559,6 +589,7 @@ export async function POST(request: NextRequest) {
     to: recipient,
     warnings: [...guardrail.warnings, ...contactSyncWarnings],
     status: mode === 'live' ? statusAfter : 'prospect',
+    templateSource: useLatestTemplateDraft ? 'latest_template_engine' : 'custom_input',
     googleFollowUp3Url,
     googleFollowUp7Url,
   })
