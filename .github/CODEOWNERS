@@ -1,0 +1,15 @@
+# CODEOWNERS for StartingMonday
+# Ensure critical infra and docs changes are reviewed by the owners listed below.
+# Primary reviewer: @richrothschild
+# Secondary reviewer / day-to-day: @68Commando-stack
+
+# Default owners (applies to all files not matched below)
+* @richrothschild @68Commando-stack
+
+# Specific high-impact paths
+/CLAUDE.md @richrothschild
+/.github/ @richrothschild @68Commando-stack
+/supabase/ @richrothschild @68Commando-stack
+/scripts/ @68Commando-stack @richrothschild
+/railway.toml @richrothschild @68Commando-stack
+/next.config.ts @richrothschild @68Commando-stack

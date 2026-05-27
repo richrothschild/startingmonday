@@ -48,6 +48,12 @@ next-env.d.ts
 # Claude Code — local session context, not for shared repo
 CLAUDE.md
 
+# Claude Code project-local settings (personal, not shared)
+.claude/settings.local.json
+
+# Local dev scripts
+StartingMonday-Dev.bat
+
 # local dev artifacts
 .briefing-preview.html
 docs/status/prep-brief-evals-readiness.md
