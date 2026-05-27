@@ -69,6 +69,14 @@ export default function ForCoachesPage() {
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
             Clients show up prepared. You coach at a higher level.
           </p>
+          <div className="mb-6">
+            <Link
+              href="/for-coaches/coach-prep-worksheet"
+              className="inline-flex items-center rounded-lg border border-orange-400/50 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-200 hover:bg-orange-500/20 transition-colors"
+            >
+              Open the one-page coach prep worksheet
+            </Link>
+          </div>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
               You might be thinking
