@@ -57,6 +57,8 @@ describe('outreach template engine', () => {
     expect(draft.body).toContain('Starting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.')
     expect(draft.body).toContain('It shows what to lead with, what to cut, and what to save for later.')
     expect(draft.body).toContain('Reply yes and I will send the one-page CFO call brief.')
+    expect(draft.body).not.toContain('Search momentum is critical')
+    expect(draft.body).not.toContain('(n=27)')
     expect(draft.body).not.toContain('Proof detail:')
     expect(draft.body).not.toContain('If this is ignored')
     expect(draft.body).not.toContain('reply "send it"')
@@ -75,7 +77,7 @@ describe('outreach template engine', () => {
     expect(draft.subject).toBe('A tighter first outreach brief for Summit Search')
     expect(draft.body).toContain('In retained search, shortlist quality drops when the first outreach starts before the role story is crisp.')
     expect(draft.body).toContain('Starting Monday gives search teams one short brief for what the first outreach should say before volume starts.')
-    expect(draft.body).toContain('Also, Search momentum is critical, and Starting Monday helps keep it moving.')
+    expect(draft.body).toContain('It keeps shortlist quality tighter before partner review cycles start.')
     expect(draft.body).toContain('It is meant to cut partner rework and keep shortlist quality tight.')
     expect(draft.body).toContain('Reply yes and I will send the first outreach brief.')
   })
@@ -128,6 +130,7 @@ describe('outreach template engine', () => {
     expect(followup2.subject).toBe('Should I send the CIO call brief for Northstar')
     expect(followup2.body).toContain('the first recruiter call usually decides whether your story feels specific or generic')
     expect(followup2.body).toContain('make role fit clear before the first recruiter, CEO, or board conversation')
+    expect(followup2.body).not.toContain('Search momentum is critical')
     expect(followup2.body).not.toContain('If this is not relevant right now, no problem')
   })
 
@@ -230,7 +233,7 @@ describe('outreach template engine', () => {
 
     expect(executive.body).toContain('I saw new CFO search announced after earnings reset, and it looked like recruiter and board conversations may be coming fast.')
     expect(executive.body).toContain('turn a long career into a short story recruiters, CEOs, and boards can follow quickly')
-    expect(executive.body).toContain('Also, Search momentum is critical, and Starting Monday helps keep it moving.')
+    expect(executive.body).toContain('It keeps first conversations specific instead of generic so momentum comes from clarity, not volume.')
     expect(coach.body).toContain('I saw your post on keeping client prep simple, and it looked like the kind of prep load coaches end up carrying between sessions.')
     expect(coach.body).toContain('coach notes, client signals, and next steps in one place')
     expect(outplacement.body).toContain('I saw your cohort model now spans three regions, and it looked like the kind of growth point where cohort consistency gets harder to hold.')
@@ -249,6 +252,7 @@ describe('outreach template engine', () => {
 
     expect(search.body).toContain('I saw new CIO mandate announced, and it looked like the kind of moment when shortlist quality can drift.')
     expect(search.body).not.toContain('Momentum Signal')
+    expect(search.body).not.toContain('Search momentum is critical')
   })
 
   it('keeps default first-touch drafts above the live council gate (>80)', () => {

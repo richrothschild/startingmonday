@@ -61,6 +61,6 @@ describe('outreach-data trigger mapping', () => {
     expect(draft.subject).not.toBe('Legacy CSV subject')
     expect(draft.body).not.toBe('Legacy CSV body')
     expect(draft.body).toContain('I saw your post on reducing prep drag between sessions, and it looked like the kind of prep load coaches end up carrying between sessions.')
-    expect(draft.body).toContain('Also, Search momentum is critical for your clients, and Starting Monday helps keep it moving between sessions.')
+    expect(draft.body).toContain('It keeps client momentum visible between sessions without extra coach admin.')
   })
 })

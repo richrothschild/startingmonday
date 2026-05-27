@@ -60,7 +60,9 @@ test('Outreach Canary: server template draft + dry-run gate pass', async ({ page
   const bannedPatterns = [
     /\bsimple\s+[a-z]{2,8}\s+first-call\s+plan\b/i,
     /\bmomentum signal\b/i,
+    /search\s+momentum\s+is\s+critical/i,
     /pilot\s+group\s*\(\s*n\s*=\s*27\s*\)/i,
+    /\(\s*n\s*=\s*27\s*\)/i,
     /if useful,\s*reply yes and i will send/i,
   ]
   for (const pattern of bannedPatterns) {

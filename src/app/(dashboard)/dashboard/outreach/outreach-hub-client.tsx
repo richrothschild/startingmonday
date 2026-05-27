@@ -301,9 +301,10 @@ async function pollOutreachBatchStatus(batchId: string): Promise<{ ok: true; sta
 }
 
 function prefillForRow(row: ProspectRow): { subject: string; body: string } {
+  void row
   return {
-    subject: row.defaultSubject,
-    body: row.defaultBody,
+    subject: '',
+    body: '',
   }
 }
 
@@ -328,8 +329,8 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
   const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'>('executives')
   const [activeCampaign, setActiveCampaign] = useState<'all' | 'coach_day1_60'>('all')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
-  const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
-  const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
+  const [subject, setSubject] = useState('')
+  const [messageText, setMessageText] = useState('')
   const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
   const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
@@ -390,6 +391,8 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
 
   async function hydrateTemplateForRow(row: ProspectRow) {
     setTemplateLoading(true)
+    setSubject('')
+    setMessageText('')
     try {
       const response = await fetch('/api/outreach/template', {
         method: 'POST',
@@ -406,6 +409,10 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
 
       const { payload } = await readApiPayload(response)
       if (!response.ok) {
+        setError({
+          title: 'Template refresh failed',
+          detail: 'Could not load the latest server template for this row. Sending is blocked until template refresh succeeds.',
+        })
         return
       }
 
@@ -414,6 +421,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
       if (nextSubject.trim() && nextBody.trim()) {
         setSubject(nextSubject)
         setMessageText(nextBody)
+        setError(null)
       }
     } finally {
       setTemplateLoading(false)
@@ -423,34 +431,18 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
   useEffect(() => {
     const row = filtered[selectedIndex] ?? filtered[0]
     if (!row) return
-    const prefill = prefillForRow(row)
-    setSubject(prefill.subject)
-    setMessageText(prefill.body)
     void hydrateTemplateForRow(row)
-    const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
-    if (staleHits.length > 0) {
-      setError(legacyCopyBlockedError(staleHits))
-      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
-      setSuccess(null)
-    }
+    setGuardrailWarnings([])
+    setSuccess(null)
   }, [filtered, selectedIndex])
 
   function resetComposerFor(index: number) {
     const next = filtered[index]
     if (!next) return
     setSelectedIndex(index)
-    const prefill = prefillForRow(next)
-    const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
-    setSubject(prefill.subject)
-    setMessageText(prefill.body)
     void hydrateTemplateForRow(next)
-    if (staleHits.length > 0) {
-      setError(legacyCopyBlockedError(staleHits))
-      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
-    } else {
-      setError(null)
-      setGuardrailWarnings([])
-    }
+    setError(null)
+    setGuardrailWarnings([])
     setSuccess(null)
     setGuardrailViolations([])
     setGoogleFollowUp3Url(null)

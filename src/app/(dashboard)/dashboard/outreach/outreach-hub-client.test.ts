@@ -44,7 +44,7 @@ describe('outreach hub module', () => {
   it('does not flag current standardized template wording', () => {
     const hits = detectLegacyTemplateCopy(
       'A clearer CFO story for recruiter and board calls',
-      'Hi Alex,\n\nStarting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.\nAlso, Search momentum is critical, and Starting Monday helps keep it moving.\n\nReply yes and I will send the one-page CFO call brief.',
+      'Hi Alex,\n\nStarting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.\nIt keeps first conversations specific instead of generic so momentum comes from clarity, not volume.\n\nReply yes and I will send the one-page CFO call brief.',
     )
 
     expect(hits).toEqual([])
