@@ -5,6 +5,7 @@ const state = vi.hoisted(() => ({
   requireAuth: vi.fn(),
   getStaffMember: vi.fn(),
   reviewEmail: vi.fn(() => []),
+  autoRefineEmailDraft: vi.fn(),
   sendEmail: vi.fn(),
   insert: vi.fn(async () => ({ error: null })),
 }))
@@ -12,6 +13,7 @@ const state = vi.hoisted(() => ({
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
 vi.mock('@/lib/staff', () => ({ getStaffMember: state.getStaffMember }))
 vi.mock('@/lib/email-quality', () => ({ reviewEmail: state.reviewEmail }))
+vi.mock('@/lib/email-council', () => ({ autoRefineEmailDraft: state.autoRefineEmailDraft }))
 vi.mock('@/lib/email', () => ({ sendEmail: state.sendEmail }))
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
@@ -37,6 +39,15 @@ describe('outreach send route', () => {
     vi.resetAllMocks()
     state.requireAuth.mockResolvedValue({ ok: true, userId: 'u_1' })
     state.getStaffMember.mockResolvedValue({ id: 'staff_1' })
+    state.autoRefineEmailDraft.mockReturnValue({
+      evaluation: {
+        scores: { open: 0.9, understand: 0.9, reply: 0.9, productLift: 0.9, ejes: 92 },
+        blockers: [],
+        warnings: [],
+      },
+      rewritesApplied: [],
+      passesAfterRefine: true,
+    })
   })
 
   it('passes through auth failure', async () => {
@@ -94,5 +105,67 @@ describe('outreach send route', () => {
       from: expect.stringMatching(/richard@startingmonday\.app/i),
       replyTo: 'richard@startingmonday.app',
     }))
+  })
+
+  it('returns council details for dry runs when preflight passes', async () => {
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        emailTo: 'alex@example.com',
+        subject: 'Simple CFO first-call plan for Acme',
+        messageText: 'Hi Alex,\n\nStarting Monday helps transition programs with a shared readiness check before first serious outreach.\n\nIn our recent pilot (n=27), active users reached first qualified outreach faster; this is directional evidence, not a guarantee.\n\nIf useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.\n\nRich',
+        mode: 'dry_run',
+        outreachChannel: 'executives',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    await expect(res.json()).resolves.toMatchObject({
+      ok: true,
+      mode: 'dry_run',
+      council: {
+        minScore: 90,
+        scores: { ejes: 92 },
+      },
+    })
+    expect(state.sendEmail).not.toHaveBeenCalled()
+  })
+
+  it('blocks dry runs when council preflight fails', async () => {
+    state.autoRefineEmailDraft.mockReturnValue({
+      evaluation: {
+        scores: { open: 0.8, understand: 0.8, reply: 0.8, productLift: 0.8, ejes: 87 },
+        blockers: ['EJES 87 is below required 90.'],
+        warnings: ['Binary yes/pass CTA not found.'],
+      },
+      rewritesApplied: [],
+      passesAfterRefine: false,
+    })
+
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        emailTo: 'alex@example.com',
+        subject: 'Intro plan for Acme',
+        messageText: 'Hi Alex, this note includes enough words to satisfy base route guardrails while the mocked council still blocks the draft for quality reasons in this test case.',
+        mode: 'dry_run',
+        outreachChannel: 'executives',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(400)
+    await expect(res.json()).resolves.toMatchObject({
+      error: 'Blocked by email council gate: EJES 87 < 90',
+      violations: ['EJES 87 is below required 90.'],
+      council: {
+        scores: { ejes: 87 },
+      },
+    })
   })
 })

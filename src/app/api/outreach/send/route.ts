@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email'
+import { autoRefineEmailDraft } from '@/lib/email-council'
 import { reviewEmail } from '@/lib/email-quality'
 import { getStaffMember } from '@/lib/staff'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
@@ -278,20 +279,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
   }
 
-  if (mode === 'dry_run') {
-    return NextResponse.json({
-      ok: true,
-      mode,
-      to: emailTo,
-      from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
-      replyTo: OUTREACH_REPLY_TO,
-      warnings: guardrail.warnings,
-      status: 'prospect',
-    })
-  }
-
   const recipient = mode === 'test_to_self' ? senderUserEmail : emailTo
-  if (!recipient || !isValidEmail(recipient)) {
+  if ((mode === 'test_to_self' || mode === 'live') && (!recipient || !isValidEmail(recipient))) {
     return NextResponse.json({ error: 'Could not resolve test recipient email.' }, { status: 400 })
   }
 
@@ -303,11 +292,83 @@ export async function POST(request: NextRequest) {
   const finalSubject = mode === 'test_to_self' ? `[TEST] ${subject}` : subject
   const signedMessageText = ensureSignatureLine(messageText)
   const finalMessageText = withComplianceFooter(signedMessageText)
+  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '90')
+  const resolvedMinCouncilScore = Number.isFinite(minCouncilScore) ? minCouncilScore : 90
+  const councilRefine = autoRefineEmailDraft({
+    channel: outreachChannel as 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms',
+    subject: finalSubject,
+    html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`,
+    minEjes: resolvedMinCouncilScore,
+    maxPasses: 2,
+  })
+
+  if (!councilRefine.passesAfterRefine) {
+    const councilMessage = `Blocked by email council gate: EJES ${councilRefine.evaluation.scores.ejes} < ${resolvedMinCouncilScore}`
+    if (mode !== 'dry_run') {
+      await supabase.from('outreach_logs').insert({
+        user_id: userId,
+        contact_id: mode === 'live' ? (contactId ?? existingContact?.id ?? null) : null,
+        channel: mode === 'live' ? 'email' : 'other',
+        message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${messageText.slice(0, 200)}`,
+        recipient_email: emailTo,
+        recipient_name: fullName,
+        sender_email: OUTREACH_REPLY_TO,
+        subject: finalSubject,
+        message_body: messageText,
+        send_mode: mode,
+        outreach_channel: outreachChannel,
+        fit_tier: fitTier || null,
+        persona_focus: personaFocus || null,
+        delivery_status: 'send_failed',
+        webhook_payload: {
+          email_source: 'outreach_send_route',
+          send_error: councilMessage,
+          council_blockers: councilRefine.evaluation.blockers,
+          council_warnings: councilRefine.evaluation.warnings,
+          council_score: councilRefine.evaluation.scores,
+        },
+      })
+    }
+
+    return NextResponse.json({
+      error: councilMessage,
+      violations: councilRefine.evaluation.blockers,
+      warnings: [...guardrail.warnings, ...councilRefine.evaluation.warnings],
+      council: {
+        minScore: resolvedMinCouncilScore,
+        scores: councilRefine.evaluation.scores,
+        blockers: councilRefine.evaluation.blockers,
+        warnings: councilRefine.evaluation.warnings,
+        rewritesApplied: councilRefine.rewritesApplied,
+      },
+    }, { status: 400 })
+  }
+
+  if (mode === 'dry_run') {
+    return NextResponse.json({
+      ok: true,
+      mode,
+      to: emailTo,
+      from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+      replyTo: OUTREACH_REPLY_TO,
+      warnings: [...guardrail.warnings, ...councilRefine.evaluation.warnings],
+      status: 'prospect',
+      council: {
+        minScore: resolvedMinCouncilScore,
+        scores: councilRefine.evaluation.scores,
+        blockers: councilRefine.evaluation.blockers,
+        warnings: councilRefine.evaluation.warnings,
+        rewritesApplied: councilRefine.rewritesApplied,
+      },
+    })
+  }
+
   const listUnsubscribe = `<mailto:richard@startingmonday.app?subject=unsubscribe>`
   const sendResult = await sendEmail({
     to: recipient,
     subject: finalSubject,
     html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`,
+    channel: outreachChannel as 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms',
     from: fromAddress,
     replyTo: OUTREACH_REPLY_TO,
     bcc: mode === 'live' ? OUTREACH_REPLY_TO : undefined,
