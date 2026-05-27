@@ -260,10 +260,10 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
   const transitionFocus = focusText(focus || roleLabel || 'Executive')
   const benchmarkAsset = benchmarkAssetForFocus(transitionFocus)
   const subject = step === 'followup_2'
-    ? `Should I send the ${roleLabel} benchmark for ${company}?`
+    ? `Should I send the ${roleLabel} benchmark for ${company}`
     : step === 'followup_3'
-      ? `Close the loop on ${roleLabel} readiness for ${company}`
-      : `One-page ${roleLabel} readiness benchmark for ${company}`
+      ? `Closing the loop on ${roleLabel} readiness for ${company}`
+      : `Quick follow-up on ${roleLabel} readiness for ${company}`
 
   if (step === 'followup_1') {
     return {
@@ -271,16 +271,9 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `Following up because this week is a strong window to pressure-test ${transitionFocus} messaging before broader outreach. Starting Monday uses Momentum Signal as a weekly check on whether first-touch quality is creating real conversation movement.`,
+        `I am following up on the ${transitionFocus} note for ${company}. Starting Monday gives leaders one page for the first conversation. Momentum Signal shows weekly movement.`,
         '',
-        `I can send ${benchmarkAsset} so you can tighten first-conversation positioning without adding prep overhead.`,
-        '',
-        `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
-        '',
-        binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
-        '',
-        'Rich',
-        'startingmonday.app',
+        `I can send ${benchmarkAsset}. If useful, reply yes. If not, reply pass. ${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
       ].join('\n'),
     }
   }
@@ -291,16 +284,9 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `One concrete update from recent ${transitionFocus} transitions at ${company}: gains are strongest when role-specific benchmark language is set before outreach starts. Starting Monday tracks this with Momentum Signal so teams can see whether first-touch quality is rising or stalling week to week.`,
+        `One update from recent ${transitionFocus} transitions at ${company}: the strongest results come when role-specific benchmark language is set before outreach starts. Starting Monday tracks that with Momentum Signal.`,
         '',
-        `I can send ${benchmarkAsset} so you can evaluate first-week, first-pitch, and first-follow-up structure quickly.`,
-        '',
-        `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
-        '',
-        binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
-        '',
-        'Rich',
-        'startingmonday.app',
+        `I can send ${benchmarkAsset}. If useful, reply yes. If not, reply pass. ${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
       ].join('\n'),
     }
   }
@@ -310,16 +296,73 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
     body: [
       `Hi ${firstName},`,
       '',
-      `Closing the loop on my ${transitionFocus} note. If useful later, Starting Monday uses Momentum Signal to judge whether early outreach quality is improving.`,
+      `Closing the loop on my ${transitionFocus} note for ${company}. Starting Monday gives leaders one clear check on early outreach quality.`,
       '',
-      `If timing is right, I can send ${benchmarkAsset} so you can judge fit quickly.`,
+      `If timing is right, I can send ${benchmarkAsset}. If useful, reply yes. If not, reply pass. ${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
+    ].join('\n'),
+  }
+}
+
+function buildSearchFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const transitionFocus = focusText(focus || roleLabel || 'search')
+  const asset = 'one-page first-touch plan'
+  const subject = step === 'followup_2'
+    ? `Should I send the first-touch plan for ${company}`
+    : step === 'followup_3'
+      ? `Closing the loop on first-touch plan for ${company}`
+      : `Quick follow-up on first-touch plan for ${company}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
       '',
-      `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
+      `I am following up on the ${transitionFocus} note for ${company}. Starting Monday gives search teams one page for the first-touch standard. Momentum Signal shows week to week movement.`,
       '',
-      binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
+      `I can send ${asset}. If useful, reply yes. If not, reply pass. ${legalSafeProofLine(CHANNELS.SEARCH_FIRMS, transitionFocus)} Use this as directional evidence, not a guarantee.`,
+    ].join('\n'),
+  }
+}
+
+function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const transitionFocus = focusText(focus || roleLabel || 'coaching')
+  const asset = 'coach signal map'
+  const subject = step === 'followup_2'
+    ? `Should I send the coach map for ${company}`
+    : step === 'followup_3'
+      ? `Closing the loop on coach momentum for ${company}`
+      : `Quick follow-up on coach momentum for ${company}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
       '',
-      'Rich',
-      'startingmonday.app',
+      `I am following up on the ${transitionFocus} note for ${company}. Starting Monday gives coaches one place for prep and next steps. Momentum Signal shows real traction.`,
+      '',
+      `I can send ${asset}. If useful, reply yes. If not, reply pass. In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days. Coaching adoption was 43 percent. Use this as directional evidence, not a guarantee.`,
+    ].join('\n'),
+  }
+}
+
+function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const transitionFocus = focusText(focus || roleLabel || 'outplacement')
+  const focusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
+  const asset = 'cohort readiness checklist'
+  const subject = step === 'followup_2'
+    ? `Should I send the cohort checklist for ${company}`
+    : step === 'followup_3'
+      ? `Closing the loop on cohort readiness for ${company}`
+      : `Quick follow-up on cohort readiness for ${company}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
+      '',
+      `I am following up on the ${focusLabel} note for ${company}. Starting Monday gives counselors one shared readiness check. Momentum Signal shows week to week improvement.`,
+      '',
+      `I can send ${asset}. If useful, reply yes. If not, reply pass. ${legalSafeProofLine(CHANNELS.OUTPLACEMENT_FIRMS, focusLabel)} Use this as directional evidence, not a guarantee.`,
     ].join('\n'),
   }
 }
@@ -342,8 +385,38 @@ function buildLatestTemplateDraft({
   const transitionFocus = focusText(focus || roleLabel || 'senior transition')
   const emotionalState = inferState({ state, focus: transitionFocus, roleLabel: safeRoleLabel })
 
-  if (channel === CHANNELS.EXECUTIVES && step && step.startsWith('followup_')) {
-    return buildExecutiveFollowupDraft({
+  if (step && step.startsWith('followup_')) {
+    if (channel === CHANNELS.EXECUTIVES) {
+      return buildExecutiveFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    if (channel === CHANNELS.SEARCH_FIRMS) {
+      return buildSearchFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    if (channel === CHANNELS.COACHES) {
+      return buildCoachFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    return buildOutplacementFollowupDraft({
       firstName: safeFirstName,
       company: safeCompany,
       focus: transitionFocus,

@@ -27,6 +27,20 @@ function toHtml(text: string) {
     .replace(/\n/g, '<br/>')}</div>`
 }
 
+function ensureSignatureLine(messageText: string) {
+  return `${messageText.replace(/\r\n/g, '\n').trim()}\n\nRich\nstartingmonday.app`
+}
+
+function withComplianceFooter(messageText: string) {
+  return [
+    messageText.trim(),
+    '',
+    '---',
+    'Starting Monday',
+    'If you prefer no further outreach, reply with "unsubscribe" and I will stop.',
+  ].join('\n')
+}
+
 describe('outreach template engine', () => {
   it('builds executive copy with EMI spine, legal-safe proof, and binary CTA', () => {
     const draft = build({
@@ -111,10 +125,42 @@ describe('outreach template engine', () => {
       step: 'followup_2',
     })
 
-    expect(followup2.subject).toBe('Should I send the CIO benchmark for Northstar?')
-    expect(followup2.body).toContain('One concrete update from recent CIO transitions')
+    expect(followup2.subject).toBe('Should I send the CIO benchmark for Northstar')
+    expect(followup2.body).toContain('One update from recent CIO transitions at Northstar')
+    expect(followup2.body).toContain('Starting Monday tracks that with Momentum Signal.')
     expect(followup2.body).toContain('Jan-May 2026 pilot cohort (n=27)')
     expect(followup2.body).not.toContain('If this is not relevant right now, no problem')
+  })
+
+  it('keeps follow-up drafts above the live council gate', () => {
+    const drafts: DraftInput[] = [
+      { channel: 'executives', firstName: 'Riley', company: 'Northstar', roleLabel: 'CIO', focus: 'CIO', step: 'followup_1' },
+      { channel: 'executives', firstName: 'Riley', company: 'Northstar', roleLabel: 'CIO', focus: 'CIO', step: 'followup_2' },
+      { channel: 'executives', firstName: 'Riley', company: 'Northstar', roleLabel: 'CIO', focus: 'CIO', step: 'followup_3' },
+      { channel: 'search_firms', firstName: 'Sam', company: 'SearchCo', roleLabel: 'Partner', focus: 'CIO', step: 'followup_1' },
+      { channel: 'search_firms', firstName: 'Sam', company: 'SearchCo', roleLabel: 'Partner', focus: 'CIO', step: 'followup_2' },
+      { channel: 'search_firms', firstName: 'Sam', company: 'SearchCo', roleLabel: 'Partner', focus: 'CIO', step: 'followup_3' },
+      { channel: 'coaches', firstName: 'Jordan', company: 'CoachCo', roleLabel: 'Executive Coach', focus: 'Executive Coach', step: 'followup_1' },
+      { channel: 'coaches', firstName: 'Jordan', company: 'CoachCo', roleLabel: 'Executive Coach', focus: 'Executive Coach', step: 'followup_2' },
+      { channel: 'coaches', firstName: 'Jordan', company: 'CoachCo', roleLabel: 'Executive Coach', focus: 'Executive Coach', step: 'followup_3' },
+      { channel: 'outplacement_firms', firstName: 'Casey', company: 'Outplace Inc', roleLabel: 'Managing Director', focus: 'Executive transition programs', step: 'followup_1' },
+      { channel: 'outplacement_firms', firstName: 'Casey', company: 'Outplace Inc', roleLabel: 'Managing Director', focus: 'Executive transition programs', step: 'followup_2' },
+      { channel: 'outplacement_firms', firstName: 'Casey', company: 'Outplace Inc', roleLabel: 'Managing Director', focus: 'Executive transition programs', step: 'followup_3' },
+    ]
+
+    for (const input of drafts) {
+      const draft = build(input)
+      const finalMessageText = withComplianceFooter(ensureSignatureLine(draft.body))
+      const evaluation = evaluateEmailCouncilQuality({
+        channel: input.channel,
+        subject: `[TEST] ${draft.subject}`,
+        html: toHtml(finalMessageText),
+        minEjes: 90,
+      })
+
+      expect(evaluation.passes, `${input.channel} ${input.step} draft blocked: ${evaluation.blockers.join(', ')}`).toBe(true)
+      expect(evaluation.scores.ejes).toBeGreaterThanOrEqual(90)
+    }
   })
 
   it('builds a plain-language executive draft for board roles', () => {
