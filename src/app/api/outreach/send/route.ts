@@ -288,8 +288,8 @@ export async function POST(request: NextRequest) {
   }
 
   if (mode !== 'dry_run' && idempotencyKey) {
-    const { data: duplicateLog } = await supabase
-      .from('outreach_logs')
+    const { data: duplicateLog } = await (supabase
+      .from('outreach_logs') as any)
       .select('id, delivery_status')
       .eq('user_id', userId)
       .eq('recipient_email', emailTo)

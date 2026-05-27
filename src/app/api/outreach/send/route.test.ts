@@ -8,7 +8,7 @@ const state = vi.hoisted(() => ({
   autoRefineEmailDraft: vi.fn(),
   sendEmail: vi.fn(),
   insert: vi.fn(async () => ({ error: null })),
-  maybeSingle: vi.fn(async () => ({ data: null })),
+  maybeSingle: vi.fn(async () => ({ data: null as unknown })),
 }))
 
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
