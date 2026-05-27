@@ -162,7 +162,15 @@ export default function LoginPage() {
       </header>
 
       <main className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 py-16">
-        <div className="w-full max-w-sm">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<div className="w-full max-w-sm">
 
           <div className="mb-8">
             <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Sign in</h1>
@@ -267,11 +275,11 @@ export default function LoginPage() {
                 className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 id="login-magic-link"
               >
-                {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link instead'}
+                {magicLinkLoading ? 'Sending sign-in link...' : 'Send me a sign-in link'}
               </button>
 
               <p className="text-[12px] text-slate-500 -mt-1">
-                Signed up with Google or Apple? Use that provider to sign in first, then open Settings → Security from your account menu to set a password.
+                Used Google or Apple to sign up? Use that provider first, then set a password in Settings -&gt; Security.
               </p>
 
 

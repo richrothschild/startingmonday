@@ -20,10 +20,6 @@ const TRUST_PILLARS = [
     title: 'Audit visibility',
     detail: 'Program workflows are designed to support transparent activity records for pilot governance and internal review.',
   },
-  {
-    title: 'Security posture',
-    detail: 'Data transport and storage protections, role-scoped access patterns, and partner due-diligence support are part of the review process.',
-  },
 ]
 
 const PROCUREMENT_CHECKLIST = [
@@ -33,8 +29,6 @@ const PROCUREMENT_CHECKLIST = [
   'Retention and deletion handling',
   'Pilot legal scope and expansion decision gate',
   'Security and incident response review path',
-  'SLA commitments mapped to contract schedule by severity tier',
-  'Attestation and evidence artifact mapping to legal/procurement reviewers',
 ]
 
 const REVIEW_TIMELINE = [
@@ -49,10 +43,6 @@ const REVIEW_TIMELINE = [
   {
     phase: 'Day 8-10',
     detail: 'Pilot kickoff with scorecard baseline and implementation cadence confirmed.',
-  },
-  {
-    phase: 'Day 30',
-    detail: 'Pass/fail readout and expansion decision with governance notes.',
   },
 ]
 
@@ -69,17 +59,12 @@ const LEGAL_BOUNDARIES = [
     topic: 'Pilot legal scope',
     detail: 'Pilot agreement is scoped to one cohort, one review window, and defined decision gate before any expansion commitment.',
   },
-  {
-    topic: 'Operational role split',
-    detail: 'Partner teams remain accountable for participant communication, coaching judgment, and intervention decisions. Starting Monday remains accountable for platform operations, workflow tooling, and agreed support obligations.',
-  },
 ]
 
 const CLAIMS_POLICY = [
   'Board-safe rule 1: report observed cohort outcomes and disclose measurement window.',
   'Board-safe rule 2: do not claim guaranteed placement outcomes from pilot directional metrics.',
-  'Board-safe rule 3: distinguish partner-observed outcomes from historical or external benchmarks.',
-  'Board-safe rule 4: use day-30, day-60, and day-90 staged reporting for governance consistency.',
+  'Board-safe rule 3: distinguish partner-observed outcomes from external benchmarks.',
 ]
 
 const KPI_STAGES = [
@@ -104,7 +89,6 @@ const TRUST_ARTIFACT_INDEX = [
   'Methodology and claim-discipline mini-spec',
   'Pilot scorecard definition sheet and decision memo template',
   'Weekly review packet template with metric definitions',
-  'Counselor enablement kit and first-session script pack',
   'Legal and procurement brief with role/data boundaries',
 ]
 
@@ -121,17 +105,12 @@ const ATTESTATION_INDEX = [
     item: 'Operational incident-response governance summary',
     availability: 'Available for partner diligence under request process',
   },
-  {
-    item: 'Data handling and lifecycle controls brief',
-    availability: 'Available for partner diligence under request process',
-  },
 ]
 
 const REGULATED_INDUSTRY_GUIDANCE = [
   'Apply minimum-necessary visibility for high-sensitivity participant cohorts.',
   'Use documented claims policy and staged KPI reporting for governance committees.',
   'Map legal/security reviewers at kickoff and schedule explicit review checkpoints.',
-  'Restrict distribution of participant-level data to approved reporting recipients.',
 ]
 
 const ARTIFACT_MAINTENANCE = [
@@ -144,11 +123,6 @@ const ARTIFACT_MAINTENANCE = [
     artifact: 'Operating scorecard template',
     cadence: 'Quarterly',
     owner: 'Program lead',
-  },
-  {
-    artifact: 'Trust and controls summary',
-    cadence: 'Quarterly or after major control updates',
-    owner: 'Starting Monday partner success + security owner',
   },
 ]
 
@@ -174,13 +148,6 @@ const CONSOLIDATED_ARTIFACT_INDEX = [
     contractMap: 'Security exhibit and diligence support schedule',
     clauseId: 'Schedule D-1 (proposed)',
   },
-  {
-    artifact: 'Support SLA commitments',
-    owner: 'Partner success lead',
-    refreshCadence: 'On contract revision',
-    contractMap: 'Order Form support commitment schedule (P1/P2/P3)',
-    clauseId: 'Schedule B-2 (proposed)',
-  },
 ]
 
 const SLA_ATTESTATION_MAP = [
@@ -202,12 +169,6 @@ const SLA_ATTESTATION_MAP = [
     requirement: 'Contract-defined data scope, retention, and deletion boundaries',
     evidence: 'Legal boundary section + contractual lifecycle controls language',
   },
-  {
-    domain: 'Pilot governance',
-    clauseId: 'Schedule A-1 (proposed)',
-    requirement: 'Explicit pass/fail and decision-gate mechanics',
-    evidence: 'Scorecard definitions, runbook evidence packet, and day-30/day-60 decision notes',
-  },
 ]
 
 export default function OutplacementTrustPackPage() {
@@ -227,7 +188,15 @@ export default function OutplacementTrustPackPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <header className="mb-12">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<header className="mb-12">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Trust and governance
           </p>
@@ -235,7 +204,7 @@ export default function OutplacementTrustPackPage() {
             Procurement-ready trust pack for partner teams.
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl">
-            This page summarizes the trust conversation most outplacement, legal, and procurement teams need before approving pilot launch.
+            Summary for outplacement, legal, and procurement teams reviewing pilot launch.
           </p>
         </header>
 
@@ -259,7 +228,7 @@ export default function OutplacementTrustPackPage() {
           </h2>
           <ul className="space-y-2">
             {PROCUREMENT_CHECKLIST.map((item) => (
-              <li key={item} className="text-[14px] text-slate-700 leading-relaxed">+ {item}</li>
+              <li key={item} className="text-[14px] text-slate-700 leading-relaxed">- {item}</li>
             ))}
           </ul>
         </section>

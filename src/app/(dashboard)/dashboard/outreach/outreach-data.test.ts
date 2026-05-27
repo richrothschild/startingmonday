@@ -41,11 +41,11 @@ describe('outreach-data trigger mapping', () => {
 
     const draft = buildStandardizedDraft(row, 'executives')
 
-    expect(draft.subject).toContain('CIO first-call plan')
-    expect(draft.body).toContain('I saw CIO leadership changes after board review, and that usually adds pressure to early search conversations.')
+    expect(draft.subject).toContain('A clearer CIO story for recruiter and board calls')
+    expect(draft.body).toContain('I saw CIO leadership changes after board review, and it looked like recruiter and board conversations may be coming fast.')
   })
 
-  it('can force template generation for coaches even when source defaults exist', () => {
+  it('uses standardized coach template even when source defaults exist', () => {
     const row: CsvRow = {
       full_name: 'Dana Lee',
       company: 'Summit Coaching',
@@ -56,10 +56,11 @@ describe('outreach-data trigger mapping', () => {
       default_body: 'Legacy CSV body',
     }
 
-    const draft = buildStandardizedDraft(row, 'coaches', { forceTemplate: true })
+    const draft = buildStandardizedDraft(row, 'coaches')
 
     expect(draft.subject).not.toBe('Legacy CSV subject')
     expect(draft.body).not.toBe('Legacy CSV body')
-    expect(draft.body).toContain('I saw your post on reducing prep drag between sessions, and that pressure is real for most coaches.')
+    expect(draft.body).toContain('I saw your post on reducing prep drag between sessions, and it looked like the kind of prep load coaches end up carrying between sessions.')
+    expect(draft.body).toContain('Also, Search momentum is critical for your clients, and Starting Monday helps keep it moving between sessions.')
   })
 })

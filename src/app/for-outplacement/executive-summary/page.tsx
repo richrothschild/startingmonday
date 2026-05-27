@@ -55,7 +55,15 @@ export default function OutplacementExecutiveSummaryPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <header className="mb-10">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<header className="mb-10">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Executive summary</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-slate-900 leading-[1.1] tracking-tight mb-4">
             Committee one-pager for pilot approval decisions.

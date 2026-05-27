@@ -123,7 +123,12 @@ export default function AboutPage() {
           </p>
           </section>
 
-          <section id="why-product" className="space-y-4">
+          
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
+        </details>
+<section id="why-product" className="space-y-4">
             <h2 className="text-[17px] font-bold text-slate-900">Why this product</h2>
           <p>
             <span className="font-semibold text-slate-900">Why this product:</span> I built Starting Monday because

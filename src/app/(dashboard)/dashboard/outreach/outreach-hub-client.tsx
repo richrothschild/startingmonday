@@ -30,6 +30,9 @@ const FOLLOW_UP_BATCH_DELAY_MS = 1250
 const FOLLOW_UP_RETRY_DELAY_MS = 1500
 const FOLLOW_UP_MAX_ATTEMPTS = 2
 const FOLLOW_UP_CAMPAIGN_STEP = 'followup_bulk_v1'
+const FOLLOW_UP_POLL_INITIAL_DELAY_MS = 1500
+const FOLLOW_UP_POLL_MAX_DELAY_MS = 10000
+const FOLLOW_UP_POLL_TIMEOUT_MS = 180000
 
 type ProspectRow = {
   fullName: string
@@ -57,6 +60,42 @@ type ErrorDisplay = {
   title: string
   detail: string
   rawReason?: string
+}
+
+type BatchStatusSummary = {
+  totalJobs: number
+  queuedJobs: number
+  sendingJobs: number
+  acceptedJobs: number
+  deliveredJobs: number
+  bouncedJobs: number
+  complainedJobs: number
+  repliedJobs: number
+  failedJobs: number
+  completedJobs: number
+  failedRecipients: Array<{ jobId: string; recipientEmail: string; code: string; message: string }>
+}
+
+const LEGACY_COPY_MARKERS: Array<{ label: string; regex: RegExp }> = [
+  { label: 'legacy first-call subject', regex: /\bsimple\s+[a-z]{2,8}\s+first-call\s+plan\b/i },
+  { label: 'Momentum Signal language', regex: /\bmomentum signal\b/i },
+  { label: 'pilot group evidence line', regex: /pilot\s+group\s*\(\s*n\s*=\s*27\s*\)/i },
+  { label: 'legacy CTA opener', regex: /if useful,\s*reply yes and i will send/i },
+]
+
+export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
+  const combined = `${subject}\n${body}`
+  return LEGACY_COPY_MARKERS
+    .filter(marker => marker.regex.test(combined))
+    .map(marker => marker.label)
+}
+
+function legacyCopyBlockedError(hits: string[]): ErrorDisplay {
+  return {
+    title: 'Legacy draft blocked',
+    detail: 'Legacy outreach copy markers were detected in this draft. Sending is blocked to prevent stale templates from going out.',
+    rawReason: hits.join(', '),
+  }
 }
 
 function parseJsonObject(value: string): Record<string, unknown> | null {
@@ -270,7 +309,7 @@ function sleep(ms: number): Promise<void> {
   })
 }
 
-async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live') {
+async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live', batchId: string) {
   const res = await fetch('/api/outreach/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -288,6 +327,7 @@ async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_
       templateStep: 'followup_1',
       campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
       idempotencyKey: followUpIdempotencyKey(target),
+      batchId,
     }),
   })
 
@@ -302,6 +342,7 @@ async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_
       duplicate: false,
       reason,
       transient: isTransientFollowUpError(reason),
+      batchId: null,
     }
   }
 
@@ -310,12 +351,13 @@ async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_
     duplicate: payload.duplicate === true,
     reason: '',
     transient: false,
+    batchId: typeof payload.batchId === 'string' ? payload.batchId : null,
   }
 }
 
-async function sendFollowUpWithRetry(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live') {
+async function sendFollowUpWithRetry(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live', batchId: string) {
   for (let attempt = 1; attempt <= FOLLOW_UP_MAX_ATTEMPTS; attempt += 1) {
-    const result = await sendFollowUpRequest(target, mode)
+    const result = await sendFollowUpRequest(target, mode, batchId)
     if (result.ok || !result.transient || attempt === FOLLOW_UP_MAX_ATTEMPTS) {
       return result
     }
@@ -328,7 +370,38 @@ async function sendFollowUpWithRetry(target: ProspectRow, mode: 'dry_run' | 'tes
     duplicate: false,
     reason: 'Unknown follow-up retry failure.',
     transient: false,
+    batchId: null,
   }
+}
+
+async function pollOutreachBatchStatus(batchId: string): Promise<{ ok: true; status: string; summary: BatchStatusSummary } | { ok: false; reason: string }> {
+  const startedAt = Date.now()
+  let delayMs = FOLLOW_UP_POLL_INITIAL_DELAY_MS
+
+  while (Date.now() - startedAt < FOLLOW_UP_POLL_TIMEOUT_MS) {
+    const res = await fetch(`/api/outreach/send/batch-status?batchId=${encodeURIComponent(batchId)}`, {
+      method: 'GET',
+      cache: 'no-store',
+    })
+    const { payload, fallbackError } = await readApiPayload(res)
+    if (!res.ok) {
+      return {
+        ok: false,
+        reason: typeof payload.error === 'string' && payload.error.trim().length > 0 ? payload.error : fallbackError,
+      }
+    }
+
+    const status = typeof payload.status === 'string' ? payload.status : 'queued'
+    const summary = (payload.summary ?? {}) as BatchStatusSummary
+    if (status === 'completed' || status === 'completed_with_failures') {
+      return { ok: true, status, summary }
+    }
+
+    await sleep(delayMs)
+    delayMs = Math.min(Math.floor(delayMs * 1.5), FOLLOW_UP_POLL_MAX_DELAY_MS)
+  }
+
+  return { ok: false, reason: 'Timed out waiting for batch completion.' }
 }
 
 function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
@@ -429,6 +502,12 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     const prefill = prefillForRow(row, idx)
     setSubject(prefill.subject)
     setMessageText(prefill.body)
+    const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
+    if (staleHits.length > 0) {
+      setError(legacyCopyBlockedError(staleHits))
+      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
+      setSuccess(null)
+    }
   }, [filtered, selectedIndex])
 
   function resetComposerFor(index: number) {
@@ -436,11 +515,17 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     if (!next) return
     setSelectedIndex(index)
     const prefill = prefillForRow(next, index)
+    const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
     setSubject(prefill.subject)
     setMessageText(prefill.body)
-    setError(null)
+    if (staleHits.length > 0) {
+      setError(legacyCopyBlockedError(staleHits))
+      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
+    } else {
+      setError(null)
+      setGuardrailWarnings([])
+    }
     setSuccess(null)
-    setGuardrailWarnings([])
     setGuardrailViolations([])
     setGoogleFollowUp3Url(null)
     setGoogleFollowUp7Url(null)
@@ -475,6 +560,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
   async function sendSelected() {
     if (!selected || sending) return
+
+    const staleHits = detectLegacyTemplateCopy(subject, messageText)
+    if (staleHits.length > 0) {
+      setError(legacyCopyBlockedError(staleHits))
+      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
+      setSuccess(null)
+      return
+    }
 
     setSending(true)
     setError(null)
@@ -524,11 +617,10 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setGoogleFollowUp7Url(maybeGoogle7)
 
     if (sendMode === 'live') {
-      setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'reached_out' } : r)))
-      setSuccess(`Sent live to ${selected.fullName} from ${fromAddressLabel}.`)
+      setSuccess(`Queued live send to ${selected.fullName} from ${fromAddressLabel}. Delivery updates will appear as webhooks arrive.`)
       setConfirmLive(false)
     } else if (sendMode === 'test_to_self') {
-      setSuccess('Test email sent to your own inbox. Review rendering and tone before live send.')
+      setSuccess('Queued test email to your own inbox. Review rendering and tone before live send.')
     } else {
       setSuccess('Dry run complete. No email was sent.')
     }
@@ -587,11 +679,13 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setGuardrailWarnings([])
     setGuardrailViolations([])
 
-    let sentCount = 0
+    let queuedCount = 0
     let preflightBlockedCount = 0
     let duplicateCount = 0
     const failures: string[] = []
     const sendQueue: ProspectRow[] = []
+    const sharedBatchId = globalThis.crypto?.randomUUID?.() ?? `followup_${Date.now()}`
+    let resolvedBatchId: string | null = null
 
     for (const target of followUpTargets) {
       const preflightRes = await fetch('/api/outreach/send', {
@@ -645,16 +739,17 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       const batch = sendQueue.slice(i, i + FOLLOW_UP_BATCH_SIZE)
 
       const batchResults = await Promise.all(batch.map(async (target) => {
-        const result = await sendFollowUpWithRetry(target, sendMode)
+        const result = await sendFollowUpWithRetry(target, sendMode, sharedBatchId)
         if (!result.ok) {
           return {
             ok: false,
             duplicate: false,
             reason: `${target.fullName}: ${normalizeFollowUpFailureReason(result.reason)}`,
+            batchId: null as string | null,
           }
         }
 
-        return { ok: true, duplicate: result.duplicate, reason: '' }
+        return { ok: true, duplicate: result.duplicate, reason: '', batchId: result.batchId }
       }))
 
       for (const result of batchResults) {
@@ -666,7 +761,10 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
           duplicateCount += 1
           continue
         }
-        sentCount += 1
+        queuedCount += 1
+        if (result.batchId) {
+          resolvedBatchId = result.batchId
+        }
       }
 
       if (i + FOLLOW_UP_BATCH_SIZE < sendQueue.length) {
@@ -674,22 +772,61 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       }
     }
 
-    setSendingFollowUps(false)
+    if (queuedCount === 0) {
+      setSendingFollowUps(false)
+      if (failures.length > 0) {
+        setError({
+          title: 'No follow-ups were queued',
+          detail: `${duplicateCount} duplicates skipped and ${preflightBlockedCount} preflight blocks across ${followUpTargets.length} targets in ${sendMode} mode.`,
+          rawReason: failures.slice(0, 4).join(' | '),
+        })
+        return
+      }
 
-    if (failures.length > 0) {
+      setSuccess(`No new follow-ups queued. ${duplicateCount} duplicate sends were skipped.`)
+      return
+    }
+
+    if (!resolvedBatchId) {
+      setSendingFollowUps(false)
       setError({
-        title: 'Some follow-ups failed',
-        detail: `Sent ${sentCount} with ${duplicateCount} duplicates skipped and ${preflightBlockedCount} preflight blocks across ${followUpTargets.length} targets in ${sendMode} mode.`,
-        rawReason: failures.slice(0, 4).join(' | '),
+        title: 'Batch tracking failed',
+        detail: 'Follow-up jobs were queued, but no batch id was returned for status tracking.',
       })
       return
     }
 
-    const modeLabel = sendMode === 'live' ? 'live' : sendMode === 'test_to_self' ? 'test-to-self' : 'dry-run'
-    setSuccess(`Sent ${sentCount} follow-up emails in ${modeLabel} mode across all channels. ${duplicateCount > 0 ? `${duplicateCount} duplicates were skipped.` : ''}`.trim())
+    setSuccess(`Queued ${queuedCount} follow-up emails. Waiting for delivery processing...`)
+    const batchStatus = await pollOutreachBatchStatus(resolvedBatchId)
+    setSendingFollowUps(false)
+
+    if (!batchStatus.ok) {
+      setError({
+        title: 'Batch status unavailable',
+        detail: `Queued ${queuedCount} follow-ups, but could not confirm completion.`,
+        rawReason: batchStatus.reason,
+      })
+      return
+    }
+
+    const summary = batchStatus.summary
+    if (summary.failedJobs > 0 || failures.length > 0) {
+      const workerFailures = (summary.failedRecipients ?? []).map(item => `${item.recipientEmail}: ${item.message}`)
+      setError({
+        title: 'Some follow-ups failed',
+        detail: `Queued ${queuedCount}; processed ${summary.completedJobs}/${summary.totalJobs}. Failed ${summary.failedJobs}, duplicates ${duplicateCount}, preflight blocks ${preflightBlockedCount}.`,
+        rawReason: [...failures, ...workerFailures].slice(0, 4).join(' | '),
+      })
+      return
+    }
+
+    const deliveredLike = summary.deliveredJobs + summary.acceptedJobs + summary.repliedJobs
+    setSuccess(`Completed follow-up batch: ${deliveredLike} accepted/delivered/replied, ${summary.bouncedJobs} bounced, ${summary.complainedJobs} complained. ${duplicateCount > 0 ? `${duplicateCount} duplicates were skipped.` : ''}`.trim())
   }
 
 
+  const staleComposerHits = useMemo(() => detectLegacyTemplateCopy(subject, messageText), [subject, messageText])
+  const staleBlocked = staleComposerHits.length > 0
   const liveBlocked = sendMode === 'live' && !confirmLive
 
   return (
@@ -944,6 +1081,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 </div>
               )}
 
+              {staleBlocked && (
+                <div className="border border-red-200 bg-red-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-red-700 mb-1">Legacy template markers detected</p>
+                  <ul className="text-[12px] text-red-700 list-disc ml-5 space-y-1">
+                    {staleComposerHits.map((hit, i) => <li key={`legacy-${i}`}>{hit}</li>)}
+                  </ul>
+                </div>
+              )}
+
               {error && (
                 <div className="border border-red-200 bg-red-50 rounded p-3">
                   <p className="text-[12px] font-semibold text-red-700">{error.title}</p>
@@ -976,7 +1122,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               <button
                 type="button"
                 onClick={sendSelected}
-                disabled={sending || !subject.trim() || !messageText.trim() || liveBlocked}
+                disabled={sending || !subject.trim() || !messageText.trim() || liveBlocked || staleBlocked}
                 className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded disabled:opacity-50"
               >
                 {sending ? 'Processing...' : sendMode === 'dry_run' ? 'Run Dry Run Check' : sendMode === 'test_to_self' ? 'Send Test To Me' : `Send Live To ${selected.fullName}`}

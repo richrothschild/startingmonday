@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { updateOutreachJobStateFromWebhook } from '@/lib/outreach/send-queue'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type WebhookPayload = {
@@ -115,6 +116,8 @@ export async function POST(request: NextRequest) {
         webhook_payload: payload,
       })
       .eq('resend_message_id', messageId)
+
+    await updateOutreachJobStateFromWebhook(supabase as unknown as any, messageId, eventType)
   }
 
   if ((isBounceType(eventType) || isUnsubscribeType(eventType)) && userId && recipientEmail) {

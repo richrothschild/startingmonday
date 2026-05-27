@@ -143,7 +143,12 @@ export default function PartnersPage() {
             </p>
           </section>
 
-          {/* Per-category value props */}
+          
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
+        </details>
+{/* Per-category value props */}
           <section id="partner-types">
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
               Who we work with

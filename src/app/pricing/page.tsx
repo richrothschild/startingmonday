@@ -40,17 +40,25 @@ export default function PricingPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <div className="text-center mb-10">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<div className="text-center mb-10">
           <h1 className="text-[38px] sm:text-[48px] font-bold text-slate-900 leading-tight tracking-tight">
             Pricing
           </h1>
           <p className="text-[16px] text-slate-500 mt-3 max-w-md mx-auto leading-relaxed">
-            30-day free trial. No credit card required to start. EMI pricing is built around one outcome: better executive decisions before the formal search window appears.
+            30-day free trial. No credit card. Choose based on search intensity, not job-board volume.
           </p>
         </div>
 
         <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-4">Why this pricing model exists</p>
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-4">Why this model</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
             <div className="border border-slate-200 rounded-lg p-4 bg-white">
               <p className="font-semibold text-slate-900 mb-1">Category default</p>
@@ -61,7 +69,7 @@ export default function PricingPage() {
               <p className="text-slate-700 leading-relaxed">Pay for earlier intelligence, better weekly execution, and higher-quality conversations before searches are public.</p>
             </div>
           </div>
-          <p className="text-[12px] text-slate-500 mt-4">Decision rule: pick the tier that matches campaign intensity, not job-board volume.</p>
+          <p className="text-[12px] text-slate-500 mt-4">Decision rule: match tier to campaign intensity.</p>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
@@ -87,15 +95,15 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <details data-emi-objection="pricing_too_early" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
               <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"It may be too early for me."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Start on Intelligence. EMI is designed for optionality before urgency, not just active-search pressure.</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Start with Intelligence. It is built for optionality before urgency.</p>
             </details>
             <details data-emi-objection="pricing_already_have_recruiter" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
               <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I already have a recruiter."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Recruiters work formal cycles. EMI improves your context and timing before that cycle starts.</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Recruiters run formal cycles. EMI improves your timing before those cycles start.</p>
             </details>
             <details data-emi-objection="pricing_confidentiality" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
               <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I need this to stay private."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Private by default. No employer visibility and no sale of your activity data.</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Private by default. No employer visibility. No sale of activity data.</p>
             </details>
           </div>
         </section>

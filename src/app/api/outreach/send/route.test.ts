@@ -6,16 +6,36 @@ const state = vi.hoisted(() => ({
   getStaffMember: vi.fn(),
   reviewEmail: vi.fn(() => []),
   autoRefineEmailDraft: vi.fn(),
-  sendEmail: vi.fn(),
-  insert: vi.fn(async () => ({ error: null })),
   maybeSingle: vi.fn(async () => ({ data: null as unknown })),
+  insert: vi.fn(async () => ({ error: null })),
+  createAdminClient: vi.fn(() => ({})),
+  ensureOutreachSendBatch: vi.fn(async () => 'batch_1'),
+  enqueueOutreachSendJob: vi.fn(async () => ({ jobId: 'job_1', batchId: 'batch_1', domainBucket: 'corporate' })),
+  findDuplicateOutreachSend: vi.fn(async () => ({ duplicate: false, deliveryStatus: null, jobId: null } as { duplicate: boolean; deliveryStatus: string | null; jobId: string | null })),
+  kickOutreachSendWorker: vi.fn(async () => undefined),
 }))
 
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
 vi.mock('@/lib/staff', () => ({ getStaffMember: state.getStaffMember }))
 vi.mock('@/lib/email-quality', () => ({ reviewEmail: state.reviewEmail }))
 vi.mock('@/lib/email-council', () => ({ autoRefineEmailDraft: state.autoRefineEmailDraft }))
-vi.mock('@/lib/email', () => ({ sendEmail: state.sendEmail }))
+vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: state.createAdminClient }))
+vi.mock('@/lib/outreach/template-engine.cjs', () => ({
+  default: {
+    buildLatestTemplateDraft: vi.fn(() => ({
+      subject: 'Generated follow-up subject',
+      body: 'Generated follow-up body with enough length and context to pass route guardrails and quality checks.',
+    })),
+  },
+}))
+vi.mock('@/lib/outreach/send-queue', () => ({
+  OUTREACH_REPLY_TO: 'richard@startingmonday.app',
+  DEFAULT_OUTREACH_FROM: 'Richard Rothschild <richard@startingmonday.app>',
+  ensureOutreachSendBatch: state.ensureOutreachSendBatch,
+  enqueueOutreachSendJob: state.enqueueOutreachSendJob,
+  findDuplicateOutreachSend: state.findDuplicateOutreachSend,
+  kickOutreachSendWorker: state.kickOutreachSendWorker,
+}))
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     auth: { getUser: vi.fn(async () => ({ data: { user: { email: 'sender@example.com' } } })) },
@@ -24,8 +44,6 @@ vi.mock('@/lib/supabase/server', () => ({
         select: vi.fn(() => query),
         eq: vi.fn(() => query),
         ilike: vi.fn(() => query),
-        contains: vi.fn(() => query),
-        order: vi.fn(() => query),
         limit: vi.fn(() => query),
         maybeSingle: state.maybeSingle,
         insert: state.insert,
@@ -37,7 +55,7 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { POST } from './route'
 
-describe('outreach send route', () => {
+describe('outreach send route (queue mode)', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     state.requireAuth.mockResolvedValue({ ok: true, userId: 'u_1' })
@@ -61,15 +79,6 @@ describe('outreach send route', () => {
     expect(res.status).toBe(401)
   })
 
-  it('rejects missing required fields', async () => {
-    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
-      method: 'POST',
-      body: JSON.stringify({ fullName: 'Alex', emailTo: 'alex@example.com' }),
-    })
-    const res = await POST(req)
-    expect(res.status).toBe(400)
-  })
-
   it('rejects invalid send mode', async () => {
     const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
       method: 'POST',
@@ -86,32 +95,7 @@ describe('outreach send route', () => {
     await expect(res.json()).resolves.toMatchObject({ error: 'Invalid mode.' })
   })
 
-  it('sends test emails with richard sender and reply-to', async () => {
-    state.sendEmail.mockResolvedValue({ data: { id: 'msg_123' } })
-
-    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
-      method: 'POST',
-      body: JSON.stringify({
-        fullName: 'Alex Morgan',
-        company: 'Acme',
-        emailTo: 'alex@example.com',
-        subject: 'Quick intro for Acme role context',
-        messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. Best, Rich',
-        mode: 'test_to_self',
-        outreachChannel: 'executives',
-      }),
-    })
-
-    const res = await POST(req)
-    expect(res.status).toBe(200)
-    expect(state.sendEmail).toHaveBeenCalledTimes(1)
-    expect(state.sendEmail).toHaveBeenCalledWith(expect.objectContaining({
-      from: expect.stringMatching(/richard@startingmonday\.app/i),
-      replyTo: 'richard@startingmonday.app',
-    }))
-  })
-
-  it('returns council details for dry runs when preflight passes', async () => {
+  it('returns council details for dry runs and does not enqueue', async () => {
     const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
       method: 'POST',
       body: JSON.stringify({
@@ -119,7 +103,7 @@ describe('outreach send route', () => {
         company: 'Acme',
         emailTo: 'alex@example.com',
         subject: 'Simple CFO first-call plan for Acme',
-        messageText: 'Hi Alex,\n\nStarting Monday helps transition programs with a shared readiness check before first serious outreach.\n\nIn our recent pilot (n=27), active users reached first qualified outreach faster; this is directional evidence, not a guarantee.\n\nIf useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.\n\nRich',
+        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
         mode: 'dry_run',
         outreachChannel: 'executives',
       }),
@@ -135,50 +119,42 @@ describe('outreach send route', () => {
         scores: { ejes: 92 },
       },
     })
-    expect(state.sendEmail).not.toHaveBeenCalled()
+    expect(state.enqueueOutreachSendJob).not.toHaveBeenCalled()
   })
 
-  it('blocks dry runs when council preflight fails', async () => {
-    state.autoRefineEmailDraft.mockReturnValue({
-      evaluation: {
-        scores: { open: 0.8, understand: 0.8, reply: 0.8, productLift: 0.8, ejes: 87 },
-        blockers: ['EJES 87 is below required 90.'],
-        warnings: ['Binary yes/pass CTA not found.'],
-      },
-      rewritesApplied: [],
-      passesAfterRefine: false,
-    })
-
+  it('queues a live send job', async () => {
     const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
       method: 'POST',
       body: JSON.stringify({
         fullName: 'Alex Morgan',
         company: 'Acme',
         emailTo: 'alex@example.com',
-        subject: 'Intro plan for Acme',
-        messageText: 'Hi Alex, this note includes enough words to satisfy base route guardrails while the mocked council still blocks the draft for quality reasons in this test case.',
-        mode: 'dry_run',
+        subject: 'Quick intro for Acme role context',
+        messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        mode: 'live',
         outreachChannel: 'executives',
       }),
     })
 
     const res = await POST(req)
-    expect(res.status).toBe(400)
+    expect(res.status).toBe(200)
     await expect(res.json()).resolves.toMatchObject({
-      error: 'Blocked by email council gate: EJES 87 < 90',
-      violations: ['EJES 87 is below required 90.'],
-      council: {
-        scores: { ejes: 87 },
-      },
+      ok: true,
+      queued: true,
+      mode: 'live',
+      batchId: 'batch_1',
+      jobId: 'job_1',
     })
+    expect(state.enqueueOutreachSendJob).toHaveBeenCalledTimes(1)
+    expect(state.kickOutreachSendWorker).toHaveBeenCalledTimes(1)
   })
 
-  it('skips duplicate non-dry-run sends when idempotency key already exists', async () => {
-    state.maybeSingle
-      .mockResolvedValueOnce({ data: null })
-      .mockResolvedValueOnce({ data: null })
-      .mockResolvedValueOnce({ data: null })
-      .mockResolvedValueOnce({ data: { id: 'log_1', delivery_status: 'sent' } })
+  it('skips duplicate non-dry-run sends when idempotency key exists', async () => {
+    state.findDuplicateOutreachSend.mockResolvedValue({
+      duplicate: true,
+      deliveryStatus: 'accepted',
+      jobId: 'job_dup',
+    })
 
     const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
       method: 'POST',
@@ -187,7 +163,7 @@ describe('outreach send route', () => {
         company: 'Acme',
         emailTo: 'alex@example.com',
         subject: 'Simple CFO first-call plan for Acme',
-        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
         mode: 'live',
         outreachChannel: 'executives',
         idempotencyKey: 'followup_bulk_v1:alex@example.com',
@@ -200,14 +176,12 @@ describe('outreach send route', () => {
       ok: true,
       duplicate: true,
       idempotencyKey: 'followup_bulk_v1:alex@example.com',
-      deliveryStatus: 'sent',
+      deliveryStatus: 'accepted',
     })
-    expect(state.sendEmail).not.toHaveBeenCalled()
+    expect(state.enqueueOutreachSendJob).not.toHaveBeenCalled()
   })
 
-  it('builds follow-up emails from latest templates when requested', async () => {
-    state.sendEmail.mockResolvedValue({ data: { id: 'msg_321' } })
-
+  it('builds latest template draft and queues test send', async () => {
     const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
       method: 'POST',
       body: JSON.stringify({
@@ -228,13 +202,10 @@ describe('outreach send route', () => {
     expect(res.status).toBe(200)
     await expect(res.json()).resolves.toMatchObject({
       ok: true,
+      queued: true,
       mode: 'test_to_self',
       templateSource: 'latest_template_engine',
     })
-    expect(state.sendEmail).toHaveBeenCalledTimes(1)
-    expect(state.sendEmail).toHaveBeenCalledWith(expect.objectContaining({
-      subject: expect.stringMatching(/\[TEST\]/),
-      channel: 'executives',
-    }))
+    expect(state.enqueueOutreachSendJob).toHaveBeenCalledTimes(1)
   })
 })

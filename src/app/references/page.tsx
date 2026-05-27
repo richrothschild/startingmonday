@@ -112,13 +112,21 @@ export default function ReferencesPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-18">
-        <header className="mb-10">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<header className="mb-10">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">Evidence and references</p>
           <h1 className="text-[32px] sm:text-[40px] font-bold text-slate-900 leading-tight mb-4">
-            Every quantifiable claim, mapped to a source.
+            Every quantified claim, mapped to source.
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-3xl">
-            This page shows what we claim, where each claim comes from, how confident we are in that claim, and when the claim language last changed.
+            See each claim, source type, confidence level, and update history in one place.
           </p>
         </header>
 
@@ -157,7 +165,7 @@ export default function ReferencesPage() {
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What this evidence means</p>
             <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-2">How the research shapes Starting Monday</h2>
             <p className="text-[13px] text-slate-600 leading-relaxed max-w-3xl">
-              Starting Monday is built around a simple thesis: coaching, transition support, and execution improve when leaders have better signals, better preparation, and better between-session structure.
+              Core thesis: coaching and transition outcomes improve when leaders have better signals, preparation, and between-session structure.
             </p>
           </div>
 

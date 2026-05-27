@@ -272,8 +272,7 @@ export function buildStandardizedDraft(
   channel: OutreachChannel,
   options?: { forceTemplate?: boolean },
 ): { subject: string; body: string } {
-  const sourceDraft = sourceTemplateDraft(row)
-  if (!options?.forceTemplate && sourceDraft) return sourceDraft
+  void options
 
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
@@ -531,8 +530,11 @@ export function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): Csv
     const touch = byName.get((row.full_name ?? '').trim().toLowerCase())
     return {
       ...row,
-      default_subject: touch?.subject ?? buildDefaultSubject(row),
-      default_body: touch?.email_text ?? buildDefaultBody(row),
+      // Keep matching metadata from first-touch rows, but do not carry forward
+      // legacy subject/body copy as defaults.
+      ...(touch ? touch : {}),
+      default_subject: buildDefaultSubject(row),
+      default_body: buildDefaultBody(row),
     }
   })
 

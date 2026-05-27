@@ -48,14 +48,23 @@ export default function CioJobMarket2026Page() {
           </div>
         </section>
 
+        <section className="border border-emerald-200 rounded-lg p-4 bg-emerald-50/40">
+          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-emerald-700 mb-2">TL;DR</h2>
+          <ul className="list-disc pl-5 space-y-1.5 text-[13px] text-slate-700">
+            <li>Career pages often move before LinkedIn and recruiter outreach.</li>
+            <li>Healthcare and financial services were most active in this scan window.</li>
+            <li>Early signals plus direct monitoring improve timing and conversation quality.</li>
+          </ul>
+        </section>
+
         <p>
-          The standard advice for an executive in search: update your resume, tell your network, wait for recruiters to call.
-          That advice is fifteen years out of date.
+          Standard advice still says: update your resume, tell your network, wait for recruiter calls.
+          That playbook is outdated.
         </p>
 
         <p>
           The executives who close quickly in 2026 are the ones who know what is happening at their target companies before
-          the search goes public. That requires monitoring. It requires systems. It requires data.
+          the search goes public. That requires monitoring, systems, and data.
         </p>
 
         <p>

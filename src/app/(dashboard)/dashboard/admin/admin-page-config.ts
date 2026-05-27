@@ -33,6 +33,7 @@ export const PAGE_GROUPS: PageGroup[] = [
       { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
       { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/outreach-reliability', label: 'Outreach Reliability', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
@@ -71,5 +72,6 @@ export const INTERNAL_APIS = [
   { path: '/api/outreach/send', label: 'Outreach Send', owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/status', label: 'Outreach Status', owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/outreach/suppression', label: 'Outreach Suppression', owner: 'rw', admin: 'rw', viewer: '-' },
+  { path: '/api/admin/outreach/reliability', label: 'Outreach Reliability', owner: 'rw', admin: 'rw', viewer: '-' },
   { path: '/api/admin/automation/monitoring/alerts', label: 'Automation Alerts', owner: 'rw', admin: 'rw', viewer: '-' },
 ]

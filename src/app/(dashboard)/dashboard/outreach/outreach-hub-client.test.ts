@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCrossChannelFollowUpDraft, formatOutreachErrorMessage, OutreachHubClient } from './outreach-hub-client'
+import { buildCrossChannelFollowUpDraft, detectLegacyTemplateCopy, formatOutreachErrorMessage, OutreachHubClient } from './outreach-hub-client'
 
 describe('outreach hub module', () => {
   it('exports OutreachHubClient', () => {
@@ -67,5 +67,26 @@ describe('outreach hub module', () => {
     expect(executiveDraft.body).toContain('reply pass')
     expect(coachDraft.subject).toContain('between-session momentum')
     expect(coachDraft.body).toContain('Momentum Signal')
+  })
+
+  it('flags stale legacy outreach copy markers', () => {
+    const hits = detectLegacyTemplateCopy(
+      'Simple CFO first-call plan for Elastic team',
+      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. If useful, reply yes and I will send the one-page first-call plan. Momentum Signal shows movement.',
+    )
+
+    expect(hits).toContain('legacy first-call subject')
+    expect(hits).toContain('pilot group evidence line')
+    expect(hits).toContain('legacy CTA opener')
+    expect(hits).toContain('Momentum Signal language')
+  })
+
+  it('does not flag current standardized template wording', () => {
+    const hits = detectLegacyTemplateCopy(
+      'A clearer CFO story for recruiter and board calls',
+      'Hi Alex,\n\nStarting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.\nAlso, Search momentum is critical, and Starting Monday helps keep it moving.\n\nReply yes and I will send the one-page CFO call brief.',
+    )
+
+    expect(hits).toEqual([])
   })
 })

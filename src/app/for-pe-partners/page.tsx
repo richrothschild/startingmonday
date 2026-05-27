@@ -97,7 +97,12 @@ export default function ForPePartnersPage() {
               </div>
             </section>
 
-            {/* What it is */}
+            
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
+        </details>
+{/* What it is */}
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>

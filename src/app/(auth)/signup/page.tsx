@@ -281,17 +281,25 @@ export default function SignupPage() {
       </header>
 
       <main className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 py-16">
-        <div className="w-full max-w-sm">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<div className="w-full max-w-sm">
 
           {confirmed ? (
             <>
               <section id="confirm-email" className="mb-8">
                 <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Check your email</h1>
-                <p className="text-[13px] text-slate-500 mt-1.5">We sent a confirmation link to <span className="font-semibold text-slate-700">{email}</span>.</p>
+                <p className="text-[13px] text-slate-500 mt-1.5">Confirmation link sent to <span className="font-semibold text-slate-700">{email}</span>.</p>
               </section>
               <div className="bg-white border border-slate-200 rounded p-8">
                 <p className="text-[14px] text-slate-600 leading-relaxed">
-                  Click the link in the email to activate your account and set up your profile. Check your spam folder if you don&apos;t see it within a minute.
+                  Open the email, click the link, and finish setup. If it is not there, check spam.
                 </p>
               </div>
               <p className="text-center text-[13px] text-slate-400 mt-5">
@@ -308,7 +316,7 @@ export default function SignupPage() {
                   <>
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                    <p className="text-[12px] text-slate-400 mt-3">Create your account below. 30 days free. No credit card.</p>
+                      <p className="text-[12px] text-slate-400 mt-3">Create your account. 30 days free. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">
                       <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
                       <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
@@ -430,7 +438,7 @@ export default function SignupPage() {
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
                   <p id="signup-trust" className="text-center text-[11px] text-slate-400">
-                    Your employer cannot see this. We never share your data with recruiters, employers, or third parties.{' '}
+                    Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
                     <Link href="/privacy" className="underline hover:text-slate-600">Privacy policy &rarr;</Link>
                   </p>
 

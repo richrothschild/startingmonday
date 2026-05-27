@@ -58,26 +58,23 @@ export default function ForCoachesPage() {
             <span className="block">You stay in strategy.</span>
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg mb-2">
-            Starting Monday is the between-session operating layer for coaches who want less admin drag and stronger strategic sessions. You and your clients share one place for signal monitoring, prep briefs, and pipeline accountability.
+            Starting Monday is the between-session system for executive coaches. One shared place for signals, prep briefs, and accountability.
           </p>
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-3">
-            Built for coaches working with senior executives in transition who are too busy to prep consistently without structure.
+            Built for senior clients in transition who need more structure between sessions.
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed max-w-lg mb-6">
-            The goal is simple: stop coaching half-blind, and stop spending paid time rebuilding context from memory.
+            Goal: less context rebuild, more strategy time.
           </p>
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
-            How would you feel if every client came into each meeting prepared, while you spent less time chasing prep and more time coaching strategy?
+            Clients show up prepared. You coach at a higher level.
           </p>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
               You might be thinking
             </p>
             <div className="space-y-2 text-[13px] text-slate-300 leading-relaxed">
-              <p><span className="text-white font-semibold">"This sounds like one more tool that steals session time."</span> Fair concern. The design goal is the opposite: cut context rebuild and raise strategy time.</p>
-              <p><span className="text-white font-semibold">&quot;My clients already have LinkedIn Premium.&quot;</span> Good. This is the operating layer underneath that, not a replacement for it.</p>
-              <p><span className="text-white font-semibold">&quot;I already handle this in coaching.&quot;</span> Exactly. The point is to stop spending paid coaching time rebuilding context and chasing research.</p>
-              <p><span className="text-white font-semibold">&quot;I do not want another tool to manage.&quot;</span> {PREVIEW_SENTENCE}</p>
+              <p><span className="text-white font-semibold">"I do not want another tool to manage."</span> {PREVIEW_SENTENCE}</p>
             </div>
           </div>
           <CoachPreviewActions />
@@ -88,10 +85,10 @@ export default function ForCoachesPage() {
         <div className="max-w-2xl mx-auto space-y-16">
 
           <section className="border border-slate-200 rounded-2xl p-6 sm:p-7 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Decision lanes</p>
+            <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Decision lanes</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">Economic buyer lane</p>
+                <div className="text-[12px] font-semibold text-slate-900 mb-2">Economic buyer lane</div>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
                   <li>• Improve interview momentum across active clients</li>
                   <li>• Reduce paid-session context rebuild time</li>
@@ -99,31 +96,13 @@ export default function ForCoachesPage() {
                 </ul>
               </div>
               <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">Practitioner lane</p>
+                <div className="text-[12px] font-semibold text-slate-900 mb-2">Practitioner lane</div>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
                   <li>• Keep one shared view of pipeline and signal flow</li>
                   <li>• Improve prep depth before high-stakes calls</li>
                   <li>• Run a reliable Monday-through-Friday cadence</li>
                 </ul>
               </div>
-            </div>
-          </section>
-
-          <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-4">
-              <a href="#why-coaches-buy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why coaches buy</a>
-              <a href="#role-boundary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role boundary</a>
-              <a href="#execution-rhythm" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Execution rhythm</a>
-              <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/partners#apply" data-emi-cta="coaches_top_preview_cta" data-emi-to="/partners#apply" className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-                Get started with a 30-day coach preview
-              </Link>
-              <Link href="/for-coaches/faq" data-emi-cta="coaches_read_faq_top" data-emi-to="/for-coaches/faq" className="inline-block border border-slate-300 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded hover:border-slate-500 transition-colors">
-                Read coach FAQ before preview
-              </Link>
             </div>
           </section>
 
@@ -134,12 +113,10 @@ export default function ForCoachesPage() {
             <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-[1.2] max-w-2xl">
               Coaches buy outcomes first, emotional relief second, workflow proof third.
             </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-7 max-w-xl">
-              This is not a feature purchase. Coaches buy when they believe three things: clients will show up prepared, the coach will feel in control between sessions, and the process can be tested quickly without adding operational drag.
-            </p>
+            <p className="text-[14px] text-slate-600 leading-relaxed mb-7 max-w-xl">This is an outcomes purchase: prepared clients, lower context rebuild, and visible between-session momentum.</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
               <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">1) Outcome they want</p>
+                <div className="text-[12px] font-semibold text-slate-900 mb-2">1) Outcome they want</div>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
                   <li>• Clients come to meetings prepared</li>
                   <li>• Less paid time rebuilding context</li>
@@ -147,7 +124,7 @@ export default function ForCoachesPage() {
                 </ul>
               </div>
               <div className="border border-slate-200 rounded-xl p-4 bg-slate-50">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">2) Feeling they are buying</p>
+                <div className="text-[12px] font-semibold text-slate-900 mb-2">2) Feeling they are buying</div>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
                   <li>• "I am not coaching half-blind"</li>
                   <li>• "I can see stalls before confidence drops"</li>
@@ -155,7 +132,7 @@ export default function ForCoachesPage() {
                 </ul>
               </div>
               <div className="border border-orange-200 rounded-xl p-4 bg-orange-50/40">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">3) Offer that lowers risk</p>
+                <div className="text-[12px] font-semibold text-slate-900 mb-2">3) Offer that lowers risk</div>
                 <ul className="space-y-1 text-[12px] text-slate-700 leading-relaxed">
                   <li>• 30-day test with two to three live clients</li>
                   <li>• Pass/fail scorecard before rollout</li>
@@ -164,18 +141,9 @@ export default function ForCoachesPage() {
               </div>
             </div>
             <div data-emi-proof="coaches_credibility_proof" className="border border-slate-200 rounded-xl p-4 bg-white mb-4">
-              <p className="text-[12px] font-semibold text-slate-900 mb-2">What makes this credible</p>
+              <div className="text-[12px] font-semibold text-slate-900 mb-2">What makes this credible</div>
               <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                Early pilot signal is directional but useful: 81 percent of the Jan.-May 2026 executive cohort reached a first interview within 30 days, and coaches who adopted the daily briefing reported better between-session control.
-              </p>
-              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                Value does not stop at day 30: teams keep the same shared workflow in month two and use quarterly reviews to maintain coaching continuity.
-              </p>
-              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                When a pilot passes on prep quality and weekly signal action, coaches usually see stronger sustained client engagement because the between-session rhythm is already in place.
-              </p>
-              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-                Mini-proof for long-cycle coaching: the same signal layer tracks board-level governance shifts and multiple parallel opportunities in one timeline, so strategy does not reset each month.
+                Directional pilot signal: 81 percent of the Jan.-May 2026 cohort reached a first interview within 30 days.
               </p>
               <p className="text-[12px] text-slate-500 leading-relaxed">
                 Denominator: 27 pilot executives. Window: Jan-May 2026. Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Use this as decision support, then validate fit with your own 30-day pass-fail test.
@@ -187,9 +155,9 @@ export default function ForCoachesPage() {
           </section>
 
           <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
+            <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
               From pressure to control
-            </p>
+            </div>
             <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
               Start with a 30-day preview and evaluate real outcomes.
             </h2>
@@ -267,102 +235,17 @@ export default function ForCoachesPage() {
             <summary className="list-none cursor-pointer px-6 sm:px-7 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
-                <p className="text-[16px] font-semibold text-slate-900">Expand buy signals, credibility play, sample output, fit, and operating rhythm</p>
+                <p className="text-[16px] font-semibold text-slate-900">Expand fit, workflow proof, and operating rhythm</p>
               </div>
               <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
             </summary>
-            <div className="px-6 sm:px-7 pb-7 border-t border-slate-100 space-y-10">
-          <section id="buy-signals">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              What coaches said they would buy for
-            </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-5 leading-snug">
-              Lead with outcomes. Name the pressure. Show the path.
-            </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-7 max-w-xl">
-              Council feedback was consistent: the page should persuade on practical outcomes and emotional relief first, then prove the workflow. This section captures the highest-frequency buy criteria.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-              {COUNCIL_BUY_SIGNALS.slice(0, 2).map((column) => (
-                <div key={column.title} className="border border-slate-200 rounded-xl p-5 bg-white">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-3">{column.title}</p>
-                  <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed">
-                    {column.points.slice(0, 3).map((point) => (
-                      <li key={point} className="flex items-start gap-2">
-                        <span className="text-orange-500 shrink-0 mt-0.5">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="credibility-play">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              The coach credibility play
-            </p>
-            <div className="space-y-5 mb-8">
-              {WHAT_CHANGES.slice(0, 3).map((item, i) => (
-                <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-slate-50 border border-slate-200 rounded p-4">
-                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Before</p>
-                    <p className="text-[13px] text-slate-600 leading-relaxed">{item.before}</p>
-                  </div>
-                  <div className="bg-white border border-orange-200 rounded p-4">
-                    <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-orange-500 mb-2">After</p>
-                    <p className="text-[13px] text-slate-700 leading-relaxed">{item.after}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-[14px] text-slate-600 leading-relaxed max-w-lg">
-              When your clients move earlier, stay accountable, and show up better prepared, they credit you for the quality of the process. That is the compounding asset here: better client outcomes, better conversations, stronger reputation.
-            </p>
-          </section>
-
-          <section id="sample-output">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-              Sample output
-            </p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug">
-              Show, don&rsquo;t tell.
-            </h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-6 max-w-xl">
-              Coaches do not need more feature language. They need to see the quality of the output and the kind of action it creates. This is the kind of artifact a coach preview should expose immediately.
-            </p>
-            <SampleOutputSection
-              sampleSignalItems={SAMPLE_SIGNAL_ITEMS}
-              samplePrepBriefPoints={SAMPLE_PREP_BRIEF_POINTS}
-              fullSampleSignalBrief={FULL_SAMPLE_SIGNAL_BRIEF}
-              fullSamplePrepBrief={FULL_SAMPLE_PREP_BRIEF}
-            />
-          </section>
-
-          <section id="coach-fit">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
-              Where this fits best
-            </p>
-            <p className="text-[14px] text-slate-600 leading-relaxed mb-8 max-w-lg">
-              Different coaches use the same platform in different contexts. If you only scan one section before deciding whether this is worth a preview, scan this one.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {COACH_FIT.slice(0, 3).map((item) => (
-                <div key={item.title} className="border border-slate-200 rounded-lg p-5 bg-white">
-                  <p className="text-[13px] font-bold text-slate-900 mb-2">{item.title}</p>
-                  <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
+            <div className="px-6 sm:px-7 pb-7 border-t border-slate-100 space-y-8">
           <section id="execution-rhythm">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               Execution rhythm
             </p>
             <h2 className="text-[22px] font-bold text-slate-900 mb-8 max-w-xl leading-snug">
-              Three touchpoints. About 12 minutes of disciplined motion.
+              Three touchpoints. Roughly 12 minutes.
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
               <div className="border-t-2 border-orange-500 pt-5">
@@ -381,36 +264,7 @@ export default function ForCoachesPage() {
                 <p className="text-[13px] text-slate-500 leading-relaxed">Usually about a minute to generate, a few minutes to review. Win thesis, likely objections, peer-level questions, and what to leave out before the session starts.</p>
               </div>
             </div>
-            <p className="text-[13px] text-slate-600 leading-relaxed mt-6 max-w-xl">
-              This is the accountability loop: if the client is not producing interviews or stronger conversations, the coach can see whether the issue is signal response, outreach follow-through, or prep depth instead of guessing from memory.
-            </p>
-            <div className="mt-8 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
-                Coach scoreboard
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {COACH_SCOREBOARD.slice(0, 3).map((item) => (
-                  <div key={item.label} className="border border-slate-200 rounded-xl p-4 bg-white">
-                    <p className="text-[12px] text-slate-500 mb-1">{item.label}</p>
-                    <p className="text-[16px] font-semibold text-slate-900 mb-2">{item.target}</p>
-                    <p className="text-[12px] text-slate-600 leading-relaxed">{item.note}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-6 border border-slate-200 rounded-2xl p-6 bg-white">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
-                Weekly review template
-              </p>
-              <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
-                Use this exact agenda in your Monday review so the operating cadence stays consistent across clients.
-              </p>
-              <ol className="space-y-2 text-[13px] text-slate-700 leading-relaxed list-decimal pl-5">
-                {WEEKLY_REVIEW_TEMPLATE.slice(0, 3).map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ol>
-            </div>
+            <p className="text-[13px] text-slate-600 leading-relaxed mt-6 max-w-xl">This loop makes gaps visible early: signal response, follow-through, or prep depth.</p>
           </section>
             </div>
           </details>
@@ -424,9 +278,7 @@ export default function ForCoachesPage() {
               <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
             </summary>
             <div className="space-y-4 text-[14px] text-slate-600 leading-relaxed max-w-xl mt-4">
-              <p>It is not a replacement for coaching. It does not replace judgment, accountability, or the human work of helping a senior leader manage uncertainty and narrative.</p>
-              <p>It is not generic job-search automation. It is a signal, preparation, and execution layer built for senior technology leaders running confidential, relationship-driven searches.</p>
-              <p>It is not dramatic market prophecy. The value is disciplined early-signal tracking, shared context between sessions, and better preparation before high-stakes conversations.</p>
+              <p>It does not replace coaching judgment. It provides the between-session signal, prep, and execution layer.</p>
             </div>
           </details>
 
@@ -476,50 +328,50 @@ export default function ForCoachesPage() {
                 <Link href="/for-coaches/faq" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/faq.svg" alt="FAQ icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Coaching FAQs</p>
-                    <p className="text-[12px] text-slate-500">Objections & responses</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Coaching FAQs</div>
+                    <div className="text-[12px] text-slate-500">Objections & responses</div>
                   </div>
                 </Link>
                 <Link href="/for-coaches/faq#security" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/security.svg" alt="Security icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Data Security</p>
-                    <p className="text-[12px] text-slate-500">Privacy & compliance</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Data Security</div>
+                    <div className="text-[12px] text-slate-500">Privacy & compliance</div>
                   </div>
                 </Link>
                 <Link href="/for-coaches/trust-pack" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/security.svg" alt="Trust pack icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</p>
-                    <p className="text-[12px] text-slate-500">No recruiter-side sharing + controls</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Coach Trust Pack</div>
+                    <div className="text-[12px] text-slate-500">No recruiter-side sharing + controls</div>
                   </div>
                 </Link>
                 <Link href="/for-coaches/economics" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/pricing.svg" alt="Pricing icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Pricing</p>
-                    <p className="text-[12px] text-slate-500">Investment & ROI</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Pricing</div>
+                    <div className="text-[12px] text-slate-500">Investment & ROI</div>
                   </div>
                 </Link>
                 <a href="mailto:contact@startingmonday.app?subject=Coach%20Feedback" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/feedback.svg" alt="Feedback icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Feedback</p>
-                    <p className="text-[12px] text-slate-500">Share your thoughts</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Feedback</div>
+                    <div className="text-[12px] text-slate-500">Share your thoughts</div>
                   </div>
                 </a>
                 <Link href="/references" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/evidence.svg" alt="Evidence icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Evidence</p>
-                    <p className="text-[12px] text-slate-500">Research & references</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Evidence</div>
+                    <div className="text-[12px] text-slate-500">Research & references</div>
                   </div>
                 </Link>
                 <Link href="/partners" className="flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:border-orange-300 hover:bg-orange-50/30 transition-colors group">
                   <Image src="/brand/icon-exploration-v1/partner.svg" alt="Partner program icon" width={24} height={24} className="group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="text-[13px] font-semibold text-slate-900">Partner Program</p>
-                    <p className="text-[12px] text-slate-500">Affiliate & referral</p>
+                    <div className="text-[13px] font-semibold text-slate-900">Partner Program</div>
+                    <div className="text-[12px] text-slate-500">Affiliate & referral</div>
                   </div>
                 </Link>
               </div>
