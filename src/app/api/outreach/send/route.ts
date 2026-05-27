@@ -212,6 +212,8 @@ export async function POST(request: NextRequest) {
   const outreachChannel = (body?.outreachChannel ?? 'executives').toString().trim().toLowerCase()
   const fitTier = (body?.fitTier ?? '').toString().trim().toLowerCase()
   const personaFocus = (body?.personaFocus ?? '').toString().trim()
+  const campaignStep = (body?.campaignStep ?? '').toString().trim()
+  const idempotencyKey = (body?.idempotencyKey ?? '').toString().trim()
   const emailTo = normalizeEmail(body?.emailTo)
   const subject = (body?.subject ?? '').toString().trim()
   const messageText = (body?.messageText ?? '').toString().trim()
@@ -232,6 +234,12 @@ export async function POST(request: NextRequest) {
   }
   if (!VALID_OUTREACH_CHANNELS.has(outreachChannel)) {
     return NextResponse.json({ error: 'Invalid outreachChannel.' }, { status: 400 })
+  }
+  if (campaignStep.length > 120) {
+    return NextResponse.json({ error: 'campaignStep is too long.' }, { status: 400 })
+  }
+  if (idempotencyKey.length > 160) {
+    return NextResponse.json({ error: 'idempotencyKey is too long.' }, { status: 400 })
   }
 
   const guardrail = evaluateGuardrails({ subject, messageText, fullName, company, mode })
@@ -279,6 +287,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Recipient is suppressed. Remove suppression before sending.' }, { status: 409 })
   }
 
+  if (mode !== 'dry_run' && idempotencyKey) {
+    const { data: duplicateLog } = await supabase
+      .from('outreach_logs')
+      .select('id, delivery_status')
+      .eq('user_id', userId)
+      .eq('recipient_email', emailTo)
+      .contains('webhook_payload', { idempotency_key: idempotencyKey })
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (duplicateLog?.id) {
+      return NextResponse.json({
+        ok: true,
+        duplicate: true,
+        idempotencyKey,
+        deliveryStatus: duplicateLog.delivery_status ?? null,
+        mode,
+        to: mode === 'test_to_self' ? senderUserEmail : emailTo,
+      })
+    }
+  }
+
   const recipient = mode === 'test_to_self' ? senderUserEmail : emailTo
   if ((mode === 'test_to_self' || mode === 'live') && (!recipient || !isValidEmail(recipient))) {
     return NextResponse.json({ error: 'Could not resolve test recipient email.' }, { status: 400 })
@@ -323,6 +354,8 @@ export async function POST(request: NextRequest) {
         webhook_payload: {
           email_source: 'outreach_send_route',
           send_error: councilMessage,
+          idempotency_key: idempotencyKey || null,
+          campaign_step: campaignStep || null,
           council_blockers: councilRefine.evaluation.blockers,
           council_warnings: councilRefine.evaluation.warnings,
           council_score: councilRefine.evaluation.scores,
@@ -395,7 +428,12 @@ export async function POST(request: NextRequest) {
       fit_tier: fitTier || null,
       persona_focus: personaFocus || null,
       delivery_status: 'send_failed',
-      webhook_payload: { email_source: 'outreach_send_route', send_error: errorMessage },
+      webhook_payload: {
+        email_source: 'outreach_send_route',
+        send_error: errorMessage,
+        idempotency_key: idempotencyKey || null,
+        campaign_step: campaignStep || null,
+      },
     })
 
     return NextResponse.json(
@@ -467,7 +505,11 @@ export async function POST(request: NextRequest) {
     persona_focus: personaFocus || null,
     resend_message_id: resendMessageId,
     delivery_status: mode === 'live' ? 'sent' : 'simulated',
-    webhook_payload: { email_source: 'outreach_send_route' },
+    webhook_payload: {
+      email_source: 'outreach_send_route',
+      idempotency_key: idempotencyKey || null,
+      campaign_step: campaignStep || null,
+    },
   })
 
   let googleFollowUp3Url: string | null = null

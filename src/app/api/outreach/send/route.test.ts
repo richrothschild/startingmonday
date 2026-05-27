@@ -8,6 +8,7 @@ const state = vi.hoisted(() => ({
   autoRefineEmailDraft: vi.fn(),
   sendEmail: vi.fn(),
   insert: vi.fn(async () => ({ error: null })),
+  maybeSingle: vi.fn(async () => ({ data: null })),
 }))
 
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
@@ -23,8 +24,10 @@ vi.mock('@/lib/supabase/server', () => ({
         select: vi.fn(() => query),
         eq: vi.fn(() => query),
         ilike: vi.fn(() => query),
+        contains: vi.fn(() => query),
+        order: vi.fn(() => query),
         limit: vi.fn(() => query),
-        maybeSingle: vi.fn(async () => ({ data: null })),
+        maybeSingle: state.maybeSingle,
         insert: state.insert,
       }
       return query
@@ -39,6 +42,7 @@ describe('outreach send route', () => {
     vi.resetAllMocks()
     state.requireAuth.mockResolvedValue({ ok: true, userId: 'u_1' })
     state.getStaffMember.mockResolvedValue({ id: 'staff_1' })
+    state.maybeSingle.mockResolvedValue({ data: null })
     state.autoRefineEmailDraft.mockReturnValue({
       evaluation: {
         scores: { open: 0.9, understand: 0.9, reply: 0.9, productLift: 0.9, ejes: 92 },
@@ -167,5 +171,37 @@ describe('outreach send route', () => {
         scores: { ejes: 87 },
       },
     })
+  })
+
+  it('skips duplicate non-dry-run sends when idempotency key already exists', async () => {
+    state.maybeSingle
+      .mockResolvedValueOnce({ data: null })
+      .mockResolvedValueOnce({ data: null })
+      .mockResolvedValueOnce({ data: null })
+      .mockResolvedValueOnce({ data: { id: 'log_1', delivery_status: 'sent' } })
+
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        emailTo: 'alex@example.com',
+        subject: 'Simple CFO first-call plan for Acme',
+        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        mode: 'live',
+        outreachChannel: 'executives',
+        idempotencyKey: 'followup_bulk_v1:alex@example.com',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    await expect(res.json()).resolves.toMatchObject({
+      ok: true,
+      duplicate: true,
+      idempotencyKey: 'followup_bulk_v1:alex@example.com',
+      deliveryStatus: 'sent',
+    })
+    expect(state.sendEmail).not.toHaveBeenCalled()
   })
 })

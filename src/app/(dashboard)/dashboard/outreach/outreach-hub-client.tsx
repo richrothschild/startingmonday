@@ -25,6 +25,10 @@ const CONFIDENCE_OPTIONS = [
   { value: 'all', label: 'All Confidence' },
 ] as const
 
+const FOLLOW_UP_BATCH_SIZE = 20
+const FOLLOW_UP_BATCH_DELAY_MS = 1250
+const FOLLOW_UP_CAMPAIGN_STEP = 'followup_bulk_v1'
+
 type ProspectRow = {
   fullName: string
   roleBucket: string
@@ -230,6 +234,16 @@ export function buildCrossChannelFollowUpDraft(row: ProspectRow): { subject: str
       'Rich',
     ].join('\n'),
   }
+}
+
+function followUpIdempotencyKey(row: ProspectRow): string {
+  return `${FOLLOW_UP_CAMPAIGN_STEP}:${row.email.toLowerCase()}`
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms)
+  })
 }
 
 function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
@@ -489,11 +503,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setGuardrailViolations([])
 
     let sentCount = 0
+    let preflightBlockedCount = 0
+    let duplicateCount = 0
     const failures: string[] = []
+    const sendQueue: ProspectRow[] = []
 
     for (const target of followUpTargets) {
       const draft = buildCrossChannelFollowUpDraft(target)
-      const res = await fetch('/api/outreach/send', {
+      const preflightRes = await fetch('/api/outreach/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -504,23 +521,94 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
           subject: draft.subject,
           messageText: draft.body,
           statusAfter: 'reached_out',
-          mode: sendMode,
+          mode: 'dry_run',
           outreachChannel: target.outreachChannel,
           fitTier: target.fitTier,
           personaFocus: target.personaFocus,
+          campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
+          idempotencyKey: followUpIdempotencyKey(target),
         }),
       })
 
-      const { payload, fallbackError } = await readApiPayload(res)
-      if (!res.ok) {
-        const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
-          ? payload.error
-          : fallbackError
+      const { payload: preflightPayload, fallbackError: preflightFallback } = await readApiPayload(preflightRes)
+      if (!preflightRes.ok) {
+        const reason = typeof preflightPayload.error === 'string' && preflightPayload.error.trim().length > 0
+          ? preflightPayload.error
+          : preflightFallback
+        preflightBlockedCount += 1
         failures.push(`${target.fullName}: ${reason}`)
         continue
       }
 
-      sentCount += 1
+      sendQueue.push(target)
+    }
+
+    if (sendMode === 'dry_run') {
+      setSendingFollowUps(false)
+      if (preflightBlockedCount > 0) {
+        setError({
+          title: 'Dry run found blocked follow-ups',
+          detail: `${sendQueue.length} ready, ${preflightBlockedCount} blocked in preflight across all channels.`,
+          rawReason: failures.slice(0, 4).join(' | '),
+        })
+      } else {
+        setSuccess(`Dry run passed for ${sendQueue.length} follow-up emails across all channels.`)
+      }
+      return
+    }
+
+    for (let i = 0; i < sendQueue.length; i += FOLLOW_UP_BATCH_SIZE) {
+      const batch = sendQueue.slice(i, i + FOLLOW_UP_BATCH_SIZE)
+
+      const batchResults = await Promise.all(batch.map(async (target) => {
+        const draft = buildCrossChannelFollowUpDraft(target)
+        const res = await fetch('/api/outreach/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: target.fullName,
+            company: target.company,
+            roleBucket: target.roleBucket,
+            emailTo: target.email,
+            subject: draft.subject,
+            messageText: draft.body,
+            statusAfter: 'reached_out',
+            mode: sendMode,
+            outreachChannel: target.outreachChannel,
+            fitTier: target.fitTier,
+            personaFocus: target.personaFocus,
+            campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
+            idempotencyKey: followUpIdempotencyKey(target),
+          }),
+        })
+
+        const { payload, fallbackError } = await readApiPayload(res)
+        if (!res.ok) {
+          const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
+            ? payload.error
+            : fallbackError
+          return { ok: false, duplicate: false, reason: `${target.fullName}: ${reason}` }
+        }
+
+        const duplicate = payload.duplicate === true
+        return { ok: true, duplicate, reason: '' }
+      }))
+
+      for (const result of batchResults) {
+        if (!result.ok) {
+          failures.push(result.reason)
+          continue
+        }
+        if (result.duplicate) {
+          duplicateCount += 1
+          continue
+        }
+        sentCount += 1
+      }
+
+      if (i + FOLLOW_UP_BATCH_SIZE < sendQueue.length) {
+        await sleep(FOLLOW_UP_BATCH_DELAY_MS)
+      }
     }
 
     setSendingFollowUps(false)
@@ -528,14 +616,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     if (failures.length > 0) {
       setError({
         title: 'Some follow-ups failed',
-        detail: `Sent ${sentCount} of ${followUpTargets.length} follow-up emails in ${sendMode} mode.`,
+        detail: `Sent ${sentCount} with ${duplicateCount} duplicates skipped and ${preflightBlockedCount} preflight blocks across ${followUpTargets.length} targets in ${sendMode} mode.`,
         rawReason: failures.slice(0, 4).join(' | '),
       })
       return
     }
 
     const modeLabel = sendMode === 'live' ? 'live' : sendMode === 'test_to_self' ? 'test-to-self' : 'dry-run'
-    setSuccess(`Sent ${sentCount} follow-up emails in ${modeLabel} mode across all channels.`)
+    setSuccess(`Sent ${sentCount} follow-up emails in ${modeLabel} mode across all channels. ${duplicateCount > 0 ? `${duplicateCount} duplicates were skipped.` : ''}`.trim())
   }
 
 
