@@ -28,10 +28,10 @@ function channelFallbackTrigger(channel, focus) {
     return `In first-week ${focus} moves, early momentum can slip when the first-call story is not clear.`
   }
   if (channel === CHANNELS.COACHES) {
-    return 'Between sessions, prep can sprawl across inboxes, docs, and memory.'
+    return 'Between sessions, client prep can end up split across inboxes, docs, and memory.'
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    return 'In search work, first-touch quality can slip and partner review cycles can repeat.'
+    return 'In retained search, first-touch quality can slip once partner review starts repeating.'
   }
   return `Across ${focus}, first-call quality can vary more than teams expect.`
 }
@@ -364,19 +364,17 @@ function buildLatestTemplateDraft({
     const asset = 'one-page first-call plan'
     const trigger = triggerLine(CHANNELS.EXECUTIVES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `${safeRoleLabel} first-call plan for ${safeCompany}`,
+      subject: `Simple ${safeRoleLabel} first-call plan for ${safeCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'In a job search, the first call often decides momentum. Teams either keep the plan ad hoc or use Starting Monday to run one clear plan for the next serious call.',
-        '',
-        'Momentum Signal is how we measure whether that plan is producing real weekly movement before outreach volume increases.',
+        'When the first serious call is strong, search momentum usually gets easier. When the story is vague, the process gets slower. Starting Monday gives leaders one working plan for the next real conversation, and Momentum Signal shows whether that plan is turning into weekly movement.',
         '',
         'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; results vary by market and execution.',
         '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        `If useful, reply yes and I will send the ${asset}. If not useful right now, reply pass and I will close the loop.`,
         '',
         'Rich',
         'startingmonday.app',
@@ -394,13 +392,11 @@ function buildLatestTemplateDraft({
         '',
         trigger,
         '',
-        'Most teams either keep first-touch quality manual or use Starting Monday to run one clear standard before shortlist outreach scales.',
-        '',
-        'Momentum Signal gives teams one shared view of whether that standard is strengthening mandate velocity each week.',
+        'The first-touch standard usually decides whether a mandate feels sharp or expensive. Starting Monday helps teams hold one clear bar before shortlist outreach scales, and Momentum Signal shows whether mandate velocity is strengthening week to week.',
         '',
         'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; results vary by mandate mix and execution.',
         '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        `If useful, reply yes and I will send the ${asset}. If not useful right now, reply pass and I will close the loop.`,
         '',
         'Rich',
         'startingmonday.app',
@@ -418,13 +414,11 @@ function buildLatestTemplateDraft({
         '',
         trigger,
         '',
-        'Most teams either keep prep manual or use Starting Monday in one simple loop so session time stays strategic.',
-        '',
-        'Momentum Signal helps coaches see, week by week, whether between-session work is translating into real search traction.',
+        'Starting Monday gives coaches one shared place for signal review, prep, and next-action follow-through without adding admin weight. Momentum Signal shows, week by week, whether the between-session work is turning into real search traction.',
         '',
         'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Coaching adoption was 43 percent; results vary by market and execution.',
         '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        `If useful, reply yes and I will send the ${asset}. If not useful right now, reply pass and I will close the loop.`,
         '',
         'Rich',
         'startingmonday.app',
@@ -442,13 +436,11 @@ function buildLatestTemplateDraft({
       '',
       trigger,
       '',
-      'Most teams either keep first-call prep manual or use Starting Monday with one shared readiness check.',
-      '',
-      'Momentum Signal gives counselors and program leads one weekly read on whether cohort readiness quality is improving.',
+      'Starting Monday gives counselors one shared readiness check before the first serious conversation, and Momentum Signal shows whether cohort quality is improving week to week.',
       '',
       'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; this is directional evidence, not a guarantee.',
       '',
-      `Reply yes and I will send the ${outplacementAsset}. Reply pass and I will close the loop.`,
+      `If useful, reply yes and I will send the ${outplacementAsset}. If not useful right now, reply pass and I will close the loop.`,
       '',
       'Rich',
       'startingmonday.app',

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import { evaluateEmailCouncilQuality } from '../email-council'
 import templateEngine from './template-engine.cjs'
 
 type DraftInput = {
@@ -18,6 +19,14 @@ function build(input: DraftInput) {
   return (templateEngine as { buildLatestTemplateDraft: (payload: DraftInput) => { subject: string; body: string } }).buildLatestTemplateDraft(input)
 }
 
+function toHtml(text: string) {
+  return `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br/>')}</div>`
+}
+
 describe('outreach template engine', () => {
   it('builds executive copy with EMI spine, legal-safe proof, and binary CTA', () => {
     const draft = build({
@@ -29,14 +38,14 @@ describe('outreach template engine', () => {
       state: 'panic',
     })
 
-    expect(draft.subject).toBe('CFO first-call plan for Acme')
+    expect(draft.subject).toBe('Simple CFO first-call plan for Acme')
     expect(draft.body).toContain('In first-week CFO moves, early momentum can slip when the first-call story is not clear.')
-    expect(draft.body).toContain('In a job search, the first call often decides momentum.')
-    expect(draft.body).toContain('use Starting Monday to run one clear plan')
+    expect(draft.body).toContain('When the first serious call is strong, search momentum usually gets easier.')
+    expect(draft.body).toContain('Starting Monday gives leaders one working plan')
     expect(draft.body).toContain('Jan-May 2026 pilot group (n=27)')
     expect(draft.body).toContain('results vary by market and execution')
-    expect(draft.body).toContain('Reply yes and I will send the one-page first-call plan')
-    expect(draft.body).toContain('Reply pass and I will close the loop')
+    expect(draft.body).toContain('If useful, reply yes and I will send the one-page first-call plan')
+    expect(draft.body).toContain('reply pass and I will close the loop')
     expect(draft.body).not.toContain('Proof detail:')
     expect(draft.body).not.toContain('If this is ignored')
     expect(draft.body).not.toContain('reply "send it"')
@@ -52,9 +61,9 @@ describe('outreach template engine', () => {
     })
 
     expect(draft.subject).toBe('Partner search first-touch plan for Summit Search')
-    expect(draft.body).toContain('In search work, first-touch quality can slip and partner review cycles can repeat.')
-    expect(draft.body).toContain('one clear standard before shortlist outreach scales')
-    expect(draft.body).toContain('Reply yes and I will send the one-page first-touch plan')
+    expect(draft.body).toContain('In retained search, first-touch quality can slip once partner review starts repeating.')
+    expect(draft.body).toContain('hold one clear bar before shortlist outreach scales')
+    expect(draft.body).toContain('If useful, reply yes and I will send the one-page first-touch plan')
   })
 
   it('builds coach copy with explicit emotional-state variant and binary CTA', () => {
@@ -68,10 +77,10 @@ describe('outreach template engine', () => {
     })
 
     expect(draft.subject).toBe('Simple between-session plan for CoachCo')
-    expect(draft.body).toContain('Between sessions, prep can sprawl across inboxes, docs, and memory.')
-    expect(draft.body).toContain('Most teams either keep prep manual')
+    expect(draft.body).toContain('Between sessions, client prep can end up split across inboxes, docs, and memory.')
+    expect(draft.body).toContain('Starting Monday gives coaches one shared place for signal review, prep, and next-action follow-through without adding admin weight.')
     expect(draft.body).toContain('Jan-May 2026 pilot group (n=27)')
-    expect(draft.body).toContain('Reply yes and I will send the coach signal map')
+    expect(draft.body).toContain('If useful, reply yes and I will send the coach signal map')
     expect(draft.body).not.toContain('between-session execution layer')
   })
 
@@ -87,9 +96,9 @@ describe('outreach template engine', () => {
 
     expect(draft.subject).toBe('Cohort first-call plan for Outplace Inc')
     expect(draft.body).toContain('Across Executive transition programs, first-call quality can vary more than teams expect.')
-    expect(draft.body).toContain('Most teams either keep first-call prep manual')
+    expect(draft.body).toContain('Starting Monday gives counselors one shared readiness check before the first serious conversation')
     expect(draft.body).toContain('directional evidence, not a guarantee')
-    expect(draft.body).toContain('Reply yes and I will send the cohort readiness checklist')
+    expect(draft.body).toContain('If useful, reply yes and I will send the cohort readiness checklist')
   })
 
   it('builds executive followup subjects with step-specific variants', () => {
@@ -117,8 +126,8 @@ describe('outreach template engine', () => {
       focus: 'Board Advisor',
     })
 
-    expect(draft.subject).toBe('Board Advisor first-call plan for BoardCo')
-    expect(draft.body).toContain('In a job search, the first call often decides momentum.')
+    expect(draft.subject).toBe('Simple Board Advisor first-call plan for BoardCo')
+    expect(draft.body).toContain('When the first serious call is strong, search momentum usually gets easier.')
   })
 
   it('uses dynamic trigger inputs when provided', () => {
@@ -168,5 +177,27 @@ describe('outreach template engine', () => {
     })
 
     expect(search.body).toContain('Momentum Signal')
+  })
+
+  it('keeps default first-touch drafts above the live council gate', () => {
+    const drafts: DraftInput[] = [
+      { channel: 'executives', firstName: 'Alex', company: 'Acme', roleLabel: 'CFO', focus: 'CFO' },
+      { channel: 'search_firms', firstName: 'Sam', company: 'SearchCo', roleLabel: 'Partner', focus: 'CIO' },
+      { channel: 'coaches', firstName: 'Jordan', company: 'CoachCo', roleLabel: 'Executive Coach', focus: 'Executive Coach' },
+      { channel: 'outplacement_firms', firstName: 'Casey', company: 'Outplace Inc', roleLabel: 'Managing Director', focus: 'Executive transition programs' },
+    ]
+
+    for (const input of drafts) {
+      const draft = build(input)
+      const evaluation = evaluateEmailCouncilQuality({
+        channel: input.channel,
+        subject: draft.subject,
+        html: toHtml(draft.body),
+        minEjes: 90,
+      })
+
+      expect(evaluation.passes, `${input.channel} draft blocked: ${evaluation.blockers.join(', ')}`).toBe(true)
+      expect(evaluation.scores.ejes).toBeGreaterThanOrEqual(90)
+    }
   })
 })
