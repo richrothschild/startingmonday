@@ -161,6 +161,77 @@ function day1Message10Draft(fullName: string): { subject: string; body: string }
   }
 }
 
+export function buildCrossChannelFollowUpDraft(row: ProspectRow): { subject: string; body: string } {
+  const firstName = firstNameOf(row.fullName)
+  const company = row.company || 'your team'
+
+  if (row.outreachChannel === 'executives') {
+    return {
+      subject: `Quick follow-up for ${row.roleBucket} search momentum at ${company}`,
+      body: [
+        `Hi ${firstName},`,
+        '',
+        `Quick follow-up on my earlier note for ${row.roleBucket} transitions at ${company}. Starting Monday uses one role-specific first-call plan and a weekly Momentum Signal check so teams can see whether early outreach quality is improving.`,
+        '',
+        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
+        '',
+        'If useful, reply yes and I will send the one-page first-call plan. If not useful right now, reply pass and I will close the loop.',
+        '',
+        'Rich',
+      ].join('\n'),
+    }
+  }
+
+  if (row.outreachChannel === 'search_firms') {
+    return {
+      subject: `Quick follow-up on first-touch quality for ${company}`,
+      body: [
+        `Hi ${firstName},`,
+        '',
+        `Quick follow-up on my earlier note for ${company}. Starting Monday helps retained-search teams hold one first-touch standard and uses Momentum Signal to show whether mandate quality is improving week to week.`,
+        '',
+        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
+        '',
+        'If useful, reply yes and I will send the one-page first-touch plan. If not useful right now, reply pass and I will close the loop.',
+        '',
+        'Rich',
+      ].join('\n'),
+    }
+  }
+
+  if (row.outreachChannel === 'coaches') {
+    return {
+      subject: `Quick follow-up on between-session momentum for ${company}`,
+      body: [
+        `Hi ${firstName},`,
+        '',
+        `Quick follow-up on my earlier note for ${company}. Starting Monday gives coaches one shared place for prep, signal review, and next actions, with Momentum Signal showing whether between-session work is creating real traction.`,
+        '',
+        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
+        '',
+        'If useful, reply yes and I will send the coach signal map. If not useful right now, reply pass and I will close the loop.',
+        '',
+        'Rich',
+      ].join('\n'),
+    }
+  }
+
+  return {
+    subject: `Quick follow-up on cohort readiness for ${company}`,
+    body: [
+      `Hi ${firstName},`,
+      '',
+      `Quick follow-up on my earlier note for ${company}. Starting Monday gives counselors one shared readiness check and uses Momentum Signal to track whether cohort-level first-call quality is improving week to week.`,
+      '',
+      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
+      '',
+      'If useful, reply yes and I will send the cohort readiness checklist. If not useful right now, reply pass and I will close the loop.',
+      '',
+      'Rich',
+    ].join('\n'),
+  }
+}
+
 function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
   if (row.campaignTag === 'coach_day1_60' && (indexInFiltered + 1) % 5 === 0) {
     return day1Message10Draft(row.fullName)
@@ -198,6 +269,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
   const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
+  const [sendingFollowUps, setSendingFollowUps] = useState(false)
   const [suppressing, setSuppressing] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
   const [error, setError] = useState<ErrorDisplay | null>(null)
@@ -249,6 +321,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   }, [items, search, statusFilter, confidenceFilter, activeChannel, activeCampaign])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
+  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out'), [items])
 
   useEffect(() => {
     const row = filtered[selectedIndex] ?? filtered[0]
@@ -394,6 +467,77 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setSuccess(`Suppressed ${selected.fullName}. Future sends are blocked until unsuppressed.`)
   }
 
+  async function sendCrossChannelFollowUps() {
+    if (sendingFollowUps) return
+    if (followUpTargets.length === 0) {
+      setError({
+        title: 'No follow-up targets',
+        detail: 'No contacts are currently marked Reached Out across channels.',
+      })
+      return
+    }
+
+    if (sendMode === 'live') {
+      const confirmed = window.confirm(`Send follow-up emails to ${followUpTargets.length} reached-out contacts across all channels?`)
+      if (!confirmed) return
+    }
+
+    setSendingFollowUps(true)
+    setError(null)
+    setSuccess(null)
+    setGuardrailWarnings([])
+    setGuardrailViolations([])
+
+    let sentCount = 0
+    const failures: string[] = []
+
+    for (const target of followUpTargets) {
+      const draft = buildCrossChannelFollowUpDraft(target)
+      const res = await fetch('/api/outreach/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: target.fullName,
+          company: target.company,
+          roleBucket: target.roleBucket,
+          emailTo: target.email,
+          subject: draft.subject,
+          messageText: draft.body,
+          statusAfter: 'reached_out',
+          mode: sendMode,
+          outreachChannel: target.outreachChannel,
+          fitTier: target.fitTier,
+          personaFocus: target.personaFocus,
+        }),
+      })
+
+      const { payload, fallbackError } = await readApiPayload(res)
+      if (!res.ok) {
+        const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
+          ? payload.error
+          : fallbackError
+        failures.push(`${target.fullName}: ${reason}`)
+        continue
+      }
+
+      sentCount += 1
+    }
+
+    setSendingFollowUps(false)
+
+    if (failures.length > 0) {
+      setError({
+        title: 'Some follow-ups failed',
+        detail: `Sent ${sentCount} of ${followUpTargets.length} follow-up emails in ${sendMode} mode.`,
+        rawReason: failures.slice(0, 4).join(' | '),
+      })
+      return
+    }
+
+    const modeLabel = sendMode === 'live' ? 'live' : sendMode === 'test_to_self' ? 'test-to-self' : 'dry-run'
+    setSuccess(`Sent ${sentCount} follow-up emails in ${modeLabel} mode across all channels.`)
+  }
+
 
   const liveBlocked = sendMode === 'live' && !confirmLive
 
@@ -440,6 +584,17 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
             ].join(' ')}
           >
             Day 1 Coach List (60)
+          </button>
+          <button
+            type="button"
+            onClick={sendCrossChannelFollowUps}
+            disabled={sendingFollowUps || sending || suppressing}
+            className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-900 bg-slate-900 text-white hover:bg-slate-700 disabled:opacity-50"
+            title="Send follow-up emails to all reached-out contacts across all channels"
+          >
+            {sendingFollowUps
+              ? 'Sending Follow-ups...'
+              : `Send Follow-ups (All Channels${followUpTargets.length > 0 ? `: ${followUpTargets.length}` : ''})`}
           </button>
         </div>
       </div>
