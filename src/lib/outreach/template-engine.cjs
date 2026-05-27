@@ -470,7 +470,7 @@ function buildLatestTemplateDraft({
   }
 
   if (channel === CHANNELS.EXECUTIVES) {
-    const asset = 'the one-page CFO call brief'
+    const asset = `the one-page ${safeRoleLabel} call brief`
     const trigger = triggerLine(CHANNELS.EXECUTIVES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
       subject: `A clearer ${safeRoleLabel} story for recruiter and board calls`,
