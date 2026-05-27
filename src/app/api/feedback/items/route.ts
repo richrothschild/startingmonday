@@ -4,10 +4,23 @@ import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
 import { withApiTelemetry } from '@/lib/telemetry'
 
+type FeedbackListRow = Record<string, unknown> & { id: string }
+type FeedbackVoteRow = { item_id: string }
+type FeedbackInsertQuery = {
+  insert: (values: Record<string, unknown>) => {
+    select: (columns: string) => {
+      single: () => Promise<{ data: Record<string, unknown> | null; error: { message?: string } | null }>
+    }
+  }
+}
+
 async function getHandler(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  // user may be null; browsing is public, voting/submitting requires auth
+  
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
   try {
     const searchParams = req.nextUrl.searchParams
@@ -46,24 +59,26 @@ async function getHandler(req: NextRequest) {
     }
 
     const { data, error, count } = await query
-      .range(offset, offset + limit - 1) as any
+      .range(offset, offset + limit - 1)
 
     if (error) {
       console.error('[feedback] list error:', error)
       return NextResponse.json({ error: 'Failed to fetch feedback' }, { status: 500 })
     }
 
-    // Check user votes only when authenticated
-    const itemIds = (data || []).map((item: any) => item.id)
-    if (user && itemIds.length > 0) {
+    // Check user votes for each item
+    const items = (data || []) as unknown as FeedbackListRow[]
+    const itemIds = items.map((item) => item.id)
+    if (itemIds.length > 0) {
       const { data: userVotes } = await supabase
         .from('feedback_votes')
         .select('item_id')
         .in('item_id', itemIds)
         .eq('user_id', user.id)
 
-      const votedItemIds = new Set((userVotes || []).map((v: any) => v.item_id))
-      const enhancedData = (data || []).map((item: any) => ({
+      const votes = (userVotes || []) as unknown as FeedbackVoteRow[]
+      const votedItemIds = new Set(votes.map((v) => v.item_id))
+      const enhancedData = items.map((item) => ({
         ...item,
         user_voted: votedItemIds.has(item.id),
       }))
@@ -117,8 +132,8 @@ async function postHandler(req: NextRequest) {
       )
     }
 
-    const { data: feedbackItem, error } = await (supabase
-      .from('feedback_items') as any)
+    const feedbackItemsQuery = supabase.from('feedback_items') as unknown as FeedbackInsertQuery
+    const { data: feedbackItem, error } = await feedbackItemsQuery
       .insert({
         type: 'feedback',
         title,
@@ -129,7 +144,7 @@ async function postHandler(req: NextRequest) {
         status: 'new',
       })
       .select('*')
-      .single() as any
+      .single()
 
     if (error) {
       console.error('[feedback] submit error:', error)
