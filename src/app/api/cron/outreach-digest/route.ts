@@ -5,6 +5,8 @@ import { sendEmail } from '@/lib/email'
 import { getOwnerEmail } from '@/lib/owner-email'
 
 const OWNER_EMAIL = getOwnerEmail()
+const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
 
 type OutreachLogRow = {
   id: string
@@ -203,7 +205,8 @@ export async function GET(request: NextRequest) {
     to: OWNER_EMAIL,
     subject,
     html,
-    from: 'briefing@startingmonday.app',
+    from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+    replyTo: OUTREACH_REPLY_TO,
   })
 
   if ((result as { error?: { message?: string } } | null)?.error) {

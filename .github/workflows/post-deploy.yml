@@ -79,9 +79,9 @@ jobs:
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
         run: |
-          # Run only the synthetics project (P0 checks)
+          # Run P0 synthetics plus authenticated outreach stale-copy canary.
           EXIT_CODE=0
-          npx playwright test --project=synthetics \
+          npx playwright test --project=synthetics --project=outreach-canary \
             --reporter=json 2>/dev/null > post-deploy-synthetic-results.json || EXIT_CODE=$?
 
           node -e "

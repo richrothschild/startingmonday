@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     .from('contacts')
     .select('id')
     .eq('user_id', userId)
-    .eq('email', email)
+    .ilike('email', email)
     .eq('status', 'active')
     .limit(1)
     .maybeSingle()

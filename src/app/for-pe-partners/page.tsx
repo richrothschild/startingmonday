@@ -46,11 +46,11 @@ export default function ForPePartnersPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo?from=pe-partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
-              href="/partners"
+              href="/partners?from=pe-partners"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Become a partner
@@ -88,9 +88,21 @@ export default function ForPePartnersPage() {
                 <a href="#network" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive network</a>
                 <a href="#partner-cta" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Get started</a>
               </div>
+              <p className="text-[11px] text-slate-500 mt-3">
+                Confidentiality and control: candidate pipeline visibility is opt-in and controlled by each candidate.
+              </p>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
+                <Link href="/for-search-firms" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">Search-firm partner guide</Link>
+                <Link href="/for-cio" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">Executive CIO path</Link>
+              </div>
             </section>
 
-            {/* What it is */}
+            
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
+        </details>
+{/* What it is */}
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
@@ -194,7 +206,7 @@ export default function ForPePartnersPage() {
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                <Link href="/demo?from=pe-partners" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
                 </Link>
                 .

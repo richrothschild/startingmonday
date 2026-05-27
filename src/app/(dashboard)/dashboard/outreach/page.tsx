@@ -25,11 +25,19 @@ export const metadata = {
   title: 'Outreach Hub - Starting Monday',
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function OutreachHubPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const buildVersion = (process.env.RAILWAY_GIT_COMMIT_SHA
+    ?? process.env.VERCEL_GIT_COMMIT_SHA
+    ?? process.env.GITHUB_SHA
+    ?? process.env.NEXT_PUBLIC_BUILD_SHA
+    ?? 'local').slice(0, 8)
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
@@ -257,7 +265,15 @@ export default async function OutreachHubPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-10 space-y-6">
-        <div>
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1">
             Internal outbound operating center: executives, search firms, and coaches with one-click send and auto follow-up reminders.
@@ -323,7 +339,7 @@ export default async function OutreachHubPage() {
 
         <section id="outreach-workbench">
           <h2 className="sr-only">Outreach workbench</h2>
-          <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+          <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} buildVersion={buildVersion} />
         </section>
 
         <section id="outreach-cadence" className="bg-white border border-slate-200 rounded overflow-hidden">

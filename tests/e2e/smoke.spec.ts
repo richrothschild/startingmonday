@@ -16,7 +16,7 @@ test('dashboard loads and shows pipeline', async ({ page }) => {
   await expect(page.getByText('Company Pipeline')).toBeVisible()
 })
 
-test('outreach coach compose pane renders latest hard-edged marker', async ({ page }) => {
+test('outreach coach compose pane blocks legacy stale markers', async ({ page }) => {
   await skipIfAuthUnavailable(page)
   await page.goto('/dashboard/outreach')
   await expect(page.getByRole('heading', { name: 'Outreach Hub' })).toBeVisible()

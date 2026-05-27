@@ -168,14 +168,22 @@ export default function ManagerToolsDemoPage() {
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
-        {/* Header */}
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+{/* Header */}
         <div className="mb-10">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">For Manager Tools listeners</p>
           <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-3">
             The prep brief. Before the interview.
           </h1>
           <p className="text-[15px] text-slate-500 leading-relaxed">
-            You teach executives to manage the search like a project. This is the research infrastructure that makes that possible. Below is a live brief for a VP of IT candidate walking into Salesforce.
+            Search as a project needs fast research infrastructure. Below is a live brief for a VP of IT candidate at Salesforce.
           </p>
         </div>
 
@@ -195,10 +203,10 @@ export default function ManagerToolsDemoPage() {
         <section className="mb-10 rounded-xl border border-emerald-200 bg-emerald-50/40 p-5">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and use boundary</p>
           <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
-            This demo uses generated sample material for evaluation only. Customer searches, prep notes, and pipeline data stay private to the account owner and invited collaborators.
+            This demo uses generated sample material for evaluation only. Customer searches and prep data remain private to account owners and invited collaborators.
           </p>
           <p className="text-[12px] text-slate-600 leading-relaxed">
-            Verification path: use the live example, generate your own brief, then compare whether it reduces last-minute prep time before a real interview.
+            Verification path: review this example, generate your own brief, then compare prep time before a real interview.
           </p>
         </section>
 

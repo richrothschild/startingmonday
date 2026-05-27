@@ -9,7 +9,6 @@ import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { SearchControlsPanel } from '@/components/SearchControlsPanel'
-import { TrackLink } from '@/components/TrackLink'
 import { CmdKButton } from '@/components/CmdKButton'
 import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
 import { markPlaced } from './placed/actions'
@@ -540,7 +539,7 @@ export default async function DashboardPage({
           </div>
         </header>
         <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-          <div className="mb-8">
+<div className="mb-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
               {greeting}, {firstName}.
@@ -687,7 +686,6 @@ export default async function DashboardPage({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-
         {/* Welcome */}
         <div className="mb-6 sm:mb-8">
           <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
@@ -698,16 +696,6 @@ export default async function DashboardPage({
             Start with the briefing, then work the next relationship and the next action.
           </p>
         </div>
-
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
-            <a href="#start-here" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
-            <a href="#momentum-overview" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
-            <a href="#quick-actions" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick actions</a>
-            <a href="#pipeline" className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
-          </div>
-        </section>
 
         <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -1041,7 +1029,7 @@ export default async function DashboardPage({
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executives in transition try to do everything at once and end up paralyzed. The research says differently: one focused action per day compounds faster than a week of scattered effort.
+              Do one focused action today. Consistency beats scattered effort.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
             <Link
@@ -1062,7 +1050,7 @@ export default async function DashboardPage({
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executive roles never get posted. They get filled through relationships and signals before a search is ever authorized. The executives who land well do not wait for postings. They are already watching the right companies when timing shifts.
+              Most executive roles are filled through relationships before posting. Start tracking target companies early.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
             <Link
@@ -1072,7 +1060,7 @@ export default async function DashboardPage({
               Add your first target company &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career page URLs as you go � we scan for openings before they go public.
+              Aim for 10 to 15 companies. Add career URLs as you go.
             </p>
           </section>
         )}
@@ -1083,7 +1071,7 @@ export default async function DashboardPage({
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
+              Stay ready by tracking the right companies before you need to move.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
             <Link
@@ -1093,7 +1081,7 @@ export default async function DashboardPage({
               Add a company to watch &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              No pressure to act on anything. You will know when the timing shifts.
+              No pressure to act now. You will know when timing shifts.
             </p>
           </section>
         )}
@@ -1164,7 +1152,7 @@ export default async function DashboardPage({
             <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
               <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">
-                Executives who land in under 90 days average 2-3 new conversations per week. Committing to a number makes it happen.
+                A weekly target increases follow-through.
               </p>
               <form action={saveWeeklyGoal} className="flex items-center gap-3">
                 <select
@@ -1202,7 +1190,7 @@ export default async function DashboardPage({
               <div className="text-[13px] font-semibold text-slate-900">
                 {momentumData.momentum_score >= 70 ? 'Strong cadence. Keep it moving.' :
                  momentumData.momentum_score >= 40
-                   ? `Momentum dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
+                   ? `Momentum is dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
                    : 'Search at risk. This pace adds months to your timeline.'}
               </div>
               <div className="text-[11px] text-slate-400 mt-0.5">
@@ -1243,26 +1231,6 @@ export default async function DashboardPage({
         <ActivityChart data={weekSlots} />
         <PipelineVelocity companies={velocityRows} />
 
-        {/* Week 3 coaching prompt - appears Day 18-28 after onboarding */}
-        {showWeek3Prompt && (
-          <section id="week-3-checkin" className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</h2>
-            <p className="text-[14px] font-semibold text-slate-900 mb-1">Most searches lose momentum around now.</p>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
-              Three things that keep searches moving: add companies weekly, complete follow-ups within 48 hours, and run a prep brief before any conversation.
-            </p>
-            <div className="flex gap-3 flex-wrap">
-              <Link href="/dashboard/companies/new" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
-                Add a company
-              </Link>
-              <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
-                View actions due
-              </Link>
-            </div>
-          </section>
-        )}
-
-
         {/* Quick Actions */}
         <section id="quick-actions" className="mb-6 sm:mb-2">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
@@ -1283,42 +1251,8 @@ export default async function DashboardPage({
               className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
             >
               <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
-              <p className="text-[11px] text-slate-400 mt-0.5">{a.sub}</p>
             </Link>
           ))}
-          </div>
-        </section>
-
-        {/* How-To + Interview Prep (in-context guidance) */}
-        <section id="weekly-playbook" className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</h2>
-            <TrackLink href="/dashboard/start" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'setup_guide' }} className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-              Full setup guide -&gt;
-            </TrackLink>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <TrackLink href="/dashboard/briefing" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'briefing' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">1) Start with briefing</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">Pick your top three actions before opening other pages.</p>
-            </TrackLink>
-            <TrackLink href="/dashboard/contacts" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'relationships' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">2) Work relationships</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">Prioritize one warm contact and schedule the next follow-up.</p>
-            </TrackLink>
-            <TrackLink
-              href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard'}
-              event="how_to_card_clicked"
-              properties={{ source: 'dashboard_how_to', target: interviewingCompany ? 'interview_prep' : 'companies' }}
-              className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block"
-            >
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">3) Run interview prep</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">
-                {interviewingCompany
-                  ? `Generate a prep brief for ${interviewingCompany.name} before your next conversation.`
-                  : 'Generate a prep brief from any company page before your next interview.'}
-              </p>
-            </TrackLink>
           </div>
         </section>
 

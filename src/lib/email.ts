@@ -34,12 +34,12 @@ export async function sendEmail({
     }))
   }
 
-  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '90')
+  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '80')
   const refined = autoRefineEmailDraft({
     channel: channel ?? 'general',
     subject,
     html,
-    minEjes: Number.isFinite(minCouncilScore) ? minCouncilScore : 90,
+    minEjes: Number.isFinite(minCouncilScore) ? minCouncilScore : 80,
     maxPasses: 2,
   })
 

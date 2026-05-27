@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -49,6 +51,8 @@ export async function POST(request: NextRequest) {
         to: contact.email,
         subject: 'Quick follow-up',
         html: `<p>Hi ${contact.name},</p><p>Following up in case this got buried. Happy to share a concise next-step recommendation for your current search priorities.</p>`,
+        from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+        replyTo: OUTREACH_REPLY_TO,
       })
       if (!result?.error) nudgesSent++
     }

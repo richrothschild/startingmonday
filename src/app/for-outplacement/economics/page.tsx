@@ -18,18 +18,13 @@ const PARTNER_PLANS = [
     price: 'Seat-based monthly model',
     fit: 'Best for firms that run recurring transition cohorts and want predictable unit economics.',
   },
-  {
-    name: 'Enterprise Rollout',
-    price: 'Volume pricing by term',
-    fit: 'Best for multi-office or enterprise partners with centralized procurement and reporting needs.',
-  },
 ]
 
 const WHAT_IS_INCLUDED = [
   'Participant seat provisioning and activation support',
   'Cohort-level engagement visibility for counselor leaders',
   'Signal monitoring and prep brief workflows for active search execution',
-  'Partner review cadence and pass/fail scorecard at day 30',
+  'Partner review cadence and day-30 scorecard',
 ]
 
 const SCORECARD_METRICS = [
@@ -54,8 +49,7 @@ const SCORECARD_METRICS = [
 const COMMERCIAL_NOTES = [
   'Pilot pricing is structured to lower risk and make the first decision evidence-based, not theoretical.',
   'Volume discounts are available for larger cohorts and longer program terms.',
-  'Seat allocations can be tuned across Active and Intelligence usage patterns based on participant readiness.',
-  'Centralized billing and reporting options are available for enterprise partners.',
+  'Seat allocations can be tuned across Active and Intelligence usage patterns.',
 ]
 
 const COHORT_SCENARIOS = [
@@ -74,11 +68,6 @@ const COHORT_SCENARIOS = [
     profile: 'Regional rollout',
     decisionUse: 'Measure governance consistency and operating cadence at scale.',
   },
-  {
-    cohort: '250 seats',
-    profile: 'Enterprise/multi-office rollout',
-    decisionUse: 'Evaluate centralized reporting, procurement governance, and long-term economics.',
-  },
 ]
 
 const EMPLOYER_KPI_MAP = [
@@ -94,17 +83,12 @@ const EMPLOYER_KPI_MAP = [
     buyerMetric: 'Counselor efficiency',
     mappedSignal: 'Reduced context rebuild and faster session preparation from shared workflow visibility.',
   },
-  {
-    buyerMetric: 'Client-facing program credibility',
-    mappedSignal: 'Cohort-level scorecards and documented decision framework at day 30.',
-  },
 ]
 
 const SAMPLE_WEEKLY_REPORT = [
   'Activation summary by cohort and counselor team',
   'Top stalled participants with recommended interventions',
   'Signal-driven actions completed this week',
-  'Prep-brief usage before interviews and high-stakes meetings',
   'Risks, escalations, and next-week plan',
 ]
 
@@ -176,7 +160,6 @@ const WEEKLY_PACKET_TEMPLATE = [
   'Signal action velocity: average signal-driven actions per active participant',
   'Prep readiness rate: percent of high-stakes meetings with prep brief review before meeting',
   'Stall index: count of participants with 7+ days without meaningful action',
-  'Intervention queue: named owners, due dates, and expected behavior change',
 ]
 
 const QUANTIFIED_COMPARISON = [
@@ -212,11 +195,6 @@ const QUOTE_PACKAGING = [
     packageName: 'Program packaging',
     details: 'Multi-cohort or recurring cohorts with defined review cadence, named deliverables, and contract-linked reporting outputs.',
     quoteInputs: 'Expected cohort volume, term length, operating model complexity, training needs, and committee review schedule.',
-  },
-  {
-    packageName: 'Enterprise packaging',
-    details: 'Centralized governance, expanded reporting cadence, and enterprise procurement controls with contractual service commitments.',
-    quoteInputs: 'Office count, compliance requirements, support SLA tier, sponsor governance model, and legal exhibit requirements.',
   },
 ]
 
@@ -305,7 +283,7 @@ export default function OutplacementEconomicsPage() {
             Pilot structure and commercial model, one click deeper.
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl">
-            This page is for partner teams who already understand the workflow and need pricing, scorecards, and rollout mechanics for internal decisions.
+            For partner teams that need pricing, scorecards, and rollout mechanics for internal approval.
           </p>
         </header>
 
@@ -327,7 +305,7 @@ export default function OutplacementEconomicsPage() {
           <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed">
             <p>Most partners begin with one cohort and a 30-day pass/fail review before expanding seats.</p>
             <p>This keeps procurement risk low while giving counselor teams enough workflow exposure to judge fit.</p>
-            <p className="font-semibold text-slate-800">Pilot is a decision instrument, not a commitment instrument.</p>
+            <p className="font-semibold text-slate-800">Pilot is for decision, not lock-in.</p>
           </div>
         </section>
 

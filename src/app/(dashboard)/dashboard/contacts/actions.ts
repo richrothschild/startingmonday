@@ -64,7 +64,7 @@ export async function addContact(formData: FormData) {
 export async function markContactSent(contactId: string, contactName: string): Promise<{ ok: boolean; error?: string }> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { ok: false, error: 'Not authenticated' }
+  if (!user) return { ok: false, error: 'You must be signed in to mark outreach as sent.' }
 
   const followUpDate = new Date()
   followUpDate.setDate(followUpDate.getDate() + 5)
@@ -99,7 +99,12 @@ export async function markContactSent(contactId: string, contactName: string): P
         }),
   ])
 
-  if (updateError || followUpResult.error) return { ok: false, error: 'Failed to mark as sent' }
+  if (updateError) {
+    return { ok: false, error: `Could not mark ${contactName} as sent: ${updateError.message}` }
+  }
+  if (followUpResult.error) {
+    return { ok: false, error: `Marked ${contactName} as sent, but could not create the follow-up reminder: ${followUpResult.error.message}` }
+  }
   return { ok: true }
 }
 
@@ -167,10 +172,10 @@ export async function updateOutreachStatus(contactId: string, status: string): P
   revalidatePath('/dashboard/calendar')
 }
 
-export async function remindLater(contactId: string, contactName: string): Promise<{ ok: boolean }> {
+export async function remindLater(contactId: string, contactName: string): Promise<{ ok: boolean; error?: string }> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { ok: false }
+  if (!user) return { ok: false, error: 'You must be signed in to create a reminder.' }
 
   const due = new Date()
   due.setDate(due.getDate() + 1)
@@ -184,7 +189,11 @@ export async function remindLater(contactId: string, contactName: string): Promi
     status: 'pending',
   })
 
-  return { ok: !error }
+  if (error) {
+    return { ok: false, error: `Could not create a reminder for ${contactName}: ${error.message}` }
+  }
+
+  return { ok: true }
 }
 
 export async function scheduleMeetingFollowUp(contactId: string, contactName: string): Promise<void> {

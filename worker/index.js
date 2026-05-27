@@ -242,6 +242,9 @@ cron.schedule('30 20 * * 0', () => runJob('link-integrity-weekly-review-job', ru
 // Pre-send outreach tone guard auto-remediation: daily at 14:45 UTC before outreach windows
 cron.schedule('45 14 * * *', () => runJob('outreach-tone-presend-job', () => runOutreachToneGuardJob('presend')))
 
+// Outreach reconciliation: daily at 14:50 UTC — backfill missing contacts and reached_out states before the digest runs
+cron.schedule('50 14 * * *', () => runJob('outreach-reconcile-job', runOutreachReconcileJob))
+
 // Weekly outreach human-tone guard report: Sunday 20:45 UTC
 cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', () => runOutreachToneGuardJob('weekly')))
 
