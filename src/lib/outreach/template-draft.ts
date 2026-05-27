@@ -23,6 +23,14 @@ function safeFirstName(input: BuildOutreachTemplateDraftInput): string {
   return first && first.length > 0 ? first : 'there'
 }
 
+function clampSubject(subject: string): string {
+  const normalized = subject.replace(/\s+/g, ' ').trim()
+  if (normalized.length <= 80) return normalized
+
+  const clipped = normalized.slice(0, 77).replace(/[\s,;:.!?-]+$/g, '').trim()
+  return `${clipped}...`
+}
+
 export function buildOutreachTemplateDraft(input: BuildOutreachTemplateDraftInput): { subject: string; body: string; templateSource: 'latest_template_engine' } {
   const generated = templateEngine.buildLatestTemplateDraft({
     channel: input.channel,
@@ -37,7 +45,7 @@ export function buildOutreachTemplateDraft(input: BuildOutreachTemplateDraftInpu
     profileTrigger: (input.profileTrigger ?? '').trim(),
   })
 
-  const subject = (generated.subject ?? '').trim()
+  const subject = clampSubject((generated.subject ?? '').trim())
   const body = (generated.body ?? '').trim()
   assertNoLegacyTemplateCopy(subject, body)
 
