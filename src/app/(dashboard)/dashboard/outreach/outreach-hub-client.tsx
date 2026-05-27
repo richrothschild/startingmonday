@@ -29,6 +29,7 @@ const CONFIDENCE_OPTIONS = [
 const FOLLOW_UP_BATCH_SIZE = 5
 const FOLLOW_UP_BATCH_DELAY_MS = 1250
 const FOLLOW_UP_RETRY_DELAY_MS = 1500
+const COACH_WORKSHEET_URL = 'https://startingmonday.app/for-coaches/coach-prep-worksheet'
 const FOLLOW_UP_MAX_ATTEMPTS = 2
 const FOLLOW_UP_CAMPAIGN_STEP = 'followup_bulk_v1'
 const FOLLOW_UP_POLL_INITIAL_DELAY_MS = 1500
@@ -344,6 +345,19 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
   const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
   const [googleFollowUp3Url, setGoogleFollowUp3Url] = useState<string | null>(null)
   const [googleFollowUp7Url, setGoogleFollowUp7Url] = useState<string | null>(null)
+
+  const isCoachComposer = selected?.outreachChannel === 'coaches'
+
+  function insertCoachWorksheetLink() {
+    setMessageText((current) => {
+      const normalized = current.replace(/\r\n/g, '\n').trim()
+      if (normalized.includes(COACH_WORKSHEET_URL)) return current
+
+      const linkLine = `Here is the one-page coach prep worksheet: ${COACH_WORKSHEET_URL}`
+      if (!normalized) return linkLine
+      return `${normalized}\n\n${linkLine}`
+    })
+  }
 
   // Load current Supabase contact status for all rows on mount
   useEffect(() => {
@@ -937,7 +951,19 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Message</label>
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">Message</label>
+                  {isCoachComposer && (
+                    <button
+                      type="button"
+                      onClick={insertCoachWorksheetLink}
+                      className="text-[11px] font-semibold text-slate-700 border border-slate-300 rounded px-2 py-1 hover:border-slate-500"
+                      title="Insert coach worksheet link"
+                    >
+                      Send worksheet
+                    </button>
+                  )}
+                </div>
                 <textarea
                   aria-label="Email message"
                   title="Email message"
