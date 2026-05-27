@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
   const category = params.get('category')
   const sortBy = params.get('sortBy') === 'rated' ? 'rated' : 'recent'
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let query = (admin as any)
     .from('idea_submissions')
     .select('id, name, category, body, ai_rating, created_at')
@@ -69,6 +70,7 @@ export async function POST(request: NextRequest) {
 
   // Rate limit: max 3 submissions per email per day
   const oneDayAgo = new Date(Date.now() - 86_400_000).toISOString()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { count } = await (admin as any)
     .from('idea_submissions')
     .select('id', { count: 'exact', head: true })
@@ -79,6 +81,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'You have already submitted 3 ideas today. Try again tomorrow.' }, { status: 429 })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await (admin as any).from('idea_submissions').insert({
     name: name || null,
     email,

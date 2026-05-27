@@ -30,7 +30,7 @@ const CATEGORIES: Array<{ value: Category | ''; label: string }> = [
   { value: 'other', label: 'Other' },
 ]
 
-function getInitials(name?: string | null, _email?: string): string {
+function getInitials(name?: string | null): string {
   if (name?.trim()) {
     const parts = name.trim().split(/\s+/)
     if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
@@ -68,6 +68,7 @@ export default function IdeasPage() {
     }
   }, [category, sortBy])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchIdeas() }, [fetchIdeas])
 
   async function handleSubmit(e: React.FormEvent) {
@@ -143,7 +144,7 @@ export default function IdeasPage() {
             <div className="text-center py-6">
               <p className="text-[22px] font-bold text-slate-900 mb-2">Thank you!</p>
               <p className="text-[14px] text-slate-500 leading-relaxed mb-4">
-                Your idea has been submitted. You are entered in this month's gift card drawing.
+                Your idea has been submitted. You are entered in this month&apos;s gift card drawing.
               </p>
               <button
                 onClick={() => setSubmitState('idle')}

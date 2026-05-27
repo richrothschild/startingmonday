@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
   type Submission = { id: string; name: string | null; email: string; category: string; body: string }
   type Rated = Submission & { score: number; rationale: string }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: rawData, error } = await (admin as any)
     .from('idea_submissions')
     .select('id, name, email, category, body')
@@ -85,6 +86,7 @@ Idea: ${sub.body}
       if (match) {
         const parsed = JSON.parse(match[0]) as { score: number; rationale: string }
         rated.push({ ...sub, score: parsed.score, rationale: parsed.rationale })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await (admin as any).from('idea_submissions').update({
           ai_rating: { score: parsed.score, rationale: parsed.rationale },
           ai_rated_at: new Date().toISOString(),

@@ -4,7 +4,6 @@ import { sendEmail } from '../lib/send-email.js'
 import { logger } from '../lib/logger.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
-const FROM = process.env.RESEND_FROM_ADDRESS ?? 'briefing@startingmonday.app'
 
 function esc(str) {
   return String(str ?? '')
@@ -113,7 +112,7 @@ export async function runOfferEmailJob() {
   let skipped = 0
 
   for (const user of users) {
-    let profile = profileMap[user.id]
+    const profile = profileMap[user.id]
 
     // Generate invite_code if the user does not have one yet
     let inviteCode = profile?.invite_code
