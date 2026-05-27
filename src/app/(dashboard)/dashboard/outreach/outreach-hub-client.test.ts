@@ -21,6 +21,14 @@ describe('outreach hub module', () => {
     })
   })
 
+  it('does not surface raw html error pages as outreach explanations', () => {
+    expect(formatOutreachErrorMessage('Request failed (502): <!DOCTYPE html><html><body>Bad gateway</body></html>', 'live')).toEqual({
+      title: 'Email was not sent',
+      detail: 'The outreach email failed before delivery.',
+      rawReason: 'Request failed (502): <!DOCTYPE html><html><body>Bad gateway</body></html>',
+    })
+  })
+
   it('builds follow-up drafts with binary CTA across channels', () => {
     const executiveDraft = buildCrossChannelFollowUpDraft({
       fullName: 'Alex Morgan',

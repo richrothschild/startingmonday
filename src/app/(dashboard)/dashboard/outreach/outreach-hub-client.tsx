@@ -25,8 +25,10 @@ const CONFIDENCE_OPTIONS = [
   { value: 'all', label: 'All Confidence' },
 ] as const
 
-const FOLLOW_UP_BATCH_SIZE = 20
+const FOLLOW_UP_BATCH_SIZE = 5
 const FOLLOW_UP_BATCH_DELAY_MS = 1250
+const FOLLOW_UP_RETRY_DELAY_MS = 1500
+const FOLLOW_UP_MAX_ATTEMPTS = 2
 const FOLLOW_UP_CAMPAIGN_STEP = 'followup_bulk_v1'
 
 type ProspectRow = {
@@ -90,6 +92,28 @@ async function readApiPayload(response: Response): Promise<{ payload: Record<str
     payload: { error: `${fallbackError}: ${rawText.trim().slice(0, 220)}` },
     fallbackError,
   }
+}
+
+function isHtmlErrorPayload(value: string): boolean {
+  const normalized = value.trim().toLowerCase()
+  return normalized.includes('<!doctype html') || normalized.includes('<html')
+}
+
+function isTransientFollowUpError(value: string): boolean {
+  const normalized = value.trim().toLowerCase()
+  return normalized.includes('request failed (502)')
+    || normalized.includes('request failed (503)')
+    || normalized.includes('request failed (504)')
+    || normalized.includes('internal server error')
+    || isHtmlErrorPayload(normalized)
+}
+
+function normalizeFollowUpFailureReason(value: string): string {
+  if (isHtmlErrorPayload(value)) {
+    return 'Send route returned an HTML 502/503 page instead of JSON.'
+  }
+
+  return value
 }
 
 export function formatOutreachErrorMessage(error: string | null | undefined, sendMode: 'dry_run' | 'test_to_self' | 'live'): ErrorDisplay {
@@ -244,6 +268,67 @@ function sleep(ms: number): Promise<void> {
   return new Promise(resolve => {
     setTimeout(resolve, ms)
   })
+}
+
+async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live') {
+  const res = await fetch('/api/outreach/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fullName: target.fullName,
+      company: target.company,
+      roleBucket: target.roleBucket,
+      emailTo: target.email,
+      statusAfter: 'reached_out',
+      mode,
+      outreachChannel: target.outreachChannel,
+      fitTier: target.fitTier,
+      personaFocus: target.personaFocus,
+      useLatestTemplateDraft: true,
+      templateStep: 'followup_1',
+      campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
+      idempotencyKey: followUpIdempotencyKey(target),
+    }),
+  })
+
+  const { payload, fallbackError } = await readApiPayload(res)
+
+  if (!res.ok) {
+    const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
+      ? payload.error
+      : fallbackError
+    return {
+      ok: false as const,
+      duplicate: false,
+      reason,
+      transient: isTransientFollowUpError(reason),
+    }
+  }
+
+  return {
+    ok: true as const,
+    duplicate: payload.duplicate === true,
+    reason: '',
+    transient: false,
+  }
+}
+
+async function sendFollowUpWithRetry(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live') {
+  for (let attempt = 1; attempt <= FOLLOW_UP_MAX_ATTEMPTS; attempt += 1) {
+    const result = await sendFollowUpRequest(target, mode)
+    if (result.ok || !result.transient || attempt === FOLLOW_UP_MAX_ATTEMPTS) {
+      return result
+    }
+
+    await sleep(FOLLOW_UP_RETRY_DELAY_MS)
+  }
+
+  return {
+    ok: false as const,
+    duplicate: false,
+    reason: 'Unknown follow-up retry failure.',
+    transient: false,
+  }
 }
 
 function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
@@ -560,36 +645,16 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       const batch = sendQueue.slice(i, i + FOLLOW_UP_BATCH_SIZE)
 
       const batchResults = await Promise.all(batch.map(async (target) => {
-        const res = await fetch('/api/outreach/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fullName: target.fullName,
-            company: target.company,
-            roleBucket: target.roleBucket,
-            emailTo: target.email,
-            statusAfter: 'reached_out',
-            mode: sendMode,
-            outreachChannel: target.outreachChannel,
-            fitTier: target.fitTier,
-            personaFocus: target.personaFocus,
-            useLatestTemplateDraft: true,
-            templateStep: 'followup_1',
-            campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
-            idempotencyKey: followUpIdempotencyKey(target),
-          }),
-        })
-
-        const { payload, fallbackError } = await readApiPayload(res)
-        if (!res.ok) {
-          const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
-            ? payload.error
-            : fallbackError
-          return { ok: false, duplicate: false, reason: `${target.fullName}: ${reason}` }
+        const result = await sendFollowUpWithRetry(target, sendMode)
+        if (!result.ok) {
+          return {
+            ok: false,
+            duplicate: false,
+            reason: `${target.fullName}: ${normalizeFollowUpFailureReason(result.reason)}`,
+          }
         }
 
-        const duplicate = payload.duplicate === true
-        return { ok: true, duplicate, reason: '' }
+        return { ok: true, duplicate: result.duplicate, reason: '' }
       }))
 
       for (const result of batchResults) {
