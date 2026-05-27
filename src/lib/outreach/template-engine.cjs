@@ -23,6 +23,23 @@ function cleanTrigger(raw) {
   return value.replace(/[.!?]+$/, '')
 }
 
+function subjectCompanyLabel(raw) {
+  const safe = String(raw || '').replace(/\s+/g, ' ').trim()
+  if (!safe) return 'your team'
+  if (safe.length <= 24) return safe
+
+  const words = safe.split(' ').filter(Boolean)
+  if (words.length >= 2) {
+    const firstTwo = words.slice(0, 2).join(' ')
+    if (/\b(team|group|firm|partners|coaching)\b/i.test(firstTwo)) {
+      return firstTwo
+    }
+    return `${firstTwo} team`
+  }
+
+  return 'your team'
+}
+
 function channelFallbackTrigger(channel, focus) {
   if (channel === CHANNELS.EXECUTIVES) {
     return `In first-week ${focus} moves, early momentum can slip when the first-call story is not clear.`
@@ -259,11 +276,12 @@ function costOfInactionLine(channel) {
 function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, step }) {
   const transitionFocus = focusText(focus || roleLabel || 'Executive')
   const benchmarkAsset = benchmarkAssetForFocus(transitionFocus)
+  const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the ${roleLabel} benchmark for ${company}`
+    ? `Should I send the ${roleLabel} benchmark for ${subjectCompany}`
     : step === 'followup_3'
-      ? `Closing the loop on ${roleLabel} readiness for ${company}`
-      : `Quick follow-up on ${roleLabel} readiness for ${company}`
+      ? `Closing the loop on ${roleLabel} readiness for ${subjectCompany}`
+      : `Quick follow-up on ${roleLabel} readiness for ${subjectCompany}`
 
   if (step === 'followup_1') {
     return {
@@ -306,11 +324,12 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
 function buildSearchFollowupDraft({ firstName, company, focus, roleLabel, step }) {
   const transitionFocus = focusText(focus || roleLabel || 'search')
   const asset = 'one-page first-touch plan'
+  const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the first-touch plan for ${company}`
+    ? `Should I send the first-touch plan for ${subjectCompany}`
     : step === 'followup_3'
-      ? `Closing the loop on first-touch plan for ${company}`
-      : `Quick follow-up on first-touch plan for ${company}`
+      ? `Closing the loop on first-touch plan for ${subjectCompany}`
+      : `Quick follow-up on first-touch plan for ${subjectCompany}`
 
   return {
     subject,
@@ -327,11 +346,12 @@ function buildSearchFollowupDraft({ firstName, company, focus, roleLabel, step }
 function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step }) {
   const transitionFocus = focusText(focus || roleLabel || 'coaching')
   const asset = 'coach signal map'
+  const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the coach map for ${company}`
+    ? `Should I send the coach map for ${subjectCompany}`
     : step === 'followup_3'
-      ? `Closing the loop on coach momentum for ${company}`
-      : `Quick follow-up on coach momentum for ${company}`
+      ? `Closing the loop on coach momentum for ${subjectCompany}`
+      : `Quick follow-up on coach momentum for ${subjectCompany}`
 
   return {
     subject,
@@ -349,11 +369,12 @@ function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, 
   const transitionFocus = focusText(focus || roleLabel || 'outplacement')
   const focusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   const asset = 'cohort readiness checklist'
+  const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the cohort checklist for ${company}`
+    ? `Should I send the cohort checklist for ${subjectCompany}`
     : step === 'followup_3'
-      ? `Closing the loop on cohort readiness for ${company}`
-      : `Quick follow-up on cohort readiness for ${company}`
+      ? `Closing the loop on cohort readiness for ${subjectCompany}`
+      : `Quick follow-up on cohort readiness for ${subjectCompany}`
 
   return {
     subject,

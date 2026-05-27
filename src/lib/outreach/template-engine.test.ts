@@ -163,6 +163,31 @@ describe('outreach template engine', () => {
     }
   })
 
+  it('keeps long-company coach followups under the route subject guardrail', () => {
+    const draft = build({
+      channel: 'coaches',
+      firstName: 'Marshall',
+      company: 'Marshall Goldsmith Stakeholder Centered Coaching',
+      roleLabel: 'Executive Coach',
+      focus: 'CEO-to-Board',
+      step: 'followup_1',
+    })
+
+    expect(draft.subject).toBe('Quick follow-up on coach momentum for Marshall Goldsmith team')
+    expect(draft.subject.length).toBeLessThanOrEqual(80)
+
+    const finalMessageText = withComplianceFooter(ensureSignatureLine(draft.body))
+    const evaluation = evaluateEmailCouncilQuality({
+      channel: 'coaches',
+      subject: draft.subject,
+      html: toHtml(finalMessageText),
+      minEjes: 90,
+    })
+
+    expect(evaluation.passes, evaluation.blockers.join(', ')).toBe(true)
+    expect(evaluation.scores.ejes).toBeGreaterThanOrEqual(90)
+  })
+
   it('builds a plain-language executive draft for board roles', () => {
     const draft = build({
       channel: 'executives',
