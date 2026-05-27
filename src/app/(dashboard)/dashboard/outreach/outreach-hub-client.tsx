@@ -47,6 +47,62 @@ type Props = {
   fromAddressLabel: string
 }
 
+type ErrorDisplay = {
+  title: string
+  detail: string
+  rawReason?: string
+}
+
+export function formatOutreachErrorMessage(error: string | null | undefined, sendMode: 'dry_run' | 'test_to_self' | 'live'): ErrorDisplay {
+  const normalized = (error ?? '').trim()
+
+  if (!normalized) {
+    return {
+      title: 'Email was not sent',
+      detail: sendMode === 'test_to_self'
+        ? 'The test email did not go out. Review the message and try again.'
+        : 'The outreach message did not go out. Review the details below and try again.',
+    }
+  }
+
+  if (normalized.toLowerCase().startsWith('blocked by email council gate:')) {
+    return {
+      title: 'Send blocked before delivery',
+      detail: 'This draft did not meet the live email quality gate, so no email was sent. Tighten the copy and run a test to yourself before sending live.',
+      rawReason: normalized,
+    }
+  }
+
+  if (normalized === 'Recipient is suppressed. Remove suppression before sending.') {
+    return {
+      title: 'Recipient is suppressed',
+      detail: 'This contact is currently blocked from outreach. Remove the suppression entry before trying again.',
+    }
+  }
+
+  if (normalized === 'Could not resolve test recipient email.') {
+    return {
+      title: 'Test send could not start',
+      detail: 'Your account email could not be resolved for Send Test To Me. Confirm your signed-in user has a valid email address.',
+    }
+  }
+
+  if (normalized === 'OUTREACH_FROM_ADDRESS must use richard@startingmonday.app.') {
+    return {
+      title: 'Sender configuration error',
+      detail: 'The outreach sender is misconfigured in the environment. No email was sent.',
+    }
+  }
+
+  return {
+    title: 'Email was not sent',
+    detail: sendMode === 'test_to_self'
+      ? 'The test email failed before delivery.'
+      : 'The outreach email failed before delivery.',
+    rawReason: normalized,
+  }
+}
+
 function firstNameOf(fullName: string): string {
   const first = fullName.trim().split(/\s+/)[0]
   return first && first.length > 0 ? first : 'there'
@@ -109,7 +165,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [sending, setSending] = useState(false)
   const [suppressing, setSuppressing] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<ErrorDisplay | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [guardrailWarnings, setGuardrailWarnings] = useState<string[]>([])
   const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
@@ -199,7 +255,10 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      setError(data.error ?? 'Could not update status.')
+      setError({
+        title: 'Status update failed',
+        detail: (data.error as string) ?? 'Could not update status.',
+      })
       return
     }
 
@@ -242,7 +301,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
       setGuardrailViolations(violations)
       setGuardrailWarnings(warnings)
-      setError((data.error as string) ?? 'Email send failed.')
+      setError(formatOutreachErrorMessage((data.error as string) ?? null, sendMode))
       return
     }
 
@@ -286,7 +345,10 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      setError(data.error ?? 'Could not suppress recipient.')
+      setError({
+        title: 'Suppression update failed',
+        detail: (data.error as string) ?? 'Could not suppress recipient.',
+      })
       return
     }
 
@@ -537,7 +599,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 </div>
               )}
 
-              {error && <p className="text-[12px] text-red-600">{error}</p>}
+              {error && (
+                <div className="border border-red-200 bg-red-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-red-700">{error.title}</p>
+                  <p className="text-[12px] text-red-700 mt-1">{error.detail}</p>
+                  {error.rawReason && (
+                    <p className="text-[11px] text-red-800 mt-2">Reason: {error.rawReason}</p>
+                  )}
+                </div>
+              )}
               {success && <p className="text-[12px] text-green-700">{success}</p>}
 
               {(googleFollowUp3Url || googleFollowUp7Url) && (
