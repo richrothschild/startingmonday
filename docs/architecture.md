@@ -81,6 +81,12 @@ Cron Schedule:
 | Offer email | Daily 11:00 | Sends within 24h of offer_accepted_at being set |
 | Reactivation | Daily 11:30 | Annual reactivation email on offer anniversary |
 | Cleanup | Sunday 02:00 | Deletes signals >90d and stale conversations >180d |
+| Outreach reconcile | Daily 14:50 | Backfills missing contacts from successful live sends and normalizes `reached_out` status before reporting |
+| Outreach digest | Daily 15:00 | Delivery summary for recent outreach activity, including bounce/stuck alerts |
+
+Operational command for outreach incidents:
+
+- `npm run audit:outreach-sends -- 2026-05-26` - inspect send logs, failures, and any recipients still missing from `contacts` for a given UTC date.
 
 AI Models in Worker:
 

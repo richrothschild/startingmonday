@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
       .from('contacts')
       .update({ outreach_status: 'closed' })
       .eq('user_id', userId)
-      .eq('email', recipientEmail)
+      .ilike('email', recipientEmail)
   }
 
   if (isReplyType(eventType) && userId && contactId) {
@@ -164,7 +164,10 @@ export async function POST(request: NextRequest) {
       resend_message_id: messageId,
       delivery_status: 'inbound_reply',
       webhook_event_type: eventType,
-      webhook_payload: payload,
+      webhook_payload: {
+        ...payload,
+        email_source: 'resend_webhook_inbound_reply',
+      },
       message_preview: (payload.data?.text ?? 'Inbound reply').slice(0, 200),
     })
   }

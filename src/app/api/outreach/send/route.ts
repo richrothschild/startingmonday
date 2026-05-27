@@ -10,6 +10,9 @@ const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'm
 const VALID_MODES = new Set(['live', 'dry_run', 'test_to_self'])
 const VALID_OUTREACH_CHANNELS = new Set(['executives', 'search_firms', 'coaches', 'outplacement_firms'])
 const PACIFIC_TZ = 'America/Los_Angeles'
+const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
+const CONTACT_CHANNEL = 'cold'
 
 const SPAMMY_PHRASES = [
   'guaranteed',
@@ -231,6 +234,7 @@ export async function POST(request: NextRequest) {
   }
 
   const guardrail = evaluateGuardrails({ subject, messageText, fullName, company, mode })
+  const contactSyncWarnings: string[] = []
   if (guardrail.violations.length > 0) {
     return NextResponse.json({ error: 'Guardrail violation', violations: guardrail.violations, warnings: guardrail.warnings }, { status: 400 })
   }
@@ -240,7 +244,7 @@ export async function POST(request: NextRequest) {
     .from('contacts')
     .select('id, outreach_status')
     .eq('user_id', userId)
-    .eq('email', emailTo)
+    .ilike('email', emailTo)
     .limit(1)
     .maybeSingle()
 
@@ -261,7 +265,7 @@ export async function POST(request: NextRequest) {
       .from('contacts')
       .select('id')
       .eq('user_id', userId)
-      .eq('email', emailTo)
+      .ilike('email', emailTo)
       .eq('outreach_status', 'closed')
       .limit(1)
       .maybeSingle(),
@@ -279,7 +283,8 @@ export async function POST(request: NextRequest) {
       ok: true,
       mode,
       to: emailTo,
-      from: process.env.OUTREACH_FROM_ADDRESS ?? 'Richard Rothschild <richard@startingmonday.app>',
+      from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+      replyTo: OUTREACH_REPLY_TO,
       warnings: guardrail.warnings,
       status: 'prospect',
     })
@@ -290,45 +295,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Could not resolve test recipient email.' }, { status: 400 })
   }
 
-  if (mode === 'live') {
-    if (existingContact?.id) {
-      await supabase
-        .from('contacts')
-        .update({
-          outreach_status: statusAfter,
-          contacted_at: new Date().toISOString(),
-          status: 'active',
-          channel: outreachChannel,
-          contact_type: fitTier || null,
-          last_role_discussed: personaFocus || null,
-        })
-        .eq('id', existingContact.id)
-        .eq('user_id', userId)
-    } else {
-      const { data: insertedContact } = await supabase
-        .from('contacts')
-        .insert({
-          user_id: userId,
-          name: fullName,
-          firm: company || null,
-          title: roleBucket ? roleBucket.toUpperCase() : null,
-          email: emailTo,
-          channel: outreachChannel,
-          status: 'active',
-          outreach_status: statusAfter,
-          contacted_at: new Date().toISOString(),
-          contact_type: fitTier || null,
-          last_role_discussed: personaFocus || null,
-        })
-        .select('id')
-        .single()
-      contactId = insertedContact?.id ?? null
-    }
-  }
-
-  const fromAddress = process.env.OUTREACH_FROM_ADDRESS ?? 'Richard Rothschild <richard@startingmonday.app>'
-  if (!fromAddress.toLowerCase().includes('startingmonday.app')) {
-    return NextResponse.json({ error: 'OUTREACH_FROM_ADDRESS must use startingmonday.app domain.' }, { status: 500 })
+  const fromAddress = process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM
+  if (!fromAddress.toLowerCase().includes(OUTREACH_REPLY_TO)) {
+    return NextResponse.json({ error: 'OUTREACH_FROM_ADDRESS must use richard@startingmonday.app.' }, { status: 500 })
   }
 
   const finalSubject = mode === 'test_to_self' ? `[TEST] ${subject}` : subject
@@ -340,8 +309,8 @@ export async function POST(request: NextRequest) {
     subject: finalSubject,
     html: `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`,
     from: fromAddress,
-    replyTo: 'richard@startingmonday.app',
-    bcc: mode === 'live' ? 'richard@startingmonday.app' : undefined,
+    replyTo: OUTREACH_REPLY_TO,
+    bcc: mode === 'live' ? OUTREACH_REPLY_TO : undefined,
     headers: {
       'List-Unsubscribe': listUnsubscribe,
       'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
@@ -349,13 +318,77 @@ export async function POST(request: NextRequest) {
   })
 
   if ((sendResult as { error?: { message?: string } } | null)?.error) {
+    const errorMessage = (sendResult as { error?: { message?: string } }).error?.message ?? 'Email send failed.'
+    await supabase.from('outreach_logs').insert({
+      user_id: userId,
+      contact_id: mode === 'live' ? (contactId ?? existingContact?.id ?? null) : null,
+      channel: mode === 'live' ? 'email' : 'other',
+      message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${messageText.slice(0, 200)}`,
+      recipient_email: emailTo,
+      recipient_name: fullName,
+      sender_email: OUTREACH_REPLY_TO,
+      subject: mode === 'test_to_self' ? `[TEST] ${subject}` : subject,
+      message_body: messageText,
+      send_mode: mode,
+      outreach_channel: outreachChannel,
+      fit_tier: fitTier || null,
+      persona_focus: personaFocus || null,
+      delivery_status: 'send_failed',
+      webhook_payload: { email_source: 'outreach_send_route', send_error: errorMessage },
+    })
+
     return NextResponse.json(
-      { error: (sendResult as { error?: { message?: string } }).error?.message ?? 'Email send failed.' },
+      { error: errorMessage },
       { status: 502 },
     )
   }
 
   const resendMessageId = ((sendResult as { data?: { id?: string } | null } | null)?.data?.id ?? null) as string | null
+
+  if (mode === 'live') {
+    if (existingContact?.id) {
+      const { error: updateError } = await supabase
+        .from('contacts')
+        .update({
+          outreach_status: statusAfter,
+          contacted_at: new Date().toISOString(),
+          status: 'active',
+          channel: CONTACT_CHANNEL,
+          contact_type: fitTier || null,
+          last_role_discussed: personaFocus || null,
+        })
+        .eq('id', existingContact.id)
+        .eq('user_id', userId)
+
+      if (updateError) {
+        contactSyncWarnings.push(`Contact sync update failed: ${updateError.message}`)
+      }
+      contactId = existingContact.id
+    } else {
+      const { data: insertedContact, error: insertError } = await supabase
+        .from('contacts')
+        .insert({
+          user_id: userId,
+          name: fullName,
+          firm: company || null,
+          title: roleBucket ? roleBucket.toUpperCase() : null,
+          email: emailTo,
+          channel: CONTACT_CHANNEL,
+          status: 'active',
+          outreach_status: statusAfter,
+          contacted_at: new Date().toISOString(),
+          contact_type: fitTier || null,
+          last_role_discussed: personaFocus || null,
+        })
+        .select('id')
+        .single()
+
+      if (insertError) {
+        contactSyncWarnings.push(`Contact sync insert failed: ${insertError.message}`)
+      }
+      contactId = insertedContact?.id ?? null
+    }
+  }
 
   await supabase.from('outreach_logs').insert({
     user_id: userId,
@@ -364,7 +397,7 @@ export async function POST(request: NextRequest) {
     message_preview: `${mode === 'test_to_self' ? '[TEST] ' : ''}${finalMessageText.slice(0, 200)}`,
     recipient_email: emailTo,
     recipient_name: fullName,
-    sender_email: 'richard@startingmonday.app',
+    sender_email: OUTREACH_REPLY_TO,
     subject: finalSubject,
     message_body: finalMessageText,
     send_mode: mode,
@@ -373,6 +406,7 @@ export async function POST(request: NextRequest) {
     persona_focus: personaFocus || null,
     resend_message_id: resendMessageId,
     delivery_status: mode === 'live' ? 'sent' : 'simulated',
+    webhook_payload: { email_source: 'outreach_send_route' },
   })
 
   let googleFollowUp3Url: string | null = null
@@ -420,7 +454,7 @@ export async function POST(request: NextRequest) {
     ok: true,
     mode,
     to: recipient,
-    warnings: guardrail.warnings,
+    warnings: [...guardrail.warnings, ...contactSyncWarnings],
     status: mode === 'live' ? statusAfter : 'prospect',
     googleFollowUp3Url,
     googleFollowUp7Url,
