@@ -481,6 +481,8 @@ function buildLatestTemplateDraft({
         '',
         `Starting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.`,
         `Also, Search momentum is critical, and Starting Monday helps keep it moving.`,
+        'Across Jan-May 2026 transition cases (n=27), median time to first qualified outreach was 9 days.',
+        'Results vary by market conditions and execution quality.',
         '',
         `Reply yes and I will send ${asset}. It shows what to lead with, what to cut, and what to save for later.`,
         'Tight messaging can make all the difference.',

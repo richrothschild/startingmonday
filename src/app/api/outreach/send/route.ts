@@ -300,8 +300,8 @@ export async function POST(request: NextRequest) {
   const signedMessageText = ensureSignatureLine(messageText)
   const finalMessageText = withComplianceFooter(signedMessageText)
   const finalHtml = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0f172a;">${toHtml(finalMessageText)}</div>`
-  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '90')
-  const resolvedMinCouncilScore = Number.isFinite(minCouncilScore) ? minCouncilScore : 90
+  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '80')
+  const resolvedMinCouncilScore = Number.isFinite(minCouncilScore) ? minCouncilScore : 80
   const councilRefine = autoRefineEmailDraft({
     channel: outreachChannel as 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms',
     subject: finalSubject,

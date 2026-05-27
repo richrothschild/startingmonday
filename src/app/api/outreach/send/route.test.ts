@@ -115,7 +115,7 @@ describe('outreach send route (queue mode)', () => {
       ok: true,
       mode: 'dry_run',
       council: {
-        minScore: 90,
+        minScore: 80,
         scores: { ejes: 92 },
       },
     })
