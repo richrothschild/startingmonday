@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCrossChannelFollowUpDraft, detectLegacyTemplateCopy, formatOutreachErrorMessage, OutreachHubClient } from './outreach-hub-client'
+import { detectLegacyTemplateCopy, formatOutreachErrorMessage, OutreachHubClient } from './outreach-hub-client'
 
 describe('outreach hub module', () => {
   it('exports OutreachHubClient', () => {
@@ -27,46 +27,6 @@ describe('outreach hub module', () => {
       detail: 'The outreach email failed before delivery.',
       rawReason: 'Request failed (502): <!DOCTYPE html><html><body>Bad gateway</body></html>',
     })
-  })
-
-  it('builds follow-up drafts with binary CTA across channels', () => {
-    const executiveDraft = buildCrossChannelFollowUpDraft({
-      fullName: 'Alex Morgan',
-      roleBucket: 'CFO',
-      company: 'Acme',
-      email: 'alex@example.com',
-      emailConfidence: 'high',
-      status: 'reached_out',
-      emailOpening: '',
-      emailBodyCore: '',
-      defaultSubject: '',
-      defaultBody: '',
-      outreachChannel: 'executives',
-      fitTier: 'strong',
-      personaFocus: 'CFO transitions',
-    })
-
-    const coachDraft = buildCrossChannelFollowUpDraft({
-      fullName: 'Jordan Lee',
-      roleBucket: 'Executive Coach',
-      company: 'CoachCo',
-      email: 'jordan@example.com',
-      emailConfidence: 'high',
-      status: 'reached_out',
-      emailOpening: '',
-      emailBodyCore: '',
-      defaultSubject: '',
-      defaultBody: '',
-      outreachChannel: 'coaches',
-      fitTier: 'strong',
-      personaFocus: 'Coaching workflows',
-    })
-
-    expect(executiveDraft.subject).toContain('Quick follow-up')
-    expect(executiveDraft.body).toContain('reply yes')
-    expect(executiveDraft.body).toContain('reply pass')
-    expect(coachDraft.subject).toContain('between-session momentum')
-    expect(coachDraft.body).toContain('Momentum Signal')
   })
 
   it('flags stale legacy outreach copy markers', () => {

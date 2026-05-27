@@ -38,6 +38,15 @@ export default defineConfig({
       },
     },
     {
+      name: 'outreach-canary',
+      testMatch: /outreach-canary\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
       name: 'mobile-iphone',
       testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
       dependencies: ['setup'],

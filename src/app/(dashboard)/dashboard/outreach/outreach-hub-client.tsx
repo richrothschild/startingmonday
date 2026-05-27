@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
 
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All Statuses' },
@@ -54,6 +55,7 @@ type ProspectRow = {
 type Props = {
   rows: ProspectRow[]
   fromAddressLabel: string
+  buildVersion: string
 }
 
 type ErrorDisplay = {
@@ -76,19 +78,7 @@ type BatchStatusSummary = {
   failedRecipients: Array<{ jobId: string; recipientEmail: string; code: string; message: string }>
 }
 
-const LEGACY_COPY_MARKERS: Array<{ label: string; regex: RegExp }> = [
-  { label: 'legacy first-call subject', regex: /\bsimple\s+[a-z]{2,8}\s+first-call\s+plan\b/i },
-  { label: 'Momentum Signal language', regex: /\bmomentum signal\b/i },
-  { label: 'pilot group evidence line', regex: /pilot\s+group\s*\(\s*n\s*=\s*27\s*\)/i },
-  { label: 'legacy CTA opener', regex: /if useful,\s*reply yes and i will send/i },
-]
-
-export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
-  const combined = `${subject}\n${body}`
-  return LEGACY_COPY_MARKERS
-    .filter(marker => marker.regex.test(combined))
-    .map(marker => marker.label)
-}
+export { detectLegacyTemplateCopy }
 
 function legacyCopyBlockedError(hits: string[]): ErrorDisplay {
   return {
@@ -205,100 +195,6 @@ export function formatOutreachErrorMessage(error: string | null | undefined, sen
   }
 }
 
-function firstNameOf(fullName: string): string {
-  const first = fullName.trim().split(/\s+/)[0]
-  return first && first.length > 0 ? first : 'there'
-}
-
-function day1Message10Draft(fullName: string): { subject: string; body: string } {
-  const firstName = firstNameOf(fullName)
-  return {
-    subject: '30-day coach pilot for 2 clients this month',
-    body: [
-      `Hi ${firstName},`,
-      '',
-      'Starting Monday helps coaches supporting senior executives in transition reduce admin drag and tighten between-session execution.',
-      '',
-      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
-      '',
-      'If useful, reply yes and I will send the 30-day setup checklist for two clients. If not useful right now, reply pass and I will close the loop.',
-      '',
-      'Rich',
-    ].join('\n'),
-  }
-}
-
-export function buildCrossChannelFollowUpDraft(row: ProspectRow): { subject: string; body: string } {
-  const firstName = firstNameOf(row.fullName)
-  const company = row.company || 'your team'
-
-  if (row.outreachChannel === 'executives') {
-    return {
-      subject: `Quick follow-up for ${row.roleBucket} search momentum at ${company}`,
-      body: [
-        `Hi ${firstName},`,
-        '',
-        `Quick follow-up on my earlier note for ${row.roleBucket} transitions at ${company}. Starting Monday uses one role-specific first-call plan and a weekly Momentum Signal check so teams can see whether early outreach quality is improving.`,
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
-        '',
-        'If useful, reply yes and I will send the one-page first-call plan. If not useful right now, reply pass and I will close the loop.',
-        '',
-        'Rich',
-      ].join('\n'),
-    }
-  }
-
-  if (row.outreachChannel === 'search_firms') {
-    return {
-      subject: `Quick follow-up on first-touch quality for ${company}`,
-      body: [
-        `Hi ${firstName},`,
-        '',
-        `Quick follow-up on my earlier note for ${company}. Starting Monday helps retained-search teams hold one first-touch standard and uses Momentum Signal to show whether mandate quality is improving week to week.`,
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
-        '',
-        'If useful, reply yes and I will send the one-page first-touch plan. If not useful right now, reply pass and I will close the loop.',
-        '',
-        'Rich',
-      ].join('\n'),
-    }
-  }
-
-  if (row.outreachChannel === 'coaches') {
-    return {
-      subject: `Quick follow-up on between-session momentum for ${company}`,
-      body: [
-        `Hi ${firstName},`,
-        '',
-        `Quick follow-up on my earlier note for ${company}. Starting Monday gives coaches one shared place for prep, signal review, and next actions, with Momentum Signal showing whether between-session work is creating real traction.`,
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
-        '',
-        'If useful, reply yes and I will send the coach signal map. If not useful right now, reply pass and I will close the loop.',
-        '',
-        'Rich',
-      ].join('\n'),
-    }
-  }
-
-  return {
-    subject: `Quick follow-up on cohort readiness for ${company}`,
-    body: [
-      `Hi ${firstName},`,
-      '',
-      `Quick follow-up on my earlier note for ${company}. Starting Monday gives counselors one shared readiness check and uses Momentum Signal to track whether cohort-level first-call quality is improving week to week.`,
-      '',
-      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
-      '',
-      'If useful, reply yes and I will send the cohort readiness checklist. If not useful right now, reply pass and I will close the loop.',
-      '',
-      'Rich',
-    ].join('\n'),
-  }
-}
-
 function followUpIdempotencyKey(row: ProspectRow): string {
   return `${FOLLOW_UP_CAMPAIGN_STEP}:${row.email.toLowerCase()}`
 }
@@ -404,11 +300,7 @@ async function pollOutreachBatchStatus(batchId: string): Promise<{ ok: true; sta
   return { ok: false, reason: 'Timed out waiting for batch completion.' }
 }
 
-function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
-  if (row.campaignTag === 'coach_day1_60' && (indexInFiltered + 1) % 5 === 0) {
-    return day1Message10Draft(row.fullName)
-  }
-
+function prefillForRow(row: ProspectRow): { subject: string; body: string } {
   return {
     subject: row.defaultSubject,
     body: row.defaultBody,
@@ -428,7 +320,7 @@ function statusText(status: string): string {
   return hit?.label ?? 'Prospect'
 }
 
-export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
+export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Props) {
   const [items, setItems] = useState(rows)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
@@ -441,6 +333,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
   const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
+  const [templateLoading, setTemplateLoading] = useState(false)
   const [sendingFollowUps, setSendingFollowUps] = useState(false)
   const [suppressing, setSuppressing] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
@@ -495,13 +388,45 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
   const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out'), [items])
 
+  async function hydrateTemplateForRow(row: ProspectRow) {
+    setTemplateLoading(true)
+    try {
+      const response = await fetch('/api/outreach/template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: row.fullName,
+          company: row.company,
+          roleBucket: row.roleBucket,
+          outreachChannel: row.outreachChannel,
+          personaFocus: row.personaFocus,
+          templateStep: 'first_touch',
+        }),
+      })
+
+      const { payload } = await readApiPayload(response)
+      if (!response.ok) {
+        return
+      }
+
+      const nextSubject = typeof payload.subject === 'string' ? payload.subject : ''
+      const nextBody = typeof payload.body === 'string' ? payload.body : ''
+      if (nextSubject.trim() && nextBody.trim()) {
+        setSubject(nextSubject)
+        setMessageText(nextBody)
+      }
+    } finally {
+      setTemplateLoading(false)
+    }
+  }
+
   useEffect(() => {
     const row = filtered[selectedIndex] ?? filtered[0]
     if (!row) return
-    const idx = filtered[selectedIndex] ? selectedIndex : 0
-    const prefill = prefillForRow(row, idx)
+    const prefill = prefillForRow(row)
     setSubject(prefill.subject)
     setMessageText(prefill.body)
+    void hydrateTemplateForRow(row)
     const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
     if (staleHits.length > 0) {
       setError(legacyCopyBlockedError(staleHits))
@@ -514,10 +439,11 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     const next = filtered[index]
     if (!next) return
     setSelectedIndex(index)
-    const prefill = prefillForRow(next, index)
+    const prefill = prefillForRow(next)
     const staleHits = detectLegacyTemplateCopy(prefill.subject, prefill.body)
     setSubject(prefill.subject)
     setMessageText(prefill.body)
+    void hydrateTemplateForRow(next)
     if (staleHits.length > 0) {
       setError(legacyCopyBlockedError(staleHits))
       setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
@@ -1003,6 +929,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 <p className="text-[12px] text-slate-500 mt-1">Email confidence: {selected.emailConfidence}</p>
                 <p className="text-[12px] text-slate-500 mt-1">Persona focus: {selected.personaFocus}</p>
                 <p className="text-[12px] text-slate-500 mt-1">From: {fromAddressLabel}</p>
+                <p className="text-[11px] text-slate-400 mt-2">Template build: {buildVersion}</p>
               </div>
 
               <div>
@@ -1122,10 +1049,18 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               <button
                 type="button"
                 onClick={sendSelected}
-                disabled={sending || !subject.trim() || !messageText.trim() || liveBlocked || staleBlocked}
+                disabled={sending || templateLoading || !subject.trim() || !messageText.trim() || liveBlocked || staleBlocked}
                 className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded disabled:opacity-50"
               >
-                {sending ? 'Processing...' : sendMode === 'dry_run' ? 'Run Dry Run Check' : sendMode === 'test_to_self' ? 'Send Test To Me' : `Send Live To ${selected.fullName}`}
+                {sending
+                  ? 'Processing...'
+                  : templateLoading
+                    ? 'Refreshing from server template...'
+                    : sendMode === 'dry_run'
+                      ? 'Run Dry Run Check'
+                      : sendMode === 'test_to_self'
+                        ? 'Send Test To Me'
+                        : `Send Live To ${selected.fullName}`}
               </button>
 
               <button

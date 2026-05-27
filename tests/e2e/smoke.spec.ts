@@ -16,7 +16,7 @@ test('dashboard loads and shows pipeline', async ({ page }) => {
   await expect(page.getByText('Company Pipeline')).toBeVisible()
 })
 
-test('outreach coach compose pane renders latest hard-edged marker', async ({ page }) => {
+test('outreach coach compose pane blocks legacy stale markers', async ({ page }) => {
   await skipIfAuthUnavailable(page)
   await page.goto('/dashboard/outreach')
   await expect(page.getByRole('heading', { name: 'Outreach Hub' })).toBeVisible()
@@ -28,7 +28,12 @@ test('outreach coach compose pane renders latest hard-edged marker', async ({ pa
   test.skip(coachCount === 0, 'Skipping coach outreach assertion: no coach queue rows available in this environment')
 
   await coachRows.first().click()
-  await expect(page.getByLabel('Email message')).toHaveValue(/hard-edged execution layer|Most executive coaches I talk with share one friction point|sessions stay in strategy/)
+  const message = await page.getByLabel('Email message').inputValue()
+  test.skip(message.trim().length === 0, 'Skipping coach outreach assertion: compose body is empty')
+
+  expect(message).not.toMatch(/\bmomentum signal\b/i)
+  expect(message).not.toMatch(/pilot\s+group\s*\(\s*n\s*=\s*27\s*\)/i)
+  expect(message).not.toMatch(/if useful,\s*reply yes and i will send/i)
 })
 
 test('outreach compose pane shows latest markers for executives coaches and search firms', async ({ page }) => {

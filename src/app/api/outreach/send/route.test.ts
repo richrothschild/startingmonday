@@ -28,6 +28,13 @@ vi.mock('@/lib/outreach/template-engine.cjs', () => ({
     })),
   },
 }))
+vi.mock('@/lib/outreach/template-draft', () => ({
+  buildOutreachTemplateDraft: vi.fn(() => ({
+    subject: 'Generated follow-up subject',
+    body: 'Generated follow-up body with enough length and context to pass route guardrails and quality checks.',
+    templateSource: 'latest_template_engine',
+  })),
+}))
 vi.mock('@/lib/outreach/send-queue', () => ({
   OUTREACH_REPLY_TO: 'richard@startingmonday.app',
   DEFAULT_OUTREACH_FROM: 'Richard Rothschild <richard@startingmonday.app>',
@@ -102,8 +109,8 @@ describe('outreach send route (queue mode)', () => {
         fullName: 'Alex Morgan',
         company: 'Acme',
         emailTo: 'alex@example.com',
-        subject: 'Simple CFO first-call plan for Acme',
-        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        subject: 'A clearer CFO story for recruiter and board calls',
+        messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'dry_run',
         outreachChannel: 'executives',
       }),
@@ -130,7 +137,7 @@ describe('outreach send route (queue mode)', () => {
         company: 'Acme',
         emailTo: 'alex@example.com',
         subject: 'Quick intro for Acme role context',
-        messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
         outreachChannel: 'executives',
       }),
@@ -162,8 +169,8 @@ describe('outreach send route (queue mode)', () => {
         fullName: 'Alex Morgan',
         company: 'Acme',
         emailTo: 'alex@example.com',
-        subject: 'Simple CFO first-call plan for Acme',
-        messageText: 'Hi Alex, Starting Monday helps transition programs with a shared readiness check before first serious outreach. If useful, reply yes and I will send the checklist. If not useful right now, reply pass and I will close the loop.',
+        subject: 'A clearer CFO story for recruiter and board calls',
+        messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
         outreachChannel: 'executives',
         idempotencyKey: 'followup_bulk_v1:alex@example.com',

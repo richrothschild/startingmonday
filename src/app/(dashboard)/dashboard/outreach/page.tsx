@@ -33,6 +33,11 @@ export default async function OutreachHubPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const buildVersion = (process.env.RAILWAY_GIT_COMMIT_SHA
+    ?? process.env.VERCEL_GIT_COMMIT_SHA
+    ?? process.env.GITHUB_SHA
+    ?? process.env.NEXT_PUBLIC_BUILD_SHA
+    ?? 'local').slice(0, 8)
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
@@ -334,7 +339,7 @@ export default async function OutreachHubPage() {
 
         <section id="outreach-workbench">
           <h2 className="sr-only">Outreach workbench</h2>
-          <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} />
+          <OutreachHubClient rows={clientRows} fromAddressLabel={fromAddressLabel} buildVersion={buildVersion} />
         </section>
 
         <section id="outreach-cadence" className="bg-white border border-slate-200 rounded overflow-hidden">

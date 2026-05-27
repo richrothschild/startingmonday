@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
-import templateEngine from '@/lib/outreach/template-engine.cjs'
+import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
 
 export type CsvRow = Record<string, string>
 export type OutreachChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
@@ -280,8 +280,9 @@ export function buildStandardizedDraft(
   const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'Executive')
   const triggers = mapTriggerInputs(row)
 
-  return templateEngine.buildLatestTemplateDraft({
+  const draft = buildOutreachTemplateDraft({
     channel,
+    fullName: row.full_name,
     firstName,
     company,
     roleLabel,
@@ -292,6 +293,11 @@ export function buildStandardizedDraft(
     postTrigger: triggers.postTrigger,
     profileTrigger: triggers.profileTrigger,
   })
+
+  return {
+    subject: draft.subject,
+    body: draft.body,
+  }
 }
 
 function buildDefaultSubject(row: CsvRow): string {

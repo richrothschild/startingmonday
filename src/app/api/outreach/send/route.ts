@@ -6,7 +6,8 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { autoRefineEmailDraft } from '@/lib/email-council'
 import { reviewEmail } from '@/lib/email-quality'
 import { getStaffMember } from '@/lib/staff'
-import templateEngine from '@/lib/outreach/template-engine.cjs'
+import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
+import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
 import {
   DEFAULT_OUTREACH_FROM,
   OUTREACH_REPLY_TO,
@@ -203,21 +204,25 @@ export async function POST(request: NextRequest) {
   const mode = (body?.mode ?? 'live').toString()
 
   if (useLatestTemplateDraft) {
-    const first = fullName.trim().split(/\s+/)[0] || 'there'
-    const generated = templateEngine.buildLatestTemplateDraft({
-      channel: outreachChannel,
-      firstName: first,
+    const generated = buildOutreachTemplateDraft({
+      channel: outreachChannel as 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms',
+      fullName,
       company,
       roleLabel: roleBucket || 'Executive',
       focus: personaFocus || roleBucket || 'senior transition',
       step: templateStep || campaignStep || 'followup_1',
-      state: '',
-      profileTrigger: '',
-      postTrigger: '',
-      newsTrigger: '',
     })
-    subject = generated.subject.trim()
-    messageText = generated.body.trim()
+    subject = generated.subject
+    messageText = generated.body
+  }
+
+  const staleHits = detectLegacyTemplateCopy(subject, messageText)
+  if (staleHits.length > 0) {
+    return NextResponse.json({
+      error: `Legacy template markers detected: ${staleHits.join(', ')}`,
+      violations: ['Legacy outreach copy detected. Regenerate from latest template endpoint before sending.'],
+      warnings: [],
+    }, { status: 400 })
   }
 
   if (!fullName || !emailTo || !subject || !messageText) {
