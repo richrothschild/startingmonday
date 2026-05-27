@@ -146,15 +146,15 @@ function firstNameOf(fullName: string): string {
 function day1Message10Draft(fullName: string): { subject: string; body: string } {
   const firstName = firstNameOf(fullName)
   return {
-    subject: 'Would it be unreasonable to test this with 2 clients?',
+    subject: '30-day coach pilot for 2 clients this month',
     body: [
       `Hi ${firstName},`,
       '',
-      'We built Starting Monday for coaches supporting senior executives in transition. The goal is simple: less admin drag, better-prepared clients, stronger sessions.',
+      'Starting Monday helps coaches supporting senior executives in transition reduce admin drag and tighten between-session execution.',
       '',
-      'Would it be unreasonable to run a 30-day test with 2 clients and keep it only if outcomes improve?',
+      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
       '',
-      'If yes, I will send the setup checklist.',
+      'If useful, reply yes and I will send the 30-day setup checklist for two clients. If not useful right now, reply pass and I will close the loop.',
       '',
       'Rich',
     ].join('\n'),
@@ -393,6 +393,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'closed' } : r)))
     setSuccess(`Suppressed ${selected.fullName}. Future sends are blocked until unsuppressed.`)
   }
+
 
   const liveBlocked = sendMode === 'live' && !confirmLive
 

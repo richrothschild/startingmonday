@@ -38,12 +38,12 @@ describe('outreach template engine', () => {
       state: 'panic',
     })
 
-    expect(draft.subject).toBe('Simple CFO first-call plan for Acme')
+    expect(draft.subject).toBe('Simple CFO first-call plan for Acme team')
     expect(draft.body).toContain('In first-week CFO moves, early momentum can slip when the first-call story is not clear.')
     expect(draft.body).toContain('When the first serious call is strong, search momentum usually gets easier.')
     expect(draft.body).toContain('Starting Monday gives leaders one working plan')
     expect(draft.body).toContain('Jan-May 2026 pilot group (n=27)')
-    expect(draft.body).toContain('results vary by market and execution')
+    expect(draft.body).toContain('Use this as directional evidence, not a guarantee')
     expect(draft.body).toContain('If useful, reply yes and I will send the one-page first-call plan')
     expect(draft.body).toContain('reply pass and I will close the loop')
     expect(draft.body).not.toContain('Proof detail:')
@@ -94,7 +94,7 @@ describe('outreach template engine', () => {
       state: 'optionality',
     })
 
-    expect(draft.subject).toBe('Cohort first-call plan for Outplace Inc')
+    expect(draft.subject).toBe('Cohort first-call readiness plan for Outplace Inc')
     expect(draft.body).toContain('Across Executive transition programs, first-call quality can vary more than teams expect.')
     expect(draft.body).toContain('Starting Monday gives counselors one shared readiness check before the first serious conversation')
     expect(draft.body).toContain('directional evidence, not a guarantee')
@@ -126,7 +126,7 @@ describe('outreach template engine', () => {
       focus: 'Board Advisor',
     })
 
-    expect(draft.subject).toBe('Simple Board Advisor first-call plan for BoardCo')
+    expect(draft.subject).toBe('Simple Board Advisor first-call plan for BoardCo team')
     expect(draft.body).toContain('When the first serious call is strong, search momentum usually gets easier.')
   })
 

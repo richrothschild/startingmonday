@@ -262,7 +262,7 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
   const subject = step === 'followup_2'
     ? `Should I send the ${roleLabel} benchmark for ${company}?`
     : step === 'followup_3'
-      ? `Close the loop on ${roleLabel} readiness at ${company}`
+      ? `Close the loop on ${roleLabel} readiness for ${company}`
       : `One-page ${roleLabel} readiness benchmark for ${company}`
 
   if (step === 'followup_1') {
@@ -271,17 +271,13 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `Following up because this week is the right window to pressure-test ${transitionFocus} messaging before broader outreach.`,
+        `Following up because this week is a strong window to pressure-test ${transitionFocus} messaging before broader outreach. Starting Monday uses Momentum Signal as a weekly check on whether first-touch quality is creating real conversation movement.`,
         '',
-        `The most common miss is strong credentials paired with a weak first-touch narrative in early conversations.`,
+        `I can send ${benchmarkAsset} so you can tighten first-conversation positioning without adding prep overhead.`,
         '',
-        'Momentum Signal is the quick weekly check we use to confirm positioning is actually creating real conversation movement.',
+        `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
         '',
-        `I can send a one-page benchmark that sharpens first-conversation positioning without adding extra prep overhead.`,
-        '',
-        legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
-        '',
-        `If you want it, reply yes this week and I will send ${benchmarkAsset} for your ${transitionFocus} transition context. If not useful right now, reply pass and I will close the loop.`,
+        binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
         '',
         'Rich',
         'startingmonday.app',
@@ -295,13 +291,11 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `One concrete update from recent ${transitionFocus} transitions at ${company}: the strongest gains come when role-specific benchmark language is set before outreach starts.`,
+        `One concrete update from recent ${transitionFocus} transitions at ${company}: gains are strongest when role-specific benchmark language is set before outreach starts. Starting Monday tracks this with Momentum Signal so teams can see whether first-touch quality is rising or stalling week to week.`,
         '',
-        'We track this with Momentum Signal so teams can see whether first-touch quality is rising or stalling week to week.',
+        `I can send ${benchmarkAsset} so you can evaluate first-week, first-pitch, and first-follow-up structure quickly.`,
         '',
-        `I can send ${benchmarkAsset} so you can evaluate the first-week, first-pitch, and first-follow-up structure quickly.`,
-        '',
-        legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
+        `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
         '',
         binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
         '',
@@ -316,13 +310,11 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
     body: [
       `Hi ${firstName},`,
       '',
-      `Closing the loop on my ${transitionFocus} note.`,
-      '',
-      'If useful later, Momentum Signal gives a simple way to judge whether early outreach quality is improving.',
+      `Closing the loop on my ${transitionFocus} note. If useful later, Starting Monday uses Momentum Signal to judge whether early outreach quality is improving.`,
       '',
       `If timing is right, I can send ${benchmarkAsset} so you can judge fit quickly.`,
       '',
-      legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
+      `${legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus)} Use this as directional evidence, not a guarantee.`,
       '',
       binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
       '',
@@ -364,15 +356,15 @@ function buildLatestTemplateDraft({
     const asset = 'one-page first-call plan'
     const trigger = triggerLine(CHANNELS.EXECUTIVES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `Simple ${safeRoleLabel} first-call plan for ${safeCompany}`,
+      subject: `Simple ${safeRoleLabel} first-call plan for ${safeCompany} team`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'When the first serious call is strong, search momentum usually gets easier. When the story is vague, the process gets slower. Starting Monday gives leaders one working plan for the next real conversation, and Momentum Signal shows whether that plan is turning into weekly movement.',
+        'When the first serious call is strong, search momentum usually gets easier. When the story is vague, the process gets slower. Starting Monday gives leaders one working plan for the next real conversation. Momentum Signal shows whether that plan is turning into weekly movement.',
         '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; results vary by market and execution.',
+        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Use this as directional evidence, not a guarantee.',
         '',
         `If useful, reply yes and I will send the ${asset}. If not useful right now, reply pass and I will close the loop.`,
         '',
@@ -430,13 +422,13 @@ function buildLatestTemplateDraft({
   const outplacementFocusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   const trigger = triggerLine(CHANNELS.OUTPLACEMENT_FIRMS, outplacementFocusLabel, { newsTrigger, postTrigger, profileTrigger })
   return {
-    subject: `Cohort first-call plan for ${safeCompany}`,
+    subject: `Cohort first-call readiness plan for ${safeCompany}`,
     body: [
       `Hi ${safeFirstName},`,
       '',
       trigger,
       '',
-      'Starting Monday gives counselors one shared readiness check before the first serious conversation, and Momentum Signal shows whether cohort quality is improving week to week.',
+      'Starting Monday gives counselors one shared readiness check before the first serious conversation. Momentum Signal shows whether cohort quality is improving week to week.',
       '',
       'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; this is directional evidence, not a guarantee.',
       '',
