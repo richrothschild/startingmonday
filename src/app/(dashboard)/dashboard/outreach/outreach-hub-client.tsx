@@ -346,8 +346,6 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
   const [googleFollowUp3Url, setGoogleFollowUp3Url] = useState<string | null>(null)
   const [googleFollowUp7Url, setGoogleFollowUp7Url] = useState<string | null>(null)
 
-  const isCoachComposer = selected?.outreachChannel === 'coaches'
-
   function insertCoachWorksheetLink() {
     setMessageText((current) => {
       const normalized = current.replace(/\r\n/g, '\n').trim()
@@ -401,6 +399,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
   }, [items, search, statusFilter, confidenceFilter, activeChannel, activeCampaign])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
+  const isCoachComposer = selected?.outreachChannel === 'coaches'
   const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out'), [items])
 
   async function hydrateTemplateForRow(row: ProspectRow) {
