@@ -53,6 +53,41 @@ type ErrorDisplay = {
   rawReason?: string
 }
 
+function parseJsonObject(value: string): Record<string, unknown> | null {
+  try {
+    const parsed = JSON.parse(value)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, unknown>
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+function toStringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.map(String) : []
+}
+
+async function readApiPayload(response: Response): Promise<{ payload: Record<string, unknown>; fallbackError: string }> {
+  const fallbackError = `Request failed (${response.status})`
+  const rawText = await response.text().catch(() => '')
+
+  if (!rawText.trim()) {
+    return { payload: {}, fallbackError }
+  }
+
+  const parsed = parseJsonObject(rawText)
+  if (parsed) {
+    return { payload: parsed, fallbackError }
+  }
+
+  return {
+    payload: { error: `${fallbackError}: ${rawText.trim().slice(0, 220)}` },
+    fallbackError,
+  }
+}
+
 export function formatOutreachErrorMessage(error: string | null | undefined, sendMode: 'dry_run' | 'test_to_self' | 'live'): ErrorDisplay {
   const normalized = (error ?? '').trim()
 
@@ -250,14 +285,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, fullName, company, status }),
     })
+    const { payload, fallbackError } = await readApiPayload(res)
 
     setSaveBusyEmail(null)
 
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
       setError({
         title: 'Status update failed',
-        detail: (data.error as string) ?? 'Could not update status.',
+        detail: (payload.error as string) ?? fallbackError,
       })
       return
     }
@@ -293,19 +328,22 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       }),
     })
 
-    const data = await res.json().catch(() => ({} as Record<string, unknown>))
+    const { payload: data, fallbackError } = await readApiPayload(res)
     setSending(false)
 
     if (!res.ok) {
-      const violations = Array.isArray(data.violations) ? data.violations.map(String) : []
-      const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+      const violations = toStringList(data.violations)
+      const warnings = toStringList(data.warnings)
       setGuardrailViolations(violations)
       setGuardrailWarnings(warnings)
-      setError(formatOutreachErrorMessage((data.error as string) ?? null, sendMode))
+      const resolvedError = typeof data.error === 'string' && data.error.trim().length > 0
+        ? data.error
+        : fallbackError
+      setError(formatOutreachErrorMessage(resolvedError, sendMode))
       return
     }
 
-    const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+    const warnings = toStringList(data.warnings)
     setGuardrailWarnings(warnings)
 
     const maybeGoogle3 = typeof data.googleFollowUp3Url === 'string' ? data.googleFollowUp3Url : null
@@ -340,14 +378,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         source: 'manual',
       }),
     })
+    const { payload, fallbackError } = await readApiPayload(res)
 
     setSuppressing(false)
 
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
       setError({
         title: 'Suppression update failed',
-        detail: (data.error as string) ?? 'Could not suppress recipient.',
+        detail: (payload.error as string) ?? fallbackError,
       })
       return
     }
