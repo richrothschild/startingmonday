@@ -425,6 +425,7 @@ function buildLatestTemplateDraft({
 }) {
   const safeFirstName = String(firstName || 'there').trim() || 'there'
   const safeCompany = String(company || 'your team').trim() || 'your team'
+  const subjectCompany = subjectCompanyLabel(safeCompany)
   const safeRoleLabel = String(roleLabel || 'Executive').trim() || 'Executive'
   const transitionFocus = focusText(focus || roleLabel || 'senior transition')
   const emotionalState = inferState({ state, focus: transitionFocus, roleLabel: safeRoleLabel })
@@ -496,7 +497,7 @@ function buildLatestTemplateDraft({
     const asset = 'the first outreach brief'
     const trigger = triggerLine(CHANNELS.SEARCH_FIRMS, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `A tighter first outreach brief for ${safeCompany}`,
+      subject: `A tighter first outreach brief for ${subjectCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
@@ -518,7 +519,7 @@ function buildLatestTemplateDraft({
     const asset = 'the coach prep worksheet'
     const trigger = triggerLine(CHANNELS.COACHES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `Less prep work between sessions for ${safeCompany}`,
+      subject: `Less prep work between sessions for ${subjectCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
@@ -540,7 +541,7 @@ function buildLatestTemplateDraft({
   const outplacementFocusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   const trigger = triggerLine(CHANNELS.OUTPLACEMENT_FIRMS, outplacementFocusLabel, { newsTrigger, postTrigger, profileTrigger })
   return {
-    subject: `A shared readiness checklist for ${safeCompany}`,
+    subject: `A shared readiness checklist for ${subjectCompany}`,
     body: [
       `Hi ${safeFirstName},`,
       '',
