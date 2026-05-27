@@ -15,21 +15,27 @@ test('Outreach Canary: server template draft + dry-run gate pass', async ({ page
   test.skip(rowCount === 0, 'Skipping outreach canary: no outreach rows available in this environment')
 
   await rows.first().click()
+  const selectedRowText = await page.locator('button.bg-slate-50').first().innerText()
+  const selectedLines = selectedRowText
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
 
-  const selectedRowSummary = await page.locator('button.bg-slate-50 p').nth(1).innerText().catch(() => '')
-  const roleCompany = selectedRowSummary.split('·').map(part => part.trim())
+  const fullName = selectedLines[0] ?? 'there'
+  const roleCompanyLine = selectedLines.find(line => line.includes('·')) ?? ''
+  const roleCompany = roleCompanyLine.split('·').map(part => part.trim())
   const roleBucket = roleCompany[0] ?? 'Executive'
   const company = roleCompany[1] ?? ''
+  const emailTo = selectedLines.find(line => /@/.test(line)) ?? ''
 
-  const recipientCard = await page.locator('.bg-slate-50').first().innerText()
-  const recipientMatch = recipientCard.match(/\(([^)]+@[^)]+)\)/)
-  const fullNameMatch = recipientCard.match(/To\s*\n\s*([^\n(]+)/)
-  const channelMatch = recipientCard.match(/Channel:\s*([^·\n]+)/)
-  const personaMatch = recipientCard.match(/Persona focus:\s*([^\n]+)/)
-  const emailTo = recipientMatch?.[1]?.trim() ?? ''
-  const fullName = fullNameMatch?.[1]?.trim() ?? 'there'
-  const outreachChannel = (channelMatch?.[1] ?? 'executives').trim().toLowerCase().replace(' ', '_')
-  const personaFocus = (personaMatch?.[1] ?? '').trim()
+  const channelButtonText = await page
+    .locator('button.bg-slate-900.text-white')
+    .first()
+    .innerText()
+    .catch(() => 'Executives')
+
+  const outreachChannel = channelButtonText.toLowerCase().replace(/\s+/g, '_')
+  const personaFocus = roleBucket
 
   const templateRes = await page.request.post('/api/outreach/template', {
     data: {
