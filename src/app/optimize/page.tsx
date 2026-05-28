@@ -1,4 +1,4 @@
-'use client'
+ï»¿'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePostHog } from 'posthog-js/react'
@@ -242,7 +242,7 @@ export default function OptimizePage() {
               <HelpPopover />
               <label className="cursor-pointer">
                 <span className="text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 transition-colors">
-                  {status === 'uploading' ? 'Reading PDF…' : 'Upload PDF'}
+                  {status === 'uploading' ? 'Reading PDFâ€¦' : 'Upload PDF'}
                 </span>
                 <input
                   ref={inputRef}
@@ -286,7 +286,7 @@ export default function OptimizePage() {
                   disabled={!canSubmit}
                   className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {status === 'streaming' ? 'Analyzing…' : 'Analyze my profile'}
+                  {status === 'streaming' ? 'Analyzingâ€¦' : 'Analyze my profile'}
                 </button>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function OptimizePage() {
             <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</h2>
               {status === 'streaming' && (
-                <span className="text-[11px] text-slate-400 animate-pulse">Thinking…</span>
+                <span className="text-[11px] text-slate-400 animate-pulse">Thinkingâ€¦</span>
               )}
             </div>
             <div className="px-6 py-6">

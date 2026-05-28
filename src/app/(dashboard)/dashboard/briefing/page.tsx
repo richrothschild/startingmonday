@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+ï»¿import { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as Sentry from '@sentry/nextjs'
@@ -170,7 +170,7 @@ Write a morning briefing as JSON with exactly these keys:
 - "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } - only if there are signals.
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } - only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence - what to do and how) } - only if there are follow-ups.
-- "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichés.
+- "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichÃ©s.
 
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases. Write as a trusted advisor, not a coach.
 Output valid JSON only, no markdown fences.`
@@ -344,7 +344,7 @@ async function BriefingBody({
                   <div key={i} className="p-4 bg-white border border-slate-200 border-l-[3px] border-l-slate-900 rounded-r">
                     <div className="font-bold text-[15px] text-slate-900 mb-1">{m.company}</div>
                     <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-400 mb-2">
-                      {(m.roles ?? []).join(' · ')}
+                      {(m.roles ?? []).join(' Â· ')}
                     </div>
                     <p className="text-[14px] text-slate-700 leading-relaxed">{m.insight}</p>
                   </div>

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { CalendarItemClient } from './calendar-item'
@@ -30,7 +30,7 @@ function formatMonthYear(mondayStr: string, sundayStr: string): string {
   const s = new Date(sundayStr + 'T00:00:00Z')
   const mLabel = m.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
   const sLabel = s.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
-  return mLabel === sLabel ? mLabel : `${m.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })} � ${sLabel}`
+  return mLabel === sLabel ? mLabel : `${m.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })} – ${sLabel}`
 }
 
 type FollowUp = {

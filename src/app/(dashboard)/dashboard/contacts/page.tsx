@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { addContact } from './actions'
@@ -196,7 +196,7 @@ export default async function ContactsPage({
                   id="contact-notes"
                   name="notes"
                   type="text"
-                  placeholder="Met at SaaStr, warm connection�"
+                  placeholder="Met at SaaStr, warm connection…"
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
               </div>
