@@ -367,9 +367,9 @@ function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step })
   const asset = 'the 14-day coach pilot checklist'
   const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-      ? `Should I send the 14-day coach pilot checklist for ${subjectCompany}`
+      ? `Prevent recap drift for ${subjectCompany} coaching clients`
     : step === 'followup_3'
-        ? `Close the loop on coach follow-through for ${subjectCompany}`
+        ? `Should I close this out for ${subjectCompany} coaches?`
       : `Stop paying for the same recap twice for ${subjectCompany}`
 
   return {
