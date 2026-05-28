@@ -1,4 +1,4 @@
-﻿import { Suspense } from 'react'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as Sentry from '@sentry/nextjs'
@@ -170,7 +170,7 @@ Write a morning briefing as JSON with exactly these keys:
 - "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } - only if there are signals.
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } - only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence - what to do and how) } - only if there are follow-ups.
-- "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichés.
+- "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clich�s.
 
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases. Write as a trusted advisor, not a coach.
 Output valid JSON only, no markdown fences.`
@@ -207,7 +207,7 @@ Output valid JSON only, no markdown fences.`
   }
 }
 
-// ─── Suspense skeleton shown while Claude generates the briefing ──────────────
+// --- Suspense skeleton shown while Claude generates the briefing --------------
 
 function BriefingBodySkeleton() {
   return (
@@ -240,7 +240,7 @@ function BriefingBodySkeleton() {
   )
 }
 
-// ─── Async component - triggers the Claude call ───────────────────────────────
+// --- Async component - triggers the Claude call -------------------------------
 
 type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
@@ -344,7 +344,7 @@ async function BriefingBody({
                   <div key={i} className="p-4 bg-white border border-slate-200 border-l-[3px] border-l-slate-900 rounded-r">
                     <div className="font-bold text-[15px] text-slate-900 mb-1">{m.company}</div>
                     <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-400 mb-2">
-                      {(m.roles ?? []).join(' · ')}
+                      {(m.roles ?? []).join(' � ')}
                     </div>
                     <p className="text-[14px] text-slate-700 leading-relaxed">{m.insight}</p>
                   </div>
@@ -415,7 +415,7 @@ async function BriefingBody({
   )
 }
 
-// ─── Page - shell renders immediately, body streams in ────────────────────────
+// --- Page - shell renders immediately, body streams in ------------------------
 
 export default async function BriefingPage({
   searchParams,
@@ -480,15 +480,6 @@ export default async function BriefingPage({
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 <section className="mb-4 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-2 text-[12px]">

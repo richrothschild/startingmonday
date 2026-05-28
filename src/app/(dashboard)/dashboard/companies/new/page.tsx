@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { addCompany } from './actions'
@@ -40,21 +40,12 @@ export default async function AddCompanyPage({
             href="/dashboard"
             className="text-[13px] text-slate-300 hover:text-white transition-colors"
           >
-            ← Dashboard
+            ? Dashboard
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Add company</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Add a company to your pipeline to track and monitor.</p>
@@ -95,7 +86,7 @@ export default async function AddCompanyPage({
 
               <div>
                 <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
-                  Fit score <span className="text-slate-300 font-normal">(1–10)</span>
+                  Fit score <span className="text-slate-300 font-normal">(1�10)</span>
                 </label>
                 <input
                   name="fit_score"
@@ -172,7 +163,7 @@ export default async function AddCompanyPage({
               <textarea
                 name="notes"
                 rows={3}
-                placeholder="Warm intro through Sarah, strong culture fit…"
+                placeholder="Warm intro through Sarah, strong culture fit�"
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
               />
             </div>

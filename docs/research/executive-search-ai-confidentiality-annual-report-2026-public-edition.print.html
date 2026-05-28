@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Starting Monday | Executive Search, AI, and Confidentiality (2026 Public Edition)</title>
+  <style>
+    :root {
+      --ink: #12202b;
+      --ink-soft: #3d4d59;
+      --paper: #ffffff;
+      --card: #ffffff;
+      --brand: #0b5c6b;
+      --brand-2: #2d8ca0;
+      --line: #d7dde2;
+      --accent: #f0b95c;
+    }
+
+    @page {
+      size: auto;
+      margin: 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background: #ffffff;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.42;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 24px auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 32px rgba(18, 32, 43, 0.09);
+    }
+
+    .content {
+      padding: 24px 42px 34px;
+    }
+
+    .cover {
+      padding: 38px 42px 42px;
+      background: linear-gradient(140deg, #0f1d28 0%, #143446 48%, #20677a 100%);
+      color: #f6fbff;
+      border-bottom: 6px solid var(--accent);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .logo {
+      width: 56px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo svg {
+      display: block;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+    }
+
+    .brand-name {
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: #f6fbff;
+    }
+
+    .cover h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: 0.2px;
+    }
+
+    .cover h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: #d4edf5;
+    }
+
+    .cover .meta {
+      margin-top: 28px;
+      font-size: 14px;
+      color: #dbeaf0;
+    }
+
+    .cover .brand-position {
+      margin-top: 26px;
+      max-width: 72ch;
+      padding: 12px 14px;
+      border-left: 4px solid var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 14.5px;
+    }
+
+    h2 {
+      margin: 24px 0 10px;
+      font-size: 24px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    h3 {
+      margin: 16px 0 8px;
+      font-size: 17px;
+      color: var(--brand);
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 14.5px;
+    }
+
+    ul,
+    ol {
+      margin: 8px 0 12px 22px;
+      padding: 0;
+      font-size: 14.5px;
+    }
+
+    li {
+      margin: 4px 0;
+    }
+
+    .section {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid transparent;
+    }
+
+    .key-decisions {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 1px solid #bfd2db;
+      background: #f8fcff;
+      border-radius: 8px;
+    }
+
+    .thesis {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: #fff7e9;
+      border-left: 4px solid var(--accent);
+      font-weight: 600;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #fbfcfd;
+    }
+
+    .panel h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: var(--brand);
+    }
+
+    .mt-12 {
+      margin-top: 12px;
+    }
+
+    .mt-0 {
+      margin-top: 0;
+    }
+
+    .prompt {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      background: #eef8f9;
+      border: 1px solid #b8d5dc;
+      font-weight: 600;
+    }
+
+    .sources {
+      margin-top: 10px;
+      padding: 14px 14px 2px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .sources li {
+      word-break: break-word;
+      font-size: 13.5px;
+    }
+
+    a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .print-tip {
+      max-width: 860px;
+      margin: 12px auto 0;
+      padding: 10px 14px;
+      border: 1px dashed #8aa2b1;
+      border-radius: 8px;
+      color: #294554;
+      background: #ecf4f8;
+      font-size: 13px;
+    }
+
+    @media print {
+      html,
+      body,
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        background: #ffffff !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        max-width: none;
+        margin: 0;
+        border: 0;
+        background: #ffffff;
+        box-shadow: none;
+      }
+
+      .print-tip {
+        display: none;
+      }
+
+      .cover,
+      .key-decisions,
+      .prompt,
+      .panel,
+      .section,
+      .thesis,
+      .sources {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      a[href]:after {
+        content: "";
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .content,
+      .cover {
+        padding: 24px;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="print-tip">
+    For best results: use browser Save as PDF (not Adobe PDF printer), paper size A4, scale 100%, and include background graphics.
+  </div>
+
+  <main class="page">
+    <section class="cover">
+      <div class="brand-lockup">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday mark">
+            <defs>
+              <linearGradient id="gradBInline" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F97316"/>
+                <stop offset="100%" stop-color="#FDBA74"/>
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="68" fill="#020617"/>
+            <rect x="42" y="42" width="428" height="428" rx="52" fill="#0F172A" stroke="#334155" stroke-width="6"/>
+            <path d="M84 142C118 95 174 68 236 68C286 68 334 86 370 120" fill="none" stroke="url(#gradBInline)" stroke-width="18" stroke-linecap="round"/>
+            <circle cx="392" cy="114" r="11" fill="#F97316"/>
+            <rect x="88" y="148" width="336" height="8" rx="4" fill="#334155"/>
+            <text x="88" y="334" fill="#E2E8F0" font-size="220" font-weight="800" font-family="Segoe UI, Arial, sans-serif" letter-spacing="-6">SM</text>
+          </svg>
+        </div>
+        <div class="brand-name">Starting Monday</div>
+      </div>
+      <h1>Executive Search, AI, and Confidentiality</h1>
+      <h2>2026 Operating Report for Executive Coaching and Search Leaders</h2>
+      <div class="meta">
+        <div>Prepared by: Starting Monday</div>
+        <div>Publication date: 2026-05-27</div>
+        <div>Audience: Executive coaches, search advisors, and operators supporting VP-to-CXO and board-track transitions</div>
+      </div>
+      <div class="brand-position">
+        Starting Monday helps leaders turn AI from output acceleration into disciplined decision quality.
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="section">
+        <h2>Executive Cover Note</h2>
+        <p>This public edition is designed for external distribution. It keeps the evidence and recommendations from the full report while prioritizing readability, executive decision speed, and implementation clarity.</p>
+      </div>
+
+      <div class="section key-decisions">
+        <h2>One-Page Key Decisions</h2>
+        <p>If you only read one section, read this one.</p>
+
+        <h3>Decision 1: Treat AI as decision support, not autopilot</h3>
+        <ul>
+          <li>Use AI to accelerate prep, synthesis, and draft generation.</li>
+          <li>Keep accountable humans responsible for judgment, risk, and final decisions.</li>
+          <li>Instrument decision quality, not only output volume.</li>
+        </ul>
+
+        <h3>Decision 2: Treat confidentiality as a designed operating system</h3>
+        <ul>
+          <li>Define role-based access and stage-based visibility by default.</li>
+          <li>Keep auditable logs and reversible sharing controls.</li>
+          <li>Assume breach and design for rapid containment.</li>
+        </ul>
+
+        <h3>Decision 3: Run coaching and search as a weekly cadence</h3>
+        <ul>
+          <li>Refresh leadership narrative against live market signals.</li>
+          <li>Use explicit pre-session evidence checks.</li>
+          <li>Convert recurring failure patterns into measurable improvements.</li>
+        </ul>
+
+        <div class="thesis">Contrarian thesis: Most teams with AI are moving faster and making worse executive decisions.</div>
+      </div>
+
+      <div class="section">
+        <h2>Why This Matters Now</h2>
+        <p>The market is active but selective. AI is mainstream, and confidentiality risk rises when process discipline is weak. The teams that win are not the teams with the most prompts. They are the teams with the best operating controls.</p>
+      </div>
+
+      <div class="section">
+        <h2>Market Snapshot (2026)</h2>
+        <ul>
+          <li>BLS CPS (April 2026): unemployment 4.3%, labor-force participation 61.8%, employment-population ratio 59.1%.</li>
+          <li>BLS management outlook: top executive employment projected +4% (2024-2034), about 331,000 openings per year.</li>
+          <li>WEF Future of Jobs 2025: 1,000+ employers, 14M+ workers, 55 economies represented.</li>
+        </ul>
+        <p><strong>Operating implication:</strong> Preparation speed matters less than narrative precision and decision quality.</p>
+      </div>
+
+      <div class="section">
+        <h2>AI in Executive Search: Practical View</h2>
+        <div class="two-col">
+          <div class="panel">
+            <h4>What is changing</h4>
+            <ul>
+              <li>AI adoption has become normal.</li>
+              <li>Cost and speed are improving.</li>
+              <li>Agentic systems are entering production workflows.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>What still fails</h4>
+            <ul>
+              <li>Weak ownership of AI outputs.</li>
+              <li>Poor evidence discipline.</li>
+              <li>Over-trust in plausible but wrong outputs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel mt-12">
+          <h4>What works</h4>
+          <ul>
+            <li>Bounded automation with clear review gates.</li>
+            <li>Eval-like quality loops in production.</li>
+            <li>Explicit role ownership for each artifact.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Confidentiality and Trust: The Real Risk Layer</h2>
+        <p>Executive search and coaching workflows regularly include pre-disclosure career intent, compensation ranges, sensitive board context, and high-trust network pathways.</p>
+        <p>Risk is usually not one dramatic event. It is repeated near-misses that erode trust until one preventable incident becomes public.</p>
+
+        <h3>Operating controls that hold up under pressure</h3>
+        <ul>
+          <li><strong>Verify explicitly:</strong> role, stage, and purpose checks.</li>
+          <li><strong>Least privilege:</strong> asymmetric access by necessity, not convenience.</li>
+          <li><strong>Assume breach:</strong> logs, segmentation, and containment pathways.</li>
+        </ul>
+
+        <h3>Role-specific guidance</h3>
+        <p><strong>VP-to-CXO coaching</strong></p>
+        <ul>
+          <li>Run weekly narrative checks against mandate signals.</li>
+          <li>Remove claims that are historically true but role-irrelevant.</li>
+        </ul>
+        <p><strong>Board-track coaching</strong></p>
+        <ul>
+          <li>Isolate board-sensitive notes from general coaching records.</li>
+          <li>Tighten controls for governance, succession, and compensation artifacts.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Frontier Labs Consensus: 2026 Interpretation</h2>
+        <p>Recent public posts from OpenAI, Anthropic, and Google converge on one operational message:</p>
+        <p><strong>The AI race is becoming a reliability-and-governance race.</strong></p>
+
+        <div class="two-col">
+          <div class="panel">
+            <h4>OpenAI pattern</h4>
+            <ul>
+              <li>Production-loop framing for self-improving agents.</li>
+              <li>Layered provenance model: metadata, watermarking, verification.</li>
+              <li>Context-aware safety improvements in high-risk scenarios.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>Anthropic pattern</h4>
+            <ul>
+              <li>Pilot-to-production moves in regulated environments.</li>
+              <li>Human-in-the-loop defined as concrete decision work.</li>
+              <li>Security bottleneck shifting to triage and patch capacity.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel mt-12">
+          <h4>Google pattern</h4>
+          <ul>
+            <li>Managed agents with harness abstractions and secure execution.</li>
+            <li>Long-horizon orchestration in mainstream product surfaces.</li>
+            <li>Provenance and verification scaling across consumer and enterprise channels.</li>
+          </ul>
+        </div>
+
+        <p><strong>Implication for Starting Monday clients:</strong> The competitive moat is no longer model access. It is operating discipline.</p>
+      </div>
+
+      <div class="section">
+        <h2>90-Day Implementation Blueprint</h2>
+
+        <h3>Days 0-30: controls and ownership</h3>
+        <ul>
+          <li>Define data classes: public, internal, sensitive, highly sensitive.</li>
+          <li>Default-redact sensitive fields in generated summaries.</li>
+          <li>Require named owner for every generated artifact.</li>
+          <li>Publish a one-page AI and confidentiality policy.</li>
+        </ul>
+
+        <h3>Days 31-60: supervised automation</h3>
+        <ul>
+          <li>Add review checkpoints for outreach and prep artifacts.</li>
+          <li>Add visibility logs for view, export, and sharing events.</li>
+          <li>Add policy nudges for high-risk actions.</li>
+        </ul>
+
+        <h3>Days 61-90: governance and performance loops</h3>
+        <ul>
+          <li>Run monthly trust reviews: misses, false positives, permission drift.</li>
+          <li>Run quarterly council reviews on adoption and confidentiality readiness.</li>
+          <li>Publish a control scorecard: coverage, adherence, exceptions, remediation time.</li>
+        </ul>
+      </div>
+
+      <div class="prompt">
+        Publish-ready discussion prompt: Which fails first in your process, judgment quality or confidentiality discipline? Reply with one word.
+      </div>
+
+      <div class="section">
+        <h2>Source Integrity Statement</h2>
+        <p>This public edition uses directly verifiable sources available at drafting time. Where platform restrictions limited direct retrieval of specific analytics, directional guidance is clearly labeled and marked for first-party validation.</p>
+      </div>
+
+      <div class="section sources">
+        <h2 class="mt-0">Verified Sources</h2>
+        <ol>
+          <li><a href="https://www.bls.gov/cps/">BLS Current Population Survey</a></li>
+          <li><a href="https://www.bls.gov/ooh/management/top-executives.htm">BLS OOH Top Executives</a></li>
+          <li><a href="https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm">BLS occupational projections table</a></li>
+          <li><a href="https://www.weforum.org/reports/the-future-of-jobs-report-2025">WEF Future of Jobs Report 2025</a></li>
+          <li><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/2025-the-year-the-frontier-firm-is-born">Microsoft Work Trend Index 2025</a></li>
+          <li><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization">Microsoft Work Trend Index 2026</a></li>
+          <li><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part">Microsoft Work Trend Index 2024</a></li>
+          <li><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework overview</a></li>
+          <li><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10">NIST AI RMF 1.0 publication page</a></li>
+          <li><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report">Stanford HAI AI Index 2025</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/security/zero-trust/zero-trust-overview">Microsoft Learn Zero Trust overview</a></li>
+          <li><a href="https://blog.hootsuite.com/linkedin-hashtags/">Hootsuite LinkedIn hashtag guide</a></li>
+          <li><a href="https://openai.com/index/building-self-improving-tax-agents-with-codex/">OpenAI: Building self-improving tax agents with Codex</a></li>
+          <li><a href="https://openai.com/index/advancing-content-provenance/">OpenAI: Advancing content provenance</a></li>
+          <li><a href="https://openai.com/index/chatgpt-recognize-context-in-sensitive-conversations/">OpenAI: Sensitive-conversation context safety updates</a></li>
+          <li><a href="https://openai.com/index/dell-codex-enterprise-partnership/">OpenAI: Dell hybrid/on-prem enterprise Codex partnership</a></li>
+          <li><a href="https://www.anthropic.com/research/glasswing-initial-update">Anthropic: Project Glasswing initial update</a></li>
+          <li><a href="https://www.anthropic.com/news/anthropic-kpmg">Anthropic: KPMG integration announcement</a></li>
+          <li><a href="https://www.anthropic.com/news/pwc-expanded-partnership">Anthropic: PwC deployment announcement</a></li>
+          <li><a href="https://www.anthropic.com/81k-interviews">Anthropic: What 81,000 people want from AI</a></li>
+          <li><a href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">Google: Welcome to the agentic Gemini era</a></li>
+          <li><a href="https://blog.google/innovation-and-ai/technology/developers-tools/managed-agents-gemini-api/">Google: Managed Agents in the Gemini API</a></li>
+          <li><a href="https://blog.google/innovation-and-ai/products/identifying-ai-generated-media-online">Google: Content origin and edit verification</a></li>
+          <li><a href="https://blog.google/products-and-platforms/products/workspace/workspace-updates/">Google: Workspace AI updates</a></li>
+        </ol>
+      </div>
+
+      <div class="footer-note">
+        Starting Monday Public Edition | Executive Search, AI, and Confidentiality | 2026-05-27
+      </div>
+    </section>
+  </main>
+</body>
+</html>

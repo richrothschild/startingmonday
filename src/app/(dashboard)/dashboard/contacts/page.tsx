@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { addContact } from './actions'
@@ -49,21 +49,12 @@ export default async function ContactsPage({
             href="/dashboard"
             className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
           >
-            ← Dashboard
+            ? Dashboard
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 <div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Contacts</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
@@ -205,7 +196,7 @@ export default async function ContactsPage({
                   id="contact-notes"
                   name="notes"
                   type="text"
-                  placeholder="Met at SaaStr, warm connection…"
+                  placeholder="Met at SaaStr, warm connection�"
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
               </div>

@@ -81,6 +81,75 @@ For Starting Monday, coaching is a critical partner channel because coaches know
 
 ---
 
+## Reconsidered Persona Matrix (2026)
+
+This matrix extends the four core personas with behavior-level preferences for LinkedIn content and confidentiality expectations.
+
+### Persona 5: The Confidential In-Role Transition Coach
+**Who they serve:** Executives searching while still employed and not publicly signaling a move.
+
+**Primary concerns:** Confidentiality, selective outreach, and low-visibility momentum between sessions.
+
+**What they like in tools and content:**
+- Tight access controls and explicit role-based visibility.
+- Practical workflows that avoid public signaling until intentional.
+- LinkedIn posts about strategy quality, confidentiality discipline, and decision timing.
+
+**What they dislike in tools and content:**
+- Public-first tactics that assume open-to-work visibility.
+- Generic "network harder" advice with no confidentiality safeguards.
+- Product hype posts that expose sensitive operating details.
+
+**LinkedIn style fit:**
+- Likes: sober, specific, low-drama posts with operational language.
+- Dislikes: loud self-promotion, vague inspiration, or urgency theater.
+
+---
+
+### Persona 6: The Corporate Outplacement / L&D-Adjacent Coach
+**Who they serve:** Leaders in sponsored transition programs via employers, HR, or outplacement partners.
+
+**Primary concerns:** Repeatable process, measurable outcomes, and risk reduction at scale.
+
+**What they like in tools and content:**
+- Clear process checkpoints and measurable session impact.
+- Evidence-backed messaging, especially labor and skills data.
+- LinkedIn posts that combine executive empathy with operational metrics.
+
+**What they dislike in tools and content:**
+- Boutique-only workflows that do not scale.
+- Claims without evidence.
+- Overly personal founder narratives without client-outcome relevance.
+
+**LinkedIn style fit:**
+- Likes: concise frameworks, before/after process improvements, risk-aware language.
+- Dislikes: controversial hot takes detached from client outcomes.
+
+---
+
+## LinkedIn Content Preference Grid (All Personas)
+
+### Themes that generally perform well
+- Session effectiveness (reduce context rebuild).
+- Narrative quality for VP-to-CXO transitions.
+- Confidentiality-safe operating rhythm.
+- AI as judgment support, not autopilot.
+- Board-track continuity and long-horizon discipline.
+
+### Themes that underperform across personas
+- Feature-first announcements with no coaching implication.
+- Generic career advice for broad audiences.
+- Overlong posts without a concrete operational takeaway.
+- Performative controversy that weakens trust.
+
+### Practical content constraints for this council
+- Keep posts in the 3-5 hashtag range.
+- Use a broad + niche mix of hashtags.
+- Prioritize one clear friction point and one concrete fix per post.
+- Avoid disclosing client-sensitive details, even when anonymized.
+
+---
+
 ## Council Members
 
 ### Octavia Zahrt

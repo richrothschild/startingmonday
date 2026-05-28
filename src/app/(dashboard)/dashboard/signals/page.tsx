@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
@@ -161,14 +161,6 @@ export default async function SignalsPage({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 <div className="flex items-center gap-4 mb-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900">Company Signals</h1>
@@ -177,7 +169,7 @@ export default async function SignalsPage({
             </p>
           </div>
           <Link href="/dashboard" className="ml-auto text-[13px] text-slate-500 hover:text-slate-700">
-            ← Dashboard
+            ? Dashboard
           </Link>
         </div>
 
@@ -290,7 +282,7 @@ export default async function SignalsPage({
                     {sig.outreach_angle && (
                       <details className="group">
                         <summary className="text-[12px] text-amber-700 font-semibold cursor-pointer list-none hover:text-amber-900">
-                          Outreach angle ↓
+                          Outreach angle ?
                         </summary>
                         <p className="text-[12px] text-slate-500 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
                       </details>
@@ -305,7 +297,7 @@ export default async function SignalsPage({
                         rel="noopener noreferrer"
                         className="inline-block mt-2 text-[11px] text-slate-400 hover:text-slate-600 underline"
                       >
-                        Source →
+                        Source ?
                       </a>
                     )}
                     <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-slate-50">
@@ -315,7 +307,7 @@ export default async function SignalsPage({
                             href={`/dashboard/contacts/${contact.id}/outreach`}
                             className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
                           >
-                            Draft outreach → {contact.name}
+                            Draft outreach ? {contact.name}
                           </Link>
                         ) : co ? (
                           <>
@@ -366,7 +358,7 @@ export default async function SignalsPage({
               href={page > 0 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page - 1) }) : '#'}
               className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page === 0 ? 'opacity-40 pointer-events-none' : ''}`}
             >
-              ← Previous
+              ? Previous
             </Link>
             <span className="text-[12px] text-slate-400">
               Page {page + 1} of {totalPages}
@@ -375,7 +367,7 @@ export default async function SignalsPage({
               href={page < totalPages - 1 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page + 1) }) : '#'}
               className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page >= totalPages - 1 ? 'opacity-40 pointer-events-none' : ''}`}
             >
-              Next →
+              Next ?
             </Link>
           </div>
         )}

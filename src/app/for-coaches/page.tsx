@@ -77,6 +77,14 @@ export default function ForCoachesPage() {
               Open the one-page coach prep worksheet
             </Link>
           </div>
+          <div className="mb-6">
+            <Link
+              href="/for-coaches/micro-products"
+              className="inline-flex items-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-[12px] font-semibold text-emerald-200 hover:bg-emerald-500/20 transition-colors"
+            >
+              Browse coach micro products
+            </Link>
+          </div>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
               You might be thinking
