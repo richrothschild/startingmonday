@@ -5,6 +5,10 @@ const LEGACY_COPY_MARKERS: Array<{ label: string; regex: RegExp }> = [
   { label: 'pilot group evidence line', regex: /pilot\s+group\s*\(\s*n\s*=\s*27\s*\)/i },
   { label: 'n=27 evidence line', regex: /\(\s*n\s*=\s*27\s*\)/i },
   { label: 'legacy CTA opener', regex: /if useful,\s*reply yes and i will send/i },
+  { label: 'legacy coach prep worksheet CTA', regex: /reply yes and i will send the coach prep worksheet/i },
+  { label: 'legacy coach subject line', regex: /more client time, less prep/i },
+  { label: 'legacy prep-scatter line', regex: /prep work between sessions usually gets scattered/i },
+  { label: 'legacy coach notes line', regex: /coach notes, client signals, and next steps in one place/i },
 ]
 
 export function detectLegacyTemplateCopy(subject: string, body: string): string[] {

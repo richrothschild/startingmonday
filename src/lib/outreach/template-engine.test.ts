@@ -82,7 +82,7 @@ describe('outreach template engine', () => {
     expect(draft.body).toContain('Reply yes and I will send the first outreach brief.')
   })
 
-  it('builds coach copy with direct workflow language and binary CTA', () => {
+  it('builds coach copy with pain-led wedge and explicit control language', () => {
     const draft = build({
       channel: 'coaches',
       firstName: 'Jordan',
@@ -92,10 +92,11 @@ describe('outreach template engine', () => {
       state: 'burnout',
     })
 
-    expect(draft.subject).toBe('Less prep work between sessions for CoachCo')
+    expect(draft.subject).toBe('Clients should show up prepared for CoachCo')
     expect(draft.body).toContain('Between sessions, prep work usually ends up split across notes, email, and memory.')
-    expect(draft.body).toContain('Starting Monday keeps coach notes, client signals, and next steps in one place so prep takes less time and coaching time stays protected.')
-    expect(draft.body).toContain('Reply yes and I will send the coach prep worksheet.')
+    expect(draft.body).toContain('Starting Monday helps coaches stop losing time to underprepared clients, collapsing follow-through, and constant context rebuild.')
+    expect(draft.body).toContain('Nothing is auto-sent to contacts - coaches stay in control.')
+    expect(draft.body).toContain('Reply yes and I will send the 14-day coach pilot checklist.')
     expect(draft.body).not.toContain('between-session execution layer')
     expect(draft.body).not.toContain('pilot group')
   })
@@ -175,7 +176,7 @@ describe('outreach template engine', () => {
       step: 'followup_1',
     })
 
-    expect(draft.subject).toBe('More client time, less prep for Marshall Goldsmith team')
+    expect(draft.subject).toBe('Stop paying for the same recap twice for Marshall Goldsmith team')
     expect(draft.subject.length).toBeLessThanOrEqual(80)
 
     const finalMessageText = withComplianceFooter(ensureSignatureLine(draft.body))
@@ -235,7 +236,7 @@ describe('outreach template engine', () => {
     expect(executive.body).toContain('turn a long career into a short story recruiters, CEOs, and boards can follow quickly')
     expect(executive.body).toContain('It keeps first conversations specific instead of generic so momentum comes from clarity, not volume.')
     expect(coach.body).toContain('I saw your post on keeping client prep simple, and it looked like the kind of prep load coaches end up carrying between sessions.')
-    expect(coach.body).toContain('coach notes, client signals, and next steps in one place')
+    expect(coach.body).toContain('stop losing time to underprepared clients, collapsing follow-through, and constant context rebuild')
     expect(outplacement.body).toContain('I saw your cohort model now spans three regions, and it looked like the kind of growth point where cohort consistency gets harder to hold.')
     expect(outplacement.body).toContain('one checklist for what interview-ready, role-fit, and compensation-ready looks like')
   })

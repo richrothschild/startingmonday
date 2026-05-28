@@ -31,6 +31,8 @@
         "monitor:readiness": "node scripts/check-site-monitoring-readiness.mjs",
         "monitor:readiness:json": "node scripts/check-site-monitoring-readiness.mjs --json",
         "monitor:readiness:strict": "node scripts/check-site-monitoring-readiness.mjs --strict",
+        "outreach:coaches:refresh-queue": "node scripts/refresh-coach-outreach-queue.mjs",
+        "outreach:coaches:refresh-queue:apply": "node scripts/refresh-coach-outreach-queue.mjs --apply",
         "prepare": "node -e \"const {execSync}=require('child_process'); try {execSync('git rev-parse --git-dir',{stdio:'ignore'}); execSync('git config core.hooksPath .githooks',{stdio:'ignore'});} catch {}\"",
         "check:auth": "node scripts/check-auth.mjs",
         "security:api-guards": "node scripts/check-api-guards.mjs",

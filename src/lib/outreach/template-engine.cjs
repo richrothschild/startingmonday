@@ -364,24 +364,24 @@ function buildSearchFollowupDraft({ firstName, company, focus, roleLabel, step }
 }
 
 function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step }) {
-  const asset = 'the coach prep worksheet'
+  const asset = 'the 14-day coach pilot checklist'
   const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-      ? `Should I send the coach prep worksheet for ${subjectCompany}`
+      ? `Should I send the 14-day coach pilot checklist for ${subjectCompany}`
     : step === 'followup_3'
-        ? `Close the loop on coach prep for ${subjectCompany}`
-      : `More client time, less prep for ${subjectCompany}`
+        ? `Close the loop on coach follow-through for ${subjectCompany}`
+      : `Stop paying for the same recap twice for ${subjectCompany}`
 
   return {
     subject,
     body: [
       `Hi ${firstName},`,
       '',
-      `Prep work between sessions usually gets scattered.`,
-      `Starting Monday keeps coach notes, client signals, and next steps in one place so prep takes less time.`,
-      'It keeps client momentum visible between sessions without extra coach admin.',
+      `Quick observation from coaching teams we speak with: clients arrive underprepared, follow-through drops between sessions, and too much paid time gets spent rebuilding context.`,
+      'Starting Monday gives coaches one operating loop for prep, between-session actions, and visible momentum so sessions start with decisions instead of recap.',
+      'It is built for recurring execution quality across clients and weeks, not one-off cleanups.',
       '',
-      `Reply yes and I will send ${asset}. Keeping prep and next steps in one place is a big win for both coaches and clients. It is meant to cut admin work and protect client time.`,
+      `Reply yes and I will send ${asset}.`,
       'Reply pass and I will close the loop.',
     ].join('\n'),
   }
@@ -516,19 +516,20 @@ function buildLatestTemplateDraft({
   }
 
   if (channel === CHANNELS.COACHES) {
-    const asset = 'the coach prep worksheet'
+    const asset = 'the 14-day coach pilot checklist'
     const trigger = triggerLine(CHANNELS.COACHES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `Less prep work between sessions for ${subjectCompany}`,
+      subject: `Clients should show up prepared for ${subjectCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'Starting Monday keeps coach notes, client signals, and next steps in one place so prep takes less time and coaching time stays protected.',
-        'It keeps client momentum visible between sessions without extra coach admin.',
+        'Starting Monday helps coaches stop losing time to underprepared clients, collapsing follow-through, and constant context rebuild.',
+        'Clients show up prepared, progress stays visible between sessions, and coaching time stays focused on decisions.',
+        'Nothing is auto-sent to contacts - coaches stay in control.',
         '',
-        `Reply yes and I will send ${asset}. Keeping prep and next steps in one place is a big win for both coaches and clients.`,
+        `Reply yes and I will send ${asset}.`,
         'Reply pass and I will close the loop.',
         '',
         'Rich',
