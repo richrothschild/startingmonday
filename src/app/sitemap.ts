@@ -23,6 +23,7 @@ const CORE_PAGES = [
   { path: '/pilot-findings', changeFrequency: 'monthly' as const, priority: 0.65 },
   { path: '/founder-note', changeFrequency: 'monthly' as const, priority: 0.6 },
   { path: '/annual-report-2026', changeFrequency: 'monthly' as const, priority: 0.6 },
+  { path: '/annual-report-2026/executive-search-ai-confidentiality', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/research-brief', changeFrequency: 'monthly' as const, priority: 0.6 },
   { path: '/demo', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/pricing', changeFrequency: 'monthly' as const, priority: 0.8 },
