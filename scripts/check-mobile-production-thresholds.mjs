@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { discoverPublicMobileRoutes } from './lib/mobile-route-inventory.mjs'
 
 const BASE_URL = (process.env.MONITOR_BASE_URL ?? 'https://startingmonday.app').replace(/\/$/, '')
 const OUTPUT_JSON = process.env.MONITOR_OUTPUT_JSON === '1' || process.argv.includes('--json')
@@ -110,9 +111,28 @@ function writeDashboard(summary) {
 
 async function main() {
   const thresholds = JSON.parse(fs.readFileSync(thresholdsPath, 'utf8'))
+  const configuredRoutes = thresholds.routes ?? []
+  const configuredPaths = new Set(configuredRoutes.map((route) => route.path))
+  const discoveredRoutes = discoverPublicMobileRoutes()
+
+  const autoDiscoveryEnabled = thresholds.autoDiscovery?.enabled === true
+  const autoDiscoveryMaxResponseMs = Number(thresholds.autoDiscovery?.maxResponseMs ?? 2200)
+
+  const discoveredThresholdRoutes = autoDiscoveryEnabled
+    ? discoveredRoutes
+        .filter((routePath) => !configuredPaths.has(routePath))
+        .map((routePath) => ({
+          name: `Auto ${routePath}`,
+          path: routePath,
+          expectedStatus: 200,
+          maxResponseMs: autoDiscoveryMaxResponseMs,
+        }))
+    : []
+
+  const routesToCheck = [...configuredRoutes, ...discoveredThresholdRoutes]
   const results = []
 
-  for (const route of thresholds.routes) {
+  for (const route of routesToCheck) {
     // eslint-disable-next-line no-await-in-loop
     results.push(await runRouteCheck(route))
   }
@@ -130,6 +150,7 @@ async function main() {
     ts: new Date().toISOString(),
     baseUrl: BASE_URL,
     thresholds,
+    discoveredRoutesChecked: discoveredThresholdRoutes.length,
     total: results.length,
     failed,
     passed: results.length - failed,

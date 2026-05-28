@@ -60,6 +60,7 @@
         "test:e2e": "playwright test --project=setup --project=smoke",
         "test:e2e:mobile-ui:quick": "playwright test tests/e2e/mobile-ui.spec.ts --project=mobile-iphone --grep @rubric --workers=1",
         "test:e2e:mobile-ui": "playwright test tests/e2e/mobile-ui.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet",
+        "test:e2e:mobile-public-routes": "playwright test tests/e2e/mobile-public-routes.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet",
         "test:e2e:mobile-visual": "playwright test tests/e2e/mobile-visual.spec.ts --project=mobile-iphone --project=mobile-android",
         "test:e2e:mobile-routes": "node scripts/run-mobile-key-routes-report.mjs",
         "report:e2e:mobile-routes:coverage": "node scripts/generate-mobile-route-coverage-report.mjs",

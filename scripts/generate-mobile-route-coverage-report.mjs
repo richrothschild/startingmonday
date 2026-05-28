@@ -6,20 +6,9 @@ const inputPath = process.argv[2] || 'playwright-report/mobile-key-routes.json'
 const outputPath = process.argv[3] || 'playwright-report/mobile-key-routes-coverage.md'
 
 const PROJECTS = ['mobile-iphone', 'mobile-android', 'mobile-tablet']
-const ROUTES = [
-  '/dashboard',
-  '/dashboard/briefing',
-  '/dashboard/outreach',
-  '/dashboard/chat',
-  '/dashboard/help',
-  '/dashboard/calendar',
-  '/dashboard/profile',
-  '/dashboard/contacts',
-  '/dashboard/signals',
-]
 
 function extractRoute(title) {
-  const match = title.match(/route\s+(\/dashboard[^\s]*)/i)
+  const match = title.match(/route\s+(\/[^\s]*)\s+renders/i)
   return match?.[1] ?? null
 }
 
@@ -59,7 +48,9 @@ if (firstBrace === -1 || lastBrace === -1 || lastBrace <= firstBrace) {
 }
 const report = JSON.parse(noAnsi.slice(firstBrace, lastBrace + 1))
 const matrix = new Map()
-for (const route of ROUTES) {
+
+function ensureRoute(route) {
+  if (matrix.has(route)) return
   const projectStatus = {}
   for (const project of PROJECTS) projectStatus[project] = 'not_run'
   matrix.set(route, projectStatus)
@@ -67,7 +58,8 @@ for (const route of ROUTES) {
 
 walkSuites(report.suites ?? [], (spec) => {
   const route = extractRoute(spec.title ?? '')
-  if (!route || !matrix.has(route)) return
+  if (!route) return
+  ensureRoute(route)
 
   for (const t of spec.tests ?? []) {
     const project = t.projectName
@@ -108,7 +100,9 @@ lines.push('')
 lines.push('| Route | iPhone | Android | Tablet |')
 lines.push('| --- | --- | --- | --- |')
 
-for (const route of ROUTES) {
+const routes = [...matrix.keys()].sort((a, b) => a.localeCompare(b))
+
+for (const route of routes) {
   const row = matrix.get(route)
   for (const project of PROJECTS) {
     const value = row[project]
@@ -117,7 +111,7 @@ for (const route of ROUTES) {
   lines.push(`| ${route} | ${statusEmoji[row['mobile-iphone']]} | ${statusEmoji[row['mobile-android']]} | ${statusEmoji[row['mobile-tablet']]} |`)
 }
 
-const totalChecks = ROUTES.length * PROJECTS.length
+const totalChecks = routes.length * PROJECTS.length
 const passRate = totalChecks === 0 ? 0 : Math.round((totals.passed / totalChecks) * 100)
 
 lines.push('')
