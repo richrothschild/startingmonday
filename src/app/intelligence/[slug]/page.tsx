@@ -74,7 +74,15 @@ export default async function IntelligencePage({
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
-        <section className="mb-6 bg-white border border-slate-200 rounded p-4">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<section className="mb-6 bg-white border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
             <a href="#company-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company overview</a>

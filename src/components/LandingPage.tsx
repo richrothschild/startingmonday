@@ -5,6 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import type { Channel } from '@/lib/channel-metrics-events'
 
 export interface SituationCard {
   id: string
@@ -42,6 +43,7 @@ export interface LandingPageProps {
   situations: SituationCard[]
   faqs?: FAQ[]
   showPersonaSelector?: boolean
+  rolePathPriorityByCtaKey?: Record<string, number>
 }
 
 const CHANNEL_BEST_FOR: Record<string, string> = {
@@ -51,7 +53,72 @@ const CHANNEL_BEST_FOR: Record<string, string> = {
   search_firms: 'Best for retained-search kickoff quality and shortlist speed',
 }
 
-export function LandingPage({ hero, faqs }: LandingPageProps) {
+type RolePathItem = {
+  ctaKey: string
+  label: string
+  iconToken: string
+  priority: number
+  href?: string
+}
+
+type RolePathGroup = {
+  title: string
+  iconToken: string
+  description: string
+  items: RolePathItem[]
+}
+
+const ROLE_PATH_GROUPS: RolePathGroup[] = [
+  {
+    title: 'Partner tracks',
+    iconToken: 'PT',
+    description: 'For coaches, firms, and partner teams',
+    items: [
+      { ctaKey: 'search_firms', label: 'Search firms', href: '/for-search-firms', iconToken: 'SF', priority: 1 },
+      { ctaKey: 'coaches', label: 'Coaches', href: '/for-coaches', iconToken: 'CH', priority: 2 },
+      { ctaKey: 'outplacement_firms', label: 'Outplacement firms', href: '/for-outplacement', iconToken: 'OP', priority: 3 },
+      { ctaKey: 'partner_programs', label: 'Partner programs', href: '/partners', iconToken: 'PR', priority: 4 },
+      { ctaKey: 'pe_teams', label: 'PE teams', href: '/for-pe-teams', iconToken: 'PE', priority: 5 },
+    ],
+  },
+  {
+    title: 'Executive transitions',
+    iconToken: 'ET',
+    description: 'For VP and near-term C-suite moves',
+    items: [
+      { ctaKey: 'cio_cto_search', label: 'CIO and CTO search', href: '/for-cio', iconToken: 'CX', priority: 1 },
+      { ctaKey: 'vp_to_c_suite', label: 'VP to C-Suite', href: '/for-vp', iconToken: 'VP', priority: 2 },
+      { ctaKey: 'vp_of_technology', label: 'VP of Technology', href: '/for-vp-technology', iconToken: 'VT', priority: 3 },
+      { ctaKey: 'cio', label: 'CIO', href: '/for-cio', iconToken: 'CI', priority: 4 },
+      { ctaKey: 'cto', label: 'CTO', href: '/for-cio', iconToken: 'CT', priority: 5 },
+    ],
+  },
+  {
+    title: 'C-suite role paths',
+    iconToken: 'CS',
+    description: 'Choose your specific functional track',
+    items: [
+      { ctaKey: 'ciso', label: 'CISO', href: '/for-ciso', iconToken: 'SI', priority: 1 },
+      { ctaKey: 'coo', label: 'COO', href: '/for-coo', iconToken: 'OO', priority: 2 },
+      { ctaKey: 'chief_digital_officer', label: 'Chief Digital Officer', href: '/for-cdo', iconToken: 'DG', priority: 3 },
+      { ctaKey: 'chief_product_officer', label: 'Chief Product Officer', href: '/for-cpo', iconToken: 'PO', priority: 4 },
+      { ctaKey: 'chief_data_officer', label: 'Chief Data Officer', href: '/for-data-officer', iconToken: 'DA', priority: 5 },
+      { ctaKey: 'cfo', label: 'CFO', iconToken: 'FO', priority: 6 },
+      { ctaKey: 'ceo', label: 'CEO', iconToken: 'EO', priority: 7 },
+    ],
+  },
+]
+
+const ROLE_PATH_CTA_PREFIX = 'footer_role_path_'
+
+function getRolePathChannel(href: string): Channel {
+  if (href.startsWith('/for-search-firms')) return 'search_firms'
+  if (href.startsWith('/for-coaches')) return 'coaches'
+  if (href.startsWith('/for-outplacement')) return 'outplacement'
+  return 'executives'
+}
+
+export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10">
@@ -315,29 +382,62 @@ export function LandingPage({ hero, faqs }: LandingPageProps) {
 
         <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
           <div className="max-w-5xl mx-auto">
-            <div className="rounded-xl border border-slate-700 bg-slate-950/40 px-4 sm:px-5 py-4 sm:py-5 mb-6">
-              <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400 mb-3">Role paths</p>
-              <div className="pb-4 mb-4 border-b border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-[14px] sm:text-[15px] font-medium text-slate-200">
-                <Link href="/for-coaches" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Coaches</Link>
-                <Link href="/for-search-firms" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Search firms</Link>
-                <Link href="/for-outplacement" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Outplacement firms</Link>
-                <Link href="/for-pe-teams" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">PE teams</Link>
-                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CIO and CTO search</Link>
-                <Link href="/for-vp" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">VP to C-Suite</Link>
-                <Link href="/for-vp-technology" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">VP of Technology</Link>
-                <Link href="/for-cpo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Product Officer</Link>
-                <Link href="/for-data-officer" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Data Officer</Link>
+            <div className="rounded-xl border border-slate-700 bg-gradient-to-b from-slate-950/60 to-slate-950/30 px-4 sm:px-5 py-4 sm:py-5 mb-6">
+              <div className="mb-4 pb-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400">Role paths</p>
+                  <p className="text-[13px] text-slate-300 mt-1">Start with your lane, then explore adjacent tracks.</p>
+                </div>
+                <p className="text-[11px] text-slate-500">17 pathways across partner and operator roles</p>
               </div>
 
-              <div className="text-[14px] sm:text-[15px] font-medium text-slate-200 grid grid-cols-2 md:grid-cols-4 gap-2.5">
-                <Link href="/for-cdo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Chief Digital Officer</Link>
-                <Link href="/for-ciso" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CISO</Link>
-                <Link href="/for-coo" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">COO</Link>
-                <span className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-slate-300">CFO</span>
-                <span className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-slate-300">CEO</span>
-                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CTO</Link>
-                <Link href="/for-cio" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">CIO</Link>
-                <Link href="/partners" className="inline-flex items-center justify-center rounded-md border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-center hover:text-white hover:border-slate-500 transition-colors">Partner programs</Link>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                {ROLE_PATH_GROUPS.map((group) => (
+                  <div key={group.title} className="rounded-lg border border-slate-800 bg-slate-900/45 p-3">
+                    <p className="text-[12px] font-semibold text-slate-100 inline-flex items-center gap-2">
+                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-slate-600 bg-slate-950 px-1 text-[9px] tracking-[0.08em] text-slate-300">{group.iconToken}</span>
+                      {group.title}
+                    </p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 mb-3">{group.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {[...group.items]
+                        .sort((a, b) => {
+                          const orderA = rolePathPriorityByCtaKey?.[a.ctaKey] ?? a.priority
+                          const orderB = rolePathPriorityByCtaKey?.[b.ctaKey] ?? b.priority
+                          if (orderA !== orderB) return orderA - orderB
+                          return a.label.localeCompare(b.label)
+                        })
+                        .map((item) => (
+                        item.href ? (
+                          <TrackLink
+                            key={item.label}
+                            href={item.href}
+                            event={EVENT_NAMES.channelEntryClicked}
+                            logToUserEvents
+                            properties={{
+                              channel: getRolePathChannel(item.href),
+                              cta_label: `${ROLE_PATH_CTA_PREFIX}${item.ctaKey}`,
+                              source_page: '/',
+                            }}
+                            className="inline-flex items-center rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-200 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:text-white hover:border-orange-400/70 hover:shadow-[0_6px_18px_rgba(249,115,22,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/50"
+                          >
+                            <span className="mr-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded border border-slate-600 bg-slate-900 px-1 text-[9px] tracking-[0.08em] text-slate-300">{item.iconToken}</span>
+                            {item.label}
+                          </TrackLink>
+                        ) : (
+                          <span
+                            key={item.label}
+                            className="inline-flex items-center gap-1 rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-300"
+                          >
+                            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded border border-slate-600 bg-slate-900 px-1 text-[9px] tracking-[0.08em] text-slate-300">{item.iconToken}</span>
+                            {item.label}
+                            <span className="text-[10px] uppercase tracking-[0.08em] text-slate-500">Soon</span>
+                          </span>
+                        )
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 

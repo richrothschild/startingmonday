@@ -179,8 +179,8 @@ export default async function CompanyPage({
 
       <ScanPoller active={isScanning && !latestScan} />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
+        {/* quick navigation handled by section anchors below */}
+<div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">{company.name}</h1>
             {company.sector && (
@@ -208,18 +208,6 @@ export default async function CompanyPage({
             </Link>
           </div>
         </div>
-
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#company-details" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company details</a>
-            <a href="#people" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">People</a>
-            <a href="#documents" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Documents</a>
-            <a href="#job-scan" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Job scan</a>
-            <a href="#signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Signals</a>
-            <a href="#interview-sessions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Interview sessions</a>
-          </div>
-        </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
@@ -550,7 +538,7 @@ export default async function CompanyPage({
                         placeholder="Relocation required - moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                       />
-                      <p className="mt-1 text-[11px] text-slate-400">Everything the numbers do not capture. Private.</p>
+                      <div className="mt-1 text-[11px] text-slate-400">Everything the numbers do not capture. Private.</div>
                     </div>
                     {totalCash !== null && (
                       <div className="mt-3 px-4 py-3 bg-green-50 border border-green-200 rounded flex items-center justify-between">
@@ -558,7 +546,7 @@ export default async function CompanyPage({
                         <span className="text-[16px] font-bold text-green-800">{fmt(totalCash)}</span>
                       </div>
                     )}
-                    <p className="mt-2 text-[11px] text-slate-400">Private. Not shared or used in AI outputs.</p>
+                    <div className="mt-2 text-[11px] text-slate-400">Private. Not shared or used in AI outputs.</div>
                   </div>
                 )
               })()}
@@ -642,35 +630,6 @@ export default async function CompanyPage({
               )}
             </details>
 
-            <details className="bg-white border border-slate-200 rounded overflow-hidden">
-              <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                Add action
-              </summary>
-              <form action={addFollowUp.bind(null, id)} className="flex flex-col gap-3 p-5">
-                <input
-                  name="action"
-                  type="text"
-                  required
-                  placeholder="Send follow-up email…"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
-                />
-                <input
-                  name="due_date"
-                  type="date"
-                  required
-                  aria-label="Due date"
-                  defaultValue={todayISO}
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded cursor-pointer border-0"
-                >
-                  Add
-                </button>
-              </form>
-            </details>
-
           </div>
         </div>
         <CompanyNextActionBanner
@@ -708,7 +667,7 @@ export default async function CompanyPage({
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Documents
               </span>
-              <p className="text-[12px] text-slate-400 mt-0.5">Job descriptions produce the most targeted prep briefs.</p>
+              <div className="text-[12px] text-slate-400 mt-0.5">Job descriptions improve prep-brief quality.</div>
             </div>
             <span className="text-[12px] text-slate-400 shrink-0">
               {(documents ?? []).length} {(documents ?? []).length === 1 ? 'document' : 'documents'}
@@ -761,7 +720,7 @@ export default async function CompanyPage({
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Interview Sessions
               </h2>
-              <p className="text-[12px] text-slate-400 mt-0.5">Each session sharpens your next prep brief.</p>
+              <p className="text-[12px] text-slate-400 mt-0.5">Each session sharpens the next prep brief.</p>
             </div>
             <span className="text-[12px] text-slate-400 shrink-0">
               {interviewLogs.length} {interviewLogs.length === 1 ? 'session' : 'sessions'}

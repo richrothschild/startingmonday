@@ -51,24 +51,49 @@ Executives channel reviewers:
 1. Claudio Fernandez-Araoz (executive readiness standards)
 2. Anne Applebaum (credibility, precision, seriousness)
 3. Annie Duke (decision quality under uncertainty)
+4. Displaced CIO under time pressure (speed, clarity, and recovery)
 
 Coaches channel reviewers:
 
 1. Octavia Zahrt (coach workflow reality)
 2. Kim Scott (clear direct tone with care)
 3. Josh Braun (low-pressure response design)
+4. Solo executive coach operator (admin load, session prep, and client momentum)
 
 Search-firm channel reviewers:
 
 1. John McMahon (economic buyer logic)
 2. John Barrows (trigger-led outbound relevance)
 3. April Dunford (positioning clarity in context)
+4. Retained search partner (mandate economics, first-touch quality, and shortlist credibility)
 
 Outplacement channel reviewers:
 
 1. John McMahon (program economics and buyer consequence)
 2. Adam Grant (evidence quality and caveat discipline)
 3. Annie Duke (reversible decisions and risk clarity)
+4. Outplacement program director (cohort consistency, counselor workflow, and client confidence)
+
+## Missing-Coverage Gaps Closed On 2026-05-27
+
+The earlier reviewer set was strong on clarity and persuasion, but it still blurred the actual cold-email reader in each channel. The new roles above close the largest gaps:
+
+1. Executives needed a time-compressed, recovery-minded reader lens, not just an abstract readiness lens.
+2. Coaches needed an operator lens that cares about prep drag, session flow, and client momentum.
+3. Search firms needed a retained partner lens that judges mandate economics and shortlist quality.
+4. Outplacement needed a program director lens that judges consistency, counselor load, and cohort confidence.
+
+## Cold-Email Open Principles By Reader Type
+
+These are the first principles the council uses when deciding whether to open a cold email:
+
+1. The subject line must promise a concrete reader benefit, not a product category.
+2. The first sentence must prove the email was written for my role and moment.
+3. The value has to be visible before I do any interpretation.
+4. The ask must be binary, small, and easy to decline.
+5. The proof must be short, credible, and caveated.
+6. The email should reduce work, risk, or uncertainty for me right now.
+7. If the value is vague, I assume the sender is optimizing for themselves.
 
 ## Template Effectiveness Feedback (Current Live Initials)
 

@@ -22,64 +22,58 @@ export const metadata: Metadata = {
 }
 
 const DECISION_QUESTIONS = [
-  'What is the single most important behavior metric to publish on the site now: outreach sent per week, conversations started, or follow-up completion?',
-  'Do we agree to treat person-first execution (not company-first browsing) as the primary product narrative on the page?',
-  'If we ship only one conversion fix this week, should it be proof clarity, pricing clarity, or loop-closure visibility?',
+  'Which behavior KPI should be public now: outreach, conversations, or follow-up completion?',
+  'Do we commit to person-first execution as the primary narrative?',
+  'If we ship one conversion fix this week, is it proof, pricing, or loop-closure clarity?',
 ]
 
 const WHAT_CHANGED = [
-  'Behavior-over-information framing is now explicit: the product must change weekly actions, not just improve awareness.',
-  'Cadence model is visible: Monday review, daily triage, pre-conversation prep, and Friday accountability check.',
-  'Trust proof language now requires denominator and confidence context for headline claims.',
-  'Primary risk is named directly: signal to action to conversation loop is not yet measured end to end.',
-  'Positioning now emphasizes person-first outcomes and relationship momentum, not company list management.',
+  'Behavior-over-information framing is explicit.',
+  'Cadence is visible: Monday review, daily triage, prep, Friday accountability.',
+  'Headline proof now requires denominator and confidence context.',
+  'Primary risk is still loop measurement from signal to conversation.',
 ]
 
 const HORSTMAN_FILTER = [
   {
     lens: 'Behavior standard',
     check:
-      'A user should be able to point to changed behavior in week 1 (who they contacted, what they followed up on, and what decision was made).',
+      'By week 1, a user should show changed behavior: who they contacted and what they closed.',
   },
   {
     lens: 'Anti-vagueness standard',
     check:
-      'Every value claim should translate to a measurable output, with denominator and confidence level visible.',
+      'Every value claim should map to a measurable output with denominator and confidence.',
   },
   {
     lens: 'Cadence standard',
     check:
-      'The operating rhythm should be obvious and repeatable so users can run a weekly system without extra overhead.',
-  },
-  {
-    lens: 'Relationship standard',
-    check:
-      'The product should reinforce that executive outcomes are won through people and advocacy, not company tracking alone.',
+      'The operating rhythm should be obvious and repeatable week to week.',
   },
 ]
 
 const CADENCE_STEPS = [
-  'Monday: executive search cadence review (priorities, risks, and who needs follow-up).',
-  'Daily: signal triage into one clear next move per priority target.',
-  'Pre-conversation: prep brief review for likely objections and context-specific positioning.',
-  'Friday: accountability review of outreach sent, responses received, and overdue follow-ups.',
+  'Monday: review priorities and follow-ups.',
+  'Daily: triage signals into one next move.',
+  'Pre-conversation: review prep brief and likely objections.',
+  'Friday: review outreach, responses, and overdue follow-ups.',
 ]
 
 const CORE_PHILOSOPHIES = [
   {
     title: 'Behavior management over information management',
     detail:
-      'The product should coach weekly execution habits: decide who to contact, send the outreach, and close the follow-up loop. Information is only useful when it changes behavior.',
+      'Coach weekly execution habits: who to contact, what to send, and what to close.',
   },
   {
     title: 'Quality and effective experience',
     detail:
-      'Every key interaction should reduce ambiguity and increase confidence. Guidance must be clear, evidence-aware, and specific enough to support immediate action by an executive user.',
+      'Each key interaction should reduce ambiguity and support immediate action.',
   },
   {
     title: 'Outcome-based behaviors',
     detail:
-      'Success is defined by outcomes created through repeatable behaviors: conversations started, advocates activated, and momentum sustained week over week.',
+      'Success is repeatable behavior that creates conversations, advocates, and momentum.',
   },
 ]
 
@@ -87,33 +81,23 @@ const KEY_OBJECTIONS = [
   {
     concern: '"This sounds like another dashboard."',
     response:
-      'It is not designed for passive monitoring. The model is explicit: signal -> decision -> outreach -> follow-up.',
+      'It is not passive monitoring. The model is signal -> decision -> outreach -> follow-up.',
   },
   {
     concern: '"Can I trust the AI output quality?"',
     response:
-      'Output quality is strongest when company context is well populated, and every claim should carry denominator and confidence context.',
+      'Quality is strongest with complete context, and claims include denominator and confidence.',
   },
   {
     concern: '"If this is behavior-first, where is the scoreboard?"',
     response:
-      'The scoreboard to prioritize next is loop closure: signals received, outreach sent, conversations started, and follow-ups completed.',
-  },
-  {
-    concern: '"Is this built for company tracking or relationship execution?"',
-    response:
-      'Company signals are input. Relationship execution is output. The page now centers the people-first outcome.',
-  },
-  {
-    concern: '"I am employed. Is this private and low-risk to use?"',
-    response:
-      'Privacy remains first-order: no employer visibility, no recruiter visibility, and user-controlled deletion.',
+      'Scoreboard focus is loop closure: signals, outreach, conversations, follow-ups.',
   },
 ]
 
 const NEXT_7_DAYS = [
-  'Publish one behavior KPI on-site with denominator and confidence annotation.',
-  'Add person-first copy directly in hero/supporting sections to remove company-first ambiguity.',
+  'Publish one behavior KPI with denominator and confidence annotation.',
+  'Tighten person-first copy in hero and support sections.',
   'Instrument loop-closure tracking for outreach and follow-up actions.',
 ]
 
@@ -121,7 +105,7 @@ const LANE_ONE_GOALS = [
   {
     title: 'Decision speed first',
     detail:
-      'A first-time reviewer should understand the business case and the execution model in under five minutes.',
+      'A first-time reviewer should understand the business case and model in under five minutes.',
   },
   {
     title: 'Momentum Signal alignment',
@@ -131,7 +115,7 @@ const LANE_ONE_GOALS = [
   {
     title: 'Proof discipline',
     detail:
-      'Every quant claim must include a denominator, timeframe, and confidence context before it is promoted to headline copy.',
+      'Every quant claim includes denominator, timeframe, and confidence before headline use.',
   },
 ]
 
@@ -143,7 +127,7 @@ const LOOP_CLOSURE_SCORECARD = [
   },
   {
     metric: 'Outreach actions per week',
-    baseline: 'Tracked in workflow, not visible in public narrative',
+    baseline: 'Tracked in workflow, not visible publicly',
     laneOneTarget: 'Expose one normalized weekly benchmark',
   },
   {
@@ -151,17 +135,12 @@ const LOOP_CLOSURE_SCORECARD = [
     baseline: 'Mentioned conceptually, not measured end to end',
     laneOneTarget: 'Instrument and report in weekly growth readout',
   },
-  {
-    metric: 'Conversations started from tracked signals',
-    baseline: 'Anecdotal evidence only',
-    laneOneTarget: 'Publish directional metric with confidence annotation',
-  },
 ]
 
 const PRE_MEETING_QA = [
-  'Narrative coherence: landing, Mark brief, and summary page use the same Momentum Signal framing.',
-  'Copy clarity: each section has one job and one decision outcome for the reviewer.',
-  'Proof hygiene: every number has source, denominator, and timeframe attached.',
+  'Narrative coherence: landing, Mark brief, and summary use the same Momentum framing.',
+  'Copy clarity: each section has one decision outcome.',
+  'Proof hygiene: every number has source, denominator, and timeframe.',
   'Telemetry: key CTA actions on Mark pages are event-tracked for engagement review.',
   'Deploy hygiene: Railway SUCCESS plus manual live-page verification logged in epic tracker.',
 ]
@@ -207,13 +186,21 @@ export default function MarkReviewPage() {
             Starting Monday: Mark Horstman review brief
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            This ship lane focuses on one question: can this site reliably convert motion signals into relationship momentum. The page is intentionally structured for fast decision-making, proof clarity, and meeting readiness.
+            Core question: can this site convert motion signals into relationship momentum. This page is structured for fast decisions and proof clarity.
           </p>
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-18">
-        <div className="max-w-4xl mx-auto space-y-10">
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+<div className="max-w-4xl mx-auto space-y-10">
           <section className="border border-slate-900 rounded-lg p-6 bg-slate-950">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Lane 1 in five minutes</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -229,7 +216,7 @@ export default function MarkReviewPage() {
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is now</p>
             <p className="text-[15px] text-slate-700 leading-relaxed">
-              Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition. It is built to create consistent, measurable weekly behaviors that produce better conversations and better-fit outcomes.
+              Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition, built to create consistent weekly behaviors and better-fit outcomes.
             </p>
           </section>
 

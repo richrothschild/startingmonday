@@ -29,17 +29,18 @@ export async function POST(request: NextRequest) {
     .select('email, outreach_status, contacted_at, name')
     .eq('user_id', userId)
     .eq('status', 'active')
-    .in('email', emails)
 
   if (error) {
     console.error('Error fetching contact statuses:', error)
     return NextResponse.json({ error: 'Database query failed.' }, { status: 500 })
   }
 
+  const emailSet = new Set(emails)
   const statusByEmail = new Map<string, { outreach_status: string | null; contacted_at: string | null; name: string | null }>()
   for (const contact of contacts ?? []) {
-    if (contact.email) {
-      statusByEmail.set(contact.email.toLowerCase(), {
+    const normalized = contact.email?.toLowerCase()
+    if (normalized && emailSet.has(normalized)) {
+      statusByEmail.set(normalized, {
         outreach_status: contact.outreach_status,
         contacted_at: contact.contacted_at,
         name: contact.name,

@@ -40,6 +40,7 @@ export async function POST(
     contact_id: contact?.id ?? null,
     signal_id: signal?.id ?? null,
     channel: 'linkedin',
+    webhook_payload: { email_source: 'prep_outreach_log_route' },
   })
 
   if (contact?.id) {

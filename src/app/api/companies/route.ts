@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent, logCompanyWatch } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
   }
 
   await logEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
+  captureServerEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
   if (inserted?.id) {
     await logCompanyWatch(userId, inserted.id, { sector, careerPageUrlPresent: false, fitScore, stage: 'watching' })
   }

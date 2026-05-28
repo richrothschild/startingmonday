@@ -4,6 +4,7 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { PHProvider } from '@/components/PosthogProvider'
+import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
   title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
@@ -70,27 +71,27 @@ const SITUATIONS: SituationCard[] = [
 const FAQS: FAQ[] = [
   {
     question: 'How is this different from LinkedIn Premium?',
-    answer: 'LinkedIn Premium gives you a better job board. Starting Monday improves how you run the campaign itself: earlier signals, better-timed outreach, and stronger relationship follow-through so you can land the right role, not just the next role. It complements executive coaching by powering day-to-day execution between sessions.',
+    answer: 'LinkedIn Premium is a better job board. Starting Monday improves execution: earlier signals, better timing, and stronger follow-through between coaching sessions.',
   },
   {
     question: 'How do you surface signals before a role is posted?',
-    answer: 'We monitor SEC 8-K filings, executive departure news, funding announcements, acquisition activity, PR wire, and company career pages for every company you track. When multiple signals cluster around a company, we flag it as a transition window. In most cases, that is weeks before any formal search begins.',
+    answer: 'We track filings, leadership moves, funding, M&A news, and career pages for your target companies. When signals cluster, we flag a transition window before most formal searches start.',
   },
   {
     question: 'Is my search confidential?',
-    answer: 'Completely. We have no relationship with employers, search firms, or recruiters. Your account, your pipeline, and your activity are private. We do not sell leads. We do not train AI on your data. You can permanently delete your account and all associated data at any time from Settings.',
+    answer: 'Yes. Your account and activity are private. We do not sell leads or train on your data, and you can permanently delete your account from Settings.',
   },
   {
     question: 'What does the prep brief include?',
-    answer: 'Your win thesis for that specific company. The objections they are likely to raise and how to counter each one. Questions that signal you understand the business at a peer level. What to leave out of the conversation entirely. Generated from your background, the role, and current company intelligence. Usually ready in about a minute.',
+    answer: 'A company-specific win thesis, likely objections, and peer-level questions. It is generated from your background, the role, and current company signals in about a minute.',
   },
   {
     question: 'How long does setup take?',
-    answer: 'Most users are tracking companies and receiving signals quickly after creating an account. Upload your resume, add target companies, and set your search level. The daily briefing starts the following morning.',
+    answer: 'Most users complete setup quickly: upload resume, add target companies, and set search level. Daily briefings begin the next morning.',
   },
   {
     question: 'Who is this built for?',
-    answer: 'CIOs, CTOs, CISOs, CDOs, CPOs, COOs, and VP-level technology leaders making the move to the C-suite. Every AI output is calibrated to senior roles - the prep briefs, strategy, and advisor all operate at that altitude. It is not built for mid-level managers or general job seekers.',
+    answer: 'CIO/CTO/CISO-level and VP technology leaders moving toward the C-suite. It is built for senior searches, not general job hunting.',
   },
 ]
 
@@ -143,11 +144,23 @@ const jsonLd = {
   ],
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const rolePathPriorityByCtaKey = await getRolePathPriorityByCtaKey()
+
   return (
     <PHProvider>
       <JsonLd data={jsonLd} />
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
+        <section className="mb-4 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the sections below to move from fit check to proof, then choose your next step.</p>
+        </section>
+        <details className="mb-4 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Starting Monday helps senior executives act earlier with better signal timing and preparation.</p>
+        </details>
+      </div>
       <LandingPage
         hero={{
           eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
@@ -157,7 +170,7 @@ export default function HomePage() {
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
           bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
-          body: 'Keep your coach, recruiter, and network. We add the execution layer: early transition signals, relationship cadence, and prep briefs in 60 seconds for stronger conversations.',
+          body: 'Keep your coach and recruiter. Add the execution layer: early signals, relationship cadence, and one-minute prep briefs.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
@@ -168,6 +181,7 @@ export default function HomePage() {
         situations={SITUATIONS}
         faqs={FAQS}
         showPersonaSelector
+        rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
       />
     </PHProvider>
   )

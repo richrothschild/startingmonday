@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
 import { getStripe } from '@/lib/stripe'
+import { getRolePathPriorityDebugRows } from '@/lib/role-path-priority'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
 import { INTERNAL_APIS, PAGE_GROUPS, STEP_LABELS } from './admin-page-config'
 
@@ -33,6 +34,8 @@ export default async function AdminPage() {
 
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
+
+  const rolePathPriorityDebugPromise = getRolePathPriorityDebugRows()
 
   const adminClient = createAdminClient()
   const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
@@ -139,6 +142,7 @@ export default async function AdminPage() {
   const eventCounts7d  = (events7d  ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
+  const rolePathPriorityDebug = await rolePathPriorityDebugPromise
   const searchPaused7d = eventCounts7d.search_paused ?? 0
   const searchResumed7d = eventCounts7d.search_resumed ?? 0
   const netPaused7d = searchPaused7d - searchResumed7d
@@ -514,8 +518,7 @@ export default async function AdminPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-8 flex items-start justify-between gap-4">
+<div className="mb-8 flex items-start justify-between gap-4">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Admin</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">
@@ -536,6 +539,7 @@ export default async function AdminPage() {
             <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
             <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
             <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
+            <a href="#role-path-ranking" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role-path ranking</a>
             <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
             <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
           </div>
@@ -543,7 +547,7 @@ export default async function AdminPage() {
 
         <section id="email-council-health" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
-          <p className="text-[12px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day channel EJES trend.</p>
+          <p className="text-[12px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day EJES trend.</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
             {[{
@@ -648,7 +652,7 @@ export default async function AdminPage() {
           </div>
           <div className="mt-3">
             <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
+              Automation alerts: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
@@ -685,7 +689,7 @@ export default async function AdminPage() {
             </div>
             <p className="text-[11px] text-slate-500 mb-3">
               Last 3d net: <span className="font-semibold text-slate-700">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
-              {' '}({positiveNetDaysLast3d}/3 days net positive)
+              {' '}({positiveNetDaysLast3d}/3 days positive)
             </p>
             <div className="space-y-2">
               {pauseResumeTrend7d.map((row) => (
@@ -718,6 +722,43 @@ export default async function AdminPage() {
             </div>
           </div>
         </div>
+
+        <section id="role-path-ranking" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Role Path Ranking Debug</h2>
+          <p className="text-[12px] text-slate-400 mb-4">Live homepage order inputs from click volume and conversion behavior (90d window).</p>
+          {rolePathPriorityDebug.length === 0 ? (
+            <p className="text-[12px] text-slate-500">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px] min-w-[760px]">
+                <thead>
+                  <tr className="text-left text-slate-400 border-b border-slate-100">
+                    <th className="py-2 pr-3 font-semibold">Rank</th>
+                    <th className="py-2 pr-3 font-semibold">CTA key</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Clicks</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Anon est.</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Conv users</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Conv rate</th>
+                    <th className="py-2 font-semibold text-right">Score</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {rolePathPriorityDebug.map((row) => (
+                    <tr key={row.ctaKey}>
+                      <td className="py-2 pr-3 font-semibold text-slate-900">#{row.rank}</td>
+                      <td className="py-2 pr-3 text-slate-700">{row.ctaKey}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{row.clicks}</td>
+                      <td className="py-2 pr-3 text-right text-slate-500">{row.anonymousClickEstimate}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{row.conversionUsers}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{(row.conversionRate * 100).toFixed(1)}%</td>
+                      <td className="py-2 text-right text-slate-900 font-semibold">{row.score.toFixed(4)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
 
         <section id="go-no-go" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="flex items-center justify-between gap-3 mb-4">
@@ -798,86 +839,15 @@ export default async function AdminPage() {
           </div>
         </section>
 
-        {/* Internal pages + permissions */}
-        <details id="internal-pages" className="space-y-4 mb-6">
-          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-            Internal pages + permissions
-          </summary>
-          <div className="pt-4 space-y-4">
-          {PAGE_GROUPS.map((group) => (
-            <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
-              <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
-                <div>
-                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">{group.label}</span>
-                  <p className="text-[12px] text-slate-500 mt-1">{group.purpose}</p>
-                </div>
-                <span className="text-[11px] text-slate-400">{group.pages.length} pages</span>
-              </div>
-              <table className="w-full text-[12px]">
-                <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                    <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
-                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Tier</th>
-                    <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                    <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {group.pages.map((page, i) => (
-                    <tr key={`${group.id}-${i}`}>
-                      <td className="px-6 py-3">
-                        <Link href={page.path} className="text-slate-900 font-semibold hover:text-slate-600">{page.label}</Link>
-                        <span className="ml-2 text-slate-300 font-mono text-[11px]">{page.path}</span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${page.priority === 'core' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
-                          {page.priority === 'core' ? 'Core' : 'Advanced'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center font-bold text-amber-600">{page.owner}</td>
-                      <td className="px-4 py-3 text-center font-bold text-blue-600">{page.admin}</td>
-                      <td className="px-4 py-3 text-center text-slate-300">{page.viewer}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
+        <section id="internal-pages" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
+            <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Team and permissions</Link>
+            <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Product ops</Link>
+            <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
           </div>
-        </details>
-
-        {/* Internal APIs + permissions */}
-        <details id="internal-apis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
-            Internal APIs + permissions
-          </summary>
-          <div>
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                <th className="px-6 py-2.5 font-semibold text-slate-400">Endpoint</th>
-                <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {INTERNAL_APIS.map((p, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-3">
-                    <span className="text-slate-900 font-semibold">{p.label}</span>
-                    <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
-                  </td>
-                  <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
-                  <td className="px-4 py-3 text-center font-bold text-blue-600">{p.admin}</td>
-                  <td className="px-4 py-3 text-center text-slate-300">{p.viewer}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-        </details>
+        </section>
 
         {/* Six-actions funnel */}
         <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
@@ -1006,57 +976,10 @@ export default async function AdminPage() {
           )}
         </section>
 
-        {/* Active trial users */}
-        <details id="active-trials" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
-            Active Trials ({trialUsers.length})
-          </summary>
-          <div>
-          {trialUsers.length === 0 ? (
-            <p className="px-6 py-5 text-[13px] text-slate-400">No active trials.</p>
-          ) : (
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Started</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Days left</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Companies</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Source</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {trialUsers.map(u => {
-                  const daysLeft = u.trial_ends_at
-                    ? Math.max(0, Math.round((new Date(u.trial_ends_at).getTime() - Date.now()) / 86400000))
-                    : null
-                  const daysIn = u.created_at
-                    ? Math.round((Date.now() - new Date(u.created_at).getTime()) / 86400000)
-                    : null
-                  const hasCompanies = trialCompanySet.has(u.id)
-                  return (
-                    <tr key={u.id}>
-                      <td className="px-6 py-3 font-semibold text-slate-900">{u.email}</td>
-                      <td className="px-4 py-3 text-slate-500">{daysIn !== null ? `Day ${daysIn}` : '-'}</td>
-                      <td className="px-4 py-3">
-                        <span className={`font-bold ${daysLeft !== null && daysLeft <= 3 ? 'text-red-600' : daysLeft !== null && daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>
-                          {daysLeft !== null ? `${daysLeft}d` : '-'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${hasCompanies ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
-                          {hasCompanies ? 'Yes' : 'No'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">{u.signup_source ?? '-'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          )}
-          </div>
-        </details>
+        <section id="active-trials" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
+          <p className="text-[13px] text-slate-600">Active trials: {trialUsers.length}</p>
+        </section>
 
         {/* Signal to action rate */}
         <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
@@ -1095,140 +1018,15 @@ export default async function AdminPage() {
           </div>
         </details>
 
-        {/* Partners */}
-        <details id="partners" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
-            Partners ({partners.length})
-          </summary>
-          <div>
-          {partners.length === 0 ? (
-            <p className="px-6 py-5 text-[13px] text-slate-400">No partners yet.</p>
-          ) : (
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Partner</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Code</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Referred</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Active</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">MRR</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Commission</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {partners.map(p => {
-                  const counts = attributionsByPartner[p.id] ?? { total: 0, active: 0, mrr: 0 }
-                  const commission = Math.round(counts.mrr * p.commission_pct / 100)
-                  return (
-                    <tr key={p.id}>
-                      <td className="px-6 py-3">
-                        <div className="font-semibold text-slate-900">{p.name}</div>
-                        <div className="text-slate-400 text-[11px]">{p.email}</div>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-slate-600">{p.referral_code}</td>
-                      <td className="px-4 py-3 text-right text-slate-700">{counts.total}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-slate-900">{counts.active}</td>
-                      <td className="px-4 py-3 text-right text-slate-700">{counts.mrr > 0 ? `$${counts.mrr}` : '-'}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-green-700">{commission > 0 ? `$${commission}/mo` : '-'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          )}
+        <section id="partners" className="bg-white border border-slate-200 rounded p-5">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Commercial snapshot</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
+            <div className="border border-slate-200 rounded px-3 py-2">Partners: <span className="font-semibold">{partners.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">Placements: <span className="font-semibold">{placements.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">Avg context: <span className="font-semibold">{avgContextScore ?? 'N/A'}</span></div>
           </div>
-        </details>
-
-        {/* B2B Accounts */}
-        {b2bAccounts.length > 0 && (
-          <details id="b2b-accounts" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
-              B2B Accounts ({b2bAccounts.length})
-            </summary>
-            <div>
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Owner</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Seats invited</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Accepted</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {b2bAccounts.map(a => (
-                  <tr key={a.id}>
-                    <td className="px-6 py-3 text-slate-900 font-semibold">{a.email}</td>
-                    <td className="px-4 py-3 capitalize">
-                      <span className="text-[11px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded">{a.tier}</span>
-                    </td>
-                    <td className="px-4 py-3 text-right text-slate-700">{a.total}</td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-900">{a.accepted}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-          </details>
-        )}
-
-        {/* Placements */}
-        {placements.length > 0 && (
-          <details id="placements" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-slate-200">
-              Placements ({placements.length})
-            </summary>
-            <div>
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Name</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Company</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {placements.map((p, i) => (
-                  <tr key={i}>
-                    <td className="px-6 py-3 font-semibold text-slate-900">{p.full_name ?? '-'}</td>
-                    <td className="px-4 py-3 text-slate-700">{p.placement_company ?? '-'}</td>
-                    <td className="px-4 py-3 text-slate-400">
-                      {new Date(p.placed_at!).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-          </details>
-        )}
-
-        {/* Brief quality */}
-        <details id="brief-quality" className="bg-white border border-slate-200 rounded p-6">
-          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Brief Quality (30d)</summary>
-          <div className="pt-4">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</h2>
-          <p className="text-[12px] text-slate-400 mb-5">Context richness at generation time (n={logs.length})</p>
-          {logs.length === 0 ? (
-            <p className="text-[13px] text-slate-400">No briefs logged yet.</p>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
-              {[
-                { label: 'Avg context score', value: avgContextScore !== null ? `${avgContextScore}/100` : '-' },
-                { label: '% with resume',     value: pctResume   !== null ? `${pctResume}%`   : '-' },
-                { label: '% with scan',       value: pctScan     !== null ? `${pctScan}%`     : '-' },
-                { label: '% with contacts',   value: pctContacts !== null ? `${pctContacts}%` : '-' },
-                { label: 'Avg word count',    value: avgWords    !== null ? avgWords.toLocaleString() : '-' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <div className="text-[22px] font-bold text-slate-900">{value}</div>
-                  <div className="text-[11px] text-slate-400 mt-1 leading-snug">{label}</div>
-                </div>
-              ))}
-            </div>
-          )}
-          </div>
-        </details>
+        </section>
 
       </main>
     </div>

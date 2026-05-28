@@ -1,5 +1,5 @@
 {
-  "warnings": 321,
-  "capturedAt": "2026-05-24",
-  "notes": "Recaptured during unified debt/security audit rollout. Parser errors were fixed and current warning floor is 321; future work should burn this baseline down."
+  "warnings": 328,
+  "capturedAt": "2026-05-26",
+  "notes": "Recaptured after workflow and content updates. Current warning floor is 328; future work should burn this baseline down."
 }

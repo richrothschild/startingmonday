@@ -175,7 +175,7 @@ export function evaluateEmailCouncilQuality({
   channel,
   subject,
   html,
-  minEjes = 90,
+  minEjes = 80,
 }: {
   channel?: EmailCouncilChannel
   subject: string
@@ -247,7 +247,7 @@ export function autoRefineEmailDraft({
   channel,
   subject,
   html,
-  minEjes = 90,
+  minEjes = 80,
   maxPasses = 2,
 }: {
   channel?: EmailCouncilChannel

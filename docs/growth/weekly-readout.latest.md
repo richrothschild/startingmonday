@@ -56,3 +56,24 @@
 1. Ship five-section landing architecture.
 2. Iterate instrumentation analysis after one full weekly cycle.
 3. Ship strict production growth gate.
+
+## Execution Lanes (2026-05-26)
+### Lane 1 - Mark pages
+- Scope: Mark decision brief and summary page revamp with loop-closure KPI block and readiness checklist.
+- Decision: Ship.
+- Verification: deployment success recorded and tracker updated.
+
+### Lane 2 - Main funnel continuity
+- Scope: source-aware handoff continuity across landing, pricing, concierge, signup, and demo.
+- Decision: Ship.
+- Verification: deployment success recorded and tracker updated.
+
+### Lane 3 - Persona and partner standardization
+- Scope: /for-vp, /for-cio, /for-ciso, /for-pe-partners, /for-search-firms aligned on confidentiality-first CTA and discoverability links.
+- Decision: Ship pending latest deployment completion.
+- Verification status: in-flight deployment check required before final close.
+
+### Lane 4 - Trust and governance visibility
+- Scope: release artifact published and security/governance posture surfaced with rollback triggers.
+- Decision: Ship pending latest deployment completion.
+- Verification status: in-flight deployment check required before final close.

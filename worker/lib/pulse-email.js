@@ -7,7 +7,7 @@ function esc(str) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
-export async function sendPipelinePulse({ to, firstName, newSignals, draftReadyCount, overdueCount, staleCompanyCount, totalCompanies }) {
+export async function sendPipelinePulse({ to, firstName, newSignals, draftReadyCount, overdueCount, staleCompanyCount }) {
   const subject = newSignals.length > 0
     ? `${newSignals.length} new signal${newSignals.length !== 1 ? 's' : ''} this week - Starting Monday`
     : `Your search health this week - Starting Monday`

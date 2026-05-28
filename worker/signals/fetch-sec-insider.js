@@ -2,7 +2,6 @@ import * as cheerio from 'cheerio'
 import { logger } from '../lib/logger.js'
 
 const EDGAR_CGI     = 'https://www.sec.gov/cgi-bin'
-const EDGAR_ARCHIVE = 'https://www.sec.gov/Archives/edgar/data'
 const EDGAR_ORIGIN  = 'https://www.sec.gov'
 const HEADERS       = { 'User-Agent': 'StartingMonday/1.0 contact@startingmonday.app' }
 

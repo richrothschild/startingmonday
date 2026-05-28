@@ -207,22 +207,30 @@ export default function OptimizePage() {
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
 
-        {/* Hero */}
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+{/* Hero */}
         <div className="mb-8 text-center">
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-tight">
             LinkedIn Profile Grader
           </h1>
           <p className="text-[15px] text-slate-500 mt-3 leading-relaxed max-w-lg mx-auto">
-            Paste your LinkedIn profile and get an honest A-F grade by section, specific rewrites for your weakest spots, and a clear plan to fix them.
+            Paste your LinkedIn profile for section grades, targeted rewrites, and a clear fix plan.
           </p>
           <p className="text-[12px] text-slate-400 mt-2">Free. No account required. 3 analyses per day.</p>
         </div>
 
         <section className="bg-white border border-slate-200 rounded p-4 mb-6">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">How grading works</h2>
-          <p className="text-[13px] text-slate-600 leading-relaxed">Trust and confidentiality: your pasted profile text is used only to generate your analysis.</p>
-          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Outcome metric: section-level grades and rewrites help you fix weak profile areas in one editing pass.</p>
-          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">CTA: get started now by pasting your current LinkedIn profile.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed">Your pasted text is used only to generate your analysis.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Output includes section grades plus rewrites for weak areas.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Start by pasting your current profile.</p>
         </section>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
@@ -358,10 +366,10 @@ export default function OptimizePage() {
               Now fix how you find the roles.
             </p>
             <h2 className="text-[22px] font-bold text-white leading-tight mb-3">
-              Most executives don&rsquo;t know<br />they&rsquo;re already behind.
+              Strong profile. Better timing.
             </h2>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
-              A stronger profile is the foundation. Knowing where to aim it before the search opens is the rest of the campaign. Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is engaged.
+              Profile quality is step one. Starting Monday tracks departures, board changes, and funding signals so you can move before formal search cycles start.
             </p>
             <Link
               href="/signup"

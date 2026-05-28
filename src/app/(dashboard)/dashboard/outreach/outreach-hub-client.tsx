@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
 
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All Statuses' },
@@ -25,6 +26,16 @@ const CONFIDENCE_OPTIONS = [
   { value: 'all', label: 'All Confidence' },
 ] as const
 
+const FOLLOW_UP_BATCH_SIZE = 5
+const FOLLOW_UP_BATCH_DELAY_MS = 1250
+const FOLLOW_UP_RETRY_DELAY_MS = 1500
+const COACH_WORKSHEET_URL = 'https://startingmonday.app/for-coaches/coach-prep-worksheet'
+const FOLLOW_UP_MAX_ATTEMPTS = 2
+const FOLLOW_UP_CAMPAIGN_STEP = 'followup_bulk_v1'
+const FOLLOW_UP_POLL_INITIAL_DELAY_MS = 1500
+const FOLLOW_UP_POLL_MAX_DELAY_MS = 10000
+const FOLLOW_UP_POLL_TIMEOUT_MS = 180000
+
 type ProspectRow = {
   fullName: string
   roleBucket: string
@@ -45,39 +56,256 @@ type ProspectRow = {
 type Props = {
   rows: ProspectRow[]
   fromAddressLabel: string
+  buildVersion: string
 }
 
-function firstNameOf(fullName: string): string {
-  const first = fullName.trim().split(/\s+/)[0]
-  return first && first.length > 0 ? first : 'there'
+type ErrorDisplay = {
+  title: string
+  detail: string
+  rawReason?: string
 }
 
-function day1Message10Draft(fullName: string): { subject: string; body: string } {
-  const firstName = firstNameOf(fullName)
+type BatchStatusSummary = {
+  totalJobs: number
+  queuedJobs: number
+  sendingJobs: number
+  acceptedJobs: number
+  deliveredJobs: number
+  bouncedJobs: number
+  complainedJobs: number
+  repliedJobs: number
+  failedJobs: number
+  completedJobs: number
+  failedRecipients: Array<{ jobId: string; recipientEmail: string; code: string; message: string }>
+}
+
+export { detectLegacyTemplateCopy }
+
+function legacyCopyBlockedError(hits: string[]): ErrorDisplay {
   return {
-    subject: 'Would it be unreasonable to test this with 2 clients?',
-    body: [
-      `Hi ${firstName},`,
-      '',
-      'We built Starting Monday for coaches supporting senior executives in transition. The goal is simple: less admin drag, better-prepared clients, stronger sessions.',
-      '',
-      'Would it be unreasonable to run a 30-day test with 2 clients and keep it only if outcomes improve?',
-      '',
-      'If yes, I will send the setup checklist.',
-      '',
-      'Rich',
-    ].join('\n'),
+    title: 'Legacy draft blocked',
+    detail: 'Legacy outreach copy markers were detected in this draft. Sending is blocked to prevent stale templates from going out.',
+    rawReason: hits.join(', '),
   }
 }
 
-function prefillForRow(row: ProspectRow, indexInFiltered: number): { subject: string; body: string } {
-  if (row.campaignTag === 'coach_day1_60' && (indexInFiltered + 1) % 5 === 0) {
-    return day1Message10Draft(row.fullName)
+function parseJsonObject(value: string): Record<string, unknown> | null {
+  try {
+    const parsed = JSON.parse(value)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, unknown>
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+function toStringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.map(String) : []
+}
+
+async function readApiPayload(response: Response): Promise<{ payload: Record<string, unknown>; fallbackError: string }> {
+  const fallbackError = `Request failed (${response.status})`
+  const rawText = await response.text().catch(() => '')
+
+  if (!rawText.trim()) {
+    return { payload: {}, fallbackError }
+  }
+
+  const parsed = parseJsonObject(rawText)
+  if (parsed) {
+    return { payload: parsed, fallbackError }
   }
 
   return {
-    subject: row.defaultSubject,
-    body: row.defaultBody,
+    payload: { error: `${fallbackError}: ${rawText.trim().slice(0, 220)}` },
+    fallbackError,
+  }
+}
+
+function isHtmlErrorPayload(value: string): boolean {
+  const normalized = value.trim().toLowerCase()
+  return normalized.includes('<!doctype html') || normalized.includes('<html')
+}
+
+function isTransientFollowUpError(value: string): boolean {
+  const normalized = value.trim().toLowerCase()
+  return normalized.includes('request failed (502)')
+    || normalized.includes('request failed (503)')
+    || normalized.includes('request failed (504)')
+    || normalized.includes('internal server error')
+    || isHtmlErrorPayload(normalized)
+}
+
+function normalizeFollowUpFailureReason(value: string): string {
+  if (isHtmlErrorPayload(value)) {
+    return 'Send route returned an HTML 502/503 page instead of JSON.'
+  }
+
+  return value
+}
+
+export function formatOutreachErrorMessage(error: string | null | undefined, sendMode: 'dry_run' | 'test_to_self' | 'live'): ErrorDisplay {
+  const normalized = (error ?? '').trim()
+
+  if (!normalized) {
+    return {
+      title: 'Email was not sent',
+      detail: sendMode === 'test_to_self'
+        ? 'The test email did not go out. Review the message and try again.'
+        : 'The outreach message did not go out. Review the details below and try again.',
+    }
+  }
+
+  if (normalized.toLowerCase().startsWith('blocked by email council gate:')) {
+    return {
+      title: 'Send blocked before delivery',
+      detail: 'This draft did not meet the live email quality gate, so no email was sent. Tighten the copy and run a test to yourself before sending live.',
+      rawReason: normalized,
+    }
+  }
+
+  if (normalized === 'Recipient is suppressed. Remove suppression before sending.') {
+    return {
+      title: 'Recipient is suppressed',
+      detail: 'This contact is currently blocked from outreach. Remove the suppression entry before trying again.',
+    }
+  }
+
+  if (normalized === 'Could not resolve test recipient email.') {
+    return {
+      title: 'Test send could not start',
+      detail: 'Your account email could not be resolved for Send Test To Me. Confirm your signed-in user has a valid email address.',
+    }
+  }
+
+  if (normalized === 'OUTREACH_FROM_ADDRESS must use richard@startingmonday.app.') {
+    return {
+      title: 'Sender configuration error',
+      detail: 'The outreach sender is misconfigured in the environment. No email was sent.',
+    }
+  }
+
+  return {
+    title: 'Email was not sent',
+    detail: sendMode === 'test_to_self'
+      ? 'The test email failed before delivery.'
+      : 'The outreach email failed before delivery.',
+    rawReason: normalized,
+  }
+}
+
+function followUpIdempotencyKey(row: ProspectRow): string {
+  return `${FOLLOW_UP_CAMPAIGN_STEP}:${row.email.toLowerCase()}`
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms)
+  })
+}
+
+async function sendFollowUpRequest(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live', batchId: string) {
+  const res = await fetch('/api/outreach/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fullName: target.fullName,
+      company: target.company,
+      roleBucket: target.roleBucket,
+      emailTo: target.email,
+      statusAfter: 'reached_out',
+      mode,
+      outreachChannel: target.outreachChannel,
+      fitTier: target.fitTier,
+      personaFocus: target.personaFocus,
+      useLatestTemplateDraft: true,
+      templateStep: 'followup_1',
+      campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
+      idempotencyKey: followUpIdempotencyKey(target),
+      batchId,
+    }),
+  })
+
+  const { payload, fallbackError } = await readApiPayload(res)
+
+  if (!res.ok) {
+    const reason = typeof payload.error === 'string' && payload.error.trim().length > 0
+      ? payload.error
+      : fallbackError
+    return {
+      ok: false as const,
+      duplicate: false,
+      reason,
+      transient: isTransientFollowUpError(reason),
+      batchId: null,
+    }
+  }
+
+  return {
+    ok: true as const,
+    duplicate: payload.duplicate === true,
+    reason: '',
+    transient: false,
+    batchId: typeof payload.batchId === 'string' ? payload.batchId : null,
+  }
+}
+
+async function sendFollowUpWithRetry(target: ProspectRow, mode: 'dry_run' | 'test_to_self' | 'live', batchId: string) {
+  for (let attempt = 1; attempt <= FOLLOW_UP_MAX_ATTEMPTS; attempt += 1) {
+    const result = await sendFollowUpRequest(target, mode, batchId)
+    if (result.ok || !result.transient || attempt === FOLLOW_UP_MAX_ATTEMPTS) {
+      return result
+    }
+
+    await sleep(FOLLOW_UP_RETRY_DELAY_MS)
+  }
+
+  return {
+    ok: false as const,
+    duplicate: false,
+    reason: 'Unknown follow-up retry failure.',
+    transient: false,
+    batchId: null,
+  }
+}
+
+async function pollOutreachBatchStatus(batchId: string): Promise<{ ok: true; status: string; summary: BatchStatusSummary } | { ok: false; reason: string }> {
+  const startedAt = Date.now()
+  let delayMs = FOLLOW_UP_POLL_INITIAL_DELAY_MS
+
+  while (Date.now() - startedAt < FOLLOW_UP_POLL_TIMEOUT_MS) {
+    const res = await fetch(`/api/outreach/send/batch-status?batchId=${encodeURIComponent(batchId)}`, {
+      method: 'GET',
+      cache: 'no-store',
+    })
+    const { payload, fallbackError } = await readApiPayload(res)
+    if (!res.ok) {
+      return {
+        ok: false,
+        reason: typeof payload.error === 'string' && payload.error.trim().length > 0 ? payload.error : fallbackError,
+      }
+    }
+
+    const status = typeof payload.status === 'string' ? payload.status : 'queued'
+    const summary = (payload.summary ?? {}) as BatchStatusSummary
+    if (status === 'completed' || status === 'completed_with_failures') {
+      return { ok: true, status, summary }
+    }
+
+    await sleep(delayMs)
+    delayMs = Math.min(Math.floor(delayMs * 1.5), FOLLOW_UP_POLL_MAX_DELAY_MS)
+  }
+
+  return { ok: false, reason: 'Timed out waiting for batch completion.' }
+}
+
+function prefillForRow(row: ProspectRow): { subject: string; body: string } {
+  void row
+  return {
+    subject: '',
+    body: '',
   }
 }
 
@@ -94,7 +322,7 @@ function statusText(status: string): string {
   return hit?.label ?? 'Prospect'
 }
 
-export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
+export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Props) {
   const [items, setItems] = useState(rows)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
@@ -102,19 +330,32 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   const [activeChannel, setActiveChannel] = useState<'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'>('executives')
   const [activeCampaign, setActiveCampaign] = useState<'all' | 'coach_day1_60'>('all')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
-  const [subject, setSubject] = useState(rows[0]?.defaultSubject ?? '')
-  const [messageText, setMessageText] = useState(rows[0]?.defaultBody ?? '')
+  const [subject, setSubject] = useState('')
+  const [messageText, setMessageText] = useState('')
   const [sendMode, setSendMode] = useState<'dry_run' | 'test_to_self' | 'live'>('dry_run')
   const [confirmLive, setConfirmLive] = useState(false)
   const [sending, setSending] = useState(false)
+  const [templateLoading, setTemplateLoading] = useState(false)
+  const [sendingFollowUps, setSendingFollowUps] = useState(false)
   const [suppressing, setSuppressing] = useState(false)
   const [saveBusyEmail, setSaveBusyEmail] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<ErrorDisplay | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [guardrailWarnings, setGuardrailWarnings] = useState<string[]>([])
   const [guardrailViolations, setGuardrailViolations] = useState<string[]>([])
   const [googleFollowUp3Url, setGoogleFollowUp3Url] = useState<string | null>(null)
   const [googleFollowUp7Url, setGoogleFollowUp7Url] = useState<string | null>(null)
+
+  function insertCoachWorksheetLink() {
+    setMessageText((current) => {
+      const normalized = current.replace(/\r\n/g, '\n').trim()
+      if (normalized.includes(COACH_WORKSHEET_URL)) return current
+
+      const linkLine = `Here is the one-page coach prep worksheet: ${COACH_WORKSHEET_URL}`
+      if (!normalized) return linkLine
+      return `${normalized}\n\n${linkLine}`
+    })
+  }
 
   // Load current Supabase contact status for all rows on mount
   useEffect(() => {
@@ -158,26 +399,64 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
   }, [items, search, statusFilter, confidenceFilter, activeChannel, activeCampaign])
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
+  const isCoachComposer = selected?.outreachChannel === 'coaches'
+  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out'), [items])
+
+  async function hydrateTemplateForRow(row: ProspectRow) {
+    setTemplateLoading(true)
+    setSubject('')
+    setMessageText('')
+    try {
+      const response = await fetch('/api/outreach/template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: row.fullName,
+          company: row.company,
+          roleBucket: row.roleBucket,
+          outreachChannel: row.outreachChannel,
+          personaFocus: row.personaFocus,
+          templateStep: 'first_touch',
+        }),
+      })
+
+      const { payload } = await readApiPayload(response)
+      if (!response.ok) {
+        setError({
+          title: 'Template refresh failed',
+          detail: 'Could not load the latest server template for this row. Sending is blocked until template refresh succeeds.',
+        })
+        return
+      }
+
+      const nextSubject = typeof payload.subject === 'string' ? payload.subject : ''
+      const nextBody = typeof payload.body === 'string' ? payload.body : ''
+      if (nextSubject.trim() && nextBody.trim()) {
+        setSubject(nextSubject)
+        setMessageText(nextBody)
+        setError(null)
+      }
+    } finally {
+      setTemplateLoading(false)
+    }
+  }
 
   useEffect(() => {
     const row = filtered[selectedIndex] ?? filtered[0]
     if (!row) return
-    const idx = filtered[selectedIndex] ? selectedIndex : 0
-    const prefill = prefillForRow(row, idx)
-    setSubject(prefill.subject)
-    setMessageText(prefill.body)
+    void hydrateTemplateForRow(row)
+    setGuardrailWarnings([])
+    setSuccess(null)
   }, [filtered, selectedIndex])
 
   function resetComposerFor(index: number) {
     const next = filtered[index]
     if (!next) return
     setSelectedIndex(index)
-    const prefill = prefillForRow(next, index)
-    setSubject(prefill.subject)
-    setMessageText(prefill.body)
+    void hydrateTemplateForRow(next)
     setError(null)
-    setSuccess(null)
     setGuardrailWarnings([])
+    setSuccess(null)
     setGuardrailViolations([])
     setGoogleFollowUp3Url(null)
     setGoogleFollowUp7Url(null)
@@ -194,12 +473,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, fullName, company, status }),
     })
+    const { payload, fallbackError } = await readApiPayload(res)
 
     setSaveBusyEmail(null)
 
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      setError(data.error ?? 'Could not update status.')
+      setError({
+        title: 'Status update failed',
+        detail: (payload.error as string) ?? fallbackError,
+      })
       return
     }
 
@@ -209,6 +491,14 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
 
   async function sendSelected() {
     if (!selected || sending) return
+
+    const staleHits = detectLegacyTemplateCopy(subject, messageText)
+    if (staleHits.length > 0) {
+      setError(legacyCopyBlockedError(staleHits))
+      setGuardrailWarnings([`Legacy markers detected: ${staleHits.join(', ')}`])
+      setSuccess(null)
+      return
+    }
 
     setSending(true)
     setError(null)
@@ -234,19 +524,22 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
       }),
     })
 
-    const data = await res.json().catch(() => ({} as Record<string, unknown>))
+    const { payload: data, fallbackError } = await readApiPayload(res)
     setSending(false)
 
     if (!res.ok) {
-      const violations = Array.isArray(data.violations) ? data.violations.map(String) : []
-      const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+      const violations = toStringList(data.violations)
+      const warnings = toStringList(data.warnings)
       setGuardrailViolations(violations)
       setGuardrailWarnings(warnings)
-      setError((data.error as string) ?? 'Email send failed.')
+      const resolvedError = typeof data.error === 'string' && data.error.trim().length > 0
+        ? data.error
+        : fallbackError
+      setError(formatOutreachErrorMessage(resolvedError, sendMode))
       return
     }
 
-    const warnings = Array.isArray(data.warnings) ? data.warnings.map(String) : []
+    const warnings = toStringList(data.warnings)
     setGuardrailWarnings(warnings)
 
     const maybeGoogle3 = typeof data.googleFollowUp3Url === 'string' ? data.googleFollowUp3Url : null
@@ -255,11 +548,10 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setGoogleFollowUp7Url(maybeGoogle7)
 
     if (sendMode === 'live') {
-      setItems(prev => prev.map((r) => (r.email === selected.email ? { ...r, status: 'reached_out' } : r)))
-      setSuccess(`Sent live to ${selected.fullName} from ${fromAddressLabel}.`)
+      setSuccess(`Queued live send to ${selected.fullName} from ${fromAddressLabel}. Delivery updates will appear as webhooks arrive.`)
       setConfirmLive(false)
     } else if (sendMode === 'test_to_self') {
-      setSuccess('Test email sent to your own inbox. Review rendering and tone before live send.')
+      setSuccess('Queued test email to your own inbox. Review rendering and tone before live send.')
     } else {
       setSuccess('Dry run complete. No email was sent.')
     }
@@ -281,12 +573,15 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
         source: 'manual',
       }),
     })
+    const { payload, fallbackError } = await readApiPayload(res)
 
     setSuppressing(false)
 
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      setError(data.error ?? 'Could not suppress recipient.')
+      setError({
+        title: 'Suppression update failed',
+        detail: (payload.error as string) ?? fallbackError,
+      })
       return
     }
 
@@ -294,6 +589,175 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
     setSuccess(`Suppressed ${selected.fullName}. Future sends are blocked until unsuppressed.`)
   }
 
+  async function sendCrossChannelFollowUps() {
+    if (sendingFollowUps) return
+    if (followUpTargets.length === 0) {
+      setError({
+        title: 'No follow-up targets',
+        detail: 'No contacts are currently marked Reached Out across channels.',
+      })
+      return
+    }
+
+    if (sendMode === 'live') {
+      const confirmed = window.confirm(`Send follow-up emails to ${followUpTargets.length} reached-out contacts across all channels?`)
+      if (!confirmed) return
+    }
+
+    setSendingFollowUps(true)
+    setError(null)
+    setSuccess(null)
+    setGuardrailWarnings([])
+    setGuardrailViolations([])
+
+    let queuedCount = 0
+    let preflightBlockedCount = 0
+    let duplicateCount = 0
+    const failures: string[] = []
+    const sendQueue: ProspectRow[] = []
+    const sharedBatchId = globalThis.crypto?.randomUUID?.() ?? `followup_${Date.now()}`
+    let resolvedBatchId: string | null = null
+
+    for (const target of followUpTargets) {
+      const preflightRes = await fetch('/api/outreach/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: target.fullName,
+          company: target.company,
+          roleBucket: target.roleBucket,
+          emailTo: target.email,
+          statusAfter: 'reached_out',
+          mode: 'dry_run',
+          outreachChannel: target.outreachChannel,
+          fitTier: target.fitTier,
+          personaFocus: target.personaFocus,
+          useLatestTemplateDraft: true,
+          templateStep: 'followup_1',
+          campaignStep: FOLLOW_UP_CAMPAIGN_STEP,
+          idempotencyKey: followUpIdempotencyKey(target),
+        }),
+      })
+
+      const { payload: preflightPayload, fallbackError: preflightFallback } = await readApiPayload(preflightRes)
+      if (!preflightRes.ok) {
+        const reason = typeof preflightPayload.error === 'string' && preflightPayload.error.trim().length > 0
+          ? preflightPayload.error
+          : preflightFallback
+        preflightBlockedCount += 1
+        failures.push(`${target.fullName}: ${reason}`)
+        continue
+      }
+
+      sendQueue.push(target)
+    }
+
+    if (sendMode === 'dry_run') {
+      setSendingFollowUps(false)
+      if (preflightBlockedCount > 0) {
+        setError({
+          title: 'Dry run found blocked follow-ups',
+          detail: `${sendQueue.length} ready, ${preflightBlockedCount} blocked in preflight across all channels.`,
+          rawReason: failures.slice(0, 4).join(' | '),
+        })
+      } else {
+        setSuccess(`Dry run passed for ${sendQueue.length} follow-up emails across all channels.`)
+      }
+      return
+    }
+
+    for (let i = 0; i < sendQueue.length; i += FOLLOW_UP_BATCH_SIZE) {
+      const batch = sendQueue.slice(i, i + FOLLOW_UP_BATCH_SIZE)
+
+      const batchResults = await Promise.all(batch.map(async (target) => {
+        const result = await sendFollowUpWithRetry(target, sendMode, sharedBatchId)
+        if (!result.ok) {
+          return {
+            ok: false,
+            duplicate: false,
+            reason: `${target.fullName}: ${normalizeFollowUpFailureReason(result.reason)}`,
+            batchId: null as string | null,
+          }
+        }
+
+        return { ok: true, duplicate: result.duplicate, reason: '', batchId: result.batchId }
+      }))
+
+      for (const result of batchResults) {
+        if (!result.ok) {
+          failures.push(result.reason)
+          continue
+        }
+        if (result.duplicate) {
+          duplicateCount += 1
+          continue
+        }
+        queuedCount += 1
+        if (result.batchId) {
+          resolvedBatchId = result.batchId
+        }
+      }
+
+      if (i + FOLLOW_UP_BATCH_SIZE < sendQueue.length) {
+        await sleep(FOLLOW_UP_BATCH_DELAY_MS)
+      }
+    }
+
+    if (queuedCount === 0) {
+      setSendingFollowUps(false)
+      if (failures.length > 0) {
+        setError({
+          title: 'No follow-ups were queued',
+          detail: `${duplicateCount} duplicates skipped and ${preflightBlockedCount} preflight blocks across ${followUpTargets.length} targets in ${sendMode} mode.`,
+          rawReason: failures.slice(0, 4).join(' | '),
+        })
+        return
+      }
+
+      setSuccess(`No new follow-ups queued. ${duplicateCount} duplicate sends were skipped.`)
+      return
+    }
+
+    if (!resolvedBatchId) {
+      setSendingFollowUps(false)
+      setError({
+        title: 'Batch tracking failed',
+        detail: 'Follow-up jobs were queued, but no batch id was returned for status tracking.',
+      })
+      return
+    }
+
+    setSuccess(`Queued ${queuedCount} follow-up emails. Waiting for delivery processing...`)
+    const batchStatus = await pollOutreachBatchStatus(resolvedBatchId)
+    setSendingFollowUps(false)
+
+    if (!batchStatus.ok) {
+      setError({
+        title: 'Batch status unavailable',
+        detail: `Queued ${queuedCount} follow-ups, but could not confirm completion.`,
+        rawReason: batchStatus.reason,
+      })
+      return
+    }
+
+    const summary = batchStatus.summary
+    if (summary.failedJobs > 0 || failures.length > 0) {
+      const workerFailures = (summary.failedRecipients ?? []).map(item => `${item.recipientEmail}: ${item.message}`)
+      setError({
+        title: 'Some follow-ups failed',
+        detail: `Queued ${queuedCount}; processed ${summary.completedJobs}/${summary.totalJobs}. Failed ${summary.failedJobs}, duplicates ${duplicateCount}, preflight blocks ${preflightBlockedCount}.`,
+        rawReason: [...failures, ...workerFailures].slice(0, 4).join(' | '),
+      })
+      return
+    }
+
+    const deliveredLike = summary.deliveredJobs + summary.acceptedJobs + summary.repliedJobs
+    setSuccess(`Completed follow-up batch: ${deliveredLike} accepted/delivered/replied, ${summary.bouncedJobs} bounced, ${summary.complainedJobs} complained. ${duplicateCount > 0 ? `${duplicateCount} duplicates were skipped.` : ''}`.trim())
+  }
+
+
+  const staleComposerHits = useMemo(() => detectLegacyTemplateCopy(subject, messageText), [subject, messageText])
+  const staleBlocked = staleComposerHits.length > 0
   const liveBlocked = sendMode === 'live' && !confirmLive
 
   return (
@@ -339,6 +803,17 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
             ].join(' ')}
           >
             Day 1 Coach List (60)
+          </button>
+          <button
+            type="button"
+            onClick={sendCrossChannelFollowUps}
+            disabled={sendingFollowUps || sending || suppressing}
+            className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-900 bg-slate-900 text-white hover:bg-slate-700 disabled:opacity-50"
+            title="Send follow-up emails to all reached-out contacts across all channels"
+          >
+            {sendingFollowUps
+              ? 'Sending Follow-ups...'
+              : `Send Follow-ups (All Channels${followUpTargets.length > 0 ? `: ${followUpTargets.length}` : ''})`}
           </button>
         </div>
       </div>
@@ -459,6 +934,7 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 <p className="text-[12px] text-slate-500 mt-1">Email confidence: {selected.emailConfidence}</p>
                 <p className="text-[12px] text-slate-500 mt-1">Persona focus: {selected.personaFocus}</p>
                 <p className="text-[12px] text-slate-500 mt-1">From: {fromAddressLabel}</p>
+                <p className="text-[11px] text-slate-400 mt-2">Template build: {buildVersion}</p>
               </div>
 
               <div>
@@ -474,7 +950,19 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Message</label>
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">Message</label>
+                  {isCoachComposer && (
+                    <button
+                      type="button"
+                      onClick={insertCoachWorksheetLink}
+                      className="text-[11px] font-semibold text-slate-700 border border-slate-300 rounded px-2 py-1 hover:border-slate-500"
+                      title="Insert coach worksheet link"
+                    >
+                      Send worksheet
+                    </button>
+                  )}
+                </div>
                 <textarea
                   aria-label="Email message"
                   title="Email message"
@@ -537,7 +1025,24 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
                 </div>
               )}
 
-              {error && <p className="text-[12px] text-red-600">{error}</p>}
+              {staleBlocked && (
+                <div className="border border-red-200 bg-red-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-red-700 mb-1">Legacy template markers detected</p>
+                  <ul className="text-[12px] text-red-700 list-disc ml-5 space-y-1">
+                    {staleComposerHits.map((hit, i) => <li key={`legacy-${i}`}>{hit}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              {error && (
+                <div className="border border-red-200 bg-red-50 rounded p-3">
+                  <p className="text-[12px] font-semibold text-red-700">{error.title}</p>
+                  <p className="text-[12px] text-red-700 mt-1">{error.detail}</p>
+                  {error.rawReason && (
+                    <p className="text-[11px] text-red-800 mt-2">Reason: {error.rawReason}</p>
+                  )}
+                </div>
+              )}
               {success && <p className="text-[12px] text-green-700">{success}</p>}
 
               {(googleFollowUp3Url || googleFollowUp7Url) && (
@@ -561,10 +1066,18 @@ export function OutreachHubClient({ rows, fromAddressLabel }: Props) {
               <button
                 type="button"
                 onClick={sendSelected}
-                disabled={sending || !subject.trim() || !messageText.trim() || liveBlocked}
+                disabled={sending || templateLoading || !subject.trim() || !messageText.trim() || liveBlocked || staleBlocked}
                 className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded disabled:opacity-50"
               >
-                {sending ? 'Processing...' : sendMode === 'dry_run' ? 'Run Dry Run Check' : sendMode === 'test_to_self' ? 'Send Test To Me' : `Send Live To ${selected.fullName}`}
+                {sending
+                  ? 'Processing...'
+                  : templateLoading
+                    ? 'Refreshing from server template...'
+                    : sendMode === 'dry_run'
+                      ? 'Run Dry Run Check'
+                      : sendMode === 'test_to_self'
+                        ? 'Send Test To Me'
+                        : `Send Live To ${selected.fullName}`}
               </button>
 
               <button

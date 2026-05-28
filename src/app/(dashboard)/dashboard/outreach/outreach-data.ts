@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
-import templateEngine from '@/lib/outreach/template-engine.cjs'
+import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
 
 export type CsvRow = Record<string, string>
 export type OutreachChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
@@ -272,8 +272,7 @@ export function buildStandardizedDraft(
   channel: OutreachChannel,
   options?: { forceTemplate?: boolean },
 ): { subject: string; body: string } {
-  const sourceDraft = sourceTemplateDraft(row)
-  if (!options?.forceTemplate && sourceDraft) return sourceDraft
+  void options
 
   const firstName = firstNameOf(row.full_name)
   const company = companyToken(row.company)
@@ -281,8 +280,9 @@ export function buildStandardizedDraft(
   const roleLabel = archetype ? executiveRoleLabel(archetype) : (row.role_bucket || 'Executive')
   const triggers = mapTriggerInputs(row)
 
-  return templateEngine.buildLatestTemplateDraft({
+  const draft = buildOutreachTemplateDraft({
     channel,
+    fullName: row.full_name,
     firstName,
     company,
     roleLabel,
@@ -293,6 +293,11 @@ export function buildStandardizedDraft(
     postTrigger: triggers.postTrigger,
     profileTrigger: triggers.profileTrigger,
   })
+
+  return {
+    subject: draft.subject,
+    body: draft.body,
+  }
 }
 
 function buildDefaultSubject(row: CsvRow): string {
@@ -531,8 +536,11 @@ export function mergeFirstTouch(master: CsvSummary, firstTouch: CsvSummary): Csv
     const touch = byName.get((row.full_name ?? '').trim().toLowerCase())
     return {
       ...row,
-      default_subject: touch?.subject ?? buildDefaultSubject(row),
-      default_body: touch?.email_text ?? buildDefaultBody(row),
+      // Keep matching metadata from first-touch rows, but do not carry forward
+      // legacy subject/body copy as defaults.
+      ...(touch ? touch : {}),
+      default_subject: buildDefaultSubject(row),
+      default_body: buildDefaultBody(row),
     }
   })
 

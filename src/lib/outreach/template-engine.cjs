@@ -23,17 +23,34 @@ function cleanTrigger(raw) {
   return value.replace(/[.!?]+$/, '')
 }
 
+function subjectCompanyLabel(raw) {
+  const safe = String(raw || '').replace(/\s+/g, ' ').trim()
+  if (!safe) return 'your team'
+  if (safe.length <= 24) return safe
+
+  const words = safe.split(' ').filter(Boolean)
+  if (words.length >= 2) {
+    const firstTwo = words.slice(0, 2).join(' ')
+    if (/\b(team|group|firm|partners|coaching)\b/i.test(firstTwo)) {
+      return firstTwo
+    }
+    return `${firstTwo} team`
+  }
+
+  return 'your team'
+}
+
 function channelFallbackTrigger(channel, focus) {
   if (channel === CHANNELS.EXECUTIVES) {
-    return `In first-week ${focus} moves, early momentum can slip when the first-call story is not clear.`
+    return `When a ${focus} search opens, even strong candidates can sound generic in the first recruiter and board call.`
   }
   if (channel === CHANNELS.COACHES) {
-    return 'Between sessions, prep can sprawl across inboxes, docs, and memory.'
+    return 'Between sessions, prep work usually ends up split across notes, email, and memory.'
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    return 'In search work, first-touch quality can slip and partner review cycles can repeat.'
+    return 'In retained search, shortlist quality drops when the first outreach starts before the role story is crisp.'
   }
-  return `Across ${focus}, first-call quality can vary more than teams expect.`
+  return `Across ${focus}, candidates can get prepared in different ways, and counselors feel the inconsistency.`
 }
 
 function triggerLine(channel, focus, { newsTrigger, postTrigger, profileTrigger }) {
@@ -41,16 +58,16 @@ function triggerLine(channel, focus, { newsTrigger, postTrigger, profileTrigger 
   if (!candidate) return channelFallbackTrigger(channel, focus)
 
   if (channel === CHANNELS.COACHES) {
-    return `I saw ${candidate}, and that pressure is real for most coaches.`
+    return `I saw ${candidate}, and it looked like the kind of prep load coaches end up carrying between sessions.`
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    return `I saw ${candidate}, and this is usually when first-touch quality matters most.`
+    return `I saw ${candidate}, and it looked like the kind of moment when shortlist quality can drift.`
   }
   if (channel === CHANNELS.OUTPLACEMENT_FIRMS) {
-    return `I saw ${candidate}, and it often signals uneven first-call readiness across the cohort.`
+    return `I saw ${candidate}, and it looked like the kind of growth point where cohort consistency gets harder to hold.`
   }
   const simplifiedCandidate = candidate.replace(/\b([A-Za-z]{2,5}) succession plan announced\b/i, '$1 leadership changes')
-  return `I saw ${simplifiedCandidate}, and that usually adds pressure to early search conversations.`
+  return `I saw ${simplifiedCandidate}, and it looked like recruiter and board conversations may be coming fast.`
 }
 
 function normalizeState(raw) {
@@ -111,19 +128,19 @@ function decisionLine(channel, focus) {
 
 function legalSafeProofLine(channel, focus) {
   if (channel === CHANNELS.COACHES) {
-    return `In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.`
+    return `Across Jan-May 2026 coaching cases (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.`
   }
   if (channel === CHANNELS.OUTPLACEMENT_FIRMS) {
-    return `In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; use this as directional evidence, not a guarantee.`
+    return `Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median.`
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    return `In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days; results vary by mandate mix, market timing, and execution quality.`
+    return `Across Jan-May 2026 search cases (n=27), median time to first qualified outreach was 9 days; results vary by mandate mix, market timing, and execution quality.`
   }
-  return `In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.`
+  return `Across Jan-May 2026 transition cases (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.`
 }
 
 function binaryCtaLine(asset, audience) {
-  return `If you want it, reply yes and I will send ${asset} for your ${audience}. If not useful right now, reply pass and I will close the loop.`
+  return `If you want it, reply yes and I will send ${asset} for your ${audience}.\nReply pass and I will close the loop.`
 }
 
 function searchFirmEconomicsLine(company) {
@@ -136,14 +153,14 @@ function outplacementEconomicsLine(company) {
 
 function benchmarkAssetForFocus(focus) {
   const normalized = focus.toUpperCase()
-  if (normalized.includes('CFO') || normalized.includes('FINANCE')) return 'the CFO board-readiness scorecard'
-  if (normalized.includes('CTO') || normalized.includes('TECH')) return 'the CTO architecture-to-business benchmark'
-  if (normalized.includes('COO') || normalized.includes('OPER')) return 'the COO sequencing and operating cadence benchmark'
-  if (normalized.includes('CISO') || normalized.includes('SECUR')) return 'the CISO risk narrative benchmark'
-  if (normalized.includes('CHRO') || normalized.includes('PEOPLE')) return 'the leadership-change benchmark'
-  if (normalized.includes('CEO') || normalized.includes('BOARD')) return 'the board-readiness benchmark'
-  if (normalized.includes('VP')) return 'the next-scope readiness benchmark'
-  return 'the role-specific benchmark sheet'
+  if (normalized.includes('CFO') || normalized.includes('FINANCE')) return 'the CFO recruiter-and-board-call brief'
+  if (normalized.includes('CTO') || normalized.includes('TECH')) return 'the CTO business-translation brief'
+  if (normalized.includes('COO') || normalized.includes('OPER')) return 'the COO scale story brief'
+  if (normalized.includes('CISO') || normalized.includes('SECUR')) return 'the CISO business-risk brief'
+  if (normalized.includes('CHRO') || normalized.includes('PEOPLE')) return 'the people leadership brief'
+  if (normalized.includes('CEO') || normalized.includes('BOARD')) return 'the board-call brief'
+  if (normalized.includes('VP')) return 'the next-scope story brief'
+  return 'the role story brief'
 }
 
 function proofLineForFocus(focus) {
@@ -259,11 +276,12 @@ function costOfInactionLine(channel) {
 function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, step }) {
   const transitionFocus = focusText(focus || roleLabel || 'Executive')
   const benchmarkAsset = benchmarkAssetForFocus(transitionFocus)
+  const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the ${roleLabel} benchmark for ${company}?`
+    ? `Should I send the ${roleLabel} call brief for ${subjectCompany}`
     : step === 'followup_3'
-      ? `Close the loop on ${roleLabel} readiness at ${company}`
-      : `One-page ${roleLabel} readiness benchmark for ${company}`
+      ? `Close the loop on ${roleLabel} call prep for ${subjectCompany}`
+      : `A clearer ${roleLabel} story for ${subjectCompany}`
 
   if (step === 'followup_1') {
     return {
@@ -271,20 +289,14 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `Following up because this week is the right window to pressure-test ${transitionFocus} messaging before broader outreach.`,
+        `When a ${transitionFocus} search moves fast, the first recruiter call can decide whether the process gets easier or noisier.`,
         '',
-        `The most common miss is strong credentials paired with a weak first-touch narrative in early conversations.`,
+        `Starting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.`,
+        'It keeps the first recruiter, CEO, and board conversation specific instead of generic.',
         '',
-        'Momentum Signal is the quick weekly check we use to confirm positioning is actually creating real conversation movement.',
-        '',
-        `I can send a one-page benchmark that sharpens first-conversation positioning without adding extra prep overhead.`,
-        '',
-        legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
-        '',
-        `If you want it, reply yes this week and I will send ${benchmarkAsset} for your ${transitionFocus} transition context. If not useful right now, reply pass and I will close the loop.`,
-        '',
-        'Rich',
-        'startingmonday.app',
+        `Reply yes and I will send ${benchmarkAsset}.`,
+        'Tight messaging can make all the difference.',
+        'Reply pass and I will close the loop.',
       ].join('\n'),
     }
   }
@@ -295,18 +307,14 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
       body: [
         `Hi ${firstName},`,
         '',
-        `One concrete update from recent ${transitionFocus} transitions at ${company}: the strongest gains come when role-specific benchmark language is set before outreach starts.`,
+        `If this search is live, the first recruiter call usually decides whether your story feels specific or generic.`,
         '',
-        'We track this with Momentum Signal so teams can see whether first-touch quality is rising or stalling week to week.',
+        `Starting Monday helps senior candidates make role fit clear before the first recruiter, CEO, or board conversation.`,
+        'It keeps the first conversation specific and easier to advance.',
         '',
-        `I can send ${benchmarkAsset} so you can evaluate the first-week, first-pitch, and first-follow-up structure quickly.`,
-        '',
-        legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
-        '',
-        binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
-        '',
-        'Rich',
-        'startingmonday.app',
+        `Reply yes and I will send ${benchmarkAsset}.`,
+        'Tight messaging can make all the difference.',
+        'Reply pass and I will close the loop.',
       ].join('\n'),
     }
   }
@@ -316,18 +324,89 @@ function buildExecutiveFollowupDraft({ firstName, company, focus, roleLabel, ste
     body: [
       `Hi ${firstName},`,
       '',
-      `Closing the loop on my ${transitionFocus} note.`,
+      `Closing the loop on my ${transitionFocus} note for ${company}.`,
       '',
-      'If useful later, Momentum Signal gives a simple way to judge whether early outreach quality is improving.',
+      `Starting Monday helps senior candidates make recruiter and board conversations clearer before the search gets noisy.`,
+      'It keeps first conversations specific and easier to advance.',
       '',
-      `If timing is right, I can send ${benchmarkAsset} so you can judge fit quickly.`,
+      `Reply yes and I will send ${benchmarkAsset}.`,
+      'Tight messaging can make all the difference.',
+      'Reply pass and I will close the loop.',
+    ].join('\n'),
+  }
+}
+
+function buildSearchFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const transitionFocus = focusText(focus || roleLabel || 'search')
+  const asset = 'the first outreach brief'
+  const subjectCompany = subjectCompanyLabel(company)
+  const subject = step === 'followup_2'
+    ? `Should I send the first outreach brief for ${subjectCompany}`
+    : step === 'followup_3'
+      ? `Close the loop on shortlist quality for ${subjectCompany}`
+      : `A tighter shortlist story for ${subjectCompany}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
       '',
-      legalSafeProofLine(CHANNELS.EXECUTIVES, transitionFocus),
+      `When the role story is fuzzy, partner review drags and shortlist quality drops.`,
       '',
-      binaryCtaLine(benchmarkAsset, `${transitionFocus} transition context`),
+      `Starting Monday gives search teams one short brief for what the first outreach should say before volume starts.`,
+      'It keeps shortlist quality tighter before partner review cycles start.',
       '',
-      'Rich',
-      'startingmonday.app',
+      `Reply yes and I will send ${asset}.`,
+      'It is meant to cut rework and keep the mandate on-brief.',
+      'Reply pass and I will close the loop.',
+    ].join('\n'),
+  }
+}
+
+function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const asset = 'the coach prep worksheet'
+  const subjectCompany = subjectCompanyLabel(company)
+  const subject = step === 'followup_2'
+      ? `Should I send the coach prep worksheet for ${subjectCompany}`
+    : step === 'followup_3'
+        ? `Close the loop on coach prep for ${subjectCompany}`
+      : `More client time, less prep for ${subjectCompany}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
+      '',
+      `Prep work between sessions usually gets scattered.`,
+      `Starting Monday keeps coach notes, client signals, and next steps in one place so prep takes less time.`,
+      'It keeps client momentum visible between sessions without extra coach admin.',
+      '',
+      `Reply yes and I will send ${asset}. Keeping prep and next steps in one place is a big win for both coaches and clients. It is meant to cut admin work and protect client time.`,
+      'Reply pass and I will close the loop.',
+    ].join('\n'),
+  }
+}
+
+function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, step }) {
+  const asset = 'cohort readiness checklist'
+  const subjectCompany = subjectCompanyLabel(company)
+  const subject = step === 'followup_2'
+    ? `Should I send the cohort checklist for ${subjectCompany}`
+    : step === 'followup_3'
+      ? `Close the loop on cohort readiness for ${subjectCompany}`
+      : `A shared readiness checklist for ${subjectCompany}`
+
+  return {
+    subject,
+    body: [
+      `Hi ${firstName},`,
+      '',
+      `Candidates can get prepared in different ways across the same program.`,
+      `Starting Monday gives counselors one checklist for what interview-ready, role-fit, and compensation-ready looks like so cohorts stay aligned and coordinator cleanup drops.`,
+      'It keeps cohort progression quality visible without adding coordinator load.',
+      '',
+      `Reply yes and I will send the ${asset}. A standard process to support candidates is a big win for counselors and program directors.`,
+      'Reply pass and I will close the loop.',
     ].join('\n'),
   }
 }
@@ -346,12 +425,43 @@ function buildLatestTemplateDraft({
 }) {
   const safeFirstName = String(firstName || 'there').trim() || 'there'
   const safeCompany = String(company || 'your team').trim() || 'your team'
+  const subjectCompany = subjectCompanyLabel(safeCompany)
   const safeRoleLabel = String(roleLabel || 'Executive').trim() || 'Executive'
   const transitionFocus = focusText(focus || roleLabel || 'senior transition')
   const emotionalState = inferState({ state, focus: transitionFocus, roleLabel: safeRoleLabel })
 
-  if (channel === CHANNELS.EXECUTIVES && step && step.startsWith('followup_')) {
-    return buildExecutiveFollowupDraft({
+  if (step && step.startsWith('followup_')) {
+    if (channel === CHANNELS.EXECUTIVES) {
+      return buildExecutiveFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    if (channel === CHANNELS.SEARCH_FIRMS) {
+      return buildSearchFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    if (channel === CHANNELS.COACHES) {
+      return buildCoachFollowupDraft({
+        firstName: safeFirstName,
+        company: safeCompany,
+        focus: transitionFocus,
+        roleLabel: safeRoleLabel,
+        step,
+      })
+    }
+
+    return buildOutplacementFollowupDraft({
       firstName: safeFirstName,
       company: safeCompany,
       focus: transitionFocus,
@@ -361,22 +471,21 @@ function buildLatestTemplateDraft({
   }
 
   if (channel === CHANNELS.EXECUTIVES) {
-    const asset = 'one-page first-call plan'
+    const asset = `the one-page ${safeRoleLabel} call brief`
     const trigger = triggerLine(CHANNELS.EXECUTIVES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `${safeRoleLabel} first-call plan for ${safeCompany}`,
+      subject: `A clearer ${safeRoleLabel} story for recruiter and board calls`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'In a job search, the first call often decides momentum. Teams either keep the plan ad hoc or use Starting Monday to run one clear plan for the next serious call.',
+        `Starting Monday helps senior candidates turn a long career into a short story recruiters, CEOs, and boards can follow quickly.`,
+        'It keeps first conversations specific instead of generic so momentum comes from clarity, not volume.',
         '',
-        'Momentum Signal is how we measure whether that plan is producing real weekly movement before outreach volume increases.',
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; results vary by market and execution.',
-        '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        `Reply yes and I will send ${asset}. It shows what to lead with, what to cut, and what to save for later.`,
+        'Tight messaging can make all the difference.',
+        'Reply pass and I will close the loop.',
         '',
         'Rich',
         'startingmonday.app',
@@ -385,22 +494,20 @@ function buildLatestTemplateDraft({
   }
 
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    const asset = 'one-page first-touch plan'
+    const asset = 'the first outreach brief'
     const trigger = triggerLine(CHANNELS.SEARCH_FIRMS, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `${transitionFocus} search first-touch plan for ${safeCompany}`,
+      subject: `A tighter first outreach brief for ${subjectCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'Most teams either keep first-touch quality manual or use Starting Monday to run one clear standard before shortlist outreach scales.',
-        '',
-        'Momentum Signal gives teams one shared view of whether that standard is strengthening mandate velocity each week.',
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; results vary by mandate mix and execution.',
-        '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        'Starting Monday gives search teams one short brief for what the first outreach should say before volume starts.',
+        'It keeps shortlist quality tighter before partner review cycles start.',
+        `Reply yes and I will send ${asset}.`,
+        'It is meant to cut partner rework and keep shortlist quality tight.',
+        'Reply pass and I will close the loop.',
         '',
         'Rich',
         'startingmonday.app',
@@ -409,22 +516,20 @@ function buildLatestTemplateDraft({
   }
 
   if (channel === CHANNELS.COACHES) {
-    const asset = 'coach signal map'
+    const asset = 'the coach prep worksheet'
     const trigger = triggerLine(CHANNELS.COACHES, transitionFocus, { newsTrigger, postTrigger, profileTrigger })
     return {
-      subject: `Simple between-session plan for ${safeCompany}`,
+      subject: `Less prep work between sessions for ${subjectCompany}`,
       body: [
         `Hi ${safeFirstName},`,
         '',
         trigger,
         '',
-        'Most teams either keep prep manual or use Starting Monday in one simple loop so session time stays strategic.',
+        'Starting Monday keeps coach notes, client signals, and next steps in one place so prep takes less time and coaching time stays protected.',
+        'It keeps client momentum visible between sessions without extra coach admin.',
         '',
-        'Momentum Signal helps coaches see, week by week, whether between-session work is translating into real search traction.',
-        '',
-        'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days. Coaching adoption was 43 percent; results vary by market and execution.',
-        '',
-        `Reply yes and I will send the ${asset}. Reply pass and I will close the loop.`,
+        `Reply yes and I will send ${asset}. Keeping prep and next steps in one place is a big win for both coaches and clients.`,
+        'Reply pass and I will close the loop.',
         '',
         'Rich',
         'startingmonday.app',
@@ -436,19 +541,17 @@ function buildLatestTemplateDraft({
   const outplacementFocusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   const trigger = triggerLine(CHANNELS.OUTPLACEMENT_FIRMS, outplacementFocusLabel, { newsTrigger, postTrigger, profileTrigger })
   return {
-    subject: `Cohort first-call plan for ${safeCompany}`,
+    subject: `A shared readiness checklist for ${subjectCompany}`,
     body: [
       `Hi ${safeFirstName},`,
       '',
       trigger,
       '',
-      'Most teams either keep first-call prep manual or use Starting Monday with one shared readiness check.',
+      'Starting Monday gives counselors one checklist for what interview-ready, role-fit, and compensation-ready looks like so cohorts stay aligned and coordinator cleanup drops.',
+      'It keeps cohort progression quality visible without adding coordinator load.',
       '',
-      'Momentum Signal gives counselors and program leads one weekly read on whether cohort readiness quality is improving.',
-      '',
-      'In our Jan-May 2026 pilot group (n=27), active users reached first qualified outreach in a median of 9 days; this is directional evidence, not a guarantee.',
-      '',
-      `Reply yes and I will send the ${outplacementAsset}. Reply pass and I will close the loop.`,
+      `Reply yes and I will send the ${outplacementAsset}. A standard process to support candidates is a big win for counselors and program directors.`,
+      'Reply pass and I will close the loop.',
       '',
       'Rich',
       'startingmonday.app',

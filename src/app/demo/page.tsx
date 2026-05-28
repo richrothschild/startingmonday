@@ -256,21 +256,28 @@ export function DemoContent({
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
-        {/* Header */}
+                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
+          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
+        </section>
+        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
+          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
+        </details>
+{/* Header */}
         <div className="mb-8">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Live demo</h2>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
             Improve the conversation before it starts.
           </h1>
           <p className="text-[14px] text-slate-500 leading-relaxed">
-            Enter any company and role. See the same prep brief Starting Monday generates to improve search behavior, strengthen relationships, and help you pursue the right role, not the first role.
+            Enter any company and role. See the same prep brief users run before high-stakes conversations.
           </p>
           <p className="text-[12px] text-slate-500 leading-relaxed mt-2">Trust and confidentiality: demo requests are used only to generate this brief and are not sold or shared.</p>
           {source && ENTRY_HANDOFF[source] && (
             <p className="text-[12px] text-slate-500 leading-relaxed mt-1">{ENTRY_HANDOFF[source]}</p>
           )}
-          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Outcome metric: pilots showed 81% reached first interview in 30 days (n=27).</p>
-          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Generate one company-specific brief to review likely questions and risk points before live conversations.</p>
+          <p className="text-[12px] text-slate-500 leading-relaxed mt-1">Pilot snapshot: 81% reached first interview in 30 days (n=27).</p>
         </div>
 
         <section id="demo-context" className="border border-slate-200 rounded-lg p-5 sm:p-6 mb-8 bg-slate-50">
@@ -279,7 +286,7 @@ export function DemoContent({
             <div>
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Why this company context matters</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
-                Executive searches are won on context quality, not volume. This brief is built to reduce reactive behavior and improve relationship quality with a clear point of view, likely objections, and peer-level questions.
+                Senior searches are won on context quality, not volume. This brief gives you a point of view, likely objections, and peer-level questions.
               </p>
             </div>
             <div>
@@ -378,7 +385,7 @@ export function DemoContent({
                     The brief continues.
                   </p>
                   <p className="text-[13px] text-slate-500 mb-6 leading-relaxed">
-                    See the likely questions about your track record, objections to get ahead of, and the points that improve trust with decision makers. Enter your email to unlock the full brief.
+                    Unlock the rest: likely questions, objections to handle early, and trust-building points for decision makers.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
                     <input
@@ -413,9 +420,9 @@ export function DemoContent({
             <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-5">Included capabilities</p>
             <div className="flex flex-col gap-3">
                 {[
-                'This brief, auto-generated for each target company before high-stakes conversations',
-                'Signal intelligence on every target company with pattern alerts before roles are broadly posted',
-                'Behavior support: daily priorities that reduce reactive moves and improve execution consistency',
+                'Auto-generated prep brief for each target company',
+                'Signal intelligence with alerts before roles are broadly posted',
+                'Daily priorities that reduce reactive moves',
               ].map((item, i) => (
                 <div key={i} className="flex gap-3 items-start">
                   <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
