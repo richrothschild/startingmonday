@@ -120,7 +120,7 @@ jobs:
       - name: Check consecutive post-deploy failures (rollback trigger)
         id: rollback_check
         if: steps.synthetics.outputs.failed > 0
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Look at the last 2 production-synthetics runs (proxy for post-deploy runs).

@@ -144,7 +144,7 @@ jobs:
     steps:
       - name: Check production synthetic pass rate (last 3 runs)
         id: gate
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Require the last 3 production-synthetics runs to have all passed.
@@ -310,7 +310,7 @@ jobs:
       - name: Evaluate email noise-control policy
         id: email-policy
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           CURRENT_STATUS: ${{ steps.summary.outputs.status }}
           FAILURE_STREAK_THRESHOLD: ${{ vars.CI_FAILURE_EMAIL_STREAK_THRESHOLD }}
