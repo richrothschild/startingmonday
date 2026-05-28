@@ -54,8 +54,15 @@ export default async function GuidePage() {
   if (!staff) notFound()
 
   const guidePath = path.join(process.cwd(), 'docs', 'automation-guide.md')
-  const markdown = await readFile(guidePath, 'utf8')
+  const markdown = await readFile(guidePath, 'utf8').catch(() => '')
   const sections = parseGuide(markdown)
+  const safeSections = sections.length > 0
+    ? sections
+    : [{
+        id: 'fallback-0',
+        title: 'Guide temporarily unavailable',
+        body: 'The automation guide source file is not available in this runtime. Please use the dashboard and internal playbooks while we restore it.',
+      }]
 
   return (
     <>
@@ -65,7 +72,7 @@ export default async function GuidePage() {
         <p>Outcome: operators can execute automation tasks with consistent quality and cut avoidable retries by at least 20%.</p>
         <Link href="/dashboard">Get started from the dashboard</Link>
       </section>
-      <GuideClient sections={sections} />
+      <GuideClient sections={safeSections} />
     </>
   )
 }

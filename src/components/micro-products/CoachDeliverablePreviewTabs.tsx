@@ -28,12 +28,6 @@ export function CoachDeliverablePreviewTabs({ deliverables }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
-  if (deliverables.length === 0) return null
-
-  const selectedItem = deliverables[selectedIndex] ?? deliverables[0]
-  const canGoPrevious = selectedIndex > 0
-  const canGoNext = selectedIndex < deliverables.length - 1
-
   function openPreview(index: number) {
     setSelectedIndex(index)
     setIsPreviewOpen(true)
@@ -65,6 +59,12 @@ export function CoachDeliverablePreviewTabs({ deliverables }: Props) {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isPreviewOpen])
+
+  if (deliverables.length === 0) return null
+
+  const selectedItem = deliverables[selectedIndex] ?? deliverables[0]
+  const canGoPrevious = selectedIndex > 0
+  const canGoNext = selectedIndex < deliverables.length - 1
 
   return (
     <div className="space-y-5">
