@@ -30,6 +30,14 @@ jobs:
           MONITOR_OUTPUT_JSON=1 node scripts/production-smoke-check.mjs > monitoring-summary.json
           node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('monitoring-summary.json','utf8'));console.log('Production smoke check: '+d.passed+'/'+d.total+' passed');for(const r of d.results){console.log((r.ok?'OK':'FAIL')+' '+r.name+' ('+r.status+') '+r.durationMs+'ms'+(r.ok?'':' -> '+r.reason));} if(d.failed>0) process.exit(1);"
 
+      - name: Run mobile reliability threshold checks
+        id: mobile
+        env:
+          MONITOR_BASE_URL: https://startingmonday.app
+        run: |
+          MONITOR_OUTPUT_JSON=1 node scripts/check-mobile-production-thresholds.mjs --json > mobile-monitoring-summary.json
+          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('mobile-monitoring-summary.json','utf8'));console.log('Mobile reliability checks: '+d.passed+'/'+d.total+' passed');console.log('Aggregate: passRate '+(d.passRate*100).toFixed(1)+'%, p95 '+d.p95ResponseMs+'ms, failed '+d.failed);for(const r of d.results){console.log((r.ok?'OK':'FAIL')+' '+r.name+' ('+r.status+') '+r.durationMs+'ms / '+r.maxResponseMs+'ms'+(r.ok?'':' -> '+r.reason));} if(!d.ok) process.exit(1);"
+
       - name: Upload monitoring summary artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -38,12 +46,24 @@ jobs:
           path: monitoring-summary.json
           retention-days: 14
 
+      - name: Upload mobile reliability artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-reliability-summary
+          path: |
+            mobile-monitoring-summary.json
+            playwright-report/mobile-reliability-dashboard.latest.md
+            playwright-report/mobile-reliability-thresholds.latest.json
+          retention-days: 14
+
       - name: Publish monitoring summary
         if: always()
         run: |
           node <<'NODE'
           const fs = require('fs')
           const d = JSON.parse(fs.readFileSync('monitoring-summary.json', 'utf8'))
+          const m = JSON.parse(fs.readFileSync('mobile-monitoring-summary.json', 'utf8'))
           const lines = [
             '## Production Monitoring Summary',
             '',
@@ -59,6 +79,19 @@ jobs:
             const status = r.ok ? 'OK' : 'FAIL'
             const notes = r.ok ? '' : (r.reason || 'Unknown failure')
             lines.push(`| ${r.name} | ${status} | ${r.status} | ${r.durationMs}ms | ${notes.replace(/\|/g, '/')} |`)
+          }
+
+          lines.push('')
+          lines.push('## Mobile Reliability Dashboard')
+          lines.push('')
+          lines.push(`Overall status: ${m.ok ? 'PASS' : 'FAIL'}`)
+          lines.push(`Pass rate: ${(m.passRate * 100).toFixed(1)}%`)
+          lines.push(`P95 response: ${m.p95ResponseMs}ms`)
+          lines.push('')
+          lines.push('| Route | Status | HTTP | Duration | Threshold | Notes |')
+          lines.push('|---|---|---:|---:|---:|---|')
+          for (const r of m.results) {
+            lines.push(`| ${r.name} | ${r.ok ? 'PASS' : 'FAIL'} | ${r.status} | ${r.durationMs}ms | ${r.maxResponseMs}ms | ${(r.reason || '').replace(/\|/g, '/')} |`)
           }
 
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`)
