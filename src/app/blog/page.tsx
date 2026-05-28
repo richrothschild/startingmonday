@@ -40,15 +40,7 @@ export default function BlogIndexPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-              <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Scan this page by section headers and jump directly to the part you need.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Read the opening section, then move to the heading that matches your immediate decision.</p>
-        </details>
-{/* Nav */}
+              {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">

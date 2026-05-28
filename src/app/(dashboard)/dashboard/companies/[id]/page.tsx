@@ -179,8 +179,7 @@ export default async function CompanyPage({
 
       <ScanPoller active={isScanning && !latestScan} />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        {/* quick navigation handled by section anchors below */}
-<div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">{company.name}</h1>
             {company.sector && (

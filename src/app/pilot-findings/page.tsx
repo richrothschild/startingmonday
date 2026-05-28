@@ -66,19 +66,6 @@ export default function PilotFindingsPage() {
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">What We Learned from the Pilot</h1>
-        <section className="border border-slate-200 rounded-lg p-4 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#pilot-signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pilot signals</a>
-            <a href="#what-changed" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">What changed</a>
-            <a href="#next-measures" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next measures</a>
-            <a href="#evidence-action" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Evidence action</a>
-          </div>
-          <p className="text-[12px] text-slate-500 leading-relaxed">
-            Confidence note: pilot results are directional and should be interpreted with sample-size and context limits.
-          </p>
-        </section>
-
         <p>
           This is the non-promotional version of what the pilot suggests: the system appears most useful when it reduces ambiguity, surfaces the next best move, and keeps the campaign moving between formal sessions.
         </p>

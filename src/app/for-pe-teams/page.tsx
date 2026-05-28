@@ -62,15 +62,6 @@ export default function ForPeTeamsPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
 
-          <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-              <a href="#value-props" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Where it matters</a>
-              <a href="#partner-model" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner model</a>
-              <a href="#exec-benefit" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive benefit</a>
-            </div>
-          </section>
-
           <section id="value-props">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where it matters

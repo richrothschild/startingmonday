@@ -287,17 +287,6 @@ export default function OutplacementEconomicsPage() {
           </p>
         </header>
 
-        <section className="border border-slate-200 rounded-2xl p-5 bg-slate-50 mb-10">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-3">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#pilot-first" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pilot first</a>
-            <a href="#partner-models" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner models</a>
-            <a href="#decision-scorecard" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Decision scorecard</a>
-            <a href="#commercial-examples" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Commercial examples</a>
-            <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
-          </div>
-        </section>
-
         <section id="pilot-first" className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7 mb-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
             Pilot first

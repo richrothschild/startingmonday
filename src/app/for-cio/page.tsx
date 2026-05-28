@@ -113,28 +113,6 @@ export default function ForCioPage() {
       <JsonLd data={jsonLd} />
       <EmiMarketingTelemetry pageSlug="/for-cio" personaSegment="executives" />
       <h1 className="sr-only">Starting Monday for C-suite technology searches</h1>
-      <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
-            <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
-            <a href="#proof-metrics" className="text-slate-300 hover:text-white underline underline-offset-2">Proof metrics</a>
-            <a href="#trust" className="text-slate-300 hover:text-white underline underline-offset-2">Trust and privacy</a>
-          </div>
-          <Link href="/signup?from=executive" data-emi-cta="cio_quick_nav_start_trial" data-emi-to="/signup?from=executive" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
-            Start free trial
-          </Link>
-          <p className="text-[11px] text-slate-400 mt-2">
-            Confidential by default. No employer visibility, no recruiter visibility, and user-controlled data deletion.
-          </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
-            <Link href="/for-vp" className="text-slate-400 hover:text-white underline underline-offset-2">VP to CIO path</Link>
-            <Link href="/for-ciso" className="text-slate-400 hover:text-white underline underline-offset-2">CISO path</Link>
-            <Link href="/for-pe-partners" className="text-slate-400 hover:text-white underline underline-offset-2">PE partner path</Link>
-          </div>
-        </div>
-      </section>
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div data-emi-proof="cio_prehero_proof" className="lg:col-span-2 border border-slate-700 rounded-xl p-5 bg-slate-950/40">

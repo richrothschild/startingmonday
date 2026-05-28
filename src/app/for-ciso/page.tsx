@@ -111,28 +111,6 @@ export default function ForCisoPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for CISO searches</h1>
-      <section className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#fit-check" className="text-slate-300 hover:text-white underline underline-offset-2">Fit check</a>
-            <a href="#signal-scanner" className="text-slate-300 hover:text-white underline underline-offset-2">Signal scanner</a>
-            <a href="#trust" className="text-slate-300 hover:text-white underline underline-offset-2">Trust and privacy</a>
-            <a href="#start-now" className="text-slate-300 hover:text-white underline underline-offset-2">Start now</a>
-          </div>
-          <Link href="/signup?from=executive" className="inline-block text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
-            Start free trial
-          </Link>
-          <p className="text-[11px] text-slate-400 mt-2">
-            Confidential by default. No employer visibility, no recruiter visibility, and user-controlled data deletion.
-          </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
-            <Link href="/for-cio" className="text-slate-400 hover:text-white underline underline-offset-2">CIO path</Link>
-            <Link href="/for-vp" className="text-slate-400 hover:text-white underline underline-offset-2">VP to CIO path</Link>
-            <Link href="/for-search-firms" className="text-slate-400 hover:text-white underline underline-offset-2">Search-firm path</Link>
-          </div>
-        </div>
-      </section>
       <LandingPage
         hero={{
           eyebrow: 'The best CISO mandates open after a wake-up call.',

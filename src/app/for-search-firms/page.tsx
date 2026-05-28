@@ -85,22 +85,6 @@ export default function ForSearchFirmsPage() {
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
 
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-                <a href="#firm-fit" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Firm fit</a>
-                <a href="#firm-playbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Firm playbook</a>
-                <a href="#firm-practice" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">For your practice</a>
-              </div>
-              <p className="text-[11px] text-slate-500 mt-3">
-                Confidentiality and control: candidate pipeline visibility is opt-in and controlled by each candidate.
-              </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
-                <Link href="/for-pe-partners" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">PE operating partner guide</Link>
-                <Link href="/for-cio" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">Executive CIO path</Link>
-              </div>
-            </section>
-
             {/* What it is */}
             <section id="firm-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
