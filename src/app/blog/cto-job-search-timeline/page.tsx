@@ -29,16 +29,6 @@ export default function CtoJobSearchTimelinePage() {
       url="https://startingmonday.app/blog/cto-job-search-timeline"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-        <section className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use section headers below to jump to the part most relevant to your current search decision.</p>
-        </section>
-
-        <section className="border border-emerald-200 rounded-lg p-4 bg-emerald-50/40">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-emerald-700 mb-2">TL;DR</h2>
-          <p className="text-[12px] text-slate-700 leading-relaxed">Read the first section for context, then move straight to the heading that matches your next action.</p>
-        </section>
-
         <p>
           Ask a company how long a CTO search takes and they will say eight to twelve weeks. That is
           the time from search kickoff to offer acceptance&mdash;the company&rsquo;s experience of

@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
@@ -149,15 +149,6 @@ export default async function StartPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 {/* Header */}
         <div className="mb-8">
           {allDone ? (
@@ -233,7 +224,7 @@ export default async function StartPage() {
                       ? 'bg-emerald-500 text-white'
                       : 'bg-slate-100 text-slate-400'
                   }`}>
-                    {task.done ? '✓' : task.num}
+                    {task.done ? '?' : task.num}
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -273,7 +264,7 @@ export default async function StartPage() {
             href="/dashboard"
             className="inline-block bg-slate-900 text-white text-[13px] font-bold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
           >
-            {allDone ? 'Go to dashboard →' : 'Continue to dashboard →'}
+            {allDone ? 'Go to dashboard ?' : 'Continue to dashboard ?'}
           </Link>
           {!allDone && (
             <p className="text-[12px] text-slate-400 mt-2">You can finish these any time from your dashboard.</p>

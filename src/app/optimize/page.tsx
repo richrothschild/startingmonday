@@ -206,15 +206,6 @@ export default function OptimizePage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 {/* Hero */}
         <div className="mb-8 text-center">
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-tight">
@@ -269,7 +260,7 @@ export default function OptimizePage() {
             <textarea
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu → Save to PDF → open the PDF → select all text → paste here.'}
+              placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu ? Save to PDF ? open the PDF ? select all text ? paste here.'}
               rows={12}
               disabled={status === 'streaming'}
               className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"

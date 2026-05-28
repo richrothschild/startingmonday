@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-05-27T16:20:37.792Z",
+  "checkedAt": "2026-05-28T20:43:02.422Z",
   "status": "PASS",
   "checks": [
     {
@@ -60,5 +60,5 @@
     }
   ],
   "failures": [],
-  "metricsPath": "C:\\Dev\\StartingMonday\\docs\\growth\\weekly-metrics.latest.json"
+  "metricsPath": "C:\\Users\\roths\\startingmonday\\docs\\growth\\weekly-metrics.latest.json"
 }

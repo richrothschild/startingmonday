@@ -4,9 +4,11 @@ import path from 'node:path'
 
 function parseArgs(argv) {
   const args = new Set(argv.slice(2))
+  const strict = args.has('--strict')
   return {
-    strict: args.has('--strict'),
+    strict,
     json: args.has('--json'),
+    writeArtifacts: args.has('--write-artifacts') || !strict,
   }
 }
 
@@ -98,7 +100,9 @@ function main() {
     findings,
   }
 
-  writeOutputs(result)
+  if (args.writeArtifacts) {
+    writeOutputs(result)
+  }
 
   if (args.json) {
     console.log(JSON.stringify(result, null, 2))

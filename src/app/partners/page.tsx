@@ -127,28 +127,7 @@ export default function PartnersPage() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
 
-          <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-2">
-              <a href="#partner-types" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner types</a>
-              <a href="#partner-tiers" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partner tiers</a>
-              <a href="#other-partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Also built for</a>
-              <a href="#apply" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Apply</a>
-            </div>
-            <p className="text-[12px] text-slate-500 leading-relaxed">
-              Trust standard: referral attribution is transparent and candidate account data stays private by default.
-            </p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
-              Trust and confidentiality: partner reporting is aggregate and attribution-scoped, never full candidate account visibility.
-            </p>
-          </section>
-
-          
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
-        </details>
-{/* Per-category value props */}
+          {/* Per-category value props */}
           <section id="partner-types">
             <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
               Who we work with

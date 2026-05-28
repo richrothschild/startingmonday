@@ -137,41 +137,41 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
       <main>
         <section id="core-clarity" data-emi-section="clarity_block" className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line">
+            <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line [text-wrap:balance]">
               {hero.eyebrow}
             </p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5 [text-wrap:balance]">
               {hero.h1Lines.map((line, i) => (
                 <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
               ))}
             </h1>
             {hero.bodyPreamble && (
-              <p className="text-sm text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line">
+              <p className="text-sm text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line [text-wrap:pretty]">
                 {hero.bodyPreamble}
               </p>
             )}
-            <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4">
+            <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4 [text-wrap:pretty]">
               {hero.body}
             </p>
 
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Clear in 20 seconds</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
                 <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
                   <p className="text-slate-400">What this is</p>
-                  <p className="text-white mt-1">An executive search operating system anchored by one weekly Momentum Signal.</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">An executive search operating system anchored by one weekly Momentum Signal.</p>
                 </div>
                 <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
                   <p className="text-slate-400">Who it is for</p>
-                  <p className="text-white mt-1">Senior technology leaders in active or near-term transition.</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">Senior technology leaders in active or near-term transition.</p>
                 </div>
                 <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
                   <p className="text-slate-400">Problem it solves</p>
-                  <p className="text-white mt-1">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
                 </div>
                 <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
                   <p className="text-slate-400">Why now</p>
-                  <p className="text-white mt-1">High-value roles are shaped before formal posting windows appear.</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">High-value roles are shaped before formal posting windows appear.</p>
                 </div>
               </div>
             </div>
@@ -180,7 +180,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
               Private by default
             </p>
-            <p className="text-sm text-slate-500 mb-8">
+            <p className="text-sm text-slate-500 mb-8 leading-relaxed [text-wrap:pretty]">
               Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
             </p>
 
@@ -338,13 +338,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
 
         <section id="start-now" data-emi-section="final_cta_block" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-[34px] sm:text-[44px] font-bold text-slate-50 mb-4 leading-tight">
-              The signal comes before<br />the search begins.<br />Be ready when it does.
+            <h2 className="text-[34px] sm:text-[44px] font-bold text-slate-50 mb-4 leading-tight [text-wrap:balance]">
+              The signal comes before the search begins. Be ready when it does.
             </h2>
-            <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-              <span className="block">Start with one confidential brief, and we will confirm fit fast.</span>
-              <span className="block">Prefer proof first? Review the method page and browse the evidence room,</span>
-              <span className="block">or watch the live demo.</span>
+            <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed [text-wrap:pretty]">
+              Start with one confidential brief, and we will confirm fit fast. Prefer proof first? Review the method page, browse the evidence room, or watch the live demo.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link

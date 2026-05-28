@@ -80,29 +80,7 @@ export default function ForPePartnersPage() {
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
 
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-                <a href="#timeline-problem" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Timeline problem</a>
-                <a href="#partner-usage" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">How partners use it</a>
-                <a href="#network" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive network</a>
-                <a href="#partner-cta" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Get started</a>
-              </div>
-              <p className="text-[11px] text-slate-500 mt-3">
-                Confidentiality and control: candidate pipeline visibility is opt-in and controlled by each candidate.
-              </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[11px] mt-2">
-                <Link href="/for-search-firms" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">Search-firm partner guide</Link>
-                <Link href="/for-cio" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">Executive CIO path</Link>
-              </div>
-            </section>
-
-            
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
-        </details>
-{/* What it is */}
+            {/* What it is */}
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>

@@ -12,11 +12,7 @@ function ActionToast({ message, onDismiss }: { message: string; onDismiss: () =>
 
   return (
     <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-slate-900 text-white text-[13px] font-medium px-5 py-3 rounded-full shadow-lg">
-              <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
-        </details>
-<span className="text-amber-400">&#10003;</span>
+              <span className="text-amber-400">&#10003;</span>
       <span>{message}</span>
       <Link href="/dashboard" className="text-slate-400 hover:text-white underline text-[12px]">
         View pipeline

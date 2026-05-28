@@ -103,17 +103,6 @@ export default function AboutPage() {
       <article className="px-4 sm:px-6 py-12 sm:py-16">
         <div className="max-w-2xl mx-auto space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
-          <nav className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick navigation</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-              <a href="#why-me" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why me</a>
-              <a href="#why-product" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why this product</a>
-              <a href="#why-now" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why now</a>
-              <a href="#start-where-you-are" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start where you are</a>
-              <a href="#recent-writing" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Recent writing</a>
-            </div>
-          </nav>
-
           <section id="why-me" className="space-y-4">
             <h2 className="text-[17px] font-bold text-slate-900">Why me</h2>
           <p>
@@ -124,11 +113,7 @@ export default function AboutPage() {
           </section>
 
           
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Start with the first major heading, then jump to the section that supports your next action.</p>
-        </details>
-<section id="why-product" className="space-y-4">
+        <section id="why-product" className="space-y-4">
             <h2 className="text-[17px] font-bold text-slate-900">Why this product</h2>
           <p>
             <span className="font-semibold text-slate-900">Why this product:</span> I built Starting Monday because

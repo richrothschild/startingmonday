@@ -151,16 +151,6 @@ export default async function HomePage() {
     <PHProvider>
       <JsonLd data={jsonLd} />
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
-        <section className="mb-4 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the sections below to move from fit check to proof, then choose your next step.</p>
-        </section>
-        <details className="mb-4 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">Starting Monday helps senior executives act earlier with better signal timing and preparation.</p>
-        </details>
-      </div>
       <LandingPage
         hero={{
           eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',

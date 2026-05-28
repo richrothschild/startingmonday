@@ -72,13 +72,20 @@ const nextConfig: NextConfig = {
     ]
   },
   async headers() {
-    return [{ source: '/(.*)', headers: securityHeaders }]
+    return [
+      {
+        source: '/reports/:path*.pdf',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      { source: '/(.*)', headers: securityHeaders },
+    ]
   },
 }
 
 export default withSentryConfig(nextConfig, {
   silent: true,
-  disableLogger: true,
   // Source map upload requires SENTRY_AUTH_TOKEN — omitting it skips upload gracefully.
   // Set SENTRY_AUTH_TOKEN in Railway to enable source-mapped stack traces.
   widenClientFileUpload: true,

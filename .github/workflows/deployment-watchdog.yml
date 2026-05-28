@@ -31,7 +31,7 @@ jobs:
 
       - name: Wait for production deployment status for pushed SHA
         id: parity
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           TARGET_SHA: ${{ github.sha }}
           MAX_ATTEMPTS: '20'
@@ -159,7 +159,7 @@ jobs:
 
       - name: Check whether the latest main commit has deployed successfully
         id: watchdog
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const owner = context.repo.owner

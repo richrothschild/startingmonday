@@ -37,17 +37,6 @@ export default function TargetCompanyListCtoPage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight">How to Build a Better CTO Target Company List</h1>
 
-        <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#most-important-question" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Most important question</a>
-            <a href="#what-belongs" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">What belongs on list</a>
-            <a href="#how-to-find" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">How to find companies</a>
-            <a href="#signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Signals</a>
-            <a href="#clarity" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Clarity</a>
-          </div>
-        </section>
-
         <p>
           The CIO role has a definition. The CTO role has a spectrum.
         </p>

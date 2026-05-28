@@ -95,38 +95,38 @@ export default async function CoachOutreachPage() {
 
   const messageTemplates: MessageTemplate[] = [
     {
-      title: 'Cold Connection Request',
-      context: 'First touch via connection request.',
+      title: 'Email 1 - Brand Wedge',
+      context: 'Lead with the top three pain points.',
       body: [
-        '[Name] - I saw your transition coaching content. We built a tool coaches use for daily research and prep. Open to a 15-minute demo?',
+        'Quick observation from coaching teams we speak with: clients arrive underprepared, follow-through drops between sessions, and too much paid time gets spent rebuilding context. Starting Monday gives coaches one operating loop for prep, between-session actions, and visible momentum so sessions start with decisions instead of recap. Reply yes and I will send the 14-day coach pilot checklist. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Accepted Connection Follow-Up',
-      context: 'Send immediately after they accept.',
+      title: 'Email 2 - Momentum Loss',
+      context: 'Use after no response to the first note.',
       body: [
-        'Thanks for connecting. Starting Monday handles daily monitoring, prep briefs, and pipeline tracking so coaches can stay on strategy. Want a quick walkthrough?',
+        'Most coaching drift happens between sessions, not in-session. When rhythm is unclear, momentum drops and coaches spend paid time recovering the same ground. Starting Monday keeps preparation, follow-through, and context continuity visible in one place across active clients. Reply yes and I will send the between-session rhythm worksheet. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Demo Follow-Up (No Response)',
-      context: 'After 3 days with no response.',
+      title: 'Email 3 - Moment vs System',
+      context: 'Clarify micro-product relief vs app-level recurrence.',
       body: [
-        'Happy to share a short demo video if easier than a call.',
+        'A worksheet can fix one painful session. The recurring problem is the system: prep quality, follow-through, and context continuity across weeks and clients. Starting Monday is built for that recurring layer so you can coach strategy instead of managing drift. If useful, reply yes and I will send the one-page example. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Final Follow-Up (No Response)',
-      context: 'After 7 days total with no response.',
+      title: 'Email 4 - Decision Close',
+      context: 'Use as final close-out and explicit decision ask.',
       body: [
-        'No worries if timing is off. If priorities change, I can reconnect.',
+        'Closing the loop from my earlier notes. If this is a priority now, I can send the 14-day pilot checklist with three pass-fail metrics: prep quality before sessions, between-session follow-through, and recap time reduction. If useful, reply yes and I will send it. Reply pass and I will close the loop.',
       ],
     },
     {
       title: 'Positive Response Next Step',
-      context: 'They said yes or asked a question. Move quickly to a demo or brief call.',
+      context: 'They replied yes. Move to proof quickly.',
       body: [
-        'Great — would [tomorrow at 10 AM or Thursday at 2 PM] work for a 15-minute walkthrough? I can share my screen and show you exactly how coaches are using it with their clients.',
+        'Great, I will send the 14-day coach pilot checklist and one page showing pain-to-product-to-app mapping. If useful after review, we can do a 15-minute walkthrough focused on your highest-cost pain point first.',
       ],
     },
   ]
@@ -144,15 +144,6 @@ export default async function CoachOutreachPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-
-                <section className="mb-6 border border-slate-200 rounded-lg bg-slate-50 px-4 py-3">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">Quick navigation</h2>
-          <p className="text-[12px] text-slate-600 leading-relaxed">Use the section headers on this page to scan fast and jump to what matters first.</p>
-        </section>
-        <details className="mb-6 border border-slate-200 rounded-lg bg-white px-4 py-3">
-          <summary className="cursor-pointer text-[12px] font-semibold text-slate-800">TL;DR</summary>
-          <p className="mt-2 text-[12px] text-slate-600 leading-relaxed">This page is organized for quick scanning. Start with the first major section, then use headings to move directly to the next action.</p>
-        </details>
 {/* Overview */}
         <section className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
           <h2 className="text-[18px] font-bold text-slate-900">Channel Overview</h2>

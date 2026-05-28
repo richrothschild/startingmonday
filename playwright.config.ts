@@ -9,6 +9,7 @@ export default defineConfig({
   timeout: 45_000,
   retries: 1,
   reporter: [['list'], ['html', { open: 'never' }]],
+  snapshotPathTemplate: 'tests/e2e/__screenshots__/{arg}{ext}',
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app',
     trace: 'on-first-retry',
@@ -48,7 +49,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-iphone',
-      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         browserName: 'chromium',
@@ -61,7 +62,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-android',
-      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         ...devices['Pixel 7'],
@@ -70,7 +71,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-tablet',
-      testMatch: /mobile-(ui|key-routes)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         ...devices['Galaxy Tab S4'],

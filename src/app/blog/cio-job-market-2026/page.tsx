@@ -38,25 +38,6 @@ export default function CioJobMarket2026Page() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">CIO Job Market 2026 report</h1>
 
-        <section className="border border-slate-200 rounded-lg p-4 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#market-signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Market signals</a>
-            <a href="#monitoring-system" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Monitoring system</a>
-            <a href="#actions-this-week" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Actions this week</a>
-            <a href="#start-monitoring" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Start monitoring</a>
-          </div>
-        </section>
-
-        <section className="border border-emerald-200 rounded-lg p-4 bg-emerald-50/40">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-emerald-700 mb-2">TL;DR</h2>
-          <ul className="list-disc pl-5 space-y-1.5 text-[13px] text-slate-700">
-            <li>Career pages often move before LinkedIn and recruiter outreach.</li>
-            <li>Healthcare and financial services were most active in this scan window.</li>
-            <li>Early signals plus direct monitoring improve timing and conversation quality.</li>
-          </ul>
-        </section>
-
         <p>
           Standard advice still says: update your resume, tell your network, wait for recruiter calls.
           That playbook is outdated.

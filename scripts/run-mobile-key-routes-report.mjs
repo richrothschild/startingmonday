@@ -10,7 +10,7 @@ const mdPath = path.join(reportDir, 'mobile-key-routes-coverage.md')
 fs.mkdirSync(reportDir, { recursive: true })
 
 execSync(
-  `npx playwright test tests/e2e/mobile-key-routes.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet --reporter=json > "${jsonPath}"`,
+  `npx playwright test tests/e2e/mobile-key-routes.spec.ts tests/e2e/mobile-public-routes.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet --reporter=json > "${jsonPath}"`,
   {
     stdio: 'inherit',
     shell: true,

@@ -33,19 +33,6 @@ export default function FounderNotePage() {
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">Founder Note: The Category Mistake We Are Correcting</h1>
-        <section className="border border-slate-200 rounded-lg p-4 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#category-mistake" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Category mistake</a>
-            <a href="#what-we-built" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">What we built</a>
-            <a href="#expected-outcomes" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Expected outcomes</a>
-            <a href="#read-method" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Read the method</a>
-          </div>
-          <p className="text-[12px] text-slate-500 leading-relaxed">
-            Trust standard: we separate observed behavior from inference and publish limits with findings.
-          </p>
-        </section>
-
         <h2 id="category-mistake" className="text-[22px] font-bold text-slate-900">The category mistake</h2>
         <p>
           Starting Monday exists because the market has been telling executives the wrong story for years: that landing the right role is mostly about better resumes, more applications, or more hustle. That is the category mistake.

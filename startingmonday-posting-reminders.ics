@@ -305,4 +305,19 @@ ACTION:DISPLAY
 DESCRIPTION:Starting Monday reminder
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+UID:sm-20260528-first-7-linkedin-posts@startingmonday
+DTSTAMP:20260527T000000Z
+DTSTART:20260528T133000Z
+DTEND:20260528T140000Z
+SUMMARY:Starting Monday - Publish First 7 LinkedIn Posts
+DESCRIPTION:Publish the first 7 scheduled LinkedIn posts using the automation runbook. Confirm Make.com auto-post checks and first-hour comment seeding.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Starting Monday reminder
+END:VALARM
+END:VEVENT
 END:VCALENDAR

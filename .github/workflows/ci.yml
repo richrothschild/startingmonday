@@ -42,6 +42,9 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
+      - name: Mobile UX contract and banned pattern guard
+        run: npm run mobile:guard
+
       - name: Code council strict audit
         run: npm run audit:code-council:strict
 
@@ -131,6 +134,72 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  mobile-visual-regression:
+    name: Mobile visual regression
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run mobile visual snapshots
+        run: npm run test:e2e:mobile-visual
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload mobile visual artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-visual-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  lighthouse-mobile-budgets:
+    name: Lighthouse mobile budgets
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Run Lighthouse CI mobile budgets
+        run: npm run perf:lighthouse:ci
+
+      - name: Upload Lighthouse artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-mobile-report
+          path: .lighthouseci/
+          retention-days: 7
+
   pre-prod-gate:
     name: Pre-production synthetic gate
     runs-on: ubuntu-latest
@@ -144,7 +213,7 @@ jobs:
     steps:
       - name: Check production synthetic pass rate (last 3 runs)
         id: gate
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Require the last 3 production-synthetics runs to have all passed.
@@ -211,7 +280,7 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, lighthouse-mobile-budgets, pre-prod-gate]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
@@ -229,6 +298,12 @@ jobs:
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.playwright.result }}" == "failure" ]]; then
             echo "job_name=Playwright E2E" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.mobile-visual-regression.result }}" == "failure" ]]; then
+            echo "job_name=Mobile visual regression" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.lighthouse-mobile-budgets.result }}" == "failure" ]]; then
+            echo "job_name=Lighthouse mobile budgets" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           fi
 
@@ -282,7 +357,7 @@ jobs:
   notify-test-summary:
     name: Post test summary report
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, lighthouse-mobile-budgets, pre-prod-gate]
     if: always()
 
     steps:
@@ -293,14 +368,16 @@ jobs:
           PREDEPLOY="${{ needs.predeploy-gates.result }}"
           SEMGREP="${{ needs.semgrep.result }}"
           PLAYWRIGHT="${{ needs.playwright.result }}"
+          MOBILE_VISUAL="${{ needs.mobile-visual-regression.result }}"
+          LIGHTHOUSE="${{ needs.lighthouse-mobile-budgets.result }}"
           PREPROD="${{ needs.pre-prod-gate.result }}"
 
           STATUS="PASS"
-          if [ "$PREDEPLOY" = "failure" ] || [ "$SEMGREP" = "failure" ] || [ "$PLAYWRIGHT" = "failure" ] || [ "$PREPROD" = "failure" ]; then
+          if [ "$PREDEPLOY" = "failure" ] || [ "$SEMGREP" = "failure" ] || [ "$PLAYWRIGHT" = "failure" ] || [ "$MOBILE_VISUAL" = "failure" ] || [ "$LIGHTHOUSE" = "failure" ] || [ "$PREPROD" = "failure" ]; then
             STATUS="FAIL"
           fi
 
-          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$PREPROD" "$RUN_URL")
+          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-regression: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
 
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "summary<<EOF" >> "$GITHUB_OUTPUT"
@@ -310,7 +387,7 @@ jobs:
       - name: Evaluate email noise-control policy
         id: email-policy
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           CURRENT_STATUS: ${{ steps.summary.outputs.status }}
           FAILURE_STREAK_THRESHOLD: ${{ vars.CI_FAILURE_EMAIL_STREAK_THRESHOLD }}

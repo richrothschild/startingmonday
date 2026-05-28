@@ -40,22 +40,25 @@ export default function AnnualReport2026Page() {
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">What We Observed in Executive Search in 2026</h1>
-        <section className="border border-slate-200 rounded-lg p-4 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Quick navigation</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px] mb-3">
-            <a href="#pattern-strength" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pattern strength</a>
-            <a href="#observations" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Three observations</a>
-            <a href="#measurement-plan" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Measurement plan</a>
-            <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
-          </div>
-          <p className="text-[12px] text-slate-500 leading-relaxed">
-            Confidence note: these are directional observations from pilot-era behavior, not universal market claims.
-          </p>
-        </section>
-
         <p>
           This is a small annual report, not a press release. It summarizes the recurring patterns we observed across executive search conversations, pilot behavior, and the broader literature we reviewed.
         </p>
+
+        <section className="border border-orange-200 rounded-lg p-5 bg-orange-50">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 mb-2">New public edition</p>
+          <h2 className="text-[20px] font-bold text-slate-900 mb-2 leading-snug">
+            Executive Search, AI, and Confidentiality: 2026 Public Edition
+          </h2>
+          <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
+            Read the expanded report with operating guidance, confidentiality controls, and downloadable PDF formats.
+          </p>
+          <Link
+            href="/annual-report-2026/executive-search-ai-confidentiality"
+            className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+          >
+            Read public edition
+          </Link>
+        </section>
 
         <section id="pattern-strength" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Observed pattern strength</h2>

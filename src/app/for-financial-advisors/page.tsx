@@ -85,15 +85,6 @@ export default function ForFinancialAdvisorsPage() {
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
 
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-600 mb-2">Quick navigation</h2>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-                <a href="#advisor-fit" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Advisor fit</a>
-                <a href="#advisor-playbook" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Advisor playbook</a>
-                <a href="#practice" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">For your practice</a>
-              </div>
-            </section>
-
             <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 ['30 days', 'Decision window to judge whether the client search becomes more disciplined'],
