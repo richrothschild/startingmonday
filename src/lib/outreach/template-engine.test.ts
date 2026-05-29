@@ -114,9 +114,11 @@ describe('outreach template engine', () => {
     expect(draft.subject).toBe('A shared readiness standard for Outplace Inc')
     expect(draft.body).toContain('Across Executive transition programs, candidates can get prepared in different ways, and counselors feel the inconsistency.')
     expect(draft.body).toContain('Starting Monday gives outplacement teams one operating layer for readiness, follow-up, and prep visibility so cohorts stay aligned without adding admin work.')
-    expect(draft.body).toContain('Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.')
-    expect(draft.body).toContain('Reply yes and I will send the 30-day cohort readiness checklist.')
+    expect(draft.body).toContain('Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.')
+    expect(draft.body).toContain('If helpful, I can send the 30-day cohort readiness checklist.')
     expect(draft.body).not.toContain('pilot group')
+    expect(draft.body).not.toContain('(n=27)')
+    expect(draft.body).not.toContain('reply yes and i will send')
   })
 
   it('builds executive followup subjects with step-specific variants', () => {

@@ -131,7 +131,7 @@ function legalSafeProofLine(channel, focus) {
     return `Across Jan-May 2026 coaching cases (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.`
   }
   if (channel === CHANNELS.OUTPLACEMENT_FIRMS) {
-    return `Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median.`
+    return `Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.`
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
     return `Across Jan-May 2026 search cases (n=27), median time to first qualified outreach was 9 days; results vary by mandate mix, market timing, and execution quality.`
@@ -407,25 +407,25 @@ function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, 
             'Starting Monday already has a pilot runbook, counselor enablement script, Friday MBR template, and trust-pack path so a team can test this without inventing a new process.',
             'Directional evidence from Jan-May 2026 cases (n=27) points to faster early outreach momentum, not a guarantee.',
             '',
-            'Reply yes and I will send the pilot operator pack.',
+              'If helpful, I can send the pilot operator pack.',
             'Reply pass and I will close the loop.',
           ]
         : step === 'followup_3'
           ? [
               'I have not heard back, so I will keep this simple.',
               'Starting Monday is built for teams that care about cohort consistency, counselor yield, and a pilot process procurement can review cleanly.',
-              'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
+                'Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.',
               '',
               'If that is not a priority right now, reply pass and I will close the loop.',
-              'If it is, reply yes and I will send the operator pack and readiness checklist.',
+                'If it is, I can send the operator pack and readiness checklist.',
             ]
           : [
               'Strong workshops do not guarantee consistent weekly execution across a cohort.',
               'That is where counselors end up rebuilding status, chasing follow-through, and cleaning up uneven prep before important conversations.',
               'Starting Monday gives counselors one shared view of actions, follow-ups, and prep readiness so strategy time stays high and coordinator cleanup stays lower.',
-              'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
+                'Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.',
               '',
-              'Reply yes and I will send the cohort readiness checklist.',
+                'If helpful, I can send the cohort readiness checklist.',
               'Reply pass and I will close the loop.',
             ]),
     ].join('\n'),
@@ -571,9 +571,9 @@ function buildLatestTemplateDraft({
       '',
       'Counselors end up supporting candidates in different ways, and coordinator cleanup rises when there is no shared standard for interview-ready, role-fit, and compensation-ready.',
       'Starting Monday gives outplacement teams one operating layer for readiness, follow-up, and prep visibility so cohorts stay aligned without adding admin work.',
-      'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
+      'Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.',
       '',
-      `Reply yes and I will send the ${outplacementAsset}.`,
+      `If helpful, I can send the ${outplacementAsset}.`,
       'Reply pass and I will close the loop.',
       '',
       'Rich',
