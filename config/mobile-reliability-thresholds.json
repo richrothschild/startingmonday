@@ -2,7 +2,7 @@
   "version": 1,
   "generatedAt": "2026-05-28",
   "autoDiscovery": {
-    "enabled": true,
+    "enabled": false,
     "maxResponseMs": 2200
   },
   "routes": [
