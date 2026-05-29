@@ -388,25 +388,46 @@ function buildCoachFollowupDraft({ firstName, company, focus, roleLabel, step })
 }
 
 function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, step }) {
-  const asset = 'cohort readiness checklist'
   const subjectCompany = subjectCompanyLabel(company)
   const subject = step === 'followup_2'
-    ? `Should I send the cohort checklist for ${subjectCompany}`
+    ? `A no-custom pilot for ${subjectCompany} cohorts`
     : step === 'followup_3'
-      ? `Close the loop on cohort readiness for ${subjectCompany}`
-      : `A shared readiness checklist for ${subjectCompany}`
+      ? `Close the loop for ${subjectCompany} readiness?`
+      : `A shared readiness standard for ${subjectCompany} cohorts`
 
   return {
     subject,
     body: [
       `Hi ${firstName},`,
       '',
-      `Candidates can get prepared in different ways across the same program.`,
-      `Starting Monday gives counselors one checklist for what interview-ready, role-fit, and compensation-ready looks like so cohorts stay aligned and coordinator cleanup drops.`,
-      'It keeps cohort progression quality visible without adding coordinator load.',
-      '',
-      `Reply yes and I will send the ${asset}. A standard process to support candidates is a big win for counselors and program directors.`,
-      'Reply pass and I will close the loop.',
+      ...(step === 'followup_2'
+        ? [
+            'If the concern is rollout overhead, that is the right concern.',
+            'Outplacement teams do not need another tool that depends on custom templates, founder support, or unclear escalation rules.',
+            'Starting Monday already has a pilot runbook, counselor enablement script, Friday MBR template, and trust-pack path so a team can test this without inventing a new process.',
+            'Directional evidence from Jan-May 2026 cases (n=27) points to faster early outreach momentum, not a guarantee.',
+            '',
+            'Reply yes and I will send the pilot operator pack.',
+            'Reply pass and I will close the loop.',
+          ]
+        : step === 'followup_3'
+          ? [
+              'I have not heard back, so I will keep this simple.',
+              'Starting Monday is built for teams that care about cohort consistency, counselor yield, and a pilot process procurement can review cleanly.',
+              'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
+              '',
+              'If that is not a priority right now, reply pass and I will close the loop.',
+              'If it is, reply yes and I will send the operator pack and readiness checklist.',
+            ]
+          : [
+              'Strong workshops do not guarantee consistent weekly execution across a cohort.',
+              'That is where counselors end up rebuilding status, chasing follow-through, and cleaning up uneven prep before important conversations.',
+              'Starting Monday gives counselors one shared view of actions, follow-ups, and prep readiness so strategy time stays high and coordinator cleanup stays lower.',
+              'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
+              '',
+              'Reply yes and I will send the cohort readiness checklist.',
+              'Reply pass and I will close the loop.',
+            ]),
     ].join('\n'),
   }
 }
@@ -538,20 +559,21 @@ function buildLatestTemplateDraft({
     }
   }
 
-  const outplacementAsset = 'cohort readiness checklist'
+  const outplacementAsset = '30-day cohort readiness checklist'
   const outplacementFocusLabel = /programs?$/i.test(transitionFocus) ? transitionFocus : `${transitionFocus} programs`
   const trigger = triggerLine(CHANNELS.OUTPLACEMENT_FIRMS, outplacementFocusLabel, { newsTrigger, postTrigger, profileTrigger })
   return {
-    subject: `A shared readiness checklist for ${subjectCompany}`,
+    subject: `A shared readiness standard for ${subjectCompany}`,
     body: [
       `Hi ${safeFirstName},`,
       '',
       trigger,
       '',
-      'Starting Monday gives counselors one checklist for what interview-ready, role-fit, and compensation-ready looks like so cohorts stay aligned and coordinator cleanup drops.',
-      'It keeps cohort progression quality visible without adding coordinator load.',
+      'Counselors end up supporting candidates in different ways, and coordinator cleanup rises when there is no shared standard for interview-ready, role-fit, and compensation-ready.',
+      'Starting Monday gives outplacement teams one operating layer for readiness, follow-up, and prep visibility so cohorts stay aligned without adding admin work.',
+      'Across Jan-May 2026 outplacement cases (n=27), activated users reached first qualified outreach in a 9-day median. Directional evidence, not a guarantee.',
       '',
-      `Reply yes and I will send the ${outplacementAsset}. A standard process to support candidates is a big win for counselors and program directors.`,
+      `Reply yes and I will send the ${outplacementAsset}.`,
       'Reply pass and I will close the loop.',
       '',
       'Rich',
