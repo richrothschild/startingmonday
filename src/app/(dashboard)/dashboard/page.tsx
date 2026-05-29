@@ -697,6 +697,16 @@ export default async function DashboardPage({
           </p>
         </div>
 
+        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
+            <a href="#quick-access" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick access</a>
+            <a href="#start-here" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
+            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
+            <a href="#pipeline-pulse" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
+          </div>
+        </section>
+
         <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</h2>
