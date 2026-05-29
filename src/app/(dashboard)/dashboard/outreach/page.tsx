@@ -16,6 +16,7 @@ import {
   normalizeFitTier,
   normalizeStatus,
   dedupeOutreachRows,
+  followUpSentByEmail,
   prioritizeCuratedRows,
   readOutreachCsv,
   statusByEmail,
@@ -130,6 +131,7 @@ export default async function OutreachHubPage() {
       email,
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
+      followUpSent: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: draft.body,
       defaultSubject: draft.subject,
@@ -144,6 +146,7 @@ export default async function OutreachHubPage() {
   }, [])
 
   const mappedStatuses = statusByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
+  const mappedFollowUpSent = followUpSentByEmail((rawContactStatuses.data ?? []) as ContactStatusRow[])
   const executivePersonaRows: ClientRow[] = executives.rows
     .map((row): ClientRow | null => {
       const personaFit = executivePersonaFit(row, executiveFitLookup, executiveCompanySizeLookup)
@@ -157,6 +160,7 @@ export default async function OutreachHubPage() {
         email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
         emailConfidence: inferEmailConfidence(row),
         status: normalizeStatus(row.status),
+        followUpSent: false,
         emailOpening: row.email_opening ?? '',
         emailBodyCore: row.email_body_core ?? '',
         defaultSubject: standardizedDraft.subject,
@@ -184,6 +188,7 @@ export default async function OutreachHubPage() {
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
+      followUpSent: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'search_firms' as const,
@@ -205,6 +210,7 @@ export default async function OutreachHubPage() {
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
+      followUpSent: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'coaches' as const,
@@ -226,6 +232,7 @@ export default async function OutreachHubPage() {
       email: (row.email_guess ?? row.email ?? '').trim().toLowerCase(),
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
+      followUpSent: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'outplacement_firms' as const,
@@ -244,6 +251,7 @@ export default async function OutreachHubPage() {
     return {
       ...row,
       status,
+      followUpSent: mappedFollowUpSent.has(row.email),
     }
   })
 

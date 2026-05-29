@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildStandardizedDraft, dedupeOutreachRows, mapTriggerInputs, type CsvRow, type ClientRow } from './outreach-data'
+import { buildStandardizedDraft, dedupeOutreachRows, followUpSentByEmail, mapTriggerInputs, type CsvRow, type ClientRow } from './outreach-data'
 
 describe('outreach-data trigger mapping', () => {
   it('maps CRM and scraping fields into trigger inputs', () => {
@@ -74,6 +74,7 @@ describe('outreach-data dedupe', () => {
       email: input.email,
       emailConfidence: input.emailConfidence ?? 'medium',
       status: input.status ?? 'prospect',
+      followUpSent: input.followUpSent ?? false,
       emailOpening: input.emailOpening ?? '',
       emailBodyCore: input.emailBodyCore ?? '',
       defaultSubject: input.defaultSubject ?? '',
@@ -117,5 +118,17 @@ describe('outreach-data dedupe', () => {
     ])
 
     expect(deduped).toHaveLength(2)
+  })
+
+  it('flags contacts whose persisted outreach status shows a follow-up already sent', () => {
+    const sent = followUpSentByEmail([
+      { email: 'alex@example.com', outreach_status: 'followup_1_sent' },
+      { email: 'blair@example.com', outreach_status: 'reached_out' },
+      { email: 'casey@example.com', outreach_status: 'followup_2_sent' },
+    ])
+
+    expect(sent.has('alex@example.com')).toBe(true)
+    expect(sent.has('casey@example.com')).toBe(true)
+    expect(sent.has('blair@example.com')).toBe(false)
   })
 })

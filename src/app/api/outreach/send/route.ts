@@ -20,7 +20,7 @@ import {
   type OutreachSendJobPayload,
 } from '@/lib/outreach/send-queue'
 
-const VALID_STATUSES = new Set(['prospect', 'reached_out', 'in_conversation', 'meeting_scheduled', 'closed'])
+const VALID_STATUSES = new Set(['prospect', 'reached_out', 'followup_1_sent', 'followup_2_sent', 'in_conversation', 'meeting_scheduled', 'closed'])
 const VALID_MODES = new Set(['live', 'dry_run', 'test_to_self'])
 const VALID_OUTREACH_CHANNELS = new Set(['executives', 'search_firms', 'coaches', 'outplacement_firms'])
 

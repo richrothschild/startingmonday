@@ -18,6 +18,7 @@ export type ClientRow = {
   email: string
   emailConfidence: EmailConfidence
   status: string
+  followUpSent: boolean
   emailOpening: string
   emailBodyCore: string
   defaultSubject: string
@@ -692,4 +693,17 @@ export function statusByEmail(rows: ContactStatusRow[]): Map<string, string> {
     byEmail.set(email, normalizeStatus(row.outreach_status ?? 'prospect'))
   }
   return byEmail
+}
+
+export function followUpSentByEmail(rows: ContactStatusRow[]): Set<string> {
+  const sent = new Set<string>()
+  for (const row of rows) {
+    const email = (row.email ?? '').trim().toLowerCase()
+    const status = (row.outreach_status ?? '').trim().toLowerCase()
+    if (!email) continue
+    if (status === 'followup_1_sent' || status === 'followup_2_sent') {
+      sent.add(email)
+    }
+  }
+  return sent
 }
