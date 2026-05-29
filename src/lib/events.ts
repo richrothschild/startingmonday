@@ -38,6 +38,8 @@ export type UserEventName =
   | 'emi_daily_loop_loaded'
   | 'emi_action_completed'
   | 'emi_daily_reflection_submitted'
+  | 'pmf_prep_brief_generated'
+  | 'pmf_activation_first_prep_generated'
 
 type EventProperties = Record<string, string | number | boolean | null>
 
