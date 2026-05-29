@@ -68,7 +68,6 @@ export async function runBriefingJob() {
       lastId = page[page.length - 1].id
     }
     const users = allUsers
-    const error = null
 
     const { data: profiles } = await supabase.from('user_profiles').select(
       'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at, briefing_frequency, search_status, placed_at'

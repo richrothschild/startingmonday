@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -91,7 +91,7 @@ export default async function TracesPage({
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-        <div className="mb-6 flex items-start justify-between gap-4">
+<div className="mb-6 flex items-start justify-between gap-4">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900">LLM Traces</h1>
             <p className="text-[13px] text-slate-500 mt-1">

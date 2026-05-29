@@ -60,8 +60,7 @@ export default function ForCioAssociationsPage() {
       </nav>
 
       <main>
-
-        {/* Header */}
+{/* Header */}
         <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
@@ -151,7 +150,7 @@ export default function ForCioAssociationsPage() {
                 {[
                   'Member benefit programs with dedicated referral codes and discounted access',
                   'Active plan ($199/month) includes all AI features: prep briefs, strategy brief, company intelligence',
-                  'Monitor plan ($49/month) for members building a target list or monitoring the market passively',
+                  'Intelligence plan ($49/month) for members building a target list or monitoring the market passively',
                   'Aggregated usage reporting for your association - see which benefit programs are driving activation',
                   'Research partnership available - contact us to discuss co-branded market intelligence reports',
                   'Apply to the partner program at startingmonday.app/partners to receive your referral code and partnership terms',
@@ -162,6 +161,9 @@ export default function ForCioAssociationsPage() {
                   </li>
                 ))}
               </ul>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Trust and confidentiality: member activity data is shared only in aggregate reporting, never as private personal search detail.
+              </p>
             </section>
 
             {/* Apply CTA */}
@@ -175,11 +177,12 @@ export default function ForCioAssociationsPage() {
               <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
                 Fill out the application and we will follow up within 2 business days to discuss member benefit terms, referral codes, and partnership structure.
               </p>
+              <p className="text-[12px] text-slate-500 mb-4">CTA: get started now by applying to the partner program.</p>
               <Link
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                Apply now &rarr;
+                Get started now &rarr;
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}

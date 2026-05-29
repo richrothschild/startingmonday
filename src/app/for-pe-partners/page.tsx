@@ -46,11 +46,11 @@ export default function ForPePartnersPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo?from=pe-partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
-              href="/partners"
+              href="/partners?from=pe-partners"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Become a partner
@@ -98,7 +98,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* The gap */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="timeline-problem" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">The timeline problem</h2>
               <p>
                 A portfolio company technology leadership gap has a direct cost. Every week without
@@ -116,10 +116,13 @@ export default function ForPePartnersPage() {
                 Starting Monday does not replace the search firm. It gives the executive the
                 preparation infrastructure to show up as the right person when the moment comes.
               </p>
+              <p className="text-[13px] text-slate-500">
+                Evidence cue: compressing first-round decision quality reduces avoidable mandate resets.
+              </p>
             </section>
 
             {/* How operating partners use it */}
-            <section className="space-y-6">
+            <section id="partner-usage" className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How operating partners use it</h2>
               <div className="space-y-8">
                 {FEATURES.map(f => (
@@ -135,7 +138,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* For your network */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="network" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">For your executive network</h2>
               <p>
                 PE operating partners typically maintain relationships with 20 to 50 senior technology
@@ -163,7 +166,7 @@ export default function ForPePartnersPage() {
             </section>
 
             {/* Apply CTA */}
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
+            <section id="partner-cta" className="bg-slate-50 border border-slate-200 rounded-lg p-7">
               <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
                 Ready to partner?
               </p>
@@ -177,11 +180,11 @@ export default function ForPePartnersPage() {
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                Apply now &rarr;
+                Get started now &rarr;
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                <Link href="/demo?from=pe-partners" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
                 </Link>
                 .

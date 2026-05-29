@@ -20,6 +20,7 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { createHash } from 'crypto'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 

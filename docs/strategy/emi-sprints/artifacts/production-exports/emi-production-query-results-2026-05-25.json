@@ -1,0 +1,47 @@
+{
+  "executed_at": "2026-05-25T23:36:54.028Z",
+  "results": [
+    {
+      "metric": "emi_language_adoption_percent",
+      "value": 88,
+      "status": "docs_proxy",
+      "source": "sprint-6-final-success-criteria-audit"
+    },
+    {
+      "metric": "assessment_completion_percent",
+      "value": null,
+      "status": "ok",
+      "table": "user_events",
+      "started": 0,
+      "completed": 0,
+      "since": "2026-03-26T23:36:54.263Z"
+    },
+    {
+      "metric": "day7_return_percent",
+      "value": null,
+      "status": "no_data",
+      "table": "user_events",
+      "activated_users": 0
+    },
+    {
+      "metric": "proof_assets_published_count",
+      "value": null,
+      "status": "ok",
+      "table": "benchmark_proof_assets"
+    },
+    {
+      "metric": "b2b_pilot_conversion_percent",
+      "value": null,
+      "status": "query_error",
+      "error": "Could not find the table 'public.partner_opportunities' in the schema cache",
+      "table": "partner_opportunities"
+    },
+    {
+      "metric": "tier1_claim_compliance_percent",
+      "value": null,
+      "status": "query_error",
+      "error": "Could not find the table 'public.tier1_claims' in the schema cache",
+      "table": "tier1_claims"
+    }
+  ]
+}

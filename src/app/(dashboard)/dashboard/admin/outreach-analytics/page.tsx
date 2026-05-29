@@ -12,6 +12,11 @@ type OutreachLogRow = {
   recipient_email: string | null
   recipient_name: string | null
   subject: string | null
+  webhook_payload?: {
+    template_source?: string | null
+    campaign_step?: string | null
+    template_step?: string | null
+  } | null
 }
 
 type ContactRow = {
@@ -87,13 +92,13 @@ export default async function OutreachAnalyticsPage() {
   ] = await Promise.all([
     admin
       .from('outreach_logs')
-      .select('sent_at, delivery_status, outreach_channel, send_mode, recipient_email, recipient_name, subject')
+      .select('sent_at, delivery_status, outreach_channel, send_mode, recipient_email, recipient_name, subject, webhook_payload')
       .gte('sent_at', since7d)
       .order('sent_at', { ascending: false })
       .limit(5000),
     admin
       .from('outreach_logs')
-      .select('sent_at, delivery_status, outreach_channel, send_mode, recipient_email, recipient_name, subject')
+      .select('sent_at, delivery_status, outreach_channel, send_mode, recipient_email, recipient_name, subject, webhook_payload')
       .gte('sent_at', since30d)
       .order('sent_at', { ascending: false })
       .limit(5000),
@@ -225,6 +230,25 @@ export default async function OutreachAnalyticsPage() {
     .filter(r => r.delivery_status === 'email.bounced' || r.delivery_status === 'email.complained')
     .slice(0, 20)
 
+  const bulkFollowups30d = typed30d
+    .filter(r => r.send_mode === 'live')
+    .filter(r => (r.webhook_payload?.campaign_step ?? '') === 'followup_bulk_v1')
+
+  const followupTemplateCounts = bulkFollowups30d.reduce<Record<string, number>>((acc, row) => {
+    const source = (row.webhook_payload?.template_source ?? 'unknown').trim() || 'unknown'
+    acc[source] = (acc[source] ?? 0) + 1
+    return acc
+  }, {})
+
+  const latestTemplateCount = followupTemplateCounts.latest_template_engine ?? 0
+  const customInputCount = followupTemplateCounts.custom_input ?? 0
+  const unknownTemplateCount = followupTemplateCounts.unknown ?? 0
+  const latestTemplateRate = bulkFollowups30d.length > 0
+    ? Math.round((latestTemplateCount / bulkFollowups30d.length) * 100)
+    : 0
+
+  const followupTemplateRows = bulkFollowups30d.slice(0, 20)
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -239,51 +263,51 @@ export default async function OutreachAnalyticsPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
-        <div>
+<div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Performance</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">Single-view operating dashboard for outbound performance, response funnel, customer growth, and LinkedIn execution.</p>
+          <p className="text-[13px] text-slate-500 mt-1.5">Outbound metrics and growth.</p>
         </div>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section id="kpis" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Live Sends (7d)</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Live Sends (7d)</h2>
             <p className="text-[24px] font-bold text-slate-900">{sent7d}</p>
             <p className="text-[12px] text-slate-500 mt-1">Delivery rate: {deliveryRate7d}%</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Delivery Issues (7d)</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Delivery Issues (7d)</h2>
             <p className="text-[24px] font-bold text-slate-900">{bounced7d + unconfirmed7d}</p>
             <p className="text-[12px] text-slate-500 mt-1">Bounced: {bounced7d} · Unconfirmed: {unconfirmed7d}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Response Rate</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Response Rate</h2>
             <p className="text-[24px] font-bold text-slate-900">{responseRate}%</p>
-            <p className="text-[12px] text-slate-500 mt-1">In conversation + meetings / contacted</p>
+            <p className="text-[12px] text-slate-500 mt-1">Conversations + meetings / contacted</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Meetings Set Rate</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Meetings Set Rate</h2>
             <p className="text-[24px] font-bold text-slate-900">{meetingRate}%</p>
-            <p className="text-[12px] text-slate-500 mt-1">Meetings / contacted</p>
+            <p className="text-[12px] text-slate-500 mt-1">Meetings / contacted prospects</p>
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <section id="outreach-funnel" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Outreach Funnel</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Outreach Funnel</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
-              <p>Prospects</p><p className="font-semibold text-right">{byStatus.prospect}</p>
-              <p>Reached out</p><p className="font-semibold text-right">{byStatus.reached_out}</p>
-              <p>In conversation</p><p className="font-semibold text-right">{byStatus.in_conversation}</p>
-              <p>Meetings scheduled</p><p className="font-semibold text-right">{byStatus.meeting_scheduled}</p>
-              <p>Closed</p><p className="font-semibold text-right">{byStatus.closed}</p>
+              <div>Prospects</div><div className="font-semibold text-right">{byStatus.prospect}</div>
+              <div>Reached out</div><div className="font-semibold text-right">{byStatus.reached_out}</div>
+              <div>In conversation</div><div className="font-semibold text-right">{byStatus.in_conversation}</div>
+              <div>Meetings scheduled</div><div className="font-semibold text-right">{byStatus.meeting_scheduled}</div>
+              <div>Closed</div><div className="font-semibold text-right">{byStatus.closed}</div>
             </div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Sends by Channel (7d)</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Sends by Channel (7d)</h2>
             </div>
             <div className="px-5 py-4">
               {channelRows.length === 0 ? (
@@ -314,32 +338,32 @@ export default async function OutreachAnalyticsPage() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <section id="customer-growth" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">New Customers (30d)</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">New Customers (30d)</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
-              <p>New trial users</p><p className="font-semibold text-right">{newTrialUsers30d}</p>
-              <p>New paid users</p><p className="font-semibold text-right">{newPaidUsers30d}</p>
-              <p>New paid · Monitor</p><p className="font-semibold text-right">{newPaidByTier.monitor}</p>
-              <p>New paid · Search</p><p className="font-semibold text-right">{newPaidByTier.search}</p>
-              <p>New paid · Executive</p><p className="font-semibold text-right">{newPaidByTier.executive}</p>
-              <p>Potential outreach-attributed signups</p><p className="font-semibold text-right">{outreachAttributed30d}</p>
+              <div>New trial users</div><div className="font-semibold text-right">{newTrialUsers30d}</div>
+              <div>New paid users</div><div className="font-semibold text-right">{newPaidUsers30d}</div>
+              <div>New paid · Intelligence</div><div className="font-semibold text-right">{newPaidByTier.monitor}</div>
+              <div>New paid · Search</div><div className="font-semibold text-right">{newPaidByTier.search}</div>
+              <div>New paid · Executive</div><div className="font-semibold text-right">{newPaidByTier.executive}</div>
+              <div>Potential outreach-attributed signups</div><div className="font-semibold text-right">{outreachAttributed30d}</div>
             </div>
-            <div className="px-5 pb-4 text-[11px] text-slate-400">Outreach attribution is email-match based (recipient_email to user email) and directional, not deterministic.</div>
+            <div className="px-5 pb-4 text-[11px] text-slate-400">Outreach attribution is email-match based and directional.</div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Current Customer Base</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Current Customer Base</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
-              <p>Trialing now</p><p className="font-semibold text-right">{trialingCount ?? 0}</p>
-              <p>Active paid now</p><p className="font-semibold text-right">{activeCount ?? 0}</p>
-              <p>Active · Monitor</p><p className="font-semibold text-right">{activeMonitorCount ?? 0}</p>
-              <p>Active · Search</p><p className="font-semibold text-right">{activeSearchCount ?? 0}</p>
-              <p>Active · Executive</p><p className="font-semibold text-right">{activeExecutiveCount ?? 0}</p>
+              <div>Trialing now</div><div className="font-semibold text-right">{trialingCount ?? 0}</div>
+              <div>Active paid now</div><div className="font-semibold text-right">{activeCount ?? 0}</div>
+              <div>Active · Intelligence</div><div className="font-semibold text-right">{activeMonitorCount ?? 0}</div>
+              <div>Active · Search</div><div className="font-semibold text-right">{activeSearchCount ?? 0}</div>
+              <div>Active · Executive</div><div className="font-semibold text-right">{activeExecutiveCount ?? 0}</div>
             </div>
 
             <div className="px-5 pb-4">
@@ -355,30 +379,30 @@ export default async function OutreachAnalyticsPage() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <section id="linkedin-engagement" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Engagement (30d)</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Engagement (30d)</h2>
               {postsSynced.length > 0 && (
                 <span className="text-[10px] text-emerald-600 font-semibold">API synced</span>
               )}
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
-              <p>Posts published</p><p className="font-semibold text-right">{postedSocial.length}</p>
-              <p>Posts with LinkedIn URN</p><p className="font-semibold text-right">{postsWithUrn.length}</p>
-              <p>Posts with API engagement</p><p className="font-semibold text-right">{postsSynced.length}</p>
-              <p>Total likes</p><p className="font-semibold text-right">{totalLikes + parsedLikes}</p>
-              <p>Total comments</p><p className="font-semibold text-right">{totalComments + parsedComments}</p>
+              <div>Posts published</div><div className="font-semibold text-right">{postedSocial.length}</div>
+              <div>Posts with LinkedIn URN</div><div className="font-semibold text-right">{postsWithUrn.length}</div>
+              <div>Posts with API engagement</div><div className="font-semibold text-right">{postsSynced.length}</div>
+              <div>Total likes</div><div className="font-semibold text-right">{totalLikes + parsedLikes}</div>
+              <div>Total comments</div><div className="font-semibold text-right">{totalComments + parsedComments}</div>
               {totalImpressions > 0 && (
                 <>
-                  <p>Total impressions</p><p className="font-semibold text-right">{totalImpressions.toLocaleString()}</p>
-                  <p>Avg engagement rate</p><p className="font-semibold text-right">{avgEngagementRate}%</p>
+                  <div>Total impressions</div><div className="font-semibold text-right">{totalImpressions.toLocaleString()}</div>
+                  <div>Avg engagement rate</div><div className="font-semibold text-right">{avgEngagementRate}%</div>
                 </>
               )}
               {parsedEngagementPosts > 0 && (
                 <>
-                  <p className="text-slate-400">Manual notes (unsynced)</p>
-                  <p className="font-semibold text-right text-slate-400">{parsedEngagementPosts} posts</p>
+                  <div className="text-slate-400">Manual notes (unsynced)</div>
+                  <div className="font-semibold text-right text-slate-400">{parsedEngagementPosts} posts</div>
                 </>
               )}
             </div>
@@ -400,7 +424,7 @@ export default async function OutreachAnalyticsPage() {
           {/* Engagement trend bar chart — inline SVG, no client bundle needed */}
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</h2>
             </div>
             <div className="px-5 py-5">
               {chartPosts.length === 0 ? (
@@ -447,10 +471,10 @@ export default async function OutreachAnalyticsPage() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 gap-4">
+        <section id="delivery-failures" className="grid grid-cols-1 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Delivery Failures (7d)</p>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Delivery Failures (7d)</h2>
             </div>
             <div className="px-5 py-4">
               {recentFailures.length === 0 ? (
@@ -470,6 +494,56 @@ export default async function OutreachAnalyticsPage() {
                         <td className="py-2 text-slate-700">{row.recipient_name || row.recipient_email || 'Unknown'}</td>
                         <td className="py-2 text-slate-700">{channelLabel(row.outreach_channel)}</td>
                         <td className="py-2 text-slate-900 font-semibold">{row.delivery_status ?? 'unknown'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section id="followup-template-source" className="grid grid-cols-1 gap-4">
+          <div className="bg-white border border-slate-200 rounded overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100">
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Follow-up Template Source Verification (30d)</h2>
+            </div>
+            <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 lg:grid-cols-4 gap-y-2">
+              <div>Total bulk follow-up sends</div><div className="font-semibold text-right">{bulkFollowups30d.length}</div>
+              <div>Latest template engine</div><div className="font-semibold text-right">{latestTemplateCount}</div>
+              <div>Custom input</div><div className="font-semibold text-right">{customInputCount}</div>
+              <div>Unknown source</div><div className="font-semibold text-right">{unknownTemplateCount}</div>
+              <div>Latest-template rate</div><div className="font-semibold text-right">{latestTemplateRate}%</div>
+            </div>
+            <div className="px-5 pb-4 text-[11px] text-slate-400">
+              Bulk follow-up sends are expected to use template_source latest_template_engine.
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100">
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Bulk Follow-up Template Source Rows</h2>
+            </div>
+            <div className="px-5 py-4">
+              {followupTemplateRows.length === 0 ? (
+                <p className="text-[13px] text-slate-500">No bulk follow-up live sends found in the last 30 days.</p>
+              ) : (
+                <table className="w-full text-[12px]">
+                  <thead>
+                    <tr className="text-left text-slate-400">
+                      <th className="pb-2 font-semibold">Recipient</th>
+                      <th className="pb-2 font-semibold">Channel</th>
+                      <th className="pb-2 font-semibold">Template Source</th>
+                      <th className="pb-2 font-semibold">Template Step</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {followupTemplateRows.map((row, idx) => (
+                      <tr key={`${row.recipient_email ?? 'na'}-${idx}`}>
+                        <td className="py-2 text-slate-700">{row.recipient_name || row.recipient_email || 'Unknown'}</td>
+                        <td className="py-2 text-slate-700">{channelLabel(row.outreach_channel)}</td>
+                        <td className="py-2 text-slate-900 font-semibold">{row.webhook_payload?.template_source ?? 'unknown'}</td>
+                        <td className="py-2 text-slate-700">{row.webhook_payload?.template_step ?? 'n/a'}</td>
                       </tr>
                     ))}
                   </tbody>

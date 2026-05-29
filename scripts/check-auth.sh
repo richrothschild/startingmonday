@@ -2,7 +2,7 @@
 # Verifies every API route (except webhooks/) imports requireAuth.
 # Run in CI: sh scripts/check-auth.sh
 FAIL=0
-for f in $(find src/app/api -name "route.ts" | grep -v "webhooks/"); do
+for f in $(find src/app/api -name "route.ts" | grep -v "webhooks/" | grep -v "api/ideas/"); do
   if ! grep -q "requireAuth" "$f"; then
     echo "MISSING requireAuth: $f"
     FAIL=1

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 const CLIENT_PLANS = [
   {
-    name: 'Monitor',
+    name: 'Intelligence',
     price: '$49/mo',
     fit: 'Executives who want structured signal monitoring and pipeline discipline before the search turns urgent.',
   },
@@ -75,7 +75,7 @@ export default function CoachEconomicsPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <header className="mb-12">
+<header className="mb-12">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Coach pricing and partner economics
           </p>
@@ -88,9 +88,9 @@ export default function CoachEconomicsPage() {
         </header>
 
         <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7 mb-10">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">
             Preview structure
-          </p>
+          </h2>
           <div className="space-y-3 text-[14px] text-slate-700 leading-relaxed">
             <p>{PREVIEW_SENTENCE}</p>
             <p>After the preview, coaches can either buy a coach plan directly or use the referral-partner model if they prefer clients to subscribe directly.</p>
@@ -99,9 +99,9 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
             Coach buyer pricing (primary path)
-          </p>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {COACH_BUYER_PLANS.map((plan) => (
               <div key={plan.name} className="border border-slate-200 rounded-2xl p-5 bg-white">
@@ -117,9 +117,9 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
             Referral lane: client pricing
-          </p>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {CLIENT_PLANS.map((plan) => (
               <div key={plan.name} className="border border-slate-200 rounded-2xl p-5 bg-white">
@@ -135,9 +135,9 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
             Referral partner economics (secondary path)
-          </p>
+          </h2>
           <div className="border border-slate-200 rounded-2xl p-6 bg-white">
             <ul className="space-y-3 mb-5">
               {ECONOMICS.map((item) => (
@@ -148,26 +148,28 @@ export default function CoachEconomicsPage() {
               ))}
             </ul>
             <div className="border border-orange-200 bg-orange-50/50 rounded-xl p-4">
-              <p className="text-[12px] font-semibold text-slate-900 mb-1">Illustrative example</p>
+              <h3 className="text-[12px] font-semibold text-slate-900 mb-1">Illustrative example</h3>
               <p className="text-[14px] text-slate-700 leading-relaxed">10 active client referrals on Active at $199/mo is about $398/mo in recurring partner revenue while those clients keep a structured execution layer between sessions.</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Outcome metric: track 30-day readiness lift, first interview pace, and prep-brief usage before scaling your lane.</p>
             </div>
           </div>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
             Keep the trust boundary clear
-          </p>
+          </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
             <p>Lead with client readiness and workflow fit, not commissions. Economics should support the relationship, not define it.</p>
             <p>The simplest framing: if this makes coaching more effective and gives clients better between-session discipline, there is also a partner model available.</p>
+            <p>Trust and confidentiality: clients control coach access and can revoke visibility at any time.</p>
           </div>
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
             Mechanics, not mystery
-          </p>
+          </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
             {PARTNER_MECHANICS.map((item) => (
               <p key={item}>{item}</p>
@@ -176,9 +178,9 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="border border-slate-200 rounded-2xl p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
             Next step
-          </p>
+          </h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
             If the economics look reasonable, go back to the coach preview and request the live walkthrough. That keeps the evaluation anchored in workflow quality, not theory, and makes the next step obvious.
           </p>

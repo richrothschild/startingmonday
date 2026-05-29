@@ -181,7 +181,7 @@ export default function CoachFaqPage() {
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
-        <div className="max-w-3xl mx-auto">
+<div className="max-w-3xl mx-auto">
           {/* Quick nav links */}
           <div className="mb-12 pb-8 border-b border-slate-200">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-4">Quick jump to section:</p>

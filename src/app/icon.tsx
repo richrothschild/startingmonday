@@ -6,29 +6,23 @@ export const contentType = 'image/png'
 export default function Icon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: 32,
-          height: 32,
-          background: '#0f172a',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'serif',
-            fontWeight: 700,
-            fontSize: 22,
-            color: '#f97316',
-            lineHeight: 1,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          M
-        </span>
-      </div>
+      <svg width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Starting Monday icon">
+        <defs>
+          <linearGradient id="gradC" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#F97316" />
+            <stop offset="100%" stopColor="#FB923C" />
+          </linearGradient>
+        </defs>
+
+        <rect width="512" height="512" rx="72" fill="#0B1220" />
+        <rect x="96" y="98" width="320" height="316" rx="32" fill="#111827" stroke="#334155" strokeWidth="8" />
+        <rect x="128" y="128" width="256" height="32" rx="16" fill="#1F2937" />
+        <rect x="142" y="194" width="44" height="168" rx="12" fill="#E2E8F0" />
+        <rect x="234" y="226" width="44" height="136" rx="12" fill="#E2E8F0" />
+        <rect x="326" y="174" width="44" height="188" rx="12" fill="#E2E8F0" />
+        <path d="M126 106C154 70 198 48 248 48C296 48 340 68 370 102" fill="none" stroke="url(#gradC)" strokeWidth="18" strokeLinecap="round" />
+        <circle cx="392" cy="100" r="10" fill="#F97316" />
+      </svg>
     ),
     { ...size }
   )

@@ -35,6 +35,7 @@ export default function TargetCompanyListCtoPage() {
       url="https://startingmonday.app/blog/target-company-list-cto"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+        <h1 className="text-[28px] font-bold text-slate-900 leading-tight">How to Build a Better CTO Target Company List</h1>
 
         <p>
           The CIO role has a definition. The CTO role has a spectrum.
@@ -55,7 +56,7 @@ export default function TargetCompanyListCtoPage() {
           every signal you watch, and every conversation you have.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The most important question first</h2>
+        <h2 id="most-important-question" className="text-[22px] font-bold text-slate-900 pt-4">The most important question first</h2>
 
         <p>
           Not &ldquo;what type of company?&rdquo; but &ldquo;what type of CTO am I?&rdquo;
@@ -81,109 +82,37 @@ export default function TargetCompanyListCtoPage() {
           should contain companies that need the version of the CTO you actually are.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">What belongs on the list</h2>
+        <h2 id="what-belongs" className="text-[22px] font-bold text-slate-900 pt-4">What belongs on the list</h2>
 
         <p>
           Company type, not just company size. This is where the CTO list diverges most sharply from
           a CIO list.
         </p>
 
-        <p>
-          Tech-native companies&mdash;SaaS, marketplace, platform, fintech, healthtech&mdash;are
-          building for an engineering CTO. The product IS the technology. What these companies need
-          is someone who makes architectural decisions that compound over time, builds an engineering
-          culture that attracts talent, and translates technical reality into strategy the board can
-          evaluate. The wrong hire here is a person who manages vendors well and delivers on time
-          but cannot set a five-year platform direction.
-        </p>
+        <ul className="space-y-2 pl-5 list-disc">
+          <li>Tech-native companies usually need an engineering CTO who can set architecture direction and build compounding technical advantage.</li>
+          <li>Tech-enabled companies often need a technical general manager who can bridge engineering, operations, and major build-vs-buy decisions.</li>
+          <li>Growth stage matters: early builders, Series C scalers, and public-company governance leaders are different CTO profiles.</li>
+          <li>Stack and domain fit matter more in CTO searches than CIO searches; map your depth to what each company is actually building.</li>
+        </ul>
 
-        <p>
-          Tech-enabled companies&mdash;retailers building digital capability, manufacturers adding
-          connected products, healthcare systems scaling platforms&mdash;often want something closer
-          to a technical general manager: someone who can bridge engineering and operations, oversee
-          large implementations, and make build-versus-buy decisions at scale. Read the role for
-          what it actually needs, not what the title says. Some of these companies should be hiring a
-          CIO; their job descriptions do not always know the difference.
-        </p>
-
-        <p>
-          Growth stage is the second dimension. An early-stage company hiring its first CTO needs a
-          builder: someone who works with ambiguity, makes decisions with incomplete information, and
-          creates culture from scratch. A company that just raised a Series C needs a systems thinker
-          who has built reliable engineering organizations through rapid headcount growth. A mature
-          public technology company needs technical governance, architecture at scale, and
-          board-level communication. Each stage requires a different profile. Know which one matches
-          your record.
-        </p>
-
-        <p>
-          Your technology depth shapes the third constraint. Unlike the CIO seat, where business
-          outcome matters more than specific technology history, CTO roles often require demonstrated
-          expertise in the company&rsquo;s stack or problem domain. A CTO with deep distributed
-          systems experience is the right match for one company and wrong for another building AI
-          infrastructure or migrating a mainframe estate. Map your experience honestly against what
-          the companies on your list are actually building.
-        </p>
-
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">How to find the companies</h2>
+        <h2 id="how-to-find" className="text-[22px] font-bold text-slate-900 pt-4">How to find the companies</h2>
 
         <p>
           The sources for a CTO list are different from a CIO list in important ways. Retained search
           is less dominant. Investor networks, engineering communities, and funding data matter more.
         </p>
 
-        <p>
-          VC and PE portfolio pages first. The single best source for CTO candidates at
-          growth-stage companies. A firm that just led a Series B in your sector has likely
-          identified a technology leadership gap as part of the investment thesis. Check a16z,
-          Sequoia, Bessemer, Insight, and General Catalyst for early- and growth-stage mandates.
-          For later-stage technology mandates, Vista Equity, Thoma Bravo, and Summit Partners
-          specialize in software-intensive portfolio companies that consistently need CTO-level
-          leadership upgrades.
-        </p>
+        <ul className="space-y-2 pl-5 list-disc">
+          <li>Start with VC and PE portfolios where new rounds often imply upcoming technical leadership gaps.</li>
+          <li>Watch engineering blogs for technical seriousness and signals of transition or instability.</li>
+          <li>Use Crunchbase and PitchBook filters for recent Series B/C companies in your sector.</li>
+          <li>Ask former CTOs, VPs of Engineering, and investors who they are watching, not only who is hiring.</li>
+          <li>Use engineering conference speaker rosters as a shortcut to engineering-serious organizations.</li>
+          <li>Track companies with strong VP Engineering leadership and no named CTO for likely hidden mandates.</li>
+        </ul>
 
-        <p>
-          Engineering blogs second. Companies that invest in their engineering blog&mdash;publishing
-          about architecture decisions, scaling challenges, and hard-won technical lessons&mdash;are
-          companies that take technical leadership seriously. The quality of what they write reflects
-          the quality of their engineering culture. A blog that has gone quiet for six months is
-          sometimes a signal that the engineering organization is in transition and the CTO seat is
-          unstable or vacant.
-        </p>
-
-        <p>
-          Crunchbase and PitchBook third. Filter for companies in your sectors that raised a Series B
-          or C in the last eighteen months with fifty to three hundred employees. This is the
-          highest-density zone for first-time CTO mandates and engineering leadership upgrades.
-          The decision window is narrow in the startup context&mdash;these searches open and close
-          faster than retained search at large enterprises.
-        </p>
-
-        <p>
-          Your professional network fourth, but use it differently than a CIO candidate would. Former
-          CTOs, VPs of Engineering, and engineering-focused board members and investors are your best
-          source of organizational intelligence. They know which engineering teams are struggling,
-          which CEOs are looking for a technical co-pilot, and which companies have the right
-          environment for the role you want. Ask who they are watching, not who is hiring.
-        </p>
-
-        <p>
-          Developer and engineering community rosters fifth. The engineering leaders who speak at
-          QCon, StrangeLoop, LeadDev, or AWS re:Invent come from companies that invest in
-          engineering excellence publicly. Those tend to be the same companies that build the right
-          CTO mandate and create the right environment for the role. The speaker list is a shortcut
-          to a curated set of engineering-serious organizations.
-        </p>
-
-        <p>
-          LinkedIn&rsquo;s VP Engineering universe sixth. Companies with a strong VP Engineering
-          and no named CTO often present a structural question the board is quietly evaluating: hire
-          a CTO above the VP, or promote internally? Network connections at those companies can tell
-          you which direction they are leaning. The ones looking externally often have not published
-          the search yet.
-        </p>
-
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The signals that precede a CTO search</h2>
+        <h2 id="signals" className="text-[22px] font-bold text-slate-900 pt-4">The signals that precede a CTO search</h2>
 
         <p>
           CTO searches often appear with less lead time than CIO searches and move faster once they
@@ -238,7 +167,7 @@ export default function TargetCompanyListCtoPage() {
           moving and why. When the signal appears, be the candidate who was already in motion.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The clarity that makes everything else work</h2>
+        <h2 id="clarity" className="text-[22px] font-bold text-slate-900 pt-4">The clarity that makes everything else work</h2>
 
         <p>
           The executives who build the best CTO target lists start with an honest answer to a
@@ -250,6 +179,20 @@ export default function TargetCompanyListCtoPage() {
           That clarity is what turns a list of interesting companies into a search campaign with
           direction. Without it, the list is aspirational. With it, the list is a strategy.
         </p>
+
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-5 mt-8">
+          <h2 className="text-[18px] font-bold text-slate-900 mb-2">Apply this to your next week</h2>
+          <p>
+            Trust and confidentiality: treat your target list and outreach notes as private campaign assets,
+            and share specifics only with trusted advisors.
+          </p>
+          <p className="mt-2">
+            Outcome metric: aim to identify 12 to 18 priority companies and 2 to 3 new conversations per week.
+          </p>
+          <p className="mt-2">
+            CTA: get started now by building your CTO target list and monitoring it for role-opening signals.
+          </p>
+        </section>
 
       </div>
     </BlogPost>

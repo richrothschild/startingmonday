@@ -112,13 +112,13 @@ export default function ReferencesPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-18">
-        <header className="mb-10">
+<header className="mb-10">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">Evidence and references</p>
           <h1 className="text-[32px] sm:text-[40px] font-bold text-slate-900 leading-tight mb-4">
-            Every quantifiable claim, mapped to a source.
+            Every quantified claim, mapped to source.
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-3xl">
-            This page shows what we claim, where each claim comes from, how confident we are in that claim, and when the claim language last changed.
+            See each claim, source type, confidence level, and update history in one place.
           </p>
         </header>
 
@@ -149,6 +149,55 @@ export default function ReferencesPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-12">
+          <div className="mb-4">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What this evidence means</p>
+            <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-2">How the research shapes Starting Monday</h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed max-w-3xl">
+              Core thesis: coaching and transition outcomes improve when leaders have better signals, preparation, and between-session structure.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-lg border border-slate-200">
+            <table className="w-full border-collapse bg-white">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">What we know</th>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">What it means for Starting Monday</th>
+                  <th className="px-5 py-3 text-left text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Best source</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaching works best when the mechanism is clear and the context is right.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">The product should support a visible between-session operating layer, not just another conversation tool.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ely et al. (2010)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Concrete plans improve follow-through more than vague intent.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Prep briefs and accountability loops should convert intention into a specific next action.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Gollwitzer (1999)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Onboarding and transition outcomes improve when structure reduces ambiguity.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Starting Monday should make early role transitions, executive searches, and first 90 days easier to navigate.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Bauer et al. (2007)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Weak signals can appear before formal market visibility.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the product’s edge: it helps users act before the search is obvious to everyone else.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ansoff (1975)</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaching effectiveness is affected by multiple factors, not just effort inside the session.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Coaches need shared visibility into client progress between sessions so time can shift from status updates to strategy.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Bozer and Jones (2018)</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 

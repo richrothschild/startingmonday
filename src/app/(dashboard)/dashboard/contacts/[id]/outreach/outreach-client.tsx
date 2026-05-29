@@ -83,6 +83,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
   const [showHistory, setShowHistory] = useState(false)
   const [expandedHistory, setExpandedHistory] = useState<string | null>(null)
   const [showInformed, setShowInformed] = useState(false)
+  const [actionError, setActionError] = useState('')
 
   const subtitle = [contact.title, contact.firm ?? contact.company_name].filter(Boolean).join(' · ')
 
@@ -92,6 +93,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
     setCopied(false)
     setShowCopyPrompt(false)
     setSent(false)
+    setActionError('')
     try {
       const res = await fetch('/api/outreach/draft', {
         method: 'POST',
@@ -156,9 +158,16 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
 
   async function handleMarkSent() {
     setLoading('sent')
+    setActionError('')
     try {
       const result = await markContactSent(contact.id, contact.name)
-      if (result.ok) { setSent(true); setShowCopyPrompt(false) }
+      if (result.ok) {
+        setSent(true)
+        setShowCopyPrompt(false)
+        return
+      }
+
+      setActionError(result.error ?? 'Could not mark this outreach as sent.')
     } finally {
       setLoading(null)
     }
@@ -166,8 +175,14 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
 
   async function handleRemindLater() {
     setLoading('remind')
+    setActionError('')
     try {
-      await remindLater(contact.id, contact.name)
+      const result = await remindLater(contact.id, contact.name)
+      if (!result.ok) {
+        setActionError(result.error ?? 'Could not create a reminder for this outreach.')
+        return
+      }
+
       setShowCopyPrompt(false)
     } finally {
       setLoading(null)
@@ -355,6 +370,12 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
             {sent && (
               <div className="mb-5 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded text-[12px] text-emerald-700">
                 Logged as contacted. A follow-up has been added for 5 days from now.
+              </div>
+            )}
+
+            {actionError && (
+              <div className="mb-5 px-3 py-2 bg-red-50 border border-red-200 rounded text-[12px] text-red-700">
+                {actionError}
               </div>
             )}
 

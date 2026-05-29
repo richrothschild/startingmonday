@@ -29,7 +29,6 @@ export default function RetainedSearchCandidatePreparationPage() {
       url="https://startingmonday.app/blog/retained-search-candidate-preparation"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           There is a conversation that happens at retained search firms after a technology executive
           candidate does not advance past the first round. The hiring committee gives feedback. The

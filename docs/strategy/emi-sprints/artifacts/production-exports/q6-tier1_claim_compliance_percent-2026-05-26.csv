@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes
+Q6,tier1_claim_compliance_percent,6.08,ok,"total=296;compliant=18"

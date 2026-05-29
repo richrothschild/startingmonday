@@ -36,7 +36,6 @@ export default function RetainedSearchFirmsPage() {
       url="https://startingmonday.app/blog/retained-search-firms"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The retained search firm is paid by the company doing the hiring. That single fact explains
           almost everything about how the relationship works and where most candidates go wrong.

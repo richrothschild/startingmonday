@@ -36,7 +36,6 @@ export default function WhatCompaniesWantChiefDataOfficerPage() {
       url="https://startingmonday.app/blog/what-companies-want-chief-data-officer"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Read a Chief Data Officer job description and you will find a list of platforms, a paragraph about
           governance frameworks, and a requirement for fifteen years of experience. Read between the lines and

@@ -40,14 +40,13 @@ export default async function AddCompanyPage({
             href="/dashboard"
             className="text-[13px] text-slate-300 hover:text-white transition-colors"
           >
-            ← Dashboard
+            ? Dashboard
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-8">
+<div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Add company</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Add a company to your pipeline to track and monitor.</p>
         </div>

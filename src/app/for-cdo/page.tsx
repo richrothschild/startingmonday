@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search Campaign Infrastructure',
@@ -108,6 +109,7 @@ export default function ForCdoPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <h1 className="sr-only">Starting Monday for C-suite digital leaders in CDO searches</h1>
       <LandingPage
         hero={{
           eyebrow: 'Digital transformation mandates are being absorbed, restructured, and redefined.',

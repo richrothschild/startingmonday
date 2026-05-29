@@ -35,7 +35,6 @@ export default function TargetCompanyListPage() {
       url="https://startingmonday.app/blog/target-company-list"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most CIOs start an executive search by updating their resume. The ones who land fastest
           start by making a list.

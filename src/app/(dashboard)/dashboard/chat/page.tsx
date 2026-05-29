@@ -12,7 +12,7 @@ function ActionToast({ message, onDismiss }: { message: string; onDismiss: () =>
 
   return (
     <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-slate-900 text-white text-[13px] font-medium px-5 py-3 rounded-full shadow-lg">
-      <span className="text-amber-400">&#10003;</span>
+              <span className="text-amber-400">&#10003;</span>
       <span>{message}</span>
       <Link href="/dashboard" className="text-slate-400 hover:text-white underline text-[12px]">
         View pipeline
@@ -210,6 +210,7 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col font-sans bg-white">
+      <h1 className="sr-only">Career advisor chat</h1>
       {actionToast && (
         <ActionToast message={actionToast} onDismiss={() => setActionToast(null)} />
       )}
@@ -236,26 +237,26 @@ export default function ChatPage() {
       )}
 
       <header className="bg-slate-900 shrink-0">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between gap-3">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-6">
             {messages.length > 0 && !loading && !loadingHistory && (
               <button
                 type="button"
                 onClick={clearConversation}
-                className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors bg-transparent border-0 cursor-pointer"
+                className="hidden sm:inline-flex text-[12px] text-slate-400 hover:text-slate-300 transition-colors bg-transparent border-0 cursor-pointer"
               >
                 Clear
               </button>
             )}
-            <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">
+            <span className="hidden sm:inline text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">
               Chat
             </span>
             <Link
               href="/dashboard"
-              className="text-[13px] text-slate-300 hover:text-white transition-colors"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
             >
               ← Dashboard
             </Link>
@@ -264,6 +265,14 @@ export default function ChatPage() {
       </header>
 
       <div className="flex-1 overflow-y-auto">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-1">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#chat-empty-state" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Starter prompts</a>
+            <a href="#chat-thread" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Conversation</a>
+            <a href="#chat-composer" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Composer</a>
+          </div>
+        </section>
         {loadingHistory ? (
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 flex items-center gap-2 text-slate-300">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block" />
@@ -271,7 +280,7 @@ export default function ChatPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:300ms]" />
           </div>
         ) : messages.length === 0 ? (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+          <section id="chat-empty-state" className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
             <p className="text-[22px] font-bold text-slate-900 mb-2">
               What would you like to work on?
             </p>
@@ -280,7 +289,7 @@ export default function ChatPage() {
             </p>
             <div className="flex flex-col gap-6">
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Ask</p>
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Ask</h2>
                 <div className="flex flex-col gap-2">
                   {ASK_PROMPTS.map(prompt => (
                     <button
@@ -295,7 +304,7 @@ export default function ChatPage() {
                 </div>
               </div>
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Tell me to</p>
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Tell me to</h2>
                 <div className="flex flex-col gap-2">
                   {DO_PROMPTS.map(prompt => (
                     <button
@@ -310,9 +319,9 @@ export default function ChatPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         ) : (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
+          <section id="chat-thread" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -338,11 +347,11 @@ export default function ChatPage() {
               </div>
             ))}
             <div ref={bottomRef} />
-          </div>
+          </section>
         )}
       </div>
 
-      <div className="shrink-0 border-t border-slate-200 bg-white px-6 py-4">
+      <div id="chat-composer" className="shrink-0 border-t border-slate-200 bg-white px-6 py-4">
         <div className="max-w-3xl mx-auto px-4 sm:px-0 flex gap-3 items-end">
           <textarea
             ref={textareaRef}

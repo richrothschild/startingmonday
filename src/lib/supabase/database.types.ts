@@ -292,6 +292,18 @@ export type Database = {
           signal_summary: string
           outreach_angle: string | null
           outreach_draft: Json | null
+          confidence: number | null
+          source_kind: string | null
+          focus_tags: string[] | null
+          profile_channel: string | null
+          profile_persona: string | null
+          relevance_score: number | null
+          suppressed_at: string | null
+          suppression_reason: string | null
+          evidence_snippets: string[] | null
+          filing_form: string | null
+          filing_items: string[] | null
+          partner_entities: string[] | null
           signal_date: string
           source_url: string | null
           notified_at: string | null
@@ -602,6 +614,7 @@ export type Database = {
           type: string
           output_text: string
           user_rating: number | null
+          section_name: string | null
           created_at: string
         }
         Insert: {
@@ -609,6 +622,7 @@ export type Database = {
           user_id: string
           type: string
           output_text: string
+          section_name?: string | null
           [key: string]: unknown
         }
         Update: {

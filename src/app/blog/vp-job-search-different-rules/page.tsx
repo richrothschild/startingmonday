@@ -29,7 +29,6 @@ export default function VpJobSearchDifferentRulesPage() {
       url="https://startingmonday.app/blog/vp-job-search-different-rules"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most job search advice is built around a transparent market. Roles are posted.
           You apply. Someone reviews your resume and decides whether to call you. The process

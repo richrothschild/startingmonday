@@ -9,6 +9,7 @@ export default defineConfig({
   timeout: 45_000,
   retries: 1,
   reporter: [['list'], ['html', { open: 'never' }]],
+  snapshotPathTemplate: 'tests/e2e/__screenshots__/{arg}{ext}',
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app',
     trace: 'on-first-retry',
@@ -34,6 +35,55 @@ export default defineConfig({
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'outreach-canary',
+      testMatch: /outreach-canary\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'personas',
+      testMatch: /persona-flows\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'mobile-iphone',
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 3,
+        isMobile: true,
+        hasTouch: true,
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'mobile-android',
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Pixel 7'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
+      name: 'mobile-tablet',
+      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Galaxy Tab S4'],
         storageState: 'tests/e2e/.auth/user.json',
       },
     },

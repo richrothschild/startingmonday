@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { getStripe } from '@/lib/stripe'
 import { getOrRecoverStripeCustomerId } from '@/lib/stripe-customer'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)

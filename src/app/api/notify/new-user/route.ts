@@ -2,12 +2,13 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 import { getOwnerEmail } from '@/lib/owner-email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const OWNER_EMAIL = getOwnerEmail()
 
 const TIER_LABELS: Record<string, string> = {
   trialing:  'Free trial',
-  passive:   'Monitor ($49/mo)',
+  passive:   'Intelligence ($49/mo)',
   active:    'Active ($199/mo)',
   executive: 'Executive ($499/mo)',
 }

@@ -44,7 +44,7 @@ export function PipelineFilter({ q, stage, stages }: Props) {
     <div className="px-4 sm:px-6 py-3 border-b border-slate-100">
       <div className="flex items-center gap-2 flex-wrap">
         <input
-          key={q}
+          key={`q-${q}`}
           type="text"
           defaultValue={q}
           onChange={onQueryChange}
@@ -52,7 +52,7 @@ export function PipelineFilter({ q, stage, stages }: Props) {
           className="flex-1 min-w-[120px] border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
         />
         <select
-          key={stage}
+          key={`stage-${stage}`}
           defaultValue={stage}
           onChange={onStageChange}
           aria-label="Filter by stage"

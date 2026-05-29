@@ -42,7 +42,6 @@ export default function ExecutiveJobSearchDailyRoutinePage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most executive searches do not fail because the candidate lacks experience. They fail because
           the daily operating rhythm collapses by week three. Outreach becomes inconsistent, follow-up

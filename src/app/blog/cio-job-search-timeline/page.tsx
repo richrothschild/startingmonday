@@ -44,7 +44,6 @@ export default function CioJobSearchTimelinePage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The honest answer most people do not say out loud: six to eighteen months. The range is that wide
           for a reason, and where you land in it depends on decisions you make before you start&mdash;not after.

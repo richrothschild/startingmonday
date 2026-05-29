@@ -1,6 +1,6 @@
 "use client"
 import { exportToCsv } from '@/components/export-csv'
-export function ExportCsvButton({ rows }: { rows: any[] }) {
+export function ExportCsvButton({ rows }: { rows: Record<string, unknown>[] }) {
   return (
     <div className="mb-4">
       <button

@@ -27,8 +27,14 @@ import { runConciergePrepJob } from './jobs/concierge-prep-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
 import { runSocialPostJob } from './jobs/social-post-job.js'
+import { runGoogleCalendarSyncJob } from './jobs/google-calendar-sync-job.js'
 import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
 import { runLeadScoringJob } from './jobs/lead-scoring-job.js'
+import { runUiUxWeeklyReviewJob } from './jobs/ui-ux-weekly-review-job.js'
+import { runLinkIntegrityWeeklyReviewJob } from './jobs/link-integrity-weekly-review-job.js'
+import { runOutreachToneGuardJob } from './jobs/outreach-tone-guard-job.js'
+import { runIdeasMonthlyJob } from './jobs/ideas-monthly-job.js'
+import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
 
@@ -44,6 +50,14 @@ Sentry.init({
 
 process.on('uncaughtException', (err) => {
   logger.error('worker: uncaught exception', { error: err.message, stack: err.stack })
+  notify({
+    subject: 'Worker crash: uncaught exception',
+    body: [
+      `Error: ${err.message}`,
+      `Time: ${new Date().toISOString()}`,
+      'Worker process will exit and rely on Railway restart.',
+    ].join('\n'),
+  }).catch(() => {})
   Sentry.captureException(err)
   Sentry.flush(2000).finally(() => process.exit(1))
 })
@@ -51,12 +65,24 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (reason) => {
   const message = reason instanceof Error ? reason.message : String(reason)
   logger.error('worker: unhandled rejection', { reason: message })
+  if (shouldNotifyFailure('process:unhandledRejection')) {
+    notify({
+      subject: 'Worker warning: unhandled rejection',
+      body: [
+        `Reason: ${message}`,
+        `Time: ${new Date().toISOString()}`,
+        'Process continues, but this should be investigated.',
+      ].join('\n'),
+    }).catch(() => {})
+  }
   Sentry.captureException(reason)
 })
 
 // ── Job runner ────────────────────────────────────────────────────────────────
 
 const jobStatus = {}
+const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
+const lastFailureNotifyAt = new Map()
 
 // Jobs that run longer than their timeout are forcibly rejected and logged as
 // { event: 'job_timeout' } so they surface in Railway log queries.
@@ -68,6 +94,14 @@ const JOB_TIMEOUTS_MS = {
   'briefing-job':           3 * 60_000,
 }
 const DEFAULT_JOB_TIMEOUT_MS = 5 * 60_000
+
+function shouldNotifyFailure(key) {
+  const now = Date.now()
+  const last = lastFailureNotifyAt.get(key) ?? 0
+  if (now - last < FAILURE_NOTIFY_COOLDOWN_MS) return false
+  lastFailureNotifyAt.set(key, now)
+  return true
+}
 
 async function runJob(name, fn) {
   if (jobStatus[name] === 'running') {
@@ -89,8 +123,31 @@ async function runJob(name, fn) {
     jobStatus[name] = 'idle'
     if (err.isTimeout) {
       logger.error(`${name}: timed out`, { event: 'job_timeout', job: name, timeout_ms: timeoutMs })
+      if (shouldNotifyFailure(`${name}:timeout`)) {
+        notify({
+          subject: `Worker timeout: ${name}`,
+          body: [
+            `Job timed out after ${timeoutMs}ms.`,
+            `Job: ${name}`,
+            `Time: ${new Date().toISOString()}`,
+            'Check Railway worker logs and Sentry for stack traces.',
+          ].join('\n'),
+        }).catch(() => {})
+      }
     } else {
       logger.error(`${name}: unhandled error`, { error: err.message })
+      if (shouldNotifyFailure(`${name}:error`)) {
+        notify({
+          subject: `Worker error: ${name}`,
+          body: [
+            `Job failed with unhandled error.`,
+            `Job: ${name}`,
+            `Error: ${err.message}`,
+            `Time: ${new Date().toISOString()}`,
+            'Check Railway worker logs and Sentry for full context.',
+          ].join('\n'),
+        }).catch(() => {})
+      }
     }
     Sentry.captureException(err, { tags: { job: name } })
   }
@@ -171,8 +228,28 @@ cron.schedule('0 16 * * 1-5', () => runJob('lead-scoring-job', runLeadScoringJob
 cron.schedule('35 8 * * 1', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('45 8 * * 3', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
 cron.schedule('35 8 * * 5', () => runJob('social-post-job', runSocialPostJob), { timezone: 'America/Chicago' })
+// Google Calendar sync: every 6 hours UTC — keeps connected calendars aligned with the posting reminders
+cron.schedule('15 */6 * * *', () => runJob('google-calendar-sync-job', runGoogleCalendarSyncJob))
 // LinkedIn engagement sync — runs daily at 6pm CT to pull latest likes/comments
 cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLinkedInEngagementJob), { timezone: 'America/Chicago' })
+
+// Weekly site-wide UI/UX council review summary: Sunday 21:00 UTC
+cron.schedule('0 21 * * 0', () => runJob('ui-ux-weekly-review-job', runUiUxWeeklyReviewJob))
+
+// Weekly site-wide link integrity review summary + safe auto-fix pass: Sunday 20:30 UTC
+cron.schedule('30 20 * * 0', () => runJob('link-integrity-weekly-review-job', runLinkIntegrityWeeklyReviewJob))
+
+// Pre-send outreach tone guard auto-remediation: daily at 14:45 UTC before outreach windows
+cron.schedule('45 14 * * *', () => runJob('outreach-tone-presend-job', () => runOutreachToneGuardJob('presend')))
+
+// Outreach reconciliation: daily at 14:50 UTC — backfill missing contacts and reached_out states before the digest runs
+cron.schedule('50 14 * * *', () => runJob('outreach-reconcile-job', runOutreachReconcileJob))
+
+// Weekly outreach human-tone guard report: Sunday 20:45 UTC
+cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', () => runOutreachToneGuardJob('weekly')))
+
+// Ideas monthly report + gift card draw: 1st of each month at 09:00 UTC
+cron.schedule('0 9 1 * *', () => runJob('ideas-monthly-job', runIdeasMonthlyJob))
 
 // ── Demo health check on startup ──────────────────────────────────────────────
 // Runs 10s after boot so the DB connection pool is settled.
@@ -180,7 +257,7 @@ cron.schedule('0 18 * * *', () => runJob('sync-linkedin-engagement', runSyncLink
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────

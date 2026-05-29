@@ -62,7 +62,7 @@ export default function ForPeTeamsPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-20">
         <div className="max-w-2xl mx-auto space-y-16">
 
-          <section>
+          <section id="value-props">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-6">
               Where it matters
             </p>
@@ -76,12 +76,15 @@ export default function ForPeTeamsPage() {
             </div>
           </section>
 
-          <section>
+          <section id="partner-model">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
               How it works with your firm
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
               Operating partners and value creation leads who enroll executives through a shared referral link earn 20% commission on active subscriptions. Preferred partners get consolidated billing, an activation dashboard, and volume pricing starting at 5 seats.
+            </p>
+            <p className="text-[13px] text-slate-500 leading-relaxed mb-6">
+              Proof point: prepared executive candidates reduce first-round resets, which is one of the largest hidden drivers of mandate cycle delay.
             </p>
             <p className="text-[14px] text-slate-600 leading-relaxed mb-6">
               You can also work with specific portfolio company candidates directly: share a referral link that pre-attributes them to your firm and gives them a dedicated onboarding path.
@@ -91,7 +94,7 @@ export default function ForPeTeamsPage() {
                 href="/partners#apply"
                 className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
               >
-                Apply as a partner &rarr;
+                Get started as a partner &rarr;
               </Link>
               <Link
                 href="/for-pe-partners"
@@ -102,12 +105,15 @@ export default function ForPeTeamsPage() {
             </div>
           </section>
 
-          <section className="bg-slate-900 rounded-lg p-8">
+          <section id="exec-benefit" className="bg-slate-900 rounded-lg p-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
               What your executives get
             </p>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-5">
               Every executive you enroll gets full platform access: early company signals, daily morning briefings, AI prep briefs before conversations, and a pipeline they can run like a campaign rather than a hope.
+            </p>
+            <p className="text-[12px] text-slate-500 leading-relaxed mb-5">
+              Confidentiality standard: executive activity is private by default and never exposed to employers or search firms.
             </p>
             <Link
               href="/demo"

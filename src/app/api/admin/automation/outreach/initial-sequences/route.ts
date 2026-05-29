@@ -4,6 +4,9 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
 
 function renderTemplate(template: string, values: Record<string, string>): string {
   return template.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, key) => values[key] ?? '')
@@ -65,7 +68,13 @@ export async function POST(request: NextRequest) {
     })
 
     if (sendLive) {
-      const result = await sendEmail({ to: email, subject, html: `<p>${bodyText.replace(/\n/g, '<br/>')}</p>` })
+      const result = await sendEmail({
+        to: email,
+        subject,
+        html: `<p>${bodyText.replace(/\n/g, '<br/>')}</p>`,
+        from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+        replyTo: OUTREACH_REPLY_TO,
+      })
       if (!result?.error) {
         sent++
         await supabase
@@ -80,6 +89,7 @@ export async function POST(request: NextRequest) {
           channel: 'email',
           message_preview: bodyText.slice(0, 200),
           sent_at: new Date().toISOString(),
+          webhook_payload: { email_source: 'automation_initial_sequences' },
         })
       }
     }

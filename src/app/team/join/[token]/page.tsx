@@ -23,6 +23,7 @@ export default async function TeamJoinPage({
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100 font-sans">
         <div className="text-center px-6">
+          <h1 className="text-[20px] font-bold text-slate-900 mb-2">Invite not available</h1>
           <p className="text-[15px] font-semibold text-slate-700 mb-3">This invite link is invalid or expired.</p>
           <Link href="/" className="text-[13px] text-slate-500 underline underline-offset-2">Go to startingmonday.app</Link>
         </div>
@@ -34,6 +35,7 @@ export default async function TeamJoinPage({
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100 font-sans">
         <div className="text-center px-6">
+          <h1 className="text-[20px] font-bold text-slate-900 mb-2">Invite already accepted</h1>
           <p className="text-[15px] font-semibold text-slate-700 mb-3">This invite has already been accepted.</p>
           <Link href="/dashboard" className="text-[13px] font-semibold text-orange-500">Go to dashboard &rarr;</Link>
         </div>
@@ -102,7 +104,17 @@ export default async function TeamJoinPage({
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
         <div className="max-w-md w-full">
-          <p className="text-[13px] text-slate-500 mb-4">Team invitation</p>
+          <section className="mb-6 bg-slate-800 border border-slate-700 rounded p-4">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Jump to section</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+              <a href="#invite-summary" className="text-slate-300 hover:text-white underline underline-offset-2">Invite summary</a>
+              <a href="#invite-benefits" className="text-slate-300 hover:text-white underline underline-offset-2">What you get</a>
+              <a href="#next-step" className="text-slate-300 hover:text-white underline underline-offset-2">Next step</a>
+            </div>
+          </section>
+
+          <section id="invite-summary">
+          <h2 className="text-[13px] text-slate-500 mb-4">Team invitation</h2>
           <h1 className="text-[32px] font-bold text-white leading-tight mb-4">
             {inviterName} invited you to join their account
           </h1>
@@ -113,14 +125,29 @@ export default async function TeamJoinPage({
           <p className="text-[13px] text-slate-500 mb-8">
             This seat is reserved for <span className="text-slate-300">{seat.member_email}</span>.
           </p>
+          </section>
 
+          <section id="invite-benefits" className="mb-8 rounded border border-slate-700 bg-slate-800/50 p-4">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">What you get</h2>
+            <ul className="text-[13px] text-slate-300 space-y-1.5 leading-relaxed">
+              <li>Shared account access with full dashboard workflow.</li>
+              <li>Company pipeline, briefing, and interview prep in one workspace.</li>
+              <li>Seat-level access linked to your own login.</li>
+            </ul>
+            <p className="text-[12px] text-slate-400 mt-3">Trust and confidentiality: invite access is secure and tied to this email seat and account authentication.</p>
+            <p className="text-[12px] text-slate-400 mt-1">Outcome metric: most members begin their first dashboard action in under 5 minutes after joining.</p>
+          </section>
+
+          <section id="next-step">
+          <h2 className="sr-only">Next step</h2>
+          <p className="text-[12px] text-slate-400 mb-3">CTA: get started now by accepting this invite.</p>
           {user ? (
             <form action={acceptInvite}>
               <button
                 type="submit"
                 className="w-full bg-white text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-slate-100 transition-colors cursor-pointer border-0"
               >
-                Accept invite and join
+                Get started now
               </button>
               <p className="text-[12px] text-slate-500 mt-3">Joining as {user.email}</p>
             </form>
@@ -140,6 +167,7 @@ export default async function TeamJoinPage({
               </Link>
             </div>
           )}
+          </section>
         </div>
       </main>
     </div>

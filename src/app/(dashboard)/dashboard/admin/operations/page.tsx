@@ -73,7 +73,7 @@ export default async function AdminOperationsPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="mb-8">
+<div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Operations Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Reliability, release quality, and monitoring operations.</p>
           <p className="text-[13px] text-slate-500 mt-1">

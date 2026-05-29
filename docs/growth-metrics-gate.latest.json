@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-05-28T20:43:02.422Z",
+  "status": "PASS",
+  "checks": [
+    {
+      "metric": "qualified_signup_rate",
+      "value": 0.074,
+      "status": "PASS",
+      "threshold": {
+        "min": 0.06
+      }
+    },
+    {
+      "metric": "hero_cta_ctr",
+      "value": 0.162,
+      "status": "PASS",
+      "threshold": {
+        "min": 0.1
+      }
+    },
+    {
+      "metric": "form_start_rate",
+      "value": 0.284,
+      "status": "PASS",
+      "threshold": {
+        "min": 0.2
+      }
+    },
+    {
+      "metric": "form_completion_rate",
+      "value": 0.513,
+      "status": "PASS",
+      "threshold": {
+        "min": 0.45
+      }
+    },
+    {
+      "metric": "bounce_rate",
+      "value": 0.441,
+      "status": "PASS",
+      "threshold": {
+        "max": 0.55
+      }
+    },
+    {
+      "metric": "median_engaged_time_seconds",
+      "value": 68,
+      "status": "PASS",
+      "threshold": {
+        "min": 45
+      }
+    },
+    {
+      "metric": "scroll_depth_75_rate",
+      "value": 0.371,
+      "status": "PASS",
+      "threshold": {
+        "min": 0.3
+      }
+    }
+  ],
+  "failures": [],
+  "metricsPath": "C:\\Users\\roths\\startingmonday\\docs\\growth\\weekly-metrics.latest.json"
+}

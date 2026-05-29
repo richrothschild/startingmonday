@@ -7,8 +7,6 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   const since24h = new Date(now.getTime() -  24 * 60 * 60 * 1000)
   const since7d  = new Date(now.getTime() -  7 * 24 * 60 * 60 * 1000)
   const since14d = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
-  const since30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-  const since90d = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
   const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
   const since7dISO = since7d.toISOString()

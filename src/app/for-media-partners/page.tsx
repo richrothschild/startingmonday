@@ -70,8 +70,7 @@ export default function ForMediaPartnersPage() {
       </nav>
 
       <main>
-
-        {/* Header */}
+{/* Header */}
         <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
@@ -89,6 +88,29 @@ export default function ForMediaPartnersPage() {
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto space-y-14">
+
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                ['500+', 'Monitored companies feeding the research and signal narrative'],
+                ['2 business days', 'Expected turnaround after a partner application'],
+                ['Quarterly', 'Natural cadence for co-branded research distribution'],
+              ].map(([value, label]) => (
+                <div key={value} className="border border-slate-200 rounded-xl p-4 bg-white">
+                  <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
+                  <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+                </div>
+              ))}
+            </section>
+
+            <section className="border border-emerald-200 rounded-xl p-5 bg-emerald-50/40">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and methodology</p>
+              <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+                Research partnerships are built on original monitoring, explicit attribution, and clear methodology notes. We do not ask you to publish recycled job-board data or sponsor copy disguised as reporting.
+              </p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">
+                Verification path: review source methodology, choose a narrow pilot topic, and compare audience response against standard sponsored content before expanding the partnership.
+              </p>
+            </section>
 
             {/* What Starting Monday is */}
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">

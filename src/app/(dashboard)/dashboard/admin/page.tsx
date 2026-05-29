@@ -1,82 +1,31 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
+import { getStripe } from '@/lib/stripe'
+import { getRolePathPriorityDebugRows } from '@/lib/role-path-priority'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
+import { INTERNAL_APIS, PAGE_GROUPS, STEP_LABELS } from './admin-page-config'
 
-const STEP_LABELS: Record<string, string> = {
-  a1_resume:   'Resume uploaded',
-  a2_company:  'Company added',
-  a3_prep:     'Prep brief generated',
-  a4_contact:  'Contact added',
-  a5_briefing: 'Briefing configured',
-  a6_follow_up:'Follow-up set',
+type EmailCouncilLogEntry = {
+  ts: string
+  to?: string
+  channel?: string
+  subject?: string
+  blocked?: boolean
+  blockers?: string[]
+  warnings?: string[]
+  scores?: {
+    ejes?: number
+    open?: number
+    understand?: number
+    reply?: number
+    productLift?: number
+  }
 }
-
-type InternalPage = {
-  path: string
-  label: string
-  owner: string
-  admin: string
-  viewer: string
-  priority: 'core' | 'advanced'
-}
-
-const PAGE_GROUPS: Array<{
-  id: string
-  label: string
-  purpose: string
-  pages: InternalPage[]
-}> = [
-  {
-    id: 'revenue-growth',
-    label: 'Revenue & Growth',
-    purpose: 'Pipeline, customer conversion, demand generation, and GTM execution.',
-    pages: [
-      { path: '/dashboard/admin/revenue', label: 'Revenue Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/dashboard/admin/crm', label: 'CRM', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/customers', label: 'Customers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/outreach-analytics', label: 'Outreach Performance', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/coach-outreach', label: 'Coach Outreach', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/social', label: 'LinkedIn Social', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/linkedin-company-launch', label: 'LinkedIn Company Launch', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/speakers', label: 'Conference Speakers', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-    ],
-  },
-  {
-    id: 'product-intelligence',
-    label: 'Product & Intelligence',
-    purpose: 'Customer intelligence, quality signals, and product performance telemetry.',
-    pages: [
-      { path: '/dashboard/admin/product', label: 'Product Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/dashboard/admin/intelligence', label: 'Intelligence (B2B)', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
-    ],
-  },
-  {
-    id: 'platform-operations',
-    label: 'Platform Operations',
-    purpose: 'Runbooks, access control, reliability, and operational governance.',
-    pages: [
-      { path: '/dashboard/admin/operations', label: 'Operations Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
-      { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
-      { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'advanced' },
-      { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
-    ],
-  },
-]
-
-const INTERNAL_APIS = [
-  { path: '/api/outreach/draft',       label: 'Outreach Draft',        owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/send',        label: 'Outreach Send',         owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/status',      label: 'Outreach Status',       owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/outreach/suppression', label: 'Outreach Suppression',  owner: 'rw', admin: 'rw', viewer: '-' },
-  { path: '/api/admin/automation/monitoring/alerts', label: 'Automation Alerts', owner: 'rw', admin: 'rw', viewer: '-' },
-]
 
 export default async function AdminPage() {
   const supabase = await createClient()
@@ -85,6 +34,8 @@ export default async function AdminPage() {
 
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
+
+  const rolePathPriorityDebugPromise = getRolePathPriorityDebugRows()
 
   const adminClient = createAdminClient()
   const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
@@ -191,6 +142,7 @@ export default async function AdminPage() {
   const eventCounts7d  = (events7d  ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventCounts30d = (events30d ?? []).reduce<Record<string, number>>((acc, e) => { acc[e.event_name] = (acc[e.event_name] ?? 0) + 1; return acc }, {})
   const eventVolumeData = Object.entries(eventCounts30d).sort((a, b) => b[1] - a[1]).map(([event_name, count]) => ({ event_name, count }))
+  const rolePathPriorityDebug = await rolePathPriorityDebugPromise
   const searchPaused7d = eventCounts7d.search_paused ?? 0
   const searchResumed7d = eventCounts7d.search_resumed ?? 0
   const netPaused7d = searchPaused7d - searchResumed7d
@@ -300,11 +252,11 @@ export default async function AdminPage() {
       note: briefingViewers14d.size > 0 ? `Viewers n=${briefingViewers14d.size}` : 'No briefing viewers in window',
     },
     {
-      label: 'Monitor retention (30d)',
+      label: 'Intelligence retention (30d)',
       threshold: '>= 70%',
       value: monitorRetention30d === null ? 'N/A' : `${monitorRetention30d}%`,
       status: monitorRetention30d === null ? 'gray' : monitorRetention30d >= 70 ? 'green' : monitorRetention30d >= 60 ? 'yellow' : 'red',
-      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Monitor cohort yet',
+      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Intelligence cohort yet',
     },
     {
       label: 'Upgrade pull (30d)',
@@ -423,7 +375,7 @@ export default async function AdminPage() {
       rate: ended > 0 ? Math.round((converted / ended) * 100) : 0,
     }))
 
-  // Signal → action rate by signal type
+  // Signal to action rate by signal type
   const actedSignalIds = new Set((signalActions ?? []).map(a => a.signal_id).filter((id): id is string => id !== null))
   const signalTypeCounts: Record<string, { total: number; acted: number }> = {}
   for (const s of (allSignals ?? []) as { id: string; signal_type: string }[]) {
@@ -459,6 +411,96 @@ export default async function AdminPage() {
     role === 'admin' ? 'bg-blue-50 text-blue-700' :
     'bg-slate-100 text-slate-500'
 
+  // Email council quality telemetry from local score log
+  const emailCouncilLogPath = path.join(process.cwd(), '.logs', 'email-council-scores.jsonl')
+  let emailCouncilEntries: EmailCouncilLogEntry[] = []
+  try {
+    const raw = await readFile(emailCouncilLogPath, 'utf8')
+    emailCouncilEntries = raw
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line) as EmailCouncilLogEntry
+        } catch {
+          return null
+        }
+      })
+      .filter((entry): entry is EmailCouncilLogEntry => entry !== null)
+  } catch {
+    emailCouncilEntries = []
+  }
+
+  const nowMs = Date.now()
+  const oneDayMs = 24 * 60 * 60 * 1000
+  const sevenDayMs = 7 * oneDayMs
+
+  const councilLast24h = emailCouncilEntries.filter((entry) => {
+    const ts = Date.parse(entry.ts)
+    return Number.isFinite(ts) && nowMs - ts <= oneDayMs
+  })
+
+  const councilLast7d = emailCouncilEntries.filter((entry) => {
+    const ts = Date.parse(entry.ts)
+    return Number.isFinite(ts) && nowMs - ts <= sevenDayMs
+  })
+
+  const blockedSends24h = councilLast24h.filter((entry) => entry.blocked).length
+  const evaluated24h = councilLast24h.length
+  const passed24h = evaluated24h - blockedSends24h
+  const avgEjes24h = evaluated24h > 0
+    ? Math.round(councilLast24h.reduce((sum, entry) => sum + (entry.scores?.ejes ?? 0), 0) / evaluated24h)
+    : null
+
+  const blockerCounts = new Map<string, number>()
+  for (const entry of councilLast24h) {
+    for (const blocker of entry.blockers ?? []) {
+      blockerCounts.set(blocker, (blockerCounts.get(blocker) ?? 0) + 1)
+    }
+  }
+  const topBlockers = Array.from(blockerCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+
+  const councilChannelMap = new Map<string, { count: number; blocked: number; ejesSum: number }>()
+  for (const entry of councilLast7d) {
+    const key = entry.channel ?? 'general'
+    const current = councilChannelMap.get(key) ?? { count: 0, blocked: 0, ejesSum: 0 }
+    current.count += 1
+    current.blocked += entry.blocked ? 1 : 0
+    current.ejesSum += entry.scores?.ejes ?? 0
+    councilChannelMap.set(key, current)
+  }
+  const channelEjesTrend = Array.from(councilChannelMap.entries())
+    .map(([channel, stats]) => ({
+      channel,
+      evaluations: stats.count,
+      blockedRate: stats.count > 0 ? Math.round((stats.blocked / stats.count) * 100) : 0,
+      avgEjes: stats.count > 0 ? Math.round(stats.ejesSum / stats.count) : 0,
+    }))
+    .sort((a, b) => b.evaluations - a.evaluations)
+
+  const signups7d = cohort7.length
+
+  // MRR from Stripe (best-effort — falls back to null on error)
+  let stripeMrr: number | null = null
+  try {
+    const stripe = getStripe()
+    const subs = await stripe.subscriptions.list({ status: 'active', limit: 100 })
+    let totalCents = 0
+    for (const sub of subs.data) {
+      for (const item of sub.items.data) {
+        const cents = (item.price.unit_amount ?? 0) * (item.quantity ?? 1)
+        totalCents += item.price.recurring?.interval === 'year'
+          ? Math.round(cents / 12)
+          : cents
+      }
+    }
+    stripeMrr = Math.round(totalCents / 100)
+  } catch {
+    // Stripe unavailable — show null
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -470,14 +512,13 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Dashboard</Link>
           </div>
         </div>
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-8 flex items-start justify-between gap-4">
+<div className="mb-8 flex items-start justify-between gap-4">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Admin</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">
@@ -491,6 +532,81 @@ export default async function AdminPage() {
             </Link>
           )}
         </div>
+
+        <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
+            <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
+            <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
+            <a href="#role-path-ranking" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role-path ranking</a>
+            <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
+            <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+          </div>
+        </section>
+
+        <section id="email-council-health" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
+          <p className="text-[12px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day EJES trend.</p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
+            {[{
+              label: 'Evaluated (24h)',
+              value: evaluated24h,
+            }, {
+              label: 'Blocked (24h)',
+              value: blockedSends24h,
+            }, {
+              label: 'Passed (24h)',
+              value: passed24h,
+            }, {
+              label: 'Avg EJES (24h)',
+              value: avgEjes24h ?? 'N/A',
+            }].map((card) => (
+              <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
+                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Top blockers (24h)</p>
+              {topBlockers.length === 0 ? (
+                <p className="text-[12px] text-slate-500">No blockers logged in the last 24 hours.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {topBlockers.map(([blocker, count]) => (
+                    <li key={blocker} className="text-[12px] text-slate-700 flex items-start justify-between gap-3">
+                      <span className="leading-relaxed">{blocker}</span>
+                      <span className="text-[11px] font-bold text-slate-500">{count}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Channel EJES trend (7d)</p>
+              {channelEjesTrend.length === 0 ? (
+                <p className="text-[12px] text-slate-500">No channel score data yet.</p>
+              ) : (
+                <div className="space-y-2">
+                  {channelEjesTrend.map((row) => (
+                    <div key={row.channel} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-[12px]">
+                      <span className="text-slate-700">{row.channel}</span>
+                      <span className="text-slate-500">EJES {row.avgEjes}</span>
+                      <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${row.blockedRate === 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                        blocked {row.blockedRate}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
 
         <div className="mb-8">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
@@ -536,7 +652,7 @@ export default async function AdminPage() {
           </div>
           <div className="mt-3">
             <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-              Automation alerts open: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> • view runbooks
+              Automation alerts: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
@@ -573,7 +689,7 @@ export default async function AdminPage() {
             </div>
             <p className="text-[11px] text-slate-500 mb-3">
               Last 3d net: <span className="font-semibold text-slate-700">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
-              {' '}({positiveNetDaysLast3d}/3 days net positive)
+              {' '}({positiveNetDaysLast3d}/3 days positive)
             </p>
             <div className="space-y-2">
               {pauseResumeTrend7d.map((row) => (
@@ -607,10 +723,47 @@ export default async function AdminPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="role-path-ranking" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Role Path Ranking Debug</h2>
+          <p className="text-[12px] text-slate-400 mb-4">Live homepage order inputs from click volume and conversion behavior (90d window).</p>
+          {rolePathPriorityDebug.length === 0 ? (
+            <p className="text-[12px] text-slate-500">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px] min-w-[760px]">
+                <thead>
+                  <tr className="text-left text-slate-400 border-b border-slate-100">
+                    <th className="py-2 pr-3 font-semibold">Rank</th>
+                    <th className="py-2 pr-3 font-semibold">CTA key</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Clicks</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Anon est.</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Conv users</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Conv rate</th>
+                    <th className="py-2 font-semibold text-right">Score</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {rolePathPriorityDebug.map((row) => (
+                    <tr key={row.ctaKey}>
+                      <td className="py-2 pr-3 font-semibold text-slate-900">#{row.rank}</td>
+                      <td className="py-2 pr-3 text-slate-700">{row.ctaKey}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{row.clicks}</td>
+                      <td className="py-2 pr-3 text-right text-slate-500">{row.anonymousClickEstimate}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{row.conversionUsers}</td>
+                      <td className="py-2 pr-3 text-right text-slate-800">{(row.conversionRate * 100).toFixed(1)}%</td>
+                      <td className="py-2 text-right text-slate-900 font-semibold">{row.score.toFixed(4)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section id="go-no-go" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</p>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</h2>
               <p className="text-[12px] text-slate-400 mt-1">Auto-evaluated from current measurable thresholds.</p>
             </div>
             <div className={`text-[12px] font-bold px-3 py-1.5 rounded border ${statusClass(decision.status)}`}>
@@ -632,25 +785,27 @@ export default async function AdminPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Subscriber summary */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <section id="subscriber-summary" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
           {[
-            { label: 'Total users',   value: totalUsers    ?? 0 },
-            { label: 'Active (paid)', value: paidUsers     ?? 0 },
-            { label: 'Trialing',      value: trialingUsers ?? 0 },
-            { label: 'Placed',        value: placements.length },
-          ].map(({ label, value }) => (
+            { label: 'Total users',   value: String(totalUsers    ?? 0), highlight: false },
+            { label: 'Active (paid)', value: String(paidUsers     ?? 0), highlight: false },
+            { label: 'Trialing',      value: String(trialingUsers ?? 0), highlight: false },
+            { label: 'Placed',        value: String(placements.length),  highlight: false },
+            { label: 'New (7d)',       value: String(signups7d),          highlight: false },
+            { label: 'Stripe MRR',    value: stripeMrr !== null ? `$${stripeMrr.toLocaleString()}` : '--', highlight: true },
+          ].map(({ label, value, highlight }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
-              <div className="text-[28px] font-bold text-slate-900">{value}</div>
+              <div className={`text-[28px] font-bold ${highlight ? 'text-orange-500' : 'text-slate-900'}`}>{value}</div>
               <div className="text-[12px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
-        </div>
+        </section>
 
         {/* System health */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
           <div className="flex items-center gap-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
@@ -666,13 +821,13 @@ export default async function AdminPage() {
               <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Team summary */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <section id="team-summary" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</span>
-            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage →</Link>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
+            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage Team</Link>
           </div>
           <div className="divide-y divide-slate-50">
             {teamMembers.map(m => (
@@ -682,85 +837,21 @@ export default async function AdminPage() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Internal pages + permissions */}
-        <div className="space-y-4 mb-6">
-          {PAGE_GROUPS.map((group) => (
-            <div key={group.id} className="bg-white border border-slate-200 rounded overflow-hidden">
-              <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between gap-3">
-                <div>
-                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">{group.label}</span>
-                  <p className="text-[12px] text-slate-500 mt-1">{group.purpose}</p>
-                </div>
-                <span className="text-[11px] text-slate-400">{group.pages.length} pages</span>
-              </div>
-              <table className="w-full text-[12px]">
-                <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                    <th className="px-6 py-2.5 font-semibold text-slate-400">Page</th>
-                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Tier</th>
-                    <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                    <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                    <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {group.pages.map((page, i) => (
-                    <tr key={`${group.id}-${i}`}>
-                      <td className="px-6 py-3">
-                        <Link href={page.path} className="text-slate-900 font-semibold hover:text-slate-600">{page.label}</Link>
-                        <span className="ml-2 text-slate-300 font-mono text-[11px]">{page.path}</span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${page.priority === 'core' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
-                          {page.priority === 'core' ? 'Core' : 'Advanced'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center font-bold text-amber-600">{page.owner}</td>
-                      <td className="px-4 py-3 text-center font-bold text-blue-600">{page.admin}</td>
-                      <td className="px-4 py-3 text-center text-slate-300">{page.viewer}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
-
-        {/* Internal APIs + permissions */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Internal APIs</span>
+        <section id="internal-pages" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
+            <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Team and permissions</Link>
+            <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Product ops</Link>
+            <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
           </div>
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                <th className="px-6 py-2.5 font-semibold text-slate-400">Endpoint</th>
-                <th className="px-4 py-2.5 font-semibold text-amber-600 text-center">Owner</th>
-                <th className="px-4 py-2.5 font-semibold text-blue-600 text-center">Admin</th>
-                <th className="px-4 py-2.5 font-semibold text-slate-400 text-center">Viewer</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {INTERNAL_APIS.map((p, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-3">
-                    <span className="text-slate-900 font-semibold">{p.label}</span>
-                    <span className="ml-2 text-slate-300 font-mono text-[11px]">{p.path}</span>
-                  </td>
-                  <td className="px-4 py-3 text-center font-bold text-amber-600">{p.owner}</td>
-                  <td className="px-4 py-3 text-center font-bold text-blue-600">{p.admin}</td>
-                  <td className="px-4 py-3 text-center text-slate-300">{p.viewer}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        </section>
 
         {/* Six-actions funnel */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</div>
+        <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</h2>
           <p className="text-[12px] text-slate-400 mb-6">Trialing + active users (n={activeUserIds.size})</p>
           <FunnelChart data={funnelData} />
           <table className="w-full mt-4 text-[12px]">
@@ -781,11 +872,11 @@ export default async function AdminPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
 
         {/* Event volume */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</div>
+        <section id="event-volume" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</h2>
           <p className="text-[12px] text-slate-400 mb-6">7d counts in right column</p>
           {eventVolumeData.length === 0 ? (
             <p className="text-[13px] text-slate-400">No events yet.</p>
@@ -812,11 +903,11 @@ export default async function AdminPage() {
               </table>
             </>
           )}
-        </div>
+        </section>
 
         {/* Trial conversion */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</div>
+        <section id="trial-conversion" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</h2>
           <p className="text-[12px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
           <div className={`mb-5 border rounded p-4 ${linkedInAdsGatePass ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'}`}>
             <div className="flex items-center justify-between gap-3 mb-1">
@@ -883,61 +974,18 @@ export default async function AdminPage() {
               )}
             </>
           )}
-        </div>
+        </section>
 
-        {/* Active trial users */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Active Trials ({trialUsers.length})</span>
-          </div>
-          {trialUsers.length === 0 ? (
-            <p className="px-6 py-5 text-[13px] text-slate-400">No active trials.</p>
-          ) : (
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Started</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Days left</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Companies</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Source</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {trialUsers.map(u => {
-                  const daysLeft = u.trial_ends_at
-                    ? Math.max(0, Math.round((new Date(u.trial_ends_at).getTime() - Date.now()) / 86400000))
-                    : null
-                  const daysIn = u.created_at
-                    ? Math.round((Date.now() - new Date(u.created_at).getTime()) / 86400000)
-                    : null
-                  const hasCompanies = trialCompanySet.has(u.id)
-                  return (
-                    <tr key={u.id}>
-                      <td className="px-6 py-3 font-semibold text-slate-900">{u.email}</td>
-                      <td className="px-4 py-3 text-slate-500">{daysIn !== null ? `Day ${daysIn}` : '-'}</td>
-                      <td className="px-4 py-3">
-                        <span className={`font-bold ${daysLeft !== null && daysLeft <= 3 ? 'text-red-600' : daysLeft !== null && daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>
-                          {daysLeft !== null ? `${daysLeft}d` : '-'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${hasCompanies ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
-                          {hasCompanies ? 'Yes' : 'No'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">{u.signup_source ?? '-'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <section id="active-trials" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
+          <p className="text-[13px] text-slate-600">Active trials: {trialUsers.length}</p>
+        </section>
 
-        {/* Signal → action rate */}
-        <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</div>
+        {/* Signal to action rate */}
+        <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
+          <div className="pt-4">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
           <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
           {signalRows.length === 0 ? (
             <p className="text-[13px] text-slate-400">No signals yet.</p>
@@ -967,133 +1015,18 @@ export default async function AdminPage() {
               </tbody>
             </table>
           )}
-        </div>
-
-        {/* Partners */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Partners ({partners.length})</span>
           </div>
-          {partners.length === 0 ? (
-            <p className="px-6 py-5 text-[13px] text-slate-400">No partners yet.</p>
-          ) : (
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Partner</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Code</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Referred</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Active</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">MRR</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Commission</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {partners.map(p => {
-                  const counts = attributionsByPartner[p.id] ?? { total: 0, active: 0, mrr: 0 }
-                  const commission = Math.round(counts.mrr * p.commission_pct / 100)
-                  return (
-                    <tr key={p.id}>
-                      <td className="px-6 py-3">
-                        <div className="font-semibold text-slate-900">{p.name}</div>
-                        <div className="text-slate-400 text-[11px]">{p.email}</div>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-slate-600">{p.referral_code}</td>
-                      <td className="px-4 py-3 text-right text-slate-700">{counts.total}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-slate-900">{counts.active}</td>
-                      <td className="px-4 py-3 text-right text-slate-700">{counts.mrr > 0 ? `$${counts.mrr}` : '-'}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-green-700">{commission > 0 ? `$${commission}/mo` : '-'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
+        </details>
 
-        {/* B2B Accounts */}
-        {b2bAccounts.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">B2B Accounts ({b2bAccounts.length})</span>
-            </div>
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Owner</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Seats invited</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Accepted</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {b2bAccounts.map(a => (
-                  <tr key={a.id}>
-                    <td className="px-6 py-3 text-slate-900 font-semibold">{a.email}</td>
-                    <td className="px-4 py-3 capitalize">
-                      <span className="text-[11px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded">{a.tier}</span>
-                    </td>
-                    <td className="px-4 py-3 text-right text-slate-700">{a.total}</td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-900">{a.accepted}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <section id="partners" className="bg-white border border-slate-200 rounded p-5">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Commercial snapshot</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
+            <div className="border border-slate-200 rounded px-3 py-2">Partners: <span className="font-semibold">{partners.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">Placements: <span className="font-semibold">{placements.length}</span></div>
+            <div className="border border-slate-200 rounded px-3 py-2">Avg context: <span className="font-semibold">{avgContextScore ?? 'N/A'}</span></div>
           </div>
-        )}
-
-        {/* Placements */}
-        {placements.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Placements ({placements.length})</span>
-            </div>
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100 text-left">
-                  <th className="px-6 py-2.5 font-semibold text-slate-400">Name</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Company</th>
-                  <th className="px-4 py-2.5 font-semibold text-slate-400">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {placements.map((p, i) => (
-                  <tr key={i}>
-                    <td className="px-6 py-3 font-semibold text-slate-900">{p.full_name ?? '-'}</td>
-                    <td className="px-4 py-3 text-slate-700">{p.placement_company ?? '-'}</td>
-                    <td className="px-4 py-3 text-slate-400">
-                      {new Date(p.placed_at!).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* Brief quality */}
-        <div className="bg-white border border-slate-200 rounded p-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Brief Quality (30d)</div>
-          <p className="text-[12px] text-slate-400 mb-5">Context richness at generation time (n={logs.length})</p>
-          {logs.length === 0 ? (
-            <p className="text-[13px] text-slate-400">No briefs logged yet.</p>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
-              {[
-                { label: 'Avg context score', value: avgContextScore !== null ? `${avgContextScore}/100` : '-' },
-                { label: '% with resume',     value: pctResume   !== null ? `${pctResume}%`   : '-' },
-                { label: '% with scan',       value: pctScan     !== null ? `${pctScan}%`     : '-' },
-                { label: '% with contacts',   value: pctContacts !== null ? `${pctContacts}%` : '-' },
-                { label: 'Avg word count',    value: avgWords    !== null ? avgWords.toLocaleString() : '-' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <div className="text-[22px] font-bold text-slate-900">{value}</div>
-                  <div className="text-[11px] text-slate-400 mt-1 leading-snug">{label}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        </section>
 
       </main>
     </div>

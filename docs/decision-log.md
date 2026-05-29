@@ -110,6 +110,33 @@ Add a row when making any decision that costs more than a week of effort or that
 
 ---
 
+### 11. EMI production validation baseline freeze (2026-05-26)
+**Bet:** Freezing validation baselines to the current canonical production KPI values provides a stable control point for drift detection and removes false failures from stale published references.
+**Assumption:** Weekly KPI snapshots now reflect canonical production truth for all six EMI metrics and should be used as the comparison baseline for ongoing reruns.
+**Success metric:** `emi-production-validation-rerun` returns `status=ok`, `mismatchCount=0`, `nullStreakCount=0` on default tolerance after deploy.
+**Kill criterion:** Any of the six metrics returns `mismatch` or `null_or_missing` for 2 consecutive weekly reruns without an approved baseline update decision.
+**Review date:** 2026-06-30
+
+Evidence (production):
+
+- Weekly snapshot run id: `8d41ddbf-aa19-4045-a3a0-7560972aaa8e`
+- Validation rerun id: `5b9def8b-951b-49a7-b3e9-816e30dd32d7`
+- Frozen baseline values:
+
+  - `emi_language_adoption_percent`: 100
+  - `assessment_completion_percent`: 100
+  - `day7_return_percent`: 0
+  - `proof_assets_published_count`: 3
+  - `b2b_pilot_conversion_percent`: 28.57
+  - `tier1_claim_compliance_percent`: 100
+
+Operational decision (seed rows):
+
+- Keep current `EMI Seed Prospect` rows in production as calibration fixtures for weekly EMI validation until tokenized automation lands.
+- Revisit removal decision at next review date after secure service-token trigger is in place.
+
+---
+
 ## Continuous Improvement Flywheel
 
 Each quarter, run this loop:

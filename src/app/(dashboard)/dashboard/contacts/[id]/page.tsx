@@ -146,9 +146,20 @@ export default async function ContactDetailPage({
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+<section className="mb-5 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#contact-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Overview</a>
+            <a href="#linked-company" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Linked company</a>
+            <a href="#timing-signal" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Timing signal</a>
+            <a href="#follow-ups" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Follow-ups</a>
+            <a href="#company-signals" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company signals</a>
+            <a href="#recent-drafts" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Recent drafts</a>
+          </div>
+        </section>
 
         {/* Contact header */}
-        <div className="bg-white border border-slate-200 rounded-lg p-6 mb-5">
+        <section id="contact-overview" className="bg-white border border-slate-200 rounded-lg p-6 mb-5">
           <div className="flex items-start gap-4 mb-4">
             <div className="flex items-center gap-4 flex-1 min-w-0">
               <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white text-[16px] font-bold shrink-0">
@@ -224,7 +235,7 @@ export default async function ContactDetailPage({
 
           {/* Outreach status stepper */}
           <div className="mb-4">
-            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Status</p>
+            <h2 className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Status</h2>
             <ContactStatusStepper
               contactId={id}
               currentStatus={contact.outreach_status ?? 'prospect'}
@@ -266,11 +277,11 @@ export default async function ContactDetailPage({
               </a>
             )}
           </div>
-        </div>
+        </section>
 
         {linkedCompany && (
-          <div className="bg-white border border-slate-200 rounded-lg p-5 mb-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Linked company</p>
+          <section id="linked-company" className="bg-white border border-slate-200 rounded-lg p-5 mb-5">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Linked company</h2>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <Link href={`/dashboard/companies/${linkedCompany.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-700 transition-colors">
@@ -300,7 +311,7 @@ export default async function ContactDetailPage({
                 </Link>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Mark contacted confirmation */}
@@ -325,10 +336,10 @@ export default async function ContactDetailPage({
 
         {/* Warm path alert */}
         {mostRecentSignal && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 mb-5">
-            <div className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700 mb-2">
+          <section id="timing-signal" className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 mb-5">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700 mb-2">
               Timing signal at {companyName}
-            </div>
+            </h2>
             <div className="flex items-start gap-3">
               <span className={[
                 'shrink-0 text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full mt-0.5',
@@ -349,15 +360,15 @@ export default async function ContactDetailPage({
             >
               Draft a message using this signal
             </Link>
-          </div>
+          </section>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
           {/* Follow-ups */}
-          <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+          <section id="follow-ups" className="bg-white border border-slate-200 rounded-lg overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Follow-ups</span>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Follow-ups</h2>
               {pendingFollowUps.length > 0 && (
                 <span className="text-[11px] font-semibold text-red-600">{pendingFollowUps.length} pending</span>
               )}
@@ -463,15 +474,15 @@ export default async function ContactDetailPage({
                 </button>
               </form>
             </div>
-          </div>
+          </section>
 
           {/* Company signals */}
           {contact.company_id && (
-            <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+            <section id="company-signals" className="bg-white border border-slate-200 rounded-lg overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                   {companyName} signals
-                </span>
+                </h2>
                 {contact.company_id && (
                   <Link
                     href={`/dashboard/companies/${contact.company_id}`}
@@ -503,16 +514,16 @@ export default async function ContactDetailPage({
                   No signals in the last 30 days.
                 </div>
               )}
-            </div>
+            </section>
           )}
 
         </div>
 
         {/* Recent outreach drafts */}
         {recentBriefs && recentBriefs.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mt-5">
+          <section id="recent-drafts" className="bg-white border border-slate-200 rounded-lg overflow-hidden mt-5">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Recent drafts</span>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Recent drafts</h2>
               <Link href={`/dashboard/contacts/${id}/outreach`} className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors">
                 Draft new
               </Link>
@@ -525,7 +536,7 @@ export default async function ContactDetailPage({
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
       </main>

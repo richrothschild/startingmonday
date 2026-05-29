@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const VALID_SOURCES = new Set(['manual', 'unsubscribe', 'bounce', 'complaint', 'system'])
 

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { ALLOWED_EMOTIONAL_ANGLES, type EmotionalAngle } from '@/lib/social-council-check'
 
 type SocialPost = {
   id: string
@@ -26,9 +27,55 @@ type TodayResponse =
       post: SocialPost
     }
 
+type HandoffHistoryRun = {
+  batchId: string
+  createdAt: string
+  articleTitle: string | null
+  dates: string[]
+}
+
+type ShortFormCouncilCheck = {
+  score: number
+  characterCount: number
+  recommendation: 'publish' | 'revise' | 'rewrite-opening'
+  councilPass?: boolean
+  emotionalAngle?: EmotionalAngle | null
+  previousEmotionalAngle?: EmotionalAngle | null
+  categories: {
+    hook: number
+    specificity: number
+    credibility: number
+    wit: number
+    compression: number
+    cta: number
+  }
+  checks: {
+    under1200: boolean
+    oneCoreIdea: boolean
+    oneCta: boolean
+    oneHumorLineMax: boolean
+    realDetail: boolean
+    honestClaim: boolean
+    emotionalAnglePresent?: boolean
+    emotionalAngleRotation?: boolean
+  }
+  topFixes: string[]
+}
+
 const LINKEDIN_URL = 'https://www.linkedin.com/feed/'
 const LINKEDIN_MESSAGING_URL = 'https://www.linkedin.com/messaging/compose/'
 const LINKEDIN_MYNETWORK_URL = 'https://www.linkedin.com/mynetwork/'
+const GOOGLE_CALENDAR_EVENT_BASE = 'https://calendar.google.com/calendar/u/0/r/eventedit'
+const APPROVED_TOKEN = 'approval_status=approved'
+const REVIEW_REMINDER_FILENAME = 'startingmonday-social-review-reminder.ics'
+
+const PILLAR_OPTIONS = [
+  { value: 'search_craft', label: 'Search Craft' },
+  { value: 'market_intel', label: 'Market Intelligence' },
+  { value: 'behind_build', label: 'Behind the Build' },
+  { value: 'user_story', label: 'User Story' },
+  { value: 'engagement', label: 'Engagement' },
+] as const
 
 const CONNECTION_TEMPLATES = [
   {
@@ -51,6 +98,142 @@ function formatDate(dateStr: string): string {
   })
 }
 
+function hasApprovedToken(notes: string | null | undefined): boolean {
+  if (!notes) return false
+  return notes.includes(APPROVED_TOKEN)
+}
+
+function setApprovedToken(notes: string | null | undefined, approved: boolean): string | null {
+  const tokens = (notes ?? '')
+    .split('|')
+    .map(token => token.trim())
+    .filter(Boolean)
+    .filter(token => !token.startsWith('approval_status='))
+
+  if (approved) tokens.unshift(APPROVED_TOKEN)
+  return tokens.length > 0 ? tokens.join(' | ') : null
+}
+
+function getChicagoDateParts(date: Date): { year: string; month: string; day: string } {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date)
+
+  const year = parts.find(part => part.type === 'year')?.value ?? '2026'
+  const month = parts.find(part => part.type === 'month')?.value ?? '01'
+  const day = parts.find(part => part.type === 'day')?.value ?? '01'
+  return { year, month, day }
+}
+
+function buildCalendarReminderIcs(now: Date): string {
+  const { year, month, day } = getChicagoDateParts(now)
+  const dtStamp = now.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+  const dtStart = `${year}${month}${day}T081500`
+  const dtEnd = `${year}${month}${day}T083000`
+
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Starting Monday//Social Review Reminder//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:social-review-upcoming-posts@startingmonday.app',
+    `DTSTAMP:${dtStamp}`,
+    `DTSTART;TZID=America/Chicago:${dtStart}`,
+    `DTEND;TZID=America/Chicago:${dtEnd}`,
+    'RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR',
+    'SUMMARY:Review upcoming LinkedIn posts',
+    'DESCRIPTION:Open https://startingmonday.app/dashboard/admin/social and review upcoming drafts before the daily post window.',
+    'LOCATION:https://startingmonday.app/dashboard/admin/social',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n')
+}
+
+function buildGoogleCalendarReminderUrl(now: Date): string {
+  const { year, month, day } = getChicagoDateParts(now)
+  const dates = `${year}${month}${day}T081500/${year}${month}${day}T083000`
+  const params = new URLSearchParams({
+    text: 'Review upcoming LinkedIn posts',
+    dates,
+    ctz: 'America/Chicago',
+    recur: 'RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR',
+    details: 'Open https://startingmonday.app/dashboard/admin/social and review upcoming drafts before the daily post window.',
+    location: 'https://startingmonday.app/dashboard/admin/social',
+    add: 'richard@startingmonday.app',
+  })
+  return `${GOOGLE_CALENDAR_EVENT_BASE}?${params.toString()}`
+}
+
+function countMatches(text: string, pattern: RegExp): number {
+  const matches = text.match(pattern)
+  return matches ? matches.length : 0
+}
+
+function evaluateShortFormCouncil(text: string): ShortFormCouncilCheck {
+  const trimmed = text.trim()
+  const characterCount = trimmed.length
+  const lines = trimmed.split('\n').map(line => line.trim()).filter(Boolean)
+  const firstLine = lines[0] ?? ''
+
+  const ctaHits = countMatches(trimmed, /(comment|reply|dm|message me|send me|if you want|if this is useful|open to)/gi)
+  const humorHits = countMatches(trimmed, /(funny|joke|laugh|smile|recap theater|recap theatre|ironic|irony)/gi)
+  const detailHits = countMatches(trimmed, /(\d|week|today|yesterday|client|call|session|pilot|quote|"|')/gi)
+  const hedgeHits = countMatches(trimmed, /(usually|often|most|in our pilot|in week one|we are seeing|pattern)/gi)
+  const overclaimHits = countMatches(trimmed, /(always|never|everyone|no one|guaranteed|proves)/gi)
+
+  const under1200 = characterCount <= 1200
+  const oneCta = ctaHits >= 1 && ctaHits <= 2
+  const oneHumorLineMax = humorHits <= 1
+  const realDetail = detailHits >= 2
+  const honestClaim = overclaimHits === 0 || hedgeHits >= 1
+  const oneCoreIdea = countMatches(trimmed, /(\n\n)/g) <= 7
+
+  const hook = firstLine.length >= 28 && firstLine.length <= 140 ? 22 : 15
+  const specificity = realDetail ? 17 : 11
+  const credibility = honestClaim ? 17 : 10
+  const wit = oneHumorLineMax ? (humorHits === 1 ? 14 : 10) : 6
+  const compression = under1200 ? (characterCount <= 1100 ? 10 : 8) : 3
+  const cta = oneCta ? 9 : 5
+
+  const score = hook + specificity + credibility + wit + compression + cta
+
+  const recommendation: ShortFormCouncilCheck['recommendation'] =
+    score >= 84 ? 'publish' : score >= 72 ? 'revise' : 'rewrite-opening'
+
+  const topFixes: string[] = []
+  if (!under1200) topFixes.push('Trim to 1200 characters or less before publishing.')
+  if (!realDetail) topFixes.push('Add one lived detail: a role, week marker, or direct quote.')
+  if (!oneCta) topFixes.push('Keep exactly one clear CTA in the final two lines.')
+  if (!honestClaim) topFixes.push('Replace absolute claims with precise, evidence-backed language.')
+  if (!oneHumorLineMax) topFixes.push('Use one subtle smile line only; remove extra humor beats.')
+  if (hook < 19) topFixes.push('Rewrite the first line to be more specific and operator-level.')
+
+  if (topFixes.length === 0) {
+    topFixes.push('Strong draft. Keep the opening and publish after a final read-aloud pass.')
+  }
+
+  return {
+    score,
+    characterCount,
+    recommendation,
+    categories: { hook, specificity, credibility, wit, compression, cta },
+    checks: {
+      under1200,
+      oneCoreIdea,
+      oneCta,
+      oneHumorLineMax,
+      realDetail,
+      honestClaim,
+    },
+    topFixes: topFixes.slice(0, 3),
+  }
+}
+
 
 export function SocialClient() {
   const [state, setState] = useState<TodayResponse | null>(null)
@@ -64,12 +247,36 @@ export function SocialClient() {
   const [markingPosted, setMarkingPosted] = useState(false)
   const [posting, setPosting] = useState(false)
   const [regenerating, setRegenerating] = useState(false)
+  const [togglingApproval, setTogglingApproval] = useState(false)
+  const [handoffSubmitting, setHandoffSubmitting] = useState(false)
+  const [handoffMessage, setHandoffMessage] = useState('')
+  const [handoffTitle, setHandoffTitle] = useState('')
+  const [handoffUrl, setHandoffUrl] = useState('')
+  const [handoffSummary, setHandoffSummary] = useState('')
+  const [handoffAudience, setHandoffAudience] = useState('')
+  const [handoffVariants, setHandoffVariants] = useState(3)
+  const [handoffPillar, setHandoffPillar] = useState<(typeof PILLAR_OPTIONS)[number]['value']>('market_intel')
+  const [handoffHistory, setHandoffHistory] = useState<HandoffHistoryRun[]>([])
+  const [handoffHistoryLoading, setHandoffHistoryLoading] = useState(true)
+  const [calendarReminderSaved, setCalendarReminderSaved] = useState(false)
+  const [googleCalendarOpened, setGoogleCalendarOpened] = useState(false)
+  const [councilCheck, setCouncilCheck] = useState<ShortFormCouncilCheck | null>(null)
+  const [councilChecking, setCouncilChecking] = useState(false)
+  const [emotionalAngle, setEmotionalAngle] = useState<EmotionalAngle>('conviction')
   const [copiedTemplate, setCopiedTemplate] = useState<number | null>(null)
   const [connectionTexts, setConnectionTexts] = useState<string[]>(
     CONNECTION_TEMPLATES.map(t => t.text)
   )
 
   useEffect(() => { load() }, [])
+
+  useEffect(() => {
+    if (!state?.isPostDay) return
+    if (!handoffSummary.trim()) {
+      const summarySeed = state.post.draft_text.split('\n').filter(Boolean).slice(0, 2).join(' ')
+      setHandoffSummary(summarySeed)
+    }
+  }, [state, handoffSummary])
 
   async function load() {
     setLoading(true)
@@ -83,10 +290,23 @@ export function SocialClient() {
         setDraftText(data.post.draft_text)
         setNotesText(data.post.notes ?? '')
       }
+      await loadHandoffHistory()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function loadHandoffHistory() {
+    setHandoffHistoryLoading(true)
+    try {
+      const res = await fetch('/api/admin/social/handoff-approved')
+      if (!res.ok) return
+      const data = await res.json() as { runs?: HandoffHistoryRun[] }
+      setHandoffHistory(data.runs ?? [])
+    } finally {
+      setHandoffHistoryLoading(false)
     }
   }
 
@@ -100,8 +320,10 @@ export function SocialClient() {
         body: JSON.stringify({ draft_text: draftText }),
       })
       if (!res.ok) { setError('Save failed'); return }
-      const data = await res.json()
-      setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
+      const data = await res.json() as { post?: SocialPost }
+      const updatedPost = data.post
+      if (!updatedPost) { setError('Save failed'); return }
+      setState(prev => prev?.isPostDay ? { ...prev, post: updatedPost } : prev)
     } finally {
       setSaving(false)
     }
@@ -136,8 +358,10 @@ export function SocialClient() {
       if (draftText !== state.post.draft_text) await handleSave()
       const res = await fetch(`/api/admin/social/${state.post.id}/mark-posted`, { method: 'POST' })
       if (!res.ok) { setError('Failed to mark posted'); return }
-      const data = await res.json()
-      setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
+      const data = await res.json() as { post?: SocialPost }
+      const updatedPost = data.post
+      if (!updatedPost) { setError('Failed to mark posted'); return }
+      setState(prev => prev?.isPostDay ? { ...prev, post: updatedPost } : prev)
     } finally {
       setMarkingPosted(false)
     }
@@ -155,8 +379,10 @@ export function SocialClient() {
         setError(body.error ?? 'Failed to post to LinkedIn')
         return
       }
-      const data = await res.json()
-      setState(prev => prev?.isPostDay ? { ...prev, post: data.post } : prev)
+      const data = await res.json() as { post?: SocialPost }
+      const updatedPost = data.post
+      if (!updatedPost) { setError('Failed to post to LinkedIn'); return }
+      setState(prev => prev?.isPostDay ? { ...prev, post: updatedPost } : prev)
     } finally {
       setPosting(false)
     }
@@ -184,6 +410,170 @@ export function SocialClient() {
       }
     } finally {
       setRegenerating(false)
+    }
+  }
+
+  async function handleToggleApproval() {
+    if (!state?.isPostDay || togglingApproval) return
+    setTogglingApproval(true)
+    setError('')
+    try {
+      const nextApproved = !hasApprovedToken(state.post.notes)
+      const nextNotes = setApprovedToken(state.post.notes, nextApproved)
+
+      const res = await fetch(`/api/admin/social/${state.post.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes: nextNotes }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({})) as { error?: string }
+        setError(data.error ?? 'Failed to update approval status')
+        return
+      }
+
+      const data = await res.json() as { post?: SocialPost }
+      const updated = data.post
+      if (updated) {
+        setState(prev => prev?.isPostDay ? { ...prev, post: updated } : prev)
+        setNotesText(updated.notes ?? '')
+      }
+    } finally {
+      setTogglingApproval(false)
+    }
+  }
+
+  async function handleApprovedHandoff() {
+    if (!state?.isPostDay || handoffSubmitting) return
+    setHandoffSubmitting(true)
+    setHandoffMessage('')
+    setError('')
+
+    try {
+      const title = handoffTitle.trim() || `${formatDate(state.dateStr)} approved social article`
+      const summary = handoffSummary.trim() || draftText.trim()
+      if (!summary) {
+        setError('Article summary is required for handoff')
+        return
+      }
+
+      const variants = Math.max(1, Math.min(5, Math.floor(handoffVariants || 3)))
+      const approvedNotes = setApprovedToken(state.post.notes, true)
+
+      if (!hasApprovedToken(state.post.notes)) {
+        const approvalRes = await fetch(`/api/admin/social/${state.post.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notes: approvedNotes }),
+        })
+        if (approvalRes.ok) {
+          const approvalData = await approvalRes.json() as { post?: SocialPost }
+          const approvedPost = approvalData.post
+          if (approvedPost) {
+            setState(prev => prev?.isPostDay ? { ...prev, post: approvedPost } : prev)
+            setNotesText(approvedPost.notes ?? '')
+          }
+        }
+      }
+
+      const res = await fetch('/api/admin/social/handoff-approved', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          approvalStatus: 'approved',
+          pillar: handoffPillar,
+          audience: handoffAudience.trim() || undefined,
+          variantCount: variants,
+          article: {
+            title,
+            url: handoffUrl.trim() || undefined,
+            summary,
+            keyTakeaways: summary
+              .split(/[\n\.]/)
+              .map(part => part.trim())
+              .filter(Boolean)
+              .slice(0, 2),
+          },
+        }),
+      })
+
+      const data = await res.json().catch(() => ({})) as {
+        error?: string
+        queued?: number
+        posts?: Array<{ post_date: string }>
+      }
+
+      if (!res.ok) {
+        setError(data.error ?? 'Approved handoff failed')
+        return
+      }
+
+      const firstDate = data.posts?.[0]?.post_date
+      setHandoffMessage(
+        typeof data.queued === 'number'
+          ? `Queued ${data.queued} approved posts${firstDate ? ` starting ${formatDate(firstDate)}` : ''}.`
+          : 'Approved handoff queued successfully.'
+      )
+      await loadHandoffHistory()
+    } finally {
+      setHandoffSubmitting(false)
+    }
+  }
+
+  function handleAddCalendarReminder() {
+    const ics = buildCalendarReminderIcs(new Date())
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = REVIEW_REMINDER_FILENAME
+    anchor.click()
+    URL.revokeObjectURL(url)
+    setCalendarReminderSaved(true)
+    window.setTimeout(() => setCalendarReminderSaved(false), 2200)
+  }
+
+  function handleAddGoogleCalendarReminder() {
+    const url = buildGoogleCalendarReminderUrl(new Date())
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setGoogleCalendarOpened(true)
+    window.setTimeout(() => setGoogleCalendarOpened(false), 2200)
+  }
+
+  async function handleRunShortFormCouncilCheck() {
+    if (!state?.isPostDay || councilChecking || !draftText.trim()) return
+    setCouncilChecking(true)
+    setError('')
+    try {
+      const res = await fetch(`/api/admin/social/${state.post.id}/council-check`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          draftText,
+          emotionalAngle,
+        }),
+      })
+
+      const data = await res.json().catch(() => ({})) as {
+        error?: string
+        result?: ShortFormCouncilCheck
+        post?: SocialPost
+      }
+
+      if (!res.ok || !data.result) {
+        setError(data.error ?? 'Failed to run council check')
+        return
+      }
+
+      setCouncilCheck(data.result)
+      const updatedPost = data.post
+      if (updatedPost) {
+        setState(prev => prev?.isPostDay ? { ...prev, post: updatedPost } : prev)
+        setNotesText(updatedPost.notes ?? '')
+      }
+    } finally {
+      setCouncilChecking(false)
     }
   }
 
@@ -229,9 +619,10 @@ export function SocialClient() {
   }
 
   const { post, pillarLabel, dateStr } = state
+  const isApproved = hasApprovedToken(post.notes)
   const isDirty = draftText !== post.draft_text
   const isNotesDirty = notesText !== (post.notes ?? '')
-  const busy = saving || savingNotes || markingPosted || posting || regenerating
+  const busy = saving || savingNotes || markingPosted || posting || regenerating || togglingApproval || handoffSubmitting
 
   return (
     <div className="flex flex-col gap-4">
@@ -259,6 +650,18 @@ export function SocialClient() {
                 Posted {post.posted_at ? new Date(post.posted_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''}
               </span>
             )}
+            <button
+              type="button"
+              onClick={handleToggleApproval}
+              disabled={busy || post.is_posted}
+              className={`text-[11px] font-bold px-2 py-0.5 rounded border transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer ${
+                isApproved
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:border-emerald-400'
+                  : 'bg-slate-100 text-slate-600 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              {togglingApproval ? 'Saving…' : isApproved ? 'Approved' : 'Unapproved'}
+            </button>
           </div>
         </div>
         <button
@@ -300,6 +703,91 @@ export function SocialClient() {
           LinkedIn limits posts to 3,000 characters. This draft is {draftText.length} characters -- trim before posting.
         </div>
       )}
+
+      {/* Short-form council helper */}
+      <div id="content-checker" className="bg-white border border-slate-200 rounded p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400">Run Short-Form Council Check</p>
+            <p className="text-[12px] text-slate-500 mt-1">Server-enforced council gate for posts under 1200 characters.</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <select
+              value={emotionalAngle}
+              onChange={e => setEmotionalAngle(e.target.value as EmotionalAngle)}
+              className="text-[12px] text-slate-700 border border-slate-300 rounded px-2.5 py-2 bg-white focus:outline-none focus:border-slate-500"
+              title="Primary emotional angle"
+            >
+              {ALLOWED_EMOTIONAL_ANGLES.map(angle => (
+                <option key={angle} value={angle}>{angle.replace('_', ' ')}</option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={handleRunShortFormCouncilCheck}
+              disabled={!draftText.trim() || councilChecking}
+              className="text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-4 py-2 hover:border-slate-500 hover:text-slate-900 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors bg-transparent"
+            >
+              {councilChecking ? 'Checking…' : 'Run Short-Form Council Check'}
+            </button>
+          </div>
+        </div>
+
+        {councilCheck && (
+          <div className="mt-4 border-t border-slate-100 pt-4">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="text-[12px] font-bold text-slate-900">Score {councilCheck.score}/100</span>
+              <span className="text-[11px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">{councilCheck.characterCount} chars</span>
+              {councilCheck.emotionalAngle && (
+                <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">
+                  Angle: {councilCheck.emotionalAngle.replace('_', ' ')}
+                </span>
+              )}
+              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded ${
+                councilCheck.recommendation === 'publish'
+                  ? 'bg-emerald-50 text-emerald-700'
+                  : councilCheck.recommendation === 'revise'
+                    ? 'bg-amber-50 text-amber-700'
+                    : 'bg-red-50 text-red-700'
+              }`}>
+                {councilCheck.recommendation === 'publish' ? 'Publish' : councilCheck.recommendation === 'revise' ? 'Revise' : 'Rewrite opening'}
+              </span>
+              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded ${councilCheck.councilPass ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+                {councilCheck.councilPass ? 'Council pass' : 'Council fail'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+              <p className="text-[11px] text-slate-600">Hook: <span className="font-semibold text-slate-800">{councilCheck.categories.hook}/25</span></p>
+              <p className="text-[11px] text-slate-600">Specificity: <span className="font-semibold text-slate-800">{councilCheck.categories.specificity}/20</span></p>
+              <p className="text-[11px] text-slate-600">Credibility: <span className="font-semibold text-slate-800">{councilCheck.categories.credibility}/20</span></p>
+              <p className="text-[11px] text-slate-600">Wit: <span className="font-semibold text-slate-800">{councilCheck.categories.wit}/15</span></p>
+              <p className="text-[11px] text-slate-600">Compression: <span className="font-semibold text-slate-800">{councilCheck.categories.compression}/10</span></p>
+              <p className="text-[11px] text-slate-600">CTA: <span className="font-semibold text-slate-800">{councilCheck.categories.cta}/10</span></p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+              <p className="text-[11px] text-slate-600">Under 1200: <span className="font-semibold text-slate-800">{councilCheck.checks.under1200 ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">One core idea: <span className="font-semibold text-slate-800">{councilCheck.checks.oneCoreIdea ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">One CTA: <span className="font-semibold text-slate-800">{councilCheck.checks.oneCta ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">One humor line max: <span className="font-semibold text-slate-800">{councilCheck.checks.oneHumorLineMax ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">Real detail present: <span className="font-semibold text-slate-800">{councilCheck.checks.realDetail ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">Honest claim: <span className="font-semibold text-slate-800">{councilCheck.checks.honestClaim ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">Angle selected: <span className="font-semibold text-slate-800">{councilCheck.checks.emotionalAnglePresent ? 'PASS' : 'FAIL'}</span></p>
+              <p className="text-[11px] text-slate-600">Angle rotated: <span className="font-semibold text-slate-800">{councilCheck.checks.emotionalAngleRotation ? 'PASS' : 'FAIL'}</span></p>
+            </div>
+
+            <div>
+              <p className="text-[11px] font-semibold text-slate-700 mb-1">Top fixes</p>
+              <ul className="list-disc pl-5 text-[11px] text-slate-600 space-y-1">
+                {councilCheck.topFixes.map(fix => (
+                  <li key={fix}>{fix}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Action buttons */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -343,6 +831,155 @@ export function SocialClient() {
             Posted
           </div>
         )}
+      </div>
+
+      {/* Approved article handoff */}
+      <div className="bg-white border border-slate-200 rounded p-6">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400">Handoff approved article</p>
+            <p className="text-[12px] text-slate-500 mt-1">
+              One click queues approved variants into upcoming open social slots.
+            </p>
+            <div className="mt-2 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleAddCalendarReminder}
+                className="text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-800 cursor-pointer transition-colors"
+              >
+                Add calendar reminder (.ics)
+              </button>
+              <button
+                type="button"
+                onClick={handleAddGoogleCalendarReminder}
+                className="text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-800 cursor-pointer transition-colors"
+              >
+                Add to Google Calendar
+              </button>
+              {calendarReminderSaved && (
+                <span className="text-[11px] text-emerald-700">Downloaded</span>
+              )}
+              {googleCalendarOpened && (
+                <span className="text-[11px] text-emerald-700">Opened</span>
+              )}
+            </div>
+          </div>
+          <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${isApproved ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+            {isApproved ? 'Current draft approved' : 'Current draft not approved'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 mb-1">Article title</label>
+            <input
+              value={handoffTitle}
+              onChange={e => setHandoffTitle(e.target.value)}
+              placeholder="Context rebuild and executive transitions"
+              className="w-full text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 focus:outline-none focus:border-slate-400"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 mb-1">Article URL (optional)</label>
+            <input
+              value={handoffUrl}
+              onChange={e => setHandoffUrl(e.target.value)}
+              placeholder="https://startingmonday.app/blog/..."
+              className="w-full text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 focus:outline-none focus:border-slate-400"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 mb-1">Pillar</label>
+            <select
+              value={handoffPillar}
+              onChange={e => setHandoffPillar(e.target.value as (typeof PILLAR_OPTIONS)[number]['value'])}
+              className="w-full text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 bg-white focus:outline-none focus:border-slate-400"
+              title="Select pillar"
+            >
+              {PILLAR_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 mb-1">Audience (optional)</label>
+            <input
+              value={handoffAudience}
+              onChange={e => setHandoffAudience(e.target.value)}
+              placeholder="executive_coaches"
+              className="w-full text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 focus:outline-none focus:border-slate-400"
+            />
+          </div>
+        </div>
+
+        <div className="mt-3">
+          <label className="block text-[11px] font-semibold text-slate-500 mb-1">Article summary</label>
+          <textarea
+            value={handoffSummary}
+            onChange={e => setHandoffSummary(e.target.value)}
+            rows={4}
+            className="w-full text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 resize-none focus:outline-none focus:border-slate-400"
+            placeholder="Paste the approved article summary or leave the draft-derived default."
+          />
+        </div>
+
+        <div className="mt-4 flex flex-col sm:flex-row gap-3 sm:items-end sm:justify-between">
+          <label className="text-[11px] font-semibold text-slate-500">
+            Variant count (1-5)
+            <input
+              type="number"
+              min={1}
+              max={5}
+              value={handoffVariants}
+              onChange={e => setHandoffVariants(Number(e.target.value || 3))}
+              className="mt-1 block w-32 text-[13px] text-slate-700 border border-slate-200 rounded px-3 py-2 focus:outline-none focus:border-slate-400"
+            />
+          </label>
+
+          <button
+            type="button"
+            onClick={handleApprovedHandoff}
+            disabled={busy || !handoffSummary.trim()}
+            className="text-[13px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded px-5 py-2.5 disabled:opacity-40 disabled:cursor-not-allowed border-0 cursor-pointer transition-colors"
+          >
+            {handoffSubmitting ? 'Queueing…' : 'Handoff approved article'}
+          </button>
+        </div>
+
+        {handoffMessage && (
+          <p className="mt-3 text-[12px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-3 py-2">{handoffMessage}</p>
+        )}
+
+        <div className="mt-4 border-t border-slate-100 pt-4">
+          <div className="flex items-center justify-between gap-3 mb-2">
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400">Recent handoff runs</p>
+            {handoffHistoryLoading && <span className="text-[11px] text-slate-400">Loading…</span>}
+          </div>
+
+          {!handoffHistoryLoading && handoffHistory.length === 0 && (
+            <p className="text-[12px] text-slate-500">No approved handoff runs yet.</p>
+          )}
+
+          {handoffHistory.length > 0 && (
+            <div className="flex flex-col gap-2">
+              {handoffHistory.slice(0, 5).map(run => (
+                <div key={run.batchId} className="border border-slate-200 rounded p-3 bg-slate-50">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                    <p className="text-[12px] font-semibold text-slate-800 truncate">
+                      {run.articleTitle || 'Approved handoff'}
+                    </p>
+                    <p className="text-[11px] text-slate-500">
+                      {new Date(run.createdAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                    </p>
+                  </div>
+                  <p className="mt-1 text-[11px] text-slate-600">
+                    Queued dates: {run.dates.map(date => formatDate(date)).join(', ')}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Connection outreach */}

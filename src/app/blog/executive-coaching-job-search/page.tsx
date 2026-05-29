@@ -29,7 +29,6 @@ export default function ExecutiveCoachingJobSearchPage() {
       url="https://startingmonday.app/blog/executive-coaching-job-search"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           There is a moment that happens in almost every executive coaching engagement focused on a
           job search. You ask your client how the week went. They give you a summary. It is accurate

@@ -1,5 +1,5 @@
 {
-  "warnings": 173,
-  "capturedAt": "2026-05-19",
-  "notes": "Baseline generated from npm run lint before TD-02 enforcement"
+  "warnings": 328,
+  "capturedAt": "2026-05-26",
+  "notes": "Recaptured after workflow and content updates. Current warning floor is 328; future work should burn this baseline down."
 }

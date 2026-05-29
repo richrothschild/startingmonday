@@ -51,10 +51,12 @@ export default async function AdminProductPage() {
 
   const quickActions = staff.role === 'viewer'
     ? [
+        { href: '/dashboard/admin/product/catalog', label: 'Review micro-product catalog', description: 'Inspect pricing, bundles, and entitlement mapping.' },
         { href: '/dashboard/admin/intelligence', label: 'Review intelligence quality', description: 'Inspect signal quality and coverage trends.' },
         { href: '/dashboard/admin/traces', label: 'Review model traces', description: 'Observe output quality and rubric stability.' },
       ]
     : [
+        { href: '/dashboard/admin/product/catalog', label: 'Manage micro-product catalog', description: 'Maintain prices, bundle templates, and partner entitlements.' },
         { href: '/dashboard/admin/intelligence', label: 'Tune intelligence pipelines', description: 'Adjust sources and targeting strategy.' },
         { href: '/dashboard/admin/traces', label: 'Run evals and quality checks', description: 'Audit model behavior and response quality.' },
         { href: '/dashboard/admin/feedback', label: 'Triages product feedback', description: 'Close top user pain points quickly.' },
@@ -76,7 +78,7 @@ export default async function AdminProductPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="mb-8">
+<div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Product Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Product intelligence, quality controls, and customer signal operations.</p>
           <p className="text-[13px] text-slate-500 mt-1">

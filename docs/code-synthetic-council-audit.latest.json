@@ -1,0 +1,423 @@
+{
+  "generatedAt": "2026-05-25T14:37:16.648Z",
+  "fileCount": 1223,
+  "findingCount": 22,
+  "overallScore": 90,
+  "grade": "A-",
+  "scores": {
+    "correctness": 100,
+    "security": 100,
+    "maintainability": 100,
+    "performance": 100,
+    "testability": 32,
+    "observability": 85,
+    "typeSafety": 100,
+    "complexity": 100,
+    "deliveryRisk": 100
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/(dashboard)/dashboard/admin/product/catalog/actions.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/(dashboard)/dashboard/dashboard-week-utils.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/admin/social/[id]/council-check/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/billing/checkout/micro-product/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/billing/checkout/micro-product/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/events/channel-funnel/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/onboarding/events/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/signals/classify/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/onboarding/onboarding-helpers.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/proof/roi-calculator/roi-calculator-client.tsx",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/components/home/ChannelEntryStrip.tsx",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/components/micro-products/ChannelMicroProductRail.tsx",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/channel-ia.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/channel-metrics-events.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/intelligence-quality.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/micro-products.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/onboarding-speed.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/persona-routes.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    }
+  ],
+  "council": {
+    "topFindings": [
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/product/catalog/actions.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/dashboard-week-utils.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/billing/checkout/micro-product/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/events/channel-funnel/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/onboarding/events/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/onboarding/onboarding-helpers.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/proof/roi-calculator/roi-calculator-client.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/components/home/ChannelEntryStrip.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/components/micro-products/ChannelMicroProductRail.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/channel-ia.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/channel-metrics-events.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/intelligence-quality.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/micro-products.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/onboarding-speed.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/persona-routes.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/admin/social/[id]/council-check/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      }
+    ],
+    "areaCounts": {
+      "testability": 17,
+      "observability": 5
+    },
+    "fixQueue": [
+      {
+        "file": "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/billing/checkout/micro-product/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/(dashboard)/dashboard/admin/product/catalog/actions.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/(dashboard)/dashboard/dashboard-week-utils.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/api/events/channel-funnel/route.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/api/onboarding/events/route.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/onboarding/onboarding-helpers.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/proof/roi-calculator/roi-calculator-client.tsx",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/components/home/ChannelEntryStrip.tsx",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/components/micro-products/ChannelMicroProductRail.tsx",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/lib/channel-ia.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/lib/channel-metrics-events.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/lib/intelligence-quality.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/lib/micro-products.ts",
+        "riskPoints": 4
+      }
+    ]
+  },
+  "blindspotReview": {
+    "parserCorruptionCount": 0,
+    "parserCorruptionFiles": [],
+    "placeholderBaselineCount": 292,
+    "largestSourceFiles": [
+      {
+        "path": "src/app/onboarding/onboarding-form.tsx",
+        "lines": 1488
+      },
+      {
+        "path": "src/lib/supabase/database.types.ts",
+        "lines": 1420
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/page.tsx",
+        "lines": 1314
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
+        "lines": 1148
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
+        "lines": 1085
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
+        "lines": 1060
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
+        "lines": 1039
+      },
+      {
+        "path": "src/components/coach/client-data-view.tsx",
+        "lines": 838
+      }
+    ]
+  }
+}

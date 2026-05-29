@@ -37,6 +37,11 @@ export const metadata: Metadata = {
     'senior technology executive',
   ],
   metadataBase: new URL('https://startingmonday.app'),
+  icons: {
+    icon: '/icon',
+    shortcut: '/icon',
+    apple: '/apple-icon',
+  },
   openGraph: {
     siteName: 'Starting Monday',
     type: 'website',

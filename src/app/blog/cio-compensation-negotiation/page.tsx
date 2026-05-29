@@ -36,7 +36,6 @@ export default function CioCompensationNegotiationPage() {
       url="https://startingmonday.app/blog/cio-compensation-negotiation"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The compensation conversation for a CIO role is different from every negotiation you have done before.
           Most executives approach it as a salary discussion. The best outcomes come from treating it as a mandate

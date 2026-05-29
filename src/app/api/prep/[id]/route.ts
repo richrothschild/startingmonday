@@ -10,7 +10,7 @@ import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import { encodeUserId } from '@/lib/watermark'
 import { streamErrorMessage } from '@/lib/stream-error'
 import {
-  buildScanSection, buildSignalSection, buildContactSection, buildDocSection,
+  buildScanSection, buildSignalSection, buildContactSection, buildDocSection, buildCompanyFocusBrief,
   type Signal, type ScanRow, type ContactRow, type DocRow,
 } from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
@@ -56,6 +56,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
       } catch (err) {
         const feature = traceOpts?.feature ?? 'prep_brief'
         const errStr = err instanceof Error ? err.message : 'Unknown error'
+        console.error('[prep-route] stream failure', { feature, userId, model, error: errStr })
         recordTraceError({ feature, userId, model, latencyMs: Date.now() - startMs, error: errStr })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature, userId })))
         controller.close()
@@ -66,7 +67,7 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
 
 async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, companyId: string, userId: string) {
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: signals }, { data: interviewLogs }] = await Promise.all([
+  const [{ data: company }, { data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: interviewLogs }] = await Promise.all([
     supabase
       .from('companies')
       .select('name, sector, stage, company_size, notes, competitive_context, interview_notes')
@@ -99,14 +100,6 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .eq('user_id', userId)
       .order('created_at', { ascending: true }),
     supabase
-      .from('company_signals')
-      .select('signal_type, signal_summary, outreach_angle, signal_date')
-      .eq('company_id', companyId)
-      .eq('user_id', userId)
-      .gte('signal_date', since90d)
-      .order('signal_date', { ascending: false })
-      .limit(5),
-    supabase
       .from('company_interview_logs')
       .select('interview_date, interview_stage, questions_asked, what_landed, what_surprised, follow_up_needed')
       .eq('company_id', companyId)
@@ -115,6 +108,34 @@ async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, c
       .order('created_at', { ascending: false })
       .limit(10),
   ])
+  const primarySignalSelect = 'signal_type, signal_summary, outreach_angle, signal_date, confidence, source_kind, focus_tags, evidence_snippets, filing_form, filing_items, partner_entities'
+  const fallbackSignalSelect = 'signal_type, signal_summary, outreach_angle, signal_date'
+
+  let signals: Signal[] | null = null
+
+  const enrichedSignals = await supabase
+    .from('company_signals')
+    .select(primarySignalSelect)
+    .eq('company_id', companyId)
+    .eq('user_id', userId)
+    .gte('signal_date', since90d)
+    .order('signal_date', { ascending: false })
+    .limit(8)
+
+  if (enrichedSignals.error) {
+    const basicSignals = await supabase
+      .from('company_signals')
+      .select(fallbackSignalSelect)
+      .eq('company_id', companyId)
+      .eq('user_id', userId)
+      .gte('signal_date', since90d)
+      .order('signal_date', { ascending: false })
+      .limit(8)
+    signals = (basicSignals.data as Signal[] | null) ?? null
+  } else {
+    signals = (enrichedSignals.data as Signal[] | null) ?? null
+  }
+
   return { company, profile, scanResults, contacts, documents, signals, interviewLogs }
 }
 
@@ -194,6 +215,24 @@ function formatInterviewLogs(logs: InterviewLogRow[]): string {
   }).join('\n\n')
 }
 
+function buildSignalFocusHints(signals: Signal[] | null): string {
+  if (!(signals ?? []).length) return ''
+
+  const topTypes = Array.from(new Set((signals ?? []).map(s => s.signal_type))).slice(0, 6)
+  const typeList = topTypes.join(', ')
+
+  return `
+
+SIGNAL-TO-FOCUS INFERENCE INSTRUCTION
+Recent company signals are listed above. Infer the 2-3 most likely current company focus areas and use them to shape the brief.
+- If filings, board, or governance signals appear, infer governance, compliance, or capital-allocation focus.
+- If partnership, acquisition, expansion, or product signals appear, infer growth, integration, or go-to-market focus.
+- If executive departures or hires appear, infer leadership-change and mandate-reset focus.
+Do not claim certainty. Phrase as likely focus areas supported by available evidence.
+In Anticipated Pushback, the first objection should reflect the highest-probability focus/risk inferred from these signals.
+Signal categories detected: ${typeList}.`
+}
+
 function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null, interviewLogs: InterviewLogRow[] | null = null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
@@ -201,9 +240,12 @@ function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResul
 
   const scanSection = buildScanSection(scanResults, profile?.role_type)
   const signalSection = buildSignalSection(signals)
+  const focusBrief = buildCompanyFocusBrief(signals)
   const contactSection = buildContactSection(contacts)
   const hasContacts = (contacts ?? []).length > 0
   const docsSection = buildDocSection(documents)
+  const hasJobDescription = (documents ?? []).some(d => d.label === 'job_description')
+  const signalFocusHints = buildSignalFocusHints(signals)
 
   function careerSection(p: ProfileRow | null): string {
     if (!p) return ''
@@ -260,13 +302,28 @@ These notes change the brief in specific ways:
 ` : ''}JOB SCAN DATA
 ${scanSection}
 ${signalSection ? `\nCOMPANY SIGNALS (recent news events)\n${signalSection}` : ''}
+${focusBrief ? `\nCOMPANY FOCUS BRIEF (inferred from signals)\n${focusBrief}` : ''}
+${signalFocusHints}
 
 KNOWN CONTACTS
 ${contactSection}${docsSection ? `\n\nDOCUMENTS\n${docsSection}` : ''}
 
+${hasJobDescription ? `JOB DESCRIPTION USAGE INSTRUCTION
+At least one job description is available in documents. Treat it as primary evidence for role requirements.
+- Extract the 5-7 highest-signal requirements that will determine selection in this role.
+- Map those requirements to the candidate's verified history and STAR stories where possible.
+- In Anticipated Pushback and Likely Questions, prioritize probes directly implied by the job description.
+- In What to Leave Out, explicitly remove stories that do not support the top requirements.
+Do not copy/paste the job description. Translate it into interview strategy.` : ''}
+
 ---
 
 Write the brief with these exact sections, using ## for each header:
+
+EXECUTION STYLE INSTRUCTION
+- Keep every answer manager-practical: name decision owner, operating cadence, and measurable follow-up.
+- Lead with the recommendation first, then supporting context.
+- Use operating language, not abstractions: who does what by when, and what metric proves it worked.
 
 ## Bottom Line
 Three sentences only. No preamble, no company context, no hedging. The first states the candidate's single decisive advantage for this role: what specifically makes them the hire over everyone else being considered. The second names the most dangerous objection they will face: the one that, if not addressed, loses them the offer. The third states the single thing they must do or say in this conversation to close it. If they read nothing else, these three sentences are everything they need to walk in. Commit fully.
@@ -277,6 +334,29 @@ What is actually driving this hire? What problem does this organization need sol
 ## Win Thesis
 One paragraph. Written as a conviction, not a summary. Not why the candidate is qualified, but why they win this specific role over everyone else being considered. What is the decisive advantage. Make the candidate feel it.
 
+${hasJobDescription ? `## Role Requirement to Evidence Map
+List the top 5-7 requirements inferred from the job description in priority order. For each:
+**Requirement:** [specific requirement in plain language]
+**Candidate evidence:** [specific proof from verified career history, STAR story, or positioning]
+**Coverage:** [Strong / Partial / Weak]
+Use this section to force specificity. Do not leave this generic.` : ''}
+
+## Stakeholder Signal Map
+Map the interview strategy by interviewer type using this exact structure:
+**Stakeholder:** [CEO / Board / Functional Peer / Recruiter]
+**What they need to believe:** [one sentence]
+**Signal they are looking for:** [specific behavior or proof]
+**Failure signal:** [what causes concern]
+**Your move:** [exact positioning move in this room]
+Prioritize the 2 stakeholder types most likely in this stage, then include the others briefly.
+
+## 12-Month Performance Outcomes
+Define 4-6 measurable outcomes this role is likely accountable for in the first 12 months. For each:
+**Outcome:** [what must be true by month 12]
+**Metric:** [how success is measured]
+**Candidate proof:** [which career evidence best supports this outcome]
+Make this role-specific and company-specific, not generic executive goals.
+
 ## The Narrative
 How to tell their story for THIS room. Which chapters of their background to lead with, which to compress, which to leave out entirely. Close with one specific through-line sentence they can use as their opening positioning statement, ready to say verbatim.
 
@@ -285,11 +365,54 @@ The 3–4 most likely objections or challenges this candidate will face. Order b
 **They push:** [the objection]
 **You say:** [specific counter, not defensive, not vague]
 
+## Board Challenge Drill
+Provide exactly 6 hard boardroom-style challenges and response frames using this exact set:
+1) Risk exposure
+2) Missed quarter
+3) Transformation ROI
+4) Security incident response
+5) Leadership bench
+6) Capital allocation
+For each use this structure:
+**Challenge:** [the question stated as a direct board challenge]
+**What they are testing:** [one sentence]
+**Decision-right owner:** [who owns the decision and accountability in this scenario]
+**Strong response frame:** [recommendation first, then evidence, then execution signal]
+**Execution proof line:** [one line naming owner, cadence, and metric]
+
+## 2-Sentence Pivot Bank
+Provide 8 short interruption-ready pivots for hostile reframes or abrupt interviewer redirects.
+Each pivot must be exactly two sentences:
+- Sentence 1 acknowledges or reframes the interruption.
+- Sentence 2 lands one decision, one metric, and one next action.
+Format each as:
+**Interruption scenario:** [what they cut in with]
+**Pivot:** [sentence 1] [sentence 2]
+
+## Crisis-to-Credible Framework
+Give a reusable answer scaffold for high-pressure recovery questions. Use this exact sequence:
+**What happened:** [crisis facts and scope]
+**What you changed:** [specific operating changes made]
+**How you measured recovery:** [metrics, baselines, and recovery threshold]
+**What governance you put in place:** [owner, review cadence, escalation path]
+Then add one 6-8 sentence sample answer using this sequence in plain executive language.
+
 ## Likely Questions
 The 4–5 questions this interviewer will almost certainly ask, derived from the intersection of this specific role, this company's situation, and this candidate's background. Not generic behavioral questions: questions that arise because of who this person is and what this company needs right now. For each:
 **They ask:** [the question, phrased as they would actually say it]
 **What they're probing:** [what is actually being tested underneath the question, one sentence]
 **Strong answer frame:** [how to approach it: what to lead with, what to include, what to avoid, 2–3 sentences. The structure of a strong answer, not the answer itself]
+Optional: include one time-box answer variants line when useful:
+**Time-box variants (optional):** [30 seconds: core answer] [60 seconds: recommendation plus proof] [2 minutes: recommendation, context, execution detail, and measurable follow-up]
+
+## Behavioral Rehearsal Scorecard
+For the top 4 likely questions, provide a rehearsal rubric:
+**Question:** [reference the likely question]
+**Substance bar (1-5):** [what a 5/5 answer includes]
+**Structure bar (1-5):** [what organized executive-level structure looks like]
+**Signal bar (1-5):** [what confidence/ownership signal interviewers need]
+**Common failure mode:** [where senior interviewers lose interest]
+**Upgrade move:** [one concrete edit to improve answer quality]
 
 ## Talking Points
 5 specific, story-anchored points to make in the interview. Order by impact: the strongest, most differentiating point goes first. Each must connect an element of the candidate's actual background to this company's specific situation. Not generic strengths. Points that land in this room. Format:
@@ -320,6 +443,17 @@ How to interpret the signals at the end of this specific conversation. Cover the
 **Your move:** [what to do within the next 24 hours in response]
 
 Include at least one strong positive signal and one soft negative signal. Be specific to this type of organization and seniority level, not generic interview advice.${hasContacts ? '\n\n## People\nFor each known contact: when to surface the name, how to frame the relationship, and what it signals to the room.' : ''}
+
+## Weekly Drill Cadence (7-day execution plan)
+Create a one-week prep cadence with explicit daily reps and outputs.
+- Day 1: requirement mapping and opening narrative draft
+- Day 2: objection drills and counter positioning
+- Day 3: behavioral rehearsal with scoring
+- Day 4: technical/case or role-specific depth rehearsal
+- Day 5: stakeholder-specific close rehearsal
+- Day 6: full mock loop and red-team stress test
+- Day 7: final polish and interview-day briefing
+For each day include: time budget, exact deliverable, and pass/fail check.
 
 If the candidate's background is thin (no resume, no positioning), name what you cannot assess rather than generating generic advice. Tell them exactly what to provide for a sharper brief. Do not invent specifics or use vague generalities to cover missing data.
 

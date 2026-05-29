@@ -4,6 +4,9 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -45,7 +48,13 @@ export async function POST(request: NextRequest) {
     if (sendLive && meeting.email) {
       const subject = `Great speaking${meeting.company ? ` about ${meeting.company}` : ''}`
       const html = `<p>Hi ${meeting.full_name ?? 'there'},</p><p>Thanks again for the conversation. As discussed, I am sending a concise summary and recommended next steps so we can keep momentum.</p><p>Best,<br/>Richard</p>`
-      const result = await sendEmail({ to: meeting.email, subject, html })
+      const result = await sendEmail({
+        to: meeting.email,
+        subject,
+        html,
+        from: process.env.OUTREACH_FROM_ADDRESS ?? DEFAULT_OUTREACH_FROM,
+        replyTo: OUTREACH_REPLY_TO,
+      })
       if (!result?.error) {
         sent++
         await sb

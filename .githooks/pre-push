@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+echo "push clean-worktree guard..."
+npm run guard:push-clean-worktree
+
+echo "growth council gate..."
+npm run growth:council:strict
+
+echo "growth metrics gate..."
+npm run growth:metrics:strict
+
+if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
+	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
+else
+	echo "push Railway preflight build..."
+	npm run railway:preflight
+fi
+
+echo "ok"

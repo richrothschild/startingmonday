@@ -161,15 +161,26 @@ export default function LoginPage() {
       </header>
 
       <main className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 py-16">
-        <div className="w-full max-w-sm">
+<div className="w-full max-w-sm">
 
           <div className="mb-8">
             <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Sign in</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">Welcome back.</p>
           </div>
 
+          <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+              <a href="#login-social" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Social sign-in</a>
+              <a href="#login-password" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email and password</a>
+              <a href="#login-magic-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Magic link</a>
+            </div>
+          </section>
+
           <div className="bg-white border border-slate-200 rounded p-8">
 
+            <section id="login-social" className="mb-5">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
             <button
               type="button"
               onClick={handleGoogle}
@@ -196,6 +207,7 @@ export default function LoginPage() {
               </svg>
               {appleLoading ? 'Redirecting…' : 'Continue with Apple'}
             </button>
+            </section>
 
             <div className="flex items-center gap-3 mb-5">
               <div className="flex-1 h-px bg-slate-200" />
@@ -203,7 +215,8 @@ export default function LoginPage() {
               <div className="flex-1 h-px bg-slate-200" />
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form id="login-password" onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Email and password</h2>
 
               <div>
                 <label htmlFor="email" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
@@ -251,16 +264,13 @@ export default function LoginPage() {
                 onClick={handleMagicLink}
                 disabled={authBusy}
                 className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                id="login-magic-link"
               >
-                {magicLinkLoading ? 'Sending sign-in link...' : 'Email me a sign-in link instead'}
+                {magicLinkLoading ? 'Sending sign-in link...' : 'Send me a sign-in link'}
               </button>
 
               <p className="text-[12px] text-slate-500 -mt-1">
-                Signed up with Google or Apple? Use that provider to sign in first, then set a password at{' '}
-                <Link href="/settings/security" className="text-slate-700 font-semibold hover:text-slate-900">
-                  Settings → Security
-                </Link>
-                .
+                Used Google or Apple to sign up? Use that provider first, then set a password in Settings -&gt; Security.
               </p>
 
 

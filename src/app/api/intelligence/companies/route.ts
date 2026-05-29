@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { slugify } from '@/lib/intelligence'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function GET() {
   const supabase = await createClient()

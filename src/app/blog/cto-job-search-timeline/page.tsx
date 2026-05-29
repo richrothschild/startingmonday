@@ -29,7 +29,6 @@ export default function CtoJobSearchTimelinePage() {
       url="https://startingmonday.app/blog/cto-job-search-timeline"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Ask a company how long a CTO search takes and they will say eight to twelve weeks. That is
           the time from search kickoff to offer acceptance&mdash;the company&rsquo;s experience of

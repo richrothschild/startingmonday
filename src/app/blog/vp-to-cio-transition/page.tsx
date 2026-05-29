@@ -36,7 +36,6 @@ export default function VpToCioTransitionPage() {
       url="https://startingmonday.app/blog/vp-to-cio-transition"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The executives who make the VP-to-CIO move well understand something that the ones who stall do not: it is
           not a promotion. It is a repositioning. The skills that made you excellent at VP level are necessary but not

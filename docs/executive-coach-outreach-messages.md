@@ -6,24 +6,31 @@ Purpose: Ready-to-send Sales Navigator outreach sequence for executive coaches.
 
 Subject:
 
-[First Name], would it be unreasonable to make every client meeting prep-ready?
+[First Name], reduce context rebuild between sessions
 
 Body:
 
 Hi [First Name],
 
-Quick observation from the coaching practices we speak with: too much paid session time gets spent rebuilding context instead of making strategic decisions.
+Coaches usually lose the most momentum when between-session prep runs on memory and scattered notes.
 
-Starting Monday gives you one place to stay on top of each client between sessions: signal monitoring, prep briefs, and pipeline accountability.
+The decision is whether to keep that manual or run one simple loop so clients arrive prepared and sessions stay strategy-first.
 
-The practical effect is simple: clients arrive prepared, you spend less time on admin, and more of the session stays in judgment, narrative, and strategy.
+In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.
 
 You can see the overview here: <https://startingmonday.app/for-coaches>
 
-If helpful, reply yes and I will send two sample prep briefs so you can decide in under five minutes whether it fits your practice.
+Reply yes and I will send one sample prep brief for your coaching context. Reply pass and I will close the loop.
 
 Rich
 startingmonday.app
+
+### Emotional-State First-Line Variants
+
+- Panic: your clients are under pressure to create visible momentum in the first 72 hours.
+- Optionality: your clients need low-noise market motion without signaling active search.
+- Burnout: your clients need lower decision load so execution does not stall.
+- Board-track: your clients need governance-ready narrative quality in the first two conversations.
 
 ## Subject Line Options (A/B)
 
@@ -36,19 +43,19 @@ startingmonday.app
 
 Subject:
 
-[First Name], would it be a mistake to keep prepping manually?
+[First Name], keep prep manual or simplify it?
 
 Body:
 
 Hi [First Name],
 
-How would you feel if your clients were prepared for every high-stakes conversation, without you spending extra hours between sessions?
+Coaching quality usually drops when between-session execution runs on memory.
 
-Most coaches we talk to are still doing the between-session layer manually: tracking signals in one tool, prep in another, and accountability in memory.
+If useful, I can send a 60-second sample mapped to your client profile.
 
-Starting Monday brings that into one operating layer so you can easily stay on top of each client in one place.
+In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.
 
-If this is useful, reply yes and I will send a 60-second sample plus two prep briefs.
+Reply yes for the sample, or reply pass and I will close the loop.
 
 Rich
 startingmonday.app
@@ -62,10 +69,15 @@ Audience:
 
 Cadence:
 
-- Day 0: Connection note
-- Day 0-1: Post-accept follow-up
-- Day 3: Check-in
-- Day 7: Final touch
+- Day 0: LinkedIn connection note
+- Day 1: Email first touch
+- Day 3: LinkedIn follow-up
+- Day 7: Email proof sample
+- Day 14: LinkedIn value-add note
+- Day 21: Email 30-day test offer
+- Day 30: Final close-the-loop email
+
+Default channel mix: LinkedIn for touches 1, 3, and 5; email for touches 2, 4, 6, and 7. Do not add text or Instagram unless the coach already knows you or has invited another channel.
 
 ## 1) Day 0 Connection Note (LinkedIn)
 
@@ -73,59 +85,137 @@ Use one specific signal from their profile or recent post.
 
 Template:
 
-[First Name] - saw your post on [topic]. I built a platform coaches use to give clients the execution layer (monitoring, prep briefs, pipeline) so you can stay in strategy. Open to a quick 15-minute intro?
+[First Name] - saw your post on [topic]. Coaches usually lose momentum when context rebuild eats session time. Open to a quick 15-minute yes/pass intro?
 
 Career transition variant:
 
-[First Name] - noticed your work helping leaders navigate transitions. We built a platform that keeps client momentum between sessions so you spend less time rebuilding context. Worth a 15-minute look?
+[First Name] - noticed your work helping leaders navigate transitions. This helps you spend less time rebuilding context and more time in strategy. Worth a quick 15-minute look?
 
 VP-to-CXO variant:
 
-[First Name] - your CXO positioning perspective stood out. We built a platform coaches use to keep candidates moving every week, so momentum does not stall between sessions. Open to a quick 15-minute intro?
+[First Name] - your CXO positioning perspective stood out. This keeps momentum from stalling between sessions without adding prep overhead. Open to a quick 15-minute intro?
 
 Search-process variant:
 
-[First Name] - saw your interview prep content. We built a platform that gives coaches full pipeline visibility before each session, so prep gets sharper and faster. Worth a quick 15-minute look?
+[First Name] - saw your interview prep content. This helps keep prep sharper and faster before each session. Worth a quick 15-minute look?
 
 Board/governance variant:
 
-[First Name] - noticed your board advisory focus. We built a platform that helps leaders maintain strategic relationships at scale between coaching sessions. Open to a quick 15-minute intro?
+[First Name] - noticed your board advisory focus. This helps clients show governance readiness earlier while keeping your between-session work lighter. Open to a quick 15-minute intro?
 
-## 2) Day 0-1 Follow-Up (After Connection Accepted)
+## 2) Day 1 Email First Touch
 
 Template:
 
-Thanks for connecting, [First Name].
+Subject:
 
-Most coaches I speak with are forced to spend too much session time rebuilding search context. Starting Monday handles that execution layer with daily signal monitoring, prep briefs, and pipeline tracking, so you can stay in strategic coaching mode.
+[First Name], one coaching readiness benchmark
 
-Result: clients move faster, your sessions stay high-value, and you can earn partner commission when clients onboard.
+Body:
+
+Hi [First Name],
+
+Most coaches lose momentum when between-session prep is rebuilt manually each week.
+
+The decision is whether the next 30 days should stay manual or run on one simple coaching readiness loop.
+
+In our Jan-May 2026 pilot cohort (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.
 
 Check out <https://startingmonday.app/for-coaches> to see how other coaches use it.
 
-If useful, I can show you a live brief in 60 seconds on a 15-minute call.
+Reply yes for a 15-minute walkthrough and one sample prep brief. Reply pass and I will close the loop.
 
 [Calendar Link]
 
-## 3) Day 3 Check-In (If No Reply)
+## 3) Day 3 LinkedIn Follow-Up
 
-Template:
+Use this only if they accepted the connection or viewed the profile but did not reply.
 
-Quick follow-up in case it got buried.
+[First Name] - circling back because the pressure you described is the one most coaches mention: clients are busy, and prep gets rebuilt from scratch each week.
 
-If a call is easier later, I can send a short 5-minute demo video first so you can decide if it is relevant. Or check out <https://startingmonday.app/for-coaches> directly.
+This was built to reduce context rebuild so you spend more time in strategy.
 
-[Video Link]
+If useful, I can send a 60-second screen recording instead of a call.
 
-## 4) Day 7 Final Touch
+## 4) Day 7 Email Proof Sample
 
-Template:
+Subject:
 
-No pressure if timing is not right.
+One sample prep brief for [First Name]
 
-If you want to revisit how coaches are using this to improve client execution between sessions, I am happy to share a quick walkthrough any time.
+Body:
 
-Either way, appreciate the work you do.
+Hi [First Name],
+
+By week two, most coaching value is won or lost in the between-session layer.
+
+As promised, here is one example of the prep support coaches use with Starting Monday:
+
+- 1-page client brief: signals, current priorities, and the next decision to make.
+
+The decision is whether this quality bar is worth standardizing across your current client set.
+
+If yes, I can show you what this looks like for one client in 15 minutes.
+
+In our Jan-May 2026 pilot cohort (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.
+
+Reply yes for the walkthrough. Reply pass and I will close the loop.
+
+Rich
+
+## 5) Day 14 LinkedIn Value-Add Note
+
+Use this as a short value-add message or post reply, not a second pitch.
+
+[First Name] - one pattern keeps coming up with coaches: the session itself is usually not the bottleneck. The between-session layer is.
+
+The common bottleneck is between-session clarity, not session quality.
+
+If useful, I can send a 3-minute walkthrough that shows the workflow.
+
+## 6) Day 21 Email 30-Day Test Offer
+
+Subject:
+
+Run a 30-day EMI test on two clients?
+
+Body:
+
+Hi [First Name],
+
+Most coaches do not want another tool unless it clearly reduces friction.
+
+The decision is simple: keep manual between-session prep, or run a reversible 30-day test with two clients.
+
+In our Jan-May 2026 pilot cohort (n=27), results were directional and varied by market and execution quality.
+
+Reply yes and I will send the setup checklist. Reply pass and I will close the loop.
+
+Rich
+
+## 7) Day 30 Final Close-the-Loop Email
+
+Subject:
+
+Should I close the loop for now?
+
+Body:
+
+Hi [First Name],
+
+Closing the loop for now.
+
+If timing changes, reply yes and I will send the 30-day setup checklist.
+
+If not useful right now, reply pass and I will archive this thread.
+
+## Short Channel Rules
+
+- Use LinkedIn to create familiarity and keep the message personal.
+- Use email to carry proof, samples, and the test offer.
+- Use articles or screen recordings only when they lower uncertainty.
+- Use text only after permission or a warm relationship.
+- Avoid Instagram as a primary channel unless the coach is already active there professionally.
 
 ## Personalization Rules
 

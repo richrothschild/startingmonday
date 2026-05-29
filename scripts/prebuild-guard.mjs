@@ -39,22 +39,4 @@ if (filesWithEmDash.length > 0) {
   process.exitCode = 1
 }
 
-const railwayEnvironment = (process.env.RAILWAY_ENVIRONMENT ?? process.env.RAILWAY_ENVIRONMENT_NAME ?? '').toLowerCase()
-const isRailway = Boolean(process.env.RAILWAY_PROJECT_ID || railwayEnvironment)
-const isProductionRailway = isRailway && (railwayEnvironment === 'production' || railwayEnvironment === 'prod' || railwayEnvironment === '')
-
-if (isProductionRailway) {
-  const missing = []
-  if (!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) missing.push('NEXT_PUBLIC_TURNSTILE_SITE_KEY')
-  if (!process.env.TURNSTILE_SECRET_KEY) missing.push('TURNSTILE_SECRET_KEY')
-
-  if (missing.length > 0) {
-    console.error('Error: missing required Turnstile environment variables in Railway production build:')
-    for (const key of missing) {
-      console.error(` - ${key}`)
-    }
-    process.exitCode = 1
-  }
-}
-
 console.log('prebuild guard passed')

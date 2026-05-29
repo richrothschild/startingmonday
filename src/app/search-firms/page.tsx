@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TrackLink } from '@/components/TrackLink'
+import { ChannelMicroProductRail } from '@/components/micro-products/ChannelMicroProductRail'
+import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Search Firms',
@@ -94,7 +97,7 @@ export default function SearchFirmsPage() {
       </nav>
 
       <main>
-        <section className="bg-slate-900 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
+<section className="bg-slate-900 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
           <div className="mx-auto max-w-4xl">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-400">
               For retained search firms
@@ -108,19 +111,41 @@ export default function SearchFirmsPage() {
             <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-300">
               If your firm already researches every mandate, this is not a replacement. It is the briefing layer that keeps partners from starting from zero.
             </div>
+            <div className="mt-4 rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-4 text-sm leading-relaxed text-emerald-100">
+              Trust and confidentiality: candidate context stays private to authorized firm workflows, and partner pilots are measured against explicit pass/fail scorecards.
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
+              <TrackLink
+                href="/search-firms/personas"
+                event={EVENT_NAMES.personaRouteSelected}
+                logToUserEvents
+                properties={{ channel: 'search_firms', persona: 'persona_hub', source_route: '/search-firms', target_route: '/search-firms/personas' }}
+                className="rounded bg-slate-100 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-white"
+              >
+                Explore search-firm personas
+              </TrackLink>
+              <TrackLink
                 href="/search-firms/sample-cfo-brief"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'See sample CFO brief', source_page: '/search-firms' }}
                 className="rounded bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-orange-600"
               >
                 See sample CFO brief
-              </Link>
-              <Link
+              </TrackLink>
+              <TrackLink
                 href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Run a pilot', source_page: '/search-firms' }}
                 className="rounded border border-slate-500 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-300"
               >
                 Run a pilot
-              </Link>
+              </TrackLink>
+            </div>
+
+            <div className="mt-8">
+              <ChannelMicroProductRail channel="search_firms" sourceRoute="/search-firms" />
             </div>
           </div>
         </section>
@@ -212,18 +237,24 @@ export default function SearchFirmsPage() {
               Start with CFO or COO mandates. Measure team prep hours, first-slate acceptance rate, and mandate-to-shortlist speed.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link
+              <TrackLink
                 href="/search-firms/sample-cfo-brief"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Review sample brief', source_page: '/search-firms' }}
                 className="rounded bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
               >
                 Review sample brief
-              </Link>
-              <Link
+              </TrackLink>
+              <TrackLink
                 href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Apply to partner program', source_page: '/search-firms' }}
                 className="rounded border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >
                 Apply to partner program
-              </Link>
+              </TrackLink>
             </div>
           </div>
         </section>

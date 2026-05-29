@@ -1,0 +1,236 @@
+name: Deployment Watchdog
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  deployments: read
+
+jobs:
+  verify-pushed-sha:
+    name: Verify pushed SHA reaches production
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Validate monitoring secret
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Missing required secret: SLACK_WEBHOOK_URL"
+            exit 1
+          fi
+
+      - name: Wait for production deployment status for pushed SHA
+        id: parity
+        uses: actions/github-script@v8
+        env:
+          TARGET_SHA: ${{ github.sha }}
+          MAX_ATTEMPTS: '20'
+          SLEEP_SECONDS: '60'
+        with:
+          script: |
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const sha = process.env.TARGET_SHA
+            const maxAttempts = Number(process.env.MAX_ATTEMPTS || '20')
+            const sleepSeconds = Number(process.env.SLEEP_SECONDS || '60')
+
+            const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+            const terminalFailureStates = new Set(['error', 'failure', 'inactive'])
+
+            let lastStates = []
+            let successState = null
+
+            for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+              const deploymentsRes = await github.rest.repos.listDeployments({
+                owner,
+                repo,
+                ref: sha,
+                per_page: 20,
+              })
+
+              const deployments = deploymentsRes.data ?? []
+              lastStates = []
+
+              for (const deployment of deployments) {
+                const statusRes = await github.rest.repos.listDeploymentStatuses({
+                  owner,
+                  repo,
+                  deployment_id: deployment.id,
+                  per_page: 10,
+                })
+
+                for (const status of statusRes.data ?? []) {
+                  const entry = `${deployment.environment ?? 'unknown'}:${status.state}`
+                  lastStates.push(entry)
+                  if (status.state === 'success') {
+                    successState = entry
+                    break
+                  }
+                  if (terminalFailureStates.has(status.state)) {
+                    core.setOutput('result', 'failed')
+                    core.setOutput('states', lastStates.join(', '))
+                    core.setOutput('sha', sha)
+                    core.setFailed(`Deployment parity failed for ${sha.slice(0, 8)} with state ${entry}`)
+                    return
+                  }
+                }
+
+                if (successState) break
+              }
+
+              if (successState) {
+                core.setOutput('result', 'success')
+                core.setOutput('states', lastStates.join(', '))
+                core.setOutput('sha', sha)
+                core.notice(`Deployment parity passed for ${sha.slice(0, 8)} with state ${successState}`)
+                return
+              }
+
+              core.notice(`Attempt ${attempt}/${maxAttempts}: no success yet for ${sha.slice(0, 8)}; states=${lastStates.join(', ') || 'none'}`)
+              if (attempt < maxAttempts) {
+                await sleep(sleepSeconds * 1000)
+              }
+            }
+
+            core.setOutput('result', 'timeout')
+            core.setOutput('states', lastStates.join(', '))
+            core.setOutput('sha', sha)
+            core.setFailed(`Deployment parity timed out for ${sha.slice(0, 8)}; latest states: ${lastStates.join(', ') || 'none'}`)
+
+      - name: Alert when pushed SHA did not reach production
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SHA="${{ steps.parity.outputs.sha || github.sha }}"
+          STATES="${{ steps.parity.outputs.states || 'none' }}"
+          RESULT="${{ steps.parity.outputs.result || 'failed' }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          RUNBOOK_URL="${{ github.server_url }}/${{ github.repository }}/blob/main/docs/sre/runbooks/deployment-stalled.md"
+
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"🚨 Pushed SHA did not reach production\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": { \"type\": \"plain_text\", \"text\": \"🚨 Pushed SHA did not reach production\" }
+              },
+              {
+                \"type\": \"section\",
+                \"fields\": [
+                  {\"type\": \"mrkdwn\", \"text\": \"*SHA:* <${{ github.server_url }}/${{ github.repository }}/commit/${SHA}|${SHA:0:8}>\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Result:* ${RESULT}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*States:* ${STATES}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Branch:* ${{ github.ref_name }}\"}
+                ]
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {\"type\": \"mrkdwn\", \"text\": \"<${RUN_URL}|View parity run> | <${RUNBOOK_URL}|Runbook: deployment stalled>\"}
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"
+
+  watchdog:
+    name: Watch latest main deployment
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Validate monitoring secret
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Missing required secret: SLACK_WEBHOOK_URL"
+            exit 1
+          fi
+
+      - name: Check whether the latest main commit has deployed successfully
+        id: watchdog
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const branch = 'main'
+            const thresholdMinutes = 30
+            const runbookUrl = `https://github.com/${owner}/${repo}/blob/main/docs/sre/runbooks/deployment-stalled.md`
+
+            const branchRes = await github.rest.repos.getBranch({ owner, repo, branch })
+            const sha = branchRes.data.commit.sha
+            const committedAt = new Date(
+              branchRes.data.commit.commit.committer?.date ||
+              branchRes.data.commit.commit.author?.date ||
+              branchRes.data.commit.commit.committer?.date ||
+              branchRes.data.commit.commit.author?.date
+            )
+
+            const ageMinutes = Math.floor((Date.now() - committedAt.getTime()) / 60000)
+            const deploymentsRes = await github.rest.repos.listDeployments({ owner, repo, ref: sha, per_page: 20 })
+            const deployments = deploymentsRes.data ?? []
+
+            const states = []
+            let hasSuccess = false
+
+            for (const deployment of deployments) {
+              const statusRes = await github.rest.repos.listDeploymentStatuses({ owner, repo, deployment_id: deployment.id, per_page: 1 })
+              const latestState = statusRes.data?.[0]?.state ?? 'unknown'
+              states.push(`${deployment.environment ?? 'unknown'}:${latestState}`)
+              if (latestState === 'success') hasSuccess = true
+            }
+
+            const shouldAlert = ageMinutes >= thresholdMinutes && !hasSuccess
+
+            core.setOutput('should_alert', shouldAlert ? 'true' : 'false')
+            core.setOutput('sha', sha)
+            core.setOutput('age_minutes', String(ageMinutes))
+            core.setOutput('states', states.join(', '))
+            core.setOutput('runbook_url', runbookUrl)
+
+            core.notice(`Deployment watchdog: sha=${sha.slice(0, 8)} age=${ageMinutes}m states=${states.join(', ') || 'none'} success=${hasSuccess}`)
+
+      - name: Alert when latest main commit has not deployed
+        if: steps.watchdog.outputs.should_alert == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SHA="${{ steps.watchdog.outputs.sha }}"
+          AGE="${{ steps.watchdog.outputs.age_minutes }}"
+          STATES="${{ steps.watchdog.outputs.states }}"
+          RUNBOOK_URL="${{ steps.watchdog.outputs.runbook_url }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"🚨 Deployment has not completed\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": { \"type\": \"plain_text\", \"text\": \"🚨 Deployment has not completed\" }
+              },
+              {
+                \"type\": \"section\",
+                \"fields\": [
+                  {\"type\": \"mrkdwn\", \"text\": \"*Latest main SHA:* <${{ github.server_url }}/${{ github.repository }}/commit/${SHA}|${SHA:0:8}>\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Age:* ${AGE} minutes\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*States:* ${STATES:-none found}\"},
+                  {\"type\": \"mrkdwn\", \"text\": \"*Repository:* ${{ github.repository }}\"}
+                ]
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {\"type\": \"mrkdwn\", \"text\": \"<${RUNBOOK_URL}|Runbook: deployment stalled> | <${RUN_URL}|View watchdog run>\"}
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"

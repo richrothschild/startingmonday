@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
@@ -82,7 +82,7 @@ export default async function StartPage() {
       title: 'Generate your first prep brief',
       body: 'Open a target company and generate the prep brief. It surfaces leadership signals, likely objections, and your best outreach angle - specific to that company and your background.',
       cta: 'Go to companies',
-      href: '/dashboard/companies',
+      href: '/dashboard',
       doneNote: 'Prep brief generated',
     },
     {
@@ -149,8 +149,7 @@ export default async function StartPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-
-        {/* Header */}
+{/* Header */}
         <div className="mb-8">
           {allDone ? (
             <>
@@ -225,7 +224,7 @@ export default async function StartPage() {
                       ? 'bg-emerald-500 text-white'
                       : 'bg-slate-100 text-slate-400'
                   }`}>
-                    {task.done ? '✓' : task.num}
+                    {task.done ? '?' : task.num}
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -265,7 +264,7 @@ export default async function StartPage() {
             href="/dashboard"
             className="inline-block bg-slate-900 text-white text-[13px] font-bold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
           >
-            {allDone ? 'Go to dashboard →' : 'Continue to dashboard →'}
+            {allDone ? 'Go to dashboard ?' : 'Continue to dashboard ?'}
           </Link>
           {!allDone && (
             <p className="text-[12px] text-slate-400 mt-2">You can finish these any time from your dashboard.</p>

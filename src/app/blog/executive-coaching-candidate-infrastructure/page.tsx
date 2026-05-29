@@ -29,7 +29,6 @@ export default function ExecutiveCoachingCandidateInfrastructurePage() {
       url="https://startingmonday.app/blog/executive-coaching-candidate-infrastructure"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           There is a category of executive coaching engagement that is harder than it looks from the outside.
           Not the strategy work. Not the positioning conversations. Not even the work of getting a client

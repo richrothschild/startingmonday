@@ -206,22 +206,38 @@ export default function OptimizePage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
-
-        {/* Hero */}
+{/* Hero */}
         <div className="mb-8 text-center">
           <h1 className="text-[28px] sm:text-[34px] font-bold text-slate-900 leading-tight">
             LinkedIn Profile Grader
           </h1>
           <p className="text-[15px] text-slate-500 mt-3 leading-relaxed max-w-lg mx-auto">
-            Paste your LinkedIn profile and get an honest A-F grade by section, specific rewrites for your weakest spots, and a clear plan to fix them.
+            Paste your LinkedIn profile for section grades, targeted rewrites, and a clear fix plan.
           </p>
           <p className="text-[12px] text-slate-400 mt-2">Free. No account required. 3 analyses per day.</p>
         </div>
 
+        <section className="bg-white border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">How grading works</h2>
+          <p className="text-[13px] text-slate-600 leading-relaxed">Your pasted text is used only to generate your analysis.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Output includes section grades plus rewrites for weak areas.</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Start by pasting your current profile.</p>
+        </section>
+
+        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#profile-input" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Profile input</a>
+            <a href="#profile-analysis" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Analysis</a>
+            <a href="#share-score" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Share score</a>
+            <a href="#next-step-cta" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
+          </div>
+        </section>
+
         {/* Input card */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <section id="profile-input" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</span>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</h2>
             <div className="flex items-center gap-2">
               <HelpPopover />
               <label className="cursor-pointer">
@@ -244,7 +260,7 @@ export default function OptimizePage() {
             <textarea
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu → Save to PDF → open the PDF → select all text → paste here.'}
+              placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu ? Save to PDF ? open the PDF ? select all text ? paste here.'}
               rows={12}
               disabled={status === 'streaming'}
               className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"
@@ -275,7 +291,7 @@ export default function OptimizePage() {
               </div>
             </div>
           </form>
-        </div>
+        </section>
 
         {/* Error */}
         {error && (
@@ -286,9 +302,9 @@ export default function OptimizePage() {
 
         {/* Output */}
         {(output || status === 'streaming') && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+          <section id="profile-analysis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
             <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</span>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</h2>
               {status === 'streaming' && (
                 <span className="text-[11px] text-slate-400 animate-pulse">Thinking…</span>
               )}
@@ -296,7 +312,7 @@ export default function OptimizePage() {
             <div className="px-6 py-6">
               {renderOutput(output)}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Share card - shown after analysis completes */}
@@ -316,7 +332,7 @@ export default function OptimizePage() {
             setTimeout(() => setCopied(false), 2000)
           }
           return (
-            <div className="bg-white border border-slate-200 rounded p-5 mb-6 flex items-center justify-between gap-4 flex-wrap">
+            <section id="share-score" className="bg-white border border-slate-200 rounded p-5 mb-6 flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-3">
                 <span className="text-[12px] text-slate-500">Share your score</span>
                 {grade && (
@@ -330,21 +346,21 @@ export default function OptimizePage() {
               >
                 {copied ? 'Copied!' : 'Copy to share'}
               </button>
-            </div>
+            </section>
           )
         })()}
 
         {/* CTA - shown after analysis completes */}
         {status === 'done' && (
-          <div className="bg-slate-900 rounded p-6 sm:p-8 text-center">
+          <section id="next-step-cta" className="bg-slate-900 rounded p-6 sm:p-8 text-center">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">
               Now fix how you find the roles.
             </p>
             <h2 className="text-[22px] font-bold text-white leading-tight mb-3">
-              Most executives don&rsquo;t know<br />they&rsquo;re already behind.
+              Strong profile. Better timing.
             </h2>
             <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
-              A stronger profile is the foundation. Knowing where to aim it before the search opens is the rest of the campaign. Starting Monday monitors your target companies for executive departures, board changes, and funding signals. When patterns point to an opening, you know before a search firm is engaged.
+              Profile quality is step one. Starting Monday tracks departures, board changes, and funding signals so you can move before formal search cycles start.
             </p>
             <Link
               href="/signup"
@@ -359,7 +375,7 @@ export default function OptimizePage() {
                 Explore a live demo &rarr;
               </Link>
             </p>
-          </div>
+          </section>
         )}
 
       <footer className="mt-12 pb-8 text-center">

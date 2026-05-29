@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { PREP_SYSTEM } from '@/lib/prompts'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 // Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
 // Designed to show the full brief depth to Mark Horstman without exposing any real user data.
@@ -180,6 +181,58 @@ Salesforce's culture and this seniority level.
 Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No motivational \
 language.`
 
+const FALLBACK_MANAGER_TOOLS_BRIEF = `## Bottom Line
+Your decisive advantage is your track record integrating acquisition-heavy enterprise environments while improving operating discipline. The biggest risk is being seen as transformation-only without enough day-one operating cadence for Salesforce's current margin and execution pressure. In this conversation, win by showing exactly how you sequence governance, platform priorities, and measurable outcomes in the first 90 days.
+
+## The Situation
+Salesforce is balancing growth expectations, margin pressure, and platform credibility at the same time. Internal IT is not just an internal function, it is a proof point for enterprise customers evaluating Salesforce's own platform claims. The VP-level CIO path is about execution clarity under financial scrutiny.
+
+## Win Thesis
+You win this role by being the candidate who can modernize an enterprise stack without losing operating control. Your record in integration-heavy environments, budget ownership, and cross-functional governance maps directly to Salesforce's need for disciplined execution now.
+
+## The Narrative
+Lead with business outcomes delivered through IT governance, then show one example of reducing complexity while accelerating delivery. Keep deep technical detail secondary to business impact language. Through-line: I build enterprise technology operating systems that improve speed, control, and measurable business results.
+
+## Anticipated Pushback
+**They push:** You are transformation-heavy, but this role needs immediate operating execution.
+**You say:** My model starts with operating cadence in week one, then sequences transformation against measurable business outcomes.
+
+**They push:** How do you avoid disruption in a complex environment?
+**You say:** I stabilize decision rights and delivery governance first, then phase modernization to protect continuity.
+
+## Likely Questions
+**They ask:** What are your first 90 days here?
+**What they're probing:** Whether you can establish control and momentum quickly.
+**Strong answer frame:** Start with assessment of operating risk, define top priorities with business leaders, then commit to near-term wins and explicit metrics.
+
+**They ask:** How do you connect IT investment to enterprise outcomes?
+**What they're probing:** Executive judgment and financial discipline.
+**Strong answer frame:** Tie platform choices to revenue, margin, and risk outcomes, and show how governance prevents drift.
+
+## Talking Points
+**Enterprise integration discipline** You have repeatedly reduced complexity after acquisitions while maintaining delivery continuity.
+
+**CFO-legible operating model** You frame IT tradeoffs in financial and business terms senior stakeholders can act on.
+
+**Execution under pressure** You build governance that improves speed and quality without creating process drag.
+
+## Questions to Ask
+How is internal IT currently expected to demonstrate platform credibility for enterprise customers?
+What execution risks worry leadership most in the next two quarters?
+Where do operating decisions stall today between IT, finance, and product?
+
+## First 90 Days Signal
+I would align on three measurable outcomes, one governance reset, and one platform decision that proves execution speed without sacrificing control.
+
+## What to Leave Out
+Avoid broad transformation language without execution sequence. Avoid architecture deep dives that are disconnected from business outcomes. Avoid talking about change velocity without governance safeguards.
+
+## How to Close
+Express interest by stating clear alignment with Salesforce's execution mandate. Ask about process with confidence and peer-level tone. Leave them with a crisp operating statement: I improve enterprise technology outcomes by making execution disciplined, measurable, and repeatable.
+
+## Reading the Room
+If they ask follow-up questions about first-90-day sequencing, that is a strong signal they are modeling you in-role. If they stay generic and avoid operating specifics, interest is likely softer. Your move in 24 hours is a concise follow-up note restating your top 90-day priorities and the outcomes they enable.`
+
 export async function POST(request: NextRequest) {
   try {
     await request.json()
@@ -190,7 +243,7 @@ export async function POST(request: NextRequest) {
   const blocked = await enforcePublicEndpointGuard({
     request,
     rateLimitKey: 'demo-brief-manager-tools',
-    maxPerMinute: 3,
+    maxPerMinute: 20,
   })
   if (blocked) return blocked
 
@@ -208,7 +261,7 @@ export async function POST(request: NextRequest) {
         await stream.finalMessage()
         controller.close()
       } catch (err) {
-        controller.enqueue(encoder.encode(`__ERROR__${err instanceof Error ? err.message : 'Unknown error'}`))
+        controller.enqueue(encoder.encode(FALLBACK_MANAGER_TOOLS_BRIEF))
         controller.close()
       }
     },

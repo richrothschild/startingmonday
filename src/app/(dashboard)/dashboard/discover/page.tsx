@@ -101,8 +101,7 @@ export default function DiscoverPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-6">
+<div className="mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Company Discovery</div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Discover Companies</h1>
           <p className="text-[13px] text-slate-500 mt-1">

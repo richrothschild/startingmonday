@@ -29,7 +29,6 @@ export default function CioVsCtoPage() {
       url="https://startingmonday.app/blog/cio-vs-cto-which-role"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Two titles, one domain, and a distinction that matters more than most technology executives
           realize.

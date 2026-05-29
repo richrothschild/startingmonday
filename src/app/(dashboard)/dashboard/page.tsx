@@ -4,23 +4,22 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
-import { PipelineFilter } from './PipelineFilter'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { SearchControlsPanel } from '@/components/SearchControlsPanel'
-import { TrackLink } from '@/components/TrackLink'
-import { FollowUpItem } from '@/components/FollowUpItem'
 import { CmdKButton } from '@/components/CmdKButton'
-import { EmptyState, EMPTY_ICONS } from '@/components/EmptyState'
-import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
-import { addSignalFollowUp } from './signals/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
 import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
+import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
+import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -211,30 +210,16 @@ export default async function DashboardPage({
   const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
 
   // Build weekly activity chart data (last 10 weeks)
-  function getWeekMonday(date: Date): Date {
-    const d = new Date(date)
-    const day = d.getDay()
-    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day))
-    d.setHours(0, 0, 0, 0)
-    return d
-  }
-  function weekLabel(d: Date): string {
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  }
   const weekSlots: WeekActivity[] = []
   for (let i = 9; i >= 0; i--) {
     const d = new Date(Date.now() - i * 7 * 24 * 60 * 60 * 1000)
     weekSlots.push({ week: weekLabel(getWeekMonday(d)), companies: 0, contacts: 0, briefs: 0, followUps: 0 })
   }
-  function bumpWeek(dateStr: string, key: keyof Omit<WeekActivity, 'week'>) {
-    const label = weekLabel(getWeekMonday(new Date(dateStr)))
-    const slot = weekSlots.find(s => s.week === label)
-    if (slot) slot[key]++
-  }
-  for (const r of (actCompanies ?? [])) bumpWeek(r.created_at, 'companies')
-  for (const r of (actContacts  ?? [])) bumpWeek(r.created_at, 'contacts')
-  for (const r of (actBriefs    ?? [])) bumpWeek(r.created_at, 'briefs')
-  for (const r of (actFollowUps ?? [])) bumpWeek(r.created_at, 'followUps')
+  const weekMap = new Map(weekSlots.map((slot) => [slot.week, slot]))
+  for (const r of actCompanies ?? []) bumpWeek(weekMap, r.created_at, 'companies')
+  for (const r of actContacts ?? []) bumpWeek(weekMap, r.created_at, 'contacts')
+  for (const r of actBriefs ?? []) bumpWeek(weekMap, r.created_at, 'briefs')
+  for (const r of actFollowUps ?? []) bumpWeek(weekMap, r.created_at, 'followUps')
 
   const allActivityDates = [
     ...(actCompanies ?? []).map(r => r.created_at),
@@ -365,7 +350,9 @@ export default async function DashboardPage({
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
   const isCoach = userRow?.subscription_tier === 'coach'
-  const isRothschildAdmin = (user.email ?? '').toLowerCase() === 'rothschild@gmail.com'
+  const staffMember = await getStaffMember(user.email ?? '')
+  const isRothschildAdmin = hasAdminHeaderAccess(staffMember)
+  const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -403,10 +390,109 @@ export default async function DashboardPage({
   const showCampaignWelcome = searchPath === 'campaign'  && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
   const showWatcherWelcome  = searchPath === 'watcher'   && totalCount === 0 && daysSinceOnboard !== null && daysSinceOnboard <= 7
 
+  const momentumScore = typeof momentumData?.momentum_score === 'number'
+    ? momentumData.momentum_score
+    : null
+  const momentumStatus: 'low' | 'medium' | 'strong' = momentumScore !== null
+    ? (momentumScore >= 70 ? 'strong' : momentumScore >= 40 ? 'medium' : 'low')
+    : ((signalCount + overdueCount + activeCount) >= 3 ? 'strong' : (signalCount + overdueCount + activeCount) > 0 ? 'medium' : 'low')
+
+  const relationshipAction: DailyMomentumAction = warmPaths[0]
+    ? {
+        id: 'relationship-action',
+        track: 'relationship',
+        title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
+        body: `${warmPaths[0].signal.signal_summary} gives you a concrete reason to re-engage. Use that signal while it is still fresh.`,
+        effortMinutes: 15,
+        href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
+        cta: 'Open outreach',
+      }
+    : overdueCount > 0
+      ? {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Clear the next relationship follow-up',
+          body: 'A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.',
+          effortMinutes: 15,
+          href: '/dashboard/calendar',
+          cta: 'Open calendar',
+        }
+      : {
+          id: 'relationship-action',
+          track: 'relationship',
+          title: 'Pick one warm relationship to move',
+          body: 'Open contacts, choose one person who can unblock a real conversation, and schedule the next step.',
+          effortMinutes: 15,
+          href: '/dashboard/contacts',
+          cta: 'Open contacts',
+        }
+
+  const readinessAction: DailyMomentumAction = interviewingCompany
+    ? {
+        id: 'readiness-action',
+        track: 'readiness',
+        title: `Generate prep for ${interviewingCompany.name}`,
+        body: 'If you already have a live conversation, readiness work outranks almost everything else.',
+        effortMinutes: 25,
+        href: `/dashboard/companies/${interviewingCompany.id}/prep`,
+        cta: 'Run prep brief',
+      }
+    : profileScore < 100
+      ? {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Tighten the profile inputs driving your search',
+          body: 'Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.',
+          effortMinutes: 20,
+          href: profileHref,
+          cta: 'Finish profile',
+        }
+      : {
+          id: 'readiness-action',
+          track: 'readiness',
+          title: 'Run one readiness pass before more outreach',
+          body: 'Use the strategy layer to sharpen what you will say before the next live conversation opens.',
+          effortMinutes: 20,
+          href: '/dashboard/strategy',
+          cta: 'Open strategy',
+        }
+
+  const focusAction: DailyMomentumAction = signalCount > 0
+    ? {
+        id: 'focus-action',
+        track: 'focus',
+        title: 'Review the freshest market signals',
+        body: 'New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.',
+        effortMinutes: 15,
+        href: '/dashboard/signals',
+        cta: 'Open signals',
+      }
+    : totalCount < 12
+      ? {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Add one more target company',
+          body: 'A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.',
+          effortMinutes: 15,
+          href: '/dashboard/companies/new',
+          cta: 'Add company',
+        }
+      : {
+          id: 'focus-action',
+          track: 'focus',
+          title: 'Convert today into a concrete next step',
+          body: 'If the pipeline already exists, pick the next visible move instead of expanding scope.',
+          effortMinutes: 10,
+          href: overdueCount > 0 ? '/dashboard/calendar' : '/dashboard/briefing',
+          cta: overdueCount > 0 ? 'View due today' : 'Open briefing',
+        }
+
+  const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
+
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
-    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard/companies',      cta: 'Go to companies' },
+    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard',      cta: 'Go to companies' },
     { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Add a contact' },
     { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
     { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Go to contacts' },
@@ -420,7 +506,7 @@ export default async function DashboardPage({
     return (
       <div className="min-h-screen bg-slate-100 font-sans">
         <header className="bg-slate-900">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
             <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
@@ -428,6 +514,9 @@ export default async function DashboardPage({
               <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
               <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
               <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
+              {canUseOutreachHub && (
+                <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Outreach</Link>
+              )}
               <div className="ml-auto flex items-center gap-4 shrink-0">
                 <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
                 <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
@@ -438,19 +527,19 @@ export default async function DashboardPage({
                 <LogoutButton label="Sign out" />
               </div>
             </div>
-            <div className="flex sm:hidden items-center gap-4 ml-auto">
-              <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
-              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white">Contacts</Link>
-              <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white">Feedback</Link>
-              {isRothschildAdmin && (
-                <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
-              )}
+            <div className="flex sm:hidden items-center gap-2 ml-auto">
+              <Link
+                href="/dashboard"
+                className="inline-flex min-h-[44px] items-center rounded-md border border-orange-500/40 bg-orange-500/10 px-3 text-[12px] font-semibold text-orange-300 hover:text-white"
+              >
+                Dashboard
+              </Link>
               <LogoutButton label="Sign out" />
             </div>
           </div>
         </header>
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-          <div className="mb-8">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+<div className="mb-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
               {greeting}, {firstName}.
@@ -471,7 +560,7 @@ export default async function DashboardPage({
                 <div className="flex-1">
                   <p className="text-[13px] font-semibold text-slate-900 mb-0.5">Stay sharp at $49/mo</p>
                   <p className="text-[12px] text-slate-600 leading-relaxed">
-                    Switch to Monitor for ongoing market monitoring without active search tools. Most executives search again within 3 years.
+                    Switch to Intelligence for ongoing market monitoring without active search tools. Most executives search again within 3 years.
                   </p>
                 </div>
                 <Link
@@ -486,7 +575,7 @@ export default async function DashboardPage({
                 href="/settings/billing"
                 className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
               >
-                Keep your intelligence running -- subscribe to Monitor ($49/mo)
+                Keep your intelligence running -- subscribe to Intelligence ($49/mo)
               </Link>
             ) : null}
           </div>
@@ -497,7 +586,7 @@ export default async function DashboardPage({
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Your Companies ({totalCount})
               </span>
-              <Link href="/dashboard/companies" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
+              <Link href="/dashboard" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
                 Manage
               </Link>
             </div>
@@ -513,7 +602,7 @@ export default async function DashboardPage({
                 ))}
                 {allList.length > 20 && (
                   <li className="px-6 py-3 text-[12px] text-slate-400">
-                    +{allList.length - 20} more. <Link href="/dashboard/companies" className="underline">View all</Link>
+                    +{allList.length - 20} more. <Link href="/dashboard" className="underline">View all</Link>
                   </li>
                 )}
               </ul>
@@ -530,10 +619,12 @@ export default async function DashboardPage({
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
               <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
             </Link>
-            <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
-              <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
-            </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
+                <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
+              </Link>
+            )}
           </div>
 
           <div className="mt-10 text-center">
@@ -551,7 +642,7 @@ export default async function DashboardPage({
 
       {/* Nav */}
       <header className="bg-slate-900">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -563,7 +654,9 @@ export default async function DashboardPage({
             <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
             <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+            )}
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
@@ -580,72 +673,81 @@ export default async function DashboardPage({
             </div>
           </div>
           {/* Mobile nav */}
-          <div className="flex sm:hidden items-center gap-4 ml-auto">
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Chat</Link>
-            <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Outreach</Link>
-            <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white whitespace-nowrap">Feedback</Link>
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 whitespace-nowrap">Admin</Link>
-            )}
+          <div className="flex sm:hidden items-center gap-2 ml-auto">
+            <Link
+              href="/dashboard/briefing"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Briefing
+            </Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         {/* Welcome */}
-        <div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
             {greeting}, {firstName}.
           </h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
-            <p className="text-[13px] text-slate-400 mt-2 leading-relaxed">
-              Start with the briefing, then work the next relationship and the next action.
-            </p>
+          <p className="text-[13px] text-slate-600 mt-1.5">{today}</p>
+          <p className="text-[13px] text-slate-500 mt-2 leading-relaxed max-w-[38ch]">
+            Start with the briefing, then work the next relationship and the next action.
+          </p>
         </div>
 
-        <div className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</p>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</h2>
             <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Dashboard
+            <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              Briefing
             </Link>
+            {canUseOutreachHub && (
+              <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+                Outreach
+              </Link>
+            )}
             {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
                 Admin
               </Link>
             )}
           </div>
-        </div>
+        </section>
 
-        <div className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+        <section id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</p>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
             <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed mt-1">
+            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">
               {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-col w-full sm:w-auto sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <Link
               href="/dashboard/briefing"
-              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
             >
               Open briefing
             </Link>
             <Link
               href="/dashboard/calendar"
-              className="inline-block border border-slate-200 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
             >
               View due today
             </Link>
           </div>
-        </div>
+        </section>
+
+        <DailyMomentumPlan
+          actions={dailyMomentumActions}
+          dateKey={todayISO}
+          status={momentumStatus}
+        />
 
         {/* Profile quick-save confirmation */}
         {profile_saved && (
@@ -741,6 +843,13 @@ export default async function DashboardPage({
           </div>
         )}
 
+        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Profile and intelligence modules</span>
+            <span className="text-[11px] text-slate-400">Open</span>
+          </summary>
+          <div className="px-5 py-5">
+
         {/* Profile completeness score */}
         {profileScore < 100 && (
           <Link
@@ -772,10 +881,10 @@ export default async function DashboardPage({
 
         {/* Quick profile shortcut - shown when profile is very thin */}
         {profileScore < 40 && (
-          <div className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
+          <section className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
               Quick start
-            </div>
+            </h2>
             <p className="text-[13px] text-slate-300 mb-4">
               3 fields. Unlocks your first prep brief in under 3 minutes.
             </p>
@@ -816,11 +925,11 @@ export default async function DashboardPage({
                 </Link>
               </div>
             </form>
-          </div>
+          </section>
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div id="momentum-overview" className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           {stats.map(({ value, label, alert, amber, href }) => {
             const inner = (
               <>
@@ -864,8 +973,8 @@ export default async function DashboardPage({
 
         {/* Proactive intelligence cards � pipeline gap summary */}
         {totalCount >= 3 && numIntelGaps > 0 && (
-          <div className="mb-6 sm:mb-8">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</p>
+          <section id="attention-gaps" className="mb-6 sm:mb-8">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</h2>
             <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
               {companiesWithoutContact.length > 0 && (
                 <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
@@ -893,7 +1002,7 @@ export default async function DashboardPage({
                 </Link>
               )}
               {companiesWithoutBrief.length > 0 && (
-                <Link href="/dashboard/companies" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
+                <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
                   <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutBrief.length}</div>
                   <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
                     {companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief
@@ -906,18 +1015,21 @@ export default async function DashboardPage({
                 </Link>
               )}
             </div>
-          </div>
+          </section>
         )}
 
         <OpportunityRadar />
 
+          </div>
+        </details>
+
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</p>
+          <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executives in transition try to do everything at once and end up paralyzed. The research says differently: one focused action per day compounds faster than a week of scattered effort.
+              Do one focused action today. Consistency beats scattered effort.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
             <Link
@@ -929,16 +1041,16 @@ export default async function DashboardPage({
             <p className="text-[12px] text-slate-500 mt-4">
               You can come back for the rest. The system will be here.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Campaign path welcome � first 7 days, empty pipeline */}
         {showCampaignWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</p>
+          <section id="campaign-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executive roles never get posted. They get filled through relationships and signals before a search is ever authorized. The executives who land well do not wait for postings. They are already watching the right companies when timing shifts.
+              Most executive roles are filled through relationships before posting. Start tracking target companies early.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
             <Link
@@ -948,18 +1060,18 @@ export default async function DashboardPage({
               Add your first target company &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career page URLs as you go � we scan for openings before they go public.
+              Aim for 10 to 15 companies. Add career URLs as you go.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Watcher path welcome � first 7 days, empty pipeline */}
         {showWatcherWelcome && (
-          <div className="bg-slate-900 rounded-lg p-6 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</p>
+          <section id="watcher-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
             <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
             <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              The executives who move fastest when an opportunity appears are the ones who have been watching the right companies for months. Leadership changes, funding rounds, and quiet job postings do not wait for you to start a search.
+              Stay ready by tracking the right companies before you need to move.
             </p>
             <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
             <Link
@@ -969,9 +1081,9 @@ export default async function DashboardPage({
               Add a company to watch &rarr;
             </Link>
             <p className="text-[12px] text-slate-500 mt-4">
-              No pressure to act on anything. You will know when the timing shifts.
+              No pressure to act now. You will know when timing shifts.
             </p>
-          </div>
+          </section>
         )}
 
         {/* Persistent Next Best Action Prompt */}
@@ -996,6 +1108,13 @@ export default async function DashboardPage({
             source="dashboard_default"
           />
         )}
+
+        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly performance and advanced modules</span>
+            <span className="text-[11px] text-slate-400">Open</span>
+          </summary>
+          <div className="px-5 py-5">
 
         {/* Weekly commitment device */}
         {(() => {
@@ -1033,7 +1152,7 @@ export default async function DashboardPage({
             <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
               <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
               <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">
-                Executives who land in under 90 days average 2-3 new conversations per week. Committing to a number makes it happen.
+                A weekly target increases follow-through.
               </p>
               <form action={saveWeeklyGoal} className="flex items-center gap-3">
                 <select
@@ -1071,7 +1190,7 @@ export default async function DashboardPage({
               <div className="text-[13px] font-semibold text-slate-900">
                 {momentumData.momentum_score >= 70 ? 'Strong cadence. Keep it moving.' :
                  momentumData.momentum_score >= 40
-                   ? `Momentum dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
+                   ? `Momentum is dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
                    : 'Search at risk. This pace adds months to your timeline.'}
               </div>
               <div className="text-[11px] text-slate-400 mt-0.5">
@@ -1091,8 +1210,8 @@ export default async function DashboardPage({
         )}
 
         {/* Social proof benchmarks */}
-        <div className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</p>
+        <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
@@ -1107,33 +1226,15 @@ export default async function DashboardPage({
               <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
             </div>
           </div>
-        </div>
+        </section>
 
         <ActivityChart data={weekSlots} />
         <PipelineVelocity companies={velocityRows} />
 
-        {/* Week 3 coaching prompt - appears Day 18-28 after onboarding */}
-        {showWeek3Prompt && (
-          <div className="bg-amber-50 border border-amber-200 rounded p-5 mb-6 sm:mb-8">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-600 mb-1">Week 3 Check-in</p>
-            <p className="text-[14px] font-semibold text-slate-900 mb-1">Most searches lose momentum around now.</p>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
-              Three things that keep searches moving: add companies weekly, complete follow-ups within 48 hours, and run a prep brief before any conversation.
-            </p>
-            <div className="flex gap-3 flex-wrap">
-              <Link href="/dashboard/companies/new" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
-                Add a company
-              </Link>
-              <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors">
-                View actions due
-              </Link>
-            </div>
-          </div>
-        )}
-
-
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 mb-6 sm:mb-2">
+        <section id="quick-actions" className="mb-6 sm:mb-2">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
           {[
             { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
             { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
@@ -1150,43 +1251,10 @@ export default async function DashboardPage({
               className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
             >
               <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
-              <p className="text-[11px] text-slate-400 mt-0.5">{a.sub}</p>
             </Link>
           ))}
-        </div>
-
-        {/* How-To + Interview Prep (in-context guidance) */}
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">How to work this week</p>
-            <TrackLink href="/dashboard/start" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'setup_guide' }} className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-              Full setup guide -&gt;
-            </TrackLink>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <TrackLink href="/dashboard/briefing" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'briefing' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">1) Start with briefing</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">Pick your top three actions before opening other pages.</p>
-            </TrackLink>
-            <TrackLink href="/dashboard/contacts" event="how_to_card_clicked" properties={{ source: 'dashboard_how_to', target: 'relationships' }} className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">2) Work relationships</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">Prioritize one warm contact and schedule the next follow-up.</p>
-            </TrackLink>
-            <TrackLink
-              href={interviewingCompany ? `/dashboard/companies/${interviewingCompany.id}/prep` : '/dashboard/companies'}
-              event="how_to_card_clicked"
-              properties={{ source: 'dashboard_how_to', target: interviewingCompany ? 'interview_prep' : 'companies' }}
-              className="border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block"
-            >
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">3) Run interview prep</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">
-                {interviewingCompany
-                  ? `Generate a prep brief for ${interviewingCompany.name} before your next conversation.`
-                  : 'Generate a prep brief from any company page before your next interview.'}
-              </p>
-            </TrackLink>
-          </div>
-        </div>
+        </section>
 
         <SearchControlsPanel
           initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
@@ -1194,274 +1262,28 @@ export default async function DashboardPage({
           isPaused={userRow?.subscription_status === 'paused'}
         />
 
-        {/* Today */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-              Today
-            </span>
-            {(followUps ?? []).length > 0 && (
-              <span className="text-[12px] font-semibold text-red-600">
-                {followUps!.length} {followUps!.length === 1 ? 'item' : 'items'}
-              </span>
-            )}
-          </div>
-          {(followUps ?? []).length === 0 ? (
-            <div className="px-6 py-5">
-              <p className="text-[13px] text-slate-400">No actions due. Your pipeline is current.</p>
-              <p className="text-[12px] text-slate-300 mt-1">
-                Follow-ups you set on companies and contacts appear here when they come due.
-              </p>
-            </div>
-          ) : (
-            <div className="divide-y divide-slate-50">
-              {(followUps ?? []).map(fu => {
-                const isToday = fu.due_date === todayISO
-                const co = fu.companies as unknown as { name: string } | null
-                const dateLabel = isToday
-                  ? 'Today'
-                  : new Date(fu.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                return (
-                  <FollowUpItem
-                    key={fu.id}
-                    id={fu.id}
-                    action={fu.action}
-                    dueDate={fu.due_date}
-                    dateLabel={dateLabel}
-                    isToday={isToday}
-                    companyName={co?.name}
-                  />
-                )
-              })}
-            </div>
-          )}
-        </div>
-
-        {/* Warm Paths */}
-        {warmPaths.length > 0 && (
-          <div className="bg-white border border-green-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-green-100 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-700">
-                  Warm Paths
-                </span>
-                <span className="text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-semibold">
-                  {warmPaths.length} {warmPaths.length === 1 ? 'opportunity' : 'opportunities'}
-                </span>
-              </div>
-              <Link href="/dashboard/contacts" className="text-[12px] text-slate-400 hover:text-slate-600">
-                All contacts
-              </Link>
-            </div>
-            <div className="divide-y divide-slate-50">
-              {warmPaths.map(wp => {
-                const dateLabel = new Date(wp.signal.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                return (
-                  <div key={`${wp.contactId}-${wp.signal.id}`} className="px-6 py-4 flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-700 text-[12px] font-bold shrink-0 mt-0.5">
-                      {wp.contactName[0].toUpperCase()}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <Link href={`/dashboard/contacts/${wp.contactId}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                          {wp.contactName}
-                        </Link>
-                        {wp.contactTitle && (
-                          <span className="text-[12px] text-slate-400">{wp.contactTitle}</span>
-                        )}
-                        <span className="text-[12px] text-slate-400">at</span>
-                        <Link href={`/dashboard/companies/${wp.companyId}`} className="text-[12px] font-semibold text-slate-600 hover:text-slate-900">
-                          {wp.companyName}
-                        </Link>
-                        <span className={[
-                          'text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
-                          SIGNAL_COLORS[wp.signal.signal_type] ?? 'bg-slate-100 text-slate-600',
-                        ].join(' ')}>
-                          {signalLabel(wp.signal.signal_type)}
-                        </span>
-                        <span className="text-[11px] text-slate-400">{dateLabel}</span>
-                      </div>
-                      <p className="text-[13px] text-slate-500 leading-relaxed truncate">{wp.signal.signal_summary}</p>
-                    </div>
-                    <Link
-                      href={`/dashboard/contacts/${wp.contactId}/outreach`}
-                      className="shrink-0 text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
-                    >
-                      Draft
-                    </Link>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Pattern Alerts */}
-        {patternAlerts.length > 0 && (
-          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
-                Pattern Alerts
-              </span>
-              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                See all ?
-              </Link>
-            </div>
-            <div className="divide-y divide-slate-50">
-              {patternAlerts.map(sig => {
-                const co = sig.companies
-                const colonIdx = sig.signal_summary.indexOf(': ')
-                const patternName = colonIdx > -1 ? sig.signal_summary.slice(0, colonIdx) : 'Pattern Alert'
-                const patternBody = colonIdx > -1 ? sig.signal_summary.slice(colonIdx + 2) : sig.signal_summary
-                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                return (
-                  <div key={sig.id} className="px-6 py-5">
-                    <div className="flex items-start justify-between gap-4 mb-2">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {co && (
-                          <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                            {co.name}
-                          </Link>
-                        )}
-                        <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
-                          {patternName}
-                        </span>
-                      </div>
-                      <span className="text-[12px] text-slate-400 shrink-0">{dateLabel}</span>
-                    </div>
-                    <p className="text-[13px] text-slate-700 leading-relaxed mb-1.5">{patternBody}</p>
-                    {sig.outreach_angle && (
-                      <p className="text-[12px] text-slate-500 italic leading-relaxed">{sig.outreach_angle}</p>
-                    )}
-                    <form action={addSignalFollowUp} className="mt-2">
-                      <input type="hidden" name="company_name" value={co?.name ?? ''} />
-                      <input type="hidden" name="signal_summary" value={patternBody} />
-                      <button type="submit" className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0">
-                        + Follow up in 5 days
-                      </button>
-                    </form>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Signals */}
-        {signals.length > 0 && (
-          <div className="bg-white border border-amber-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-amber-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600">
-                Company Signals
-              </span>
-              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                See all ?
-              </Link>
-            </div>
-            <div className="divide-y divide-slate-50">
-              {signals.map(sig => {
-                const co = sig.companies
-                const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                const typeLabel = sig.signal_type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-                return (
-                  <div key={sig.id} className="px-6 py-4">
-                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                      {co && (
-                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                          {co.name}
-                        </Link>
-                      )}
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
-                        {typeLabel}
-                      </span>
-                      <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
-                    </div>
-                    <p className="text-[13px] text-slate-700 leading-relaxed">{sig.signal_summary}</p>
-                    {sig.outreach_angle && (
-                      <p className="text-[12px] text-slate-400 italic mt-1 leading-relaxed">{sig.outreach_angle}</p>
-                    )}
-                    <form action={addSignalFollowUp} className="mt-2">
-                      <input type="hidden" name="company_name" value={co?.name ?? ''} />
-                      <input type="hidden" name="signal_summary" value={sig.signal_summary} />
-                      <button type="submit" className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0">
-                        + Follow up in 5 days
-                      </button>
-                    </form>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Setup checklist - visible until all 6 steps are complete */}
-        {!activation.isComplete && !hasFilters && (
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-slate-100">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                  Search setup
-                </span>
-                <Link href="/dashboard/start" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-                  View details &rarr;
-                </Link>
-              </div>
-              {(() => {
-                const completed = setupSteps.filter(s => s.done).length
-                const barCls = ['w-0','w-[16.67%]','w-1/3','w-1/2','w-2/3','w-5/6','w-full'][completed] ?? 'w-0'
-                return (
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                      <div className={`h-full bg-orange-500 rounded-full transition-all duration-500 ${barCls}`} />
-                    </div>
-                    <span className="text-[12px] font-semibold text-slate-500 shrink-0">
-                      {completed} of {setupSteps.length} complete
-                    </span>
-                  </div>
-                )
-              })()}
-            </div>
-            <div className="divide-y divide-slate-50">
-              {setupSteps.map((step, i) => (
-                <div
-                  key={i}
-                  className={`px-6 py-3.5 flex items-center gap-4 ${step.done ? 'opacity-50' : ''}`}
-                >
-                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
-                    step.done ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-500'
-                  }`}>
-                    {step.done ? '?' : i + 1}
-                  </div>
-                  <span className={`text-[13px] flex-1 min-w-0 ${
-                    step.done ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-900'
-                  }`}>
-                    {step.label}
-                  </span>
-                  {!step.done && (
-                    <Link
-                      href={step.href}
-                      className="text-[12px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded transition-colors shrink-0"
-                    >
-                      {step.cta} &rarr;
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <DashboardIntelSetupSections
+          todayISO={todayISO}
+          followUps={(followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>}
+          warmPaths={warmPaths}
+          patternAlerts={patternAlerts}
+          signals={signals}
+          activation={{ isComplete: activation.isComplete }}
+          hasFilters={hasFilters}
+          setupSteps={setupSteps}
+        />
 
         {/* Suggestions - shown until dismissed or pipeline grows */}
         {totalCount < 5 && !hasFilters && <SuggestionCards />}
 
         {/* Pipeline Pulse - Executive only */}
         {isExecutive && (
-          <div className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
+          <section id="pipeline-pulse" className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
             <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
+                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
                   Pipeline Pulse
-                </span>
+                </h2>
                 <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
                   Executive
                 </span>
@@ -1500,163 +1322,30 @@ export default async function DashboardPage({
                 <div className="text-[11px] text-slate-400 mt-0.5">active companies</div>
               </div>
             </div>
-          </div>
+          </section>
         )}
+
+          </div>
+        </details>
 
         {/* Pipeline */}
-        <div id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
-
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-              Company Pipeline
-            </span>
-            <div className="flex items-center gap-4">
-              <span className="text-[12px] text-slate-400">
-                {hasFilters && totalFiltered === 0
-                  ? `0 of ${totalCount}`
-                  : totalPages > 1 || hasFilters
-                    ? `${start + 1}�${Math.min(start + PAGE_SIZE, totalFiltered)} of ${totalFiltered}`
-                    : totalCount} {totalCount === 1 ? 'company' : 'companies'}
-              </span>
-              <Link
-                href="/dashboard/companies/new"
-                className="text-[12px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded transition-colors"
-              >
-                + Add
-              </Link>
-            </div>
-          </div>
-
-          <PipelineFilter
-            q={q ?? ''}
-            stage={stage ?? ''}
-            stages={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
-          />
-
-          <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="py-2.5 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
-                  Company
-                </th>
-                <th className="py-2.5 px-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 hidden sm:table-cell">
-                  Sector
-                </th>
-                <th className="py-2.5 px-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
-                  Stage
-                </th>
-                <th className="py-2.5 pl-4 pr-6 text-right text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
-                  Fit
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan={4}>
-                    {totalCount === 0 ? (
-                      !activation.a1_resume ? (
-                        <EmptyState
-                          icon={EMPTY_ICONS.companies}
-                          title="Start here: upload your resume"
-                          body="Paste your LinkedIn profile text or upload your resume. It's what drives prep briefs, daily briefings, and every AI response you get."
-                          cta={{ label: 'Go to profile ?', href: '/dashboard/profile' }}
-                        />
-                      ) : (
-                        <EmptyState
-                          icon={EMPTY_ICONS.companies}
-                          title="No target companies yet"
-                          body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right. Then use the briefing to decide who to contact first."
-                          cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
-                        />
-                      )
-                    ) : (
-                      <div className="py-10 text-center text-[14px] text-slate-400">
-                        No companies match that filter.
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ) : filtered.map((co, i) => {
-                const s = STAGE[co.stage] ?? { label: co.stage, cls: 'bg-slate-100 text-slate-500' }
-                return (
-                  <tr
-                    key={co.id}
-                    className={i < filtered.length - 1 ? 'border-b border-slate-50' : ''}
-                  >
-                    <td className="py-3.5 pl-6 pr-4">
-                      <div className="flex items-center gap-2">
-                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">{co.name}</Link>
-                        {(contactCountMap.get(co.id) ?? 0) > 0 && (
-                          <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full shrink-0">
-                            {contactCountMap.get(co.id)} {contactCountMap.get(co.id) === 1 ? 'contact' : 'contacts'}
-                          </span>
-                        )}
-                      </div>
-                      {co.notes && (
-                        <div className="text-[12px] text-slate-400 mt-0.5 truncate max-w-[200px] sm:max-w-[340px]">
-                          {co.notes}
-                        </div>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-4 text-[13px] text-slate-500 hidden sm:table-cell">
-                      {co.sector ?? '-'}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-[0.04em] ${s.cls}`}>
-                        {s.label}
-                      </span>
-                    </td>
-                    <td className="py-3.5 pl-4 pr-6 text-right text-[14px] font-bold text-slate-900">
-                      {co.fit_score ?? '-'}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-          </div>
-
-          {totalPages > 1 && (
-            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[12px] text-slate-400">
-                Page {page + 1} of {totalPages}
-              </span>
-              <div className="flex items-center gap-2">
-                {page > 0 && (
-                  <a
-                    href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page - 1) }).toString()}`}
-                    className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
-                  >
-                    ? Previous
-                  </a>
-                )}
-                {page < totalPages - 1 && (
-                  <a
-                    href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page + 1) }).toString()}`}
-                    className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
-                  >
-                    Next ?
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
-
-        {/* Search wrap-up link - discreet, for users who found a role outside the pipeline */}
-        {!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active') && (
-          <div className="mt-10 text-center">
-            <Link
-              href="/dashboard/wrap-up"
-              className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors"
-            >
-              Did your search wrap up? Mark it complete.
-            </Link>
-          </div>
-        )}
-
-        </div>
+        <DashboardPipelineSection
+          q={q ?? ''}
+          stage={stage ?? ''}
+          page={page}
+          start={start}
+          pageSize={PAGE_SIZE}
+          totalCount={totalCount}
+          totalFiltered={totalFiltered}
+          totalPages={totalPages}
+          hasFilters={hasFilters}
+          filtered={filtered}
+          contactCountMap={contactCountMap}
+          stageMap={STAGE}
+          stageOptions={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
+          activationResumeDone={activation.a1_resume}
+          showWrapUpLink={!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active')}
+        />
       </main>
       <HelpQuickButton source="dashboard" />
     </div>

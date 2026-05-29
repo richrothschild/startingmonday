@@ -146,7 +146,7 @@ export default function FeedbackPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-        {/* Submit Form */}
+{/* Submit Form */}
         <section className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
           <h2 className="text-[16px] font-bold text-slate-900">Share Your Feedback</h2>
           <p className="text-[13px] text-slate-600">

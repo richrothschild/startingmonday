@@ -2,6 +2,7 @@ import { sendEmail } from './send-email.js'
 import { logger } from './logger.js'
 
 // Notification channels: 'email' is live. 'sms' is stubbed — add Twilio to enable.
+// Slack is also supported via either incoming webhook or chat.postMessage token.
 //
 // To enable SMS:
 //   1. npm install twilio  (in worker/)
@@ -9,25 +10,59 @@ import { logger } from './logger.js'
 //   3. Uncomment the sms block below
 //   4. Add 'sms' to NOTIFY_CHANNELS env var (e.g. "email,sms")
 
-export async function notify({ subject, body }) {
-  const channels = (process.env.NOTIFY_CHANNELS ?? 'email').split(',').map(s => s.trim())
-  const to = process.env.NOTIFY_EMAIL
+async function sendSlack({ subject, body }) {
+  const text = `*Starting Monday Alert*\n*${subject}*\n${body}`
 
-  if (!to) {
-    logger.warn('notify: NOTIFY_EMAIL not set — skipping notification', { subject })
+  const webhook = process.env.SLACK_WEBHOOK_URL
+  if (webhook) {
+    const res = await fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    })
+    if (!res.ok) throw new Error(`Slack webhook failed (${res.status})`)
     return
   }
+
+  const token = process.env.SLACK_BOT_TOKEN || process.env.SLACK_USER_TOKEN || process.env.SLACK_TOKEN
+  const channel = process.env.SLACK_ALERT_CHANNEL_ID || process.env.SLACK_CHANNEL_ID
+  if (!token || !channel) {
+    throw new Error('Slack is not configured (set SLACK_WEBHOOK_URL or SLACK_BOT_TOKEN/SLACK_USER_TOKEN/SLACK_TOKEN + SLACK_ALERT_CHANNEL_ID)')
+  }
+
+  const res = await fetch('https://slack.com/api/chat.postMessage', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ channel, text }),
+  })
+
+  const json = await res.json().catch(() => ({}))
+  if (!res.ok || !json.ok) {
+    throw new Error(`Slack API failed (${res.status}) ${json.error ?? ''}`.trim())
+  }
+}
+
+export async function notify({ subject, body }) {
+  const channels = (process.env.NOTIFY_CHANNELS ?? 'email').split(',').map(s => s.trim().toLowerCase())
+  const to = process.env.NOTIFY_EMAIL
 
   const tasks = []
 
   if (channels.includes('email')) {
-    tasks.push(
-      sendEmail({
-        to,
-        subject: `[Starting Monday] ${subject}`,
-        text: body,
-      }).catch(err => logger.error('notify: email failed', { error: err.message }))
-    )
+    if (!to) {
+      logger.warn('notify: email channel enabled but NOTIFY_EMAIL not set', { subject })
+    } else {
+      tasks.push(
+        sendEmail({
+          to,
+          subject: `[Starting Monday] ${subject}`,
+          text: body,
+        }).catch(err => logger.error('notify: email failed', { error: err.message }))
+      )
+    }
   }
 
   if (channels.includes('sms')) {
@@ -44,6 +79,17 @@ export async function notify({ subject, body }) {
     //   }).catch(err => logger.error('notify: sms failed', { error: err.message }))
     // )
     logger.warn('notify: sms channel configured but Twilio is not wired up yet')
+  }
+
+  if (channels.includes('slack')) {
+    tasks.push(
+      sendSlack({ subject, body }).catch(err => logger.error('notify: slack failed', { error: err.message }))
+    )
+  }
+
+  if (!tasks.length) {
+    logger.warn('notify: no enabled/usable channels', { subject })
+    return
   }
 
   await Promise.allSettled(tasks)

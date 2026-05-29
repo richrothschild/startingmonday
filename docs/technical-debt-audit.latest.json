@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-05-24T17:43:01.196Z",
+  "buildHealth": {
+    "typecheck": {
+      "status": "pass",
+      "exitCode": 0
+    },
+    "lint": {
+      "status": "pass",
+      "exitCode": 0
+    },
+    "parserCorruptionCount": 0,
+    "parserCorruptionFiles": []
+  },
+  "testDebt": {
+    "placeholderBaselineCount": 292,
+    "currentPlaceholderFileCount": 290
+  },
+  "hotspots": {
+    "topLargeFiles": [
+      {
+        "path": "src/lib/supabase/database.types.ts",
+        "lineCount": 1420,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/page.tsx",
+        "lineCount": 1314,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/onboarding/onboarding-form.tsx",
+        "lineCount": 1281,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
+        "lineCount": 1148,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
+        "lineCount": 1085,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
+        "lineCount": 1060,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
+        "lineCount": 1039,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/components/LandingPage.tsx",
+        "lineCount": 910,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/components/coach/client-data-view.tsx",
+        "lineCount": 838,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/components/ResumeTailor.tsx",
+        "lineCount": 824,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/demo/cio/CioPresentationClient.tsx",
+        "lineCount": 789,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/demo/cio/CioDemoClient.tsx",
+        "lineCount": 787,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
+        "lineCount": 778,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "worker/jobs/signal-job.js",
+        "lineCount": 669,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "scripts/refine-outreach-templates-by-council.mjs",
+        "lineCount": 631,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/api/prep/[id]/route.ts",
+        "lineCount": 599,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/for-outplacement/page.tsx",
+        "lineCount": 598,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "scripts/backfill-edgar-exec-history.mjs",
+        "lineCount": 588,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
+        "lineCount": 587,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/sales-marketing-plan/page.tsx",
+        "lineCount": 581,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      }
+    ]
+  },
+  "dependencies": {
+    "outdatedCount": 6,
+    "topOutdated": [
+      {
+        "name": "@anthropic-ai/sdk",
+        "current": "0.91.1",
+        "wanted": "0.91.1",
+        "latest": "0.98.0"
+      },
+      {
+        "name": "@types/node",
+        "current": "20.19.41",
+        "wanted": "20.19.41",
+        "latest": "25.9.1"
+      },
+      {
+        "name": "eslint",
+        "current": "9.39.4",
+        "wanted": "9.39.4",
+        "latest": "10.4.0"
+      },
+      {
+        "name": "react",
+        "current": "19.2.4",
+        "wanted": "19.2.4",
+        "latest": "19.2.6"
+      },
+      {
+        "name": "react-dom",
+        "current": "19.2.4",
+        "wanted": "19.2.4",
+        "latest": "19.2.6"
+      },
+      {
+        "name": "typescript",
+        "current": "5.9.3",
+        "wanted": "5.9.3",
+        "latest": "6.0.3"
+      }
+    ],
+    "parseFailed": false
+  }
+}

@@ -29,7 +29,6 @@ export default function TechnologyExecutiveTransitionChroPage() {
       url="https://startingmonday.app/blog/technology-executive-transition-chro"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most outplacement programs were not designed for technology executive searches.
           They were designed for general executive transition. The resume review is the same.

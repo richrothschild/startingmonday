@@ -41,22 +41,21 @@ export default async function ContactsPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"
-            className="text-[13px] text-slate-300 hover:text-white transition-colors"
+            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
           >
-            ← Dashboard
+            ? Dashboard
           </Link>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        <div className="mb-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+<div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Contacts</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
             Recruiters, hiring managers, and warm connections.

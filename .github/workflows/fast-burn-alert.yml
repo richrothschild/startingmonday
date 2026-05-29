@@ -1,8 +1,8 @@
 name: Fast-Burn Alert
 
 # Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
-# Checks consecutive monitoring run failures as a proxy for fast error-budget burn.
-# Triggers a Sev-1 alert when 3+ consecutive production smoke runs have failed.
+# Checks consecutive monitoring and synthetic run failures as a proxy for fast error-budget burn.
+# Triggers a Sev-1 alert only when both signals show sustained degradation.
 
 on:
   schedule:
@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check consecutive monitoring failures
+      - name: Check consecutive monitoring and synthetic failures
         id: burn
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
-            // Look at the last 6 production monitoring runs (~3 hours window).
-            // 3 consecutive failures = fast-burn condition (budget burning ~14x).
-            const res = await github.rest.actions.listWorkflowRuns({
+            // Require overlap between smoke checks and deeper synthetics before escalating.
+            // Monitoring alone is too noisy; real burn should show up in both signals.
+            const monitoringRes = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'monitoring.yml',
@@ -36,29 +36,57 @@ jobs:
               exclude_pull_requests: true,
             })
 
-            const runs = res.data.workflow_runs ?? []
-            if (runs.length === 0) {
-              core.notice('No completed monitoring runs found — skipping fast-burn check')
+            const syntheticsRes = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'production-synthetics.yml',
+              status: 'completed',
+              per_page: 4,
+              branch: 'main',
+              exclude_pull_requests: true,
+            })
+
+            const monitoringRuns = monitoringRes.data.workflow_runs ?? []
+            const syntheticRuns = syntheticsRes.data.workflow_runs ?? []
+
+            if (monitoringRuns.length === 0 || syntheticRuns.length === 0) {
+              core.notice('No completed monitoring or synthetic runs found — skipping fast-burn check')
               core.setOutput('fast_burn', 'false')
               return
             }
 
-            // Count consecutive failures from the most recent run backward
-            let consecutiveFails = 0
-            for (const run of runs) {
+            // Count consecutive failures from the most recent run backward.
+            let monitoringConsecutiveFails = 0
+            for (const run of monitoringRuns) {
               if (run.conclusion === 'failure') {
-                consecutiveFails++
+                monitoringConsecutiveFails++
               } else {
                 break
               }
             }
 
-            const summary = `Last ${runs.length} runs — ${consecutiveFails} consecutive failure(s). ` +
-              `Conclusions: ${runs.map(r => r.conclusion).join(', ')}`
+            let syntheticConsecutiveFails = 0
+            for (const run of syntheticRuns) {
+              if (run.conclusion === 'failure') {
+                syntheticConsecutiveFails++
+              } else {
+                break
+              }
+            }
+
+            const monitoringSummary = `Monitoring: ${monitoringConsecutiveFails} consecutive failure(s) from ${monitoringRuns.length} runs`
+            const syntheticsSummary = `Synthetics: ${syntheticConsecutiveFails} consecutive failure(s) from ${syntheticRuns.length} runs`
+            const summary = `${monitoringSummary} | ${syntheticsSummary}. ` +
+              `Monitoring conclusions: ${monitoringRuns.map(r => r.conclusion).join(', ')} | ` +
+              `Synthetics conclusions: ${syntheticRuns.map(r => r.conclusion).join(', ')}`
+
             core.notice(summary)
 
-            core.setOutput('consecutive_fails', String(consecutiveFails))
-            core.setOutput('fast_burn', consecutiveFails >= 3 ? 'true' : 'false')
+            const fastBurn = monitoringConsecutiveFails >= 3 && syntheticConsecutiveFails >= 2
+
+            core.setOutput('monitoring_consecutive_fails', String(monitoringConsecutiveFails))
+            core.setOutput('synthetic_consecutive_fails', String(syntheticConsecutiveFails))
+            core.setOutput('fast_burn', fastBurn ? 'true' : 'false')
             core.setOutput('summary', summary)
 
       - name: Send Sev-1 fast-burn alert
@@ -66,10 +94,11 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          CONSECUTIVE="${{ steps.burn.outputs.consecutive_fails }}"
+          MONITORING_CONSECUTIVE="${{ steps.burn.outputs.monitoring_consecutive_fails }}"
+          SYNTHETIC_CONSECUTIVE="${{ steps.burn.outputs.synthetic_consecutive_fails }}"
           SUMMARY="${{ steps.burn.outputs.summary }}"
           curl -X POST -H 'Content-type: application/json' --data "{
-            \"text\": \"P0 FAST-BURN ALERT — ${CONSECUTIVE} consecutive production smoke failures\",
+            \"text\": \"P0 FAST-BURN ALERT — overlapping monitoring and synthetic failures\",
             \"blocks\": [
               {
                 \"type\": \"header\",
@@ -82,7 +111,7 @@ jobs:
                 \"type\": \"section\",
                 \"text\": {
                   \"type\": \"mrkdwn\",
-                  \"text\": \"*${CONSECUTIVE} consecutive production smoke check failures detected.*\nThis indicates P0 error budget is burning rapidly.\n\n${SUMMARY}\n\n*Immediate action required.* See runbook: docs/sre/runbooks/\"
+                  \"text\": \"*Monitoring failures:* ${MONITORING_CONSECUTIVE} consecutive\n*Synthetics failures:* ${SYNTHETIC_CONSECUTIVE} consecutive\n\n${SUMMARY}\n\n*Immediate action required.* See runbook: docs/sre/runbooks/\"
                 }
               },
               {

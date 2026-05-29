@@ -36,7 +36,6 @@ export default function HowCiosFindJobsPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The answer most people do not say out loud: almost nobody at the CIO level finds their next
           role through a job board. The process by which senior technology executives land their next

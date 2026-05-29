@@ -1,0 +1,7 @@
+metric,value,status,table,notes
+emi_language_adoption_percent,88,docs_proxy,,sprint-6-final-success-criteria-audit
+assessment_completion_percent,,ok,user_events,
+day7_return_percent,,no_data,user_events,
+proof_assets_published_count,,ok,benchmark_proof_assets,
+b2b_pilot_conversion_percent,,query_error,partner_opportunities,Could not find the table 'public.partner_opportunities' in the schema cache
+tier1_claim_compliance_percent,,query_error,tier1_claims,Could not find the table 'public.tier1_claims' in the schema cache

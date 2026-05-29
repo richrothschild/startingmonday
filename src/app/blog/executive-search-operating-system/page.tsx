@@ -42,7 +42,6 @@ export default function ExecutiveSearchOperatingSystemPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           On the day your CIO role ends&mdash;whether by elimination, restructuring, or your own
           decision&mdash;something happens that no one in your professional life has prepared you for.

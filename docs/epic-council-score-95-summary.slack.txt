@@ -1,0 +1,32 @@
+*Council Score 95 Epic: Completed (May 24, 2026)*
+
+We closed the full epic from a blended baseline of *85.2* to *95.9* with *every reviewed council member at 95+*.
+
+*Baseline -> Final*
+- Main Synthetic Council: 83.7 -> 95.7
+- Executive Council: 84.2 -> 95.5
+- Coaches Council: 89.7 -> 96.3
+- Outplacement Buyer Council: 85.0 -> 96.0
+- Blended: 85.2 -> 95.9
+- Latest unified audit council score: *98 (A+)*
+
+*What changed across sprints*
+- S1: IA + score measurement contract
+- S2: channel entry experiences + benchmarks
+- S3: persona route trees + passive/active split
+- S4: micro-product back office foundations
+- S5: intelligence quality and QA scorecard
+- S6: onboarding speed, low-energy mode, onboarding QA
+- S7: trust/procurement proof stack + ROI surfaces
+- S8: full council rerun, member scorecards, governance activation
+
+*Key closure artifacts*
+- docs/content/sprint-8-re-review-score-closure-2026-05-24.md
+- docs/content/sprint-8-governance-cadence-2026-05-24.md
+- docs/content/sprint-8-council-rerun-advice-and-scores-2026-05-24.md
+- docs/weekly-unified-audit.latest.md
+
+*Next governance loop*
+- Weekly: unified audit + blocker triage
+- Biweekly: council delta review
+- Monthly: roadmap rebalance by score-lift ROI

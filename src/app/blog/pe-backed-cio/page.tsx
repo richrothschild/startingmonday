@@ -43,7 +43,6 @@ export default function PeBackedCioPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           A PE-backed CIO search and a public company CIO search are different searches that happen
           to use the same job title.

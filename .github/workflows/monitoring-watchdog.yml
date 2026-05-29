@@ -35,17 +35,20 @@ jobs:
 
       - name: Check scheduled workflow freshness
         id: freshness
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const workflows = [
-              { id: 'ci.yml', name: 'CI', maxAgeMinutes: null },
-              { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90 },
-              { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90 },
-              { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90 },
-              { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 15 },
-              { id: 'security-weekly.yml', name: 'Weekly security audit', maxAgeMinutes: 60 * 24 * 10 },
-              { id: 'watermark-audit.yml', name: 'Monthly Watermark Documentation Audit', maxAgeMinutes: 60 * 24 * 40 },
+              { id: 'ci.yml', name: 'CI', maxAgeMinutes: null, requireSuccess: false },
+              { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90, requireSuccess: true },
+              { id: 'deployment-watchdog.yml', name: 'Deployment Watchdog', maxAgeMinutes: 90, requireSuccess: true },
+              { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90, requireSuccess: true },
+              { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90, requireSuccess: true },
+              // Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
+              // Use a wider threshold to prevent false watchdog pages while still detecting real monitoring stalls.
+              { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 120, requireSuccess: true },
+              { id: 'security-weekly.yml', name: 'Weekly security audit', maxAgeMinutes: 60 * 24 * 10, requireSuccess: false },
+              { id: 'watermark-audit.yml', name: 'Monthly Watermark Documentation Audit', maxAgeMinutes: 60 * 24 * 40, requireSuccess: false },
             ]
 
             const now = Date.now()
@@ -72,7 +75,7 @@ jobs:
               const ageMinutes = Math.floor((now - new Date(run.created_at).getTime()) / 60000)
               notes.push(`${wf.name}: ${run.conclusion} (${ageMinutes}m old)`)
 
-              if (run.conclusion !== 'success') {
+              if (wf.requireSuccess && run.conclusion !== 'success') {
                 failures.push(`${wf.name}: latest completed run is ${run.conclusion}`)
               }
 

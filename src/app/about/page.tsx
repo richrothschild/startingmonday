@@ -103,12 +103,18 @@ export default function AboutPage() {
       <article className="px-4 sm:px-6 py-12 sm:py-16">
         <div className="max-w-2xl mx-auto space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
+          <section id="why-me" className="space-y-4">
+            <h2 className="text-[17px] font-bold text-slate-900">Why me</h2>
           <p>
             <span className="font-semibold text-slate-900">Why me:</span> I have spent my career in enterprise
             technology leadership, including transformation operator roles. The pattern was always the same: the
             business needed outcomes, not activity, and leadership needed clarity, not reporting.
           </p>
+          </section>
 
+          
+        <section id="why-product" className="space-y-4">
+            <h2 className="text-[17px] font-bold text-slate-900">Why this product</h2>
           <p>
             <span className="font-semibold text-slate-900">Why this product:</span> I built Starting Monday because
             I ran my own C-suite search and found the process broken in a specific way. The job boards existed.
@@ -128,7 +134,10 @@ export default function AboutPage() {
             and prep briefs that assemble your win thesis, likely objections, and company-specific questions
             in sixty seconds.
           </p>
+          </section>
 
+          <section id="why-now" className="space-y-4">
+            <h2 className="text-[17px] font-bold text-slate-900">Why now</h2>
           <p>
             <span className="font-semibold text-slate-900">Why now:</span> executive hiring moved faster and quieter.
             More searches are influenced before the role posts, and timing advantages compound quickly.
@@ -147,8 +156,9 @@ export default function AboutPage() {
             If you are a senior technology executive in active search or approaching one, the platform is
             built for you. If you are targeting the C-suite and want a better way to run a campaign, this is the place.
           </p>
+          </section>
 
-          <div className="pt-4 border-t border-slate-100">
+          <div id="start-where-you-are" className="pt-4 border-t border-slate-100">
             <p className="text-[13px] font-semibold text-slate-900 mb-3">Start where you are:</p>
             <div className="flex flex-col sm:flex-row gap-3 mb-4">
               <Link
@@ -193,7 +203,7 @@ export default function AboutPage() {
       </article>
 
       {/* Recent writing */}
-      <section className="bg-slate-50 px-4 sm:px-6 py-12 border-t border-slate-100">
+      <section id="recent-writing" className="bg-slate-50 px-4 sm:px-6 py-12 border-t border-slate-100">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-6">
             Recent writing

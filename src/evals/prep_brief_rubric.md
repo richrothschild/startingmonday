@@ -8,7 +8,7 @@
 
 ## How to use this rubric
 
-Open a trace in `/dashboard/admin/traces`. Read the output. Apply each check independently. A brief PASSES only if all 6 checks are true. No partial credit.
+Open a trace in `/dashboard/admin/traces`. Read the output. Apply each check independently. A brief PASSES only if all 10 checks are true. No partial credit.
 
 Mark the trace Pass in the trace viewer if all 6 pass. Mark Fail if any single check fails. Write the failing check(s) in the notes field - this is the open coding step.
 
@@ -34,6 +34,18 @@ The voice is peer-level. The brief reads as if written by a senior executive coa
 **[ ] no_factual_errors**
 No claim in the brief is identifiably wrong based on available information. This check only applies to claims you can verify - if you cannot verify a claim, do not mark it as wrong. Common failure: inventing specific revenue figures, headcount, or product names not present in the input data.
 
+**[ ] requirements_mapped_to_evidence**
+When a job description exists, the brief identifies the most important role requirements and maps at least 3 of them to candidate evidence (verified career history, STAR stories, or directly relevant accomplishments). Generic "you are a fit" language does not count.
+
+**[ ] signal_focus_used**
+The brief reflects at least 2 company-focus hypotheses derived from signals (for example leadership transition, governance pressure, partnership motion, integration mandate, data/AI investment) and uses them in either Anticipated Pushback, Likely Questions, or Questions to Ask.
+
+**[ ] stakeholder_signal_map_present**
+The brief includes a stakeholder map covering at least CEO, board, functional peer, and recruiter lenses, with explicit signal and failure-signal guidance. Generic audience notes do not count.
+
+**[ ] drill_cadence_executable**
+The brief includes a weekly drill cadence with daily reps, explicit deliverables, and pass/fail checks. High-level motivational checklists do not count.
+
 ---
 
 ## Failure Taxonomy (from open coding - update as you find new patterns)
@@ -48,6 +60,10 @@ No claim in the brief is identifiably wrong based on available information. This
 | `factual_error` | Specific claim is demonstrably wrong | Wrong headcount, nonexistent product name |
 | `missing_context_not_flagged` | Profile is thin but brief pretends it is not | Full brief generated from empty resume without noting the limitation |
 | `competitive_framing_missed` | Company notes mention competing candidates but brief ignores this | No adjustment to Win Thesis when internal candidate is noted |
+| `requirements_not_mapped` | Job description present but no requirement-to-evidence mapping | Requirements listed but not tied to candidate evidence |
+| `signal_focus_generic` | Signals present but no focus inference in interview strategy | Brief lists signals but questions/pushback remain generic |
+| `stakeholder_map_thin` | Stakeholder section exists but lacks signals/failure modes | Stakeholders listed without what each must believe |
+| `drill_plan_non_executable` | Cadence present but no concrete reps or pass/fail checks | "Practice this week" with no daily structure |
 
 ---
 

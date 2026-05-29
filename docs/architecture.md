@@ -74,12 +74,19 @@ Cron Schedule:
 | Follow-up reminders | Daily 06:00 | Nudges for pending action items |
 | Momentum score | Sunday 23:00 | Weekly engagement score calculation |
 | Weekly report | Sunday 23:30 | Weekly digest email |
+| UI/UX weekly review | Sunday 21:00 | Full-page UX audit and summary delivery (email + optional Slack) |
 | Usage monitor | Daily 09:00 | Token usage tracking |
 | Trial reminders | Daily 10:00 | T-3 and T-0 trial expiration emails |
 | Activation reminder | Daily 10:30 | Day-3 and day-7 nudge for incomplete setup |
 | Offer email | Daily 11:00 | Sends within 24h of offer_accepted_at being set |
 | Reactivation | Daily 11:30 | Annual reactivation email on offer anniversary |
 | Cleanup | Sunday 02:00 | Deletes signals >90d and stale conversations >180d |
+| Outreach reconcile | Daily 14:50 | Backfills missing contacts from successful live sends and normalizes `reached_out` status before reporting |
+| Outreach digest | Daily 15:00 | Delivery summary for recent outreach activity, including bounce/stuck alerts |
+
+Operational command for outreach incidents:
+
+- `npm run audit:outreach-sends -- 2026-05-26` - inspect send logs, failures, and any recipients still missing from `contacts` for a given UTC date.
 
 AI Models in Worker:
 

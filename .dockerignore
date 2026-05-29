@@ -1,0 +1,17 @@
+docs/**
+!docs/outreach/
+!docs/outreach/**
+test-results/
+playwright-report/
+coverage/
+.github/
+*.md
+*.log
+*.tmp
+*.zip
+*.mp4
+*.mov
+page*.html
+page*_new.html
+public/dashboard-screenshot_files/
+public/public.dashboard.screenshot.png.png

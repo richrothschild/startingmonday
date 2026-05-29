@@ -1,48 +1,59 @@
 'use client'
 import Link from 'next/link'
+import TrackedCtaLink from '@/components/TrackedCtaLink'
 
-const SECTION_GRADES = [
-  { name: 'Landing Page', grade: 'A-', note: 'Positioning is tighter and claims are linked to method and evidence.' },
-  { name: 'Persona Pages', grade: 'B', note: 'Still broad and fragmented across many routes.' },
-  { name: 'Demo Page', grade: 'A', note: 'Context and trust framing improved before interaction.' },
-  { name: 'Pricing Page', grade: 'A-', note: 'Tier clarity is stronger with evidence and references support.' },
-  { name: 'About Page', grade: 'A-', note: 'Founder narrative and trust posture are now credible and specific.' },
-  { name: 'Blog and Content', grade: 'A-', note: 'Conversion path is clearer with stronger CTA alignment.' },
-  { name: 'Signup and Onboarding', grade: 'A-', note: 'Faster first value with seeded quick path and early signal preview.' },
-  { name: 'Intelligence Core', grade: 'A-', note: 'References page and method post improved confidence in claim quality.' },
-  { name: 'Partners', grade: 'B-', note: 'Messaging is clearer, but hard partner outcomes are still thin.' },
-]
-
-const TOP_BLOCKERS = [
+const DECISION_BRIEF = [
   {
-    title: '1. Persona sprawl still dilutes category ownership',
-    impact: 'Traffic and messaging are split across too many role pages, which weakens the core narrative.',
-    next: 'Keep primary acquisition centered on CIO and VP-Tech journeys, and route adjacent personas into those paths.',
+    title: 'Primary claim',
+    detail:
+      'Starting Monday turns Motion Signal and Momentum Signal into a repeatable weekly behavior loop for executive search execution.',
   },
   {
-    title: '2. Partner proof is still mostly narrative',
-    impact: 'Partner pages promise value but do not yet show enough measured partner outcomes.',
-    next: 'Add one internal partner outcome snapshot with denominator and timeframe, then cite it from the partner hero.',
+    title: 'Why this matters',
+    detail:
+      'The core risk is not awareness. It is missed timing and weak relationship follow-through during narrow decision windows.',
   },
   {
-    title: '3. Remaining hard-quant language needs ongoing guardrails',
-    impact: 'A few phrases can drift into over-precision without linked evidence as content expands.',
-    next: 'Maintain claim language as qualitative unless a source, timeframe, and denominator are linked in-line.',
+    title: 'What changed in Lane 1',
+    detail:
+      'The Mark pages now prioritize decision speed, explicit KPI ownership, and proof discipline over broad narrative coverage.',
+  },
+  {
+    title: 'Decision requested',
+    detail:
+      'Approve this as the conversion narrative baseline for the next ship lanes, or name the single blocking gap to fix first.',
   },
 ]
 
-const COMPLETED_THIS_ROUND = [
-  'Claim window aligned to often 1-3 weeks and linked to method + references.',
-  'Speed claims normalized to usually ready in about a minute across user-facing pages.',
-  'Stale Mark summary content replaced with current grades and priorities.',
+const LOOP_CLOSURE_SCORECARD = [
+  {
+    metric: 'Signals triaged in 24h',
+    baseline: 'Not published publicly',
+    laneOneTarget: 'Published in weekly readout with denominator',
+  },
+  {
+    metric: 'Outreach actions per week',
+    baseline: 'Tracked internally only',
+    laneOneTarget: 'One benchmark surfaced in conversion narrative',
+  },
+  {
+    metric: 'Follow-up completion rate',
+    baseline: 'No end-to-end readout',
+    laneOneTarget: 'Measured and reviewed weekly with guardrails',
+  },
+  {
+    metric: 'Conversations started from tracked signals',
+    baseline: 'Directionally discussed',
+    laneOneTarget: 'Directional KPI with confidence note',
+  },
 ]
 
-function gradeClass(grade: string) {
-  if (grade.startsWith('A')) return 'bg-green-100 text-green-800'
-  if (grade.startsWith('B')) return 'bg-blue-100 text-blue-800'
-  if (grade.startsWith('C')) return 'bg-yellow-100 text-yellow-800'
-  return 'bg-red-100 text-red-800'
-}
+const QA_CHECKLIST = [
+  'Momentum Signal language is consistent with main landing narrative.',
+  'Every quantitative phrase has source context or is labeled directional.',
+  'Mark page CTAs are event tracked for engagement readout.',
+  'Lane 1 deploy must be SUCCESS and verified live before close.',
+]
 
 export default function MarkSummaryPage() {
   return (
@@ -56,12 +67,14 @@ export default function MarkSummaryPage() {
             <Link href="/mark-review" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Back to Review
             </Link>
-            <Link
+            <TrackedCtaLink
               href="/signup"
+              eventName="mark_summary_cta_click"
+              eventProps={{ placement: 'top_nav', cta: 'try_free' }}
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Try free
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </nav>
@@ -70,52 +83,56 @@ export default function MarkSummaryPage() {
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Mark Re-grade Summary</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Current Site Grade: A-
+            Mark lane 1 summary: ready with conditions
           </h1>
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl mb-6">
-            The trust layer is substantially stronger than the original audit baseline. Remaining work is now concentration, proof depth, and consistency discipline.
+            This is the concise meeting view for decision speed: what changed, what still blocks confidence, and what must ship next.
           </p>
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
-        <div className="max-w-3xl mx-auto space-y-14">
+<div className="max-w-3xl mx-auto space-y-14">
           <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Updated Section Grades</p>
-            <div className="space-y-3">
-              {SECTION_GRADES.map(({ name, grade, note }) => (
-                <div key={name} className="border border-slate-200 rounded p-4 hover:bg-slate-50 transition-colors">
-                  <div className="flex items-start justify-between mb-2 gap-4">
-                    <p className="text-[13px] font-semibold text-slate-900">{name}</p>
-                    <span className={`text-[12px] font-bold px-3 py-1 rounded ${gradeClass(grade)}`}>{grade}</span>
-                  </div>
-                  <p className="text-[12px] text-slate-600">{note}</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Decision brief in 4 cards</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {DECISION_BRIEF.map((card) => (
+                <div key={card.title} className="border border-slate-200 rounded p-4 bg-white">
+                  <p className="text-[12px] font-semibold text-slate-900 mb-2">{card.title}</p>
+                  <p className="text-[12px] text-slate-700 leading-relaxed">{card.detail}</p>
                 </div>
               ))}
             </div>
           </section>
 
           <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Top Remaining Blockers</p>
-            <div className="space-y-4">
-              {TOP_BLOCKERS.map((item) => (
-                <div key={item.title} className="border-l-4 border-red-500 bg-red-50 p-5 rounded">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-2">{item.title}</p>
-                  <p className="text-[12px] text-slate-700 mb-2">
-                    <span className="font-semibold">Impact:</span> {item.impact}
-                  </p>
-                  <p className="text-[12px] text-red-700">
-                    <span className="font-semibold">Next move:</span> {item.next}
-                  </p>
-                </div>
-              ))}
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Loop-closure KPI scorecard</p>
+            <div className="overflow-x-auto border border-slate-200 rounded bg-white">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="py-2 px-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Metric</th>
+                    <th className="py-2 px-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Baseline</th>
+                    <th className="py-2 px-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Lane 1 target</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {LOOP_CLOSURE_SCORECARD.map((row) => (
+                    <tr key={row.metric} className="border-b border-slate-100 align-top">
+                      <td className="py-3 px-3 text-[13px] font-semibold text-slate-900">{row.metric}</td>
+                      <td className="py-3 px-3 text-[13px] text-slate-700">{row.baseline}</td>
+                      <td className="py-3 px-3 text-[13px] text-slate-700">{row.laneOneTarget}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
 
           <section>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-green-600 mb-4">Completed In This Pass</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-green-600 mb-4">Pre-meeting QA checklist</p>
             <div className="space-y-3">
-              {COMPLETED_THIS_ROUND.map((item) => (
+              {QA_CHECKLIST.map((item) => (
                 <div key={item} className="border border-green-300 bg-green-50 rounded p-4">
                   <p className="text-[12px] text-slate-700">{item}</p>
                 </div>
@@ -123,19 +140,30 @@ export default function MarkSummaryPage() {
             </div>
           </section>
 
+          <section className="rounded border border-orange-300 bg-orange-50 p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-2">Readiness note</p>
+            <p className="text-[13px] text-slate-800 leading-relaxed">
+              Lane 1 is ready to ship after deployment verification. Remaining condition is publishing the KPI baseline with denominator context in the next weekly readout.
+            </p>
+          </section>
+
           <section className="flex flex-col sm:flex-row gap-4">
-            <Link
+            <TrackedCtaLink
               href="/mark-review"
+              eventName="mark_summary_cta_click"
+              eventProps={{ placement: 'footer_actions', cta: 'back_to_review' }}
               className="inline-block border border-slate-400 hover:border-slate-600 text-slate-800 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
             >
               Back to Full Review
-            </Link>
-            <Link
+            </TrackedCtaLink>
+            <TrackedCtaLink
               href="/references"
+              eventName="mark_summary_cta_click"
+              eventProps={{ placement: 'footer_actions', cta: 'open_references' }}
               className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
             >
               Open Evidence and References
-            </Link>
+            </TrackedCtaLink>
           </section>
         </div>
       </main>

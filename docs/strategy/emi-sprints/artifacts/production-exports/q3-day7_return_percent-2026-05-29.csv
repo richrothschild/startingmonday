@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes,executed_at_utc,run_date
+Q3,day7_return_percent,,no_data,no emi_onboarding_started users,2026-05-25T23:44:33.141Z,2026-05-29

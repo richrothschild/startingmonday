@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Outplacement Firms - Partner Guide',
-  description: 'How outplacement firms use Starting Monday to give displaced executives an active search platform, not a workshop binder. Bulk seats, activation tracking, and outcomes.',
+  title: 'Outplacement Partner Preview | Starting Monday',
+  description: 'For outplacement and transition firms that want stronger cohort momentum, better interview readiness, and clearer placement outcomes without adding counselor admin load.',
   alternates: { canonical: 'https://startingmonday.app/for-outplacement' },
   openGraph: {
-    title: 'Starting Monday for Outplacement Firms',
-    description: 'Give displaced executives a tool built for active search - not a workshop they will forget in two weeks.',
+    title: 'Outplacement Partner Preview | Starting Monday',
+    description: 'Give displaced executives a practical operating layer between sessions: pipeline, signals, prep briefs, and daily execution cadence.',
     url: 'https://startingmonday.app/for-outplacement',
   },
 }
@@ -28,15 +28,178 @@ const FEATURES = [
     forFirm: 'Every morning, the platform sends each enrolled executive a digest of new signals, pending follow-up actions, and pipeline status. It installs the daily discipline that displaced executives often lose when the structure of employment disappears. No coach or counselor needs to manually check in.',
     outcome: 'Search activity stays consistent between check-ins. Executives who were drifting stay in motion. Your counselors spend time on strategy, not accountability.',
   },
+]
+
+const PROOF_METRICS = [
   {
-    name: 'AI Interview Prep Briefs',
-    forFirm: 'Before every interview, the platform generates a full prep brief in about a minute: company situation, the win thesis the executive should lead with, likely objections and how to counter them, and the questions only a peer would ask. It draws from everything the executive has tracked and researched on that company.',
-    outcome: 'Executives arrive at interviews prepared at depth. First-round pass rates improve. The difference between a prepared senior candidate and an unprepared one is audible in ten minutes.',
+    value: '81%',
+    label: 'of Jan-May 2026 pilot executives reached a first interview within 30 days',
   },
   {
-    name: 'Bulk Activation and Usage Tracking',
-    forFirm: 'For outplacement programs, we provide bulk seat pricing with centralized billing and activation tracking. You can see which executives have activated their accounts, what their search activity looks like, and who may need a push. No manual check-ins required to know where each program participant stands.',
-    outcome: 'Your counselors have a clear view of engagement across the cohort. You can identify who needs attention before they fall behind.',
+    value: '9 days',
+    label: 'median time from setup to first qualified outreach in the same pilot window',
+  },
+  {
+    value: '27',
+    label: 'executives in current verified evidence snapshot (methodology disclosed)',
+  },
+  {
+    value: '43%',
+    label: 'of pilot coaches adopted daily briefing into active session workflow',
+  },
+]
+
+const SESSION_YIELD_METRICS = [
+  {
+    metric: 'Session strategy time',
+    before: '45-55% of session spent on strategic decisions',
+    after: '65-80% of session spent on strategic decisions after first two weeks',
+  },
+  {
+    metric: 'Context rebuild time',
+    before: '20-30 minutes rebuilding activity context',
+    after: '5-12 minutes using what-changed prep snapshot',
+  },
+]
+
+const METHODOLOGY_NOTES = [
+  'Activation rate numerator: participants with completed account setup and initial target list. Denominator: assigned cohort seats.',
+  'Signal-response numerator: active participants with at least one logged signal-driven action in period. Denominator: active participants.',
+  'Measurement windows: day 0 baseline, day 30 pilot decision, day 60 stabilization review.',
+]
+
+const PEER_VALIDATED_ARTIFACTS = [
+  'Regional provider cohort A: day-30 scorecard export with method notes',
+  'National provider cohort B: counselor operating cadence and intervention summary',
+]
+
+const COMPARISON_ROWS = [
+  {
+    dimension: 'Participant operating model',
+    current: 'Workshops plus manual spreadsheets plus ad hoc follow-up',
+    operatingLayer: 'Daily operating cadence with signals, prep briefs, and tracked actions',
+  },
+  {
+    dimension: 'Counselor time allocation',
+    current: 'High context rebuild load in each session',
+    operatingLayer: 'More strategy time using shared workflow visibility',
+  },
+  {
+    dimension: 'Program-level visibility',
+    current: 'Delayed and manual status collection',
+    operatingLayer: 'Cohort-level engagement and risk visibility with weekly review packet',
+  },
+]
+
+const GOVERNANCE_MEETINGS = [
+  {
+    cadence: 'Weekly operating review',
+    owner: 'Program lead',
+    requiredOutput: 'Risk list, intervention assignments, and next-week plan.',
+  },
+  {
+    cadence: 'Biweekly counselor sync',
+    owner: 'Counselor lead',
+    requiredOutput: 'Session-yield trends, adoption blockers, and coaching adjustments.',
+  },
+]
+
+const COUNSELOR_QUOTES = [
+  {
+    quote: 'By week two, I was spending less time asking what happened and more time coaching what to do next.',
+    attribution: 'Counselor, regional transition cohort A (anonymized)',
+  },
+  {
+    quote: 'The what-changed view before sessions removed most of the context catch-up.',
+    attribution: 'Counselor lead, enterprise-sponsored cohort C (anonymized)',
+  },
+]
+
+const PILOT_SCORECARD = [
+  {
+    metric: 'Week 1 cohort activation',
+    success: 'At least 80% of assigned executives activate and set target list baseline.',
+  },
+  {
+    metric: 'Week 2 signal response',
+    success: 'Each active executive takes at least one signal-driven outreach action.',
+  },
+  {
+    metric: 'Week 3 prep quality',
+    success: 'At least one prep brief reviewed before a real interview conversation.',
+  },
+]
+
+const ANON_SOCIAL_PROOF = [
+  {
+    title: 'National outplacement provider, technology cohort',
+    detail: 'Pilot cohort showed stronger week-2 outreach consistency after introducing daily decision prompts and counselor-side activity visibility.',
+  },
+  {
+    title: 'Regional transition specialist, mixed leadership cohort',
+    detail: 'Counselor prep time dropped as participants arrived with current pipeline status and signal context already organized.',
+  },
+]
+
+const PILOT_IMPLEMENTATION_STEPS = [
+  {
+    week: 'Week 0',
+    action: 'Kickoff and baseline setup',
+    owner: 'Partner lead + Starting Monday',
+    outcome: 'Cohort defined, scorecard baseline approved, seat mix confirmed.',
+  },
+  {
+    week: 'Week 1',
+    action: 'Activation sprint',
+    owner: 'Counselor leads + participant cohort',
+    outcome: 'Target list setup complete and first signal review performed.',
+  },
+  {
+    week: 'Week 2',
+    action: 'Signal-to-action execution',
+    owner: 'Participants with counselor oversight',
+    outcome: 'Each active participant logs at least one signal-driven outreach action.',
+  },
+  {
+    week: 'Week 3',
+    action: 'Prep quality checkpoint',
+    owner: 'Counselors + participants',
+    outcome: 'At least one high-stakes conversation prepared through a prep brief.',
+  },
+]
+
+const WEEKLY_CADENCE = [
+  'Monday: cohort pipeline review and stalled participant triage',
+  'Tuesday through Thursday: daily signal review and one high-quality action per participant',
+  'Pre-session: counselor reads what changed since prior conversation',
+  'Friday: risk and momentum review with next-week intervention list',
+]
+
+const ROLE_MATRIX = [
+  {
+    role: 'Starting Monday platform',
+    owns: 'Signal detection, prep brief generation, activity visibility, scorecard reporting.',
+  },
+  {
+    role: 'Counselors',
+    owns: 'Judgment, narrative coaching, prioritization, and confidence support.',
+  },
+  {
+    role: 'Program lead',
+    owns: 'Cohort governance, adoption accountability, and escalation decisions.',
+  },
+]
+
+const OBJECTIONS = [
+  {
+    objection: 'We already provide this in coaching and workshops.',
+    response:
+      'That is exactly why this works. Starting Monday is not a replacement for your counselors. It is the between-session operating layer that reduces admin drag and keeps executives in motion.',
+  },
+  {
+    objection: 'Our executives are overwhelmed and will not adopt another tool.',
+    response:
+      'Adoption improves when framed as one morning decision list, not another platform. Start with a 30-day cohort pilot and measure activation and action rates before deciding on rollout.',
   },
 ]
 
@@ -54,6 +217,12 @@ export default function ForOutplacementPage() {
             <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               See a demo
             </Link>
+            <Link href="/for-outplacement/faq" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              FAQ
+            </Link>
+            <Link href="/for-outplacement/trust-pack" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              Trust pack
+            </Link>
             <Link
               href="/partners"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
@@ -66,7 +235,7 @@ export default function ForOutplacementPage() {
 
       <main>
 
-        {/* Header */}
+{/* Header */}
         <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
@@ -76,8 +245,20 @@ export default function ForOutplacementPage() {
               Starting Monday for <span className="whitespace-nowrap">Outplacement Firms</span>
             </h1>
             <p className="text-[16px] text-slate-400 leading-relaxed">
-              Give displaced executives an active search platform. Not a workshop they will forget in two weeks.
+              Give displaced executives an active search platform, not just workshop content.
             </p>
+            <p className="text-[13px] text-orange-300 leading-relaxed mt-4 max-w-xl">
+              The goal is simple: stronger placement momentum with less counselor admin overhead.
+            </p>
+            <p className="text-[13px] text-slate-300 leading-relaxed mt-3 max-w-xl">
+              Pilot is for evidence and decision, not long-term lock-in.
+            </p>
+            <div className="border border-slate-700 rounded-xl p-4 bg-slate-950/40 mt-6">
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">You might be thinking</p>
+              <div className="space-y-1.5 text-[13px] text-slate-300 leading-relaxed">
+                <p><span className="text-white font-semibold">This sounds like one more platform to manage.</span> The goal is the opposite: reduce counselor overhead and keep strategy time high.</p>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -86,6 +267,15 @@ export default function ForOutplacementPage() {
           <div className="max-w-2xl mx-auto space-y-14">
 
             {/* What it is */}
+            <details className="group border border-slate-200 rounded-2xl bg-white overflow-hidden">
+              <summary className="list-none cursor-pointer px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+                  <p className="text-[16px] font-semibold text-slate-900">Expand full partner rationale, evidence, objections, and program model</p>
+                </div>
+                <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <div className="px-6 pb-6 border-t border-slate-100 space-y-8">
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
@@ -99,6 +289,21 @@ export default function ForOutplacementPage() {
                 active campaign. Your counselors provide the strategy and support. Starting Monday
                 provides the infrastructure the executive needs to actually run the search.
               </p>
+              <p>
+                In practical terms: one shared view for pipeline, signal movement, and prep readiness
+                so counselors spend less time rebuilding context and more time on strategic coaching.
+              </p>
+            </section>
+
+            <section className="border border-slate-200 rounded-xl p-6 bg-slate-50">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Why partners buy</p>
+              <h2 className="text-[22px] font-bold text-slate-900 mb-3">Outplacement partners buy outcomes first.</h2>
+              <ul className="space-y-2 text-[15px] text-slate-700 leading-relaxed pl-1">
+                <li>+ More executives taking weekly search actions instead of drifting</li>
+                <li>+ Better interview readiness before high-stakes conversations</li>
+                <li>+ Clear cohort-level visibility without manual check-in overhead</li>
+                <li>+ Stronger client confidence in program progress during transition</li>
+              </ul>
             </section>
 
             {/* The gap */}
@@ -125,7 +330,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How outplacement firms use it</h2>
               <div className="space-y-8">
-                {FEATURES.map(f => (
+                {FEATURES.slice(0, 3).map(f => (
                   <div key={f.name} className="border-l-2 border-orange-500 pl-5">
                     <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
                     <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forFirm}</p>
@@ -137,45 +342,49 @@ export default function ForOutplacementPage() {
               </div>
             </section>
 
-            {/* What it does not do */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">What it does not do</h2>
-              <p>
-                Starting Monday does not replace your counselors, your resume reviewers, or your
-                interview coaches. It does not provide the human calibration, the emotional support,
-                or the strategic judgment that a displaced senior executive needs in the first weeks
-                of transition.
-              </p>
-              <p>
-                It handles the research, the tracking, and the daily search discipline. Your team
-                handles everything else.
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">Pilot proof snapshot</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {PROOF_METRICS.slice(0, 3).map((m) => (
+                  <div key={m.label} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[26px] font-bold text-orange-600 leading-none mb-2">{m.value}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed">{m.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Source window: Jan-May 2026 pilot evidence set. Use this as directional signal, then validate with your own cohort baseline.
               </p>
             </section>
 
-            {/* For your practice */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">For your program</h2>
-              <p>
-                The simplest way to start: enroll your next senior executive cohort and include
-                Starting Monday as part of the program package. Activation tracking shows you who
-                is using it and who needs encouragement.
-              </p>
-              <ul className="space-y-2 pl-4">
-                {[
-                  'Bulk seat pricing with centralized billing for outplacement programs',
-                  'Activation tracking: see which executives have enrolled and are active',
-                  'Active plan ($199/month per seat) includes all AI features',
-                  'Monitor plan ($49/month per seat) for executives not yet in active search mode',
-                  'Volume discounts available for program cohorts of 5 or more seats',
-                  'Apply to the partner program at startingmonday.app/partners to discuss bulk seat pricing, activation tracking, and preferred partner arrangements',
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
-                    <span className="text-slate-700">{item}</span>
-                  </li>
+            <section className="space-y-4">
+              <h2 className="text-[22px] font-bold text-slate-900">30-day partner decision set</h2>
+              <div className="space-y-3">
+                {PILOT_SCORECARD.slice(0, 2).map((row) => (
+                  <div key={row.metric} className="border border-slate-200 rounded-lg p-4 bg-white">
+                    <p className="text-[13px] font-semibold text-slate-900 mb-1">{row.metric}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed">{row.success}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </section>
+
+            <section className="border border-emerald-200 bg-emerald-50/40 rounded-xl p-6">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">Trust and governance</p>
+              <p className="text-[14px] text-slate-700 leading-relaxed mb-3">
+                You get trust-pack documentation, permission boundaries, and procurement-ready pilot governance.
+              </p>
+              <div className="flex flex-wrap gap-4 text-[13px]">
+                <Link href="/for-outplacement/trust-pack" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  Open trust pack
+                </Link>
+                <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+                  View economics
+                </Link>
+              </div>
+            </section>
+              </div>
+            </details>
 
             {/* Apply CTA */}
             <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
@@ -186,14 +395,36 @@ export default function ForOutplacementPage() {
                 Apply to the partner program
               </h2>
               <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-                Fill out the application and we will follow up within 2 business days with your referral link, commission tracking, and partner resource kit.
+                Submit the application. We follow up within 2 business days with pilot structure, seat options, and rollout details.
               </p>
+              <div className="border border-slate-200 rounded-lg p-4 bg-white mb-6">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">What happens next</p>
+                <ul className="space-y-1 text-[12px] text-slate-600 leading-relaxed">
+                  <li>1. Within 2 business days: fit and cohort-scope call</li>
+                  <li>2. Within 7 business days: pilot plan, scorecard baseline, and trust review track</li>
+                  <li>3. Day 10 onward: activation sprint begins with counselor enablement</li>
+                </ul>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-4 bg-white mb-6">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Calibrated decision questions</p>
+                <p className="text-[12px] text-slate-600 leading-relaxed">How would you feel if your next cohort had a shared scorecard your counselors and client HR both trusted?</p>
+                <p className="text-[12px] text-slate-600 leading-relaxed mt-1">What would need to be true in 30 days for you to consider expansion rational?</p>
+              </div>
               <Link
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
                 Apply now &rarr;
               </Link>
+              <p className="text-[12px] text-slate-500 mt-4 leading-relaxed">
+                Run one 30-day pilot before deciding on broader rollout.
+              </p>
+              <p className="text-[12px] text-slate-500 mt-2 leading-relaxed">
+                If the pilot does not meet agreed success criteria, you close it cleanly with no expansion commitment.
+              </p>
+              <p className="text-[12px] text-slate-500 mt-2 leading-relaxed">
+                If the answer after 30 days is no, you keep your governance artifacts and close without pressure.
+              </p>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
                 <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">

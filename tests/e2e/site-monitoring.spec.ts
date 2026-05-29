@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { attachJourneyGuards, expectJourneyHealthy, expectJourneyShell } from './monitoring.helpers'
 
 const publicJourneys = [
-  { path: '/', heading: /Be ready.*Be early|Starting Monday|Operating System/i },
+  { path: '/', heading: /Be ready.*(Be early|search opens)|Starting Monday|Operating System/i },
   { path: '/login', heading: /Sign in/i },
   { path: '/signup', heading: /Get started|Create your account|Sign up/i },
   { path: '/pricing', heading: /Pricing/i },
@@ -33,7 +33,7 @@ test.describe('authenticated monitoring journeys', () => {
     const guards = await attachJourneyGuards(page)
 
     await page.goto('/dashboard')
-    await expectJourneyShell(page, /Dashboard|Company Pipeline|Starting Monday/i)
+    await expectJourneyShell(page, /Dashboard|Company Pipeline|Starting Monday|Good (morning|afternoon|evening)/i)
     await expectJourneyHealthy(page, guards)
 
     const emptyPipeline = page.getByText(/Add the first company you want to work for|no companies yet/i)
@@ -54,8 +54,8 @@ test.describe('authenticated monitoring journeys', () => {
     if (await emptyState.isVisible()) {
       await expect(page.getByText(/No new job matches, overdue follow-ups, or company signals/i)).toBeVisible()
     } else {
-      await expect(page.getByText('Accountability')).toBeVisible()
-      await expect(page.getByText(/Overnight Changes|People To Reach|Today, Do This/)).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Accountability' })).toBeVisible()
+      await expect(page.getByRole('heading', { name: /Overnight Changes|People To Reach|Today, Do This/ }).first()).toBeVisible()
       await expect(page.getByText(/Here is what changed overnight and what to act on first today\./i)).toBeVisible()
     }
   })
@@ -76,8 +76,8 @@ test.describe('authenticated monitoring journeys', () => {
     if (await emptyState.isVisible()) {
       await expect(emptyState).toBeVisible()
     } else {
-      await expect(page.getByRole('button', { name: /Executives|Search Firms|Coaches|Outplacement Firms/ })).toBeVisible()
-      await expect(page.getByText(/Review and send on right/i)).toBeVisible()
+      await expect(page.getByRole('button', { name: /Executives|Search Firms|Coaches|Outplacement Firms/ }).first()).toBeVisible()
+      await expect(page.getByText(/Review and send on right/i).first()).toBeVisible()
     }
   })
 
@@ -97,7 +97,7 @@ test.describe('authenticated monitoring journeys', () => {
     await expect(page).toHaveURL(/\/dashboard\/companies\/.+/)
     await expectJourneyHealthy(page, guards)
 
-    await expect(page.locator('h1')).toBeVisible()
+    await expect(page.locator('h1').first()).toBeVisible()
     await expect(page.getByRole('link', { name: /Interview prep|Run interview prep/i }).first()).toBeVisible()
     await expect(page.locator('body')).not.toContainText(/404/i)
     await expect(page.locator('.bg-red-50')).toHaveCount(0)

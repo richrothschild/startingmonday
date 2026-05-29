@@ -5,7 +5,7 @@
 export const PRICING = {
   passive: {
     key: 'passive' as const,
-    name: 'Monitor',
+    name: 'Intelligence',
     monthly: 49,
     quarterly: 132,
     annual: 490,

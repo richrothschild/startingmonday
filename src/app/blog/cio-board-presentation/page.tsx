@@ -36,7 +36,6 @@ export default function CioBoardPresentationPage() {
       url="https://startingmonday.app/blog/cio-board-presentation"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The first board presentation as a new CIO is not a technology briefing. The audience has
           heard hundreds of technology briefings. Most of them learned to stop listening.

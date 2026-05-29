@@ -51,11 +51,11 @@ export default function ForSearchFirmsPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo?from=search-firms" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
-              href="/partners"
+              href="/partners?from=search-firms"
               className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors"
             >
               Become a partner
@@ -86,7 +86,7 @@ export default function ForSearchFirmsPage() {
           <div className="max-w-2xl mx-auto space-y-14">
 
             {/* What it is */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="firm-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
                 Starting Monday is an AI-powered search platform built for VP and C-suite executives.
@@ -125,17 +125,22 @@ export default function ForSearchFirmsPage() {
             </section>
 
             {/* How firms use it */}
-            <section className="space-y-6">
+            <section id="firm-playbook" className="space-y-6">
               <h2 className="text-[22px] font-bold text-slate-900">How search firms use it</h2>
               <div className="space-y-8">
                 {FEATURES.map(f => (
-                  <div key={f.name} className="border-l-2 border-orange-500 pl-5">
-                    <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-2">{f.name}</p>
-                    <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forFirm}</p>
-                    <p className="text-[13px] text-slate-500 leading-relaxed">
-                      <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
-                    </p>
-                  </div>
+                  <details key={f.name} className="border-l-2 border-orange-500 pl-5 group" open>
+                    <summary className="list-none cursor-pointer flex items-center justify-between">
+                      <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600">{f.name}</p>
+                      <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
+                    </summary>
+                    <div className="mt-2">
+                      <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forFirm}</p>
+                      <p className="text-[13px] text-slate-500 leading-relaxed">
+                        <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
+                      </p>
+                    </div>
+                  </details>
                 ))}
               </div>
             </section>
@@ -157,7 +162,7 @@ export default function ForSearchFirmsPage() {
             </section>
 
             {/* For your practice */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
+            <section id="firm-practice" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">For your practice</h2>
               <p>
                 The simplest way to start: refer your next active candidate and ask them to share view
@@ -168,7 +173,7 @@ export default function ForSearchFirmsPage() {
                 {[
                   'Candidates get a 30-day free trial, no credit card required',
                   'Active plan ($199/month) includes all AI features - prep briefs, strategy brief, interview advisor, resume tailoring',
-                  'Monitor plan ($49/month) for candidates who primarily need signal monitoring and pipeline tracking',
+                  'Intelligence plan ($49/month) for candidates who primarily need signal monitoring and pipeline tracking',
                   'View access for partners: your candidate controls who sees their pipeline',
                   'Partner program: apply at startingmonday.app/partners for your referral link and partner resource kit. Preferred partner pricing available for firms placing multiple candidates.',
                 ].map((item, i) => (
@@ -178,6 +183,9 @@ export default function ForSearchFirmsPage() {
                   </li>
                 ))}
               </ul>
+              <p className="text-[12px] text-slate-500 leading-relaxed">
+                Confidentiality standard: candidate pipeline visibility is opt-in and controlled by each candidate.
+              </p>
             </section>
 
             {/* Apply CTA */}
@@ -195,11 +203,11 @@ export default function ForSearchFirmsPage() {
                 href="/partners#apply"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                Apply now &rarr;
+                Get started now &rarr;
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                <Link href="/demo?from=search-firms" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
                 </Link>
                 .

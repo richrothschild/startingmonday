@@ -43,7 +43,6 @@ export default function ExecutiveResumeGapsPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           The first person to read your resume in a retained search is not the partner. It is an
           associate running a long list against a criteria sheet.

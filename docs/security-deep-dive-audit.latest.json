@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-05-24T18:56:25.006Z",
+  "npmAudit": {
+    "parseOk": true,
+    "critical": 0,
+    "high": 0,
+    "moderate": 0,
+    "low": 0,
+    "info": 0,
+    "total": 0,
+    "exitCode": 0
+  },
+  "apiGuards": {
+    "parseOk": true,
+    "trueGapCount": 0,
+    "trueGaps": [],
+    "publicPostWithoutSharedGuardCount": 0
+  },
+  "staticSignals": {
+    "evalUsage": [],
+    "dangerousHtml": [
+      "src/components/JsonLd.tsx"
+    ],
+    "hardcodedSecrets": []
+  }
+}

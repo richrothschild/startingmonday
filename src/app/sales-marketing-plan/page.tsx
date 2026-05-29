@@ -103,75 +103,39 @@ const PRIORITIES: PriorityCard[] = [
 const WORKFLOWS: WorkflowCard[] = [
   {
     label: 'Liz workflow',
-    title: 'Run the exact LinkedIn cadence from the social desk',
+    title: 'Run the LinkedIn cadence from the social desk',
     owner: 'Liz + Founder',
-    outcome: 'Posts go out on schedule, warm comments get logged, and the best engagement turns into direct outreach while attention is fresh.',
+    outcome: 'Posts ship on schedule and warm engagement becomes outreach quickly.',
     actions: [
-      'Open /dashboard/admin/social before 8:30 AM CT on Monday, Wednesday, and Friday if you want to review before the auto-post window.',
-      'Check the draft for three things: direct tone, sub-3,000 character count, and a strong ending. Regenerate if it sounds padded or generic.',
-      'Post through the built-in LinkedIn action when possible. If you post manually, copy the text, publish it on LinkedIn, then mark it posted in the tool.',
-      'After a few hours, log likes, comments, notable people, and follow-up candidates in the Notes field so the weekly digest stays useful.',
-      'Use the day’s commenters as outreach fuel: anyone who comments thoughtfully, asks a follow-up question, or shares the post goes into the next DM batch.',
+      'Review Monday, Wednesday, Friday drafts in /dashboard/admin/social.',
+      'Check tone, length, and close; regenerate weak drafts.',
+      'Post and log engagement notes for follow-up.',
     ],
-    doneWhen: 'The social queue, notes, and next-outreach list are all current by end of day.',
+    doneWhen: 'Queue, notes, and follow-up list are current daily.',
   },
   {
     label: 'Direct outreach',
     title: 'Turn LinkedIn activity into conversations',
     owner: 'Founder',
-    outcome: 'Each post day creates connection requests, DMs, and follow-up tasks instead of ending as passive engagement.',
+    outcome: 'Each post day creates requests, DMs, and next actions.',
     actions: [
-      'Build one batch from post engagement and one batch from direct search each week so you are not dependent on organic comments alone.',
-      'Send 10 to 15 connection requests per day max. Keep the note specific, light, and anchored in shared context such as a post, a conference appearance, or a recent transition.',
-      'Once a connection accepts, move quickly with a short follow-up that offers a useful angle rather than a product pitch.',
-      'Tag every response in your own working notes as explore, warm, not now, or no fit so future follow-up is easy.',
-      'Any conversation that shows real need should move to a five-minute walkthrough or a private demo, not a long message exchange.',
+      'Build one outreach batch from engagement and one from direct search weekly.',
+      'Send 10-15 requests daily with specific, personal notes.',
+      'After acceptance, follow up fast and tag responses for next action.',
     ],
-    doneWhen: 'You have a repeatable daily and weekly outreach habit with visible response rates.',
+    doneWhen: 'Daily outreach cadence is consistent with visible response rates.',
   },
   {
     label: 'Speakers DB',
-    title: 'Work the conference speakers database like a curated prospect list',
+    title: 'Use the speakers database as a curated prospect list',
     owner: 'Founder + Partnerships',
-    outcome: 'The speaker list becomes a controlled pipeline of CIO, CTO, and transformation leaders rather than a static database.',
+    outcome: 'Speaker records become a tracked pipeline with clear next actions.',
     actions: [
-      'Start in /dashboard/admin/speakers and filter to priority 1 plus outreach status not_started or contacted.',
-      'Export the CSV when you want a batch for Sales Navigator, but update status and outreach notes back in the internal speakers tool so one system remains current.',
-      'Prioritize speakers whose conference topics map to hiring pressure: AI rollout, transformation, cybersecurity, operating model change, cost discipline, or leadership transitions.',
-      'Use the conference name, year, or topic in the opener so the message feels observed rather than scraped.',
-      'Update outreach_status, outreach_date, and notes immediately after each touch so follow-up does not depend on memory.',
+      'Filter to priority speakers and active outreach statuses.',
+      'Use conference/topic context in outreach openers.',
+      'Update status, date, and notes immediately after each touch.',
     ],
-    doneWhen: 'High-priority speakers are segmented, touched, and tracked with clear next actions.',
-  },
-  {
-    label: 'Editorial',
-    title: 'Package two articles that create trust with CIO and InformationWeek readers',
-    owner: 'Founder',
-    outcome: 'One CIO-ready contributor package and one InformationWeek-ready submission package are prepared and sent.',
-    actions: [
-      'Use CIO for a higher-level, first-person leadership commentary that fits the Foundry Expert Contributor Network model.',
-      'Use InformationWeek for a tighter, more tactical IT-leadership article with a complete draft and exact submission metadata.',
-      'Keep both pieces practical, operator-focused, and non-promotional. Do not turn either article into a product explainer for Starting Monday.',
-      'Anchor both articles in observed patterns from senior technology searches: early signals, target-company preparation, and board-level readiness.',
-      'Treat the article itself as a trust asset. The publication outcome matters, but the pitch email, editor relationship, and reusable thesis matter too.',
-    ],
-    doneWhen: 'Both submission packages are sent with the right format, target, and supporting materials.',
-  },
-  {
-    label: 'Coach outreach',
-    title: 'Run Sales Navigator search for independent executive coaches',
-    owner: 'Founder',
-    outcome: 'Coach pipeline is built, tracked, and actively progressing through discovery and demo stages.',
-    actions: [
-      'Go to /dashboard/admin/coach-outreach for the full playbook: Sales Navigator filters, message templates, tracking spreadsheet, and success metrics.',
-      'Run Sales Navigator search with the exact filters for executive coaches (1-10 person firms, US, active on LinkedIn, coaching VP→CXO transitions).',
-      'Send 10-15 cold connection requests per day max. Use the message templates as guides, but personalize every note with something from their profile or recent post.',
-      'Track every touch in a Google Sheet: name, LinkedIn URL, request sent date, connection status, response, notes.',
-      'Once connected, send follow-up message same day offering a 15-minute demo or use-case walkthrough.',
-      'Follow the decision tree for non-responses: Day 3 (demo video offer), Day 7 (final follow-up), then stop.',
-      'Any positive response moves to scheduling a demo. Track demo completion and post-demo status (trial started, in-progress, passed).',
-    ],
-    doneWhen: 'You have a repeatable daily outreach habit, a tracked pipeline of 20+ coaches, and initial trial sign-ups from the channel.',
+    doneWhen: 'Top-priority speakers are segmented, contacted, and tracked.',
   },
 ]
 
@@ -179,37 +143,19 @@ const MESSAGE_BANK: MessageCard[] = [
   {
     title: 'LinkedIn connection request',
     body: [
-      'Hi [Name] — I work with senior technology executives in transition and I am building Starting Monday around the way strong searches are really run. Thought it might be useful to connect.',
+      'Hi [Name] - I work with senior technology executives in transition. Thought it would be useful to connect.',
     ],
   },
   {
     title: 'Accepted-connection follow-up',
     body: [
-      'Thanks for connecting. I spend a lot of time around CIO and CTO searches, especially the work that happens before a role is public.',
-      'If it is useful, I can send over a short note on the early signals and prep process we see strongest candidates use.',
+      'Thanks for connecting. We help leaders prepare before roles go public with signal tracking and prep structure.',
     ],
   },
   {
     title: 'Speaker outreach note',
     body: [
-      'I saw your [conference/session] talk on [topic] and it was one of the sharper takes I have seen on where technology leadership is heading right now.',
-      'I work with senior technology executives in search and am building Starting Monday around signal detection, prep, and disciplined outreach. Would be glad to connect.',
-    ],
-  },
-  {
-    title: 'CIO network intro email',
-    body: [
-      'Subject: Expert Contributor Network interest — The CIO Search Starts Before the Job Description',
-      'I work closely with senior technology executives in transition and see a recurring pattern: the highest-leverage search work happens before the role is widely visible.',
-      'I would like to contribute a first-person commentary on how CIO candidates build target-company conviction, track early signals, and prepare a board-level narrative before the recruiter call arrives.',
-    ],
-  },
-  {
-    title: 'InformationWeek cover email',
-    body: [
-      'Subject: Submission — The Best CIO Searches Start Before the Posting',
-      'Attached is a clean draft for InformationWeek review, along with the summary, byline, short bio, and headshot requested in your submission guidelines.',
-      'The piece is an exclusive, practical IT-leadership commentary on how candidates prepare before the market sees the role.',
+      'I saw your [conference/session] on [topic]. I work with senior technology leaders in transition and would value connecting.',
     ],
   },
 ]
@@ -222,66 +168,26 @@ const ARTICLE_KITS: ArticleKit[] = [
     secondaryLabel: 'Email Edward Murray',
     secondaryHref: 'mailto:edward.murray@foundryco.com',
     title: 'The CIO Search Starts Before the Job Description',
-    subjectLine: 'Expert Contributor Network interest — The CIO Search Starts Before the Job Description',
-    summary: 'The strongest CIO candidates do not start preparing when the recruiter calls. They build their target list, read leadership signals, and prepare their board story before the field forms.',
-    note: 'Best route: apply through the network page, then send the same angle directly to Edward Murray so there is a real human follow-up.',
+    subjectLine: 'Expert Contributor Network interest - The CIO Search Starts Before the Job Description',
+    summary: 'Strong CIO candidates prepare before outreach by tracking signals, targets, and narrative readiness.',
+    note: 'Apply through the network page, then follow up directly with the same angle.',
     whyThisFits: [
-      'It fits CIO’s first-person practitioner model better than a product story does.',
-      'It is strategic rather than tactical: timing, preparation, leadership narrative, and search discipline.',
-      'It gives the editor a practical take for CIOs and aspiring CIOs without sounding like career-coach fluff.',
+      'Fits CIO first-person practitioner commentary.',
+      'Strategic angle: timing, preparation, and leadership narrative.',
     ],
     submissionRules: [
       'Aim for 1,200 to 1,500 words.',
-      'Write from lived experience and observed operating reality, not generic advice.',
-      'Keep it practical and editor-friendly: clean thesis, strong examples, no product pitch.',
-      'Use the network signup and/or edward.murray@foundryco.com to start the conversation.',
+      'Write from observed operating reality, not generic advice.',
+      'Keep it practical and non-promotional.',
     ],
     outline: [
-      'Open with the core mistake: by the time a CIO role is public, the strongest candidates are already moving.',
-      'Show what early preparation actually means: target-company list, trigger events, and internal narrative work.',
-      'Explain why board-level readiness matters before the first serious conversation.',
-      'Lay out the weekly operating cadence that separates disciplined candidates from reactive ones.',
-      'Close with the practical test: if the right mandate appeared tomorrow, could you produce a board-ready brief in an hour?',
+      'Open with the core mistake: waiting for public postings.',
+      'Show early preparation: target list, trigger events, narrative work.',
+      'Close with a weekly cadence readers can run immediately.',
     ],
     emailCopy: [
-      'I work closely with senior technology executives in transition and see the same failure mode repeatedly: candidates begin preparing once the role is visible, when the field is already crowded.',
-      'I would like to contribute a first-person commentary on how strong CIO candidates actually operate before the role is public: target-company mapping, signal detection, and board-level preparation.',
-      'The piece would be practical, non-promotional, and written for CIOs and senior technology leaders who want a more disciplined search process.',
-    ],
-  },
-  {
-    target: 'InformationWeek',
-    routeLabel: 'InformationWeekSubmissions@informa.com',
-    routeHref: 'mailto:InformationWeekSubmissions@informa.com',
-    secondaryLabel: 'Submission guidelines',
-    secondaryHref: 'https://www.informationweek.com/it-leadership/how-to-submit-a-column-to-informationweek',
-    title: 'The Best CIO Searches Start Before the Posting',
-    subjectLine: 'Submission — The Best CIO Searches Start Before the Posting',
-    summary: 'Strong CIO candidates gain leverage before a role is public by tracking target companies, reading early signals, and preparing their board narrative early.',
-    note: 'Important: InformationWeek asks for a full draft only, not a pitch, and their guidelines explicitly say the final article must be human-written.',
-    whyThisFits: [
-      'It is practical IT-leadership commentary rather than self-promotion.',
-      'It gives readers concrete operating advice about preparation, not vague career motivation.',
-      'It is timely because leadership hiring remains opaque and senior candidates need better operating methods.',
-    ],
-    submissionRules: [
-      'Send a finished draft as a Word attachment to InformationWeekSubmissions@informa.com.',
-      'Do not send an abstract or pitch only; they ask for the draft itself.',
-      'Headline must be 60 characters or fewer; summary must be 160 characters or fewer.',
-      'Include byline, bio under 100 words, square headshot 300x300 or larger, and author email address.',
-      'Keep the article at 850 words or fewer, exclusive to InformationWeek, and rewritten by Rich in his own words before submission.',
-    ],
-    outline: [
-      'Lead with the truth: LinkedIn postings are late-stage signals, not the beginning of the search.',
-      'Describe the three forms of early evidence candidates should watch: leadership gaps, transformation pressure, and company-specific trigger events.',
-      'Explain the three preparation assets to have ready before outreach: target-company thesis, board-level story, and relationship map.',
-      'Show the cost of waiting until the posting appears: crowded field, weaker preparation, and reactive positioning.',
-      'Close with a practical challenge to readers: prepare for the call before the market tells you it is time.',
-    ],
-    emailCopy: [
-      'Attached is a clean commentary draft for InformationWeek review, along with the requested summary, byline, short bio, headshot, and author email.',
-      'The article is a practical IT-leadership piece on how senior technology candidates prepare before a role is publicly posted.',
-      'It is exclusive to InformationWeek and written to be useful, specific, and non-promotional.',
+      'I work with senior technology executives and repeatedly see the same issue: preparation starts too late.',
+      'I would like to contribute a practical first-person commentary on early signal tracking and board-level readiness.',
     ],
   },
 ]
@@ -371,7 +277,7 @@ export default async function SalesMarketingPlanPage() {
       </nav>
 
       <main>
-        <section className="bg-slate-950 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-900">
+<section className="bg-slate-950 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-900">
           <div className="max-w-6xl mx-auto">
             <div className="max-w-4xl">
               <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-orange-500 mb-4">Internal plan</p>
@@ -383,8 +289,7 @@ export default async function SalesMarketingPlanPage() {
                 Editorial credibility.
               </h1>
               <p className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed max-w-3xl mb-6">
-                This page is the operating playbook for Liz&apos;s LinkedIn workflow, direct outreach to the conference speakers database,
-                and the two editorial submissions most worth pursuing right now: CIO and InformationWeek.
+                Operating playbook for Liz&apos;s LinkedIn workflow, speaker outreach, and two editorial pushes: CIO and InformationWeek.
               </p>
               <div className="flex flex-wrap gap-2">
                 {['Use /social', 'Work speakers DB', 'Submit two articles', 'Keep notes current'].map(chip => (
@@ -396,6 +301,17 @@ export default async function SalesMarketingPlanPage() {
             </div>
           </div>
         </section>
+
+        <details className="group border-t border-slate-100 bg-white">
+          <summary className="list-none cursor-pointer px-4 sm:px-6 py-5 hover:bg-slate-50 transition-colors">
+            <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
+                <p className="text-[16px] font-semibold text-slate-900">Expand priorities, workflows, message bank, and editorial kits</p>
+              </div>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            </div>
+          </summary>
 
         <section className="px-4 sm:px-6 py-10 border-b border-slate-100 bg-slate-50">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -562,6 +478,7 @@ export default async function SalesMarketingPlanPage() {
             </div>
           </div>
         </section>
+        </details>
       </main>
     </div>
   )

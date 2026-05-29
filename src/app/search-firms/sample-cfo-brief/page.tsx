@@ -55,8 +55,18 @@ export default function SampleCfoBriefPage() {
             </p>
           </header>
 
+          <section className="mt-6 rounded-lg border border-slate-200 bg-white p-4">
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">Jump to section</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              <a href="#market-context" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Market context</a>
+              <a href="#positioning-angles" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Positioning angles</a>
+              <a href="#interview-filters" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Interview filters</a>
+              <a href="#takeaway" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">One-page takeaway</a>
+            </div>
+          </section>
+
           <section className="mt-8 space-y-6">
-            <article className="rounded-lg border border-slate-200 p-6">
+            <article id="market-context" className="rounded-lg border border-slate-200 p-6">
               <h2 className="text-xl font-bold">Section A: Market context</h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-700">
                 {moves.map((item) => (
@@ -68,7 +78,7 @@ export default function SampleCfoBriefPage() {
               </ul>
             </article>
 
-            <article className="rounded-lg border border-slate-200 p-6">
+            <article id="positioning-angles" className="rounded-lg border border-slate-200 p-6">
               <h2 className="text-xl font-bold">Section B: Candidate positioning angles</h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-700">
                 {positioning.map((item) => (
@@ -80,7 +90,7 @@ export default function SampleCfoBriefPage() {
               </ul>
             </article>
 
-            <article className="rounded-lg border border-slate-200 p-6">
+            <article id="interview-filters" className="rounded-lg border border-slate-200 p-6">
               <h2 className="text-xl font-bold">Section C: Interview filters and board questions</h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-700">
                 {interviewFilters.map((item) => (
@@ -92,11 +102,21 @@ export default function SampleCfoBriefPage() {
               </ul>
             </article>
 
-            <article className="rounded-lg border border-slate-200 bg-slate-50 p-6">
+            <article id="takeaway" className="rounded-lg border border-slate-200 bg-slate-50 p-6">
               <h2 className="text-xl font-bold">Section D: One-page takeaway</h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-700">
                 Mandate fit is strongest when the candidate has proven integration execution, sponsor communication strength, and scale-stage finance leadership. This context should be used at kickoff and in first-round screening.
               </p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                Outcome: faster kickoff alignment, tighter shortlist quality, and clearer board interview criteria.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                Outcome metric: cut kickoff-to-shortlist cycle time by 20 to 30 percent on retained mandates.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Trust and confidentiality: client mandate details stay confidential to your retained search workflow.
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-800">CTA: get started now with a retained-search pilot.</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/search-firms"

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { anthropic, MODELS } from '@/lib/anthropic'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM =
   'You are a senior executive coach who writes LinkedIn content that sounds like a real person, not a recruiter. ' +

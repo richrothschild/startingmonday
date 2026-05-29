@@ -43,7 +43,6 @@ export default function CisoInterviewPreparationPage() {
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most security executives prepare for CISO interviews the way they would prepare for a technical
           assessment. They review their architecture decisions. They rehearse their incident response record. They

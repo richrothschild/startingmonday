@@ -29,7 +29,6 @@ export default function CtoVsVpEngineeringPage() {
       url="https://startingmonday.app/blog/cto-vs-vp-engineering-career-path"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           At some point in a technology executive career, the choice becomes real. CTO or VP
           Engineering. One company wants you in the vision seat. Another wants you in the build seat.

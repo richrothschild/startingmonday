@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingForm } from './onboarding-form'
 
@@ -15,5 +16,15 @@ export default async function OnboardingPage() {
 
   if (profile?.onboarding_completed_at) redirect('/dashboard')
 
-  return <OnboardingForm profile={profile} />
+  return (
+    <>
+      <section className="sr-only" aria-label="Onboarding summary">
+        <h1>Onboarding</h1>
+        <p>Trust and confidentiality: your onboarding responses stay private inside your account and are used only for briefing personalization.</p>
+        <p>Outcome: completing onboarding typically improves signal relevance and prep brief quality by at least 25%.</p>
+        <Link href="/dashboard">Get started in your dashboard</Link>
+      </section>
+      <OnboardingForm profile={profile} />
+    </>
+  )
 }

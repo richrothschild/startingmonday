@@ -3,8 +3,16 @@ import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
-
-type SearchPersona = 'csuite' | 'vp' | 'director' | 'board'
+import { type SearchPersona, seededCompaniesFor, suggestionsForPersona } from './onboarding-helpers'
+import {
+  type OnboardingChannel,
+  channelChecklistTitle,
+  computeElapsedSeconds,
+  estimateManualFieldReduction,
+  formatDurationShort,
+  isTransitionFirstCohort,
+  onboardingMilestones,
+} from '@/lib/onboarding-speed'
 
 type ImportResult = {
   full_name?: string | null
@@ -26,13 +34,6 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
 const STEP_COUNT = 7
 const QUICK_PATH_STEP_COUNT = 5
 
-const SUGGESTIONS_BY_PERSONA: Record<string, string[]> = {
-  csuite:   ['Microsoft', 'Salesforce', 'ServiceNow', 'Oracle', 'Workday'],
-  vp:       ['Stripe', 'Snowflake', 'Databricks', 'Figma', 'Anthropic'],
-  director: ['HubSpot', 'Okta', 'Crowdstrike', 'MongoDB', 'Datadog'],
-  board:    ['KKR', 'Blackstone', 'General Atlantic', 'Vista Equity', 'Thoma Bravo'],
-}
-
 function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
   return (
     <div className="flex items-center gap-2">
@@ -49,16 +50,15 @@ function Dots({ current, total = STEP_COUNT }: { current: number; total?: number
   )
 }
 
-function seededCompaniesFor(persona: SearchPersona | ''): string[] {
-  const picks = SUGGESTIONS_BY_PERSONA[persona || 'csuite'] ?? []
-  return picks.slice(0, 3)
-}
-
 export function OnboardingForm({ profile }: { profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null } | null }) {
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState<'forward' | 'back'>('forward')
   const [animating, setAnimating] = useState(false)
   const [advancedSetup, setAdvancedSetup] = useState(false)
+  const [onboardingChannel, setOnboardingChannel] = useState<OnboardingChannel>('executives')
+  const [lowEnergyMode, setLowEnergyMode] = useState(false)
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
+  const [onboardingStartedAt] = useState(() => new Date().toISOString())
 
   const [fullName, setFullName]               = useState(profile?.full_name ?? '')
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
@@ -93,16 +93,66 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [manualMode, setManualMode]   = useState(false)
 
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
-  const formRef = useRef<HTMLFormElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
   const step6FetchStarted = useRef(false)
+  const nudgeLogged = useRef(false)
+  const startLogged = useRef(false)
+  const firstValueLogged = useRef(false)
+
+  const transitionFirst = isTransitionFirstCohort(employmentStatus, searchTimeline)
+
+  const milestoneChecklist = onboardingMilestones({
+    searchPersona,
+    hasSituation: !!(employmentStatus && searchTimeline),
+    hasImportedProfile: importDone || !!(currentTitle.trim() && currentCompany.trim()),
+    companyCount: companyNames.filter((name) => name.trim()).length,
+    doneStepReached: step >= 6,
+    lowEnergyMode,
+  })
+  const completedMilestones = milestoneChecklist.filter((item) => item.done).length
+
+  const manualFieldReduction = estimateManualFieldReduction({
+    fullName,
+    currentTitle,
+    currentCompany,
+    searchPersona,
+    companyCount: companyNames.filter((name) => name.trim()).length,
+    importedProfile: importDone,
+    lowEnergyMode,
+  })
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
   }, [step])
 
   useEffect(() => {
-    if (step === 3 && isPassive && !manualMode) setManualMode(true)
+    const timer = window.setInterval(() => {
+      setElapsedSeconds(computeElapsedSeconds(onboardingStartedAt))
+    }, 1000)
+    return () => window.clearInterval(timer)
+  }, [onboardingStartedAt])
+
+  useEffect(() => {
+    if (startLogged.current) return
+    startLogged.current = true
+    fetch('/api/onboarding/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'onboarding_started',
+        properties: {
+          started_at: onboardingStartedAt,
+          channel: onboardingChannel,
+        },
+      }),
+    }).catch(() => {})
+  }, [onboardingStartedAt, onboardingChannel])
+
+  useEffect(() => {
+    if (step === 3 && isPassive && !manualMode) {
+      const timeoutId = window.setTimeout(() => setManualMode(true), 0)
+      return () => window.clearTimeout(timeoutId)
+    }
   }, [step, isPassive, manualMode])
 
   useEffect(() => {
@@ -110,8 +160,61 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (companyNames.some(n => n.trim())) return
     const seeded = seededCompaniesFor(searchPersona)
     if (seeded.length === 0) return
-    setCompanyNames([...seeded, ''])
+    const timeoutId = window.setTimeout(() => setCompanyNames([...seeded, '']), 0)
+    return () => window.clearTimeout(timeoutId)
   }, [step, advancedSetup, companyNames, searchPersona])
+
+  useEffect(() => {
+    if (step < 6 || firstValueLogged.current) return
+    firstValueLogged.current = true
+    fetch('/api/onboarding/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'onboarding_first_value_ready',
+        properties: {
+          elapsed_seconds: elapsedSeconds,
+          under_ten_minutes: elapsedSeconds <= 600,
+          transition_first: transitionFirst,
+          low_energy_mode: lowEnergyMode,
+        },
+      }),
+    }).catch(() => {})
+  }, [step, elapsedSeconds, transitionFirst, lowEnergyMode])
+
+  useEffect(() => {
+    if (step >= 6 || elapsedSeconds < 480 || nudgeLogged.current) return
+    nudgeLogged.current = true
+    fetch('/api/onboarding/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'onboarding_nudge_shown',
+        properties: {
+          elapsed_seconds: elapsedSeconds,
+          step,
+          transition_first: transitionFirst,
+        },
+      }),
+    }).catch(() => {})
+  }, [step, elapsedSeconds, transitionFirst])
+
+  useEffect(() => {
+    const currentElapsedSeconds = computeElapsedSeconds(onboardingStartedAt)
+    fetch('/api/onboarding/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'onboarding_step_completed',
+        properties: {
+          step,
+          elapsed_seconds: currentElapsedSeconds,
+          low_energy_mode: lowEnergyMode,
+          channel: onboardingChannel,
+        },
+      }),
+    }).catch(() => {})
+  }, [step, lowEnergyMode, onboardingChannel, onboardingStartedAt])
 
   useEffect(() => {
     if (step !== 6) return
@@ -148,6 +251,12 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
+    if (lowEnergyMode && step === 1) { goTo(4); return }
+    if (lowEnergyMode && step === 4) {
+      if (isPassive) setBriefingFrequency('weekly')
+      goTo(6)
+      return
+    }
     if (!advancedSetup && step === 1) { goTo(4); return }
     if (!advancedSetup && step === 4) {
       if (isPassive) setBriefingFrequency('weekly')
@@ -261,23 +370,18 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       : 'opacity-0 -translate-x-4'
     : 'opacity-100 translate-x-0'
 
-  function SubmitButton({ label = 'Continue' }: { label?: string }) {
-    return (
-      <button
-        type="submit"
-        form="onboarding-form"
-        className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-8 py-3 rounded transition-colors cursor-pointer"
-      >
-        {label}
-      </button>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
-      <form ref={formRef} id="onboarding-form" action={completeOnboarding} className="hidden">
+      <form id="onboarding-form" action={completeOnboarding} className="hidden">
         <input type="hidden" name="full_name"           value={fullName} />
         <input type="hidden" name="search_persona"      value={searchPersona} />
+        <input type="hidden" name="onboarding_channel"  value={onboardingChannel} />
+        <input type="hidden" name="onboarding_low_energy" value={lowEnergyMode ? 'true' : 'false'} />
+        <input type="hidden" name="onboarding_started_at" value={onboardingStartedAt} />
+        <input type="hidden" name="onboarding_elapsed_seconds" value={String(elapsedSeconds)} />
+        <input type="hidden" name="manual_fields_baseline" value={String(manualFieldReduction.baselineManualFields)} />
+        <input type="hidden" name="manual_fields_required" value={String(manualFieldReduction.requiredManualFields)} />
+        <input type="hidden" name="manual_fields_reduction_rate" value={String(manualFieldReduction.reductionRate)} />
         <input type="hidden" name="employment_status"   value={employmentStatus} />
         <input type="hidden" name="search_timeline"     value={searchTimeline} />
         <input type="hidden" name="search_driver"       value={searchDriver} />
@@ -297,6 +401,98 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         {/* Wordmark */}
         <div className="text-center mb-10">
           <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400">Starting Monday</span>
+        </div>
+
+        <div className="mb-6 grid grid-cols-1 gap-3">
+          <div className="bg-white border border-slate-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Sprint 6 implementation timer</p>
+              <span className={`text-[11px] font-semibold px-2 py-1 rounded ${elapsedSeconds <= 600 ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                {formatDurationShort(elapsedSeconds)} elapsed
+              </span>
+            </div>
+            <p className="text-[12px] text-slate-500 leading-relaxed">
+              {transitionFirst
+                ? 'Transition-first path active. Goal: first value under 10 minutes.'
+                : 'Goal: complete setup quickly, then deepen profile from dashboard.'}
+            </p>
+            {elapsedSeconds >= 480 && step < 6 && (
+              <p className="text-[12px] text-amber-700 mt-2">Nudge: use low-energy mode or quick path to reach first value now.</p>
+            )}
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-4">
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">Channel path</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { value: 'executives', label: 'Executives' },
+                { value: 'coaches', label: 'Coaches' },
+                { value: 'outplacement', label: 'Outplacement' },
+                { value: 'search_firms', label: 'Search Firms' },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => setOnboardingChannel(option.value as OnboardingChannel)}
+                  className={[
+                    'text-[12px] px-3 py-2 rounded border transition-colors cursor-pointer',
+                    onboardingChannel === option.value
+                      ? 'border-slate-900 bg-slate-900 text-white'
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400',
+                  ].join(' ')}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <div className="mt-3 flex items-center justify-between">
+              <p className="text-[12px] text-slate-500">Low-energy mode reduces non-critical choices.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  const nextValue = !lowEnergyMode
+                  setLowEnergyMode(nextValue)
+                  if (nextValue) setAdvancedSetup(false)
+                  if (nextValue) {
+                    fetch('/api/onboarding/events', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        eventName: 'onboarding_low_energy_enabled',
+                        properties: { step, channel: onboardingChannel },
+                      }),
+                    }).catch(() => {})
+                  }
+                }}
+                className={[
+                  'text-[12px] font-semibold px-3 py-1.5 rounded border transition-colors cursor-pointer',
+                  lowEnergyMode
+                    ? 'border-slate-900 bg-slate-900 text-white'
+                    : 'border-slate-300 bg-white text-slate-700 hover:border-slate-500',
+                ].join(' ')}
+              >
+                {lowEnergyMode ? 'Low-energy on' : 'Enable low-energy'}
+              </button>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">{channelChecklistTitle(onboardingChannel)}</p>
+              <span className="text-[11px] text-slate-500">{completedMilestones}/{milestoneChecklist.length}</span>
+            </div>
+            <div className="grid grid-cols-1 gap-1.5">
+              {milestoneChecklist.map((item) => (
+                <div key={item.id} className="flex items-center justify-between text-[12px]">
+                  <span className={item.done ? 'text-slate-700' : 'text-slate-500'}>{item.label}</span>
+                  <span className={item.done ? 'text-green-600 font-semibold' : 'text-slate-400'}>{item.done ? 'Done' : 'Pending'}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-slate-400 mt-2">
+              Progressive defaults currently reduce manual setup by {manualFieldReduction.reductionRate.toFixed(0)}%.
+            </p>
+          </div>
         </div>
 
         {/* Step content */}
@@ -330,7 +526,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onStatus={setEmploymentStatus}
               onTimeline={setSearchTimeline}
               onDriver={setSearchDriver}
-              onNext={advance}
             />
           )}
 
@@ -438,7 +633,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 onClick={() => { setAdvancedSetup(false); goTo(1) }}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Guided setup (about 2 minutes)
+                Guided setup (under 10 minutes)
               </button>
             )}
             {step === 1 && (
@@ -454,9 +649,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 <button
                   type="button"
                   onClick={() => { setAdvancedSetup(true); goTo(2) }}
+                  disabled={lowEnergyMode}
                   className="text-[12px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
                 >
-                  Add search context first
+                  {lowEnergyMode ? 'Context optional in low-energy mode' : 'Add search context first'}
                 </button>
               </div>
             )}
@@ -533,12 +729,12 @@ function StepCompanies({
 }: {
   names: string[]
   onChange: (v: string[]) => void
-  persona: string
+  persona: SearchPersona | ''
   currentTitle: string
   isPassive?: boolean
   onTitle?: (v: string) => void
 }) {
-  const suggestions = SUGGESTIONS_BY_PERSONA[persona] ?? []
+  const suggestions = suggestionsForPersona(persona)
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
   const filled = names.filter(n => n.trim()).length
 
@@ -983,7 +1179,6 @@ function StepSituation({
   onStatus,
   onTimeline,
   onDriver,
-  onNext,
 }: {
   status: string
   timeline: string
@@ -991,7 +1186,6 @@ function StepSituation({
   onStatus: (v: string) => void
   onTimeline: (v: string) => void
   onDriver: (v: string) => void
-  onNext: () => void
 }) {
   const selectCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white appearance-none cursor-pointer'
   return (

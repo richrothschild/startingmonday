@@ -1,4 +1,27 @@
+
 import { execSync } from 'node:child_process'
+
+// Only run outreach lint if any docs/outreach/*.csv file is staged
+function stagedOutreachCsvs() {
+  try {
+    const out = execSync('git diff --cached --name-only', { encoding: 'utf8' })
+    return out
+      .split('\n')
+      .map(f => f.trim())
+      .filter(Boolean)
+      .filter(f => /^docs\/outreach\/.*\.csv$/i.test(f))
+      .filter(f => !/outplacement_priority_additions\.csv$/i.test(f))
+  } catch (e) {
+    return []
+  }
+}
+
+const stagedCsvs = stagedOutreachCsvs()
+
+if (stagedCsvs.length === 0) {
+  console.log('No staged outreach CSVs, skipping outreach lint.')
+  process.exit(0)
+}
 
 function run(cmd) {
   try {
@@ -8,12 +31,8 @@ function run(cmd) {
   }
 }
 
-console.log('Linting outreach signature...')
-run('node scripts/lint-outreach-signature.mjs')
-console.log('Linting outreach forbidden phrases...')
-run('node scripts/lint-outreach-forbidden.mjs')
-console.log('Linting outreach first sentence...')
-run('node scripts/lint-outreach-first-sentence.mjs')
-console.log('Linting outreach subject...')
-run('node scripts/lint-outreach-subject.mjs')
+for (const file of stagedCsvs) {
+  console.log(`Linting staged outreach file: ${file}`)
+  run(`node scripts/lint-outreach-single-file.mjs ${file}`)
+}
 console.log('Outreach lint complete.')

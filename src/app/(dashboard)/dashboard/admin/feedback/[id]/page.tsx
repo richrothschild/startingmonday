@@ -148,7 +148,7 @@ export default function FeedbackDetailPage({ params }: { params: { id: string } 
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        {/* Item Details */}
+{/* Item Details */}
         <section className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">

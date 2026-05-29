@@ -207,7 +207,7 @@ Output valid JSON only, no markdown fences.`
   }
 }
 
-// ─── Suspense skeleton shown while Claude generates the briefing ──────────────
+// --- Suspense skeleton shown while Claude generates the briefing --------------
 
 function BriefingBodySkeleton() {
   return (
@@ -240,7 +240,7 @@ function BriefingBodySkeleton() {
   )
 }
 
-// ─── Async component - triggers the Claude call ───────────────────────────────
+// --- Async component - triggers the Claude call -------------------------------
 
 type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
@@ -287,22 +287,22 @@ async function BriefingBody({
             </div>
           )}
 
-          <div className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</p>
+          <section id="briefing-accountability" className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</h2>
             <p className="text-[14px] text-slate-700 leading-relaxed">
               Overnight changes show you what shifted. Today's actions show you who to contact first and what to do before the day gets away from you.
             </p>
-          </div>
+          </section>
 
           {briefing?.intro && (
             <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
           )}
 
           {signalAlerts.length > 0 && (
-            <div className="mb-8">
-              <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
+            <section id="overnight-changes" className="mb-8">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
                 Overnight Changes
-              </div>
+              </h2>
               <div className="flex flex-col gap-3">
                 {signalAlerts.map((s, i) => (
                   <div key={i} className="p-4 bg-amber-50 border border-amber-200 border-l-[3px] border-l-amber-500 rounded-r">
@@ -331,14 +331,14 @@ async function BriefingBody({
                   </button>
                 </form>
               </div>
-            </div>
+            </section>
           )}
 
           {matchInsights.length > 0 && (
-            <div className="mb-8">
-              <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
+            <section id="people-to-reach" className="mb-8">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
                 People To Reach
-              </div>
+              </h2>
               <div className="flex flex-col gap-3">
                 {matchInsights.map((m, i) => (
                   <div key={i} className="p-4 bg-white border border-slate-200 border-l-[3px] border-l-slate-900 rounded-r">
@@ -353,7 +353,7 @@ async function BriefingBody({
               <div className="mt-4">
                 <form action={logBriefingAction}>
                   <input type="hidden" name="section" value="people_to_reach" />
-                  <input type="hidden" name="target" value="/dashboard/companies" />
+                  <input type="hidden" name="target" value="/dashboard" />
                   <button
                     type="submit"
                     className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
@@ -362,14 +362,14 @@ async function BriefingBody({
                   </button>
                 </form>
               </div>
-            </div>
+            </section>
           )}
 
           {followUpItems.length > 0 && (
-            <div className="mb-8">
-              <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
+            <section id="today-actions" className="mb-8">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
                 Today, Do This
-              </div>
+              </h2>
               <div className="flex flex-col gap-2">
                 {followUpItems.map((f, i) => (
                   <div key={i} className="p-4 bg-slate-50 border border-slate-200 border-l-[3px] border-l-slate-400 rounded-r">
@@ -392,7 +392,7 @@ async function BriefingBody({
                   </button>
                 </form>
               </div>
-            </div>
+            </section>
           )}
 
           {briefing?.closing && (
@@ -415,7 +415,7 @@ async function BriefingBody({
   )
 }
 
-// ─── Page - shell renders immediately, body streams in ────────────────────────
+// --- Page - shell renders immediately, body streams in ------------------------
 
 export default async function BriefingPage({
   searchParams,
@@ -456,7 +456,7 @@ export default async function BriefingPage({
     <div className="min-h-screen bg-slate-100 font-sans">
 
       <header className="bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
@@ -467,17 +467,32 @@ export default async function BriefingPage({
             <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
             <LogoutButton label="Sign out" />
           </div>
-          <div className="flex sm:hidden items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white">Dashboard</Link>
-            <LogoutButton label="Out" />
+          <div className="flex sm:hidden items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+<section className="mb-4 bg-slate-50 border border-slate-200 rounded p-4">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-2 text-[12px]">
+            <a href="#briefing-header" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Briefing header</a>
+            <a href="#briefing-metrics" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Metrics</a>
+            <a href="#briefing-mode" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">View mode</a>
+            <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Accountability</a>
+            <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Today actions</a>
+          </div>
+        </section>
 
         {/* Header - streams immediately after DB queries */}
-        <div className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
+        <section id="briefing-header" className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
           <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-4">
             Starting Monday
           </div>
@@ -488,10 +503,10 @@ export default async function BriefingPage({
           <p className="text-[13px] text-slate-300 mt-3 leading-relaxed">
             Here is what changed overnight and what to act on first today.
           </p>
-        </div>
+        </section>
 
         {/* Stats bar - streams immediately after DB queries */}
-        <div className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
+        <section id="briefing-metrics" className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
           {[
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
             { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
@@ -505,10 +520,10 @@ export default async function BriefingPage({
               <div className="text-[9px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{label}</div>
             </div>
           ))}
-        </div>
+        </section>
 
-        <div className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-slate-500">View:</span>
+        <section id="briefing-mode" className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
+          <h2 className="text-[11px] font-semibold text-slate-500">View:</h2>
           <Link
             href="/dashboard/briefing?mode=focused"
             className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
@@ -521,7 +536,7 @@ export default async function BriefingPage({
           >
             Full
           </Link>
-        </div>
+        </section>
 
         {/* Briefing body - streams in after Claude call completes */}
         <Suspense fallback={<BriefingBodySkeleton />}>

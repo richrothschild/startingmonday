@@ -74,7 +74,7 @@ export default async function AdminRevenuePage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="mb-8">
+<div className="mb-8">
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Revenue Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">Revenue operations, customer conversion, and billing risk control.</p>
           <p className="text-[13px] text-slate-500 mt-1">

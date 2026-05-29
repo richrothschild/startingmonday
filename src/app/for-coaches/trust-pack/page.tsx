@@ -27,9 +27,9 @@ export default function CoachTrustPackPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-        <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
+        <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
           Coach Trust Pack
-        </p>
+        </h2>
         <h1 className="text-[30px] sm:text-[38px] font-bold text-slate-900 leading-[1.12] tracking-tight mb-4">
           Security and privacy controls coaches can explain in one minute.
         </h1>
@@ -38,16 +38,27 @@ export default function CoachTrustPackPage() {
           what is client-controlled, and where the trust boundary sits.
         </p>
 
-        <section className="border border-slate-200 rounded-2xl p-6 bg-slate-50 mb-6">
-          <p className="text-[12px] font-semibold text-slate-900 mb-3">Core trust boundary</p>
+        <section className="border border-slate-200 rounded-2xl p-4 bg-white mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#trust-boundary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Trust boundary</a>
+            <a href="#permissions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Permissions</a>
+            <a href="#security-posture" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Security posture</a>
+            <a href="#coach-next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
+          </div>
+        </section>
+
+        <section id="trust-boundary" className="border border-slate-200 rounded-2xl p-6 bg-slate-50 mb-6">
+          <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Core trust boundary</h2>
           <p className="text-[14px] text-slate-700 leading-relaxed">
             Starting Monday supports coaching workflows. It does not broker recruiter relationships and does not
             expose coach-client workflow data to recruiter-side channels.
           </p>
+          <p className="text-[13px] text-slate-700 leading-relaxed mt-2">Trust and confidentiality: coach-client workflow data remains confidential by default.</p>
         </section>
 
-        <section className="border border-slate-200 rounded-2xl p-6 bg-white mb-6">
-          <p className="text-[12px] font-semibold text-slate-900 mb-3">Client control and permissions</p>
+        <section id="permissions" className="border border-slate-200 rounded-2xl p-6 bg-white mb-6">
+          <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Client control and permissions</h2>
           <ul className="space-y-2 text-[14px] text-slate-700 leading-relaxed">
             {CONTROL_POINTS.map((point) => (
               <li key={point}>• {point}</li>
@@ -55,23 +66,26 @@ export default function CoachTrustPackPage() {
           </ul>
         </section>
 
-        <section className="border border-slate-200 rounded-2xl p-6 bg-white mb-8">
-          <p className="text-[12px] font-semibold text-slate-900 mb-3">Security posture summary</p>
+        <section id="security-posture" className="border border-slate-200 rounded-2xl p-6 bg-white mb-8">
+          <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Security posture summary</h2>
           <ul className="space-y-2 text-[14px] text-slate-700 leading-relaxed">
             {SECURITY_POINTS.map((point) => (
               <li key={point}>• {point}</li>
             ))}
           </ul>
+          <p className="text-[13px] text-slate-700 leading-relaxed mt-3">Outcome metric: permission and logging controls reduce avoidable trust friction during coach-led client reviews.</p>
         </section>
 
-        <div className="flex flex-wrap gap-4 text-[13px]">
+        <section id="coach-next-step" className="flex flex-wrap gap-4 text-[13px]">
+          <h2 className="sr-only">Coach next step</h2>
           <Link href="/for-coaches/faq#security" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
             Read full security FAQ
           </Link>
           <Link href="/for-coaches" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
             Back to coach preview
           </Link>
-        </div>
+          <p className="w-full text-[12px] text-slate-500 mt-1">CTA: get started now by sharing this pack in your next client security review.</p>
+        </section>
       </main>
     </div>
   )

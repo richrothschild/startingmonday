@@ -36,7 +36,6 @@ export default function ExecutiveSearchFirmsCioPage() {
       url="https://startingmonday.app/blog/executive-search-firms-cio"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           Most technology executives think about executive search firms the wrong way. They think of them as
           the people who find jobs. The firms think of themselves as the people who fill mandates&mdash;a

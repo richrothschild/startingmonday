@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function normalizeEmail(value: unknown): string {
   return (value ?? '').toString().trim().toLowerCase()

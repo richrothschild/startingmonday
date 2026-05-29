@@ -29,7 +29,6 @@ export default function LinkedInExecutiveSearchPage() {
       url="https://startingmonday.app/blog/linkedin-executive-search-strategy"
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
-
         <p>
           LinkedIn is the only professional platform where retained search partners, board members,
           and CEOs spend time in a professional context. That makes it uniquely valuable for CIO and

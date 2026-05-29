@@ -17,7 +17,7 @@ function getAnthropic() {
   return _anthropic
 }
 
-async function generateNudgeActions({ firstName, overdueItems, companyCount, momentumScore, dropAmount }) {
+async function generateNudgeActions({ overdueItems, companyCount, momentumScore, dropAmount }) {
   const overdueStr = overdueItems.length
     ? overdueItems.map(f => `${f.action} (due ${f.due_date}${f.company ? `, ${f.company}` : ''})`).slice(0, 3).join('; ')
     : 'no pending follow-ups'

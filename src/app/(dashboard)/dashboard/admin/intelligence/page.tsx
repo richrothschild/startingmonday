@@ -1,4 +1,5 @@
 import { redirect, notFound } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
@@ -42,9 +43,17 @@ export default async function AdminIntelligencePage() {
   )
 
   return (
-    <IntelligenceAdminClient
-      companies={companyData}
-      appUrl={APP_URL}
-    />
+    <main>
+      <h1 className="sr-only">Intelligence Admin</h1>
+      <nav className="sr-only" aria-label="Intelligence admin quick actions">
+        <Link href="/dashboard/admin">Back to admin home</Link>
+        <Link href="/dashboard/admin/social">Open social admin</Link>
+        <Link href="/dashboard/admin/speakers">Open speakers admin</Link>
+      </nav>
+      <IntelligenceAdminClient
+        companies={companyData}
+        appUrl={APP_URL}
+      />
+    </main>
   )
 }

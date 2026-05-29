@@ -6,6 +6,7 @@ import type Stripe from 'stripe'
 import { APP_URL } from '@/lib/config'
 import { mapStripeStatus } from '@/lib/stripe-status'
 import { getOwnerEmail } from '@/lib/owner-email'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 const VALID_PLANS = new Set(['free', 'passive', 'active', 'executive', 'campaign', 'coach'])
 const OWNER_EMAIL = getOwnerEmail()
@@ -57,6 +58,23 @@ export async function POST(request: NextRequest) {
       const plan = session.metadata?.plan
       const type = session.metadata?.type
 
+      if (type === 'micro_product') {
+        const microProductId = session.metadata?.microProductId
+        const microProductSlug = session.metadata?.microProductSlug
+        if (userId && microProductId) {
+          const { error } = await supabase.from('account_entitlements').insert({
+            user_id: userId,
+            micro_product_id: microProductId,
+            source_bundle_id: null,
+            entitlement_key: `${microProductSlug ?? 'micro_product'}_access`,
+            seat_limit: 1,
+            status: 'active',
+          })
+          updateError = error
+        }
+        break
+      }
+
       if (type === 'coach_seats') {
         // Coach purchased a seat bundle: credit seats to the partner record
         const partnerId = session.metadata?.partnerId
@@ -86,6 +104,7 @@ export async function POST(request: NextRequest) {
           ...(customerId ? { stripe_customer_id: customerId } : {}),
         }).eq('id', userId).select('email').single()
         updateError = error
+        captureServerEvent(userId, 'trial_converted', { plan })
         if (updatedUser?.email) {
           sendEmail({
             to: OWNER_EMAIL ?? '',
@@ -101,6 +120,29 @@ export async function POST(request: NextRequest) {
       const sub = event.data.object as StripeSubWithPeriodEnd
       const userId = sub.metadata?.userId
       const type = sub.metadata?.type
+
+      if (type === 'micro_product') {
+        const microProductId = sub.metadata?.microProductId
+        if (userId && microProductId) {
+          const entitlementStatus =
+            sub.status === 'active' || sub.status === 'trialing'
+              ? 'active'
+              : sub.status === 'canceled'
+                ? 'expired'
+                : 'revoked'
+          const { error } = await supabase
+            .from('account_entitlements')
+            .update({
+              status: entitlementStatus,
+              ends_at: entitlementStatus === 'active' ? null : new Date().toISOString(),
+            })
+            .eq('user_id', userId)
+            .eq('micro_product_id', microProductId)
+            .eq('status', 'active')
+          updateError = error
+        }
+        break
+      }
 
       if (type === 'coach_seats') {
         // Sync seat quantity when the coach changes their seat count
@@ -139,6 +181,21 @@ export async function POST(request: NextRequest) {
     case 'customer.subscription.deleted': {
       const sub = event.data.object as StripeSubWithPeriodEnd
       const type = sub.metadata?.type
+
+      if (type === 'micro_product') {
+        const userId = sub.metadata?.userId
+        const microProductId = sub.metadata?.microProductId
+        if (userId && microProductId) {
+          const { error } = await supabase
+            .from('account_entitlements')
+            .update({ status: 'expired', ends_at: new Date().toISOString() })
+            .eq('user_id', userId)
+            .eq('micro_product_id', microProductId)
+            .eq('status', 'active')
+          updateError = error
+        }
+        break
+      }
 
       if (type === 'coach_seats') {
         const partnerId = sub.metadata?.partnerId
@@ -189,7 +246,7 @@ export async function POST(request: NextRequest) {
 <p style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 12px 0;">Your team access has ended.</p>
 <p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">The organization account that gave you access to Starting Monday has been canceled.</p>
 <p style="font-size:14px;line-height:1.6;margin:0 0 12px 0;">Your account is intact. Your companies, contacts, and research history are all still there.</p>
-<p style="font-size:14px;line-height:1.6;margin:0 0 24px 0;">To keep your search moving, you can subscribe directly. The Monitor plan is $49/mo and includes daily company signals and briefings.</p>
+<p style="font-size:14px;line-height:1.6;margin:0 0 24px 0;">To keep your search moving, you can subscribe directly. The Intelligence plan is $49/mo and includes daily company signals and briefings.</p>
 <p style="margin:0 0 24px 0;">
   <a href="${APP_URL}/settings/billing" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 24px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:600;">Keep my subscription</a>
 </p>

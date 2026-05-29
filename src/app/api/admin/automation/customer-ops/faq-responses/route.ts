@@ -30,26 +30,31 @@ function answerFaq(question: string): { answer: string; confidence: number } {
 }
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
+  try {
+    const authCheck = await requireAuth(request)
+    if (!authCheck.ok) return authCheck.response
 
-  const auth = await requireStaffAutomationAccess(request)
-  if (!auth.ok) return auth.response
+    const auth = await requireStaffAutomationAccess(request)
+    if (!auth.ok) return auth.response
 
-  const { userId, supabase } = auth
-  const sb = supabase as any
-  const body = await request.json().catch(() => ({}))
-  const question = (body?.question ?? '').toString().trim()
+    const { userId, supabase } = auth
+    const sb = supabase as any
+    const body = await request.json().catch(() => ({}))
+    const question = (body?.question ?? '').toString().trim()
 
-  if (!question) return NextResponse.json({ error: 'question is required' }, { status: 400 })
+    if (!question) return NextResponse.json({ error: 'question is required' }, { status: 400 })
 
-  const result = answerFaq(question)
-  await sb.from('faq_response_logs').insert({
-    user_id: userId,
-    question,
-    answer: result.answer,
-    confidence: result.confidence,
-  })
+    const result = answerFaq(question)
+    await sb.from('faq_response_logs').insert({
+      user_id: userId,
+      question,
+      answer: result.answer,
+      confidence: result.confidence,
+    })
 
-  return NextResponse.json({ ok: true, ...result })
+    return NextResponse.json({ ok: true, ...result })
+  } catch (error) {
+    console.error('[customer-ops.faq-responses] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }

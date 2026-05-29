@@ -66,8 +66,7 @@ export default async function ProspectDetailPage({ params }: { params: Promise<{
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-8">
-
-        {/* Prospect header */}
+{/* Prospect header */}
         <div className="bg-white border border-slate-200 rounded p-6">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>

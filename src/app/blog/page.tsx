@@ -40,7 +40,7 @@ export default function BlogIndexPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {/* Nav */}
+              {/* Nav */}
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">

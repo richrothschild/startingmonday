@@ -3,6 +3,7 @@ import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { TailorStrengthenBodySchema, firstZodError } from '@/lib/schemas'
 import { appendWatermarkToStream } from '@/lib/watermark'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM_PROMPT = `You are an expert executive resume writer. You will rewrite specific weak bullets in a resume to be stronger, more specific, and metrics-driven.
 

@@ -1,0 +1,73 @@
+name: Send Council CSV To Slack
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send-csv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate Slack webhook and CSV file
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is missing"
+            exit 1
+          fi
+
+          if [ ! -f docs/content/council-score-95-ticket-stories.csv ]; then
+            echo "CSV file is missing"
+            exit 1
+          fi
+
+      - name: Send CSV to Slack as message
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          CSV_CONTENT=$(cat docs/content/council-score-95-ticket-stories.csv)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          payload=$(jq -n \
+            --arg runUrl "$RUN_URL" \
+            --arg csv "$CSV_CONTENT" \
+            '{
+              text: "Council score 95 ticket stories CSV",
+              blocks: [
+                {
+                  type: "header",
+                  text: {
+                    type: "plain_text",
+                    text: "Council Score 95 Ticket Stories CSV"
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: "Shared for Chris. Full CSV is included below."
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: "```\n\($csv)\n```"
+                  }
+                },
+                {
+                  type: "context",
+                  elements: [
+                    {
+                      type: "mrkdwn",
+                      text: "Workflow run: <\($runUrl)|Open run>"
+                    }
+                  ]
+                }
+              ]
+            }')
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"

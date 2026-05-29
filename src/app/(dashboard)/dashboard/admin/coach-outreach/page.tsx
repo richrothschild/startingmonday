@@ -41,12 +41,12 @@ export default async function CoachOutreachPage() {
     {
       title: 'LinkedIn Sales Navigator Search',
       filters: [
-        'Title: "executive coach" OR "career coach" OR "outplacement consultant" OR "career strategist"',
+        'Title: executive coach OR career coach OR outplacement consultant',
         'Geography: United States',
-        'Company: 1-10 employees (independent practitioners, not large firms)',
+        'Company: 1-10 employees',
         'Active on LinkedIn: posted in last 30 days',
         'Connection degree: 2nd degree preferred',
-        'Secondary filter: Review their posts. Coach content about VP→CXO moves, CEO prep, or board positioning = right fit. Resume formatting or early-career advice = not fit.',
+        'Secondary filter: prioritize VP->CXO transition content; skip early-career content.',
       ],
     },
   ]
@@ -54,27 +54,19 @@ export default async function CoachOutreachPage() {
   const outreachSteps: OutreachStep[] = [
     {
       title: 'Step 1: Build your list',
-      action: 'Run the Sales Navigator search above. Target 10-15 coaches per day. Create a list in Sales Navigator called "Coach Outreach" and add every prospect.',
+      action: 'Run the search and add 10-15 coaches per day to a Coach Outreach list.',
     },
     {
       title: 'Step 2: Send connection request',
-      action: 'Send a cold connection request with a personalized note (not a template). Reference something specific from their profile or a recent post they made. Keep the note under 250 characters.',
+      action: 'Send a personalized connection note under 250 characters.',
     },
     {
       title: 'Step 3: Track status',
-      action: 'In your tracking spreadsheet, log: prospect name, LinkedIn URL, connection request sent date, note preview, and current status (pending, connected, responded, demo scheduled, demo completed, passed).',
+      action: 'Log name, LinkedIn URL, request date, note preview, and status.',
     },
     {
-      title: 'Step 4: Wait 2-3 days for acceptance',
-      action: 'Do not send a message until they accept your connection. Once accepted, immediately send your follow-up message same day to capture their attention.',
-    },
-    {
-      title: 'Step 5: Send follow-up message',
-      action: 'Use the "Accepted Connection Follow-Up" template below. Offer a demo or a use case. Make it clear what the next step is and that there is no obligation.',
-    },
-    {
-      title: 'Step 6: Log response',
-      action: 'Update tracking spreadsheet: response date, response type (positive, neutral, declined), and notes. Move to appropriate follow-up sequence.',
+      title: 'Step 4: Follow up fast',
+      action: 'When accepted, send same-day follow-up and offer a 15-minute walkthrough.',
     },
   ]
 
@@ -82,73 +74,59 @@ export default async function CoachOutreachPage() {
     {
       day: 0,
       action: 'Connection accepted',
-      condition: 'Send follow-up message immediately (same day if possible)',
+      condition: 'Send follow-up same day',
     },
     {
       day: 3,
       action: 'No response to follow-up',
-      condition: 'Send: "Happy to share a short demo video if easier than a call."',
+      condition: 'Send short demo-video option',
     },
     {
       day: 7,
       action: 'Still no response',
-      condition: 'Send: "No worries if the timing is not right — just let me know if anything changes." Then stop.',
+      condition: 'Send final close-out note, then stop',
     },
     {
       day: 0,
       action: 'They respond positively',
       condition: 'Schedule a 15-minute walkthrough within 2 business days',
     },
-    {
-      day: 0,
-      action: 'They ask a specific question',
-      condition: 'Answer in 1-2 sentences, then ask to schedule a brief call',
-    },
-    {
-      day: 0,
-      action: 'They decline or say "not now"',
-      condition: 'Tag as "passed" and move on. Do not follow up further.',
-    },
   ]
 
   const messageTemplates: MessageTemplate[] = [
     {
-      title: 'Cold Connection Request',
-      context: 'First touch via connection request. Keep it personal and specific. Examples:',
+      title: 'Email 1 - Brand Wedge',
+      context: 'Lead with the top three pain points.',
       body: [
-        '[Name] — I saw your post on executive transitions [or: your talk on board positioning, or: you coach CIO-level searches]. Built a tool that coaches are using to handle the daily company research for their clients. Would a 15-min demo be useful? No pressure.',
-        '[Name] — You coach executives through transitions at the VP/CIO/CTO level. I work with the same audience building intelligence infrastructure for their searches. Thought it might be worth connecting.',
-        '[Name] — Your [topic] insight is sharp. I spend a lot of time around VP→CXO transitions and am building Starting Monday around what strong searches actually require. Worth a conversation?',
+        'Quick observation from coaching teams we speak with: clients arrive underprepared, follow-through drops between sessions, and too much paid time gets spent rebuilding context. Starting Monday gives coaches one operating loop for prep, between-session actions, and visible momentum so sessions start with decisions instead of recap. Reply yes and I will send the 14-day coach pilot checklist. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Accepted Connection Follow-Up',
-      context: 'Send immediately after they accept. Offer value, not a pitch. 2-3 sentences max.',
+      title: 'Email 2 - Momentum Loss',
+      context: 'Use after no response to the first note.',
       body: [
-        'Thanks for connecting. I spend most of my time around senior technology transitions and see coaches doing the same research for their clients multiple times per week. Built a platform that handles that piece — daily monitoring, prep briefs, pipeline view — so coaches can focus on strategy. Would a 15-minute demo be worth your time? No obligation.',
-        '[Name] — happy to connect. I work with coaches who are tired of rebuilding context before every session. Starting Monday gives your clients the research infrastructure so you can focus on the strategy and relationship work. Quick demo worth your time?',
-        'Appreciate the connection. For coaches working with executives in transition, there is usually a gap between sessions: your client is stuck on research, prep work, or just tracking where things stand. Built a tool that fills that gap. Would a short walkthrough be useful?',
+        'Most coaching drift happens between sessions, not in-session. When rhythm is unclear, momentum drops and coaches spend paid time recovering the same ground. Starting Monday keeps preparation, follow-through, and context continuity visible in one place across active clients. Reply yes and I will send the between-session rhythm worksheet. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Demo Follow-Up (No Response)',
-      context: 'After 3 days with no response to your first follow-up message.',
+      title: 'Email 3 - Moment vs System',
+      context: 'Clarify micro-product relief vs app-level recurrence.',
       body: [
-        'Happy to share a short demo video if a call does not fit your schedule right now. Totally understand if the timing is not right.',
+        'A worksheet can fix one painful session. The recurring problem is the system: prep quality, follow-through, and context continuity across weeks and clients. Starting Monday is built for that recurring layer so you can coach strategy instead of managing drift. If useful, reply yes and I will send the one-page example. Reply pass and I will close the loop.',
       ],
     },
     {
-      title: 'Final Follow-Up (No Response)',
-      context: 'After 7 days total with no response. This is the last touch.',
+      title: 'Email 4 - Decision Close',
+      context: 'Use as final close-out and explicit decision ask.',
       body: [
-        'No worries if the timing is not right — just let me know if anything changes and we can revisit.',
+        'Closing the loop from my earlier notes. If this is a priority now, I can send the 14-day pilot checklist with three pass-fail metrics: prep quality before sessions, between-session follow-through, and recap time reduction. If useful, reply yes and I will send it. Reply pass and I will close the loop.',
       ],
     },
     {
       title: 'Positive Response Next Step',
-      context: 'They said yes or asked a question. Move quickly to a demo or brief call.',
+      context: 'They replied yes. Move to proof quickly.',
       body: [
-        'Great — would [tomorrow at 10 AM or Thursday at 2 PM] work for a 15-minute walkthrough? I can share my screen and show you exactly how coaches are using it with their clients.',
+        'Great, I will send the 14-day coach pilot checklist and one page showing pain-to-product-to-app mapping. If useful after review, we can do a 15-minute walkthrough focused on your highest-cost pain point first.',
       ],
     },
   ]
@@ -166,8 +144,7 @@ export default async function CoachOutreachPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-
-        {/* Overview */}
+{/* Overview */}
         <section className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
           <h2 className="text-[18px] font-bold text-slate-900">Channel Overview</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[13px] text-slate-600 leading-relaxed">

@@ -1,0 +1,1629 @@
+{
+  "generatedAt": "2026-05-22T18:30:52.258Z",
+  "threshold": 85,
+  "summary": {
+    "total": 1690,
+    "passed": 1453,
+    "failed": 237,
+    "averageScore": 89.9,
+    "passRate": 86,
+    "byChannel": [
+      {
+        "channel": "email",
+        "total": 132,
+        "passed": 40,
+        "failed": 92,
+        "averageScore": 83.9,
+        "passRate": 30.3
+      },
+      {
+        "channel": "executives",
+        "total": 460,
+        "passed": 385,
+        "failed": 75,
+        "averageScore": 87.3,
+        "passRate": 83.7
+      },
+      {
+        "channel": "coaches",
+        "total": 262,
+        "passed": 192,
+        "failed": 70,
+        "averageScore": 88.9,
+        "passRate": 73.3
+      },
+      {
+        "channel": "search_firms",
+        "total": 126,
+        "passed": 126,
+        "failed": 0,
+        "averageScore": 90,
+        "passRate": 100
+      },
+      {
+        "channel": "unknown",
+        "total": 77,
+        "passed": 77,
+        "failed": 0,
+        "averageScore": 91.9,
+        "passRate": 100
+      },
+      {
+        "channel": "outplacement_firms",
+        "total": 633,
+        "passed": 633,
+        "failed": 0,
+        "averageScore": 93.1,
+        "passRate": 100
+      }
+    ],
+    "worst": [
+      {
+        "source": "db",
+        "id": "29c366c6-f376-4253-ad1d-48120ade9930",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "",
+        "body": "",
+        "status": "unknown",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "4902418e-c4fb-4d45-b7c5-b968c04c2d2a",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "",
+        "body": "",
+        "status": "unknown",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "ffa6896c-7722-455f-b11f-f355a3b80b42",
+        "recipientName": "Eric Lawson",
+        "recipientEmail": "eric.lawson@acuitycareers.com",
+        "subject": "",
+        "body": "",
+        "status": "pending",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "067ae224-9ef1-465a-99e4-10f348ed9048",
+        "recipientName": "David Obstler",
+        "recipientEmail": "david.obstler@datadoghq.com",
+        "subject": "A specific CFO angle for Datadog",
+        "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "0cda5f05-de47-499c-bdb1-7035cb1b0dec",
+        "recipientName": "Michael Sentonas",
+        "recipientEmail": "michael.sentonas@crowdstrike.com",
+        "subject": "A specific COO angle for CrowdStrike",
+        "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "234d50f1-d04d-408a-93ad-b5421242eb09",
+        "recipientName": "George Kurtz",
+        "recipientEmail": "george.kurtz@crowdstrike.com",
+        "subject": "A specific COO angle for CrowdStrike",
+        "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "2c9ad72c-003f-4d44-8b5a-e42cdb85def3",
+        "recipientName": "Allan Thygesen",
+        "recipientEmail": "allan.thygesen@docusign.com",
+        "subject": "A specific COO angle for DocuSign",
+        "body": "I noticed your role at DocuSign and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3717b021-3c6e-4993-b4fc-4a3e10a203fe",
+        "recipientName": "Navam Welihinda",
+        "recipientEmail": "navam.welihinda@elastic.co",
+        "subject": "A specific CFO angle for Elastic",
+        "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3b1b6e4e-b038-499a-8400-8cd2bd153251",
+        "recipientName": "Alex Karp",
+        "recipientEmail": "alex.karp@palantir.com",
+        "subject": "A specific COO angle for Palantir",
+        "body": "I noticed your role at Palantir and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3c1f8075-2ae4-4877-bd48-ee8234856c7b",
+        "recipientName": "Remo Canessa",
+        "recipientEmail": "remo.canessa@zscaler.com",
+        "subject": "A specific CFO angle for Zscaler",
+        "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3d9042c3-2a9e-47b7-8fce-fd260dd20452",
+        "recipientName": "Sanjit Biswas",
+        "recipientEmail": "sanjit.biswas@samsara.com",
+        "subject": "A specific COO angle for Samsara",
+        "body": "I noticed your role at Samsara and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3dfb251a-7510-492f-91ce-a85c68346f10",
+        "recipientName": "Jay Chaudhry",
+        "recipientEmail": "jay.chaudhry@zscaler.com",
+        "subject": "A specific COO angle for Zscaler",
+        "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "41fbcc42-c821-4f8e-aecf-b3c6f6f51a78",
+        "recipientName": "Ashutosh Kulkarni",
+        "recipientEmail": "ashutosh.kulkarni@elastic.co",
+        "subject": "A specific COO angle for Elastic",
+        "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "552dc3c4-ffb7-4a70-9d78-0745de54f841",
+        "recipientName": "Khozema Shipchandler",
+        "recipientEmail": "khozema.shipchandler@twilio.com",
+        "subject": "A specific COO angle for Twilio",
+        "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "64417d33-086b-4e56-a12e-d7d3cbd5318a",
+        "recipientName": "Yamini Rangan",
+        "recipientEmail": "yamini.rangan@hubspot.com",
+        "subject": "A specific COO angle for HubSpot",
+        "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "6d6e7cbd-1019-4c96-bf78-513bc36c49c7",
+        "recipientName": "Xuedong Huang",
+        "recipientEmail": "xuedong.huang@zoom.com",
+        "subject": "A specific CTO angle for Zoom Communications",
+        "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "77646011-685f-441d-9068-368455af4d2a",
+        "recipientName": "Mark Simms",
+        "recipientEmail": "mark.simms@twilio.com",
+        "subject": "A specific CTO angle for Twilio",
+        "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "8135761d-684b-495c-b21f-30ccf9e653f2",
+        "recipientName": "Eric Yuan",
+        "recipientEmail": "eric.yuan@zoom.com",
+        "subject": "A specific COO angle for Zoom Communications",
+        "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "89c90be2-c939-4095-aa3d-613a51d2eeee",
+        "recipientName": "Dharmesh Shah",
+        "recipientEmail": "dharmesh.shah@hubspot.com",
+        "subject": "A specific CTO angle for HubSpot",
+        "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "a6d5f1bd-fc62-4c1b-ad61-776afe28a265",
+        "recipientName": "Olivier Pomel",
+        "recipientEmail": "olivier.pomel@datadoghq.com",
+        "subject": "A specific COO angle for Datadog",
+        "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      }
+    ]
+  },
+  "dbSummary": {
+    "total": 700,
+    "passed": 484,
+    "failed": 216,
+    "averageScore": 86.5,
+    "passRate": 69.1,
+    "byChannel": [
+      {
+        "channel": "email",
+        "total": 132,
+        "passed": 40,
+        "failed": 92,
+        "averageScore": 83.9,
+        "passRate": 30.3
+      },
+      {
+        "channel": "coaches",
+        "total": 136,
+        "passed": 66,
+        "failed": 70,
+        "averageScore": 85.4,
+        "passRate": 48.5
+      },
+      {
+        "channel": "executives",
+        "total": 432,
+        "passed": 378,
+        "failed": 54,
+        "averageScore": 87.7,
+        "passRate": 87.5
+      }
+    ],
+    "worst": [
+      {
+        "source": "db",
+        "id": "29c366c6-f376-4253-ad1d-48120ade9930",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "",
+        "body": "",
+        "status": "unknown",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "4902418e-c4fb-4d45-b7c5-b968c04c2d2a",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "",
+        "body": "",
+        "status": "unknown",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "ffa6896c-7722-455f-b11f-f355a3b80b42",
+        "recipientName": "Eric Lawson",
+        "recipientEmail": "eric.lawson@acuitycareers.com",
+        "subject": "",
+        "body": "",
+        "status": "pending",
+        "queued": false,
+        "channel": "email",
+        "file": null,
+        "score": 52,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Recipient focus ratio: you/your=0, I/we/our=0",
+          "Subject naturalness: words=0, exclamations=0",
+          "Readability: avg sentence words=0.0",
+          "Message length: body words=0",
+          "Proof-to-claim ratio: numeric=no, proof_terms=0"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "067ae224-9ef1-465a-99e4-10f348ed9048",
+        "recipientName": "David Obstler",
+        "recipientEmail": "david.obstler@datadoghq.com",
+        "subject": "A specific CFO angle for Datadog",
+        "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "0cda5f05-de47-499c-bdb1-7035cb1b0dec",
+        "recipientName": "Michael Sentonas",
+        "recipientEmail": "michael.sentonas@crowdstrike.com",
+        "subject": "A specific COO angle for CrowdStrike",
+        "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "234d50f1-d04d-408a-93ad-b5421242eb09",
+        "recipientName": "George Kurtz",
+        "recipientEmail": "george.kurtz@crowdstrike.com",
+        "subject": "A specific COO angle for CrowdStrike",
+        "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "2c9ad72c-003f-4d44-8b5a-e42cdb85def3",
+        "recipientName": "Allan Thygesen",
+        "recipientEmail": "allan.thygesen@docusign.com",
+        "subject": "A specific COO angle for DocuSign",
+        "body": "I noticed your role at DocuSign and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3717b021-3c6e-4993-b4fc-4a3e10a203fe",
+        "recipientName": "Navam Welihinda",
+        "recipientEmail": "navam.welihinda@elastic.co",
+        "subject": "A specific CFO angle for Elastic",
+        "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3b1b6e4e-b038-499a-8400-8cd2bd153251",
+        "recipientName": "Alex Karp",
+        "recipientEmail": "alex.karp@palantir.com",
+        "subject": "A specific COO angle for Palantir",
+        "body": "I noticed your role at Palantir and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3c1f8075-2ae4-4877-bd48-ee8234856c7b",
+        "recipientName": "Remo Canessa",
+        "recipientEmail": "remo.canessa@zscaler.com",
+        "subject": "A specific CFO angle for Zscaler",
+        "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3d9042c3-2a9e-47b7-8fce-fd260dd20452",
+        "recipientName": "Sanjit Biswas",
+        "recipientEmail": "sanjit.biswas@samsara.com",
+        "subject": "A specific COO angle for Samsara",
+        "body": "I noticed your role at Samsara and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "3dfb251a-7510-492f-91ce-a85c68346f10",
+        "recipientName": "Jay Chaudhry",
+        "recipientEmail": "jay.chaudhry@zscaler.com",
+        "subject": "A specific COO angle for Zscaler",
+        "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "41fbcc42-c821-4f8e-aecf-b3c6f6f51a78",
+        "recipientName": "Ashutosh Kulkarni",
+        "recipientEmail": "ashutosh.kulkarni@elastic.co",
+        "subject": "A specific COO angle for Elastic",
+        "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "552dc3c4-ffb7-4a70-9d78-0745de54f841",
+        "recipientName": "Khozema Shipchandler",
+        "recipientEmail": "khozema.shipchandler@twilio.com",
+        "subject": "A specific COO angle for Twilio",
+        "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "64417d33-086b-4e56-a12e-d7d3cbd5318a",
+        "recipientName": "Yamini Rangan",
+        "recipientEmail": "yamini.rangan@hubspot.com",
+        "subject": "A specific COO angle for HubSpot",
+        "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "6d6e7cbd-1019-4c96-bf78-513bc36c49c7",
+        "recipientName": "Xuedong Huang",
+        "recipientEmail": "xuedong.huang@zoom.com",
+        "subject": "A specific CTO angle for Zoom Communications",
+        "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "77646011-685f-441d-9068-368455af4d2a",
+        "recipientName": "Mark Simms",
+        "recipientEmail": "mark.simms@twilio.com",
+        "subject": "A specific CTO angle for Twilio",
+        "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "8135761d-684b-495c-b21f-30ccf9e653f2",
+        "recipientName": "Eric Yuan",
+        "recipientEmail": "eric.yuan@zoom.com",
+        "subject": "A specific COO angle for Zoom Communications",
+        "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "89c90be2-c939-4095-aa3d-613a51d2eeee",
+        "recipientName": "Dharmesh Shah",
+        "recipientEmail": "dharmesh.shah@hubspot.com",
+        "subject": "A specific CTO angle for HubSpot",
+        "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "db",
+        "id": "a6d5f1bd-fc62-4c1b-ad61-776afe28a265",
+        "recipientName": "Olivier Pomel",
+        "recipientEmail": "olivier.pomel@datadoghq.com",
+        "subject": "A specific COO angle for Datadog",
+        "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+        "status": "sent",
+        "queued": false,
+        "channel": "executives",
+        "file": null,
+        "score": 76,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      }
+    ]
+  },
+  "queuedDbSummary": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "averageScore": 0,
+    "passRate": 0,
+    "byChannel": [],
+    "worst": []
+  },
+  "csvSummary": {
+    "total": 990,
+    "passed": 969,
+    "failed": 21,
+    "averageScore": 92.3,
+    "passRate": 97.9,
+    "byChannel": [
+      {
+        "channel": "executives",
+        "total": 28,
+        "passed": 7,
+        "failed": 21,
+        "averageScore": 82.6,
+        "passRate": 25
+      },
+      {
+        "channel": "search_firms",
+        "total": 126,
+        "passed": 126,
+        "failed": 0,
+        "averageScore": 90,
+        "passRate": 100
+      },
+      {
+        "channel": "unknown",
+        "total": 77,
+        "passed": 77,
+        "failed": 0,
+        "averageScore": 91.9,
+        "passRate": 100
+      },
+      {
+        "channel": "coaches",
+        "total": 126,
+        "passed": 126,
+        "failed": 0,
+        "averageScore": 92.7,
+        "passRate": 100
+      },
+      {
+        "channel": "outplacement_firms",
+        "total": 633,
+        "passed": 633,
+        "failed": 0,
+        "averageScore": 93.1,
+        "passRate": 100
+      }
+    ],
+    "worst": [
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:3",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on CFO transitions.\n\nI can also send the CFO board-readiness scorecard so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor CFO leaders, that is where faster translation of finance credibility into board-readable transition narratives becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:4",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about CFO transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the CFO board-readiness scorecard so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how finance credibility becomes board-ready in the first conversation without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:6",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on CTO transitions.\n\nI can also send the CTO architecture-to-business benchmark so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor CTO leaders, that is where clearer architecture-to-business messaging before first stakeholder interviews becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:7",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about CTO transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the CTO architecture-to-business benchmark so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how technical depth becomes a business-facing narrative without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:9",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on COO transitions.\n\nI can also send the COO sequencing and operating cadence benchmark so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor COO leaders, that is where stronger execution-cadence proof in early outreach and screening calls becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:10",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about COO transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the COO sequencing and operating cadence benchmark so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how operating scale becomes a cleaner story of sequencing and leverage without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:13",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about CDO transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the role-specific benchmark sheet so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how role depth becomes a clearer first conversation without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=2"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:15",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on CISO transitions.\n\nI can also send the CISO risk narrative benchmark so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor CISO leaders, that is where higher-confidence risk and resilience framing for non-technical decision-makers becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:16",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about CISO transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the CISO risk narrative benchmark so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how security depth becomes risk language a business leader can use without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:18",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on VP transitions.\n\nI can also send the next-scope readiness benchmark so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor VP leaders, that is where clearer next-scope readiness proof supported by concrete execution examples becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:19",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about VP transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the next-scope readiness benchmark so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how next-scope readiness becomes something concrete instead of aspirational without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:21",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on VP Operations transitions.\n\nI can also send the COO sequencing and operating cadence benchmark so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor VP Operations leaders, that is where stronger execution-cadence proof in early outreach and screening calls becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:22",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I am closing the loop on my note about VP Operations transitions.\n\nIf timing is not right, no problem. If it is, I can send one concise example plus the COO sequencing and operating cadence benchmark so you can judge it quickly.\n\nIf this is not relevant right now, no worries.\n\nThat is usually the cleanest way to show how operating scale becomes a cleaner story of sequencing and leverage without overexplaining it.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 79,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail",
+          "Proof-to-claim ratio: numeric=no, proof_terms=1"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:2",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about CFO transitions.\n\nFor CFO leaders at {company_name}, the real risk is sounding competent but not board-ready when the first serious conversation starts.\n\nIn recent CFO-track transitions, first conversations improved when board language and capital allocation logic were explicit from minute one.\n\nFor CFO candidates, that is where faster translation of finance credibility into board-readable transition narratives usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your CFO context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:5",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about CTO transitions.\n\nFor CTO leaders at {company_name}, the real risk is being seen as technically strong but too abstract for a CEO, board, or investor audience.\n\nIn recent CTO-track transitions, response quality improved when technical depth was translated into operating outcomes and decision impact.\n\nFor CTO candidates, that is where clearer architecture-to-business messaging before first stakeholder interviews usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your CTO context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:8",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about COO transitions.\n\nFor COO leaders at {company_name}, the real risk is being known for execution without proving the scale and sequencing that the next role requires.\n\nIn recent COO-track transitions, conversion improved when execution stories included sequencing decisions and operating leverage proof.\n\nFor COO candidates, that is where stronger execution-cadence proof in early outreach and screening calls usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your COO context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:11",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about CDO transitions.\n\nFor CDO leaders at {company_name}, the real risk is sounding credible in theory but not specific enough to move the conversation forward.\n\nIn recent executive transitions, progression improved when role-specific narratives were tested and revised before high-stakes conversations.\n\nFor CDO candidates, that is where cleaner role-specific positioning supported by measurable execution evidence usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your CDO context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:12",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I had one more thought on CDO transitions.\n\nI can also send the role-specific benchmark sheet so you can see how the first week, first pitch, and first follow-up should look for this role.\n\nFor CDO leaders, that is where cleaner role-specific positioning supported by measurable execution evidence becomes visible in a way that is hard to fake and easy to evaluate.\n\nIf this is not relevant right now, no worries.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:14",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about CISO transitions.\n\nFor CISO leaders at {company_name}, the real risk is having the right expertise but losing the room before the business impact lands.\n\nIn recent CISO-track transitions, momentum improved when risk language was framed in business continuity and trust terms.\n\nFor CISO candidates, that is where higher-confidence risk and resilience framing for non-technical decision-makers usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your CISO context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      },
+      {
+        "source": "csv",
+        "id": "executive_role_followup_ladder.csv:17",
+        "recipientName": "",
+        "recipientEmail": "",
+        "subject": "Quick question on executive transition workflows",
+        "body": "Hi {first_name},\n\nI have been following your work at {company_name}, and I wanted to follow up on my earlier note about VP transitions.\n\nFor VP leaders at {company_name}, the real risk is sounding ready for more scope without proving what changes at the higher level.\n\nIn recent executive transitions, progression improved when role-specific narratives were tested and revised before high-stakes conversations.\n\nFor VP candidates, that is where clearer next-scope readiness proof supported by concrete execution examples usually shows up in the first serious conversation.\n\nIf this is not relevant right now, no worries.\n\nIf useful, I can send a one-page sample built around your VP context.\n\nIf useful, If helpful, I can send a one-page example. If not useful right now, no worries.\n\nRich\nstartingmonday.app",
+        "status": "csv",
+        "queued": true,
+        "channel": "executives",
+        "file": "executive_role_followup_ladder.csv",
+        "score": 81,
+        "passed": false,
+        "reasons": [
+          "Personalization specificity: Limited recipient-specific detail"
+        ]
+      }
+    ]
+  },
+  "worstFailures": [
+    {
+      "source": "db",
+      "id": "29c366c6-f376-4253-ad1d-48120ade9930",
+      "recipientName": "",
+      "recipientEmail": "",
+      "subject": "",
+      "body": "",
+      "status": "unknown",
+      "queued": false,
+      "channel": "email",
+      "file": null,
+      "score": 52,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Recipient focus ratio: you/your=0, I/we/our=0",
+        "Subject naturalness: words=0, exclamations=0",
+        "Readability: avg sentence words=0.0",
+        "Message length: body words=0",
+        "Proof-to-claim ratio: numeric=no, proof_terms=0"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "4902418e-c4fb-4d45-b7c5-b968c04c2d2a",
+      "recipientName": "",
+      "recipientEmail": "",
+      "subject": "",
+      "body": "",
+      "status": "unknown",
+      "queued": false,
+      "channel": "email",
+      "file": null,
+      "score": 52,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Recipient focus ratio: you/your=0, I/we/our=0",
+        "Subject naturalness: words=0, exclamations=0",
+        "Readability: avg sentence words=0.0",
+        "Message length: body words=0",
+        "Proof-to-claim ratio: numeric=no, proof_terms=0"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "ffa6896c-7722-455f-b11f-f355a3b80b42",
+      "recipientName": "Eric Lawson",
+      "recipientEmail": "eric.lawson@acuitycareers.com",
+      "subject": "",
+      "body": "",
+      "status": "pending",
+      "queued": false,
+      "channel": "email",
+      "file": null,
+      "score": 52,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Recipient focus ratio: you/your=0, I/we/our=0",
+        "Subject naturalness: words=0, exclamations=0",
+        "Readability: avg sentence words=0.0",
+        "Message length: body words=0",
+        "Proof-to-claim ratio: numeric=no, proof_terms=0"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "067ae224-9ef1-465a-99e4-10f348ed9048",
+      "recipientName": "David Obstler",
+      "recipientEmail": "david.obstler@datadoghq.com",
+      "subject": "A specific CFO angle for Datadog",
+      "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "0cda5f05-de47-499c-bdb1-7035cb1b0dec",
+      "recipientName": "Michael Sentonas",
+      "recipientEmail": "michael.sentonas@crowdstrike.com",
+      "subject": "A specific COO angle for CrowdStrike",
+      "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "234d50f1-d04d-408a-93ad-b5421242eb09",
+      "recipientName": "George Kurtz",
+      "recipientEmail": "george.kurtz@crowdstrike.com",
+      "subject": "A specific COO angle for CrowdStrike",
+      "body": "I noticed your role at CrowdStrike and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "2c9ad72c-003f-4d44-8b5a-e42cdb85def3",
+      "recipientName": "Allan Thygesen",
+      "recipientEmail": "allan.thygesen@docusign.com",
+      "subject": "A specific COO angle for DocuSign",
+      "body": "I noticed your role at DocuSign and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "3717b021-3c6e-4993-b4fc-4a3e10a203fe",
+      "recipientName": "Navam Welihinda",
+      "recipientEmail": "navam.welihinda@elastic.co",
+      "subject": "A specific CFO angle for Elastic",
+      "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "3b1b6e4e-b038-499a-8400-8cd2bd153251",
+      "recipientName": "Alex Karp",
+      "recipientEmail": "alex.karp@palantir.com",
+      "subject": "A specific COO angle for Palantir",
+      "body": "I noticed your role at Palantir and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "3c1f8075-2ae4-4877-bd48-ee8234856c7b",
+      "recipientName": "Remo Canessa",
+      "recipientEmail": "remo.canessa@zscaler.com",
+      "subject": "A specific CFO angle for Zscaler",
+      "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "3d9042c3-2a9e-47b7-8fce-fd260dd20452",
+      "recipientName": "Sanjit Biswas",
+      "recipientEmail": "sanjit.biswas@samsara.com",
+      "subject": "A specific COO angle for Samsara",
+      "body": "I noticed your role at Samsara and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "3dfb251a-7510-492f-91ce-a85c68346f10",
+      "recipientName": "Jay Chaudhry",
+      "recipientEmail": "jay.chaudhry@zscaler.com",
+      "subject": "A specific COO angle for Zscaler",
+      "body": "I noticed your role at Zscaler and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "41fbcc42-c821-4f8e-aecf-b3c6f6f51a78",
+      "recipientName": "Ashutosh Kulkarni",
+      "recipientEmail": "ashutosh.kulkarni@elastic.co",
+      "subject": "A specific COO angle for Elastic",
+      "body": "I noticed your role at Elastic and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "552dc3c4-ffb7-4a70-9d78-0745de54f841",
+      "recipientName": "Khozema Shipchandler",
+      "recipientEmail": "khozema.shipchandler@twilio.com",
+      "subject": "A specific COO angle for Twilio",
+      "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "64417d33-086b-4e56-a12e-d7d3cbd5318a",
+      "recipientName": "Yamini Rangan",
+      "recipientEmail": "yamini.rangan@hubspot.com",
+      "subject": "A specific COO angle for HubSpot",
+      "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "6d6e7cbd-1019-4c96-bf78-513bc36c49c7",
+      "recipientName": "Xuedong Huang",
+      "recipientEmail": "xuedong.huang@zoom.com",
+      "subject": "A specific CTO angle for Zoom Communications",
+      "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "77646011-685f-441d-9068-368455af4d2a",
+      "recipientName": "Mark Simms",
+      "recipientEmail": "mark.simms@twilio.com",
+      "subject": "A specific CTO angle for Twilio",
+      "body": "I noticed your role at Twilio and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "8135761d-684b-495c-b21f-30ccf9e653f2",
+      "recipientName": "Eric Yuan",
+      "recipientEmail": "eric.yuan@zoom.com",
+      "subject": "A specific COO angle for Zoom Communications",
+      "body": "I noticed your role at Zoom Communications and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "89c90be2-c939-4095-aa3d-613a51d2eeee",
+      "recipientName": "Dharmesh Shah",
+      "recipientEmail": "dharmesh.shah@hubspot.com",
+      "subject": "A specific CTO angle for HubSpot",
+      "body": "I noticed your role at HubSpot and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    },
+    {
+      "source": "db",
+      "id": "a6d5f1bd-fc62-4c1b-ad61-776afe28a265",
+      "recipientName": "Olivier Pomel",
+      "recipientEmail": "olivier.pomel@datadoghq.com",
+      "subject": "A specific COO angle for Datadog",
+      "body": "I noticed your role at Datadog and wanted to send a short, specific note.\n\nI work on executive positioning and outreach for senior operators navigating high-stakes transitions.\n\nIf useful, I can send a concise follow-up with one specific angle for your remit.\n\nBest,\nRich Rothschild\nstartingmonday.app\n\n---\nStarting Monday\nIf you prefer no further outreach, reply with \"unsubscribe\" and I will stop.",
+      "status": "sent",
+      "queued": false,
+      "channel": "executives",
+      "file": null,
+      "score": 76,
+      "passed": false,
+      "reasons": [
+        "Personalization specificity: Limited recipient-specific detail",
+        "Proof-to-claim ratio: numeric=no, proof_terms=1"
+      ]
+    }
+  ]
+}

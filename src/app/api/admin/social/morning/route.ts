@@ -2,6 +2,12 @@
 import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getSocialPlanForDate, isSocialPostDay } from '@/lib/social-posting-plan'
+import { getNoteToken, hashDraftText } from '@/lib/social-council-check'
+
+function isApprovedForPublish(notes: unknown): boolean {
+  if (typeof notes !== 'string') return false
+  return notes.includes('approval_status=approved')
+}
 
 export async function GET(request: NextRequest) {
   if (!validateCronRequest(request)) {
@@ -48,6 +54,43 @@ export async function GET(request: NextRequest) {
   // Skip if already posted
   if (post.is_posted) {
     return NextResponse.json({ ok: true, sent: false, reason: 'Already posted', pillar: post.pillar, dateStr })
+  }
+
+  const autoPublishEnabled = process.env.SOCIAL_AUTO_PUBLISH_ENABLED === 'true'
+  if (!autoPublishEnabled) {
+    return NextResponse.json({
+      ok: true,
+      sent: false,
+      reason: 'Manual publish mode enabled',
+      dateStr,
+      postId: post.id,
+    })
+  }
+
+  const requiresApprovedQueue = (process.env.SOCIAL_REQUIRE_APPROVED_QUEUE ?? 'true') !== 'false'
+  if (requiresApprovedQueue && !isApprovedForPublish(post.notes)) {
+    return NextResponse.json({
+      ok: true,
+      sent: false,
+      reason: 'Post is not from approved queue handoff',
+      dateStr,
+      postId: post.id,
+    })
+  }
+
+  const councilPass = getNoteToken(post.notes, 'council_pass') === 'true'
+  const councilHash = getNoteToken(post.notes, 'council_text_hash')
+  const draftHash = hashDraftText((post.draft_text ?? '').trim())
+  const emotionalAngle = getNoteToken(post.notes, 'emotional_angle')
+
+  if (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle) {
+    return NextResponse.json({
+      ok: true,
+      sent: false,
+      reason: 'Council check required before auto-post',
+      dateStr,
+      postId: post.id,
+    })
   }
 
   const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL

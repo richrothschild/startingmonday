@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { updateOutreachJobStateFromWebhook } from '@/lib/outreach/send-queue'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type WebhookPayload = {
   type?: string
@@ -114,6 +116,8 @@ export async function POST(request: NextRequest) {
         webhook_payload: payload,
       })
       .eq('resend_message_id', messageId)
+
+    await updateOutreachJobStateFromWebhook(supabase as unknown as any, messageId, eventType)
   }
 
   if ((isBounceType(eventType) || isUnsubscribeType(eventType)) && userId && recipientEmail) {
@@ -137,7 +141,7 @@ export async function POST(request: NextRequest) {
       .from('contacts')
       .update({ outreach_status: 'closed' })
       .eq('user_id', userId)
-      .eq('email', recipientEmail)
+      .ilike('email', recipientEmail)
   }
 
   if (isReplyType(eventType) && userId && contactId) {
@@ -163,7 +167,10 @@ export async function POST(request: NextRequest) {
       resend_message_id: messageId,
       delivery_status: 'inbound_reply',
       webhook_event_type: eventType,
-      webhook_payload: payload,
+      webhook_payload: {
+        ...payload,
+        email_source: 'resend_webhook_inbound_reply',
+      },
       message_preview: (payload.data?.text ?? 'Inbound reply').slice(0, 200),
     })
   }

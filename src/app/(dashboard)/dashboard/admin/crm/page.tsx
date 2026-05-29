@@ -143,7 +143,7 @@ export default async function AdminCrmPage({
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+<div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">CRM</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">Lead score, channel mix, and queue routing dashboard.</p>
@@ -157,6 +157,32 @@ export default async function AdminCrmPage({
             </button>
           </form>
         </div>
+
+        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#crm-run-log" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Run log</a>
+            <a href="#crm-kpis" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">KPIs</a>
+            <a href="#crm-channel-mix" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Channel mix</a>
+            <a href="#crm-top-leads" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Top leads</a>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+          <h2 className="sr-only">Quick actions</h2>
+          <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open contacts</p>
+            <p className="text-[12px] text-slate-500 mt-1">Review active contacts and outreach status.</p>
+          </Link>
+          <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open outreach</p>
+            <p className="text-[12px] text-slate-500 mt-1">Run sends and clear follow-up queue.</p>
+          </Link>
+          <Link href="/dashboard/admin/outreach-analytics" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-900">Open analytics</p>
+            <p className="text-[12px] text-slate-500 mt-1">Compare delivery and response trends.</p>
+          </Link>
+        </section>
 
         {scored === '1' && (
           <div className="mb-6 rounded border border-green-200 bg-green-50 px-4 py-3 text-[13px] text-green-800">
@@ -172,9 +198,9 @@ export default async function AdminCrmPage({
           </div>
         )}
 
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
+        <section id="crm-run-log" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[14px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Scoring execution log</span>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Scoring execution log</h2>
           </div>
           {runs.length === 0 ? (
             <p className="px-6 py-6 text-[13px] text-slate-400">No scoring runs logged yet.</p>
@@ -217,9 +243,9 @@ export default async function AdminCrmPage({
               </table>
             </div>
           )}
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
+        <section id="crm-kpis" className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Total leads</p>
             <p className="text-[30px] font-bold text-slate-900 mt-2 leading-none">{totalLeads}</p>
@@ -236,9 +262,9 @@ export default async function AdminCrmPage({
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500">Nurture queue</p>
             <p className="text-[30px] font-bold text-slate-700 mt-2 leading-none">{queueCounts.nurture}</p>
           </div>
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <section id="crm-channel-mix" className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Customers by channel</p>
             <div className="space-y-2">
@@ -270,7 +296,7 @@ export default async function AdminCrmPage({
               )}
             </div>
           </div>
-        </div>
+        </section>
 
         <div className="bg-white border border-slate-200 rounded p-5 mb-6">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Lead age cohorts</p>
@@ -286,9 +312,9 @@ export default async function AdminCrmPage({
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded overflow-hidden">
+        <section id="crm-top-leads" className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[14px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Top lead scores</span>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Top lead scores</h2>
           </div>
           {topLeads.length === 0 ? (
             <p className="px-6 py-8 text-[13px] text-slate-400">No scored leads yet.</p>
@@ -325,7 +351,7 @@ export default async function AdminCrmPage({
               </table>
             </div>
           )}
-        </div>
+        </section>
       </main>
     </div>
   )

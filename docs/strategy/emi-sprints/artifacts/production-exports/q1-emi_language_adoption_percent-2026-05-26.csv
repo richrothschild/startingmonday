@@ -1,0 +1,2 @@
+query_id,metric,value,status,notes
+Q1,emi_language_adoption_percent,0,ok,"emi_kpi_snapshots.ok"

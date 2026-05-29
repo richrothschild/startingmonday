@@ -5,6 +5,7 @@ import { isRateLimited } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace } from '@/lib/trace'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export type DiscoveryCompany = {
   name: string

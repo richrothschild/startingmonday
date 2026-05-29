@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(
   request: NextRequest,
@@ -39,6 +40,7 @@ export async function POST(
     contact_id: contact?.id ?? null,
     signal_id: signal?.id ?? null,
     channel: 'linkedin',
+    webhook_payload: { email_source: 'prep_outreach_log_route' },
   })
 
   if (contact?.id) {

@@ -13,6 +13,12 @@ type SituationContent = {
   cta: string
 }
 
+type EntryHandoff = {
+  title: string
+  body: string
+  nextStep: string
+}
+
 const SITUATION_COPY: Record<string, SituationContent> = {
   urgent: {
     title: 'You need to land well. Quickly.',
@@ -70,16 +76,36 @@ const SITUATION_COPY: Record<string, SituationContent> = {
   },
 }
 
+const ENTRY_HANDOFF: Record<string, EntryHandoff> = {
+  landing: {
+    title: 'You are continuing from the Motion Signal landing flow.',
+    body: 'This signup path keeps the same model: identify signal movement, choose one relationship action, and run weekly cadence with less friction.',
+    nextStep: 'Create your account, then set your first target list and morning briefing priority.',
+  },
+  pricing: {
+    title: 'You are continuing from pricing.',
+    body: 'You do not need to finalize tier selection right now. Start free, run the first weekly rhythm, then choose based on campaign intensity.',
+    nextStep: 'Create your account and begin with one target company plus one outreach priority.',
+  },
+  concierge: {
+    title: 'You are continuing from concierge.',
+    body: 'If you prefer self-serve first, this path gets you live quickly while preserving confidentiality and weekly operating discipline.',
+    nextStep: 'Create your account and launch your first briefing cycle today.',
+  },
+}
+
 export default function SignupPage() {
   const router = useRouter()
   const ph = usePostHog()
   const [email, setEmail] = useState('')
   const [situation, setSituation] = useState<string | null>(null)
+  const [entrySource, setEntrySource] = useState<string | null>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const from = params.get('from')
     if (from && SITUATION_COPY[from]) setSituation(from)
+    if (from && ENTRY_HANDOFF[from]) setEntrySource(from)
   }, [])
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -255,17 +281,17 @@ export default function SignupPage() {
       </header>
 
       <main className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 py-16">
-        <div className="w-full max-w-sm">
+<div className="w-full max-w-sm">
 
           {confirmed ? (
             <>
-              <div className="mb-8">
+              <section id="confirm-email" className="mb-8">
                 <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Check your email</h1>
-                <p className="text-[13px] text-slate-500 mt-1.5">We sent a confirmation link to <span className="font-semibold text-slate-700">{email}</span>.</p>
-              </div>
+                <p className="text-[13px] text-slate-500 mt-1.5">Confirmation link sent to <span className="font-semibold text-slate-700">{email}</span>.</p>
+              </section>
               <div className="bg-white border border-slate-200 rounded p-8">
                 <p className="text-[14px] text-slate-600 leading-relaxed">
-                  Click the link in the email to activate your account and set up your profile. Check your spam folder if you don&apos;t see it within a minute.
+                  Open the email, click the link, and finish setup. If it is not there, check spam.
                 </p>
               </div>
               <p className="text-center text-[13px] text-slate-400 mt-5">
@@ -277,12 +303,12 @@ export default function SignupPage() {
             </>
           ) : (
             <>
-              <div className="mb-8">
+              <section id="signup-intro" className="mb-8">
                 {situation && SITUATION_COPY[situation] ? (
                   <>
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                    <p className="text-[12px] text-slate-400 mt-3">Create your account below. 30 days free. No credit card.</p>
+                      <p className="text-[12px] text-slate-400 mt-3">Create your account. 30 days free. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">
                       <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
                       <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
@@ -298,10 +324,30 @@ export default function SignupPage() {
                     <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
                   </>
                 )}
-              </div>
+                {entrySource && ENTRY_HANDOFF[entrySource] && (
+                  <div className="mt-4 rounded border border-slate-200 bg-white p-3">
+                    <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Continuity note</p>
+                    <p className="text-[12px] text-slate-700 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].title}</p>
+                    <p className="text-[12px] text-slate-600 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].body}</p>
+                    <p className="text-[12px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Next:</span> {ENTRY_HANDOFF[entrySource].nextStep}</p>
+                  </div>
+                )}
+              </section>
+
+              <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+                  <a href="#signup-intro" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why now</a>
+                  <a href="#social-signin" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Social sign-in</a>
+                  <a href="#email-signup" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email signup</a>
+                  <a href="#signup-trust" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Trust and privacy</a>
+                </div>
+              </section>
 
               <div className="bg-white border border-slate-200 rounded p-8">
 
+                <section id="social-signin" className="mb-5">
+                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
                 <button
                   type="button"
                   onClick={handleGoogle}
@@ -328,6 +374,7 @@ export default function SignupPage() {
                   </svg>
                   {appleLoading ? 'Redirecting…' : 'Continue with Apple'}
                 </button>
+                </section>
 
                 <div className="flex items-center gap-3 mb-5">
                   <div className="flex-1 h-px bg-slate-200" />
@@ -335,7 +382,8 @@ export default function SignupPage() {
                   <div className="flex-1 h-px bg-slate-200" />
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <form id="email-signup" onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Email signup</h2>
 
                   <div>
                     <label htmlFor="email" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
@@ -381,8 +429,8 @@ export default function SignupPage() {
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
-                  <p className="text-center text-[11px] text-slate-400">
-                    Your employer cannot see this. We never share your data with recruiters, employers, or third parties.{' '}
+                  <p id="signup-trust" className="text-center text-[11px] text-slate-400">
+                    Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
                     <Link href="/privacy" className="underline hover:text-slate-600">Privacy policy &rarr;</Link>
                   </p>
 

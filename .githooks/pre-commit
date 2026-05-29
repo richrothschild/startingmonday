@@ -7,6 +7,16 @@ echo "tsc..."
 echo "source guard..."
 node scripts/prebuild-guard.mjs
 
+echo "untracked test guard..."
+npm run guard:untracked-tests
+
+echo "outreach template drift..."
+./node_modules/.bin/vitest run src/lib/outreach/template-engine.test.ts
+
 echo "outreach lint..."
 node scripts/precommit-outreach-lint.mjs
+
+echo "mobile-ui gate..."
+node scripts/precommit-mobile-ui-gate.mjs
+
 echo "ok"

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for C-suite leaders - Make the Move from VP to CIO',
@@ -108,6 +109,7 @@ export default function ForVpPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <h1 className="sr-only">Starting Monday for VPs moving to CIO roles</h1>
       <LandingPage
         hero={{
           eyebrow: 'Most VP searches fail at positioning, not credentials.',
