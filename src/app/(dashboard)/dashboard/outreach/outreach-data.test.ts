@@ -75,6 +75,7 @@ describe('outreach-data dedupe', () => {
       emailConfidence: input.emailConfidence ?? 'medium',
       status: input.status ?? 'prospect',
       followUpSent: input.followUpSent ?? false,
+      hasLiveOutreach: input.hasLiveOutreach ?? false,
       emailOpening: input.emailOpening ?? '',
       emailBodyCore: input.emailBodyCore ?? '',
       defaultSubject: input.defaultSubject ?? '',

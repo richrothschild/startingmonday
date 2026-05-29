@@ -46,7 +46,7 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses, rawCoachSentLogs] = await Promise.all([
+  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses, rawLiveSentLogs] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
@@ -74,9 +74,8 @@ export default async function OutreachHubPage() {
       .eq('status', 'active'),
     (supabase as any)
       .from('outreach_logs')
-      .select('recipient_email, delivery_status, sent_at')
+      .select('recipient_email, delivery_status, sent_at, outreach_channel')
       .eq('user_id', user.id)
-      .eq('outreach_channel', 'coaches')
       .eq('send_mode', 'live')
       .not('recipient_email', 'is', null)
       .not('sent_at', 'is', null),
@@ -100,10 +99,15 @@ export default async function OutreachHubPage() {
   const executiveCompanySizeLookup = buildExecutiveCompanySizeLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
-  const sentCoachRows = (rawCoachSentLogs?.data ?? []) as Array<{ recipient_email: string | null; delivery_status: string | null; sent_at: string | null }>
-  const sentCoachEmails = new Set(
-    sentCoachRows
+  const sentLiveRows = (rawLiveSentLogs?.data ?? []) as Array<{ recipient_email: string | null; delivery_status: string | null; sent_at: string | null; outreach_channel: string | null }>
+  const sentLiveEmails = new Set(
+    sentLiveRows
       .filter((row) => row.delivery_status !== 'send_failed' && !!row.sent_at)
+      .map((row) => normalizeEmail(row.recipient_email)),
+  )
+  const sentCoachEmails = new Set(
+    sentLiveRows
+      .filter((row) => row.outreach_channel === 'coaches' && row.delivery_status !== 'send_failed' && !!row.sent_at)
       .map((row) => normalizeEmail(row.recipient_email)),
   )
 
@@ -132,6 +136,7 @@ export default async function OutreachHubPage() {
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       followUpSent: false,
+      hasLiveOutreach: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: draft.body,
       defaultSubject: draft.subject,
@@ -161,6 +166,7 @@ export default async function OutreachHubPage() {
         emailConfidence: inferEmailConfidence(row),
         status: normalizeStatus(row.status),
         followUpSent: false,
+        hasLiveOutreach: false,
         emailOpening: row.email_opening ?? '',
         emailBodyCore: row.email_body_core ?? '',
         defaultSubject: standardizedDraft.subject,
@@ -189,6 +195,7 @@ export default async function OutreachHubPage() {
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       followUpSent: false,
+      hasLiveOutreach: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'search_firms' as const,
@@ -211,6 +218,7 @@ export default async function OutreachHubPage() {
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       followUpSent: false,
+      hasLiveOutreach: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'coaches' as const,
@@ -233,6 +241,7 @@ export default async function OutreachHubPage() {
       emailConfidence: inferEmailConfidence(row),
       status: normalizeStatus(row.status),
       followUpSent: false,
+      hasLiveOutreach: false,
       emailOpening: row.email_opening ?? '',
       emailBodyCore: row.email_body_core ?? '',
       outreachChannel: 'outplacement_firms' as const,
@@ -252,6 +261,7 @@ export default async function OutreachHubPage() {
       ...row,
       status,
       followUpSent: mappedFollowUpSent.has(row.email),
+      hasLiveOutreach: sentLiveEmails.has(row.email),
     }
   })
 

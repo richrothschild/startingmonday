@@ -19,6 +19,7 @@ export type ClientRow = {
   emailConfidence: EmailConfidence
   status: string
   followUpSent: boolean
+  hasLiveOutreach: boolean
   emailOpening: string
   emailBodyCore: string
   defaultSubject: string

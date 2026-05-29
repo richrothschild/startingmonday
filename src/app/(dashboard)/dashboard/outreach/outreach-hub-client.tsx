@@ -44,6 +44,7 @@ type ProspectRow = {
   emailConfidence: 'high' | 'medium' | 'low'
   status: string
   followUpSent: boolean
+  hasLiveOutreach: boolean
   emailOpening: string
   emailBodyCore: string
   defaultSubject: string
@@ -401,7 +402,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
   const isCoachComposer = selected?.outreachChannel === 'coaches'
-  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out' && !r.followUpSent), [items])
+  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out' && !r.followUpSent && r.hasLiveOutreach), [items])
 
   async function hydrateTemplateForRow(row: ProspectRow) {
     setTemplateLoading(true)
