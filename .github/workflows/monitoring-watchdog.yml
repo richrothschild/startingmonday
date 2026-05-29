@@ -40,7 +40,7 @@ jobs:
           script: |
             const workflows = [
               { id: 'ci.yml', name: 'CI', maxAgeMinutes: null, requireSuccess: false },
-              { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90, requireSuccess: true },
+              { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90, requireSuccess: true, consecutiveFailureThreshold: 2 },
               { id: 'deployment-watchdog.yml', name: 'Deployment Watchdog', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90, requireSuccess: true },
@@ -81,18 +81,39 @@ jobs:
               }
 
               if (wf.requireSuccess) {
+                const consecutiveFailureThreshold = wf.consecutiveFailureThreshold ?? 1
+                let consecutiveFailures = 0
+                for (const run of runs) {
+                  if (run.conclusion === 'success') {
+                    break
+                  }
+                  consecutiveFailures += 1
+                }
+
                 const latestSuccess = runs.find((r) => r.conclusion === 'success')
                 if (!latestSuccess) {
-                  failures.push(`${wf.name}: no successful run found in recent history`)
-                  notes.push(`${wf.name}: latest ${latestRun.conclusion} (${latestAgeMinutes}m old), no recent success`)
+                  if (consecutiveFailures >= consecutiveFailureThreshold) {
+                    failures.push(`${wf.name}: no successful run found in recent history (${consecutiveFailures} consecutive failures)`)
+                  } else {
+                    notes.push(`${wf.name}: ${consecutiveFailures} consecutive failure(s) below alert threshold (${consecutiveFailureThreshold})`)
+                  }
                   continue
                 }
 
                 const latestSuccessAgeMinutes = Math.floor((now - new Date(latestSuccess.created_at).getTime()) / 60000)
-                notes.push(`${wf.name}: latest ${latestRun.conclusion} (${latestAgeMinutes}m old), latest success ${latestSuccessAgeMinutes}m old`)
+                notes.push(`${wf.name}: latest ${latestRun.conclusion} (${latestAgeMinutes}m old), latest success ${latestSuccessAgeMinutes}m old, consecutive failures ${consecutiveFailures}`)
+
+                if (latestRun.conclusion !== 'success' && consecutiveFailures >= consecutiveFailureThreshold) {
+                  failures.push(`${wf.name}: ${consecutiveFailures} consecutive failures (threshold ${consecutiveFailureThreshold})`)
+                }
 
                 if (wf.maxAgeMinutes !== null && latestSuccessAgeMinutes > wf.maxAgeMinutes) {
-                  failures.push(`${wf.name}: no successful run within freshness window (${latestSuccessAgeMinutes}m > ${wf.maxAgeMinutes}m)`)
+                  const belowFailureThreshold = latestRun.conclusion !== 'success' && consecutiveFailures < consecutiveFailureThreshold
+                  if (belowFailureThreshold) {
+                    notes.push(`${wf.name}: freshness warning suppressed (${latestSuccessAgeMinutes}m > ${wf.maxAgeMinutes}m) until ${consecutiveFailureThreshold} consecutive failures`)
+                  } else {
+                    failures.push(`${wf.name}: no successful run within freshness window (${latestSuccessAgeMinutes}m > ${wf.maxAgeMinutes}m)`)
+                  }
                 }
               } else {
                 notes.push(`${wf.name}: ${latestRun.conclusion} (${latestAgeMinutes}m old)`)
