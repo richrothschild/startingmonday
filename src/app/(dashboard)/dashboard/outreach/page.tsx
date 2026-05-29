@@ -10,12 +10,12 @@ import {
   ClientRow,
   ContactStatusRow,
   combineExecutiveSources,
-  emailConfidenceRank,
   executivePersonaFit,
   inferEmailConfidence,
   mergeFirstTouch,
   normalizeFitTier,
   normalizeStatus,
+  dedupeOutreachRows,
   prioritizeCuratedRows,
   readOutreachCsv,
   statusByEmail,
@@ -27,6 +27,10 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+
+function normalizeEmail(value: unknown): string {
+  return (value ?? '').toString().trim().toLowerCase()
+}
 
 export default async function OutreachHubPage() {
   const supabase = await createClient()
@@ -41,7 +45,7 @@ export default async function OutreachHubPage() {
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
 
-  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses] = await Promise.all([
+  const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses, rawCoachSentLogs] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
     readOutreachCsv('prospecting_combined_strict_100.csv'),
     readOutreachCsv('prospecting_combined_strict_50_personalized.csv'),
@@ -67,6 +71,14 @@ export default async function OutreachHubPage() {
       .select('email, outreach_status')
       .eq('user_id', user.id)
       .eq('status', 'active'),
+    (supabase as any)
+      .from('outreach_logs')
+      .select('recipient_email, delivery_status, sent_at')
+      .eq('user_id', user.id)
+      .eq('outreach_channel', 'coaches')
+      .eq('send_mode', 'live')
+      .not('recipient_email', 'is', null)
+      .not('sent_at', 'is', null),
   ])
   const executiveUniverse = combineExecutiveSources([
     executiveRaw,
@@ -87,6 +99,12 @@ export default async function OutreachHubPage() {
   const executiveCompanySizeLookup = buildExecutiveCompanySizeLookup(executiveTargetSlate.rows)
   const prioritizedSearchFirms = prioritizeCuratedRows(searchFirmRaw, searchFirmCurated)
   const prioritizedCoaches = prioritizeCuratedRows(coachRaw, coachCurated)
+  const sentCoachRows = (rawCoachSentLogs?.data ?? []) as Array<{ recipient_email: string | null; delivery_status: string | null; sent_at: string | null }>
+  const sentCoachEmails = new Set(
+    sentCoachRows
+      .filter((row) => row.delivery_status !== 'send_failed' && !!row.sent_at)
+      .map((row) => normalizeEmail(row.recipient_email)),
+  )
 
   const day1CoachRows: ClientRow[] = day1CoachTargetList.rows.reduce<ClientRow[]>((acc, row) => {
     const fullName = (row.full_name ?? '').trim()
@@ -217,30 +235,19 @@ export default async function OutreachHubPage() {
     })),
   ].filter(row => !!row.fullName && !!row.email)
 
-  const dedupedByEmail = new Map<string, ClientRow>()
-  for (const row of allRows) {
+  const normalizedRows = allRows.map((row) => {
     const dbStatus = mappedStatuses.get(row.email)
-    const normalized = {
+    const status = sentCoachEmails.has(row.email) && (dbStatus ?? row.status) === 'prospect'
+      ? 'reached_out'
+      : (dbStatus ?? row.status)
+
+    return {
       ...row,
-      status: dbStatus ?? row.status,
+      status,
     }
-    if (!dedupedByEmail.has(row.email)) {
-      dedupedByEmail.set(row.email, normalized)
-      continue
-    }
+  })
 
-    const existing = dedupedByEmail.get(row.email)!
-    if (existing.fitTier === 'medium' && normalized.fitTier === 'strong') {
-      dedupedByEmail.set(row.email, normalized)
-      continue
-    }
-
-    if (existing.fitTier === normalized.fitTier && emailConfidenceRank(normalized.emailConfidence) > emailConfidenceRank(existing.emailConfidence)) {
-      dedupedByEmail.set(row.email, normalized)
-    }
-  }
-
-  const clientRows = Array.from(dedupedByEmail.values())
+  const clientRows = dedupeOutreachRows(normalizedRows)
   const executiveCount = clientRows.filter(r => r.outreachChannel === 'executives').length
   const searchFirmCount = clientRows.filter(r => r.outreachChannel === 'search_firms').length
   const coachCount = clientRows.filter(r => r.outreachChannel === 'coaches').length

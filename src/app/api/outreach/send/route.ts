@@ -14,6 +14,7 @@ import {
   ensureOutreachSendBatch,
   enqueueOutreachSendJob,
   findDuplicateOutreachSend,
+  hasPriorLiveOutreach,
   kickOutreachSendWorker,
   type OutreachSendMode,
   type OutreachSendJobPayload,
@@ -396,6 +397,24 @@ export async function POST(request: NextRequest) {
         to: recipient,
         status: 'queued',
       })
+    }
+  }
+
+  const templateStepValue = templateStep.toLowerCase()
+  const campaignStepValue = campaignStep.toLowerCase()
+  const isFollowUp = templateStepValue.startsWith('followup') || campaignStepValue.startsWith('followup')
+  if (mode === 'live' && statusAfter === 'reached_out' && !isFollowUp) {
+    const priorOutreach = await hasPriorLiveOutreach(admin, {
+      userId,
+      recipientEmail: emailTo,
+      outreachChannel: outreachChannel as 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms',
+    })
+
+    if (priorOutreach.hasPriorLiveOutreach) {
+      return NextResponse.json({
+        error: 'Recipient already received an initial outreach email.',
+        deliveryStatus: priorOutreach.deliveryStatus,
+      }, { status: 409 })
     }
   }
 

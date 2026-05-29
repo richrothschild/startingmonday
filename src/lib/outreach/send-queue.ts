@@ -269,6 +269,33 @@ export async function findDuplicateOutreachSend(admin: any, input: { userId: str
   }
 }
 
+export async function hasPriorLiveOutreach(admin: any, input: { userId: string; recipientEmail: string; outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms' }) {
+  const { data: priorLog } = await admin
+    .from('outreach_logs')
+    .select('id, delivery_status, sent_at')
+    .eq('user_id', input.userId)
+    .eq('recipient_email', input.recipientEmail)
+    .eq('outreach_channel', input.outreachChannel)
+    .eq('send_mode', 'live')
+    .neq('delivery_status', 'send_failed')
+    .not('sent_at', 'is', null)
+    .order('sent_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (priorLog?.id) {
+    return {
+      hasPriorLiveOutreach: true,
+      deliveryStatus: priorLog.delivery_status ?? null,
+    }
+  }
+
+  return {
+    hasPriorLiveOutreach: false,
+    deliveryStatus: null,
+  }
+}
+
 export async function enqueueOutreachSendJob(admin: any, input: {
   batchId: string
   userId: string
