@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildStandardizedDraft, mapTriggerInputs, type CsvRow } from './outreach-data'
+import { buildStandardizedDraft, dedupeOutreachRows, followUpSentByEmail, mapTriggerInputs, type CsvRow, type ClientRow } from './outreach-data'
 
 describe('outreach-data trigger mapping', () => {
   it('maps CRM and scraping fields into trigger inputs', () => {
@@ -61,6 +61,75 @@ describe('outreach-data trigger mapping', () => {
     expect(draft.subject).not.toBe('Legacy CSV subject')
     expect(draft.body).not.toBe('Legacy CSV body')
     expect(draft.body).toContain('I saw your post on reducing prep drag between sessions, and it looked like the kind of prep load coaches end up carrying between sessions.')
-    expect(draft.body).toContain('It keeps client momentum visible between sessions without extra coach admin.')
+    expect(draft.body).toContain('Clients show up prepared, progress stays visible between sessions, and coaching time stays focused on decisions.')
+  })
+})
+
+describe('outreach-data dedupe', () => {
+  function row(input: Partial<ClientRow> & Pick<ClientRow, 'fullName' | 'company' | 'email'>): ClientRow {
+    return {
+      fullName: input.fullName,
+      roleBucket: input.roleBucket ?? 'Executive Coach',
+      company: input.company,
+      email: input.email,
+      emailConfidence: input.emailConfidence ?? 'medium',
+      status: input.status ?? 'prospect',
+      followUpSent: input.followUpSent ?? false,
+      hasLiveOutreach: input.hasLiveOutreach ?? false,
+      emailOpening: input.emailOpening ?? '',
+      emailBodyCore: input.emailBodyCore ?? '',
+      defaultSubject: input.defaultSubject ?? '',
+      defaultBody: input.defaultBody ?? '',
+      outreachChannel: input.outreachChannel ?? 'coaches',
+      fitTier: input.fitTier ?? 'medium',
+      personaFocus: input.personaFocus ?? 'Executive transitions',
+      campaignTag: input.campaignTag,
+    }
+  }
+
+  it('dedupes same coach person/company even when emails differ', () => {
+    const deduped = dedupeOutreachRows([
+      row({
+        fullName: 'Dana Lee',
+        company: 'Summit Coaching LLC',
+        email: 'dana+old@summitcoaching.com',
+        fitTier: 'medium',
+        emailConfidence: 'medium',
+        status: 'prospect',
+      }),
+      row({
+        fullName: 'Dana Lee',
+        company: 'Summit Coaching',
+        email: 'dana@summitcoaching.com',
+        fitTier: 'strong',
+        emailConfidence: 'high',
+        status: 'reached_out',
+      }),
+    ])
+
+    expect(deduped).toHaveLength(1)
+    expect(deduped[0].email).toBe('dana@summitcoaching.com')
+    expect(deduped[0].status).toBe('reached_out')
+  })
+
+  it('keeps similarly named people when company differs', () => {
+    const deduped = dedupeOutreachRows([
+      row({ fullName: 'Jordan Smith', company: 'Northstar Coaching', email: 'jordan@northstar.com' }),
+      row({ fullName: 'Jordan Smith', company: 'Lighthouse Coaching', email: 'jordan@lighthouse.com' }),
+    ])
+
+    expect(deduped).toHaveLength(2)
+  })
+
+  it('flags contacts whose persisted outreach status shows a follow-up already sent', () => {
+    const sent = followUpSentByEmail([
+      { email: 'alex@example.com', outreach_status: 'followup_1_sent' },
+      { email: 'blair@example.com', outreach_status: 'reached_out' },
+      { email: 'casey@example.com', outreach_status: 'followup_2_sent' },
+    ])
+
+    expect(sent.has('alex@example.com')).toBe(true)
+    expect(sent.has('casey@example.com')).toBe(true)
+    expect(sent.has('blair@example.com')).toBe(false)
   })
 })

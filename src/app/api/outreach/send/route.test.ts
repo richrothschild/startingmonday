@@ -12,6 +12,7 @@ const state = vi.hoisted(() => ({
   ensureOutreachSendBatch: vi.fn(async () => 'batch_1'),
   enqueueOutreachSendJob: vi.fn(async () => ({ jobId: 'job_1', batchId: 'batch_1', domainBucket: 'corporate' })),
   findDuplicateOutreachSend: vi.fn(async () => ({ duplicate: false, deliveryStatus: null, jobId: null } as { duplicate: boolean; deliveryStatus: string | null; jobId: string | null })),
+  hasPriorLiveOutreach: vi.fn(async () => ({ hasPriorLiveOutreach: false, deliveryStatus: null } as { hasPriorLiveOutreach: boolean; deliveryStatus: string | null })),
   kickOutreachSendWorker: vi.fn(async () => undefined),
 }))
 
@@ -41,6 +42,7 @@ vi.mock('@/lib/outreach/send-queue', () => ({
   ensureOutreachSendBatch: state.ensureOutreachSendBatch,
   enqueueOutreachSendJob: state.enqueueOutreachSendJob,
   findDuplicateOutreachSend: state.findDuplicateOutreachSend,
+  hasPriorLiveOutreach: state.hasPriorLiveOutreach,
   kickOutreachSendWorker: state.kickOutreachSendWorker,
 }))
 vi.mock('@/lib/supabase/server', () => ({
@@ -140,6 +142,8 @@ describe('outreach send route (queue mode)', () => {
         messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
         outreachChannel: 'executives',
+        templateStep: 'followup_1',
+        campaignStep: 'followup_bulk_v1',
       }),
     })
 
@@ -173,6 +177,8 @@ describe('outreach send route (queue mode)', () => {
         messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
         outreachChannel: 'executives',
+        templateStep: 'followup_1',
+        campaignStep: 'followup_bulk_v1',
         idempotencyKey: 'followup_bulk_v1:alex@example.com',
       }),
     })
@@ -183,6 +189,32 @@ describe('outreach send route (queue mode)', () => {
       ok: true,
       duplicate: true,
       idempotencyKey: 'followup_bulk_v1:alex@example.com',
+      deliveryStatus: 'accepted',
+    })
+    expect(state.enqueueOutreachSendJob).not.toHaveBeenCalled()
+  })
+
+  it('blocks duplicate live initial sends when the recipient already has prior outreach history', async () => {
+    state.hasPriorLiveOutreach.mockResolvedValue({ hasPriorLiveOutreach: true, deliveryStatus: 'accepted' })
+
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        emailTo: 'alex@example.com',
+        subject: 'A clearer CFO story for recruiter and board calls',
+        messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
+        mode: 'live',
+        outreachChannel: 'executives',
+        templateStep: 'first_touch',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(409)
+    await expect(res.json()).resolves.toMatchObject({
+      error: 'Recipient already received an initial outreach email.',
       deliveryStatus: 'accepted',
     })
     expect(state.enqueueOutreachSendJob).not.toHaveBeenCalled()
