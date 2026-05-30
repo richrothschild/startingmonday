@@ -85,8 +85,18 @@ function includesYesPass(text: string): boolean {
   return /reply\s+yes/i.test(text) && /reply\s+pass/i.test(text)
 }
 
+function hasCurrentCtaShape(text: string): boolean {
+  const hasReplyPass = /reply\s+pass|close\s+the\s+loop|not\s+relevant\s+right\s+now/i.test(text)
+  const hasOfferToSend = /if\s+helpful,?\s+i\s+can\s+send|if\s+useful,?\s+i\s+can\s+send|if\s+you\s+want\s+it,?\s+reply\s+yes\s+and\s+i\s+will\s+send|reply\s+yes\s+and\s+i\s+will\s+send/i.test(text)
+  return hasReplyPass && hasOfferToSend
+}
+
 function hasProofShape(text: string): boolean {
-  return /\bn=\d+\b/i.test(text) || /\bpilot\b/i.test(text)
+  if (/\bn=\d+\b/i.test(text) || /\bpilot\b/i.test(text)) return true
+
+  // Current outplacement templates intentionally avoid explicit denominators,
+  // but still include time-bounded directional proof language.
+  return /across\s+[a-z]{3,9}\s*[-–]\s*[a-z]{3,9}\s+20\d{2}.*(cases|cohorts|engagements|teams\s+saw)/i.test(text)
 }
 
 function hasCaveat(text: string): boolean {
@@ -141,8 +151,13 @@ function calcUnderstandScore(text: string): { score: number; warnings: string[];
 function calcReplyScore(text: string): { score: number; warnings: string[] } {
   const ws: string[] = []
   let score = 0.68
-  if (includesYesPass(text)) score += 0.2
-  else ws.push('Binary yes/pass CTA not found.')
+  if (includesYesPass(text)) {
+    score += 0.2
+  } else if (hasCurrentCtaShape(text)) {
+    score += 0.18
+  } else {
+    ws.push('Clear CTA/exit language not found.')
+  }
 
   if (/if useful/i.test(text)) score += 0.05
   if (/close the loop|archive this thread/i.test(text)) score += 0.04
@@ -158,7 +173,7 @@ function calcProductLiftScore(text: string): { score: number; warnings: string[]
   else ws.push('Starting Monday is not explicitly named in body.')
 
   if (hasProofShape(text)) score += 0.1
-  else ws.push('Proof line does not include denominator/pilot marker.')
+  else ws.push('Proof line is missing a concrete evidence marker.')
 
   if (hasCaveat(text)) score += 0.06
   else ws.push('Caveat language is missing.')

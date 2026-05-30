@@ -18,6 +18,8 @@ export type ClientRow = {
   email: string
   emailConfidence: EmailConfidence
   status: string
+  followUpSent: boolean
+  hasLiveOutreach: boolean
   emailOpening: string
   emailBodyCore: string
   defaultSubject: string
@@ -26,6 +28,88 @@ export type ClientRow = {
   fitTier: 'strong' | 'medium'
   personaFocus: string
   campaignTag?: 'coach_day1_60'
+}
+
+function normalizeKeyToken(value: string | undefined): string {
+  return (value ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function normalizeCompanyDedupeKey(value: string | undefined): string {
+  return normalizeKeyToken(value)
+    .replace(/\b(inc|incorporated|corp|corporation|co|company|group|holdings|plc|llc|ltd|limited|partners|partner|firm)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function statusPriority(status: string): number {
+  if (status === 'meeting_scheduled') return 5
+  if (status === 'in_conversation') return 4
+  if (status === 'reached_out') return 3
+  if (status === 'prospect') return 2
+  if (status === 'closed') return 1
+  return 0
+}
+
+function rowPriority(row: ClientRow): number {
+  let score = 0
+  score += row.fitTier === 'strong' ? 200 : 100
+  score += emailConfidenceRank(row.emailConfidence) * 10
+  score += statusPriority(normalizeStatus(row.status))
+  if (row.campaignTag === 'coach_day1_60') score += 1
+  return score
+}
+
+function preferRow(existing: ClientRow, candidate: ClientRow): ClientRow {
+  const existingPriority = rowPriority(existing)
+  const candidatePriority = rowPriority(candidate)
+  if (candidatePriority > existingPriority) return candidate
+  if (candidatePriority < existingPriority) return existing
+  return existing
+}
+
+/**
+ * Dedupe across two scopes:
+ * 1) email-level dedupe (exact canonical email)
+ * 2) person/company dedupe within the same outreach channel
+ */
+export function dedupeOutreachRows(rows: ClientRow[]): ClientRow[] {
+  const byEmail = new Map<string, ClientRow>()
+
+  for (const row of rows) {
+    const emailKey = (row.email ?? '').trim().toLowerCase()
+    if (!emailKey) continue
+
+    const existing = byEmail.get(emailKey)
+    if (!existing) {
+      byEmail.set(emailKey, row)
+      continue
+    }
+
+    byEmail.set(emailKey, preferRow(existing, row))
+  }
+
+  const byPersonCompany = new Map<string, ClientRow>()
+  for (const row of byEmail.values()) {
+    const normalizedName = normalizeKeyToken(row.fullName)
+    const normalizedCompany = normalizeCompanyDedupeKey(row.company)
+    const personCompanyKey = normalizedName && normalizedCompany
+      ? `${row.outreachChannel}::${normalizedName}::${normalizedCompany}`
+      : `${row.outreachChannel}::${row.email}`
+
+    const existing = byPersonCompany.get(personCompanyKey)
+    if (!existing) {
+      byPersonCompany.set(personCompanyKey, row)
+      continue
+    }
+
+    byPersonCompany.set(personCompanyKey, preferRow(existing, row))
+  }
+
+  return Array.from(byPersonCompany.values())
 }
 
 export type ContactStatusRow = {
@@ -610,4 +694,17 @@ export function statusByEmail(rows: ContactStatusRow[]): Map<string, string> {
     byEmail.set(email, normalizeStatus(row.outreach_status ?? 'prospect'))
   }
   return byEmail
+}
+
+export function followUpSentByEmail(rows: ContactStatusRow[]): Set<string> {
+  const sent = new Set<string>()
+  for (const row of rows) {
+    const email = (row.email ?? '').trim().toLowerCase()
+    const status = (row.outreach_status ?? '').trim().toLowerCase()
+    if (!email) continue
+    if (status === 'followup_1_sent' || status === 'followup_2_sent') {
+      sent.add(email)
+    }
+  }
+  return sent
 }
