@@ -10,6 +10,13 @@ type GuideSection = {
   id: string
   title: string
   body: string
+  items?: Array<{
+    title: string
+    url?: string
+    summary: string
+    lastModifiedAt?: string
+    qualityWeight?: number
+  }>
 }
 
 type UserGuideIndexEntry = {
@@ -18,6 +25,8 @@ type UserGuideIndexEntry = {
   body: string
   type: 'get-started' | 'feature' | 'how-to' | 'api' | 'article'
   url: string
+  lastModifiedAt?: string
+  qualityWeight?: number
 }
 
 type UserGuideIndexFile = {
@@ -120,6 +129,13 @@ function sectionsFromIndex(entries: UserGuideIndexEntry[]): GuideSection[] {
       id: `section-${index}`,
       title: `${typeLabel(type)} (${list.length})`,
       body,
+      items: list.slice(0, 120).map((entry) => ({
+        title: entry.title,
+        url: entry.url,
+        summary: entry.body,
+        lastModifiedAt: entry.lastModifiedAt,
+        qualityWeight: entry.qualityWeight,
+      })),
     })
     index += 1
   }
@@ -137,25 +153,29 @@ export default async function GuidePage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const guidePath = path.join(process.cwd(), 'docs', 'user-guide.md')
-  const markdown = await readFile(guidePath, 'utf8').catch(() => '')
-  const markdownSections = parseGuide(markdown)
-
   const diskIndexPath = path.join(process.cwd(), 'docs', 'user-guide.index.json')
   const diskIndexRaw = await readFile(diskIndexPath, 'utf8').catch(() => '')
   let diskIndexEntries: UserGuideIndexEntry[] = []
+  let guideGeneratedAt = ''
   if (diskIndexRaw) {
     try {
       const parsed = JSON.parse(diskIndexRaw) as UserGuideIndexFile
       diskIndexEntries = parsed.entries ?? []
+      guideGeneratedAt = parsed.generatedAt ?? ''
     } catch {
       diskIndexEntries = []
     }
   }
 
-  const bundledEntries = ((bundledIndex as UserGuideIndexFile).entries ?? []) as UserGuideIndexEntry[]
+  const bundledFile = bundledIndex as UserGuideIndexFile
+  const bundledEntries = (bundledFile.entries ?? []) as UserGuideIndexEntry[]
+  if (!guideGeneratedAt) guideGeneratedAt = bundledFile.generatedAt ?? ''
   const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
-  const sections = markdownSections.length > 0 ? markdownSections : indexSections
+
+  const guidePath = path.join(process.cwd(), 'docs', 'user-guide.md')
+  const markdown = await readFile(guidePath, 'utf8').catch(() => '')
+  const markdownSections = parseGuide(markdown)
+  const sections = indexSections.length > 0 ? indexSections : markdownSections
 
   const safeSections = sections.length > 0 ? sections : CORE_USER_SECTIONS
 
@@ -167,7 +187,7 @@ export default async function GuidePage({
         <p>Outcome: users can self-serve onboarding, feature discovery, and troubleshooting without waiting for support.</p>
         <Link href="/dashboard/help">Get started from Help</Link>
       </section>
-      <GuideClient sections={safeSections} initialQuestion={q?.slice(0, 500) ?? ''} />
+      <GuideClient sections={safeSections} initialQuestion={q?.slice(0, 500) ?? ''} guideGeneratedAt={guideGeneratedAt} />
     </>
   )
 }

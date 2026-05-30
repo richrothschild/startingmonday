@@ -10,6 +10,7 @@ type InternalEntry = {
   ref: string
   tags: string[]
   qualityWeight: number
+  lastModifiedAt?: string
 }
 
 type InternalManifest = {
@@ -54,6 +55,11 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
   }
 
   return out
+}
+
+async function lastModifiedAt(filePath: string): Promise<string | undefined> {
+  const stat = await fs.stat(filePath).catch(() => null)
+  return stat?.mtime?.toISOString()
 }
 
 function rel(filePath: string): string {
@@ -138,6 +144,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: route,
       tags: ['feature', 'route', 'app-router'],
       qualityWeight: qualityForType('feature'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -154,6 +161,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['api', 'route-handler'],
       qualityWeight: qualityForType('api'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -168,6 +176,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['code', 'library'],
       qualityWeight: qualityForType('code'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -182,6 +191,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['script', 'operations'],
       qualityWeight: qualityForType('script'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -196,6 +206,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['infra', 'github-actions'],
       qualityWeight: qualityForType('infra'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -210,6 +221,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['data', 'migration', 'supabase'],
       qualityWeight: qualityForType('data'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -224,6 +236,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
       ref: rel(filePath),
       tags: ['doc', 'knowledge'],
       qualityWeight: qualityForType('doc'),
+      lastModifiedAt: await lastModifiedAt(filePath),
     })
   }
 
@@ -235,6 +248,7 @@ async function buildEntries(): Promise<InternalEntry[]> {
     ref: 'docs/internal-system-summary.md',
     tags: ['architecture', 'platform'],
     qualityWeight: qualityForType('architecture'),
+    lastModifiedAt: await lastModifiedAt(INTERNAL_SUMMARY_PATH),
   }
 
   return [architectureEntry, ...featureEntries, ...apiEntries, ...libEntries, ...scriptEntries, ...infraEntries, ...dataEntries, ...docEntries]
