@@ -71,6 +71,64 @@ test('Synthetic-01: login page loads within budget', async ({ page }) => {
   expect(elapsed, `Login page load ${elapsed}ms exceeded budget of 3000ms`).toBeLessThanOrEqual(3_000)
 })
 
+test('Synthetic-01b: login controls dispatch auth requests', async ({ page }) => {
+  await page.goto('/login', { waitUntil: 'load' })
+
+  // Intercept auth calls so this check remains side-effect free while still
+  // proving that controls dispatch network requests.
+  await page.route('**/api/auth/verify-and-signin', async route => {
+    await route.fulfill({
+      status: 401,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'synthetic_probe' }),
+    })
+  })
+  await page.route('**/api/auth/login-submit', async route => {
+    await route.fulfill({
+      status: 302,
+      headers: { location: '/login?error=invalid_credentials' },
+      body: '',
+    })
+  })
+  await page.route('**/api/auth/verify-and-oauth', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, url: '/login?oauth_probe=1' }),
+    })
+  })
+  await page.route('**/api/auth/oauth-start**', async route => {
+    await route.fulfill({
+      status: 302,
+      headers: { location: '/login?oauth_probe=1' },
+      body: '',
+    })
+  })
+
+  await page.locator('#email').fill('synthetic@example.com')
+  await page.locator('#password').fill('synthetic-password')
+
+  const signInRequest = page.waitForRequest(
+    req => req.method() === 'POST' && (
+      req.url().includes('/api/auth/verify-and-signin')
+      || req.url().includes('/api/auth/login-submit')
+    ),
+    { timeout: 5000 }
+  )
+  await page.getByRole('button', { name: /^Sign in$/i }).click()
+  await signInRequest
+
+  const oauthRequest = page.waitForRequest(
+    req => (
+      req.url().includes('/api/auth/verify-and-oauth')
+      || req.url().includes('/api/auth/oauth-start')
+    ),
+    { timeout: 5000 }
+  )
+  await page.getByText('Continue with Google').click()
+  await oauthRequest
+})
+
 // ---------------------------------------------------------------------------
 // Synthetic-02: Auth API Health — sign-in with synthetic account
 // Budget: <= 2000ms
