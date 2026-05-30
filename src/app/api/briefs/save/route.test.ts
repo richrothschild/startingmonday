@@ -65,6 +65,7 @@ describe('src/app/api/briefs/save/route.ts', () => {
             originClass: 'user_provided',
             section: 'Bottom Line',
             sensitivePolicyHooks: [],
+            sourceEvidence: ['career_history'],
           },
         ],
         provenance_version: 1,
