@@ -337,6 +337,15 @@ export default function MarkReviewPage() {
             </ul>
           </section>
 
+          <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'd like from you</p>
+            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
+              <li>Brutally honest feedback.</li>
+              <li>Does this seem like a viable product?</li>
+              <li>What would you fix?</li>
+            </ol>
+          </section>
+
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Review links</p>
             <div className="space-y-3 text-[14px]">
