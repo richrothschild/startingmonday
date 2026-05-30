@@ -250,7 +250,7 @@ export default function MarkBusinessPlanPage() {
           </section>
 
           <section className="border border-blue-300 rounded-lg p-6 bg-blue-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What else Mark should ask for before committing</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What else Mark should ask for</p>
             <ul className="space-y-2.5">
               {MISSING_FOR_DECISION.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">

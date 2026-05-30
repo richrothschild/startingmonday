@@ -2,12 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import TrackedCtaLink from '@/components/TrackedCtaLink'
 
-const FEEDBACK_EMAIL = 'rothschild@gmail.com'
-
-function mailtoHref(subject: string, body: string) {
-  return `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-}
-
 export const metadata: Metadata = {
   title: 'Starting Monday | Manager Tools Decision Brief',
   description:
@@ -20,12 +14,6 @@ export const metadata: Metadata = {
     url: 'https://startingmonday.app/mark-review',
   },
 }
-
-const DECISION_QUESTIONS = [
-  'Which control KPI should be published now: outreach volume, qualified conversations, or follow-up completion?',
-  'Do we hold person-first execution as the operating principle for every channel?',
-  'If one fix ships this week, should priority be proof quality, pricing clarity, or loop-closure instrumentation?',
-]
 
 const NEXT_7_DAYS = [
   'Publish one control KPI with denominator, timeframe, and confidence annotation.',
@@ -85,14 +73,6 @@ const LOOP_CLOSURE_SCORECARD = [
     baseline: 'Mentioned conceptually, not measured end to end',
     laneOneTarget: 'Instrument and report in weekly growth readout',
   },
-]
-
-const PRE_MEETING_QA = [
-  'Operating narrative coherence: landing, Mark brief, and summary use the same Momentum framing.',
-  'Copy clarity: each section has one decision outcome.',
-  'Proof hygiene: every number has source, denominator, timeframe, and confidence statement.',
-  'Telemetry: key actions on Mark pages are event-tracked for engagement review.',
-  'Deployment hygiene: Railway SUCCESS plus manual live-page verification logged in execution tracker.',
 ]
 
 const FEATURE_CHANNELS = [
@@ -174,16 +154,6 @@ const MARK_DILIGENCE_GAPS = [
 ]
 
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
-
-const feedbackLink = mailtoHref(
-  'Starting Monday: Mark decision brief feedback',
-  'Most important control KPI to publish now:\n\nMost damaging trust gap:\n\nBest single fix for this week:\n\nNotes on cadence clarity, operating rigor, or person-first framing:\n',
-)
-
-const callLink = mailtoHref(
-  'Starting Monday: 15-minute review call',
-  'Mark,\n\nIf you are open to it, I would value 15 minutes to pressure-test the site for C-suite conversion.\n\nPreferred windows:\n- Option 1:\n- Option 2:\n\nThanks,\nRichard\n',
-)
 
 export default function MarkReviewPage() {
   return (
@@ -353,51 +323,6 @@ export default function MarkReviewPage() {
                 <li key={item}>{item}</li>
               ))}
             </ol>
-          </section>
-
-          <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I need from you</p>
-            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
-              {DECISION_QUESTIONS.map((q) => (
-                <li key={q}>{q}</li>
-              ))}
-            </ol>
-            <div className="flex flex-col sm:flex-row gap-3 mt-6">
-              <TrackedCtaLink
-                href={feedbackLink}
-                eventName="mark_review_cta_click"
-                eventProps={{ placement: 'decision_ask', cta: 'send_feedback' }}
-                className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-5 py-2.5 rounded transition-colors text-center"
-              >
-                Send direct feedback
-              </TrackedCtaLink>
-              <TrackedCtaLink
-                href={callLink}
-                eventName="mark_review_cta_click"
-                eventProps={{ placement: 'decision_ask', cta: 'request_call' }}
-                className="inline-block border border-slate-400 hover:border-slate-600 text-slate-800 text-[14px] px-5 py-2.5 rounded transition-colors text-center"
-              >
-                Request 15-minute call
-              </TrackedCtaLink>
-            </div>
-          </section>
-
-          <section className="border border-green-300 rounded-lg p-6 bg-green-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-green-700 mb-4">Pre-meeting quality and readiness</p>
-            <ul className="space-y-2.5 mb-5">
-              {PRE_MEETING_QA.map((item) => (
-                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-green-700 mt-0.5">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="rounded border border-green-300 bg-white p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-green-700 mb-2">Readiness status</p>
-              <p className="text-[14px] text-slate-800 leading-relaxed">
-                Ready with conditions. Lane 1 closes when the control scorecard publishes with denominators and the post-deploy live verification is logged in the execution tracker.
-              </p>
-            </div>
           </section>
 
           <section className="border border-blue-300 rounded-lg p-6 bg-blue-50">
