@@ -111,11 +111,14 @@ describe('outreach template engine', () => {
       state: 'optionality',
     })
 
-    expect(draft.subject).toBe('A shared readiness checklist for Outplace Inc')
+    expect(draft.subject).toBe('A shared readiness standard for Outplace Inc')
     expect(draft.body).toContain('Across Executive transition programs, candidates can get prepared in different ways, and counselors feel the inconsistency.')
-    expect(draft.body).toContain('Starting Monday gives counselors one checklist for what interview-ready, role-fit, and compensation-ready looks like so cohorts stay aligned and coordinator cleanup drops.')
-    expect(draft.body).toContain('Reply yes and I will send the cohort readiness checklist.')
+    expect(draft.body).toContain('Starting Monday gives outplacement teams one operating layer for readiness, follow-up, and prep visibility so cohorts stay aligned without adding admin work.')
+    expect(draft.body).toContain('Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.')
+    expect(draft.body).toContain('If helpful, I can send the 30-day cohort readiness checklist.')
     expect(draft.body).not.toContain('pilot group')
+    expect(draft.body).not.toContain('(n=27)')
+    expect(draft.body).not.toContain('reply yes and i will send')
   })
 
   it('builds executive followup subjects with step-specific variants', () => {
@@ -238,7 +241,7 @@ describe('outreach template engine', () => {
     expect(coach.body).toContain('I saw your post on keeping client prep simple, and it looked like the kind of prep load coaches end up carrying between sessions.')
     expect(coach.body).toContain('stop losing time to underprepared clients, collapsing follow-through, and constant context rebuild')
     expect(outplacement.body).toContain('I saw your cohort model now spans three regions, and it looked like the kind of growth point where cohort consistency gets harder to hold.')
-    expect(outplacement.body).toContain('one checklist for what interview-ready, role-fit, and compensation-ready looks like')
+    expect(outplacement.body).toContain('one operating layer for readiness, follow-up, and prep visibility')
   })
 
   it('keeps search copy focused on shortlist quality instead of product jargon', () => {

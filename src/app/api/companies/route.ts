@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -40,6 +41,8 @@ export async function POST(request: NextRequest) {
 
   await logEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
   captureServerEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
+  await logEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'discover', company_id: inserted?.id ?? null })
+  captureServerEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'discover', company_id: inserted?.id ?? null })
   if (inserted?.id) {
     await logCompanyWatch(userId, inserted.id, { sector, careerPageUrlPresent: false, fitScore, stage: 'watching' })
   }

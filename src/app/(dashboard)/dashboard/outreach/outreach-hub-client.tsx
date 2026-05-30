@@ -43,6 +43,8 @@ type ProspectRow = {
   email: string
   emailConfidence: 'high' | 'medium' | 'low'
   status: string
+  followUpSent: boolean
+  hasLiveOutreach: boolean
   emailOpening: string
   emailBodyCore: string
   defaultSubject: string
@@ -400,7 +402,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
 
   const selected = filtered[selectedIndex] ?? filtered[0] ?? null
   const isCoachComposer = selected?.outreachChannel === 'coaches'
-  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out'), [items])
+  const followUpTargets = useMemo(() => items.filter(r => r.status === 'reached_out' && !r.followUpSent && r.hasLiveOutreach), [items])
 
   async function hydrateTemplateForRow(row: ProspectRow) {
     setTemplateLoading(true)
@@ -627,7 +629,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
           company: target.company,
           roleBucket: target.roleBucket,
           emailTo: target.email,
-          statusAfter: 'reached_out',
+          statusAfter: 'followup_1_sent',
           mode: 'dry_run',
           outreachChannel: target.outreachChannel,
           fitTier: target.fitTier,
@@ -751,6 +753,9 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
       return
     }
 
+    const sentEmails = new Set(sendQueue.map((row) => row.email))
+    setItems(prev => prev.map((row) => (sentEmails.has(row.email) ? { ...row, followUpSent: true } : row)))
+
     const deliveredLike = summary.deliveredJobs + summary.acceptedJobs + summary.repliedJobs
     setSuccess(`Completed follow-up batch: ${deliveredLike} accepted/delivered/replied, ${summary.bouncedJobs} bounced, ${summary.complainedJobs} complained. ${duplicateCount > 0 ? `${duplicateCount} duplicates were skipped.` : ''}`.trim())
   }
@@ -813,7 +818,7 @@ export function OutreachHubClient({ rows, fromAddressLabel, buildVersion }: Prop
           >
             {sendingFollowUps
               ? 'Sending Follow-ups...'
-              : `Send Follow-ups (All Channels${followUpTargets.length > 0 ? `: ${followUpTargets.length}` : ''})`}
+              : `Send First Follow-Ups (Eligible${followUpTargets.length > 0 ? `: ${followUpTargets.length}` : ''})`}
           </button>
         </div>
       </div>

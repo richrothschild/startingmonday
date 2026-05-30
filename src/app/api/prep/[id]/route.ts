@@ -9,6 +9,7 @@ import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_PREP_BRIEFS } from '@/lib/demo'
 import { encodeUserId } from '@/lib/watermark'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { getRoleModePromptPack, isPrepRoleMode, type PrepRoleMode } from '@/lib/prep-role-modes'
 import {
   buildScanSection, buildSignalSection, buildContactSection, buildDocSection, buildCompanyFocusBrief,
   type Signal, type ScanRow, type ContactRow, type DocRow,
@@ -233,7 +234,7 @@ In Anticipated Pushback, the first objection should reflect the highest-probabil
 Signal categories detected: ${typeList}.`
 }
 
-function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null, interviewLogs: InterviewLogRow[] | null = null) {
+function buildContext(company: CompanyRow, profile: ProfileRow | null, scanResults: ScanRow[] | null, contacts: ContactRow[] | null, documents: DocRow[] | null, signals: Signal[] | null, interviewStage: InterviewStage | null = null, interviewLogs: InterviewLogRow[] | null = null, roleMode: PrepRoleMode | null = null) {
   const name = profile?.full_name ?? 'the candidate'
   const targetTitles = (profile?.target_titles ?? []).join(', ') || 'Not specified'
   const targetSectors = (profile?.target_sectors ?? []).join(', ') || 'Not specified'
@@ -459,7 +460,7 @@ If the candidate's background is thin (no resume, no positioning), name what you
 
 Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging. No motivational language.`
 
-  return prompt
+  return prompt + getRoleModePromptPack(roleMode)
 }
 
 function isAllowedJobUrl(raw: string): boolean {
@@ -511,6 +512,8 @@ export async function GET(
 
   const postingUrl = request.nextUrl.searchParams.get('posting_url')
   const interviewStage = (request.nextUrl.searchParams.get('interview_stage') ?? null) as InterviewStage | null
+  const rawRoleMode = request.nextUrl.searchParams.get('role_mode')
+  const roleMode = isPrepRoleMode(rawRoleMode) ? rawRoleMode : null
   let allDocuments = documents
   if (postingUrl && !isAllowedJobUrl(postingUrl)) {
     return new Response('Invalid posting URL', { status: 400 })
@@ -528,7 +531,7 @@ export async function GET(
     } catch { /* ignore fetch errors, fall back to existing docs */ }
   }
 
-  const userPrompt = buildContext(company, profile as ProfileRow | null, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null)
+  const userPrompt = buildContext(company, profile as ProfileRow | null, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null, roleMode)
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
@@ -542,6 +545,7 @@ export async function GET(
         company_name: company.name,
         company_stage: company.stage,
         interview_stage: interviewStage,
+        role_mode: roleMode,
         has_resume: (profile?.resume_text?.length ?? 0) > 0,
         has_scan: (scanResults?.length ?? 0) > 0,
       },
