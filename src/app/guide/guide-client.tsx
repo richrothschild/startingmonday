@@ -252,23 +252,34 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
 
         <div className="bg-white border border-slate-200 rounded p-4 mb-6">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Section index</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {filtered.map((section) => (
-              <a key={section.id} href={`#${toAnchorId(section.id)}`} className="text-[13px] text-slate-700 hover:text-slate-900 hover:underline">
-                {section.title}
-              </a>
-            ))}
-          </div>
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {filtered.map((section) => (
+                <a key={section.id} href={`#${toAnchorId(section.id)}`} className="text-[13px] text-slate-700 hover:text-slate-900 hover:underline">
+                  {section.title}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[12px] text-slate-500">No sections match this search yet. Clear search to browse all guide sections.</p>
+          )}
         </div>
 
-        <div className="space-y-4">
-          {filtered.map((section) => (
-            <section key={section.id} id={toAnchorId(section.id)} className="bg-white border border-slate-200 rounded p-5">
-              <h2 className="text-[18px] font-bold text-slate-900 mb-2">{section.title}</h2>
-              <div className="space-y-1">{renderBody(section.body.trim())}</div>
-            </section>
-          ))}
-        </div>
+        {filtered.length > 0 ? (
+          <div className="space-y-4">
+            {filtered.map((section) => (
+              <section key={section.id} id={toAnchorId(section.id)} className="bg-white border border-slate-200 rounded p-5">
+                <h2 className="text-[18px] font-bold text-slate-900 mb-2">{section.title}</h2>
+                <div className="space-y-1">{renderBody(section.body.trim())}</div>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[14px] font-semibold text-slate-900">No guide sections found for this search.</p>
+            <p className="text-[13px] text-slate-600 mt-1">Try a broader keyword like onboarding, profile, companies, briefing, or outreach.</p>
+          </div>
+        )}
       </main>
     </div>
   )
