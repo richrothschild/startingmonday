@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
@@ -16,8 +16,9 @@ import {
 } from '@/lib/prep-context'
 import Anthropic from '@anthropic-ai/sdk'
 import { anthropic, MODELS, getModelForTier } from '@/lib/anthropic'
-import { PrepRefineBodySchema, firstZodError } from '@/lib/schemas'
+import { PrepRefineBodySchema, PrepRouteParamsSchema, PrepGenerateQuerySchema, firstZodError } from '@/lib/schemas'
 import { recordTrace, recordTraceError } from '@/lib/trace'
+import { apiError } from '@/lib/api-error'
 
 type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
 
@@ -495,10 +496,24 @@ export async function GET(
   const { userId, tier, supabase } = access
   const model = getModelForTier(tier)
 
-  const { id: companyId } = await params
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+
+  const queryParsed = PrepGenerateQuerySchema.safeParse({
+    posting_url: request.nextUrl.searchParams.get('posting_url') ?? undefined,
+    interview_stage: request.nextUrl.searchParams.get('interview_stage') ?? null,
+    role_mode: request.nextUrl.searchParams.get('role_mode') ?? null,
+  })
+  if (!queryParsed.success) {
+    return apiError(firstZodError(queryParsed.error), 400)
+  }
+
+  const { id: companyId } = routeParams.data
   const { company, profile, scanResults, contacts, documents, signals, interviewLogs } = await loadContext(supabase, companyId, userId)
 
-  if (!company) return new Response('Not found', { status: 404 })
+  if (!company) return apiError('Not found', 404)
 
   if (isDemoUser(userId)) {
     const key = company.name.toLowerCase()
@@ -510,13 +525,13 @@ export async function GET(
     }
   }
 
-  const postingUrl = request.nextUrl.searchParams.get('posting_url')
-  const interviewStage = (request.nextUrl.searchParams.get('interview_stage') ?? null) as InterviewStage | null
-  const rawRoleMode = request.nextUrl.searchParams.get('role_mode')
+  const postingUrl = queryParsed.data.posting_url || null
+  const interviewStage = (queryParsed.data.interview_stage ?? null) as InterviewStage | null
+  const rawRoleMode = queryParsed.data.role_mode ?? null
   const roleMode = isPrepRoleMode(rawRoleMode) ? rawRoleMode : null
   let allDocuments = documents
   if (postingUrl && !isAllowedJobUrl(postingUrl)) {
-    return new Response('Invalid posting URL', { status: 400 })
+    return apiError('Invalid posting URL', 400)
   }
   if (postingUrl) {
     try {
@@ -566,13 +581,18 @@ export async function POST(
   const { userId, tier, supabase } = access
   const model = getModelForTier(tier)
 
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+
   let raw: unknown
   try { raw = await request.json() } catch {
-    return new Response('Invalid JSON', { status: 400 })
+    return apiError('Invalid JSON', 400)
   }
   const parsed = PrepRefineBodySchema.safeParse(raw)
   if (!parsed.success) {
-    return new Response(firstZodError(parsed.error), { status: 400 })
+    return apiError(firstZodError(parsed.error), 400)
   }
   const { brief, request: refinementRequest } = parsed.data
 

@@ -5,6 +5,8 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
+import { apiError } from '@/lib/api-error'
+import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
 const SYSTEM =
   'You are a senior executive recruiter who has placed C-suite leaders across every major industry. ' +
@@ -16,11 +18,16 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
   const { userId, tier, supabase } = access
 
-  const { id: companyId } = await params
+  const { id: companyId } = routeParams.data
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const [{ data: company }, { data: contacts }, { data: signals }, { data: profile }] = await Promise.all([
@@ -30,7 +37,7 @@ export async function GET(
     supabase.from('user_profiles').select('search_persona').eq('user_id', userId).single(),
   ])
 
-  if (!company) return new Response('Not found', { status: 404 })
+  if (!company) return apiError('Not found', 404)
 
   if (isDemoUser(userId)) {
     const encoder = new TextEncoder()

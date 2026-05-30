@@ -6,6 +6,8 @@ import { QUESTIONS_SYSTEM, roleTypeContext } from '@/lib/prompts'
 import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
+import { apiError } from '@/lib/api-error'
+import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
 const DOC_LABEL_NAMES: Record<string, string> = {
   job_description: 'Job Description',
@@ -19,11 +21,16 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
   const { userId, tier, supabase } = access
 
-  const { id: companyId } = await params
+  const { id: companyId } = routeParams.data
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const [{ data: company }, { data: profile }, { data: documents }, { data: signals }] = await Promise.all([
@@ -54,7 +61,7 @@ export async function GET(
       .limit(5),
   ])
 
-  if (!company) return new Response('Not found', { status: 404 })
+  if (!company) return apiError('Not found', 404)
 
   if (isDemoUser(userId)) {
     const encoder = new TextEncoder()
