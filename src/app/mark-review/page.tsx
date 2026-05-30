@@ -27,41 +27,16 @@ const DECISION_QUESTIONS = [
   'If one fix ships this week, should priority be proof quality, pricing clarity, or loop-closure instrumentation?',
 ]
 
-const MANAGER_TOOLS_FILTER = [
-  {
-    lens: 'High-D clarity standard',
-    check:
-      'By week 1, a user should show measurable execution: who they contacted and what they closed.',
-  },
-  {
-    lens: 'High-D anti-vagueness standard',
-    check:
-      'Every value claim must map to a measurable output with denominator and confidence.',
-  },
-  {
-    lens: 'High-D accountability cadence',
-    check:
-      'The operating rhythm must be obvious, repeatable, and auditable week to week.',
-  },
-]
-
-const CADENCE_STEPS = [
-  'Monday: review priorities and follow-ups.',
-  'Daily: triage signals into one next move.',
-  'Pre-conversation: review prep brief and likely objections.',
-  'Friday: review outreach, responses, and overdue follow-ups.',
-]
-
 const NEXT_7_DAYS = [
   'Publish one control KPI with denominator, timeframe, and confidence annotation.',
   'Tighten person-first copy in hero and support sections.',
   'Instrument loop-closure tracking for outreach, conversation, and follow-up actions.',
 ]
 
-const MANAGER_TOOLS_LENS = [
-  'Execution model is clear: signal -> decision -> outreach -> follow-up.',
-  'Operating cadence is explicit: Monday review, daily triage, prep, Friday accountability.',
-  'Proof discipline is explicit: denominator, timeframe, confidence on each top claim.',
+const BLUF = [
+  'This is an execution system, not a content site. It should drive weekly behavior that leads to conversations and closed loops.',
+  'Primary near-term risk is measurement: if loop-closure controls are not visible, we cannot manage performance.',
+  'Monday decision needed: approve the control scoreboard standard and the first KPI to publish this week.',
 ]
 
 const LANE_ONE_GOALS = [
@@ -80,6 +55,18 @@ const LANE_ONE_GOALS = [
     detail:
       'Every quantitative claim includes denominator, timeframe, and confidence before headline use.',
   },
+]
+
+const WHAT_STARTING_MONDAY_IS = [
+  'An operating system for executive transition execution.',
+  'A weekly cadence model: signal -> decision -> outreach -> follow-up.',
+  'A management layer with measurable control points and accountability.',
+]
+
+const WHAT_STARTING_MONDAY_IS_NOT = [
+  'Not a passive dashboard.',
+  'Not generic AI content generation without operating context.',
+  'Not a replacement for executive judgment, coaching judgment, or search judgment.',
 ]
 
 const LOOP_CLOSURE_SCORECARD = [
@@ -241,17 +228,42 @@ export default function MarkReviewPage() {
 <div className="max-w-4xl mx-auto space-y-10">
           <section className="border border-slate-900 rounded-lg p-6 bg-slate-950">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Bottom line</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {LANE_ONE_GOALS.map((goal) => (
-                <div key={goal.title} className="rounded border border-white/10 bg-white/5 p-4">
-                  <p className="text-[12px] font-semibold text-white mb-2">{goal.title}</p>
-                  <p className="text-[12px] text-slate-200 leading-relaxed">{goal.detail}</p>
-                </div>
+            <ul className="space-y-2.5">
+              {BLUF.map((item) => (
+                <li key={item} className="text-[14px] text-slate-100 leading-relaxed flex items-start gap-2.5">
+                  <span className="text-orange-300 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
               ))}
+            </ul>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What Starting Monday is and is not</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded border border-slate-200 bg-slate-50 p-4">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Is</p>
+                <ul className="space-y-1.5">
+                  {WHAT_STARTING_MONDAY_IS.map((item) => (
+                    <li key={item} className="text-[13px] text-slate-800 leading-relaxed flex items-start gap-2">
+                      <span className="text-orange-500 mt-0.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded border border-slate-200 bg-slate-50 p-4">
+                <p className="text-[12px] font-semibold text-slate-900 mb-2">Is not</p>
+                <ul className="space-y-1.5">
+                  {WHAT_STARTING_MONDAY_IS_NOT.map((item) => (
+                    <li key={item} className="text-[13px] text-slate-800 leading-relaxed flex items-start gap-2">
+                      <span className="text-orange-500 mt-0.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <p className="text-[12px] text-slate-300 leading-relaxed mt-4">
-              High-D read: clear expectations, clear cadence, clear scorekeeping, no ambiguity.
-            </p>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
@@ -288,18 +300,6 @@ export default function MarkReviewPage() {
                   </ul>
                   <p className="text-[12px] text-slate-600 mt-3">Operating value: {item.value}</p>
                 </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Manager Tools standards</p>
-            <div className="space-y-4">
-              {MANAGER_TOOLS_FILTER.map((item) => (
-                <div key={item.lens} className="border-l-4 border-slate-300 pl-4">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.lens}</p>
-                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.check}</p>
-                </div>
               ))}
             </div>
           </section>
@@ -344,18 +344,6 @@ export default function MarkReviewPage() {
                 </tbody>
               </table>
             </div>
-          </section>
-
-          <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Manager Tools standards</p>
-            <ul className="space-y-2.5">
-              {MANAGER_TOOLS_LENS.map((item) => (
-                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-orange-500 mt-0.5">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
@@ -413,7 +401,7 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-blue-300 rounded-lg p-6 bg-blue-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What else helps Manager Tools assess execution risk</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">How to assess the risk of execution</p>
             <ul className="space-y-2.5">
               {MARK_DILIGENCE_GAPS.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
