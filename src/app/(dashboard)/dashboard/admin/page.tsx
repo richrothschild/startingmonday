@@ -510,6 +510,8 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
             <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
+            <Link href="/dashboard/admin/internal-guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Internal guide</Link>
             <Link href="/dashboard/admin/onboarding/video" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding video</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>

@@ -1,9 +1,9 @@
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
-import { readFile } from 'fs/promises'
-import path from 'path'
+import { notFound, redirect } from 'next/navigation'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { createClient } from '@/lib/supabase/server'
-import { GuideClient } from './guide-client'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
+import { InternalGuideClient } from './internal-guide-client'
 
 type GuideSection = {
   id: string
@@ -22,11 +22,7 @@ function parseGuide(markdown: string): GuideSection[] {
   for (const line of lines) {
     if (line.startsWith('## ')) {
       if (currentTitle) {
-        sections.push({
-          id: `section-${index}`,
-          title: currentTitle,
-          body: currentBody.join('\n'),
-        })
+        sections.push({ id: `section-${index}`, title: currentTitle, body: currentBody.join('\n') })
         index += 1
       }
       currentTitle = line.replace(/^##\s+/, '').trim()
@@ -44,36 +40,38 @@ function parseGuide(markdown: string): GuideSection[] {
   return sections
 }
 
-export default async function GuidePage({
+export default async function InternalGuidePage({
   searchParams,
 }: {
   searchParams: Promise<{ q?: string }>
 }) {
   const { q } = await searchParams
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const guidePath = path.join(process.cwd(), 'docs', 'user-guide.md')
+  const staff = await getStaffMember(user.email ?? '')
+  if (!hasAdminHeaderAccess(staff)) notFound()
+  const staffMember = staff!
+
+  const guidePath = path.join(process.cwd(), 'docs', 'internal-guide.md')
   const markdown = await readFile(guidePath, 'utf8').catch(() => '')
   const sections = parseGuide(markdown)
+
   const safeSections = sections.length > 0
     ? sections
     : [{
         id: 'fallback-0',
-        title: 'Guide temporarily unavailable',
-        body: 'The generated guide is not available in this runtime. Run npm run guide:user:sync to rebuild docs/user-guide.md.',
+        title: 'Internal guide unavailable',
+        body: 'Run npm run guide:internal:sync to rebuild docs/internal-guide.md.',
       }]
 
   return (
-    <>
-      <section className="sr-only" aria-label="Automation guide summary">
-        <h1>Starting Monday user guide</h1>
-        <p>Search for features, ask questions in guide chat, and open step-by-step workflows in one place.</p>
-        <p>Outcome: users can self-serve onboarding, feature discovery, and troubleshooting without waiting for support.</p>
-        <Link href="/dashboard/help">Get started from Help</Link>
-      </section>
-      <GuideClient sections={safeSections} initialQuestion={q?.slice(0, 500) ?? ''} />
-    </>
+    <InternalGuideClient
+      sections={safeSections}
+      initialQuestion={q?.slice(0, 500) ?? ''}
+      staffRole={staffMember.role}
+    />
   )
 }

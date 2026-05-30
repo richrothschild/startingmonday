@@ -134,6 +134,11 @@ export default async function ProfilePage({
             <a href="#section-briefing" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Briefing</a>
             <a href="#section-data-privacy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Data and privacy</a>
           </div>
+          <div className="mt-3 pt-3 border-t border-slate-200 text-[12px]">
+            <Link href="/guide?q=How+do+I+set+up+my+profile+and+resume%3F" className="font-semibold text-slate-700 hover:text-slate-900 hover:underline">
+              Need help here? Open profile guide chat
+            </Link>
+          </div>
         </section>
 
         <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3.5 max-w-xl flex items-center gap-4">

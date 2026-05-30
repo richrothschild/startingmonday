@@ -33,6 +33,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Guide freshness check
+        run: npm run guide:user:check
+
+      - name: Internal guide freshness check
+        run: npm run guide:internal:check
+
+      - name: Guide retrieval evaluation (strict)
+        run: npm run guide:retrieval:eval:strict
+
       - name: Lint
         run: npm run lint
 

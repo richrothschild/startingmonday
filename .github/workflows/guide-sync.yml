@@ -1,0 +1,68 @@
+name: Guide Sync
+
+on:
+  schedule:
+    - cron: '15 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-guide:
+    name: Sync user guide artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate guide artifacts
+        run: npm run guide:user:sync
+
+      - name: Generate internal guide artifacts
+        run: npm run guide:internal:sync
+
+      - name: Evaluate retrieval quality
+        run: npm run guide:retrieval:eval:strict
+
+      - name: Verify guide freshness
+        run: npm run guide:user:check
+
+      - name: Verify internal guide freshness
+        run: npm run guide:internal:check
+
+      - name: Open PR when guide files changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'chore(guide): sync user guide artifacts'
+          title: 'chore(guide): scheduled guide sync'
+          body: |
+            Automated guide sync from scheduled workflow.
+
+            Includes:
+            - regenerated user guide artifacts
+            - latest retrieval evaluation report
+          branch: chore/guide-sync-${{ github.run_id }}
+          delete-branch: true
+          labels: |
+            automation
+            docs
+          add-paths: |
+            docs/user-guide.md
+            docs/user-guide.index.json
+            docs/user-guide.manifest.json
+            docs/internal-guide.md
+            docs/internal-guide.index.json
+            docs/internal-guide.manifest.json
+            docs/internal-system-summary.md
+            docs/guide-retrieval-eval.latest.json
+            docs/guide-retrieval-eval.latest.md
