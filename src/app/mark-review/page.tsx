@@ -186,10 +186,10 @@ export default function MarkReviewPage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Executive memo</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            Starting Monday: Manager Tools review brief
+            Starting Monday: review brief
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            Manager Tools lens for Monday: what it is, where it wins, where it breaks, and what I need from you.
+            Starting Monday lens: what it is, where it wins, where it breaks, and what I need from you.
           </p>
         </div>
       </header>
