@@ -73,6 +73,7 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (authBusy) return
     setLoading(true)
     setError(null)
     setInfo(null)
@@ -87,7 +88,6 @@ export default function LoginPage() {
     setPassword(submittedPassword)
 
     try {
-      // Call server-enforced login endpoint
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -109,7 +109,7 @@ export default function LoginPage() {
       // Successfully authenticated; cookies are already set by server
       router.push('/dashboard/briefing')
       router.refresh()
-    } catch (err) {
+    } catch {
       setError('Something went wrong. Please try again.')
       setLoading(false)
     }
@@ -152,7 +152,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
@@ -276,9 +275,10 @@ export default function LoginPage() {
 
 
 
+
               <button
                 type="submit"
-                disabled={loading}
+                disabled={authBusy}
                 className="w-full bg-slate-900 text-white text-[14px] font-semibold py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in…' : 'Sign in'}

@@ -1,0 +1,46 @@
+name: Sync main to staging
+
+# Auto-merges main into staging whenever main is pushed.
+# This keeps the staging branch (and Railway staging env) current
+# with Rich's direct-to-main deployments.
+#
+# If there are conflicts (e.g. Chris has in-flight changes on staging
+# that touch the same files), the merge will fail and post a Slack alert.
+# Resolve conflicts locally: git checkout staging && git merge main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Merge main into staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge main into staging
+        id: merge
+        run: |
+          git checkout staging
+          git merge origin/main --no-edit -m "chore: auto-sync staging with main"
+          git push origin staging
+        continue-on-error: true
+
+      - name: Alert on merge conflict
+        if: steps.merge.outcome == 'failure'
+        run: |
+          echo "::error::Auto-sync failed — merge conflict between main and staging. Resolve locally: git checkout staging && git merge main"

@@ -48,6 +48,15 @@ export default defineConfig({
       },
     },
     {
+      name: 'personas',
+      testMatch: /persona-flows\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
       name: 'mobile-iphone',
       testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
       dependencies: ['setup'],

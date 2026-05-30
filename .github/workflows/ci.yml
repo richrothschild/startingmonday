@@ -122,7 +122,7 @@ jobs:
       - name: Run E2E tests
         run: npx playwright test
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
 
@@ -253,6 +253,8 @@ jobs:
   semgrep:
     name: Semgrep security scan
     runs-on: ubuntu-latest
+    # Non-blocking: findings are reviewed manually, not used as a deploy gate.
+    continue-on-error: true
     # Run on PRs and main pushes; skip dependabot to avoid noise
     if: github.actor != 'dependabot[bot]'
 

@@ -283,7 +283,7 @@ export async function POST(request: NextRequest) {
       .eq('outreach_status', 'closed')
       .limit(1)
       .maybeSingle(),
-  ])
+  ]) as [{ data: { id: string } | null }, { data: { id: string } | null }]
 
   const suppressionHit = suppressionHitRaw as { id?: string } | null
   const closedContactHit = closedContactHitRaw as { id?: string } | null
@@ -485,3 +485,4 @@ export async function POST(request: NextRequest) {
     domainBucket: queued.domainBucket,
   })
 }
+
