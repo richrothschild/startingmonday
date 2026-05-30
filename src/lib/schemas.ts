@@ -28,6 +28,31 @@ export const PrepRouteParamsSchema = z.object({
   id: z.string().uuid('Invalid company id'),
 })
 
+export const PrepClaimOriginClassSchema = z.enum(['user_provided', 'system_detected', 'inferred'])
+
+export const PrepSensitivePolicyHookSchema = z.enum([
+  'compensation_claim',
+  'legal_risk_claim',
+  'security_incident_claim',
+])
+
+export const PrepClaimProvenanceSchema = z.object({
+  claimText: z.string().trim().min(1, 'Claim text is required').max(3000, 'Claim text too long'),
+  originClass: PrepClaimOriginClassSchema,
+  section: z.string().trim().min(1).max(120).nullable(),
+  sensitivePolicyHooks: z.array(PrepSensitivePolicyHookSchema).max(6).default([]),
+})
+
+export const BriefSaveBodySchema = z.object({
+  type: z.enum(['strategy', 'prep', 'prep_section', 'outreach']),
+  text: z.string().trim().min(1, 'Brief text is required').max(150_000, 'Brief text too long'),
+  company_id: z.string().uuid().optional(),
+  contact_id: z.string().uuid().optional(),
+  section_name: z.string().trim().max(120).optional(),
+  provenance_version: z.number().int().positive().optional(),
+  claim_provenance: z.array(PrepClaimProvenanceSchema).max(120).optional(),
+})
+
 export const PrepGenerateQuerySchema = z.object({
   posting_url: z.union([z.literal(''), z.string().url('Invalid posting URL')]).optional(),
   interview_stage: z.enum(['recruiter_screen', 'hiring_manager', 'panel', 'final', 'executive']).nullable().optional(),
