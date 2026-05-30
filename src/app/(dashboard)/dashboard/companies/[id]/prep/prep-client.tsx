@@ -1,6 +1,7 @@
 ﻿'use client'
 import Link from 'next/link'
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { usePostHog } from 'posthog-js/react'
 import { getRelevantResources, getDefaultResources, type Resource } from '@/lib/resources'
 import {
   PREP_PROVENANCE_VERSION,
@@ -59,6 +60,10 @@ function normalizeClaimText(line: string) {
     .trim()
 }
 
+type TraceFilter = ClaimOriginClass | 'all'
+
+type ClaimOriginCounts = Record<ClaimOriginClass, number>
+
 function originClassLabel(originClass: ClaimOriginClass) {
   if (originClass === 'user_provided') return 'User Provided'
   if (originClass === 'system_detected') return 'System Detected'
@@ -80,10 +85,43 @@ function buildClaimOriginLookup(text: string): Record<string, ClaimOriginClass> 
   return lookup
 }
 
-function TraceLabel({ originClass }: { originClass: ClaimOriginClass }) {
+function buildClaimOriginCounts(text: string): ClaimOriginCounts {
+  const counts: ClaimOriginCounts = {
+    user_provided: 0,
+    system_detected: 0,
+    inferred: 0,
+  }
+  const claims = buildPrepClaimProvenance(text)
+  for (const claim of claims) {
+    counts[claim.originClass] += 1
+  }
+  return counts
+}
+
+function TraceLabel({
+  originClass,
+  onClick,
+}: {
+  originClass: ClaimOriginClass
+  onClick?: () => void
+}) {
+  const className = `inline-flex items-center rounded border px-2 py-[1px] text-[10px] font-semibold tracking-[0.04em] uppercase ${originClassClassName(originClass)} ${onClick ? 'cursor-pointer hover:brightness-95 transition' : ''}`
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={className}
+        title={`Trace source: ${originClassLabel(originClass)}. Click to filter.`}
+        aria-label={`Trace source ${originClassLabel(originClass)}`}
+      >
+        {originClassLabel(originClass)}
+      </button>
+    )
+  }
   return (
     <span
-      className={`inline-flex items-center rounded border px-2 py-[1px] text-[10px] font-semibold tracking-[0.04em] uppercase ${originClassClassName(originClass)}`}
+      className={className}
       title={`Trace source: ${originClassLabel(originClass)}`}
       aria-label={`Trace source ${originClassLabel(originClass)}`}
     >
@@ -92,10 +130,44 @@ function TraceLabel({ originClass }: { originClass: ClaimOriginClass }) {
   )
 }
 
-function SourceLegend() {
+function SourceLegend({
+  traceFilter,
+  counts,
+  onChangeFilter,
+}: {
+  traceFilter: TraceFilter
+  counts: ClaimOriginCounts
+  onChangeFilter: (next: TraceFilter) => void
+}) {
+  const totalClaims = counts.user_provided + counts.system_detected + counts.inferred
+  const buttons: Array<{ key: TraceFilter; label: string; count: number }> = [
+    { key: 'all', label: 'All Claims', count: totalClaims },
+    { key: 'user_provided', label: 'User Provided', count: counts.user_provided },
+    { key: 'system_detected', label: 'System Detected', count: counts.system_detected },
+    { key: 'inferred', label: 'Inferred', count: counts.inferred },
+  ]
   return (
     <div className="mb-5 rounded border border-slate-200 bg-slate-50 p-3">
       <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Source Legend</p>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {buttons.map((button) => (
+          <button
+            key={button.key}
+            type="button"
+            onClick={() => onChangeFilter(button.key)}
+            className={`inline-flex items-center gap-1 rounded border px-2 py-1 text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors ${
+              traceFilter === button.key
+                ? 'bg-slate-900 text-white border-slate-900'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+            }`}
+          >
+            <span>{button.label}</span>
+            <span className={`rounded px-1.5 py-[1px] ${traceFilter === button.key ? 'bg-slate-700 text-slate-100' : 'bg-slate-100 text-slate-500'}`}>
+              {button.count}
+            </span>
+          </button>
+        ))}
+      </div>
       <div className="flex flex-wrap gap-2">
         <TraceLabel originClass="user_provided" />
         <TraceLabel originClass="system_detected" />
@@ -105,7 +177,11 @@ function SourceLegend() {
   )
 }
 
-function renderBrief(text: string) {
+function renderBrief(
+  text: string,
+  traceFilter: TraceFilter,
+  onTraceLabelClick: (originClass: ClaimOriginClass) => void,
+) {
   const claimOriginLookup = buildClaimOriginLookup(text)
   return text.split('\n').map((line, i) => {
     if (line.startsWith('# ')) return null
@@ -120,10 +196,11 @@ function renderBrief(text: string) {
     if (line.startsWith('- ') || line.startsWith('* ')) {
       const claimText = normalizeClaimText(line)
       const originClass = claimOriginLookup[claimText] ?? 'inferred'
+      if (traceFilter !== 'all' && originClass !== traceFilter) return null
       return (
         <div key={i} className="mb-3">
           <div className="mb-1.5">
-            <TraceLabel originClass={originClass} />
+            <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
           </div>
           <div className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
@@ -135,10 +212,11 @@ function renderBrief(text: string) {
     if (line.trim() === '') return <div key={i} className="h-1.5" />
     const claimText = normalizeClaimText(line)
     const originClass = claimOriginLookup[claimText] ?? 'inferred'
+    if (traceFilter !== 'all' && originClass !== traceFilter) return null
     return (
       <div key={i} className="mb-3">
         <div className="mb-1.5">
-          <TraceLabel originClass={originClass} />
+          <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
         </div>
         <p className="text-[14px] text-slate-700 leading-relaxed mb-0">
           <BoldText text={line} />
@@ -263,6 +341,9 @@ function OnDemandPanel({
   loading,
   error,
   onGenerate,
+  traceFilter,
+  onTraceLabelClick,
+  onLegendFilter,
 }: {
   title: string
   description: string
@@ -271,7 +352,11 @@ function OnDemandPanel({
   loading: boolean
   error: string
   onGenerate: () => void
+  traceFilter: TraceFilter
+  onTraceLabelClick: (originClass: ClaimOriginClass) => void
+  onLegendFilter: (next: TraceFilter) => void
 }) {
+  const claimOriginCounts = useMemo(() => buildClaimOriginCounts(content), [content])
   return (
     <div className="bg-white border border-slate-200 rounded mb-4">
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
@@ -304,8 +389,12 @@ function OnDemandPanel({
       )}
       {(content || (loading && content)) && (
         <div className="px-6 py-5">
-          <SourceLegend />
-          {renderBrief(content)}
+          <SourceLegend
+            traceFilter={traceFilter}
+            counts={claimOriginCounts}
+            onChangeFilter={onLegendFilter}
+          />
+          {renderBrief(content, traceFilter, onTraceLabelClick)}
           {loading && (
             <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
           )}
@@ -384,6 +473,8 @@ export function PrepClient({
   const [outreachLogged, setOutreachLogged] = useState(false)
   const [outreachLogLoading, setOutreachLogLoading] = useState(false)
   const [lowConfidenceAcknowledged, setLowConfidenceAcknowledged] = useState(false)
+  const [traceFilter, setTraceFilter] = useState<TraceFilter>('all')
+  const ph = usePostHog()
   // Chat state
   type ChatMessage = { role: 'user' | 'assistant'; content: string }
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
@@ -393,6 +484,29 @@ export function PrepClient({
   const refineRef = useRef<HTMLTextAreaElement>(null)
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
   const autoStarted = useRef(false)
+
+  function captureTraceInteraction(interactionType: 'legend_filter' | 'label_click', nextFilter: TraceFilter) {
+    try {
+      ph?.capture('prep_trace_interaction', {
+        company_id: companyId,
+        interaction_type: interactionType,
+        trace_filter: nextFilter,
+        has_brief: !!brief,
+      })
+    } catch {
+      // analytics must not block interactions
+    }
+  }
+
+  function handleTraceLabelClick(originClass: ClaimOriginClass) {
+    setTraceFilter(originClass)
+    captureTraceInteraction('label_click', originClass)
+  }
+
+  function handleLegendFilter(next: TraceFilter) {
+    setTraceFilter(next)
+    captureTraceInteraction('legend_filter', next)
+  }
 
   useEffect(() => {
     if (firstCompany && !autoStarted.current) {
@@ -416,6 +530,7 @@ export function PrepClient({
     setLoading(true)
     setBrief('')
     setBriefId(null)
+    setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
     try {
@@ -451,6 +566,7 @@ export function PrepClient({
     setRefining(true)
     setBrief('')
     setBriefId(null)
+    setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
     try {
@@ -870,8 +986,12 @@ export function PrepClient({
 
         {brief && (
           <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
-            <SourceLegend />
-            {renderBrief(brief)}
+            <SourceLegend
+              traceFilter={traceFilter}
+              counts={buildClaimOriginCounts(brief)}
+              onChangeFilter={handleLegendFilter}
+            />
+            {renderBrief(brief, traceFilter, handleTraceLabelClick)}
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
@@ -940,6 +1060,9 @@ export function PrepClient({
               loading={background.loading}
               error={background.error}
               onGenerate={background.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Leadership Team"
@@ -949,6 +1072,9 @@ export function PrepClient({
               loading={leadership.loading}
               error={leadership.error}
               onGenerate={leadership.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Strategic Priorities"
@@ -958,6 +1084,9 @@ export function PrepClient({
               loading={priorities.loading}
               error={priorities.error}
               onGenerate={priorities.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Pain Points"
@@ -967,6 +1096,9 @@ export function PrepClient({
               loading={challenges.loading}
               error={challenges.error}
               onGenerate={challenges.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Competitive Landscape"
@@ -976,6 +1108,9 @@ export function PrepClient({
               loading={competitive.loading}
               error={competitive.error}
               onGenerate={competitive.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Recent Wins"
@@ -985,6 +1120,9 @@ export function PrepClient({
               loading={wins.loading}
               error={wins.error}
               onGenerate={wins.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Tech Stack"
@@ -994,6 +1132,9 @@ export function PrepClient({
               loading={techStack.loading}
               error={techStack.error}
               onGenerate={techStack.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Why Here"
@@ -1003,6 +1144,9 @@ export function PrepClient({
               loading={whyHere.loading}
               error={whyHere.error}
               onGenerate={whyHere.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Likely Interview Questions"
@@ -1012,6 +1156,9 @@ export function PrepClient({
               loading={questions.loading}
               error={questions.error}
               onGenerate={questions.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
           </div>
         )}
