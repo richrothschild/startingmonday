@@ -5,6 +5,8 @@ import { streamErrorMessage } from '@/lib/stream-error'
 import { recordTrace, recordTraceError } from '@/lib/trace'
 import { encodeUserId } from '@/lib/watermark'
 import { trackApiUsage } from '@/lib/api-usage'
+import { apiError } from '@/lib/api-error'
+import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const STYLE_GUIDELINES = `- Maximum 3 sentences. Do not exceed this.
@@ -18,7 +20,12 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id: companyId } = await params
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+  const { id: companyId } = routeParams.data
+
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
   const { userId, supabase } = access
@@ -69,7 +76,7 @@ export async function POST(
   ])
 
   if (!company) {
-    return NextResponse.json({ error: 'Company not found' }, { status: 404 })
+    return apiError('Company not found', 404)
   }
 
   const contactName = contacts?.[0]?.name ?? null

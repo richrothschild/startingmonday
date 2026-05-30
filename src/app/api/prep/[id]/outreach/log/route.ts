@@ -1,13 +1,20 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
+import { apiError } from '@/lib/api-error'
+import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id: companyId } = await params
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+  const { id: companyId } = routeParams.data
+
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
   const { userId } = auth

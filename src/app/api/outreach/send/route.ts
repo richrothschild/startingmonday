@@ -8,6 +8,7 @@ import { reviewEmail } from '@/lib/email-quality'
 import { getStaffMember } from '@/lib/staff'
 import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
 import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
+import { OutreachSendBodySchema, firstZodError } from '@/lib/schemas'
 import {
   DEFAULT_OUTREACH_FROM,
   OUTREACH_REPLY_TO,
@@ -185,24 +186,37 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const body = await request.json().catch(() => null)
-  const fullName = (body?.fullName ?? '').toString().trim()
-  const company = (body?.company ?? '').toString().trim()
-  const roleBucket = (body?.roleBucket ?? '').toString().trim().toLowerCase()
-  const outreachChannel = (body?.outreachChannel ?? 'executives').toString().trim().toLowerCase()
-  const fitTier = (body?.fitTier ?? '').toString().trim().toLowerCase()
-  const personaFocus = (body?.personaFocus ?? '').toString().trim()
-  const campaignStep = (body?.campaignStep ?? '').toString().trim()
-  const templateStep = (body?.templateStep ?? '').toString().trim()
-  const useLatestTemplateDraft = body?.useLatestTemplateDraft === true
-  const idempotencyKey = (body?.idempotencyKey ?? '').toString().trim()
-  const batchIdInput = (body?.batchId ?? '').toString().trim()
-  const skipWorkerKickoff = body?.skipWorkerKickoff === true
-  const emailTo = normalizeEmail(body?.emailTo)
-  let subject = (body?.subject ?? '').toString().trim()
-  let messageText = (body?.messageText ?? '').toString().trim()
-  const statusAfter = (body?.statusAfter ?? 'reached_out').toString()
-  const mode = (body?.mode ?? 'live').toString()
+  let raw: unknown
+  try {
+    raw = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+
+  const parsedBody = OutreachSendBodySchema.safeParse(raw)
+  if (!parsedBody.success) {
+    return NextResponse.json({ error: firstZodError(parsedBody.error) }, { status: 400 })
+  }
+
+  const {
+    fullName,
+    company,
+    roleBucket,
+    outreachChannel,
+    fitTier,
+    personaFocus,
+    campaignStep,
+    templateStep,
+    useLatestTemplateDraft,
+    idempotencyKey,
+    batchId: batchIdInput,
+    skipWorkerKickoff,
+    emailTo: emailToRaw,
+    statusAfter,
+    mode,
+  } = parsedBody.data
+  const emailTo = normalizeEmail(emailToRaw)
+  let { subject, messageText } = parsedBody.data
 
   if (useLatestTemplateDraft) {
     const generated = buildOutreachTemplateDraft({
