@@ -113,7 +113,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [briefs, setBriefs] = useState<Brief[]>([])
   const [workflow, setWorkflow] = useState<WorkflowData | null>(null)
   const [nextAction, setNextAction] = useState<NextAction | null>(null)
-  const [actionDraft, setActionDraft] = useState({ action: '', owner: '', dueDate: '', status: 'pending' })
+  const [actionDraft, setActionDraft] = useState({ action: '', owner: '', dueDate: '', status: 'open' })
   const [weeklyAnswers, setWeeklyAnswers] = useState({ signals: '', pipeline: '', brief: '', nextStep: '' })
   const [agendaTemplateId, setAgendaTemplateId] = useState('pipeline_reset')
   const [agendaItemsText, setAgendaItemsText] = useState('')
@@ -125,6 +125,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [savingReview, setSavingReview] = useState(false)
   const [actionMessage, setActionMessage] = useState<string | null>(null)
   const [reviewMessage, setReviewMessage] = useState<string | null>(null)
+  const [extractingActions, setExtractingActions] = useState(false)
 
   const todayIso = new Date().toISOString().split('T')[0]
 
@@ -165,7 +166,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           action: currentAction?.action ?? '',
           owner: currentAction?.next_action_owner ?? '',
           dueDate: currentAction?.next_action_due_date ?? currentAction?.due_date ?? '',
-          status: currentAction?.next_action_status ?? 'pending',
+          status: currentAction?.next_action_status ?? 'open',
         })
 
         const workflowData = reviewData.data as WorkflowData
@@ -226,7 +227,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
         action: savedAction.action ?? '',
         owner: savedAction.next_action_owner ?? '',
         dueDate: savedAction.next_action_due_date ?? savedAction.due_date ?? '',
-        status: savedAction.next_action_status ?? 'pending',
+        status: savedAction.next_action_status ?? 'open',
       })
       setActionMessage('Next action saved.')
     } catch (err) {
@@ -289,7 +290,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           action: savedAction.action ?? '',
           owner: savedAction.next_action_owner ?? '',
           dueDate: savedAction.next_action_due_date ?? savedAction.due_date ?? '',
-          status: savedAction.next_action_status ?? 'pending',
+          status: savedAction.next_action_status ?? 'open',
         })
       }
       if (savedReview) {
@@ -300,6 +301,32 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
       setReviewMessage(err instanceof Error ? err.message : 'Could not save weekly review')
     } finally {
       setSavingReview(false)
+    }
+  }
+
+  async function extractActionsFromSession() {
+    if (extractingActions) return
+    setExtractingActions(true)
+    setActionMessage(null)
+    try {
+      const response = await fetch(`/api/coach/client/${clientId}/actions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: actionDraft.owner.trim(),
+          due_date: actionDraft.dueDate,
+        }),
+      })
+
+      const json = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(json.error ?? 'Failed to extract actions')
+
+      const extracted = Number(json.data?.extracted ?? 0)
+      setActionMessage(extracted > 0 ? `Extracted ${extracted} action${extracted === 1 ? '' : 's'} from session notes.` : 'No actionable items found in latest notes.')
+    } catch (err) {
+      setActionMessage(err instanceof Error ? err.message : 'Could not extract actions')
+    } finally {
+      setExtractingActions(false)
     }
   }
 
@@ -318,7 +345,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const actionDueDate = nextAction?.next_action_due_date ?? nextAction?.due_date ?? actionDraft.dueDate
   const actionOwner = nextAction?.next_action_owner ?? actionDraft.owner
   const actionStatus = nextAction?.next_action_status ?? actionDraft.status
-  const actionIsOverdue = Boolean(actionDueDate && actionStatus !== 'done' && actionDueDate < todayIso)
+  const actionIsOverdue = Boolean(actionDueDate && actionStatus !== 'completed' && actionDueDate < todayIso)
   const recentReviews = workflow?.recent_reviews ?? []
   const agendaTemplates = workflow?.agenda_templates ?? []
 
@@ -413,9 +440,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="done">Done</option>
+                  <option value="open">Open</option>
+                  <option value="in_progress">In progress</option>
+                  <option value="completed">Completed</option>
                 </select>
               </div>
             </div>
@@ -779,21 +806,31 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="done">Done</option>
+                  <option value="open">Open</option>
+                  <option value="in_progress">In progress</option>
+                  <option value="completed">Completed</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={savingReview || !actionDraft.action.trim() || !actionDraft.owner.trim() || !actionDraft.dueDate.trim()}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-40 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
-          >
-            {savingReview ? 'Saving review...' : 'Save weekly review'}
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              disabled={savingReview || !actionDraft.action.trim() || !actionDraft.owner.trim() || !actionDraft.dueDate.trim()}
+              className="bg-orange-600 hover:bg-orange-500 disabled:opacity-40 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
+            >
+              {savingReview ? 'Saving review...' : 'Save weekly review'}
+            </button>
+            <button
+              type="button"
+              onClick={extractActionsFromSession}
+              disabled={extractingActions}
+              className="bg-white hover:bg-slate-50 text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+            >
+              {extractingActions ? 'Extracting...' : 'Extract actions from notes'}
+            </button>
+          </div>
 
           {reviewMessage && (
             <p className={`text-[12px] ${reviewMessage.includes('saved') ? 'text-green-700' : 'text-red-600'}`}>{reviewMessage}</p>
