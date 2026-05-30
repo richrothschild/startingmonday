@@ -16,6 +16,24 @@ function toISODate(date: Date): string {
   return date.toISOString().split('T')[0]
 }
 
+const AGENDA_TEMPLATES: Array<{ id: string; label: string; items: string[] }> = [
+  {
+    id: 'pipeline_reset',
+    label: 'Pipeline Reset Session',
+    items: ['Pipeline movement review', 'Top blockers', 'Priority outreach decisions', 'Next-week commitments'],
+  },
+  {
+    id: 'interview_readiness',
+    label: 'Interview Readiness Session',
+    items: ['Role signal recap', 'Brief quality review', 'Story rehearsal', 'Follow-up plan'],
+  },
+  {
+    id: 'executive_positioning',
+    label: 'Executive Positioning Session',
+    items: ['Narrative clarity', 'Target role calibration', 'Network strategy', 'Action assignment'],
+  },
+]
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ clientId: string }> }
@@ -57,6 +75,7 @@ export async function GET(
         week_start: weekStart,
         current_review: currentReview ?? null,
         recent_reviews: recentReviews ?? [],
+        agenda_templates: AGENDA_TEMPLATES,
       },
     },
     { status: 200, headers: auth.response.headers }
@@ -86,6 +105,25 @@ export async function POST(
   const nextActionOwner = typeof nextAction.owner === 'string' ? nextAction.owner.trim() : ''
   const nextActionDueDate = typeof nextAction.due_date === 'string' ? nextAction.due_date.trim() : ''
   const nextActionStatus = typeof nextAction.status === 'string' ? nextAction.status.trim() : 'pending'
+  const agendaTemplate = typeof payload.agenda_template === 'string'
+    ? payload.agenda_template.trim()
+    : 'pipeline_reset'
+  const rawAgendaItems: unknown[] = Array.isArray(payload.agenda_items) ? payload.agenda_items : []
+  const agendaItems = rawAgendaItems.length > 0
+    ? rawAgendaItems
+        .filter((item): item is string => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .slice(0, 8)
+    : []
+  const sessionNotes = payload.session_notes && typeof payload.session_notes === 'object'
+    ? {
+        wins: typeof payload.session_notes.wins === 'string' ? payload.session_notes.wins.trim() : '',
+        risks: typeof payload.session_notes.risks === 'string' ? payload.session_notes.risks.trim() : '',
+        decisions: typeof payload.session_notes.decisions === 'string' ? payload.session_notes.decisions.trim() : '',
+        freeform: typeof payload.session_notes.freeform === 'string' ? payload.session_notes.freeform.trim() : '',
+      }
+    : { wins: '', risks: '', decisions: '', freeform: '' }
 
   if (!nextActionText || !nextActionOwner || !nextActionDueDate) {
     return NextResponse.json({ error: 'Weekly review needs a next action owner and due date' }, { status: 400 })
@@ -133,7 +171,12 @@ export async function POST(
     coach_id: coachId,
     client_id: clientId,
     week_start: weekStart,
-    review_answers: answers,
+    review_answers: {
+      ...answers,
+      agenda_template: agendaTemplate,
+      agenda_items: agendaItems,
+      session_notes: sessionNotes,
+    },
     next_follow_up_id: savedAction.id,
     status: 'completed',
     completed_at: new Date().toISOString(),
@@ -150,14 +193,51 @@ export async function POST(
     return NextResponse.json({ error: 'Failed to save weekly review' }, { status: 500 })
   }
 
+  const sessionTimelineAction = `Session artifact (${weekStart})`
+  const { data: existingTimeline } = await supabase
+    .from('follow_ups')
+    .select('id')
+    .eq('user_id', clientId)
+    .eq('action', sessionTimelineAction)
+    .eq('due_date', weekStart)
+    .maybeSingle()
+
+  const timelineRecord = {
+    user_id: clientId,
+    action: sessionTimelineAction,
+    due_date: weekStart,
+    status: 'completed',
+    next_action_owner: coachId,
+    next_action_due_date: weekStart,
+    next_action_status: 'done',
+  }
+
+  const { data: timelineArtifact } = existingTimeline
+    ? await supabase
+        .from('follow_ups')
+        .update(timelineRecord)
+        .eq('id', existingTimeline.id)
+        .select('id, action, due_date, status')
+        .maybeSingle()
+    : await supabase
+        .from('follow_ups')
+        .insert(timelineRecord)
+        .select('id, action, due_date, status')
+        .maybeSingle()
+
   await logCoachAccess(coachId, clientId, 'coach_weekly_reviews', savedReview.id, 'create', null, reviewRecord)
   await logCoachAccess(coachId, clientId, 'follow_ups', savedAction.id, existingAction ? 'update' : 'create', null, actionPayload)
+  if (timelineArtifact?.id) {
+    await logCoachAccess(coachId, clientId, 'follow_ups', timelineArtifact.id, existingTimeline ? 'update' : 'create', null, timelineRecord)
+  }
 
   return NextResponse.json(
     {
       data: {
         weekly_review: savedReview,
         next_action: savedAction,
+        session_artifact: timelineArtifact ?? null,
+        timeline_linked: Boolean(timelineArtifact?.id),
       },
     },
     { status: 200, headers: auth.response.headers }

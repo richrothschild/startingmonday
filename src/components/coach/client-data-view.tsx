@@ -60,7 +60,7 @@ interface NextAction {
 interface WeeklyReview {
   id: string
   week_start: string
-  review_answers: Record<string, string>
+  review_answers: Record<string, any>
   next_follow_up_id: string | null
   status: string
   completed_at: string | null
@@ -72,6 +72,11 @@ interface WorkflowData {
   week_start: string
   current_review: WeeklyReview | null
   recent_reviews: WeeklyReview[]
+  agenda_templates?: Array<{
+    id: string
+    label: string
+    items: string[]
+  }>
 }
 
 interface Company {
@@ -108,8 +113,11 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [briefs, setBriefs] = useState<Brief[]>([])
   const [workflow, setWorkflow] = useState<WorkflowData | null>(null)
   const [nextAction, setNextAction] = useState<NextAction | null>(null)
-  const [actionDraft, setActionDraft] = useState({ action: '', owner: '', dueDate: '', status: 'pending' })
+  const [actionDraft, setActionDraft] = useState({ action: '', owner: '', dueDate: '', status: 'open' })
   const [weeklyAnswers, setWeeklyAnswers] = useState({ signals: '', pipeline: '', brief: '', nextStep: '' })
+  const [agendaTemplateId, setAgendaTemplateId] = useState('pipeline_reset')
+  const [agendaItemsText, setAgendaItemsText] = useState('')
+  const [sessionNotes, setSessionNotes] = useState({ wins: '', risks: '', decisions: '', freeform: '' })
   const [activeTab, setActiveTab] = useState('scorecard')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -117,6 +125,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [savingReview, setSavingReview] = useState(false)
   const [actionMessage, setActionMessage] = useState<string | null>(null)
   const [reviewMessage, setReviewMessage] = useState<string | null>(null)
+  const [extractingActions, setExtractingActions] = useState(false)
 
   const todayIso = new Date().toISOString().split('T')[0]
 
@@ -157,7 +166,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           action: currentAction?.action ?? '',
           owner: currentAction?.next_action_owner ?? '',
           dueDate: currentAction?.next_action_due_date ?? currentAction?.due_date ?? '',
-          status: currentAction?.next_action_status ?? 'pending',
+          status: currentAction?.next_action_status ?? 'open',
         })
 
         const workflowData = reviewData.data as WorkflowData
@@ -168,6 +177,15 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           pipeline: answers.pipeline ?? '',
           brief: answers.brief ?? '',
           nextStep: answers.nextStep ?? '',
+        })
+        setAgendaTemplateId(typeof answers.agenda_template === 'string' ? answers.agenda_template : 'pipeline_reset')
+        setAgendaItemsText(Array.isArray(answers.agenda_items) ? answers.agenda_items.join('\n') : '')
+        const notes = answers.session_notes && typeof answers.session_notes === 'object' ? answers.session_notes : {}
+        setSessionNotes({
+          wins: typeof notes.wins === 'string' ? notes.wins : '',
+          risks: typeof notes.risks === 'string' ? notes.risks : '',
+          decisions: typeof notes.decisions === 'string' ? notes.decisions : '',
+          freeform: typeof notes.freeform === 'string' ? notes.freeform : '',
         })
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -209,7 +227,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
         action: savedAction.action ?? '',
         owner: savedAction.next_action_owner ?? '',
         dueDate: savedAction.next_action_due_date ?? savedAction.due_date ?? '',
-        status: savedAction.next_action_status ?? 'pending',
+        status: savedAction.next_action_status ?? 'open',
       })
       setActionMessage('Next action saved.')
     } catch (err) {
@@ -246,6 +264,18 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             due_date: actionDraft.dueDate,
             status: actionDraft.status,
           },
+          agenda_template: agendaTemplateId,
+          agenda_items: agendaItemsText
+            .split('\n')
+            .map((item) => item.trim())
+            .filter(Boolean)
+            .slice(0, 8),
+          session_notes: {
+            wins: sessionNotes.wins.trim(),
+            risks: sessionNotes.risks.trim(),
+            decisions: sessionNotes.decisions.trim(),
+            freeform: sessionNotes.freeform.trim(),
+          },
         }),
       })
 
@@ -260,17 +290,43 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           action: savedAction.action ?? '',
           owner: savedAction.next_action_owner ?? '',
           dueDate: savedAction.next_action_due_date ?? savedAction.due_date ?? '',
-          status: savedAction.next_action_status ?? 'pending',
+          status: savedAction.next_action_status ?? 'open',
         })
       }
       if (savedReview) {
         setWorkflow((current) => current ? { ...current, current_review: savedReview, recent_reviews: [savedReview, ...(current.recent_reviews ?? []).filter((review) => review.id !== savedReview.id)].slice(0, 4) } : { week_start: savedReview.week_start, current_review: savedReview, recent_reviews: [savedReview] })
       }
-      setReviewMessage('Weekly review saved.')
+      setReviewMessage('Weekly review and session artifact saved.')
     } catch (err) {
       setReviewMessage(err instanceof Error ? err.message : 'Could not save weekly review')
     } finally {
       setSavingReview(false)
+    }
+  }
+
+  async function extractActionsFromSession() {
+    if (extractingActions) return
+    setExtractingActions(true)
+    setActionMessage(null)
+    try {
+      const response = await fetch(`/api/coach/client/${clientId}/actions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: actionDraft.owner.trim(),
+          due_date: actionDraft.dueDate,
+        }),
+      })
+
+      const json = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(json.error ?? 'Failed to extract actions')
+
+      const extracted = Number(json.data?.extracted ?? 0)
+      setActionMessage(extracted > 0 ? `Extracted ${extracted} action${extracted === 1 ? '' : 's'} from session notes.` : 'No actionable items found in latest notes.')
+    } catch (err) {
+      setActionMessage(err instanceof Error ? err.message : 'Could not extract actions')
+    } finally {
+      setExtractingActions(false)
     }
   }
 
@@ -289,8 +345,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const actionDueDate = nextAction?.next_action_due_date ?? nextAction?.due_date ?? actionDraft.dueDate
   const actionOwner = nextAction?.next_action_owner ?? actionDraft.owner
   const actionStatus = nextAction?.next_action_status ?? actionDraft.status
-  const actionIsOverdue = Boolean(actionDueDate && actionStatus !== 'done' && actionDueDate < todayIso)
+  const actionIsOverdue = Boolean(actionDueDate && actionStatus !== 'completed' && actionDueDate < todayIso)
   const recentReviews = workflow?.recent_reviews ?? []
+  const agendaTemplates = workflow?.agenda_templates ?? []
 
   return (
     <div className="space-y-6">
@@ -383,9 +440,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="done">Done</option>
+                  <option value="open">Open</option>
+                  <option value="in_progress">In progress</option>
+                  <option value="completed">Completed</option>
                 </select>
               </div>
             </div>
@@ -583,6 +640,34 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             <p className="text-[13px] text-slate-500 mt-1">Week of {workflow?.week_start ?? 'this week'}</p>
           </div>
 
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 space-y-3">
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Session agenda template</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Template</label>
+                <select
+                  value={agendaTemplateId}
+                  onChange={(event) => setAgendaTemplateId(event.target.value)}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
+                >
+                  {agendaTemplates.map((template) => (
+                    <option key={template.id} value={template.id}>{template.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Agenda items (editable)</label>
+                <textarea
+                  value={agendaItemsText}
+                  onChange={(event) => setAgendaItemsText(event.target.value)}
+                  rows={4}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
+                  placeholder="One item per line"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">What changed in signals?</label>
@@ -623,6 +708,52 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                 className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
                 placeholder="One concrete step to finish before the next weekly check-in"
               />
+            </div>
+          </div>
+
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Session note capture</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Wins</label>
+                <textarea
+                  value={sessionNotes.wins}
+                  onChange={(event) => setSessionNotes((current) => ({ ...current, wins: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
+                  placeholder="What improved this week"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Risks</label>
+                <textarea
+                  value={sessionNotes.risks}
+                  onChange={(event) => setSessionNotes((current) => ({ ...current, risks: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
+                  placeholder="What is at risk"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Decisions</label>
+                <textarea
+                  value={sessionNotes.decisions}
+                  onChange={(event) => setSessionNotes((current) => ({ ...current, decisions: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
+                  placeholder="Decisions made in session"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Freeform notes</label>
+                <textarea
+                  value={sessionNotes.freeform}
+                  onChange={(event) => setSessionNotes((current) => ({ ...current, freeform: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
+                  placeholder="Context and narrative from the session"
+                />
+              </div>
             </div>
           </div>
 
@@ -675,21 +806,31 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="done">Done</option>
+                  <option value="open">Open</option>
+                  <option value="in_progress">In progress</option>
+                  <option value="completed">Completed</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={savingReview || !actionDraft.action.trim() || !actionDraft.owner.trim() || !actionDraft.dueDate.trim()}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-40 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
-          >
-            {savingReview ? 'Saving review...' : 'Save weekly review'}
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              disabled={savingReview || !actionDraft.action.trim() || !actionDraft.owner.trim() || !actionDraft.dueDate.trim()}
+              className="bg-orange-600 hover:bg-orange-500 disabled:opacity-40 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
+            >
+              {savingReview ? 'Saving review...' : 'Save weekly review'}
+            </button>
+            <button
+              type="button"
+              onClick={extractActionsFromSession}
+              disabled={extractingActions}
+              className="bg-white hover:bg-slate-50 text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+            >
+              {extractingActions ? 'Extracting...' : 'Extract actions from notes'}
+            </button>
+          </div>
 
           {reviewMessage && (
             <p className={`text-[12px] ${reviewMessage.includes('saved') ? 'text-green-700' : 'text-red-600'}`}>{reviewMessage}</p>
@@ -710,6 +851,8 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                       <p><span className="font-semibold text-slate-700">Pipeline:</span> {review.review_answers.pipeline ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Brief:</span> {review.review_answers.brief ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Next step:</span> {review.review_answers.nextStep ?? '—'}</p>
+                      <p><span className="font-semibold text-slate-700">Agenda:</span> {review.review_answers.agenda_template ?? '—'}</p>
+                      <p><span className="font-semibold text-slate-700">Session notes:</span> {review.review_answers.session_notes?.freeform ?? '—'}</p>
                     </div>
                   </div>
                 ))}
