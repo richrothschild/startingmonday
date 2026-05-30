@@ -45,6 +45,7 @@ describe('public-endpoint-guard', () => {
   })
 
   it('blocks missing captcha token when captcha is required', async () => {
+    vi.stubEnv('TURNSTILE_ENFORCED', '1')
     vi.stubEnv('TURNSTILE_SECRET_KEY', 'test_secret')
 
     const req = new NextRequest('https://startingmonday.app/api/auth/verify-and-signin', { method: 'POST' })
@@ -59,6 +60,7 @@ describe('public-endpoint-guard', () => {
   })
 
   it('blocks invalid captcha token when verification fails', async () => {
+    vi.stubEnv('TURNSTILE_ENFORCED', '1')
     vi.stubEnv('TURNSTILE_SECRET_KEY', 'test_secret')
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({
       ok: true,
@@ -80,6 +82,7 @@ describe('public-endpoint-guard', () => {
   })
 
   it('allows request when captcha verification succeeds', async () => {
+    vi.stubEnv('TURNSTILE_ENFORCED', '1')
     vi.stubEnv('TURNSTILE_SECRET_KEY', 'test_secret')
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({
       ok: true,
@@ -89,6 +92,23 @@ describe('public-endpoint-guard', () => {
     const req = new NextRequest('https://startingmonday.app/api/auth/verify-and-signin', {
       method: 'POST',
       headers: { 'x-captcha-token': 'good_token' },
+    })
+    const response = await enforcePublicEndpointGuard({
+      request: req,
+      rateLimitKey: 'login',
+      maxPerMinute: 5,
+      requireCaptcha: true,
+    })
+
+    expect(response).toBeNull()
+  })
+
+  it('skips captcha verification when enforcement flag is disabled', async () => {
+    vi.stubEnv('TURNSTILE_ENFORCED', '0')
+    vi.stubEnv('TURNSTILE_SECRET_KEY', 'test_secret')
+
+    const req = new NextRequest('https://startingmonday.app/api/auth/verify-and-signin', {
+      method: 'POST',
     })
     const response = await enforcePublicEndpointGuard({
       request: req,

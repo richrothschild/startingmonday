@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TurnstileWidget from '@/components/turnstile-widget'
 
+const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
+
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -20,6 +22,7 @@ export default function LoginPage() {
   const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
 
   function requireCaptchaToken(): string | null {
+    if (!TURNSTILE_ENABLED) return ''
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
       return null
@@ -36,7 +39,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'google',
@@ -68,7 +71,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'apple',
@@ -114,7 +117,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
@@ -157,7 +160,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           email: normalizedEmail,
@@ -289,7 +292,7 @@ export default function LoginPage() {
                 <p className="text-[13px] text-emerald-700">{info}</p>
               )}
 
-              <TurnstileWidget onTokenChange={setCaptchaToken} />
+              {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
 
               <button
                 type="button"

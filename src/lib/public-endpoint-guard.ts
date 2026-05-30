@@ -13,6 +13,10 @@ type TurnstileVerificationResponse = {
   'error-codes'?: string[]
 }
 
+function isTurnstileEnforced(): boolean {
+  return process.env.TURNSTILE_ENFORCED === '1'
+}
+
 export function getClientIp(request: NextRequest): string {
   return (
     request.headers.get('cf-connecting-ip')
@@ -41,7 +45,7 @@ export async function enforcePublicEndpointGuard(
     )
   }
 
-  if (requireCaptcha) {
+  if (requireCaptcha && isTurnstileEnforced()) {
     const secret = process.env.TURNSTILE_SECRET_KEY?.trim()
     if (!secret) {
       if (process.env.NODE_ENV === 'production') {
