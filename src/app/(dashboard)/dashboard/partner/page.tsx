@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { inferPartnerProgramFromTier, toPercent, type PartnerProgram } from '@/lib/partner-kpi-schema'
 
 import { SeatPurchase } from './seat-purchase'
 import { ExportCsvButton } from './ExportCsvButton'
@@ -15,7 +16,53 @@ const TIER_MRR: Record<string, number> = {
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
-export default async function PartnerDashboardPage() {
+const RANGE_OPTIONS = [
+  { value: '7d', label: 'Last 7 days', days: 7 },
+  { value: '30d', label: 'Last 30 days', days: 30 },
+  { value: '90d', label: 'Last 90 days', days: 90 },
+] as const
+
+function parseRange(value: string | undefined): (typeof RANGE_OPTIONS)[number] {
+  const found = RANGE_OPTIONS.find((option) => option.value === value)
+  return found ?? RANGE_OPTIONS[1]
+}
+
+function toCohortKey(isoDate: string): string {
+  const dt = new Date(isoDate)
+  if (Number.isNaN(dt.getTime())) return 'unknown'
+  const month = String(dt.getUTCMonth() + 1).padStart(2, '0')
+  return `${dt.getUTCFullYear()}-${month}`
+}
+
+function mondayKey(isoDate: string): string {
+  const dt = new Date(isoDate)
+  if (Number.isNaN(dt.getTime())) return 'unknown'
+  const day = dt.getUTCDay()
+  const diffToMonday = (day + 6) % 7
+  const monday = new Date(Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate() - diffToMonday))
+  return monday.toISOString().slice(0, 10)
+}
+
+function formatPct(value: number): string {
+  return `${value.toFixed(1)}%`
+}
+
+type SearchParams = {
+  program?: string
+  cohort?: string
+  range?: string
+}
+
+export default async function PartnerDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>
+}) {
+  const filters = await searchParams
+  const selectedRange = parseRange(filters.range)
+  const selectedProgram = (filters.program ?? 'all').trim().toLowerCase()
+  const selectedCohort = (filters.cohort ?? 'all').trim()
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -54,7 +101,12 @@ export default async function PartnerDashboardPage() {
 
   const attributedUserIds = (attributions ?? []).map(a => a.signup_user_id)
 
-  let subscriberRows: { id: string; subscription_status: string; subscription_tier: string | null; created_at: string }[] = []
+  let subscriberRows: {
+    id: string
+    subscription_status: string
+    subscription_tier: string | null
+    created_at: string
+  }[] = []
   if (attributedUserIds.length > 0) {
     const { data: users } = await admin
       .from('users')
@@ -75,10 +127,163 @@ export default async function PartnerDashboardPage() {
     (attributions ?? []).map(a => [a.signup_user_id, a.attributed_at])
   )
   const displayRows = subscriberRows.map(u => ({
+    userId: u.id,
     joinedDate: attrByUserId[u.id] ?? u.created_at,
     tier: u.subscription_tier ?? 'free',
+    program: inferPartnerProgramFromTier(u.subscription_tier),
+    cohort: toCohortKey(u.created_at),
     status: u.subscription_status,
   })).sort((a, b) => new Date(b.joinedDate).getTime() - new Date(a.joinedDate).getTime())
+
+  const cohortOptions = Array.from(new Set(displayRows.map((row) => row.cohort))).sort((a, b) => (a < b ? 1 : -1))
+  const programOptions: PartnerProgram[] = ['intelligence', 'active', 'executive', 'free']
+
+  const scopedRows = displayRows.filter((row) => {
+    if (selectedProgram !== 'all' && row.program !== selectedProgram) return false
+    if (selectedCohort !== 'all' && row.cohort !== selectedCohort) return false
+    return true
+  })
+
+  const scopedUserIds = new Set(scopedRows.map((row) => row.userId))
+
+  const now = Date.now()
+  const currentWindowStart = new Date(now - selectedRange.days * 24 * 60 * 60 * 1000)
+  const previousWindowStart = new Date(now - selectedRange.days * 2 * 24 * 60 * 60 * 1000)
+  const trendStart = new Date(now - 56 * 24 * 60 * 60 * 1000)
+
+  const scopedIds = Array.from(scopedUserIds)
+
+  let eventRows: Array<{ user_id: string; created_at: string }> = []
+  let prepRowsCurrent: Array<{ user_id: string; created_at: string }> = []
+  let followupRowsCurrent: Array<{ user_id: string; status: string | null; created_at: string }> = []
+  let pipelineRowsCurrent: Array<{ user_id: string; sent_at: string }> = []
+  let trendEvents: Array<{ user_id: string; created_at: string }> = []
+
+  if (scopedIds.length > 0) {
+    const [eventsRes, prepRes, followupRes, pipelineRes, trendRes] = await Promise.all([
+      admin
+        .from('user_events')
+        .select('user_id,created_at')
+        .in('user_id', scopedIds)
+        .gte('created_at', previousWindowStart.toISOString())
+        .limit(100000),
+      admin
+        .from('briefs')
+        .select('user_id,created_at')
+        .in('user_id', scopedIds)
+        .in('type', ['prep', 'prep_section'])
+        .gte('created_at', previousWindowStart.toISOString())
+        .limit(100000),
+      admin
+        .from('follow_ups')
+        .select('user_id,status,created_at')
+        .in('user_id', scopedIds)
+        .gte('created_at', previousWindowStart.toISOString())
+        .limit(100000),
+      admin
+        .from('outreach_logs')
+        .select('user_id,sent_at')
+        .in('user_id', scopedIds)
+        .gte('sent_at', previousWindowStart.toISOString())
+        .limit(100000),
+      admin
+        .from('user_events')
+        .select('user_id,created_at')
+        .in('user_id', scopedIds)
+        .gte('created_at', trendStart.toISOString())
+        .limit(100000),
+    ])
+
+    eventRows = (eventsRes.data ?? []) as typeof eventRows
+    prepRowsCurrent = (prepRes.data ?? []) as typeof prepRowsCurrent
+    followupRowsCurrent = (followupRes.data ?? []) as typeof followupRowsCurrent
+    pipelineRowsCurrent = (pipelineRes.data ?? []) as typeof pipelineRowsCurrent
+    trendEvents = (trendRes.data ?? []) as typeof trendEvents
+  }
+
+  const currentEventsUsers = new Set(
+    eventRows.filter((row) => new Date(row.created_at) >= currentWindowStart).map((row) => row.user_id),
+  )
+  const previousEventsUsers = new Set(
+    eventRows
+      .filter((row) => new Date(row.created_at) >= previousWindowStart && new Date(row.created_at) < currentWindowStart)
+      .map((row) => row.user_id),
+  )
+
+  const currentPrepUsers = new Set(
+    prepRowsCurrent.filter((row) => new Date(row.created_at) >= currentWindowStart).map((row) => row.user_id),
+  )
+  const previousPrepUsers = new Set(
+    prepRowsCurrent
+      .filter((row) => new Date(row.created_at) >= previousWindowStart && new Date(row.created_at) < currentWindowStart)
+      .map((row) => row.user_id),
+  )
+
+  const completedStatuses = new Set(['done', 'completed', 'sent'])
+  const currentFollowupUsers = new Set(
+    followupRowsCurrent
+      .filter((row) => new Date(row.created_at) >= currentWindowStart && completedStatuses.has((row.status ?? '').toLowerCase()))
+      .map((row) => row.user_id),
+  )
+  const previousFollowupUsers = new Set(
+    followupRowsCurrent
+      .filter((row) => {
+        const created = new Date(row.created_at)
+        return created >= previousWindowStart && created < currentWindowStart && completedStatuses.has((row.status ?? '').toLowerCase())
+      })
+      .map((row) => row.user_id),
+  )
+
+  const currentPipelineUsers = new Set(
+    pipelineRowsCurrent.filter((row) => new Date(row.sent_at) >= currentWindowStart).map((row) => row.user_id),
+  )
+  const previousPipelineUsers = new Set(
+    pipelineRowsCurrent
+      .filter((row) => {
+        const sent = new Date(row.sent_at)
+        return sent >= previousWindowStart && sent < currentWindowStart
+      })
+      .map((row) => row.user_id),
+  )
+
+  const denominator = scopedIds.length
+  const utilizationRate = toPercent(currentEventsUsers.size, denominator)
+  const prepCompletionRate = toPercent(currentPrepUsers.size, denominator)
+  const followupCompletionRate = toPercent(currentFollowupUsers.size, denominator)
+  const pipelineMovementRate = toPercent(currentPipelineUsers.size, denominator)
+
+  const utilizationDelta = utilizationRate - toPercent(previousEventsUsers.size, denominator)
+  const prepCompletionDelta = prepCompletionRate - toPercent(previousPrepUsers.size, denominator)
+  const followupCompletionDelta = followupCompletionRate - toPercent(previousFollowupUsers.size, denominator)
+  const pipelineMovementDelta = pipelineMovementRate - toPercent(previousPipelineUsers.size, denominator)
+
+  const weeklyMap = new Map<string, { users: Set<string>; events: number }>()
+  for (const row of trendEvents) {
+    const week = mondayKey(row.created_at)
+    if (week === 'unknown') continue
+    const existing = weeklyMap.get(week)
+    if (existing) {
+      existing.users.add(row.user_id)
+      existing.events += 1
+    } else {
+      weeklyMap.set(week, { users: new Set([row.user_id]), events: 1 })
+    }
+  }
+
+  const weeklyUsageRows = Array.from(weeklyMap.entries())
+    .sort(([a], [b]) => (a < b ? 1 : -1))
+    .slice(0, 8)
+    .map(([week, value]) => ({
+      week,
+      active_users: value.users.size,
+      events: value.events,
+      active_rate: toPercent(value.users.size, denominator),
+    }))
+
+  function formatDelta(value: number): string {
+    const sign = value > 0 ? '+' : ''
+    return `${sign}${value.toFixed(1)} pts`
+  }
 
   const tierLabel: Record<string, string> = {
     passive: 'Intelligence', active: 'Active', executive: 'Executive', free: 'Free',
@@ -125,6 +330,7 @@ export default async function PartnerDashboardPage() {
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
             <a href="#partner-stats" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Stats</a>
+            <a href="#partner-performance" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Performance</a>
             <a href="#partner-referral-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Referral link</a>
             <a href="#partner-subscribers" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
             <a href="#partner-commission" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Commission model</a>
@@ -161,6 +367,99 @@ export default async function PartnerDashboardPage() {
           ))}
         </section>
 
+        <section id="partner-performance" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
+            <div>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Partner reporting dashboard v1</h2>
+              <p className="text-[13px] text-slate-500">Utilization, prep completion, follow-up completion, and pipeline movement for pilot operations.</p>
+            </div>
+            <p className="text-[11px] text-slate-400">Scope users: {denominator}</p>
+          </div>
+
+          <form method="get" className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-5">
+            <label className="text-[11px] font-semibold text-slate-600">
+              Partner account
+              <select name="partner" disabled className="mt-1 w-full bg-slate-100 border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-600">
+                <option>{partner.name}</option>
+              </select>
+            </label>
+            <label className="text-[11px] font-semibold text-slate-600">
+              Program
+              <select name="program" defaultValue={selectedProgram} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+                <option value="all">All programs</option>
+                {programOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <label className="text-[11px] font-semibold text-slate-600">
+              Cohort
+              <select name="cohort" defaultValue={selectedCohort} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+                <option value="all">All cohorts</option>
+                {cohortOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <label className="text-[11px] font-semibold text-slate-600">
+              Date range
+              <select name="range" defaultValue={selectedRange.value} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+                {RANGE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </label>
+            <button type="submit" className="sm:col-span-4 w-full sm:w-auto bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+              Apply filters
+            </button>
+          </form>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+            {[
+              { label: 'Utilization', value: utilizationRate, delta: utilizationDelta },
+              { label: 'Prep completion', value: prepCompletionRate, delta: prepCompletionDelta },
+              { label: 'Follow-up completion', value: followupCompletionRate, delta: followupCompletionDelta },
+              { label: 'Pipeline movement', value: pipelineMovementRate, delta: pipelineMovementDelta },
+            ].map((metric) => (
+              <div key={metric.label} className="border border-slate-200 rounded p-3 bg-slate-50">
+                <p className="text-[11px] font-semibold text-slate-500">{metric.label}</p>
+                <p className="text-[24px] font-bold text-slate-900 mt-1">{formatPct(metric.value)}</p>
+                <p className="text-[11px] text-slate-500 mt-1">vs prior window: {formatDelta(metric.delta)}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="border border-slate-200 rounded overflow-hidden">
+            <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly usage tracking</p>
+            </div>
+            {weeklyUsageRows.length === 0 ? (
+              <p className="px-4 py-4 text-[12px] text-slate-500">No weekly usage data yet for this filter scope.</p>
+            ) : (
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-white border-b border-slate-100 text-left">
+                    <th className="px-4 py-2 font-semibold text-slate-500">Week</th>
+                    <th className="px-4 py-2 font-semibold text-slate-500">Active users</th>
+                    <th className="px-4 py-2 font-semibold text-slate-500">Events</th>
+                    <th className="px-4 py-2 font-semibold text-slate-500">Active rate</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {weeklyUsageRows.map((row) => (
+                    <tr key={row.week}>
+                      <td className="px-4 py-2 text-slate-700">{row.week}</td>
+                      <td className="px-4 py-2 text-slate-700">{row.active_users}</td>
+                      <td className="px-4 py-2 text-slate-700">{row.events}</td>
+                      <td className="px-4 py-2 text-slate-700">{formatPct(row.active_rate)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </section>
+
         {/* Coach seats */}
         <SeatPurchase
           seatsPurchased={partner.seats_purchased ?? 0}
@@ -190,12 +489,12 @@ export default async function PartnerDashboardPage() {
         <section id="partner-subscribers" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-              Referred Subscribers ({totalReferred})
+                Referred Subscribers ({scopedRows.length} in current filter)
             </h2>
           </div>
-          {displayRows.length === 0 ? (
+            {scopedRows.length === 0 ? (
             <p className="px-6 py-8 text-[13px] text-slate-400">
-              No subscribers yet. Share your referral link to get started.
+                No subscribers in this filter scope. Adjust program, cohort, or date range.
             </p>
           ) : (
             <table className="w-full text-[12px]">
@@ -208,7 +507,7 @@ export default async function PartnerDashboardPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
-                {displayRows.map((row, i) => {
+                {scopedRows.map((row, i) => {
                   const mrr = row.status === 'active' ? (TIER_MRR[row.tier] ?? 0) : 0
                   const commission = Math.round(mrr * partner.commission_pct / 100)
                   return (
