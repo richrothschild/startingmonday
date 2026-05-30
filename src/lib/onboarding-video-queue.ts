@@ -178,6 +178,62 @@ export async function fetchOnboardingVideoRunSnapshot(admin: any, input: {
   }
 }
 
+export async function fetchOnboardingVideoRunDetails(admin: any, input: {
+  userId: string
+  runId: string
+  eventLimit?: number
+  includeRunEvents?: boolean
+  includeWebhookEvents?: boolean
+}) {
+  const eventLimit = clampLimit(input.eventLimit, 50, 500)
+  const includeRunEvents = input.includeRunEvents !== false
+  const includeWebhookEvents = input.includeWebhookEvents === true
+
+  const { data: run, error } = await admin
+    .from('onboarding_video_runs')
+    .select('id, user_id, workflow_id, provider, provider_run_id, trigger_source, status, retry_count, max_retries, input_payload, output_payload, error_payload, next_retry_at, started_at, completed_at, created_at')
+    .eq('id', input.runId)
+    .eq('user_id', input.userId)
+    .maybeSingle()
+
+  if (error) throw new Error(error.message)
+  if (!run) return { run: null, events: [], webhookEvents: [] }
+
+  let events: Array<Record<string, unknown>> = []
+  if (includeRunEvents) {
+    const { data: eventRows, error: eventError } = await admin
+      .from('onboarding_video_run_events')
+      .select('id, run_id, event_type, event_payload, created_at')
+      .eq('run_id', run.id)
+      .order('created_at', { ascending: false })
+      .limit(eventLimit)
+
+    if (eventError) throw new Error(eventError.message)
+    events = (eventRows ?? []) as Array<Record<string, unknown>>
+  }
+
+  let webhookEvents: Array<Record<string, unknown>> = []
+  if (includeWebhookEvents && run.provider_run_id) {
+    const { data: webhookRows, error: webhookError } = await admin
+      .from('onboarding_video_webhook_events')
+      .select('id, provider, provider_event_id, provider_run_id, event_type, event_status, matched_run_count, received_at, processed_at, error_message, payload, created_at')
+      .eq('user_id', input.userId)
+      .eq('provider', run.provider)
+      .eq('provider_run_id', run.provider_run_id)
+      .order('received_at', { ascending: false })
+      .limit(eventLimit)
+
+    if (webhookError) throw new Error(webhookError.message)
+    webhookEvents = (webhookRows ?? []) as Array<Record<string, unknown>>
+  }
+
+  return {
+    run,
+    events,
+    webhookEvents,
+  }
+}
+
 async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: string) {
   const nowIso = new Date().toISOString()
   await appendRunEvent(admin, {
