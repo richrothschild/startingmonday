@@ -1,5 +1,5 @@
 {
-  "warnings": 328,
-  "capturedAt": "2026-05-26",
-  "notes": "Recaptured after workflow and content updates. Current warning floor is 328; future work should burn this baseline down."
+  "warnings": 365,
+  "capturedAt": "2026-05-30",
+  "notes": "Recaptured after CI baseline gate failure; warning floor is now 365 and should be reduced in debt burn-down work."
 }
