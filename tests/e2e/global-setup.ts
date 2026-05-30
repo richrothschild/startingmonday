@@ -1,4 +1,4 @@
-import { test as setup, expect, type Page } from '@playwright/test'
+import { test as setup, type Page } from '@playwright/test'
 import path from 'path'
 
 const authFile = path.join(__dirname, '.auth/user.json')
@@ -91,22 +91,7 @@ setup('authenticate', async ({ page }) => {
 
   if (apiAuthOk) {
     await ensureMonitoringAnchorCompany(page)
-    await page.context().storageState({ path: authFile })
-    return
   }
-
-  // Fallback: browser form login (works on production when API approach is unavailable).
-  try {
-    await page.goto('/login')
-    await page.fill('#email', email)
-    await page.fill('#password', password)
-    await page.click('button[type="submit"]')
-    await page.waitForURL((url) => !url.pathname.startsWith('/login'), { timeout: 20_000 })
-    await expect(page).toHaveURL(/\/(dashboard|onboarding)(?:\/.*)?$/)
-    await ensureMonitoringAnchorCompany(page)
-  } catch {
-    // Keep an empty storage state so downstream tests can decide to skip auth-dependent paths.
-  }
-
+  // If API sign-in failed, saves empty state so downstream tests skip gracefully.
   await page.context().storageState({ path: authFile })
 })
