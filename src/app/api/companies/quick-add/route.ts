@@ -3,6 +3,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -43,6 +44,8 @@ export async function POST(request: NextRequest) {
 
   await logEvent(userId, 'company_added', { source: 'quick_add' })
   captureServerEvent(userId, 'company_added', { source: 'quick_add' })
+  await logEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'quick_add', company_id: data.id })
+  captureServerEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'quick_add', company_id: data.id })
 
   return NextResponse.json({ id: data.id, name: data.name, stage: data.stage })
 }

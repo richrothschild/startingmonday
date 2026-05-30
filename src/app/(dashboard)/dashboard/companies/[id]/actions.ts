@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { markOfferAccepted, logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 import { str, numOrNull } from '@/lib/form-utils'
 
 function normalizeUrl(raw: string | null): string | null {
@@ -66,6 +67,13 @@ export async function updateCompany(id: string, formData: FormData) {
     await markOfferAccepted(user.id)
     await logEvent(user.id, 'offer_accepted', { company_id: id })
     captureServerEvent(user.id, 'offer_accepted', { company_id: id })
+    await logEvent(user.id, PMF_EVENTS.outcomes.offer_stage_reached, { company_id: id })
+    captureServerEvent(user.id, PMF_EVENTS.outcomes.offer_stage_reached, { company_id: id })
+  }
+
+  if (stage === 'interviewing' && prevStage !== 'interviewing') {
+    await logEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, { company_id: id, source: 'company_update' })
+    captureServerEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, { company_id: id, source: 'company_update' })
   }
 
   captureServerEvent(user.id, 'pipeline_stage_changed', { company_id: id, stage })
@@ -116,6 +124,8 @@ export async function addFollowUp(companyId: string, formData: FormData) {
 
   await logEvent(user.id, 'follow_up_set', { company_id: companyId })
   captureServerEvent(user.id, 'follow_up_set', { company_id: companyId })
+  await logEvent(user.id, PMF_EVENTS.cadence.follow_up_logged, { company_id: companyId })
+  captureServerEvent(user.id, PMF_EVENTS.cadence.follow_up_logged, { company_id: companyId })
 
   revalidatePath(`/dashboard/companies/${companyId}`)
   revalidatePath('/dashboard')
@@ -225,6 +235,15 @@ export async function addInterviewLog(companyId: string, formData: FormData) {
     what_landed: whatLanded,
     what_surprised: whatSurprised,
     follow_up_needed: followUpNeeded,
+  })
+
+  await logEvent(user.id, PMF_EVENTS.cadence.weekly_session_completed, {
+    company_id: companyId,
+    interview_stage: interviewStage,
+  })
+  captureServerEvent(user.id, PMF_EVENTS.cadence.weekly_session_completed, {
+    company_id: companyId,
+    interview_stage: interviewStage,
   })
 
   revalidatePath(`/dashboard/companies/${companyId}`)

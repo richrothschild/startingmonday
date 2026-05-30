@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { markOfferAccepted, logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 
 const VALID_STAGES = ['watching', 'researching', 'applied', 'interviewing', 'offer']
 
@@ -12,6 +13,14 @@ export async function moveCompanyStage(companyId: string, stage: string): Promis
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { ok: false }
+
+  const { data: current } = await supabase
+    .from('companies')
+    .select('stage')
+    .eq('id', companyId)
+    .eq('user_id', user.id)
+    .single()
+  const previousStage = current?.stage ?? 'watching'
 
   const { error } = await supabase
     .from('companies')
@@ -25,6 +34,13 @@ export async function moveCompanyStage(companyId: string, stage: string): Promis
     await markOfferAccepted(user.id)
     await logEvent(user.id, 'offer_accepted', { company_id: companyId })
     captureServerEvent(user.id, 'offer_accepted', { company_id: companyId })
+    await logEvent(user.id, PMF_EVENTS.outcomes.offer_stage_reached, { company_id: companyId, source: 'kanban_move' })
+    captureServerEvent(user.id, PMF_EVENTS.outcomes.offer_stage_reached, { company_id: companyId, source: 'kanban_move' })
+  }
+
+  if (stage === 'interviewing' && previousStage !== 'interviewing') {
+    await logEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, { company_id: companyId, source: 'kanban_move' })
+    captureServerEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, { company_id: companyId, source: 'kanban_move' })
   }
 
   await logEvent(user.id, 'pipeline_stage_changed', { company_id: companyId, stage })
