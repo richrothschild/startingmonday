@@ -25,6 +25,36 @@ type InternalIndexFile = {
   entries?: InternalIndexEntry[]
 }
 
+const CORE_INTERNAL_SECTIONS: GuideSection[] = [
+  {
+    id: 'core-architecture',
+    title: 'Architecture (Core)',
+    body: [
+      '- Platform architecture overview | docs/internal-system-summary.md | System map for app routes, APIs, data, and workflows.',
+      '- Internal guide index | docs/internal-guide.index.json | Generated source index used for search and chat retrieval.',
+      '- Internal guide markdown | docs/internal-guide.md | Human-readable grouped sections generated from source artifacts.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-api',
+    title: 'API Surface (Core)',
+    body: [
+      '- Internal guide chat | src/app/api/admin/internal-guide/chat/route.ts | Internal retrieval and source-linked answers.',
+      '- External guide chat | src/app/api/guide/chat/route.ts | Customer-facing guide retrieval and response endpoint.',
+      '- Auth start fallback | src/app/api/auth/oauth-start/route.ts | Server fallback for OAuth flow start.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-operations',
+    title: 'Operations and Reliability (Core)',
+    body: [
+      '- Internal guide sync | scripts/internal-guide-sync.ts | Regenerates internal guide artifacts.',
+      '- User guide sync | scripts/user-guide-sync.ts | Regenerates external guide artifacts.',
+      '- Production synthetics | .github/workflows/production-synthetics.yml | 5-minute monitoring and alerting workflow.',
+    ].join('\n'),
+  },
+]
+
 function parseGuide(markdown: string): GuideSection[] {
   const lines = markdown.split(/\r?\n/)
   const sections: GuideSection[] = []
@@ -130,13 +160,7 @@ export default async function InternalGuidePage({
   const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
   const sections = markdownSections.length > 0 ? markdownSections : indexSections
 
-  const safeSections = sections.length > 0
-    ? sections
-    : [{
-        id: 'fallback-0',
-        title: 'Internal guide content unavailable',
-        body: 'Internal guide content is temporarily unavailable. Retry in a moment or run npm run guide:internal:sync.',
-      }]
+  const safeSections = sections.length > 0 ? sections : CORE_INTERNAL_SECTIONS
 
   return (
     <InternalGuideClient

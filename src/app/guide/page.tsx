@@ -25,6 +25,36 @@ type UserGuideIndexFile = {
   entries?: UserGuideIndexEntry[]
 }
 
+const CORE_USER_SECTIONS: GuideSection[] = [
+  {
+    id: 'core-start-here',
+    title: 'Get Started (Core)',
+    body: [
+      '- Open your dashboard and complete your profile before adding outreach targets.',
+      '- Add companies and contacts, then use guide chat for feature-specific workflows.',
+      '- Use help and guide pages for troubleshooting and escalation paths.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-features',
+    title: 'Features (Core)',
+    body: [
+      '- Dashboard and pipeline flows for company and contact tracking.',
+      '- Guide chat and article links for self-serve operations.',
+      '- Automation and API endpoints for advanced usage and integrations.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-support',
+    title: 'Troubleshooting and Support (Core)',
+    body: [
+      '- If a workflow fails, retry once and check status indicators on the active page.',
+      '- Use guide search with terms like setup, profile, contacts, outreach, automation, or billing.',
+      '- If still blocked, use the help route from the dashboard for next-step support.',
+    ].join('\n'),
+  },
+]
+
 function parseGuide(markdown: string): GuideSection[] {
   const lines = markdown.split(/\r?\n/)
   const sections: GuideSection[] = []
@@ -127,13 +157,7 @@ export default async function GuidePage({
   const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
   const sections = markdownSections.length > 0 ? markdownSections : indexSections
 
-  const safeSections = sections.length > 0
-    ? sections
-    : [{
-        id: 'fallback-0',
-        title: 'Guide content unavailable',
-        body: 'Guide content is temporarily unavailable. Retry shortly or run npm run guide:user:sync.',
-      }]
+  const safeSections = sections.length > 0 ? sections : CORE_USER_SECTIONS
 
   return (
     <>
