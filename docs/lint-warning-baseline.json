@@ -1,5 +1,5 @@
 {
-  "warnings": 328,
-  "capturedAt": "2026-05-26",
-  "notes": "Recaptured after workflow and content updates. Current warning floor is 328; future work should burn this baseline down."
+  "warnings": 365,
+  "capturedAt": "2026-05-29",
+  "notes": "Recaptured after Epic A sprint foundation merge. Current warning floor is 365; future work should burn this baseline down."
 }
