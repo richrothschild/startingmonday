@@ -1,12 +1,29 @@
 'use client'
 
-import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
 type GuideSection = {
   id: string
   title: string
   body: string
+  items?: Array<{
+    title: string
+    url?: string
+    summary: string
+    lastModifiedAt?: string
+    qualityWeight?: number
+  }>
+}
+
+type ParsedGuideItem = {
+  title: string
+  url?: string
+  summary: string
+  functionKey: string
+  lastModifiedAt?: string
+  qualityWeight?: number
 }
 
 type ChatSource = {
@@ -27,15 +44,109 @@ type ChatResponse = {
   queryId?: string | null
 }
 
-function toAnchorId(input: string): string {
-  return input
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
+function titleCase(value: string): string {
+  return value.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((word) => word.slice(0, 1).toUpperCase() + word.slice(1)).join(' ')
 }
 
-export function GuideClient({ sections, initialQuestion = '' }: { sections: GuideSection[]; initialQuestion?: string }) {
+function reviewerLabelFromGuideUrl(title: string, url?: string): string {
+  const normalizedTitle = title.toLowerCase()
+  const normalizedUrl = (url ?? '').replace(/\\/g, '/').toLowerCase()
+
+  if (normalizedUrl === '/guide' || normalizedTitle.includes('guide') || normalizedTitle.includes('help')) {
+    return 'Guide, help, and self-serve support'
+  }
+  if (normalizedUrl.startsWith('/dashboard/start') || normalizedUrl.startsWith('/dashboard/profile') || normalizedUrl.includes('/companies/new')) {
+    return 'Onboarding and setup workflows'
+  }
+  if (normalizedUrl.startsWith('/dashboard/')) {
+    return 'Daily execution and dashboard workflows'
+  }
+  if (normalizedUrl.startsWith('/api/')) {
+    return 'Automation and integration endpoints'
+  }
+  if (normalizedUrl.startsWith('/blog/')) {
+    return 'Research, coaching, and market reading'
+  }
+  if (normalizedUrl.startsWith('/for-') || normalizedUrl.startsWith('/partners') || normalizedUrl.startsWith('/coaches-guide')) {
+    return 'Partner and persona review pages'
+  }
+  if (normalizedUrl.startsWith('/executives') || normalizedUrl.startsWith('/coaches')) {
+    return 'Persona journeys and audience hubs'
+  }
+  if (normalizedTitle.includes('security') || normalizedTitle.includes('terms') || normalizedTitle.includes('unsubscribe')) {
+    return 'Trust, account, and policy surfaces'
+  }
+
+  return 'Core product pathways'
+}
+
+function formatDate(value?: string): string {
+  if (!value) return 'No timestamp available'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return 'No timestamp available'
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date)
+}
+
+function inferFunctionKey(title: string, url?: string): string {
+  const cleanedTitle = title.replace(/^(feature|how-to|api|article)\s+/i, '').trim()
+  if (cleanedTitle.includes(' / ')) {
+    const segments = cleanedTitle.split(' / ').map((segment) => segment.trim()).filter(Boolean)
+    if (segments.length >= 2) return `${segments[0]} / ${segments[1]}`
+    if (segments.length === 1) return segments[0]!
+  }
+  if (url) {
+    const normalized = url.replace(/\\/g, '/').trim()
+    const reviewerLabel = reviewerLabelFromGuideUrl(title, normalized)
+    if (reviewerLabel) return reviewerLabel
+    if (normalized.startsWith('/api/')) {
+      const seg = normalized.slice('/api/'.length).split('/').filter(Boolean)
+      return seg.length > 0 ? `API ${titleCase(seg[0]!)}` : 'API Core'
+    }
+    if (normalized.startsWith('/dashboard/')) {
+      const seg = normalized.slice('/dashboard/'.length).split('/').filter(Boolean)
+      return seg.length > 0 ? `Dashboard ${titleCase(seg[0]!)}` : 'Dashboard Core'
+    }
+    if (normalized.startsWith('/')) {
+      const seg = normalized.slice(1).split('/').filter(Boolean)
+      return seg.length > 0 ? titleCase(seg[0]!) : 'Guide Core'
+    }
+  }
+  return reviewerLabelFromGuideUrl(title, url)
+}
+
+function parseGuideItems(section: GuideSection): ParsedGuideItem[] {
+  if (section.items && section.items.length > 0) {
+    return section.items.map((item) => ({
+      title: item.title,
+      url: item.url,
+      summary: item.summary,
+      functionKey: inferFunctionKey(item.title, item.url),
+      lastModifiedAt: item.lastModifiedAt,
+      qualityWeight: item.qualityWeight,
+    }))
+  }
+
+  const lines = section.body.split('\n').map((line) => line.trim()).filter(Boolean)
+  return lines.map((line) => {
+    const markdownLink = line.match(/^[-*]\s*\[([^\]]+)\]\(([^)]+)\)\s*-?\s*(.*)$/)
+    if (markdownLink) {
+      const [, title, url, summary] = markdownLink
+      return { title, url, summary: summary ?? '', functionKey: inferFunctionKey(title, url) }
+    }
+    const normalized = line.replace(/^[-*]\s+/, '').trim()
+    const parts = normalized.split('|').map((part) => part.trim()).filter(Boolean)
+    if (parts.length >= 2) {
+      const [title, ...rest] = parts
+      return { title, summary: rest.join(' | '), functionKey: inferFunctionKey(title) }
+    }
+    return { title: normalized, summary: '', functionKey: inferFunctionKey(normalized) }
+  })
+}
+
+export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt = '' }: { sections: GuideSection[]; initialQuestion?: string; guideGeneratedAt?: string }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [query, setQuery] = useState('')
   const [question, setQuestion] = useState(initialQuestion)
   const [chatResult, setChatResult] = useState<ChatResponse | null>(null)
@@ -43,34 +154,95 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
   const [chatLoading, setChatLoading] = useState(false)
   const [feedbackState, setFeedbackState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [feedbackNote, setFeedbackNote] = useState('')
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
+  const [activeFunctionKey, setActiveFunctionKey] = useState<string | null>(null)
+
+  useEffect(() => {
+    setActiveSectionId(searchParams.get('section'))
+    setActiveFunctionKey(searchParams.get('function'))
+  }, [searchParams])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     if (!q) return sections
-    return sections.filter((section) => {
-      return section.title.toLowerCase().includes(q) || section.body.toLowerCase().includes(q)
-    })
+    return sections.filter((section) => section.title.toLowerCase().includes(q) || section.body.toLowerCase().includes(q))
   }, [query, sections])
+
+  const sectionDetails = useMemo(() => filtered.map((section) => {
+    const items = parseGuideItems(section)
+    const functionMap = new Map<string, ParsedGuideItem[]>()
+    for (const item of items) {
+      const list = functionMap.get(item.functionKey) ?? []
+      list.push(item)
+      functionMap.set(item.functionKey, list)
+    }
+    const functions = Array.from(functionMap.entries()).map(([functionKey, functionItems]) => ({
+      functionKey,
+      items: functionItems,
+      summary: functionItems[0]?.summary || functionItems[0]?.title || 'No summary available.',
+      lastModifiedAt: functionItems.map((item) => item.lastModifiedAt).filter((value): value is string => Boolean(value)).sort().at(-1),
+      reviewScore: functionItems.reduce((sum, item) => sum + (item.qualityWeight ?? 1), 0),
+    })).sort((a, b) => a.functionKey.localeCompare(b.functionKey))
+    return { section, items, functions }
+  }), [filtered])
+
+  const sectionRollup = useMemo(() => sectionDetails.map((entry) => ({
+    id: entry.section.id,
+    title: entry.section.title,
+    sectionSummary: entry.section.body.split('\n').find((line) => line.trim())?.replace(/^[-*]\s*/, '').slice(0, 180) ?? 'No summary available.',
+    functionCount: entry.functions.length,
+    itemCount: entry.items.length,
+  })), [sectionDetails])
+
+  const activeSection = useMemo(() => {
+    if (!activeSectionId) return sectionDetails[0] ?? null
+    return sectionDetails.find((entry) => entry.section.id === activeSectionId) ?? sectionDetails[0] ?? null
+  }, [activeSectionId, sectionDetails])
+
+  const activeFunction = useMemo(() => {
+    if (!activeSection) return null
+    if (!activeFunctionKey) return activeSection.functions[0] ?? null
+    return activeSection.functions.find((entry) => entry.functionKey === activeFunctionKey) ?? activeSection.functions[0] ?? null
+  }, [activeFunctionKey, activeSection])
+
+  const allFunctions = useMemo(() => sectionDetails.flatMap((entry) => entry.functions.map((fn) => ({
+    sectionId: entry.section.id,
+    functionKey: fn.functionKey,
+    summary: fn.summary,
+    itemCount: fn.items.length,
+    lastModifiedAt: fn.lastModifiedAt,
+    reviewScore: fn.reviewScore,
+  }))), [sectionDetails])
+
+  const mostReviewed = useMemo(() => [...allFunctions].sort((a, b) => (b.reviewScore - a.reviewScore) || (b.itemCount - a.itemCount)).slice(0, 4), [allFunctions])
+  const recentlyChanged = useMemo(() => [...allFunctions].filter((entry) => entry.lastModifiedAt).sort((a, b) => new Date(b.lastModifiedAt!).getTime() - new Date(a.lastModifiedAt!).getTime()).slice(0, 4), [allFunctions])
+
+  function updateSelection(sectionId: string | null, functionKey: string | null) {
+    setActiveSectionId(sectionId)
+    setActiveFunctionKey(functionKey)
+    const params = new URLSearchParams(searchParams.toString())
+    if (sectionId) params.set('section', sectionId)
+    else params.delete('section')
+    if (functionKey) params.set('function', functionKey)
+    else params.delete('function')
+    router.replace(params.size > 0 ? `${pathname}?${params.toString()}` : pathname, { scroll: false })
+  }
 
   async function askGuideChat() {
     const trimmed = question.trim()
     if (!trimmed || chatLoading) return
-
     setChatLoading(true)
     setChatError(null)
-
     try {
       const response = await fetch('/api/guide/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: trimmed }),
       })
-
       if (!response.ok) {
         const payload = (await response.json().catch(() => null)) as { error?: string } | null
         throw new Error(payload?.error ?? 'Guide chat is unavailable right now.')
       }
-
       const payload = (await response.json()) as ChatResponse
       setChatResult(payload)
       setFeedbackState('idle')
@@ -86,46 +258,17 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
   async function sendFeedback(rating: 'helpful' | 'not_helpful') {
     if (!chatResult?.queryId || feedbackState === 'sending') return
     setFeedbackState('sending')
-
     try {
       const response = await fetch('/api/guide/chat/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          queryId: chatResult.queryId,
-          rating,
-          note: feedbackNote.trim() || undefined,
-        }),
+        body: JSON.stringify({ queryId: chatResult.queryId, rating, note: feedbackNote.trim() || undefined }),
       })
-
       if (!response.ok) throw new Error('feedback failed')
       setFeedbackState('sent')
     } catch {
       setFeedbackState('error')
     }
-  }
-
-  function renderBody(body: string) {
-    const lines = body.split('\n').map((line) => line.trim()).filter(Boolean)
-
-    return lines.map((line, index) => {
-      const markdownLink = line.match(/^[-*]\s*\[([^\]]+)\]\(([^)]+)\)\s*-?\s*(.*)$/)
-      if (markdownLink) {
-        const [, label, url, rest] = markdownLink
-        return (
-          <p key={`${line}-${index}`} className="text-[13px] leading-relaxed text-slate-700">
-            <a href={url} className="font-semibold text-slate-900 hover:text-slate-700 hover:underline">{label}</a>
-            {rest ? <span className="text-slate-600"> - {rest}</span> : null}
-          </p>
-        )
-      }
-
-      return (
-        <p key={`${line}-${index}`} className="text-[13px] leading-relaxed text-slate-700">
-          {line}
-        </p>
-      )
-    })
   }
 
   return (
@@ -143,54 +286,48 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="mb-6">
           <h1 className="text-[28px] font-bold text-slate-900">Starting Monday Career Guide</h1>
-          <p className="text-[13px] text-slate-500 mt-1">Find features fast, follow practical how-to steps, and ask guide chat for source-linked answers.</p>
+          <p className="text-[13px] text-slate-500 mt-1">Find features fast with two levels: section summaries first, then function-level items when you select a section.</p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-4 mb-5">
+        <section className="sticky top-4 z-20 bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-4 mb-6 shadow-lg">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">You are here</p>
+              <p className="text-[14px] font-semibold text-white mt-1">Career Guide{activeSection ? ` / ${activeSection.section.title}` : ''}{activeFunction ? ` / ${activeFunction.functionKey}` : ''}</p>
+              <p className="text-[12px] text-slate-400 mt-1">{activeFunction?.summary ?? activeSection?.section.body.split('\n').find((line) => line.trim())?.replace(/^[-*]\s*/, '') ?? 'Choose a section to see the next level of guide content.'}</p>
+              <p className="text-[11px] text-slate-500 mt-2">Guide synced {formatDate(guideGeneratedAt)}</p>
+            </div>
+            {activeSection ? (
+              <div className="lg:max-w-[45%]">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Mini map</p>
+                <div className="flex flex-wrap gap-2">
+                  {activeSection.functions.map((entry) => (
+                    <button key={entry.functionKey} type="button" onClick={() => updateSelection(activeSection.section.id, entry.functionKey)} className={`rounded-full px-3 py-1.5 text-[12px] ${activeFunction?.functionKey === entry.functionKey ? 'bg-orange-500 text-black' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}>
+                      {entry.functionKey}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded p-4 mb-5">
           <label htmlFor="guide-search" className="block text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Search all guide sections</label>
-          <input
-            id="guide-search"
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search features, onboarding steps, APIs, and articles..."
-            className="w-full text-[14px] border border-slate-300 rounded px-3 py-2 bg-white text-slate-900 placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-slate-300"
-          />
+          <input id="guide-search" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search features, onboarding steps, APIs, and articles..." className="w-full text-[14px] border border-slate-300 rounded px-3 py-2 bg-white text-slate-900 placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-slate-300" />
           <p className="text-[12px] text-slate-400 mt-2">Showing {filtered.length} of {sections.length} sections.</p>
-        </div>
+        </section>
 
         <div className="bg-slate-900 border border-slate-800 rounded p-4 sm:p-5 mb-6">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Career Guide Chat</p>
           <p className="text-[13px] text-slate-300 mb-3">Ask anything about features, setup, workflows, or articles. You will get an answer plus source links.</p>
           <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              id="guide-chat"
-              type="text"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  event.preventDefault()
-                  void askGuideChat()
-                }
-              }}
-              placeholder="Example: How do I get started and set up my profile?"
-              className="w-full text-[14px] border border-slate-700 rounded px-3 py-2 bg-slate-950 text-slate-100 placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-slate-500"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                void askGuideChat()
-              }}
-              disabled={chatLoading || !question.trim()}
-              className="sm:w-auto px-4 py-2 text-[13px] font-semibold rounded bg-orange-500 text-black hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <input id="guide-chat" type="text" value={question} onChange={(e) => setQuestion(e.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); void askGuideChat() } }} placeholder="Example: How do I get started and set up my profile?" className="w-full text-[14px] border border-slate-700 rounded px-3 py-2 bg-slate-950 text-slate-100 placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-slate-500" />
+            <button type="button" onClick={() => { void askGuideChat() }} disabled={chatLoading || !question.trim()} className="sm:w-auto px-4 py-2 text-[13px] font-semibold rounded bg-orange-500 text-black hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed">
               {chatLoading ? 'Searching...' : 'Ask'}
             </button>
           </div>
-
           {chatError ? <p className="text-[12px] text-rose-300 mt-3">{chatError}</p> : null}
-
           {chatResult ? (
             <div className="mt-4 p-4 rounded border border-slate-700 bg-slate-950">
               <p className="text-[13px] text-slate-200 whitespace-pre-wrap">{chatResult.answer}</p>
@@ -199,48 +336,24 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
                 <span className="px-2 py-1 rounded bg-slate-800 text-slate-300">confidence: {Math.round((chatResult.confidence ?? 0) * 100)}%</span>
                 {chatResult.conservative ? <span className="px-2 py-1 rounded bg-amber-900/30 text-amber-300">source-first mode</span> : null}
               </div>
-
               {chatResult.sources.length > 0 ? (
                 <div className="mt-3 space-y-1">
                   <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Sources</p>
                   {chatResult.sources.map((source) => (
                     <div key={source.id}>
-                      <a href={source.url} className="block text-[13px] text-orange-300 hover:text-orange-200 hover:underline">
-                        {source.title}
-                      </a>
+                      <a href={source.url} className="block text-[13px] text-orange-300 hover:text-orange-200 hover:underline">{source.title}</a>
                       {source.snippet ? <p className="text-[12px] text-slate-400">{source.snippet}</p> : null}
                     </div>
                   ))}
                 </div>
               ) : null}
-
               {chatResult.queryId ? (
                 <div className="mt-4 pt-3 border-t border-slate-800">
                   <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Was this helpful?</p>
                   <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => { void sendFeedback('helpful') }}
-                      disabled={feedbackState === 'sending' || feedbackState === 'sent'}
-                      className="px-3 py-1.5 text-[12px] font-semibold rounded bg-emerald-500 text-black hover:bg-emerald-400 disabled:opacity-60"
-                    >
-                      Helpful
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { void sendFeedback('not_helpful') }}
-                      disabled={feedbackState === 'sending' || feedbackState === 'sent'}
-                      className="px-3 py-1.5 text-[12px] font-semibold rounded bg-slate-700 text-slate-100 hover:bg-slate-600 disabled:opacity-60"
-                    >
-                      Not helpful
-                    </button>
-                    <input
-                      type="text"
-                      value={feedbackNote}
-                      onChange={(event) => setFeedbackNote(event.target.value)}
-                      placeholder="Optional: what was missing?"
-                      className="min-w-[240px] flex-1 text-[12px] border border-slate-700 rounded px-2.5 py-1.5 bg-slate-900 text-slate-100 placeholder:text-slate-500"
-                    />
+                    <button type="button" onClick={() => { void sendFeedback('helpful') }} disabled={feedbackState === 'sending' || feedbackState === 'sent'} className="px-3 py-1.5 text-[12px] font-semibold rounded bg-emerald-500 text-black hover:bg-emerald-400 disabled:opacity-60">Helpful</button>
+                    <button type="button" onClick={() => { void sendFeedback('not_helpful') }} disabled={feedbackState === 'sending' || feedbackState === 'sent'} className="px-3 py-1.5 text-[12px] font-semibold rounded bg-slate-700 text-slate-100 hover:bg-slate-600 disabled:opacity-60">Not helpful</button>
+                    <input type="text" value={feedbackNote} onChange={(event) => setFeedbackNote(event.target.value)} placeholder="Optional: what was missing?" className="min-w-[240px] flex-1 text-[12px] border border-slate-700 rounded px-2.5 py-1.5 bg-slate-900 text-slate-100 placeholder:text-slate-500" />
                   </div>
                   {feedbackState === 'sent' ? <p className="text-[11px] text-emerald-300 mt-2">Thanks. Feedback captured.</p> : null}
                   {feedbackState === 'error' ? <p className="text-[11px] text-rose-300 mt-2">Could not save feedback right now.</p> : null}
@@ -250,30 +363,73 @@ export function GuideClient({ sections, initialQuestion = '' }: { sections: Guid
           ) : null}
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-4 mb-6">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Section index</p>
-          {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {filtered.map((section) => (
-                <a key={section.id} href={`#${toAnchorId(section.id)}`} className="text-[13px] text-slate-700 hover:text-slate-900 hover:underline">
-                  {section.title}
-                </a>
+        <section className="bg-white border border-slate-200 rounded p-4 mb-6">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Audit shortcuts</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div>
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">Most reviewed</p>
+              <div className="flex flex-wrap gap-2">
+                {mostReviewed.map((entry) => (
+                  <button key={`${entry.sectionId}-${entry.functionKey}`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-[12px] text-slate-700 hover:border-slate-400">{entry.functionKey}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-[12px] font-semibold text-slate-900 mb-2">Recently changed</p>
+              <div className="flex flex-wrap gap-2">
+                {recentlyChanged.map((entry) => (
+                  <button key={`${entry.sectionId}-${entry.functionKey}-recent`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[12px] text-slate-700 hover:border-slate-400">{entry.functionKey} · {formatDate(entry.lastModifiedAt)}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded p-4 mb-6">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Level 1: Sections</p>
+          {sectionRollup.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {sectionRollup.map((entry) => (
+                <button key={entry.id} type="button" onClick={() => updateSelection(entry.id, sectionDetails.find((detail) => detail.section.id === entry.id)?.functions[0]?.functionKey ?? null)} className={`text-left rounded border px-3 py-2 ${activeSection?.section.id === entry.id ? 'border-orange-400 bg-orange-50' : 'border-slate-200 hover:border-slate-300 bg-white'}`}>
+                  <p className="text-[12px] font-semibold text-slate-900">{entry.title}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">{entry.sectionSummary}</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions · {entry.itemCount} items</p>
+                </button>
               ))}
             </div>
-          ) : (
-            <p className="text-[12px] text-slate-500">No sections match this search yet. Clear search to browse all guide sections.</p>
-          )}
-        </div>
+          ) : <p className="text-[12px] text-slate-500">No sections match this search yet. Clear search to browse all guide sections.</p>}
+        </section>
 
-        {filtered.length > 0 ? (
-          <div className="space-y-4">
-            {filtered.map((section) => (
-              <section key={section.id} id={toAnchorId(section.id)} className="bg-white border border-slate-200 rounded p-5">
-                <h2 className="text-[18px] font-bold text-slate-900 mb-2">{section.title}</h2>
-                <div className="space-y-1">{renderBody(section.body.trim())}</div>
-              </section>
-            ))}
-          </div>
+        {activeSection ? (
+          <section className="bg-white border border-slate-200 rounded p-4 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Level 2: Functions in {activeSection.section.title}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {activeSection.functions.map((entry) => (
+                <button key={entry.functionKey} type="button" onClick={() => updateSelection(activeSection.section.id, entry.functionKey)} className={`text-left rounded border px-3 py-2 ${activeFunction?.functionKey === entry.functionKey ? 'border-orange-400 bg-orange-50' : 'border-slate-200 hover:border-slate-300 bg-white'}`}>
+                  <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">{entry.summary}</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` · updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {activeSection && activeFunction ? (
+          <section className="bg-white border border-slate-200 rounded p-5">
+            <h2 className="text-[18px] font-bold text-slate-900 mb-2">{activeSection.section.title}</h2>
+            <p className="text-[13px] text-slate-600 mb-4">{activeFunction.functionKey} · {activeFunction.items.length} items</p>
+            <div className="space-y-3">
+              {activeFunction.items.map((item, index) => (
+                <article key={`${item.title}-${index}`} className="rounded border border-slate-200 bg-slate-50 p-3">
+                  {item.url ? <a href={item.url} className="text-[13px] font-semibold text-slate-900 hover:text-slate-700 hover:underline">{item.title}</a> : <p className="text-[13px] font-semibold text-slate-900">{item.title}</p>}
+                  {item.url ? <p className="text-[12px] text-slate-500 mt-1">{item.url}</p> : null}
+                  {item.summary ? <p className="text-[12px] text-slate-600 mt-1">{item.summary}</p> : null}
+                  {item.lastModifiedAt ? <p className="text-[11px] text-slate-500 mt-2">Updated {formatDate(item.lastModifiedAt)}</p> : null}
+                </article>
+              ))}
+            </div>
+          </section>
         ) : (
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[14px] font-semibold text-slate-900">No guide sections found for this search.</p>

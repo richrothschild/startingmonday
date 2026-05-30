@@ -10,6 +10,13 @@ type GuideSection = {
   id: string
   title: string
   body: string
+  items?: Array<{
+    title: string
+    ref?: string
+    summary: string
+    lastModifiedAt?: string
+    qualityWeight?: number
+  }>
 }
 
 type InternalIndexEntry = {
@@ -18,6 +25,8 @@ type InternalIndexEntry = {
   body: string
   type: 'architecture' | 'feature' | 'api' | 'code' | 'infra' | 'doc' | 'script' | 'data'
   ref: string
+  lastModifiedAt?: string
+  qualityWeight?: number
 }
 
 type InternalIndexFile = {
@@ -118,6 +127,13 @@ function sectionsFromIndex(entries: InternalIndexEntry[]): GuideSection[] {
       id: `section-${index}`,
       title: `${typeLabel(type)} (${list.length})`,
       body,
+      items: preview.map((entry) => ({
+        title: entry.title,
+        ref: entry.ref,
+        summary: entry.body,
+        lastModifiedAt: entry.lastModifiedAt,
+        qualityWeight: entry.qualityWeight,
+      })),
     })
     index += 1
   }
@@ -140,25 +156,29 @@ export default async function InternalGuidePage({
   if (!hasAdminHeaderAccess(staff)) notFound()
   const staffMember = staff!
 
-  const guidePath = path.join(process.cwd(), 'docs', 'internal-guide.md')
-  const markdown = await readFile(guidePath, 'utf8').catch(() => '')
-  const markdownSections = parseGuide(markdown)
-
   const diskIndexPath = path.join(process.cwd(), 'docs', 'internal-guide.index.json')
   const diskIndexRaw = await readFile(diskIndexPath, 'utf8').catch(() => '')
   let diskIndexEntries: InternalIndexEntry[] = []
+  let guideGeneratedAt = ''
   if (diskIndexRaw) {
     try {
       const parsed = JSON.parse(diskIndexRaw) as InternalIndexFile
       diskIndexEntries = parsed.entries ?? []
+      guideGeneratedAt = parsed.generatedAt ?? ''
     } catch {
       diskIndexEntries = []
     }
   }
 
-  const bundledEntries = ((bundledIndex as InternalIndexFile).entries ?? []) as InternalIndexEntry[]
+  const bundledFile = bundledIndex as InternalIndexFile
+  const bundledEntries = (bundledFile.entries ?? []) as InternalIndexEntry[]
+  if (!guideGeneratedAt) guideGeneratedAt = bundledFile.generatedAt ?? ''
   const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
-  const sections = markdownSections.length > 0 ? markdownSections : indexSections
+
+  const guidePath = path.join(process.cwd(), 'docs', 'internal-guide.md')
+  const markdown = await readFile(guidePath, 'utf8').catch(() => '')
+  const markdownSections = parseGuide(markdown)
+  const sections = indexSections.length > 0 ? indexSections : markdownSections
 
   const safeSections = sections.length > 0 ? sections : CORE_INTERNAL_SECTIONS
 
@@ -167,6 +187,7 @@ export default async function InternalGuidePage({
       sections={safeSections}
       initialQuestion={q?.slice(0, 500) ?? ''}
       staffRole={staffMember.role}
+      guideGeneratedAt={guideGeneratedAt}
     />
   )
 }

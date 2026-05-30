@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-30T15:54:43.915Z",
+  "generatedAt": "2026-05-30T18:04:07.849Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -12,6 +12,7 @@
         "guide",
         "help"
       ],
+      "lastModifiedAt": "2026-05-30T17:57:50.087Z",
       "qualityWeight": 1.35
     },
     {
@@ -24,6 +25,7 @@
         "get-started",
         "onboarding"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.212Z",
       "qualityWeight": 1.35
     },
     {
@@ -36,6 +38,7 @@
         "get-started",
         "profile"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.328Z",
       "qualityWeight": 1.35
     },
     {
@@ -48,6 +51,7 @@
         "get-started",
         "pipeline"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.331Z",
       "qualityWeight": 1.35
     },
     {
@@ -61,6 +65,7 @@
         "help",
         "faq"
       ],
+      "lastModifiedAt": "2026-05-30T12:56:12.745Z",
       "qualityWeight": 1.35
     },
     {
@@ -73,6 +78,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-05T18:05:27.656Z",
       "qualityWeight": 1
     },
     {
@@ -85,6 +91,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-12T02:09:46.805Z",
       "qualityWeight": 1
     },
     {
@@ -97,6 +104,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.597Z",
       "qualityWeight": 1
     },
     {
@@ -109,6 +117,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.595Z",
       "qualityWeight": 1
     },
     {
@@ -121,6 +130,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.540Z",
       "qualityWeight": 1
     },
     {
@@ -133,6 +143,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.554Z",
       "qualityWeight": 1
     },
     {
@@ -145,6 +156,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.590Z",
       "qualityWeight": 1
     },
     {
@@ -157,6 +169,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.543Z",
       "qualityWeight": 1
     },
     {
@@ -169,6 +182,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.587Z",
       "qualityWeight": 1
     },
     {
@@ -181,6 +195,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T01:38:48.787Z",
       "qualityWeight": 1
     },
     {
@@ -193,6 +208,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-24T13:54:27.556Z",
       "qualityWeight": 1
     },
     {
@@ -205,6 +221,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.581Z",
       "qualityWeight": 1
     },
     {
@@ -217,6 +234,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.380Z",
       "qualityWeight": 1
     },
     {
@@ -229,6 +247,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.380Z",
       "qualityWeight": 1
     },
     {
@@ -241,6 +260,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.281Z",
       "qualityWeight": 1
     },
     {
@@ -253,6 +273,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.541Z",
       "qualityWeight": 1
     },
     {
@@ -265,6 +286,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:57:33.044Z",
       "qualityWeight": 1
     },
     {
@@ -277,6 +299,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:06:40.646Z",
       "qualityWeight": 1
     },
     {
@@ -289,6 +312,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.564Z",
       "qualityWeight": 1
     },
     {
@@ -301,6 +325,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.562Z",
       "qualityWeight": 1
     },
     {
@@ -313,6 +338,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.560Z",
       "qualityWeight": 1
     },
     {
@@ -325,6 +351,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:06:40.646Z",
       "qualityWeight": 1
     },
     {
@@ -337,6 +364,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.192Z",
       "qualityWeight": 1
     },
     {
@@ -349,6 +377,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T17:57:50.087Z",
       "qualityWeight": 1.45
     },
     {
@@ -361,6 +390,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.375Z",
       "qualityWeight": 1
     },
     {
@@ -373,6 +403,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.487Z",
       "qualityWeight": 1
     },
     {
@@ -385,6 +416,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.487Z",
       "qualityWeight": 1
     },
     {
@@ -397,6 +429,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.375Z",
       "qualityWeight": 1
     },
     {
@@ -409,6 +442,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.374Z",
       "qualityWeight": 1
     },
     {
@@ -421,6 +455,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.374Z",
       "qualityWeight": 1
     },
     {
@@ -433,6 +468,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.373Z",
       "qualityWeight": 1
     },
     {
@@ -445,6 +481,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-27T00:54:38.322Z",
       "qualityWeight": 1
     },
     {
@@ -457,6 +494,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.542Z",
       "qualityWeight": 1
     },
     {
@@ -469,6 +507,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-21T04:45:16.290Z",
       "qualityWeight": 1
     },
     {
@@ -481,6 +520,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.538Z",
       "qualityWeight": 1
     },
     {
@@ -493,6 +533,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:37:59.988Z",
       "qualityWeight": 1
     },
     {
@@ -505,6 +546,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-21T04:49:30.355Z",
       "qualityWeight": 1
     },
     {
@@ -517,6 +559,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.535Z",
       "qualityWeight": 1
     },
     {
@@ -529,6 +572,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.533Z",
       "qualityWeight": 1
     },
     {
@@ -541,6 +585,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.372Z",
       "qualityWeight": 1
     },
     {
@@ -553,6 +598,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.529Z",
       "qualityWeight": 1
     },
     {
@@ -565,6 +611,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.371Z",
       "qualityWeight": 1
     },
     {
@@ -577,6 +624,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.370Z",
       "qualityWeight": 1
     },
     {
@@ -589,6 +637,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.484Z",
       "qualityWeight": 1
     },
     {
@@ -601,6 +650,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.484Z",
       "qualityWeight": 1
     },
     {
@@ -613,6 +663,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.483Z",
       "qualityWeight": 1
     },
     {
@@ -625,6 +676,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T13:11:53.089Z",
       "qualityWeight": 1
     },
     {
@@ -637,6 +689,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.543Z",
       "qualityWeight": 1
     },
     {
@@ -649,6 +702,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:06:39.530Z",
       "qualityWeight": 1
     },
     {
@@ -661,6 +715,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.504Z",
       "qualityWeight": 1
     },
     {
@@ -673,6 +728,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.501Z",
       "qualityWeight": 1
     },
     {
@@ -685,6 +741,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-27T20:22:46.487Z",
       "qualityWeight": 1
     },
     {
@@ -697,6 +754,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.482Z",
       "qualityWeight": 1
     },
     {
@@ -709,6 +767,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.496Z",
       "qualityWeight": 1
     },
     {
@@ -721,6 +780,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.481Z",
       "qualityWeight": 1
     },
     {
@@ -733,6 +793,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:14:18.477Z",
       "qualityWeight": 1
     },
     {
@@ -745,6 +806,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.540Z",
       "qualityWeight": 1
     },
     {
@@ -757,6 +819,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.213Z",
       "qualityWeight": 1
     },
     {
@@ -769,6 +832,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.516Z",
       "qualityWeight": 1
     },
     {
@@ -781,6 +845,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.509Z",
       "qualityWeight": 1
     },
     {
@@ -793,6 +858,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.503Z",
       "qualityWeight": 1
     },
     {
@@ -805,6 +871,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.486Z",
       "qualityWeight": 1
     },
     {
@@ -817,6 +884,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.543Z",
       "qualityWeight": 1
     },
     {
@@ -829,6 +897,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.484Z",
       "qualityWeight": 1
     },
     {
@@ -841,6 +910,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:19:57.543Z",
       "qualityWeight": 1
     },
     {
@@ -853,6 +923,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.481Z",
       "qualityWeight": 1
     },
     {
@@ -865,6 +936,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:06:40.646Z",
       "qualityWeight": 1
     },
     {
@@ -877,6 +949,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T04:06:40.646Z",
       "qualityWeight": 1
     },
     {
@@ -889,6 +962,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.469Z",
       "qualityWeight": 1
     },
     {
@@ -901,6 +975,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-26T20:31:07.918Z",
       "qualityWeight": 1
     },
     {
@@ -913,6 +988,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.364Z",
       "qualityWeight": 1
     },
     {
@@ -925,6 +1001,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.248Z",
       "qualityWeight": 1
     },
     {
@@ -937,6 +1014,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.528Z",
       "qualityWeight": 1
     },
     {
@@ -949,6 +1027,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-13T15:46:20.969Z",
       "qualityWeight": 1
     },
     {
@@ -961,6 +1040,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.358Z",
       "qualityWeight": 1
     },
     {
@@ -973,6 +1053,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.322Z",
       "qualityWeight": 1
     },
     {
@@ -985,6 +1066,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.247Z",
       "qualityWeight": 1
     },
     {
@@ -997,6 +1079,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.321Z",
       "qualityWeight": 1
     },
     {
@@ -1009,6 +1092,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T00:27:08.905Z",
       "qualityWeight": 1
     },
     {
@@ -1021,6 +1105,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-19T03:02:00.753Z",
       "qualityWeight": 1
     },
     {
@@ -1033,6 +1118,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.328Z",
       "qualityWeight": 1
     },
     {
@@ -1045,6 +1131,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T16:20:22.190Z",
       "qualityWeight": 1.2
     },
     {
@@ -1057,6 +1144,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-21T00:23:45.880Z",
       "qualityWeight": 1.2
     },
     {
@@ -1069,6 +1157,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T17:13:06.043Z",
       "qualityWeight": 1.2
     },
     {
@@ -1081,6 +1170,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.212Z",
       "qualityWeight": 1.2
     },
     {
@@ -1093,6 +1183,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.210Z",
       "qualityWeight": 1.2
     },
     {
@@ -1105,6 +1196,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-11T12:26:59.408Z",
       "qualityWeight": 1.2
     },
     {
@@ -1117,6 +1209,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.328Z",
       "qualityWeight": 1.2
     },
     {
@@ -1129,6 +1222,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-08T00:11:07.134Z",
       "qualityWeight": 1.2
     },
     {
@@ -1141,6 +1235,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-12T11:50:09.209Z",
       "qualityWeight": 1.2
     },
     {
@@ -1153,6 +1248,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-21T00:23:45.879Z",
       "qualityWeight": 1.2
     },
     {
@@ -1165,6 +1261,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-13T04:42:32.605Z",
       "qualityWeight": 1.2
     },
     {
@@ -1177,6 +1274,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T03:22:18.785Z",
       "qualityWeight": 1.2
     },
     {
@@ -1189,6 +1287,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-29T21:05:30.198Z",
       "qualityWeight": 1.2
     },
     {
@@ -1201,6 +1300,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-13T04:24:18.430Z",
       "qualityWeight": 1.2
     },
     {
@@ -1213,6 +1313,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.177Z",
       "qualityWeight": 1.2
     },
     {
@@ -1225,6 +1326,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T17:13:06.043Z",
       "qualityWeight": 1.2
     },
     {
@@ -1237,6 +1339,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-11T12:26:59.404Z",
       "qualityWeight": 1.2
     },
     {
@@ -1249,6 +1352,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T12:56:12.745Z",
       "qualityWeight": 1.2
     },
     {
@@ -1261,6 +1365,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.168Z",
       "qualityWeight": 1.2
     },
     {
@@ -1273,6 +1378,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.166Z",
       "qualityWeight": 1.2
     },
     {
@@ -1285,6 +1391,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:57:33.043Z",
       "qualityWeight": 1.2
     },
     {
@@ -1297,6 +1404,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-10T19:07:29.331Z",
       "qualityWeight": 1.2
     },
     {
@@ -1309,6 +1417,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.331Z",
       "qualityWeight": 1.2
     },
     {
@@ -1321,6 +1430,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T04:02:53.647Z",
       "qualityWeight": 1.2
     },
     {
@@ -1333,6 +1443,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.306Z",
       "qualityWeight": 1.2
     },
     {
@@ -1345,6 +1456,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:57:33.041Z",
       "qualityWeight": 1.2
     },
     {
@@ -1357,6 +1469,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:57:33.040Z",
       "qualityWeight": 1.2
     },
     {
@@ -1369,6 +1482,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T15:50:05.166Z",
       "qualityWeight": 1.2
     },
     {
@@ -1381,6 +1495,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.103Z",
       "qualityWeight": 1.2
     },
     {
@@ -1393,6 +1508,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-13T00:46:07.669Z",
       "qualityWeight": 1.2
     },
     {
@@ -1405,6 +1521,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-06T23:01:43.598Z",
       "qualityWeight": 1.2
     },
     {
@@ -1417,6 +1534,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-10T23:48:03.145Z",
       "qualityWeight": 1.2
     },
     {
@@ -1429,6 +1547,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:57:33.039Z",
       "qualityWeight": 1.2
     },
     {
@@ -1441,6 +1560,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.083Z",
       "qualityWeight": 1.2
     },
     {
@@ -1453,6 +1573,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.082Z",
       "qualityWeight": 1.2
     },
     {
@@ -1465,6 +1586,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.080Z",
       "qualityWeight": 1.2
     },
     {
@@ -1477,6 +1599,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-27T13:09:38.433Z",
       "qualityWeight": 1.2
     },
     {
@@ -1489,6 +1612,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-27T03:53:06.209Z",
       "qualityWeight": 1.2
     },
     {
@@ -1501,6 +1625,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-29T02:10:50.616Z",
       "qualityWeight": 1.2
     },
     {
@@ -1513,6 +1638,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.796Z",
       "qualityWeight": 1.2
     },
     {
@@ -1525,6 +1651,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.065Z",
       "qualityWeight": 1.2
     },
     {
@@ -1537,6 +1664,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T12:24:26.930Z",
       "qualityWeight": 1.2
     },
     {
@@ -1549,6 +1677,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.063Z",
       "qualityWeight": 1.2
     },
     {
@@ -1561,6 +1690,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.059Z",
       "qualityWeight": 1.2
     },
     {
@@ -1573,6 +1703,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-16T16:36:31.055Z",
       "qualityWeight": 1.2
     },
     {
@@ -1585,6 +1716,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T17:57:41.014Z",
       "qualityWeight": 1.2
     },
     {
@@ -1597,6 +1729,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-22T17:04:05.275Z",
       "qualityWeight": 1.2
     },
     {
@@ -1609,6 +1742,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.051Z",
       "qualityWeight": 1.2
     },
     {
@@ -1621,6 +1755,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T13:06:52.328Z",
       "qualityWeight": 1.2
     },
     {
@@ -1633,6 +1768,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.049Z",
       "qualityWeight": 1.2
     },
     {
@@ -1645,6 +1781,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.044Z",
       "qualityWeight": 1.2
     },
     {
@@ -1657,6 +1794,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.039Z",
       "qualityWeight": 1.2
     },
     {
@@ -1669,6 +1807,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T22:47:10.848Z",
       "qualityWeight": 1.2
     },
     {
@@ -1681,6 +1820,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.034Z",
       "qualityWeight": 1.2
     },
     {
@@ -1693,6 +1833,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-28T15:44:30.030Z",
       "qualityWeight": 1.2
     },
     {
@@ -1705,6 +1846,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-11T12:25:44.751Z",
       "qualityWeight": 1.2
     },
     {
@@ -1717,6 +1859,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T16:20:22.190Z",
       "qualityWeight": 1
     },
     {
@@ -1729,6 +1872,7 @@
         "feature",
         "dashboard"
       ],
+      "lastModifiedAt": "2026-05-30T17:25:37.540Z",
       "qualityWeight": 1
     },
     {
@@ -1741,7 +1885,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-2",
@@ -1753,7 +1898,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-3",
@@ -1765,7 +1911,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-4",
@@ -1777,7 +1924,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-5",
@@ -1789,7 +1937,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-6",
@@ -1801,7 +1950,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-7",
@@ -1813,7 +1963,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-8",
@@ -1825,7 +1976,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-9",
@@ -1837,7 +1989,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-10",
@@ -1849,7 +2002,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-11",
@@ -1861,7 +2015,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-12",
@@ -1873,7 +2028,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-13",
@@ -1885,7 +2041,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "howto-14",
@@ -1897,7 +2054,8 @@
         "how-to",
         "operations"
       ],
-      "qualityWeight": 1.3
+      "qualityWeight": 1.3,
+      "lastModifiedAt": "2026-05-18T14:31:31.797Z"
     },
     {
       "id": "api-1",
@@ -1909,6 +2067,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.192Z",
       "qualityWeight": 0.95
     },
     {
@@ -1921,6 +2080,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T12:36:52.585Z",
       "qualityWeight": 0.95
     },
     {
@@ -1933,6 +2093,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T12:00:57.654Z",
       "qualityWeight": 0.95
     },
     {
@@ -1945,6 +2106,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T18:41:07.776Z",
       "qualityWeight": 0.95
     },
     {
@@ -1957,6 +2119,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.671Z",
       "qualityWeight": 0.95
     },
     {
@@ -1969,6 +2132,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.671Z",
       "qualityWeight": 0.95
     },
     {
@@ -1981,6 +2145,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.671Z",
       "qualityWeight": 0.95
     },
     {
@@ -1993,6 +2158,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.671Z",
       "qualityWeight": 0.95
     },
     {
@@ -2005,6 +2171,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.670Z",
       "qualityWeight": 0.95
     },
     {
@@ -2017,6 +2184,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:42:59.938Z",
       "qualityWeight": 0.95
     },
     {
@@ -2029,6 +2197,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T11:33:28.457Z",
       "qualityWeight": 0.95
     },
     {
@@ -2041,6 +2210,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T11:33:40.071Z",
       "qualityWeight": 0.95
     },
     {
@@ -2053,6 +2223,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.673Z",
       "qualityWeight": 0.95
     },
     {
@@ -2065,6 +2236,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-09T00:56:02.043Z",
       "qualityWeight": 0.95
     },
     {
@@ -2077,6 +2249,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.191Z",
       "qualityWeight": 0.95
     },
     {
@@ -2089,6 +2262,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T14:50:19.351Z",
       "qualityWeight": 0.95
     },
     {
@@ -2101,6 +2275,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T14:50:19.351Z",
       "qualityWeight": 0.95
     },
     {
@@ -2113,6 +2288,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-08T04:28:40.310Z",
       "qualityWeight": 0.95
     },
     {
@@ -2125,6 +2301,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -2137,6 +2314,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -2149,6 +2327,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.082Z",
       "qualityWeight": 0.95
     },
     {
@@ -2161,6 +2340,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.082Z",
       "qualityWeight": 0.95
     },
     {
@@ -2173,6 +2353,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.081Z",
       "qualityWeight": 0.95
     },
     {
@@ -2185,6 +2366,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.081Z",
       "qualityWeight": 0.95
     },
     {
@@ -2197,6 +2379,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -2209,6 +2392,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -2221,6 +2405,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.081Z",
       "qualityWeight": 0.95
     },
     {
@@ -2233,6 +2418,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.083Z",
       "qualityWeight": 0.95
     },
     {
@@ -2245,6 +2431,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -2257,6 +2444,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.083Z",
       "qualityWeight": 0.95
     },
     {
@@ -2269,6 +2457,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.081Z",
       "qualityWeight": 0.95
     },
     {
@@ -2281,6 +2470,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-13T00:30:55.542Z",
       "qualityWeight": 0.95
     },
     {
@@ -2293,6 +2483,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T03:04:55.661Z",
       "qualityWeight": 0.95
     },
     {
@@ -2305,6 +2496,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.669Z",
       "qualityWeight": 0.95
     },
     {
@@ -2317,6 +2509,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.669Z",
       "qualityWeight": 0.95
     },
     {
@@ -2329,6 +2522,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.669Z",
       "qualityWeight": 0.95
     },
     {
@@ -2341,6 +2535,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-14T21:34:53.551Z",
       "qualityWeight": 0.95
     },
     {
@@ -2353,6 +2548,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.669Z",
       "qualityWeight": 0.95
     },
     {
@@ -2365,6 +2561,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T17:41:36.314Z",
       "qualityWeight": 0.95
     },
     {
@@ -2377,6 +2574,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.668Z",
       "qualityWeight": 0.95
     },
     {
@@ -2389,6 +2587,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.766Z",
       "qualityWeight": 0.95
     },
     {
@@ -2401,6 +2600,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T01:21:47.078Z",
       "qualityWeight": 0.95
     },
     {
@@ -2413,6 +2613,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T12:36:52.588Z",
       "qualityWeight": 0.95
     },
     {
@@ -2425,6 +2626,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-11T05:43:09.436Z",
       "qualityWeight": 0.95
     },
     {
@@ -2437,6 +2639,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.766Z",
       "qualityWeight": 0.95
     },
     {
@@ -2449,6 +2652,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.668Z",
       "qualityWeight": 0.95
     },
     {
@@ -2461,6 +2665,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.667Z",
       "qualityWeight": 0.95
     },
     {
@@ -2473,6 +2678,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T12:24:26.930Z",
       "qualityWeight": 0.95
     },
     {
@@ -2485,6 +2691,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-09T01:47:47.293Z",
       "qualityWeight": 0.95
     },
     {
@@ -2497,6 +2704,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.667Z",
       "qualityWeight": 0.95
     },
     {
@@ -2509,6 +2717,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.667Z",
       "qualityWeight": 0.95
     },
     {
@@ -2521,6 +2730,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.667Z",
       "qualityWeight": 0.95
     },
     {
@@ -2533,6 +2743,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.191Z",
       "qualityWeight": 0.95
     },
     {
@@ -2545,6 +2756,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.666Z",
       "qualityWeight": 0.95
     },
     {
@@ -2557,6 +2769,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-09T01:50:24.169Z",
       "qualityWeight": 0.95
     },
     {
@@ -2569,6 +2782,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.666Z",
       "qualityWeight": 0.95
     },
     {
@@ -2581,6 +2795,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-20T00:34:18.373Z",
       "qualityWeight": 0.95
     },
     {
@@ -2593,6 +2808,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-05T23:29:28.638Z",
       "qualityWeight": 0.95
     },
     {
@@ -2605,6 +2821,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.665Z",
       "qualityWeight": 0.95
     },
     {
@@ -2617,6 +2834,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-09T17:05:54.928Z",
       "qualityWeight": 0.95
     },
     {
@@ -2629,6 +2847,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.665Z",
       "qualityWeight": 0.95
     },
     {
@@ -2641,6 +2860,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.190Z",
       "qualityWeight": 0.95
     },
     {
@@ -2653,6 +2873,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T14:57:33.903Z",
       "qualityWeight": 0.95
     },
     {
@@ -2665,6 +2886,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T17:25:37.546Z",
       "qualityWeight": 0.95
     },
     {
@@ -2677,6 +2899,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T13:04:29.179Z",
       "qualityWeight": 0.95
     },
     {
@@ -2689,6 +2912,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.665Z",
       "qualityWeight": 0.95
     },
     {
@@ -2701,6 +2925,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T13:54:27.550Z",
       "qualityWeight": 0.95
     },
     {
@@ -2713,6 +2938,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T13:54:27.549Z",
       "qualityWeight": 0.95
     },
     {
@@ -2725,6 +2951,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.665Z",
       "qualityWeight": 0.95
     },
     {
@@ -2737,6 +2964,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T14:50:19.351Z",
       "qualityWeight": 0.95
     },
     {
@@ -2749,6 +2977,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T02:01:32.810Z",
       "qualityWeight": 0.95
     },
     {
@@ -2761,6 +2990,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T02:01:32.811Z",
       "qualityWeight": 0.95
     },
     {
@@ -2773,6 +3003,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T02:01:32.811Z",
       "qualityWeight": 0.95
     },
     {
@@ -2785,6 +3016,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:02:05.116Z",
       "qualityWeight": 0.95
     },
     {
@@ -2797,6 +3029,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-26T02:23:34.918Z",
       "qualityWeight": 0.95
     },
     {
@@ -2809,6 +3042,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T00:59:14.482Z",
       "qualityWeight": 0.95
     },
     {
@@ -2821,6 +3055,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:45:46.830Z",
       "qualityWeight": 0.95
     },
     {
@@ -2833,6 +3068,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.665Z",
       "qualityWeight": 0.95
     },
     {
@@ -2845,6 +3081,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.664Z",
       "qualityWeight": 0.95
     },
     {
@@ -2857,6 +3094,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.664Z",
       "qualityWeight": 0.95
     },
     {
@@ -2869,6 +3107,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.664Z",
       "qualityWeight": 0.95
     },
     {
@@ -2881,6 +3120,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.664Z",
       "qualityWeight": 0.95
     },
     {
@@ -2893,6 +3133,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:46:28.237Z",
       "qualityWeight": 0.95
     },
     {
@@ -2905,6 +3146,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-22T15:56:00.247Z",
       "qualityWeight": 0.95
     },
     {
@@ -2917,6 +3159,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:46:31.431Z",
       "qualityWeight": 0.95
     },
     {
@@ -2929,6 +3172,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T14:57:33.901Z",
       "qualityWeight": 0.95
     },
     {
@@ -2941,6 +3185,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-15T14:57:33.901Z",
       "qualityWeight": 0.95
     },
     {
@@ -2953,6 +3198,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-22T18:27:56.009Z",
       "qualityWeight": 0.95
     },
     {
@@ -2965,6 +3211,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T12:36:52.588Z",
       "qualityWeight": 0.95
     },
     {
@@ -2977,6 +3224,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.769Z",
       "qualityWeight": 0.95
     },
     {
@@ -2989,6 +3237,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.766Z",
       "qualityWeight": 0.95
     },
     {
@@ -3001,6 +3250,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T12:24:26.927Z",
       "qualityWeight": 0.95
     },
     {
@@ -3013,6 +3263,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-22T17:13:06.043Z",
       "qualityWeight": 0.95
     },
     {
@@ -3025,6 +3276,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T02:05:48.190Z",
       "qualityWeight": 0.95
     },
     {
@@ -3037,6 +3289,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T13:54:27.548Z",
       "qualityWeight": 0.95
     },
     {
@@ -3049,6 +3302,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.724Z",
       "qualityWeight": 0.95
     },
     {
@@ -3061,6 +3315,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:46:23.558Z",
       "qualityWeight": 0.95
     },
     {
@@ -3073,6 +3328,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:46:35.497Z",
       "qualityWeight": 0.95
     },
     {
@@ -3085,6 +3341,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T17:46:38.356Z",
       "qualityWeight": 0.95
     },
     {
@@ -3097,6 +3354,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.663Z",
       "qualityWeight": 0.95
     },
     {
@@ -3109,6 +3367,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T02:15:49.709Z",
       "qualityWeight": 0.95
     },
     {
@@ -3121,6 +3380,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T02:15:49.711Z",
       "qualityWeight": 0.95
     },
     {
@@ -3133,6 +3393,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-26T19:45:16.063Z",
       "qualityWeight": 0.95
     },
     {
@@ -3145,6 +3406,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-09T17:34:52.259Z",
       "qualityWeight": 0.95
     },
     {
@@ -3157,6 +3419,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:30:03.242Z",
       "qualityWeight": 0.95
     },
     {
@@ -3169,6 +3432,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-11T17:53:03.342Z",
       "qualityWeight": 0.95
     },
     {
@@ -3181,6 +3445,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:30:03.242Z",
       "qualityWeight": 0.95
     },
     {
@@ -3193,6 +3458,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T04:02:53.647Z",
       "qualityWeight": 0.95
     },
     {
@@ -3205,6 +3471,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T22:46:02.700Z",
       "qualityWeight": 0.95
     },
     {
@@ -3217,6 +3484,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T04:02:53.648Z",
       "qualityWeight": 0.95
     },
     {
@@ -3229,6 +3497,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:06:02.185Z",
       "qualityWeight": 0.95
     },
     {
@@ -3241,6 +3510,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T22:11:44.492Z",
       "qualityWeight": 0.95
     },
     {
@@ -3253,6 +3523,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:06:02.185Z",
       "qualityWeight": 0.95
     },
     {
@@ -3265,6 +3536,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:06:02.186Z",
       "qualityWeight": 0.95
     },
     {
@@ -3277,6 +3549,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.663Z",
       "qualityWeight": 0.95
     },
     {
@@ -3289,6 +3562,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T04:02:53.649Z",
       "qualityWeight": 0.95
     },
     {
@@ -3301,6 +3575,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:19:02.137Z",
       "qualityWeight": 0.95
     },
     {
@@ -3313,6 +3588,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:06:02.185Z",
       "qualityWeight": 0.95
     },
     {
@@ -3325,6 +3601,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T23:19:02.138Z",
       "qualityWeight": 0.95
     },
     {
@@ -3337,6 +3614,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-12T12:31:29.600Z",
       "qualityWeight": 0.95
     },
     {
@@ -3349,6 +3627,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.662Z",
       "qualityWeight": 0.95
     },
     {
@@ -3361,6 +3640,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T02:39:56.633Z",
       "qualityWeight": 0.95
     },
     {
@@ -3373,6 +3653,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T14:50:19.348Z",
       "qualityWeight": 0.95
     },
     {
@@ -3385,6 +3666,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.662Z",
       "qualityWeight": 0.95
     },
     {
@@ -3397,6 +3679,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-13T00:38:26.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -3409,6 +3692,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.661Z",
       "qualityWeight": 0.95
     },
     {
@@ -3421,6 +3705,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-13T00:38:26.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -3433,6 +3718,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.661Z",
       "qualityWeight": 0.95
     },
     {
@@ -3445,6 +3731,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.661Z",
       "qualityWeight": 0.95
     },
     {
@@ -3457,6 +3744,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-28T15:06:39.530Z",
       "qualityWeight": 0.95
     },
     {
@@ -3469,6 +3757,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.394Z",
       "qualityWeight": 0.95
     },
     {
@@ -3481,6 +3770,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:50:54.744Z",
       "qualityWeight": 0.95
     },
     {
@@ -3493,6 +3783,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:50:54.744Z",
       "qualityWeight": 0.95
     },
     {
@@ -3505,6 +3796,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:50:54.744Z",
       "qualityWeight": 0.95
     },
     {
@@ -3517,6 +3809,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T00:50:54.744Z",
       "qualityWeight": 0.95
     },
     {
@@ -3529,10 +3822,37 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T03:02:00.752Z",
       "qualityWeight": 0.95
     },
     {
       "id": "api-137",
+      "title": "/api/auth/oauth-start",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/auth/oauth-start",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-05-30T16:20:22.190Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-138",
+      "title": "/api/auth/login-submit",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/auth/login-submit",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-05-30T16:20:22.190Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-139",
       "title": "/api/admin/speakers",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3541,10 +3861,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.660Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-138",
+      "id": "api-140",
       "title": "/api/admin/speakers/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3553,10 +3874,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.660Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-139",
+      "id": "api-141",
       "title": "/api/admin/speakers/export",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3565,10 +3887,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T12:48:14.614Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-140",
+      "id": "api-142",
       "title": "/api/admin/social/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3577,10 +3900,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.660Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-141",
+      "id": "api-143",
       "title": "/api/admin/social/[id]/schedule",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3589,10 +3913,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T14:05:48.390Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-142",
+      "id": "api-144",
       "title": "/api/admin/social/[id]/mark-posted",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3601,10 +3926,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.659Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-143",
+      "id": "api-145",
       "title": "/api/admin/social/[id]/council-check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3613,10 +3939,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:38:14.876Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-144",
+      "id": "api-146",
       "title": "/api/admin/social/today",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3625,10 +3952,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-16T12:43:51.717Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-145",
+      "id": "api-147",
       "title": "/api/admin/social/sync-engagement",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3637,10 +3965,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-18T02:37:16.749Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-146",
+      "id": "api-148",
       "title": "/api/admin/social/schedule-publish",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3649,10 +3978,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.659Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-147",
+      "id": "api-149",
       "title": "/api/admin/social/morning",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3661,10 +3991,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T14:05:48.390Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-148",
+      "id": "api-150",
       "title": "/api/admin/social/handoff-approved",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3673,10 +4004,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.659Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-149",
+      "id": "api-151",
       "title": "/api/admin/social/digest",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3685,10 +4017,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-17T12:48:14.610Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-150",
+      "id": "api-152",
       "title": "/api/admin/signals/monitor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3697,10 +4030,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T13:04:37.781Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-151",
+      "id": "api-153",
       "title": "/api/admin/outreach/reliability",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3709,10 +4043,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T13:09:38.433Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-152",
+      "id": "api-154",
       "title": "/api/admin/leads/score-route",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3721,10 +4056,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.658Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-153",
+      "id": "api-155",
       "title": "/api/admin/internal-guide/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3733,10 +4069,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T17:25:37.548Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-154",
+      "id": "api-156",
       "title": "/api/admin/health",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3745,10 +4082,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-14T21:34:53.611Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-155",
+      "id": "api-157",
       "title": "/api/admin/contacts/enrich",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3757,10 +4095,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-19T13:04:37.781Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-156",
+      "id": "api-158",
       "title": "/api/admin/b2b/material",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3769,10 +4108,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.552Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-157",
+      "id": "api-159",
       "title": "/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3781,10 +4121,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.658Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-158",
+      "id": "api-160",
       "title": "/api/admin/automation/revenue-ops/revenue-classification",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3793,10 +4134,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.658Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-159",
+      "id": "api-161",
       "title": "/api/admin/automation/revenue-ops/payout-matching",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3805,10 +4147,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.657Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-160",
+      "id": "api-162",
       "title": "/api/admin/automation/revenue-ops/mismatch-flagging",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3817,10 +4160,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.657Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-161",
+      "id": "api-163",
       "title": "/api/admin/automation/revenue-ops/exception-reporting",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3829,10 +4173,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.657Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-162",
+      "id": "api-164",
       "title": "/api/admin/automation/revenue-ops/bookkeeping-entry-preparation",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3841,10 +4186,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.657Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-163",
+      "id": "api-165",
       "title": "/api/admin/automation/reporting/weekly-kpi-summaries",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3853,10 +4199,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T02:16:07.158Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-164",
+      "id": "api-166",
       "title": "/api/admin/automation/reporting/value-lane-pricing-entitlements",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3865,10 +4212,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.801Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-165",
+      "id": "api-167",
       "title": "/api/admin/automation/reporting/trend-reports",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3877,10 +4225,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.656Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-166",
+      "id": "api-168",
       "title": "/api/admin/automation/reporting/template-adoption-scorecard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3889,10 +4238,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.801Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-167",
+      "id": "api-169",
       "title": "/api/admin/automation/reporting/sprint-5-exit-metrics",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3901,10 +4251,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-26T02:12:37.258Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-168",
+      "id": "api-170",
       "title": "/api/admin/automation/reporting/sponsor-snapshot-cadence",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3913,10 +4264,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.796Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-169",
+      "id": "api-171",
       "title": "/api/admin/automation/reporting/sponsor-export-pipeline",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3925,10 +4277,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:34:22.701Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-170",
+      "id": "api-172",
       "title": "/api/admin/automation/reporting/sponsor-export-dispatch",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3937,10 +4290,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:39:59.450Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-171",
+      "id": "api-173",
       "title": "/api/admin/automation/reporting/session-closure-monitor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3949,10 +4303,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T04:02:53.649Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-172",
+      "id": "api-174",
       "title": "/api/admin/automation/reporting/seat-lifecycle-automation",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3961,10 +4316,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.799Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-173",
+      "id": "api-175",
       "title": "/api/admin/automation/reporting/provisioning-sla-qa",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3973,10 +4329,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.799Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-174",
+      "id": "api-176",
       "title": "/api/admin/automation/reporting/program-template-packs",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3985,10 +4342,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.799Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-175",
+      "id": "api-177",
       "title": "/api/admin/automation/reporting/program-template-governance",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -3997,10 +4355,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.799Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-176",
+      "id": "api-178",
       "title": "/api/admin/automation/reporting/prep-provenance-coverage",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4009,10 +4368,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:02:05.117Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-177",
+      "id": "api-179",
       "title": "/api/admin/automation/reporting/pmf-event-monitor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4021,10 +4381,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:02:05.117Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-178",
+      "id": "api-180",
       "title": "/api/admin/automation/reporting/pmf-daily-dashboard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4033,10 +4394,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:02:05.117Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-179",
+      "id": "api-181",
       "title": "/api/admin/automation/reporting/pilot-partner-validation",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4045,10 +4407,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:34:22.701Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-180",
+      "id": "api-182",
       "title": "/api/admin/automation/reporting/partner-provisioning-import",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4057,10 +4420,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.798Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-181",
+      "id": "api-183",
       "title": "/api/admin/automation/reporting/partner-kpi-schema",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4069,10 +4433,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T03:08:33.657Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-182",
+      "id": "api-184",
       "title": "/api/admin/automation/reporting/outplacement-cohort-admin",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4081,10 +4446,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.796Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-183",
+      "id": "api-185",
       "title": "/api/admin/automation/reporting/onboarding-qa-scorecard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4093,10 +4459,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T01:38:48.787Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-184",
+      "id": "api-186",
       "title": "/api/admin/automation/reporting/monthly-business-review-packs",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4105,10 +4472,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.656Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-185",
+      "id": "api-187",
       "title": "/api/admin/automation/reporting/migration-playbook-comms",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4117,10 +4485,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.801Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-186",
+      "id": "api-188",
       "title": "/api/admin/automation/reporting/intelligence-qa-scorecard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4129,10 +4498,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-25T01:12:32.818Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-187",
+      "id": "api-189",
       "title": "/api/admin/automation/reporting/exception-lists",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4141,10 +4511,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.656Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-188",
+      "id": "api-190",
       "title": "/api/admin/automation/reporting/emi-validation-reruns",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4153,10 +4524,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-26T04:20:16.641Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-189",
+      "id": "api-191",
       "title": "/api/admin/automation/reporting/daily-operating-snapshots",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4165,10 +4537,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.656Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-190",
+      "id": "api-192",
       "title": "/api/admin/automation/reporting/council-review-prep",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4177,10 +4550,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.655Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-191",
+      "id": "api-193",
       "title": "/api/admin/automation/reporting/cohort-roster-model",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4189,10 +4563,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.795Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-192",
+      "id": "api-194",
       "title": "/api/admin/automation/reporting/benchmark-pipeline-run-logs",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4201,10 +4576,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-26T02:12:37.255Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-193",
+      "id": "api-195",
       "title": "/api/admin/automation/reporting/arpu-conversion-dashboard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4213,10 +4589,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T07:08:05.801Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-194",
+      "id": "api-196",
       "title": "/api/admin/automation/outreach/stalled-nudges",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4225,10 +4602,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.763Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-195",
+      "id": "api-197",
       "title": "/api/admin/automation/outreach/reconcile-live-sends",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4237,10 +4615,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.769Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-196",
+      "id": "api-198",
       "title": "/api/admin/automation/outreach/post-meeting-follow-up",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4249,10 +4628,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.763Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-197",
+      "id": "api-199",
       "title": "/api/admin/automation/outreach/initial-sequences",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4261,10 +4641,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-27T02:13:33.763Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-198",
+      "id": "api-200",
       "title": "/api/admin/automation/outreach/follow-up-timing",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4273,10 +4654,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.654Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-199",
+      "id": "api-201",
       "title": "/api/admin/automation/outreach/enforce-suppression",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4285,10 +4667,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.654Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-200",
+      "id": "api-202",
       "title": "/api/admin/automation/outreach/classify-replies",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4297,10 +4680,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.654Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-201",
+      "id": "api-203",
       "title": "/api/admin/automation/outreach/book-from-replies",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4309,10 +4693,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.653Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-202",
+      "id": "api-204",
       "title": "/api/admin/automation/onboarding/workflow-assignment",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4321,10 +4706,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.653Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-203",
+      "id": "api-205",
       "title": "/api/admin/automation/onboarding/video-queue",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4333,10 +4719,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T12:00:57.654Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-204",
+      "id": "api-206",
       "title": "/api/admin/automation/onboarding/video-queue/[runId]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4345,10 +4732,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-30T12:24:26.928Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-205",
+      "id": "api-207",
       "title": "/api/admin/automation/onboarding/intake",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4357,10 +4745,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.653Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-206",
+      "id": "api-208",
       "title": "/api/admin/automation/onboarding/identity-verify",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4369,10 +4758,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.653Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-207",
+      "id": "api-209",
       "title": "/api/admin/automation/onboarding/first-milestone-tracking",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4381,10 +4771,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.652Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-208",
+      "id": "api-210",
       "title": "/api/admin/automation/onboarding/first-brief",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4393,10 +4784,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.652Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-209",
+      "id": "api-211",
       "title": "/api/admin/automation/onboarding/context-capture",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4405,10 +4797,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.652Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-210",
+      "id": "api-212",
       "title": "/api/admin/automation/onboarding/activation-reminders",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4417,10 +4810,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.216Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-211",
+      "id": "api-213",
       "title": "/api/admin/automation/monitoring/alerts",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4429,10 +4823,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.216Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-212",
+      "id": "api-214",
       "title": "/api/admin/automation/meetings/book-remind",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4441,10 +4836,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:04:25.652Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-213",
+      "id": "api-215",
       "title": "/api/admin/automation/engineering/test-execution",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4453,10 +4849,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-214",
+      "id": "api-216",
       "title": "/api/admin/automation/engineering/scheduled-job-observability",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4465,10 +4862,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-215",
+      "id": "api-217",
       "title": "/api/admin/automation/engineering/runtime-health-checks",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4477,10 +4875,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-216",
+      "id": "api-218",
       "title": "/api/admin/automation/engineering/release-notes",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4489,10 +4888,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-217",
+      "id": "api-219",
       "title": "/api/admin/automation/engineering/lint-typecheck",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4501,10 +4901,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-218",
+      "id": "api-220",
       "title": "/api/admin/automation/engineering/error-monitoring",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4513,10 +4914,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-219",
+      "id": "api-221",
       "title": "/api/admin/automation/engineering/deployment-validation",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4525,10 +4927,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-220",
+      "id": "api-222",
       "title": "/api/admin/automation/engineering/ci-checks",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4537,10 +4940,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.207Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-221",
+      "id": "api-223",
       "title": "/api/admin/automation/customer-ops/usage-monitor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4549,10 +4953,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.206Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-222",
+      "id": "api-224",
       "title": "/api/admin/automation/customer-ops/status-reporting",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4561,10 +4966,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.206Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-223",
+      "id": "api-225",
       "title": "/api/admin/automation/customer-ops/renewal-reminders",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4573,10 +4979,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.205Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-224",
+      "id": "api-226",
       "title": "/api/admin/automation/customer-ops/issue-triage",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4585,10 +4992,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.205Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-225",
+      "id": "api-227",
       "title": "/api/admin/automation/customer-ops/inactivity-nudges",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4597,10 +5005,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.205Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-226",
+      "id": "api-228",
       "title": "/api/admin/automation/customer-ops/help-center-routing",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4609,10 +5018,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.202Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-227",
+      "id": "api-229",
       "title": "/api/admin/automation/customer-ops/health-checks",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4621,10 +5031,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.202Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-228",
+      "id": "api-230",
       "title": "/api/admin/automation/customer-ops/faq-responses",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4633,10 +5044,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.202Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-229",
+      "id": "api-231",
       "title": "/api/admin/automation/billing/subscription-status-updates",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4645,10 +5057,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T17:02:03.199Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-230",
+      "id": "api-232",
       "title": "/api/admin/automation/billing/revenue-recognition-inputs",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4657,10 +5070,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-231",
+      "id": "api-233",
       "title": "/api/admin/automation/billing/renewal-reminders",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4669,10 +5083,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-232",
+      "id": "api-234",
       "title": "/api/admin/automation/billing/refund-workflow-triggers",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4681,10 +5096,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-233",
+      "id": "api-235",
       "title": "/api/admin/automation/billing/plan-changes",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4693,10 +5109,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-234",
+      "id": "api-236",
       "title": "/api/admin/automation/billing/payment-reconciliation-checks",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4705,10 +5122,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-235",
+      "id": "api-237",
       "title": "/api/admin/automation/billing/invoices-receipts",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4717,10 +5135,11 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-236",
+      "id": "api-238",
       "title": "/api/admin/automation/billing/failed-payment-retries",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4729,6 +5148,7 @@
         "api",
         "automation"
       ],
+      "lastModifiedAt": "2026-05-24T16:53:26.549Z",
       "qualityWeight": 0.95
     },
     {
@@ -4745,6 +5165,7 @@
         "executive positioning strategy",
         "what gets executives interviewed"
       ],
+      "lastModifiedAt": "2026-05-19T13:04:37.778Z",
       "qualityWeight": 0.9
     },
     {
@@ -4761,6 +5182,7 @@
         "VP candidate outreach strategy",
         "how to message executive recruiters"
       ],
+      "lastModifiedAt": "2026-05-19T13:04:37.781Z",
       "qualityWeight": 0.9
     },
     {
@@ -4777,6 +5199,7 @@
         "VP executive transition",
         "executive positioning infrastructure"
       ],
+      "lastModifiedAt": "2026-05-15T15:42:52.239Z",
       "qualityWeight": 0.9
     },
     {
@@ -4793,6 +5216,7 @@
         "career page monitoring method",
         "executive search timing signals"
       ],
+      "lastModifiedAt": "2026-05-13T19:18:44.491Z",
       "qualityWeight": 0.9
     },
     {
@@ -4809,6 +5233,7 @@
         "executive search discipline",
         "how top executive candidates run search"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.354Z",
       "qualityWeight": 0.9
     },
     {
@@ -4825,6 +5250,7 @@
         "what executive recruiters want",
         "C-suite job search strategy"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.355Z",
       "qualityWeight": 0.9
     },
     {
@@ -4841,6 +5267,7 @@
         "executive job search timeline",
         "technology executive search"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.350Z",
       "qualityWeight": 0.9
     },
     {
@@ -4857,6 +5284,7 @@
         "VP IT to C-suite",
         "C-suite career path"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.362Z",
       "qualityWeight": 0.9
     },
     {
@@ -4873,6 +5301,7 @@
         "executive job market Q2 2026",
         "C-suite job search 2026"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.350Z",
       "qualityWeight": 0.9
     },
     {
@@ -4889,6 +5318,7 @@
         "how to prepare for CISO interview",
         "cybersecurity executive interview"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.351Z",
       "qualityWeight": 0.9
     },
     {
@@ -4905,6 +5335,7 @@
         "CDO hiring criteria",
         "chief data officer job search"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.363Z",
       "qualityWeight": 0.9
     },
     {
@@ -4921,6 +5352,7 @@
         "how to negotiate executive compensation",
         "C-suite total compensation"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.349Z",
       "qualityWeight": 0.9
     },
     {
@@ -4937,6 +5369,7 @@
         "technology board presentation",
         "C-suite first 90 days"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.348Z",
       "qualityWeight": 0.9
     },
     {
@@ -4953,6 +5386,7 @@
         "technology leader private equity",
         "C-suite equity compensation PE"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.358Z",
       "qualityWeight": 0.9
     },
     {
@@ -4969,6 +5403,7 @@
         "technology executive resume",
         "how to write a C-suite resume"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.355Z",
       "qualityWeight": 0.9
     },
     {
@@ -4985,6 +5420,7 @@
         "CIO headhunter relationship",
         "retained search candidate strategy"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.359Z",
       "qualityWeight": 0.9
     },
     {
@@ -5001,6 +5437,7 @@
         "target company list executive search",
         "C-suite search campaign"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.360Z",
       "qualityWeight": 0.9
     },
     {
@@ -5017,6 +5454,7 @@
         "CIO vs CTO career path",
         "should I be a CIO or CTO"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.351Z",
       "qualityWeight": 0.9
     },
     {
@@ -5033,6 +5471,7 @@
         "CTO career path",
         "VP of engineering career"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.352Z",
       "qualityWeight": 0.9
     },
     {
@@ -5049,6 +5488,7 @@
         "CTO career transition timeline",
         "how long to find CTO job"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.352Z",
       "qualityWeight": 0.9
     },
     {
@@ -5065,6 +5505,7 @@
         "how to use LinkedIn for executive search",
         "executive LinkedIn profile tips"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.357Z",
       "qualityWeight": 0.9
     },
     {
@@ -5081,6 +5522,7 @@
         "CIO hidden job market",
         "how to find CIO job"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.357Z",
       "qualityWeight": 0.9
     },
     {
@@ -5097,6 +5539,7 @@
         "chief technology officer job search",
         "CTO executive search"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.361Z",
       "qualityWeight": 0.9
     },
     {
@@ -5113,6 +5556,7 @@
         "CIO career transition strategy",
         "technology executive career transition"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.356Z",
       "qualityWeight": 0.9
     },
     {
@@ -5129,6 +5573,7 @@
         "executive coaching tools",
         "executive job search support"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.353Z",
       "qualityWeight": 0.9
     },
     {
@@ -5145,6 +5590,7 @@
         "how executive coaches improve client search",
         "executive job search coaching"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.353Z",
       "qualityWeight": 0.9
     },
     {
@@ -5161,6 +5607,7 @@
         "senior executive job search rules",
         "VP CIO CTO job search"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.362Z",
       "qualityWeight": 0.9
     },
     {
@@ -5177,6 +5624,7 @@
         "chief information officer outplacement",
         "how to support technology executives in transition"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.361Z",
       "qualityWeight": 0.9
     },
     {
@@ -5193,6 +5641,7 @@
         "retained search candidate preparation",
         "technology executive interview preparation"
       ],
+      "lastModifiedAt": "2026-05-28T18:13:57.359Z",
       "qualityWeight": 0.9
     }
   ]

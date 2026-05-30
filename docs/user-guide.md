@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-30T15:54:43.915Z
+Last generated: 2026-05-30T18:04:07.849Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -168,7 +168,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (236)
+## API and Automation (238)
 - [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
@@ -305,6 +305,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/auth/verify-and-oauth](/api/auth/verify-and-oauth) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/auth/verify-and-magic-link](/api/auth/verify-and-magic-link) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/auth/set-password](/api/auth/set-password) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/oauth-start](/api/auth/oauth-start) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/login-submit](/api/auth/login-submit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/speakers](/api/admin/speakers) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/speakers/[id]](/api/admin/speakers/[id]) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/speakers/export](/api/admin/speakers/export) - Programmatic endpoint available for platform behavior or integrations.

@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-30T15:54:48.156Z
+Last generated: 2026-05-30T18:04:25.283Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -178,7 +178,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Login | /login | User-facing page route /login.
 
-## API Surface (236)
+## API Surface (238)
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
@@ -315,6 +315,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/auth/verify-and-oauth | src/app/api/auth/verify-and-oauth/route.ts | export const runtime = 'nodejs'
 - API /api/auth/verify-and-magic-link | src/app/api/auth/verify-and-magic-link/route.ts | export const runtime = 'nodejs'
 - API /api/auth/set-password | src/app/api/auth/set-password/route.ts | export const runtime = 'nodejs'
+- API /api/auth/oauth-start | src/app/api/auth/oauth-start/route.ts | export const runtime = 'nodejs'
+- API /api/auth/login-submit | src/app/api/auth/login-submit/route.ts | export const runtime = 'nodejs'
 - API /api/admin/speakers | src/app/api/admin/speakers/route.ts | GET: list speakers with appearances, optional filters: ?status=&q=&conference=&year=
 - API /api/admin/speakers/[id] | src/app/api/admin/speakers/[id]/route.ts | PATCH: update outreach fields for a single speaker
 - API /api/admin/speakers/export | src/app/api/admin/speakers/export/route.ts | GET: export speakers as CSV formatted for LinkedIn Sales Navigator import.
@@ -579,7 +581,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/outreach/template-draft.ts | src/lib/outreach/template-draft.ts | export type OutreachTemplateChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
 - Code src/lib/outreach/template-engine.test.ts | src/lib/outreach/template-engine.test.ts | import { describe, it, expect } from 'vitest'
 
-## Internal Scripts (105)
+## Internal Scripts (106)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -616,6 +618,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-prep-confidence-calibration.mjs | scripts/check-prep-confidence-calibration.mjs | #!/usr/bin/env node
 - Script scripts/check-prep-provenance-coverage.mjs | scripts/check-prep-provenance-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-prep-role-mode-qa.mjs | scripts/check-prep-role-mode-qa.mjs | #!/usr/bin/env node
+- Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
 - Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
@@ -842,7 +845,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 
-## Documentation (439)
+## Documentation (440)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -936,6 +939,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/product-sprints.md | docs/product-sprints.md | Starting Monday: Sprint Plan (Sprints 8-15)
 - Doc docs/product-wbs.md | docs/product-wbs.md | Work Breakdown Structure
 - Doc docs/production-feedback-loop.md | docs/production-feedback-loop.md | Production Feedback Loop
+- Doc docs/release-ux-signoff-checklist.md | docs/release-ux-signoff-checklist.md | Release UX Sign-off Checklist
 - Doc docs/sales-marketing-plan.md | docs/sales-marketing-plan.md | Sales & Marketing Plan — Starting Monday
 - Doc docs/salesnavigator.md | docs/salesnavigator.md | Sales Navigator Playbook — Starting Monday
 - Doc docs/scan-mode.md | docs/scan-mode.md | JD Scan Mode

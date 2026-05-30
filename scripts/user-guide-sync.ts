@@ -11,6 +11,7 @@ type GuideEntry = {
   url: string
   tags: string[]
   qualityWeight: number
+  lastModifiedAt?: string
 }
 
 type GuideManifest = {
@@ -58,6 +59,11 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
   }
 
   return out
+}
+
+async function lastModifiedAt(filePath: string): Promise<string | undefined> {
+  const stat = await fs.stat(filePath).catch(() => null)
+  return stat?.mtime?.toISOString()
 }
 
 function routeLabel(route: string): string {
@@ -157,38 +163,49 @@ async function buildGuidePayload() {
     .filter((route): route is string => Boolean(route))
     .filter((route) => route.startsWith('/dashboard'))
 
-  const featureEntries: GuideEntry[] = [...new Set([...appRoutes, ...dashboardRoutes])]
-    .map((route, index) => withQualityWeight({
+  const routeToFile = new Map<string, string>()
+  for (const file of appPageFiles) {
+    const route = pageFileToRoute(file)
+    if (route) routeToFile.set(route, file)
+  }
+
+  const featureEntries = [...new Set([...appRoutes, ...dashboardRoutes])]
+    .map(async (route, index) => withQualityWeight({
       id: `feature-${index + 1}`,
       title: routeLabel(route),
       body: `Open ${route} to use this feature area and related workflows.`,
       type: 'feature',
       url: route,
       tags: ['feature', 'dashboard'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get(route) ?? ''),
     }))
 
-  const apiEntries: GuideEntry[] = apiFiles
-    .map((file) => apiFileToRoute(file))
-    .filter((route): route is string => Boolean(route))
-    .map((route, index) => withQualityWeight({
+  const resolvedFeatureEntries = await Promise.all(featureEntries)
+
+  const apiEntries: GuideEntry[] = await Promise.all(apiFiles
+    .map((file) => ({ file, route: apiFileToRoute(file) }))
+    .filter((entry): entry is { file: string; route: string } => Boolean(entry.route))
+    .map(async ({ file, route }, index) => withQualityWeight({
       id: `api-${index + 1}`,
       title: route,
       body: 'Programmatic endpoint available for platform behavior or integrations.',
       type: 'api',
       url: route,
       tags: ['api', 'automation'],
-    }))
+      lastModifiedAt: await lastModifiedAt(file),
+    })))
 
-  const articleEntries: GuideEntry[] = BLOG_POSTS.map((post, index) => withQualityWeight({
+  const articleEntries: GuideEntry[] = await Promise.all(BLOG_POSTS.map(async (post, index) => withQualityWeight({
     id: `article-${index + 1}`,
     title: post.title,
     body: post.description,
     type: 'article',
     url: `/blog/${post.slug}`,
     tags: ['article', ...post.keywords.slice(0, 5)],
-  }))
+    lastModifiedAt: await lastModifiedAt(path.join(ROOT, 'src', 'app', 'blog', post.slug, 'page.tsx')),
+  })))
 
-  const getStartedEntries: GuideEntry[] = [
+  const getStartedEntries: GuideEntry[] = await Promise.all([
     withQualityWeight({
       id: 'get-started-0',
       title: 'Use the user guide and guide chat',
@@ -196,6 +213,7 @@ async function buildGuidePayload() {
       type: 'get-started',
       url: '/guide',
       tags: ['get-started', 'guide', 'help'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get('/guide') ?? ''),
     }),
     withQualityWeight({
       id: 'get-started-1',
@@ -204,6 +222,7 @@ async function buildGuidePayload() {
       type: 'get-started',
       url: '/dashboard/start',
       tags: ['get-started', 'onboarding'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get('/dashboard/start') ?? ''),
     }),
     withQualityWeight({
       id: 'get-started-2',
@@ -212,6 +231,7 @@ async function buildGuidePayload() {
       type: 'get-started',
       url: '/dashboard/profile',
       tags: ['get-started', 'profile'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get('/dashboard/profile') ?? ''),
     }),
     withQualityWeight({
       id: 'get-started-3',
@@ -220,6 +240,7 @@ async function buildGuidePayload() {
       type: 'get-started',
       url: '/dashboard/companies/new',
       tags: ['get-started', 'pipeline'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get('/dashboard/companies/new') ?? ''),
     }),
     withQualityWeight({
       id: 'get-started-4',
@@ -228,15 +249,22 @@ async function buildGuidePayload() {
       type: 'get-started',
       url: '/dashboard/help',
       tags: ['get-started', 'help', 'faq'],
+      lastModifiedAt: await lastModifiedAt(routeToFile.get('/dashboard/help') ?? ''),
     }),
-  ]
+  ])
 
   const automationGuide = (await fs.readFile(AUTOMATION_GUIDE_PATH, 'utf8').catch(() => ''))
-  const howToEntries = automationGuideHowToSections(automationGuide)
+  const howToEntries = automationGuideHowToSections(automationGuide).map((entry) => ({
+    ...entry,
+    lastModifiedAt: entry.lastModifiedAt ?? undefined,
+  }))
+  for (const entry of howToEntries) {
+    entry.lastModifiedAt = await lastModifiedAt(AUTOMATION_GUIDE_PATH)
+  }
 
   const entries: GuideEntry[] = [
     ...getStartedEntries,
-    ...featureEntries,
+    ...resolvedFeatureEntries,
     ...howToEntries,
     ...apiEntries,
     ...articleEntries,
