@@ -143,10 +143,13 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         properties: {
           started_at: onboardingStartedAt,
           channel: onboardingChannel,
+          mode: lowEnergyMode ? 'low_energy' : 'standard',
+          confidence_band: null,
+          action_context: 'onboarding_started',
         },
       }),
     }).catch(() => {})
-  }, [onboardingStartedAt, onboardingChannel])
+  }, [onboardingStartedAt, onboardingChannel, lowEnergyMode])
 
   useEffect(() => {
     if (step === 3 && isPassive && !manualMode) {
@@ -177,6 +180,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           under_ten_minutes: elapsedSeconds <= 600,
           transition_first: transitionFirst,
           low_energy_mode: lowEnergyMode,
+          mode: lowEnergyMode ? 'low_energy' : 'standard',
+          confidence_band: null,
+          action_context: 'onboarding_first_value_ready',
         },
       }),
     }).catch(() => {})
@@ -194,10 +200,13 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           elapsed_seconds: elapsedSeconds,
           step,
           transition_first: transitionFirst,
+          mode: lowEnergyMode ? 'low_energy' : 'standard',
+          confidence_band: null,
+          action_context: 'onboarding_nudge_shown',
         },
       }),
     }).catch(() => {})
-  }, [step, elapsedSeconds, transitionFirst])
+  }, [step, elapsedSeconds, transitionFirst, lowEnergyMode])
 
   useEffect(() => {
     const currentElapsedSeconds = computeElapsedSeconds(onboardingStartedAt)
@@ -211,6 +220,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           elapsed_seconds: currentElapsedSeconds,
           low_energy_mode: lowEnergyMode,
           channel: onboardingChannel,
+          mode: lowEnergyMode ? 'low_energy' : 'standard',
+          confidence_band: null,
+          action_context: 'onboarding_step_completed',
         },
       }),
     }).catch(() => {})
