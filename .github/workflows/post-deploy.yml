@@ -49,15 +49,15 @@ jobs:
 
       - name: Verify EMI smoke credentials are configured
         env:
-          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
-          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          EMI_AUTOMATION_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
+          EMI_AUTOMATION_SERVICE_USER_ID: ${{ secrets['EMI_AUTOMATION_SERVICE_USER_ID'] }}
         run: |
-          if [ -z "$PLAYWRIGHT_TEST_EMAIL" ]; then
-            echo "Missing required secret: PLAYWRIGHT_TEST_EMAIL"
+          if [ -z "$EMI_AUTOMATION_SERVICE_TOKEN" ]; then
+            echo "Missing required secret: EMI_AUTOMATION_SERVICE_TOKEN"
             exit 1
           fi
-          if [ -z "$PLAYWRIGHT_TEST_PASSWORD" ]; then
-            echo "Missing required secret: PLAYWRIGHT_TEST_PASSWORD"
+          if [ -z "$EMI_AUTOMATION_SERVICE_USER_ID" ]; then
+            echo "Missing required secret: EMI_AUTOMATION_SERVICE_USER_ID"
             exit 1
           fi
 
@@ -65,8 +65,8 @@ jobs:
         id: emi_smoke
         env:
           EMI_SMOKE_BASE_URL: https://startingmonday.app
-          EMI_SMOKE_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
-          EMI_SMOKE_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          EMI_SMOKE_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
+          EMI_SMOKE_SERVICE_USER_ID: ${{ secrets['EMI_AUTOMATION_SERVICE_USER_ID'] }}
           EMI_SMOKE_OUTPUT_JSON: '1'
         run: |
           set -o pipefail

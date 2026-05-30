@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
 const BASE_URL = process.env.EMI_SMOKE_BASE_URL ?? 'https://startingmonday.app'
+const SERVICE_TOKEN = process.env.EMI_SMOKE_SERVICE_TOKEN ?? ''
+const SERVICE_USER_ID = process.env.EMI_SMOKE_SERVICE_USER_ID ?? ''
 const SESSION_COOKIE = process.env.EMI_SMOKE_SESSION_COOKIE ?? ''
 const AUTH_EMAIL = process.env.EMI_SMOKE_EMAIL ?? ''
 const AUTH_PASSWORD = process.env.EMI_SMOKE_PASSWORD ?? ''
 const OUTPUT_JSON = process.env.EMI_SMOKE_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = 20000
 let authCookieHeader = SESSION_COOKIE
+let authHeaders = {}
 
 function trimSlash(url) {
   return url.endsWith('/') ? url.slice(0, -1) : url
@@ -31,6 +34,7 @@ async function postJson(path, body) {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        ...authHeaders,
         cookie: authCookieHeader,
       },
       body: JSON.stringify(body),
@@ -90,6 +94,20 @@ async function buildAuthCookie() {
   return cookieHeader
 }
 
+function buildServiceHeaders() {
+  if (!SERVICE_TOKEN) return null
+  const headers = {
+    'x-automation-service-token': SERVICE_TOKEN,
+    authorization: `Bearer ${SERVICE_TOKEN}`,
+  }
+
+  if (SERVICE_USER_ID) {
+    headers['x-automation-user-id'] = SERVICE_USER_ID
+  }
+
+  return headers
+}
+
 function evaluate(weekly, validation) {
   const failures = []
 
@@ -133,48 +151,55 @@ function emitSummary(summary) {
 }
 
 async function main() {
-  let authCookie = ''
-  try {
-    authCookie = await buildAuthCookie()
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'authentication bootstrap failed'
-    emitSummary({
-      ts: new Date().toISOString(),
-      baseUrl: BASE_URL,
-      weeklyRunId: null,
-      validationRunId: null,
-      validationStatus: null,
-      mismatchCount: null,
-      nullStreakCount: null,
-      passed: false,
-      failures: [message],
-      checks: {
-        weekly: { status: 0 },
-        validation: { status: 0 },
-      },
-    })
-    process.exitCode = 1
-    return
+  const serviceHeaders = buildServiceHeaders()
+  if (serviceHeaders) {
+    authHeaders = serviceHeaders
   }
 
-  if (!authCookie) {
-    emitSummary({
-      ts: new Date().toISOString(),
-      baseUrl: BASE_URL,
-      weeklyRunId: null,
-      validationRunId: null,
-      validationStatus: null,
-      mismatchCount: null,
-      nullStreakCount: null,
-      passed: false,
-      failures: ['Missing smoke authentication. Set EMI_SMOKE_SESSION_COOKIE or EMI_SMOKE_EMAIL and EMI_SMOKE_PASSWORD.'],
-      checks: {
-        weekly: { status: 0 },
-        validation: { status: 0 },
-      },
-    })
-    process.exitCode = 1
-    return
+  let authCookie = ''
+  if (!serviceHeaders) {
+    try {
+      authCookie = await buildAuthCookie()
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'authentication bootstrap failed'
+      emitSummary({
+        ts: new Date().toISOString(),
+        baseUrl: BASE_URL,
+        weeklyRunId: null,
+        validationRunId: null,
+        validationStatus: null,
+        mismatchCount: null,
+        nullStreakCount: null,
+        passed: false,
+        failures: [message],
+        checks: {
+          weekly: { status: 0 },
+          validation: { status: 0 },
+        },
+      })
+      process.exitCode = 1
+      return
+    }
+
+    if (!authCookie) {
+      emitSummary({
+        ts: new Date().toISOString(),
+        baseUrl: BASE_URL,
+        weeklyRunId: null,
+        validationRunId: null,
+        validationStatus: null,
+        mismatchCount: null,
+        nullStreakCount: null,
+        passed: false,
+        failures: ['Missing smoke authentication. Set EMI_SMOKE_SERVICE_TOKEN, or legacy EMI_SMOKE_SESSION_COOKIE / EMI_SMOKE_EMAIL and EMI_SMOKE_PASSWORD.'],
+        checks: {
+          weekly: { status: 0 },
+          validation: { status: 0 },
+        },
+      })
+      process.exitCode = 1
+      return
+    }
   }
 
   const originalCookie = authCookieHeader
