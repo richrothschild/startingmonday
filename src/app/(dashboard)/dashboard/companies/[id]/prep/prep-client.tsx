@@ -9,6 +9,7 @@ import {
   type ClaimOriginClass,
 } from '@/lib/prep-provenance'
 import { scorePrepBriefConfidence } from '@/lib/prep-confidence'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 import { PREP_ROLE_MODES, type PrepRoleMode } from '@/lib/prep-role-modes'
 import { BriefRating } from '@/components/BriefRating'
 import type { InterviewStage } from '@/lib/prompts'
@@ -484,6 +485,7 @@ export function PrepClient({
   const refineRef = useRef<HTMLTextAreaElement>(null)
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
   const autoStarted = useRef(false)
+  const lowConfidenceSeenForBrief = useRef<string | null>(null)
 
   function captureTraceInteraction(interactionType: 'legend_filter' | 'label_click', nextFilter: TraceFilter) {
     try {
@@ -495,6 +497,21 @@ export function PrepClient({
       })
     } catch {
       // analytics must not block interactions
+    }
+  }
+
+  async function emitPmfEvent(
+    eventName: string,
+    properties: Record<string, string | number | boolean | null>,
+  ) {
+    try {
+      await fetch('/api/events/pmf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventName, properties }),
+      })
+    } catch {
+      // telemetry must not block product interactions
     }
   }
 
@@ -552,6 +569,15 @@ export function PrepClient({
       } else {
         const id = await saveBrief('prep', fullText, companyId)
         setBriefId(id)
+        const confidence = scorePrepBriefConfidence(fullText)
+        await emitPmfEvent(PMF_EVENTS.prep.prep_brief_generated, {
+          company_id: companyId,
+          type: 'prep',
+          mode: roleMode,
+          confidence_band: confidence.band,
+          action_context: 'prep_generate',
+          interview_stage: interviewStage,
+        })
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -589,6 +615,14 @@ export function PrepClient({
         setRefineInput('')
         const id = await saveBrief('prep', fullText, companyId)
         setBriefId(id)
+        const confidence = scorePrepBriefConfidence(fullText)
+        await emitPmfEvent(PMF_EVENTS.prep.prep_brief_refined, {
+          company_id: companyId,
+          mode: roleMode,
+          confidence_band: confidence.band,
+          action_context: 'prep_refine',
+          interview_stage: interviewStage,
+        })
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -709,11 +743,30 @@ export function PrepClient({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
+      await emitPmfEvent(PMF_EVENTS.prep.prep_export_word, {
+        company_id: companyId,
+        mode: roleMode,
+        confidence_band: briefConfidence?.band ?? 'unknown',
+        action_context: 'prep_export_word',
+        interview_stage: interviewStage,
+      })
     } catch {
       // silently fail - user can retry
     } finally {
       setDownloading(false)
     }
+  }
+
+  async function handlePdfExport() {
+    if (exportBlockedByConfidence) return
+    await emitPmfEvent(PMF_EVENTS.prep.prep_export_pdf, {
+      company_id: companyId,
+      mode: roleMode,
+      confidence_band: briefConfidence?.band ?? 'unknown',
+      action_context: 'prep_export_pdf',
+      interview_stage: interviewStage,
+    })
+    window.print()
   }
 
   const busy = loading || refining
@@ -723,6 +776,20 @@ export function PrepClient({
   }, [brief])
   const isLowConfidence = briefConfidence?.band === 'low'
   const exportBlockedByConfidence = isLowConfidence && !lowConfidenceAcknowledged
+
+  useEffect(() => {
+    if (!brief || !isLowConfidence) return
+    if (lowConfidenceSeenForBrief.current === brief) return
+    lowConfidenceSeenForBrief.current = brief
+
+    void emitPmfEvent(PMF_EVENTS.prep.prep_low_confidence_seen, {
+      company_id: companyId,
+      mode: roleMode,
+      confidence_band: briefConfidence?.band ?? 'low',
+      action_context: 'prep_low_confidence_banner',
+      interview_stage: interviewStage,
+    })
+  }, [brief, isLowConfidence, companyId, roleMode, interviewStage, briefConfidence?.band])
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -781,7 +848,7 @@ export function PrepClient({
                     <button
                       type="button"
                       onClick={() => {
-                        if (!exportBlockedByConfidence) window.print()
+                        void handlePdfExport()
                       }}
                       disabled={exportBlockedByConfidence}
                       className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
@@ -974,7 +1041,16 @@ export function PrepClient({
                 </ul>
                 <button
                   type="button"
-                  onClick={() => setLowConfidenceAcknowledged(true)}
+                  onClick={() => {
+                    setLowConfidenceAcknowledged(true)
+                    void emitPmfEvent(PMF_EVENTS.prep.prep_low_confidence_seen, {
+                      company_id: companyId,
+                      mode: roleMode,
+                      confidence_band: briefConfidence?.band ?? 'low',
+                      action_context: 'prep_low_confidence_acknowledged',
+                      interview_stage: interviewStage,
+                    })
+                  }}
                   className="mt-3 text-[12px] font-semibold text-amber-900 border border-amber-300 rounded px-3 py-1.5 hover:bg-amber-100 transition-colors"
                 >
                   Acknowledge and allow export

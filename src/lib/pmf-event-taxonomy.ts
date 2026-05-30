@@ -10,6 +10,8 @@ export const PMF_EVENTS = {
     prep_brief_generated: 'pmf_prep_brief_generated',
     prep_brief_refined: 'pmf_prep_brief_refined',
     prep_low_confidence_seen: 'pmf_prep_low_confidence_seen',
+    prep_export_word: 'pmf_prep_export_word',
+    prep_export_pdf: 'pmf_prep_export_pdf',
   },
   cadence: {
     follow_up_logged: 'pmf_cadence_follow_up_logged',
@@ -123,6 +125,26 @@ export const PMF_EVENT_DEFINITIONS: Record<PMFEventName, PMFEventDefinition> = {
       optional: [...SHARED_CONTEXT_FIELDS],
     },
     description: 'Low confidence guard surfaced to user for remediation.',
+  },
+  [PMF_EVENTS.prep.prep_export_word]: {
+    category: 'prep',
+    owner: PMF_EVENT_OWNERS.engineering,
+    kpi: PMF_KPIS.prep_brief_usage_rate,
+    schema: {
+      required: ['company_id', 'confidence_band'],
+      optional: [...SHARED_CONTEXT_FIELDS],
+    },
+    description: 'User exported prep brief as a Word document.',
+  },
+  [PMF_EVENTS.prep.prep_export_pdf]: {
+    category: 'prep',
+    owner: PMF_EVENT_OWNERS.engineering,
+    kpi: PMF_KPIS.prep_brief_usage_rate,
+    schema: {
+      required: ['company_id', 'confidence_band'],
+      optional: [...SHARED_CONTEXT_FIELDS],
+    },
+    description: 'User exported prep brief as PDF/print output.',
   },
   [PMF_EVENTS.cadence.follow_up_logged]: {
     category: 'cadence',
