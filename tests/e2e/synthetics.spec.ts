@@ -129,6 +129,37 @@ test('Synthetic-01b: login controls dispatch auth requests', async ({ page }) =>
   await oauthRequest
 })
 
+test('Synthetic-01c: guide content and guide chat interactivity are healthy', async ({ page }) => {
+  await requireAuthSessionOrSkip(page)
+  await page.goto('/guide', { waitUntil: 'load' })
+
+  await expect(page.getByRole('heading', { name: /Starting Monday Career Guide/i })).toBeVisible()
+  await expect(page.locator('body')).not.toContainText(/guide content unavailable|guide temporarily unavailable/i)
+
+  const sectionLinks = page.locator('main a[href^="#"]')
+  await expect(sectionLinks.first()).toBeVisible()
+
+  await page.route('**/api/guide/chat', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        answer: 'Synthetic guide response',
+        sources: [{ id: 'synthetic-1', title: 'Guide source', url: '/guide', score: 1, type: 'guide' }],
+        intent: 'how_to',
+        confidence: 0.92,
+        conservative: false,
+        queryId: 'synthetic-query-id',
+      }),
+    })
+  })
+
+  const chatBox = page.locator('#guide-chat')
+  await chatBox.fill('How do I start?')
+  await page.getByRole('button', { name: /^Ask$/i }).click()
+  await expect(page.locator('text=Synthetic guide response')).toBeVisible({ timeout: 5000 })
+})
+
 // ---------------------------------------------------------------------------
 // Synthetic-02: Auth API Health — sign-in with synthetic account
 // Budget: <= 2000ms
