@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { retrieveGuide, type GuideIntent } from '@/lib/guide-retrieval'
+import bundledInternalIndex from '../../../../../../docs/internal-guide.index.json'
 
 type InternalEntry = {
   id: string
@@ -51,12 +52,16 @@ function buildAnswer(intent: GuideIntent, question: string, lines: string[], con
 async function loadInternalIndex(): Promise<InternalIndex | null> {
   const indexPath = path.join(process.cwd(), 'docs', 'internal-guide.index.json')
   const raw = await readFile(indexPath, 'utf8').catch(() => '')
-  if (!raw) return null
+  if (!raw) {
+    const bundled = bundledInternalIndex as InternalIndex
+    return bundled?.entries?.length ? bundled : null
+  }
 
   try {
     return JSON.parse(raw) as InternalIndex
   } catch {
-    return null
+    const bundled = bundledInternalIndex as InternalIndex
+    return bundled?.entries?.length ? bundled : null
   }
 }
 
@@ -79,7 +84,7 @@ export async function POST(request: NextRequest) {
 
   const index = await loadInternalIndex()
   if (!index || !Array.isArray(index.entries) || index.entries.length === 0) {
-    return NextResponse.json({ error: 'Internal guide index unavailable. Run npm run guide:internal:sync.' }, { status: 503 })
+    return NextResponse.json({ error: 'Internal guide data is temporarily unavailable. Please retry in a moment.' }, { status: 503 })
   }
 
   const retrievalEntries = index.entries.map((entry) => ({

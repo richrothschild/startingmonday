@@ -6,6 +6,7 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { retrieveGuide, type GuideEntry, type GuideIntent } from '@/lib/guide-retrieval'
+import bundledUserGuideIndex from '../../../../../docs/user-guide.index.json'
 
 type GuideIndex = {
   generatedAt: string
@@ -58,12 +59,16 @@ function buildAnswer(intent: GuideIntent, question: string, top: Array<{ title: 
 async function loadGuideIndex(): Promise<GuideIndex | null> {
   const guideIndexPath = path.join(process.cwd(), 'docs', 'user-guide.index.json')
   const raw = await readFile(guideIndexPath, 'utf8').catch(() => '')
-  if (!raw) return null
+  if (!raw) {
+    const bundled = bundledUserGuideIndex as GuideIndex
+    return bundled?.entries?.length ? bundled : null
+  }
 
   try {
     return JSON.parse(raw) as GuideIndex
   } catch {
-    return null
+    const bundled = bundledUserGuideIndex as GuideIndex
+    return bundled?.entries?.length ? bundled : null
   }
 }
 
@@ -84,7 +89,7 @@ export async function POST(request: NextRequest) {
   if (!index || !Array.isArray(index.entries) || index.entries.length === 0) {
     captureServerEvent(auth.userId, 'guide_chat_index_unavailable')
     return NextResponse.json(
-      { error: 'Guide index is unavailable. Run npm run guide:user:sync and try again.' },
+      { error: 'Guide data is temporarily unavailable. Please retry in a moment.' },
       { status: 503 },
     )
   }
