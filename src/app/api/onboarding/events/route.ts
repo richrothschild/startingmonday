@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { logEvent, type UserEventName } from '@/lib/events'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { enqueueOnboardingVideoRunForMilestoneEvent } from '@/lib/onboarding-video-queue'
 
 const ALLOWED_EVENTS: UserEventName[] = [
   'onboarding_started',
@@ -34,6 +36,23 @@ export async function POST(request: Request) {
   }
 
   await logEvent(user.id, eventName, body.properties ?? {})
+
+  if (
+    eventName === 'onboarding_started'
+    || eventName === 'onboarding_step_completed'
+    || eventName === 'onboarding_first_value_ready'
+  ) {
+    try {
+      const admin = createAdminClient() as unknown as any
+      await enqueueOnboardingVideoRunForMilestoneEvent(admin, {
+        userId: user.id,
+        eventName,
+        properties: body.properties ?? {},
+      })
+    } catch {
+      // Milestone auto-enqueue is best-effort and must not fail event ingestion.
+    }
+  }
 
   // Keep canonical EMI event names populated even when UI emits legacy onboarding names.
   if (eventName === 'onboarding_started') {

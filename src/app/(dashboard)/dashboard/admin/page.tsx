@@ -510,6 +510,7 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
             <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/onboarding/video" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding video</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Dashboard</Link>
@@ -845,6 +846,7 @@ export default async function AdminPage() {
             <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Team and permissions</Link>
             <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Product ops</Link>
             <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/onboarding/video" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
             <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
           </div>
         </section>

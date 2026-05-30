@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
+import {
+  dispatchOnboardingVideoProvider,
+  isProviderTerminalError,
+} from '@/lib/onboarding-video-provider'
 
 const DEFAULT_MAX_RETRIES = 3
 const MAX_RETRIES_LIMIT = 10
@@ -19,6 +23,7 @@ type QueueRunRecord = {
   user_id: string
   workflow_id: string | null
   provider: string
+  provider_run_id?: string | null
   trigger_source: OnboardingVideoTriggerSource
   status: OnboardingVideoRunStatus
   retry_count: number
@@ -53,6 +58,31 @@ function computeRetryDelayMs(retryCount: number): number {
 
 function shouldForceFailure(inputPayload: Record<string, unknown>): boolean {
   return inputPayload.force_fail === true
+}
+
+type MilestoneEventName =
+  | 'onboarding_started'
+  | 'onboarding_step_completed'
+  | 'onboarding_first_value_ready'
+
+function mapMilestoneToFlow(
+  eventName: MilestoneEventName,
+  properties: Record<string, string | number | boolean | null>,
+): string {
+  if (eventName === 'onboarding_started') return 'onboarding_first_day'
+
+  if (eventName === 'onboarding_first_value_ready') {
+    const channel = String(properties.channel ?? properties.onboarding_channel ?? 'executive').toLowerCase()
+    if (channel.includes('coach')) return 'coach_channel_playbook'
+    if (channel.includes('founder')) return 'founder_channel_playbook'
+    return 'executive_channel_playbook'
+  }
+
+  const step = String(properties.step ?? properties.step_id ?? properties.step_name ?? '').toLowerCase()
+  if (step.includes('follow')) return 'follow_up_rhythm'
+  if (step.includes('brief')) return 'briefing_workflow'
+  if (step.includes('outreach')) return 'outreach_launch'
+  return 'onboarding_step_checkpoint'
 }
 
 async function appendRunEvent(admin: any, input: {
@@ -251,37 +281,68 @@ async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: stri
       throw new Error('Forced failure requested by run payload')
     }
 
-    const outputPayload = {
-      provider: run.provider,
-      worker_id: workerId,
-      provider_run_id: `ovr_${randomUUID()}`,
-      video_url: `https://assets.startingmonday.app/onboarding-video/${run.id}.mp4`,
-      completed_at: nowIso,
-    }
-
-    await admin
-      .from('onboarding_video_runs')
-      .update({
-        status: 'completed',
-        provider_run_id: outputPayload.provider_run_id,
-        completed_at: nowIso,
-        next_retry_at: null,
-        output_payload: outputPayload,
-        error_payload: {},
-      })
-      .eq('id', run.id)
-
-    await appendRunEvent(admin, {
+    const dispatchResult = await dispatchOnboardingVideoProvider({
       runId: run.id,
       userId: run.user_id,
-      eventType: 'completed',
-      eventPayload: outputPayload,
+      provider: run.provider,
+      inputPayload: run.input_payload ?? {},
     })
+
+    const outputPayload = {
+      ...dispatchResult.outputPayload,
+      worker_id: workerId,
+      provider_run_id: dispatchResult.providerRunId,
+      dispatched_at: nowIso,
+    }
+
+    if (dispatchResult.status === 'completed') {
+      await admin
+        .from('onboarding_video_runs')
+        .update({
+          status: 'completed',
+          provider_run_id: dispatchResult.providerRunId,
+          completed_at: nowIso,
+          next_retry_at: null,
+          output_payload: outputPayload,
+          error_payload: {},
+        })
+        .eq('id', run.id)
+
+      await appendRunEvent(admin, {
+        runId: run.id,
+        userId: run.user_id,
+        eventType: 'completed',
+        eventPayload: outputPayload,
+      })
+    } else {
+      await admin
+        .from('onboarding_video_runs')
+        .update({
+          status: 'processing',
+          provider_run_id: dispatchResult.providerRunId,
+          next_retry_at: null,
+          output_payload: outputPayload,
+          error_payload: {},
+        })
+        .eq('id', run.id)
+
+      await appendRunEvent(admin, {
+        runId: run.id,
+        userId: run.user_id,
+        eventType: 'provider_dispatched',
+        eventPayload: {
+          provider: run.provider,
+          provider_run_id: dispatchResult.providerRunId,
+          worker_id: workerId,
+        },
+      })
+    }
 
     return { ok: true as const }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown onboarding video failure'
-    const canRetry = run.retry_count < run.max_retries
+    const isTerminal = isProviderTerminalError(error)
+    const canRetry = !isTerminal && run.retry_count < run.max_retries
     const retryAt = canRetry
       ? new Date(Date.now() + computeRetryDelayMs(run.retry_count)).toISOString()
       : null
@@ -293,7 +354,7 @@ async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: stri
         next_retry_at: retryAt,
         completed_at: canRetry ? null : new Date().toISOString(),
         error_payload: {
-          code: canRetry ? 'provider_transient' : 'provider_terminal',
+          code: canRetry ? 'provider_transient' : isTerminal ? 'provider_terminal' : 'provider_exhausted',
           message,
           worker_id: workerId,
           occurred_at: nowIso,
@@ -451,4 +512,70 @@ export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {
   }
 
   return runs ?? []
+}
+
+export async function enqueueOnboardingVideoRunForMilestoneEvent(
+  admin: any,
+  input: {
+    userId: string
+    eventName: MilestoneEventName
+    properties?: Record<string, string | number | boolean | null>
+  },
+) {
+  const properties = input.properties ?? {}
+  const tutorialFlow = mapMilestoneToFlow(input.eventName, properties)
+  const provider = String(process.env.ONBOARDING_VIDEO_PROVIDER ?? 'heygen')
+  const dedupeSince = new Date(Date.now() - 90 * 60 * 1000).toISOString()
+
+  const dedupePayload = {
+    event_name: input.eventName,
+    tutorial_flow: tutorialFlow,
+  }
+
+  const { data: existing } = await admin
+    .from('onboarding_video_runs')
+    .select('id, status, created_at')
+    .eq('user_id', input.userId)
+    .eq('trigger_source', 'event')
+    .in('status', ['queued', 'processing', 'completed'])
+    .gte('created_at', dedupeSince)
+    .contains('input_payload', dedupePayload)
+    .order('created_at', { ascending: false })
+    .limit(1)
+
+  if ((existing ?? []).length > 0) {
+    return {
+      queued: false as const,
+      reason: 'deduped_recent_milestone',
+      tutorialFlow,
+      runId: String(existing?.[0]?.id ?? ''),
+    }
+  }
+
+  const run = await enqueueOnboardingVideoRun(admin, {
+    userId: input.userId,
+    triggerSource: 'event',
+    provider,
+    inputPayload: {
+      event_name: input.eventName,
+      tutorial_flow: tutorialFlow,
+      milestone_properties: properties,
+    },
+  })
+
+  await appendRunEvent(admin, {
+    runId: run.id,
+    userId: input.userId,
+    eventType: 'milestone_auto_enqueued',
+    eventPayload: {
+      event_name: input.eventName,
+      tutorial_flow: tutorialFlow,
+    },
+  })
+
+  return {
+    queued: true as const,
+    tutorialFlow,
+    runId: run.id,
+  }
 }
