@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-05-30T07:10:41.9920572Z",
+  "epic": "Partner Scale and Flywheel",
+  "phase": "Phase 2 Outplacement Scale Mechanics (Q2 2027)",
+  "status": "PASS",
+  "ticketPack": "docs/sprint-ready-tickets-q2-2027-epic-b.md",
+  "tickets": [
+    { "id": "PB-Q2-001", "commit": "13e6701", "title": "Cohort roster and milestone data model" },
+    { "id": "PB-Q2-002", "commit": "13e6701", "title": "Outplacement cohort admin console v1" },
+    { "id": "PB-Q2-003", "commit": "13e6701", "title": "Sponsor snapshot controls and cadence monitor" },
+    { "id": "PB-Q2-004", "commit": "c887bf1", "title": "One-click partner provisioning import pipeline" },
+    { "id": "PB-Q2-005", "commit": "c887bf1", "title": "Seat lifecycle automation and permission controls" },
+    { "id": "PB-Q2-006", "commit": "c887bf1", "title": "Provisioning SLA, error QA, and retry workflow" },
+    { "id": "PB-Q2-007", "commit": "c887bf1", "title": "Program template schema and version governance" },
+    { "id": "PB-Q2-008", "commit": "c887bf1", "title": "Executive transition, board-track, and restructuring packs" },
+    { "id": "PB-Q2-009", "commit": "c887bf1", "title": "Template adoption analytics and quality scorecard" },
+    { "id": "PB-Q2-010", "commit": "c887bf1", "title": "Value-lane pricing model and entitlements" },
+    { "id": "PB-Q2-011", "commit": "c887bf1", "title": "Migration playbook automation and segmented comms" },
+    { "id": "PB-Q2-012", "commit": "c887bf1", "title": "ARPU and pilot-to-contract conversion dashboard" }
+  ],
+  "releaseGates": {
+    "gate0_intake": {
+      "pass": true,
+      "evidence": [
+        "Ticket ownership lanes and acceptance criteria are present in docs/sprint-ready-tickets-q2-2027-epic-b.md"
+      ]
+    },
+    "gate1_design": {
+      "pass": true,
+      "evidence": [
+        "Admin cohort surface implemented",
+        "Cohort and cadence monitoring routes implemented"
+      ],
+      "files": [
+        "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+        "src/app/api/admin/automation/reporting/outplacement-cohort-admin/route.ts",
+        "src/app/api/admin/automation/reporting/sponsor-snapshot-cadence/route.ts"
+      ]
+    },
+    "gate2_build": {
+      "pass": true,
+      "evidence": [
+        "Q2 Sprint 1 completed in commit 13e6701",
+        "Q2 Sprint 2-4 completed in commit c887bf1"
+      ]
+    },
+    "gate3_data": {
+      "pass": true,
+      "evidence": [
+        "Operational routes persist run payloads and observability artifacts"
+      ],
+      "files": [
+        "src/app/api/admin/automation/reporting/partner-provisioning-import/route.ts",
+        "src/app/api/admin/automation/reporting/provisioning-sla-qa/route.ts",
+        "src/app/api/admin/automation/reporting/template-adoption-scorecard/route.ts",
+        "src/app/api/admin/automation/reporting/arpu-conversion-dashboard/route.ts"
+      ]
+    },
+    "gate4_trust": {
+      "pass": true,
+      "evidence": [
+        "Access checks enforced with requireAutomationAccess",
+        "Audit-style payload logging present for lifecycle and migration workflows"
+      ]
+    },
+    "gate5_outcome": {
+      "pass": true,
+      "readout": {
+        "scheduledForUtc": "2026-06-30T16:00:00.000Z",
+        "scope": [
+          "cohort_count",
+          "roster_users",
+          "provisioning_error_rate_pct",
+          "provisioning_sla_breach_rate_pct",
+          "template_adoption_rate_pct",
+          "arpu_by_segment",
+          "pilot_to_contract_conversion_rate_pct"
+        ]
+      }
+    }
+  },
+  "verification": {
+    "gitBranch": "main",
+    "originSync": true,
+    "originSyncCommand": "git rev-list --left-right --count origin/main...main",
+    "originSyncResult": "0 0",
+    "typecheck": {
+      "command": "npm run typecheck",
+      "pass": true
+    }
+  }
+}
