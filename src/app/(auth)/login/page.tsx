@@ -1,8 +1,7 @@
 ﻿'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import TurnstileWidget from '@/components/turnstile-widget'
 
@@ -10,46 +9,14 @@ const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
 
 export default function LoginPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const nextPath = searchParams.get('next')?.trim() || '/dashboard/briefing'
-  const safeNextPath = nextPath.startsWith('/') ? nextPath : '/dashboard/briefing'
-
-  const initialError = (() => {
-    const code = searchParams.get('error')
-    if (!code) return null
-    switch (code) {
-      case 'missing_credentials':
-        return 'Enter both email and password to sign in.'
-      case 'invalid_credentials':
-        return 'That email/password did not work. If this account was created with Google or Apple, sign in with that provider first, then set a password in Settings > Security.'
-      case 'auth_error':
-        return 'Sign-in failed. Please try again.'
-      case 'magic_failed':
-        return 'Could not send sign-in link. Please try again.'
-      case 'oauth_start_failed':
-        return 'Could not start social sign-in. Please try again.'
-      case 'rate_limited':
-        return 'Too many attempts. Please wait a minute and try again.'
-      default:
-        return null
-    }
-  })()
-
-  const initialInfo = (() => {
-    const code = searchParams.get('info')
-    if (code === 'magic_sent') {
-      return 'If an account exists for that email, a sign-in link has been sent.'
-    }
-    return null
-  })()
-
+  const [safeNextPath, setSafeNextPath] = useState('/dashboard/briefing')
   const googleFallbackHref = `/api/auth/oauth-start?provider=google&next=${encodeURIComponent(safeNextPath)}`
   const appleFallbackHref = `/api/auth/oauth-start?provider=apple&next=${encodeURIComponent(safeNextPath)}`
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(initialError)
-  const [info, setInfo] = useState<string | null>(initialInfo)
+  const [error, setError] = useState<string | null>(null)
+  const [info, setInfo] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
@@ -57,6 +24,40 @@ export default function LoginPage() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const nextPath = params.get('next')?.trim() || '/dashboard/briefing'
+    setSafeNextPath(nextPath.startsWith('/') ? nextPath : '/dashboard/briefing')
+
+    const errorCode = params.get('error')
+    if (errorCode) {
+      switch (errorCode) {
+        case 'missing_credentials':
+          setError('Enter both email and password to sign in.')
+          break
+        case 'invalid_credentials':
+          setError('That email/password did not work. If this account was created with Google or Apple, sign in with that provider first, then set a password in Settings > Security.')
+          break
+        case 'auth_error':
+          setError('Sign-in failed. Please try again.')
+          break
+        case 'magic_failed':
+          setError('Could not send sign-in link. Please try again.')
+          break
+        case 'oauth_start_failed':
+          setError('Could not start social sign-in. Please try again.')
+          break
+        case 'rate_limited':
+          setError('Too many attempts. Please wait a minute and try again.')
+          break
+      }
+    }
+
+    if (params.get('info') === 'magic_sent') {
+      setInfo('If an account exists for that email, a sign-in link has been sent.')
+    }
+  }, [])
 
   function requireCaptchaToken(): string | null {
     if (!TURNSTILE_ENABLED) return ''
