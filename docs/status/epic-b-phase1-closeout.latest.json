@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-05-30T04:03:29.377Z",
+  "epic": "Partner Scale and Flywheel",
+  "phase": "Phase 1: Partner Proof Layer (Q1 2027)",
+  "status": "PASS",
+  "ticketPack": "docs/sprint-ready-tickets-q1-2027-epic-b.md",
+  "tickets": [
+    {
+      "id": "PB-Q1-001",
+      "commit": "aeb80de",
+      "title": "Partner KPI schema and dashboard data model"
+    },
+    {
+      "id": "PB-Q1-002",
+      "commit": "0d11ca1",
+      "title": "Partner reporting dashboard v1 UI and filters"
+    },
+    {
+      "id": "PB-Q1-003",
+      "commit": "300fc90",
+      "title": "Pilot partner validation workflow and QA checklist"
+    },
+    {
+      "id": "PB-Q1-004",
+      "commit": "263114b",
+      "title": "Sponsor export pipeline for PDF and CSV packs"
+    },
+    {
+      "id": "PB-Q1-005",
+      "commit": "1ff94d7",
+      "title": "Sponsor report template system and branding controls"
+    },
+    {
+      "id": "PB-Q1-006",
+      "commit": "a4cfd32",
+      "title": "Scheduled export send automation and delivery logs"
+    },
+    {
+      "id": "PB-Q1-007",
+      "commit": "8ebb3b3",
+      "title": "Coach multi-client command center data aggregation"
+    },
+    {
+      "id": "PB-Q1-008",
+      "commit": "2e138dd",
+      "title": "Coach home UI with risk flags and action queue"
+    },
+    {
+      "id": "PB-Q1-009",
+      "commit": "4d6c42f",
+      "title": "Portfolio scalability and performance hardening (50+ clients)"
+    },
+    {
+      "id": "PB-Q1-010",
+      "commit": "efb6dc9",
+      "title": "Session agenda and note capture workflow"
+    },
+    {
+      "id": "PB-Q1-011",
+      "commit": "249d838",
+      "title": "Action extraction, assignment, and closure tracking"
+    },
+    {
+      "id": "PB-Q1-012",
+      "commit": "6aaf0c9",
+      "title": "Session closure KPI instrumentation and quality monitor"
+    }
+  ],
+  "releaseGates": {
+    "gate0_intake": {
+      "pass": true,
+      "evidence": [
+        "Epic 7-layer coverage and DRI mapping present in docs/epic-partner-scale-and-flywheel-2026-2027.md",
+        "Ticket ownership lanes and assignee present in docs/sprint-ready-tickets-q1-2027-epic-b.md"
+      ]
+    },
+    "gate1_design": {
+      "pass": true,
+      "evidence": [
+        "Coach command-center UI surfaces state and urgency before action links",
+        "Session workflow captures agenda and structured context before closure actions"
+      ],
+      "files": [
+        "src/app/(dashboard)/dashboard/coach/page.tsx",
+        "src/components/coach/client-data-view.tsx"
+      ]
+    },
+    "gate2_build": {
+      "pass": true,
+      "evidence": [
+        "Partner-scoped reporting/export access boundaries implemented",
+        "Delivery and quality failures route to automation_alerts"
+      ],
+      "files": [
+        "src/app/api/admin/automation/reporting/sponsor-export-pipeline/route.ts",
+        "src/app/api/admin/automation/reporting/sponsor-export-dispatch/route.ts",
+        "src/app/api/admin/automation/reporting/session-closure-monitor/route.ts"
+      ]
+    },
+    "gate3_data": {
+      "pass": true,
+      "evidence": [
+        "Partner KPI model, dispatch send-rate metric, and session closure KPIs are instrumented and returned by APIs",
+        "Daily closure monitor persists trend payloads and runs QA checks"
+      ],
+      "files": [
+        "src/app/api/admin/automation/reporting/partner-kpi-schema/route.ts",
+        "src/app/api/admin/automation/reporting/sponsor-export-dispatch/route.ts",
+        "src/app/api/admin/automation/reporting/session-closure-monitor/route.ts"
+      ]
+    },
+    "gate4_trust": {
+      "pass": true,
+      "evidence": [
+        "Partner-level boundaries enforced by referral attribution scoping",
+        "Dispatch and closure QA failure paths include auditable alerts"
+      ],
+      "files": [
+        "src/app/api/admin/automation/reporting/sponsor-export-pipeline/route.ts",
+        "src/app/api/admin/automation/reporting/sponsor-export-dispatch/route.ts",
+        "src/app/api/admin/automation/reporting/session-closure-monitor/route.ts"
+      ]
+    },
+    "gate5_outcome": {
+      "pass": true,
+      "evidence": [
+        "30-day readout scheduled with owner and KPI pack for Phase 1 review"
+      ],
+      "readout": {
+        "scheduledForUtc": "2026-06-29T16:00:00.000Z",
+        "ownerLane": "Lane E Revenue and Partnerships Lead",
+        "scope": "Phase 1 partner proof metrics and renewal readiness",
+        "kpis": [
+          "partner_dashboard_weekly_active_rate",
+          "sponsor_report_send_rate",
+          "coach_session_closure_completion",
+          "cohort_cadence_adherence"
+        ]
+      }
+    }
+  },
+  "verification": {
+    "gitBranch": "main",
+    "originSync": true,
+    "originSyncCommand": "git rev-list --left-right --count origin/main...main",
+    "originSyncResult": "0 0",
+    "typecheck": {
+      "command": "npm run typecheck",
+      "pass": true
+    }
+  }
+}
