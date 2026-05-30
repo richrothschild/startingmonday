@@ -5,6 +5,8 @@ import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { watermarkText } from '@/lib/watermark'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { apiError } from '@/lib/api-error'
+import { BriefSaveBodySchema, firstZodError } from '@/lib/schemas'
 import {
   PREP_PROVENANCE_VERSION,
   type PrepClaimProvenance,
@@ -16,32 +18,25 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
 
   const { userId } = auth
-  const body = await request.json().catch(() => null)
-
-  if (!body?.type || !body?.text) {
-    return NextResponse.json({ error: 'Missing type or text' }, { status: 400 })
+  const rawBody = await request.json().catch(() => null)
+  const parsedBody = BriefSaveBodySchema.safeParse(rawBody)
+  if (!parsedBody.success) {
+    return apiError(firstZodError(parsedBody.error), 400)
   }
 
-  const { type, text, company_id, contact_id, section_name, claim_provenance, provenance_version } = body as {
-    type: string
-    text: string
-    company_id?: string
-    contact_id?: string
-    section_name?: string
-    claim_provenance?: PrepClaimProvenance[]
-    provenance_version?: number
-  }
+  const { type, text, company_id, contact_id, section_name, claim_provenance, provenance_version } = parsedBody.data
 
-  if (!['strategy', 'prep', 'prep_section', 'outreach'].includes(type)) {
-    return NextResponse.json({ error: 'Invalid type' }, { status: 400 })
-  }
 
   const isPrepType = type === 'prep' || type === 'prep_section'
   let validatedClaimProvenance: PrepClaimProvenance[] | null = null
 
   if (isPrepType) {
     if (!Array.isArray(claim_provenance)) {
-      return NextResponse.json({ error: 'Missing claim_provenance for prep brief write' }, { status: 400 })
+      return apiError('Missing claim_provenance for prep brief write', 400)
+    }
+
+    if (claim_provenance.length === 0) {
+      return apiError('claim_provenance cannot be empty for prep brief write', 400)
     }
 
     const errors = validatePrepClaimProvenance(claim_provenance)

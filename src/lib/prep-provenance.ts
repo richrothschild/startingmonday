@@ -2,6 +2,18 @@ export const PREP_PROVENANCE_VERSION = 1
 
 export type ClaimOriginClass = 'user_provided' | 'system_detected' | 'inferred'
 
+export type SourceEvidenceKind =
+  | 'career_history'
+  | 'resume_text'
+  | 'star_story'
+  | 'company_signals'
+  | 'scan_results'
+  | 'company_notes'
+  | 'interview_notes'
+  | 'contact_records'
+  | 'company_documents'
+  | 'job_description'
+
 export type SensitivePolicyHook =
   | 'compensation_claim'
   | 'legal_risk_claim'
@@ -12,15 +24,31 @@ export type PrepClaimProvenance = {
   originClass: ClaimOriginClass
   section: string | null
   sensitivePolicyHooks: SensitivePolicyHook[]
+  sourceEvidence: SourceEvidenceKind[]
 }
 
 export type PrepProvenanceValidationError = {
   index: number
-  code: 'missing_claim_text' | 'missing_origin_class' | 'invalid_origin_class' | 'sensitive_inferred_block'
+  code:
+    | 'missing_claim_text'
+    | 'missing_origin_class'
+    | 'invalid_origin_class'
+    | 'sensitive_inferred_block'
+    | 'sensitive_requires_evidence'
   message: string
 }
 
 const ORIGIN_CLASSES: ClaimOriginClass[] = ['user_provided', 'system_detected', 'inferred']
+const USER_EVIDENCE: SourceEvidenceKind[] = ['career_history', 'resume_text', 'star_story']
+const SYSTEM_EVIDENCE: SourceEvidenceKind[] = [
+  'company_signals',
+  'scan_results',
+  'company_notes',
+  'interview_notes',
+  'contact_records',
+  'company_documents',
+  'job_description',
+]
 
 function normalizeLine(line: string): string {
   return line
@@ -35,7 +63,70 @@ function sectionHeader(line: string): string | null {
   return line.slice(3).trim() || null
 }
 
-function inferOriginClass(claimText: string): ClaimOriginClass {
+function detectSourceEvidence(claimText: string, section: string | null): SourceEvidenceKind[] {
+  const text = claimText.toLowerCase()
+  const sectionText = (section ?? '').toLowerCase()
+  const matches = new Set<SourceEvidenceKind>()
+
+  if (
+    text.includes('resume') ||
+    text.includes('career history') ||
+    text.includes('candidate-verified') ||
+    sectionText.includes('background match')
+  ) {
+    matches.add('resume_text')
+    matches.add('career_history')
+  }
+
+  if (text.includes('story') || text.includes('star')) {
+    matches.add('star_story')
+  }
+
+  if (text.includes('signal') || text.includes('announcement') || text.includes('filing')) {
+    matches.add('company_signals')
+  }
+
+  if (text.includes('scan')) {
+    matches.add('scan_results')
+  }
+
+  if (text.includes('company notes') || text.includes('notes')) {
+    matches.add('company_notes')
+  }
+
+  if (text.includes('interview notes') || text.includes('prior interview')) {
+    matches.add('interview_notes')
+  }
+
+  if (text.includes('contact') || text.includes('recruiter') || text.includes('hiring manager')) {
+    matches.add('contact_records')
+  }
+
+  if (text.includes('document') || text.includes('job description') || sectionText.includes('requirement')) {
+    matches.add('company_documents')
+  }
+
+  if (text.includes('job description') || sectionText.includes('requirement')) {
+    matches.add('job_description')
+  }
+
+  if (sectionText.includes('situation') || sectionText.includes('focus')) {
+    matches.add('company_notes')
+    matches.add('company_signals')
+  }
+
+  return Array.from(matches)
+}
+
+function inferOriginClass(claimText: string, sourceEvidence: SourceEvidenceKind[]): ClaimOriginClass {
+  if (sourceEvidence.some((e) => USER_EVIDENCE.includes(e)) && !sourceEvidence.some((e) => SYSTEM_EVIDENCE.includes(e))) {
+    return 'user_provided'
+  }
+
+  if (sourceEvidence.some((e) => SYSTEM_EVIDENCE.includes(e))) {
+    return 'system_detected'
+  }
+
   const text = claimText.toLowerCase()
 
   if (
@@ -98,11 +189,14 @@ export function buildPrepClaimProvenance(outputText: string): PrepClaimProvenanc
     if (claimText === '---' || claimText === '***') continue
     if (claimText.length < 24) continue
 
+    const sourceEvidence = detectSourceEvidence(claimText, currentSection)
+
     claims.push({
       claimText,
-      originClass: inferOriginClass(claimText),
+      originClass: inferOriginClass(claimText, sourceEvidence),
       section: currentSection,
       sensitivePolicyHooks: detectSensitivePolicyHooks(claimText),
+      sourceEvidence,
     })
 
     if (claims.length >= 80) break
@@ -147,6 +241,27 @@ export function validatePrepClaimProvenance(claims: PrepClaimProvenance[]): Prep
         code: 'sensitive_inferred_block',
         message: 'Sensitive claims cannot be stored with inferred originClass.',
       })
+    }
+
+    if ((claim.sensitivePolicyHooks?.length ?? 0) > 0 && claim.originClass !== 'inferred') {
+      const evidence = Array.isArray(claim.sourceEvidence) ? claim.sourceEvidence : []
+      if (evidence.length === 0) {
+        errors.push({
+          index,
+          code: 'sensitive_requires_evidence',
+          message: 'Sensitive claims must include at least one sourceEvidence marker.',
+        })
+        continue
+      }
+
+      const expectedEvidence = claim.originClass === 'user_provided' ? USER_EVIDENCE : SYSTEM_EVIDENCE
+      if (!evidence.some((item) => expectedEvidence.includes(item))) {
+        errors.push({
+          index,
+          code: 'sensitive_requires_evidence',
+          message: `Sensitive claims with ${claim.originClass} originClass must include matching sourceEvidence markers.`,
+        })
+      }
     }
   }
 

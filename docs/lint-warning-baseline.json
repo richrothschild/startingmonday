@@ -1,5 +1,5 @@
 {
   "warnings": 365,
-  "capturedAt": "2026-05-29",
-  "notes": "Recaptured after Epic A sprint foundation merge. Current warning floor is 365; future work should burn this baseline down."
+  "capturedAt": "2026-05-30",
+  "notes": "Recaptured after CI baseline gate failure; warning floor is now 365 and should be reduced in debt burn-down work."
 }

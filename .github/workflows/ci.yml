@@ -42,6 +42,9 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
+      - name: Migration rollback readiness check
+        run: npm run migration:rollback:check:strict
+
       - name: Mobile UX contract and banned pattern guard
         run: npm run mobile:guard
 
@@ -270,6 +273,8 @@ jobs:
       - name: Upload Semgrep findings to Semgrep Cloud (optional)
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
         continue-on-error: true
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
         run: |
           if [ -z "${SEMGREP_APP_TOKEN:-}" ]; then
             echo "SEMGREP_APP_TOKEN not set in runner environment; skipping Semgrep Cloud upload."

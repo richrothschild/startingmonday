@@ -17,6 +17,7 @@ describe('prep provenance', () => {
     const claims = buildPrepClaimProvenance(brief)
     expect(claims.length).toBeGreaterThan(0)
     expect(claims.every((claim) => !!claim.originClass)).toBe(true)
+    expect(claims.every((claim) => Array.isArray(claim.sourceEvidence))).toBe(true)
   })
 
   it('blocks sensitive inferred claims', () => {
@@ -26,6 +27,7 @@ describe('prep provenance', () => {
         originClass: 'inferred',
         section: 'Offer',
         sensitivePolicyHooks: ['compensation_claim'],
+        sourceEvidence: [],
       },
     ]
 
@@ -40,10 +42,26 @@ describe('prep provenance', () => {
         originClass: 'unknown_class',
         section: 'Bottom Line',
         sensitivePolicyHooks: [],
+        sourceEvidence: [],
       },
     ] as unknown as PrepClaimProvenance[]
 
     const errors = validatePrepClaimProvenance(claims)
     expect(errors.some((e) => e.code === 'invalid_origin_class')).toBe(true)
+  })
+
+  it('blocks sensitive user/system claims without matching source evidence', () => {
+    const claims: PrepClaimProvenance[] = [
+      {
+        claimText: 'Compensation package expectation should stay above market median.',
+        originClass: 'system_detected',
+        section: 'Offer',
+        sensitivePolicyHooks: ['compensation_claim'],
+        sourceEvidence: ['career_history'],
+      },
+    ]
+
+    const errors = validatePrepClaimProvenance(claims)
+    expect(errors.some((e) => e.code === 'sensitive_requires_evidence')).toBe(true)
   })
 })
