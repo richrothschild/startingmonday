@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
+import TurnstileWidget from '@/components/turnstile-widget'
 
 type SituationContent = {
   title: string
@@ -113,10 +114,21 @@ export default function SignupPage() {
   const [confirmed, setConfirmed] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
 
+  function requireCaptchaToken(): string | null {
+    if (!captchaToken) {
+      setError('Complete the security check before continuing.')
+      return null
+    }
+    return captchaToken
+  }
+
   async function handleGoogle() {
+    const token = requireCaptchaToken()
+    if (!token) return
     setGoogleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'google' })
@@ -130,7 +142,10 @@ export default function SignupPage() {
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-captcha-token': token,
+        },
         body: JSON.stringify({
           provider: 'google',
           redirectTo: callbackUrl.toString(),
@@ -153,6 +168,8 @@ export default function SignupPage() {
   }
 
   async function handleApple() {
+    const token = requireCaptchaToken()
+    if (!token) return
     setAppleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'apple' })
@@ -166,7 +183,10 @@ export default function SignupPage() {
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-captcha-token': token,
+        },
         body: JSON.stringify({
           provider: 'apple',
           redirectTo: callbackUrl.toString(),
@@ -190,13 +210,18 @@ export default function SignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    const token = requireCaptchaToken()
+    if (!token) return
     setLoading(true)
     setError(null)
 
     try {
       const response = await fetch('/api/auth/verify-and-signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-captcha-token': token,
+        },
         body: JSON.stringify({ email, password }),
       })
 
@@ -419,6 +444,8 @@ export default function SignupPage() {
                   {error && (
                     <p className="text-[13px] text-red-600">{error}</p>
                   )}
+
+                  <TurnstileWidget onTokenChange={setCaptchaToken} />
 
 
 
