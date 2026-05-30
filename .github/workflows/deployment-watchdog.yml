@@ -45,7 +45,7 @@ jobs:
             const sleepSeconds = Number(process.env.SLEEP_SECONDS || '60')
 
             const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-            const terminalFailureStates = new Set(['error', 'failure', 'inactive'])
+            const terminalFailureStates = new Set(['error', 'failure'])
 
             let lastStates = []
             let successState = null
@@ -81,6 +81,13 @@ jobs:
                     core.setOutput('states', lastStates.join(', '))
                     core.setOutput('sha', sha)
                     core.setFailed(`Deployment parity failed for ${sha.slice(0, 8)} with state ${entry}`)
+                    return
+                  }
+                  if (status.state === 'inactive') {
+                    core.setOutput('result', 'superseded')
+                    core.setOutput('states', lastStates.join(', '))
+                    core.setOutput('sha', sha)
+                    core.notice(`Deployment parity marked superseded for ${sha.slice(0, 8)} with state ${entry}`)
                     return
                   }
                 }

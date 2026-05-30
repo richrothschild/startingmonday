@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
     request,
     rateLimitKey: 'oauth',
     maxPerMinute: 5,
+    requireCaptcha: true,
   })
   if (guardResponse) return guardResponse
 

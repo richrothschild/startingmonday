@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import TurnstileWidget from '@/components/turnstile-widget'
+
+const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -14,15 +17,30 @@ export default function LoginPage() {
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
   const [magicLinkLoading, setMagicLinkLoading] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
 
+  function requireCaptchaToken(): string | null {
+    if (!TURNSTILE_ENABLED) return ''
+    if (!captchaToken) {
+      setError('Complete the security check before continuing.')
+      return null
+    }
+    return captchaToken
+  }
+
   async function handleGoogle() {
+    const token = requireCaptchaToken()
+    if (!token) return
     setGoogleLoading(true)
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+        },
         body: JSON.stringify({
           provider: 'google',
           redirectTo: `${window.location.origin}/auth/callback`,
@@ -45,11 +63,16 @@ export default function LoginPage() {
   }
 
   async function handleApple() {
+    const token = requireCaptchaToken()
+    if (!token) return
     setAppleLoading(true)
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+        },
         body: JSON.stringify({
           provider: 'apple',
           redirectTo: `${window.location.origin}/auth/callback`,
@@ -74,6 +97,8 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (authBusy) return
+    const token = requireCaptchaToken()
+    if (!token) return
     setLoading(true)
     setError(null)
     setInfo(null)
@@ -90,7 +115,10 @@ export default function LoginPage() {
     try {
       const response = await fetch('/api/auth/verify-and-signin', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+        },
         body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
 
@@ -116,6 +144,8 @@ export default function LoginPage() {
   }
 
   async function handleMagicLink() {
+    const token = requireCaptchaToken()
+    if (!token) return
     const normalizedEmail = email.trim().toLowerCase()
     if (!normalizedEmail) {
       setError('Enter your email first, then request a sign-in link.')
@@ -128,7 +158,10 @@ export default function LoginPage() {
     try {
       const response = await fetch('/api/auth/verify-and-magic-link', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+        },
         body: JSON.stringify({
           email: normalizedEmail,
           redirectTo: `${window.location.origin}/auth/callback?next=/dashboard/briefing`,
@@ -258,6 +291,8 @@ export default function LoginPage() {
               {info && (
                 <p className="text-[13px] text-emerald-700">{info}</p>
               )}
+
+              {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
 
               <button
                 type="button"
