@@ -92,12 +92,11 @@ setup('authenticate', async ({ page }) => {
   }
 
   // Fallback: browser form login (works on production when API approach is unavailable).
-  await page.goto('/login')
-  await page.fill('#email', email)
-  await page.fill('#password', password)
-  await page.click('button[type="submit"]')
-
   try {
+    await page.goto('/login')
+    await page.fill('#email', email)
+    await page.fill('#password', password)
+    await page.click('button[type="submit"]')
     await page.waitForURL((url) => !url.pathname.startsWith('/login'), { timeout: 20_000 })
     await expect(page).toHaveURL(/\/(dashboard|onboarding)(?:\/.*)?$/)
     await ensureMonitoringAnchorCompany(page)
