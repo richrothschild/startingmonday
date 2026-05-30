@@ -277,13 +277,23 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
     .limit(limit * 4)
 
   if (error) {
-    return { ok: false as const, workerId, processed: 0, completed: 0, failed: 0, retried: 0, error: error.message }
+    return {
+      ok: false as const,
+      workerId,
+      processed: 0,
+      completed: 0,
+      failed: 0,
+      retried: 0,
+      byUser: [] as Array<{ userId: string; processed: number; completed: number; failed: number; retried: number }>,
+      error: error.message,
+    }
   }
 
   let processed = 0
   let completed = 0
   let failed = 0
   let retried = 0
+  const byUser = new Map<string, { processed: number; completed: number; failed: number; retried: number }>()
 
   for (const candidate of (candidates ?? []) as QueueRunRecord[]) {
     if (processed >= limit) break
@@ -302,13 +312,38 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
     if (!claimed?.id) continue
 
     processed += 1
+    const userId = String(claimed.user_id)
+    const summary = byUser.get(userId) ?? { processed: 0, completed: 0, failed: 0, retried: 0 }
+    summary.processed += 1
     const result = await processClaimedRun(admin, claimed as QueueRunRecord, workerId)
-    if (result.ok) completed += 1
-    else if (result.retried) retried += 1
-    else failed += 1
+    if (result.ok) {
+      completed += 1
+      summary.completed += 1
+    } else if (result.retried) {
+      retried += 1
+      summary.retried += 1
+    } else {
+      failed += 1
+      summary.failed += 1
+    }
+    byUser.set(userId, summary)
   }
 
-  return { ok: true as const, workerId, processed, completed, failed, retried }
+  return {
+    ok: true as const,
+    workerId,
+    processed,
+    completed,
+    failed,
+    retried,
+    byUser: Array.from(byUser.entries()).map(([userId, summary]) => ({
+      userId,
+      processed: summary.processed,
+      completed: summary.completed,
+      failed: summary.failed,
+      retried: summary.retried,
+    })),
+  }
 }
 
 export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {

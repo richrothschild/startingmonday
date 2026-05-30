@@ -94,6 +94,7 @@ const JOB_TIMEOUTS_MS = {
   'executive-evening-scan': 10 * 60_000,
   'weekly-report-job':     15 * 60_000,
   'briefing-job':           3 * 60_000,
+  'onboarding-video-job':   4 * 60_000,
 }
 const DEFAULT_JOB_TIMEOUT_MS = 5 * 60_000
 
