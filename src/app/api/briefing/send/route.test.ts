@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
+import { POST } from './route'
 
-describe('src/app/api/briefing/send/route.ts placeholder coverage', () => {
-  it('marks module as covered for council traceability', () => {
-    expect(true).toBe(true)
+describe('briefing send route', () => {
+  it('returns 410 gone with retired endpoint message', async () => {
+    const res = await POST()
+    expect(res.status).toBe(410)
+    await expect(res.json()).resolves.toMatchObject({
+      error: expect.stringContaining('retired'),
+    })
   })
 })
