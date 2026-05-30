@@ -57,6 +57,13 @@ export default defineConfig({
       },
     },
     {
+      name: 'auth-ux',
+      testMatch: /auth-ux\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
       name: 'mobile-iphone',
       testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
       dependencies: ['setup'],
