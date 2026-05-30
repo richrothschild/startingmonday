@@ -35,6 +35,21 @@ type CommandCenterResponse = {
   freshness_sla: {
     stale_clients: number
   }
+  pagination: {
+    page: number
+    page_size: number
+    total_clients: number
+    total_pages: number
+    has_next: boolean
+    has_previous: boolean
+  }
+  monitoring: {
+    route: string
+    budget_ms: number
+    fetch_ms: number
+    payload_clients: number
+    payload_sessions: number
+  }
   upcoming_sessions: Array<{
     user_id: string
     name: string | null
@@ -56,25 +71,30 @@ const PERSONA_LABELS: Record<string, string> = {
 
 export default function CoachDashboard() {
   const [commandCenter, setCommandCenter] = useState<CommandCenterResponse | null>(null)
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [inviteEmail, setInviteEmail] = useState('')
   const [inviting, setInviting] = useState(false)
   const [inviteError, setInviteError] = useState('')
   const [inviteSent, setInviteSent] = useState<string | null>(null)
+  const [homeLoadMs, setHomeLoadMs] = useState<number | null>(null)
 
   useEffect(() => {
-    fetch('/api/coach/command-center')
+    const startedAt = performance.now()
+    setLoading(true)
+    fetch(`/api/coach/command-center?page=${page}&pageSize=25`)
       .then(r => r.json())
       .then(data => {
         if (data && Array.isArray(data.clients) && data.portfolio) {
           setCommandCenter(data)
+          setHomeLoadMs(Math.round(performance.now() - startedAt))
         }
         else setError('Could not load client data.')
       })
       .catch(() => setError('Could not load client data.'))
       .finally(() => setLoading(false))
-  }, [])
+  }, [page])
 
   async function sendInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -161,6 +181,34 @@ export default function CoachDashboard() {
             <div className="bg-white border border-slate-200 rounded p-3">
               <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-400">Avg risk</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1 tabular-nums">{commandCenter.portfolio.average_risk_score}</p>
+            </div>
+          </div>
+        )}
+
+        {!loading && commandCenter?.monitoring && (
+          <div className="bg-white border border-slate-200 rounded p-4 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Route performance</p>
+            <div className="grid sm:grid-cols-5 gap-3">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Route fetch</p>
+                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.fetch_ms}ms</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Home load</p>
+                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{homeLoadMs ?? '-'}ms</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Budget</p>
+                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.budget_ms}ms</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Client rows</p>
+                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_clients}</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Upcoming rows</p>
+                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_sessions}</p>
+              </div>
             </div>
           </div>
         )}
@@ -304,6 +352,32 @@ export default function CoachDashboard() {
                 ))}
               </tbody>
             </table>
+          )}
+
+          {!loading && commandCenter?.pagination && commandCenter.pagination.total_pages > 1 && (
+            <div className="border-t border-slate-100 px-6 py-3 flex items-center justify-between">
+              <p className="text-[12px] text-slate-500">
+                Page {commandCenter.pagination.page} of {commandCenter.pagination.total_pages} · {commandCenter.pagination.total_clients} clients
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                  disabled={!commandCenter.pagination.has_previous}
+                  className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                >
+                  Previous
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPage((prev) => prev + 1)}
+                  disabled={!commandCenter.pagination.has_next}
+                  className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
