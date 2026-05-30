@@ -219,6 +219,21 @@ export async function GET(request: NextRequest) {
       ? Number((clients.reduce((sum, row) => sum + row.risk_score, 0) / clients.length).toFixed(2))
       : 0
 
+    const upcomingSessions = clients
+      .filter((row) => Boolean(row.next_action?.due_date))
+      .map((row) => ({
+        user_id: row.user_id,
+        name: row.name,
+        email: row.email,
+        scheduled_for: row.next_action?.due_date,
+        owner: row.next_action?.owner ?? null,
+        action: row.next_action?.action ?? null,
+        urgency: row.urgency,
+      }))
+      .filter((row) => Boolean(row.scheduled_for && row.scheduled_for >= todayKey))
+      .sort((a, b) => (a.scheduled_for ?? '').localeCompare(b.scheduled_for ?? ''))
+      .slice(0, 12)
+
     if (staleClients.length > 0) {
       await adminAny.from('automation_alerts').insert({
         user_id: userId,
@@ -269,6 +284,7 @@ export async function GET(request: NextRequest) {
         urgency: urgencyCounts,
         average_risk_score: averageRisk,
       },
+      upcoming_sessions: upcomingSessions,
       clients,
     })
   } catch (error) {
