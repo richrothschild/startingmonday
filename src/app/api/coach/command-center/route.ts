@@ -1,0 +1,278 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type NextRequest, NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/require-auth'
+import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
+
+type UrgencyBand = 'high' | 'medium' | 'low'
+
+type RiskInputs = {
+  momentum_score: number | null
+  overdue_actions: number
+  days_since_activity: number
+  active_pipeline_companies: number
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value))
+}
+
+function dayDiff(fromIso: string | null, now: Date): number {
+  if (!fromIso) return 999
+  const deltaMs = now.getTime() - new Date(fromIso).getTime()
+  return Math.max(0, Math.floor(deltaMs / 86_400_000))
+}
+
+function computeRiskScore(inputs: RiskInputs): number {
+  let score = 0
+
+  if (inputs.momentum_score === null) score += 20
+  else if (inputs.momentum_score < 40) score += 35
+  else if (inputs.momentum_score < 60) score += 20
+
+  if (inputs.overdue_actions > 0) {
+    score += clamp(inputs.overdue_actions * 8, 8, 30)
+  }
+
+  if (inputs.days_since_activity >= 7) score += 20
+  else if (inputs.days_since_activity >= 3) score += 10
+
+  if (inputs.active_pipeline_companies === 0) score += 15
+
+  return clamp(score, 0, 100)
+}
+
+function urgencyBand(score: number): UrgencyBand {
+  if (score >= 70) return 'high'
+  if (score >= 40) return 'medium'
+  return 'low'
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const auth = await requireAuth(request)
+    if (!auth.ok) return auth.response
+
+    const { userId } = auth
+    const supabase = await createClient()
+    const sub = await getUserSubscription(userId, supabase)
+    if (!canAccessFeature(sub, 'coach_dashboard')) {
+      return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
+    }
+
+    const { data: seats, error: seatsError } = await supabase
+      .from('team_seats')
+      .select('member_user_id, member_email, accepted_at')
+      .eq('owner_id', userId)
+      .eq('status', 'accepted')
+
+    if (seatsError) {
+      return NextResponse.json({ error: 'Failed to load command center seats' }, { status: 500 })
+    }
+
+    const clientIds = (seats ?? []).map((seat) => seat.member_user_id).filter(Boolean) as string[]
+    if (clientIds.length === 0) {
+      return NextResponse.json({
+        ok: true,
+        ticket: 'PB-Q1-007',
+        generated_at: new Date().toISOString(),
+        portfolio: {
+          total_clients: 0,
+          urgency: { high: 0, medium: 0, low: 0 },
+          average_risk_score: 0,
+          stale_clients: 0,
+        },
+        clients: [],
+        risk_scoring_inputs: [
+          'momentum_score',
+          'overdue_actions',
+          'days_since_activity',
+          'active_pipeline_companies',
+        ],
+        freshness_sla: {
+          max_lag_hours: 48,
+          alert_threshold_days: 2,
+        },
+      })
+    }
+
+    const admin = createAdminClient()
+    const adminAny = admin as any
+    const now = new Date()
+
+    const [profilesRes, companiesRes, followUpsRes, eventsRes] = await Promise.all([
+      admin
+        .from('user_profiles')
+        .select('user_id, full_name, momentum_score, search_persona')
+        .in('user_id', clientIds),
+      admin
+        .from('companies')
+        .select('user_id, stage')
+        .in('user_id', clientIds)
+        .is('archived_at', null),
+      admin
+        .from('follow_ups')
+        .select('user_id, action, due_date, next_action_due_date, next_action_owner, next_action_status, status')
+        .in('user_id', clientIds)
+        .eq('status', 'pending')
+        .order('due_date', { ascending: true }),
+      admin
+        .from('user_events')
+        .select('user_id, created_at')
+        .in('user_id', clientIds)
+        .order('created_at', { ascending: false })
+        .limit(200000),
+    ])
+
+    const profiles = profilesRes.data ?? []
+    const companies = companiesRes.data ?? []
+    const followUps = followUpsRes.data ?? []
+    const events = eventsRes.data ?? []
+
+    const profileMap = new Map(profiles.map((row) => [row.user_id, row]))
+    const seatMetaMap = new Map((seats ?? []).map((seat) => [seat.member_user_id ?? '', seat]))
+    const activeCompanyCount = new Map<string, number>()
+    const overdueActionCount = new Map<string, number>()
+    const nextActionMap = new Map<string, {
+      action: string | null
+      due_date: string | null
+      owner: string | null
+      status: string | null
+    }>()
+    const lastActivityMap = new Map<string, string>()
+
+    for (const row of companies) {
+      if (!row.user_id) continue
+      if (!['applied', 'interviewing', 'offer'].includes(row.stage ?? '')) continue
+      activeCompanyCount.set(row.user_id, (activeCompanyCount.get(row.user_id) ?? 0) + 1)
+    }
+
+    const todayKey = now.toISOString().slice(0, 10)
+    for (const row of followUps) {
+      if (!row.user_id) continue
+      overdueActionCount.set(row.user_id, (overdueActionCount.get(row.user_id) ?? 0) + 1)
+
+      if (!nextActionMap.has(row.user_id)) {
+        nextActionMap.set(row.user_id, {
+          action: row.action ?? null,
+          due_date: row.next_action_due_date ?? row.due_date ?? null,
+          owner: row.next_action_owner ?? null,
+          status: row.next_action_status ?? row.status ?? null,
+        })
+      }
+
+      const due = row.next_action_due_date ?? row.due_date
+      if (due && due >= todayKey && due < (nextActionMap.get(row.user_id)?.due_date ?? '9999-12-31')) {
+        nextActionMap.set(row.user_id, {
+          action: row.action ?? null,
+          due_date: due,
+          owner: row.next_action_owner ?? null,
+          status: row.next_action_status ?? row.status ?? null,
+        })
+      }
+    }
+
+    for (const row of events) {
+      if (!row.user_id || !row.created_at) continue
+      if (!lastActivityMap.has(row.user_id)) {
+        lastActivityMap.set(row.user_id, row.created_at)
+      }
+    }
+
+    const clients = clientIds.map((clientId) => {
+      const profile = profileMap.get(clientId)
+      const seatMeta = seatMetaMap.get(clientId)
+      const inputs: RiskInputs = {
+        momentum_score: profile?.momentum_score ?? null,
+        overdue_actions: overdueActionCount.get(clientId) ?? 0,
+        days_since_activity: dayDiff(lastActivityMap.get(clientId) ?? null, now),
+        active_pipeline_companies: activeCompanyCount.get(clientId) ?? 0,
+      }
+
+      const score = computeRiskScore(inputs)
+      const urgency = urgencyBand(score)
+      const nextAction = nextActionMap.get(clientId) ?? null
+
+      return {
+        user_id: clientId,
+        name: profile?.full_name ?? null,
+        email: seatMeta?.member_email ?? null,
+        persona: profile?.search_persona ?? null,
+        accepted_at: seatMeta?.accepted_at ?? null,
+        last_activity_at: lastActivityMap.get(clientId) ?? null,
+        risk_score: score,
+        urgency,
+        risk_inputs: inputs,
+        next_action: nextAction,
+      }
+    })
+
+    const urgencyCounts = {
+      high: clients.filter((row) => row.urgency === 'high').length,
+      medium: clients.filter((row) => row.urgency === 'medium').length,
+      low: clients.filter((row) => row.urgency === 'low').length,
+    }
+
+    const staleClients = clients.filter((row) => row.risk_inputs.days_since_activity > 2)
+    const averageRisk = clients.length > 0
+      ? Number((clients.reduce((sum, row) => sum + row.risk_score, 0) / clients.length).toFixed(2))
+      : 0
+
+    if (staleClients.length > 0) {
+      await adminAny.from('automation_alerts').insert({
+        user_id: userId,
+        source_table: 'user_events',
+        alert_code: 'coach_command_center_data_lag',
+        severity: 'medium',
+        message: `Coach command center lag: ${staleClients.length} clients have activity lag greater than 2 days.`,
+        status: 'open',
+      })
+    }
+
+    return NextResponse.json({
+      ok: true,
+      ticket: 'PB-Q1-007',
+      generated_at: now.toISOString(),
+      compute_schedule: {
+        cadence: 'daily',
+        recommended_cron_utc: '0 7 * * *',
+        supports_clients_per_coach: 50,
+      },
+      risk_scoring_inputs: [
+        'momentum_score',
+        'overdue_actions',
+        'days_since_activity',
+        'active_pipeline_companies',
+      ],
+      risk_scoring_formula: {
+        momentum_bands: {
+          null: 20,
+          below_40: 35,
+          below_60: 20,
+        },
+        overdue_actions_weight: 'min(max(overdue_actions * 8, 8), 30)',
+        activity_lag_weight: {
+          at_least_7_days: 20,
+          at_least_3_days: 10,
+        },
+        no_active_pipeline_bonus: 15,
+        score_bounds: [0, 100],
+      },
+      freshness_sla: {
+        max_lag_hours: 48,
+        alert_threshold_days: 2,
+        stale_clients: staleClients.length,
+      },
+      portfolio: {
+        total_clients: clients.length,
+        urgency: urgencyCounts,
+        average_risk_score: averageRisk,
+      },
+      clients,
+    })
+  } catch (error) {
+    console.error('[coach.command-center] request failed', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
