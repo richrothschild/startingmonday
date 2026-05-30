@@ -78,4 +78,21 @@ describe('src/app/api/briefs/save/route.ts', () => {
     expect(payload.claim_provenance).toBeDefined()
     expect(payload.provenance_version).toBe(1)
   })
+
+  it('rejects malformed company_id via schema validation', async () => {
+    const { POST } = await import('@/app/api/briefs/save/route')
+    const req = new Request('http://localhost/api/briefs/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'strategy',
+        text: 'A valid strategy brief body',
+        company_id: 'not-a-uuid',
+      }),
+    })
+
+    const res = await POST(req as any)
+    expect(res.status).toBe(400)
+    expect(insertSpy).not.toHaveBeenCalled()
+  })
 })
