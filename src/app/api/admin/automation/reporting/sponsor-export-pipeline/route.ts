@@ -8,6 +8,8 @@ type PartnerRow = {
   name: string
   email: string
   is_active: boolean
+  company: string | null
+  notes: string | null
 }
 
 type AttributionRow = {
@@ -59,9 +61,152 @@ function toCsv(rows: Array<Record<string, unknown>>): string {
   return `${lines.join('\n')}\n`
 }
 
+type SponsorTemplateVariant = 'enterprise_board' | 'growth_ops' | 'pilot_compact'
+
+type TemplateDefinition = {
+  id: SponsorTemplateVariant
+  label: string
+  narrativeTone: string
+  defaultSectionToggles: {
+    showCohortBreakdown: boolean
+    showWeeklyTrend: boolean
+    showNarrativeSummary: boolean
+  }
+}
+
+const TEMPLATE_LIBRARY: Record<SponsorTemplateVariant, TemplateDefinition> = {
+  enterprise_board: {
+    id: 'enterprise_board',
+    label: 'Enterprise Board Review',
+    narrativeTone: 'Board-facing summary with governance and risk visibility.',
+    defaultSectionToggles: {
+      showCohortBreakdown: true,
+      showWeeklyTrend: true,
+      showNarrativeSummary: true,
+    },
+  },
+  growth_ops: {
+    id: 'growth_ops',
+    label: 'Growth Operations',
+    narrativeTone: 'Operator-facing trend interpretation and action framing.',
+    defaultSectionToggles: {
+      showCohortBreakdown: true,
+      showWeeklyTrend: true,
+      showNarrativeSummary: true,
+    },
+  },
+  pilot_compact: {
+    id: 'pilot_compact',
+    label: 'Pilot Compact',
+    narrativeTone: 'Pilot-progress brief optimized for fast executive readouts.',
+    defaultSectionToggles: {
+      showCohortBreakdown: true,
+      showWeeklyTrend: false,
+      showNarrativeSummary: true,
+    },
+  },
+}
+
+type PartnerTemplateOverride = {
+  templateVariant?: SponsorTemplateVariant
+  brand?: {
+    logoUrl?: string
+    primaryColor?: string
+    accentColor?: string
+    footerTagline?: string
+  }
+  sectionToggles?: {
+    showCohortBreakdown?: boolean
+    showWeeklyTrend?: boolean
+    showNarrativeSummary?: boolean
+  }
+}
+
+function isHexColor(value: string | undefined): value is string {
+  return Boolean(value && /^#[0-9A-Fa-f]{6}$/.test(value))
+}
+
+function safeUrl(value: string | undefined): string | null {
+  if (!value) return null
+  try {
+    const parsed = new URL(value)
+    if (parsed.protocol === 'https:') return parsed.toString()
+    return null
+  } catch {
+    return null
+  }
+}
+
+function parsePartnerTemplateOverride(notes: string | null): PartnerTemplateOverride {
+  if (!notes) return {}
+
+  const marker = 'SPONSOR_TEMPLATE_CONFIG:'
+  const markerIndex = notes.indexOf(marker)
+  if (markerIndex === -1) return {}
+
+  const raw = notes.slice(markerIndex + marker.length).trim()
+  if (!raw) return {}
+
+  try {
+    const parsed = JSON.parse(raw) as PartnerTemplateOverride
+    return parsed ?? {}
+  } catch {
+    return {}
+  }
+}
+
+function inferTemplateVariant(partner: PartnerRow, override: PartnerTemplateOverride): SponsorTemplateVariant {
+  if (override.templateVariant && TEMPLATE_LIBRARY[override.templateVariant]) {
+    return override.templateVariant
+  }
+
+  const text = `${partner.name} ${partner.company ?? ''}`.toLowerCase()
+  if (text.includes('enterprise') || text.includes('board')) return 'enterprise_board'
+  if (text.includes('pilot') || text.includes('outplacement')) return 'pilot_compact'
+  return 'growth_ops'
+}
+
+function resolveBrandConfig(partner: PartnerRow, override: PartnerTemplateOverride) {
+  const brand = override.brand ?? {}
+  return {
+    displayName: partner.company?.trim() || partner.name,
+    logoUrl: safeUrl(brand.logoUrl),
+    primaryColor: isHexColor(brand.primaryColor) ? brand.primaryColor : '#0f172a',
+    accentColor: isHexColor(brand.accentColor) ? brand.accentColor : '#f97316',
+    footerTagline: typeof brand.footerTagline === 'string' && brand.footerTagline.trim().length > 0
+      ? brand.footerTagline.trim()
+      : 'Confidential sponsor reporting pack',
+  }
+}
+
+function resolveSectionToggles(
+  definition: TemplateDefinition,
+  override: PartnerTemplateOverride,
+) {
+  const toggles = override.sectionToggles ?? {}
+  return {
+    showCohortBreakdown: toggles.showCohortBreakdown ?? definition.defaultSectionToggles.showCohortBreakdown,
+    showWeeklyTrend: toggles.showWeeklyTrend ?? definition.defaultSectionToggles.showWeeklyTrend,
+    showNarrativeSummary: toggles.showNarrativeSummary ?? definition.defaultSectionToggles.showNarrativeSummary,
+  }
+}
+
 function buildPdfHtml(args: {
   partnerName: string
+  brandDisplayName: string
   monthKeyValue: string
+  templateDefinition: TemplateDefinition
+  sectionToggles: {
+    showCohortBreakdown: boolean
+    showWeeklyTrend: boolean
+    showNarrativeSummary: boolean
+  }
+  brand: {
+    logoUrl: string | null
+    primaryColor: string
+    accentColor: string
+    footerTagline: string
+  }
   totals: {
     usersInScope: number
     utilizationRate: number
@@ -106,11 +251,25 @@ function buildPdfHtml(args: {
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     th, td { border: 1px solid #e2e8f0; padding: 6px; font-size: 12px; text-align: left; }
     th { background: #f8fafc; }
+    .header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { font-size: 12px; color: #475569; }
+    .tone { margin-top: 4px; font-size: 12px; color: #334155; }
+    .narrative { margin-top: 12px; border-left: 4px solid ${args.brand.accentColor}; background: #f8fafc; padding: 10px 12px; font-size: 12px; color: #334155; }
+    .footer { margin-top: 20px; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 9999px; background: ${args.brand.accentColor}; margin-right: 6px; }
   </style>
 </head>
 <body>
-  <h1>${args.partnerName} Sponsor Report Pack</h1>
+  <div class="header-row">
+    <div>
+      <h1 style="color:${args.brand.primaryColor}">${args.partnerName} Sponsor Report Pack</h1>
+      <div class="brand">Brand: ${args.brandDisplayName}</div>
+      <div class="tone"><span class="dot"></span>${args.templateDefinition.label} - ${args.templateDefinition.narrativeTone}</div>
+    </div>
+    ${args.brand.logoUrl ? `<img src="${args.brand.logoUrl}" alt="brand logo" style="max-height:42px; max-width:120px; object-fit:contain;"/>` : ''}
+  </div>
   <p>Month: ${args.monthKeyValue}</p>
+  ${args.sectionToggles.showNarrativeSummary ? `<div class="narrative">This sponsor report is configured for ${args.templateDefinition.label.toLowerCase()} review. Metrics are scoped to partner-attributed participants only and formatted for executive readability.</div>` : ''}
   <h2>Utilization and Trend Summary</h2>
   <div class="cards">
     <div class="card"><div class="label">Users in scope</div><div class="value">${args.totals.usersInScope}</div></div>
@@ -119,7 +278,7 @@ function buildPdfHtml(args: {
     <div class="card"><div class="label">Pipeline movement</div><div class="value">${args.totals.pipelineMovementRate.toFixed(2)}%</div></div>
   </div>
 
-  <h2>Cohort Breakdown</h2>
+  ${args.sectionToggles.showCohortBreakdown ? `<h2>Cohort Breakdown</h2>
   <table>
     <thead>
       <tr>
@@ -133,9 +292,9 @@ function buildPdfHtml(args: {
     <tbody>
       ${cohortTable || '<tr><td colspan="5">No cohort rows available.</td></tr>'}
     </tbody>
-  </table>
+  </table>` : ''}
 
-  <h2>Weekly Trend</h2>
+  ${args.sectionToggles.showWeeklyTrend ? `<h2>Weekly Trend</h2>
   <table>
     <thead>
       <tr>
@@ -148,7 +307,8 @@ function buildPdfHtml(args: {
     <tbody>
       ${weeklyTable || '<tr><td colspan="4">No weekly trend rows available.</td></tr>'}
     </tbody>
-  </table>
+  </table>` : ''}
+  <div class="footer">${args.brand.footerTagline}</div>
 </body>
 </html>`
 }
@@ -168,7 +328,7 @@ export async function POST(request: NextRequest) {
 
   const partnersRes = await sb
     .from('partners')
-    .select('id,name,email,is_active')
+    .select('id,name,email,is_active,company,notes')
     .eq('is_active', true)
     .order('created_at', { ascending: true })
 
@@ -297,10 +457,21 @@ export async function POST(request: NextRequest) {
         month_key: key,
         ...row,
       }))
+
+      const templateOverride = parsePartnerTemplateOverride(partner.notes)
+      const templateVariant = inferTemplateVariant(partner, templateOverride)
+      const templateDefinition = TEMPLATE_LIBRARY[templateVariant]
+      const brand = resolveBrandConfig(partner, templateOverride)
+      const sectionToggles = resolveSectionToggles(templateDefinition, templateOverride)
+
       const csvText = toCsv(csvRows)
       const pdfHtml = buildPdfHtml({
         partnerName: partner.name,
+        brandDisplayName: brand.displayName,
         monthKeyValue: key,
+        templateDefinition,
+        sectionToggles,
+        brand,
         totals,
         cohortRows,
         weeklyRows,
@@ -312,6 +483,13 @@ export async function POST(request: NextRequest) {
         partner_name: partner.name,
         month_key: key,
         generated_at: new Date().toISOString(),
+        template: {
+          variant: templateVariant,
+          label: templateDefinition.label,
+          library_size: Object.keys(TEMPLATE_LIBRARY).length,
+        },
+        branding: brand,
+        section_toggles: sectionToggles,
         sections: {
           cohort_breakdown: cohortRows,
           utilization_summary: totals,
@@ -371,8 +549,14 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     ok: true,
-    ticket: 'PB-Q1-004',
+    ticket: 'PB-Q1-005',
     month_key: key,
+    template_library: Object.values(TEMPLATE_LIBRARY).map((item) => ({
+      id: item.id,
+      label: item.label,
+      narrative_tone: item.narrativeTone,
+      default_section_toggles: item.defaultSectionToggles,
+    })),
     schedule: {
       cadence: 'monthly',
       recommended_cron_utc: '0 9 1 * *',
