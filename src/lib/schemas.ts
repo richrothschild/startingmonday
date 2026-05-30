@@ -36,11 +36,25 @@ export const PrepSensitivePolicyHookSchema = z.enum([
   'security_incident_claim',
 ])
 
+export const PrepSourceEvidenceSchema = z.enum([
+  'career_history',
+  'resume_text',
+  'star_story',
+  'company_signals',
+  'scan_results',
+  'company_notes',
+  'interview_notes',
+  'contact_records',
+  'company_documents',
+  'job_description',
+])
+
 export const PrepClaimProvenanceSchema = z.object({
   claimText: z.string().trim().min(1, 'Claim text is required').max(3000, 'Claim text too long'),
   originClass: PrepClaimOriginClassSchema,
   section: z.string().trim().min(1).max(120).nullable(),
   sensitivePolicyHooks: z.array(PrepSensitivePolicyHookSchema).max(6).default([]),
+  sourceEvidence: z.array(PrepSourceEvidenceSchema).max(12).default([]),
 })
 
 export const BriefSaveBodySchema = z.object({
