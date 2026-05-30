@@ -51,6 +51,7 @@ function urgencyBand(score: number): UrgencyBand {
 
 export async function GET(request: NextRequest) {
   try {
+    const startedAt = Date.now()
     const auth = await requireAuth(request)
     if (!auth.ok) return auth.response
 
@@ -60,6 +61,10 @@ export async function GET(request: NextRequest) {
     if (!canAccessFeature(sub, 'coach_dashboard')) {
       return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
     }
+
+    const query = request.nextUrl.searchParams
+    const page = Math.max(1, Number(query.get('page') ?? 1))
+    const pageSize = clamp(Number(query.get('pageSize') ?? 25), 10, 50)
 
     const { data: seats, error: seatsError } = await supabase
       .from('team_seats')
@@ -71,8 +76,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to load command center seats' }, { status: 500 })
     }
 
-    const clientIds = (seats ?? []).map((seat) => seat.member_user_id).filter(Boolean) as string[]
-    if (clientIds.length === 0) {
+    const allClientIds = (seats ?? []).map((seat) => seat.member_user_id).filter(Boolean) as string[]
+    const totalClients = allClientIds.length
+    const totalPages = Math.max(1, Math.ceil(totalClients / pageSize))
+    const normalizedPage = Math.min(page, totalPages)
+    const startIndex = (normalizedPage - 1) * pageSize
+    const endIndex = startIndex + pageSize
+    const clientIds = allClientIds.slice(startIndex, endIndex)
+    if (totalClients === 0) {
       return NextResponse.json({
         ok: true,
         ticket: 'PB-Q1-007',
@@ -93,6 +104,14 @@ export async function GET(request: NextRequest) {
         freshness_sla: {
           max_lag_hours: 48,
           alert_threshold_days: 2,
+        },
+        pagination: {
+          page: 1,
+          page_size: pageSize,
+          total_clients: 0,
+          total_pages: 1,
+          has_next: false,
+          has_previous: false,
         },
       })
     }
@@ -247,7 +266,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      ticket: 'PB-Q1-007',
+      ticket: 'PB-Q1-009',
       generated_at: now.toISOString(),
       compute_schedule: {
         cadence: 'daily',
@@ -279,8 +298,23 @@ export async function GET(request: NextRequest) {
         alert_threshold_days: 2,
         stale_clients: staleClients.length,
       },
+      pagination: {
+        page: normalizedPage,
+        page_size: pageSize,
+        total_clients: totalClients,
+        total_pages: totalPages,
+        has_next: normalizedPage < totalPages,
+        has_previous: normalizedPage > 1,
+      },
+      monitoring: {
+        route: '/api/coach/command-center',
+        budget_ms: 900,
+        fetch_ms: Date.now() - startedAt,
+        payload_clients: clients.length,
+        payload_sessions: upcomingSessions.length,
+      },
       portfolio: {
-        total_clients: clients.length,
+        total_clients: totalClients,
         urgency: urgencyCounts,
         average_risk_score: averageRisk,
       },
