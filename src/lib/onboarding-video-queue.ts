@@ -8,6 +8,12 @@ const MAX_RETRIES_LIMIT = 10
 export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'
 export type OnboardingVideoTriggerSource = 'manual' | 'event' | 'cron' | 'retry'
 
+export type OnboardingVideoProviderEvent =
+  | 'video.completed'
+  | 'video.failed'
+  | 'video.canceled'
+  | 'video.processing'
+
 type QueueRunRecord = {
   id: string
   user_id: string
@@ -63,6 +69,14 @@ async function appendRunEvent(admin: any, input: {
       event_type: input.eventType,
       event_payload: input.eventPayload ?? {},
     })
+}
+
+export function mapOnboardingVideoProviderEventToStatus(eventType: string): OnboardingVideoRunStatus | null {
+  if (eventType === 'video.completed') return 'completed'
+  if (eventType === 'video.failed') return 'failed'
+  if (eventType === 'video.canceled') return 'canceled'
+  if (eventType === 'video.processing') return 'processing'
+  return null
 }
 
 function summarizeRuns(runs: QueueRunRecord[]) {
@@ -193,6 +207,7 @@ async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: stri
       .from('onboarding_video_runs')
       .update({
         status: 'completed',
+        provider_run_id: outputPayload.provider_run_id,
         completed_at: nowIso,
         next_retry_at: null,
         output_payload: outputPayload,
@@ -294,4 +309,55 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
   }
 
   return { ok: true as const, workerId, processed, completed, failed, retried }
+}
+
+export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {
+  providerRunId: string
+  eventType: OnboardingVideoProviderEvent | string
+  eventPayload?: Record<string, unknown>
+}) {
+  const nextStatus = mapOnboardingVideoProviderEventToStatus(input.eventType)
+  if (!nextStatus) return []
+
+  const nowIso = new Date().toISOString()
+  const updatePayload: Record<string, unknown> = {
+    status: nextStatus,
+    output_payload: {
+      provider_event_type: input.eventType,
+      ...(input.eventPayload ?? {}),
+    },
+  }
+
+  if (nextStatus === 'completed' || nextStatus === 'failed' || nextStatus === 'canceled') {
+    updatePayload.completed_at = nowIso
+    updatePayload.next_retry_at = null
+  }
+
+  if (nextStatus === 'failed') {
+    updatePayload.error_payload = {
+      code: 'provider_callback_failure',
+      message: String((input.eventPayload ?? {}).message ?? 'Provider reported failure'),
+      occurred_at: nowIso,
+    }
+  }
+
+  const { data: runs } = await admin
+    .from('onboarding_video_runs')
+    .update(updatePayload)
+    .eq('provider_run_id', input.providerRunId)
+    .select('id, user_id')
+
+  for (const run of runs ?? []) {
+    await appendRunEvent(admin, {
+      runId: String(run.id),
+      userId: String(run.user_id),
+      eventType: `provider_${input.eventType}`,
+      eventPayload: {
+        provider_run_id: input.providerRunId,
+        ...(input.eventPayload ?? {}),
+      },
+    })
+  }
+
+  return runs ?? []
 }
