@@ -103,6 +103,8 @@
         "evals:provenance:coverage:json": "node scripts/check-prep-provenance-coverage.mjs --json",
         "evals:provenance:coverage:strict": "node scripts/check-prep-provenance-coverage.mjs --strict",
         "evals:provenance:coverage:strict:json": "node scripts/check-prep-provenance-coverage.mjs --strict --json",
+        "backfill:prep:provenance": "node scripts/backfill-prep-provenance.mjs --apply",
+        "backfill:prep:provenance:dry-run": "node scripts/backfill-prep-provenance.mjs",
         "evals:confidence:calibration": "node scripts/check-prep-confidence-calibration.mjs",
         "evals:confidence:calibration:json": "node scripts/check-prep-confidence-calibration.mjs --json",
         "evals:confidence:calibration:strict": "node scripts/check-prep-confidence-calibration.mjs --strict",
