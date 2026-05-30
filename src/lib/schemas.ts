@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 
 // Shared message type for chat and conversation routes
 export const MessageSchema = z.object({
@@ -136,6 +137,13 @@ export const OnboardingFormSchema = z.object({
   search_persona: z.enum(['csuite', 'vp', 'board', 'director']).refine(Boolean, {
     message: 'Please select your search level',
   }),
+})
+
+const PMF_EVENT_NAME_VALUES = Object.values(PMF_EVENTS).flatMap((group) => Object.values(group)) as [string, ...string[]]
+
+export const PMFEventTrackBodySchema = z.object({
+  eventName: z.enum(PMF_EVENT_NAME_VALUES),
+  properties: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()])).default({}),
 })
 
 // Feedback System Schemas
