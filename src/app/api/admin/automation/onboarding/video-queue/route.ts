@@ -52,6 +52,7 @@ export async function GET(request: NextRequest) {
     ? statusRaw
     : undefined
   const workflowId = request.nextUrl.searchParams.get('workflow_id')
+  const includeEvents = request.nextUrl.searchParams.get('include_events') === '1'
   const limitRaw = Number(request.nextUrl.searchParams.get('limit') ?? 50)
   const limit = Number.isFinite(limitRaw) ? limitRaw : 50
 
@@ -64,9 +65,24 @@ export async function GET(request: NextRequest) {
       limit,
     })
 
+    let events: Array<Record<string, unknown>> = []
+    if (includeEvents) {
+      const runIds = snapshot.runs.map((run) => run.id)
+      if (runIds.length > 0) {
+        const { data } = await sb
+          .from('onboarding_video_run_events')
+          .select('id, run_id, event_type, event_payload, created_at')
+          .in('run_id', runIds)
+          .order('created_at', { ascending: false })
+          .limit(Math.min(runIds.length * 6, 400))
+        events = (data ?? []) as Array<Record<string, unknown>>
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       ...snapshot,
+      events,
     })
   } catch (error) {
     return NextResponse.json(
