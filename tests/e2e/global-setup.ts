@@ -23,11 +23,15 @@ async function ensureMonitoringAnchorCompany(page: Page) {
 // because it bypasses UI rendering and browser cookie-storage inconsistencies across environments.
 async function apiSignIn(page: Page, baseURL: string, email: string, password: string): Promise<boolean> {
   try {
+    const abort = new AbortController()
+    const timeout = setTimeout(() => abort.abort(), 8_000)
     const res = await fetch(`${baseURL}/api/auth/verify-and-signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
+      signal: abort.signal,
     })
+    clearTimeout(timeout)
 
     if (!res.ok) return false
 
