@@ -37,8 +37,25 @@ async function hasAuthSession(page: Page): Promise<boolean> {
   return !/\/login(?:$|[/?#])/.test(page.url())
 }
 
+async function trySignIn(page: Page): Promise<boolean> {
+  const email = process.env.PLAYWRIGHT_TEST_EMAIL
+  const password = process.env.PLAYWRIGHT_TEST_PASSWORD
+  if (!email || !password) return false
+
+  await page.goto('/login', { waitUntil: 'load' })
+  await page.locator('#email').fill(email)
+  await page.locator('#password').fill(password)
+  await page.getByRole('button', { name: /^Sign in$/i }).click()
+
+  await page
+    .waitForURL(url => !/\/login(?:$|[/?#])/.test(url.pathname), { timeout: 10000 })
+    .catch(() => null)
+
+  return hasAuthSession(page)
+}
+
 async function requireAuthSessionOrSkip(page: Page) {
-  const authenticated = await hasAuthSession(page)
+  const authenticated = (await hasAuthSession(page)) || (await trySignIn(page))
   test.skip(
     !authenticated,
     'Skipping synthetic: auth session unavailable (dashboard redirected to login). Check PLAYWRIGHT_TEST_EMAIL / PLAYWRIGHT_TEST_PASSWORD.'
@@ -158,6 +175,42 @@ test('Synthetic-01c: guide content and guide chat interactivity are healthy', as
   await chatBox.fill('How do I start?')
   await page.getByRole('button', { name: /^Ask$/i }).click()
   await expect(page.locator('text=Synthetic guide response')).toBeVisible({ timeout: 5000 })
+})
+
+test('Synthetic-01d: internal guide content and chat are healthy for admin sessions', async ({ page }) => {
+  await requireAuthSessionOrSkip(page)
+  await page.goto('/dashboard/admin/internal-guide', { waitUntil: 'load' })
+
+  const bodyText = await page.locator('body').innerText()
+  test.skip(
+    /access restricted|requires admin or owner access/i.test(bodyText),
+    'Skipping Synthetic-01d: authenticated account lacks admin/owner access for internal guide.'
+  )
+
+  await expect(page.getByRole('heading', { name: /Internal Engineering Guide/i })).toBeVisible()
+  await expect(page.locator('body')).not.toContainText(/internal guide unavailable|internal guide index unavailable/i)
+
+  const sectionLinks = page.locator('main a[href^="#"]')
+  await expect(sectionLinks.first()).toBeVisible()
+
+  await page.route('**/api/admin/internal-guide/chat', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        answer: 'Synthetic internal guide response',
+        sources: [{ id: 'synthetic-internal-1', title: 'Internal source', url: '/dashboard/admin/internal-guide', score: 1, type: 'guide' }],
+        intent: 'how_to',
+        confidence: 0.92,
+        conservative: false,
+      }),
+    })
+  })
+
+  const chatBox = page.locator('#internal-guide-chat')
+  await chatBox.fill('Give me an overview')
+  await page.getByRole('button', { name: /^Ask$/i }).click()
+  await expect(page.locator('text=Synthetic internal guide response')).toBeVisible({ timeout: 5000 })
 })
 
 // ---------------------------------------------------------------------------
