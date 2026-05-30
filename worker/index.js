@@ -26,6 +26,8 @@ import { runOpportunityRadarJob } from './jobs/opportunity-radar-job.js'
 import { runConciergePrepJob } from './jobs/concierge-prep-job.js'
 import { runDemoCheck } from './lib/check-demo.js'
 import { runOutreachDigestJob } from './jobs/outreach-digest-job.js'
+import { runOutreachReconcileJob } from './jobs/outreach-reconcile-job.js'
+import { runOnboardingVideoJob } from './jobs/onboarding-video-job.js'
 import { runSocialPostJob } from './jobs/social-post-job.js'
 import { runGoogleCalendarSyncJob } from './jobs/google-calendar-sync-job.js'
 import { runSyncLinkedInEngagementJob } from './jobs/sync-linkedin-engagement-job.js'
@@ -245,6 +247,9 @@ cron.schedule('45 14 * * *', () => runJob('outreach-tone-presend-job', () => run
 // Outreach reconciliation: daily at 14:50 UTC — backfill missing contacts and reached_out states before the digest runs
 cron.schedule('50 14 * * *', () => runJob('outreach-reconcile-job', runOutreachReconcileJob))
 
+// Onboarding video worker: every 10 minutes — claim queued runs and execute retry policy
+cron.schedule('*/10 * * * *', () => runJob('onboarding-video-job', runOnboardingVideoJob))
+
 // Weekly outreach human-tone guard report: Sunday 20:45 UTC
 cron.schedule('45 20 * * 0', () => runJob('outreach-tone-guard-job', () => runOutreachToneGuardJob('weekly')))
 
@@ -257,7 +262,7 @@ cron.schedule('0 9 1 * *', () => runJob('ideas-monthly-job', runIdeasMonthlyJob)
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
 
 // ── Health endpoint ───────────────────────────────────────────────────────────
