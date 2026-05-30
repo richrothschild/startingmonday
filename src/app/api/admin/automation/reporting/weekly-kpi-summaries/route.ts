@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { requireAutomationAccess } from '@/lib/admin-automation-route'
 import { createAdminClient } from '@/lib/supabase/admin'
 const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
@@ -38,10 +37,7 @@ function roundPct(numerator: number, denominator: number): number | null {
 }
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
