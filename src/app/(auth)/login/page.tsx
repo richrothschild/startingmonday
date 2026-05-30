@@ -244,15 +244,6 @@ export default function LoginPage() {
             <p className="text-[13px] text-slate-500 mt-1.5">Welcome back.</p>
           </div>
 
-          <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-              <a href="#login-social" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Social sign-in</a>
-              <a href="#login-password" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email and password</a>
-              <a href="#login-magic-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Magic link</a>
-            </div>
-          </section>
-
           <div className="bg-white border border-slate-200 rounded p-8">
 
             <section id="login-social" className="mb-5">
