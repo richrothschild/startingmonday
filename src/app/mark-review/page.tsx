@@ -9,46 +9,39 @@ function mailtoHref(subject: string, body: string) {
 }
 
 export const metadata: Metadata = {
-  title: 'Starting Monday | Mark Horstman Decision Brief',
+  title: 'Starting Monday | Manager Tools Decision Brief',
   description:
-    'Updated decision brief for Mark Horstman: behavior-first positioning, cadence model, trust proof, and concrete next decisions.',
+    'Operator decision brief for Manager Tools: execution cadence, control metrics, risks, and near-term go/no-go calls.',
   alternates: { canonical: 'https://startingmonday.app/mark-review' },
   openGraph: {
-    title: 'Starting Monday | Mark Horstman Decision Brief',
+    title: 'Starting Monday | Manager Tools Decision Brief',
     description:
-      'Updated decision brief for Mark Horstman: behavior-first positioning, cadence model, trust proof, and concrete next decisions.',
+      'Operator decision brief for Manager Tools: execution cadence, control metrics, risks, and near-term go/no-go calls.',
     url: 'https://startingmonday.app/mark-review',
   },
 }
 
 const DECISION_QUESTIONS = [
-  'Which behavior KPI should be public now: outreach, conversations, or follow-up completion?',
-  'Do we commit to person-first execution as the primary narrative?',
-  'If we ship one conversion fix this week, is it proof, pricing, or loop-closure clarity?',
+  'Which control KPI should be published now: outreach volume, qualified conversations, or follow-up completion?',
+  'Do we hold person-first execution as the operating principle for every channel?',
+  'If one fix ships this week, should priority be proof quality, pricing clarity, or loop-closure instrumentation?',
 ]
 
-const WHAT_CHANGED = [
-  'Behavior-over-information framing is explicit.',
-  'Cadence is visible: Monday review, daily triage, prep, Friday accountability.',
-  'Headline proof now requires denominator and confidence context.',
-  'Primary risk is still loop measurement from signal to conversation.',
-]
-
-const HORSTMAN_FILTER = [
+const MANAGER_TOOLS_FILTER = [
   {
-    lens: 'Behavior standard',
+    lens: 'High-D clarity standard',
     check:
-      'By week 1, a user should show changed behavior: who they contacted and what they closed.',
+      'By week 1, a user should show measurable execution: who they contacted and what they closed.',
   },
   {
-    lens: 'Anti-vagueness standard',
+    lens: 'High-D anti-vagueness standard',
     check:
-      'Every value claim should map to a measurable output with denominator and confidence.',
+      'Every value claim must map to a measurable output with denominator and confidence.',
   },
   {
-    lens: 'Cadence standard',
+    lens: 'High-D accountability cadence',
     check:
-      'The operating rhythm should be obvious and repeatable week to week.',
+      'The operating rhythm must be obvious, repeatable, and auditable week to week.',
   },
 ]
 
@@ -59,53 +52,23 @@ const CADENCE_STEPS = [
   'Friday: review outreach, responses, and overdue follow-ups.',
 ]
 
-const CORE_PHILOSOPHIES = [
-  {
-    title: 'Behavior management over information management',
-    detail:
-      'Coach weekly execution habits: who to contact, what to send, and what to close.',
-  },
-  {
-    title: 'Quality and effective experience',
-    detail:
-      'Each key interaction should reduce ambiguity and support immediate action.',
-  },
-  {
-    title: 'Outcome-based behaviors',
-    detail:
-      'Success is repeatable behavior that creates conversations, advocates, and momentum.',
-  },
-]
-
-const KEY_OBJECTIONS = [
-  {
-    concern: '"This sounds like another dashboard."',
-    response:
-      'It is not passive monitoring. The model is signal -> decision -> outreach -> follow-up.',
-  },
-  {
-    concern: '"Can I trust the AI output quality?"',
-    response:
-      'Quality is strongest with complete context, and claims include denominator and confidence.',
-  },
-  {
-    concern: '"If this is behavior-first, where is the scoreboard?"',
-    response:
-      'Scoreboard focus is loop closure: signals, outreach, conversations, follow-ups.',
-  },
-]
-
 const NEXT_7_DAYS = [
-  'Publish one behavior KPI with denominator and confidence annotation.',
+  'Publish one control KPI with denominator, timeframe, and confidence annotation.',
   'Tighten person-first copy in hero and support sections.',
-  'Instrument loop-closure tracking for outreach and follow-up actions.',
+  'Instrument loop-closure tracking for outreach, conversation, and follow-up actions.',
+]
+
+const MANAGER_TOOLS_LENS = [
+  'Execution model is clear: signal -> decision -> outreach -> follow-up.',
+  'Operating cadence is explicit: Monday review, daily triage, prep, Friday accountability.',
+  'Proof discipline is explicit: denominator, timeframe, confidence on each top claim.',
 ]
 
 const LANE_ONE_GOALS = [
   {
     title: 'Decision speed first',
     detail:
-      'A first-time reviewer should understand the business case and model in under five minutes.',
+      'A first-time reviewer should understand the operating model and business case in under five minutes.',
   },
   {
     title: 'Momentum Signal alignment',
@@ -115,7 +78,7 @@ const LANE_ONE_GOALS = [
   {
     title: 'Proof discipline',
     detail:
-      'Every quant claim includes denominator, timeframe, and confidence before headline use.',
+      'Every quantitative claim includes denominator, timeframe, and confidence before headline use.',
   },
 ]
 
@@ -138,16 +101,96 @@ const LOOP_CLOSURE_SCORECARD = [
 ]
 
 const PRE_MEETING_QA = [
-  'Narrative coherence: landing, Mark brief, and summary use the same Momentum framing.',
+  'Operating narrative coherence: landing, Mark brief, and summary use the same Momentum framing.',
   'Copy clarity: each section has one decision outcome.',
-  'Proof hygiene: every number has source, denominator, and timeframe.',
-  'Telemetry: key CTA actions on Mark pages are event-tracked for engagement review.',
-  'Deploy hygiene: Railway SUCCESS plus manual live-page verification logged in epic tracker.',
+  'Proof hygiene: every number has source, denominator, timeframe, and confidence statement.',
+  'Telemetry: key actions on Mark pages are event-tracked for engagement review.',
+  'Deployment hygiene: Railway SUCCESS plus manual live-page verification logged in execution tracker.',
 ]
+
+const FEATURE_CHANNELS = [
+  {
+    channel: 'Individual executives (direct)',
+    audience: 'VP, C-suite, and board-track operators managing their own search campaign.',
+    features: [
+      'Career page and signal monitoring for target accounts.',
+      'AI prep briefs tied to each target company and role context.',
+      'Pipeline, contacts, outreach drafting, and follow-up workflow.',
+      'Daily and weekly cadence layer for execution accountability.',
+    ],
+    value: 'Turns fragmented search tasks into a repeatable operating system.',
+  },
+  {
+    channel: 'Executive coaches',
+    audience: 'Coaches supporting senior clients in transition.',
+    features: [
+      'Coach-visible client execution and follow-up health.',
+      'Shared prep and strategy context between sessions.',
+      'Signal intelligence to guide where coach time is spent.',
+      'Quality controls for narrative and outreach consistency.',
+    ],
+    value: 'Increases coach leverage and client execution quality between sessions.',
+  },
+  {
+    channel: 'Search firms',
+    audience: 'Boutique and retained executive search teams.',
+    features: [
+      'Candidate readiness visibility and prep depth by target account.',
+      'Signal tracking around hiring movement and leadership changes.',
+      'Confidential workflow framing to support trust with clients and candidates.',
+      'Structured briefing support for high-stakes conversation prep.',
+    ],
+    value: 'Improves readiness and quality of candidate conversations before key interviews.',
+  },
+  {
+    channel: 'Outplacement and transition partners',
+    audience: 'Institutional providers managing executive cohorts.',
+    features: [
+      'Program-level rollout with cohort visibility.',
+      'Execution telemetry and standardized workflow guardrails.',
+      'Channel-ready brief and prep modules for participants.',
+      'Governance support for quality and adoption reviews.',
+    ],
+    value: 'Scales premium transition support without linear service labor.',
+  },
+]
+
+const OBSTACLE_AND_COMPETITION_SNAPSHOT = [
+  {
+    heading: 'Adoption and behavior change risk',
+    detail:
+      'The model works only if users maintain weekly execution discipline, not just log in. Cadence adherence and loop-closure tracking remain the core adoption risk.',
+  },
+  {
+    heading: 'AI and DIY as baseline competitors',
+    detail:
+      'General LLMs and personal spreadsheet stacks are the default alternative in every channel. The defense is workflow integration, context continuity, and measurable operating outcomes over one-off prompts.',
+  },
+  {
+    heading: 'Switching costs in incumbent ecosystems',
+    detail:
+      'Coaches and firms already run on existing CRM, notes, and document systems. Adoption requires low-friction onboarding, clear migration value, and role-safe boundaries.',
+  },
+  {
+    heading: 'Growth constraints: authority, reach, and frequency',
+    detail:
+      'Domain authority in executive search is still developing, paid reach is expensive, and message frequency needed for trust-building is high. Repeatable partner channels are required to compound distribution.',
+  },
+]
+
+const MARK_DILIGENCE_GAPS = [
+  'Per-channel week-1 activation benchmark with clear denominator definitions.',
+  'Documented retention curves by channel with reason-coded churn.',
+  'Channel-level unit economics: CAC, gross margin, payback, and expansion path.',
+  'Evidence that AI-supported workflows improve decisions versus DIY baseline, not only speed.',
+  'Implementation proof for partner channels: setup time, training burden, and role adoption rates.',
+]
+
+const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
 
 const feedbackLink = mailtoHref(
   'Starting Monday: Mark decision brief feedback',
-  'Most important behavior KPI to publish now:\n\nMost damaging trust gap:\n\nBest single fix for this week:\n\nNotes on cadence clarity or person-first framing:\n',
+  'Most important control KPI to publish now:\n\nMost damaging trust gap:\n\nBest single fix for this week:\n\nNotes on cadence clarity, operating rigor, or person-first framing:\n',
 )
 
 const callLink = mailtoHref(
@@ -167,6 +210,9 @@ export default function MarkReviewPage() {
             <Link href="/" className="text-[13px] text-slate-400 hover:text-white transition-colors">
               Main site
             </Link>
+            <Link href={BUSINESS_PLAN_LINK} className="text-[13px] text-slate-300 hover:text-white transition-colors">
+              Business plan
+            </Link>
             <TrackedCtaLink
               href="/signup"
               eventName="mark_review_cta_click"
@@ -181,12 +227,12 @@ export default function MarkReviewPage() {
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Updated Decision Brief</p>
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Executive memo</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            Starting Monday: Mark Horstman review brief
+            Starting Monday: Manager Tools review brief
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            Core question: can this site convert motion signals into relationship momentum. This page is structured for fast decisions and proof clarity.
+            Manager Tools lens for Monday: what it is, where it wins, where it breaks, and what I need from you.
           </p>
         </div>
       </header>
@@ -194,7 +240,7 @@ export default function MarkReviewPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-18">
 <div className="max-w-4xl mx-auto space-y-10">
           <section className="border border-slate-900 rounded-lg p-6 bg-slate-950">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Lane 1 in five minutes</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Bottom line</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {LANE_ONE_GOALS.map((goal) => (
                 <div key={goal.title} className="rounded border border-white/10 bg-white/5 p-4">
@@ -203,43 +249,53 @@ export default function MarkReviewPage() {
                 </div>
               ))}
             </div>
-          </section>
-
-          <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What this is now</p>
-            <p className="text-[15px] text-slate-700 leading-relaxed">
-              Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition, built to create consistent weekly behaviors and better-fit outcomes.
+            <p className="text-[12px] text-slate-300 leading-relaxed mt-4">
+              High-D read: clear expectations, clear cadence, clear scorekeeping, no ambiguity.
             </p>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Core philosophies</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Current operating position</p>
+            <p className="text-[15px] text-slate-700 leading-relaxed">
+              Starting Monday is an execution system for C-suite and near-C-suite technology leaders in transition, built to create consistent weekly operating discipline and better-fit outcomes.
+            </p>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500">Core capabilities by channel</p>
+              <TrackedCtaLink
+                href={BUSINESS_PLAN_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'features_by_channel', target: 'business_plan' }}
+                className="text-[13px] font-semibold text-slate-900 underline underline-offset-2"
+              >
+                Open full planning and risk view
+              </TrackedCtaLink>
+            </div>
             <div className="space-y-4">
-              {CORE_PHILOSOPHIES.map((item) => (
-                <div key={item.title} className="border-l-4 border-orange-300 pl-4">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.title}</p>
-                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.detail}</p>
-                </div>
+              {FEATURE_CHANNELS.map((item) => (
+                <article key={item.channel} className="rounded border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-[13px] font-semibold text-slate-900">{item.channel}</p>
+                  <p className="text-[13px] text-slate-700 mt-1">{item.audience}</p>
+                  <ul className="mt-3 space-y-1.5">
+                    {item.features.map((feature) => (
+                      <li key={feature} className="text-[13px] text-slate-800 leading-relaxed flex items-start gap-2">
+                        <span className="text-orange-500 mt-0.5">•</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-[12px] text-slate-600 mt-3">Operating value: {item.value}</p>
+                </article>
               ))}
             </div>
           </section>
 
-          <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">What changed since prior brief</p>
-            <ul className="space-y-2.5">
-              {WHAT_CHANGED.map((item) => (
-                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-orange-500 mt-0.5">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Horstman filter</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Manager Tools standards</p>
             <div className="space-y-4">
-              {HORSTMAN_FILTER.map((item) => (
+              {MANAGER_TOOLS_FILTER.map((item) => (
                 <div key={item.lens} className="border-l-4 border-slate-300 pl-4">
                   <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.lens}</p>
                   <p className="text-[13px] text-slate-700 leading-relaxed">{item.check}</p>
@@ -248,33 +304,25 @@ export default function MarkReviewPage() {
             </div>
           </section>
 
-          <section className="border border-slate-900 rounded-lg p-6 bg-slate-950">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-4">Cadence visual</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {CADENCE_STEPS.map((step) => (
-                <div key={step} className="text-[13px] text-slate-100 leading-relaxed border border-white/10 bg-white/5 rounded p-3">
-                  {step}
-                </div>
-              ))}
-            </div>
-          </section>
-
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Current objections and answers</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Key obstacles and competitive pressure</p>
             <div className="space-y-4">
-              {KEY_OBJECTIONS.map((item) => (
-                <div key={item.concern} className="border-l-4 border-slate-300 pl-4">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.concern}</p>
-                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.response}</p>
+              {OBSTACLE_AND_COMPETITION_SNAPSHOT.map((item) => (
+                <div key={item.heading} className="border-l-4 border-slate-300 pl-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.heading}</p>
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{item.detail}</p>
                 </div>
               ))}
             </div>
+            <p className="text-[13px] text-slate-700 leading-relaxed mt-4">
+              Detailed TAM, monetization model, year 1-5 revenue estimate, channel competition, and switching-cost analysis are in the linked planning page.
+            </p>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Loop-closure KPI block</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Control scorecard</p>
             <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
-              This is the operating scoreboard for Motion Signal to Momentum Signal execution. Lane 1 is complete only when these metrics are visible and governed.
+              This is the operating scoreboard for Motion Signal to Momentum Signal execution. Lane 1 is complete only when these controls are visible and governed.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
@@ -299,7 +347,19 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Next 7-day execution priorities</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Manager Tools standards</p>
+            <ul className="space-y-2.5">
+              {MANAGER_TOOLS_LENS.map((item) => (
+                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
+                  <span className="text-orange-500 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Next 7-day priorities</p>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
               {NEXT_7_DAYS.map((item) => (
                 <li key={item}>{item}</li>
@@ -308,7 +368,7 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">Decision ask</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I need from you</p>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
               {DECISION_QUESTIONS.map((q) => (
                 <li key={q}>{q}</li>
@@ -335,7 +395,7 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-green-300 rounded-lg p-6 bg-green-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-green-700 mb-4">Pre-meeting QA and readiness</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-green-700 mb-4">Pre-meeting quality and readiness</p>
             <ul className="space-y-2.5 mb-5">
               {PRE_MEETING_QA.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
@@ -347,9 +407,21 @@ export default function MarkReviewPage() {
             <div className="rounded border border-green-300 bg-white p-4">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-green-700 mb-2">Readiness status</p>
               <p className="text-[14px] text-slate-800 leading-relaxed">
-                Ready with conditions. Lane 1 closes when the KPI block publishes with denominators and the post-deploy live verification is logged in the execution tracker.
+                Ready with conditions. Lane 1 closes when the control scorecard publishes with denominators and the post-deploy live verification is logged in the execution tracker.
               </p>
             </div>
+          </section>
+
+          <section className="border border-blue-300 rounded-lg p-6 bg-blue-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What else helps Manager Tools assess execution risk</p>
+            <ul className="space-y-2.5">
+              {MARK_DILIGENCE_GAPS.map((item) => (
+                <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
+                  <span className="text-blue-700 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
@@ -386,6 +458,14 @@ export default function MarkReviewPage() {
                 className="block text-slate-800 hover:text-slate-900 underline underline-offset-2"
               >
                 Pricing: https://startingmonday.app/pricing
+              </TrackedCtaLink>
+              <TrackedCtaLink
+                href={BUSINESS_PLAN_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'review_links', target: 'business_plan' }}
+                className="block text-slate-800 hover:text-slate-900 underline underline-offset-2"
+              >
+                Business plan for Manager Tools: https://startingmonday.app/mark-review/business-plan
               </TrackedCtaLink>
             </div>
           </section>

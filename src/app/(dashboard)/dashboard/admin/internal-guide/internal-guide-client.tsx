@@ -339,10 +339,12 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
             {activeSection ? (
               <div className="lg:max-w-[45%]">
                 <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Mini map</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="space-y-2">
                   {activeSection.functions.map((entry) => (
-                    <button key={entry.functionKey} type="button" onClick={() => updateSelection(activeSection.section.id, entry.functionKey)} className={`rounded-full px-3 py-1.5 text-[12px] ${activeFunction?.functionKey === entry.functionKey ? 'bg-orange-500 text-black' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}>
-                      {entry.functionKey}
+                    <button key={entry.functionKey} type="button" onClick={() => updateSelection(activeSection.section.id, entry.functionKey)} className={`w-full rounded-lg border px-3 py-2 text-left text-[12px] ${activeFunction?.functionKey === entry.functionKey ? 'border-orange-400 bg-orange-500/10 text-white' : 'border-slate-800 bg-slate-900 text-slate-200 hover:border-slate-700'}`}>
+                      <p className="font-semibold">{entry.functionKey}</p>
+                      <p className="mt-1 text-[11px] text-slate-300">Covers {entry.summary}.</p>
+                      <p className="mt-1 text-[11px] text-slate-400">Why: this is the next drill-down when the section alone is too broad.</p>
                     </button>
                   ))}
                 </div>
@@ -356,20 +358,24 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <p className="text-[12px] font-semibold text-slate-900 mb-2">Most reviewed</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
                 {mostReviewed.map((entry) => (
-                  <button key={`${entry.sectionId}-${entry.functionKey}`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-[12px] text-slate-700 hover:border-slate-400">
-                    {entry.functionKey}
+                  <button key={`${entry.sectionId}-${entry.functionKey}`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left hover:border-slate-400">
+                    <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
+                    <p className="text-[11px] text-slate-600 mt-1">Covers {entry.summary}.</p>
+                    <p className="text-[11px] text-slate-500 mt-1">Why: this is one of the highest-signal places to inspect first.</p>
                   </button>
                 ))}
               </div>
             </div>
             <div>
               <p className="text-[12px] font-semibold text-slate-900 mb-2">Recently changed</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
                 {recentlyChanged.map((entry) => (
-                  <button key={`${entry.sectionId}-${entry.functionKey}-recent`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[12px] text-slate-700 hover:border-slate-400">
-                    {entry.functionKey} · {formatDate(entry.lastModifiedAt)}
+                  <button key={`${entry.sectionId}-${entry.functionKey}-recent`} type="button" onClick={() => updateSelection(entry.sectionId, entry.functionKey)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-left hover:border-slate-400">
+                    <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
+                    <p className="text-[11px] text-slate-600 mt-1">Covers {entry.summary}.</p>
+                    <p className="text-[11px] text-slate-500 mt-1">Why: updated {formatDate(entry.lastModifiedAt)}, so it is the freshest area to inspect.</p>
                   </button>
                 ))}
               </div>
@@ -384,7 +390,8 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
             {sectionRollup.map((entry) => (
               <button key={entry.id} type="button" onClick={() => updateSelection(entry.id, sectionDetails.find((detail) => detail.section.id === entry.id)?.functions[0]?.functionKey ?? null)} className={`text-left rounded border px-3 py-2 ${activeSection?.section.id === entry.id ? 'border-orange-400 bg-orange-50' : 'border-slate-200 hover:border-slate-300 bg-white'}`}>
                 <p className="text-[12px] font-semibold text-slate-900">{entry.title}</p>
-                <p className="text-[12px] text-slate-500 mt-1">{entry.sectionSummary}</p>
+                <p className="text-[12px] text-slate-500 mt-1">Covers {entry.sectionSummary}.</p>
+                <p className="text-[11px] text-slate-500 mt-1">Why: use this when you want the broad overview before drilling into functions.</p>
                 <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions · {entry.itemCount} items</p>
               </button>
             ))}
@@ -398,7 +405,8 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
               {activeSection.functions.map((entry) => (
                 <button key={entry.functionKey} type="button" onClick={() => updateSelection(activeSection.section.id, entry.functionKey)} className={`text-left rounded border px-3 py-2 ${activeFunction?.functionKey === entry.functionKey ? 'border-orange-400 bg-orange-50' : 'border-slate-200 hover:border-slate-300 bg-white'}`}>
                   <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
-                  <p className="text-[12px] text-slate-500 mt-1">{entry.summary}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">Covers {entry.summary}.</p>
+                  <p className="text-[11px] text-slate-500 mt-1">Why: this groups the related items you would usually review together.</p>
                   <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` · updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
                 </button>
               ))}
@@ -460,6 +468,8 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
                 {activeFunction.items.map((item, index) => (
                   <article key={`${item.title}-${index}`} className="rounded border border-slate-200 bg-slate-50 p-3">
                     {item.href ? <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener noreferrer' : undefined} className="text-[13px] font-semibold text-slate-900 hover:text-slate-700 hover:underline">{item.title}</a> : <p className="text-[13px] font-semibold text-slate-900">{item.title}</p>}
+                    {item.ref ? <p className="text-[12px] text-slate-500 mt-1">Covers {item.summary || 'the linked source item'}.</p> : null}
+                    {item.ref ? <p className="text-[11px] text-slate-500 mt-1">Why: open this for the exact file or route referenced by the current function.</p> : null}
                     {item.ref ? <p className="text-[12px] text-slate-500 mt-1">{item.ref}</p> : null}
                     {item.summary ? <p className="text-[12px] text-slate-600 mt-1">{item.summary}</p> : null}
                     {item.lastModifiedAt ? <p className="text-[11px] text-slate-500 mt-2">Updated {formatDate(item.lastModifiedAt)}</p> : null}
