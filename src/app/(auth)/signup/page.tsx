@@ -7,6 +7,8 @@ import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
 import TurnstileWidget from '@/components/turnstile-widget'
 
+const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
+
 type SituationContent = {
   title: string
   sub: string
@@ -119,6 +121,7 @@ export default function SignupPage() {
   const authBusy = googleLoading || appleLoading || loading
 
   function requireCaptchaToken(): string | null {
+    if (!TURNSTILE_ENABLED) return ''
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
       return null
@@ -144,7 +147,7 @@ export default function SignupPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'google',
@@ -185,7 +188,7 @@ export default function SignupPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'apple',
@@ -220,7 +223,7 @@ export default function SignupPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-captcha-token': token,
+          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({ email, password }),
       })
@@ -445,7 +448,7 @@ export default function SignupPage() {
                     <p className="text-[13px] text-red-600">{error}</p>
                   )}
 
-                  <TurnstileWidget onTokenChange={setCaptchaToken} />
+                  {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
 
 
 
