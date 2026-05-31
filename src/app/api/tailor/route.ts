@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { appendWatermarkToStream } from '@/lib/watermark'
 import { TailorBodySchema, firstZodError } from '@/lib/schemas'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM_PROMPT = `You are an executive resume writer specializing in senior technology leaders (CIO, CTO, VP Engineering, COO, CDO). You rewrite resumes to match specific job descriptions without losing the candidate's authentic voice.
 
@@ -22,7 +21,7 @@ Formatting rules (absolute):
 - NEVER use --- or ___ for horizontal rules.
 - NEVER use # or ## for headers inside the resume body.
 - Section headers (EXPERIENCE, EDUCATION, CORE CAPABILITIES, etc.) in ALL CAPS, nothing else.
-- Bullet points use a hyphen and space: "- " not "* " or "•".
+- Bullet points use a hyphen and space: "- " not "* " or "â€¢".
 - Blank line between sections. That is all the formatting there is.
 
 Output format - use these exact headers:
@@ -88,3 +87,7 @@ export async function POST(request: NextRequest) {
 
   return new Response(appendWatermarkToStream(readable, userId), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

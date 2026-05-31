@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+﻿import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { checkBurstLimit } from '@/lib/burst-limit'
@@ -6,7 +6,6 @@ import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -112,3 +111,4 @@ ${text}
     target_titles: null,
   })
 }
+
