@@ -1,0 +1,116 @@
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { postSearchDigestFrequency, resolveCareerMode } from '@/lib/career-mode'
+
+export const metadata = { title: 'Career Intelligence Mode - Starting Monday' }
+
+type ProfileRow = {
+  full_name: string | null
+  placed_at: string | null
+  placement_company: string | null
+  search_status: string | null
+  briefing_frequency: string | null
+}
+
+type SignalRow = {
+  id: string
+  signal_summary: string
+  signal_date: string
+  companies: { name: string } | null
+}
+
+export default async function PostSearchDashboardPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }] = await Promise.all([
+    supabase
+      .from('user_profiles')
+      .select('full_name, placed_at, placement_company, search_status, briefing_frequency')
+      .eq('user_id', user.id)
+      .single(),
+    supabase
+      .from('companies')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .is('archived_at', null),
+    supabase
+      .from('contacts')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('status', 'active'),
+    supabase
+      .from('company_signals')
+      .select('id, signal_summary, signal_date, companies(name)')
+      .eq('user_id', user.id)
+      .order('signal_date', { ascending: false })
+      .limit(5),
+  ])
+
+  const profile = profileRaw as ProfileRow | null
+  const mode = resolveCareerMode({ placedAt: profile?.placed_at, searchStatus: profile?.search_status })
+  if (mode !== 'post_search') redirect('/dashboard')
+
+  const digestFrequency = postSearchDigestFrequency({ briefingFrequency: profile?.briefing_frequency })
+  const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
+  const recentSignals = (rawSignals ?? []) as unknown as SignalRow[]
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">
+      <div className="max-w-4xl mx-auto">
+        <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-2">Executive Career OS - Sprint 1</p>
+        <h1 className="text-[30px] font-bold mb-3">Career Intelligence Mode</h1>
+        <p className="text-[15px] text-slate-300 mb-8">
+          {profile?.placement_company
+            ? `Welcome back, ${firstName}. Your placement at ${profile.placement_company} is logged. We are now in maintenance mode.`
+            : `Welcome back, ${firstName}. Your search is marked complete, so this dashboard is now focused on always-on career intelligence.`}
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Tracked companies</p>
+            <p className="text-[26px] font-semibold">{trackedCompanyCount ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Active contacts</p>
+            <p className="text-[26px] font-semibold">{activeContactCount ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Digest cadence</p>
+            <p className="text-[26px] font-semibold capitalize">{digestFrequency}</p>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
+          <p className="text-[12px] font-semibold text-slate-200 mb-3">Recent intelligence signals</p>
+          {recentSignals.length === 0 ? (
+            <p className="text-[13px] text-slate-400">No recent signals yet. Keep your target list active and we will keep monitoring.</p>
+          ) : (
+            <ul className="space-y-3">
+              {recentSignals.map((signal) => (
+                <li key={signal.id} className="border border-slate-800 rounded p-3">
+                  <p className="text-[13px] text-slate-200">{signal.signal_summary}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">{signal.companies?.name ?? 'Target company'} - {signal.signal_date}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Link href="/dashboard/contacts" className="px-4 py-2 rounded bg-orange-500 text-slate-900 text-[13px] font-semibold hover:bg-orange-400">
+            Maintain key relationships
+          </Link>
+          <Link href="/dashboard/companies" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
+            Review tracked companies
+          </Link>
+          <Link href="/settings/billing" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
+            Manage Intelligence plan
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
