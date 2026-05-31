@@ -1,4 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/admin'
+import type { PMFEventName } from '@/lib/pmf-event-taxonomy'
 
 export type UserEventName =
   | 'resume_uploaded'
@@ -38,6 +39,7 @@ export type UserEventName =
   | 'emi_daily_loop_loaded'
   | 'emi_action_completed'
   | 'emi_daily_reflection_submitted'
+  | PMFEventName
 
 type EventProperties = Record<string, string | number | boolean | null>
 

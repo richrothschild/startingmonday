@@ -1,0 +1,57 @@
+{
+  "generated_for": "prep_role_mode_qa",
+  "modes": {
+    "cio": {
+      "approved": false,
+      "reviewer": "",
+      "approved_at": "",
+      "notes": "",
+      "rubric_scores": {
+        "board_readiness": 0,
+        "operating_cadence": 0,
+        "evidence_density": 0,
+        "risk_clarity": 0,
+        "decisiveness": 0
+      }
+    },
+    "cto": {
+      "approved": false,
+      "reviewer": "",
+      "approved_at": "",
+      "notes": "",
+      "rubric_scores": {
+        "board_readiness": 0,
+        "operating_cadence": 0,
+        "evidence_density": 0,
+        "risk_clarity": 0,
+        "decisiveness": 0
+      }
+    },
+    "ciso": {
+      "approved": false,
+      "reviewer": "",
+      "approved_at": "",
+      "notes": "",
+      "rubric_scores": {
+        "board_readiness": 0,
+        "operating_cadence": 0,
+        "evidence_density": 0,
+        "risk_clarity": 0,
+        "decisiveness": 0
+      }
+    },
+    "vp_to_cxo": {
+      "approved": false,
+      "reviewer": "",
+      "approved_at": "",
+      "notes": "",
+      "rubric_scores": {
+        "board_readiness": 0,
+        "operating_cadence": 0,
+        "evidence_density": 0,
+        "risk_clarity": 0,
+        "decisiveness": 0
+      }
+    }
+  }
+}

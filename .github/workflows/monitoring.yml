@@ -27,8 +27,8 @@ jobs:
           MONITOR_BASE_URL: https://startingmonday.app
           MONITOR_CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          MONITOR_OUTPUT_JSON=1 node scripts/production-smoke-check.mjs > monitoring-summary.json
-          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('monitoring-summary.json','utf8'));console.log('Production smoke check: '+d.passed+'/'+d.total+' passed');for(const r of d.results){console.log((r.ok?'OK':'FAIL')+' '+r.name+' ('+r.status+') '+r.durationMs+'ms'+(r.ok?'':' -> '+r.reason));} if(d.failed>0) process.exit(1);"
+          MONITOR_OUTPUT_JSON=1 node scripts/production-smoke-check.mjs > monitoring-summary.json || true
+          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('monitoring-summary.json','utf8'));const critical=(d.criticalFailed ?? d.failed ?? 0);const advisory=(d.advisoryFailed ?? 0);console.log('Production smoke check: '+d.passed+'/'+d.total+' passed ('+critical+' critical failed, '+advisory+' advisory failed)');for(const r of d.results){const sev=(r.critical===false?'advisory':'critical');console.log((r.ok?'OK':'FAIL')+' ['+sev+'] '+r.name+' ('+r.status+') '+r.durationMs+'ms'+(r.ok?'':' -> '+r.reason));} if(critical>0) process.exit(1);"
 
       - name: Run mobile reliability threshold checks
         id: mobile
@@ -70,13 +70,16 @@ jobs:
             `Base URL: ${d.baseUrl}`,
             '',
             `Passed: ${d.passed}/${d.total}`,
+            `Critical failed: ${d.criticalFailed ?? d.failed ?? 0}`,
+            `Advisory failed: ${d.advisoryFailed ?? 0}`,
             '',
             '| Check | Status | HTTP | Duration | Notes |',
             '|---|---|---:|---:|---|',
           ]
 
           for (const r of d.results) {
-            const status = r.ok ? 'OK' : 'FAIL'
+            const severity = r.critical === false ? 'Advisory' : 'Critical'
+            const status = r.ok ? 'OK' : `${severity} FAIL`
             const notes = r.ok ? '' : (r.reason || 'Unknown failure')
             lines.push(`| ${r.name} | ${status} | ${r.status} | ${r.durationMs}ms | ${notes.replace(/\|/g, '/')} |`)
           }

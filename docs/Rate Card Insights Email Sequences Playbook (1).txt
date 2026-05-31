@@ -1,0 +1,162 @@
+Andrew Tasks
+1. Setup Alternate domain on godaddy
+2. Setup Google Workspaces for each domain with 2 email users tied to specific names
+a. Versions of your own Name
+3. Setup Sendgrid pro account link DNS to new domain(alex will help on call)
+a. Make sure you have opt in and unsubscribe pages
+4. Setup apollo account(pro level)
+5. Setup integration between apollo and send grid(alex will help on call)
+a. Make sure apollo username and login email matches the sender authenticated in
+sendgrid needs to be the same
+6. Add to problems each prospect has and info they would be interested in
+Alex Betit’s Tasks
+1. Build out customer persona/value props
+2. Write email cadencing
+3. Support tool setup
+Sales Tools Needed
+Apollo.io (get pro level comes with 2 users)- https://www.apollo.io/pricing/
+API Key:
+Send Grid (get pro level if you do not have already)- https://sendgrid.com/pricing/ This mainly
+works in the background
+Username:
+PSE:
+CRM- I would recommend free Hubspot it has a native integration with Apollo so once
+someone replies positive to an email we can push them to hubspot to track them at each stage
+until they become a client.
+Hubspot:
+
+-- 1 of 6 --
+
+Domains-
+Email Address
+Using Gmass email warmer to warm up the email domain:
+https://www.gmass.co/warmup/start
+Email warming started: ______________________
+Email health Checker: https://www.mail-tester.com/
+- Checked: https://www.mail-tester.com/test-0flq7ztio
+Who is our Ideal Client:
+Industry:
+Locations: US
+Company Size: 1,000+
+Job title: Procurement Director, Procurement Manager
+Problems:
+● Organization overspending on consulting service
+● Consulting pricing is complex and inconsistent
+● It’s hard to know what a market-competitive price looks like
+● It’s hard to negotiate good deals without representative consulting price
+benchmarking
+● It’s hard to get a good price on consulting services when you are
+uninformed
+Who our clients work with:
+● Consulting providers/consulting service providers
+What they buy:
+● Consulting services
+
+-- 2 of 6 --
+
+Our product benefits, it helps them:
+● Become an informed buyer - they’ll get the market intelligence needed to guide pricing
+discussions
+● Reduce pricing complexity - they’ll know what good rates are before receiving quotes
+from Consulting companies
+● Guarantee a market-competitive price - they’ll never wonder again if they overpaid; they
+can compare and contrast bids against the benchmarking rates
+● Negotiate with authority - they can leverage rates that are representative of the industry
+Our product features:
+● Rates across 10 consulting roles from associate analyst to Partner / Managing Director
+● 15 different service categories / service areas including Strategy, Finance, HR, SI, Cloud
+Services, IT Support, etc.
+● Rates representative of pricing for the largest consulting service providers (Accenture,
+Capgemini, McKinsey, Bain, BCG, Deloitte, etc) as well as mid-market firms
+● Information that’s easy to use
+○ Easily filter by a specific role
+○ 4,620 data points are grouped across 15 categories
+○ Easily view only the categories relevant to you
+○ Filter & group what's relevant in just a couple clicks
+● Representative rates for each role in each service category / area
+○ (That means it’s not specific rates from specific companies; it’s representative of
+rates within a service category and for any given set of service providers [MBB
+Big 3, Big 4, Midmarket consulting firms, etc])
+Problems it solves:
+● Organization overspending on consulting service
+● Consulting pricing is complex and inconsistent
+● It’s hard to know what a market-competitive price looks like
+● It’s hard to negotiate good deals without representative consulting price benchmarking
+● It’s hard to get a good price on consulting services when you are uninformed
+How they use our product:
+● As procurement leadership / a procurement professional, they use it to understand what
+market-competitive consulting rates look like for the consulting services they help their
+organization buy from consulting firms / consulting service providers.
+● They use it as a reference that they can leverage to negotiate better deals with
+consulting service providers
+● They use it to become an informed buyer and understand what a market-competitive
+price looks like for the consulting service category / area they’re looking to purchase
+consulting services within, and before they ever get to negotiations or hear pricing from
+the consulting service providers
+
+-- 3 of 6 --
+
+https://ratecardinsights.com/demo/
+Email Sequence #1
+To be sent out in 3 consecutive days. After email 1 wait 1 day after email 2 wait 1 day
+after email 3 wait 1 day and then the sequence ends. Wait 2-3 weeks then put all contacts
+who received first sequence and did not respond into sequence #2.
+Subject: Negotiate Better Consulting Deals
+Hi First Name:
+Are you looking for ways to reduce how much (company name) spends on consulting services?
+Rate Card Insights allows you to compare rates across 10 consulting roles from Associate
+Analyst to Partner / Managing Directors in over 15 different service categories. We provide
+4,620 data points that can easily be filtered by a specific role or view only the categories
+relevant to (company name) in just a couple clicks.
+With this information you will become an informed buyer and ensure a market-competitive price
+by leveraging our Consulting Rates Benchmarking Catalog in your negotiations.
+Does next Tuesday at 10am or Wednesday at 230pm work for a demo?
+Thanks,
+Subject: Consulting Rates Benchmarking
+Hi First Name:
+Is it hard for you to know what a market-competitive price for consulting services looks like?
+Rate Card Insights allows you to compare rates across 10 consulting roles from Associate
+Analyst to Partner / Managing Directors in over 15 different service categories. Our platform has
+over 4,620 data points for you to reference and leverage to negotiate better deals with your
+consulting service providers. Rate Card Insights ensures you'll never wonder if you overpaid by
+allowing you to compare and contrast bids against representative benchmarked rates
+When are you available next week for a quick demo?
+Thanks,
+
+-- 4 of 6 --
+
+Subject: Control Your Consultant Spend with Rate Card Insights
+Hi First Name:
+Please excuse my professional persistence. Do you have any interest in learning more about
+how Rate Card Insights allows you to compare consulting rates across 10 roles from Associate
+Analyst to Partner / Managing Directors in over 15 different service categories with over 4,620
+data points you can easily filter to find the rates most relevant to you?. If the timing is bad or you
+are not the right person please let me know so I can make a note of it.
+Best,
+Subject: Consultant Pay Benchmarks
+Hi First Name:
+When was the last time you analyzed your consultant spend across each department?
+As a procurement professional, you know how challenging it can be to control and manage
+consultant spend. With Rate Card Insights, you can easily access data and anayze on
+consultant rates to make informed decisions on the rates you pay consultants for your projects.
+Are you interested in seeing a report I have put together for (company name)?
+Thanks,
+Hi First Name:
+Sorry to be a pest. Is reducing how much you spend on consulting services and having more
+data to make informed decisions an initiative for (company name)? I’m excited to connect when
+the timing is right.
+Thanks,
+Hi First Name:
+I am following up on my previous emails about how Rate Card Insights helps procurement
+leadership better control and be confident about how much they spend on consulting services. I
+
+-- 5 of 6 --
+
+have included a quick overview video for you below.
+See how you can stop overspending on consulting services.
+Are you interested in seeing some specific insights I have pulled together for (company name)
+next week?
+Best,
+
+-- 6 of 6 --
+

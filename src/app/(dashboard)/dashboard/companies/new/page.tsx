@@ -51,6 +51,13 @@ export default async function AddCompanyPage({
           <p className="text-[13px] text-slate-500 mt-1.5">Add a company to your pipeline to track and monitor.</p>
         </div>
 
+        <div className="mb-4 max-w-xl bg-slate-50 border border-slate-200 rounded px-4 py-3 flex items-center justify-between gap-3">
+          <p className="text-[12px] text-slate-600">Need examples for targeting and pipeline setup?</p>
+          <Link href="/guide?q=Where+do+I+add+companies+to+my+target+list%3F" className="text-[12px] font-semibold text-slate-900 hover:text-slate-700 hover:underline">
+            Open Guide
+          </Link>
+        </div>
+
         <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 max-w-xl">
 
           {errorMsg && (

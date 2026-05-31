@@ -1,7 +1,16 @@
 ﻿'use client'
 import Link from 'next/link'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
+import { usePostHog } from 'posthog-js/react'
 import { getRelevantResources, getDefaultResources, type Resource } from '@/lib/resources'
+import {
+  PREP_PROVENANCE_VERSION,
+  buildPrepClaimProvenance,
+  type ClaimOriginClass,
+} from '@/lib/prep-provenance'
+import { scorePrepBriefConfidence } from '@/lib/prep-confidence'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { PREP_ROLE_MODES, type PrepRoleMode } from '@/lib/prep-role-modes'
 import { BriefRating } from '@/components/BriefRating'
 import type { InterviewStage } from '@/lib/prompts'
 
@@ -21,6 +30,20 @@ const DEFAULT_INTERVIEW_STAGE: Record<string, InterviewStage> = {
   offer:       'final_round',
 }
 
+const ROLE_MODE_OPTIONS: { value: PrepRoleMode; label: string }[] = [
+  { value: 'cio', label: 'CIO' },
+  { value: 'cto', label: 'CTO' },
+  { value: 'ciso', label: 'CISO' },
+  { value: 'vp_to_cxo', label: 'VP to CXO' },
+]
+
+function inferInitialRoleMode(roleType: string | null): PrepRoleMode {
+  if (PREP_ROLE_MODES.includes((roleType ?? '').toLowerCase() as PrepRoleMode)) {
+    return roleType!.toLowerCase() as PrepRoleMode
+  }
+  return 'vp_to_cxo'
+}
+
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/\*\*(.+?)\*\*/g)
   return (
@@ -30,7 +53,137 @@ function BoldText({ text }: { text: string }) {
   )
 }
 
-function renderBrief(text: string) {
+function normalizeClaimText(line: string) {
+  return line
+    .replace(/^[-*]\s+/, '')
+    .replace(/^\d+[.)]\s+/, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+type TraceFilter = ClaimOriginClass | 'all'
+
+type ClaimOriginCounts = Record<ClaimOriginClass, number>
+
+function originClassLabel(originClass: ClaimOriginClass) {
+  if (originClass === 'user_provided') return 'User Provided'
+  if (originClass === 'system_detected') return 'System Detected'
+  return 'Inferred'
+}
+
+function originClassClassName(originClass: ClaimOriginClass) {
+  if (originClass === 'user_provided') return 'bg-emerald-50 text-emerald-700 border-emerald-200'
+  if (originClass === 'system_detected') return 'bg-blue-50 text-blue-700 border-blue-200'
+  return 'bg-amber-50 text-amber-700 border-amber-200'
+}
+
+function buildClaimOriginLookup(text: string): Record<string, ClaimOriginClass> {
+  const lookup: Record<string, ClaimOriginClass> = {}
+  const claims = buildPrepClaimProvenance(text)
+  for (const claim of claims) {
+    lookup[claim.claimText] = claim.originClass
+  }
+  return lookup
+}
+
+function buildClaimOriginCounts(text: string): ClaimOriginCounts {
+  const counts: ClaimOriginCounts = {
+    user_provided: 0,
+    system_detected: 0,
+    inferred: 0,
+  }
+  const claims = buildPrepClaimProvenance(text)
+  for (const claim of claims) {
+    counts[claim.originClass] += 1
+  }
+  return counts
+}
+
+function TraceLabel({
+  originClass,
+  onClick,
+}: {
+  originClass: ClaimOriginClass
+  onClick?: () => void
+}) {
+  const className = `inline-flex items-center rounded border px-2 py-[1px] text-[10px] font-semibold tracking-[0.04em] uppercase ${originClassClassName(originClass)} ${onClick ? 'cursor-pointer hover:brightness-95 transition' : ''}`
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={className}
+        title={`Trace source: ${originClassLabel(originClass)}. Click to filter.`}
+        aria-label={`Trace source ${originClassLabel(originClass)}`}
+      >
+        {originClassLabel(originClass)}
+      </button>
+    )
+  }
+  return (
+    <span
+      className={className}
+      title={`Trace source: ${originClassLabel(originClass)}`}
+      aria-label={`Trace source ${originClassLabel(originClass)}`}
+    >
+      {originClassLabel(originClass)}
+    </span>
+  )
+}
+
+function SourceLegend({
+  traceFilter,
+  counts,
+  onChangeFilter,
+}: {
+  traceFilter: TraceFilter
+  counts: ClaimOriginCounts
+  onChangeFilter: (next: TraceFilter) => void
+}) {
+  const totalClaims = counts.user_provided + counts.system_detected + counts.inferred
+  const buttons: Array<{ key: TraceFilter; label: string; count: number }> = [
+    { key: 'all', label: 'All Claims', count: totalClaims },
+    { key: 'user_provided', label: 'User Provided', count: counts.user_provided },
+    { key: 'system_detected', label: 'System Detected', count: counts.system_detected },
+    { key: 'inferred', label: 'Inferred', count: counts.inferred },
+  ]
+  return (
+    <div className="mb-5 rounded border border-slate-200 bg-slate-50 p-3">
+      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Source Legend</p>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {buttons.map((button) => (
+          <button
+            key={button.key}
+            type="button"
+            onClick={() => onChangeFilter(button.key)}
+            className={`inline-flex items-center gap-1 rounded border px-2 py-1 text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors ${
+              traceFilter === button.key
+                ? 'bg-slate-900 text-white border-slate-900'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+            }`}
+          >
+            <span>{button.label}</span>
+            <span className={`rounded px-1.5 py-[1px] ${traceFilter === button.key ? 'bg-slate-700 text-slate-100' : 'bg-slate-100 text-slate-500'}`}>
+              {button.count}
+            </span>
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <TraceLabel originClass="user_provided" />
+        <TraceLabel originClass="system_detected" />
+        <TraceLabel originClass="inferred" />
+      </div>
+    </div>
+  )
+}
+
+function renderBrief(
+  text: string,
+  traceFilter: TraceFilter,
+  onTraceLabelClick: (originClass: ClaimOriginClass) => void,
+) {
+  const claimOriginLookup = buildClaimOriginLookup(text)
   return text.split('\n').map((line, i) => {
     if (line.startsWith('# ')) return null
     if (line.trim() === '---' || line.trim() === '***') return null
@@ -42,18 +195,34 @@ function renderBrief(text: string) {
       )
     }
     if (line.startsWith('- ') || line.startsWith('* ')) {
+      const claimText = normalizeClaimText(line)
+      const originClass = claimOriginLookup[claimText] ?? 'inferred'
+      if (traceFilter !== 'all' && originClass !== traceFilter) return null
       return (
-        <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
+        <div key={i} className="mb-3">
+          <div className="mb-1.5">
+            <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
+          </div>
+          <div className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
           <BoldText text={line.slice(2)} />
+          </div>
         </div>
       )
     }
     if (line.trim() === '') return <div key={i} className="h-1.5" />
+    const claimText = normalizeClaimText(line)
+    const originClass = claimOriginLookup[claimText] ?? 'inferred'
+    if (traceFilter !== 'all' && originClass !== traceFilter) return null
     return (
-      <p key={i} className="text-[14px] text-slate-700 leading-relaxed mb-2.5">
-        <BoldText text={line} />
-      </p>
+      <div key={i} className="mb-3">
+        <div className="mb-1.5">
+          <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
+        </div>
+        <p className="text-[14px] text-slate-700 leading-relaxed mb-0">
+          <BoldText text={line} />
+        </p>
+      </div>
     )
   })
 }
@@ -106,10 +275,19 @@ async function streamResponse(res: Response, onChunk: (text: string) => void) {
 
 async function saveBrief(type: string, text: string, companyId?: string, sectionName?: string): Promise<string | null> {
   try {
+    const isPrepType = type === 'prep' || type === 'prep_section'
+    const claimProvenance = isPrepType ? buildPrepClaimProvenance(text) : undefined
     const res = await fetch('/api/briefs/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, text, company_id: companyId, section_name: sectionName }),
+      body: JSON.stringify({
+        type,
+        text,
+        company_id: companyId,
+        section_name: sectionName,
+        provenance_version: isPrepType ? PREP_PROVENANCE_VERSION : undefined,
+        claim_provenance: claimProvenance,
+      }),
     })
     if (!res.ok) return null
     const data = await res.json()
@@ -164,6 +342,9 @@ function OnDemandPanel({
   loading,
   error,
   onGenerate,
+  traceFilter,
+  onTraceLabelClick,
+  onLegendFilter,
 }: {
   title: string
   description: string
@@ -172,7 +353,11 @@ function OnDemandPanel({
   loading: boolean
   error: string
   onGenerate: () => void
+  traceFilter: TraceFilter
+  onTraceLabelClick: (originClass: ClaimOriginClass) => void
+  onLegendFilter: (next: TraceFilter) => void
 }) {
+  const claimOriginCounts = useMemo(() => buildClaimOriginCounts(content), [content])
   return (
     <div className="bg-white border border-slate-200 rounded mb-4">
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
@@ -205,7 +390,12 @@ function OnDemandPanel({
       )}
       {(content || (loading && content)) && (
         <div className="px-6 py-5">
-          {renderBrief(content)}
+          <SourceLegend
+            traceFilter={traceFilter}
+            counts={claimOriginCounts}
+            onChangeFilter={onLegendFilter}
+          />
+          {renderBrief(content, traceFilter, onTraceLabelClick)}
           {loading && (
             <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
           )}
@@ -276,12 +466,16 @@ export function PrepClient({
   const [interviewStage, setInterviewStage] = useState<InterviewStage>(
     initialStage ?? DEFAULT_INTERVIEW_STAGE[companyStage] ?? 'executive_interview'
   )
+  const [roleMode, setRoleMode] = useState<PrepRoleMode>(inferInitialRoleMode(roleType))
   const [outreachDraft, setOutreachDraft] = useState('')
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [outreachError, setOutreachError] = useState('')
   const [outreachCopied, setOutreachCopied] = useState(false)
   const [outreachLogged, setOutreachLogged] = useState(false)
   const [outreachLogLoading, setOutreachLogLoading] = useState(false)
+  const [lowConfidenceAcknowledged, setLowConfidenceAcknowledged] = useState(false)
+  const [traceFilter, setTraceFilter] = useState<TraceFilter>('all')
+  const ph = usePostHog()
   // Chat state
   type ChatMessage = { role: 'user' | 'assistant'; content: string }
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
@@ -291,6 +485,45 @@ export function PrepClient({
   const refineRef = useRef<HTMLTextAreaElement>(null)
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
   const autoStarted = useRef(false)
+  const lowConfidenceSeenForBrief = useRef<string | null>(null)
+
+  function captureTraceInteraction(interactionType: 'legend_filter' | 'label_click', nextFilter: TraceFilter) {
+    try {
+      ph?.capture('prep_trace_interaction', {
+        company_id: companyId,
+        interaction_type: interactionType,
+        trace_filter: nextFilter,
+        has_brief: !!brief,
+      })
+    } catch {
+      // analytics must not block interactions
+    }
+  }
+
+  async function emitPmfEvent(
+    eventName: string,
+    properties: Record<string, string | number | boolean | null>,
+  ) {
+    try {
+      await fetch('/api/events/pmf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventName, properties }),
+      })
+    } catch {
+      // telemetry must not block product interactions
+    }
+  }
+
+  function handleTraceLabelClick(originClass: ClaimOriginClass) {
+    setTraceFilter(originClass)
+    captureTraceInteraction('label_click', originClass)
+  }
+
+  function handleLegendFilter(next: TraceFilter) {
+    setTraceFilter(next)
+    captureTraceInteraction('legend_filter', next)
+  }
 
   useEffect(() => {
     if (firstCompany && !autoStarted.current) {
@@ -314,11 +547,14 @@ export function PrepClient({
     setLoading(true)
     setBrief('')
     setBriefId(null)
+    setTraceFilter('all')
+    setLowConfidenceAcknowledged(false)
     setError('')
     try {
       const url = new URL(`/api/prep/${companyId}`, window.location.origin)
       if (postingUrl.trim()) url.searchParams.set('posting_url', postingUrl.trim())
       url.searchParams.set('interview_stage', interviewStage)
+      url.searchParams.set('role_mode', roleMode)
       const res = await fetch(url.toString())
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
@@ -333,6 +569,15 @@ export function PrepClient({
       } else {
         const id = await saveBrief('prep', fullText, companyId)
         setBriefId(id)
+        const confidence = scorePrepBriefConfidence(fullText)
+        await emitPmfEvent(PMF_EVENTS.prep.prep_brief_generated, {
+          company_id: companyId,
+          type: 'prep',
+          mode: roleMode,
+          confidence_band: confidence.band,
+          action_context: 'prep_generate',
+          interview_stage: interviewStage,
+        })
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -347,6 +592,8 @@ export function PrepClient({
     setRefining(true)
     setBrief('')
     setBriefId(null)
+    setTraceFilter('all')
+    setLowConfidenceAcknowledged(false)
     setError('')
     try {
       const res = await fetch(`/api/prep/${companyId}`, {
@@ -368,6 +615,14 @@ export function PrepClient({
         setRefineInput('')
         const id = await saveBrief('prep', fullText, companyId)
         setBriefId(id)
+        const confidence = scorePrepBriefConfidence(fullText)
+        await emitPmfEvent(PMF_EVENTS.prep.prep_brief_refined, {
+          company_id: companyId,
+          mode: roleMode,
+          confidence_band: confidence.band,
+          action_context: 'prep_refine',
+          interview_stage: interviewStage,
+        })
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
@@ -488,6 +743,13 @@ export function PrepClient({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
+      await emitPmfEvent(PMF_EVENTS.prep.prep_export_word, {
+        company_id: companyId,
+        mode: roleMode,
+        confidence_band: briefConfidence?.band ?? 'unknown',
+        action_context: 'prep_export_word',
+        interview_stage: interviewStage,
+      })
     } catch {
       // silently fail - user can retry
     } finally {
@@ -495,7 +757,39 @@ export function PrepClient({
     }
   }
 
+  async function handlePdfExport() {
+    if (exportBlockedByConfidence) return
+    await emitPmfEvent(PMF_EVENTS.prep.prep_export_pdf, {
+      company_id: companyId,
+      mode: roleMode,
+      confidence_band: briefConfidence?.band ?? 'unknown',
+      action_context: 'prep_export_pdf',
+      interview_stage: interviewStage,
+    })
+    window.print()
+  }
+
   const busy = loading || refining
+  const briefConfidence = useMemo(() => {
+    if (!brief) return null
+    return scorePrepBriefConfidence(brief)
+  }, [brief])
+  const isLowConfidence = briefConfidence?.band === 'low'
+  const exportBlockedByConfidence = isLowConfidence && !lowConfidenceAcknowledged
+
+  useEffect(() => {
+    if (!brief || !isLowConfidence) return
+    if (lowConfidenceSeenForBrief.current === brief) return
+    lowConfidenceSeenForBrief.current = brief
+
+    void emitPmfEvent(PMF_EVENTS.prep.prep_low_confidence_seen, {
+      company_id: companyId,
+      mode: roleMode,
+      confidence_band: briefConfidence?.band ?? 'low',
+      action_context: 'prep_low_confidence_banner',
+      interview_stage: interviewStage,
+    })
+  }, [brief, isLowConfidence, companyId, roleMode, interviewStage, briefConfidence?.band])
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -545,7 +839,7 @@ export function PrepClient({
                     <button
                       type="button"
                       onClick={handleDownload}
-                      disabled={downloading}
+                      disabled={downloading || exportBlockedByConfidence}
                       className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors disabled:opacity-40"
                       title="Download as Word document"
                     >
@@ -553,7 +847,10 @@ export function PrepClient({
                     </button>
                     <button
                       type="button"
-                      onClick={() => window.print()}
+                      onClick={() => {
+                        void handlePdfExport()
+                      }}
+                      disabled={exportBlockedByConfidence}
                       className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
                       title="Save as PDF"
                     >
@@ -576,6 +873,27 @@ export function PrepClient({
                   disabled={busy}
                   className={`text-[12px] font-medium px-3 py-1.5 rounded border transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${
                     interviewStage === opt.value
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Role mode</p>
+            <div className="flex flex-wrap gap-1.5">
+              {ROLE_MODE_OPTIONS.map(opt => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setRoleMode(opt.value)}
+                  disabled={busy}
+                  className={`text-[12px] font-medium px-3 py-1.5 rounded border transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${
+                    roleMode === opt.value
                       ? 'bg-slate-900 text-white border-slate-900'
                       : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800'
                   }`}
@@ -700,9 +1018,56 @@ export function PrepClient({
           </div>
         )}
 
+        {brief && briefConfidence && !busy && (
+          <div className={`mb-4 rounded border px-5 py-4 ${isLowConfidence ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200'}`}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Brief confidence</p>
+                <p className="text-[14px] font-semibold text-slate-900 mt-1">
+                  Score: {briefConfidence.score}/100 ({briefConfidence.band})
+                </p>
+              </div>
+              <div className="text-[12px] text-slate-600">
+                Sections: {briefConfidence.factors.structuredSections}/5 · Inferred penalty: -{briefConfidence.factors.inferredSharePenalty}
+              </div>
+            </div>
+            {isLowConfidence && (
+              <div className="mt-3 pt-3 border-t border-amber-200">
+                <p className="text-[12px] font-semibold text-amber-800 mb-1.5">Low confidence remediation required before export</p>
+                <ul className="text-[12px] text-amber-700 space-y-1.5">
+                  {briefConfidence.remediation.map((item) => (
+                    <li key={item}>- {item}</li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLowConfidenceAcknowledged(true)
+                    void emitPmfEvent(PMF_EVENTS.prep.prep_low_confidence_seen, {
+                      company_id: companyId,
+                      mode: roleMode,
+                      confidence_band: briefConfidence?.band ?? 'low',
+                      action_context: 'prep_low_confidence_acknowledged',
+                      interview_stage: interviewStage,
+                    })
+                  }}
+                  className="mt-3 text-[12px] font-semibold text-amber-900 border border-amber-300 rounded px-3 py-1.5 hover:bg-amber-100 transition-colors"
+                >
+                  Acknowledge and allow export
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
         {brief && (
           <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
-            {renderBrief(brief)}
+            <SourceLegend
+              traceFilter={traceFilter}
+              counts={buildClaimOriginCounts(brief)}
+              onChangeFilter={handleLegendFilter}
+            />
+            {renderBrief(brief, traceFilter, handleTraceLabelClick)}
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
@@ -771,6 +1136,9 @@ export function PrepClient({
               loading={background.loading}
               error={background.error}
               onGenerate={background.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Leadership Team"
@@ -780,6 +1148,9 @@ export function PrepClient({
               loading={leadership.loading}
               error={leadership.error}
               onGenerate={leadership.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Strategic Priorities"
@@ -789,6 +1160,9 @@ export function PrepClient({
               loading={priorities.loading}
               error={priorities.error}
               onGenerate={priorities.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Pain Points"
@@ -798,6 +1172,9 @@ export function PrepClient({
               loading={challenges.loading}
               error={challenges.error}
               onGenerate={challenges.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Competitive Landscape"
@@ -807,6 +1184,9 @@ export function PrepClient({
               loading={competitive.loading}
               error={competitive.error}
               onGenerate={competitive.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Recent Wins"
@@ -816,6 +1196,9 @@ export function PrepClient({
               loading={wins.loading}
               error={wins.error}
               onGenerate={wins.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Tech Stack"
@@ -825,6 +1208,9 @@ export function PrepClient({
               loading={techStack.loading}
               error={techStack.error}
               onGenerate={techStack.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Why Here"
@@ -834,6 +1220,9 @@ export function PrepClient({
               loading={whyHere.loading}
               error={whyHere.error}
               onGenerate={whyHere.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
             <OnDemandPanel
               title="Likely Interview Questions"
@@ -843,6 +1232,9 @@ export function PrepClient({
               loading={questions.loading}
               error={questions.error}
               onGenerate={questions.generate}
+              traceFilter={traceFilter}
+              onTraceLabelClick={handleTraceLabelClick}
+              onLegendFilter={handleLegendFilter}
             />
           </div>
         )}

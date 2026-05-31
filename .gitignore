@@ -16,6 +16,7 @@
 /playwright-report
 /test-results
 /tests/e2e/.auth
+/.lighthouseci
 
 # next.js
 /.next/
@@ -68,5 +69,17 @@ tmp-weekly-audit-*-logs.zip
 *.pdf
 *.docx
 *.doc
+
+# Screenshots and downloads accidentally dropped into project folder
+/Screenshots/
+/Downloads/
+*.heic
+*.jpg
+*.jpeg
+*.png
+!tests/e2e/__screenshots__/
+!tests/e2e/__screenshots__/auth-login-desktop.png
+!tests/e2e/__screenshots__/auth-signup-desktop.png
 !public/reports/executive-search-ai-confidentiality-annual-report-2026.pdf
 !public/reports/executive-search-ai-confidentiality-annual-report-2026-email.pdf
+lint-output.txt

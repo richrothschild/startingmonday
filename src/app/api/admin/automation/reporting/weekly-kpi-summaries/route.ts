@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/require-auth'
-import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
+import { requireAutomationAccess } from '@/lib/admin-automation-route'
 import { createAdminClient } from '@/lib/supabase/admin'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type KpiStatus = 'ok' | 'no_data' | 'query_error'
 
@@ -38,10 +36,7 @@ function roundPct(numerator: number, denominator: number): number | null {
 }
 
 export async function POST(request: NextRequest) {
-  const authCheck = await requireAuth(request)
-  if (!authCheck.ok) return authCheck.response
-
-  const auth = await requireStaffAutomationAccess(request)
+  const auth = await requireAutomationAccess(request)
   if (!auth.ok) return auth.response
 
   const { userId, supabase } = auth
@@ -81,7 +76,7 @@ export async function POST(request: NextRequest) {
       source_notes: `baseline_users=${baselineUsers.size};adoption_users=${adoptionUsers.size}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q1 failed', error)
+    console.error('[weekly-kpi-summaries] Q1 failed', error)
     snapshots.push({
       metric_name: 'emi_language_adoption_percent',
       metric_value: null,
@@ -118,7 +113,7 @@ export async function POST(request: NextRequest) {
       source_notes: `started=${started};completed=${completed}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q2 failed', error)
+    console.error('[weekly-kpi-summaries] Q2 failed', error)
     snapshots.push({
       metric_name: 'assessment_completion_percent',
       metric_value: null,
@@ -187,7 +182,7 @@ export async function POST(request: NextRequest) {
       source_notes: `activated=${activatedUsers.length};returned=${returnedUsers}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q3 failed', error)
+    console.error('[weekly-kpi-summaries] Q3 failed', error)
     snapshots.push({
       metric_name: 'day7_return_percent',
       metric_value: null,
@@ -222,7 +217,7 @@ export async function POST(request: NextRequest) {
       source_notes: `published_assets=${publishedProofAssets ?? 0}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q4 failed', error)
+    console.error('[weekly-kpi-summaries] Q4 failed', error)
     snapshots.push({
       metric_name: 'proof_assets_published_count',
       metric_value: null,
@@ -279,7 +274,7 @@ export async function POST(request: NextRequest) {
       source_notes: `denominator=${denominator};numerator=${numerator}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q5 failed', error)
+    console.error('[weekly-kpi-summaries] Q5 failed', error)
     snapshots.push({
       metric_name: 'b2b_pilot_conversion_percent',
       metric_value: null,
@@ -324,7 +319,7 @@ export async function POST(request: NextRequest) {
       source_notes: `active_claims=${activeClaims.length};compliant_claims=${compliantClaims.length}`,
     })
   } catch (error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] Q6 failed', error)
+    console.error('[weekly-kpi-summaries] Q6 failed', error)
     snapshots.push({
       metric_name: 'tier1_claim_compliance_percent',
       metric_value: null,
@@ -338,7 +333,7 @@ export async function POST(request: NextRequest) {
 
   const snapshotWrite = await sb.from('emi_kpi_snapshots').upsert(snapshots, { onConflict: 'metric_name,week_start,week_end' })
   if (snapshotWrite.error) {
-    __councilObservabilitySignal('[weekly-kpi-summaries] snapshot write skipped', snapshotWrite.error)
+    console.error('[weekly-kpi-summaries] snapshot write skipped', snapshotWrite.error)
     return NextResponse.json({
       error: 'Failed to persist EMI KPI snapshots',
       details: snapshotWrite.error.message,
@@ -373,3 +368,4 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true, runId: data?.id, weekStart: start, weekEnd: end, summaryPayload, snapshots, snapshotWriteError: null })
 }
+

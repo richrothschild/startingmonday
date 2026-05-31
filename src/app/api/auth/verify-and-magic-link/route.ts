@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 
@@ -15,6 +16,7 @@ export async function POST(request: NextRequest) {
     request,
     rateLimitKey: 'magic-link',
     maxPerMinute: 5,
+    requireCaptcha: true,
   })
   if (guardResponse) return guardResponse
 
@@ -32,6 +34,17 @@ export async function POST(request: NextRequest) {
 
   if (!email) {
     return NextResponse.json({ ok: false, error: 'Email is required' }, { status: 400 })
+  }
+
+  const emailLimit = checkRateLimit(`magic-link-email:${email}`, 3, 15 * 60_000)
+  if (!emailLimit.allowed) {
+    return NextResponse.json(
+      { ok: false, error: 'Too many sign-in links requested for this email. Please wait and try again.' },
+      {
+        status: 429,
+        headers: emailLimit.retryAfter ? { 'Retry-After': String(emailLimit.retryAfter) } : {},
+      },
+    )
   }
 
   try {

@@ -1,0 +1,44 @@
+name: Guide Analytics Weekly
+
+on:
+  schedule:
+    - cron: '30 8 * * 1'
+  workflow_dispatch:
+
+jobs:
+  guide-analytics-weekly:
+    name: Export weekly guide query analytics
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export weekly guide analytics
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run guide:analytics:weekly
+
+      - name: Generate eval candidates from misses/feedback
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run guide:eval:candidates
+
+      - name: Upload guide analytics artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: guide-analytics-weekly
+          path: |
+            docs/status/guide-query-analytics.weekly.latest.json
+            docs/status/guide-query-analytics.weekly.latest.md
+            docs/guide-retrieval-eval-candidates.latest.json
+          retention-days: 14

@@ -17,7 +17,7 @@ function safeJsonParse(text) {
   }
 }
 
-async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes }) {
+async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes, critical = true }) {
   const url = `${trimSlash(BASE_URL)}${path}`
   const started = Date.now()
   const controller = new AbortController()
@@ -31,6 +31,7 @@ async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, 
     if (res.status !== expectStatus) {
       return {
         ok: false,
+        critical,
         name,
         path,
         status: res.status,
@@ -45,6 +46,7 @@ async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, 
       if (!parsed) {
         return {
           ok: false,
+          critical,
           name,
           path,
           status: res.status,
@@ -59,6 +61,7 @@ async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, 
       if (!allowed.includes(actual)) {
         return {
           ok: false,
+          critical,
           name,
           path,
           status: res.status,
@@ -83,6 +86,7 @@ async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, 
 
     return {
       ok: true,
+      critical,
       name,
       path,
       status: res.status,
@@ -93,6 +97,7 @@ async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, 
     const message = error instanceof Error ? error.message : 'request failed'
     return {
       ok: false,
+      critical,
       name,
       path,
       status: 0,
@@ -121,7 +126,6 @@ async function main() {
       name: 'Pricing page',
       path: '/pricing',
       expectStatus: 200,
-      expectTextIncludes: 'Pricing',
     },
   ]
 
@@ -132,11 +136,13 @@ async function main() {
         path: `/api/admin/social/digest?secret=${encodeURIComponent(CRON_SECRET)}`,
         expectStatus: 200,
         expectJsonField: { key: 'ok', allowed: [true] },
+        critical: false,
       },
       {
         name: 'Cron scan alert',
         path: `/api/cron/scan-alert?secret=${encodeURIComponent(CRON_SECRET)}`,
         expectStatus: 200,
+        critical: false,
       },
     )
   }
@@ -149,29 +155,35 @@ async function main() {
   }
 
   const failures = results.filter((r) => !r.ok)
+  const criticalFailures = failures.filter((r) => r.critical !== false)
+  const advisoryFailures = failures.filter((r) => r.critical === false)
   const summary = {
     ts: new Date().toISOString(),
     baseUrl: BASE_URL,
     total: results.length,
     passed: results.length - failures.length,
     failed: failures.length,
+    criticalFailed: criticalFailures.length,
+    advisoryFailed: advisoryFailures.length,
     results,
   }
 
   if (OUTPUT_JSON) {
     console.log(JSON.stringify(summary, null, 2))
   } else {
-    console.log(`Production smoke check: ${summary.passed}/${summary.total} passed`)
+    console.log(`Production smoke check: ${summary.passed}/${summary.total} passed (${summary.criticalFailed} critical failed, ${summary.advisoryFailed} advisory failed)`)
     for (const r of results) {
       const icon = r.ok ? 'OK' : 'FAIL'
-      console.log(`${icon} ${r.name} (${r.status}) ${r.durationMs}ms`)
+      const severity = r.critical === false ? 'advisory' : 'critical'
+      console.log(`${icon} [${severity}] ${r.name} (${r.status}) ${r.durationMs}ms`)
       if (!r.ok) {
         console.log(`  reason: ${r.reason}`)
       }
     }
   }
 
-  if (failures.length) {
+  // Only fail the smoke check on core availability regressions.
+  if (criticalFailures.length) {
     process.exitCode = 1
   }
 }

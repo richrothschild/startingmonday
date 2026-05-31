@@ -1,0 +1,109 @@
+name: PMF Daily Monitor
+
+on:
+  schedule:
+    - cron: '30 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  pmf-daily-monitor:
+    name: PMF daily dashboard and gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export PMF daily dashboard
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run pmf:dashboard:daily
+
+      - name: Run PMF daily monitor strict gate
+        run: npm run pmf:monitor:daily:strict
+
+      - name: Run prep provenance coverage strict gate
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run evals:provenance:coverage:strict
+
+      - name: Run prep confidence calibration strict gate
+        run: npm run evals:confidence:calibration:strict
+
+      - name: Run prep role mode QA strict gate
+        run: npm run evals:role-mode:qa:strict
+
+      - name: Upload PMF and prep artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmf-daily-monitor
+          path: |
+            docs/status/pmf-daily-dashboard.latest.json
+            docs/status/pmf-daily-dashboard.latest.md
+            docs/status/pmf-daily-monitor.latest.json
+            docs/status/pmf-daily-monitor.latest.md
+            docs/status/prep-provenance-coverage.latest.json
+            docs/status/prep-provenance-coverage.latest.md
+            docs/status/prep-confidence-calibration.latest.json
+            docs/status/prep-confidence-calibration.latest.md
+            docs/status/prep-role-mode-qa.latest.json
+            docs/status/prep-role-mode-qa.latest.md
+
+      - name: Publish step summary
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs = require('fs')
+
+          function readJson(file) {
+            if (!fs.existsSync(file)) return null
+            return JSON.parse(fs.readFileSync(file, 'utf8'))
+          }
+
+          const pmf = readJson('docs/status/pmf-daily-monitor.latest.json')
+          const provenance = readJson('docs/status/prep-provenance-coverage.latest.json')
+          const calibration = readJson('docs/status/prep-confidence-calibration.latest.json')
+          const roleMode = readJson('docs/status/prep-role-mode-qa.latest.json')
+
+          const lines = [
+            '## PMF Daily Monitor',
+            '',
+            `- PMF monitor: ${pmf?.status ?? 'missing'}`,
+            `- Prep provenance coverage: ${provenance?.status ?? 'missing'} (${provenance?.coverage ?? 'n/a'})`,
+            `- Prep confidence calibration: ${calibration?.status ?? 'missing'} (accuracy ${calibration?.metrics?.accuracy ?? 'n/a'})`,
+            `- Prep role mode QA: ${roleMode?.status ?? 'missing'}`,
+          ]
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`)
+          NODE
+
+      - name: Send Slack notification on failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "PMF daily monitor failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*PMF daily monitor failed*\nWorkflow: PMF Daily Monitor\nBranch: ${{ github.ref_name }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run logs>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

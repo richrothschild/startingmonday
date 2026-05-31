@@ -1,8 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { trackApiUsage } from '@/lib/api-usage'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+import { apiError } from '@/lib/api-error'
+import { PrepChatBodySchema, PrepChatHistoryItemSchema, PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
 const CHAT_SYSTEM = `You are a prep brief assistant helping a senior executive prepare for an upcoming meeting, interview, or networking conversation.
 
@@ -20,31 +21,37 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id: companyId } = await params
+  const routeParams = PrepRouteParamsSchema.safeParse(await params)
+  if (!routeParams.success) {
+    return apiError(firstZodError(routeParams.error), 400)
+  }
+  const { id: companyId } = routeParams.data
+
   const access = await requirePrepAccess(request)
   if (!access.ok) return access.response
   const { userId, supabase } = access
 
-  let body: { message?: unknown; brief?: unknown; companyName?: unknown; history?: unknown }
+  let rawBody: unknown
   try {
-    body = await request.json()
+    rawBody = await request.json()
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    return apiError('Invalid JSON', 400)
   }
 
-  const message = (typeof body.message === 'string' ? body.message : '').trim()
-  if (!message) return NextResponse.json({ error: 'Message required' }, { status: 400 })
+  const parsedBody = PrepChatBodySchema.safeParse(rawBody)
+  if (!parsedBody.success) {
+    return apiError(firstZodError(parsedBody.error), 400)
+  }
+  const { message } = parsedBody.data
 
-  const brief = (typeof body.brief === 'string' ? body.brief : '').slice(0, 8000)
-  const companyName = (typeof body.companyName === 'string' ? body.companyName : '').trim()
-  const rawHistory = Array.isArray(body.history) ? body.history : []
-  const history = rawHistory
+  const brief = parsedBody.data.brief.slice(0, 8000)
+  const companyName = parsedBody.data.companyName.trim()
+
+  const history = parsedBody.data.history
     .slice(-8)
-    .filter((m): m is { role: 'user' | 'assistant'; content: string } =>
-      typeof m === 'object' && m !== null &&
-      (m.role === 'user' || m.role === 'assistant') &&
-      typeof m.content === 'string'
-    )
+    .map(item => PrepChatHistoryItemSchema.safeParse(item))
+    .filter(result => result.success)
+    .map(result => result.data)
 
   // Verify company belongs to user (no data leak across users)
   const { data: company } = await supabase
@@ -53,7 +60,7 @@ export async function POST(
     .eq('id', companyId)
     .eq('user_id', userId)
     .single()
-  if (!company) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  if (!company) return apiError('Not found', 404)
 
   const messages: { role: 'user' | 'assistant'; content: string }[] = [
     ...(brief ? [
@@ -92,3 +99,7 @@ export async function POST(
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

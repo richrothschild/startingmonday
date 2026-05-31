@@ -1,8 +1,7 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export const runtime = 'nodejs'
 
@@ -16,6 +15,7 @@ export async function POST(request: NextRequest) {
     request,
     rateLimitKey: 'signup',
     maxPerMinute: 3,
+    requireCaptcha: true,
   })
   if (guardResponse) return guardResponse
 
@@ -73,3 +73,6 @@ export async function POST(request: NextRequest) {
     { status: 200 }
   )
 }
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

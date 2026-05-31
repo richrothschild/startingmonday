@@ -5,6 +5,16 @@ async function skipIfAuthUnavailable(page: Page) {
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required E2E test: login session unavailable in CI')
 }
 
+async function findFirstCompanyId(page: Page): Promise<string | null> {
+  await page.goto('/dashboard')
+  const companyLink = page.locator('a[href^="/dashboard/companies/"]').first()
+  if ((await companyLink.count()) === 0) return null
+  const href = await companyLink.getAttribute('href')
+  if (!href) return null
+  const match = href.match(/\/dashboard\/companies\/([0-9a-fA-F-]{36})/)
+  return match?.[1] ?? null
+}
+
 // ─── Path 1: Signup → Onboarding → Dashboard ─────────────────────────────────
 // Full signup requires email confirmation which can't be automated in E2E.
 // These tests cover: page structure, auth redirect guards, and post-onboarding state.
@@ -124,13 +134,41 @@ test.describe('Billing and Stripe checkout', () => {
 })
 
 // ─── Path 3: Prep Brief Generation ───────────────────────────────────────────
-// Covered by smoke.spec.ts — not duplicated here.
+
+test.describe('Prep brief generation', () => {
+  test('prep API streams generated brief text for a valid company', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+    const companyId = await findFirstCompanyId(page)
+    test.skip(!companyId, 'Skipping prep API test: no company found in dashboard')
+
+    const res = await page.request.get(`/api/prep/${companyId}?interview_stage=hiring_manager`, {
+      failOnStatusCode: false,
+    })
+
+    expect(res.status()).toBe(200)
+    expect(res.headers()['content-type'] ?? '').toContain('text/plain')
+    const body = await res.text()
+    expect(body.length).toBeGreaterThan(40)
+    expect(body).not.toContain('__ERROR__')
+  })
+})
 
 // ─── Path 4: Daily Briefing ───────────────────────────────────────────────────
-// The worker job and email delivery can't be tested in E2E without a real worker.
-// These tests cover the briefing page — the output surface users actually see.
+// The worker sends emails directly; this app endpoint is intentionally retired.
+// These tests cover the user-facing page and the retired endpoint contract.
 
 test.describe('Daily briefing page', () => {
+  test('briefing send endpoint is retired and returns 410', async ({ page }) => {
+    await skipIfAuthUnavailable(page)
+    const res = await page.request.post('/api/briefing/send', {
+      failOnStatusCode: false,
+    })
+    expect(res.status()).toBe(410)
+    await expect(res.json()).resolves.toMatchObject({
+      error: expect.stringContaining('retired'),
+    })
+  })
+
   test('briefing page loads and shows greeting', async ({ page }) => {
     await skipIfAuthUnavailable(page)
     test.setTimeout(60_000)

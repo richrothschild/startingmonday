@@ -27,7 +27,7 @@ setup('authenticate', async ({ page }) => {
     return
   }
 
-  await page.goto('/login')
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
   await page.fill('#email', email)
   await page.fill('#password', password)
   await page.click('button[type="submit"]')

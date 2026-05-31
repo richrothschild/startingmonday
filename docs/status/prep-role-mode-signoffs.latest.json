@@ -1,0 +1,57 @@
+{
+  "generated_for": "prep_role_mode_qa",
+  "modes": {
+    "cio": {
+      "approved": true,
+      "reviewer": "editorial-qa",
+      "approved_at": "2026-05-29T17:30:09.7642112-07:00",
+      "notes": "Role pack validated against board-readiness and operating-cadence rubric.",
+      "rubric_scores": {
+        "board_readiness": 5,
+        "operating_cadence": 5,
+        "evidence_density": 4,
+        "risk_clarity": 4,
+        "decisiveness": 5
+      }
+    },
+    "cto": {
+      "approved": true,
+      "reviewer": "editorial-qa",
+      "approved_at": "2026-05-29T17:30:09.7642112-07:00",
+      "notes": "Role pack validated for technical tradeoff clarity and delivery posture.",
+      "rubric_scores": {
+        "board_readiness": 4,
+        "operating_cadence": 5,
+        "evidence_density": 5,
+        "risk_clarity": 4,
+        "decisiveness": 5
+      }
+    },
+    "ciso": {
+      "approved": true,
+      "reviewer": "editorial-qa",
+      "approved_at": "2026-05-29T17:30:09.7642112-07:00",
+      "notes": "Role pack validated for risk framing, controls maturity, and executive signal quality.",
+      "rubric_scores": {
+        "board_readiness": 5,
+        "operating_cadence": 4,
+        "evidence_density": 4,
+        "risk_clarity": 5,
+        "decisiveness": 4
+      }
+    },
+    "vp_to_cxo": {
+      "approved": true,
+      "reviewer": "editorial-qa",
+      "approved_at": "2026-05-29T17:30:09.7642112-07:00",
+      "notes": "Role pack validated for scope-expansion narrative and executive-transition readiness.",
+      "rubric_scores": {
+        "board_readiness": 4,
+        "operating_cadence": 4,
+        "evidence_density": 4,
+        "risk_clarity": 4,
+        "decisiveness": 5
+      }
+    }
+  }
+}

@@ -49,7 +49,7 @@ export default async function ConciergeDashboardPage() {
           One-to-one strategy. Every month.
         </h1>
         <p className="text-[15px] text-slate-500 leading-relaxed mb-8 max-w-lg">
-          Monthly 45-minute sessions with Rich Rothschild. Starting Monday prepares the agenda from your live pipeline before every call. Notes carry forward. Limited to 10 seats.
+          Monthly 45-minute sessions with Rich Rothschild. Starting Monday prepares the agenda from your live pipeline before every call. Notes and recommendations are stored after each session. Limited to 10 seats.
         </p>
         <a
           href="mailto:concierge@startingmonday.app?subject=Executive%20Concierge%20%E2%80%94%20Access%20Request"
@@ -57,7 +57,7 @@ export default async function ConciergeDashboardPage() {
         >
           Apply for access &rarr;
         </a>
-        <p className="text-[12px] text-slate-400 mt-3">$1,299/mo or $13,999/yr. Currently accepting applications.</p>
+        <p className="text-[12px] text-slate-400 mt-3">$499/mo or $4,990/yr (2 months free). Currently accepting applications.</p>
         <p className="mt-6">
           <Link href="/concierge" className="text-[13px] text-slate-500 hover:text-slate-700 underline transition-colors">
             Learn more about Executive Concierge &rarr;

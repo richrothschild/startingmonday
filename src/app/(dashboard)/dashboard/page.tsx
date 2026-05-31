@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
+import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
@@ -99,6 +100,11 @@ export default async function DashboardPage({
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'dashboard_profile_error', code: profileError.code, message: profileError.message, userId: user.id }))
   } else if (!profile?.onboarding_completed_at) {
     redirect('/onboarding')
+  }
+
+  const careerMode = resolveCareerMode({ placedAt: profile?.placed_at, searchStatus: profile?.search_status })
+  if (careerMode === 'post_search') {
+    redirect('/dashboard/post-search')
   }
 
   const tz = profile?.briefing_timezone ?? 'UTC'
@@ -659,6 +665,7 @@ export default async function DashboardPage({
             )}
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
+            <Link href="/guide" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Guide</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
             {isRothschildAdmin && (
               <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
@@ -749,6 +756,12 @@ export default async function DashboardPage({
               className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
             >
               View due today
+            </Link>
+            <Link
+              href="/guide"
+              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+            >
+              Open guide
             </Link>
           </div>
         </section>

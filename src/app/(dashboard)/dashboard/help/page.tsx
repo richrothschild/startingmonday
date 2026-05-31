@@ -49,6 +49,17 @@ export default async function HelpPage() {
           <p className="text-[13px] text-slate-600 mt-1.5">Everything you need to run a disciplined search.</p>
         </div>
 
+        <Link
+          href="/guide"
+          className="group flex items-center justify-between bg-slate-900 border border-slate-800 rounded px-6 py-5 mb-6 hover:bg-slate-800 transition-colors"
+        >
+          <div>
+            <p className="text-[14px] font-semibold text-white">Open the full User Guide + Guide Chat</p>
+            <p className="text-[12px] text-slate-300 mt-0.5">Search features, read how-tos, and ask questions with source links.</p>
+          </div>
+          <span className="text-slate-400 group-hover:text-white shrink-0 ml-4 text-lg">→</span>
+        </Link>
+
         {/* Setup checklist */}
         <Link
           href="/dashboard/start"

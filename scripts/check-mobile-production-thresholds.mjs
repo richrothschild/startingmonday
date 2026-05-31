@@ -6,6 +6,7 @@ import { discoverPublicMobileRoutes } from './lib/mobile-route-inventory.mjs'
 const BASE_URL = (process.env.MONITOR_BASE_URL ?? 'https://startingmonday.app').replace(/\/$/, '')
 const OUTPUT_JSON = process.env.MONITOR_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = Number(process.env.MONITOR_TIMEOUT_MS ?? '15000')
+const MAX_ATTEMPTS_PER_ROUTE = Number(process.env.MONITOR_RETRY_ATTEMPTS ?? '2')
 const MOBILE_UA =
   'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'
 
@@ -21,55 +22,85 @@ function percentile(values, p) {
 }
 
 async function runRouteCheck(route) {
-  const started = Date.now()
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
   const url = `${BASE_URL}${route.path}`
-
-  try {
-    const res = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'user-agent': MOBILE_UA,
-        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      },
-    })
-    await res.text()
-
-    const durationMs = Date.now() - started
-    const statusOk = res.status === route.expectedStatus
-    const latencyOk = durationMs <= route.maxResponseMs
-    const ok = statusOk && latencyOk
-
-    return {
-      name: route.name,
-      path: route.path,
-      status: res.status,
-      expectedStatus: route.expectedStatus,
-      durationMs,
-      maxResponseMs: route.maxResponseMs,
-      ok,
-      reason: !statusOk
-        ? `Expected HTTP ${route.expectedStatus}, got ${res.status}`
-        : !latencyOk
-          ? `Exceeded max response ${route.maxResponseMs}ms`
-          : '',
-    }
-  } catch (error) {
-    const durationMs = Date.now() - started
-    return {
-      name: route.name,
-      path: route.path,
-      status: 0,
-      expectedStatus: route.expectedStatus,
-      durationMs,
-      maxResponseMs: route.maxResponseMs,
-      ok: false,
-      reason: error instanceof Error ? error.message : 'request failed',
-    }
-  } finally {
-    clearTimeout(timeout)
+  let lastResult = {
+    name: route.name,
+    path: route.path,
+    status: 0,
+    expectedStatus: route.expectedStatus,
+    durationMs: 0,
+    maxResponseMs: route.maxResponseMs,
+    ok: false,
+    reason: 'request not attempted',
   }
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS_PER_ROUTE; attempt += 1) {
+    const started = Date.now()
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
+
+    try {
+      const res = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'user-agent': MOBILE_UA,
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        },
+      })
+      await res.text()
+
+      const durationMs = Date.now() - started
+      const statusOk = res.status === route.expectedStatus
+      const latencyOk = durationMs <= route.maxResponseMs
+      const ok = statusOk && latencyOk
+
+      lastResult = {
+        name: route.name,
+        path: route.path,
+        status: res.status,
+        expectedStatus: route.expectedStatus,
+        durationMs,
+        maxResponseMs: route.maxResponseMs,
+        ok,
+        reason: !statusOk
+          ? `Expected HTTP ${route.expectedStatus}, got ${res.status}`
+          : !latencyOk
+            ? `Exceeded max response ${route.maxResponseMs}ms`
+            : '',
+      }
+
+      if (ok) return lastResult
+
+      const shouldRetryStatus = res.status >= 500 && attempt < MAX_ATTEMPTS_PER_ROUTE
+      if (!shouldRetryStatus) {
+        return lastResult
+      }
+    } catch (error) {
+      const durationMs = Date.now() - started
+      const reason = error instanceof Error ? error.message : 'request failed'
+
+      lastResult = {
+        name: route.name,
+        path: route.path,
+        status: 0,
+        expectedStatus: route.expectedStatus,
+        durationMs,
+        maxResponseMs: route.maxResponseMs,
+        ok: false,
+        reason,
+      }
+
+      const transientAbort = /aborted|timeout/i.test(reason)
+      const shouldRetry = transientAbort && attempt < MAX_ATTEMPTS_PER_ROUTE
+      if (!shouldRetry) {
+        return lastResult
+      }
+    } finally {
+      clearTimeout(timeout)
+    }
+  }
+
+  return lastResult
 }
 
 function ensureOutputDir() {

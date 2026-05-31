@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { isDemoUser } from '@/lib/demo'
 import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 import { str, numOrNull } from '@/lib/form-utils'
 
 function normalizeUrl(raw: string | null): string | null {
@@ -74,6 +75,8 @@ export async function addCompany(formData: FormData) {
 
   await logEvent(user.id, 'company_added', { career_page_url_present: !!careerPageUrl, sector: sector ?? '' })
   captureServerEvent(user.id, 'company_added', { career_page_url_present: !!careerPageUrl, sector: sector ?? '' })
+  await logEvent(user.id, PMF_EVENTS.activation.first_company_added, { company_id: inserted.id, source: 'dashboard_new' })
+  captureServerEvent(user.id, PMF_EVENTS.activation.first_company_added, { company_id: inserted.id, source: 'dashboard_new' })
   if (inserted?.id) {
     await logCompanyWatch(user.id, inserted.id, {
       sector,

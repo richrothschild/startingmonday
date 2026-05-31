@@ -615,6 +615,8 @@ export type Database = {
           output_text: string
           user_rating: number | null
           section_name: string | null
+          provenance_version: number | null
+          claim_provenance: unknown | null
           created_at: string
         }
         Insert: {
@@ -623,6 +625,8 @@ export type Database = {
           type: string
           output_text: string
           section_name?: string | null
+          provenance_version?: number | null
+          claim_provenance?: unknown | null
           [key: string]: unknown
         }
         Update: {
