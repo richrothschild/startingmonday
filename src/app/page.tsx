@@ -7,8 +7,8 @@ import { PHProvider } from '@/components/PosthogProvider'
 import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-  description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+  title: 'Starting Monday (startingmonday.app) - Career infrastructure for technology executives',
+  description: 'Starting Monday (startingmonday.app) is the career infrastructure layer for technology executives: always-on intelligence, relationship cadence, and narrative readiness before and between searches.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday (startingmonday.app) - Career infrastructure for technology executives',
+    description: 'Starting Monday (startingmonday.app) is the career infrastructure layer for technology executives: always-on intelligence, relationship cadence, and narrative readiness before and between searches.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday (startingmonday.app) - Career infrastructure for technology executives',
+    description: 'Starting Monday (startingmonday.app) is the career infrastructure layer for technology executives: always-on intelligence, relationship cadence, and narrative readiness before and between searches.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -153,20 +153,20 @@ export default async function HomePage() {
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
-          eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
-          h1Lines: ['Be ready before', 'the search opens.'],
+          eyebrow: 'Searches end, careers do not.\nThe strongest executives run an operating system between transitions.',
+          h1Lines: ['Run your career like', 'the executive you are.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
-          body: 'Keep your coach and recruiter. Add the execution layer: early signals, relationship cadence, and one-minute prep briefs.',
+          bodyPreamble: 'Starting Monday is private career infrastructure for senior technology leaders.',
+          body: 'Move from reactive search behavior to strategic market presence with always-on intelligence, relationship rhythm, and narrative control.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
             'Act early on signal changes and walk into conversations prepared.',
           ],
-          trialNote: 'Free for 30 days. No credit card. No employer visibility.',
+          trialNote: 'Free for 30 days. Monthly or annual billing. Two months free on annual plans.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}
