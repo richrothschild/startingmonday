@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T21:24:59.958Z",
+  "generatedAt": "2026-05-31T21:33:36.945Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T21:23:15.377Z"
+      "lastModifiedAt": "2026-05-31T21:32:36.900Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1706,7 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T21:23:54.130Z"
+      "lastModifiedAt": "2026-05-31T21:33:14.772Z"
     },
     {
       "id": "feature:/dashboard/positioning",
@@ -5672,6 +5672,32 @@
       "lastModifiedAt": "2026-05-31T19:31:51.229Z"
     },
     {
+      "id": "code:src/lib/always-on-intelligence.test.ts",
+      "title": "Code src/lib/always-on-intelligence.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/always-on-intelligence.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:33:14.812Z"
+    },
+    {
+      "id": "code:src/lib/always-on-intelligence.ts",
+      "title": "Code src/lib/always-on-intelligence.ts",
+      "body": "export type IntelligenceSignalRow = {",
+      "type": "code",
+      "ref": "src/lib/always-on-intelligence.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:33:14.683Z"
+    },
+    {
       "id": "code:src/lib/anthropic.test.ts",
       "title": "Code src/lib/anthropic.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -6436,7 +6462,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:23:40.372Z"
+      "lastModifiedAt": "2026-05-31T21:32:36.906Z"
     },
     {
       "id": "code:src/lib/narrative-health.ts",
@@ -6449,7 +6475,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:23:40.312Z"
+      "lastModifiedAt": "2026-05-31T21:32:36.907Z"
     },
     {
       "id": "code:src/lib/onboarding-speed.test.ts",
@@ -12204,7 +12230,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:23:15.376Z"
+      "lastModifiedAt": "2026-05-31T21:32:36.899Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12243,7 +12269,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:23:15.377Z"
+      "lastModifiedAt": "2026-05-31T21:32:36.900Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13465,7 +13491,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:24:13.290Z"
+      "lastModifiedAt": "2026-05-31T21:33:33.850Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
