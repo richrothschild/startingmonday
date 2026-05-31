@@ -1,6 +1,7 @@
 # Starting Monday Internal Guide
 
 Last generated: 2026-05-31T21:08:50.617Z
+Last generated: 2026-05-31T19:55:47.140Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -424,6 +425,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
 ## Codebase Modules (188)
+## Codebase Modules (184)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
