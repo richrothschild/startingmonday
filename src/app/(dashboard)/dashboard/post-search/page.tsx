@@ -5,6 +5,7 @@ import { postSearchDigestFrequency, resolveCareerMode } from '@/lib/career-mode'
 import { buildRelationshipMaintenancePlan } from '@/lib/post-search-relationship-loop'
 import { summarizeRelationshipNetwork } from '@/lib/relationship-infrastructure'
 import { evaluateNarrativeHealth } from '@/lib/narrative-health'
+import { buildAlwaysOnIntelligencePulse } from '@/lib/always-on-intelligence'
 
 export const metadata = { title: 'Career Intelligence Mode - Starting Monday' }
 
@@ -21,6 +22,7 @@ type ProfileRow = {
 
 type SignalRow = {
   id: string
+  signal_type: string
   signal_summary: string
   signal_date: string
   companies: { name: string } | null
@@ -31,7 +33,7 @@ export default async function PostSearchDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }, { data: rawContacts }, { count: narrativeVersionCount }] = await Promise.all([
+  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }, { data: rawPulseSignals }, { data: rawContacts }, { count: narrativeVersionCount }] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, placed_at, placement_company, search_status, briefing_frequency, positioning_summary, linkedin_headline, linkedin_about')
@@ -49,10 +51,16 @@ export default async function PostSearchDashboardPage() {
       .eq('status', 'active'),
     supabase
       .from('company_signals')
-      .select('id, signal_summary, signal_date, companies(name)')
+      .select('id, signal_type, signal_summary, signal_date, companies(name)')
       .eq('user_id', user.id)
       .order('signal_date', { ascending: false })
       .limit(5),
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, signal_date, companies(name)')
+      .eq('user_id', user.id)
+      .order('signal_date', { ascending: false })
+      .limit(120),
     supabase
       .from('contacts')
       .select('contact_type, channel, title')
@@ -71,8 +79,10 @@ export default async function PostSearchDashboardPage() {
   const digestFrequency = postSearchDigestFrequency({ briefingFrequency: profile?.briefing_frequency })
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const recentSignals = (rawSignals ?? []) as unknown as SignalRow[]
+  const pulseSignals = (rawPulseSignals ?? []) as unknown as SignalRow[]
   const relationshipPlan = buildRelationshipMaintenancePlan({ activeContacts: activeContactCount ?? 0 })
   const relationshipSummary = summarizeRelationshipNetwork((rawContacts ?? []) as Array<{ contact_type?: string | null; channel?: string | null; title?: string | null }>)
+  const intelligencePulse = buildAlwaysOnIntelligencePulse(pulseSignals)
   const narrativeHealth = evaluateNarrativeHealth({
     positioningSummary: profile?.positioning_summary,
     linkedinHeadline: profile?.linkedin_headline,
@@ -156,6 +166,50 @@ export default async function PostSearchDashboardPage() {
             </Link>
             <Link href="/dashboard/positioning" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
               Open positioning workspace
+            </Link>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <p className="text-[12px] font-semibold text-slate-200">Always-on intelligence pulse</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">OS Sprint 4</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Signals (30d)</p>
+              <p className="text-[24px] font-semibold text-slate-100">{intelligencePulse.signalsLast30Days}</p>
+            </div>
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3 sm:col-span-2">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Top signal clusters</p>
+              {intelligencePulse.topSignalTypes.length === 0 ? (
+                <p className="text-[12px] text-slate-400">No meaningful signal clusters in the last 30 days yet.</p>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {intelligencePulse.topSignalTypes.map((item) => (
+                    <span key={item.type} className="px-2 py-1 rounded bg-cyan-950/50 border border-cyan-900 text-[11px] text-cyan-200">
+                      {item.label}: {item.count}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          {intelligencePulse.topCompanies.length > 0 && (
+            <ul className="space-y-2 mb-4">
+              {intelligencePulse.topCompanies.map((company) => (
+                <li key={company.companyName} className="text-[12px] text-slate-300">
+                  {company.companyName}: {company.signalCount} signals in 30 days
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="flex flex-wrap gap-3">
+            <Link href="/dashboard/signals" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
+              Open full signal stream
+            </Link>
+            <Link href="/dashboard/companies" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
+              Re-rank tracked companies
             </Link>
           </div>
         </div>
