@@ -334,24 +334,16 @@ async function buildGuidePayload() {
 }
 
 async function collectWatchedFiles(): Promise<string[]> {
-  const appDir = path.join(ROOT, 'src', 'app')
-  const dashboardDir = path.join(ROOT, 'src', 'app', '(dashboard)', 'dashboard')
-  const apiDir = path.join(ROOT, 'src', 'app', 'api')
+  const trackedFiles = await getTrackedFiles()
+  const trackedList = [...trackedFiles].sort((left, right) => left.localeCompare(right))
 
-  const [appFiles, dashboardFiles, apiFiles, trackedFiles] = await Promise.all([
-    listFilesRecursive(appDir),
-    listFilesRecursive(dashboardDir),
-    listFilesRecursive(apiDir),
-    getTrackedFiles(),
-  ])
-
-  return [
-    ...appFiles.filter((file) => file.endsWith('.tsx') || file.endsWith('.ts')),
-    ...dashboardFiles.filter((file) => file.endsWith('.tsx') || file.endsWith('.ts')),
-    ...apiFiles.filter((file) => file.endsWith('.ts')),
-    path.join(ROOT, 'src', 'lib', 'blog-posts.ts'),
-    AUTOMATION_GUIDE_PATH,
-  ].filter((file) => trackedFiles.has(rel(file)))
+  return trackedList
+    .filter((file) => {
+      if (file === 'src/lib/blog-posts.ts') return true
+      if (file === 'docs/automation-guide.md') return true
+      return file.startsWith('src/app/') && (file.endsWith('.ts') || file.endsWith('.tsx'))
+    })
+    .map((file) => path.join(ROOT, file))
 }
 
 async function computeSourceHash(files: string[]): Promise<string> {
