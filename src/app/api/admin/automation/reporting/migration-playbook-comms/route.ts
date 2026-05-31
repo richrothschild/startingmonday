@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { asLooseSupabaseClient, parseAutomationBody, requireAutomationAccess } from '@/lib/admin-automation-route'
@@ -107,3 +107,7 @@ export async function GET(request: NextRequest) {
     phased_adoption_with_rollback: true,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

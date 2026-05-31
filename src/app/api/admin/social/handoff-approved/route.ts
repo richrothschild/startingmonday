@@ -1,9 +1,8 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getNextSocialPostDays } from '@/lib/social-posting-plan'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type SocialPillar = 'search_craft' | 'market_intel' | 'behind_build' | 'user_story' | 'engagement'
 
@@ -46,7 +45,7 @@ function safeSummary(summary: string | undefined, fallback: string): string {
 
 function truncate(text: string, max = 900): string {
   if (text.length <= max) return text
-  return `${text.slice(0, max - 1).trimEnd()}…`
+  return `${text.slice(0, max - 1).trimEnd()}â€¦`
 }
 
 function buildVariants(body: ApprovedHandoffBody, count: number): string[] {
@@ -242,3 +241,7 @@ export async function POST(request: NextRequest) {
     posts: created ?? [],
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

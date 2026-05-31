@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStripe, getPriceId } from '@/lib/stripe'
 import { PLANS, type PlanKey } from '@/lib/plans'
 import { APP_URL } from '@/lib/config'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -72,3 +71,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ url: session.url })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

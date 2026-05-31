@@ -16,6 +16,7 @@
 /playwright-report
 /test-results
 /tests/e2e/.auth
+/.lighthouseci
 
 # next.js
 /.next/
@@ -81,3 +82,4 @@ tmp-weekly-audit-*-logs.zip
 !tests/e2e/__screenshots__/auth-signup-desktop.png
 !public/reports/executive-search-ai-confidentiality-annual-report-2026.pdf
 !public/reports/executive-search-ai-confidentiality-annual-report-2026-email.pdf
+lint-output.txt

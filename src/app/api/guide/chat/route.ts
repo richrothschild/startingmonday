@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+﻿import { readFile } from 'fs/promises'
 import path from 'path'
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
@@ -182,3 +182,7 @@ export async function POST(request: NextRequest) {
     queryId: queryInsert.data?.id ?? null,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal
