@@ -372,10 +372,10 @@ async function computeSourceHash(files: string[]): Promise<string> {
   for (const filePath of sorted) {
     const exists = await fileExists(filePath)
     if (!exists) continue
-    const stat = await fs.stat(filePath)
-    hash.update(filePath)
-    hash.update(String(stat.size))
-    hash.update(String(stat.mtimeMs))
+    const contents = await fs.readFile(filePath, 'utf8')
+    const normalizedContents = contents.replace(/\r\n/g, '\n')
+    hash.update(path.relative(ROOT, filePath).replace(/\\/g, '/'))
+    hash.update(normalizedContents)
   }
 
   return hash.digest('hex')
