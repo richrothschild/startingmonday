@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-31T18:43:26.549Z
+Last generated: 2026-05-31T19:54:52.713Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (140)
+## Features (141)
 - [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 - [Terms](/terms) - Open /terms to use this feature area and related workflows.
 - [Security](/security) - Open /security to use this feature area and related workflows.
@@ -102,6 +102,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Salary](/dashboard/salary) - Open /dashboard/salary to use this feature area and related workflows.
 - [Dashboard / Profile](/dashboard/profile) - Open /dashboard/profile to use this feature area and related workflows.
 - [Dashboard / Profile / Tailor](/dashboard/profile/tailor) - Open /dashboard/profile/tailor to use this feature area and related workflows.
+- [Dashboard / Post search](/dashboard/post-search) - Open /dashboard/post-search to use this feature area and related workflows.
 - [Dashboard / Positioning](/dashboard/positioning) - Open /dashboard/positioning to use this feature area and related workflows.
 - [Dashboard / Placed](/dashboard/placed) - Open /dashboard/placed to use this feature area and related workflows.
 - [Dashboard / Pilot outreach](/dashboard/pilot-outreach) - Open /dashboard/pilot-outreach to use this feature area and related workflows.

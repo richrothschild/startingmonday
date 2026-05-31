@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-31T18:43:29.719Z
+Last generated: 2026-05-31T19:55:47.140Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (170)
+## Features (171)
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 - Feature Terms | /terms | User-facing page route /terms.
@@ -128,6 +128,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Salary | /dashboard/salary | User-facing page route /dashboard/salary.
 - Feature Dashboard / Profile | /dashboard/profile | User-facing page route /dashboard/profile.
 - Feature Dashboard / Profile / Tailor | /dashboard/profile/tailor | User-facing page route /dashboard/profile/tailor.
+- Feature Dashboard / Post search | /dashboard/post-search | User-facing page route /dashboard/post-search.
 - Feature Dashboard / Positioning | /dashboard/positioning | User-facing page route /dashboard/positioning.
 - Feature Dashboard / Placed | /dashboard/placed | User-facing page route /dashboard/placed.
 - Feature Dashboard / Pilot outreach | /dashboard/pilot-outreach | User-facing page route /dashboard/pilot-outreach.
@@ -422,7 +423,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (180)
+## Codebase Modules (184)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -443,6 +444,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/blog-posts.ts | src/lib/blog-posts.ts | export interface BlogPostMeta {
 - Code src/lib/burst-limit.test.ts | src/lib/burst-limit.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/burst-limit.ts | src/lib/burst-limit.ts | In-memory sliding-window burst limiter for AI routes.
+- Code src/lib/career-mode.test.ts | src/lib/career-mode.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/career-mode.ts | src/lib/career-mode.ts | export type CareerMode = 'active_search' | 'post_search'
 - Code src/lib/channel-ia.test.ts | src/lib/channel-ia.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/channel-ia.ts | src/lib/channel-ia.ts | export type ChannelRouteSpec = {
 - Code src/lib/channel-metrics-events.test.ts | src/lib/channel-metrics-events.test.ts | import { describe, expect, it } from 'vitest'
@@ -507,6 +510,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/persona-routes.ts | src/lib/persona-routes.ts | export type PersonaSpec = {
 - Code src/lib/pixel-token.test.ts | src/lib/pixel-token.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pixel-token.ts | src/lib/pixel-token.ts | Token is a base64url-encoded JSON payload signed with HMAC-SHA256.
+- Code src/lib/placed-proof-architecture.test.ts | src/lib/placed-proof-architecture.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/placed-proof-architecture.ts | src/lib/placed-proof-architecture.ts | export type PlacedProofActionId = 'celebration' | 'maintenance' | 'peer_referral'
 - Code src/lib/plans.test.ts | src/lib/plans.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/plans.ts | src/lib/plans.ts | export const PLANS = {
 - Code src/lib/pmf-event-taxonomy.test.ts | src/lib/pmf-event-taxonomy.test.ts | import { describe, expect, it } from 'vitest'
@@ -727,7 +732,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
 - Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
 - Workflow .github/workflows/nightly-audit.yml | .github/workflows/nightly-audit.yml | name: Nightly Outreach Audit
-- Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: Performance Release Gate
+- Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: performance-release-gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
@@ -1054,6 +1059,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
 - Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
 - Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
+- Doc docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | Sprint 7 Carry-Forward Shortlist (2026-05-31)
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
 - Doc docs/strategy/emi-sprints/emi-sprint-execution-tracker.md | docs/strategy/emi-sprints/emi-sprint-execution-tracker.md | EMI Sprint Execution Tracker
@@ -1111,7 +1117,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
-- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/sre/alert-matrix.md | docs/sre/alert-matrix.md | Alert Matrix (Exact Thresholds)
 - Doc docs/sre/dashboard-setup.md | docs/sre/dashboard-setup.md | P0 Reliability Dashboard Setup (R1.2)
 - Doc docs/sre/epic-90-day-reliability-rollout-summary.md | docs/sre/epic-90-day-reliability-rollout-summary.md | Epic Summary: 90-Day Reliability Rollout (SRE + UX Quality)
