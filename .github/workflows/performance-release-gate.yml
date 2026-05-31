@@ -1,4 +1,4 @@
-name: Performance Release Gate
+name: performance-release-gate
 
 on:
   pull_request:
