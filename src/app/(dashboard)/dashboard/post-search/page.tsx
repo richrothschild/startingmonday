@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { postSearchDigestFrequency, resolveCareerMode } from '@/lib/career-mode'
+import { buildRelationshipMaintenancePlan } from '@/lib/post-search-relationship-loop'
 
 export const metadata = { title: 'Career Intelligence Mode - Starting Monday' }
 
@@ -56,6 +57,7 @@ export default async function PostSearchDashboardPage() {
   const digestFrequency = postSearchDigestFrequency({ briefingFrequency: profile?.briefing_frequency })
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const recentSignals = (rawSignals ?? []) as unknown as SignalRow[]
+  const relationshipPlan = buildRelationshipMaintenancePlan({ activeContacts: activeContactCount ?? 0 })
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">
@@ -97,6 +99,21 @@ export default async function PostSearchDashboardPage() {
               ))}
             </ul>
           )}
+        </div>
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
+          <p className="text-[12px] font-semibold text-slate-200 mb-3">Relationship maintenance cadence</p>
+          <ul className="space-y-3">
+            {relationshipPlan.map((item) => (
+              <li key={item.id} className="border border-slate-800 rounded p-3 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[13px] text-slate-200">{item.title}</p>
+                  <p className="text-[12px] text-slate-500 capitalize">{item.cadence}</p>
+                </div>
+                <p className="text-[12px] font-semibold text-orange-300">Target: {item.targetCount}</p>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="flex flex-wrap gap-3">
