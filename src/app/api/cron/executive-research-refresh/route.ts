@@ -13,15 +13,11 @@ function normalizeWhitespace(value: string): string {
 function stripHtml(html: string): string {
   return normalizeWhitespace(
     html
-      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, ' ')
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, ' ')
       .replace(/<[^>]+>/g, ' ')
-      .replace(/&nbsp;/gi, ' ')
-      .replace(/&amp;/gi, '&')
-      .replace(/&quot;/gi, '"')
-      .replace(/&#39;/gi, "'")
-      .replace(/&lt;/gi, '<')
-      .replace(/&gt;/gi, '>')
+      // Keep entities encoded to avoid unsafe double-unescape behavior.
+      .replace(/&(nbsp|#160);/gi, ' ')
   )
 }
 

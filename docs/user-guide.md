@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-30T18:04:07.849Z
+Last generated: 2026-05-31T14:53:30.972Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (139)
+## Features (140)
 - [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 - [Terms](/terms) - Open /terms to use this feature area and related workflows.
 - [Security](/security) - Open /security to use this feature area and related workflows.
@@ -33,6 +33,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
 - [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
 - [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
@@ -168,7 +169,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (238)
+## API and Automation (240)
 - [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
@@ -264,6 +265,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/executive-research-refresh](/api/cron/executive-research-refresh) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/edgar-signals](/api/cron/edgar-signals) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/drip](/api/cron/drip) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/commitment-sunday](/api/cron/commitment-sunday) - Programmatic endpoint available for platform behavior or integrations.
@@ -325,6 +327,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/leads/score-route](/api/admin/leads/score-route) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/internal-guide/chat](/api/admin/internal-guide/chat) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/health](/api/admin/health) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/executive-research/health](/api/admin/executive-research/health) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/contacts/enrich](/api/admin/contacts/enrich) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/b2b/material](/api/admin/b2b/material) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync](/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync) - Programmatic endpoint available for platform behavior or integrations.
