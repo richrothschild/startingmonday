@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T21:38:24.758Z",
+  "generatedAt": "2026-05-31T22:46:35.573Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.678Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -26,7 +26,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T21:36:16.170Z"
+      "lastModifiedAt": "2026-05-31T21:39:06.616Z"
     },
     {
       "id": "feature:/unsubscribe/confirmed",
@@ -194,7 +194,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:31:51.154Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.769Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T21:38:05.739Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.681Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -6969,7 +6969,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:37:53.207Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.683Z"
     },
     {
       "id": "code:src/lib/program-template-governance.test.ts",
@@ -12230,7 +12230,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.677Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12269,7 +12269,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.678Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -12659,7 +12659,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:31:50.404Z"
+      "lastModifiedAt": "2026-05-31T22:45:12.575Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -13491,7 +13491,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:38:21.577Z"
+      "lastModifiedAt": "2026-05-31T22:46:32.363Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
