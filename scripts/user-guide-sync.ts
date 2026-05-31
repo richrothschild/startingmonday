@@ -416,7 +416,8 @@ async function hasMaterialGuideDrift(): Promise<boolean> {
 
   if (!existingEntries || !existingMarkdown) return true
 
-  const entriesMatch = JSON.stringify(existingEntries) === JSON.stringify(payload.entries)
+  const normalizeEntries = (entries: GuideEntry[]) => entries.map(({ lastModifiedAt: _lastModifiedAt, ...entry }) => entry)
+  const entriesMatch = JSON.stringify(normalizeEntries(existingEntries)) === JSON.stringify(normalizeEntries(payload.entries))
   const markdownMatch = normalizeGeneratedAtLine(existingMarkdown) === normalizeGeneratedAtLine(payload.markdown)
 
   return !(entriesMatch && markdownMatch)
