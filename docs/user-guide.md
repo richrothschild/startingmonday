@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-31T16:05:23.811Z
+Last generated: 2026-05-31T17:51:24.624Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -169,7 +169,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (240)
+## API and Automation (241)
 - [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
@@ -243,6 +243,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/feedback/items/[id]/vote](/api/feedback/items/[id]/vote) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
