@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { checkRateLimit } from '@/lib/rate-limit'
-import { getClientIp } from '@/lib/public-endpoint-guard'
+import { enforcePublicEndpointGuard, getClientIp } from '@/lib/public-endpoint-guard'
 
 export const runtime = 'nodejs'
 
@@ -58,6 +58,31 @@ export async function POST(request: NextRequest) {
     if (!email) {
       return NextResponse.redirect(
         buildLoginRedirect(publicOrigin, nextPath, { error: 'missing_credentials' })
+      )
+    }
+
+    const guardResponse = await enforcePublicEndpointGuard({
+      request,
+      rateLimitKey: 'magic-link-fallback',
+      maxPerMinute: 3,
+      requireCaptcha: true,
+    })
+    if (guardResponse) {
+      if (guardResponse.status === 429) {
+        return NextResponse.redirect(
+          buildLoginRedirect(publicOrigin, nextPath, { error: 'rate_limited' })
+        )
+      }
+
+      return NextResponse.redirect(
+        buildLoginRedirect(publicOrigin, nextPath, { error: 'captcha_required' })
+      )
+    }
+
+    const emailLimit = checkRateLimit(`magic-submit-email:${email}`, 3, 15 * 60_000)
+    if (!emailLimit.allowed) {
+      return NextResponse.redirect(
+        buildLoginRedirect(publicOrigin, nextPath, { error: 'rate_limited' })
       )
     }
 
