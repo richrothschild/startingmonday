@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T16:05:29.185Z",
+  "generatedAt": "2026-05-31T17:51:27.591Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.528Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1972,7 +1972,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T14:56:02.540Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.563Z"
     },
     {
       "id": "feature:/dashboard/admin/traces",
@@ -2418,7 +2418,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.774Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.676Z"
     },
     {
       "id": "api:/api/webhooks/onboarding-video",
@@ -2431,7 +2431,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.774Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.676Z"
     },
     {
       "id": "api:/api/track/open",
@@ -2457,7 +2457,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.773Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.674Z"
     },
     {
       "id": "api:/api/team/invite",
@@ -2470,7 +2470,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.773Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.674Z"
     },
     {
       "id": "api:/api/tailor",
@@ -2483,7 +2483,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.772Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.672Z"
     },
     {
       "id": "api:/api/tailor/strengthen",
@@ -2496,7 +2496,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.772Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.673Z"
     },
     {
       "id": "api:/api/tailor/check",
@@ -2509,7 +2509,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.772Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.671Z"
     },
     {
       "id": "api:/api/suggestions",
@@ -2561,7 +2561,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.771Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.671Z"
     },
     {
       "id": "api:/api/search",
@@ -2717,7 +2717,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.770Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.670Z"
     },
     {
       "id": "api:/api/prep/[id]/outreach/log",
@@ -2730,7 +2730,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.769Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.669Z"
     },
     {
       "id": "api:/api/prep/[id]/leadership",
@@ -2769,7 +2769,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.769Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.668Z"
     },
     {
       "id": "api:/api/prep/[id]/challenges",
@@ -2834,7 +2834,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.768Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.667Z"
     },
     {
       "id": "api:/api/pilot-outreach",
@@ -2847,7 +2847,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.768Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.667Z"
     },
     {
       "id": "api:/api/partners",
@@ -2860,7 +2860,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.767Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.666Z"
     },
     {
       "id": "api:/api/partners/report",
@@ -2886,7 +2886,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.767Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.665Z"
     },
     {
       "id": "api:/api/outreach/template",
@@ -2899,7 +2899,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.766Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.664Z"
     },
     {
       "id": "api:/api/outreach/suppression",
@@ -2912,7 +2912,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.766Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.663Z"
     },
     {
       "id": "api:/api/outreach/status",
@@ -2925,7 +2925,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.766Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.662Z"
     },
     {
       "id": "api:/api/outreach/send",
@@ -2938,7 +2938,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.765Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.662Z"
     },
     {
       "id": "api:/api/outreach/send/batch-status",
@@ -2990,7 +2990,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.764Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.661Z"
     },
     {
       "id": "api:/api/onboarding/intel",
@@ -3003,7 +3003,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.764Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.660Z"
     },
     {
       "id": "api:/api/onboarding/events",
@@ -3042,7 +3042,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.763Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.658Z"
     },
     {
       "id": "api:/api/narrative/generate-positioning",
@@ -3055,7 +3055,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.762Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.657Z"
     },
     {
       "id": "api:/api/narrative/generate-linkedin",
@@ -3068,7 +3068,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.762Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.656Z"
     },
     {
       "id": "api:/api/linkedin-import",
@@ -3081,7 +3081,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:53:23.948Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.656Z"
     },
     {
       "id": "api:/api/linkedin-import/match",
@@ -3094,7 +3094,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.761Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.655Z"
     },
     {
       "id": "api:/api/linkedin-import/extract",
@@ -3120,7 +3120,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.761Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.654Z"
     },
     {
       "id": "api:/api/linkedin-import/audit",
@@ -3159,7 +3159,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.760Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.653Z"
     },
     {
       "id": "api:/api/intelligence/radar",
@@ -3185,7 +3185,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.760Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.653Z"
     },
     {
       "id": "api:/api/ideas",
@@ -3224,7 +3224,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.759Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.651Z"
     },
     {
       "id": "api:/api/guide/chat/feedback",
@@ -3237,7 +3237,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.759Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.650Z"
     },
     {
       "id": "api:/api/google-calendar/disconnect",
@@ -3250,7 +3250,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.759Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.649Z"
     },
     {
       "id": "api:/api/google-calendar/connect",
@@ -3289,7 +3289,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.758Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.648Z"
     },
     {
       "id": "api:/api/feedback/items",
@@ -3342,6 +3342,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-05-15T02:01:32.811Z"
+    },
+    {
+      "id": "api:/api/executive-transition/emotion-state/score",
+      "title": "API /api/executive-transition/emotion-state/score",
+      "body": "export async function POST(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/executive-transition/emotion-state/score/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-05-31T17:10:05.347Z"
     },
     {
       "id": "api:/api/events/pmf",
@@ -3406,7 +3419,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.757Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.646Z"
     },
     {
       "id": "api:/api/demo-email",
@@ -3419,7 +3432,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.757Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.645Z"
     },
     {
       "id": "api:/api/demo-brief",
@@ -3432,7 +3445,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.756Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.643Z"
     },
     {
       "id": "api:/api/demo-brief/tailored",
@@ -3445,7 +3458,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.756Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.644Z"
     },
     {
       "id": "api:/api/demo-brief/manager-tools",
@@ -3458,7 +3471,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.756Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.643Z"
     },
     {
       "id": "api:/api/cron/weekly-digest",
@@ -3640,7 +3653,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T15:05:45.807Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.640Z"
     },
     {
       "id": "api:/api/cron/edgar-signals",
@@ -3705,7 +3718,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.753Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.639Z"
     },
     {
       "id": "api:/api/contacts",
@@ -3744,7 +3757,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.752Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.638Z"
     },
     {
       "id": "api:/api/concierge/calls",
@@ -3835,7 +3848,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.751Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.637Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/signals",
@@ -3900,7 +3913,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.751Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.636Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/actions",
@@ -3913,7 +3926,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.750Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.635Z"
     },
     {
       "id": "api:/api/client/coaches",
@@ -3978,7 +3991,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.749Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.633Z"
     },
     {
       "id": "api:/api/briefs/save",
@@ -4004,7 +4017,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.749Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.634Z"
     },
     {
       "id": "api:/api/briefing/send",
@@ -4017,7 +4030,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.748Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.632Z"
     },
     {
       "id": "api:/api/billing/resume",
@@ -4043,7 +4056,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.748Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.631Z"
     },
     {
       "id": "api:/api/billing/pause",
@@ -4069,7 +4082,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.747Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.629Z"
     },
     {
       "id": "api:/api/billing/checkout/seats",
@@ -4082,7 +4095,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.747Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.630Z"
     },
     {
       "id": "api:/api/billing/checkout/micro-product-bundle",
@@ -4095,7 +4108,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.746Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.627Z"
     },
     {
       "id": "api:/api/billing/checkout/micro-product",
@@ -4108,7 +4121,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.746Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.628Z"
     },
     {
       "id": "api:/api/auth/verify-and-signup",
@@ -4121,7 +4134,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.745Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.625Z"
     },
     {
       "id": "api:/api/auth/verify-and-signin",
@@ -4147,7 +4160,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.745Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.625Z"
     },
     {
       "id": "api:/api/auth/verify-and-magic-link",
@@ -4186,7 +4199,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T04:00:53.858Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.624Z"
     },
     {
       "id": "api:/api/auth/login-submit",
@@ -4199,7 +4212,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.744Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.622Z"
     },
     {
       "id": "api:/api/admin/speakers",
@@ -4212,7 +4225,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.743Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.621Z"
     },
     {
       "id": "api:/api/admin/speakers/[id]",
@@ -4225,7 +4238,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.744Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.620Z"
     },
     {
       "id": "api:/api/admin/speakers/export",
@@ -4251,7 +4264,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.742Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.617Z"
     },
     {
       "id": "api:/api/admin/social/[id]/schedule",
@@ -4277,7 +4290,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.742Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.616Z"
     },
     {
       "id": "api:/api/admin/social/[id]/council-check",
@@ -4290,7 +4303,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.741Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.615Z"
     },
     {
       "id": "api:/api/admin/social/today",
@@ -4329,7 +4342,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.740Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.619Z"
     },
     {
       "id": "api:/api/admin/social/morning",
@@ -4355,7 +4368,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.740Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.618Z"
     },
     {
       "id": "api:/api/admin/social/digest",
@@ -4407,7 +4420,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.739Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.614Z"
     },
     {
       "id": "api:/api/admin/internal-guide/chat",
@@ -4420,7 +4433,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.738Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.613Z"
     },
     {
       "id": "api:/api/admin/health",
@@ -4446,7 +4459,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T14:56:02.541Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.611Z"
     },
     {
       "id": "api:/api/admin/contacts/enrich",
@@ -4485,7 +4498,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.737Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.610Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/revenue-classification",
@@ -4498,7 +4511,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.737Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.609Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/payout-matching",
@@ -4511,7 +4524,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.737Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.608Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/mismatch-flagging",
@@ -4524,7 +4537,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.736Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.607Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/exception-reporting",
@@ -4537,7 +4550,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.736Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.606Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/bookkeeping-entry-preparation",
@@ -4550,7 +4563,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.735Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.605Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/weekly-kpi-summaries",
@@ -4563,7 +4576,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T04:00:53.858Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.604Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/value-lane-pricing-entitlements",
@@ -4576,7 +4589,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.735Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.603Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/trend-reports",
@@ -4589,7 +4602,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.734Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.602Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/template-adoption-scorecard",
@@ -4641,7 +4654,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.733Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.600Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/sponsor-export-dispatch",
@@ -4680,7 +4693,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.732Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.597Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/provisioning-sla-qa",
@@ -4706,7 +4719,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.732Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.595Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/program-template-governance",
@@ -4719,7 +4732,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.731Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.594Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/prep-provenance-coverage",
@@ -4784,7 +4797,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.731Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.591Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/partner-kpi-schema",
@@ -4810,7 +4823,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.729Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.589Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/onboarding-qa-scorecard",
@@ -4823,7 +4836,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.729Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.588Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/monthly-business-review-packs",
@@ -4836,7 +4849,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.728Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.586Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/migration-playbook-comms",
@@ -4849,7 +4862,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.728Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.585Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/intelligence-qa-scorecard",
@@ -4862,7 +4875,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.727Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.584Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/exception-lists",
@@ -4875,7 +4888,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.726Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.583Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/emi-validation-reruns",
@@ -4901,7 +4914,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.726Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.582Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/council-review-prep",
@@ -4914,7 +4927,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.725Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.581Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/cohort-roster-model",
@@ -4966,7 +4979,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.725Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.579Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/reconcile-live-sends",
@@ -4979,7 +4992,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.724Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.578Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/post-meeting-follow-up",
@@ -4992,7 +5005,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.724Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.577Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/initial-sequences",
@@ -5005,7 +5018,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.723Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.576Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/follow-up-timing",
@@ -5018,7 +5031,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.723Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.576Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/enforce-suppression",
@@ -5031,7 +5044,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.723Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.575Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/classify-replies",
@@ -5044,7 +5057,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.722Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.574Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/book-from-replies",
@@ -5057,7 +5070,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.722Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.573Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/workflow-assignment",
@@ -5070,7 +5083,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.721Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.572Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/video-queue",
@@ -5083,7 +5096,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.721Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.571Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/video-queue/[runId]",
@@ -5109,7 +5122,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.721Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.569Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/identity-verify",
@@ -5122,7 +5135,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.720Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.569Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/first-milestone-tracking",
@@ -5135,7 +5148,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.720Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.568Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/first-brief",
@@ -5148,7 +5161,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.719Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.567Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/context-capture",
@@ -5161,7 +5174,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.719Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.566Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/activation-reminders",
@@ -5200,7 +5213,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T03:58:03.718Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.565Z"
     },
     {
       "id": "api:/api/admin/automation/engineering/test-execution",
@@ -5785,7 +5798,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.734Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.684Z"
     },
     {
       "id": "code:src/lib/channel-ia.ts",
@@ -5811,7 +5824,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.735Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.684Z"
     },
     {
       "id": "code:src/lib/channel-metrics-events.ts",
@@ -6110,7 +6123,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T13:38:03.555Z"
+      "lastModifiedAt": "2026-05-31T17:10:05.348Z"
     },
     {
       "id": "code:src/lib/executive-job-search.ts",
@@ -6123,7 +6136,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T13:38:03.555Z"
+      "lastModifiedAt": "2026-05-31T17:10:05.349Z"
     },
     {
       "id": "code:src/lib/executive-research-library.ts",
@@ -6136,7 +6149,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T13:55:02.412Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.685Z"
     },
     {
       "id": "code:src/lib/form-utils.test.ts",
@@ -6227,7 +6240,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.735Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.686Z"
     },
     {
       "id": "code:src/lib/intelligence-quality.ts",
@@ -6357,7 +6370,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.735Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.686Z"
     },
     {
       "id": "code:src/lib/micro-products.ts",
@@ -6383,7 +6396,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.736Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.687Z"
     },
     {
       "id": "code:src/lib/onboarding-speed.ts",
@@ -6409,7 +6422,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.736Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.687Z"
     },
     {
       "id": "code:src/lib/onboarding-video-provider.ts",
@@ -6435,7 +6448,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.737Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.687Z"
     },
     {
       "id": "code:src/lib/onboarding-video-queue.ts",
@@ -6461,7 +6474,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.737Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.688Z"
     },
     {
       "id": "code:src/lib/outplacement-cohort-model.ts",
@@ -6513,7 +6526,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.739Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.689Z"
     },
     {
       "id": "code:src/lib/partner-kpi-schema.ts",
@@ -6539,7 +6552,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.739Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.690Z"
     },
     {
       "id": "code:src/lib/partner-provisioning.ts",
@@ -6565,7 +6578,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.739Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.690Z"
     },
     {
       "id": "code:src/lib/persona-routes.ts",
@@ -6825,7 +6838,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.740Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.690Z"
     },
     {
       "id": "code:src/lib/program-template-governance.ts",
@@ -7059,7 +7072,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.740Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.691Z"
     },
     {
       "id": "code:src/lib/role-path-priority.ts",
@@ -7098,7 +7111,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T13:38:03.554Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.692Z"
     },
     {
       "id": "code:src/lib/slack.test.ts",
@@ -7449,7 +7462,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.741Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.692Z"
     },
     {
       "id": "code:src/lib/value-lane-pricing.ts",
@@ -7748,7 +7761,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.738Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.688Z"
     },
     {
       "id": "code:src/lib/outreach/legacy-copy-guard.ts",
@@ -7800,7 +7813,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T03:50:46.738Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.689Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.ts",
@@ -8021,7 +8034,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T13:12:54.946Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.557Z"
     },
     {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
@@ -8619,7 +8632,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T14:56:02.541Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.558Z"
     },
     {
       "id": "script:scripts/growth-synthetic-council-audit.mjs",
@@ -8762,7 +8775,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T16:05:19.146Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.560Z"
     },
     {
       "id": "script:scripts/link-integrity-audit.mjs",
@@ -9022,7 +9035,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T13:12:54.948Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.560Z"
     },
     {
       "id": "script:scripts/sample-outreach-examples.mjs",
@@ -9217,7 +9230,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T16:05:19.139Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.561Z"
     },
     {
       "id": "script:scripts/verify-prep-brief-golden-set.mjs",
@@ -9334,7 +9347,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T14:56:02.541Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.485Z"
     },
     {
       "id": "infra:.github/workflows/fast-burn-alert.yml",
@@ -9425,7 +9438,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T14:56:02.540Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.486Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -11341,7 +11354,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T13:55:02.412Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.694Z"
     },
     {
       "id": "data:supabase/migrations/121_onboarding_video_automation_foundation.sql",
@@ -11722,7 +11735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:16:09.852Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.497Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -11787,7 +11800,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:42:22.743Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.502Z"
     },
     {
       "id": "doc:docs/epic-90-day-reliability-rollout.md",
@@ -11839,7 +11852,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:42:22.743Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.502Z"
     },
     {
       "id": "doc:docs/epic-sre-council-backlog.md",
@@ -11930,7 +11943,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T03:48:02.745Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.520Z"
     },
     {
       "id": "doc:docs/google-calendar-integration-plan.md",
@@ -12047,7 +12060,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.527Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12086,7 +12099,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.528Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -12229,7 +12242,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:42:22.743Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.529Z"
     },
     {
       "id": "doc:docs/marketing-plan.md",
@@ -12450,7 +12463,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:12:54.949Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.530Z"
     },
     {
       "id": "doc:docs/performance-budget.md",
@@ -12463,7 +12476,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:12:54.949Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.533Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.latest.md",
@@ -12476,7 +12489,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:19:19.046Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.534Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -12489,7 +12502,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:12:54.949Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.535Z"
     },
     {
       "id": "doc:docs/persona-emotions.md",
@@ -12710,7 +12723,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:12:54.949Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.539Z"
     },
     {
       "id": "doc:docs/release-ux-signoff-checklist.md",
@@ -12801,7 +12814,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T04:07:05.417Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.540Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -13178,7 +13191,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T04:04:52.005Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.542Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -13308,7 +13321,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T16:05:23.818Z"
+      "lastModifiedAt": "2026-05-31T17:51:24.629Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -13412,7 +13425,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T04:04:52.677Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.548Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",
@@ -15193,7 +15206,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.410Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.503Z"
     },
     {
       "id": "doc:docs/executive-job-search/02-behavior-ontology-v1.md",
@@ -15206,7 +15219,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:29:23.746Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.504Z"
     },
     {
       "id": "doc:docs/executive-job-search/03-role-stage-matrix-v1.md",
@@ -15219,7 +15232,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:29:23.746Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.505Z"
     },
     {
       "id": "doc:docs/executive-job-search/04-derailer-taxonomy-v1.md",
@@ -15232,7 +15245,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:29:23.746Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.505Z"
     },
     {
       "id": "doc:docs/executive-job-search/05-intervention-library-v1.md",
@@ -15245,7 +15258,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:29:23.747Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.506Z"
     },
     {
       "id": "doc:docs/executive-job-search/06-triangulation-plan-v1.md",
@@ -15258,7 +15271,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:29:23.747Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.507Z"
     },
     {
       "id": "doc:docs/executive-job-search/07-research-pack-overview.md",
@@ -15271,7 +15284,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.411Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.508Z"
     },
     {
       "id": "doc:docs/executive-job-search/08-product-spec.md",
@@ -15284,7 +15297,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:31:50.450Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.508Z"
     },
     {
       "id": "doc:docs/executive-job-search/09-segmentation-schema.md",
@@ -15297,7 +15310,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:31:50.450Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.509Z"
     },
     {
       "id": "doc:docs/executive-job-search/10-interview-guide.md",
@@ -15310,7 +15323,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:31:50.450Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.510Z"
     },
     {
       "id": "doc:docs/executive-job-search/11-candidate-scoring-rubric.md",
@@ -15323,7 +15336,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:31:50.450Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.511Z"
     },
     {
       "id": "doc:docs/executive-job-search/12-implementation-notes.md",
@@ -15336,7 +15349,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:31:50.450Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.511Z"
     },
     {
       "id": "doc:docs/executive-job-search/13-signal-mining-program.md",
@@ -15349,7 +15362,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.414Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.512Z"
     },
     {
       "id": "doc:docs/executive-job-search/14-synthetic-first-sprint-plan.md",
@@ -15362,7 +15375,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.418Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.513Z"
     },
     {
       "id": "doc:docs/executive-job-search/15-literature-first-sprint-plan.md",
@@ -15375,7 +15388,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.418Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.513Z"
     },
     {
       "id": "doc:docs/executive-job-search/16-expert-first-desk-synthesis.md",
@@ -15388,7 +15401,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.420Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.514Z"
     },
     {
       "id": "doc:docs/executive-job-search/17-top-50-behavior-hypotheses.md",
@@ -15401,7 +15414,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.420Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.515Z"
     },
     {
       "id": "doc:docs/executive-job-search/18-lightweight-product-tests.md",
@@ -15414,7 +15427,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.420Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.515Z"
     },
     {
       "id": "doc:docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md",
@@ -15427,7 +15440,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.421Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.516Z"
     },
     {
       "id": "doc:docs/executive-job-search/20-validated-constructs-catalog.md",
@@ -15440,7 +15453,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.420Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.517Z"
     },
     {
       "id": "doc:docs/executive-job-search/21-construct-to-signal-intervention-map.md",
@@ -15453,7 +15466,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.421Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.518Z"
     },
     {
       "id": "doc:docs/executive-job-search/22-public-transition-mining-method.md",
@@ -15466,7 +15479,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.421Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.518Z"
     },
     {
       "id": "doc:docs/executive-job-search/23-job-description-language-analysis-method.md",
@@ -15479,7 +15492,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.422Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.519Z"
     },
     {
       "id": "doc:docs/executive-job-search/24-transition-archetypes-v1.md",
@@ -15492,7 +15505,176 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T13:55:02.423Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.519Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md",
+      "title": "Doc docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md",
+      "body": "Executive Transition Emotional Journey, Behavior Map, and Execution Plan",
+      "type": "doc",
+      "ref": "docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.341Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/26-operating-summary-leadership.md",
+      "title": "Doc docs/executive-job-search/26-operating-summary-leadership.md",
+      "body": "Leadership One-Page Operating Summary",
+      "type": "doc",
+      "ref": "docs/executive-job-search/26-operating-summary-leadership.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.342Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md",
+      "title": "Doc docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md",
+      "body": "Backlog Ticket Breakdown: One Ticket Per Sprint Deliverable",
+      "type": "doc",
+      "ref": "docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.343Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md",
+      "title": "Doc docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md",
+      "body": "Sprint 1 Deliverable: Emotion-State Specification v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.343Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md",
+      "title": "Doc docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md",
+      "body": "Sprint 1 Deliverable: Signal Dictionary v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.344Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md",
+      "title": "Doc docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md",
+      "body": "Sprint 1 Deliverable: Scoring API Implementation Plan",
+      "type": "doc",
+      "ref": "docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.344Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/31-sprint-1-github-issue-drafts.md",
+      "title": "Doc docs/executive-job-search/31-sprint-1-github-issue-drafts.md",
+      "body": "Sprint 1 GitHub Issue Drafts",
+      "type": "doc",
+      "ref": "docs/executive-job-search/31-sprint-1-github-issue-drafts.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.345Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md",
+      "title": "Doc docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md",
+      "body": "Sprint 1 Review Checklist and Agenda Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:10:05.345Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/33-sprint-2-execution-packet.md",
+      "title": "Doc docs/executive-job-search/33-sprint-2-execution-packet.md",
+      "body": "Sprint 2 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/33-sprint-2-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:11:18.703Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "title": "Doc docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "body": "Sprint 3 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:11:28.077Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "title": "Doc docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "body": "Sprint 4 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:11:38.484Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "title": "Doc docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "body": "Sprint 5 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:11:48.171Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "title": "Doc docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "body": "Sprint 6 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T17:11:57.725Z"
     },
     {
       "id": "doc:docs/evals/prep-brief-optimization-cycle-01.md",
@@ -15674,7 +15856,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:56:02.542Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.498Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md",
@@ -15687,7 +15869,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:56:02.542Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.499Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md",
@@ -15700,7 +15882,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:56:02.542Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.500Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/124_guide_chat_analytics.md",
@@ -15713,7 +15895,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T14:56:02.543Z"
+      "lastModifiedAt": "2026-05-31T17:51:10.500Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
