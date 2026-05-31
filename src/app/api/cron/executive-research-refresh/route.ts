@@ -13,8 +13,8 @@ function normalizeWhitespace(value: string): string {
 function stripHtml(html: string): string {
   return normalizeWhitespace(
     html
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, ' ')
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, ' ')
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, ' ')
       .replace(/<[^>]+>/g, ' ')
       // Keep entities encoded to avoid unsafe double-unescape behavior.
       .replace(/&(nbsp|#160);/gi, ' ')

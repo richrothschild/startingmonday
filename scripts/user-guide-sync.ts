@@ -339,7 +339,7 @@ async function computeSourceHash(files: string[]): Promise<string> {
     const exists = await fileExists(filePath)
     if (!exists) continue
     const stat = await fs.stat(filePath)
-    hash.update(filePath)
+    hash.update(path.relative(ROOT, filePath).replace(/\\/g, '/'))
     hash.update(String(stat.size))
     hash.update(String(stat.mtimeMs))
   }
