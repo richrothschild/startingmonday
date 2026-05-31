@@ -10,10 +10,7 @@ const TOP_MOBILE_ROUTES = [
 
 test.describe('Mobile visual snapshots @mobile @visual', () => {
   test.beforeEach(async ({ page }, testInfo) => {
-    test.skip(
-      !['mobile-iphone', 'mobile-android'].includes(testInfo.project.name),
-      'Visual mobile suite only runs on committed phone baselines.'
-    )
+    test.skip(!testInfo.project.name.startsWith('mobile-'), 'Visual mobile suite only runs on mobile projects')
 
     await page.addStyleTag({
       content: `
@@ -40,7 +37,7 @@ test.describe('Mobile visual snapshots @mobile @visual', () => {
       await expect(page).toHaveScreenshot(screenshotName, {
         fullPage: false,
         animations: 'disabled',
-        maxDiffPixelRatio: 0.15,
+        maxDiffPixelRatio: 0.05,
       })
     })
   }
