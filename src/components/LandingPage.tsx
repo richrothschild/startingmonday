@@ -154,24 +154,16 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               {hero.body}
             </p>
 
-            <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
+            <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_transformation_contrast">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Before and after</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">What this is</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">An executive search operating system anchored by one weekly Momentum Signal.</p>
+                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-3">
+                  <p className="text-slate-400 mb-1">Reactive executive</p>
+                  <p className="text-white [text-wrap:pretty]">Waits for public postings, sends bursts of outreach, and rebuilds story quality every interview cycle.</p>
                 </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Who it is for</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">Senior technology leaders in active or near-term transition.</p>
-                </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Problem it solves</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
-                </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Why now</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">High-value roles are shaped before formal posting windows appear.</p>
+                <div className="rounded-md border border-emerald-400/40 bg-emerald-950/30 px-3 py-3">
+                  <p className="text-emerald-200 mb-1">Strategic executive</p>
+                  <p className="text-slate-100 [text-wrap:pretty]">Runs an always-on career infrastructure: market pulse, relationship rhythm, and narrative readiness before the market asks.</p>
                 </div>
               </div>
             </div>
@@ -243,24 +235,23 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
           <div className="max-w-5xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Proof and credibility</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_founder_credibility">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Founder credibility</p>
+              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_transformation_testimonial_1">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Transformation outcome</p>
                 <p className="text-[13px] text-slate-200 leading-relaxed">
-                  I built Starting Monday after running my own C-suite search and seeing how quickly timing and narrative quality decide outcomes.
-                  My background is enterprise technology leadership and transformation operations, where outcomes mattered more than activity.
-                  This product is the system I wanted when the stakes were real.
+                  "I stopped treating my career like a rescue project. In six weeks, I moved from reactive outreach to a weekly operating cadence with deliberate board-level conversations."
                 </p>
+                <p className="text-[12px] text-slate-400 mt-3">CIO candidate, enterprise SaaS transition</p>
               </div>
-              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_positioning_comparison">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">How this is different</p>
+              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_transformation_testimonial_2">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Transformation outcome</p>
                 <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
-                  LinkedIn Premium is strong for posted roles. Starting Monday is built for pre-posting windows: one weekly Momentum Signal for executive motion,
-                  relationship cadence, and prep depth before formal search begins.
+                  "My narrative used to change every call. Now it is versioned, measurable, and aligned to each target company. I show up as the same executive every time."
                 </p>
+                <p className="text-[12px] text-slate-400 mb-4">VP to C-suite transition, PE-backed portfolio path</p>
                 <div className="flex flex-wrap gap-3 text-[12px]">
                   <Link href="/method-and-evidence" data-emi-cta="proof_method_evidence" data-emi-to="/method-and-evidence" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Method and evidence</Link>
                   <Link href="/evidence-room" data-emi-cta="proof_evidence_room" data-emi-to="/evidence-room" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Evidence room</Link>
-                  <Link href="/pricing" data-emi-cta="proof_pricing" data-emi-to="/pricing" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Pricing and plans</Link>
+                  <Link href="/pricing" data-emi-cta="proof_pricing" data-emi-to="/pricing" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Career infrastructure pricing</Link>
                 </div>
               </div>
             </div>
@@ -339,19 +330,19 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
         <section id="start-now" data-emi-section="final_cta_block" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-[34px] sm:text-[44px] font-bold text-slate-50 mb-4 leading-tight [text-wrap:balance]">
-              The signal comes before the search begins. Be ready when it does.
+              Build career infrastructure before your next transition demands it.
             </h2>
             <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed [text-wrap:pretty]">
-              Start with one confidential brief, and we will confirm fit fast. Prefer proof first? Review the method page, browse the evidence room, or watch the live demo.
+              Pricing starts at $49 per month, with annual plans that include two months free on every tier. This is not a one-time job-search tool, it is the operating layer most executives never had.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link
-                href="/concierge?program=beta&from=landing"
-                data-emi-cta="final_apply_beta"
-                data-emi-to="/concierge?program=beta&from=landing"
+                href="/pricing"
+                data-emi-cta="final_view_pricing"
+                data-emi-to="/pricing"
                 className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Apply for confidential beta &rarr;
+                View plans and annual pricing &rarr;
               </Link>
               <Link
                 href="/demo?from=landing"
