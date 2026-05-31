@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   buildExecutiveJobSearchScore,
   formatExecutiveSearchBand,
+  scoreExecutiveEmotionState,
   type ExecutiveJobSearchIntake,
 } from './executive-job-search'
 
@@ -63,5 +64,39 @@ describe('executive job search scoring', () => {
     expect(score.totalScore).toBeLessThanOrEqual(100)
     expect(['moderate', 'fragile', 'high-risk']).toContain(score.band)
     expect(score.evidenceNotes.length).toBeGreaterThan(0)
+  })
+
+  it('returns decision overload for high-lag offer-stage signals', () => {
+    const score = scoreExecutiveEmotionState({
+      user_id: 'test-user',
+      stage: 'OFFER_DECISION',
+      signal_window: {
+        cadence_adherence_pct: 62,
+        decision_lag_days: 14,
+        context_completion_rate: 0.3,
+        no_go_criteria_present: false,
+        decision_load_index: 75,
+      },
+    })
+
+    expect(score.state).toBe('decision_overload')
+    expect(score.fallback_applied).toBe(false)
+    expect(score.recommended_intervention_mode).toBe('decide')
+    expect(score.top_signal_drivers.length).toBeGreaterThan(0)
+  })
+
+  it('applies low-confidence fallback when signal coverage is insufficient', () => {
+    const score = scoreExecutiveEmotionState({
+      user_id: 'test-user',
+      stage: 'MARKET_ACTIVATION',
+      signal_window: {
+        cadence_adherence_pct: 78,
+      },
+    })
+
+    expect(score.state).toBe('activation_friction')
+    expect(score.fallback_applied).toBe(true)
+    expect(score.confidence_band).toBe('low')
+    expect(score.top_signal_drivers).toContain('missing_signal_coverage')
   })
 })
