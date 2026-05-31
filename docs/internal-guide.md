@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-31T18:28:28.436Z
+Last generated: 2026-05-31T15:43:26.792Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -179,7 +179,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Login | /login | User-facing page route /login.
 
-## API Surface (241)
+## API Surface (240)
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
@@ -253,7 +253,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/feedback/items/[id]/vote | src/app/api/feedback/items/[id]/vote/route.ts | POST /api/feedback/items/[id]/vote - add vote
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
-- API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
@@ -873,7 +872,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 
-## Documentation (491)
+## Documentation (478)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1189,19 +1188,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/executive-job-search/22-public-transition-mining-method.md | docs/executive-job-search/22-public-transition-mining-method.md | Public Transition Mining Method
 - Doc docs/executive-job-search/23-job-description-language-analysis-method.md | docs/executive-job-search/23-job-description-language-analysis-method.md | Job Description Language Analysis Method
 - Doc docs/executive-job-search/24-transition-archetypes-v1.md | docs/executive-job-search/24-transition-archetypes-v1.md | Transition Archetypes v1
-- Doc docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | Executive Transition Emotional Journey, Behavior Map, and Execution Plan
-- Doc docs/executive-job-search/26-operating-summary-leadership.md | docs/executive-job-search/26-operating-summary-leadership.md | Leadership One-Page Operating Summary
-- Doc docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | Backlog Ticket Breakdown: One Ticket Per Sprint Deliverable
-- Doc docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | Sprint 1 Deliverable: Emotion-State Specification v1
-- Doc docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | Sprint 1 Deliverable: Signal Dictionary v1
-- Doc docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | Sprint 1 Deliverable: Scoring API Implementation Plan
-- Doc docs/executive-job-search/31-sprint-1-github-issue-drafts.md | docs/executive-job-search/31-sprint-1-github-issue-drafts.md | Sprint 1 GitHub Issue Drafts
-- Doc docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | Sprint 1 Review Checklist and Agenda Packet
-- Doc docs/executive-job-search/33-sprint-2-execution-packet.md | docs/executive-job-search/33-sprint-2-execution-packet.md | Sprint 2 Execution Packet
-- Doc docs/executive-job-search/34-sprint-3-execution-packet.md | docs/executive-job-search/34-sprint-3-execution-packet.md | Sprint 3 Execution Packet
-- Doc docs/executive-job-search/35-sprint-4-execution-packet.md | docs/executive-job-search/35-sprint-4-execution-packet.md | Sprint 4 Execution Packet
-- Doc docs/executive-job-search/36-sprint-5-execution-packet.md | docs/executive-job-search/36-sprint-5-execution-packet.md | Sprint 5 Execution Packet
-- Doc docs/executive-job-search/37-sprint-6-execution-packet.md | docs/executive-job-search/37-sprint-6-execution-packet.md | Sprint 6 Execution Packet
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
 - Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion
