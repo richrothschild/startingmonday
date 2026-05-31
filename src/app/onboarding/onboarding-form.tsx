@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { type SearchPersona, seededCompaniesFor, suggestionsForPersona } from './onboarding-helpers'
@@ -13,6 +13,13 @@ import {
   isTransitionFirstCohort,
   onboardingMilestones,
 } from '@/lib/onboarding-speed'
+import {
+  buildExecutiveJobSearchScore,
+  formatExecutiveSearchBand,
+  interventionLabel,
+  type ExecutiveJobSearchIntake,
+  type ExecutiveRoleSegment,
+} from '@/lib/executive-job-search'
 
 type ImportResult = {
   full_name?: string | null
@@ -33,6 +40,24 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
 
 const STEP_COUNT = 7
 const QUICK_PATH_STEP_COUNT = 5
+
+const SEARCH_PERSONA_TO_ROLE_SEGMENT: Record<SearchPersona, ExecutiveRoleSegment> = {
+  csuite: 'CEO_PRESIDENT',
+  vp: 'COO_GM_BU',
+  director: 'COO_GM_BU',
+  board: 'BOARD_ADVISOR',
+}
+
+const SEGMENT_LABELS: Record<ExecutiveRoleSegment, string> = {
+  CEO_PRESIDENT: 'CEO / President',
+  COO_GM_BU: 'COO / GM / BU leader',
+  CFO: 'CFO',
+  CHRO_HR: 'CHRO / HR leader',
+  CIO_CTO_TECH: 'CIO / CTO / Technology leader',
+  CMO_CRO_COMMERCIAL: 'CMO / CRO / Commercial leader',
+  PR_COMMS_FUNDRAISING: 'PR / Communications / Fundraising leader',
+  BOARD_ADVISOR: 'Board / Advisor',
+}
 
 function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
   return (
@@ -100,6 +125,47 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const firstValueLogged = useRef(false)
 
   const transitionFirst = isTransitionFirstCohort(employmentStatus, searchTimeline)
+
+  const executiveIntake = useMemo<ExecutiveJobSearchIntake>(() => ({
+    full_name: fullName,
+    search_persona: (searchPersona || 'csuite') as SearchPersona,
+    current_title: currentTitle,
+    current_company: currentCompany,
+    positioning_summary: positioningSummary,
+    resume_text: resumeText,
+    beyond_resume: beyondResume,
+    target_titles: targetTitles.split(',').map((item) => item.trim()).filter(Boolean),
+    company_names: companyNames.filter((name) => name.trim()),
+    employment_status: employmentStatus,
+    search_timeline: searchTimeline,
+    search_driver: searchDriver,
+    role_segment: searchPersona ? SEARCH_PERSONA_TO_ROLE_SEGMENT[searchPersona] : null,
+    transition_type: null,
+    search_stage: null,
+    search_mode: null,
+    network_strength: companyNames.filter((name) => name.trim()).length >= 3 ? 'STRONG' : companyNames.filter((name) => name.trim()).length >= 1 ? 'MODERATE' : 'WEAK',
+    urgency_level: isPassive ? 'LOW' : 'MEDIUM',
+    board_visibility: searchPersona === 'board' ? 'CRITICAL' : searchPersona === 'csuite' ? 'HIGH' : 'MEDIUM',
+    geography_constraint: null,
+    family_constraint: null,
+    confidence_tier: null,
+  }), [
+    fullName,
+    searchPersona,
+    currentTitle,
+    currentCompany,
+    positioningSummary,
+    resumeText,
+    beyondResume,
+    targetTitles,
+    companyNames,
+    employmentStatus,
+    searchTimeline,
+    searchDriver,
+    isPassive,
+  ])
+
+  const executiveScore = useMemo(() => buildExecutiveJobSearchScore(executiveIntake), [executiveIntake])
 
   const milestoneChecklist = onboardingMilestones({
     searchPersona,
@@ -431,6 +497,29 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             {elapsedSeconds >= 480 && step < 6 && (
               <p className="text-[12px] text-amber-700 mt-2">Nudge: use low-energy mode or quick path to reach first value now.</p>
             )}
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Executive search score</p>
+              <span className="text-[11px] font-semibold px-2 py-1 rounded bg-slate-100 text-slate-700">
+                {executiveScore.totalScore}/100
+              </span>
+            </div>
+            <p className="text-[15px] font-semibold text-slate-900">{formatExecutiveSearchBand(executiveScore.band)}</p>
+            <p className="text-[12px] text-slate-500 mt-1">
+              Segment: {SEGMENT_LABELS[executiveIntake.role_segment ?? 'CEO_PRESIDENT']} · Stage: {executiveIntake.search_stage ?? 'Target selection'}
+            </p>
+            <div className="mt-3 grid grid-cols-2 gap-2 text-[12px] text-slate-600">
+              <Metric label="Narrative" value={executiveScore.dimensionScores.narrativeClarity} />
+              <Metric label="Network" value={executiveScore.dimensionScores.outreachActivation} />
+              <Metric label="Decision" value={executiveScore.dimensionScores.decisionQuality} />
+              <Metric label="Readiness" value={executiveScore.dimensionScores.transitionReadiness} />
+            </div>
+            <div className="mt-3 rounded-md bg-slate-50 border border-slate-100 p-3">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">Recommended next intervention</p>
+              <p className="text-[13px] font-semibold text-slate-800 mt-1">{interventionLabel(executiveScore.recommendedInterventionKey)}</p>
+            </div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-lg p-4">
@@ -1094,6 +1183,15 @@ function StepDone({
           Complete profile from dashboard start page
         </Link>
       </div>
+    </div>
+  )
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
+      <p className="text-[11px] uppercase tracking-[0.08em] text-slate-400">{label}</p>
+      <p className="text-[14px] font-semibold text-slate-900">{value}/5</p>
     </div>
   )
 }

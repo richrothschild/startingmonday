@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { slugify } from '@/lib/intelligence'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function GET() {
   const supabase = await createClient()
@@ -63,3 +62,7 @@ export async function POST(req: NextRequest) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ slug })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

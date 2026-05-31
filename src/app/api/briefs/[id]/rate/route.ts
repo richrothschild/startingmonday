@@ -1,8 +1,7 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { captureServerEvent } from '@/lib/posthog-server'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function PATCH(
   request: NextRequest,
@@ -44,3 +43,7 @@ export async function PATCH(
 
   return NextResponse.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

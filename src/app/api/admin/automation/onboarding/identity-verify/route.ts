@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function scorePayload(payload: Record<string, unknown>): { confidence: number; status: 'verified' | 'pending'; evidence: Record<string, boolean> } {
   const fullName = typeof payload.full_name === 'string' && payload.full_name.trim().length > 2
@@ -79,3 +78,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true, processed: submissions?.length ?? 0, verified, needsReview })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

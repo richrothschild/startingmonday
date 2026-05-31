@@ -1,0 +1,108 @@
+{
+  "ts": "2026-05-31T12:53:19.659Z",
+  "baseUrl": "https://startingmonday.app",
+  "thresholds": {
+    "version": 1,
+    "generatedAt": "2026-05-28",
+    "autoDiscovery": {
+      "enabled": false,
+      "maxResponseMs": 2200
+    },
+    "routes": [
+      {
+        "name": "Home",
+        "path": "/",
+        "expectedStatus": 200,
+        "maxResponseMs": 1800
+      },
+      {
+        "name": "Login",
+        "path": "/login",
+        "expectedStatus": 200,
+        "maxResponseMs": 1400
+      },
+      {
+        "name": "Pricing",
+        "path": "/pricing",
+        "expectedStatus": 200,
+        "maxResponseMs": 1500
+      },
+      {
+        "name": "Annual report",
+        "path": "/annual-report-2026",
+        "expectedStatus": 200,
+        "maxResponseMs": 1800
+      },
+      {
+        "name": "Coaches lane",
+        "path": "/for-coaches",
+        "expectedStatus": 200,
+        "maxResponseMs": 1800
+      }
+    ],
+    "aggregate": {
+      "maxFailedChecks": 0,
+      "maxP95ResponseMs": 2000,
+      "minPassRate": 1
+    }
+  },
+  "discoveredRoutesChecked": 0,
+  "total": 5,
+  "failed": 0,
+  "passed": 5,
+  "passRate": 1,
+  "p95ResponseMs": 291,
+  "ok": true,
+  "results": [
+    {
+      "name": "Home",
+      "path": "/",
+      "status": 200,
+      "expectedStatus": 200,
+      "durationMs": 291,
+      "maxResponseMs": 1800,
+      "ok": true,
+      "reason": ""
+    },
+    {
+      "name": "Login",
+      "path": "/login",
+      "status": 200,
+      "expectedStatus": 200,
+      "durationMs": 147,
+      "maxResponseMs": 1400,
+      "ok": true,
+      "reason": ""
+    },
+    {
+      "name": "Pricing",
+      "path": "/pricing",
+      "status": 200,
+      "expectedStatus": 200,
+      "durationMs": 64,
+      "maxResponseMs": 1500,
+      "ok": true,
+      "reason": ""
+    },
+    {
+      "name": "Annual report",
+      "path": "/annual-report-2026",
+      "status": 200,
+      "expectedStatus": 200,
+      "durationMs": 65,
+      "maxResponseMs": 1800,
+      "ok": true,
+      "reason": ""
+    },
+    {
+      "name": "Coaches lane",
+      "path": "/for-coaches",
+      "status": 200,
+      "expectedStatus": 200,
+      "durationMs": 165,
+      "maxResponseMs": 1800,
+      "ok": true,
+      "reason": ""
+    }
+  ]
+}

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function monthRange(dateIso?: string): { start: string; end: string } {
   const base = dateIso ? new Date(dateIso) : new Date()
@@ -47,3 +46,7 @@ export async function POST(request: NextRequest) {
   if (error) return NextResponse.json({ error: 'Failed to save revenue classification run' }, { status: 500 })
   return NextResponse.json({ ok: true, runId: data?.id, classificationPayload })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

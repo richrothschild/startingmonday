@@ -1,9 +1,8 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 // GET: list speakers with appearances, optional filters: ?status=&q=&conference=&year=
 export async function GET(request: NextRequest) {
@@ -180,7 +179,7 @@ export async function POST(request: NextRequest) {
   }), auth)
 }
 
-// ── helpers ────────────────────────────────────────────────────────────────────
+// â”€â”€ helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function parseCSV(text: string): Record<string, string>[] {
   const lines = text.trim().split(/\r?\n/)
@@ -233,3 +232,7 @@ function splitName(fullName: string): { first: string | null; last: string | nul
   if (parts.length === 1) return { first: parts[0], last: null }
   return { first: parts[0], last: parts.slice(1).join(' ') }
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

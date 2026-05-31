@@ -1,7 +1,6 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM =
   'You are a senior executive coach who writes precise, credible executive positioning statements. ' +
@@ -67,3 +66,7 @@ Output a single JSON object. No preamble. No markdown.`
     return NextResponse.json({ error: 'Generation failed. Try again.' }, { status: 500 })
   }
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal
