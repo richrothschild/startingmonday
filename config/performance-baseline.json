@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "capturedAt": "2026-05-31T04:06:47.861Z",
+  "baseUrl": "https://startingmonday.app",
+  "mobile": {
+    "p95ResponseMs": 286,
+    "passRate": 1,
+    "failed": 0,
+    "routeDurationsMs": {
+      "/": 286,
+      "/login": 137,
+      "/pricing": 66,
+      "/annual-report-2026": 64,
+      "/for-coaches": 66
+    }
+  },
+  "smoke": {
+    "criticalFailed": 0
+  }
+}

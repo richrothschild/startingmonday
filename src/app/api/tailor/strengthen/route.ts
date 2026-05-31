@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { TailorStrengthenBodySchema, firstZodError } from '@/lib/schemas'
 import { appendWatermarkToStream } from '@/lib/watermark'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const SYSTEM_PROMPT = `You are an expert executive resume writer. You will rewrite specific weak bullets in a resume to be stronger, more specific, and metrics-driven.
 
@@ -64,3 +63,7 @@ ${tailoredResume.slice(0, 12000)}`
 
   return new Response(appendWatermarkToStream(readable, userId), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

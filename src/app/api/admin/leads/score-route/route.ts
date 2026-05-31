@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { validateCronRequest } from '@/lib/cron-auth'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { runLeadScoringPass } from '@/lib/lead-scoring-runner'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type ScoreRequest = {
   limit?: number
@@ -77,3 +76,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   return runScoring(request)
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

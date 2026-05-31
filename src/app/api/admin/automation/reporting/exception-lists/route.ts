@@ -1,6 +1,5 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function POST(request: NextRequest) {
   const auth = await requireAutomationAccess(request)
@@ -32,3 +31,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true, runId: data?.id, exceptionPayload })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

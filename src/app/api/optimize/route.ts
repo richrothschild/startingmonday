@@ -1,8 +1,7 @@
-import { NextRequest } from 'next/server'
+﻿import { NextRequest } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { createClient } from '@/lib/supabase/server'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const DAILY_LIMIT = 3
 
@@ -145,3 +144,7 @@ export async function POST(request: NextRequest) {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

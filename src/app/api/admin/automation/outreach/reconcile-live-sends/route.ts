@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function normalizeEmail(value: unknown): string {
   return (value ?? '').toString().trim().toLowerCase()
@@ -146,3 +145,7 @@ export async function POST(request: NextRequest) {
     created,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

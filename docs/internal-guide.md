@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-30T18:04:25.283Z
+Last generated: 2026-05-31T18:43:29.719Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (169)
+## Features (170)
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 - Feature Terms | /terms | User-facing page route /terms.
@@ -30,6 +30,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Ideas | /ideas | User-facing page route /ideas.
 - Feature Guide | /guide | User-facing page route /guide.
@@ -178,7 +179,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Login | /login | User-facing page route /login.
 
-## API Surface (238)
+## API Surface (241)
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
@@ -252,6 +253,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/feedback/items/[id]/vote | src/app/api/feedback/items/[id]/vote/route.ts | POST /api/feedback/items/[id]/vote - add vote
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
+- API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
@@ -274,6 +276,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/link-integrity-weekly-review | src/app/api/cron/link-integrity-weekly-review/route.ts | export const runtime = 'nodejs'
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/executive-research-refresh | src/app/api/cron/executive-research-refresh/route.ts | export const runtime = 'nodejs'
 - API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/drip | src/app/api/cron/drip/route.ts | Activation drip schedule: days since trial start -> content key
 - API /api/cron/commitment-sunday | src/app/api/cron/commitment-sunday/route.ts | export async function GET(request: NextRequest) {
@@ -335,6 +338,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/leads/score-route | src/app/api/admin/leads/score-route/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/internal-guide/chat | src/app/api/admin/internal-guide/chat/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/health | src/app/api/admin/health/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/executive-research/health | src/app/api/admin/executive-research/health/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/contacts/enrich | src/app/api/admin/contacts/enrich/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/b2b/material | src/app/api/admin/b2b/material/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/revenue-ops/stripe-supabase-accounting-sync | src/app/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync/route.ts | export async function POST(request: NextRequest) {
@@ -418,7 +422,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (161)
+## Codebase Modules (180)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -439,7 +443,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/blog-posts.ts | src/lib/blog-posts.ts | export interface BlogPostMeta {
 - Code src/lib/burst-limit.test.ts | src/lib/burst-limit.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/burst-limit.ts | src/lib/burst-limit.ts | In-memory sliding-window burst limiter for AI routes.
+- Code src/lib/channel-ia.test.ts | src/lib/channel-ia.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/channel-ia.ts | src/lib/channel-ia.ts | export type ChannelRouteSpec = {
+- Code src/lib/channel-metrics-events.test.ts | src/lib/channel-metrics-events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/channel-metrics-events.ts | src/lib/channel-metrics-events.ts | export const CHANNELS = [
 - Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
 - Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
@@ -462,12 +468,16 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
 - Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
+- Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
+- Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/google-calendar.ts | src/lib/google-calendar.ts | export type GoogleCalendarIntegrationRow = {
 - Code src/lib/guide-retrieval.test.ts | src/lib/guide-retrieval.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/guide-retrieval.ts | src/lib/guide-retrieval.ts | export type GuideEntry = {
+- Code src/lib/intelligence-quality.test.ts | src/lib/intelligence-quality.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/intelligence-quality.ts | src/lib/intelligence-quality.ts | export type SignalProfileContext = {
 - Code src/lib/intelligence.test.ts | src/lib/intelligence.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/intelligence.ts | src/lib/intelligence.ts | export type IntelSignal = {
@@ -477,15 +487,23 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/lead-scoring-runner.ts | src/lib/lead-scoring-runner.ts | export type LeadScoringOptions = {
 - Code src/lib/lead-scoring.test.ts | src/lib/lead-scoring.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/lead-scoring.ts | src/lib/lead-scoring.ts | export type ScoreReason = {
+- Code src/lib/micro-products.test.ts | src/lib/micro-products.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
+- Code src/lib/onboarding-speed.test.ts | src/lib/onboarding-speed.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-speed.ts | src/lib/onboarding-speed.ts | export type OnboardingChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
+- Code src/lib/onboarding-video-provider.test.ts | src/lib/onboarding-video-provider.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-video-provider.ts | src/lib/onboarding-video-provider.ts | export type OnboardingVideoProviderDispatchInput = {
+- Code src/lib/onboarding-video-queue.test.ts | src/lib/onboarding-video-queue.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-video-queue.ts | src/lib/onboarding-video-queue.ts | export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'
+- Code src/lib/outplacement-cohort-model.test.ts | src/lib/outplacement-cohort-model.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outplacement-cohort-model.ts | src/lib/outplacement-cohort-model.ts | export type CohortMilestoneId =
 - Code src/lib/owner-email.test.ts | src/lib/owner-email.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/owner-email.ts | src/lib/owner-email.ts | export function getOwnerEmail(): string | undefined {
+- Code src/lib/partner-kpi-schema.test.ts | src/lib/partner-kpi-schema.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/partner-kpi-schema.ts | src/lib/partner-kpi-schema.ts | export const PARTNER_PROGRAMS = ['intelligence', 'active', 'executive', 'free'] as const
+- Code src/lib/partner-provisioning.test.ts | src/lib/partner-provisioning.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/partner-provisioning.ts | src/lib/partner-provisioning.ts | export type ProvisioningSeatStatus = 'invited' | 'active' | 'suspended' | 'transferred' | 'archived'
+- Code src/lib/persona-routes.test.ts | src/lib/persona-routes.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/persona-routes.ts | src/lib/persona-routes.ts | export type PersonaSpec = {
 - Code src/lib/pixel-token.test.ts | src/lib/pixel-token.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pixel-token.ts | src/lib/pixel-token.ts | Token is a base64url-encoded JSON payload signed with HMAC-SHA256.
@@ -505,6 +523,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/prep-role-modes.ts | src/lib/prep-role-modes.ts | export const PREP_ROLE_MODES = ['cio', 'cto', 'ciso', 'vp_to_cxo'] as const
 - Code src/lib/pricing.test.ts | src/lib/pricing.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pricing.ts | src/lib/pricing.ts | Single source of truth for all pricing display values.
+- Code src/lib/program-template-governance.test.ts | src/lib/program-template-governance.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/program-template-governance.ts | src/lib/program-template-governance.ts | export type ProgramTemplatePackId = 'executive_transition' | 'board_track' | 'restructuring'
 - Code src/lib/prompts.test.ts | src/lib/prompts.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/prompts.ts | src/lib/prompts.ts | Central prompt library for all AI features.
@@ -522,6 +541,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/require-prep-access.ts | src/lib/require-prep-access.ts | Single guard used by all /api/prep/[id]/* routes.
 - Code src/lib/resources.test.ts | src/lib/resources.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/resources.ts | src/lib/resources.ts | Curated external resources surfaced contextually in prep briefs.
+- Code src/lib/role-path-priority.test.ts | src/lib/role-path-priority.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/role-path-priority.ts | src/lib/role-path-priority.ts | export async function getRolePathPriorityByCtaKey(): Promise<Record<string, number>> {
 - Code src/lib/schemas.test.ts | src/lib/schemas.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/schemas.ts | src/lib/schemas.ts | Shared message type for chat and conversation routes
@@ -551,6 +571,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/trace.ts | src/lib/trace.ts | export function recordTraceError(params: { feature: string; userId: string; model?: string; latencyMs?: number; error: string }): void {
 - Code src/lib/unsubscribe-token.test.ts | src/lib/unsubscribe-token.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/unsubscribe-token.ts | src/lib/unsubscribe-token.ts | export function unsubscribeUrl(userId: string): string {
+- Code src/lib/value-lane-pricing.test.ts | src/lib/value-lane-pricing.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/value-lane-pricing.ts | src/lib/value-lane-pricing.ts | export type ValueLane = 'launch' | 'scale' | 'transform'
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
@@ -573,15 +594,17 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/outreach/auto-remediate.ts | src/lib/outreach/auto-remediate.ts | export function firstNameFromRecipient(name: string | null | undefined): string {
 - Code src/lib/outreach/human-tone-guard.test.ts | src/lib/outreach/human-tone-guard.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/human-tone-guard.ts | src/lib/outreach/human-tone-guard.ts | export type HumanToneGuardInput = {
+- Code src/lib/outreach/legacy-copy-guard.test.ts | src/lib/outreach/legacy-copy-guard.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/legacy-copy-guard.ts | src/lib/outreach/legacy-copy-guard.ts | export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
 - Code src/lib/outreach/reliability-metrics.test.ts | src/lib/outreach/reliability-metrics.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/reliability-metrics.ts | src/lib/outreach/reliability-metrics.ts | export type ReliabilityThresholds = {
+- Code src/lib/outreach/send-queue.test.ts | src/lib/outreach/send-queue.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/send-queue.ts | src/lib/outreach/send-queue.ts | export const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
 - Code src/lib/outreach/template-draft.test.ts | src/lib/outreach/template-draft.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/template-draft.ts | src/lib/outreach/template-draft.ts | export type OutreachTemplateChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
 - Code src/lib/outreach/template-engine.test.ts | src/lib/outreach/template-engine.test.ts | import { describe, it, expect } from 'vitest'
 
-## Internal Scripts (106)
+## Internal Scripts (108)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -640,6 +663,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
+- Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
 - Script scripts/guide-query-analytics-weekly.mjs | scripts/guide-query-analytics-weekly.mjs | #!/usr/bin/env node
@@ -670,6 +694,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/remediate-outreach-csv-tone.mjs | scripts/remediate-outreach-csv-tone.mjs | Rebuild global entries from updated in-memory file rows for next pass score.
 - Script scripts/resolve-ciks.mjs | scripts/resolve-ciks.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
 - Script scripts/run-mobile-key-routes-report.mjs | scripts/run-mobile-key-routes-report.mjs | #!/usr/bin/env node
+- Script scripts/run-performance-audit-pack.mjs | scripts/run-performance-audit-pack.mjs | #!/usr/bin/env node
 - Script scripts/sample-outreach-examples.mjs | scripts/sample-outreach-examples.mjs | import { readdir, readFile } from 'node:fs/promises'
 - Script scripts/save-prep-brief-readiness-snapshot.mjs | scripts/save-prep-brief-readiness-snapshot.mjs | #!/usr/bin/env node
 - Script scripts/security-deep-dive-audit.mjs | scripts/security-deep-dive-audit.mjs | #!/usr/bin/env node
@@ -689,18 +714,20 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 - Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
 
-## Infrastructure and Workflows (27)
+## Infrastructure and Workflows (29)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
 - Workflow .github/workflows/deploy-alerts.yml | .github/workflows/deploy-alerts.yml | name: Deployment Alerts
 - Workflow .github/workflows/deployment-watchdog.yml | .github/workflows/deployment-watchdog.yml | name: Deployment Watchdog
 - Workflow .github/workflows/emi-weekly-validation.yml | .github/workflows/emi-weekly-validation.yml | name: EMI Weekly Validation
+- Workflow .github/workflows/executive-research-weekly.yml | .github/workflows/executive-research-weekly.yml | name: Executive Research Weekly Refresh
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
 - Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
 - Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
 - Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
 - Workflow .github/workflows/nightly-audit.yml | .github/workflows/nightly-audit.yml | name: Nightly Outreach Audit
+- Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: Performance Release Gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
@@ -718,7 +745,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (125)
+## Data and Migrations (126)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -840,12 +867,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/118_emi_kpi_snapshots_write_policies.sql | supabase/migrations/118_emi_kpi_snapshots_write_policies.sql | -- Allow authenticated automation routes to persist canonical KPI snapshots.
 - Migration supabase/migrations/119_outreach_send_jobs.sql | supabase/migrations/119_outreach_send_jobs.sql | create table if not exists public.outreach_send_batches (
 - Migration supabase/migrations/120_briefs_claim_provenance.sql | supabase/migrations/120_briefs_claim_provenance.sql | -- EA-Q3-001: claim-level provenance for prep briefs
+- Migration supabase/migrations/120_executive_research_library.sql | supabase/migrations/120_executive_research_library.sql | -- Executive research library and weekly refresh history.
 - Migration supabase/migrations/121_onboarding_video_automation_foundation.sql | supabase/migrations/121_onboarding_video_automation_foundation.sql | -- Epic A Sprint 1 / Task A1:
 - Migration supabase/migrations/122_onboarding_video_automation_hardening.sql | supabase/migrations/122_onboarding_video_automation_hardening.sql | -- Epic A Sprint 1 / Task A1 hardening:
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 
-## Documentation (440)
+## Documentation (491)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -875,15 +903,18 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/code-synthetic-council-rubric.md | docs/code-synthetic-council-rubric.md | Code Synthetic Council Rubric (Full Spectrum)
 - Doc docs/confidential-search-guide.md | docs/confidential-search-guide.md | The Confidential Search Guide
 - Doc docs/decision-log.md | docs/decision-log.md | Starting Monday — Decision Log
+- Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation
 - Doc docs/epic-90-day-reliability-rollout.md | docs/epic-90-day-reliability-rollout.md | Epic: 90-Day Reliability Rollout (SRE + UX Quality)
 - Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
 - Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
+- Doc docs/epic-partner-scale-and-flywheel-2026-2027.md | docs/epic-partner-scale-and-flywheel-2026-2027.md | Epic: Partner Scale and Flywheel
 - Doc docs/epic-sre-council-backlog.md | docs/epic-sre-council-backlog.md | Epic: SRE Council Backlog
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 - Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages
 - Doc docs/executive-search-playbook.md | docs/executive-search-playbook.md | The Executive Search Playbook
 - Doc docs/for-coaches-review-from-synthetic-council-may-2026.md | docs/for-coaches-review-from-synthetic-council-may-2026.md | /for-coaches Page Review from Synthetic Council
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
+- Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
 - Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
 - Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
@@ -923,6 +954,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/outreach-playbook.md | docs/outreach-playbook.md | The Outreach Playbook
 - Doc docs/outreach-trigger-field-reference.md | docs/outreach-trigger-field-reference.md | Outreach Trigger Field Reference
 - Doc docs/pe-transition-pricing.md | docs/pe-transition-pricing.md | Starting Monday — Per-Transition Pricing for VC and PE Firms
+- Doc docs/performance-audit-pack.md | docs/performance-audit-pack.md | Performance Audit Pack
+- Doc docs/performance-budget.md | docs/performance-budget.md | Performance Budget
+- Doc docs/performance-release-scorecard.latest.md | docs/performance-release-scorecard.latest.md | Performance Release Scorecard
+- Doc docs/performance-release-scorecard.template.md | docs/performance-release-scorecard.template.md | Performance Release Scorecard Template
 - Doc docs/persona-emotions.md | docs/persona-emotions.md | Starting Monday — Persona Emotions and Search Journey
 - Doc docs/press-release.md | docs/press-release.md | Starting Monday — Working Backward Press Release
 - Doc docs/pricing-rationale.md | docs/pricing-rationale.md | Starting Monday — Pricing and Packaging Rationale
@@ -939,6 +974,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/product-sprints.md | docs/product-sprints.md | Starting Monday: Sprint Plan (Sprints 8-15)
 - Doc docs/product-wbs.md | docs/product-wbs.md | Work Breakdown Structure
 - Doc docs/production-feedback-loop.md | docs/production-feedback-loop.md | Production Feedback Loop
+- Doc docs/production-two-step-gate-signoff-2026-05-31.md | docs/production-two-step-gate-signoff-2026-05-31.md | Production Two-Step Gate Signoff
 - Doc docs/release-ux-signoff-checklist.md | docs/release-ux-signoff-checklist.md | Release UX Sign-off Checklist
 - Doc docs/sales-marketing-plan.md | docs/sales-marketing-plan.md | Sales & Marketing Plan — Starting Monday
 - Doc docs/salesnavigator.md | docs/salesnavigator.md | Sales Navigator Playbook — Starting Monday
@@ -969,6 +1005,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/startingmonday_sprint_plan.md | docs/startingmonday_sprint_plan.md | Starting Monday — Sprint Plan
 - Doc docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | Starting Monday Jira Sprint Slices
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
+- Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
+- Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2
 - Doc docs/technical-debt-analysis-2026-05-19.md | docs/technical-debt-analysis-2026-05-19.md | Technical Debt Analysis (May 19, 2026)
 - Doc docs/technical-debt-analysis-2026-05-24.md | docs/technical-debt-analysis-2026-05-24.md | Technical Debt Deep-Dive (2026-05-24)
@@ -1127,6 +1165,43 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/growth/weekly-operating-template.md | docs/growth/weekly-operating-template.md | Weekly Growth Operating Template
 - Doc docs/growth/weekly-readout-template.md | docs/growth/weekly-readout-template.md | Weekly Conversion Readout Template
 - Doc docs/growth/weekly-readout.latest.md | docs/growth/weekly-readout.latest.md | Weekly Conversion Readout
+- Doc docs/executive-job-search/01-source-register.md | docs/executive-job-search/01-source-register.md | Executive Job Search Source Register
+- Doc docs/executive-job-search/02-behavior-ontology-v1.md | docs/executive-job-search/02-behavior-ontology-v1.md | Executive Job Search Behavior Ontology v1
+- Doc docs/executive-job-search/03-role-stage-matrix-v1.md | docs/executive-job-search/03-role-stage-matrix-v1.md | Executive Job Search Role x Stage Matrix v1
+- Doc docs/executive-job-search/04-derailer-taxonomy-v1.md | docs/executive-job-search/04-derailer-taxonomy-v1.md | Executive Job Search Derailer Taxonomy v1
+- Doc docs/executive-job-search/05-intervention-library-v1.md | docs/executive-job-search/05-intervention-library-v1.md | Executive Job Search Intervention Library v1
+- Doc docs/executive-job-search/06-triangulation-plan-v1.md | docs/executive-job-search/06-triangulation-plan-v1.md | Executive Job Search Triangulation Plan v1
+- Doc docs/executive-job-search/07-research-pack-overview.md | docs/executive-job-search/07-research-pack-overview.md | Executive Job Search Research Pack
+- Doc docs/executive-job-search/08-product-spec.md | docs/executive-job-search/08-product-spec.md | Executive Job Search Product Spec v1
+- Doc docs/executive-job-search/09-segmentation-schema.md | docs/executive-job-search/09-segmentation-schema.md | Segmentation Schema v1
+- Doc docs/executive-job-search/10-interview-guide.md | docs/executive-job-search/10-interview-guide.md | Executive Job Search Interview Guide v1
+- Doc docs/executive-job-search/11-candidate-scoring-rubric.md | docs/executive-job-search/11-candidate-scoring-rubric.md | Candidate Scoring Rubric v1
+- Doc docs/executive-job-search/12-implementation-notes.md | docs/executive-job-search/12-implementation-notes.md | Implementation Notes v1
+- Doc docs/executive-job-search/13-signal-mining-program.md | docs/executive-job-search/13-signal-mining-program.md | Signal Mining Program
+- Doc docs/executive-job-search/14-synthetic-first-sprint-plan.md | docs/executive-job-search/14-synthetic-first-sprint-plan.md | Synthetic-First Sprint Plan
+- Doc docs/executive-job-search/15-literature-first-sprint-plan.md | docs/executive-job-search/15-literature-first-sprint-plan.md | Literature-First Sprint Plan
+- Doc docs/executive-job-search/16-expert-first-desk-synthesis.md | docs/executive-job-search/16-expert-first-desk-synthesis.md | Expert-First Desk Synthesis
+- Doc docs/executive-job-search/17-top-50-behavior-hypotheses.md | docs/executive-job-search/17-top-50-behavior-hypotheses.md | Top 50 Behavior Hypotheses
+- Doc docs/executive-job-search/18-lightweight-product-tests.md | docs/executive-job-search/18-lightweight-product-tests.md | Lightweight Product Tests from Hypotheses
+- Doc docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md | docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md | Research Map: Peer-Reviewed and Industry Sources
+- Doc docs/executive-job-search/20-validated-constructs-catalog.md | docs/executive-job-search/20-validated-constructs-catalog.md | Validated Constructs Catalog
+- Doc docs/executive-job-search/21-construct-to-signal-intervention-map.md | docs/executive-job-search/21-construct-to-signal-intervention-map.md | Construct-to-Signal and Intervention Map
+- Doc docs/executive-job-search/22-public-transition-mining-method.md | docs/executive-job-search/22-public-transition-mining-method.md | Public Transition Mining Method
+- Doc docs/executive-job-search/23-job-description-language-analysis-method.md | docs/executive-job-search/23-job-description-language-analysis-method.md | Job Description Language Analysis Method
+- Doc docs/executive-job-search/24-transition-archetypes-v1.md | docs/executive-job-search/24-transition-archetypes-v1.md | Transition Archetypes v1
+- Doc docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | Executive Transition Emotional Journey, Behavior Map, and Execution Plan
+- Doc docs/executive-job-search/26-operating-summary-leadership.md | docs/executive-job-search/26-operating-summary-leadership.md | Leadership One-Page Operating Summary
+- Doc docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | Backlog Ticket Breakdown: One Ticket Per Sprint Deliverable
+- Doc docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | Sprint 1 Deliverable: Emotion-State Specification v1
+- Doc docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | Sprint 1 Deliverable: Signal Dictionary v1
+- Doc docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | Sprint 1 Deliverable: Scoring API Implementation Plan
+- Doc docs/executive-job-search/31-sprint-1-github-issue-drafts.md | docs/executive-job-search/31-sprint-1-github-issue-drafts.md | Sprint 1 GitHub Issue Drafts
+- Doc docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | Sprint 1 Review Checklist and Agenda Packet
+- Doc docs/executive-job-search/33-sprint-2-execution-packet.md | docs/executive-job-search/33-sprint-2-execution-packet.md | Sprint 2 Execution Packet
+- Doc docs/executive-job-search/34-sprint-3-execution-packet.md | docs/executive-job-search/34-sprint-3-execution-packet.md | Sprint 3 Execution Packet
+- Doc docs/executive-job-search/35-sprint-4-execution-packet.md | docs/executive-job-search/35-sprint-4-execution-packet.md | Sprint 4 Execution Packet
+- Doc docs/executive-job-search/36-sprint-5-execution-packet.md | docs/executive-job-search/36-sprint-5-execution-packet.md | Sprint 5 Execution Packet
+- Doc docs/executive-job-search/37-sprint-6-execution-packet.md | docs/executive-job-search/37-sprint-6-execution-packet.md | Sprint 6 Execution Packet
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
 - Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion
@@ -1140,6 +1215,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/113_feedback_items_insert_policy_authenticated_role.md | docs/development/migration-rollbacks/113_feedback_items_insert_policy_authenticated_role.md | 113_feedback_items_insert_policy_authenticated_role rollback
 - Doc docs/development/migration-rollbacks/118_emi_kpi_snapshots_write_policies.md | docs/development/migration-rollbacks/118_emi_kpi_snapshots_write_policies.md | 118_emi_kpi_snapshots_write_policies rollback
 - Doc docs/development/migration-rollbacks/119_outreach_send_jobs.md | docs/development/migration-rollbacks/119_outreach_send_jobs.md | 119_outreach_send_jobs rollback
+- Doc docs/development/migration-rollbacks/121_onboarding_video_automation_foundation.md | docs/development/migration-rollbacks/121_onboarding_video_automation_foundation.md | 121_onboarding_video_automation_foundation rollback
+- Doc docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | 122_onboarding_video_automation_hardening rollback
+- Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | 123_onboarding_video_webhook_events rollback
+- Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md | docs/development/migration-rollbacks/124_guide_chat_analytics.md | 124_guide_chat_analytics rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | Roadmap Vision Memo - Andrew Chen
 - Doc docs/council-roadmap-memos/annie-duke-roadmap-memo.md | docs/council-roadmap-memos/annie-duke-roadmap-memo.md | Roadmap Vision Memo - Annie Duke
