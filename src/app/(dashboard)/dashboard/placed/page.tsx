@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getPlacedProofActions } from '@/lib/placed-proof-architecture'
 
 export const metadata = { title: 'Congratulations - Starting Monday' }
 
@@ -19,6 +20,7 @@ export default async function PlacedPage() {
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isActive = userRow?.subscription_status === 'active'
   const tier = userRow?.subscription_tier ?? 'free'
+  const proofActions = getPlacedProofActions()
 
   return (
     <div className="min-h-screen bg-slate-900 font-sans flex flex-col">
@@ -98,6 +100,26 @@ export default async function PlacedPage() {
             Questions? Reply to the congratulations email or reach Rich directly at
             {' '}<a href="mailto:richard@startingmonday.app" className="text-slate-400 hover:text-slate-200">richard@startingmonday.app</a>.
           </p>
+
+          <div id="peer-referral" className="mt-10 rounded-lg border border-slate-700 bg-slate-800/60 px-5 py-5">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Sprint 7 scaffold</p>
+            <p className="text-[14px] text-slate-300 mb-4">Placed proof architecture checkpoints</p>
+            <ul className="space-y-3">
+              {proofActions.map((action) => (
+                <li key={action.id} className="rounded border border-slate-700 bg-slate-900/70 px-4 py-3">
+                  <p className="text-[13px] font-semibold text-slate-100 mb-1">{action.title}</p>
+                  <p className="text-[12px] text-slate-400 mb-2">{action.description}</p>
+                  {action.isEnabled ? (
+                    <Link href={action.href} className="text-[12px] font-semibold text-orange-400 hover:text-orange-300">
+                      Open action →
+                    </Link>
+                  ) : (
+                    <p className="text-[12px] text-slate-500">{action.disabledReason}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
         </div>
       </main>
