@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TurnstileWidget from '@/components/turnstile-widget'
 
-const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
+const TURNSTILE_ENABLED =
+  process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1' || process.env.NODE_ENV === 'production'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -50,6 +51,9 @@ export default function LoginPage() {
           break
         case 'rate_limited':
           setError('Too many attempts. Please wait a minute and try again.')
+          break
+        case 'captcha_required':
+          setError('Complete the security check before continuing.')
           break
       }
     }
