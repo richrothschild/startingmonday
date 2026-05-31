@@ -16,6 +16,7 @@
 /playwright-report
 /test-results
 /tests/e2e/.auth
+/.lighthouseci
 
 # next.js
 /.next/
