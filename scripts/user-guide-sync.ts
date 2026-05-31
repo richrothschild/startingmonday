@@ -410,20 +410,42 @@ async function readGuideMarkdown(): Promise<string | null> {
   return fs.readFile(GUIDE_MD_PATH, 'utf8').catch(() => null)
 }
 
-async function hasMaterialGuideDrift(): Promise<boolean> {
+type MaterialDriftResult = {
+  hasDrift: boolean
+  entriesMatch: boolean
+  markdownMatch: boolean
+  existingEntryCount: number
+  generatedEntryCount: number
+}
+
+async function hasMaterialGuideDrift(): Promise<MaterialDriftResult> {
   const [payload, existingEntries, existingMarkdown] = await Promise.all([
     buildGuidePayload(),
     readIndexEntries(),
     readGuideMarkdown(),
   ])
 
-  if (!existingEntries || !existingMarkdown) return true
+  if (!existingEntries || !existingMarkdown) {
+    return {
+      hasDrift: true,
+      entriesMatch: false,
+      markdownMatch: false,
+      existingEntryCount: existingEntries?.length ?? 0,
+      generatedEntryCount: payload.entries.length,
+    }
+  }
 
   const normalizeEntries = (entries: GuideEntry[]) => entries.map(({ lastModifiedAt: _lastModifiedAt, ...entry }) => entry)
   const entriesMatch = JSON.stringify(normalizeEntries(existingEntries)) === JSON.stringify(normalizeEntries(payload.entries))
   const markdownMatch = normalizeGeneratedAtLine(existingMarkdown) === normalizeGeneratedAtLine(payload.markdown)
 
-  return !(entriesMatch && markdownMatch)
+  return {
+    hasDrift: !(entriesMatch && markdownMatch),
+    entriesMatch,
+    markdownMatch,
+    existingEntryCount: existingEntries.length,
+    generatedEntryCount: payload.entries.length,
+  }
 }
 
 async function writePayload(payload: { generatedAt: string; entries: GuideEntry[]; markdown: string }, sourceHash: string, sourceFileCount: number) {
@@ -469,12 +491,13 @@ async function main() {
       return
     }
 
-    const hasDrift = await hasMaterialGuideDrift()
-    if (!hasDrift) {
+    const drift = await hasMaterialGuideDrift()
+    if (!drift.hasDrift) {
       console.log('user-guide: up to date')
       return
     }
 
+    console.error(`user-guide: check debug sourceHash=${sourceHash} manifestHash=${manifest?.sourceHash ?? 'missing'} entriesMatch=${drift.entriesMatch} markdownMatch=${drift.markdownMatch} existingEntryCount=${drift.existingEntryCount} generatedEntryCount=${drift.generatedEntryCount}`)
     console.error('user-guide: stale (run npm run guide:user:sync)')
     process.exitCode = 1
     return
