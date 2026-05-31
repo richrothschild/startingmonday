@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-05-31T12:53:20.358Z",
+  "baseUrl": "https://startingmonday.app",
+  "verdict": "pass",
+  "blockingPolicy": {
+    "mobileP95": {
+      "maxRegressionPercent": 20,
+      "noiseBufferMs": 120
+    },
+    "mobilePassRate": {
+      "maxDropPercentagePoints": 5
+    },
+    "routeDuration": {
+      "maxRegressionPercent": 25,
+      "noiseBufferMs": 150
+    },
+    "smokeCriticalFailures": {
+      "allowIncreaseBy": 0
+    }
+  },
+  "baseline": {
+    "capturedAt": "2026-05-31T04:06:47.861Z",
+    "mobileP95ResponseMs": 286,
+    "mobilePassRate": 1,
+    "smokeCriticalFailed": 0
+  },
+  "current": {
+    "capturedAt": "2026-05-31T12:53:19.659Z",
+    "mobileP95ResponseMs": 291,
+    "mobilePassRate": 1,
+    "smokeCriticalFailed": 0
+  },
+  "routeComparisons": [
+    {
+      "routePath": "/",
+      "baselineMs": 286,
+      "currentMs": 291,
+      "limitMs": 507.5,
+      "blocked": false
+    },
+    {
+      "routePath": "/login",
+      "baselineMs": 137,
+      "currentMs": 147,
+      "limitMs": 321.3,
+      "blocked": false
+    },
+    {
+      "routePath": "/pricing",
+      "baselineMs": 66,
+      "currentMs": 64,
+      "limitMs": 232.5,
+      "blocked": false
+    },
+    {
+      "routePath": "/annual-report-2026",
+      "baselineMs": 64,
+      "currentMs": 65,
+      "limitMs": 230,
+      "blocked": false
+    },
+    {
+      "routePath": "/for-coaches",
+      "baselineMs": 66,
+      "currentMs": 165,
+      "limitMs": 232.5,
+      "blocked": false
+    }
+  ],
+  "blockers": [],
+  "notes": [
+    "This gate blocks only on configured regression thresholds against baseline.",
+    "Small variance under configured buffers is treated as noise and does not block release."
+  ]
+}

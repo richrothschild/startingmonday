@@ -1,7 +1,6 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 export async function DELETE(
   request: NextRequest,
@@ -36,3 +35,7 @@ export async function DELETE(
 
   return NextResponse.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

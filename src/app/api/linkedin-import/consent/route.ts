@@ -1,4 +1,4 @@
-/**
+﻿/**
  * POST /api/linkedin-import/consent
  *
  * Step 1 of the LinkedIn contact import flow.
@@ -20,7 +20,6 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { createHash } from 'crypto'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 
@@ -286,3 +285,7 @@ export async function DELETE(request: NextRequest) {
 
   return Response.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal
