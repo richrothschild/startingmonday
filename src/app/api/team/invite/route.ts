@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function normalizeEmail(value: unknown): string {
   return (value ?? '').toString().trim().toLowerCase()
@@ -162,3 +161,7 @@ export async function POST(request: NextRequest) {
     failed,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

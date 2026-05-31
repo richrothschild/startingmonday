@@ -1,4 +1,4 @@
-/**
+﻿/**
  * GET  /api/linkedin-import/match?company_id=<uuid>&consent_id=<uuid>
  *   Returns imported connections that match the given company, with confidence scores.
  *   Query params:
@@ -17,7 +17,6 @@
 import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function normalizeCompanyName(raw: string | null | undefined): string | null {
   if (!raw) return null
@@ -122,7 +121,7 @@ export async function GET(request: NextRequest) {
     let match_reason: string | null = null
     let confidence: 'high' | 'medium' | 'low' | null = null
 
-    // Exact normalized name match → high confidence
+    // Exact normalized name match â†’ high confidence
     if (
       companyNameNormalized &&
       conn.company_name_normalized &&
@@ -132,7 +131,7 @@ export async function GET(request: NextRequest) {
       confidence = 'high'
     }
 
-    // Partial name containment → medium
+    // Partial name containment â†’ medium
     if (!match_reason && companyNameNormalized && conn.company_name_normalized) {
       if (
         conn.company_name_normalized.includes(companyNameNormalized) ||
@@ -174,7 +173,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Sort: high → medium → low, then by name
+  // Sort: high â†’ medium â†’ low, then by name
   const order = { high: 0, medium: 1, low: 2 }
   matches.sort((a, b) =>
     order[a.confidence] - order[b.confidence] ||
@@ -346,3 +345,7 @@ export async function PATCH(request: NextRequest) {
 
   return Response.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

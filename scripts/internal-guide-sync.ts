@@ -1,6 +1,8 @@
 import { createHash } from 'crypto'
+import { execFile } from 'child_process'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { promisify } from 'util'
 
 type InternalEntry = {
   id: string
@@ -30,6 +32,8 @@ const INTERNAL_SUMMARY_PATH = path.join(DOCS_DIR, 'internal-system-summary.md')
 
 const CHECK_ONLY = process.argv.includes('--check')
 const FORCE = process.argv.includes('--force')
+const execFileAsync = promisify(execFile)
+let trackedFilesPromise: Promise<Set<string>> | null = null
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
@@ -64,6 +68,16 @@ async function lastModifiedAt(filePath: string): Promise<string | undefined> {
 
 function rel(filePath: string): string {
   return path.relative(ROOT, filePath).replace(/\\/g, '/')
+}
+
+async function getTrackedFiles(): Promise<Set<string>> {
+  if (!trackedFilesPromise) {
+    trackedFilesPromise = execFileAsync('git', ['ls-files'], { cwd: ROOT, maxBuffer: 10 * 1024 * 1024 })
+      .then(({ stdout }) => new Set(stdout.split('\n').map((line) => line.trim()).filter(Boolean)))
+      .catch(() => new Set<string>())
+  }
+
+  return trackedFilesPromise
 }
 
 function routeLabel(route: string): string {
@@ -358,24 +372,31 @@ async function collectWatchedFiles(): Promise<string[]> {
     INTERNAL_SUMMARY_PATH,
   ])
 
-  const batches = await Promise.all(dirs.map((dir) => listFilesRecursive(dir)))
+  const [batches, trackedFiles] = await Promise.all([Promise.all(dirs.map((dir) => listFilesRecursive(dir))), getTrackedFiles()])
   return batches
     .flat()
     .filter((file) => /\.(ts|tsx|js|mjs|md|sql|yml|yaml)$/.test(file))
     .filter((file) => !excluded.has(file))
+    .filter((file) => trackedFiles.has(rel(file)))
 }
 
 async function computeSourceHash(files: string[]): Promise<string> {
   const hash = createHash('sha256')
-  const sorted = [...new Set(files)].sort()
+  const sorted = [...new Set(files)].sort((left, right) => {
+    const leftKey = path.relative(ROOT, left).replace(/\\/g, '/')
+    const rightKey = path.relative(ROOT, right).replace(/\\/g, '/')
+    if (leftKey < rightKey) return -1
+    if (leftKey > rightKey) return 1
+    return 0
+  })
 
   for (const filePath of sorted) {
     const exists = await fileExists(filePath)
     if (!exists) continue
-    const stat = await fs.stat(filePath)
-    hash.update(filePath)
-    hash.update(String(stat.size))
-    hash.update(String(stat.mtimeMs))
+    const contents = await fs.readFile(filePath, 'utf8')
+    const normalizedContents = contents.replace(/\r\n/g, '\n')
+    hash.update(path.relative(ROOT, filePath).replace(/\\/g, '/'))
+    hash.update(normalizedContents)
   }
 
   return hash.digest('hex')

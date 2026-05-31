@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { trackApiUsage } from '@/lib/api-usage'
 import { apiError } from '@/lib/api-error'
 import { PrepChatBodySchema, PrepChatHistoryItemSchema, PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const CHAT_SYSTEM = `You are a prep brief assistant helping a senior executive prepare for an upcoming meeting, interview, or networking conversation.
 
@@ -100,3 +99,7 @@ export async function POST(
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

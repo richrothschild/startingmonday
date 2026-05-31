@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
@@ -7,7 +7,6 @@ import { encodeUserId } from '@/lib/watermark'
 import { trackApiUsage } from '@/lib/api-usage'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const STYLE_GUIDELINES = `- Maximum 3 sentences. Do not exceed this.
 - Do not use em dashes anywhere
@@ -156,3 +155,7 @@ ${STYLE_GUIDELINES}`
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

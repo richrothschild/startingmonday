@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const PERSONA_LABELS: Record<string, string> = {
   csuite:   'C-suite executive (CIO, CTO, COO)',
@@ -77,3 +76,7 @@ Rules:
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal
