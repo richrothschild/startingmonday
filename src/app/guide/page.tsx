@@ -1,16 +1,68 @@
-import { notFound, redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import { createClient } from '@/lib/supabase/server'
-import { getStaffMember } from '@/lib/staff'
 import { GuideClient } from './guide-client'
+import bundledIndex from '../../../docs/user-guide.index.json'
 
 type GuideSection = {
   id: string
   title: string
   body: string
+  items?: Array<{
+    title: string
+    url?: string
+    summary: string
+    lastModifiedAt?: string
+    qualityWeight?: number
+  }>
 }
+
+type UserGuideIndexEntry = {
+  id: string
+  title: string
+  body: string
+  type: 'get-started' | 'feature' | 'how-to' | 'api' | 'article'
+  url: string
+  lastModifiedAt?: string
+  qualityWeight?: number
+}
+
+type UserGuideIndexFile = {
+  generatedAt?: string
+  entries?: UserGuideIndexEntry[]
+}
+
+const CORE_USER_SECTIONS: GuideSection[] = [
+  {
+    id: 'core-start-here',
+    title: 'Get Started (Core)',
+    body: [
+      '- Open your dashboard and complete your profile before adding outreach targets.',
+      '- Add companies and contacts, then use guide chat for feature-specific workflows.',
+      '- Use help and guide pages for troubleshooting and escalation paths.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-features',
+    title: 'Features (Core)',
+    body: [
+      '- Dashboard and pipeline flows for company and contact tracking.',
+      '- Guide chat and article links for self-serve operations.',
+      '- Automation and API endpoints for advanced usage and integrations.',
+    ].join('\n'),
+  },
+  {
+    id: 'core-support',
+    title: 'Troubleshooting and Support (Core)',
+    body: [
+      '- If a workflow fails, retry once and check status indicators on the active page.',
+      '- Use guide search with terms like setup, profile, contacts, outreach, automation, or billing.',
+      '- If still blocked, use the help route from the dashboard for next-step support.',
+    ].join('\n'),
+  },
+]
 
 function parseGuide(markdown: string): GuideSection[] {
   const lines = markdown.split(/\r?\n/)
@@ -45,34 +97,97 @@ function parseGuide(markdown: string): GuideSection[] {
   return sections
 }
 
-export default async function GuidePage() {
+function typeLabel(type: UserGuideIndexEntry['type']): string {
+  if (type === 'get-started') return 'Get Started'
+  if (type === 'feature') return 'Features'
+  if (type === 'how-to') return 'How-To Playbooks'
+  if (type === 'api') return 'API and Automation'
+  return 'Starting Monday Articles'
+}
+
+function sectionsFromIndex(entries: UserGuideIndexEntry[]): GuideSection[] {
+  const order: UserGuideIndexEntry['type'][] = ['get-started', 'feature', 'how-to', 'api', 'article']
+  const grouped = new Map<UserGuideIndexEntry['type'], UserGuideIndexEntry[]>()
+
+  for (const entry of entries) {
+    const list = grouped.get(entry.type) ?? []
+    list.push(entry)
+    grouped.set(entry.type, list)
+  }
+
+  const sections: GuideSection[] = []
+  let index = 0
+  for (const type of order) {
+    const list = grouped.get(type) ?? []
+    if (list.length === 0) continue
+    const body = list
+      .slice(0, 120)
+      .map((entry) => `- [${entry.title}](${entry.url}) - ${entry.body}`)
+      .join('\n')
+
+    sections.push({
+      id: `section-${index}`,
+      title: `${typeLabel(type)} (${list.length})`,
+      body,
+      items: list.slice(0, 120).map((entry) => ({
+        title: entry.title,
+        url: entry.url,
+        summary: entry.body,
+        lastModifiedAt: entry.lastModifiedAt,
+        qualityWeight: entry.qualityWeight,
+      })),
+    })
+    index += 1
+  }
+
+  return sections
+}
+
+export default async function GuidePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>
+}) {
+  const { q } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const staff = await getStaffMember(user.email ?? '')
-  if (!staff) notFound()
+  const diskIndexPath = path.join(process.cwd(), 'docs', 'user-guide.index.json')
+  const diskIndexRaw = await readFile(diskIndexPath, 'utf8').catch(() => '')
+  let diskIndexEntries: UserGuideIndexEntry[] = []
+  let guideGeneratedAt = ''
+  if (diskIndexRaw) {
+    try {
+      const parsed = JSON.parse(diskIndexRaw) as UserGuideIndexFile
+      diskIndexEntries = parsed.entries ?? []
+      guideGeneratedAt = parsed.generatedAt ?? ''
+    } catch {
+      diskIndexEntries = []
+    }
+  }
 
-  const guidePath = path.join(process.cwd(), 'docs', 'automation-guide.md')
+  const bundledFile = bundledIndex as UserGuideIndexFile
+  const bundledEntries = (bundledFile.entries ?? []) as UserGuideIndexEntry[]
+  if (!guideGeneratedAt) guideGeneratedAt = bundledFile.generatedAt ?? ''
+  const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
+
+  const guidePath = path.join(process.cwd(), 'docs', 'user-guide.md')
   const markdown = await readFile(guidePath, 'utf8').catch(() => '')
-  const sections = parseGuide(markdown)
-  const safeSections = sections.length > 0
-    ? sections
-    : [{
-        id: 'fallback-0',
-        title: 'Guide temporarily unavailable',
-        body: 'The automation guide source file is not available in this runtime. Please use the dashboard and internal playbooks while we restore it.',
-      }]
+  const markdownSections = parseGuide(markdown)
+  const sections = indexSections.length > 0 ? indexSections : markdownSections
+
+  const safeSections = sections.length > 0 ? sections : CORE_USER_SECTIONS
 
   return (
     <>
       <section className="sr-only" aria-label="Automation guide summary">
-        <h1>Automation guide</h1>
-        <p>Trust and confidentiality: this internal guide is for authorized staff workflows only and should be treated as private operational documentation.</p>
-        <p>Outcome: operators can execute automation tasks with consistent quality and cut avoidable retries by at least 20%.</p>
-        <Link href="/dashboard">Get started from the dashboard</Link>
+        <h1>Starting Monday user guide</h1>
+        <p>Search for features, ask questions in guide chat, and open step-by-step workflows in one place.</p>
+        <p>Outcome: users can self-serve onboarding, feature discovery, and troubleshooting without waiting for support.</p>
+        <Link href="/dashboard/help">Get started from Help</Link>
       </section>
-      <GuideClient sections={safeSections} />
+      <GuideClient sections={safeSections} initialQuestion={q?.slice(0, 500) ?? ''} guideGeneratedAt={guideGeneratedAt} />
     </>
   )
 }

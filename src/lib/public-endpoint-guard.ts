@@ -14,7 +14,10 @@ type TurnstileVerificationResponse = {
 }
 
 function isTurnstileEnforced(): boolean {
-  return process.env.TURNSTILE_ENFORCED === '1'
+  const configured = process.env.TURNSTILE_ENFORCED?.trim()
+  if (configured === '1') return true
+  if (configured === '0') return false
+  return process.env.NODE_ENV === 'production'
 }
 
 export function getClientIp(request: NextRequest): string {

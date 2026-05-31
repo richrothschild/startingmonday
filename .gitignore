@@ -76,5 +76,8 @@ tmp-weekly-audit-*-logs.zip
 *.jpg
 *.jpeg
 *.png
+!tests/e2e/__screenshots__/
+!tests/e2e/__screenshots__/auth-login-desktop.png
+!tests/e2e/__screenshots__/auth-signup-desktop.png
 !public/reports/executive-search-ai-confidentiality-annual-report-2026.pdf
 !public/reports/executive-search-ai-confidentiality-annual-report-2026-email.pdf

@@ -1,0 +1,1293 @@
+# Starting Monday Internal Guide
+
+Last generated: 2026-05-30T18:04:25.283Z
+
+This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
+
+## Architecture (1)
+- Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
+
+## Features (169)
+- Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
+- Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
+- Feature Terms | /terms | User-facing page route /terms.
+- Feature Security | /security | User-facing page route /security.
+- Feature Search firms | /search-firms | User-facing page route /search-firms.
+- Feature Search firms / Sample cfo brief | /search-firms/sample-cfo-brief | User-facing page route /search-firms/sample-cfo-brief.
+- Feature Search firms / Personas | /search-firms/personas | User-facing page route /search-firms/personas.
+- Feature Sales marketing plan | /sales-marketing-plan | User-facing page route /sales-marketing-plan.
+- Feature Research brief | /research-brief | User-facing page route /research-brief.
+- Feature References | /references | User-facing page route /references.
+- Feature Proof / Roi calculator | /proof/roi-calculator | User-facing page route /proof/roi-calculator.
+- Feature Privacy | /privacy | User-facing page route /privacy.
+- Feature Pricing | /pricing | User-facing page route /pricing.
+- Feature Pilot findings | /pilot-findings | User-facing page route /pilot-findings.
+- Feature Partners | /partners | User-facing page route /partners.
+- Feature Outplacement | /outplacement | User-facing page route /outplacement.
+- Feature Outplacement / Personas | /outplacement/personas | User-facing page route /outplacement/personas.
+- Feature Optimize | /optimize | User-facing page route /optimize.
+- Feature Onboarding | /onboarding | User-facing page route /onboarding.
+- Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
+- Feature Mark review | /mark-review | User-facing page route /mark-review.
+- Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
+- Feature Ideas | /ideas | User-facing page route /ideas.
+- Feature Guide | /guide | User-facing page route /guide.
+- Feature Founder note | /founder-note | User-facing page route /founder-note.
+- Feature For vp technology | /for-vp-technology | User-facing page route /for-vp-technology.
+- Feature For vp | /for-vp | User-facing page route /for-vp.
+- Feature For search firms | /for-search-firms | User-facing page route /for-search-firms.
+- Feature For relocation | /for-relocation | User-facing page route /for-relocation.
+- Feature For pe teams | /for-pe-teams | User-facing page route /for-pe-teams.
+- Feature For pe partners | /for-pe-partners | User-facing page route /for-pe-partners.
+- Feature For outplacement | /for-outplacement | User-facing page route /for-outplacement.
+- Feature For outplacement / Trust pack | /for-outplacement/trust-pack | User-facing page route /for-outplacement/trust-pack.
+- Feature For outplacement / Security overview | /for-outplacement/security-overview | User-facing page route /for-outplacement/security-overview.
+- Feature For outplacement / Runbook | /for-outplacement/runbook | User-facing page route /for-outplacement/runbook.
+- Feature For outplacement / Operating scorecard | /for-outplacement/operating-scorecard | User-facing page route /for-outplacement/operating-scorecard.
+- Feature For outplacement / Metric dictionary | /for-outplacement/metric-dictionary | User-facing page route /for-outplacement/metric-dictionary.
+- Feature For outplacement / Faq | /for-outplacement/faq | User-facing page route /for-outplacement/faq.
+- Feature For outplacement / Executive summary | /for-outplacement/executive-summary | User-facing page route /for-outplacement/executive-summary.
+- Feature For outplacement / Economics | /for-outplacement/economics | User-facing page route /for-outplacement/economics.
+- Feature For media partners | /for-media-partners | User-facing page route /for-media-partners.
+- Feature For fractional executives | /for-fractional-executives | User-facing page route /for-fractional-executives.
+- Feature For financial advisors | /for-financial-advisors | User-facing page route /for-financial-advisors.
+- Feature For data officer | /for-data-officer | User-facing page route /for-data-officer.
+- Feature For cpo | /for-cpo | User-facing page route /for-cpo.
+- Feature For coo | /for-coo | User-facing page route /for-coo.
+- Feature For coaches | /for-coaches | User-facing page route /for-coaches.
+- Feature For coaches / Trust pack | /for-coaches/trust-pack | User-facing page route /for-coaches/trust-pack.
+- Feature For coaches / Micro products | /for-coaches/micro-products | User-facing page route /for-coaches/micro-products.
+- Feature For coaches / Faq | /for-coaches/faq | User-facing page route /for-coaches/faq.
+- Feature For coaches / Economics | /for-coaches/economics | User-facing page route /for-coaches/economics.
+- Feature For coaches / Coach prep worksheet | /for-coaches/coach-prep-worksheet | User-facing page route /for-coaches/coach-prep-worksheet.
+- Feature For ciso | /for-ciso | User-facing page route /for-ciso.
+- Feature For cio associations | /for-cio-associations | User-facing page route /for-cio-associations.
+- Feature For cio | /for-cio | User-facing page route /for-cio.
+- Feature For cdo | /for-cdo | User-facing page route /for-cdo.
+- Feature Feedback | /feedback | User-facing page route /feedback.
+- Feature Executives | /executives | User-facing page route /executives.
+- Feature Executives / Personas | /executives/personas | User-facing page route /executives/personas.
+- Feature Executives / Passive | /executives/passive | User-facing page route /executives/passive.
+- Feature Executives / Active | /executives/active | User-facing page route /executives/active.
+- Feature Evidence room | /evidence-room | User-facing page route /evidence-room.
+- Feature Evaluate | /evaluate | User-facing page route /evaluate.
+- Feature Demo | /demo | User-facing page route /demo.
+- Feature Demo / Presenter | /demo/presenter | User-facing page route /demo/presenter.
+- Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
+- Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
+- Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
+- Feature Contributor | /contributor | User-facing page route /contributor.
+- Feature Concierge | /concierge | User-facing page route /concierge.
+- Feature Coaches guide | /coaches-guide | User-facing page route /coaches-guide.
+- Feature Coaches | /coaches | User-facing page route /coaches.
+- Feature Coaches / Personas | /coaches/personas | User-facing page route /coaches/personas.
+- Feature Career tools | /career-tools | User-facing page route /career-tools.
+- Feature Blog | /blog | User-facing page route /blog.
+- Feature Blog / Why starting monday exists | /blog/why-starting-monday-exists | User-facing page route /blog/why-starting-monday-exists.
+- Feature Blog / Why executive recruiters go quiet | /blog/why-executive-recruiters-go-quiet | User-facing page route /blog/why-executive-recruiters-go-quiet.
+- Feature Blog / What companies want chief data officer | /blog/what-companies-want-chief-data-officer | User-facing page route /blog/what-companies-want-chief-data-officer.
+- Feature Blog / Vp to cio transition | /blog/vp-to-cio-transition | User-facing page route /blog/vp-to-cio-transition.
+- Feature Blog / Vp job search different rules | /blog/vp-job-search-different-rules | User-facing page route /blog/vp-job-search-different-rules.
+- Feature Blog / Technology executive transition chro | /blog/technology-executive-transition-chro | User-facing page route /blog/technology-executive-transition-chro.
+- Feature Blog / Target company list cto | /blog/target-company-list-cto | User-facing page route /blog/target-company-list-cto.
+- Feature Blog / Target company list | /blog/target-company-list | User-facing page route /blog/target-company-list.
+- Feature Blog / Retained search firms | /blog/retained-search-firms | User-facing page route /blog/retained-search-firms.
+- Feature Blog / Retained search candidate preparation | /blog/retained-search-candidate-preparation | User-facing page route /blog/retained-search-candidate-preparation.
+- Feature Blog / Pe backed cio | /blog/pe-backed-cio | User-facing page route /blog/pe-backed-cio.
+- Feature Blog / Linkedin executive search strategy | /blog/linkedin-executive-search-strategy | User-facing page route /blog/linkedin-executive-search-strategy.
+- Feature Blog / How we estimate early role signals | /blog/how-we-estimate-early-role-signals | User-facing page route /blog/how-we-estimate-early-role-signals.
+- Feature Blog / How cios find jobs | /blog/how-cios-find-jobs | User-facing page route /blog/how-cios-find-jobs.
+- Feature Blog / Executive search operating system | /blog/executive-search-operating-system | User-facing page route /blog/executive-search-operating-system.
+- Feature Blog / Executive search firms cio | /blog/executive-search-firms-cio | User-facing page route /blog/executive-search-firms-cio.
+- Feature Blog / Executive resume gaps | /blog/executive-resume-gaps | User-facing page route /blog/executive-resume-gaps.
+- Feature Blog / Executive job search daily routine | /blog/executive-job-search-daily-routine | User-facing page route /blog/executive-job-search-daily-routine.
+- Feature Blog / Executive hiring patterns 2026 | /blog/executive-hiring-patterns-2026 | User-facing page route /blog/executive-hiring-patterns-2026.
+- Feature Blog / Executive coaching job search | /blog/executive-coaching-job-search | User-facing page route /blog/executive-coaching-job-search.
+- Feature Blog / Executive coaching candidate infrastructure | /blog/executive-coaching-candidate-infrastructure | User-facing page route /blog/executive-coaching-candidate-infrastructure.
+- Feature Blog / Cto vs vp engineering career path | /blog/cto-vs-vp-engineering-career-path | User-facing page route /blog/cto-vs-vp-engineering-career-path.
+- Feature Blog / Cto job search timeline | /blog/cto-job-search-timeline | User-facing page route /blog/cto-job-search-timeline.
+- Feature Blog / Ciso interview preparation | /blog/ciso-interview-preparation | User-facing page route /blog/ciso-interview-preparation.
+- Feature Blog / Cio vs cto which role | /blog/cio-vs-cto-which-role | User-facing page route /blog/cio-vs-cto-which-role.
+- Feature Blog / Cio job search timeline | /blog/cio-job-search-timeline | User-facing page route /blog/cio-job-search-timeline.
+- Feature Blog / Cio job market 2026 | /blog/cio-job-market-2026 | User-facing page route /blog/cio-job-market-2026.
+- Feature Blog / Cio compensation negotiation | /blog/cio-compensation-negotiation | User-facing page route /blog/cio-compensation-negotiation.
+- Feature Blog / Cio board presentation | /blog/cio-board-presentation | User-facing page route /blog/cio-board-presentation.
+- Feature Annual report 2026 | /annual-report-2026 | User-facing page route /annual-report-2026.
+- Feature Annual report 2026 / Executive search ai confidentiality | /annual-report-2026/executive-search-ai-confidentiality | User-facing page route /annual-report-2026/executive-search-ai-confidentiality.
+- Feature About | /about | User-facing page route /about.
+- Feature Settings / Team | /settings/team | User-facing page route /settings/team.
+- Feature Settings / Security | /settings/security | User-facing page route /settings/security.
+- Feature Settings / Billing | /settings/billing | User-facing page route /settings/billing.
+- Feature Dashboard | /dashboard | User-facing page route /dashboard.
+- Feature Dashboard / Wrap up | /dashboard/wrap-up | User-facing page route /dashboard/wrap-up.
+- Feature Dashboard / Strategy | /dashboard/strategy | User-facing page route /dashboard/strategy.
+- Feature Dashboard / Start | /dashboard/start | User-facing page route /dashboard/start.
+- Feature Dashboard / Signals | /dashboard/signals | User-facing page route /dashboard/signals.
+- Feature Dashboard / Salary | /dashboard/salary | User-facing page route /dashboard/salary.
+- Feature Dashboard / Profile | /dashboard/profile | User-facing page route /dashboard/profile.
+- Feature Dashboard / Profile / Tailor | /dashboard/profile/tailor | User-facing page route /dashboard/profile/tailor.
+- Feature Dashboard / Positioning | /dashboard/positioning | User-facing page route /dashboard/positioning.
+- Feature Dashboard / Placed | /dashboard/placed | User-facing page route /dashboard/placed.
+- Feature Dashboard / Pilot outreach | /dashboard/pilot-outreach | User-facing page route /dashboard/pilot-outreach.
+- Feature Dashboard / Partner | /dashboard/partner | User-facing page route /dashboard/partner.
+- Feature Dashboard / Outreach | /dashboard/outreach | User-facing page route /dashboard/outreach.
+- Feature Dashboard / Outplacement | /dashboard/outplacement | User-facing page route /dashboard/outplacement.
+- Feature Dashboard / Offers | /dashboard/offers | User-facing page route /dashboard/offers.
+- Feature Dashboard / Kanban | /dashboard/kanban | User-facing page route /dashboard/kanban.
+- Feature Dashboard / Invite | /dashboard/invite | User-facing page route /dashboard/invite.
+- Feature Dashboard / Help | /dashboard/help | User-facing page route /dashboard/help.
+- Feature Dashboard / Feedback | /dashboard/feedback | User-facing page route /dashboard/feedback.
+- Feature Dashboard / Discover | /dashboard/discover | User-facing page route /dashboard/discover.
+- Feature Dashboard / Contacts | /dashboard/contacts | User-facing page route /dashboard/contacts.
+- Feature Dashboard / Concierge | /dashboard/concierge | User-facing page route /dashboard/concierge.
+- Feature Dashboard / Companies / New | /dashboard/companies/new | User-facing page route /dashboard/companies/new.
+- Feature Dashboard / Coach | /dashboard/coach | User-facing page route /dashboard/coach.
+- Feature Dashboard / Chat | /dashboard/chat | User-facing page route /dashboard/chat.
+- Feature Dashboard / Calendar | /dashboard/calendar | User-facing page route /dashboard/calendar.
+- Feature Dashboard / Briefing | /dashboard/briefing | User-facing page route /dashboard/briefing.
+- Feature Dashboard / Admin | /dashboard/admin | User-facing page route /dashboard/admin.
+- Feature Dashboard / Admin / Traces | /dashboard/admin/traces | User-facing page route /dashboard/admin/traces.
+- Feature Dashboard / Admin / Traces / Rubric | /dashboard/admin/traces/rubric | User-facing page route /dashboard/admin/traces/rubric.
+- Feature Dashboard / Admin / Team | /dashboard/admin/team | User-facing page route /dashboard/admin/team.
+- Feature Dashboard / Admin / Speakers | /dashboard/admin/speakers | User-facing page route /dashboard/admin/speakers.
+- Feature Dashboard / Admin / Social | /dashboard/admin/social | User-facing page route /dashboard/admin/social.
+- Feature Dashboard / Admin / Revenue | /dashboard/admin/revenue | User-facing page route /dashboard/admin/revenue.
+- Feature Dashboard / Admin / Product | /dashboard/admin/product | User-facing page route /dashboard/admin/product.
+- Feature Dashboard / Admin / Product / Catalog | /dashboard/admin/product/catalog | User-facing page route /dashboard/admin/product/catalog.
+- Feature Dashboard / Admin / Outreach reliability | /dashboard/admin/outreach-reliability | User-facing page route /dashboard/admin/outreach-reliability.
+- Feature Dashboard / Admin / Outreach analytics | /dashboard/admin/outreach-analytics | User-facing page route /dashboard/admin/outreach-analytics.
+- Feature Dashboard / Admin / Outplacement outreach | /dashboard/admin/outplacement-outreach | User-facing page route /dashboard/admin/outplacement-outreach.
+- Feature Dashboard / Admin / Outplacement cohorts | /dashboard/admin/outplacement-cohorts | User-facing page route /dashboard/admin/outplacement-cohorts.
+- Feature Dashboard / Admin / Operations | /dashboard/admin/operations | User-facing page route /dashboard/admin/operations.
+- Feature Dashboard / Admin / Onboarding / Video | /dashboard/admin/onboarding/video | User-facing page route /dashboard/admin/onboarding/video.
+- Feature Dashboard / Admin / Onboarding / Qa | /dashboard/admin/onboarding/qa | User-facing page route /dashboard/admin/onboarding/qa.
+- Feature Dashboard / Admin / Metrics | /dashboard/admin/metrics | User-facing page route /dashboard/admin/metrics.
+- Feature Dashboard / Admin / Linkedin company launch | /dashboard/admin/linkedin-company-launch | User-facing page route /dashboard/admin/linkedin-company-launch.
+- Feature Dashboard / Admin / Internal guide | /dashboard/admin/internal-guide | User-facing page route /dashboard/admin/internal-guide.
+- Feature Dashboard / Admin / Intelligence | /dashboard/admin/intelligence | User-facing page route /dashboard/admin/intelligence.
+- Feature Dashboard / Admin / Intelligence / Qa | /dashboard/admin/intelligence/qa | User-facing page route /dashboard/admin/intelligence/qa.
+- Feature Dashboard / Admin / Guide | /dashboard/admin/guide | User-facing page route /dashboard/admin/guide.
+- Feature Dashboard / Admin / Feedback | /dashboard/admin/feedback | User-facing page route /dashboard/admin/feedback.
+- Feature Dashboard / Admin / Customers | /dashboard/admin/customers | User-facing page route /dashboard/admin/customers.
+- Feature Dashboard / Admin / Crm | /dashboard/admin/crm | User-facing page route /dashboard/admin/crm.
+- Feature Dashboard / Admin / Coach outreach | /dashboard/admin/coach-outreach | User-facing page route /dashboard/admin/coach-outreach.
+- Feature Dashboard / Admin / Channel benchmarks | /dashboard/admin/channel-benchmarks | User-facing page route /dashboard/admin/channel-benchmarks.
+- Feature Dashboard / Admin / B2b | /dashboard/admin/b2b | User-facing page route /dashboard/admin/b2b.
+- Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
+- Feature Signup | /signup | User-facing page route /signup.
+- Feature Login | /login | User-facing page route /login.
+
+## API Surface (238)
+- API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
+- API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
+- API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
+- API /api/track/open | src/app/api/track/open/route.ts | 1x1 transparent GIF
+- API /api/team/seat/[id] | src/app/api/team/seat/[id]/route.ts | export async function DELETE(
+- API /api/team/invite | src/app/api/team/invite/route.ts | export async function POST(request: NextRequest) {
+- API /api/tailor | src/app/api/tailor/route.ts | export async function POST(request: NextRequest) {
+- API /api/tailor/strengthen | src/app/api/tailor/strengthen/route.ts | export async function POST(request: NextRequest) {
+- API /api/tailor/check | src/app/api/tailor/check/route.ts | export async function POST(request: NextRequest) {
+- API /api/suggestions | src/app/api/suggestions/route.ts | export async function GET(request: NextRequest) {
+- API /api/strategy | src/app/api/strategy/route.ts | export async function GET(request: NextRequest) {
+- API /api/strategy/followup | src/app/api/strategy/followup/route.ts | export async function POST(request: NextRequest) {
+- API /api/signals/classify | src/app/api/signals/classify/route.ts | export async function POST(request: NextRequest) {
+- API /api/search | src/app/api/search/route.ts | export async function GET(req: NextRequest) {
+- API /api/salary-intelligence | src/app/api/salary-intelligence/route.ts | export async function POST(request: NextRequest) {
+- API /api/profile/upload-resume | src/app/api/profile/upload-resume/route.ts | export async function POST(request: NextRequest) {
+- API /api/profile/upload-linkedin | src/app/api/profile/upload-linkedin/route.ts | export async function POST(request: NextRequest) {
+- API /api/profile/export | src/app/api/profile/export/route.ts | export async function GET(_request: NextRequest) {
+- API /api/prep/[id] | src/app/api/prep/[id]/route.ts | Block RFC-1918, loopback, link-local, and common cloud metadata endpoints
+- API /api/prep/[id]/wins | src/app/api/prep/[id]/wins/route.ts | export async function GET(
+- API /api/prep/[id]/why-here | src/app/api/prep/[id]/why-here/route.ts | export async function GET(
+- API /api/prep/[id]/tech-stack | src/app/api/prep/[id]/tech-stack/route.ts | export async function GET(
+- API /api/prep/[id]/questions | src/app/api/prep/[id]/questions/route.ts | export async function GET(
+- API /api/prep/[id]/priorities | src/app/api/prep/[id]/priorities/route.ts | export async function GET(
+- API /api/prep/[id]/outreach | src/app/api/prep/[id]/outreach/route.ts | export async function POST(
+- API /api/prep/[id]/outreach/log | src/app/api/prep/[id]/outreach/log/route.ts | export async function POST(
+- API /api/prep/[id]/leadership | src/app/api/prep/[id]/leadership/route.ts | export async function GET(
+- API /api/prep/[id]/competitive | src/app/api/prep/[id]/competitive/route.ts | export async function GET(
+- API /api/prep/[id]/chat | src/app/api/prep/[id]/chat/route.ts | export async function POST(
+- API /api/prep/[id]/challenges | src/app/api/prep/[id]/challenges/route.ts | export async function GET(
+- API /api/prep/[id]/background | src/app/api/prep/[id]/background/route.ts | export async function GET(
+- API /api/preferences/briefing | src/app/api/preferences/briefing/route.ts | export async function POST(request: NextRequest) {
+- API /api/positioning/save | src/app/api/positioning/save/route.ts | export async function POST(request: NextRequest) {
+- API /api/positioning/chat | src/app/api/positioning/chat/route.ts | export async function POST(request: NextRequest) {
+- API /api/pilot-outreach | src/app/api/pilot-outreach/route.ts | export async function POST(request: NextRequest) {
+- API /api/partners | src/app/api/partners/route.ts | export async function POST(request: NextRequest) {
+- API /api/partners/report | src/app/api/partners/report/route.ts | Retired: temporary demo report endpoint.
+- API /api/partners/attribute | src/app/api/partners/attribute/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/template | src/app/api/outreach/template/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/suppression | src/app/api/outreach/suppression/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/status | src/app/api/outreach/status/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/send | src/app/api/outreach/send/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/send/batch-status | src/app/api/outreach/send/batch-status/route.ts | export async function GET(request: NextRequest) {
+- API /api/outreach/draft | src/app/api/outreach/draft/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/current-status | src/app/api/outreach/current-status/route.ts | export async function POST(request: NextRequest) {
+- API /api/optimize | src/app/api/optimize/route.ts | This endpoint is intentionally unauthenticated. It powers the landing page
+- API /api/onboarding/intel | src/app/api/onboarding/intel/route.ts | export async function POST(request: NextRequest) {
+- API /api/onboarding/events | src/app/api/onboarding/events/route.ts | export async function POST(request: Request) {
+- API /api/offer-synthesis | src/app/api/offer-synthesis/route.ts | export async function POST(request: NextRequest) {
+- API /api/notify/new-user | src/app/api/notify/new-user/route.ts | export async function POST(request: NextRequest) {
+- API /api/narrative/generate-positioning | src/app/api/narrative/generate-positioning/route.ts | export async function POST(request: NextRequest) {
+- API /api/narrative/generate-linkedin | src/app/api/narrative/generate-linkedin/route.ts | export async function POST(request: NextRequest) {
+- API /api/linkedin-import | src/app/api/linkedin-import/route.ts | export async function POST(request: NextRequest) {
+- API /api/linkedin-import/match | src/app/api/linkedin-import/match/route.ts | export async function GET(request: NextRequest) {
+- API /api/linkedin-import/extract | src/app/api/linkedin-import/extract/route.ts | export async function POST(request: NextRequest) {
+- API /api/linkedin-import/consent | src/app/api/linkedin-import/consent/route.ts | LinkedIn export header: First Name,Last Name,URL,Email Address,Company,Position,Connected On
+- API /api/linkedin-import/audit | src/app/api/linkedin-import/audit/route.ts | export async function GET(request: NextRequest) {
+- API /api/invite | src/app/api/invite/route.ts | export async function GET(request: NextRequest) {
+- API /api/intelligence/token | src/app/api/intelligence/token/route.ts | export async function POST(req: NextRequest) {
+- API /api/intelligence/radar | src/app/api/intelligence/radar/route.ts | export async function GET(request: NextRequest) {
+- API /api/intelligence/companies | src/app/api/intelligence/companies/route.ts | export async function GET() {
+- API /api/ideas | src/app/api/ideas/route.ts | no-requireAuth: public endpoint - idea submissions and browsing require no account
+- API /api/health | src/app/api/health/route.ts | export async function GET() {
+- API /api/guide/chat | src/app/api/guide/chat/route.ts | export async function POST(request: NextRequest) {
+- API /api/guide/chat/feedback | src/app/api/guide/chat/feedback/route.ts | export async function POST(request: NextRequest) {
+- API /api/google-calendar/disconnect | src/app/api/google-calendar/disconnect/route.ts | export async function POST(request: NextRequest) {
+- API /api/google-calendar/connect | src/app/api/google-calendar/connect/route.ts | export async function GET(request: NextRequest) {
+- API /api/google-calendar/callback | src/app/api/google-calendar/callback/route.ts | export async function GET(request: NextRequest) {
+- API /api/feedback | src/app/api/feedback/route.ts | export async function POST(request: NextRequest) {
+- API /api/feedback/items | src/app/api/feedback/items/route.ts | Apply filters
+- API /api/feedback/items/[id]/vote | src/app/api/feedback/items/[id]/vote/route.ts | POST /api/feedback/items/[id]/vote - add vote
+- API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
+- API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
+- API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
+- API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
+- API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
+- API /api/drip/unsubscribe | src/app/api/drip/unsubscribe/route.ts | export async function GET(request: NextRequest) {
+- API /api/discover | src/app/api/discover/route.ts | export type DiscoveryCompany = {
+- API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
+- API /api/demo-brief | src/app/api/demo-brief/route.ts | export async function POST(request: NextRequest) {
+- API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
+- API /api/demo-brief/manager-tools | src/app/api/demo-brief/manager-tools/route.ts | Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
+- API /api/cron/weekly-digest | src/app/api/cron/weekly-digest/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/ui-ux-weekly-review | src/app/api/cron/ui-ux-weekly-review/route.ts | export const runtime = 'nodejs'
+- API /api/cron/stall-check | src/app/api/cron/stall-check/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/scores | src/app/api/cron/scores/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/scan-alert | src/app/api/cron/scan-alert/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/outreach-tone-guard | src/app/api/cron/outreach-tone-guard/route.ts | export const runtime = 'nodejs'
+- API /api/cron/outreach-send-worker | src/app/api/cron/outreach-send-worker/route.ts | export const runtime = 'nodejs'
+- API /api/cron/outreach-reconcile | src/app/api/cron/outreach-reconcile/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/outreach-digest | src/app/api/cron/outreach-digest/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/onboarding-video-worker | src/app/api/cron/onboarding-video-worker/route.ts | export const runtime = 'nodejs'
+- API /api/cron/link-integrity-weekly-review | src/app/api/cron/link-integrity-weekly-review/route.ts | export const runtime = 'nodejs'
+- API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/drip | src/app/api/cron/drip/route.ts | Activation drip schedule: days since trial start -> content key
+- API /api/cron/commitment-sunday | src/app/api/cron/commitment-sunday/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/commitment-friday | src/app/api/cron/commitment-friday/route.ts | export async function GET(request: NextRequest) {
+- API /api/conversation | src/app/api/conversation/route.ts | export async function GET(request: NextRequest) {
+- API /api/contacts | src/app/api/contacts/route.ts | export const POST = withApiTelemetry('/api/contacts', postHandler)
+- API /api/contacts/[id] | src/app/api/contacts/[id]/route.ts | export const DELETE = withApiTelemetry('/api/contacts/[id]', deleteHandler)
+- API /api/concierge-waitlist | src/app/api/concierge-waitlist/route.ts | export async function POST(request: NextRequest) {
+- API /api/concierge/calls | src/app/api/concierge/calls/route.ts | export async function GET(request: NextRequest) {
+- API /api/companies | src/app/api/companies/route.ts | export async function POST(request: NextRequest) {
+- API /api/companies/reference/search | src/app/api/companies/reference/search/route.ts | export async function GET(request: NextRequest) {
+- API /api/companies/quick-add | src/app/api/companies/quick-add/route.ts | export async function POST(request: NextRequest) {
+- API /api/coach/command-center | src/app/api/coach/command-center/route.ts | export async function GET(request: NextRequest) {
+- API /api/coach/clients | src/app/api/coach/clients/route.ts | export async function GET(request: NextRequest) {
+- API /api/coach/client/[clientId]/weekly-review | src/app/api/coach/client/[clientId]/weekly-review/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/signals | src/app/api/coach/client/[clientId]/signals/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/scorecards | src/app/api/coach/client/[clientId]/scorecards/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/companies | src/app/api/coach/client/[clientId]/companies/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/briefs | src/app/api/coach/client/[clientId]/briefs/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/alerts | src/app/api/coach/client/[clientId]/alerts/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/actions | src/app/api/coach/client/[clientId]/actions/route.ts | export async function GET(
+- API /api/client/coaches | src/app/api/client/coaches/route.ts | export async function GET(request: NextRequest) {
+- API /api/client/coach-access/[coachId] | src/app/api/client/coach-access/[coachId]/route.ts | export async function GET(
+- API /api/client/coach-access/[coachId]/activity | src/app/api/client/coach-access/[coachId]/activity/route.ts | export async function GET(
+- API /api/chat | src/app/api/chat/route.ts | export async function POST(request: NextRequest) {
+- API /api/briefs/[id]/rate | src/app/api/briefs/[id]/rate/route.ts | export async function PATCH(
+- API /api/briefs/save | src/app/api/briefs/save/route.ts | export async function POST(request: NextRequest) {
+- API /api/briefs/download | src/app/api/briefs/download/route.ts | Regular paragraph with possible **bold** spans
+- API /api/briefing/send | src/app/api/briefing/send/route.ts | Retired: the worker (worker/jobs/briefing-job.js) is the active briefing sender.
+- API /api/billing/resume | src/app/api/billing/resume/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/portal | src/app/api/billing/portal/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/pause | src/app/api/billing/pause/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/checkout | src/app/api/billing/checkout/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/checkout/seats | src/app/api/billing/checkout/seats/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/checkout/micro-product-bundle | src/app/api/billing/checkout/micro-product-bundle/route.ts | export async function POST(request: NextRequest) {
+- API /api/billing/checkout/micro-product | src/app/api/billing/checkout/micro-product/route.ts | export async function POST(request: NextRequest) {
+- API /api/auth/verify-and-signup | src/app/api/auth/verify-and-signup/route.ts | export const runtime = 'nodejs'
+- API /api/auth/verify-and-signin | src/app/api/auth/verify-and-signin/route.ts | export const runtime = 'nodejs'
+- API /api/auth/verify-and-oauth | src/app/api/auth/verify-and-oauth/route.ts | export const runtime = 'nodejs'
+- API /api/auth/verify-and-magic-link | src/app/api/auth/verify-and-magic-link/route.ts | export const runtime = 'nodejs'
+- API /api/auth/set-password | src/app/api/auth/set-password/route.ts | export const runtime = 'nodejs'
+- API /api/auth/oauth-start | src/app/api/auth/oauth-start/route.ts | export const runtime = 'nodejs'
+- API /api/auth/login-submit | src/app/api/auth/login-submit/route.ts | export const runtime = 'nodejs'
+- API /api/admin/speakers | src/app/api/admin/speakers/route.ts | GET: list speakers with appearances, optional filters: ?status=&q=&conference=&year=
+- API /api/admin/speakers/[id] | src/app/api/admin/speakers/[id]/route.ts | PATCH: update outreach fields for a single speaker
+- API /api/admin/speakers/export | src/app/api/admin/speakers/export/route.ts | GET: export speakers as CSV formatted for LinkedIn Sales Navigator import.
+- API /api/admin/social/[id] | src/app/api/admin/social/[id]/route.ts | export async function DELETE(
+- API /api/admin/social/[id]/schedule | src/app/api/admin/social/[id]/schedule/route.ts | export async function POST(
+- API /api/admin/social/[id]/mark-posted | src/app/api/admin/social/[id]/mark-posted/route.ts | export async function POST(
+- API /api/admin/social/[id]/council-check | src/app/api/admin/social/[id]/council-check/route.ts | export async function POST(
+- API /api/admin/social/today | src/app/api/admin/social/today/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/social/sync-engagement | src/app/api/admin/social/sync-engagement/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/social/schedule-publish | src/app/api/admin/social/schedule-publish/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/social/morning | src/app/api/admin/social/morning/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/social/handoff-approved | src/app/api/admin/social/handoff-approved/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/social/digest | src/app/api/admin/social/digest/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/signals/monitor | src/app/api/admin/signals/monitor/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/outreach/reliability | src/app/api/admin/outreach/reliability/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/leads/score-route | src/app/api/admin/leads/score-route/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/internal-guide/chat | src/app/api/admin/internal-guide/chat/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/health | src/app/api/admin/health/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/contacts/enrich | src/app/api/admin/contacts/enrich/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/b2b/material | src/app/api/admin/b2b/material/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/stripe-supabase-accounting-sync | src/app/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/revenue-classification | src/app/api/admin/automation/revenue-ops/revenue-classification/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/payout-matching | src/app/api/admin/automation/revenue-ops/payout-matching/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/mismatch-flagging | src/app/api/admin/automation/revenue-ops/mismatch-flagging/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/exception-reporting | src/app/api/admin/automation/revenue-ops/exception-reporting/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/revenue-ops/bookkeeping-entry-preparation | src/app/api/admin/automation/revenue-ops/bookkeeping-entry-preparation/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/weekly-kpi-summaries | src/app/api/admin/automation/reporting/weekly-kpi-summaries/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/value-lane-pricing-entitlements | src/app/api/admin/automation/reporting/value-lane-pricing-entitlements/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/trend-reports | src/app/api/admin/automation/reporting/trend-reports/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/template-adoption-scorecard | src/app/api/admin/automation/reporting/template-adoption-scorecard/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/sprint-5-exit-metrics | src/app/api/admin/automation/reporting/sprint-5-exit-metrics/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/sponsor-snapshot-cadence | src/app/api/admin/automation/reporting/sponsor-snapshot-cadence/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/sponsor-export-pipeline | src/app/api/admin/automation/reporting/sponsor-export-pipeline/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/sponsor-export-dispatch | src/app/api/admin/automation/reporting/sponsor-export-dispatch/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/session-closure-monitor | src/app/api/admin/automation/reporting/session-closure-monitor/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/seat-lifecycle-automation | src/app/api/admin/automation/reporting/seat-lifecycle-automation/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/provisioning-sla-qa | src/app/api/admin/automation/reporting/provisioning-sla-qa/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/program-template-packs | src/app/api/admin/automation/reporting/program-template-packs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/program-template-governance | src/app/api/admin/automation/reporting/program-template-governance/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/prep-provenance-coverage | src/app/api/admin/automation/reporting/prep-provenance-coverage/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/pmf-event-monitor | src/app/api/admin/automation/reporting/pmf-event-monitor/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/pmf-daily-dashboard | src/app/api/admin/automation/reporting/pmf-daily-dashboard/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/pilot-partner-validation | src/app/api/admin/automation/reporting/pilot-partner-validation/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/partner-provisioning-import | src/app/api/admin/automation/reporting/partner-provisioning-import/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/partner-kpi-schema | src/app/api/admin/automation/reporting/partner-kpi-schema/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/outplacement-cohort-admin | src/app/api/admin/automation/reporting/outplacement-cohort-admin/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/onboarding-qa-scorecard | src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/monthly-business-review-packs | src/app/api/admin/automation/reporting/monthly-business-review-packs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/migration-playbook-comms | src/app/api/admin/automation/reporting/migration-playbook-comms/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/intelligence-qa-scorecard | src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/exception-lists | src/app/api/admin/automation/reporting/exception-lists/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/emi-validation-reruns | src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/daily-operating-snapshots | src/app/api/admin/automation/reporting/daily-operating-snapshots/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/council-review-prep | src/app/api/admin/automation/reporting/council-review-prep/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/cohort-roster-model | src/app/api/admin/automation/reporting/cohort-roster-model/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/benchmark-pipeline-run-logs | src/app/api/admin/automation/reporting/benchmark-pipeline-run-logs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/arpu-conversion-dashboard | src/app/api/admin/automation/reporting/arpu-conversion-dashboard/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/outreach/stalled-nudges | src/app/api/admin/automation/outreach/stalled-nudges/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/reconcile-live-sends | src/app/api/admin/automation/outreach/reconcile-live-sends/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/post-meeting-follow-up | src/app/api/admin/automation/outreach/post-meeting-follow-up/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/initial-sequences | src/app/api/admin/automation/outreach/initial-sequences/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/follow-up-timing | src/app/api/admin/automation/outreach/follow-up-timing/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/enforce-suppression | src/app/api/admin/automation/outreach/enforce-suppression/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/classify-replies | src/app/api/admin/automation/outreach/classify-replies/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/outreach/book-from-replies | src/app/api/admin/automation/outreach/book-from-replies/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/workflow-assignment | src/app/api/admin/automation/onboarding/workflow-assignment/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/video-queue | src/app/api/admin/automation/onboarding/video-queue/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/video-queue/[runId] | src/app/api/admin/automation/onboarding/video-queue/[runId]/route.ts | export async function GET(
+- API /api/admin/automation/onboarding/intake | src/app/api/admin/automation/onboarding/intake/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/identity-verify | src/app/api/admin/automation/onboarding/identity-verify/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/first-milestone-tracking | src/app/api/admin/automation/onboarding/first-milestone-tracking/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/first-brief | src/app/api/admin/automation/onboarding/first-brief/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/context-capture | src/app/api/admin/automation/onboarding/context-capture/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/onboarding/activation-reminders | src/app/api/admin/automation/onboarding/activation-reminders/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/monitoring/alerts | src/app/api/admin/automation/monitoring/alerts/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/meetings/book-remind | src/app/api/admin/automation/meetings/book-remind/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/test-execution | src/app/api/admin/automation/engineering/test-execution/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/scheduled-job-observability | src/app/api/admin/automation/engineering/scheduled-job-observability/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/runtime-health-checks | src/app/api/admin/automation/engineering/runtime-health-checks/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/release-notes | src/app/api/admin/automation/engineering/release-notes/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/lint-typecheck | src/app/api/admin/automation/engineering/lint-typecheck/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/error-monitoring | src/app/api/admin/automation/engineering/error-monitoring/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/deployment-validation | src/app/api/admin/automation/engineering/deployment-validation/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/engineering/ci-checks | src/app/api/admin/automation/engineering/ci-checks/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/usage-monitor | src/app/api/admin/automation/customer-ops/usage-monitor/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/status-reporting | src/app/api/admin/automation/customer-ops/status-reporting/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/renewal-reminders | src/app/api/admin/automation/customer-ops/renewal-reminders/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/issue-triage | src/app/api/admin/automation/customer-ops/issue-triage/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/inactivity-nudges | src/app/api/admin/automation/customer-ops/inactivity-nudges/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/help-center-routing | src/app/api/admin/automation/customer-ops/help-center-routing/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/health-checks | src/app/api/admin/automation/customer-ops/health-checks/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/customer-ops/faq-responses | src/app/api/admin/automation/customer-ops/faq-responses/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/subscription-status-updates | src/app/api/admin/automation/billing/subscription-status-updates/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/revenue-recognition-inputs | src/app/api/admin/automation/billing/revenue-recognition-inputs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/renewal-reminders | src/app/api/admin/automation/billing/renewal-reminders/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/refund-workflow-triggers | src/app/api/admin/automation/billing/refund-workflow-triggers/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/plan-changes | src/app/api/admin/automation/billing/plan-changes/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
+
+## Codebase Modules (161)
+- Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
+- Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/activation.ts | src/lib/activation.ts | export interface ActivationStatus {
+- Code src/lib/admin-automation-auth.test.ts | src/lib/admin-automation-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/admin-automation-auth.ts | src/lib/admin-automation-auth.ts | export function extractAutomationServiceToken(request: NextRequest): string {
+- Code src/lib/admin-automation-route.test.ts | src/lib/admin-automation-route.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/admin-automation-route.ts | src/lib/admin-automation-route.ts | export type AutomationBody = Record<string, unknown>
+- Code src/lib/ai-limits.test.ts | src/lib/ai-limits.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/ai-limits.ts | src/lib/ai-limits.ts | Token/character budgets for AI prompt construction.
+- Code src/lib/anthropic.test.ts | src/lib/anthropic.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/anthropic.ts | src/lib/anthropic.ts | export const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+- Code src/lib/api-error.test.ts | src/lib/api-error.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/api-error.ts | src/lib/api-error.ts | export function apiError(message: string, status = 400) {
+- Code src/lib/api-usage.test.ts | src/lib/api-usage.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/api-usage.ts | src/lib/api-usage.ts | Returns true if the user has hit their monthly token/request cap OR their
+- Code src/lib/blog-posts.test.ts | src/lib/blog-posts.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/blog-posts.ts | src/lib/blog-posts.ts | export interface BlogPostMeta {
+- Code src/lib/burst-limit.test.ts | src/lib/burst-limit.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/burst-limit.ts | src/lib/burst-limit.ts | In-memory sliding-window burst limiter for AI routes.
+- Code src/lib/channel-ia.ts | src/lib/channel-ia.ts | export type ChannelRouteSpec = {
+- Code src/lib/channel-metrics-events.ts | src/lib/channel-metrics-events.ts | export const CHANNELS = [
+- Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
+- Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export async function verifyCoachAccess(coachId: string, clientId: string) {
+- Code src/lib/config.test.ts | src/lib/config.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/config.ts | src/lib/config.ts | App-wide configuration derived from environment variables.
+- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/cron-auth.ts | src/lib/cron-auth.ts | export function validateCronRequest(request: NextRequest): boolean {
+- Code src/lib/database.types.test.ts | src/lib/database.types.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/database.types.ts | src/lib/database.types.ts | Database type definitions for feedback system
+- Code src/lib/date.test.ts | src/lib/date.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/date.ts | src/lib/date.ts | en-CA locale formats dates as YYYY-MM-DD, matching the DB date column format.
+- Code src/lib/demo.test.ts | src/lib/demo.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/demo.ts | src/lib/demo.ts | export const DEMO_USER_ID = process.env.DEMO_USER_ID ?? ''
+- Code src/lib/email-council.test.ts | src/lib/email-council.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/email-council.ts | src/lib/email-council.ts | export type EmailCouncilChannel = 'executives' | 'coaches' | 'search_firms' | 'outplacement_firms' | 'general'
+- Code src/lib/email-quality.test.ts | src/lib/email-quality.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/email-quality.ts | src/lib/email-quality.ts | export function reviewEmail(subject: string, html: string): string[] {
+- Code src/lib/email.test.ts | src/lib/email.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
+- Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
+- Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
+- Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/google-calendar.ts | src/lib/google-calendar.ts | export type GoogleCalendarIntegrationRow = {
+- Code src/lib/guide-retrieval.test.ts | src/lib/guide-retrieval.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/guide-retrieval.ts | src/lib/guide-retrieval.ts | export type GuideEntry = {
+- Code src/lib/intelligence-quality.ts | src/lib/intelligence-quality.ts | export type SignalProfileContext = {
+- Code src/lib/intelligence.test.ts | src/lib/intelligence.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/intelligence.ts | src/lib/intelligence.ts | export type IntelSignal = {
+- Code src/lib/internal-route-auth.test.ts | src/lib/internal-route-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/internal-route-auth.ts | src/lib/internal-route-auth.ts | export function validateInternalRouteRequest(request: NextRequest): boolean {
+- Code src/lib/lead-scoring-runner.test.ts | src/lib/lead-scoring-runner.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/lead-scoring-runner.ts | src/lib/lead-scoring-runner.ts | export type LeadScoringOptions = {
+- Code src/lib/lead-scoring.test.ts | src/lib/lead-scoring.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/lead-scoring.ts | src/lib/lead-scoring.ts | export type ScoreReason = {
+- Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
+- Code src/lib/onboarding-speed.ts | src/lib/onboarding-speed.ts | export type OnboardingChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
+- Code src/lib/onboarding-video-provider.ts | src/lib/onboarding-video-provider.ts | export type OnboardingVideoProviderDispatchInput = {
+- Code src/lib/onboarding-video-queue.ts | src/lib/onboarding-video-queue.ts | export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'
+- Code src/lib/outplacement-cohort-model.ts | src/lib/outplacement-cohort-model.ts | export type CohortMilestoneId =
+- Code src/lib/owner-email.test.ts | src/lib/owner-email.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/owner-email.ts | src/lib/owner-email.ts | export function getOwnerEmail(): string | undefined {
+- Code src/lib/partner-kpi-schema.ts | src/lib/partner-kpi-schema.ts | export const PARTNER_PROGRAMS = ['intelligence', 'active', 'executive', 'free'] as const
+- Code src/lib/partner-provisioning.ts | src/lib/partner-provisioning.ts | export type ProvisioningSeatStatus = 'invited' | 'active' | 'suspended' | 'transferred' | 'archived'
+- Code src/lib/persona-routes.ts | src/lib/persona-routes.ts | export type PersonaSpec = {
+- Code src/lib/pixel-token.test.ts | src/lib/pixel-token.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/pixel-token.ts | src/lib/pixel-token.ts | Token is a base64url-encoded JSON payload signed with HMAC-SHA256.
+- Code src/lib/plans.test.ts | src/lib/plans.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/plans.ts | src/lib/plans.ts | export const PLANS = {
+- Code src/lib/pmf-event-taxonomy.test.ts | src/lib/pmf-event-taxonomy.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/pmf-event-taxonomy.ts | src/lib/pmf-event-taxonomy.ts | export const PMF_EVENT_VERSION = 1
+- Code src/lib/posthog-server.test.ts | src/lib/posthog-server.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/posthog-server.ts | src/lib/posthog-server.ts | export function captureServerEvent(
+- Code src/lib/prep-confidence.test.ts | src/lib/prep-confidence.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prep-confidence.ts | src/lib/prep-confidence.ts | export type PrepConfidenceResult = {
+- Code src/lib/prep-context.test.ts | src/lib/prep-context.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prep-context.ts | src/lib/prep-context.ts | export type Signal = {
+- Code src/lib/prep-provenance.test.ts | src/lib/prep-provenance.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prep-provenance.ts | src/lib/prep-provenance.ts | export const PREP_PROVENANCE_VERSION = 1
+- Code src/lib/prep-role-modes.test.ts | src/lib/prep-role-modes.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prep-role-modes.ts | src/lib/prep-role-modes.ts | export const PREP_ROLE_MODES = ['cio', 'cto', 'ciso', 'vp_to_cxo'] as const
+- Code src/lib/pricing.test.ts | src/lib/pricing.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/pricing.ts | src/lib/pricing.ts | Single source of truth for all pricing display values.
+- Code src/lib/program-template-governance.ts | src/lib/program-template-governance.ts | export type ProgramTemplatePackId = 'executive_transition' | 'board_track' | 'restructuring'
+- Code src/lib/prompts.test.ts | src/lib/prompts.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prompts.ts | src/lib/prompts.ts | Central prompt library for all AI features.
+- Code src/lib/prospect-news.test.ts | src/lib/prospect-news.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/prospect-news.ts | src/lib/prospect-news.ts | export type NewsItem = {
+- Code src/lib/public-endpoint-guard.test.ts | src/lib/public-endpoint-guard.test.ts | import { NextRequest } from 'next/server'
+- Code src/lib/public-endpoint-guard.ts | src/lib/public-endpoint-guard.ts | export function getClientIp(request: NextRequest): string {
+- Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function checkRateLimit(
+- Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/require-auth.ts | src/lib/require-auth.ts | export type AuthResult =
+- Code src/lib/require-feature-access.test.ts | src/lib/require-feature-access.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/require-feature-access.ts | src/lib/require-feature-access.ts | Single guard for all AI feature routes.
+- Code src/lib/require-prep-access.test.ts | src/lib/require-prep-access.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/require-prep-access.ts | src/lib/require-prep-access.ts | Single guard used by all /api/prep/[id]/* routes.
+- Code src/lib/resources.test.ts | src/lib/resources.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/resources.ts | src/lib/resources.ts | Curated external resources surfaced contextually in prep briefs.
+- Code src/lib/role-path-priority.ts | src/lib/role-path-priority.ts | export async function getRolePathPriorityByCtaKey(): Promise<Record<string, number>> {
+- Code src/lib/schemas.test.ts | src/lib/schemas.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/schemas.ts | src/lib/schemas.ts | Shared message type for chat and conversation routes
+- Code src/lib/slack.test.ts | src/lib/slack.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/slack.ts | src/lib/slack.ts | export async function sendSlackMessage(input: SendSlackMessageInput): Promise<{ ok: true } | { ok: false; error: string }> {
+- Code src/lib/social-council-check.test.ts | src/lib/social-council-check.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/social-council-check.ts | src/lib/social-council-check.ts | export const ALLOWED_EMOTIONAL_ANGLES = [
+- Code src/lib/social-posting-plan.test.ts | src/lib/social-posting-plan.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/social-posting-plan.ts | src/lib/social-posting-plan.ts | export type SocialPlan = {
+- Code src/lib/staff.test.ts | src/lib/staff.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/staff.ts | src/lib/staff.ts | export type StaffRole = 'owner' | 'admin' | 'viewer'
+- Code src/lib/stream-error.test.ts | src/lib/stream-error.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/stream-error.ts | src/lib/stream-error.ts | export function streamErrorMessage(err: unknown, context?: { feature?: string; userId?: string }): string {
+- Code src/lib/stripe-customer.test.ts | src/lib/stripe-customer.test.ts | import { beforeEach, describe, expect, it, vi } from 'vitest'
+- Code src/lib/stripe-customer.ts | src/lib/stripe-customer.ts | export async function getOrRecoverStripeCustomerId(userId: string): Promise<string | null> {
+- Code src/lib/stripe-status.test.ts | src/lib/stripe-status.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/stripe-status.ts | src/lib/stripe-status.ts | export type AppSubscriptionStatus =
+- Code src/lib/stripe.test.ts | src/lib/stripe.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/stripe.ts | src/lib/stripe.ts | export function getStripe(): Stripe {
+- Code src/lib/subscription.test.ts | src/lib/subscription.test.ts | import { describe, expect, it, vi } from 'vitest'
+- Code src/lib/subscription.ts | src/lib/subscription.ts | export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
+- Code src/lib/telemetry.test.ts | src/lib/telemetry.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/telemetry.ts | src/lib/telemetry.ts | Set once per cold start from Railway / CI environment.
+- Code src/lib/toast.test.tsx | src/lib/toast.test.tsx | import { describe, expect, it } from 'vitest'
+- Code src/lib/toast.tsx | src/lib/toast.tsx | export function ToastProvider({ children }: { children: React.ReactNode }) {
+- Code src/lib/trace.test.ts | src/lib/trace.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/trace.ts | src/lib/trace.ts | export function recordTraceError(params: { feature: string; userId: string; model?: string; latencyMs?: number; error: string }): void {
+- Code src/lib/unsubscribe-token.test.ts | src/lib/unsubscribe-token.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/unsubscribe-token.ts | src/lib/unsubscribe-token.ts | export function unsubscribeUrl(userId: string): string {
+- Code src/lib/value-lane-pricing.ts | src/lib/value-lane-pricing.ts | export type ValueLane = 'launch' | 'scale' | 'transform'
+- Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
+- Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
+- Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
+- Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+- Code src/lib/__tests__/stripe-status.test.ts | src/lib/__tests__/stripe-status.test.ts | If somehow past_due but paused, paused wins
+- Code src/lib/__tests__/stripe-webhook.test.ts | src/lib/__tests__/stripe-webhook.test.ts | ── Hoisted state (available inside vi.mock factories) ─────────────────────
+- Code src/lib/__tests__/subscription.test.ts | src/lib/__tests__/subscription.test.ts | Trialing users get all features via the status === 'trialing' branch
+- Code src/lib/__tests__/trace.test.ts | src/lib/__tests__/trace.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+- Code src/lib/supabase/admin.test.ts | src/lib/supabase/admin.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/supabase/admin.ts | src/lib/supabase/admin.ts | export function createAdminClient() {
+- Code src/lib/supabase/client.test.ts | src/lib/supabase/client.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/supabase/client.ts | src/lib/supabase/client.ts | export function createClient() {
+- Code src/lib/supabase/database.types.test.ts | src/lib/supabase/database.types.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/supabase/database.types.ts | src/lib/supabase/database.types.ts | export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+- Code src/lib/supabase/server.test.ts | src/lib/supabase/server.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/supabase/server.ts | src/lib/supabase/server.ts | export async function createClient() {
+- Code src/lib/outreach/auto-remediate.test.ts | src/lib/outreach/auto-remediate.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/outreach/auto-remediate.ts | src/lib/outreach/auto-remediate.ts | export function firstNameFromRecipient(name: string | null | undefined): string {
+- Code src/lib/outreach/human-tone-guard.test.ts | src/lib/outreach/human-tone-guard.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/outreach/human-tone-guard.ts | src/lib/outreach/human-tone-guard.ts | export type HumanToneGuardInput = {
+- Code src/lib/outreach/legacy-copy-guard.ts | src/lib/outreach/legacy-copy-guard.ts | export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
+- Code src/lib/outreach/reliability-metrics.test.ts | src/lib/outreach/reliability-metrics.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/outreach/reliability-metrics.ts | src/lib/outreach/reliability-metrics.ts | export type ReliabilityThresholds = {
+- Code src/lib/outreach/send-queue.ts | src/lib/outreach/send-queue.ts | export const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+- Code src/lib/outreach/template-draft.test.ts | src/lib/outreach/template-draft.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/outreach/template-draft.ts | src/lib/outreach/template-draft.ts | export type OutreachTemplateChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
+- Code src/lib/outreach/template-engine.test.ts | src/lib/outreach/template-engine.test.ts | import { describe, it, expect } from 'vitest'
+
+## Internal Scripts (106)
+- Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
+- Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
+- Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/audit-outreach-db.mjs | scripts/audit-outreach-db.mjs | import 'dotenv/config'
+- Script scripts/audit-outreach-momentum.ts | scripts/audit-outreach-momentum.ts | import {
+- Script scripts/audit-outreach-sends.mjs | scripts/audit-outreach-sends.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/backfill-company-size-bands.mjs | scripts/backfill-company-size-bands.mjs | Add all 17 missing mappings here
+- Script scripts/backfill-edgar-exec-history.mjs | scripts/backfill-edgar-exec-history.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
+- Script scripts/backfill-outreach-status-sent-today.mjs | scripts/backfill-outreach-status-sent-today.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/backfill-prep-provenance.mjs | scripts/backfill-prep-provenance.mjs | #!/usr/bin/env node
+- Script scripts/bulk-council-remediate.mjs | scripts/bulk-council-remediate.mjs | #!/usr/bin/env node
+- Script scripts/check-api-guards.mjs | scripts/check-api-guards.mjs | #!/usr/bin/env node
+- Script scripts/check-auth.mjs | scripts/check-auth.mjs | import fs from 'node:fs'
+- Script scripts/check-clean-worktree-for-push.mjs | scripts/check-clean-worktree-for-push.mjs | #!/usr/bin/env node
+- Script scripts/check-data-integrity.mjs | scripts/check-data-integrity.mjs | ---------------------------------------------------------------------------
+- Script scripts/check-dependency-policy.mjs | scripts/check-dependency-policy.mjs | Stable release is greater than prerelease for same major/minor/patch.
+- Script scripts/check-docs-commands.mjs | scripts/check-docs-commands.mjs | import fs from 'node:fs'
+- Script scripts/check-email-council-gate.ts | scripts/check-email-council-gate.ts | import { readFile } from 'node:fs/promises'
+- Script scripts/check-executive-fit-criteria.mjs | scripts/check-executive-fit-criteria.mjs | import { readFile } from 'node:fs/promises'
+- Script scripts/check-growth-metrics-gate.mjs | scripts/check-growth-metrics-gate.mjs | #!/usr/bin/env node
+- Script scripts/check-linkedin-ads-gate.mjs | scripts/check-linkedin-ads-gate.mjs | Wilson score interval for 95% confidence
+- Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'
+- Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
+- Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
+- Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | eslint-disable-next-line no-await-in-loop
+- Script scripts/check-mobile-ui-contract.mjs | scripts/check-mobile-ui-contract.mjs | Quick actions layout contract: two-column mobile and six-column desktop utility grid.
+- Script scripts/check-observability-import-guard.mjs | scripts/check-observability-import-guard.mjs | #!/usr/bin/env node
+- Script scripts/check-outreach-format.mjs | scripts/check-outreach-format.mjs | Accept common signature variants used across historical outreach exports.
+- Script scripts/check-placeholder-test-regressions.mjs | scripts/check-placeholder-test-regressions.mjs | #!/usr/bin/env node
+- Script scripts/check-pmf-daily-monitor.mjs | scripts/check-pmf-daily-monitor.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-brief-evals-readiness.mjs | scripts/check-prep-brief-evals-readiness.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-brief-label-progress.mjs | scripts/check-prep-brief-label-progress.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-brief-sprint3-dod.mjs | scripts/check-prep-brief-sprint3-dod.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-confidence-calibration.mjs | scripts/check-prep-confidence-calibration.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-provenance-coverage.mjs | scripts/check-prep-provenance-coverage.mjs | #!/usr/bin/env node
+- Script scripts/check-prep-role-mode-qa.mjs | scripts/check-prep-role-mode-qa.mjs | #!/usr/bin/env node
+- Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
+- Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
+- Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
+- Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
+- Script scripts/code-synthetic-council-audit.mjs | scripts/code-synthetic-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/dedupe-outreach-logs.mjs | scripts/dedupe-outreach-logs.mjs | import 'dotenv/config'
+- Script scripts/deep-dive-technical-debt-audit.mjs | scripts/deep-dive-technical-debt-audit.mjs | #!/usr/bin/env node
+- Script scripts/depitch-queued-outreach.mjs | scripts/depitch-queued-outreach.mjs | Load env files in Next.js-like precedence for local script runs.
+- Script scripts/email-council-weekly-report.mjs | scripts/email-council-weekly-report.mjs | #!/usr/bin/env node
+- Script scripts/emi-postdeploy-smoke.mjs | scripts/emi-postdeploy-smoke.mjs | #!/usr/bin/env node
+- Script scripts/eval-guide-retrieval.ts | scripts/eval-guide-retrieval.ts | import { promises as fs } from 'fs'
+- Script scripts/evals-ci-check.mjs | scripts/evals-ci-check.mjs | #!/usr/bin/env node
+- Script scripts/evals-doctor.mjs | scripts/evals-doctor.mjs | #!/usr/bin/env node
+- Script scripts/evals-help.mjs | scripts/evals-help.mjs | #!/usr/bin/env node
+- Script scripts/export-growth-weekly-metrics.mjs | scripts/export-growth-weekly-metrics.mjs | #!/usr/bin/env node
+- Script scripts/export-pmf-daily-dashboard.mjs | scripts/export-pmf-daily-dashboard.mjs | #!/usr/bin/env node
+- Script scripts/export-prep-brief-golden-set.mjs | scripts/export-prep-brief-golden-set.mjs | #!/usr/bin/env node
+- Script scripts/export-report-pdfs.mjs | scripts/export-report-pdfs.mjs | Branded full-fidelity PDF for downloads.
+- Script scripts/fix-outreach-signature-csv.mjs | scripts/fix-outreach-signature-csv.mjs | import { readdir, readFile, writeFile } from 'node:fs/promises'
+- Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
+- Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
+- Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
+- Script scripts/guide-query-analytics-weekly.mjs | scripts/guide-query-analytics-weekly.mjs | #!/usr/bin/env node
+- Script scripts/hero-dual-track-council-audit.mjs | scripts/hero-dual-track-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/human-tone-guard-audit.mjs | scripts/human-tone-guard-audit.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/import-all-coaches.mjs | scripts/import-all-coaches.mjs | import { readFile, readdir } from 'node:fs/promises'
+- Script scripts/import-apollo-coaches-5-18.mjs | scripts/import-apollo-coaches-5-18.mjs | import { readFile } from 'node:fs/promises'
+- Script scripts/import-apollo-coaches.mjs | scripts/import-apollo-coaches.mjs | import { readFile } from 'node:fs/promises'
+- Script scripts/import-coach-outreach.mjs | scripts/import-coach-outreach.mjs | import { readFile } from "node:fs/promises"
+- Script scripts/import-coaches-comprehensive.mjs | scripts/import-coaches-comprehensive.mjs | import { readFile, readdir } from 'node:fs/promises'
+- Script scripts/internal-guide-sync.ts | scripts/internal-guide-sync.ts | import { createHash } from 'crypto'
+- Script scripts/link-integrity-audit.mjs | scripts/link-integrity-audit.mjs | import fs from 'node:fs/promises'
+- Script scripts/lint-outreach-first-sentence.mjs | scripts/lint-outreach-first-sentence.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/lint-outreach-forbidden.mjs | scripts/lint-outreach-forbidden.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/lint-outreach-signature.mjs | scripts/lint-outreach-signature.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/lint-outreach-single-file.mjs | scripts/lint-outreach-single-file.mjs | import { readFile } from 'node:fs/promises'
+- Script scripts/lint-outreach-subject.mjs | scripts/lint-outreach-subject.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/nightly-outreach-audit.mjs | scripts/nightly-outreach-audit.mjs | import { execSync } from 'node:child_process'
+- Script scripts/normalize-legacy-coach-emails.mjs | scripts/normalize-legacy-coach-emails.mjs | Coach-only lint verification on touched files
+- Script scripts/outreach-template-contract.test.ts | scripts/outreach-template-contract.test.ts | import { describe, it, expect } from 'vitest'
+- Script scripts/pagespeed-check.mjs | scripts/pagespeed-check.mjs | Parse .env.local into process.env if keys are missing
+- Script scripts/prebuild-guard.mjs | scripts/prebuild-guard.mjs | #!/usr/bin/env node
+- Script scripts/precommit-mobile-ui-gate.mjs | scripts/precommit-mobile-ui-gate.mjs | #!/usr/bin/env node
+- Script scripts/precommit-outreach-lint.mjs | scripts/precommit-outreach-lint.mjs | Only run outreach lint if any docs/outreach/*.csv file is staged
+- Script scripts/production-smoke-check.mjs | scripts/production-smoke-check.mjs | eslint-disable-next-line no-await-in-loop
+- Script scripts/refine-outreach-templates-by-council.mjs | scripts/refine-outreach-templates-by-council.mjs | The file is outplacement-focused; keep broad update anyway.
+- Script scripts/refresh-coach-outreach-queue.mjs | scripts/refresh-coach-outreach-queue.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/remediate-outreach-csv-tone.mjs | scripts/remediate-outreach-csv-tone.mjs | Rebuild global entries from updated in-memory file rows for next pass score.
+- Script scripts/resolve-ciks.mjs | scripts/resolve-ciks.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
+- Script scripts/run-mobile-key-routes-report.mjs | scripts/run-mobile-key-routes-report.mjs | #!/usr/bin/env node
+- Script scripts/sample-outreach-examples.mjs | scripts/sample-outreach-examples.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/save-prep-brief-readiness-snapshot.mjs | scripts/save-prep-brief-readiness-snapshot.mjs | #!/usr/bin/env node
+- Script scripts/security-deep-dive-audit.mjs | scripts/security-deep-dive-audit.mjs | #!/usr/bin/env node
+- Script scripts/seed-demo.ts | scripts/seed-demo.ts | Create or find the demo user
+- Script scripts/seed-events-dc.mjs | scripts/seed-events-dc.mjs | One-time seed: Events DC company + Carmen Rodgers contact + follow-up reminder
+- Script scripts/seed-prep-brief-eval-traces.mjs | scripts/seed-prep-brief-eval-traces.mjs | #!/usr/bin/env node
+- Script scripts/seed-social-calendar.ts | scripts/seed-social-calendar.ts | Replace future unposted queue so /social reflects the new multi-audience calendar.
+- Script scripts/send-liz-linkedin-company-launch-email.mjs | scripts/send-liz-linkedin-company-launch-email.mjs | import { config } from 'dotenv'
+- Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
+- Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
+- Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
+- Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
+- Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
+- Script scripts/ui-ux-council-audit.mjs | scripts/ui-ux-council-audit.mjs | import fs from 'node:fs'
+- Script scripts/user-guide-sync.ts | scripts/user-guide-sync.ts | import { createHash } from 'crypto'
+- Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
+- Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
+- Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
+
+## Infrastructure and Workflows (27)
+- Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
+- Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
+- Workflow .github/workflows/deploy-alerts.yml | .github/workflows/deploy-alerts.yml | name: Deployment Alerts
+- Workflow .github/workflows/deployment-watchdog.yml | .github/workflows/deployment-watchdog.yml | name: Deployment Watchdog
+- Workflow .github/workflows/emi-weekly-validation.yml | .github/workflows/emi-weekly-validation.yml | name: EMI Weekly Validation
+- Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
+- Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
+- Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
+- Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
+- Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
+- Workflow .github/workflows/nightly-audit.yml | .github/workflows/nightly-audit.yml | name: Nightly Outreach Audit
+- Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
+- Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
+- Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
+- Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
+- Workflow .github/workflows/security-weekly.yml | .github/workflows/security-weekly.yml | Every Monday at 08:00 UTC
+- Workflow .github/workflows/send-council-csv-to-slack.yml | .github/workflows/send-council-csv-to-slack.yml | name: Send Council CSV To Slack
+- Workflow .github/workflows/send-epic-summary-to-slack.yml | .github/workflows/send-epic-summary-to-slack.yml | name: Send Epic Summary To Slack
+- Workflow .github/workflows/slack-alert-test.yml | .github/workflows/slack-alert-test.yml | name: Slack Alert Test
+- Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
+- Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
+- Workflow .github/workflows/sync-staging.yml | .github/workflows/sync-staging.yml | Auto-merges main into staging whenever main is pushed.
+- Workflow .github/workflows/watermark-audit.yml | .github/workflows/watermark-audit.yml | Watermark Documentation Audit — ${TODAY}
+- Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
+- Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test
+- Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
+- Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
+
+## Data and Migrations (125)
+- Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
+- Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
+- Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
+- Migration supabase/migrations/004_api_usage.sql | supabase/migrations/004_api_usage.sql | -- Tracks API usage per user per month for cost monitoring and rate limiting.
+- Migration supabase/migrations/005_company_documents.sql | supabase/migrations/005_company_documents.sql | -- Company-level documents: job descriptions, news, annual reports, org notes.
+- Migration supabase/migrations/006_onboarding_fields.sql | supabase/migrations/006_onboarding_fields.sql | -- New profile fields captured during onboarding.
+- Migration supabase/migrations/007_security_and_indexes.sql | supabase/migrations/007_security_and_indexes.sql | -- Security: company_documents was missing an UPDATE policy.
+- Migration supabase/migrations/008_stripe_billing.sql | supabase/migrations/008_stripe_billing.sql | -- Add trial tracking and Stripe billing fields
+- Migration supabase/migrations/009_webhook_idempotency_and_trial_fix.sql | supabase/migrations/009_webhook_idempotency_and_trial_fix.sql | -- Idempotency table for Stripe webhook events (prevents double-processing on retries)
+- Migration supabase/migrations/010_indexes.sql | supabase/migrations/010_indexes.sql | -- Performance indexes for users table queries that will degrade as the table grows.
+- Migration supabase/migrations/011_briefs.sql | supabase/migrations/011_briefs.sql | -- Brief logging and user rating
+- Migration supabase/migrations/012_company_signals.sql | supabase/migrations/012_company_signals.sql | -- Company intelligence signals detected from news sources
+- Migration supabase/migrations/013_trial_30days.sql | supabase/migrations/013_trial_30days.sql | -- Update trial period from 7 days to 30 days to match landing page copy
+- Migration supabase/migrations/014_additional_indexes.sql | supabase/migrations/014_additional_indexes.sql | -- Additional performance indexes identified in tech debt review.
+- Migration supabase/migrations/015_invite_codes.sql | supabase/migrations/015_invite_codes.sql | -- Invite codes for referral tracking
+- Migration supabase/migrations/016_crunchbase_id.sql | supabase/migrations/016_crunchbase_id.sql | alter table public.companies
+- Migration supabase/migrations/017_company_url.sql | supabase/migrations/017_company_url.sql | alter table public.companies
+- Migration supabase/migrations/018_rate_limits.sql | supabase/migrations/018_rate_limits.sql | -- Persistent rate limiting table.
+- Migration supabase/migrations/019_search_persona.sql | supabase/migrations/019_search_persona.sql | alter table user_profiles
+- Migration supabase/migrations/020_user_events.sql | supabase/migrations/020_user_events.sql | -- User behavior event log (server-side source of truth for all analytics)
+- Migration supabase/migrations/021_offer_tracking.sql | supabase/migrations/021_offer_tracking.sql | -- Tracks when the offer-acceptance email was sent (prevents re-send)
+- Migration supabase/migrations/022_momentum_score.sql | supabase/migrations/022_momentum_score.sql | -- Computed weekly momentum score (0-100) and when it was last calculated
+- Migration supabase/migrations/023_data_product_tables.sql | supabase/migrations/023_data_product_tables.sql | -- signal_action_events: tracks which signals lead to downstream action within 48h
+- Migration supabase/migrations/024_staff_members.sql | supabase/migrations/024_staff_members.sql | -- Staff members for internal admin access
+- Migration supabase/migrations/025_tech_debt_indexes_and_retention.sql | supabase/migrations/025_tech_debt_indexes_and_retention.sql | -- Missing index: company_signals by user_id + signal_date
+- Migration supabase/migrations/026_normalize_briefing_days.sql | supabase/migrations/026_normalize_briefing_days.sql | -- Normalize abbreviated briefing_days values (Mon → Monday, etc.) to full names.
+- Migration supabase/migrations/027_disable_test_account_briefing.sql | supabase/migrations/027_disable_test_account_briefing.sql | -- Null out briefing_time on the E2E test account so it stops receiving
+- Migration supabase/migrations/028_backfill_search_started_at.sql | supabase/migrations/028_backfill_search_started_at.sql | -- Backfill search_started_at from onboarding_completed_at for users who
+- Migration supabase/migrations/029_briefing_email.sql | supabase/migrations/029_briefing_email.sql | -- Optional alternate delivery address for briefings and activation emails.
+- Migration supabase/migrations/030_role_type_and_company_size.sql | supabase/migrations/030_role_type_and_company_size.sql | -- PQ1: Role type on user profile and company size on companies.
+- Migration supabase/migrations/031_career_history_json.sql | supabase/migrations/031_career_history_json.sql | -- PQ2: Structured, executive-verified career history stored alongside raw resume text.
+- Migration supabase/migrations/032_exec_snapshots.sql | supabase/migrations/032_exec_snapshots.sql | -- Exec snapshots for Proxycurl diffing (departure/hire detection across signal-job runs)
+- Migration supabase/migrations/033_sec_filings.sql | supabase/migrations/033_sec_filings.sql | -- Persist 8-K filing metadata for trend detection across time
+- Migration supabase/migrations/034_intelligence.sql | supabase/migrations/034_intelligence.sql | -- Company intelligence product: public company registry + access tokens
+- Migration supabase/migrations/035_contacts_fields.sql | supabase/migrations/035_contacts_fields.sql | -- Add direct contact fields: email and LinkedIn URL
+- Migration supabase/migrations/036_contact_outreach_status.sql | supabase/migrations/036_contact_outreach_status.sql | -- Track where each contact relationship stands in the outreach funnel
+- Migration supabase/migrations/037_role_context.sql | supabase/migrations/037_role_context.sql | -- role_context stores function-specific interview prep details (CISO frameworks,
+- Migration supabase/migrations/038_performance_indexes.sql | supabase/migrations/038_performance_indexes.sql | -- Performance indexes for high-frequency dashboard queries.
+- Migration supabase/migrations/039_b2b_tables.sql | supabase/migrations/039_b2b_tables.sql | -- Team seats for multi-seat B2B accounts
+- Migration supabase/migrations/040_llm_traces.sql | supabase/migrations/040_llm_traces.sql | create table if not exists public.llm_traces (
+- Migration supabase/migrations/041_b2b_sales.sql | supabase/migrations/041_b2b_sales.sql | -- B2B prospect pipeline
+- Migration supabase/migrations/042_passive_track.sql | supabase/migrations/042_passive_track.sql | -- Fix: add 'director' to the search_persona check constraint (was missing from migration 019)
+- Migration supabase/migrations/043_exec_tier.sql | supabase/migrations/043_exec_tier.sql | -- Executive tier: priority flag on contacts for recruiter tracker enhancements
+- Migration supabase/migrations/044_demo_leads.sql | supabase/migrations/044_demo_leads.sql | create table if not exists public.demo_leads (
+- Migration supabase/migrations/045_signal_personalization.sql | supabase/migrations/045_signal_personalization.sql | -- outreach draft stored on each signal (generated by Claude, ready to copy-send)
+- Migration supabase/migrations/046_offer_tracking.sql | supabase/migrations/046_offer_tracking.sql | -- Structured offer fields on each company (shown when stage = 'offer')
+- Migration supabase/migrations/047_offer_decision_factors.sql | supabase/migrations/047_offer_decision_factors.sql | -- Qualitative decision factors on offers (relocation, family, career trajectory, etc.)
+- Migration supabase/migrations/048_interview_logs.sql | supabase/migrations/048_interview_logs.sql | CREATE TABLE IF NOT EXISTS company_interview_logs (
+- Migration supabase/migrations/049_exec_snapshots_user_scope.sql | supabase/migrations/049_exec_snapshots_user_scope.sql | -- Scope exec_snapshots by user_id to prevent cross-user data contamination.
+- Migration supabase/migrations/050_missing_rls.sql | supabase/migrations/050_missing_rls.sql | -- Enable RLS on internal/admin tables that were created without it.
+- Migration supabase/migrations/051_watermark_events.sql | supabase/migrations/051_watermark_events.sql | -- Tracking pixel open events.
+- Migration supabase/migrations/052_outreach_logs.sql | supabase/migrations/052_outreach_logs.sql | -- Tracks outreach messages sent by a user to a contact.
+- Migration supabase/migrations/053_signal_types_ciso_cdo.sql | supabase/migrations/053_signal_types_ciso_cdo.sql | -- Add signal types for CISO-relevant events (breach_disclosure, regulatory_change)
+- Migration supabase/migrations/054_social_posts.sql | supabase/migrations/054_social_posts.sql | -- Stores LinkedIn post drafts and posting history for the admin social page.
+- Migration supabase/migrations/055_partners_referrals.sql | supabase/migrations/055_partners_referrals.sql | -- Partner referral system: coaches and outplacement firms who refer users.
+- Migration supabase/migrations/056_social_buffer.sql | supabase/migrations/056_social_buffer.sql | alter table public.social_posts
+- Migration supabase/migrations/057_placement_tracking.sql | supabase/migrations/057_placement_tracking.sql | alter table public.user_profiles
+- Migration supabase/migrations/058_coach_seats.sql | supabase/migrations/058_coach_seats.sql | -- Coach seat purchasing: allow partners to buy seats for clients.
+- Migration supabase/migrations/059_relationship_infra.sql | supabase/migrations/059_relationship_infra.sql | -- OS Sprint 2: Relationship Infrastructure
+- Migration supabase/migrations/060_narrative_versions.sql | supabase/migrations/060_narrative_versions.sql | -- OS Sprint 3: Executive Narrative Engine
+- Migration supabase/migrations/061_always_on_intelligence.sql | supabase/migrations/061_always_on_intelligence.sql | -- OS Sprint 4: Always-On Intelligence
+- Migration supabase/migrations/062_concierge.sql | supabase/migrations/062_concierge.sql | -- Sprint 6: Executive Concierge tier
+- Migration supabase/migrations/063_sec_cik_companies.sql | supabase/migrations/063_sec_cik_companies.sql | -- E1.1: Persist SEC CIK resolution on the companies table.
+- Migration supabase/migrations/064_board_snapshots.sql | supabase/migrations/064_board_snapshots.sql | -- E1.2: Board composition tracking via SEC DEF 14A (annual proxy statement).
+- Migration supabase/migrations/065_activist_filings.sql | supabase/migrations/065_activist_filings.sql | -- E1.3: Activist investor tracking via SEC Schedule 13D filings.
+- Migration supabase/migrations/066_insider_sales.sql | supabase/migrations/066_insider_sales.sql | -- E1.4: Form 4 insider transaction tracking.
+- Migration supabase/migrations/067_regulatory_events.sql | supabase/migrations/067_regulatory_events.sql | -- E2.4: Sector-level regulatory pressure calendar.
+- Migration supabase/migrations/068_executive_history.sql | supabase/migrations/068_executive_history.sql | -- E3.1: Executive History Database
+- Migration supabase/migrations/069_conference_speakers.sql | supabase/migrations/069_conference_speakers.sql | -- 069: Conference speaker database
+- Migration supabase/migrations/070_trial_tracking.sql | supabase/migrations/070_trial_tracking.sql | -- Track when a user adds their first watched company.
+- Migration supabase/migrations/071_drip_and_scan_alerts.sql | supabase/migrations/071_drip_and_scan_alerts.sql | -- drip_sends: records which activation drip emails have been sent per user.
+- Migration supabase/migrations/072_weekly_digest.sql | supabase/migrations/072_weekly_digest.sql | alter table public.users add column if not exists weekly_digest_sent_at timestamptz;
+- Migration supabase/migrations/073_drop_conversation_trim_trigger.sql | supabase/migrations/073_drop_conversation_trim_trigger.sql | -- The application enforces a 200-message limit in conversation/route.ts.
+- Migration supabase/migrations/074_llm_traces_add_success.sql | supabase/migrations/074_llm_traces_add_success.sql | ALTER TABLE llm_traces ADD COLUMN IF NOT EXISTS success boolean NOT NULL DEFAULT true;
+- Migration supabase/migrations/075_industry_taxonomy.sql | supabase/migrations/075_industry_taxonomy.sql | -- Industry taxonomy reference tables
+- Migration supabase/migrations/076_reference_companies.sql | supabase/migrations/076_reference_companies.sql | -- Reference company catalog for autocomplete on "Add Company"
+- Migration supabase/migrations/077_seed_reference_companies.sql | supabase/migrations/077_seed_reference_companies.sql | -- Seed: reference_companies (1791 rows, deduplicated from Crunchbase export)
+- Migration supabase/migrations/078_star_stories.sql | supabase/migrations/078_star_stories.sql | -- STAR story vault: structured interview stories stored on user_profiles.
+- Migration supabase/migrations/079_weekly_commitment.sql | supabase/migrations/079_weekly_commitment.sql | alter table public.user_profiles
+- Migration supabase/migrations/080_stall_tracking.sql | supabase/migrations/080_stall_tracking.sql | alter table public.user_profiles
+- Migration supabase/migrations/081_search_driver.sql | supabase/migrations/081_search_driver.sql | alter table public.user_profiles
+- Migration supabase/migrations/082_staff_members_rls.sql | supabase/migrations/082_staff_members_rls.sql | -- A2-1: Enable RLS on staff_members to prevent privilege escalation.
+- Migration supabase/migrations/083_remaining_rls.sql | supabase/migrations/083_remaining_rls.sql | -- A2-2 through A2-6: Enable RLS on admin/internal tables missing it.
+- Migration supabase/migrations/084_testimonials_user_id.sql | supabase/migrations/084_testimonials_user_id.sql | -- A1-4: Add user_id attribution to testimonials so feedback is traceable.
+- Migration supabase/migrations/085_brief_rating_feedback.sql | supabase/migrations/085_brief_rating_feedback.sql | -- Add optional text feedback field to brief ratings
+- Migration supabase/migrations/086_optimize_leads.sql | supabase/migrations/086_optimize_leads.sql | -- Email leads captured at the free profile grader before analysis is returned
+- Migration supabase/migrations/087_feedback_system.sql | supabase/migrations/087_feedback_system.sql | -- Feedback System Tables
+- Migration supabase/migrations/088_feedback_missing_tables_fix.sql | supabase/migrations/088_feedback_missing_tables_fix.sql | -- Repair migration to ensure feedback dependent tables exist in remote environments
+- Migration supabase/migrations/089_outreach_suppressions.sql | supabase/migrations/089_outreach_suppressions.sql | create table if not exists public.outreach_suppressions (
+- Migration supabase/migrations/090_outreach_channels_tracking.sql | supabase/migrations/090_outreach_channels_tracking.sql | alter table public.contacts
+- Migration supabase/migrations/091_coach_data_access.sql | supabase/migrations/091_coach_data_access.sql | -- Coach data access: Enable coaches to view and edit client data with full audit trail
+- Migration supabase/migrations/092_coach_alert_prefs_policy_fix.sql | supabase/migrations/092_coach_alert_prefs_policy_fix.sql | -- Ensure coach alert preferences are writable by coaches.
+- Migration supabase/migrations/093_coach_client_permissions.sql | supabase/migrations/093_coach_client_permissions.sql | -- Client-managed permissions for coach access.
+- Migration supabase/migrations/094_coach_profiles.sql | supabase/migrations/094_coach_profiles.sql | -- Coach profile info exposed to connected clients via RLS.
+- Migration supabase/migrations/095_feedback_create_item_rpc.sql | supabase/migrations/095_feedback_create_item_rpc.sql | -- Create a SECURITY DEFINER RPC for feedback submission.
+- Migration supabase/migrations/096_lead_scoring_crm.sql | supabase/migrations/096_lead_scoring_crm.sql | -- Ticket 5: lead scoring + routing fields for CRM workflows
+- Migration supabase/migrations/097_ticket6_15_automation_and_logs.sql | supabase/migrations/097_ticket6_15_automation_and_logs.sql | -- Ticket 5 enhancement: persistent lead scoring execution log
+- Migration supabase/migrations/098_ticket16_29_automation.sql | supabase/migrations/098_ticket16_29_automation.sql | -- Ticket 16: context capture
+- Migration supabase/migrations/099_ticket30_56_automation.sql | supabase/migrations/099_ticket30_56_automation.sql | -- Ticket 30: invoices and receipts
+- Migration supabase/migrations/100_automation_monitoring_alerts.sql | supabase/migrations/100_automation_monitoring_alerts.sql | create table if not exists public.automation_alerts (
+- Migration supabase/migrations/101_user_profiles_linkedin_raw_text.sql | supabase/migrations/101_user_profiles_linkedin_raw_text.sql | alter table if exists public.user_profiles
+- Migration supabase/migrations/102_coach_weekly_reviews_and_next_actions.sql | supabase/migrations/102_coach_weekly_reviews_and_next_actions.sql | -- Coach workflow: explicit next actions and weekly review tracking.
+- Migration supabase/migrations/103_linkedin_contact_import_and_consent.sql | supabase/migrations/103_linkedin_contact_import_and_consent.sql | -- LinkedIn contact import: consent log, imported contacts staging, and audit events.
+- Migration supabase/migrations/104_backfill_missing_activist_filings.sql | supabase/migrations/104_backfill_missing_activist_filings.sql | -- Reconciliation migration:
+- Migration supabase/migrations/105_briefs_section_name.sql | supabase/migrations/105_briefs_section_name.sql | -- Add section_name to briefs so per-section prep brief ratings can be tracked by section
+- Migration supabase/migrations/106_briefs_type_check_prep_section.sql | supabase/migrations/106_briefs_type_check_prep_section.sql | -- Add prep_section to the briefs type check constraint
+- Migration supabase/migrations/107_company_signals_enrichment.sql | supabase/migrations/107_company_signals_enrichment.sql | -- Signal enrichment metadata for prep-context inference and auditability.
+- Migration supabase/migrations/108_google_calendar_sync.sql | supabase/migrations/108_google_calendar_sync.sql | create table if not exists public.google_calendar_integrations (
+- Migration supabase/migrations/109_idea_submissions.sql | supabase/migrations/109_idea_submissions.sql | -- Public idea submissions table for the /ideas page
+- Migration supabase/migrations/109_micro_product_back_office.sql | supabase/migrations/109_micro_product_back_office.sql | -- Sprint 4: micro-product back office foundation
+- Migration supabase/migrations/110_sprint5_intelligence_quality.sql | supabase/migrations/110_sprint5_intelligence_quality.sql | -- Sprint 5: intelligence quality scoring, persona relevance, and QA scorecards.
+- Migration supabase/migrations/111_sprint6_onboarding_speed_qa.sql | supabase/migrations/111_sprint6_onboarding_speed_qa.sql | -- Sprint 6: onboarding implementation speed, guided completion, and QA scorecards.
+- Migration supabase/migrations/112_feedback_items_insert_policy_restore.sql | supabase/migrations/112_feedback_items_insert_policy_restore.sql | -- Restore insert capability for authenticated users on feedback_items.
+- Migration supabase/migrations/113_feedback_items_insert_policy_authenticated_role.sql | supabase/migrations/113_feedback_items_insert_policy_authenticated_role.sql | -- Broad feedback insert policy for authenticated users.
+- Migration supabase/migrations/114_social_engagement.sql | supabase/migrations/114_social_engagement.sql | -- Adds LinkedIn engagement tracking columns to social_posts.
+- Migration supabase/migrations/115_emi_kpi_snapshots_and_b2b_stage_timestamps.sql | supabase/migrations/115_emi_kpi_snapshots_and_b2b_stage_timestamps.sql | -- Canonical EMI KPI snapshots plus B2B conversion timestamps.
+- Migration supabase/migrations/116_proof_assets_and_tier1_claims.sql | supabase/migrations/116_proof_assets_and_tier1_claims.sql | -- Canonical proof asset registry and tier-1 claim compliance records.
+- Migration supabase/migrations/117_emi_sprint_export_runs.sql | supabase/migrations/117_emi_sprint_export_runs.sql | create table if not exists public.emi_sprint_export_runs (
+- Migration supabase/migrations/118_emi_kpi_snapshots_write_policies.sql | supabase/migrations/118_emi_kpi_snapshots_write_policies.sql | -- Allow authenticated automation routes to persist canonical KPI snapshots.
+- Migration supabase/migrations/119_outreach_send_jobs.sql | supabase/migrations/119_outreach_send_jobs.sql | create table if not exists public.outreach_send_batches (
+- Migration supabase/migrations/120_briefs_claim_provenance.sql | supabase/migrations/120_briefs_claim_provenance.sql | -- EA-Q3-001: claim-level provenance for prep briefs
+- Migration supabase/migrations/121_onboarding_video_automation_foundation.sql | supabase/migrations/121_onboarding_video_automation_foundation.sql | -- Epic A Sprint 1 / Task A1:
+- Migration supabase/migrations/122_onboarding_video_automation_hardening.sql | supabase/migrations/122_onboarding_video_automation_hardening.sql | -- Epic A Sprint 1 / Task A1 hardening:
+- Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
+- Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
+
+## Documentation (440)
+- Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
+- Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
+- Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
+- Doc docs/adjacent-products.md | docs/adjacent-products.md | Starting Monday — Adjacent Product Opportunities
+- Doc docs/ap-style-automation.md | docs/ap-style-automation.md | AP Style Automation and Tooling
+- Doc docs/ap-style-compliance-checklist.md | docs/ap-style-compliance-checklist.md | AP Style Compliance Checklist
+- Doc docs/ap-style-policy.md | docs/ap-style-policy.md | AP Style Compliance Policy
+- Doc docs/ap-style-quick-reference.md | docs/ap-style-quick-reference.md | AP Style Quick Reference for Outreach and Guides
+- Doc docs/architecture.md | docs/architecture.md | Starting Monday — System Architecture
+- Doc docs/article-submission-targets.md | docs/article-submission-targets.md | Article Submission Targets: Executive Coach Audience
+- Doc docs/automation-guide.md | docs/automation-guide.md | Starting Monday Automation Guide
+- Doc docs/automation-strategy.md | docs/automation-strategy.md | Starting Monday Automation Strategy
+- Doc docs/backlog.md | docs/backlog.md | Starting Monday — Product Backlog
+- Doc docs/business-plan-synthetic-council-gap-analysis.md | docs/business-plan-synthetic-council-gap-analysis.md | Starting Monday Synthetic Council Gap Analysis
+- Doc docs/business-plan-v1-default-targets.md | docs/business-plan-v1-default-targets.md | Starting Monday Business Plan V1 (Default Target Ranges)
+- Doc docs/business-plan-working.md | docs/business-plan-working.md | Starting Monday Working Business Plan (Execution Version)
+- Doc docs/business-plan.md | docs/business-plan.md | Starting Monday — Business Plan
+- Doc docs/campaign-standard.md | docs/campaign-standard.md | The Campaign Standard
+- Doc docs/chris-vscode-workspace-setup.md | docs/chris-vscode-workspace-setup.md | Chris Setup Guide: Match Rich's VS Code Workspace
+- Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
+- Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign
+- Doc docs/coach-outreach-pain-led-messaging-system.md | docs/coach-outreach-pain-led-messaging-system.md | Coach Outreach Pain-Led Messaging System
+- Doc docs/coach-peer-forward-note.md | docs/coach-peer-forward-note.md | Coach Peer Forward Note
+- Doc docs/coach-traction-sprint-14-day.md | docs/coach-traction-sprint-14-day.md | Coach Traction Sprint: 14 Days + 20 Outbound Messages
+- Doc docs/code-synthetic-council-audit.latest.md | docs/code-synthetic-council-audit.latest.md | Code Synthetic Council Audit
+- Doc docs/code-synthetic-council-playbook.md | docs/code-synthetic-council-playbook.md | Code Synthetic Council Playbook
+- Doc docs/code-synthetic-council-rubric.md | docs/code-synthetic-council-rubric.md | Code Synthetic Council Rubric (Full Spectrum)
+- Doc docs/confidential-search-guide.md | docs/confidential-search-guide.md | The Confidential Search Guide
+- Doc docs/decision-log.md | docs/decision-log.md | Starting Monday — Decision Log
+- Doc docs/epic-90-day-reliability-rollout.md | docs/epic-90-day-reliability-rollout.md | Epic: 90-Day Reliability Rollout (SRE + UX Quality)
+- Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
+- Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
+- Doc docs/epic-sre-council-backlog.md | docs/epic-sre-council-backlog.md | Epic: SRE Council Backlog
+- Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
+- Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages
+- Doc docs/executive-search-playbook.md | docs/executive-search-playbook.md | The Executive Search Playbook
+- Doc docs/for-coaches-review-from-synthetic-council-may-2026.md | docs/for-coaches-review-from-synthetic-council-may-2026.md | /for-coaches Page Review from Synthetic Council
+- Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
+- Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
+- Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
+- Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
+- Doc docs/guide-retrieval-eval.latest.md | docs/guide-retrieval-eval.latest.md | Guide Retrieval Evaluation (Latest)
+- Doc docs/hero-dual-track-council-rubric.md | docs/hero-dual-track-council-rubric.md | Hero Dual-Track Council Rubric
+- Doc docs/hero-dual-track-council.latest.md | docs/hero-dual-track-council.latest.md | Hero Dual-Track Council Audit
+- Doc docs/how-to-build-a-great-prep-brief.md | docs/how-to-build-a-great-prep-brief.md | How to Build a Great Prep Brief
+- Doc docs/intelligence-roadmap.md | docs/intelligence-roadmap.md | Starting Monday — Intelligence Scanner Roadmap
+- Doc docs/internal-guide.md | docs/internal-guide.md | Starting Monday Internal Guide
+- Doc docs/internal-onboarding-readme.md | docs/internal-onboarding-readme.md | Internal Onboarding README (Engineer)
+- Doc docs/internal-pages-ia-redesign.md | docs/internal-pages-ia-redesign.md | Internal Pages IA Redesign (Scale + Cognitive Load)
+- Doc docs/internal-system-summary.md | docs/internal-system-summary.md | Starting Monday Internal System Summary
+- Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
+- Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
+- Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
+- Doc docs/link-integrity-report-now.md | docs/link-integrity-report-now.md | Link Integrity Report
+- Doc docs/linkedin-contact-import-for-chris.md | docs/linkedin-contact-import-for-chris.md | LinkedIn Contact Import — Overview for Chris Goodwin
+- Doc docs/linkedin-contact-import-spec.md | docs/linkedin-contact-import-spec.md | LinkedIn Contact Import — UX Copy & Backend API Contract
+- Doc docs/liz-coach-outreach-instructions.md | docs/liz-coach-outreach-instructions.md | Coach Outreach Playbook — Instructions for Liz
+- Doc docs/liz-executive-coach-linkedin-guide.md | docs/liz-executive-coach-linkedin-guide.md | Liz Daily Guide: Executive Coach Outreach on LinkedIn
+- Doc docs/main-landing-page-council-review.md | docs/main-landing-page-council-review.md | Main Landing Page Council Review
+- Doc docs/mark-horstman-site-audit.md | docs/mark-horstman-site-audit.md | Starting Monday - Synthetic Mark Horstman Audit
+- Doc docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | Market Reassessment: Executives, Coaches, and Outplacement
+- Doc docs/marketing-plan.md | docs/marketing-plan.md | Starting Monday — Marketing Plan
+- Doc docs/mobile-reliability-plan.md | docs/mobile-reliability-plan.md | Mobile Reliability Plan
+- Doc docs/mobile-ui-remediation-spec.md | docs/mobile-ui-remediation-spec.md | Mobile UI Remediation Spec (Sprint 1)
+- Doc docs/mobile-ui-rubric.md | docs/mobile-ui-rubric.md | Mobile UI Rubric and Required Tests
+- Doc docs/mobile-ux-contract.md | docs/mobile-ux-contract.md | Mobile UX Contract
+- Doc docs/nyt-submission-template.md | docs/nyt-submission-template.md | NYT Submission Template
+- Doc docs/offer-negotiation-guide.md | docs/offer-negotiation-guide.md | The Offer Negotiation Guide
+- Doc docs/onboarding-guide.md | docs/onboarding-guide.md | Starting Monday — Onboarding Guide
+- Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
+- Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
+- Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic
+- Doc docs/outplacement-pitch.md | docs/outplacement-pitch.md | Starting Monday — Outplacement and Transition Firm Pitch
+- Doc docs/outreach-csv-remediation-report.md | docs/outreach-csv-remediation-report.md | Outreach CSV Tone Remediation Report
+- Doc docs/outreach-playbook.md | docs/outreach-playbook.md | The Outreach Playbook
+- Doc docs/outreach-trigger-field-reference.md | docs/outreach-trigger-field-reference.md | Outreach Trigger Field Reference
+- Doc docs/pe-transition-pricing.md | docs/pe-transition-pricing.md | Starting Monday — Per-Transition Pricing for VC and PE Firms
+- Doc docs/persona-emotions.md | docs/persona-emotions.md | Starting Monday — Persona Emotions and Search Journey
+- Doc docs/press-release.md | docs/press-release.md | Starting Monday — Working Backward Press Release
+- Doc docs/pricing-rationale.md | docs/pricing-rationale.md | Starting Monday — Pricing and Packaging Rationale
+- Doc docs/product-architecture.md | docs/product-architecture.md | Product Architecture — Starting Monday
+- Doc docs/product-ideas-backlog.md | docs/product-ideas-backlog.md | Starting Monday — Ideas Backlog
+- Doc docs/product-journey-maps.md | docs/product-journey-maps.md | Persona Journey Maps
+- Doc docs/product-obstacles.md | docs/product-obstacles.md | Obstacles to $25,000 MRR
+- Doc docs/product-personas.md | docs/product-personas.md | Product Personas & Feature Set
+- Doc docs/product-requirements.md | docs/product-requirements.md | Product Requirements Document
+- Doc docs/product-roadmap-chris-review-deck.md | docs/product-roadmap-chris-review-deck.md | Product Roadmap - Chris Review Deck
+- Doc docs/product-roadmap-council-vision-compendium.md | docs/product-roadmap-council-vision-compendium.md | Synthetic Council Vision Compendium for Product Roadmap
+- Doc docs/product-roadmap-dalio-duke-synthesis.md | docs/product-roadmap-dalio-duke-synthesis.md | Starting Monday Product Roadmap (Dalio + Duke Decision Synthesis)
+- Doc docs/product-roadmap.md | docs/product-roadmap.md | Starting Monday — Product Roadmap
+- Doc docs/product-sprints.md | docs/product-sprints.md | Starting Monday: Sprint Plan (Sprints 8-15)
+- Doc docs/product-wbs.md | docs/product-wbs.md | Work Breakdown Structure
+- Doc docs/production-feedback-loop.md | docs/production-feedback-loop.md | Production Feedback Loop
+- Doc docs/release-ux-signoff-checklist.md | docs/release-ux-signoff-checklist.md | Release UX Sign-off Checklist
+- Doc docs/sales-marketing-plan.md | docs/sales-marketing-plan.md | Sales & Marketing Plan — Starting Monday
+- Doc docs/salesnavigator.md | docs/salesnavigator.md | Sales Navigator Playbook — Starting Monday
+- Doc docs/scan-mode.md | docs/scan-mode.md | JD Scan Mode
+- Doc docs/search-firm-landing-page-council-review.md | docs/search-firm-landing-page-council-review.md | Search Firm Landing Page Council Review
+- Doc docs/security-audit-runbook.md | docs/security-audit-runbook.md | Security Audit Runbook — Starting Monday
+- Doc docs/security-deep-dive-audit.latest.md | docs/security-deep-dive-audit.latest.md | Security Deep-Dive Audit
+- Doc docs/seo-keywords.md | docs/seo-keywords.md | Starting Monday — SEO Keyword Strategy
+- Doc docs/signal-interpretation-guide.md | docs/signal-interpretation-guide.md | Signal Interpretation Guide
+- Doc docs/site-monitoring-dashboard.md | docs/site-monitoring-dashboard.md | Site Monitoring Dashboard
+- Doc docs/site-monitoring-runbook.md | docs/site-monitoring-runbook.md | Site Monitoring Incident Runbook
+- Doc docs/site-monitoring-sprint-plan.md | docs/site-monitoring-sprint-plan.md | Site Monitoring Sprint Plan
+- Doc docs/site-review-from-new-council-members-may-2026.md | docs/site-review-from-new-council-members-may-2026.md | Starting Monday Site Review — All New Council Members
+- Doc docs/sm-acquisition-sprints.md | docs/sm-acquisition-sprints.md | Starting Monday — User Acquisition Sprint Plan
+- Doc docs/sm-gtm-b2b.md | docs/sm-gtm-b2b.md | Starting Monday — B2B Market Attack Plan
+- Doc docs/sm-gtm-b2c.md | docs/sm-gtm-b2c.md | Starting Monday — B2C Market Attack Plan
+- Doc docs/sm-sprints.md | docs/sm-sprints.md | Starting Monday — Unified Sprint Plan
+- Doc docs/sm-wbs.md | docs/sm-wbs.md | Starting Monday — Full Business WBS
+- Doc docs/sprint-backlog.md | docs/sprint-backlog.md | Sprint Backlog
+- Doc docs/sprint-e-linkedin-ads-gate.md | docs/sprint-e-linkedin-ads-gate.md | Sprint E LinkedIn Ads Gate
+- Doc docs/sprint-e-university-outreach-pack.md | docs/sprint-e-university-outreach-pack.md | Sprint E University Outreach Pack
+- Doc docs/sprint-e-university-send-list.md | docs/sprint-e-university-send-list.md | Sprint E University Send List (Ready-to-Send)
+- Doc docs/sprint-e-vcpe-outreach-pack.md | docs/sprint-e-vcpe-outreach-pack.md | Sprint E VC/PE Outreach Pack
+- Doc docs/sprint-e-vcpe-send-list.md | docs/sprint-e-vcpe-send-list.md | Sprint E VC/PE Send List (Ready-to-Personalize)
+- Doc docs/sprint-ready-tickets-q2-2027-epic-b.md | docs/sprint-ready-tickets-q2-2027-epic-b.md | Q2 2027 Sprint-Ready Tickets: Epic B (Partner Scale and Flywheel)
+- Doc docs/startingmonday_business_analysis.md | docs/startingmonday_business_analysis.md | Starting Monday — Business Analysis
+- Doc docs/startingmonday_friction_revenue_analysis.md | docs/startingmonday_friction_revenue_analysis.md | Starting Monday — Friction, Gaps, and Revenue Analysis
+- Doc docs/startingmonday_sprint_plan.md | docs/startingmonday_sprint_plan.md | Starting Monday — Sprint Plan
+- Doc docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | Starting Monday Jira Sprint Slices
+- Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
+- Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2
+- Doc docs/technical-debt-analysis-2026-05-19.md | docs/technical-debt-analysis-2026-05-19.md | Technical Debt Analysis (May 19, 2026)
+- Doc docs/technical-debt-analysis-2026-05-24.md | docs/technical-debt-analysis-2026-05-24.md | Technical Debt Deep-Dive (2026-05-24)
+- Doc docs/technical-debt-audit.latest.md | docs/technical-debt-audit.latest.md | Technical Debt Deep-Dive Audit
+- Doc docs/technical-debt-execution-backlog-2026-05-19.md | docs/technical-debt-execution-backlog-2026-05-19.md | Technical Debt Execution Backlog (May 19, 2026)
+- Doc docs/technical-reference.md | docs/technical-reference.md | Technical Reference — Starting Monday
+- Doc docs/terry-coach-forward-email.md | docs/terry-coach-forward-email.md | Coach Forward Email
+- Doc docs/thought-leadership-authority-epic.md | docs/thought-leadership-authority-epic.md | Epic: 12-Week Thought Leadership Authority Build
+- Doc docs/tickets-online-guide-and-chat-2026-05-30.md | docs/tickets-online-guide-and-chat-2026-05-30.md | Tickets: Online User Guide + Guide Chat
+- Doc docs/ui-guide.md | docs/ui-guide.md | Starting Monday — UI Guide
+- Doc docs/ui-ux-rerun-2026-05-26.md | docs/ui-ux-rerun-2026-05-26.md | UI/UX Rerun - 2026-05-26
+- Doc docs/ui-ux-synthetic-council-audit-2026-05-21.md | docs/ui-ux-synthetic-council-audit-2026-05-21.md | UI/UX Synthetic Council Full-Site Audit
+- Doc docs/ui-ux-weekly-review-checklist.md | docs/ui-ux-weekly-review-checklist.md | Weekly UI/UX Review Checklist
+- Doc docs/user-guide.md | docs/user-guide.md | Starting Monday User Guide
+- Doc docs/user-success-template.md | docs/user-success-template.md | Starting Monday — User Success Story Template
+- Doc docs/ux-moments-audit.md | docs/ux-moments-audit.md | Starting Monday — UX Moments Audit
+- Doc docs/watermark-ops.md | docs/watermark-ops.md | Watermark System — Internal Operations Guide
+- Doc docs/watermark-test-log.md | docs/watermark-test-log.md | Watermark Test Observation Log
+- Doc docs/watermarking.md | docs/watermarking.md | Starting Monday — Watermarking System
+- Doc docs/wbs-online-guide-and-chat-2026-05-30.md | docs/wbs-online-guide-and-chat-2026-05-30.md | WBS: Online User Guide + Guide Chat
+- Doc docs/weekly-search-review-template.md | docs/weekly-search-review-template.md | Weekly Search Review Template
+- Doc docs/weekly-unified-audit.latest.md | docs/weekly-unified-audit.latest.md | Weekly Unified Audit
+- Doc docs/writing-guidelines.md | docs/writing-guidelines.md | Writing Guidelines — Resumes, Cover Letters, Messaging
+- Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
+- Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
+- Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
+- Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
+- Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
+- Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)
+- Doc docs/strategy/emi-email-best-use-matrix-2026-05-26.md | docs/strategy/emi-email-best-use-matrix-2026-05-26.md | EMI Email Best-Use Matrix and Council Feedback
+- Doc docs/strategy/emi-epic-closeout-2026-05-25.md | docs/strategy/emi-epic-closeout-2026-05-25.md | EMI Epic Closeout
+- Doc docs/strategy/emi-outreach-email-full-council-review-2026-05-26.md | docs/strategy/emi-outreach-email-full-council-review-2026-05-26.md | EMI Outreach Email Full-Council Review
+- Doc docs/strategy/emi-post-deploy-full-council-review-2026-05-25.md | docs/strategy/emi-post-deploy-full-council-review-2026-05-25.md | EMI Post-Deploy Full Council Review
+- Doc docs/strategy/emi-weekly-operating-cadence-log.md | docs/strategy/emi-weekly-operating-cadence-log.md | EMI Weekly Operating Cadence Log
+- Doc docs/strategy/executive-career-os-epic.md | docs/strategy/executive-career-os-epic.md | Executive Career OS — Epic
+- Doc docs/strategy/executive-momentum-intelligence-backlog.md | docs/strategy/executive-momentum-intelligence-backlog.md | Executive Momentum Intelligence Backlog
+- Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
+- Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
+- Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
+- Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
+- Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
+- Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
+- Doc docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | Persona Council Effectiveness Audit - 2026-05-26
+- Doc docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | Persona Council EJES Micro-Pass - 2026-05-26
+- Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
+- Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
+- Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
+- Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
+- Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
+- Doc docs/strategy/emi-sprints/emi-sprint-execution-tracker.md | docs/strategy/emi-sprints/emi-sprint-execution-tracker.md | EMI Sprint Execution Tracker
+- Doc docs/strategy/emi-sprints/sprint-1-category-and-objections.md | docs/strategy/emi-sprints/sprint-1-category-and-objections.md | Sprint 1: Category and Objection Infrastructure
+- Doc docs/strategy/emi-sprints/sprint-2-emi-assessment-launch.md | docs/strategy/emi-sprints/sprint-2-emi-assessment-launch.md | Sprint 2: EMI Assessment v1 Launch
+- Doc docs/strategy/emi-sprints/sprint-3-daily-momentum-loop.md | docs/strategy/emi-sprints/sprint-3-daily-momentum-loop.md | Sprint 3: Daily Momentum Loop v1
+- Doc docs/strategy/emi-sprints/sprint-4-coach-outplacement-enablement.md | docs/strategy/emi-sprints/sprint-4-coach-outplacement-enablement.md | Sprint 4: Coach and Outplacement Enablement
+- Doc docs/strategy/emi-sprints/sprint-5-benchmark-and-proof-system.md | docs/strategy/emi-sprints/sprint-5-benchmark-and-proof-system.md | Sprint 5: Benchmark and Proof System
+- Doc docs/strategy/emi-sprints/sprint-6-scale-tune-and-lock.md | docs/strategy/emi-sprints/sprint-6-scale-tune-and-lock.md | Sprint 6: Scale, Tune, and Lock
+- Doc docs/strategy/emi-sprints/artifacts/emi-data-validation-pass-2026-05-25.md | docs/strategy/emi-sprints/artifacts/emi-data-validation-pass-2026-05-25.md | EMI Data Validation Pass
+- Doc docs/strategy/emi-sprints/artifacts/emi-production-export-manifest-2026-05-25.md | docs/strategy/emi-sprints/artifacts/emi-production-export-manifest-2026-05-25.md | EMI Production Export Manifest
+- Doc docs/strategy/emi-sprints/artifacts/emi-production-query-execution-runbook-2026-05-25.md | docs/strategy/emi-sprints/artifacts/emi-production-query-execution-runbook-2026-05-25.md | EMI Production Query Execution Runbook
+- Doc docs/strategy/emi-sprints/artifacts/emi-production-validation-rerun-procedure.md | docs/strategy/emi-sprints/artifacts/emi-production-validation-rerun-procedure.md | EMI Production Validation Rerun Procedure
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-content-a-plus-rubric-sheet-2026-05-25.md | docs/strategy/emi-sprints/artifacts/sprint-1-content-a-plus-rubric-sheet-2026-05-25.md | Sprint 1 Content A+ Rubric Sheet (EMI)
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-emi-positioning-brief.md | docs/strategy/emi-sprints/artifacts/sprint-1-emi-positioning-brief.md | Sprint 1 Artifact: EMI Positioning Brief
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-founder-narrative-kit.md | docs/strategy/emi-sprints/artifacts/sprint-1-founder-narrative-kit.md | Sprint 1 Artifact: Founder Narrative Kit
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-objection-library-v1.md | docs/strategy/emi-sprints/artifacts/sprint-1-objection-library-v1.md | Sprint 1 Artifact: Objection Library v1
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-page-scorecard-2026-05-25.md | docs/strategy/emi-sprints/artifacts/sprint-1-page-scorecard-2026-05-25.md | Sprint 1 Page-by-Page Scorecard (A+ Pass/Fail)
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-telemetry-completeness-validation-runbook-2026-05-25.md | docs/strategy/emi-sprints/artifacts/sprint-1-telemetry-completeness-validation-runbook-2026-05-25.md | Sprint 1 Telemetry Completeness Validation Runbook
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-template-audit-checklist.md | docs/strategy/emi-sprints/artifacts/sprint-1-template-audit-checklist.md | Sprint 1 Artifact: Template Audit Checklist
+- Doc docs/strategy/emi-sprints/artifacts/sprint-1-trust-center-starter-pack.md | docs/strategy/emi-sprints/artifacts/sprint-1-trust-center-starter-pack.md | Sprint 1 Artifact: Trust Center Starter Pack
+- Doc docs/strategy/emi-sprints/artifacts/sprint-2-emi-assessment-flow.md | docs/strategy/emi-sprints/artifacts/sprint-2-emi-assessment-flow.md | Sprint 2 Artifact: EMI Assessment Flow
+- Doc docs/strategy/emi-sprints/artifacts/sprint-2-exit-metrics-snapshot.md | docs/strategy/emi-sprints/artifacts/sprint-2-exit-metrics-snapshot.md | Sprint 2 Artifact: Exit Metrics Snapshot
+- Doc docs/strategy/emi-sprints/artifacts/sprint-2-funnel-analytics-dashboard.md | docs/strategy/emi-sprints/artifacts/sprint-2-funnel-analytics-dashboard.md | Sprint 2 Artifact: Funnel Analytics Dashboard and Event Schema
+- Doc docs/strategy/emi-sprints/artifacts/sprint-2-launch-campaign-pack.md | docs/strategy/emi-sprints/artifacts/sprint-2-launch-campaign-pack.md | Sprint 2 Artifact: Assessment Launch Campaign Pack
+- Doc docs/strategy/emi-sprints/artifacts/sprint-2-segmented-results-page.md | docs/strategy/emi-sprints/artifacts/sprint-2-segmented-results-page.md | Sprint 2 Artifact: Segmented Results Page
+- Doc docs/strategy/emi-sprints/artifacts/sprint-3-daily-loop-screen-spec.md | docs/strategy/emi-sprints/artifacts/sprint-3-daily-loop-screen-spec.md | Sprint 3 Artifact: Daily Loop Screen Spec
+- Doc docs/strategy/emi-sprints/artifacts/sprint-3-exit-metrics-snapshot.md | docs/strategy/emi-sprints/artifacts/sprint-3-exit-metrics-snapshot.md | Sprint 3 Artifact: Exit Metrics Snapshot
+- Doc docs/strategy/emi-sprints/artifacts/sprint-3-observability-dashboard-spec.md | docs/strategy/emi-sprints/artifacts/sprint-3-observability-dashboard-spec.md | Sprint 3 Artifact: Momentum Loop Observability Dashboard Spec
+- Doc docs/strategy/emi-sprints/artifacts/sprint-3-optionality-mode-spec.md | docs/strategy/emi-sprints/artifacts/sprint-3-optionality-mode-spec.md | Sprint 3 Artifact: Optionality Mode Spec
+- Doc docs/strategy/emi-sprints/artifacts/sprint-3-recovery-protocol-72-hour.md | docs/strategy/emi-sprints/artifacts/sprint-3-recovery-protocol-72-hour.md | Sprint 3 Artifact: 72-Hour Recovery Protocol
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-coach-shared-view-digest.md | docs/strategy/emi-sprints/artifacts/sprint-4-coach-shared-view-digest.md | Sprint 4 Artifact: Coach Shared-View Progress Digest
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-counselor-command-view-spec.md | docs/strategy/emi-sprints/artifacts/sprint-4-counselor-command-view-spec.md | Sprint 4 Artifact: Counselor Command View Spec
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-exit-metrics-snapshot.md | docs/strategy/emi-sprints/artifacts/sprint-4-exit-metrics-snapshot.md | Sprint 4 Artifact: Exit Metrics Snapshot
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-outplacement-pilot-runbook.md | docs/strategy/emi-sprints/artifacts/sprint-4-outplacement-pilot-runbook.md | Sprint 4 Artifact: Outplacement Pilot Runbook
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-pilot-ready-opportunities.md | docs/strategy/emi-sprints/artifacts/sprint-4-pilot-ready-opportunities.md | Sprint 4 Artifact: Pilot-Ready Opportunities
+- Doc docs/strategy/emi-sprints/artifacts/sprint-4-roi-calculator-model.md | docs/strategy/emi-sprints/artifacts/sprint-4-roi-calculator-model.md | Sprint 4 Artifact: ROI Calculator Model
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-benchmark-methodology.md | docs/strategy/emi-sprints/artifacts/sprint-5-benchmark-methodology.md | Sprint 5 Artifact: Benchmark Methodology
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-benchmark-pipeline-run-log.md | docs/strategy/emi-sprints/artifacts/sprint-5-benchmark-pipeline-run-log.md | Sprint 5 Artifact: Benchmark Pipeline Run Log
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-exit-metrics-snapshot.md | docs/strategy/emi-sprints/artifacts/sprint-5-exit-metrics-snapshot.md | Sprint 5 Artifact: Exit Metrics Snapshot
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-gtm-proof-sequence.md | docs/strategy/emi-sprints/artifacts/sprint-5-gtm-proof-sequence.md | Sprint 5 Artifact: GTM Proof Sequence
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-proof-artifacts-index.md | docs/strategy/emi-sprints/artifacts/sprint-5-proof-artifacts-index.md | Sprint 5 Artifact: Proof Artifacts Index
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-01-recovery-velocity.md | docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-01-recovery-velocity.md | Proof Asset 01: EMI Recovery Velocity Benchmark
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-02-cadence-day7.md | docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-02-cadence-day7.md | Proof Asset 02: Cadence Adherence and Day-7 Return
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-03-coach-uplift.md | docs/strategy/emi-sprints/artifacts/sprint-5-proof-asset-03-coach-uplift.md | Proof Asset 03: Coach-Linked Momentum Uplift
+- Doc docs/strategy/emi-sprints/artifacts/sprint-5-tier1-claim-compliance-audit.md | docs/strategy/emi-sprints/artifacts/sprint-5-tier1-claim-compliance-audit.md | Sprint 5 Artifact: Tier-1 Claim Compliance Audit
+- Doc docs/strategy/emi-sprints/artifacts/sprint-6-capstone-report.md | docs/strategy/emi-sprints/artifacts/sprint-6-capstone-report.md | Sprint 6 Artifact: Capstone Report
+- Doc docs/strategy/emi-sprints/artifacts/sprint-6-emi-slo-document.md | docs/strategy/emi-sprints/artifacts/sprint-6-emi-slo-document.md | Sprint 6 Artifact: EMI SLO Document
+- Doc docs/strategy/emi-sprints/artifacts/sprint-6-final-success-criteria-audit.md | docs/strategy/emi-sprints/artifacts/sprint-6-final-success-criteria-audit.md | Sprint 6 Artifact: Final Success Criteria Audit
+- Doc docs/strategy/emi-sprints/artifacts/sprint-6-q4-operating-cadence.md | docs/strategy/emi-sprints/artifacts/sprint-6-q4-operating-cadence.md | Sprint 6 Artifact: Q4 Operating Cadence
+- Doc docs/strategy/emi-sprints/artifacts/sprint-6-top10-objection-kpi-panel.md | docs/strategy/emi-sprints/artifacts/sprint-6-top10-objection-kpi-panel.md | Sprint 6 Artifact: Top-10 Objection KPI Panel
+- Doc docs/strategy/emi-scorecards/emi-weekly-scorecard-2026-05-25.md | docs/strategy/emi-scorecards/emi-weekly-scorecard-2026-05-25.md | EMI Weekly Scorecard
+- Doc docs/status/epic-b-handoff-readme-for-chris-2026-05-30.md | docs/status/epic-b-handoff-readme-for-chris-2026-05-30.md | Epic B Handoff README for Chris
+- Doc docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | Epic B Handoff Summary for Chris
+- Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
+- Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
+- Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
+- Doc docs/sre/alert-matrix.md | docs/sre/alert-matrix.md | Alert Matrix (Exact Thresholds)
+- Doc docs/sre/dashboard-setup.md | docs/sre/dashboard-setup.md | P0 Reliability Dashboard Setup (R1.2)
+- Doc docs/sre/epic-90-day-reliability-rollout-summary.md | docs/sre/epic-90-day-reliability-rollout-summary.md | Epic Summary: 90-Day Reliability Rollout (SRE + UX Quality)
+- Doc docs/sre/epic-90-day-reliability-rollout-why-it-matters.md | docs/sre/epic-90-day-reliability-rollout-why-it-matters.md | Why the 90-Day Reliability Rollout Matters to Starting Monday
+- Doc docs/sre/game-day-playbooks.md | docs/sre/game-day-playbooks.md | Game Day Playbooks
+- Doc docs/sre/incident-severity-policy.md | docs/sre/incident-severity-policy.md | Incident Severity Policy (Team Size: 3-8 Engineers)
+- Doc docs/sre/inventory-api-routes.md | docs/sre/inventory-api-routes.md | Inventory API Routes
+- Doc docs/sre/inventory-pages.md | docs/sre/inventory-pages.md | Inventory Pages
+- Doc docs/sre/on-call-rotation.md | docs/sre/on-call-rotation.md | On-Call Rotation and Escalation Runbook
+- Doc docs/sre/operating-package.md | docs/sre/operating-package.md | Starting Monday Reliability Operating Package
+- Doc docs/sre/reliability-audit-checklist.md | docs/sre/reliability-audit-checklist.md | Reliability Audit Checklist
+- Doc docs/sre/runbook-templates.md | docs/sre/runbook-templates.md | Runbook Templates
+- Doc docs/sre/slo-catalog.md | docs/sre/slo-catalog.md | SLO Catalog (Routes and Pages)
+- Doc docs/sre/sprint-ready-tickets-90-day-reliability.md | docs/sre/sprint-ready-tickets-90-day-reliability.md | Sprint-Ready Tickets: 90-Day Reliability Rollout
+- Doc docs/sre/synthetic-tests-and-deploy-gates.md | docs/sre/synthetic-tests-and-deploy-gates.md | Production Synthetics and Deploy Gate Specification
+- Doc docs/sre/weekly-reliability-review.md | docs/sre/weekly-reliability-review.md | Weekly Reliability Review
+- Doc docs/sre/runbooks/auth-failure.md | docs/sre/runbooks/auth-failure.md | Runbook: Auth Failure (P0)
+- Doc docs/sre/runbooks/billing-webhook-degradation.md | docs/sre/runbooks/billing-webhook-degradation.md | Runbook: Billing / Webhook Degradation (P0)
+- Doc docs/sre/runbooks/deployment-stalled.md | docs/sre/runbooks/deployment-stalled.md | Deployment Stalled Runbook
+- Doc docs/sre/runbooks/feedback-failure.md | docs/sre/runbooks/feedback-failure.md | Runbook: Feedback Submission Failure (P0)
+- Doc docs/sre/runbooks/follow-up-lifecycle-drift.md | docs/sre/runbooks/follow-up-lifecycle-drift.md | Runbook: Follow-Up Lifecycle Data Drift (P0)
+- Doc docs/sre/runbooks/postmortem-template.md | docs/sre/runbooks/postmortem-template.md | Blameless Postmortem Template
+- Doc docs/sprints/README.md | docs/sprints/README.md | Sprint Backlog
+- Doc docs/sprints/sprint-01.md | docs/sprints/sprint-01.md | Sprint 1: Foundation and Activation Framework
+- Doc docs/sprints/sprint-02.md | docs/sprints/sprint-02.md | Sprint 2: Email Lifecycle and Admin Dashboard
+- Doc docs/research/executive-search-ai-confidentiality-annual-report-2026-public-edition.md | docs/research/executive-search-ai-confidentiality-annual-report-2026-public-edition.md | Starting Monday Public Edition
+- Doc docs/research/executive-search-ai-confidentiality-annual-report-2026.md | docs/research/executive-search-ai-confidentiality-annual-report-2026.md | Annual Report 2026: Executive Search, AI, and Confidentiality (With Less Fluff and More Results)
+- Doc docs/outreach/coach-search-partner-assets-and-sequences-v1.md | docs/outreach/coach-search-partner-assets-and-sequences-v1.md | Coach and Search Partner Assets and Sequences V1
+- Doc docs/outreach/exec_coaches_batch_may2026_qualification_notes.md | docs/outreach/exec_coaches_batch_may2026_qualification_notes.md | Exec Coaches Batch — May 2026 Outreach Qualification Notes
+- Doc docs/outreach/internal_outreach_hub.md | docs/outreach/internal_outreach_hub.md | Starting Monday Outreach Hub
+- Doc docs/outreach/personas-by-role-and-company-size.md | docs/outreach/personas-by-role-and-company-size.md | C-Suite Personas by Role and Company Size
+- Doc docs/outreach/proof-asset-01-pilot-cohort-methodology-note.md | docs/outreach/proof-asset-01-pilot-cohort-methodology-note.md | Proof Asset 01: Jan-May 2026 Pilot Cohort Methodology Note
+- Doc docs/outreach/proof-asset-02-founder-case-study.md | docs/outreach/proof-asset-02-founder-case-study.md | Proof Asset 02: Founder Operator Case Study
+- Doc docs/outreach/proof-asset-03-sample-output-walkthrough-cfo-brief.md | docs/outreach/proof-asset-03-sample-output-walkthrough-cfo-brief.md | Proof Asset 03: Sample Output Walkthrough - CFO Search Brief
+- Doc docs/outreach/proof-asset-execution-package-v1.md | docs/outreach/proof-asset-execution-package-v1.md | Proof Asset Execution Package V1
+- Doc docs/outreach/sample-cfo-brief-template.md | docs/outreach/sample-cfo-brief-template.md | Sample CFO Pre-Search Brief Template
+- Doc docs/outreach/search-firm-landing-page-copy.md | docs/outreach/search-firm-landing-page-copy.md | Landing Page Copy: startingmonday.app/search-firms
+- Doc docs/outreach/search-firm-personas-by-size-and-specialty.md | docs/outreach/search-firm-personas-by-size-and-specialty.md | Search Firm Personas by Size and Specialty
+- Doc docs/outreach/us-must-target-search-firms.md | docs/outreach/us-must-target-search-firms.md | US Must-Target Search Firms
+- Doc docs/outreach/us-senior-executive-target-slate.md | docs/outreach/us-senior-executive-target-slate.md | US Senior Executive Target Slate
+- Doc docs/onboarding/01-claude-code-setup.md | docs/onboarding/01-claude-code-setup.md | Setting Up Claude Code and Connecting to the Right Places
+- Doc docs/onboarding/02-environment-setup.md | docs/onboarding/02-environment-setup.md | Local Development Environment Setup
+- Doc docs/onboarding/03-project-overview.md | docs/onboarding/03-project-overview.md | Starting Monday — Project Overview
+- Doc docs/onboarding/04-codebase-guide.md | docs/onboarding/04-codebase-guide.md | Codebase Guide
+- Doc docs/onboarding/05-dev-workflow.md | docs/onboarding/05-dev-workflow.md | Development Workflow
+- Doc docs/onboarding/06-product-intelligence.md | docs/onboarding/06-product-intelligence.md | Product Intelligence — What You Need to Know
+- Doc docs/onboarding/07-contributor-agreement.md | docs/onboarding/07-contributor-agreement.md | Starting Monday — Contributor Agreement
+- Doc docs/onboarding/08-day-one-checklist.md | docs/onboarding/08-day-one-checklist.md | Day One Checklist
+- Doc docs/growth/synthetic-growth-council.md | docs/growth/synthetic-growth-council.md | Synthetic Growth Council Charter
+- Doc docs/growth/weekly-decision-log.md | docs/growth/weekly-decision-log.md | Weekly Growth Decision Log
+- Doc docs/growth/weekly-operating-template.md | docs/growth/weekly-operating-template.md | Weekly Growth Operating Template
+- Doc docs/growth/weekly-readout-template.md | docs/growth/weekly-readout-template.md | Weekly Conversion Readout Template
+- Doc docs/growth/weekly-readout.latest.md | docs/growth/weekly-readout.latest.md | Weekly Conversion Readout
+- Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
+- Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
+- Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion
+- Doc docs/development/emi-daily-standup-companion-template.md | docs/development/emi-daily-standup-companion-template.md | EMI Daily Standup Companion Template
+- Doc docs/development/emi-engineering-board-now-next-later.md | docs/development/emi-engineering-board-now-next-later.md | EMI Engineering Board (Now, Next, Later)
+- Doc docs/development/emi-now-lane-one-week-pull-plan-2026-05-25.md | docs/development/emi-now-lane-one-week-pull-plan-2026-05-25.md | EMI Now-Lane One-Week Pull Plan
+- Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
+- Doc docs/development/migration-rollbacks/102_coach_weekly_reviews_and_next_actions.md | docs/development/migration-rollbacks/102_coach_weekly_reviews_and_next_actions.md | 102_coach_weekly_reviews_and_next_actions rollback
+- Doc docs/development/migration-rollbacks/106_briefs_type_check_prep_section.md | docs/development/migration-rollbacks/106_briefs_type_check_prep_section.md | 106_briefs_type_check_prep_section rollback
+- Doc docs/development/migration-rollbacks/112_feedback_items_insert_policy_restore.md | docs/development/migration-rollbacks/112_feedback_items_insert_policy_restore.md | 112_feedback_items_insert_policy_restore rollback
+- Doc docs/development/migration-rollbacks/113_feedback_items_insert_policy_authenticated_role.md | docs/development/migration-rollbacks/113_feedback_items_insert_policy_authenticated_role.md | 113_feedback_items_insert_policy_authenticated_role rollback
+- Doc docs/development/migration-rollbacks/118_emi_kpi_snapshots_write_policies.md | docs/development/migration-rollbacks/118_emi_kpi_snapshots_write_policies.md | 118_emi_kpi_snapshots_write_policies rollback
+- Doc docs/development/migration-rollbacks/119_outreach_send_jobs.md | docs/development/migration-rollbacks/119_outreach_send_jobs.md | 119_outreach_send_jobs rollback
+- Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
+- Doc docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | Roadmap Vision Memo - Andrew Chen
+- Doc docs/council-roadmap-memos/annie-duke-roadmap-memo.md | docs/council-roadmap-memos/annie-duke-roadmap-memo.md | Roadmap Vision Memo - Annie Duke
+- Doc docs/council-roadmap-memos/april-dunford-roadmap-memo.md | docs/council-roadmap-memos/april-dunford-roadmap-memo.md | Roadmap Vision Memo - April Dunford
+- Doc docs/council-roadmap-memos/ben-horowitz-roadmap-memo.md | docs/council-roadmap-memos/ben-horowitz-roadmap-memo.md | Roadmap Vision Memo - Ben Horowitz
+- Doc docs/council-roadmap-memos/benn-stancil-roadmap-memo.md | docs/council-roadmap-memos/benn-stancil-roadmap-memo.md | Roadmap Vision Memo - Benn Stancil
+- Doc docs/council-roadmap-memos/betsy-beyer-roadmap-memo.md | docs/council-roadmap-memos/betsy-beyer-roadmap-memo.md | Roadmap Vision Memo - Betsy Beyer
+- Doc docs/council-roadmap-memos/bob-moore-roadmap-memo.md | docs/council-roadmap-memos/bob-moore-roadmap-memo.md | Roadmap Vision Memo - Bob Moore
+- Doc docs/council-roadmap-memos/brian-balfour-roadmap-memo.md | docs/council-roadmap-memos/brian-balfour-roadmap-memo.md | Roadmap Vision Memo - Brian Balfour
+- Doc docs/council-roadmap-memos/cassie-kozyrkov-roadmap-memo.md | docs/council-roadmap-memos/cassie-kozyrkov-roadmap-memo.md | Roadmap Vision Memo - Cassie Kozyrkov
+- Doc docs/council-roadmap-memos/charity-majors-roadmap-memo.md | docs/council-roadmap-memos/charity-majors-roadmap-memo.md | Roadmap Vision Memo - Charity Majors
+- Doc docs/council-roadmap-memos/chris-do-roadmap-memo.md | docs/council-roadmap-memos/chris-do-roadmap-memo.md | Roadmap Vision Memo - Chris Do
+- Doc docs/council-roadmap-memos/chris-voss-roadmap-memo.md | docs/council-roadmap-memos/chris-voss-roadmap-memo.md | Roadmap Vision Memo - Chris Voss
+- Doc docs/council-roadmap-memos/cindy-solomon-roadmap-memo.md | docs/council-roadmap-memos/cindy-solomon-roadmap-memo.md | Roadmap Vision Memo - Cindy Solomon
+- Doc docs/council-roadmap-memos/claudio-fernandez-araoz-roadmap-memo.md | docs/council-roadmap-memos/claudio-fernandez-araoz-roadmap-memo.md | Roadmap Vision Memo - Claudio Fernandez-Araoz
+- Doc docs/council-roadmap-memos/daniel-kahneman-roadmap-memo.md | docs/council-roadmap-memos/daniel-kahneman-roadmap-memo.md | Roadmap Vision Memo - Daniel Kahneman
+- Doc docs/council-roadmap-memos/dave-gerhardt-roadmap-memo.md | docs/council-roadmap-memos/dave-gerhardt-roadmap-memo.md | Roadmap Vision Memo - Dave Gerhardt
+- Doc docs/council-roadmap-memos/david-skok-roadmap-memo.md | docs/council-roadmap-memos/david-skok-roadmap-memo.md | Roadmap Vision Memo - David Skok
+- Doc docs/council-roadmap-memos/dieter-rams-roadmap-memo.md | docs/council-roadmap-memos/dieter-rams-roadmap-memo.md | Roadmap Vision Memo - Dieter Rams
+- Doc docs/council-roadmap-memos/don-norman-roadmap-memo.md | docs/council-roadmap-memos/don-norman-roadmap-memo.md | Roadmap Vision Memo - Don Norman
+- Doc docs/council-roadmap-memos/gene-kim-roadmap-memo.md | docs/council-roadmap-memos/gene-kim-roadmap-memo.md | Roadmap Vision Memo - Gene Kim
+- Doc docs/council-roadmap-memos/gibson-biddle-roadmap-memo.md | docs/council-roadmap-memos/gibson-biddle-roadmap-memo.md | Roadmap Vision Memo - Gibson Biddle
+- Doc docs/council-roadmap-memos/jay-mcbain-roadmap-memo.md | docs/council-roadmap-memos/jay-mcbain-roadmap-memo.md | Roadmap Vision Memo - Jay McBain
+- Doc docs/council-roadmap-memos/jeff-bezos-roadmap-memo.md | docs/council-roadmap-memos/jeff-bezos-roadmap-memo.md | Roadmap Vision Memo - Jeff Bezos
+- Doc docs/council-roadmap-memos/jensen-huang-roadmap-memo.md | docs/council-roadmap-memos/jensen-huang-roadmap-memo.md | Roadmap Vision Memo - Jensen Huang
+- Doc docs/council-roadmap-memos/john-barrows-roadmap-memo.md | docs/council-roadmap-memos/john-barrows-roadmap-memo.md | Roadmap Vision Memo - John Barrows
+- Doc docs/council-roadmap-memos/john-mcmahon-roadmap-memo.md | docs/council-roadmap-memos/john-mcmahon-roadmap-memo.md | Roadmap Vision Memo - John McMahon
+- Doc docs/council-roadmap-memos/josh-braun-roadmap-memo.md | docs/council-roadmap-memos/josh-braun-roadmap-memo.md | Roadmap Vision Memo - Josh Braun
+- Doc docs/council-roadmap-memos/julie-zhuo-roadmap-memo.md | docs/council-roadmap-memos/julie-zhuo-roadmap-memo.md | Roadmap Vision Memo - Julie Zhuo
+- Doc docs/council-roadmap-memos/katelyn-bourgoin-roadmap-memo.md | docs/council-roadmap-memos/katelyn-bourgoin-roadmap-memo.md | Roadmap Vision Memo - Katelyn Bourgoin
+- Doc docs/council-roadmap-memos/kent-beck-roadmap-memo.md | docs/council-roadmap-memos/kent-beck-roadmap-memo.md | Roadmap Vision Memo - Kent Beck
+- Doc docs/council-roadmap-memos/kim-scott-roadmap-memo.md | docs/council-roadmap-memos/kim-scott-roadmap-memo.md | Roadmap Vision Memo - Kim Scott
+- Doc docs/council-roadmap-memos/laszlo-bock-roadmap-memo.md | docs/council-roadmap-memos/laszlo-bock-roadmap-memo.md | Roadmap Vision Memo - Laszlo Bock
+- Doc docs/council-roadmap-memos/liz-fong-jones-roadmap-memo.md | docs/council-roadmap-memos/liz-fong-jones-roadmap-memo.md | Roadmap Vision Memo - Liz Fong-Jones
+- Doc docs/council-roadmap-memos/mark-horstman-roadmap-memo.md | docs/council-roadmap-memos/mark-horstman-roadmap-memo.md | Roadmap Vision Memo - Mark Horstman
+- Doc docs/council-roadmap-memos/martin-fowler-roadmap-memo.md | docs/council-roadmap-memos/martin-fowler-roadmap-memo.md | Roadmap Vision Memo - Martin Fowler
+- Doc docs/council-roadmap-memos/marty-neumeier-roadmap-memo.md | docs/council-roadmap-memos/marty-neumeier-roadmap-memo.md | Roadmap Vision Memo - Marty Neumeier
+- Doc docs/council-roadmap-memos/mary-o-carroll-roadmap-memo.md | docs/council-roadmap-memos/mary-o-carroll-roadmap-memo.md | Roadmap Vision Memo - Mary O'Carroll
+- Doc docs/council-roadmap-memos/matt-mochary-roadmap-memo.md | docs/council-roadmap-memos/matt-mochary-roadmap-memo.md | Roadmap Vision Memo - Matt Mochary
+- Doc docs/council-roadmap-memos/naval-ravikant-roadmap-memo.md | docs/council-roadmap-memos/naval-ravikant-roadmap-memo.md | Roadmap Vision Memo - Naval Ravikant
+- Doc docs/council-roadmap-memos/nir-eyal-roadmap-memo.md | docs/council-roadmap-memos/nir-eyal-roadmap-memo.md | Roadmap Vision Memo - Nir Eyal
+- Doc docs/council-roadmap-memos/octavia-zahrt-roadmap-memo.md | docs/council-roadmap-memos/octavia-zahrt-roadmap-memo.md | Roadmap Vision Memo - Octavia Zahrt
+- Doc docs/council-roadmap-memos/pablo-stanley-roadmap-memo.md | docs/council-roadmap-memos/pablo-stanley-roadmap-memo.md | Roadmap Vision Memo - Pablo Stanley
+- Doc docs/council-roadmap-memos/patrick-campbell-roadmap-memo.md | docs/council-roadmap-memos/patrick-campbell-roadmap-memo.md | Roadmap Vision Memo - Patrick Campbell
+- Doc docs/council-roadmap-memos/patty-mccord-roadmap-memo.md | docs/council-roadmap-memos/patty-mccord-roadmap-memo.md | Roadmap Vision Memo - Patty McCord
+- Doc docs/council-roadmap-memos/ray-dalio-roadmap-memo.md | docs/council-roadmap-memos/ray-dalio-roadmap-memo.md | Roadmap Vision Memo - Ray Dalio
+- Doc docs/council-roadmap-memos/README.md | docs/council-roadmap-memos/README.md | Council Roadmap Memos
+- Doc docs/council-roadmap-memos/richard-thaler-roadmap-memo.md | docs/council-roadmap-memos/richard-thaler-roadmap-memo.md | Roadmap Vision Memo - Richard Thaler
+- Doc docs/council-roadmap-memos/robert-cialdini-roadmap-memo.md | docs/council-roadmap-memos/robert-cialdini-roadmap-memo.md | Roadmap Vision Memo - Robert Cialdini
+- Doc docs/council-roadmap-memos/rory-sutherland-roadmap-memo.md | docs/council-roadmap-memos/rory-sutherland-roadmap-memo.md | Roadmap Vision Memo - Rory Sutherland
+- Doc docs/council-roadmap-memos/satya-nadella-roadmap-memo.md | docs/council-roadmap-memos/satya-nadella-roadmap-memo.md | Roadmap Vision Memo - Satya Nadella
+- Doc docs/council-roadmap-memos/seth-godin-roadmap-memo.md | docs/council-roadmap-memos/seth-godin-roadmap-memo.md | Roadmap Vision Memo - Seth Godin
+- Doc docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | Roadmap Vision Memo - Shreyas Doshi
+- Doc docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | Roadmap Vision Memo - Warren Buffett
+- Doc docs/content/additional-future-synthetic-council-members.md | docs/content/additional-future-synthetic-council-members.md | Additional Future Synthetic Council Members
+- Doc docs/content/advertising-brand-synthetic-council.md | docs/content/advertising-brand-synthetic-council.md | Advertising & Brand Strategy Synthetic Council
+- Doc docs/content/annual-report-2026-launch-post-and-slack-note.md | docs/content/annual-report-2026-launch-post-and-slack-note.md | Annual Report 2026 Launch Copy
+- Doc docs/content/annual-report-external-posting-kit-2026-05-27.md | docs/content/annual-report-external-posting-kit-2026-05-27.md | Annual Report External Posting Kit (10% Opens / 3% Replies)
+- Doc docs/content/automated-posting-plan-executive-search-2026-05-27.md | docs/content/automated-posting-plan-executive-search-2026-05-27.md | Automated Posting Plan: Funny + Practical Executive Search Series
+- Doc docs/content/behavioral-economics-synthetic-council.md | docs/content/behavioral-economics-synthetic-council.md | Behavioral Economics Synthetic Council
+- Doc docs/content/brand-scaling-synthetic-council.md | docs/content/brand-scaling-synthetic-council.md | Brand and Scaling Synthetic Council
+- Doc docs/content/business-development-partnerships-synthetic-council.md | docs/content/business-development-partnerships-synthetic-council.md | Business Development Partnerships Synthetic Council
+- Doc docs/content/coach-low-cannibalization-micro-products-2026-05-28.md | docs/content/coach-low-cannibalization-micro-products-2026-05-28.md | Coach Micro Products With Low Cannibalization Risk
+- Doc docs/content/coach-micro-products-council-review-2026-05-27.md | docs/content/coach-micro-products-council-review-2026-05-27.md | Coach Micro Products Council Review (>90 Target)
+- Doc docs/content/coach-micro-products-willingness-to-pay-council-2026-05-28.md | docs/content/coach-micro-products-willingness-to-pay-council-2026-05-28.md | Coach Micro Products Willingness-to-Pay Council
+- Doc docs/content/coach-traction-linkedin-post-queue.md | docs/content/coach-traction-linkedin-post-queue.md | Coach Traction LinkedIn Post Queue
+- Doc docs/content/content-standards.md | docs/content/content-standards.md | Starting Monday Content Standards
+- Doc docs/content/council-review-process.md | docs/content/council-review-process.md | Council Review Process
+- Doc docs/content/council-score-95-site-improvement-epic.md | docs/content/council-score-95-site-improvement-epic.md | Council Score 95 Plus Site Improvement Epic
+- Doc docs/content/culture-organization-synthetic-council.md | docs/content/culture-organization-synthetic-council.md | Culture and Organization Synthetic Council
+- Doc docs/content/data-analytics-visualization-synthetic-council.md | docs/content/data-analytics-visualization-synthetic-council.md | Data Analytics and Visualization Synthetic Council
+- Doc docs/content/decision-management-synthetic-council.md | docs/content/decision-management-synthetic-council.md | Decision Management Synthetic Council
+- Doc docs/content/digital-products-experts-panel.md | docs/content/digital-products-experts-panel.md | Digital Products Experts Panel
+- Doc docs/content/email-council-scorecard-template.md | docs/content/email-council-scorecard-template.md | Email Council Scorecard Template
+- Doc docs/content/email-style-and-content-guide.md | docs/content/email-style-and-content-guide.md | Email Style and Content Guide
+- Doc docs/content/email-synthetic-council.md | docs/content/email-synthetic-council.md | Email Synthetic Council
+- Doc docs/content/epic-council-a-grade.md | docs/content/epic-council-a-grade.md | Epic: Council A-Grade — 55 Items Across 15 Themes
+- Doc docs/content/executive-coach-journey-newsletters.md | docs/content/executive-coach-journey-newsletters.md | Executive Coach Journey Newsletter Pack
+- Doc docs/content/executive-coach-linkedin-posts-and-hashtags-2026-05.md | docs/content/executive-coach-linkedin-posts-and-hashtags-2026-05.md | Executive Coach LinkedIn Post Pack (May 2026)
+- Doc docs/content/executive-coach-newsletters-council-review-diffs.md | docs/content/executive-coach-newsletters-council-review-diffs.md | Simulated Council Review And Revision Diffs (Issues 1-12)
+- Doc docs/content/executive-coach-newsletters-esp-ready.md | docs/content/executive-coach-newsletters-esp-ready.md | Executive Coach Newsletters (ESP-Ready Package)
+- Doc docs/content/executive-coach-newsletters-issues-05-12.md | docs/content/executive-coach-newsletters-issues-05-12.md | Executive Coach Newsletter Drafts (Issues 5-12)
+- Doc docs/content/executive-coach-newsletters-mark-pass-scorecard-and-council-grades.md | docs/content/executive-coach-newsletters-mark-pass-scorecard-and-council-grades.md | Executive Coach Newsletter Mark-Lens Pass: One-Page Scorecard + Executive Coaches Council Grades
+- Doc docs/content/executive-coach-products-experts-council.md | docs/content/executive-coach-products-experts-council.md | Executive Coach Products Experts Council
+- Doc docs/content/executive-coaching-synthetic-council.md | docs/content/executive-coaching-synthetic-council.md | Executive Coaching Synthetic Council
+- Doc docs/content/executive-user-synthetic-council.md | docs/content/executive-user-synthetic-council.md | Executive User Synthetic Council
+- Doc docs/content/executive-writing-council-feedback-annual-report-rewrite-2026-05-27.md | docs/content/executive-writing-council-feedback-annual-report-rewrite-2026-05-27.md | Council Feedback: Annual Report Rewrite (Goldsmith + Barry Blend)
+- Doc docs/content/executive-writing-council-feedback-annual-report-rewrite-post-edits-2026-05-27.md | docs/content/executive-writing-council-feedback-annual-report-rewrite-post-edits-2026-05-27.md | Council Feedback: Annual Report Rewrite (Post-Edits Rerun)
+- Doc docs/content/executive-writing-council-review-2026-05-27.md | docs/content/executive-writing-council-review-2026-05-27.md | Executive Writing Council Review (Brutally Honest)
+- Doc docs/content/executive-writing-replies-synthetic-council.md | docs/content/executive-writing-replies-synthetic-council.md | Executive Writing Replies Synthetic Council
+- Doc docs/content/frontier-labs-interpretation-linkedin-thread-2026-05-27.md | docs/content/frontier-labs-interpretation-linkedin-thread-2026-05-27.md | LinkedIn Thread Draft: What Frontier Labs Are Signaling in 2026
+- Doc docs/content/hr-legal-synthetic-council.md | docs/content/hr-legal-synthetic-council.md | HR and Legal Synthetic Council
+- Doc docs/content/human-writing-synthetic-council-prompt-and-rubric-linkedin-short-form.md | docs/content/human-writing-synthetic-council-prompt-and-rubric-linkedin-short-form.md | Human Writing Synthetic Council Prompt And Rubric For LinkedIn Short-Form (Under 1200 Characters)
+- Doc docs/content/human-writing-synthetic-council-prompt-and-rubric.md | docs/content/human-writing-synthetic-council-prompt-and-rubric.md | Human Writing Synthetic Council Prompt And Rubric
+- Doc docs/content/linkedin-auto-post-api-sequence-first-7-2026-05-27.md | docs/content/linkedin-auto-post-api-sequence-first-7-2026-05-27.md | LinkedIn Auto-Post API Sequence for First 7 Posts
+- Doc docs/content/linkedin-first-7-scheduled-posts-and-make-runbook-2026-05-27.md | docs/content/linkedin-first-7-scheduled-posts-and-make-runbook-2026-05-27.md | LinkedIn First 7 Scheduled Posts + Make.com Runbook
+- Doc docs/content/linkedin-founder-calendar-2-weeks.md | docs/content/linkedin-founder-calendar-2-weeks.md | Founder LinkedIn Calendar (4 Weeks, Archived)
+- Doc docs/content/linkedin-post-day1-cost-of-context-rebuild.md | docs/content/linkedin-post-day1-cost-of-context-rebuild.md | LinkedIn Post Draft: Day 1 (Cost of Context Rebuild)
+- Doc docs/content/linkedin-post-draft-1.md | docs/content/linkedin-post-draft-1.md | LinkedIn Post Draft 1
+- Doc docs/content/linkedin-post-draft-2.md | docs/content/linkedin-post-draft-2.md | LinkedIn Post Draft 2
+- Doc docs/content/linkedin-post-draft-3.md | docs/content/linkedin-post-draft-3.md | LinkedIn Post Draft 3
+- Doc docs/content/linkedin-post-draft-4.md | docs/content/linkedin-post-draft-4.md | LinkedIn Post Draft 4
+- Doc docs/content/linkedin-posting-schedule.md | docs/content/linkedin-posting-schedule.md | LinkedIn Posting Schedule (Auto-Post)
+- Doc docs/content/management-synthetic-council.md | docs/content/management-synthetic-council.md | Management Synthetic Council
+- Doc docs/content/micro-products-council-review-2026-05-27.md | docs/content/micro-products-council-review-2026-05-27.md | Micro Products Council Review (Pros and Cons)
+- Doc docs/content/micro-products-creation-and-sales-plan-2026-05-27.md | docs/content/micro-products-creation-and-sales-plan-2026-05-27.md | Micro Products Creation and Sales Plan
+- Doc docs/content/micro-products-synthetic-council-2026-05-27.md | docs/content/micro-products-synthetic-council-2026-05-27.md | Micro Products Synthetic Council
+- Doc docs/content/momentum-signal-copy-pack.md | docs/content/momentum-signal-copy-pack.md | Momentum Signal Copy Pack
+- Doc docs/content/newsletter-growth-operating-system-executive-coaches.md | docs/content/newsletter-growth-operating-system-executive-coaches.md | Newsletter Growth Operating System (Starting Monday)
+- Doc docs/content/outplacement-buyer-synthetic-council.md | docs/content/outplacement-buyer-synthetic-council.md | Outplacement Buyer Synthetic Council
+- Doc docs/content/outplacement-expanded-synthetic-council-2026-05-28.md | docs/content/outplacement-expanded-synthetic-council-2026-05-28.md | Expanded Outplacement Synthetic Council
+- Doc docs/content/outplacement-idea-full-council-review-2026-05-24.md | docs/content/outplacement-idea-full-council-review-2026-05-24.md | Outplacement Idea Full Council Review
+- Doc docs/content/outreach-sales-synthetic-council.md | docs/content/outreach-sales-synthetic-council.md | Outreach Sales Synthetic Council
+- Doc docs/content/product-onboarding-experts-synthetic-council.md | docs/content/product-onboarding-experts-synthetic-council.md | Product Onboarding Experts Synthetic Council
+- Doc docs/content/release-note-2026-05-26-sitewide-execution-epic.md | docs/content/release-note-2026-05-26-sitewide-execution-epic.md | Release Note - Sitewide Execution Epic Rollout
+- Doc docs/content/revenue-economics-synthetic-council.md | docs/content/revenue-economics-synthetic-council.md | Revenue and Economics Synthetic Council
+- Doc docs/content/sales-marketing-synthetic-council.md | docs/content/sales-marketing-synthetic-council.md | The Starting Monday Synthetic Council
+- Doc docs/content/site-review-may-2026-full-council-v6.md | docs/content/site-review-may-2026-full-council-v6.md | Synthetic Council Full Site Review v6 (May 13, 2026)
+- Doc docs/content/site-review-may-2026-full-council.md | docs/content/site-review-may-2026-full-council.md | Synthetic Council Full Site Review (May 12, 2026)
+- Doc docs/content/site-review-may-2026.md | docs/content/site-review-may-2026.md | Synthetic Council Site Review — May 2026
+- Doc docs/content/sitewide-execution-epic-wbs-and-deployment-tracker-2026-05-26.md | docs/content/sitewide-execution-epic-wbs-and-deployment-tracker-2026-05-26.md | Sitewide Conversion Execution Epic
+- Doc docs/content/software-sre-synthetic-council.md | docs/content/software-sre-synthetic-council.md | Software and SRE Synthetic Council
+- Doc docs/content/sprint-1-baseline-scorecard-template-2026-05-24.md | docs/content/sprint-1-baseline-scorecard-template-2026-05-24.md | Sprint 1 Baseline Scorecard Template
+- Doc docs/content/sprint-1-ia-spec-and-route-map-2026-05-24.md | docs/content/sprint-1-ia-spec-and-route-map-2026-05-24.md | Sprint 1 IA Spec and Route Map
+- Doc docs/content/sprint-1-score-measurement-contract-2026-05-24.md | docs/content/sprint-1-score-measurement-contract-2026-05-24.md | Sprint 1 Score Measurement Contract
+- Doc docs/content/sprint-2-channel-entry-experiment-plan-2026-05-24.md | docs/content/sprint-2-channel-entry-experiment-plan-2026-05-24.md | Sprint 2 Channel Entry Experiment Plan
+- Doc docs/content/sprint-3-persona-routing-qa-2026-05-24.md | docs/content/sprint-3-persona-routing-qa-2026-05-24.md | Sprint 3 Persona Routing and Telemetry QA
+- Doc docs/content/sprint-4-micro-product-rollout-runbook-2026-05-24.md | docs/content/sprint-4-micro-product-rollout-runbook-2026-05-24.md | Sprint 4 Micro-Product Rollout Runbook
+- Doc docs/content/sprint-5-intelligence-quality-scorecard-2026-05-24.md | docs/content/sprint-5-intelligence-quality-scorecard-2026-05-24.md | Sprint 5 Intelligence Quality Scorecard
+- Doc docs/content/sprint-6-onboarding-speed-scorecard-2026-05-24.md | docs/content/sprint-6-onboarding-speed-scorecard-2026-05-24.md | Sprint 6 Onboarding Speed Scorecard
+- Doc docs/content/sprint-8-council-rerun-advice-and-scores-2026-05-24.md | docs/content/sprint-8-council-rerun-advice-and-scores-2026-05-24.md | Sprint 8 Council Rerun: Advice And Scores
+- Doc docs/content/sprint-8-governance-cadence-2026-05-24.md | docs/content/sprint-8-governance-cadence-2026-05-24.md | Sprint 8 Governance Cadence
+- Doc docs/content/sprint-8-re-review-score-closure-2026-05-24.md | docs/content/sprint-8-re-review-score-closure-2026-05-24.md | Sprint 8 Re-Review Score Closure
+- Doc docs/content/synthetic-council-structure.md | docs/content/synthetic-council-structure.md | Synthetic Council Structure
+- Doc docs/content/thought-leadership-12-week-execution-plan.md | docs/content/thought-leadership-12-week-execution-plan.md | 12-Week Thought Leadership Execution Plan
+- Doc docs/content/thought-leadership-synthetic-council.md | docs/content/thought-leadership-synthetic-council.md | Thought Leadership Synthetic Council
+- Doc docs/content/trial-acquisition-strategy-and-synthetic-council.md | docs/content/trial-acquisition-strategy-and-synthetic-council.md | Trial and Acquisition Strategy + Synthetic Council
+- Doc docs/content/ui-ux-product-design-synthetic-council.md | docs/content/ui-ux-product-design-synthetic-council.md | UI UX and Product Design Synthetic Council
+- Doc docs/content/voss-cialdini-horstman-synthetic-council.md | docs/content/voss-cialdini-horstman-synthetic-council.md | Voss Cialdini Horstman Synthetic Council
+- Doc docs/content/branding/company-page-and-logo-upgrade-pack.md | docs/content/branding/company-page-and-logo-upgrade-pack.md | Starting Monday Company Page and Logo Upgrade Pack
+- Doc docs/content/branding/icon-tagline-synthetic-council-review.md | docs/content/branding/icon-tagline-synthetic-council-review.md | Icon and Tagline Synthetic Council Review
+- Doc docs/content/branding/icon-ui-style-guide.md | docs/content/branding/icon-ui-style-guide.md | Starting Monday Icon & UI Style Guide
+- Doc docs/content/branding/linkedin-brand-rollout-checklist.md | docs/content/branding/linkedin-brand-rollout-checklist.md | LinkedIn Brand Rollout Checklist
+- Doc docs/adr/001-supabase-rls-tenant-isolation.md | docs/adr/001-supabase-rls-tenant-isolation.md | ADR 001: Supabase Row-Level Security for Tenant Isolation
+- Doc docs/adr/002-server-side-ai-streaming.md | docs/adr/002-server-side-ai-streaming.md | ADR 002: Server-Side AI Generation with HTTP Streaming
+- Doc docs/adr/003-railway-worker-for-background-jobs.md | docs/adr/003-railway-worker-for-background-jobs.md | ADR 003: Separate Railway Worker Service for Background Jobs
+
+## What It Is Not
+- Not a public end-user manual. Use docs/user-guide.md for customer-facing guidance.
+- Not a security boundary by itself. It summarizes systems but does not grant access.
+- Not a substitute for runbook execution details in docs/sre/runbooks/.

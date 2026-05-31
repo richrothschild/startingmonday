@@ -30,8 +30,20 @@ jobs:
       - name: Documentation command check
         run: npm run docs:check-commands
 
+      - name: Release UX checklist policy check
+        run: npm run release:ux:checklist:check
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Guide freshness check
+        run: npm run guide:user:check
+
+      - name: Internal guide freshness check
+        run: npm run guide:internal:check
+
+      - name: Guide retrieval evaluation (strict)
+        run: npm run guide:retrieval:eval:strict
 
       - name: Lint
         run: npm run lint
@@ -182,6 +194,40 @@ jobs:
             test-results/
           retention-days: 7
 
+  auth-ux-guard:
+    name: Auth UX guard
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run auth UX guard suite
+        run: npm run test:e2e:auth-ux
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+
+      - name: Upload auth UX artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-ux-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
   lighthouse-mobile-budgets:
     name: Lighthouse mobile budgets
     runs-on: ubuntu-latest
@@ -296,7 +342,7 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
@@ -317,6 +363,9 @@ jobs:
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.mobile-visual-regression.result }}" == "failure" ]]; then
             echo "job_name=Mobile visual regression" >> $GITHUB_OUTPUT
+            echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.auth-ux-guard.result }}" == "failure" ]]; then
+            echo "job_name=Auth UX guard" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.lighthouse-mobile-budgets.result }}" == "failure" ]]; then
             echo "job_name=Lighthouse mobile budgets" >> $GITHUB_OUTPUT
@@ -373,7 +422,7 @@ jobs:
   notify-test-summary:
     name: Post test summary report
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: always()
 
     steps:
@@ -385,15 +434,16 @@ jobs:
           SEMGREP="${{ needs.semgrep.result }}"
           PLAYWRIGHT="${{ needs.playwright.result }}"
           MOBILE_VISUAL="${{ needs.mobile-visual-regression.result }}"
+          AUTH_UX="${{ needs.auth-ux-guard.result }}"
           LIGHTHOUSE="${{ needs.lighthouse-mobile-budgets.result }}"
           PREPROD="${{ needs.pre-prod-gate.result }}"
 
           STATUS="PASS"
-          if [ "$PREDEPLOY" = "failure" ] || [ "$SEMGREP" = "failure" ] || [ "$PLAYWRIGHT" = "failure" ] || [ "$MOBILE_VISUAL" = "failure" ] || [ "$LIGHTHOUSE" = "failure" ] || [ "$PREPROD" = "failure" ]; then
+          if [ "$PREDEPLOY" = "failure" ] || [ "$SEMGREP" = "failure" ] || [ "$PLAYWRIGHT" = "failure" ] || [ "$MOBILE_VISUAL" = "failure" ] || [ "$AUTH_UX" = "failure" ] || [ "$LIGHTHOUSE" = "failure" ] || [ "$PREPROD" = "failure" ]; then
             STATUS="FAIL"
           fi
 
-          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-regression: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
+          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-regression: %s\nauth-ux-guard: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$AUTH_UX" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
 
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "summary<<EOF" >> "$GITHUB_OUTPUT"

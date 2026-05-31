@@ -37,8 +37,25 @@ async function hasAuthSession(page: Page): Promise<boolean> {
   return !/\/login(?:$|[/?#])/.test(page.url())
 }
 
+async function trySignIn(page: Page): Promise<boolean> {
+  const email = process.env.PLAYWRIGHT_TEST_EMAIL
+  const password = process.env.PLAYWRIGHT_TEST_PASSWORD
+  if (!email || !password) return false
+
+  await page.goto('/login', { waitUntil: 'load' })
+  await page.locator('#email').fill(email)
+  await page.locator('#password').fill(password)
+  await page.getByRole('button', { name: /^Sign in$/i }).click()
+
+  await page
+    .waitForURL(url => !/\/login(?:$|[/?#])/.test(url.pathname), { timeout: 10000 })
+    .catch(() => null)
+
+  return hasAuthSession(page)
+}
+
 async function requireAuthSessionOrSkip(page: Page) {
-  const authenticated = await hasAuthSession(page)
+  const authenticated = (await hasAuthSession(page)) || (await trySignIn(page))
   test.skip(
     !authenticated,
     'Skipping synthetic: auth session unavailable (dashboard redirected to login). Check PLAYWRIGHT_TEST_EMAIL / PLAYWRIGHT_TEST_PASSWORD.'
@@ -69,6 +86,131 @@ test('Synthetic-01: login page loads within budget', async ({ page }) => {
 
   console.log(`Synthetic-01: login page loaded in ${elapsed}ms (budget: 3000ms)`)
   expect(elapsed, `Login page load ${elapsed}ms exceeded budget of 3000ms`).toBeLessThanOrEqual(3_000)
+})
+
+test('Synthetic-01b: login controls dispatch auth requests', async ({ page }) => {
+  await page.goto('/login', { waitUntil: 'load' })
+
+  // Intercept auth calls so this check remains side-effect free while still
+  // proving that controls dispatch network requests.
+  await page.route('**/api/auth/verify-and-signin', async route => {
+    await route.fulfill({
+      status: 401,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'synthetic_probe' }),
+    })
+  })
+  await page.route('**/api/auth/login-submit', async route => {
+    await route.fulfill({
+      status: 302,
+      headers: { location: '/login?error=invalid_credentials' },
+      body: '',
+    })
+  })
+  await page.route('**/api/auth/verify-and-oauth', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, url: '/login?oauth_probe=1' }),
+    })
+  })
+  await page.route('**/api/auth/oauth-start**', async route => {
+    await route.fulfill({
+      status: 302,
+      headers: { location: '/login?oauth_probe=1' },
+      body: '',
+    })
+  })
+
+  await page.locator('#email').fill('synthetic@example.com')
+  await page.locator('#password').fill('synthetic-password')
+
+  const signInRequest = page.waitForRequest(
+    req => req.method() === 'POST' && (
+      req.url().includes('/api/auth/verify-and-signin')
+      || req.url().includes('/api/auth/login-submit')
+    ),
+    { timeout: 5000 }
+  )
+  await page.getByRole('button', { name: /^Sign in$/i }).click()
+  await signInRequest
+
+  const oauthRequest = page.waitForRequest(
+    req => (
+      req.url().includes('/api/auth/verify-and-oauth')
+      || req.url().includes('/api/auth/oauth-start')
+    ),
+    { timeout: 5000 }
+  )
+  await page.getByText('Continue with Google').click()
+  await oauthRequest
+})
+
+test('Synthetic-01c: guide content and guide chat interactivity are healthy', async ({ page }) => {
+  await requireAuthSessionOrSkip(page)
+  await page.goto('/guide', { waitUntil: 'load' })
+
+  await expect(page.getByRole('heading', { name: /Starting Monday Career Guide/i })).toBeVisible()
+  await expect(page.locator('body')).not.toContainText(/guide content unavailable|guide temporarily unavailable/i)
+
+  const sectionLinks = page.locator('main a[href^="#"]')
+  await expect(sectionLinks.first()).toBeVisible()
+
+  await page.route('**/api/guide/chat', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        answer: 'Synthetic guide response',
+        sources: [{ id: 'synthetic-1', title: 'Guide source', url: '/guide', score: 1, type: 'guide' }],
+        intent: 'how_to',
+        confidence: 0.92,
+        conservative: false,
+        queryId: 'synthetic-query-id',
+      }),
+    })
+  })
+
+  const chatBox = page.locator('#guide-chat')
+  await chatBox.fill('How do I start?')
+  await page.getByRole('button', { name: /^Ask$/i }).click()
+  await expect(page.locator('text=Synthetic guide response')).toBeVisible({ timeout: 5000 })
+})
+
+test('Synthetic-01d: internal guide content and chat are healthy for admin sessions', async ({ page }) => {
+  await requireAuthSessionOrSkip(page)
+  await page.goto('/dashboard/admin/internal-guide', { waitUntil: 'load' })
+
+  const bodyText = await page.locator('body').innerText()
+  test.skip(
+    /access restricted|requires admin or owner access/i.test(bodyText),
+    'Skipping Synthetic-01d: authenticated account lacks admin/owner access for internal guide.'
+  )
+
+  await expect(page.getByRole('heading', { name: /Internal Engineering Guide/i })).toBeVisible()
+  await expect(page.locator('body')).not.toContainText(/internal guide unavailable|internal guide index unavailable/i)
+
+  const sectionLinks = page.locator('main a[href^="#"]')
+  await expect(sectionLinks.first()).toBeVisible()
+
+  await page.route('**/api/admin/internal-guide/chat', async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        answer: 'Synthetic internal guide response',
+        sources: [{ id: 'synthetic-internal-1', title: 'Internal source', url: '/dashboard/admin/internal-guide', score: 1, type: 'guide' }],
+        intent: 'how_to',
+        confidence: 0.92,
+        conservative: false,
+      }),
+    })
+  })
+
+  const chatBox = page.locator('#internal-guide-chat')
+  await chatBox.fill('Give me an overview')
+  await page.getByRole('button', { name: /^Ask$/i }).click()
+  await expect(page.locator('text=Synthetic internal guide response')).toBeVisible({ timeout: 5000 })
 })
 
 // ---------------------------------------------------------------------------

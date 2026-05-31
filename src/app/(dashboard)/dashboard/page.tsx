@@ -659,6 +659,7 @@ export default async function DashboardPage({
             )}
             <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
             <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
+            <Link href="/guide" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Guide</Link>
             <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
             {isRothschildAdmin && (
               <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
@@ -749,6 +750,12 @@ export default async function DashboardPage({
               className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
             >
               View due today
+            </Link>
+            <Link
+              href="/guide"
+              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+            >
+              Open guide
             </Link>
           </div>
         </section>

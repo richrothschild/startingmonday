@@ -131,7 +131,7 @@ export default function SignupPage() {
 
   async function handleGoogle() {
     const token = requireCaptchaToken()
-    if (!token) return
+    if (token == null) return
     setGoogleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'google' })
@@ -172,7 +172,7 @@ export default function SignupPage() {
 
   async function handleApple() {
     const token = requireCaptchaToken()
-    if (!token) return
+    if (token == null) return
     setAppleLoading(true)
     try {
       ph?.capture('signup_completed', { method: 'apple' })
@@ -214,7 +214,7 @@ export default function SignupPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const token = requireCaptchaToken()
-    if (!token) return
+    if (token == null) return
     setLoading(true)
     setError(null)
 
