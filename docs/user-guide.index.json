@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T22:48:40.273Z",
+  "generatedAt": "2026-05-31T23:45:17.935Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -221,7 +221,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-31T22:48:27.089Z",
+      "lastModifiedAt": "2026-05-31T23:42:12.252Z",
       "qualityWeight": 1
     },
     {
@@ -377,7 +377,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-31T19:31:51.130Z",
+      "lastModifiedAt": "2026-05-31T23:42:12.251Z",
       "qualityWeight": 1
     },
     {
@@ -1430,7 +1430,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-31T22:45:12.681Z",
+      "lastModifiedAt": "2026-05-31T23:42:12.248Z",
       "qualityWeight": 1.2
     },
     {
