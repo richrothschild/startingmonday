@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { getStaffMember } from '@/lib/staff'
 import { createClient } from '@/lib/supabase/server'
@@ -63,3 +63,7 @@ export async function POST(request: NextRequest) {
     body: draft.body,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

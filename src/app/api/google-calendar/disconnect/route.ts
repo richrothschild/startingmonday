@@ -1,8 +1,7 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { APP_URL } from '@/lib/config'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const DEFAULT_RETURN_TO = '/dashboard/admin/social'
 
@@ -43,3 +42,7 @@ export async function POST(request: NextRequest) {
   response.cookies.set('sm_google_calendar_return_to', '', { path: '/', maxAge: 0 })
   return response
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

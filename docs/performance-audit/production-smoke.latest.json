@@ -1,0 +1,35 @@
+{
+  "ts": "2026-05-31T12:53:18.834Z",
+  "baseUrl": "https://startingmonday.app",
+  "total": 3,
+  "passed": 3,
+  "failed": 0,
+  "criticalFailed": 0,
+  "advisoryFailed": 0,
+  "results": [
+    {
+      "ok": true,
+      "critical": true,
+      "name": "Health endpoint",
+      "path": "/api/health",
+      "status": 200,
+      "durationMs": 355
+    },
+    {
+      "ok": true,
+      "critical": true,
+      "name": "Login page",
+      "path": "/login",
+      "status": 200,
+      "durationMs": 135
+    },
+    {
+      "ok": true,
+      "critical": true,
+      "name": "Pricing page",
+      "path": "/pricing",
+      "status": 200,
+      "durationMs": 85
+    }
+  ]
+}

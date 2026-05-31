@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { SearchPersonaSchema } from '@/lib/executive-job-search'
 
 // Shared message type for chat and conversation routes
 export const MessageSchema = z.object({
@@ -134,7 +135,7 @@ export const TailorStrengthenBodySchema = z.object({
 
 export const OnboardingFormSchema = z.object({
   full_name: z.string().min(2, 'Full name is required'),
-  search_persona: z.enum(['csuite', 'vp', 'board', 'director']).refine(Boolean, {
+  search_persona: SearchPersonaSchema.refine(Boolean, {
     message: 'Please select your search level',
   }),
 })

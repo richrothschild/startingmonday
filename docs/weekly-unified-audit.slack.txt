@@ -1,7 +1,7 @@
 *Weekly Unified Audit*
 Guard regression: not_run
 Checks: import-guard=not_run, council=not_run, hero-council=not_run, debt=not_run, security=not_run
-Council: 90 (A-), findings=23, parser-corruption=0
+Council: 98 (A+), findings=3, parser-corruption=0
 Hero council: release=pass, conversion=95, clarity=98, hard-stop=false, hard-stop-metrics=0
-Debt: typecheck=pass, lint=pass, placeholders=290, outdated=6
+Debt: typecheck=pass, lint=fail, placeholders=341, outdated=15
 Security: critical=0, high=0, auth-gaps=0, secret-hits=0
