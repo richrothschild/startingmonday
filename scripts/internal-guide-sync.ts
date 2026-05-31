@@ -367,7 +367,11 @@ async function collectWatchedFiles(): Promise<string[]> {
 
 async function computeSourceHash(files: string[]): Promise<string> {
   const hash = createHash('sha256')
-  const sorted = [...new Set(files)].sort()
+  const sorted = [...new Set(files)].sort((left, right) => {
+    const leftKey = path.relative(ROOT, left).replace(/\\/g, '/')
+    const rightKey = path.relative(ROOT, right).replace(/\\/g, '/')
+    return leftKey.localeCompare(rightKey)
+  })
 
   for (const filePath of sorted) {
     const exists = await fileExists(filePath)
