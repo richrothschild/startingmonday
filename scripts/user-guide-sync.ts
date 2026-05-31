@@ -198,8 +198,8 @@ async function buildGuidePayload() {
   }
 
   const featureEntries = [...new Set([...appRoutes, ...dashboardRoutes])]
-    .map(async (route, index) => withQualityWeight({
-      id: `feature-${index + 1}`,
+    .map(async (route) => withQualityWeight({
+      id: `feature:${route}`,
       title: routeLabel(route),
       body: `Open ${route} to use this feature area and related workflows.`,
       type: 'feature',
@@ -213,8 +213,8 @@ async function buildGuidePayload() {
   const apiEntries: GuideEntry[] = await Promise.all(apiFiles
     .map((file) => ({ file, route: apiFileToRoute(file) }))
     .filter((entry): entry is { file: string; route: string } => Boolean(entry.route))
-    .map(async ({ file, route }, index) => withQualityWeight({
-      id: `api-${index + 1}`,
+    .map(async ({ file, route }) => withQualityWeight({
+      id: `api:${route}`,
       title: route,
       body: 'Programmatic endpoint available for platform behavior or integrations.',
       type: 'api',
@@ -223,8 +223,8 @@ async function buildGuidePayload() {
       lastModifiedAt: await lastModifiedAt(file),
     })))
 
-  const articleEntries: GuideEntry[] = await Promise.all(BLOG_POSTS.map(async (post, index) => withQualityWeight({
-    id: `article-${index + 1}`,
+  const articleEntries: GuideEntry[] = await Promise.all(BLOG_POSTS.map(async (post) => withQualityWeight({
+    id: `article:${post.slug}`,
     title: post.title,
     body: post.description,
     type: 'article',
