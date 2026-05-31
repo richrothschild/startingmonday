@@ -49,7 +49,7 @@ export default function PricingPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-<div className="text-center mb-10">
+        <div className="text-center mb-10">
           <h1 className="text-[38px] sm:text-[48px] font-bold text-slate-900 leading-tight tracking-tight">
             Pricing
           </h1>
@@ -60,56 +60,13 @@ export default function PricingPage() {
 
         <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-4">Why this model</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
-            <div className="border border-slate-200 rounded-lg p-4 bg-white">
-              <p className="font-semibold text-slate-900 mb-1">Category default</p>
-              <p className="text-slate-600 leading-relaxed">Pay for more applications and visibility after a role is posted.</p>
-            </div>
-            <div className="border border-emerald-200 rounded-lg p-4 bg-emerald-50/40">
-              <p className="font-semibold text-slate-900 mb-1">EMI model</p>
-              <p className="text-slate-700 leading-relaxed">Pay for earlier intelligence, better weekly execution, and higher-quality conversations before searches are public.</p>
-            </div>
-          </div>
-          <p className="text-[12px] text-slate-500 mt-4">Decision rule: match tier to campaign intensity.</p>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">First 7 days by tier</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[13px]">
-            <div className="border border-slate-200 rounded-lg p-4">
-              <p className="font-semibold text-slate-900 mb-2">Intelligence</p>
-              <p className="text-slate-600">Day 1 target map. Day 3 first signals. Day 7 first weekly rhythm review.</p>
-            </div>
-            <div className="border border-slate-200 rounded-lg p-4">
-              <p className="font-semibold text-slate-900 mb-2">Active</p>
-              <p className="text-slate-600">Day 1 outreach queue. Day 3 signal-led contact move. Day 7 cadence quality audit.</p>
-            </div>
-            <div className="border border-slate-200 rounded-lg p-4">
-              <p className="font-semibold text-slate-900 mb-2">Executive</p>
-              <p className="text-slate-600">Day 1 role thesis. Day 3 objection map. Day 7 prep depth and fit checkpoint.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Before you decide</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <details data-emi-objection="pricing_too_early" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"It may be too early for me."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Start with Intelligence. It is built for optionality before urgency.</p>
-            </details>
-            <details data-emi-objection="pricing_already_have_recruiter" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I already have a recruiter."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Recruiters run formal cycles. EMI improves your timing before those cycles start.</p>
-            </details>
-            <details data-emi-objection="pricing_confidentiality" className="border border-slate-200 rounded-lg p-4 bg-slate-50">
-              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-900">"I need this to stay private."</summary>
-              <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Private by default. No employer visibility. No sale of activity data.</p>
-            </details>
-          </div>
+          <p className="text-[13px] text-slate-600 leading-relaxed max-w-2xl">
+            Pay for earlier intelligence, better weekly execution, and higher-quality conversations before searches are public.
+          </p>
         </section>
 
         <PricingCards />
+
         <section className="mt-12 border-t border-slate-100 pt-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">Pricing FAQ</p>
           <div className="max-w-3xl mx-auto space-y-4">
@@ -139,54 +96,7 @@ export default function PricingPage() {
           All plans include a 30-day free trial. Cancel any time.{' '}
           Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className="text-slate-600 underline underline-offset-2">support@startingmonday.app</a>
         </p>
-        <p className="mt-10 text-center text-[13px] text-slate-400">
-          All plans include a 30-day free trial. Cancel any time.{' '}
-          Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className="text-slate-600 underline underline-offset-2">support@startingmonday.app</a>
-                    <main className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-                      <div className="text-center mb-10">
-                        <h1 className="text-[38px] sm:text-[48px] font-bold text-slate-900 leading-tight tracking-tight">
-                          Pricing
-                        </h1>
-                        <p className="text-[16px] text-slate-500 mt-3 max-w-md mx-auto leading-relaxed">
-                          30-day free trial. No credit card. Choose based on search intensity, not job-board volume.
-                        </p>
-                      </div>
-
-                      <section className="mb-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-slate-50">
-                        <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-4">Why this model</p>
-                        <p className="text-[13px] text-slate-600 leading-relaxed max-w-2xl">
-                          Pay for earlier intelligence, better weekly execution, and higher-quality conversations before searches are public.
-                        </p>
-                      </section>
-
-                      <PricingCards />
-
-                      <section className="mt-12 border-t border-slate-100 pt-10">
-                        <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">Pricing FAQ</p>
-                        <div className="max-w-3xl mx-auto space-y-4">
-                          {[
-                            {
-                              q: 'Can I upgrade or downgrade later?',
-                              a: 'Yes. You can move between plans at any time as your search intensity changes.',
-                            },
-                            {
-                              q: 'What if I pick the wrong tier to start?',
-                              a: 'Start where you are now. Most executives begin on Intelligence or Active, then upgrade when the campaign becomes urgent.',
-                            },
-                            {
-                              q: 'Is there a long-term contract?',
-                              a: 'No. All plans start with a 30-day free trial and can be canceled at any time.',
-                            },
-                          ].map(item => (
-                            <div key={item.q} className="border border-slate-200 rounded-lg p-5">
-                              <p className="text-[13px] font-semibold text-slate-900 mb-1.5">{item.q}</p>
-                              <p className="text-[13px] text-slate-600 leading-relaxed">{item.a}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </section>
-
-                      <p className="mt-10 text-center text-[13px] text-slate-400">
-                        All plans include a 30-day free trial. Cancel any time.{' '}
-                        Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className="text-slate-600 underline underline-offset-2">support@startingmonday.app</a>
-                      </p>
+      </main>
+    </div>
+  )
+}
