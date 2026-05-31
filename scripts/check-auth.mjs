@@ -41,6 +41,7 @@ function main() {
   const publicRouteExemptions = [
     '/src/app/api/track/open/route.ts',
     '/src/app/api/drip/unsubscribe/route.ts',
+    '/src/app/api/ideas/route.ts',
   ]
 
   let fail = false
