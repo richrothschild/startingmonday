@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T21:08:50.617Z",
+  "generatedAt": "2026-05-31T21:24:59.958Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.377Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1594,7 +1594,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:52:24.950Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.384Z"
     },
     {
       "id": "feature:/dashboard/wrap-up",
@@ -1706,8 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T21:08:27.104Z"
-      "lastModifiedAt": "2026-05-31T19:52:20.632Z"
+      "lastModifiedAt": "2026-05-31T21:23:54.130Z"
     },
     {
       "id": "feature:/dashboard/positioning",
@@ -1735,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:48:14.149Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.385Z"
     },
     {
       "id": "feature:/dashboard/pilot-outreach",
@@ -1889,8 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T21:07:37.539Z"
-      "lastModifiedAt": "2026-05-31T19:31:50.698Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.383Z"
     },
     {
       "id": "feature:/dashboard/concierge",
@@ -5814,7 +5812,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:52:02.122Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.387Z"
     },
     {
       "id": "code:src/lib/career-mode.ts",
@@ -5827,7 +5825,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:51:56.062Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.387Z"
     },
     {
       "id": "code:src/lib/channel-ia.test.ts",
@@ -6428,6 +6426,32 @@
       "lastModifiedAt": "2026-05-31T19:31:51.255Z"
     },
     {
+      "id": "code:src/lib/narrative-health.test.ts",
+      "title": "Code src/lib/narrative-health.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/narrative-health.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:23:40.372Z"
+    },
+    {
+      "id": "code:src/lib/narrative-health.ts",
+      "title": "Code src/lib/narrative-health.ts",
+      "body": "export type NarrativeHealthInput = {",
+      "type": "code",
+      "ref": "src/lib/narrative-health.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:23:40.312Z"
+    },
+    {
       "id": "code:src/lib/onboarding-speed.test.ts",
       "title": "Code src/lib/onboarding-speed.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -6672,7 +6696,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:48:05.747Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.388Z"
     },
     {
       "id": "code:src/lib/placed-proof-architecture.ts",
@@ -6685,7 +6709,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:48:01.444Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.388Z"
     },
     {
       "id": "code:src/lib/plans.test.ts",
@@ -6750,7 +6774,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:56:51.034Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.389Z"
     },
     {
       "id": "code:src/lib/post-search-relationship-loop.ts",
@@ -6763,7 +6787,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:56:46.717Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.390Z"
     },
     {
       "id": "code:src/lib/posthog-server.test.ts",
@@ -7062,7 +7086,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:07:21.265Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.390Z"
     },
     {
       "id": "code:src/lib/relationship-infrastructure.ts",
@@ -7075,7 +7099,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:07:17.434Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.391Z"
     },
     {
       "id": "code:src/lib/require-auth.test.ts",
@@ -12180,8 +12204,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
-      "lastModifiedAt": "2026-05-31T19:54:33.415Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.376Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12220,8 +12243,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
-      "lastModifiedAt": "2026-05-31T19:54:33.415Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.377Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13443,8 +13465,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:08:47.324Z"
-      "lastModifiedAt": "2026-05-31T19:54:52.718Z"
+      "lastModifiedAt": "2026-05-31T21:24:13.290Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -13886,7 +13907,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:48:55.310Z"
+      "lastModifiedAt": "2026-05-31T21:23:15.377Z"
     },
     {
       "id": "doc:docs/strategy/sprint-plan.md",
