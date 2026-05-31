@@ -383,7 +383,10 @@ async function readManifest(): Promise<GuideManifest | null> {
 }
 
 function normalizeGeneratedAtLine(markdown: string): string {
-  return markdown.replace(/^Last generated:\s+.*$/m, 'Last generated: <normalized>')
+  return markdown
+    .replace(/\r\n/g, '\n')
+    .trimEnd()
+    .replace(/^Last generated:\s+.*$/m, 'Last generated: <normalized>')
 }
 
 async function readIndexEntries(): Promise<GuideEntry[] | null> {
