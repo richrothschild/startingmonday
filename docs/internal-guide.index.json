@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T18:20:03.426Z",
+  "generatedAt": "2026-05-31T18:28:28.436Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T18:19:50.436Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.542Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1972,7 +1972,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T18:19:50.458Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.570Z"
     },
     {
       "id": "feature:/dashboard/admin/traces",
@@ -2418,7 +2418,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.520Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.672Z"
     },
     {
       "id": "api:/api/webhooks/onboarding-video",
@@ -2431,7 +2431,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.520Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.671Z"
     },
     {
       "id": "api:/api/track/open",
@@ -2457,7 +2457,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.519Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.670Z"
     },
     {
       "id": "api:/api/team/invite",
@@ -2470,7 +2470,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.518Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.669Z"
     },
     {
       "id": "api:/api/tailor",
@@ -2483,7 +2483,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.517Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.667Z"
     },
     {
       "id": "api:/api/tailor/strengthen",
@@ -2496,7 +2496,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.518Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.668Z"
     },
     {
       "id": "api:/api/tailor/check",
@@ -2509,7 +2509,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.516Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.666Z"
     },
     {
       "id": "api:/api/suggestions",
@@ -2561,7 +2561,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.516Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.666Z"
     },
     {
       "id": "api:/api/search",
@@ -2717,7 +2717,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.515Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.665Z"
     },
     {
       "id": "api:/api/prep/[id]/outreach/log",
@@ -2730,7 +2730,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.514Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.664Z"
     },
     {
       "id": "api:/api/prep/[id]/leadership",
@@ -2769,7 +2769,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.513Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.663Z"
     },
     {
       "id": "api:/api/prep/[id]/challenges",
@@ -2834,7 +2834,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.512Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.662Z"
     },
     {
       "id": "api:/api/pilot-outreach",
@@ -2847,7 +2847,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.512Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.661Z"
     },
     {
       "id": "api:/api/partners",
@@ -2860,7 +2860,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.511Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.660Z"
     },
     {
       "id": "api:/api/partners/report",
@@ -2886,7 +2886,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.511Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.660Z"
     },
     {
       "id": "api:/api/outreach/template",
@@ -2899,7 +2899,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.510Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.659Z"
     },
     {
       "id": "api:/api/outreach/suppression",
@@ -2912,7 +2912,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.509Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.658Z"
     },
     {
       "id": "api:/api/outreach/status",
@@ -2925,7 +2925,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.509Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.657Z"
     },
     {
       "id": "api:/api/outreach/send",
@@ -2938,7 +2938,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.508Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.656Z"
     },
     {
       "id": "api:/api/outreach/send/batch-status",
@@ -2990,7 +2990,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.507Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.655Z"
     },
     {
       "id": "api:/api/onboarding/intel",
@@ -3003,7 +3003,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.507Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.655Z"
     },
     {
       "id": "api:/api/onboarding/events",
@@ -3042,7 +3042,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.506Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.653Z"
     },
     {
       "id": "api:/api/narrative/generate-positioning",
@@ -3055,7 +3055,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.506Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.652Z"
     },
     {
       "id": "api:/api/narrative/generate-linkedin",
@@ -3068,7 +3068,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.505Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.652Z"
     },
     {
       "id": "api:/api/linkedin-import",
@@ -3081,7 +3081,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.505Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.651Z"
     },
     {
       "id": "api:/api/linkedin-import/match",
@@ -3094,7 +3094,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.504Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.650Z"
     },
     {
       "id": "api:/api/linkedin-import/extract",
@@ -3120,7 +3120,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.504Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.649Z"
     },
     {
       "id": "api:/api/linkedin-import/audit",
@@ -3159,7 +3159,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.503Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.648Z"
     },
     {
       "id": "api:/api/intelligence/radar",
@@ -3185,7 +3185,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.502Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.647Z"
     },
     {
       "id": "api:/api/ideas",
@@ -3224,7 +3224,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.502Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.646Z"
     },
     {
       "id": "api:/api/guide/chat/feedback",
@@ -3237,7 +3237,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.501Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.644Z"
     },
     {
       "id": "api:/api/google-calendar/disconnect",
@@ -3250,7 +3250,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.500Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.643Z"
     },
     {
       "id": "api:/api/google-calendar/connect",
@@ -3289,7 +3289,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.500Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.642Z"
     },
     {
       "id": "api:/api/feedback/items",
@@ -3419,7 +3419,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.499Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.640Z"
     },
     {
       "id": "api:/api/demo-email",
@@ -3432,7 +3432,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.499Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.639Z"
     },
     {
       "id": "api:/api/demo-brief",
@@ -3445,7 +3445,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.497Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.638Z"
     },
     {
       "id": "api:/api/demo-brief/tailored",
@@ -3458,7 +3458,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.498Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.639Z"
     },
     {
       "id": "api:/api/demo-brief/manager-tools",
@@ -3471,7 +3471,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.497Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.637Z"
     },
     {
       "id": "api:/api/cron/weekly-digest",
@@ -3643,6 +3643,19 @@
       "lastModifiedAt": "2026-05-24T13:54:27.548Z"
     },
     {
+      "id": "api:/api/cron/executive-research-refresh",
+      "title": "API /api/cron/executive-research-refresh",
+      "body": "export const runtime = 'nodejs'",
+      "type": "api",
+      "ref": "src/app/api/cron/executive-research-refresh/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-05-31T18:27:54.628Z"
+    },
+    {
       "id": "api:/api/cron/edgar-signals",
       "title": "API /api/cron/edgar-signals",
       "body": "export async function GET(request: NextRequest) {",
@@ -3705,7 +3718,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.496Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.628Z"
     },
     {
       "id": "api:/api/contacts",
@@ -3744,7 +3757,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.496Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.627Z"
     },
     {
       "id": "api:/api/concierge/calls",
@@ -3835,7 +3848,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.495Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.626Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/signals",
@@ -3900,7 +3913,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.494Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.625Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/actions",
@@ -3913,7 +3926,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.494Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.624Z"
     },
     {
       "id": "api:/api/client/coaches",
@@ -3978,7 +3991,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.492Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.623Z"
     },
     {
       "id": "api:/api/briefs/save",
@@ -4004,7 +4017,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.493Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.624Z"
     },
     {
       "id": "api:/api/briefing/send",
@@ -4017,7 +4030,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.492Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.623Z"
     },
     {
       "id": "api:/api/billing/resume",
@@ -4043,7 +4056,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.491Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.622Z"
     },
     {
       "id": "api:/api/billing/pause",
@@ -4069,7 +4082,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.490Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.621Z"
     },
     {
       "id": "api:/api/billing/checkout/seats",
@@ -4082,7 +4095,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.491Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.621Z"
     },
     {
       "id": "api:/api/billing/checkout/micro-product-bundle",
@@ -4095,7 +4108,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.489Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.619Z"
     },
     {
       "id": "api:/api/billing/checkout/micro-product",
@@ -4108,7 +4121,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.490Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.620Z"
     },
     {
       "id": "api:/api/auth/verify-and-signup",
@@ -4121,7 +4134,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.488Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.618Z"
     },
     {
       "id": "api:/api/auth/verify-and-signin",
@@ -4147,7 +4160,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.488Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.617Z"
     },
     {
       "id": "api:/api/auth/verify-and-magic-link",
@@ -4186,7 +4199,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.487Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.616Z"
     },
     {
       "id": "api:/api/auth/login-submit",
@@ -4199,7 +4212,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.486Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.615Z"
     },
     {
       "id": "api:/api/admin/speakers",
@@ -4212,7 +4225,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.485Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.614Z"
     },
     {
       "id": "api:/api/admin/speakers/[id]",
@@ -4225,7 +4238,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.485Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.613Z"
     },
     {
       "id": "api:/api/admin/speakers/export",
@@ -4251,7 +4264,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.484Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.611Z"
     },
     {
       "id": "api:/api/admin/social/[id]/schedule",
@@ -4277,7 +4290,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.483Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.611Z"
     },
     {
       "id": "api:/api/admin/social/[id]/council-check",
@@ -4290,7 +4303,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.483Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.610Z"
     },
     {
       "id": "api:/api/admin/social/today",
@@ -4329,7 +4342,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.485Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.613Z"
     },
     {
       "id": "api:/api/admin/social/morning",
@@ -4355,7 +4368,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.484Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.612Z"
     },
     {
       "id": "api:/api/admin/social/digest",
@@ -4407,7 +4420,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.482Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.610Z"
     },
     {
       "id": "api:/api/admin/internal-guide/chat",
@@ -4420,7 +4433,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.482Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.609Z"
     },
     {
       "id": "api:/api/admin/health",
@@ -4434,6 +4447,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-05-14T21:34:53.611Z"
+    },
+    {
+      "id": "api:/api/admin/executive-research/health",
+      "title": "API /api/admin/executive-research/health",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/executive-research/health/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-05-31T18:27:54.608Z"
     },
     {
       "id": "api:/api/admin/contacts/enrich",
@@ -4472,7 +4498,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.481Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.607Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/revenue-classification",
@@ -4485,7 +4511,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.480Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.606Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/payout-matching",
@@ -4498,7 +4524,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.480Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.606Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/mismatch-flagging",
@@ -4511,7 +4537,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.479Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.605Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/exception-reporting",
@@ -4524,7 +4550,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.479Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.604Z"
     },
     {
       "id": "api:/api/admin/automation/revenue-ops/bookkeeping-entry-preparation",
@@ -4537,7 +4563,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.478Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.604Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/weekly-kpi-summaries",
@@ -4550,7 +4576,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.478Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.603Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/value-lane-pricing-entitlements",
@@ -4563,7 +4589,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.477Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.603Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/trend-reports",
@@ -4576,7 +4602,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.476Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.601Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/template-adoption-scorecard",
@@ -4628,7 +4654,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.476Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.600Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/sponsor-export-dispatch",
@@ -4667,7 +4693,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.475Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.598Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/provisioning-sla-qa",
@@ -4693,7 +4719,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.474Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.596Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/program-template-governance",
@@ -4706,7 +4732,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.473Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.595Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/prep-provenance-coverage",
@@ -4771,7 +4797,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.473Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.592Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/partner-kpi-schema",
@@ -4797,7 +4823,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.472Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.590Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/onboarding-qa-scorecard",
@@ -4810,7 +4836,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.471Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.589Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/monthly-business-review-packs",
@@ -4823,7 +4849,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.470Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.588Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/migration-playbook-comms",
@@ -4836,7 +4862,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.470Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.588Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/intelligence-qa-scorecard",
@@ -4849,7 +4875,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.469Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.587Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/exception-lists",
@@ -4862,7 +4888,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.468Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.585Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/emi-validation-reruns",
@@ -4888,7 +4914,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.468Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.585Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/council-review-prep",
@@ -4901,7 +4927,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.467Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.584Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/cohort-roster-model",
@@ -4953,7 +4979,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.467Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.582Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/reconcile-live-sends",
@@ -4966,7 +4992,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.466Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.582Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/post-meeting-follow-up",
@@ -4979,7 +5005,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.466Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.581Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/initial-sequences",
@@ -4992,7 +5018,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.465Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.580Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/follow-up-timing",
@@ -5005,7 +5031,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.465Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.579Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/enforce-suppression",
@@ -5018,7 +5044,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.464Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.579Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/classify-replies",
@@ -5031,7 +5057,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.464Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.578Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/book-from-replies",
@@ -5044,7 +5070,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.463Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.577Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/workflow-assignment",
@@ -5057,7 +5083,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.462Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.577Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/video-queue",
@@ -5070,7 +5096,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.462Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.576Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/video-queue/[runId]",
@@ -5096,7 +5122,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.461Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.575Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/identity-verify",
@@ -5109,7 +5135,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.460Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.574Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/first-milestone-tracking",
@@ -5122,7 +5148,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.460Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.573Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/first-brief",
@@ -5135,7 +5161,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.459Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.573Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/context-capture",
@@ -5148,7 +5174,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.459Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.572Z"
     },
     {
       "id": "api:/api/admin/automation/onboarding/activation-reminders",
@@ -5187,7 +5213,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T18:19:50.458Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.571Z"
     },
     {
       "id": "api:/api/admin/automation/engineering/test-execution",
@@ -5762,6 +5788,19 @@
       "lastModifiedAt": "2026-05-06T01:59:53.074Z"
     },
     {
+      "id": "code:src/lib/channel-ia.test.ts",
+      "title": "Code src/lib/channel-ia.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/channel-ia.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.681Z"
+    },
+    {
       "id": "code:src/lib/channel-ia.ts",
       "title": "Code src/lib/channel-ia.ts",
       "body": "export type ChannelRouteSpec = {",
@@ -5773,6 +5812,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-25T04:03:48.603Z"
+    },
+    {
+      "id": "code:src/lib/channel-metrics-events.test.ts",
+      "title": "Code src/lib/channel-metrics-events.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/channel-metrics-events.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.681Z"
     },
     {
       "id": "code:src/lib/channel-metrics-events.ts",
@@ -6087,6 +6139,19 @@
       "lastModifiedAt": "2026-05-31T17:10:05.349Z"
     },
     {
+      "id": "code:src/lib/executive-research-library.ts",
+      "title": "Code src/lib/executive-research-library.ts",
+      "body": "export type VerifiedSourceTier = 'A' | 'B' | 'C'",
+      "type": "code",
+      "ref": "src/lib/executive-research-library.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.682Z"
+    },
+    {
       "id": "code:src/lib/form-utils.test.ts",
       "title": "Code src/lib/form-utils.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -6163,6 +6228,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-30T13:04:29.180Z"
+    },
+    {
+      "id": "code:src/lib/intelligence-quality.test.ts",
+      "title": "Code src/lib/intelligence-quality.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/intelligence-quality.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.683Z"
     },
     {
       "id": "code:src/lib/intelligence-quality.ts",
@@ -6282,6 +6360,19 @@
       "lastModifiedAt": "2026-05-18T12:49:14.932Z"
     },
     {
+      "id": "code:src/lib/micro-products.test.ts",
+      "title": "Code src/lib/micro-products.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/micro-products.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.683Z"
+    },
+    {
       "id": "code:src/lib/micro-products.ts",
       "title": "Code src/lib/micro-products.ts",
       "body": "export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'",
@@ -6293,6 +6384,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-28T13:57:36.527Z"
+    },
+    {
+      "id": "code:src/lib/onboarding-speed.test.ts",
+      "title": "Code src/lib/onboarding-speed.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/onboarding-speed.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.684Z"
     },
     {
       "id": "code:src/lib/onboarding-speed.ts",
@@ -6308,6 +6412,19 @@
       "lastModifiedAt": "2026-05-25T01:22:16.774Z"
     },
     {
+      "id": "code:src/lib/onboarding-video-provider.test.ts",
+      "title": "Code src/lib/onboarding-video-provider.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/onboarding-video-provider.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.684Z"
+    },
+    {
       "id": "code:src/lib/onboarding-video-provider.ts",
       "title": "Code src/lib/onboarding-video-provider.ts",
       "body": "export type OnboardingVideoProviderDispatchInput = {",
@@ -6321,6 +6438,19 @@
       "lastModifiedAt": "2026-05-30T12:24:26.929Z"
     },
     {
+      "id": "code:src/lib/onboarding-video-queue.test.ts",
+      "title": "Code src/lib/onboarding-video-queue.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/onboarding-video-queue.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.685Z"
+    },
+    {
       "id": "code:src/lib/onboarding-video-queue.ts",
       "title": "Code src/lib/onboarding-video-queue.ts",
       "body": "export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'",
@@ -6332,6 +6462,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-31T04:00:53.859Z"
+    },
+    {
+      "id": "code:src/lib/outplacement-cohort-model.test.ts",
+      "title": "Code src/lib/outplacement-cohort-model.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/outplacement-cohort-model.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.685Z"
     },
     {
       "id": "code:src/lib/outplacement-cohort-model.ts",
@@ -6373,6 +6516,19 @@
       "lastModifiedAt": "2026-05-15T14:57:33.902Z"
     },
     {
+      "id": "code:src/lib/partner-kpi-schema.test.ts",
+      "title": "Code src/lib/partner-kpi-schema.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/partner-kpi-schema.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.687Z"
+    },
+    {
       "id": "code:src/lib/partner-kpi-schema.ts",
       "title": "Code src/lib/partner-kpi-schema.ts",
       "body": "export const PARTNER_PROGRAMS = ['intelligence', 'active', 'executive', 'free'] as const",
@@ -6386,6 +6542,19 @@
       "lastModifiedAt": "2026-05-30T03:08:33.658Z"
     },
     {
+      "id": "code:src/lib/partner-provisioning.test.ts",
+      "title": "Code src/lib/partner-provisioning.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/partner-provisioning.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.687Z"
+    },
+    {
       "id": "code:src/lib/partner-provisioning.ts",
       "title": "Code src/lib/partner-provisioning.ts",
       "body": "export type ProvisioningSeatStatus = 'invited' | 'active' | 'suspended' | 'transferred' | 'archived'",
@@ -6397,6 +6566,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-30T07:08:05.796Z"
+    },
+    {
+      "id": "code:src/lib/persona-routes.test.ts",
+      "title": "Code src/lib/persona-routes.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/persona-routes.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.688Z"
     },
     {
       "id": "code:src/lib/persona-routes.ts",
@@ -6646,6 +6828,19 @@
       "lastModifiedAt": "2026-05-21T00:23:45.890Z"
     },
     {
+      "id": "code:src/lib/program-template-governance.test.ts",
+      "title": "Code src/lib/program-template-governance.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/program-template-governance.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.688Z"
+    },
+    {
       "id": "code:src/lib/program-template-governance.ts",
       "title": "Code src/lib/program-template-governance.ts",
       "body": "export type ProgramTemplatePackId = 'executive_transition' | 'board_track' | 'restructuring'",
@@ -6867,6 +7062,19 @@
       "lastModifiedAt": "2026-05-22T17:04:05.285Z"
     },
     {
+      "id": "code:src/lib/role-path-priority.test.ts",
+      "title": "Code src/lib/role-path-priority.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/role-path-priority.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.689Z"
+    },
+    {
       "id": "code:src/lib/role-path-priority.ts",
       "title": "Code src/lib/role-path-priority.ts",
       "body": "export async function getRolePathPriorityByCtaKey(): Promise<Record<string, number>> {",
@@ -6903,7 +7111,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T18:19:50.524Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.690Z"
     },
     {
       "id": "code:src/lib/slack.test.ts",
@@ -7244,6 +7452,19 @@
       "lastModifiedAt": "2026-05-12T17:45:36.961Z"
     },
     {
+      "id": "code:src/lib/value-lane-pricing.test.ts",
+      "title": "Code src/lib/value-lane-pricing.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/value-lane-pricing.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.690Z"
+    },
+    {
       "id": "code:src/lib/value-lane-pricing.ts",
       "title": "Code src/lib/value-lane-pricing.ts",
       "body": "export type ValueLane = 'launch' | 'scale' | 'transform'",
@@ -7530,6 +7751,19 @@
       "lastModifiedAt": "2026-05-22T18:27:56.009Z"
     },
     {
+      "id": "code:src/lib/outreach/legacy-copy-guard.test.ts",
+      "title": "Code src/lib/outreach/legacy-copy-guard.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/outreach/legacy-copy-guard.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.686Z"
+    },
+    {
       "id": "code:src/lib/outreach/legacy-copy-guard.ts",
       "title": "Code src/lib/outreach/legacy-copy-guard.ts",
       "body": "export function detectLegacyTemplateCopy(subject: string, body: string): string[] {",
@@ -7567,6 +7801,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-27T13:09:38.433Z"
+    },
+    {
+      "id": "code:src/lib/outreach/send-queue.test.ts",
+      "title": "Code src/lib/outreach/send-queue.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/outreach/send-queue.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T18:27:54.686Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.ts",
@@ -8375,6 +8622,19 @@
       "lastModifiedAt": "2026-05-28T21:02:29.881Z"
     },
     {
+      "id": "script:scripts/generate-performance-release-scorecard.mjs",
+      "title": "Script scripts/generate-performance-release-scorecard.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/generate-performance-release-scorecard.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-05-31T18:27:54.566Z"
+    },
+    {
       "id": "script:scripts/growth-synthetic-council-audit.mjs",
       "title": "Script scripts/growth-synthetic-council-audit.mjs",
       "body": "#!/usr/bin/env node",
@@ -8515,7 +8775,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T18:19:50.455Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.567Z"
     },
     {
       "id": "script:scripts/link-integrity-audit.mjs",
@@ -8765,6 +9025,19 @@
       "lastModifiedAt": "2026-05-28T21:02:29.907Z"
     },
     {
+      "id": "script:scripts/run-performance-audit-pack.mjs",
+      "title": "Script scripts/run-performance-audit-pack.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/run-performance-audit-pack.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-05-31T18:27:54.567Z"
+    },
+    {
       "id": "script:scripts/sample-outreach-examples.mjs",
       "title": "Script scripts/sample-outreach-examples.mjs",
       "body": "import { readdir, readFile } from 'node:fs/promises'",
@@ -8957,7 +9230,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T18:19:50.456Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.568Z"
     },
     {
       "id": "script:scripts/verify-prep-brief-golden-set.mjs",
@@ -9064,6 +9337,19 @@
       "lastModifiedAt": "2026-05-30T02:16:07.158Z"
     },
     {
+      "id": "infra:.github/workflows/executive-research-weekly.yml",
+      "title": "Workflow .github/workflows/executive-research-weekly.yml",
+      "body": "name: Executive Research Weekly Refresh",
+      "type": "infra",
+      "ref": ".github/workflows/executive-research-weekly.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-05-31T18:27:54.509Z"
+    },
+    {
       "id": "infra:.github/workflows/fast-burn-alert.yml",
       "title": "Workflow .github/workflows/fast-burn-alert.yml",
       "body": "Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.",
@@ -9140,6 +9426,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-05-19T01:21:48.716Z"
+    },
+    {
+      "id": "infra:.github/workflows/performance-release-gate.yml",
+      "title": "Workflow .github/workflows/performance-release-gate.yml",
+      "body": "name: Performance Release Gate",
+      "type": "infra",
+      "ref": ".github/workflows/performance-release-gate.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-05-31T18:27:54.510Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -11044,6 +11343,20 @@
       "lastModifiedAt": "2026-05-30T00:23:22.497Z"
     },
     {
+      "id": "data:supabase/migrations/120_executive_research_library.sql",
+      "title": "Migration supabase/migrations/120_executive_research_library.sql",
+      "body": "-- Executive research library and weekly refresh history.",
+      "type": "data",
+      "ref": "supabase/migrations/120_executive_research_library.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-05-31T18:27:54.693Z"
+    },
+    {
       "id": "data:supabase/migrations/121_onboarding_video_automation_foundation.sql",
       "title": "Migration supabase/migrations/121_onboarding_video_automation_foundation.sql",
       "body": "-- Epic A Sprint 1 / Task A1:",
@@ -11422,7 +11735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.430Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.519Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -11477,6 +11790,19 @@
       "lastModifiedAt": "2026-05-26T03:03:07.954Z"
     },
     {
+      "id": "doc:docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
+      "title": "Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
+      "body": "Epic: 7-Layer Luxury Experience Foundation",
+      "type": "doc",
+      "ref": "docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.522Z"
+    },
+    {
       "id": "doc:docs/epic-90-day-reliability-rollout.md",
       "title": "Doc docs/epic-90-day-reliability-rollout.md",
       "body": "Epic: 90-Day Reliability Rollout (SRE + UX Quality)",
@@ -11514,6 +11840,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-30T12:56:12.745Z"
+    },
+    {
+      "id": "doc:docs/epic-partner-scale-and-flywheel-2026-2027.md",
+      "title": "Doc docs/epic-partner-scale-and-flywheel-2026-2027.md",
+      "body": "Epic: Partner Scale and Flywheel",
+      "type": "doc",
+      "ref": "docs/epic-partner-scale-and-flywheel-2026-2027.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.523Z"
     },
     {
       "id": "doc:docs/epic-sre-council-backlog.md",
@@ -11592,6 +11931,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-20T17:42:49.871Z"
+    },
+    {
+      "id": "doc:docs/fractional-bd-hiring-scorecard-and-interview-script.md",
+      "title": "Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md",
+      "body": "Fractional BD Hiring Scorecard and Interview Script",
+      "type": "doc",
+      "ref": "docs/fractional-bd-hiring-scorecard-and-interview-script.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.535Z"
     },
     {
       "id": "doc:docs/google-calendar-integration-plan.md",
@@ -11708,7 +12060,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.436Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.541Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -11747,7 +12099,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.436Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.542Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -11890,7 +12242,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.437Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.543Z"
     },
     {
       "id": "doc:docs/marketing-plan.md",
@@ -12101,6 +12453,58 @@
       "lastModifiedAt": "2026-05-11T04:59:37.666Z"
     },
     {
+      "id": "doc:docs/performance-audit-pack.md",
+      "title": "Doc docs/performance-audit-pack.md",
+      "body": "Performance Audit Pack",
+      "type": "doc",
+      "ref": "docs/performance-audit-pack.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.543Z"
+    },
+    {
+      "id": "doc:docs/performance-budget.md",
+      "title": "Doc docs/performance-budget.md",
+      "body": "Performance Budget",
+      "type": "doc",
+      "ref": "docs/performance-budget.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.545Z"
+    },
+    {
+      "id": "doc:docs/performance-release-scorecard.latest.md",
+      "title": "Doc docs/performance-release-scorecard.latest.md",
+      "body": "Performance Release Scorecard",
+      "type": "doc",
+      "ref": "docs/performance-release-scorecard.latest.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.546Z"
+    },
+    {
+      "id": "doc:docs/performance-release-scorecard.template.md",
+      "title": "Doc docs/performance-release-scorecard.template.md",
+      "body": "Performance Release Scorecard Template",
+      "type": "doc",
+      "ref": "docs/performance-release-scorecard.template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.547Z"
+    },
+    {
       "id": "doc:docs/persona-emotions.md",
       "title": "Doc docs/persona-emotions.md",
       "body": "Starting Monday — Persona Emotions and Search Journey",
@@ -12309,6 +12713,19 @@
       "lastModifiedAt": "2026-05-12T20:58:55.983Z"
     },
     {
+      "id": "doc:docs/production-two-step-gate-signoff-2026-05-31.md",
+      "title": "Doc docs/production-two-step-gate-signoff-2026-05-31.md",
+      "body": "Production Two-Step Gate Signoff",
+      "type": "doc",
+      "ref": "docs/production-two-step-gate-signoff-2026-05-31.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.551Z"
+    },
+    {
       "id": "doc:docs/release-ux-signoff-checklist.md",
       "title": "Doc docs/release-ux-signoff-checklist.md",
       "body": "Release UX Sign-off Checklist",
@@ -12397,7 +12814,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.439Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.552Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -12774,7 +13191,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.441Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.554Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -12904,7 +13321,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:53.131Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.557Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -13008,7 +13425,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T18:19:50.446Z"
+      "lastModifiedAt": "2026-05-31T18:27:54.559Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",
@@ -14779,6 +15196,318 @@
       "lastModifiedAt": "2026-05-26T23:36:51.936Z"
     },
     {
+      "id": "doc:docs/executive-job-search/01-source-register.md",
+      "title": "Doc docs/executive-job-search/01-source-register.md",
+      "body": "Executive Job Search Source Register",
+      "type": "doc",
+      "ref": "docs/executive-job-search/01-source-register.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.523Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/02-behavior-ontology-v1.md",
+      "title": "Doc docs/executive-job-search/02-behavior-ontology-v1.md",
+      "body": "Executive Job Search Behavior Ontology v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/02-behavior-ontology-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.524Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/03-role-stage-matrix-v1.md",
+      "title": "Doc docs/executive-job-search/03-role-stage-matrix-v1.md",
+      "body": "Executive Job Search Role x Stage Matrix v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/03-role-stage-matrix-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.524Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/04-derailer-taxonomy-v1.md",
+      "title": "Doc docs/executive-job-search/04-derailer-taxonomy-v1.md",
+      "body": "Executive Job Search Derailer Taxonomy v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/04-derailer-taxonomy-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.525Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/05-intervention-library-v1.md",
+      "title": "Doc docs/executive-job-search/05-intervention-library-v1.md",
+      "body": "Executive Job Search Intervention Library v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/05-intervention-library-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.525Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/06-triangulation-plan-v1.md",
+      "title": "Doc docs/executive-job-search/06-triangulation-plan-v1.md",
+      "body": "Executive Job Search Triangulation Plan v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/06-triangulation-plan-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.526Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/07-research-pack-overview.md",
+      "title": "Doc docs/executive-job-search/07-research-pack-overview.md",
+      "body": "Executive Job Search Research Pack",
+      "type": "doc",
+      "ref": "docs/executive-job-search/07-research-pack-overview.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.526Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/08-product-spec.md",
+      "title": "Doc docs/executive-job-search/08-product-spec.md",
+      "body": "Executive Job Search Product Spec v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/08-product-spec.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.527Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/09-segmentation-schema.md",
+      "title": "Doc docs/executive-job-search/09-segmentation-schema.md",
+      "body": "Segmentation Schema v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/09-segmentation-schema.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.527Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/10-interview-guide.md",
+      "title": "Doc docs/executive-job-search/10-interview-guide.md",
+      "body": "Executive Job Search Interview Guide v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/10-interview-guide.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.528Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/11-candidate-scoring-rubric.md",
+      "title": "Doc docs/executive-job-search/11-candidate-scoring-rubric.md",
+      "body": "Candidate Scoring Rubric v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/11-candidate-scoring-rubric.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.528Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/12-implementation-notes.md",
+      "title": "Doc docs/executive-job-search/12-implementation-notes.md",
+      "body": "Implementation Notes v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/12-implementation-notes.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.529Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/13-signal-mining-program.md",
+      "title": "Doc docs/executive-job-search/13-signal-mining-program.md",
+      "body": "Signal Mining Program",
+      "type": "doc",
+      "ref": "docs/executive-job-search/13-signal-mining-program.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.529Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/14-synthetic-first-sprint-plan.md",
+      "title": "Doc docs/executive-job-search/14-synthetic-first-sprint-plan.md",
+      "body": "Synthetic-First Sprint Plan",
+      "type": "doc",
+      "ref": "docs/executive-job-search/14-synthetic-first-sprint-plan.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.529Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/15-literature-first-sprint-plan.md",
+      "title": "Doc docs/executive-job-search/15-literature-first-sprint-plan.md",
+      "body": "Literature-First Sprint Plan",
+      "type": "doc",
+      "ref": "docs/executive-job-search/15-literature-first-sprint-plan.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.530Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/16-expert-first-desk-synthesis.md",
+      "title": "Doc docs/executive-job-search/16-expert-first-desk-synthesis.md",
+      "body": "Expert-First Desk Synthesis",
+      "type": "doc",
+      "ref": "docs/executive-job-search/16-expert-first-desk-synthesis.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.530Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/17-top-50-behavior-hypotheses.md",
+      "title": "Doc docs/executive-job-search/17-top-50-behavior-hypotheses.md",
+      "body": "Top 50 Behavior Hypotheses",
+      "type": "doc",
+      "ref": "docs/executive-job-search/17-top-50-behavior-hypotheses.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.531Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/18-lightweight-product-tests.md",
+      "title": "Doc docs/executive-job-search/18-lightweight-product-tests.md",
+      "body": "Lightweight Product Tests from Hypotheses",
+      "type": "doc",
+      "ref": "docs/executive-job-search/18-lightweight-product-tests.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.531Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md",
+      "title": "Doc docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md",
+      "body": "Research Map: Peer-Reviewed and Industry Sources",
+      "type": "doc",
+      "ref": "docs/executive-job-search/19-research-map-peer-reviewed-and-industry.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.532Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/20-validated-constructs-catalog.md",
+      "title": "Doc docs/executive-job-search/20-validated-constructs-catalog.md",
+      "body": "Validated Constructs Catalog",
+      "type": "doc",
+      "ref": "docs/executive-job-search/20-validated-constructs-catalog.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.532Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/21-construct-to-signal-intervention-map.md",
+      "title": "Doc docs/executive-job-search/21-construct-to-signal-intervention-map.md",
+      "body": "Construct-to-Signal and Intervention Map",
+      "type": "doc",
+      "ref": "docs/executive-job-search/21-construct-to-signal-intervention-map.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.533Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/22-public-transition-mining-method.md",
+      "title": "Doc docs/executive-job-search/22-public-transition-mining-method.md",
+      "body": "Public Transition Mining Method",
+      "type": "doc",
+      "ref": "docs/executive-job-search/22-public-transition-mining-method.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.533Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/23-job-description-language-analysis-method.md",
+      "title": "Doc docs/executive-job-search/23-job-description-language-analysis-method.md",
+      "body": "Job Description Language Analysis Method",
+      "type": "doc",
+      "ref": "docs/executive-job-search/23-job-description-language-analysis-method.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.534Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/24-transition-archetypes-v1.md",
+      "title": "Doc docs/executive-job-search/24-transition-archetypes-v1.md",
+      "body": "Transition Archetypes v1",
+      "type": "doc",
+      "ref": "docs/executive-job-search/24-transition-archetypes-v1.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.534Z"
+    },
+    {
       "id": "doc:docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md",
       "title": "Doc docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md",
       "body": "Executive Transition Emotional Journey, Behavior Map, and Execution Plan",
@@ -14894,6 +15623,58 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-31T17:53:51.102Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "title": "Doc docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "body": "Sprint 3 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/34-sprint-3-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:22:53.991Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "title": "Doc docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "body": "Sprint 4 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/35-sprint-4-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:23:57.459Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "title": "Doc docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "body": "Sprint 5 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/36-sprint-5-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:25:01.393Z"
+    },
+    {
+      "id": "doc:docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "title": "Doc docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "body": "Sprint 6 Execution Packet",
+      "type": "doc",
+      "ref": "docs/executive-job-search/37-sprint-6-execution-packet.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:26:05.970Z"
     },
     {
       "id": "doc:docs/evals/prep-brief-optimization-cycle-01.md",
@@ -15063,6 +15844,58 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-30T02:16:07.158Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/121_onboarding_video_automation_foundation.md",
+      "title": "Doc docs/development/migration-rollbacks/121_onboarding_video_automation_foundation.md",
+      "body": "121_onboarding_video_automation_foundation rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/121_onboarding_video_automation_foundation.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.520Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md",
+      "title": "Doc docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md",
+      "body": "122_onboarding_video_automation_hardening rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.520Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md",
+      "title": "Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md",
+      "body": "123_onboarding_video_webhook_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.521Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/124_guide_chat_analytics.md",
+      "title": "Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md",
+      "body": "124_guide_chat_analytics rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/124_guide_chat_analytics.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-05-31T18:27:54.521Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
