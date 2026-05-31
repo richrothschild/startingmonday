@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T19:55:47.140Z",
+  "generatedAt": "2026-05-31T21:08:50.617Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T19:54:33.415Z"
+      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1706,7 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:52:20.632Z"
+      "lastModifiedAt": "2026-05-31T21:08:27.104Z"
     },
     {
       "id": "feature:/dashboard/positioning",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:31:50.698Z"
+      "lastModifiedAt": "2026-05-31T21:07:37.539Z"
     },
     {
       "id": "feature:/dashboard/concierge",
@@ -6738,6 +6738,32 @@
       "lastModifiedAt": "2026-05-31T19:31:51.275Z"
     },
     {
+      "id": "code:src/lib/post-search-relationship-loop.test.ts",
+      "title": "Code src/lib/post-search-relationship-loop.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/post-search-relationship-loop.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T19:56:51.034Z"
+    },
+    {
+      "id": "code:src/lib/post-search-relationship-loop.ts",
+      "title": "Code src/lib/post-search-relationship-loop.ts",
+      "body": "export type RelationshipAction = {",
+      "type": "code",
+      "ref": "src/lib/post-search-relationship-loop.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T19:56:46.717Z"
+    },
+    {
       "id": "code:src/lib/posthog-server.test.ts",
       "title": "Code src/lib/posthog-server.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -7022,6 +7048,32 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-31T19:31:51.287Z"
+    },
+    {
+      "id": "code:src/lib/relationship-infrastructure.test.ts",
+      "title": "Code src/lib/relationship-infrastructure.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/relationship-infrastructure.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:07:21.265Z"
+    },
+    {
+      "id": "code:src/lib/relationship-infrastructure.ts",
+      "title": "Code src/lib/relationship-infrastructure.ts",
+      "body": "export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'",
+      "type": "code",
+      "ref": "src/lib/relationship-infrastructure.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-05-31T21:07:17.434Z"
     },
     {
       "id": "code:src/lib/require-auth.test.ts",
@@ -12126,7 +12178,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:54:33.415Z"
+      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12165,7 +12217,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:54:33.415Z"
+      "lastModifiedAt": "2026-05-31T19:55:47.158Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13387,7 +13439,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T19:54:52.718Z"
+      "lastModifiedAt": "2026-05-31T21:08:47.324Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

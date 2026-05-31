@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-31T19:55:47.140Z
+Last generated: 2026-05-31T21:08:50.617Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -423,7 +423,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (184)
+## Codebase Modules (188)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -516,6 +516,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/plans.ts | src/lib/plans.ts | export const PLANS = {
 - Code src/lib/pmf-event-taxonomy.test.ts | src/lib/pmf-event-taxonomy.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pmf-event-taxonomy.ts | src/lib/pmf-event-taxonomy.ts | export const PMF_EVENT_VERSION = 1
+- Code src/lib/post-search-relationship-loop.test.ts | src/lib/post-search-relationship-loop.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/post-search-relationship-loop.ts | src/lib/post-search-relationship-loop.ts | export type RelationshipAction = {
 - Code src/lib/posthog-server.test.ts | src/lib/posthog-server.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/posthog-server.ts | src/lib/posthog-server.ts | export function captureServerEvent(
 - Code src/lib/prep-confidence.test.ts | src/lib/prep-confidence.test.ts | import { describe, expect, it } from 'vitest'
@@ -538,6 +540,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/public-endpoint-guard.ts | src/lib/public-endpoint-guard.ts | export function getClientIp(request: NextRequest): string {
 - Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function checkRateLimit(
+- Code src/lib/relationship-infrastructure.test.ts | src/lib/relationship-infrastructure.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/relationship-infrastructure.ts | src/lib/relationship-infrastructure.ts | export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'
 - Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/require-auth.ts | src/lib/require-auth.ts | export type AuthResult =
 - Code src/lib/require-feature-access.test.ts | src/lib/require-feature-access.test.ts | import { describe, expect, it } from 'vitest'
