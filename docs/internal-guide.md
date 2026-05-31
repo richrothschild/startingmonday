@@ -1,7 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-31T21:08:50.617Z
-Last generated: 2026-05-31T19:55:47.140Z
+Last generated: 2026-05-31T21:24:59.958Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -424,8 +423,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (188)
-## Codebase Modules (184)
+## Codebase Modules (190)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -494,6 +492,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/lead-scoring.ts | src/lib/lead-scoring.ts | export type ScoreReason = {
 - Code src/lib/micro-products.test.ts | src/lib/micro-products.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
+- Code src/lib/narrative-health.test.ts | src/lib/narrative-health.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/narrative-health.ts | src/lib/narrative-health.ts | export type NarrativeHealthInput = {
 - Code src/lib/onboarding-speed.test.ts | src/lib/onboarding-speed.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-speed.ts | src/lib/onboarding-speed.ts | export type OnboardingChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/onboarding-video-provider.test.ts | src/lib/onboarding-video-provider.test.ts | import { describe, expect, it } from 'vitest'

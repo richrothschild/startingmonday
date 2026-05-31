@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { postSearchDigestFrequency, resolveCareerMode } from '@/lib/career-mode'
 import { buildRelationshipMaintenancePlan } from '@/lib/post-search-relationship-loop'
 import { summarizeRelationshipNetwork } from '@/lib/relationship-infrastructure'
+import { evaluateNarrativeHealth } from '@/lib/narrative-health'
 
 export const metadata = { title: 'Career Intelligence Mode - Starting Monday' }
 
@@ -13,6 +14,9 @@ type ProfileRow = {
   placement_company: string | null
   search_status: string | null
   briefing_frequency: string | null
+  positioning_summary: string | null
+  linkedin_headline: string | null
+  linkedin_about: string | null
 }
 
 type SignalRow = {
@@ -27,10 +31,10 @@ export default async function PostSearchDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }, { data: rawContacts }] = await Promise.all([
+  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }, { data: rawContacts }, { count: narrativeVersionCount }] = await Promise.all([
     supabase
       .from('user_profiles')
-      .select('full_name, placed_at, placement_company, search_status, briefing_frequency')
+      .select('full_name, placed_at, placement_company, search_status, briefing_frequency, positioning_summary, linkedin_headline, linkedin_about')
       .eq('user_id', user.id)
       .single(),
     supabase
@@ -54,6 +58,10 @@ export default async function PostSearchDashboardPage() {
       .select('contact_type, channel, title')
       .eq('user_id', user.id)
       .eq('status', 'active'),
+    supabase
+      .from('narrative_versions')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id),
   ])
 
   const profile = profileRaw as ProfileRow | null
@@ -65,6 +73,12 @@ export default async function PostSearchDashboardPage() {
   const recentSignals = (rawSignals ?? []) as unknown as SignalRow[]
   const relationshipPlan = buildRelationshipMaintenancePlan({ activeContacts: activeContactCount ?? 0 })
   const relationshipSummary = summarizeRelationshipNetwork((rawContacts ?? []) as Array<{ contact_type?: string | null; channel?: string | null; title?: string | null }>)
+  const narrativeHealth = evaluateNarrativeHealth({
+    positioningSummary: profile?.positioning_summary,
+    linkedinHeadline: profile?.linkedin_headline,
+    linkedinAbout: profile?.linkedin_about,
+    narrativeVersionCount: narrativeVersionCount ?? 0,
+  })
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">
@@ -107,6 +121,42 @@ export default async function PostSearchDashboardPage() {
               <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Gap</p>
               <p className="text-[14px] font-semibold text-slate-100 leading-snug">{relationshipSummary.coverageGapLabel}</p>
             </div>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <p className="text-[12px] font-semibold text-slate-200">Narrative health</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">OS Sprint 3</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Narrative score</p>
+              <p className="text-[24px] font-semibold text-slate-100">{narrativeHealth.score}</p>
+            </div>
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Health band</p>
+              <p className="text-[18px] font-semibold capitalize text-slate-100">{narrativeHealth.band}</p>
+            </div>
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Versions captured</p>
+              <p className="text-[24px] font-semibold text-slate-100">{narrativeVersionCount ?? 0}</p>
+            </div>
+          </div>
+          {narrativeHealth.gaps.length > 0 && (
+            <ul className="space-y-2 mb-4">
+              {narrativeHealth.gaps.slice(0, 3).map((gap) => (
+                <li key={gap} className="text-[12px] text-amber-300">- {gap}</li>
+              ))}
+            </ul>
+          )}
+          <div className="flex flex-wrap gap-3">
+            <Link href="/dashboard/profile" className="px-4 py-2 rounded bg-orange-500 text-slate-900 text-[13px] font-semibold hover:bg-orange-400">
+              Update positioning narrative
+            </Link>
+            <Link href="/dashboard/positioning" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
+              Open positioning workspace
+            </Link>
           </div>
         </div>
 
