@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { postSearchDigestFrequency, resolveCareerMode } from '@/lib/career-mode'
 import { buildRelationshipMaintenancePlan } from '@/lib/post-search-relationship-loop'
+import { summarizeRelationshipNetwork } from '@/lib/relationship-infrastructure'
 
 export const metadata = { title: 'Career Intelligence Mode - Starting Monday' }
 
@@ -26,7 +27,7 @@ export default async function PostSearchDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }] = await Promise.all([
+  const [{ data: profileRaw }, { count: trackedCompanyCount }, { count: activeContactCount }, { data: rawSignals }, { data: rawContacts }] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, placed_at, placement_company, search_status, briefing_frequency')
@@ -48,6 +49,11 @@ export default async function PostSearchDashboardPage() {
       .eq('user_id', user.id)
       .order('signal_date', { ascending: false })
       .limit(5),
+    supabase
+      .from('contacts')
+      .select('contact_type, channel, title')
+      .eq('user_id', user.id)
+      .eq('status', 'active'),
   ])
 
   const profile = profileRaw as ProfileRow | null
@@ -58,6 +64,7 @@ export default async function PostSearchDashboardPage() {
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const recentSignals = (rawSignals ?? []) as unknown as SignalRow[]
   const relationshipPlan = buildRelationshipMaintenancePlan({ activeContacts: activeContactCount ?? 0 })
+  const relationshipSummary = summarizeRelationshipNetwork((rawContacts ?? []) as Array<{ contact_type?: string | null; channel?: string | null; title?: string | null }>)
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">
@@ -82,6 +89,24 @@ export default async function PostSearchDashboardPage() {
           <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
             <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Digest cadence</p>
             <p className="text-[26px] font-semibold capitalize">{digestFrequency}</p>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
+          <p className="text-[12px] font-semibold text-slate-200 mb-3">Relationship network health</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Coverage score</p>
+              <p className="text-[24px] font-semibold text-slate-100">{relationshipSummary.coverageScore}</p>
+            </div>
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Covered types</p>
+              <p className="text-[24px] font-semibold text-slate-100">{relationshipSummary.coveredTypes}/5</p>
+            </div>
+            <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Gap</p>
+              <p className="text-[14px] font-semibold text-slate-100 leading-snug">{relationshipSummary.coverageGapLabel}</p>
+            </div>
           </div>
         </div>
 

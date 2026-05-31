@@ -19,6 +19,13 @@ const STATUS_LABELS: Record<string, string> = Object.fromEntries(
 )
 
 const CHANNEL_VALUES = ['linkedin', 'referral', 'recruiter', 'cold', 'inbound', 'event']
+const CONTACT_TYPE_LABELS: Record<string, string> = {
+  recruiter: 'Recruiter',
+  hiring_manager: 'Hiring Manager',
+  peer: 'Peer',
+  coach: 'Coach',
+  board: 'Board',
+}
 
 export type ContactListItem = {
   id: string
@@ -26,9 +33,11 @@ export type ContactListItem = {
   title: string | null
   firm: string | null
   channel: string | null
+  contact_type?: string | null
   notes: string | null
   outreach_status: string | null
   is_priority: boolean
+  last_role_discussed?: string | null
   companies: { id: string; name: string } | null
 }
 
@@ -159,6 +168,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
 
   function ContactRow({ ct }: { ct: ContactListItem }) {
     const ch = ct.channel ? (CHANNEL[ct.channel] ?? null) : null
+    const relationshipType = ct.contact_type ? (CONTACT_TYPE_LABELS[ct.contact_type] ?? ct.contact_type) : null
     const companyName = ct.companies?.name ?? null
     const subtitle = [ct.title, ct.firm ?? companyName].filter(Boolean).join(' · ')
     const status = ct.outreach_status ?? 'prospect'
@@ -195,12 +205,20 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
                 {ch.label}
               </span>
             )}
+            {relationshipType && (
+              <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] bg-orange-50 text-orange-700">
+                {relationshipType}
+              </span>
+            )}
             <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${statusCls}`}>
               {statusLabel}
             </span>
           </div>
           {subtitle && (
             <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
+          )}
+          {ct.last_role_discussed && (
+            <p className="text-[12px] text-slate-500 mt-0.5">Last role discussed: {ct.last_role_discussed}</p>
           )}
           <div className="text-[11px] text-slate-500 mt-1.5 flex items-center gap-2 flex-wrap">
             {ct.companies?.id && (
