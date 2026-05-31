@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export const runtime = 'nodejs'
 
@@ -16,6 +17,18 @@ function getSafeNext(nextParam: string | null): string {
 }
 
 export async function GET(request: NextRequest) {
+  const guardResponse = await enforcePublicEndpointGuard({
+    request,
+    rateLimitKey: 'oauth-start',
+    maxPerMinute: 20,
+    requireCaptcha: false,
+  })
+  if (guardResponse) {
+    const loginUrl = new URL('/login', getPublicOrigin(request))
+    loginUrl.searchParams.set('error', 'rate_limited')
+    return NextResponse.redirect(loginUrl)
+  }
+
   const provider = request.nextUrl.searchParams.get('provider')
   const nextPath = getSafeNext(request.nextUrl.searchParams.get('next'))
   const loginUrl = new URL('/login', getPublicOrigin(request))

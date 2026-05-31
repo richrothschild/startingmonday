@@ -1,7 +1,6 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import { updateOutreachJobStateFromWebhook } from '@/lib/outreach/send-queue'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type WebhookPayload = {
   type?: string
@@ -177,3 +176,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

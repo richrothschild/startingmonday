@@ -1,13 +1,13 @@
 # Code Synthetic Council Audit
 
-Generated: 2026-05-25T14:37:16.648Z
-Scope: 1223 code files across src, scripts, worker, tests
+Generated: 2026-05-31T03:58:15.443Z
+Scope: 1431 code files across src, scripts, worker, tests
 
 ## Overall
 
-- Score: 90
-- Grade: A-
-- Findings: 22
+- Score: 98
+- Grade: A+
+- Findings: 3
 
 ## Category Scores
 
@@ -15,11 +15,11 @@ Scope: 1223 code files across src, scripts, worker, tests
 | --- | ---: |
 | correctness | 100 |
 | security | 100 |
-| maintainability | 100 |
+| maintainability | 96 |
 | performance | 100 |
-| testability | 32 |
-| observability | 85 |
-| typeSafety | 100 |
+| testability | 100 |
+| observability | 100 |
+| typeSafety | 86 |
 | complexity | 100 |
 | deliveryRisk | 100 |
 
@@ -27,46 +27,17 @@ Scope: 1223 code files across src, scripts, worker, tests
 
 | File | Risk points |
 | --- | ---: |
-| src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts | 7 |
-| src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts | 7 |
-| src/app/api/billing/checkout/micro-product/route.ts | 7 |
-| src/app/(dashboard)/dashboard/admin/product/catalog/actions.ts | 4 |
-| src/app/(dashboard)/dashboard/dashboard-week-utils.ts | 4 |
-| src/app/api/events/channel-funnel/route.ts | 4 |
-| src/app/api/onboarding/events/route.ts | 4 |
-| src/app/onboarding/onboarding-helpers.ts | 4 |
-| src/app/proof/roi-calculator/roi-calculator-client.tsx | 4 |
-| src/components/home/ChannelEntryStrip.tsx | 4 |
-| src/components/micro-products/ChannelMicroProductRail.tsx | 4 |
-| src/lib/channel-ia.ts | 4 |
-| src/lib/channel-metrics-events.ts | 4 |
-| src/lib/intelligence-quality.ts | 4 |
-| src/lib/micro-products.ts | 4 |
+| src/lib/onboarding-video-queue.ts | 7 |
+| src/lib/outreach/send-queue.ts | 7 |
+| tests/e2e/synthetics.spec.ts | 4 |
 
 ## Highest-Priority Findings (What To Fix)
 
 | Severity | Area | File | Issue |
 | --- | --- | --- | --- |
-| medium | testability | src/app/(dashboard)/dashboard/admin/product/catalog/actions.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/(dashboard)/dashboard/dashboard-week-utils.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/billing/checkout/micro-product/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/events/channel-funnel/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/onboarding/events/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/onboarding/onboarding-helpers.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/proof/roi-calculator/roi-calculator-client.tsx | No obvious colocated or mirrored test file found |
-| medium | testability | src/components/home/ChannelEntryStrip.tsx | No obvious colocated or mirrored test file found |
-| medium | testability | src/components/micro-products/ChannelMicroProductRail.tsx | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/channel-ia.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/channel-metrics-events.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/intelligence-quality.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/micro-products.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/onboarding-speed.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/persona-routes.ts | No obvious colocated or mirrored test file found |
-| medium | observability | src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts | API route lacks explicit logging/exception capture signal |
-| medium | observability | src/app/api/admin/automation/reporting/onboarding-qa-scorecard/route.ts | API route lacks explicit logging/exception capture signal |
-| medium | observability | src/app/api/admin/social/[id]/council-check/route.ts | API route lacks explicit logging/exception capture signal |
+| high | type-safety | src/lib/onboarding-video-queue.ts | High any usage (7) |
+| high | type-safety | src/lib/outreach/send-queue.ts | High any usage (12) |
+| medium | maintainability | tests/e2e/synthetics.spec.ts | Large file (605 lines) |
 
 ## Blind-Spot Companion Checks
 
@@ -75,14 +46,14 @@ Scope: 1223 code files across src, scripts, worker, tests
 
 | Largest Source Files | Lines |
 | --- | ---: |
-| src/app/onboarding/onboarding-form.tsx | 1488 |
-| src/lib/supabase/database.types.ts | 1420 |
-| src/app/(dashboard)/dashboard/page.tsx | 1314 |
+| src/app/onboarding/onboarding-form.tsx | 1500 |
+| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1431 |
+| src/lib/supabase/database.types.ts | 1429 |
+| src/app/(dashboard)/dashboard/page.tsx | 1371 |
 | src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx | 1148 |
-| src/app/(dashboard)/dashboard/admin/page.tsx | 1085 |
+| src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx | 1105 |
 | src/app/(dashboard)/dashboard/admin/social/social-client.tsx | 1060 |
-| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1039 |
-| src/components/coach/client-data-view.tsx | 838 |
+| src/app/(dashboard)/dashboard/admin/page.tsx | 1039 |
 
 ## Council Personas
 

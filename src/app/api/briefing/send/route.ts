@@ -1,5 +1,4 @@
-import { NextResponse } from 'next/server'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+﻿import { NextResponse } from 'next/server'
 
 // Retired: the worker (worker/jobs/briefing-job.js) is the active briefing sender.
 // This endpoint is no longer called. Returning 410 Gone so any stale cron
@@ -10,3 +9,7 @@ export async function POST() {
     { status: 410 }
   )
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

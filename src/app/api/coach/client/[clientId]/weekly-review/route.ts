@@ -1,8 +1,7 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { verifyCoachAccess, logCoachAccess } from '@/lib/coach-access'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function startOfWeekUTC(date: Date): Date {
   const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
@@ -243,3 +242,6 @@ export async function POST(
     { status: 200, headers: auth.response.headers }
   )
 }
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

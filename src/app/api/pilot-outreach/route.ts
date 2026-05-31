@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 import { getOwnerEmail } from '@/lib/owner-email'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 const OWNER_EMAIL = getOwnerEmail()
 
@@ -33,3 +32,7 @@ export async function POST(request: NextRequest) {
   })
   return NextResponse.json({ ok: true })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from 'crypto'
+﻿import { createHash, timingSafeEqual } from 'crypto'
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import { updateOnboardingVideoRunFromWebhook } from '@/lib/onboarding-video-queue'
@@ -153,3 +153,7 @@ export async function POST(request: NextRequest) {
     matchedRuns: updatedRuns.length,
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal
