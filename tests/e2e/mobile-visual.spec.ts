@@ -10,7 +10,10 @@ const TOP_MOBILE_ROUTES = [
 
 test.describe('Mobile visual snapshots @mobile @visual', () => {
   test.beforeEach(async ({ page }, testInfo) => {
-    test.skip(!testInfo.project.name.startsWith('mobile-'), 'Visual mobile suite only runs on mobile projects')
+    test.skip(
+      !['mobile-iphone', 'mobile-android'].includes(testInfo.project.name),
+      'Visual mobile suite only runs on committed phone baselines.'
+    )
 
     await page.addStyleTag({
       content: `
