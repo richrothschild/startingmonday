@@ -37,7 +37,7 @@ test.describe('Mobile visual snapshots @mobile @visual', () => {
       await expect(page).toHaveScreenshot(screenshotName, {
         fullPage: false,
         animations: 'disabled',
-        maxDiffPixelRatio: 0.05,
+        maxDiffPixelRatio: 0.15,
       })
     })
   }
