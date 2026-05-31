@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-30T18:04:07.849Z
+Last generated: 2026-05-31T17:53:53.268Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (139)
+## Features (140)
 - [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 - [Terms](/terms) - Open /terms to use this feature area and related workflows.
 - [Security](/security) - Open /security to use this feature area and related workflows.
@@ -33,6 +33,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
 - [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
 - [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
@@ -168,7 +169,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (238)
+## API and Automation (239)
 - [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
@@ -242,6 +243,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/feedback/items/[id]/vote](/api/feedback/items/[id]/vote) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.

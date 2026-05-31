@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-30T18:04:25.283Z
+Last generated: 2026-05-31T17:53:55.986Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (169)
+## Features (170)
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 - Feature Terms | /terms | User-facing page route /terms.
@@ -30,6 +30,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Ideas | /ideas | User-facing page route /ideas.
 - Feature Guide | /guide | User-facing page route /guide.
@@ -178,7 +179,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Login | /login | User-facing page route /login.
 
-## API Surface (238)
+## API Surface (239)
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
@@ -252,6 +253,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/feedback/items/[id]/vote | src/app/api/feedback/items/[id]/vote/route.ts | POST /api/feedback/items/[id]/vote - add vote
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
+- API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
@@ -418,7 +420,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (161)
+## Codebase Modules (163)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -462,6 +464,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
 - Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
+- Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
@@ -845,7 +849,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 
-## Documentation (440)
+## Documentation (451)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -969,6 +973,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/startingmonday_sprint_plan.md | docs/startingmonday_sprint_plan.md | Starting Monday — Sprint Plan
 - Doc docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | Starting Monday Jira Sprint Slices
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
+- Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
+- Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2
 - Doc docs/technical-debt-analysis-2026-05-19.md | docs/technical-debt-analysis-2026-05-19.md | Technical Debt Analysis (May 19, 2026)
 - Doc docs/technical-debt-analysis-2026-05-24.md | docs/technical-debt-analysis-2026-05-24.md | Technical Debt Deep-Dive (2026-05-24)
@@ -1127,6 +1133,15 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/growth/weekly-operating-template.md | docs/growth/weekly-operating-template.md | Weekly Growth Operating Template
 - Doc docs/growth/weekly-readout-template.md | docs/growth/weekly-readout-template.md | Weekly Conversion Readout Template
 - Doc docs/growth/weekly-readout.latest.md | docs/growth/weekly-readout.latest.md | Weekly Conversion Readout
+- Doc docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | docs/executive-job-search/25-emotional-journey-behavior-map-gap-strategy.md | Executive Transition Emotional Journey, Behavior Map, and Execution Plan
+- Doc docs/executive-job-search/26-operating-summary-leadership.md | docs/executive-job-search/26-operating-summary-leadership.md | Leadership One-Page Operating Summary
+- Doc docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | docs/executive-job-search/27-sprint-deliverable-ticket-breakdown.md | Backlog Ticket Breakdown: One Ticket Per Sprint Deliverable
+- Doc docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | docs/executive-job-search/28-sprint-1-emotion-state-spec-v1.md | Sprint 1 Deliverable: Emotion-State Specification v1
+- Doc docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | docs/executive-job-search/29-sprint-1-signal-dictionary-v1.md | Sprint 1 Deliverable: Signal Dictionary v1
+- Doc docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | docs/executive-job-search/30-sprint-1-scoring-api-implementation-plan.md | Sprint 1 Deliverable: Scoring API Implementation Plan
+- Doc docs/executive-job-search/31-sprint-1-github-issue-drafts.md | docs/executive-job-search/31-sprint-1-github-issue-drafts.md | Sprint 1 GitHub Issue Drafts
+- Doc docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | docs/executive-job-search/32-sprint-1-review-checklist-and-agenda.md | Sprint 1 Review Checklist and Agenda Packet
+- Doc docs/executive-job-search/33-sprint-2-execution-packet.md | docs/executive-job-search/33-sprint-2-execution-packet.md | Sprint 2 Execution Packet
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
 - Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion
