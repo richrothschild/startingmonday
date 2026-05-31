@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T21:36:28.912Z",
+  "generatedAt": "2026-05-31T21:38:24.758Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T21:35:35.115Z"
+      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:31:50.690Z"
+      "lastModifiedAt": "2026-05-31T21:38:05.739Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -6969,7 +6969,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T19:31:51.281Z"
+      "lastModifiedAt": "2026-05-31T21:37:53.207Z"
     },
     {
       "id": "code:src/lib/program-template-governance.test.ts",
@@ -12230,7 +12230,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:35:35.114Z"
+      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12269,7 +12269,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:35:35.115Z"
+      "lastModifiedAt": "2026-05-31T21:36:28.930Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13491,7 +13491,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T21:36:25.481Z"
+      "lastModifiedAt": "2026-05-31T21:38:21.577Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

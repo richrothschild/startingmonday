@@ -30,10 +30,10 @@ export const PRICING = {
   concierge: {
     key: 'concierge' as const,
     name: 'Concierge',
-    monthly: 1299,
+    monthly: 499,
     quarterly: null,
-    annual: 13999,
-    annualMonthly: 1167,
+    annual: 4990,
+    annualMonthly: 416,
   },
 } as const
 
