@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T15:54:30.894Z",
+  "generatedAt": "2026-05-31T16:05:29.185Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T15:43:26.807Z"
+      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -8762,7 +8762,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T15:54:19.411Z"
+      "lastModifiedAt": "2026-05-31T16:05:19.146Z"
     },
     {
       "id": "script:scripts/link-integrity-audit.mjs",
@@ -9217,7 +9217,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T15:54:19.404Z"
+      "lastModifiedAt": "2026-05-31T16:05:19.139Z"
     },
     {
       "id": "script:scripts/verify-prep-brief-golden-set.mjs",
@@ -12047,7 +12047,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T15:43:26.807Z"
+      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12086,7 +12086,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T15:43:26.807Z"
+      "lastModifiedAt": "2026-05-31T15:54:30.908Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13308,7 +13308,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T15:54:25.604Z"
+      "lastModifiedAt": "2026-05-31T16:05:23.818Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

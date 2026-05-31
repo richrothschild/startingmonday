@@ -370,7 +370,9 @@ async function computeSourceHash(files: string[]): Promise<string> {
   const sorted = [...new Set(files)].sort((left, right) => {
     const leftKey = path.relative(ROOT, left).replace(/\\/g, '/')
     const rightKey = path.relative(ROOT, right).replace(/\\/g, '/')
-    return leftKey.localeCompare(rightKey)
+    if (leftKey < rightKey) return -1
+    if (leftKey > rightKey) return 1
+    return 0
   })
 
   for (const filePath of sorted) {
