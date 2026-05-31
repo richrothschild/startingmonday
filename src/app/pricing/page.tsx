@@ -1,16 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
-
-const PricingCards = dynamic(() => import('./pricing-cards').then((mod) => mod.PricingCards), {
-  ssr: false,
-  loading: () => (
-    <section className="mb-8 rounded-lg border border-slate-200 bg-white p-8 text-center text-[13px] text-slate-500">
-      Loading pricing plans...
-    </section>
-  ),
-})
+import { PricingCardsClient } from './pricing-cards-client'
 
 export const metadata: Metadata = {
   title: 'Pricing - Starting Monday for C-suite searches',
@@ -65,7 +56,7 @@ export default function PricingPage() {
           </p>
         </section>
 
-        <PricingCards />
+        <PricingCardsClient />
 
         <section className="mt-12 border-t border-slate-100 pt-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">Pricing FAQ</p>
