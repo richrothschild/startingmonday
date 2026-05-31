@@ -36,6 +36,12 @@ const FORCE = process.argv.includes('--force')
 const execFileAsync = promisify(execFile)
 let trackedFilesPromise: Promise<Set<string>> | null = null
 
+function compareText(left: string, right: string): number {
+  if (left < right) return -1
+  if (left > right) return 1
+  return 0
+}
+
 async function fileExists(filePath: string): Promise<boolean> {
   try {
     await fs.access(filePath)
@@ -52,7 +58,7 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
   while (stack.length > 0) {
     const current = stack.pop()!
     const entries = await fs.readdir(current, { withFileTypes: true }).catch(() => [])
-    entries.sort((left, right) => left.name.localeCompare(right.name))
+    entries.sort((left, right) => compareText(left.name, right.name))
     for (const entry of entries) {
       const fullPath = path.join(current, entry.name)
       if (entry.isDirectory()) {
@@ -169,11 +175,11 @@ async function buildGuidePayload() {
   const apiDir = path.join(ROOT, 'src', 'app', 'api')
 
   const appPageFiles = (await listFilesRecursive(appDir)).filter((file) => file.endsWith('/page.tsx') || file.endsWith('\\page.tsx'))
-    .sort((left, right) => left.localeCompare(right))
+    .sort((left, right) => compareText(left, right))
   const dashboardFiles = (await listFilesRecursive(dashboardDir)).filter((file) => file.endsWith('/page.tsx') || file.endsWith('\\page.tsx'))
-    .sort((left, right) => left.localeCompare(right))
+    .sort((left, right) => compareText(left, right))
   const apiFiles = (await listFilesRecursive(apiDir)).filter((file) => file.endsWith('/route.ts') || file.endsWith('\\route.ts'))
-    .sort((left, right) => left.localeCompare(right))
+    .sort((left, right) => compareText(left, right))
 
   const appRoutes = appPageFiles
     .map((file) => pageFileToRoute(file))
@@ -335,7 +341,7 @@ async function buildGuidePayload() {
 
 async function collectWatchedFiles(): Promise<string[]> {
   const trackedFiles = await getTrackedFiles()
-  const trackedList = [...trackedFiles].sort((left, right) => left.localeCompare(right))
+  const trackedList = [...trackedFiles].sort((left, right) => compareText(left, right))
 
   return trackedList
     .filter((file) => {
