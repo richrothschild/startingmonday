@@ -137,6 +137,15 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+      - name: Publish Playwright report to GitHub Pages
+        if: always() && github.ref == 'refs/heads/staging'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: playwright-report
+          keep_files: false
+
   mobile-visual-regression:
     name: Mobile visual regression
     runs-on: ubuntu-latest
