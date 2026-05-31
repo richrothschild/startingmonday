@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T23:16:52.357Z",
+  "generatedAt": "2026-05-31T23:31:36.951Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T22:50:46.813Z"
+      "lastModifiedAt": "2026-05-31T23:16:52.372Z"
     },
     {
       "id": "feature:/login",
@@ -7385,7 +7385,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:23:15.391Z"
+      "lastModifiedAt": "2026-05-31T23:26:13.386Z"
     },
     {
       "id": "code:src/lib/require-auth.test.ts",
@@ -14895,7 +14895,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T22:50:46.813Z"
+      "lastModifiedAt": "2026-05-31T23:16:52.372Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -14934,7 +14934,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T22:50:46.813Z"
+      "lastModifiedAt": "2026-05-31T23:16:52.372Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
