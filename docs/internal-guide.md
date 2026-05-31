@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-05-31T21:24:59.958Z
+Last generated: 2026-05-31T21:33:36.945Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -423,7 +423,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 
-## Codebase Modules (190)
+## Codebase Modules (192)
 - Code src/lib/action-scores.test.ts | src/lib/action-scores.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/action-scores.ts | src/lib/action-scores.ts | export type ScoreGroup =
 - Code src/lib/activation.test.ts | src/lib/activation.test.ts | import { describe, expect, it } from 'vitest'
@@ -434,6 +434,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/admin-automation-route.ts | src/lib/admin-automation-route.ts | export type AutomationBody = Record<string, unknown>
 - Code src/lib/ai-limits.test.ts | src/lib/ai-limits.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/ai-limits.ts | src/lib/ai-limits.ts | Token/character budgets for AI prompt construction.
+- Code src/lib/always-on-intelligence.test.ts | src/lib/always-on-intelligence.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/always-on-intelligence.ts | src/lib/always-on-intelligence.ts | export type IntelligenceSignalRow = {
 - Code src/lib/anthropic.test.ts | src/lib/anthropic.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/anthropic.ts | src/lib/anthropic.ts | export const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 - Code src/lib/api-error.test.ts | src/lib/api-error.test.ts | import { describe, expect, it } from 'vitest'
