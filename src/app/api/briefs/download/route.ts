@@ -1,10 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import {
   Document, Packer, Paragraph, TextRun, HeadingLevel,
   AlignmentType, convertInchesToTwip,
 } from 'docx'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function parseLine(line: string): Paragraph {
   if (line.startsWith('## ')) {
@@ -88,3 +87,7 @@ export async function POST(request: NextRequest) {
     },
   })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

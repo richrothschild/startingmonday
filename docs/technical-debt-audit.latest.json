@@ -1,40 +1,47 @@
 {
-  "generatedAt": "2026-05-24T17:43:01.196Z",
+  "generatedAt": "2026-05-31T04:04:52.001Z",
   "buildHealth": {
     "typecheck": {
       "status": "pass",
       "exitCode": 0
     },
     "lint": {
-      "status": "pass",
-      "exitCode": 0
+      "status": "fail",
+      "exitCode": 1
     },
     "parserCorruptionCount": 0,
     "parserCorruptionFiles": []
   },
   "testDebt": {
     "placeholderBaselineCount": 292,
-    "currentPlaceholderFileCount": 290
+    "currentPlaceholderFileCount": 341
   },
   "hotspots": {
     "topLargeFiles": [
       {
+        "path": "src/app/onboarding/onboarding-form.tsx",
+        "lineCount": 1500,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
+        "lineCount": 1431,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
         "path": "src/lib/supabase/database.types.ts",
-        "lineCount": 1420,
+        "lineCount": 1429,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
       },
       {
         "path": "src/app/(dashboard)/dashboard/page.tsx",
-        "lineCount": 1314,
-        "todoCount": 0,
-        "placeholderCoverage": false,
-        "importCorruption": false
-      },
-      {
-        "path": "src/app/onboarding/onboarding-form.tsx",
-        "lineCount": 1281,
+        "lineCount": 1371,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -47,8 +54,8 @@
         "importCorruption": false
       },
       {
-        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
-        "lineCount": 1085,
+        "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
+        "lineCount": 1105,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -61,22 +68,15 @@
         "importCorruption": false
       },
       {
-        "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
+        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
         "lineCount": 1039,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
       },
       {
-        "path": "src/components/LandingPage.tsx",
-        "lineCount": 910,
-        "todoCount": 0,
-        "placeholderCoverage": false,
-        "importCorruption": false
-      },
-      {
         "path": "src/components/coach/client-data-view.tsx",
-        "lineCount": 838,
+        "lineCount": 981,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -104,7 +104,14 @@
       },
       {
         "path": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
-        "lineCount": 778,
+        "lineCount": 736,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/outreach/outreach-data.ts",
+        "lineCount": 710,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -112,6 +119,13 @@
       {
         "path": "worker/jobs/signal-job.js",
         "lineCount": 669,
+        "todoCount": 0,
+        "placeholderCoverage": false,
+        "importCorruption": false
+      },
+      {
+        "path": "src/lib/outreach/send-queue.ts",
+        "lineCount": 643,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -125,35 +139,21 @@
       },
       {
         "path": "src/app/api/prep/[id]/route.ts",
-        "lineCount": 599,
+        "lineCount": 623,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
       },
       {
-        "path": "src/app/for-outplacement/page.tsx",
-        "lineCount": 598,
+        "path": "tests/e2e/synthetics.spec.ts",
+        "lineCount": 605,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
       },
       {
-        "path": "scripts/backfill-edgar-exec-history.mjs",
-        "lineCount": 588,
-        "todoCount": 0,
-        "placeholderCoverage": false,
-        "importCorruption": false
-      },
-      {
-        "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
-        "lineCount": 587,
-        "todoCount": 0,
-        "placeholderCoverage": false,
-        "importCorruption": false
-      },
-      {
-        "path": "src/app/sales-marketing-plan/page.tsx",
-        "lineCount": 581,
+        "path": "src/lib/outreach/template-engine.cjs",
+        "lineCount": 589,
         "todoCount": 0,
         "placeholderCoverage": false,
         "importCorruption": false
@@ -161,13 +161,25 @@
     ]
   },
   "dependencies": {
-    "outdatedCount": 6,
+    "outdatedCount": 15,
     "topOutdated": [
       {
         "name": "@anthropic-ai/sdk",
         "current": "0.91.1",
         "wanted": "0.91.1",
-        "latest": "0.98.0"
+        "latest": "0.100.1"
+      },
+      {
+        "name": "@sentry/nextjs",
+        "current": "10.53.1",
+        "wanted": "10.55.0",
+        "latest": "10.55.0"
+      },
+      {
+        "name": "@supabase/supabase-js",
+        "current": "2.106.0",
+        "wanted": "2.106.2",
+        "latest": "2.106.2"
       },
       {
         "name": "@types/node",
@@ -176,10 +188,34 @@
         "latest": "25.9.1"
       },
       {
+        "name": "@types/react",
+        "current": "19.2.14",
+        "wanted": "19.2.15",
+        "latest": "19.2.15"
+      },
+      {
+        "name": "docx",
+        "current": "9.6.1",
+        "wanted": "9.7.1",
+        "latest": "9.7.1"
+      },
+      {
         "name": "eslint",
         "current": "9.39.4",
         "wanted": "9.39.4",
-        "latest": "10.4.0"
+        "latest": "10.4.1"
+      },
+      {
+        "name": "posthog-js",
+        "current": "1.374.2",
+        "wanted": "1.376.4",
+        "latest": "1.376.4"
+      },
+      {
+        "name": "posthog-node",
+        "current": "5.34.6",
+        "wanted": "5.35.6",
+        "latest": "5.35.6"
       },
       {
         "name": "react",
@@ -194,10 +230,28 @@
         "latest": "19.2.6"
       },
       {
+        "name": "resend",
+        "current": "6.12.3",
+        "wanted": "6.12.4",
+        "latest": "6.12.4"
+      },
+      {
+        "name": "stripe",
+        "current": "22.1.1",
+        "wanted": "22.2.0",
+        "latest": "22.2.0"
+      },
+      {
         "name": "typescript",
         "current": "5.9.3",
         "wanted": "5.9.3",
         "latest": "6.0.3"
+      },
+      {
+        "name": "vitest",
+        "current": "4.1.6",
+        "wanted": "4.1.7",
+        "latest": "4.1.7"
       }
     ],
     "parseFailed": false

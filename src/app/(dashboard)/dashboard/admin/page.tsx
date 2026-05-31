@@ -104,6 +104,29 @@ export default async function AdminPage() {
     : null
   const briefingStale = briefingConfiguredProfiles.length > 0 && (briefingHoursAgo === null || briefingHoursAgo >= 36)
 
+  const adminAny = adminClient as any
+  const [{ data: latestExecutiveResearchRun }, { count: executiveResearchSourceCount }, { count: executiveResearchFailureCount }] = await Promise.all([
+    adminAny
+      .from('executive_research_refresh_runs')
+      .select('run_started_at, run_finished_at, checked_count, changed_count, failed_count')
+      .order('run_started_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    adminAny.from('executive_research_library').select('id', { count: 'exact', head: true }),
+    adminAny.from('executive_research_library').select('id', { count: 'exact', head: true }).not('fetch_error', 'is', null),
+  ])
+
+  const executiveResearchHoursAgo = latestExecutiveResearchRun?.run_started_at
+    ? Math.round((Date.now() - new Date(latestExecutiveResearchRun.run_started_at).getTime()) / 3_600_000)
+    : null
+  const executiveResearchStatus: 'healthy' | 'degraded' | 'stale' | 'missing' = !latestExecutiveResearchRun
+    ? 'missing'
+    : (latestExecutiveResearchRun.failed_count ?? 0) > 0
+      ? 'degraded'
+      : executiveResearchHoursAgo !== null && executiveResearchHoursAgo > 8 * 24
+        ? 'stale'
+        : 'healthy'
+
   // Placements
   const placements = (profiles ?? [])
     .filter(p => p.placed_at != null)
@@ -810,7 +833,7 @@ export default async function AdminPage() {
         {/* System health */}
         <section id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mb-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
             <span className="text-[13px] text-slate-700">
               Briefing worker{' '}
@@ -824,6 +847,40 @@ export default async function AdminPage() {
               <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
             )}
           </div>
+          <div className="flex items-center gap-3">
+            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
+              executiveResearchStatus === 'healthy'
+                ? 'bg-green-500'
+                : executiveResearchStatus === 'degraded'
+                  ? 'bg-red-500'
+                  : executiveResearchStatus === 'stale'
+                    ? 'bg-amber-500'
+                    : 'bg-slate-300'
+            }`} />
+            <span className="text-[13px] text-slate-700">
+              Executive research refresh{' '}
+              {latestExecutiveResearchRun
+                ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago • checked ${latestExecutiveResearchRun.checked_count ?? 0} • changed ${latestExecutiveResearchRun.changed_count ?? 0}`
+                : '-- no runs yet'}
+            </span>
+            <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+              executiveResearchStatus === 'healthy'
+                ? 'text-green-700 bg-green-50'
+                : executiveResearchStatus === 'degraded'
+                  ? 'text-red-700 bg-red-50'
+                  : executiveResearchStatus === 'stale'
+                    ? 'text-amber-700 bg-amber-50'
+                    : 'text-slate-500 bg-slate-100'
+            }`}>
+              {executiveResearchStatus.toUpperCase()}
+            </span>
+            <span className="text-[11px] text-slate-500">
+              Sources: {executiveResearchSourceCount ?? 0} • Failures: {executiveResearchFailureCount ?? 0}
+            </span>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-2">
+            API: <span className="font-mono">/api/admin/executive-research/health</span>
+          </p>
         </section>
 
         {/* Team summary */}

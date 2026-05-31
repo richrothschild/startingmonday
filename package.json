@@ -13,7 +13,7 @@
         "railway:preflight": "npm run build",
         "prebuild:guard": "node scripts/prebuild-guard.mjs",
         "start": "next start",
-        "lint": "eslint",
+        "lint": "eslint src scripts worker tests",
         "typecheck": "tsc --noEmit",
         "lint:check-baseline": "node scripts/check-lint-baseline.mjs",
         "docs:check-commands": "node scripts/check-docs-commands.mjs",
@@ -125,6 +125,9 @@
         "mobile:banned-patterns": "node scripts/check-mobile-banned-patterns.mjs",
         "mobile:guard": "npm run mobile:contract && npm run mobile:banned-patterns",
         "perf:lighthouse:ci": "lhci autorun --config=.lighthouserc.json",
+        "audit:performance:pack": "node scripts/run-performance-audit-pack.mjs",
+        "audit:performance:scorecard": "node scripts/generate-performance-release-scorecard.mjs",
+        "audit:performance:gate": "npm run audit:performance:pack && npm run audit:performance:scorecard",
         "evals:help": "node scripts/evals-help.mjs",
         "evals:help:status": "node scripts/evals-help.mjs --status",
         "evals:help:json": "node scripts/evals-help.mjs --json",
@@ -181,7 +184,9 @@
     "overrides": {
         "next": {
             "postcss": "8.5.15"
-        }
+        },
+        "tmp": "0.2.6",
+        "uuid": "11.1.1"
     },
     "devDependencies": {
         "@lhci/cli": "^0.15.0",

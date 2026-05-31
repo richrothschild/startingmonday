@@ -1,0 +1,87 @@
+name: Performance Release Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  performance-release-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MONITOR_BASE_URL: https://startingmonday.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run performance regression-only gate
+        env:
+          PERFORMANCE_RELEASE_GATE_MODE: ${{ github.event_name == 'pull_request' && 'advisory' || 'enforce' }}
+        run: npm run audit:performance:gate
+
+      - name: Publish scorecard summary
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs = require('fs')
+          const scorecardPath = 'docs/performance-release-scorecard.latest.json'
+
+          if (!fs.existsSync(scorecardPath)) {
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '## Performance Release Scorecard\n\nNo scorecard output found.\n')
+            process.exit(0)
+          }
+
+          const d = JSON.parse(fs.readFileSync(scorecardPath, 'utf8'))
+          const lines = [
+            '## Performance Release Scorecard',
+            '',
+            `Verdict: **${String(d.verdict || 'unknown').toUpperCase()}**`,
+            `Base URL: ${d.baseUrl || process.env.MONITOR_BASE_URL}`,
+            '',
+            '| Metric | Baseline | Current |',
+            '|---|---:|---:|',
+            `| Mobile p95 (ms) | ${d.baseline?.mobileP95ResponseMs ?? 'n/a'} | ${d.current?.mobileP95ResponseMs ?? 'n/a'} |`,
+            `| Mobile pass rate | ${((d.baseline?.mobilePassRate ?? 0) * 100).toFixed(1)}% | ${((d.current?.mobilePassRate ?? 0) * 100).toFixed(1)}% |`,
+            `| Smoke critical failed | ${d.baseline?.smokeCriticalFailed ?? 'n/a'} | ${d.current?.smokeCriticalFailed ?? 'n/a'} |`,
+            '',
+            `Blockers: ${Array.isArray(d.blockers) ? d.blockers.length : 0}`,
+          ]
+
+          if (Array.isArray(d.blockers) && d.blockers.length > 0) {
+            lines.push('', '### Blocking Findings')
+            for (const blocker of d.blockers) {
+              lines.push(`- ${blocker.metric}: ${blocker.reason}`)
+            }
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`)
+          NODE
+
+      - name: Upload performance gate artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-release-gate-artifacts
+          path: |
+            docs/performance-audit/production-smoke.latest.json
+            docs/performance-audit/production-mobile.latest.json
+            docs/performance-audit/summary.latest.json
+            docs/performance-release-scorecard.latest.md
+            docs/performance-release-scorecard.latest.json
+          retention-days: 14
