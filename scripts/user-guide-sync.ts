@@ -382,6 +382,46 @@ async function readManifest(): Promise<GuideManifest | null> {
   }
 }
 
+function normalizeGeneratedAtLine(markdown: string): string {
+  return markdown.replace(/^Last generated:\s+.*$/m, 'Last generated: <normalized>')
+}
+
+async function readIndexEntries(): Promise<GuideEntry[] | null> {
+  const exists = await fileExists(GUIDE_INDEX_PATH)
+  if (!exists) return null
+
+  const raw = await fs.readFile(GUIDE_INDEX_PATH, 'utf8').catch(() => '')
+  if (!raw) return null
+
+  try {
+    const parsed = JSON.parse(raw) as { entries?: GuideEntry[] }
+    return parsed.entries ?? null
+  } catch {
+    return null
+  }
+}
+
+async function readGuideMarkdown(): Promise<string | null> {
+  const exists = await fileExists(GUIDE_MD_PATH)
+  if (!exists) return null
+  return fs.readFile(GUIDE_MD_PATH, 'utf8').catch(() => null)
+}
+
+async function hasMaterialGuideDrift(): Promise<boolean> {
+  const [payload, existingEntries, existingMarkdown] = await Promise.all([
+    buildGuidePayload(),
+    readIndexEntries(),
+    readGuideMarkdown(),
+  ])
+
+  if (!existingEntries || !existingMarkdown) return true
+
+  const entriesMatch = JSON.stringify(existingEntries) === JSON.stringify(payload.entries)
+  const markdownMatch = normalizeGeneratedAtLine(existingMarkdown) === normalizeGeneratedAtLine(payload.markdown)
+
+  return !(entriesMatch && markdownMatch)
+}
+
 async function writePayload(payload: { generatedAt: string; entries: GuideEntry[]; markdown: string }, sourceHash: string, sourceFileCount: number) {
   await fs.mkdir(DOCS_DIR, { recursive: true })
 
@@ -419,14 +459,25 @@ async function main() {
 
   const needsUpdate = FORCE || !manifest || manifest.sourceHash !== sourceHash
 
-  if (!needsUpdate) {
-    console.log('user-guide: up to date')
+  if (CHECK_ONLY) {
+    if (!needsUpdate) {
+      console.log('user-guide: up to date')
+      return
+    }
+
+    const hasDrift = await hasMaterialGuideDrift()
+    if (!hasDrift) {
+      console.log('user-guide: up to date')
+      return
+    }
+
+    console.error('user-guide: stale (run npm run guide:user:sync)')
+    process.exitCode = 1
     return
   }
 
-  if (CHECK_ONLY) {
-    console.error('user-guide: stale (run npm run guide:user:sync)')
-    process.exitCode = 1
+  if (!needsUpdate) {
+    console.log('user-guide: up to date')
     return
   }
 
