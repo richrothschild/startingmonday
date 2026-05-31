@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 type Category = 'feature_request' | 'ui_ux' | 'bug' | 'performance' | 'other'
 
@@ -44,6 +45,13 @@ export default function IdeasPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState<Category | ''>('')
   const [sortBy, setSortBy] = useState<'recent' | 'rated'>('recent')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    createClient().auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session)
+    })
+  }, [])
 
   // Form state
   const [name, setName] = useState('')
@@ -116,12 +124,20 @@ export default function IdeasPage() {
             Starting Monday
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-[13px] text-slate-500 hover:text-slate-900 transition-colors">
-              Log in
-            </Link>
-            <Link href="/signup" className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors">
-              Get started
-            </Link>
+            {isLoggedIn ? (
+              <Link href="/dashboard" className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors">
+                Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" className="text-[13px] text-slate-500 hover:text-slate-900 transition-colors">
+                  Log in
+                </Link>
+                <Link href="/signup" className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors">
+                  Get started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
