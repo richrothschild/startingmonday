@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T22:48:43.397Z",
+  "generatedAt": "2026-05-31T23:47:44.843Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-05-31T22:46:35.590Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.242Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -194,7 +194,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T22:48:27.089Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.252Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -362,7 +362,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T19:31:51.130Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.251Z"
     },
     {
       "id": "feature:/guide",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-31T22:45:12.681Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.248Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -6969,7 +6969,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T22:45:12.683Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.253Z"
     },
     {
       "id": "code:src/lib/program-template-governance.test.ts",
@@ -7125,7 +7125,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T21:23:15.391Z"
+      "lastModifiedAt": "2026-05-31T23:42:11.356Z"
     },
     {
       "id": "code:src/lib/require-auth.test.ts",
@@ -8945,7 +8945,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T19:32:04.234Z"
+      "lastModifiedAt": "2026-05-31T23:42:11.350Z"
     },
     {
       "id": "script:scripts/link-integrity-audit.mjs",
@@ -9400,7 +9400,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-31T19:32:04.234Z"
+      "lastModifiedAt": "2026-05-31T23:42:11.351Z"
     },
     {
       "id": "script:scripts/verify-prep-brief-golden-set.mjs",
@@ -9452,7 +9452,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:31:50.114Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.529Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -12230,7 +12230,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T22:46:35.590Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.241Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12269,7 +12269,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T22:46:35.590Z"
+      "lastModifiedAt": "2026-05-31T23:42:12.242Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13491,7 +13491,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-31T22:48:40.277Z"
+      "lastModifiedAt": "2026-05-31T23:45:17.941Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
