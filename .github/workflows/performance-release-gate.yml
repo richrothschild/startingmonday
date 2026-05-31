@@ -31,6 +31,8 @@ jobs:
         run: npm ci
 
       - name: Run performance regression-only gate
+        env:
+          PERFORMANCE_RELEASE_GATE_MODE: ${{ github.event_name == 'pull_request' && 'advisory' || 'enforce' }}
         run: npm run audit:performance:gate
 
       - name: Publish scorecard summary
