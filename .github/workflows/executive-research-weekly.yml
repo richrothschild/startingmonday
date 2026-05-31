@@ -5,6 +5,9 @@ on:
     - cron: '15 9 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   executive-research-weekly-refresh:
     runs-on: ubuntu-latest
