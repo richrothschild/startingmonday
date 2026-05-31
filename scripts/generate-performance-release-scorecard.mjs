@@ -189,6 +189,7 @@ function main() {
   const baseline = readJson(BASELINE_PATH)
   const currentMobile = readJson(CURRENT_MOBILE_PATH)
   const currentSmoke = readJson(CURRENT_SMOKE_PATH)
+  const gateMode = process.env.PERFORMANCE_RELEASE_GATE_MODE === 'advisory' ? 'advisory' : 'enforce'
 
   const scorecard = buildScorecard(policy, baseline, currentMobile, currentSmoke)
 
@@ -199,8 +200,12 @@ function main() {
   console.log(`Report: ${rel(OUT_MD)}`)
   console.log(`Data:   ${rel(OUT_JSON)}`)
 
-  if (scorecard.verdict !== 'pass') {
+  if (scorecard.verdict !== 'pass' && gateMode === 'enforce') {
     process.exitCode = 1
+  }
+
+  if (scorecard.verdict !== 'pass' && gateMode === 'advisory') {
+    console.warn('Performance release gate is running in advisory mode (non-blocking).')
   }
 }
 
