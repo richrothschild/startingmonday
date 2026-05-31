@@ -1,6 +1,8 @@
 import { createHash } from 'crypto'
+import { execFile } from 'child_process'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { promisify } from 'util'
 import { BLOG_POSTS } from '../src/lib/blog-posts'
 
 type GuideEntry = {
@@ -31,6 +33,8 @@ const AUTOMATION_GUIDE_PATH = path.join(DOCS_DIR, 'automation-guide.md')
 
 const CHECK_ONLY = process.argv.includes('--check')
 const FORCE = process.argv.includes('--force')
+const execFileAsync = promisify(execFile)
+let trackedFilesPromise: Promise<Set<string>> | null = null
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
@@ -64,6 +68,20 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
 async function lastModifiedAt(filePath: string): Promise<string | undefined> {
   const stat = await fs.stat(filePath).catch(() => null)
   return stat?.mtime?.toISOString()
+}
+
+function rel(filePath: string): string {
+  return path.relative(ROOT, filePath).replace(/\\/g, '/')
+}
+
+async function getTrackedFiles(): Promise<Set<string>> {
+  if (!trackedFilesPromise) {
+    trackedFilesPromise = execFileAsync('git', ['ls-files'], { cwd: ROOT, maxBuffer: 10 * 1024 * 1024 })
+      .then(({ stdout }) => new Set(stdout.split('\n').map((line) => line.trim()).filter(Boolean)))
+      .catch(() => new Set<string>())
+  }
+
+  return trackedFilesPromise
 }
 
 function routeLabel(route: string): string {
@@ -316,10 +334,11 @@ async function collectWatchedFiles(): Promise<string[]> {
   const dashboardDir = path.join(ROOT, 'src', 'app', '(dashboard)', 'dashboard')
   const apiDir = path.join(ROOT, 'src', 'app', 'api')
 
-  const [appFiles, dashboardFiles, apiFiles] = await Promise.all([
+  const [appFiles, dashboardFiles, apiFiles, trackedFiles] = await Promise.all([
     listFilesRecursive(appDir),
     listFilesRecursive(dashboardDir),
     listFilesRecursive(apiDir),
+    getTrackedFiles(),
   ])
 
   return [
@@ -328,7 +347,7 @@ async function collectWatchedFiles(): Promise<string[]> {
     ...apiFiles.filter((file) => file.endsWith('.ts')),
     path.join(ROOT, 'src', 'lib', 'blog-posts.ts'),
     AUTOMATION_GUIDE_PATH,
-  ]
+  ].filter((file) => trackedFiles.has(rel(file)))
 }
 
 async function computeSourceHash(files: string[]): Promise<string> {
