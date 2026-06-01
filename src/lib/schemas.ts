@@ -71,7 +71,21 @@ export const BriefSaveBodySchema = z.object({
 
 export const PrepGenerateQuerySchema = z.object({
   posting_url: z.union([z.literal(''), z.string().url('Invalid posting URL')]).optional(),
-  interview_stage: z.enum(['recruiter_screen', 'hiring_manager', 'panel', 'final', 'executive']).nullable().optional(),
+  interview_stage: z
+    .enum([
+      'informal_meeting',
+      'first_interview',
+      'executive_interview',
+      'board_presentation',
+      'final_round',
+      'recruiter_screen',
+      'hiring_manager',
+      'panel',
+      'final',
+      'executive',
+    ])
+    .nullable()
+    .optional(),
   role_mode: z.enum(['cio', 'cto', 'ciso', 'vp_to_cxo']).nullable().optional(),
 })
 
