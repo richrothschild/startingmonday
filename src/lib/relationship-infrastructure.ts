@@ -36,9 +36,10 @@ export function inferContactType(input: { contactType?: string | null; channel?:
   const title = (input.title ?? '').trim().toLowerCase()
 
   if (channel === 'recruiter') return 'recruiter'
-  if (/(board|director|trustee)/.test(title)) return 'board'
-  if (/(coach|advisor|mentor)/.test(title)) return 'coach'
+  if (/(recruiter|talent acquisition|headhunter)/.test(title)) return 'recruiter'
   if (/(hiring manager|talent|people partner|hr|human resources|director of people)/.test(title)) return 'hiring_manager'
+  if (/(board|board director|trustee)/.test(title)) return 'board'
+  if (/(coach|advisor|mentor)/.test(title)) return 'coach'
   if (/(peer|svp|vp|vice president|chief|cto|cio|cfo|coo|cmo|cro)/.test(title)) return 'peer'
 
   return null
@@ -47,7 +48,11 @@ export function inferContactType(input: { contactType?: string | null; channel?:
 export function summarizeRelationshipNetwork(contacts: Array<{ contact_type?: string | null; channel?: string | null; title?: string | null }>): RelationshipNetworkSummary {
   const contactsByType = emptyCounts()
   for (const contact of contacts) {
-    const inferred = inferContactType(contact)
+    const inferred = inferContactType({
+      contactType: contact.contact_type,
+      channel: contact.channel,
+      title: contact.title,
+    })
     if (inferred) contactsByType[inferred] += 1
   }
 

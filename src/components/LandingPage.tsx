@@ -155,7 +155,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
             </p>
 
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_transformation_contrast">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Before and after</p>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
                 <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-3">
                   <p className="text-slate-400 mb-1">Reactive executive</p>
