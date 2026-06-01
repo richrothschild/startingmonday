@@ -49,8 +49,8 @@ const CORE_BEHAVIOR_LOOP = [
 ]
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
 const APPENDIX_LINK = '/mark-review/appendix'
-const INTERVIEW_BRIEF_DEMO_LINK = '/demo/cio'
-const STRATEGY_BRIEF_DEMO_LINK = '/demo/cio/notes'
+const INTERVIEW_BRIEF_DEMO_LINK = '/demo/manager-tools'
+const STRATEGY_BRIEF_DEMO_LINK = '/mark-review/appendix#strategy-brief-demo'
 
 export default function MarkReviewPage() {
   return (

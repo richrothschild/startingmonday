@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 }
 
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
-const INTERVIEW_BRIEF_DEMO_LINK = '/demo/cio'
-const STRATEGY_BRIEF_DEMO_LINK = '/demo/cio/notes'
+const INTERVIEW_BRIEF_DEMO_LINK = '/demo/manager-tools'
+const STRATEGY_BRIEF_DEMO_LINK = '#strategy-brief-demo'
 
 const TRANSITION_JOURNEY_SUMMARY = [
   'Early transition: narrow the search, choose target companies, and stop reactive browsing.',
