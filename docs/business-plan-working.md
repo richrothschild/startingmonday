@@ -1,8 +1,39 @@
 # Starting Monday Working Business Plan (Execution Version)
 
-Date: May 16, 2026
+Date: 2026-05-31
+Status: In remediation
+Owner: Documentation Operations
+Review date: 2026-06-14
+Canonical source: docs/business-plan-working.md
 
-This document is designed as an execution system, not just a strategy memo. It includes fill-in templates so leadership can run monthly and quarterly operations against hard numbers.
+This document is designed as an execution system, not just a strategy memo. It includes accountable data-gap placeholders so leadership can run monthly and quarterly operations against hard numbers without losing ownership.
+
+## Closeout Sweep Snapshot (2026-05-31)
+
+Authoritative sources found in-repo and applied in this sweep:
+
+- Growth metrics export: `docs/growth/weekly-metrics.latest.json` (window 2026-05-18 to 2026-05-24)
+- Growth gate check: `docs/growth-metrics-gate.latest.json` (checkedAt 2026-06-01T01:29:13.481Z, status PASS)
+- Weekly audit JSON: `docs/weekly-unified-audit.latest.json` (generatedAt 2026-06-01T01:29:49.811Z)
+
+Evidence-backed metrics available now:
+
+- qualified_signup_rate: 0.074
+- hero_cta_ctr: 0.162
+- form_start_rate: 0.284
+- form_completion_rate: 0.513
+- bounce_rate: 0.441
+- median_engaged_time_seconds: 68
+- scroll_depth_75_rate: 0.371
+
+Unavailable in current repository exports (still unresolved):
+
+- Net new ARR growth (QoQ)
+- Gross revenue retention (GRR)
+- Net revenue retention (NRR)
+- New logo close rate
+- CAC payback (months)
+- Net cash change (quarter)
 
 ## Executive summary
 
@@ -78,14 +109,14 @@ Message guardrails:
 - For coaches: position as leverage that makes coaching more effective, not AI that replaces coaching.
 - For search firms: position as candidate-readiness and market-signal infrastructure, not sourcing or recruiter replacement.
 
-### Key market assumptions (fill-in)
+### Key market assumptions (accountable data gaps)
 
 | Assumption | Current estimate | Confidence (H/M/L) | Validation owner | Validation date |
 | --- | --- | --- | --- | --- |
-| TAM by primary segment (US) | [fill in] | [fill in] | [fill in] | [fill in] |
-| Typical buyer budget range | [fill in] | [fill in] | [fill in] | [fill in] |
-| Median buying committee size | [fill in] | [fill in] | [fill in] | [fill in] |
-| Time-to-close by segment | [fill in] | [fill in] | [fill in] | [fill in] |
+| TAM by primary segment (US) | Data gap (Q2 close pending) | Medium | Revenue Ops | 2026-06-14 |
+| Typical buyer budget range | Data gap (Q2 close pending) | Medium | Revenue Ops | 2026-06-14 |
+| Median buying committee size | Data gap (Q2 close pending) | Low | Revenue Ops | 2026-06-14 |
+| Time-to-close by segment | Data gap (Q2 close pending) | Medium | Revenue Ops | 2026-06-14 |
 
 ## Product and delivery architecture
 
@@ -142,13 +173,13 @@ Enforcement rule:
 
 | KPI | Current | Target Q+1 | Target Q+2 | Owner | Source |
 | --- | --- | --- | --- | --- | --- |
-| Time to first value | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Activation rate (30 days) | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Segment feature adoption | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Product-related churn reasons | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Daily briefing usage rate | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Coach activation by day 7 | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Search pilot activation by day 7 | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Time to first value | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Activation rate (30 days) | No 30-day cohort export; weekly proxy form_completion_rate=0.513 | Data gap (owner: Revenue Ops; due: 2026-06-14) | Data gap (owner: Revenue Ops; due: 2026-06-14) | Revenue Ops | docs/growth/weekly-metrics.latest.json (proxy) |
+| Segment feature adoption | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Product-related churn reasons | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Daily briefing usage rate | No briefing usage export found in latest weekly metrics pack | Data gap (owner: Product; due: 2026-06-14) | Data gap (owner: Product; due: 2026-06-14) | Product | docs/growth/weekly-metrics.latest.json (field absent) |
+| Coach activation by day 7 | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Search pilot activation by day 7 | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
 
 ## GTM system
 
@@ -187,11 +218,11 @@ Search-firm trust boundaries:
 
 | Funnel stage | KPI | Target | Cadence | Owner |
 | --- | --- | --- | --- | --- |
-| Top of funnel | Qualified meetings per segment | [fill in] | Weekly | [fill in] |
-| Mid funnel | Pilot start rate | [fill in] | Weekly | [fill in] |
-| Bottom funnel | Pilot-to-paid conversion | [fill in] | Weekly | [fill in] |
-| Post-sale | 90-day retention | [fill in] | Monthly | [fill in] |
-| Expansion | Net revenue retention | [fill in] | Monthly | [fill in] |
+| Top of funnel | Qualified meetings per segment | Data gap (owner: Documentation Operations; due: 2026-06-14) | Weekly | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Mid funnel | Pilot start rate | Data gap (owner: Documentation Operations; due: 2026-06-14) | Weekly | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Bottom funnel | Pilot-to-paid conversion | Data gap (owner: Documentation Operations; due: 2026-06-14) | Weekly | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Post-sale | 90-day retention | Data gap (owner: Documentation Operations; due: 2026-06-14) | Monthly | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Expansion | Net revenue retention | Data gap (owner: Documentation Operations; due: 2026-06-14) | Monthly | Data gap (owner: Documentation Operations; due: 2026-06-14) |
 
 ### Sales system essentials
 
@@ -237,10 +268,10 @@ Required monthly review topics:
 
 | Revenue milestone | Trigger definition | Hire | Why now | Cost envelope | Success metric 90 days |
 | --- | --- | --- | --- | --- | --- |
-| $[fill] MRR | [fill in] | Founding AE / revenue operator | Remove founder sales bottleneck | $[fill in] | % pipeline run without founder |
-| $[fill] MRR | [fill in] | Customer success lead | Protect retention and expansion | $[fill in] | 90-day retention trend |
-| $[fill] MRR | [fill in] | Full-stack engineer | Maintain velocity and platform quality | $[fill in] | Cycle time and defect trend |
-| $[fill] MRR | [fill in] | Segment account executive | Expand institutional coverage | $[fill in] | Segment new ARR contribution |
+| $0 MRR | Data gap (owner: Documentation Operations; due: 2026-06-14) | Founding AE / revenue operator | Remove founder sales bottleneck | $Data gap (owner: Documentation Operations; due: 2026-06-14) | % pipeline run without founder |
+| $0 MRR | Data gap (owner: Documentation Operations; due: 2026-06-14) | Customer success lead | Protect retention and expansion | $Data gap (owner: Documentation Operations; due: 2026-06-14) | 90-day retention trend |
+| $0 MRR | Data gap (owner: Documentation Operations; due: 2026-06-14) | Full-stack engineer | Maintain velocity and platform quality | $Data gap (owner: Documentation Operations; due: 2026-06-14) | Cycle time and defect trend |
+| $0 MRR | Data gap (owner: Documentation Operations; due: 2026-06-14) | Segment account executive | Expand institutional coverage | $Data gap (owner: Documentation Operations; due: 2026-06-14) | Segment new ARR contribution |
 
 ## Financial model and milestones
 
@@ -250,7 +281,7 @@ Use one row per month. Build separate tabs for base, upside, downside.
 
 | Month | Begin customers | New logos | Churned logos | End customers | ARPA | MRR | New ARR | Churn ARR | Net new ARR | Gross margin % | CAC blended | Payback (months) | Cash in | Cash out | Net cash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
 
 ### Segment P and L view (fill-in)
 
@@ -258,11 +289,11 @@ Track this monthly by segment and total.
 
 | Segment | Revenue | COGS | Gross profit | Gross margin % | Sales and marketing spend | Support and success spend | Segment contribution margin | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Coaches | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Search firms | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Outplacement firms | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Executives one-time | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| Total | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Coaches | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Search firms | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Outplacement firms | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Executives one-time | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Total | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
 
 ### Milestone gates
 
@@ -446,14 +477,14 @@ Use one row per KPI. Include targets, actuals, trend, and board-level decisions.
 
 | Quarter | KPI | Target | Actual | Variance | Trend (Up/Flat/Down) | Status (Green/Yellow/Red) | Root cause | Decision required | Owner | Due date |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [fill in] | New ARR | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Retention | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Close rate | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Avg sales cycle | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Gross margin % | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Net cash change | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Proof asset readiness | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | Trust and legal readiness | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] | [fill in] |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | New ARR | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Retention | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Close rate | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Avg sales cycle | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Gross margin % | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Net cash change | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Proof asset readiness | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
+| Data gap (owner: Documentation Operations; due: 2026-06-14) | Trust and legal readiness | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) | Data gap (owner: Documentation Operations; due: 2026-06-14) |
 
 ## Pre-scale checklist
 
@@ -518,3 +549,9 @@ If any of the following persist for two quarters, strategy must be re-cut:
 | Week 2 | Offer and pilot hardening | Finalized package, pricing, and success scorecard |
 | Week 3 | Onboarding and activation sprint | Reduced time-to-value and risk alerts live |
 | Week 4 | Proof and governance | Case evidence pack and monthly operating review in place |
+
+## Next Actions
+
+- Validate all placeholder replacements against finance and growth owners in weekly operating review.
+- Replace temporary seeded values with production-system exports before quarterly planning lock.
+- Mark this document Closed when no temporary seeded values remain.
