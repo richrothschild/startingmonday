@@ -233,12 +233,6 @@ Express interest by stating clear alignment with Salesforce's execution mandate.
 If they ask follow-up questions about first-90-day sequencing, that is a strong signal they are modeling you in-role. If they stay generic and avoid operating specifics, interest is likely softer. Your move in 24 hours is a concise follow-up note restating your top 90-day priorities and the outcomes they enable.`
 
 export async function POST(request: NextRequest) {
-  try {
-    await request.json()
-  } catch {
-    return new Response('Bad request', { status: 400 })
-  }
-
   const blocked = await enforcePublicEndpointGuard({
     request,
     rateLimitKey: 'demo-brief-manager-tools',
