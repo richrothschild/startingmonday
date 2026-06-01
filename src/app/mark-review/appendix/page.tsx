@@ -187,7 +187,7 @@ export default function MarkReviewAppendixPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Tomorrow's demo setup</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Demo setup</p>
             <div className="rounded border border-slate-200 bg-slate-50 p-4">
               <p className="text-[13px] font-semibold text-slate-900">
                 Fictional user: {DEMO_EXECUTIVE.name}, {DEMO_EXECUTIVE.currentTitle} at {DEMO_EXECUTIVE.currentCompany}

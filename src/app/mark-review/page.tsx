@@ -144,7 +144,7 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Tomorrow's demo setup</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Demo setup</p>
             <div className="rounded border border-slate-200 bg-slate-50 p-4">
               <p className="text-[13px] font-semibold text-slate-900">
                 Fictional user: {DEMO_EXECUTIVE.name}, {DEMO_EXECUTIVE.currentTitle} at {DEMO_EXECUTIVE.currentCompany}
@@ -184,24 +184,14 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <div className="flex flex-col lg:flex-row gap-6">
-              <div className="flex-1">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Relationship-first framing</p>
-                <div className="space-y-2.5">
-                  {RELATIONSHIP_FIRST.map((item) => (
-                    <div key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                      <span className="text-orange-500 mt-0.5">•</span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Relationship-first framing</p>
+            <div className="space-y-2.5">
+              {RELATIONSHIP_FIRST.map((item) => (
+                <div key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
+                  <span className="text-orange-500 mt-0.5">•</span>
+                  <span>{item}</span>
                 </div>
-              </div>
-              <div className="flex-1 rounded border border-slate-200 bg-slate-50 p-4">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">What this page is trying to prove</p>
-                <p className="text-[13px] text-slate-700 leading-relaxed">
-                  A signal matters only if it improves a real conversation with a real person. This memo is built to keep that standard visible.
-                </p>
-              </div>
+              ))}
             </div>
           </section>
 
