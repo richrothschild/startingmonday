@@ -26,12 +26,14 @@ export async function POST(
 
   if (fetchError || !post) return NextResponse.json({ error: 'Post not found' }, { status: 404 })
 
+  const dryRunMode = process.env.SOCIAL_DRY_RUN_MODE === 'true'
+
   const councilPass = getNoteToken(post.notes, 'council_pass') === 'true'
   const councilHash = getNoteToken(post.notes, 'council_text_hash')
   const draftHash = hashDraftText((post.draft_text ?? '').trim())
   const emotionalAngle = getNoteToken(post.notes, 'emotional_angle')
 
-  if (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle) {
+  if (!dryRunMode && (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle)) {
     return NextResponse.json({
       error: 'Council check required before posting',
       detail: 'Run the short-form council check and pass with current draft and emotional angle.',
@@ -62,6 +64,10 @@ export async function POST(
     const errText = await makeRes.text().catch(() => '')
     console.error('[social/schedule] Make.com webhook error', { status: makeRes.status, body: errText })
     return NextResponse.json({ error: 'Make.com webhook error', detail: errText }, { status: 502 })
+  }
+
+  if (dryRunMode) {
+    return NextResponse.json({ post, dryRunMode: true })
   }
 
   const { data: updated, error: updateError } = await admin
