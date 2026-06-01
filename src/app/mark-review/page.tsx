@@ -14,20 +14,20 @@ import {
 export const metadata: Metadata = {
   title: 'Starting Monday | Mark Horstman Pre-Meeting Memo',
   description:
-    'Short pre-meeting memo for Mark Horstman: what Starting Monday is, how the behavior loop works, and what feedback is needed.',
+    'Short pre-meeting memo for Mark Horstman: what the product does, how the loop works, and the judgment call I need.',
   alternates: { canonical: 'https://startingmonday.app/mark-review' },
   openGraph: {
     title: 'Starting Monday | Mark Horstman Pre-Meeting Memo',
     description:
-      'Short pre-meeting memo for Mark Horstman: what Starting Monday is, how the behavior loop works, and what feedback is needed.',
+      'Short pre-meeting memo for Mark Horstman: what the product does, how the loop works, and the judgment call I need.',
     url: 'https://startingmonday.app/mark-review',
   },
 }
 
 const BLUF = [
-  'This is a workflow product, not a content product. It only matters if it creates more credible executive conversations.',
-  'The strongest part is the operating loop: find the right signal, contact the right person, and close the follow-up loop every week.',
-  'The open issue is proof. I need your view on whether the behavior change is clear enough to defend as advice, not just as a good demo.',
+  'This is a workflow product, not a content product. It matters only if it creates better executive conversations.',
+  'The strongest part is the loop: find the right signal, contact the right person, and close follow-up every week.',
+  'The open issue is proof. I need your judgment on whether the behavior change is strong enough to defend as advice, not just as a demo.',
 ]
 
 const CORE_BEHAVIOR_LOOP = [
@@ -84,7 +84,7 @@ export default function MarkReviewPage() {
             Starting Monday: pre-meeting memo
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            A short read on what this product does, how the behavior loop works, and the one thing I need your judgment on before tomorrow.
+            A short read on what this does, how the loop works, and the one judgment call I need from you before tomorrow.
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed mt-4 max-w-3xl">
             This page is public and does not require a login, so you can review it directly before we meet.
@@ -112,7 +112,7 @@ export default function MarkReviewPage() {
               Does Starting Monday reliably change executive search behavior, or does it mainly improve the feeling of being prepared?
             </p>
             <p className="text-[14px] text-slate-700 leading-relaxed">
-              If the answer is no, it is just polished workflow theater. If the answer is yes, the product has a real reason to exist.
+              If the answer is no, this is polished workflow theater. If yes, it has a real reason to exist.
             </p>
           </section>
 
@@ -120,7 +120,7 @@ export default function MarkReviewPage() {
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">The weekly behavior loop</p>
-                <p className="text-[14px] text-slate-700 leading-relaxed">If the product works, it should make this loop easier to run every week.</p>
+                <p className="text-[14px] text-slate-700 leading-relaxed">If this works, it should make this loop easier to run every week.</p>
               </div>
               <TrackedCtaLink
                 href={APPENDIX_LINK}
@@ -148,10 +148,10 @@ export default function MarkReviewPage() {
                 Fictional user: {DEMO_EXECUTIVE.name}, {DEMO_EXECUTIVE.currentTitle} at {DEMO_EXECUTIVE.currentCompany}
               </p>
               <p className="text-[13px] text-slate-700 mt-2 leading-relaxed">
-                Demo scenario: a senior enterprise IT operator targeting the {DEMO_EXECUTIVE.targetRole} role at {DEMO_EXECUTIVE.targetCompany}. The point of the demo is not generic AI output. It is showing role-specific judgment, operating cadence, and prep quality for a real senior-executive search situation.
+                Demo scenario: a senior enterprise IT operator targeting the {DEMO_EXECUTIVE.targetRole} role at {DEMO_EXECUTIVE.targetCompany}. The point is not generic AI output. It is role-specific judgment, operating cadence, and prep quality for a real executive search situation.
               </p>
               <p className="text-[13px] text-slate-700 mt-2 leading-relaxed">
-                The proof standard for the demo is simple: can this scenario lead to a better conversation with a real person at Salesforce, not just a better-looking brief on screen?
+                The proof standard is simple: can this lead to a better conversation with a real person at Salesforce, not just a better-looking brief?
               </p>
             </div>
           </section>
@@ -172,7 +172,7 @@ export default function MarkReviewPage() {
               <div className="flex-1 rounded border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[12px] font-semibold text-slate-900 mb-2">What this page is trying to prove</p>
                 <p className="text-[13px] text-slate-700 leading-relaxed">
-                  A signal matters only if it improves a real conversation with a real person. The memo is built to keep that standard visible and keep the product from drifting into content theater.
+                  A signal matters only if it improves a real conversation with a real person. This memo is built to keep that standard visible.
                 </p>
               </div>
             </div>
@@ -284,7 +284,7 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Supporting material</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Appendix and links</p>
             <div className="space-y-3 text-[14px]">
               <TrackedCtaLink
                 href={APPENDIX_LINK}
