@@ -30,6 +30,18 @@ export const metadata: Metadata = {
 
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
 
+const TRANSITION_JOURNEY_SUMMARY = [
+  'Early transition: narrow the search, choose target companies, and stop reactive browsing.',
+  'Middle transition: turn signals into outreach, prep, and follow-up before timing windows close.',
+  'Late transition: keep live threads moving, track commitments, and avoid drift between conversations.',
+]
+
+const TRANSITION_JOURNEY_DETAIL = [
+  'The product starts by forcing perimeter decisions: target role, target companies, and the few relationships that actually matter now.',
+  'Once the search is active, behavior is managed through a weekly loop: identify a signal, decide who matters, prepare with context, send outreach, and close follow-up.',
+  'As conversations begin, the system shifts from research support to execution discipline: next action, next owner, and next date stay visible so momentum is not lost.',
+]
+
 export default function MarkReviewAppendixPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -87,6 +99,39 @@ export default function MarkReviewAppendixPage() {
               >
                 Business plan: https://startingmonday.app/mark-review/business-plan
               </TrackedCtaLink>
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+              <div>
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Behavior through the transition journey</p>
+                <p className="text-[14px] text-slate-700 leading-relaxed max-w-2xl">
+                  The job is not to generate insight at each stage. It is to keep behavior pointed at the next real conversation.
+                </p>
+              </div>
+              <details className="group sm:max-w-[220px]">
+                <summary className="list-none cursor-pointer inline-flex items-center justify-center rounded border border-slate-300 px-4 py-2 text-[13px] font-semibold text-slate-900 hover:border-slate-500 transition-colors">
+                  More detail
+                </summary>
+                <div className="mt-3 rounded border border-slate-200 bg-slate-50 p-4">
+                  <div className="space-y-2.5">
+                    {TRANSITION_JOURNEY_DETAIL.map((item) => (
+                      <div key={item} className="text-[13px] text-slate-700 leading-relaxed flex items-start gap-2">
+                        <span className="text-orange-500 mt-0.5">•</span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </details>
+            </div>
+            <div className="space-y-3">
+              {TRANSITION_JOURNEY_SUMMARY.map((item) => (
+                <div key={item} className="rounded border border-slate-200 bg-slate-50 p-4 text-[13px] text-slate-700 leading-relaxed">
+                  {item}
+                </div>
+              ))}
             </div>
           </section>
 
@@ -218,6 +263,14 @@ export default function MarkReviewAppendixPage() {
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Relevant links</p>
             <div className="space-y-3 text-[14px]">
+              <TrackedCtaLink
+                href="/guide"
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'appendix_links', target: 'guide' }}
+                className="block text-slate-800 hover:text-slate-900 underline underline-offset-2"
+              >
+                External guide: https://startingmonday.app/guide
+              </TrackedCtaLink>
               <TrackedCtaLink
                 href="/demo"
                 eventName="mark_review_navigation_click"
