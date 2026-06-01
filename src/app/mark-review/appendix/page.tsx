@@ -29,6 +29,8 @@ export const metadata: Metadata = {
 }
 
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
+const INTERVIEW_BRIEF_DEMO_LINK = '/demo/cio'
+const STRATEGY_BRIEF_DEMO_LINK = '/demo/cio/notes'
 
 const TRANSITION_JOURNEY_SUMMARY = [
   'Early transition: narrow the search, choose target companies, and stop reactive browsing.',
@@ -103,6 +105,31 @@ export default function MarkReviewAppendixPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</p>
+            <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
+              Use these two live runs during the call: interview brief first, then strategy brief view.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <TrackedCtaLink
+                href={INTERVIEW_BRIEF_DEMO_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'appendix_live_demo_run', target: 'interview_brief_demo' }}
+                className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 hover:bg-slate-800 transition-colors"
+              >
+                Run live interview brief demo
+              </TrackedCtaLink>
+              <TrackedCtaLink
+                href={STRATEGY_BRIEF_DEMO_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'appendix_live_demo_run', target: 'strategy_brief_demo' }}
+                className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-4 py-2.5 hover:border-slate-500 transition-colors"
+              >
+                Run live strategy brief demo
+              </TrackedCtaLink>
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Behavior through the transition journey</p>
@@ -159,7 +186,7 @@ export default function MarkReviewAppendixPage() {
             </div>
           </section>
 
-          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+          <section id="interview-brief-demo" className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Interview brief demo: Salesforce CIO</p>
             <div className="space-y-4">
               {INTERVIEW_BRIEF_SECTIONS.map((section) => (
@@ -193,7 +220,7 @@ export default function MarkReviewAppendixPage() {
             </div>
           </section>
 
-          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+          <section id="strategy-brief-demo" className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Strategy brief for the same fictional user</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {STRATEGY_BRIEF.map((item) => (

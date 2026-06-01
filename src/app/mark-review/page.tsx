@@ -49,6 +49,8 @@ const CORE_BEHAVIOR_LOOP = [
 ]
 const BUSINESS_PLAN_LINK = '/mark-review/business-plan'
 const APPENDIX_LINK = '/mark-review/appendix'
+const INTERVIEW_BRIEF_DEMO_LINK = '/demo/cio'
+const STRATEGY_BRIEF_DEMO_LINK = '/demo/cio/notes'
 
 export default function MarkReviewPage() {
   return (
@@ -153,6 +155,31 @@ export default function MarkReviewPage() {
               <p className="text-[13px] text-slate-700 mt-2 leading-relaxed">
                 The proof standard is simple: can this lead to a better conversation with a real person at Salesforce, not just a better-looking brief?
               </p>
+            </div>
+          </section>
+
+          <section className="border border-slate-200 rounded-lg p-6 bg-white">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</p>
+            <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
+              These are the two live clicks I will run with you: the interview brief first, then the strategy brief view.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <TrackedCtaLink
+                href={INTERVIEW_BRIEF_DEMO_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'live_demo_run', target: 'interview_brief_demo' }}
+                className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 hover:bg-slate-800 transition-colors"
+              >
+                Run live interview brief demo
+              </TrackedCtaLink>
+              <TrackedCtaLink
+                href={STRATEGY_BRIEF_DEMO_LINK}
+                eventName="mark_review_navigation_click"
+                eventProps={{ placement: 'live_demo_run', target: 'strategy_brief_demo' }}
+                className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-4 py-2.5 hover:border-slate-500 transition-colors"
+              >
+                Run live strategy brief demo
+              </TrackedCtaLink>
             </div>
           </section>
 
