@@ -18,12 +18,12 @@ import {
 export const metadata: Metadata = {
   title: 'Starting Monday | Mark Horstman Review Appendix',
   description:
-    'Supporting appendix for the Mark Horstman review memo: demo setup, onboarding, strategy brief, diligence gaps, and supporting links.',
+    'Supporting appendix for Mark: demo setup, onboarding, strategy brief, risk checks, and reference links.',
   alternates: { canonical: 'https://startingmonday.app/mark-review/appendix' },
   openGraph: {
     title: 'Starting Monday | Mark Horstman Review Appendix',
     description:
-      'Supporting appendix for the Mark Horstman review memo: demo setup, onboarding, strategy brief, diligence gaps, and supporting links.',
+      'Supporting appendix for Mark: demo setup, onboarding, strategy brief, risk checks, and reference links.',
     url: 'https://startingmonday.app/mark-review/appendix',
   },
 }
@@ -70,7 +70,7 @@ export default function MarkReviewAppendixPage() {
             Mark review appendix
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            The longer-form materials behind the pre-meeting memo: demo content, onboarding, strategy detail, expansion framing, and diligence gaps.
+            This is the longer-form reference behind the review brief: demo content, onboarding, strategy detail, expansion framing, and diligence gaps.
           </p>
         </div>
       </header>
@@ -81,7 +81,7 @@ export default function MarkReviewAppendixPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Read order</p>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
               <li>Read the memo first.</li>
-              <li>Use this appendix only if you want the full demo and execution detail.</li>
+              <li>Use this appendix if you want the full demo and execution detail.</li>
               <li>Use the business plan for broader market, risk, and planning detail.</li>
             </ol>
             <div className="mt-4 space-y-2 text-[14px]">
@@ -107,7 +107,7 @@ export default function MarkReviewAppendixPage() {
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</p>
             <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
-              Use these two live runs during the call: interview brief first, then strategy brief view.
+              If you want to click through live examples, start with the interview brief and then open the strategy brief view.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
@@ -116,7 +116,7 @@ export default function MarkReviewAppendixPage() {
                 eventProps={{ placement: 'appendix_live_demo_run', target: 'interview_brief_demo' }}
                 className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 hover:bg-slate-800 transition-colors"
               >
-                Run live interview brief demo
+                Open interview brief demo
               </TrackedCtaLink>
               <TrackedCtaLink
                 href={STRATEGY_BRIEF_DEMO_LINK}
@@ -124,9 +124,21 @@ export default function MarkReviewAppendixPage() {
                 eventProps={{ placement: 'appendix_live_demo_run', target: 'strategy_brief_demo' }}
                 className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-4 py-2.5 hover:border-slate-500 transition-colors"
               >
-                Run live strategy brief demo
+                Open strategy brief demo
               </TrackedCtaLink>
             </div>
+          </section>
+
+          <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'm asking from you</p>
+            <p className="text-[14px] text-slate-800 leading-relaxed mb-4">
+              I am not asking for an endorsement. I am asking for candid product feedback.
+            </p>
+            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
+              <li>What is strongest here, and what is still not credible?</li>
+              <li>What is the single biggest gap that keeps this from being advice-defensible?</li>
+              <li>If the product is good enough, would you suggest one or two executives who could review it and give candid feedback?</li>
+            </ol>
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">

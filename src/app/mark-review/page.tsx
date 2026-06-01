@@ -12,14 +12,14 @@ import {
 } from './content'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday | Mark Horstman Pre-Meeting Memo',
+  title: 'Starting Monday | Review Brief for Mark Horstman',
   description:
-    'Short pre-meeting memo for Mark Horstman: what the product does, how the loop works, and the judgment call I need.',
+    'Mark-facing review brief: what Starting Monday is, what it is not, and the specific feedback request.',
   alternates: { canonical: 'https://startingmonday.app/mark-review' },
   openGraph: {
-    title: 'Starting Monday | Mark Horstman Pre-Meeting Memo',
+    title: 'Starting Monday | Review Brief for Mark Horstman',
     description:
-      'Short pre-meeting memo for Mark Horstman: what the product does, how the loop works, and the judgment call I need.',
+      'Mark-facing review brief: what Starting Monday is, what it is not, and the specific feedback request.',
     url: 'https://startingmonday.app/mark-review',
   },
 }
@@ -83,10 +83,10 @@ export default function MarkReviewPage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Executive memo</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            Starting Monday: pre-meeting memo
+            Starting Monday: review brief for Mark
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            A short read on what this does, how the loop works, and the one judgment call I need from you before tomorrow.
+            This brief is for your review: what Starting Monday is, what it is not, and where I need your candid feedback.
           </p>
           <p className="text-[13px] text-orange-300 leading-relaxed mt-4 max-w-3xl">
             This page is public and does not require a login, so you can review it directly before we meet.
@@ -161,7 +161,7 @@ export default function MarkReviewPage() {
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</p>
             <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
-              These are the two live clicks I will run with you: the interview brief first, then the strategy brief view.
+              If you want to click through live examples, start with the interview brief and then open the strategy brief view.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
@@ -170,7 +170,7 @@ export default function MarkReviewPage() {
                 eventProps={{ placement: 'live_demo_run', target: 'interview_brief_demo' }}
                 className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 hover:bg-slate-800 transition-colors"
               >
-                Run live interview brief demo
+                Open interview brief demo
               </TrackedCtaLink>
               <TrackedCtaLink
                 href={STRATEGY_BRIEF_DEMO_LINK}
@@ -178,7 +178,7 @@ export default function MarkReviewPage() {
                 eventProps={{ placement: 'live_demo_run', target: 'strategy_brief_demo' }}
                 className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-4 py-2.5 hover:border-slate-500 transition-colors"
               >
-                Run live strategy brief demo
+                Open strategy brief demo
               </TrackedCtaLink>
             </div>
           </section>
@@ -302,11 +302,14 @@ export default function MarkReviewPage() {
           </section>
 
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'd like from you</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'm asking from you</p>
+            <p className="text-[14px] text-slate-800 leading-relaxed mb-4">
+              I am not asking for an endorsement. I am asking for direct product feedback.
+            </p>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
-              <li>Brutally honest feedback.</li>
-              <li>What is the single biggest thing that keeps this from being advice-defensible?</li>
-              <li>If it feels worthwhile, would you connect me with one or two real executives who could give candid product feedback?</li>
+              <li>What is strongest here, and what is still not credible?</li>
+              <li>What is the single biggest gap that keeps this from being advice-defensible?</li>
+              <li>If the product is good enough, would you suggest one or two executives who could review it and give candid feedback?</li>
             </ol>
           </section>
 
