@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T23:12:11.484Z",
+  "generatedAt": "2026-06-02T23:18:09.961Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-02T23:12:05.731Z"
+      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-02T23:12:05.574Z"
+      "lastModifiedAt": "2026-06-02T23:15:39.740Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -12381,7 +12381,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:12:05.730Z"
+      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12420,7 +12420,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:12:05.731Z"
+      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
