@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-02T23:18:09.961Z
+Last generated: 2026-06-02T23:25:12.584Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -897,7 +897,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 - Migration supabase/migrations/125_admin_shared_workspaces.sql | supabase/migrations/125_admin_shared_workspaces.sql | create table if not exists public.admin_shared_workspaces (
 
-## Documentation (491)
+## Documentation (492)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1243,6 +1243,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | 122_onboarding_video_automation_hardening rollback
 - Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | 123_onboarding_video_webhook_events rollback
 - Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md | docs/development/migration-rollbacks/124_guide_chat_analytics.md | 124_guide_chat_analytics rollback
+- Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | Roadmap Vision Memo - Andrew Chen
 - Doc docs/council-roadmap-memos/annie-duke-roadmap-memo.md | docs/council-roadmap-memos/annie-duke-roadmap-memo.md | Roadmap Vision Memo - Annie Duke

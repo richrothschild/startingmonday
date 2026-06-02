@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T23:18:09.961Z",
+  "generatedAt": "2026-06-02T23:25:12.584Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
+      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -12381,7 +12381,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
+      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12420,7 +12420,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:12:11.497Z"
+      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16217,6 +16217,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-02T23:12:05.701Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/125_admin_shared_workspaces.md",
+      "title": "Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md",
+      "body": "125_admin_shared_workspaces rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/125_admin_shared_workspaces.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-02T23:23:15.800Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
