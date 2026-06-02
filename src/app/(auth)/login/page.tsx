@@ -20,11 +20,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
-  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [captchaUnavailable, setCaptchaUnavailable] = useState(false)
 
-  const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
+  const authBusy = googleLoading || appleLoading || loading
 
   function mapAuthError(error?: string, code?: string): string {
     if (code === 'CAPTCHA_UNAVAILABLE') {
@@ -59,6 +58,9 @@ export default function LoginPage() {
         case 'magic_failed':
           setError('Could not send sign-in link. Please try again.')
           break
+        case 'magic_disabled':
+          setError('Magic link sign-in has been disabled. Use password, Google, or Apple.')
+          break
         case 'oauth_start_failed':
           setError('Could not start social sign-in. Please try again.')
           break
@@ -71,9 +73,6 @@ export default function LoginPage() {
       }
     }
 
-    if (params.get('info') === 'magic_sent') {
-      setInfo('If an account exists for that email, a sign-in link has been sent.')
-    }
   }, [])
 
   function requireCaptchaToken(): string | null {
@@ -203,47 +202,6 @@ export default function LoginPage() {
     }
   }
 
-  async function handleMagicLink(event?: React.MouseEvent<HTMLButtonElement>) {
-    event?.preventDefault()
-    const token = requireCaptchaToken()
-    if (token == null) return
-    const normalizedEmail = email.trim().toLowerCase()
-    if (!normalizedEmail) {
-      setError('Enter your email first, then request a sign-in link.')
-      return
-    }
-
-    setMagicLinkLoading(true)
-    setInfo(null)
-
-    try {
-      const response = await fetch('/api/auth/verify-and-magic-link', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { 'x-captcha-token': token } : {}),
-        },
-        body: JSON.stringify({
-          email: normalizedEmail,
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNextPath)}`,
-        }),
-      })
-
-      const data = await response.json() as { ok?: boolean; error?: string; code?: string; message?: string }
-
-      if (!response.ok || !data.ok) {
-        setError(mapAuthError(data.error || 'Could not send sign-in link. Please try again.', data.code))
-        return
-      }
-
-      setInfo(data.message || 'If an account exists for that email, a sign-in link has been sent.')
-    } catch {
-      setError('Could not send sign-in link. Please try again.')
-    } finally {
-      setMagicLinkLoading(false)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
@@ -360,19 +318,7 @@ export default function LoginPage() {
                 />
               ) : null}
 
-              <button
-                type="submit"
-                name="intent"
-                value="magic"
-                onClick={handleMagicLink}
-                disabled={authBusy}
-                className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                id="login-magic-link"
-              >
-                {magicLinkLoading ? 'Sending sign-in link...' : 'Send me a sign-in link'}
-              </button>
-
-              <p className="text-[12px] text-slate-500 -mt-1">
+              <p className="text-[12px] text-slate-500">
                 Used Google or Apple to sign up? Use that provider first, then set a password in Settings -&gt; Security.
               </p>
 
