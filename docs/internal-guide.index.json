@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T23:25:12.584Z",
+  "generatedAt": "2026-06-02T23:49:00.598Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
+      "lastModifiedAt": "2026-06-02T23:25:12.596Z"
     },
     {
       "id": "feature:/page.tsx",
@@ -12381,7 +12381,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
+      "lastModifiedAt": "2026-06-02T23:25:12.596Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -12420,7 +12420,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:18:09.974Z"
+      "lastModifiedAt": "2026-06-02T23:25:12.596Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -13642,7 +13642,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-02T23:12:05.848Z"
+      "lastModifiedAt": "2026-06-02T23:47:25.037Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
