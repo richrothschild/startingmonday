@@ -168,9 +168,11 @@ test('prep brief generates content', async ({ page }) => {
   // Action may redirect to /dashboard or /dashboard/companies/{id}?scanning=1
   await page.waitForURL(/\/dashboard/, { timeout: 15_000 })
 
-  // Navigate to company detail (or we're already there after scanning redirect)
+  // Navigate to company detail/prep (creation can redirect to either)
   let companyUrl: string
-  if (page.url().includes('/companies/')) {
+  if (page.url().includes('/companies/') && page.url().includes('/prep')) {
+    companyUrl = page.url().replace(/\/prep.*$/, '')
+  } else if (page.url().includes('/companies/')) {
     companyUrl = page.url().split('?')[0]
   } else {
     await page.getByRole('link', { name }).click()
@@ -178,9 +180,11 @@ test('prep brief generates content', async ({ page }) => {
     companyUrl = page.url()
   }
 
-  // Navigate to prep
-  await page.getByRole('link', { name: /Interview prep|Run interview prep/i }).first().click()
-  await page.waitForURL('**/prep')
+  // Navigate to prep when not already there
+  if (!/\/dashboard\/companies\/[^/]+\/prep(?:\?|$)/.test(page.url())) {
+    await page.getByRole('link', { name: /Interview prep|Run interview prep|Conversation prep/i }).first().click()
+    await page.waitForURL('**/prep')
+  }
 
   // Generate brief
   await page.getByRole('button', { name: 'Generate prep brief' }).click()
