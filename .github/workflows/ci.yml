@@ -149,6 +149,54 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  first-value-synthetic-gate:
+    name: First-value synthetic gate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Validate synthetic gate credentials
+        env:
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+        run: |
+          if [ -n "$PLAYWRIGHT_SYNTH_SIGNUP_EMAIL" ] && [ -n "$PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD" ]; then
+            echo "Using dedicated signup synthetic credentials"
+            exit 0
+          fi
+          echo "Missing dedicated Playwright signup credentials for first-value gate"
+          exit 1
+
+      - name: Run signup-to-first-value synthetic (blocking)
+        run: npx playwright test tests/e2e/synthetics.spec.ts --project=synthetics --grep "Synthetic-10"
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+
+      - name: Upload first-value synthetic artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-value-synthetic-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
   mobile-visual-regression:
     name: Mobile visual regression
     runs-on: ubuntu-latest
@@ -254,7 +302,7 @@ jobs:
     runs-on: ubuntu-latest
     # Only gate on main/staging pushes that will trigger a deploy.
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
-    needs: [predeploy-gates]
+    needs: [predeploy-gates, first-value-synthetic-gate]
     permissions:
       actions: read
       contents: read
