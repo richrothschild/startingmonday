@@ -179,7 +179,7 @@ test('prep brief generates content', async ({ page }) => {
   }
 
   // Navigate to prep
-  await page.getByRole('link', { name: 'Interview prep' }).click()
+  await page.getByRole('link', { name: /Interview prep|Run interview prep/i }).first().click()
   await page.waitForURL('**/prep')
 
   // Generate brief

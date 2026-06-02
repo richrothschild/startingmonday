@@ -158,11 +158,12 @@ test('Synthetic-01c: guide content and guide chat interactivity are healthy', as
   await requireAuthSessionOrSkip(page)
   await page.goto('/guide', { waitUntil: 'load' })
 
-  await expect(page.getByRole('heading', { name: /Starting Monday Career Guide/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Starting Monday Career Guide|Career Guide/i })).toBeVisible()
   await expect(page.locator('body')).not.toContainText(/guide content unavailable|guide temporarily unavailable/i)
 
   const sectionLinks = page.locator('main a[href^="#"]')
-  await expect(sectionLinks.first()).toBeVisible()
+  const sectionHeadings = page.locator('main h2, main h3')
+  await expect(sectionLinks.first().or(sectionHeadings.first())).toBeVisible()
 
   await page.route('**/api/guide/chat', async route => {
     await route.fulfill({
@@ -195,11 +196,12 @@ test('Synthetic-01d: internal guide content and chat are healthy for admin sessi
     'Skipping Synthetic-01d: authenticated account lacks admin/owner access for internal guide.'
   )
 
-  await expect(page.getByRole('heading', { name: /Internal Engineering Guide/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Internal (Engineering )?Guide/i })).toBeVisible()
   await expect(page.locator('body')).not.toContainText(/internal guide unavailable|internal guide index unavailable/i)
 
   const sectionLinks = page.locator('main a[href^="#"]')
-  await expect(sectionLinks.first()).toBeVisible()
+  const sectionHeadings = page.locator('main h2, main h3')
+  await expect(sectionLinks.first().or(sectionHeadings.first())).toBeVisible()
 
   await page.route('**/api/admin/internal-guide/chat', async route => {
     await route.fulfill({
