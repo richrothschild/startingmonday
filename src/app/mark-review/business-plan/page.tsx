@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Starting Monday | Mark Horstman Business Plan Brief',
   description:
-    'Operator planning brief: channel TAM, monetization, 5-year revenue model, execution risk, and competitive pressure.',
+    'Business planning brief for Mark: channel TAM, monetization, 5-year revenue model, execution risk, and competitive pressure.',
   alternates: { canonical: 'https://startingmonday.app/mark-review/business-plan' },
   openGraph: {
     title: 'Starting Monday | Mark Horstman Business Plan Brief',
     description:
-      'Operator planning brief: channel TAM, monetization, 5-year revenue model, execution risk, and competitive pressure.',
+      'Business planning brief for Mark: channel TAM, monetization, 5-year revenue model, execution risk, and competitive pressure.',
     url: 'https://startingmonday.app/mark-review/business-plan',
   },
 }
@@ -155,7 +155,7 @@ export default function MarkBusinessPlanPage() {
             Starting Monday: channel TAM, monetization, and growth risk
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-4xl">
-            This page is the focused planning view for Monday: channel TAM assumptions, monetization model, 5-year revenue estimate, major obstacles, competitive pressure, and key missing evidence.
+            This page is the planning reference for your review: channel TAM assumptions, monetization model, 5-year revenue estimate, major obstacles, competitive pressure, and key missing evidence.
           </p>
         </div>
       </header>
@@ -250,7 +250,7 @@ export default function MarkBusinessPlanPage() {
           </section>
 
           <section className="border border-blue-300 rounded-lg p-6 bg-blue-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What else Mark should ask for</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-700 mb-4">What would increase confidence</p>
             <ul className="space-y-2.5">
               {MISSING_FOR_DECISION.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
@@ -259,6 +259,18 @@ export default function MarkBusinessPlanPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'm asking from you</p>
+            <p className="text-[14px] text-slate-800 leading-relaxed mb-4">
+              I am not asking for an endorsement. I am asking for candid feedback on where this plan is strongest and where it is least credible.
+            </p>
+            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
+              <li>What is the single biggest gap in this plan?</li>
+              <li>Which proof requirement matters most before scaling?</li>
+              <li>If it is good enough, would you suggest one or two executives who could review the product and provide direct feedback?</li>
+            </ol>
           </section>
         </div>
       </main>

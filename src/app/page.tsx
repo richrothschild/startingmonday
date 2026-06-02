@@ -153,14 +153,14 @@ export default async function HomePage() {
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
-          eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
-          h1Lines: ['Be ready before', 'the search opens.'],
+          eyebrow: 'Searches end. Careers do not.',
+          h1Lines: ['Run your transition like', 'the executive you are.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
-          body: 'Keep your coach and recruiter. Add the execution layer: early signals, relationship cadence, and one-minute prep briefs.',
+          bodyPreamble: 'Starting Monday is private career infrastructure for senior technology leaders.',
+          body: 'Move from reactive search behavior to consistent market presence with signal intelligence, relationship cadence, and interview-ready briefs.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',

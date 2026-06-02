@@ -6,7 +6,7 @@ const DECISION_BRIEF = [
   {
     title: 'Primary claim',
     detail:
-      'Starting Monday turns Motion Signal and Momentum Signal into a repeatable weekly behavior loop for executive search execution.',
+      'Starting Monday is built to convert signals into a repeatable weekly behavior loop for executive search execution.',
   },
   {
     title: 'Why this matters',
@@ -14,14 +14,14 @@ const DECISION_BRIEF = [
       'The core risk is not awareness. It is missed timing and weak relationship follow-through during narrow decision windows.',
   },
   {
-    title: 'What changed in Lane 1',
+    title: 'What this review now emphasizes',
     detail:
-      'The Mark pages now prioritize decision speed, explicit KPI ownership, and proof discipline over broad narrative coverage.',
+      'These pages now prioritize product clarity, behavior proof, and specific feedback requests over broad internal narrative.',
   },
   {
-    title: 'Decision requested',
+    title: 'Feedback requested',
     detail:
-      'Approve this as the conversion narrative baseline for the next ship lanes, or name the single blocking gap to fix first.',
+      'Name the strongest part, the least credible part, and the single blocking gap to fix first.',
   },
 ]
 
@@ -81,12 +81,12 @@ export default function MarkSummaryPage() {
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Mark Re-grade Summary</p>
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">Mark review summary</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-            Mark lane 1 summary: ready with conditions
+            Starting Monday: summary for quick review
           </h1>
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl mb-6">
-            This is the concise meeting view for decision speed: what changed, what still blocks confidence, and what must ship next.
+            This is a short view of what Starting Monday is trying to do, what still needs proof, and where your feedback is most useful.
           </p>
         </div>
       </header>
@@ -141,9 +141,9 @@ export default function MarkSummaryPage() {
           </section>
 
           <section className="rounded border border-orange-300 bg-orange-50 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-2">Readiness note</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-2">What I'm asking from you</p>
             <p className="text-[13px] text-slate-800 leading-relaxed">
-              Lane 1 is ready to ship after deployment verification. Remaining condition is publishing the KPI baseline with denominator context in the next weekly readout.
+              I am not asking for an endorsement. I am asking for candid product feedback. If it is good enough, would you suggest one or two executives who could review it and share direct feedback?
             </p>
           </section>
 

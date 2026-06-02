@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TurnstileWidget from '@/components/turnstile-widget'
 
-const TURNSTILE_ENABLED =
-  process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1' || process.env.NODE_ENV === 'production'
+const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -21,10 +20,23 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
-  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [captchaUnavailable, setCaptchaUnavailable] = useState(false)
 
-  const authBusy = googleLoading || appleLoading || loading || magicLinkLoading
+  const authBusy = googleLoading || appleLoading || loading
+
+  function mapAuthError(error?: string, code?: string): string {
+    if (code === 'CAPTCHA_UNAVAILABLE') {
+      return 'Security check is temporarily unavailable. Please try again in a minute.'
+    }
+    if (code === 'CAPTCHA_REQUIRED') {
+      return 'Complete the security check before continuing.'
+    }
+    if (code === 'CAPTCHA_FAILED') {
+      return 'Security check failed. Please refresh and retry.'
+    }
+    return error || 'Sign-in failed'
+  }
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -46,6 +58,9 @@ export default function LoginPage() {
         case 'magic_failed':
           setError('Could not send sign-in link. Please try again.')
           break
+        case 'magic_disabled':
+          setError('Magic link sign-in has been disabled. Use password, Google, or Apple.')
+          break
         case 'oauth_start_failed':
           setError('Could not start social sign-in. Please try again.')
           break
@@ -58,13 +73,11 @@ export default function LoginPage() {
       }
     }
 
-    if (params.get('info') === 'magic_sent') {
-      setInfo('If an account exists for that email, a sign-in link has been sent.')
-    }
   }, [])
 
   function requireCaptchaToken(): string | null {
     if (!TURNSTILE_ENABLED) return ''
+    if (captchaUnavailable) return ''
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
       return null
@@ -83,7 +96,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+          ...(token ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'google',
@@ -91,10 +104,10 @@ export default function LoginPage() {
         }),
       })
 
-      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+      const data = await response.json() as { ok?: boolean; error?: string; code?: string; url?: string }
 
       if (!response.ok || !data.ok || !data.url) {
-        setError(data.error || 'Failed to start Google sign-in')
+        setError(mapAuthError(data.error || 'Failed to start Google sign-in', data.code))
         setGoogleLoading(false)
         return
       }
@@ -117,7 +130,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+          ...(token ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({
           provider: 'apple',
@@ -125,10 +138,10 @@ export default function LoginPage() {
         }),
       })
 
-      const data = await response.json() as { ok?: boolean; error?: string; url?: string }
+      const data = await response.json() as { ok?: boolean; error?: string; code?: string; url?: string }
 
       if (!response.ok || !data.ok || !data.url) {
-        setError(data.error || 'Failed to start Apple sign-in')
+        setError(mapAuthError(data.error || 'Failed to start Apple sign-in', data.code))
         setAppleLoading(false)
         return
       }
@@ -163,7 +176,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
+          ...(token ? { 'x-captcha-token': token } : {}),
         },
         body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
@@ -174,7 +187,7 @@ export default function LoginPage() {
         if (data.code === 'INVALID_CREDENTIALS') {
           setError('That email/password did not work. If this account was created with Google or Apple, sign in with that provider first, then set a password in Settings > Security.')
         } else {
-          setError(data.error || 'Sign-in failed')
+          setError(mapAuthError(data.error, data.code))
         }
         setLoading(false)
         return
@@ -186,47 +199,6 @@ export default function LoginPage() {
     } catch {
       setError('Something went wrong. Please try again.')
       setLoading(false)
-    }
-  }
-
-  async function handleMagicLink(event?: React.MouseEvent<HTMLButtonElement>) {
-    event?.preventDefault()
-    const token = requireCaptchaToken()
-    if (token == null) return
-    const normalizedEmail = email.trim().toLowerCase()
-    if (!normalizedEmail) {
-      setError('Enter your email first, then request a sign-in link.')
-      return
-    }
-
-    setMagicLinkLoading(true)
-    setInfo(null)
-
-    try {
-      const response = await fetch('/api/auth/verify-and-magic-link', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(TURNSTILE_ENABLED ? { 'x-captcha-token': token } : {}),
-        },
-        body: JSON.stringify({
-          email: normalizedEmail,
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNextPath)}`,
-        }),
-      })
-
-      const data = await response.json() as { ok?: boolean; error?: string; message?: string }
-
-      if (!response.ok || !data.ok) {
-        setError(data.error || 'Could not send sign-in link. Please try again.')
-        return
-      }
-
-      setInfo(data.message || 'If an account exists for that email, a sign-in link has been sent.')
-    } catch {
-      setError('Could not send sign-in link. Please try again.')
-    } finally {
-      setMagicLinkLoading(false)
     }
   }
 
@@ -259,7 +231,6 @@ export default function LoginPage() {
                 if (authBusy) return
                 void handleGoogle()
               }}
-              aria-disabled={authBusy}
               className={`w-full flex items-center justify-center gap-2.5 border border-slate-200 rounded px-4 py-2.5 text-[14px] font-semibold text-slate-700 transition-colors bg-white mb-5 ${authBusy ? 'opacity-50 pointer-events-none' : 'hover:border-slate-400 hover:bg-slate-50 cursor-pointer'}`}
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -278,7 +249,6 @@ export default function LoginPage() {
                 if (authBusy) return
                 void handleApple()
               }}
-              aria-disabled={authBusy}
               className={`w-full flex items-center justify-center gap-2.5 rounded px-4 py-2.5 text-[14px] font-semibold text-white bg-black transition-colors mb-5 ${authBusy ? 'opacity-50 pointer-events-none' : 'hover:bg-slate-900 cursor-pointer'}`}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -339,21 +309,16 @@ export default function LoginPage() {
                 <p className="text-[13px] text-emerald-700">{info}</p>
               )}
 
-              {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
+              {TURNSTILE_ENABLED ? (
+                <TurnstileWidget
+                  onTokenChange={setCaptchaToken}
+                  onStatusChange={(status) => {
+                    setCaptchaUnavailable(status === 'error')
+                  }}
+                />
+              ) : null}
 
-              <button
-                type="submit"
-                name="intent"
-                value="magic"
-                onClick={handleMagicLink}
-                disabled={authBusy}
-                className="w-full border border-slate-300 text-slate-700 text-[13px] font-semibold py-2.5 rounded cursor-pointer bg-white hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                id="login-magic-link"
-              >
-                {magicLinkLoading ? 'Sending sign-in link...' : 'Send me a sign-in link'}
-              </button>
-
-              <p className="text-[12px] text-slate-500 -mt-1">
+              <p className="text-[12px] text-slate-500">
                 Used Google or Apple to sign up? Use that provider first, then set a password in Settings -&gt; Security.
               </p>
 

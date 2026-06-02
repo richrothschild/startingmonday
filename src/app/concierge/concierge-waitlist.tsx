@@ -8,7 +8,9 @@ const INCLUDES = [
   'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
   'One 45-minute strategy session each month with the founder, who has run this search from the executive side',
   'AI prepares the session agenda from your live pipeline before every call',
+  'Session notes and recommendations are stored in your concierge hub after every call',
   'Priorities and commitments carry forward into the next session',
+  'Limited cohort: 10 concierge seats for high-accountability delivery',
   'First access to new capabilities as they ship',
   'Direct channel to the founder between sessions for time-sensitive decisions',
 ]
@@ -134,7 +136,7 @@ export function ConciergeWaitlist() {
       <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-            {isBetaProgram ? 'Confidential Beta Cohort — Founder-Led, 10 Seats' : 'Executive Concierge &mdash; $1,299/mo'}
+            {isBetaProgram ? 'Confidential Beta Cohort — Founder-Led, 10 Seats' : 'Executive Concierge — $499/mo'}
           </p>
           <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-5">
             {isBetaProgram ? (
@@ -191,10 +193,10 @@ export function ConciergeWaitlist() {
                 ) : (
                   <>
                     <p className="text-[28px] font-bold text-slate-900 leading-none mb-1">
-                      $1,299<span className="text-[16px] font-normal text-slate-400">/mo</span>
+                      $499<span className="text-[16px] font-normal text-slate-400">/mo</span>
                     </p>
-                    <p className="text-[12px] text-slate-400 mb-0.5">or $13,999/yr</p>
-                    <p className="text-[12px] text-slate-400">Application required. 30-day trial included when access opens.</p>
+                    <p className="text-[12px] text-slate-400 mb-0.5">or $4,990/yr (2 months free)</p>
+                    <p className="text-[12px] text-slate-400">Application required. Limited to 10 concierge seats.</p>
                   </>
                 )}
               </div>

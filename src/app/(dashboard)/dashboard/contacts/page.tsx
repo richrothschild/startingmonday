@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { addContact } from './actions'
 import { ContactsList, type ContactListItem } from '@/components/ContactsList'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
+import { summarizeRelationshipNetwork, CONTACT_TYPE_LABELS } from '@/lib/relationship-infrastructure'
 
 export default async function ContactsPage({
   searchParams,
@@ -19,7 +20,7 @@ export default async function ContactsPage({
   const [{ data: rawContacts }, { data: companies }, sub] = await Promise.all([
     supabase
       .from('contacts')
-      .select('id, name, title, firm, channel, notes, outreach_status, is_priority, companies(id, name)')
+      .select('id, name, title, firm, channel, contact_type, last_role_discussed, notes, outreach_status, is_priority, companies(id, name)')
       .eq('user_id', user.id)
       .eq('status', 'active')
       .order('is_priority', { ascending: false })
@@ -36,6 +37,7 @@ export default async function ContactsPage({
   const contacts = (rawContacts ?? []) as unknown as ContactListItem[]
   const companyList = companies ?? []
   const isExecutive = canAccessFeature(sub, 'recruiter_enhancements')
+  const relationshipSummary = summarizeRelationshipNetwork(contacts)
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -60,6 +62,21 @@ export default async function ContactsPage({
           <p className="text-[13px] text-slate-500 mt-1.5">
             Recruiters, hiring managers, and warm connections.
           </p>
+        </div>
+
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Network health</p>
+            <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coverageScore}</p>
+          </div>
+          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Covered types</p>
+            <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coveredTypes}/{Object.keys(CONTACT_TYPE_LABELS).length}</p>
+          </div>
+          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Gap</p>
+            <p className="text-[14px] font-semibold text-slate-900 leading-snug">{relationshipSummary.coverageGapLabel}</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
@@ -141,6 +158,24 @@ export default async function ContactsPage({
                   <option value="cold">Cold</option>
                   <option value="inbound">Inbound</option>
                   <option value="event">Event</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="contact-type" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                  Relationship type
+                </label>
+                <select
+                  id="contact-type"
+                  name="contact_type"
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                >
+                  <option value="">-</option>
+                  <option value="recruiter">Recruiter</option>
+                  <option value="hiring_manager">Hiring Manager</option>
+                  <option value="peer">Peer</option>
+                  <option value="coach">Coach</option>
+                  <option value="board">Board</option>
                 </select>
               </div>
 

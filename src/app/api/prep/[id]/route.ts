@@ -487,6 +487,25 @@ function extractTextFromHtml(html: string): string {
     .trim()
 }
 
+function normalizeInterviewStage(
+  value: string | null | undefined,
+): InterviewStage | null {
+  if (!value) return null
+  const legacyToCurrent: Record<string, InterviewStage> = {
+    recruiter_screen: 'informal_meeting',
+    hiring_manager: 'first_interview',
+    panel: 'board_presentation',
+    final: 'final_round',
+    executive: 'executive_interview',
+  }
+
+  if (value in legacyToCurrent) {
+    return legacyToCurrent[value]
+  }
+
+  return value as InterviewStage
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -526,7 +545,7 @@ export async function GET(
   }
 
   const postingUrl = queryParsed.data.posting_url || null
-  const interviewStage = (queryParsed.data.interview_stage ?? null) as InterviewStage | null
+  const interviewStage = normalizeInterviewStage(queryParsed.data.interview_stage)
   const rawRoleMode = queryParsed.data.role_mode ?? null
   const roleMode = isPrepRoleMode(rawRoleMode) ? rawRoleMode : null
   let allDocuments = documents

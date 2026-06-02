@@ -21,6 +21,7 @@ export async function addContact(formData: FormData) {
   const firm         = str(formData, 'firm') || null
   const rawCompanyId = str(formData, 'company_id') || null
   const channel      = str(formData, 'channel') || null
+  const contact_type = str(formData, 'contact_type') || null
   const email        = str(formData, 'email') || null
   const linkedin_url = str(formData, 'linkedin_url') || null
   const notes        = str(formData, 'notes') || null
@@ -44,6 +45,7 @@ export async function addContact(formData: FormData) {
     title,
     firm,
     channel,
+    contact_type,
     email,
     linkedin_url,
     notes,

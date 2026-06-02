@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
+import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
 import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
@@ -99,6 +100,11 @@ export default async function DashboardPage({
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'dashboard_profile_error', code: profileError.code, message: profileError.message, userId: user.id }))
   } else if (!profile?.onboarding_completed_at) {
     redirect('/onboarding')
+  }
+
+  const careerMode = resolveCareerMode({ placedAt: profile?.placed_at, searchStatus: profile?.search_status })
+  if (careerMode === 'post_search') {
+    redirect('/dashboard/post-search')
   }
 
   const tz = profile?.briefing_timezone ?? 'UTC'
