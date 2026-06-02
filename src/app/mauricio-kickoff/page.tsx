@@ -167,6 +167,41 @@ const CRM_RECOMMENDATION = [
   'Minimum fields: account, contact, channel, touch date, status, qualification score, next step, owner.',
 ]
 
+const CURRENT_STATE_LINKS = [
+  {
+    label: 'LinkedIn company page',
+    href: 'https://www.linkedin.com/company/starting-monday',
+    helper: 'Public page and brand context.',
+    external: true,
+  },
+  {
+    label: 'Sales + marketing operating overview',
+    href: '/sales-marketing-plan',
+    helper: 'Current LinkedIn cadence, speaker outreach, and execution board.',
+    external: false,
+  },
+  {
+    label: 'Sales enablement control room',
+    href: '/dashboard/admin/sales-enablement',
+    helper: 'Shared workspace with definitions, ranking, and checkpoints (team access required).',
+    external: false,
+  },
+  {
+    label: 'Email outreach process',
+    href: '/dashboard/admin/coach-outreach',
+    helper: '6-step outreach process and message operations (team access required).',
+    external: false,
+  },
+]
+
+const RAMP_UP_GAPS = [
+  'Data ownership and governance: one owner for CRM hygiene, duplicate control, and weekly QA signoff.',
+  'Compliance guardrails: approved claims library, forbidden claims, and escalation path for risky asks.',
+  'Handoff SLA detail: explicit 24-hour founder response coverage windows and backup approver if unavailable.',
+  'Meeting rubric enforcement: required pre-call brief fields and no-meeting-handoff if rubric is incomplete.',
+  'Weekly retrospective template: what to scale, what to kill, and one hypothesis for next week.',
+]
+
 function MetricTable({ title, rows }: { title: string; rows: MetricRow[] }) {
   return (
     <div className="border border-slate-200 rounded-xl bg-white overflow-hidden">
@@ -226,6 +261,57 @@ export default function MauricioKickoffPage() {
         </header>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10">
+          <section className="border border-slate-200 rounded-2xl bg-white p-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Start here</p>
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4">Guides, current-state assets, needs intake, and feedback</h2>
+
+            <div className="flex flex-wrap gap-3 mb-5">
+              <a
+                href="https://startingmonday.app/coaches-guide"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center border border-slate-300 bg-slate-900 text-white text-[12px] font-semibold rounded px-3 py-2 hover:bg-slate-800 transition-colors"
+              >
+                Open external guide
+              </a>
+              <a
+                href="mailto:contact@startingmonday.app?subject=Mauricio%20Kickoff%20Questions"
+                className="inline-flex items-center border border-slate-300 bg-white text-slate-700 text-[12px] font-semibold rounded px-3 py-2 hover:bg-slate-50 transition-colors"
+              >
+                Ask questions
+              </a>
+              <a
+                href="mailto:contact@startingmonday.app?subject=Mauricio%20Needs%20Request"
+                className="inline-flex items-center border border-emerald-300 bg-emerald-50 text-emerald-800 text-[12px] font-semibold rounded px-3 py-2 hover:bg-emerald-100 transition-colors"
+              >
+                Tell us what you need
+              </a>
+              <Link
+                href="/feedback"
+                className="inline-flex items-center border border-orange-300 bg-orange-50 text-orange-800 text-[12px] font-semibold rounded px-3 py-2 hover:bg-orange-100 transition-colors"
+              >
+                Provide feedback
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {CURRENT_STATE_LINKS.map((item) => (
+                <div key={item.label} className="border border-slate-200 rounded-lg p-4">
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-slate-900 hover:text-orange-600 transition-colors">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link href={item.href} className="text-[13px] font-semibold text-slate-900 hover:text-orange-600 transition-colors">
+                      {item.label}
+                    </Link>
+                  )}
+                  <p className="text-[12px] text-slate-500 mt-1.5">{item.helper}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="border border-indigo-200 rounded-xl bg-indigo-50/50 p-5">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-indigo-700 mb-2">Current assumptions (can be edited)</p>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -369,6 +455,18 @@ export default function MauricioKickoffPage() {
             <p className="text-[12px] text-slate-500">
               Daily update format: five bullets max (volume, replies, blockers, next actions, founder asks).
             </p>
+          </section>
+
+          <section className="border border-slate-200 rounded-xl bg-white p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">What is still missing for faster ramp-up</p>
+            <ul className="space-y-2">
+              {RAMP_UP_GAPS.map((item) => (
+                <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <span className="text-slate-500 font-bold">+</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
       </main>
