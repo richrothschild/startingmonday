@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T13:57:51.778Z",
+  "generatedAt": "2026-06-03T14:08:10.361Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "feature:/login",
@@ -474,7 +474,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T15:57:33.040Z"
+      "lastModifiedAt": "2026-06-03T14:06:43.689Z"
     },
     {
       "id": "feature:/dashboard/calendar",
@@ -7483,7 +7483,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T13:26:57.686Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "code:src/lib/rate-limit.ts",
@@ -7496,7 +7496,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T13:26:45.249Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "code:src/lib/relationship-infrastructure.test.ts",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T13:57:04.275Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.280Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -11745,7 +11745,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T13:22:36.420Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -14228,7 +14228,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:39:28.404Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.291Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -14332,7 +14332,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:33:30.622Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.285Z"
     },
     {
       "id": "doc:docs/epic-ui-ux-no-disruption-remediation.md",
@@ -15086,7 +15086,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15125,7 +15125,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18050,7 +18050,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:31:18.319Z"
+      "lastModifiedAt": "2026-06-03T14:07:41.337Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
