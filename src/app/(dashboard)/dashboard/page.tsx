@@ -22,6 +22,7 @@ import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
 import { DashboardDisclosureSection } from './dashboard-disclosure-section'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
+import { DashboardPathWelcomeCard } from './dashboard-path-welcome-card'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -993,65 +994,44 @@ export default async function DashboardPage({
 
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
-          <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Do one focused action today. Consistency beats scattered effort.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add the first company you want to work for &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              You can come back for the rest. The system will be here.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="nurture-welcome"
+            eyebrow="Your search starts here"
+            title="You don't have to have it all figured out today."
+            body="Do one focused action today. Consistency beats scattered effort."
+            prompt="One thing to do right now:"
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add the first company you want to work for ->"
+            footer="You can come back for the rest. The system will be here."
+          />
         )}
 
         {/* Campaign path welcome � first 7 days, empty pipeline */}
         {showCampaignWelcome && (
-          <section id="campaign-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executive roles are filled through relationships before posting. Start tracking target companies early.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add your first target company &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career URLs as you go.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="campaign-welcome"
+            eyebrow="Campaign mode"
+            title="Your target list is the campaign."
+            body="Most executive roles are filled through relationships before posting. Start tracking target companies early."
+            prompt="Start here: add the companies you already have a relationship or contact at."
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add your first target company ->"
+            footer="Aim for 10 to 15 companies. Add career URLs as you go."
+          />
         )}
 
         {/* Watcher path welcome � first 7 days, empty pipeline */}
         {showWatcherWelcome && (
-          <section id="watcher-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Stay ready by tracking the right companies before you need to move.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add a company to watch &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              No pressure to act now. You will know when timing shifts.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="watcher-welcome"
+            eyebrow="Market intelligence"
+            title="You don't have to be searching to stay ready."
+            body="Stay ready by tracking the right companies before you need to move."
+            prompt="Add the companies you would say yes to and let the platform do the watching."
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add a company to watch ->"
+            footer="No pressure to act now. You will know when timing shifts."
+          />
         )}
 
         {/* Persistent Next Best Action Prompt */}
