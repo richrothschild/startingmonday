@@ -23,6 +23,8 @@ import { DashboardPipelineSection } from './dashboard-pipeline-section'
 import { DashboardDisclosureSection } from './dashboard-disclosure-section'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
 import { DashboardPathWelcomeCard } from './dashboard-path-welcome-card'
+import { DashboardWeeklyPerformanceSection } from './dashboard-weekly-performance-section'
+import { DashboardPipelinePulse } from './dashboard-pipeline-pulse'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -1063,145 +1065,17 @@ export default async function DashboardPage({
           defaultOpen={focus === 'advanced'}
         >
 
-        {/* Weekly commitment device */}
-        {(() => {
-          const goal = profile?.weekly_goal ?? null
-          const done = outreachThisWeek ?? 0
-          if (goal) {
-            const remaining = Math.max(0, goal - done)
-            return (
-              <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
-                <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-                  done >= goal ? 'text-green-600' : done > 0 ? 'text-amber-500' : 'text-slate-300'
-                }`}>
-                  {done}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold text-slate-900">
-                    {done >= goal
-                      ? 'Weekly goal hit. Strong week.'
-                      : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    Goal: {goal} per week � {done} done since Monday
-                  </div>
-                </div>
-                <form action={saveWeeklyGoal} className="shrink-0">
-                  <input type="hidden" name="weekly_goal" value={goal === 1 ? 1 : goal + 1} />
-                  <button type="submit" className="text-[11px] text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-2.5 py-1 cursor-pointer bg-transparent transition-colors">
-                    Goal: {goal} &uarr;
-                  </button>
-                </form>
-              </div>
-            )
-          }
-          return (
-            <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
-              <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">
-                A weekly target increases follow-through.
-              </p>
-              <form action={saveWeeklyGoal} className="flex items-center gap-3">
-                <select
-                  name="weekly_goal"
-                  aria-label="Weekly outreach goal"
-                  defaultValue="2"
-                  className="border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white focus:outline-none focus:border-slate-400"
-                >
-                  {[1, 2, 3, 4, 5].map(n => (
-                    <option key={n} value={n}>{n} per week</option>
-                  ))}
-                </select>
-                <button
-                  type="submit"
-                  className="bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
-                >
-                  Set goal
-                </button>
-              </form>
-            </div>
-          )
-        })()}
-
-        {/* Momentum Score - only renders after migration 022 is applied and worker has run */}
-        {momentumData?.momentum_score != null && (
-          <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
-            <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-              momentumData.momentum_score >= 70 ? 'text-green-600' :
-              momentumData.momentum_score >= 40 ? 'text-amber-500' :
-              'text-red-600'
-            }`}>
-              {momentumData.momentum_score}
-            </div>
-            <div>
-              <div className="text-[13px] font-semibold text-slate-900">
-                {momentumData.momentum_score >= 70 ? 'Strong cadence. Keep it moving.' :
-                 momentumData.momentum_score >= 40
-                   ? `Momentum is dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
-                   : 'Search at risk. This pace adds months to your timeline.'}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-0.5">
-                Momentum score
-                {momentumData.momentum_computed_at && (
-                  <> &middot; Updated {Math.floor((Date.now() - new Date(momentumData.momentum_computed_at).getTime()) / 86400000)}d ago</>
-                )}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-1.5">
-                Track your activity with{' '}
-                <a href="https://www.manager-tools.com/2016/09/job-search-tracking" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Manager Tools</a>
-                {' '}or{' '}
-                <a href="https://www.manager-tools.com/career-tools-basics" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Career Tools</a>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Social proof benchmarks */}
-        <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
-              <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
-            </div>
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
-              <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
-            </div>
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
-              <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
-            </div>
-          </div>
-        </section>
-
-        <ActivityChart data={weekSlots} />
-        <PipelineVelocity companies={velocityRows} />
-
-        {/* Quick Actions */}
-        <section id="quick-actions" className="mb-6 sm:mb-2">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
-          {[
-            { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
-            { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
-            { href: '/dashboard/discover',       label: 'Discover',          sub: 'AI-suggested targets' },
-            { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
-            { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
-            { href: '/dashboard/positioning',    label: 'Positioning',       sub: 'Refine your story' },
-            { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
-            ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients', sub: 'Coach dashboard' }] : []),
-          ].map(a => (
-            <Link
-              key={a.href}
-              href={a.href}
-              className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
-            >
-              <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
-            </Link>
-          ))}
-          </div>
-        </section>
+        {/* Mobile contract anchor: grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 */}
+        <DashboardWeeklyPerformanceSection
+          weeklyGoal={profile?.weekly_goal ?? null}
+          outreachThisWeek={outreachThisWeek ?? 0}
+          onSaveWeeklyGoal={saveWeeklyGoal}
+          momentumData={(momentumData as { momentum_score: number | null; momentum_computed_at: string | null } | null) ?? null}
+          daysSinceLastAction={daysSinceLastAction}
+          weekSlots={weekSlots}
+          velocityRows={velocityRows}
+          isCoach={isCoach}
+        />
 
         <SearchControlsPanel
           initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
@@ -1223,54 +1097,13 @@ export default async function DashboardPage({
         {/* Suggestions - shown until dismissed or pipeline grows */}
         {totalCount < 5 && !hasFilters && <SuggestionCards />}
 
-        {/* Pipeline Pulse - Executive only */}
-        {isExecutive && (
-          <section id="pipeline-pulse" className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
-                  Pipeline Pulse
-                </h2>
-                <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
-                  Executive
-                </span>
-              </div>
-              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                All signals &rarr;
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${signalCount > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
-                  {signalCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">New Signals</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">last 7 days</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${(draftReadyCount ?? 0) > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
-                  {draftReadyCount ?? 0}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Drafts Ready</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">last 14 days</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${overdueCount > 0 ? 'text-red-600' : 'text-slate-300'}`}>
-                  {overdueCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Today</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">overdue</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${activeCount > 0 ? 'text-slate-900' : 'text-slate-300'}`}>
-                  {activeCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">In Process</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">active companies</div>
-              </div>
-            </div>
-          </section>
-        )}
+        <DashboardPipelinePulse
+          isExecutive={isExecutive}
+          signalCount={signalCount}
+          draftReadyCount={draftReadyCount ?? 0}
+          overdueCount={overdueCount}
+          activeCount={activeCount}
+        />
 
         </DashboardDisclosureSection>
 
