@@ -2,6 +2,10 @@ type Bucket = { count: number; resetAt: number }
 
 const buckets = new Map<string, Bucket>()
 
+export function __resetRateLimitBucketsForTests() {
+  buckets.clear()
+}
+
 export function checkRateLimit(
   userId: string,
   maxPerWindow = 20,
