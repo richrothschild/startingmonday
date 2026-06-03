@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T14:57:08.359Z",
+  "generatedAt": "2026-06-03T15:00:57.166Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T14:53:50.356Z"
+      "lastModifiedAt": "2026-06-03T14:57:08.374Z"
     },
     {
       "id": "feature:/login",
@@ -8367,7 +8367,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-19T18:41:07.776Z"
+      "lastModifiedAt": "2026-06-03T15:00:37.815Z"
     },
     {
       "id": "script:scripts/check-dependency-policy.mjs",
@@ -15099,7 +15099,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T14:53:50.356Z"
+      "lastModifiedAt": "2026-06-03T14:57:08.374Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15138,7 +15138,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T14:53:50.356Z"
+      "lastModifiedAt": "2026-06-03T14:57:08.374Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16568,7 +16568,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-19T01:21:48.721Z"
+      "lastModifiedAt": "2026-06-03T15:00:46.493Z"
     },
     {
       "id": "doc:docs/sre/runbook-templates.md",
@@ -16646,7 +16646,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T14:24:25.920Z"
+      "lastModifiedAt": "2026-06-03T15:00:46.461Z"
     },
     {
       "id": "doc:docs/sre/runbooks/postmortem-template.md",

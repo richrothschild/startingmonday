@@ -125,7 +125,7 @@ All runbooks are concrete and actionable (not template placeholders):
 - [ ] `scripts/check-data-integrity.mjs` exists and runs without crashing.
 - [ ] Checks performed:
   - [ ] Closed-contact drift (closed contacts with pending follow_ups)
-  - [ ] Duplicate pending follow_ups (3+ pending per contact)
+  - [ ] Duplicate pending follow_ups (same contact_id + action + due_date > 5 in 30 minutes)
   - [ ] Invalid follow_up status values
   - [ ] Subscription drift (active subscriptions with expired period_end)
 - [ ] `npm run integrity:check` exits 0 on a clean database.

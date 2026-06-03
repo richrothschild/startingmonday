@@ -8,8 +8,8 @@
  * Checks performed:
  *   1. Closed-contact drift: contacts in closed/archived/rejected state
  *      that still have pending follow_ups
- *   2. Duplicate pending follow_ups: same contact has 3+ pending follow_ups
- *      (expected max is 2 in normal workflow)
+ *   2. Duplicate pending follow_ups: same contact_id + action + due_date
+ *      exceeds 5 pending follow_ups in a 30-minute window
  *   3. Invalid follow_up status: status values outside the allowed set
  *   4. Subscription drift: active subscriptions with expired current_period_end
  *
@@ -84,18 +84,30 @@ async function checkClosedContactDrift() {
 }
 
 async function checkDuplicatePendingFollowUps() {
-  // Contacts with 3+ pending follow_ups (max expected in normal workflow: 2)
+  // Alert-matrix rule: same contact_id + action + due_date > 5 in 30 minutes
+  const windowStartIso = new Date(Date.now() - 30 * 60 * 1000).toISOString()
+
   const { data, error } = await supabase
     .from('follow_ups')
-    .select('contact_id, user_id')
+    .select('id, contact_id, user_id, action, due_date, created_at')
     .eq('status', 'pending')
+    .gte('created_at', windowStartIso)
 
   if (error) throw new Error(`duplicate_pending_follow_ups query failed: ${error.message}`)
 
   const counts = new Map()
   for (const row of data ?? []) {
-    const key = row.contact_id
-    counts.set(key, (counts.get(key) ?? { count: 0, user_id: row.user_id, count: 0 }))
+    const key = `${row.contact_id ?? 'null'}::${row.action ?? 'unknown'}::${row.due_date ?? 'unknown'}`
+    counts.set(
+      key,
+      counts.get(key) ?? {
+        count: 0,
+        user_id: row.user_id,
+        contact_id: row.contact_id,
+        action: row.action,
+        due_date: row.due_date,
+      },
+    )
     const entry = counts.get(key)
     entry.count++
     entry.user_id = row.user_id
@@ -103,8 +115,15 @@ async function checkDuplicatePendingFollowUps() {
   }
 
   const affected = [...counts.entries()]
-    .filter(([, v]) => v.count >= 3)
-    .map(([contact_id, v]) => ({ contact_id, user_id: v.user_id, pending_count: v.count }))
+    .filter(([, v]) => v.count > 5)
+    .map(([, v]) => ({
+      contact_id: v.contact_id,
+      action: v.action,
+      due_date: v.due_date,
+      user_id: v.user_id,
+      pending_count: v.count,
+      window_minutes: 30,
+    }))
 
   return { name: 'duplicate_pending_follow_ups', count: affected.length, affected }
 }
