@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T21:20:41.435Z
+Last generated: 2026-06-03T22:23:21.316Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -903,7 +903,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/126_scan_failures_dead_letter.sql | supabase/migrations/126_scan_failures_dead_letter.sql | create table if not exists public.scan_failures (
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 
-## Documentation (495)
+## Documentation (506)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1098,6 +1098,17 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md | docs/development/migration-rollbacks/127_stripe_webhook_events.md | 127_stripe_webhook_events rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
+- Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
+- Doc docs/diagrams/briefing-generation.md | docs/diagrams/briefing-generation.md | Briefing Generation
+- Doc docs/diagrams/integrations.md | docs/diagrams/integrations.md | Integrations
+- Doc docs/diagrams/observability-sre.md | docs/diagrams/observability-sre.md | Observability and SRE
+- Doc docs/diagrams/onboarding.md | docs/diagrams/onboarding.md | Onboarding
+- Doc docs/diagrams/prep-brief-generation.md | docs/diagrams/prep-brief-generation.md | Prep Brief Generation
+- Doc docs/diagrams/README.md | docs/diagrams/README.md | Architecture Diagrams
+- Doc docs/diagrams/revenue-billing.md | docs/diagrams/revenue-billing.md | Revenue and Billing
+- Doc docs/diagrams/signals-intelligence.md | docs/diagrams/signals-intelligence.md | Signals and Intelligence
+- Doc docs/diagrams/site-overview.md | docs/diagrams/site-overview.md | Site Overview
+- Doc docs/diagrams/user-flows.md | docs/diagrams/user-flows.md | User Flows
 - Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation
 - Doc docs/epic-90-day-reliability-rollout.md | docs/epic-90-day-reliability-rollout.md | Epic: 90-Day Reliability Rollout (SRE + UX Quality)
 - Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
