@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T21:20:41.435Z",
+  "generatedAt": "2026-06-03T22:24:04.353Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T21:15:13.905Z"
+      "lastModifiedAt": "2026-06-03T22:23:21.328Z"
     },
     {
       "id": "feature:/login",
@@ -684,7 +684,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-03T21:14:46.811Z"
+      "lastModifiedAt": "2026-06-03T22:22:58.639Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -14336,6 +14336,149 @@
       "lastModifiedAt": "2026-06-01T14:43:43.832Z"
     },
     {
+      "id": "doc:docs/diagrams/authentication.md",
+      "title": "Doc docs/diagrams/authentication.md",
+      "body": "Authentication",
+      "type": "doc",
+      "ref": "docs/diagrams/authentication.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.149Z"
+    },
+    {
+      "id": "doc:docs/diagrams/briefing-generation.md",
+      "title": "Doc docs/diagrams/briefing-generation.md",
+      "body": "Briefing Generation",
+      "type": "doc",
+      "ref": "docs/diagrams/briefing-generation.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.149Z"
+    },
+    {
+      "id": "doc:docs/diagrams/integrations.md",
+      "title": "Doc docs/diagrams/integrations.md",
+      "body": "Integrations",
+      "type": "doc",
+      "ref": "docs/diagrams/integrations.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.150Z"
+    },
+    {
+      "id": "doc:docs/diagrams/observability-sre.md",
+      "title": "Doc docs/diagrams/observability-sre.md",
+      "body": "Observability and SRE",
+      "type": "doc",
+      "ref": "docs/diagrams/observability-sre.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.150Z"
+    },
+    {
+      "id": "doc:docs/diagrams/onboarding.md",
+      "title": "Doc docs/diagrams/onboarding.md",
+      "body": "Onboarding",
+      "type": "doc",
+      "ref": "docs/diagrams/onboarding.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.150Z"
+    },
+    {
+      "id": "doc:docs/diagrams/prep-brief-generation.md",
+      "title": "Doc docs/diagrams/prep-brief-generation.md",
+      "body": "Prep Brief Generation",
+      "type": "doc",
+      "ref": "docs/diagrams/prep-brief-generation.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.151Z"
+    },
+    {
+      "id": "doc:docs/diagrams/README.md",
+      "title": "Doc docs/diagrams/README.md",
+      "body": "Architecture Diagrams",
+      "type": "doc",
+      "ref": "docs/diagrams/README.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.148Z"
+    },
+    {
+      "id": "doc:docs/diagrams/revenue-billing.md",
+      "title": "Doc docs/diagrams/revenue-billing.md",
+      "body": "Revenue and Billing",
+      "type": "doc",
+      "ref": "docs/diagrams/revenue-billing.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.151Z"
+    },
+    {
+      "id": "doc:docs/diagrams/signals-intelligence.md",
+      "title": "Doc docs/diagrams/signals-intelligence.md",
+      "body": "Signals and Intelligence",
+      "type": "doc",
+      "ref": "docs/diagrams/signals-intelligence.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.151Z"
+    },
+    {
+      "id": "doc:docs/diagrams/site-overview.md",
+      "title": "Doc docs/diagrams/site-overview.md",
+      "body": "Site Overview",
+      "type": "doc",
+      "ref": "docs/diagrams/site-overview.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.152Z"
+    },
+    {
+      "id": "doc:docs/diagrams/user-flows.md",
+      "title": "Doc docs/diagrams/user-flows.md",
+      "body": "User Flows",
+      "type": "doc",
+      "ref": "docs/diagrams/user-flows.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T22:21:36.152Z"
+    },
+    {
       "id": "doc:docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
       "title": "Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
       "body": "Epic: 7-Layer Luxury Experience Foundation",
@@ -15165,7 +15308,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T21:15:13.905Z"
+      "lastModifiedAt": "2026-06-03T22:23:21.328Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15204,7 +15347,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T21:15:13.905Z"
+      "lastModifiedAt": "2026-06-03T22:23:21.328Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18129,7 +18272,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T21:20:38.965Z"
+      "lastModifiedAt": "2026-06-03T22:24:01.972Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
