@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-01T00:07:15.914Z
+Last generated: 2026-06-02T23:49:00.598Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (171)
+## Features (178)
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 - Feature Terms | /terms | User-facing page route /terms.
@@ -23,14 +23,17 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Pricing | /pricing | User-facing page route /pricing.
 - Feature Pilot findings | /pilot-findings | User-facing page route /pilot-findings.
 - Feature Partners | /partners | User-facing page route /partners.
+- Feature Partners / Mauricio kickoff | /partners/mauricio-kickoff | User-facing page route /partners/mauricio-kickoff.
 - Feature Outplacement | /outplacement | User-facing page route /outplacement.
 - Feature Outplacement / Personas | /outplacement/personas | User-facing page route /outplacement/personas.
 - Feature Optimize | /optimize | User-facing page route /optimize.
 - Feature Onboarding | /onboarding | User-facing page route /onboarding.
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
+- Feature Mauricio kickoff | /mauricio-kickoff | User-facing page route /mauricio-kickoff.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
+- Feature Mark review / Appendix | /mark-review/appendix | User-facing page route /mark-review/appendix.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Ideas | /ideas | User-facing page route /ideas.
 - Feature Guide | /guide | User-facing page route /guide.
@@ -75,7 +78,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Evaluate | /evaluate | User-facing page route /evaluate.
 - Feature Demo | /demo | User-facing page route /demo.
 - Feature Demo / Presenter | /demo/presenter | User-facing page route /demo/presenter.
+- Feature Demo / Michael strategy brief | /demo/michael-strategy-brief | User-facing page route /demo/michael-strategy-brief.
+- Feature Demo / Michael dashboard | /demo/michael-dashboard | User-facing page route /demo/michael-dashboard.
 - Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
+- Feature Demo / Executive brief | /demo/executive-brief | User-facing page route /demo/executive-brief.
 - Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
 - Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
 - Feature Contributor | /contributor | User-facing page route /contributor.
@@ -154,6 +160,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Admin / Team | /dashboard/admin/team | User-facing page route /dashboard/admin/team.
 - Feature Dashboard / Admin / Speakers | /dashboard/admin/speakers | User-facing page route /dashboard/admin/speakers.
 - Feature Dashboard / Admin / Social | /dashboard/admin/social | User-facing page route /dashboard/admin/social.
+- Feature Dashboard / Admin / Sales enablement | /dashboard/admin/sales-enablement | User-facing page route /dashboard/admin/sales-enablement.
 - Feature Dashboard / Admin / Revenue | /dashboard/admin/revenue | User-facing page route /dashboard/admin/revenue.
 - Feature Dashboard / Admin / Product | /dashboard/admin/product | User-facing page route /dashboard/admin/product.
 - Feature Dashboard / Admin / Product / Catalog | /dashboard/admin/product/catalog | User-facing page route /dashboard/admin/product/catalog.
@@ -180,7 +187,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Login | /login | User-facing page route /login.
 
-## API Surface (241)
+## API Surface (244)
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
@@ -263,7 +270,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief | src/app/api/demo-brief/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
-- API /api/demo-brief/manager-tools | src/app/api/demo-brief/manager-tools/route.ts | Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
+- API /api/demo-brief/manager-tools | src/app/api/demo-brief/manager-tools/route.ts | export { POST } from '../executive-brief/route'
+- API /api/demo-brief/executive-brief | src/app/api/demo-brief/executive-brief/route.ts | Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
 - API /api/cron/weekly-digest | src/app/api/cron/weekly-digest/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/ui-ux-weekly-review | src/app/api/cron/ui-ux-weekly-review/route.ts | export const runtime = 'nodejs'
 - API /api/cron/stall-check | src/app/api/cron/stall-check/route.ts | export async function GET(request: NextRequest) {
@@ -332,9 +340,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/social/sync-engagement | src/app/api/admin/social/sync-engagement/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/social/schedule-publish | src/app/api/admin/social/schedule-publish/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/social/morning | src/app/api/admin/social/morning/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/social/mock-publish | src/app/api/admin/social/mock-publish/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/social/handoff-approved | src/app/api/admin/social/handoff-approved/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/social/digest | src/app/api/admin/social/digest/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/signals/monitor | src/app/api/admin/signals/monitor/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/sales-enablement/workspace | src/app/api/admin/sales-enablement/workspace/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/outreach/reliability | src/app/api/admin/outreach/reliability/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/leads/score-route | src/app/api/admin/leads/score-route/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/internal-guide/chat | src/app/api/admin/internal-guide/chat/route.ts | export async function POST(request: NextRequest) {
@@ -758,7 +768,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (126)
+## Data and Migrations (127)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -885,8 +895,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/122_onboarding_video_automation_hardening.sql | supabase/migrations/122_onboarding_video_automation_hardening.sql | -- Epic A Sprint 1 / Task A1 hardening:
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
+- Migration supabase/migrations/125_admin_shared_workspaces.sql | supabase/migrations/125_admin_shared_workspaces.sql | create table if not exists public.admin_shared_workspaces (
 
-## Documentation (491)
+## Documentation (492)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1232,6 +1243,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | docs/development/migration-rollbacks/122_onboarding_video_automation_hardening.md | 122_onboarding_video_automation_hardening rollback
 - Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | 123_onboarding_video_webhook_events rollback
 - Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md | docs/development/migration-rollbacks/124_guide_chat_analytics.md | 124_guide_chat_analytics rollback
+- Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | docs/council-roadmap-memos/andrew-chen-roadmap-memo.md | Roadmap Vision Memo - Andrew Chen
 - Doc docs/council-roadmap-memos/annie-duke-roadmap-memo.md | docs/council-roadmap-memos/annie-duke-roadmap-memo.md | Roadmap Vision Memo - Annie Duke
