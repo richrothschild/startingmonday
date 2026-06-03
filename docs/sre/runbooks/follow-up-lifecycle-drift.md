@@ -41,12 +41,17 @@ where c.status in ('closed', 'archived', 'rejected')
 group by c.id, c.user_id, c.status
 order by pending_follow_ups desc;
 
--- Find duplicate pending follow_ups for same contact:
-select contact_id, user_id, count(*) as pending_count
+-- Find duplicate pending follow_ups in last 30 minutes by contact_id + action + due_date:
+select contact_id,
+       action,
+       due_date,
+       max(user_id) as user_id,
+       count(*) as pending_count
 from follow_ups
 where status = 'pending'
-group by contact_id, user_id
-having count(*) > 2
+  and created_at >= now() - interval '30 minutes'
+group by contact_id, action, due_date
+having count(*) > 5
 order by pending_count desc;
 
 -- Find follow_ups with invalid status (not in allowed set):
