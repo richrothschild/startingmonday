@@ -12,6 +12,9 @@
  *      exceeds 5 pending follow_ups in a 30-minute window
  *   3. Invalid follow_up status: status values outside the allowed set
  *   4. Subscription drift: active subscriptions with expired current_period_end
+ *   5. Webhook backlog (Resend): accepted resend jobs without terminal webhook state
+ *      older than 5 minutes
+ *   6. Webhook backlog (Stripe): oldest unprocessed Stripe webhook event age > 5 minutes
  *
  * Usage:
  *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/check-data-integrity.mjs
@@ -185,6 +188,102 @@ async function checkSubscriptionDrift() {
   return { name: 'subscription_drift', count: affected.length, affected }
 }
 
+async function checkResendWebhookBacklog() {
+  // Alert-matrix rule: oldest unprocessed webhook age > 5 minutes
+  // Resend delivery pipeline represents webhook progression via outreach_send_jobs state.
+  const lagThresholdMinutes = 5
+  const lagThresholdIso = new Date(Date.now() - lagThresholdMinutes * 60 * 1000).toISOString()
+
+  const { data, error } = await supabase
+    .from('outreach_send_jobs')
+    .select('id, user_id, provider, state, accepted_at, created_at, provider_message_id')
+    .eq('provider', 'resend')
+    .eq('state', 'accepted')
+    .lt('accepted_at', lagThresholdIso)
+    .order('accepted_at', { ascending: true })
+    .limit(200)
+
+  if (error) {
+    const tableMissing =
+      /does not exist/i.test(error.message) || /could not find the table/i.test(error.message)
+
+    if (tableMissing) {
+      return { name: 'webhook_backlog_resend', count: 0, affected: [], advisory: true }
+    }
+
+    throw new Error(`webhook_backlog_resend query failed: ${error.message}`)
+  }
+
+  const nowMs = Date.now()
+  const affected = (data ?? []).map(r => {
+    const acceptedAtMs = new Date(r.accepted_at ?? r.created_at ?? new Date().toISOString()).getTime()
+    const lagMinutes = Math.max(0, Math.round(((nowMs - acceptedAtMs) / 60000) * 10) / 10)
+
+    return {
+      job_id: r.id,
+      user_id: r.user_id,
+      provider: r.provider,
+      state: r.state,
+      provider_message_id: r.provider_message_id,
+      accepted_at: r.accepted_at,
+      lag_minutes: lagMinutes,
+      threshold_minutes: lagThresholdMinutes,
+    }
+  })
+
+  return { name: 'webhook_backlog_resend', count: affected.length, affected }
+}
+
+async function checkStripeWebhookBacklog() {
+  // Stripe backlog requires an event-ingest table with processed_at + received_at.
+  // If unavailable, emit advisory instead of failing the whole detector.
+  const lagThresholdMinutes = 5
+  const lagThresholdIso = new Date(Date.now() - lagThresholdMinutes * 60 * 1000).toISOString()
+
+  const { data, error } = await supabase
+    .from('stripe_webhook_events')
+    .select('id, event_id, received_at, processed_at, created_at')
+    .is('processed_at', null)
+    .lt('received_at', lagThresholdIso)
+    .order('received_at', { ascending: true })
+    .limit(200)
+
+  if (error) {
+    const unsupportedSchema =
+      /does not exist/i.test(error.message) ||
+      /could not find the table/i.test(error.message) ||
+      /column/i.test(error.message)
+
+    if (unsupportedSchema) {
+      return {
+        name: 'webhook_backlog_stripe',
+        count: 0,
+        affected: [],
+        advisory: true,
+      }
+    }
+
+    throw new Error(`webhook_backlog_stripe query failed: ${error.message}`)
+  }
+
+  const nowMs = Date.now()
+  const affected = (data ?? []).map(r => {
+    const receivedAt = r.received_at ?? r.created_at ?? new Date().toISOString()
+    const receivedAtMs = new Date(receivedAt).getTime()
+    const lagMinutes = Math.max(0, Math.round(((nowMs - receivedAtMs) / 60000) * 10) / 10)
+
+    return {
+      event_row_id: r.id,
+      event_id: r.event_id,
+      received_at: r.received_at,
+      lag_minutes: lagMinutes,
+      threshold_minutes: lagThresholdMinutes,
+    }
+  })
+
+  return { name: 'webhook_backlog_stripe', count: affected.length, affected }
+}
+
 // ---------------------------------------------------------------------------
 // Run all checks
 // ---------------------------------------------------------------------------
@@ -198,6 +297,8 @@ async function run() {
     checkDuplicatePendingFollowUps,
     checkInvalidFollowUpStatus,
     checkSubscriptionDrift,
+    checkResendWebhookBacklog,
+    checkStripeWebhookBacklog,
   ]
 
   for (const check of checks) {

@@ -68,7 +68,10 @@ jobs:
             "closed_contact_drift=\(countFor("closed_contact_drift"))",
             "duplicate_pending_follow_ups=\(countFor("duplicate_pending_follow_ups"))",
             "invalid_follow_up_status=\(countFor("invalid_follow_up_status"))",
-            "subscription_drift=\(countFor("subscription_drift"))"
+            "subscription_drift=\(countFor("subscription_drift"))",
+            "webhook_backlog_resend=\(countFor("webhook_backlog_resend"))",
+            "webhook_backlog_stripe=\(countFor("webhook_backlog_stripe"))",
+            "webhook_backlog=\((countFor("webhook_backlog_resend") + countFor("webhook_backlog_stripe")))"
           ' integrity-report.json >> "$GITHUB_OUTPUT"
 
           if [ "$status" -gt 1 ]; then
@@ -99,6 +102,7 @@ jobs:
           DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
           INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
           SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+          WEBHOOK_BACKLOG: ${{ steps.integrity.outputs.webhook_backlog }}
         run: |
           mkdir -p .github/tmp
 
@@ -129,7 +133,7 @@ jobs:
           fi
 
           should_alert="false"
-          if [ "$persisted_closed_drift" = "true" ] || [ "$DUPLICATE_PENDING" != "0" ] || [ "$INVALID_STATUS" != "0" ] || [ "$SUBSCRIPTION_DRIFT" != "0" ]; then
+          if [ "$persisted_closed_drift" = "true" ] || [ "$DUPLICATE_PENDING" != "0" ] || [ "$INVALID_STATUS" != "0" ] || [ "$SUBSCRIPTION_DRIFT" != "0" ] || [ "$WEBHOOK_BACKLOG" != "0" ]; then
             should_alert="true"
           fi
 
@@ -173,12 +177,15 @@ jobs:
           DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
           INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
           SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+          WEBHOOK_BACKLOG: ${{ steps.integrity.outputs.webhook_backlog }}
+          WEBHOOK_BACKLOG_RESEND: ${{ steps.integrity.outputs.webhook_backlog_resend }}
+          WEBHOOK_BACKLOG_STRIPE: ${{ steps.integrity.outputs.webhook_backlog_stripe }}
           TOTAL_ANOMALIES: ${{ steps.integrity.outputs.total_anomalies }}
         run: |
           region="${REGION:-unknown}"
 
           severity="Sev-3"
-          if [ "$PERSISTED_CLOSED_DRIFT" = "true" ]; then
+          if [ "$PERSISTED_CLOSED_DRIFT" = "true" ] || [ "$WEBHOOK_BACKLOG" != "0" ]; then
             severity="Sev-2"
           fi
 
@@ -189,6 +196,9 @@ jobs:
             --arg duplicate "$DUPLICATE_PENDING" \
             --arg invalid "$INVALID_STATUS" \
             --arg subscription "$SUBSCRIPTION_DRIFT" \
+            --arg webhookBacklog "$WEBHOOK_BACKLOG" \
+            --arg webhookBacklogResend "$WEBHOOK_BACKLOG_RESEND" \
+            --arg webhookBacklogStripe "$WEBHOOK_BACKLOG_STRIPE" \
             --arg closedPersisted "$PERSISTED_CLOSED_DRIFT" \
             --arg elapsedSeconds "$CLOSED_DRIFT_ELAPSED_SECONDS" \
             --arg route "$ROUTE_LABEL" \
@@ -210,7 +220,7 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: ("*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n\n*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
+                    text: ("*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n\n*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n*Webhook backlog (total):* " + $webhookBacklog + "\n*Webhook backlog (Resend):* " + $webhookBacklogResend + "\n*Webhook backlog (Stripe):* " + $webhookBacklogStripe + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
                   }
                 }
               ]

@@ -128,6 +128,8 @@ All runbooks are concrete and actionable (not template placeholders):
   - [ ] Duplicate pending follow_ups (same contact_id + action + due_date > 5 in 30 minutes)
   - [ ] Invalid follow_up status values
   - [ ] Subscription drift (active subscriptions with expired period_end)
+  - [ ] Webhook backlog (Resend accepted jobs without terminal webhook state > 5 minutes)
+  - [ ] Webhook backlog (Stripe unprocessed webhook event age > 5 minutes, advisory until event backlog table exists)
 - [ ] `npm run integrity:check` exits 0 on a clean database.
 - [ ] `npm run integrity:check` exits 1 when anomalies are present (verify in game day).
 - [ ] `nightly-audit.yml` includes the integrity check step with Slack alert on failure.
