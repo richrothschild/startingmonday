@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T14:08:10.361Z",
+  "generatedAt": "2026-06-03T14:24:53.404Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
+      "lastModifiedAt": "2026-06-03T14:23:09.150Z"
     },
     {
       "id": "feature:/login",
@@ -474,7 +474,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-03T14:06:43.689Z"
+      "lastModifiedAt": "2026-06-03T14:23:03.812Z"
     },
     {
       "id": "feature:/dashboard/calendar",
@@ -9592,6 +9592,19 @@
       "lastModifiedAt": "2026-06-03T14:00:56.280Z"
     },
     {
+      "id": "infra:.github/workflows/data-integrity-alerts.yml",
+      "title": "Workflow .github/workflows/data-integrity-alerts.yml",
+      "body": "name: Data Integrity Alerts",
+      "type": "infra",
+      "ref": ".github/workflows/data-integrity-alerts.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-03T14:23:03.812Z"
+    },
+    {
       "id": "infra:.github/workflows/dependency-health.yml",
       "title": "Workflow .github/workflows/dependency-health.yml",
       "body": "Checks status pages for third-party services Starting Monday depends on.",
@@ -9706,7 +9719,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.591Z"
+      "lastModifiedAt": "2026-06-03T14:23:03.812Z"
     },
     {
       "id": "infra:.github/workflows/monitoring.yml",
@@ -15086,7 +15099,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
+      "lastModifiedAt": "2026-06-03T14:23:09.150Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15125,7 +15138,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
+      "lastModifiedAt": "2026-06-03T14:23:09.150Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16633,7 +16646,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-19T01:21:48.719Z"
+      "lastModifiedAt": "2026-06-03T14:24:25.920Z"
     },
     {
       "id": "doc:docs/sre/runbooks/postmortem-template.md",

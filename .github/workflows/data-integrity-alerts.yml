@@ -1,0 +1,161 @@
+name: Data Integrity Alerts
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity-alerts:
+    name: Detect follow-up lifecycle anomalies
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Validate required secrets
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets['NEXT_PUBLIC_SUPABASE_URL'] }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets['SUPABASE_SERVICE_ROLE_KEY'] }}
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+        run: |
+          missing=0
+          for name in NEXT_PUBLIC_SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY SLACK_WEBHOOK_URL; do
+            if [ -z "$(printenv "$name")" ]; then
+              echo "Missing required secret: $name" >&2
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -eq 1 ]; then
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run data integrity detector
+        id: integrity
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets['NEXT_PUBLIC_SUPABASE_URL'] }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets['SUPABASE_SERVICE_ROLE_KEY'] }}
+        run: |
+          set +e
+          npm run integrity:check:json > integrity-report.json
+          status=$?
+          set -e
+
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+
+          if [ ! -f integrity-report.json ]; then
+            echo "integrity-report.json was not generated" >&2
+            exit 1
+          fi
+
+          jq -r '
+            def countFor($name): ((.results[] | select(.name == $name) | .count) // 0);
+            "clean=\(.clean // false)",
+            "total_anomalies=\(.total_anomalies // 0)",
+            "closed_contact_drift=\(countFor(\"closed_contact_drift\"))",
+            "duplicate_pending_follow_ups=\(countFor(\"duplicate_pending_follow_ups\"))",
+            "invalid_follow_up_status=\(countFor(\"invalid_follow_up_status\"))",
+            "subscription_drift=\(countFor(\"subscription_drift\"))"
+          ' integrity-report.json >> "$GITHUB_OUTPUT"
+
+          if [ "$status" -gt 1 ]; then
+            echo "Detector exited with unexpected status $status" >&2
+            exit "$status"
+          fi
+
+      - name: Upload integrity report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: data-integrity-report
+          path: integrity-report.json
+
+      - name: Send Slack alert on data integrity anomalies
+        if: steps.integrity.outputs.total_anomalies != '0'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
+          DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
+          INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
+          SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+          TOTAL_ANOMALIES: ${{ steps.integrity.outputs.total_anomalies }}
+        run: |
+          severity="Sev-3"
+          if [ "$CLOSED_CONTACT_DRIFT" != "0" ]; then
+            severity="Sev-2"
+          fi
+
+          payload=$(jq -n \
+            --arg severity "$severity" \
+            --arg total "$TOTAL_ANOMALIES" \
+            --arg closed "$CLOSED_CONTACT_DRIFT" \
+            --arg duplicate "$DUPLICATE_PENDING" \
+            --arg invalid "$INVALID_STATUS" \
+            --arg subscription "$SUBSCRIPTION_DRIFT" \
+            --arg runUrl "$RUN_URL" \
+            '{
+              text: "Data integrity anomaly detected",
+              blocks: [
+                {
+                  type: "header",
+                  text: {
+                    type: "plain_text",
+                    text: ("Data Integrity Alert - " + $severity)
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: ("*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
+                  }
+                }
+              ]
+            }')
+
+          slackResponse=$(curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL")
+          if [ "$slackResponse" != "ok" ]; then
+            echo "Unexpected Slack webhook response: $slackResponse" >&2
+            exit 1
+          fi
+
+      - name: Fail on detector execution error
+        if: steps.integrity.outputs.exit_code != '0' && steps.integrity.outputs.total_anomalies == '0'
+        run: |
+          echo "Detector exited unexpectedly with status ${{ steps.integrity.outputs.exit_code }}" >&2
+          exit 1
+
+      - name: Send Slack alert on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+        run: |
+          payload=$(jq -n \
+            --arg runUrl "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{
+              text: "Data integrity alert workflow failed",
+              blocks: [
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: ("*Data Integrity Alert Workflow Failure*\nThe scheduled integrity detector failed before producing a stable result.\n<" + $runUrl + "|Open workflow run>")
+                  }
+                }
+              ]
+            }')
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
