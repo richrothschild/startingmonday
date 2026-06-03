@@ -17,11 +17,11 @@ import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyM
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
 import { DashboardDisclosureSection } from './dashboard-disclosure-section'
-import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
 import { DashboardStatusBanners } from './dashboard-status-banners'
 import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelligence-section'
 import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
+import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -696,41 +696,18 @@ export default async function DashboardPage({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-        {/* Welcome */}
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
-            {greeting}, {firstName}.
-          </h1>
-          <p className="text-[13px] text-slate-600 mt-1.5">{today}</p>
-          <p className="text-[13px] text-slate-500 mt-2 leading-relaxed max-w-[38ch]">
-            Start with the briefing, then work the next relationship and the next action.
-          </p>
-        </div>
-
-        <DashboardPrimaryNavSections
+        <DashboardTopShellSection
+          greeting={greeting}
+          firstName={firstName}
+          today={today}
           signalCount={signalCount}
           overdueCount={overdueCount}
           canUseOutreachHub={canUseOutreachHub}
           isRothschildAdmin={isRothschildAdmin}
-        />
-
-        <DailyMomentumPlan
-          actions={dailyMomentumActions}
-          dateKey={todayISO}
-          status={momentumStatus}
-        />
-
-        {/* Profile quick-save confirmation */}
-        {profile_saved && (
-          <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">
-            <span>Profile updated. Your briefs and coaching will reflect this now.</span>
-            <Link href="/dashboard/profile" className="font-semibold underline shrink-0">
-              Finish profile
-            </Link>
-          </div>
-        )}
-
-        <DashboardStatusBanners
+          dailyMomentumActions={dailyMomentumActions}
+          todayISO={todayISO}
+          momentumStatus={momentumStatus}
+          profileSaved={!!profile_saved}
           isTrialing={isTrialing}
           trialDaysLeft={trialDaysLeft}
           totalCount={totalCount}
