@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T14:08:10.361Z
+Last generated: 2026-06-03T14:29:08.231Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -737,8 +737,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (29)
+## Infrastructure and Workflows (30)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
+- Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
 - Workflow .github/workflows/deploy-alerts.yml | .github/workflows/deploy-alerts.yml | name: Deployment Alerts
 - Workflow .github/workflows/deployment-watchdog.yml | .github/workflows/deployment-watchdog.yml | name: Deployment Watchdog

@@ -114,5 +114,5 @@ where c.id = f.contact_id
 
 1. Postmortem within 24 hours
 2. Add unique constraint or idempotency check to follow_ups creation
-3. Make `check-data-integrity.mjs` run nightly (add to nightly-audit.yml)
+3. Keep `check-data-integrity.mjs` running every 15 minutes via `data-integrity-alerts.yml` and nightly via `nightly-audit.yml`
 4. Add E2E test covering concurrent follow-up close for the same contact
