@@ -163,6 +163,10 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ROUTE_LABEL: follow_ups:data-integrity
+          DEPLOY_SHA: ${{ github.sha }}
+          REGION: us-west
+          CORRELATION_ID_SAMPLE: gha-${{ github.run_id }}-${{ github.run_attempt }}
           CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
           PERSISTED_CLOSED_DRIFT: ${{ steps.drift-state.outputs.persisted_closed_contact_drift }}
           CLOSED_DRIFT_ELAPSED_SECONDS: ${{ steps.drift-state.outputs.closed_contact_drift_elapsed_seconds }}
@@ -171,6 +175,8 @@ jobs:
           SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
           TOTAL_ANOMALIES: ${{ steps.integrity.outputs.total_anomalies }}
         run: |
+          region="${REGION:-unknown}"
+
           severity="Sev-3"
           if [ "$PERSISTED_CLOSED_DRIFT" = "true" ]; then
             severity="Sev-2"
@@ -185,6 +191,10 @@ jobs:
             --arg subscription "$SUBSCRIPTION_DRIFT" \
             --arg closedPersisted "$PERSISTED_CLOSED_DRIFT" \
             --arg elapsedSeconds "$CLOSED_DRIFT_ELAPSED_SECONDS" \
+            --arg route "$ROUTE_LABEL" \
+            --arg deploySha "$DEPLOY_SHA" \
+            --arg region "$region" \
+            --arg correlation "$CORRELATION_ID_SAMPLE" \
             --arg runUrl "$RUN_URL" \
             '{
               text: "Data integrity anomaly detected",
@@ -200,7 +210,7 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: ("*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
+                    text: ("*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n\n*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
                   }
                 }
               ]
@@ -222,9 +232,19 @@ jobs:
         if: failure()
         env:
           SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+          ROUTE_LABEL: follow_ups:data-integrity
+          DEPLOY_SHA: ${{ github.sha }}
+          REGION: us-west
+          CORRELATION_ID_SAMPLE: gha-${{ github.run_id }}-${{ github.run_attempt }}
         run: |
+          region="${REGION:-unknown}"
+
           payload=$(jq -n \
             --arg runUrl "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg route "$ROUTE_LABEL" \
+            --arg deploySha "$DEPLOY_SHA" \
+            --arg region "$region" \
+            --arg correlation "$CORRELATION_ID_SAMPLE" \
             '{
               text: "Data integrity alert workflow failed",
               blocks: [
@@ -232,7 +252,7 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: ("*Data Integrity Alert Workflow Failure*\nThe scheduled integrity detector failed before producing a stable result.\n<" + $runUrl + "|Open workflow run>")
+                    text: ("*Data Integrity Alert Workflow Failure*\nThe scheduled integrity detector failed before producing a stable result.\n\n*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n<" + $runUrl + "|Open workflow run>")
                   }
                 }
               ]
