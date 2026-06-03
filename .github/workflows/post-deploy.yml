@@ -29,9 +29,9 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -48,10 +48,19 @@ jobs:
           sleep 30
 
       - name: Verify EMI smoke credentials are configured
+        id: emi_creds
         env:
           EMI_AUTOMATION_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
           EMI_AUTOMATION_SERVICE_USER_ID: ${{ secrets['EMI_AUTOMATION_SERVICE_USER_ID'] }}
         run: |
+          if [ -z "$EMI_AUTOMATION_SERVICE_TOKEN" ] || [ -z "$EMI_AUTOMATION_SERVICE_USER_ID" ]; then
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              echo "EMI credentials missing on workflow_dispatch; continuing with EMI smoke skipped."
+              echo "ready=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+
           if [ -z "$EMI_AUTOMATION_SERVICE_TOKEN" ]; then
             echo "Missing required secret: EMI_AUTOMATION_SERVICE_TOKEN"
             exit 1
@@ -61,8 +70,11 @@ jobs:
             exit 1
           fi
 
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
       - name: Run EMI post-deploy smoke check
         id: emi_smoke
+        if: steps.emi_creds.outputs.ready == 'true'
         env:
           EMI_SMOKE_BASE_URL: https://startingmonday.app
           EMI_SMOKE_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
@@ -228,7 +240,7 @@ jobs:
 
       - name: Upload post-deploy results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: post-deploy-synthetic-results
           path: |

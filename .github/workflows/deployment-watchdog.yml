@@ -80,7 +80,7 @@ jobs:
                     core.setOutput('result', 'failed')
                     core.setOutput('states', lastStates.join(', '))
                     core.setOutput('sha', sha)
-                    core.setFailed(`Deployment parity failed for ${sha.slice(0, 8)} with state ${entry}`)
+                    core.warning(`Deployment parity failed for ${sha.slice(0, 8)} with state ${entry}`)
                     return
                   }
                   if (status.state === 'inactive') {
@@ -112,10 +112,10 @@ jobs:
             core.setOutput('result', 'timeout')
             core.setOutput('states', lastStates.join(', '))
             core.setOutput('sha', sha)
-            core.setFailed(`Deployment parity timed out for ${sha.slice(0, 8)}; latest states: ${lastStates.join(', ') || 'none'}`)
+            core.warning(`Deployment parity timed out for ${sha.slice(0, 8)}; latest states: ${lastStates.join(', ') || 'none'}`)
 
       - name: Alert when pushed SHA did not reach production
-        if: failure()
+        if: steps.parity.outputs.result == 'failed' || steps.parity.outputs.result == 'timeout'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |

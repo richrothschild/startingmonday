@@ -51,6 +51,7 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
   while (stack.length > 0) {
     const current = stack.pop()!
     const entries = await fs.readdir(current, { withFileTypes: true }).catch(() => [])
+    entries.sort((left, right) => left.name.localeCompare(right.name))
     for (const entry of entries) {
       const fullPath = path.join(current, entry.name)
       if (entry.isDirectory()) stack.push(fullPath)
@@ -145,6 +146,13 @@ async function buildEntries(): Promise<InternalEntry[]> {
     listFilesRecursive(path.join(ROOT, '.github', 'workflows')),
     listFilesRecursive(path.join(ROOT, 'supabase', 'migrations')),
   ])
+
+  appFiles.sort((left, right) => left.localeCompare(right))
+  libFiles.sort((left, right) => left.localeCompare(right))
+  scriptFiles.sort((left, right) => left.localeCompare(right))
+  docFiles.sort((left, right) => left.localeCompare(right))
+  workflowFiles.sort((left, right) => left.localeCompare(right))
+  migrationFiles.sort((left, right) => left.localeCompare(right))
 
   const featureEntries: InternalEntry[] = []
   for (const filePath of appFiles.filter((file) => file.endsWith('/page.tsx') || file.endsWith('\\page.tsx'))) {

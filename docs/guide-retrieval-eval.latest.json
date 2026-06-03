@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-30T13:10:01.823Z",
-  "guideGeneratedAt": "2026-05-30T13:06:30.663Z",
+  "generatedAt": "2026-06-03T02:30:15.115Z",
+  "guideGeneratedAt": "2026-06-03T02:00:34.770Z",
   "thresholdRecallAt3": 0.82,
   "summary": {
     "total": 50,
     "recallAt1": 0.76,
     "recallAt3": 0.82,
-    "recallAt5": 0.88,
+    "recallAt5": 0.86,
     "misses": [
       {
         "question": "Where do I edit positioning summary?",
@@ -91,7 +91,7 @@
         "topUrls": [
           "/mark-review",
           "/mark-review/summary",
-          "/blog/how-cios-find-jobs"
+          "/mark-review/appendix"
         ],
         "expectedAnyOfUrls": [
           "/dashboard/strategy"

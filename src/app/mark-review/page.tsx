@@ -27,6 +27,20 @@ const WHY_DIFFERENT = [
   'Loop closure: follow-up ownership is explicit so momentum does not reset each week.',
 ]
 
+const FLOW_STEPS = [
+  {
+    title: '1. 90-second framing',
+    body: 'Starting Monday is an execution system for executive search. The differentiator is behavior: it turns signal, outreach, prep, and follow-up into a repeatable weekly operating loop.',
+  },
+  {
+    title: '2. Live demos with Michael Torres',
+    body: 'Run the strategy brief first, then run the live interview brief for Michael Torres at Salesforce.',
+  },
+  {
+    title: '3. Show operating view',
+    body: 'Open the prefilled Michael Torres dashboard to show everything in one place: target company context, contacts, actions, and next-step ownership.',
+  },
+]
 export default function MarkReviewPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -58,13 +72,10 @@ export default function MarkReviewPage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Mark meeting flow</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
-            What Starting Monday is
+            Simple walkthrough for today's review
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
-            Starting Monday is a behavior-first executive search operating system that turns signal, outreach, prep, and follow-up into one repeatable weekly execution loop.
-          </p>
-          <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl mt-3">
-            Fundamental problem: senior searches fail when timing is missed and follow-through breaks, even when people are highly qualified.
+            Keep this conversation tight: what Starting Monday is, why it is different, then the Michael Torres strategy brief, interview brief, and dashboard.
           </p>
         </div>
       </header>
@@ -83,6 +94,17 @@ export default function MarkReviewPage() {
             </ul>
           </section>
 
+          <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Simple flow</p>
+            <div className="space-y-4">
+              {FLOW_STEPS.map((step) => (
+                <article key={step.title} className="rounded border border-slate-200 bg-white p-4">
+                  <p className="text-[13px] font-semibold text-slate-900 mb-1.5">{step.title}</p>
+                  <p className="text-[13px] text-slate-700 leading-relaxed">{step.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo buttons</p>
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
