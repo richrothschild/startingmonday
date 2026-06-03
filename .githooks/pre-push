@@ -4,15 +4,22 @@ set -e
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
 
+echo "guide freshness checks..."
+if ! npm run guide:user:check; then
+	echo "user-guide is stale. run: npm run guide:user:sync && git add docs/user-guide.*"
+	exit 1
+fi
+
+if ! npm run guide:internal:check; then
+	echo "internal-guide is stale. run: npm run guide:internal:sync && git add docs/internal-guide.* docs/internal-system-summary.md"
+	exit 1
+fi
+
 echo "growth council gate..."
 npm run growth:council:strict
 
 echo "growth metrics gate..."
 npm run growth:metrics:strict
-
-echo "guide freshness checks..."
-npm run guide:user:check
-npm run guide:internal:check
 
 if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
 	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
