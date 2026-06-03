@@ -46,7 +46,11 @@ async function checkClosedContactDrift() {
   // Contacts in terminal states that still have pending follow_ups
   const { data, error } = await supabase.rpc('check_closed_contact_follow_up_drift').maybeSingle()
 
-  if (error && error.message.includes('function') && error.message.includes('does not exist')) {
+  const rpcMissing =
+    error &&
+    (/does not exist/i.test(error.message) || /could not find the function/i.test(error.message))
+
+  if (rpcMissing) {
     // RPC not available — fall back to a two-query approach
     const { data: contacts, error: ce } = await supabase
       .from('contacts')
@@ -162,7 +166,10 @@ async function checkSubscriptionDrift() {
 
   if (error) {
     // Table may not exist or column name may differ — treat as advisory
-    if (error.message.includes('does not exist')) {
+    const tableMissing =
+      /does not exist/i.test(error.message) || /could not find the table/i.test(error.message)
+
+    if (tableMissing) {
       return { name: 'subscription_drift', count: 0, affected: [], advisory: true }
     }
     throw new Error(`subscription_drift query failed: ${error.message}`)
