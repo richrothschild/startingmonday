@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T13:39:59.744Z",
+  "generatedAt": "2026-06-03T13:57:51.778Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
+      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
     },
     {
       "id": "feature:/login",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T13:11:29.379Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.275Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -9641,7 +9641,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.708Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.277Z"
     },
     {
       "id": "infra:.github/workflows/executive-research-weekly.yml",
@@ -9654,7 +9654,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.709Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.278Z"
     },
     {
       "id": "infra:.github/workflows/fast-burn-alert.yml",
@@ -9680,7 +9680,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.711Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.279Z"
     },
     {
       "id": "infra:.github/workflows/guide-sync.yml",
@@ -9719,7 +9719,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.715Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.281Z"
     },
     {
       "id": "infra:.github/workflows/nightly-audit.yml",
@@ -9745,7 +9745,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.716Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.282Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -9758,7 +9758,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.717Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.282Z"
     },
     {
       "id": "infra:.github/workflows/post-deploy.yml",
@@ -9771,7 +9771,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T03:12:32.222Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.283Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -9797,7 +9797,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.719Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.284Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -9914,7 +9914,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.606Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.288Z"
     },
     {
       "id": "infra:.github/workflows/weekly-growth-metrics.yml",
@@ -9927,7 +9927,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.725Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.288Z"
     },
     {
       "id": "infra:.github/workflows/weekly-mobile-ux.yml",
@@ -9940,7 +9940,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.608Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.289Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -9953,7 +9953,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.609Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.290Z"
     },
     {
       "id": "data:supabase/migrations/001_initial_schema.sql",
@@ -15086,7 +15086,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
+      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15125,7 +15125,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
+      "lastModifiedAt": "2026-06-03T13:39:59.758Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
