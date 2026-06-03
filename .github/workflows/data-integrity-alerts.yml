@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: read
 
 jobs:
@@ -82,19 +83,96 @@ jobs:
           name: data-integrity-report
           path: integrity-report.json
 
+      - name: Restore drift persistence state
+        id: drift-state-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .github/tmp/data-integrity-state.json
+          key: data-integrity-drift-state-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            data-integrity-drift-state-${{ github.ref_name }}-
+
+      - name: Evaluate drift persistence window
+        id: drift-state
+        env:
+          CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
+          DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
+          INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
+          SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+        run: |
+          mkdir -p .github/tmp
+
+          state_file=.github/tmp/data-integrity-state.json
+          now_epoch=$(date +%s)
+          threshold_seconds=900
+
+          previous_start=""
+          if [ -f "$state_file" ]; then
+            previous_start=$(jq -r '.closed_contact_drift_started_at // empty' "$state_file")
+          fi
+
+          current_start=""
+          persisted_closed_drift="false"
+          elapsed_seconds=0
+
+          if [ "$CLOSED_CONTACT_DRIFT" != "0" ]; then
+            if [ -n "$previous_start" ]; then
+              current_start="$previous_start"
+            else
+              current_start="$now_epoch"
+            fi
+
+            elapsed_seconds=$((now_epoch - current_start))
+            if [ "$elapsed_seconds" -ge "$threshold_seconds" ]; then
+              persisted_closed_drift="true"
+            fi
+          fi
+
+          should_alert="false"
+          if [ "$persisted_closed_drift" = "true" ] || [ "$DUPLICATE_PENDING" != "0" ] || [ "$INVALID_STATUS" != "0" ] || [ "$SUBSCRIPTION_DRIFT" != "0" ]; then
+            should_alert="true"
+          fi
+
+          jq -n \
+            --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg startedAt "$current_start" \
+            --arg closedCount "$CLOSED_CONTACT_DRIFT" \
+            --arg persisted "$persisted_closed_drift" \
+            --arg elapsedSeconds "$elapsed_seconds" \
+            '{
+              updated_at: $now,
+              closed_contact_drift_started_at: (if $startedAt == "" then null else ($startedAt | tonumber) end),
+              closed_contact_drift_count: ($closedCount | tonumber),
+              closed_contact_drift_persisted: ($persisted == "true"),
+              closed_contact_drift_elapsed_seconds: ($elapsedSeconds | tonumber)
+            }' > "$state_file"
+
+          echo "persisted_closed_contact_drift=$persisted_closed_drift" >> "$GITHUB_OUTPUT"
+          echo "closed_contact_drift_elapsed_seconds=$elapsed_seconds" >> "$GITHUB_OUTPUT"
+          echo "should_alert=$should_alert" >> "$GITHUB_OUTPUT"
+
+      - name: Save drift persistence state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .github/tmp/data-integrity-state.json
+          key: data-integrity-drift-state-${{ github.ref_name }}-${{ github.run_id }}
+
       - name: Send Slack alert on data integrity anomalies
-        if: steps.integrity.outputs.total_anomalies != '0'
+        if: steps.drift-state.outputs.should_alert == 'true'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
+          PERSISTED_CLOSED_DRIFT: ${{ steps.drift-state.outputs.persisted_closed_contact_drift }}
+          CLOSED_DRIFT_ELAPSED_SECONDS: ${{ steps.drift-state.outputs.closed_contact_drift_elapsed_seconds }}
           DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
           INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
           SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
           TOTAL_ANOMALIES: ${{ steps.integrity.outputs.total_anomalies }}
         run: |
           severity="Sev-3"
-          if [ "$CLOSED_CONTACT_DRIFT" != "0" ]; then
+          if [ "$PERSISTED_CLOSED_DRIFT" = "true" ]; then
             severity="Sev-2"
           fi
 
@@ -105,6 +183,8 @@ jobs:
             --arg duplicate "$DUPLICATE_PENDING" \
             --arg invalid "$INVALID_STATUS" \
             --arg subscription "$SUBSCRIPTION_DRIFT" \
+            --arg closedPersisted "$PERSISTED_CLOSED_DRIFT" \
+            --arg elapsedSeconds "$CLOSED_DRIFT_ELAPSED_SECONDS" \
             --arg runUrl "$RUN_URL" \
             '{
               text: "Data integrity anomaly detected",
@@ -120,7 +200,7 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: ("*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
+                    text: ("*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
                   }
                 }
               ]
