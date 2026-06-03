@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T17:02:34.070Z",
+  "generatedAt": "2026-06-03T17:31:35.754Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
+      "lastModifiedAt": "2026-06-03T17:02:34.084Z"
     },
     {
       "id": "feature:/login",
@@ -684,7 +684,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-03T01:43:07.379Z"
+      "lastModifiedAt": "2026-06-03T17:30:43.949Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -2569,7 +2569,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T16:47:40.848Z"
+      "lastModifiedAt": "2026-06-03T17:29:25.135Z"
     },
     {
       "id": "api:/api/admin/automation/billing/refund-workflow-triggers",
@@ -8913,7 +8913,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T16:46:31.754Z"
+      "lastModifiedAt": "2026-06-03T17:29:25.136Z"
     },
     {
       "id": "script:scripts/fix-outreach-signature-csv.mjs",
@@ -9628,7 +9628,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T16:46:01.586Z"
+      "lastModifiedAt": "2026-06-03T17:29:25.134Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -14307,7 +14307,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T17:01:55.045Z"
+      "lastModifiedAt": "2026-06-03T17:29:25.136Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -15165,7 +15165,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
+      "lastModifiedAt": "2026-06-03T17:02:34.084Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15204,7 +15204,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
+      "lastModifiedAt": "2026-06-03T17:02:34.084Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18129,7 +18129,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T16:48:10.477Z"
+      "lastModifiedAt": "2026-06-03T17:31:33.394Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
