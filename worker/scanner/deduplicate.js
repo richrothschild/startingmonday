@@ -1,3 +1,5 @@
+import { logger } from '../lib/logger.js'
+
 const RESCAN_WINDOW_HOURS = 48;
 
 // Returns true if this company was successfully scanned within the rescan window.
@@ -15,7 +17,7 @@ export async function wasRecentlyScanned(supabase, companyId) {
     .limit(1)
 
   if (error) {
-    console.error(`[deduplicate] DB error: ${error.message}`)
+    logger.error('deduplicate: DB query failed', { companyId, error: error.message })
     return false
   }
 
