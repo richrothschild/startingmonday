@@ -15,6 +15,7 @@ jobs:
   predeploy-gates:
     name: Predeploy gates (lint, typecheck, build, smoke)
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v5
@@ -276,6 +277,7 @@ jobs:
   lighthouse-mobile-budgets:
     name: Lighthouse mobile budgets
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
@@ -306,6 +308,7 @@ jobs:
   pre-prod-gate:
     name: Pre-production synthetic gate
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     # Only gate on main/staging pushes that will trigger a deploy.
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
     needs: [predeploy-gates, first-value-synthetic-gate]
@@ -356,6 +359,7 @@ jobs:
   semgrep:
     name: Semgrep security scan
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # Non-blocking: findings are reviewed manually, not used as a deploy gate.
     continue-on-error: true
     # Run on PRs and main pushes; skip dependabot to avoid noise
