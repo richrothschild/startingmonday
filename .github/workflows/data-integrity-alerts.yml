@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Validate required secrets
@@ -61,13 +61,13 @@ jobs:
           fi
 
           jq -r '
-            def countFor($name): ((.results[] | select(.name == $name) | .count) // 0);
+            def countFor($name): (([.results[]? | select(.name == $name) | .count][0]) // 0);
             "clean=\(.clean // false)",
             "total_anomalies=\(.total_anomalies // 0)",
-            "closed_contact_drift=\(countFor(\"closed_contact_drift\"))",
-            "duplicate_pending_follow_ups=\(countFor(\"duplicate_pending_follow_ups\"))",
-            "invalid_follow_up_status=\(countFor(\"invalid_follow_up_status\"))",
-            "subscription_drift=\(countFor(\"subscription_drift\"))"
+            "closed_contact_drift=\(countFor("closed_contact_drift"))",
+            "duplicate_pending_follow_ups=\(countFor("duplicate_pending_follow_ups"))",
+            "invalid_follow_up_status=\(countFor("invalid_follow_up_status"))",
+            "subscription_drift=\(countFor("subscription_drift"))"
           ' integrity-report.json >> "$GITHUB_OUTPUT"
 
           if [ "$status" -gt 1 ]; then
