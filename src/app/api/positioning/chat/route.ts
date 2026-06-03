@@ -2,6 +2,7 @@
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 import type Anthropic from '@anthropic-ai/sdk'
 
 type Context = {
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
           }
         }
       } catch (err) {
+        recordTraceError({ feature: 'positioning_chat', userId, error: err instanceof Error ? err.message : String(err) })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'positioning_chat', userId })))
       } finally {
         controller.close()

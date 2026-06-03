@@ -5,7 +5,7 @@ import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { recordTrace } from '@/lib/trace'
+import { recordTrace, recordTraceError } from '@/lib/trace'
 
 type Recruiter = { name: string; focus: string }
 type SuggestionsResult = { companies: string[]; recruiters: Recruiter[] }
@@ -93,7 +93,8 @@ Return only the JSON object. No explanation. No markdown fences.`
       companies: Array.isArray(parsed.companies) ? parsed.companies.slice(0, 8) : [],
       recruiters: Array.isArray(parsed.recruiters) ? parsed.recruiters.slice(0, 6) : [],
     })
-  } catch {
+  } catch (err) {
+    recordTraceError({ feature: 'suggestions', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json({ companies: [], recruiters: [] })
   }
 }
