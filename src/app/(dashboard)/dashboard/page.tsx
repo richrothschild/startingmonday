@@ -20,6 +20,9 @@ import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyM
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { DashboardDisclosureSection } from './dashboard-disclosure-section'
+import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
+import { DashboardPathWelcomeCard } from './dashboard-path-welcome-card'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -81,9 +84,9 @@ type CompanyRow = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string }>
 }) {
-  const { q, stage, page: pageParam, profile_saved } = await searchParams
+  const { q, stage, page: pageParam, profile_saved, focus } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -704,67 +707,12 @@ export default async function DashboardPage({
           </p>
         </div>
 
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
-            <a href="#quick-access" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick access</a>
-            <a href="#start-here" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
-            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
-            <a href="#pipeline-pulse" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
-          </div>
-        </section>
-
-        <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</h2>
-            <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Briefing
-            </Link>
-            {canUseOutreachHub && (
-              <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-                Outreach
-              </Link>
-            )}
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-                Admin
-              </Link>
-            )}
-          </div>
-        </section>
-
-        <section id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-          <div className="flex-1 min-w-0">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
-            <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
-            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">
-              {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
-            </p>
-          </div>
-          <div className="flex flex-col w-full sm:w-auto sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <Link
-              href="/dashboard/briefing"
-              className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
-            >
-              Open briefing
-            </Link>
-            <Link
-              href="/dashboard/calendar"
-              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
-            >
-              View due today
-            </Link>
-            <Link
-              href="/guide"
-              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
-            >
-              Open guide
-            </Link>
-          </div>
-        </section>
+        <DashboardPrimaryNavSections
+          signalCount={signalCount}
+          overdueCount={overdueCount}
+          canUseOutreachHub={canUseOutreachHub}
+          isRothschildAdmin={isRothschildAdmin}
+        />
 
         <DailyMomentumPlan
           actions={dailyMomentumActions}
@@ -866,12 +814,11 @@ export default async function DashboardPage({
           </div>
         )}
 
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Profile and intelligence modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
+        <DashboardDisclosureSection
+          id="profile-modules"
+          title="Profile and intelligence modules"
+          defaultOpen={focus === 'profile'}
+        >
 
         {/* Profile completeness score */}
         {profileScore < 100 && (
@@ -1043,70 +990,48 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
-          </div>
-        </details>
+        </DashboardDisclosureSection>
 
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
-          <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Do one focused action today. Consistency beats scattered effort.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add the first company you want to work for &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              You can come back for the rest. The system will be here.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="nurture-welcome"
+            eyebrow="Your search starts here"
+            title="You don't have to have it all figured out today."
+            body="Do one focused action today. Consistency beats scattered effort."
+            prompt="One thing to do right now:"
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add the first company you want to work for ->"
+            footer="You can come back for the rest. The system will be here."
+          />
         )}
 
         {/* Campaign path welcome � first 7 days, empty pipeline */}
         {showCampaignWelcome && (
-          <section id="campaign-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executive roles are filled through relationships before posting. Start tracking target companies early.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add your first target company &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career URLs as you go.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="campaign-welcome"
+            eyebrow="Campaign mode"
+            title="Your target list is the campaign."
+            body="Most executive roles are filled through relationships before posting. Start tracking target companies early."
+            prompt="Start here: add the companies you already have a relationship or contact at."
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add your first target company ->"
+            footer="Aim for 10 to 15 companies. Add career URLs as you go."
+          />
         )}
 
         {/* Watcher path welcome � first 7 days, empty pipeline */}
         {showWatcherWelcome && (
-          <section id="watcher-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Stay ready by tracking the right companies before you need to move.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add a company to watch &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              No pressure to act now. You will know when timing shifts.
-            </p>
-          </section>
+          <DashboardPathWelcomeCard
+            id="watcher-welcome"
+            eyebrow="Market intelligence"
+            title="You don't have to be searching to stay ready."
+            body="Stay ready by tracking the right companies before you need to move."
+            prompt="Add the companies you would say yes to and let the platform do the watching."
+            ctaHref="/dashboard/companies/new"
+            ctaLabel="Add a company to watch ->"
+            footer="No pressure to act now. You will know when timing shifts."
+          />
         )}
 
         {/* Persistent Next Best Action Prompt */}
@@ -1132,12 +1057,11 @@ export default async function DashboardPage({
           />
         )}
 
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly performance and advanced modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
+        <DashboardDisclosureSection
+          id="advanced-modules"
+          title="Weekly performance and advanced modules"
+          defaultOpen={focus === 'advanced'}
+        >
 
         {/* Weekly commitment device */}
         {(() => {
@@ -1348,8 +1272,7 @@ export default async function DashboardPage({
           </section>
         )}
 
-          </div>
-        </details>
+        </DashboardDisclosureSection>
 
         {/* Pipeline */}
         <DashboardPipelineSection
