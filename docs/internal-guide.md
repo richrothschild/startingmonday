@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T13:23:39.427Z
+Last generated: 2026-06-03T13:27:45.693Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -572,8 +572,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/prospect-news.ts | src/lib/prospect-news.ts | export type NewsItem = {
 - Code src/lib/public-endpoint-guard.test.ts | src/lib/public-endpoint-guard.test.ts | import { NextRequest } from 'next/server'
 - Code src/lib/public-endpoint-guard.ts | src/lib/public-endpoint-guard.ts | export function getClientIp(request: NextRequest): string {
-- Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function checkRateLimit(
+- Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { afterEach, describe, expect, it, vi } from 'vitest'
+- Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function __resetRateLimitBucketsForTests() {
 - Code src/lib/relationship-infrastructure.test.ts | src/lib/relationship-infrastructure.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-infrastructure.ts | src/lib/relationship-infrastructure.ts | export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'
 - Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
