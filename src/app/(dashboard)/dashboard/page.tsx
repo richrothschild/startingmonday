@@ -6,9 +6,7 @@ import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
 import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
-import { SuggestionCards } from '@/components/SuggestionCards'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
-import { SearchControlsPanel } from '@/components/SearchControlsPanel'
 import { CmdKButton } from '@/components/CmdKButton'
 import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
 import { markPlaced } from './placed/actions'
@@ -17,15 +15,13 @@ import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
 import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
-import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
 import { DashboardDisclosureSection } from './dashboard-disclosure-section'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
-import { DashboardWeeklyPerformanceSection } from './dashboard-weekly-performance-section'
-import { DashboardPipelinePulse } from './dashboard-pipeline-pulse'
 import { DashboardStatusBanners } from './dashboard-status-banners'
 import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelligence-section'
 import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
+import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -786,9 +782,8 @@ export default async function DashboardPage({
           title="Weekly performance and advanced modules"
           defaultOpen={focus === 'advanced'}
         >
-
         {/* Mobile contract anchor: grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 */}
-        <DashboardWeeklyPerformanceSection
+        <DashboardAdvancedModulesSection
           weeklyGoal={profile?.weekly_goal ?? null}
           outreachThisWeek={outreachThisWeek ?? 0}
           onSaveWeeklyGoal={saveWeeklyGoal}
@@ -797,29 +792,18 @@ export default async function DashboardPage({
           weekSlots={weekSlots}
           velocityRows={velocityRows}
           isCoach={isCoach}
-        />
-
-        <SearchControlsPanel
           initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
           initialBriefingTime={profile?.briefing_time ?? null}
           isPaused={userRow?.subscription_status === 'paused'}
-        />
-
-        <DashboardIntelSetupSections
           todayISO={todayISO}
           followUps={(followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>}
           warmPaths={warmPaths}
           patternAlerts={patternAlerts}
           signals={signals}
-          activation={{ isComplete: activation.isComplete }}
+          activationComplete={activation.isComplete}
           hasFilters={hasFilters}
           setupSteps={setupSteps}
-        />
-
-        {/* Suggestions - shown until dismissed or pipeline grows */}
-        {totalCount < 5 && !hasFilters && <SuggestionCards />}
-
-        <DashboardPipelinePulse
+          totalCount={totalCount}
           isExecutive={isExecutive}
           signalCount={signalCount}
           draftReadyCount={draftReadyCount ?? 0}
