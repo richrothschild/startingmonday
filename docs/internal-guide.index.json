@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T15:15:20.021Z",
+  "generatedAt": "2026-06-03T15:28:16.803Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
     },
     {
       "id": "feature:/login",
@@ -8367,7 +8367,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T15:09:03.507Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
       "id": "script:scripts/check-dependency-policy.mjs",
@@ -9602,7 +9602,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T15:15:08.426Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.771Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -15099,7 +15099,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15138,7 +15138,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16568,7 +16568,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:00:46.493Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
       "id": "doc:docs/sre/runbook-templates.md",
@@ -16646,7 +16646,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:00:46.461Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
       "id": "doc:docs/sre/runbooks/postmortem-template.md",
