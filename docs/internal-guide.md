@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T13:34:03.314Z
+Last generated: 2026-06-03T13:39:59.744Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -898,7 +898,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/125_admin_shared_workspaces.sql | supabase/migrations/125_admin_shared_workspaces.sql | create table if not exists public.admin_shared_workspaces (
 - Migration supabase/migrations/126_scan_failures_dead_letter.sql | supabase/migrations/126_scan_failures_dead_letter.sql | create table if not exists public.scan_failures (
 
-## Documentation (493)
+## Documentation (494)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1089,6 +1089,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | 123_onboarding_video_webhook_events rollback
 - Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md | docs/development/migration-rollbacks/124_guide_chat_analytics.md | 124_guide_chat_analytics rollback
 - Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
+- Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | 126_scan_failures_dead_letter rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation

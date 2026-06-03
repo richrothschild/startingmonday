@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T13:34:03.314Z",
+  "generatedAt": "2026-06-03T13:39:59.744Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T13:31:42.389Z"
+      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
     },
     {
       "id": "feature:/login",
@@ -14218,6 +14218,19 @@
       "lastModifiedAt": "2026-06-03T01:43:07.367Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "title": "Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "body": "126_scan_failures_dead_letter rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T13:39:28.404Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -15073,7 +15086,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:31:42.389Z"
+      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15112,7 +15125,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T13:31:42.389Z"
+      "lastModifiedAt": "2026-06-03T13:34:03.328Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
