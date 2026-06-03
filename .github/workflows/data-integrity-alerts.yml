@@ -49,7 +49,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets['SUPABASE_SERVICE_ROLE_KEY'] }}
         run: |
           set +e
-          npm run integrity:check:json > integrity-report.json
+          node scripts/check-data-integrity.mjs --json > integrity-report.json
           status=$?
           set -e
 
