@@ -1,3 +1,5 @@
+import { logger } from '../lib/logger.js'
+
 const BROWSERLESS_URL = 'https://production-sfo.browserless.io/chromium/content'
 
 // Block private/internal addresses to prevent SSRF attacks.
@@ -66,7 +68,7 @@ export async function fetchPage(url) {
       const html = await res.text()
       // Substantial content means the page isn't just a JS shell — use it.
       if (html.length > 2000) {
-        console.log(`[fetch-page] plain fetch: ${html.length} chars — skipping Browserless`)
+        logger.info('fetch-page: plain fetch used', { url, htmlLength: html.length })
         return html
       }
     }
@@ -74,12 +76,12 @@ export async function fetchPage(url) {
   } catch (err) {
     if (err.blocked) throw err  // BlockedError: propagate immediately, skip Browserless
     // Other error (timeout, ENOTFOUND, etc.) — try Browserless
-    console.log(`[fetch-page] plain fetch failed (${err.message}) — trying Browserless`)
+    logger.warn('fetch-page: plain fetch failed, trying browserless', { url, error: err.message })
   }
 
   // Step 2: Browserless
   if (!apiKey) {
-    console.warn('[fetch-page] No BROWSERLESS_API_KEY — skipping Browserless')
+    logger.warn('fetch-page: browserless key missing', { url })
     throw new Error('No BROWSERLESS_API_KEY configured')
   }
 
