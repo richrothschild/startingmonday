@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T15:28:16.803Z",
+  "generatedAt": "2026-06-03T15:35:33.810Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
+      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
     },
     {
       "id": "feature:/login",
@@ -5676,7 +5676,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-28T02:05:48.192Z"
+      "lastModifiedAt": "2026-06-03T15:33:49.270Z"
     },
     {
       "id": "code:src/lib/__tests__/prep-context.test.ts",
@@ -5741,7 +5741,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-25T14:50:19.351Z"
+      "lastModifiedAt": "2026-06-03T15:33:49.375Z"
     },
     {
       "id": "code:src/lib/__tests__/subscription.test.ts",
@@ -11761,6 +11761,20 @@
       "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
+      "id": "data:supabase/migrations/127_stripe_webhook_events.sql",
+      "title": "Migration supabase/migrations/127_stripe_webhook_events.sql",
+      "body": "create table if not exists public.stripe_webhook_events (",
+      "type": "data",
+      "ref": "supabase/migrations/127_stripe_webhook_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T15:33:49.380Z"
+    },
+    {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "title": "Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "body": "Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)",
@@ -15099,7 +15113,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
+      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15138,7 +15152,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:15:20.034Z"
+      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16568,7 +16582,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
+      "lastModifiedAt": "2026-06-03T15:34:12.772Z"
     },
     {
       "id": "doc:docs/sre/runbook-templates.md",
@@ -18063,7 +18077,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T14:07:41.337Z"
+      "lastModifiedAt": "2026-06-03T15:35:10.133Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
