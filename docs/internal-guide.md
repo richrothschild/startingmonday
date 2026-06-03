@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T15:35:33.810Z
+Last generated: 2026-06-03T16:40:52.981Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -627,7 +627,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (108)
+## Internal Scripts (109)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -641,6 +641,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/bulk-council-remediate.mjs | scripts/bulk-council-remediate.mjs | #!/usr/bin/env node
 - Script scripts/check-api-guards.mjs | scripts/check-api-guards.mjs | #!/usr/bin/env node
 - Script scripts/check-auth.mjs | scripts/check-auth.mjs | import fs from 'node:fs'
+- Script scripts/check-billing-readiness.mjs | scripts/check-billing-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-clean-worktree-for-push.mjs | scripts/check-clean-worktree-for-push.mjs | #!/usr/bin/env node
 - Script scripts/check-data-integrity.mjs | scripts/check-data-integrity.mjs | ---------------------------------------------------------------------------
 - Script scripts/check-dependency-policy.mjs | scripts/check-dependency-policy.mjs | Stable release is greater than prerelease for same major/minor/patch.

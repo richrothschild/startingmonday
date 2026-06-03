@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T15:35:33.810Z",
+  "generatedAt": "2026-06-03T16:40:52.981Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
+      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
     },
     {
       "id": "feature:/login",
@@ -8344,6 +8344,19 @@
       "lastModifiedAt": "2026-05-31T19:11:52.017Z"
     },
     {
+      "id": "script:scripts/check-billing-readiness.mjs",
+      "title": "Script scripts/check-billing-readiness.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-billing-readiness.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T16:40:20.643Z"
+    },
+    {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
       "title": "Script scripts/check-clean-worktree-for-push.mjs",
       "body": "#!/usr/bin/env node",
@@ -15113,7 +15126,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
+      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15152,7 +15165,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:28:16.817Z"
+      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
