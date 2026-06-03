@@ -101,7 +101,7 @@ jobs:
 
       - name: Upload unified audit artifacts
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: weekly-unified-audit
           path: |

@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: weekly-mobile-ux-playwright-report
           path: playwright-report/
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload mobile route coverage report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: weekly-mobile-route-coverage
           path: |

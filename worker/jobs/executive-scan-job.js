@@ -2,6 +2,7 @@ import { getSupabase } from '../lib/supabase.js'
 import { logger } from '../lib/logger.js'
 import { trackUsage } from '../lib/usage-tracker.js'
 import { createLimiter } from '../lib/concurrency.js'
+import { writeScanFailureDeadLetter } from '../lib/scan-dead-letter.js'
 import { scanCompany } from '../scanner/scan-company.js'
 import { sendRoleFitAlert } from '../lib/signal-alert.js'
 
@@ -117,6 +118,13 @@ export async function runExecutiveScanJob() {
           company_id: company.id,
           company_name: company.name,
           user_id: company.user_id,
+          error: msg,
+        })
+        await writeScanFailureDeadLetter(supabase, {
+          jobName: 'executive-scan-job',
+          userId: company.user_id,
+          companyId: company.id,
+          companyName: company.name,
           error: msg,
         })
       }

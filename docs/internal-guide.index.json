@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T03:14:35.620Z",
+  "generatedAt": "2026-06-03T14:08:10.361Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "feature:/login",
@@ -474,7 +474,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T15:57:33.040Z"
+      "lastModifiedAt": "2026-06-03T14:06:43.689Z"
     },
     {
       "id": "feature:/dashboard/calendar",
@@ -3557,7 +3557,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-24T16:53:26.552Z"
+      "lastModifiedAt": "2026-06-03T03:36:23.206Z"
     },
     {
       "id": "api:/api/admin/contacts/enrich",
@@ -4662,7 +4662,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.566Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.391Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -5117,7 +5117,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-11T05:43:09.436Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.897Z"
     },
     {
       "id": "api:/api/outreach/send/batch-status",
@@ -5247,7 +5247,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.589Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.886Z"
     },
     {
       "id": "api:/api/positioning/save",
@@ -5494,7 +5494,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-28T02:05:48.191Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
     },
     {
       "id": "api:/api/search",
@@ -5533,7 +5533,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T11:33:40.071Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.885Z"
     },
     {
       "id": "api:/api/strategy",
@@ -5546,7 +5546,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T11:33:28.457Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.876Z"
     },
     {
       "id": "api:/api/suggestions",
@@ -5559,7 +5559,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T17:42:59.938Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
     },
     {
       "id": "api:/api/tailor/check",
@@ -6417,7 +6417,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T01:44:44.717Z"
+      "lastModifiedAt": "2026-06-03T03:30:21.135Z"
     },
     {
       "id": "code:src/lib/executive-job-search.ts",
@@ -6430,7 +6430,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T01:44:44.718Z"
+      "lastModifiedAt": "2026-06-03T03:30:21.135Z"
     },
     {
       "id": "code:src/lib/executive-research-library.ts",
@@ -7475,7 +7475,7 @@
     {
       "id": "code:src/lib/rate-limit.test.ts",
       "title": "Code src/lib/rate-limit.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { afterEach, describe, expect, it, vi } from 'vitest'",
       "type": "code",
       "ref": "src/lib/rate-limit.test.ts",
       "tags": [
@@ -7483,12 +7483,12 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-24T17:04:25.644Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "code:src/lib/rate-limit.ts",
       "title": "Code src/lib/rate-limit.ts",
-      "body": "export function checkRateLimit(",
+      "body": "export function __resetRateLimitBucketsForTests() {",
       "type": "code",
       "ref": "src/lib/rate-limit.ts",
       "tags": [
@@ -7496,7 +7496,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-31T00:00:17.047Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "code:src/lib/relationship-infrastructure.test.ts",
@@ -7787,7 +7787,7 @@
     {
       "id": "code:src/lib/stream-error.test.ts",
       "title": "Code src/lib/stream-error.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'",
       "type": "code",
       "ref": "src/lib/stream-error.test.ts",
       "tags": [
@@ -7795,7 +7795,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-24T17:04:25.647Z"
+      "lastModifiedAt": "2026-06-03T03:36:34.025Z"
     },
     {
       "id": "code:src/lib/stream-error.ts",
@@ -8073,7 +8073,7 @@
     {
       "id": "code:src/lib/trace.test.ts",
       "title": "Code src/lib/trace.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'",
       "type": "code",
       "ref": "src/lib/trace.test.ts",
       "tags": [
@@ -8081,7 +8081,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-24T17:04:25.650Z"
+      "lastModifiedAt": "2026-06-03T03:36:42.520Z"
     },
     {
       "id": "code:src/lib/trace.ts",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T03:12:17.920Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.280Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -9641,7 +9641,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.708Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.277Z"
     },
     {
       "id": "infra:.github/workflows/executive-research-weekly.yml",
@@ -9654,7 +9654,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.709Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.278Z"
     },
     {
       "id": "infra:.github/workflows/fast-burn-alert.yml",
@@ -9680,7 +9680,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.711Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.279Z"
     },
     {
       "id": "infra:.github/workflows/guide-sync.yml",
@@ -9719,7 +9719,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.715Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.281Z"
     },
     {
       "id": "infra:.github/workflows/nightly-audit.yml",
@@ -9745,7 +9745,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.716Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.282Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -9758,7 +9758,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.717Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.282Z"
     },
     {
       "id": "infra:.github/workflows/post-deploy.yml",
@@ -9771,7 +9771,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T03:12:32.222Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.283Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -9797,7 +9797,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.719Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.284Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -9914,7 +9914,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.606Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.288Z"
     },
     {
       "id": "infra:.github/workflows/weekly-growth-metrics.yml",
@@ -9927,7 +9927,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.725Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.288Z"
     },
     {
       "id": "infra:.github/workflows/weekly-mobile-ux.yml",
@@ -9940,7 +9940,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.608Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.289Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -9953,7 +9953,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.609Z"
+      "lastModifiedAt": "2026-06-03T13:57:04.290Z"
     },
     {
       "id": "data:supabase/migrations/001_initial_schema.sql",
@@ -11732,6 +11732,20 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-02T22:14:25.231Z"
+    },
+    {
+      "id": "data:supabase/migrations/126_scan_failures_dead_letter.sql",
+      "title": "Migration supabase/migrations/126_scan_failures_dead_letter.sql",
+      "body": "create table if not exists public.scan_failures (",
+      "type": "data",
+      "ref": "supabase/migrations/126_scan_failures_dead_letter.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -14204,6 +14218,19 @@
       "lastModifiedAt": "2026-06-03T01:43:07.367Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "title": "Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "body": "126_scan_failures_dead_letter rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/126_scan_failures_dead_letter.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T14:00:56.291Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -14305,7 +14332,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T05:37:47.802Z"
+      "lastModifiedAt": "2026-06-03T14:00:56.285Z"
     },
     {
       "id": "doc:docs/epic-ui-ux-no-disruption-remediation.md",
@@ -15059,7 +15086,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15125,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T13:57:51.789Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18023,7 +18050,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:00:34.774Z"
+      "lastModifiedAt": "2026-06-03T14:07:41.337Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

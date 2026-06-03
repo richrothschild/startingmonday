@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T03:14:35.620Z
+Last generated: 2026-06-03T14:08:10.361Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -572,8 +572,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/prospect-news.ts | src/lib/prospect-news.ts | export type NewsItem = {
 - Code src/lib/public-endpoint-guard.test.ts | src/lib/public-endpoint-guard.test.ts | import { NextRequest } from 'next/server'
 - Code src/lib/public-endpoint-guard.ts | src/lib/public-endpoint-guard.ts | export function getClientIp(request: NextRequest): string {
-- Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function checkRateLimit(
+- Code src/lib/rate-limit.test.ts | src/lib/rate-limit.test.ts | import { afterEach, describe, expect, it, vi } from 'vitest'
+- Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function __resetRateLimitBucketsForTests() {
 - Code src/lib/relationship-infrastructure.test.ts | src/lib/relationship-infrastructure.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-infrastructure.ts | src/lib/relationship-infrastructure.ts | export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'
 - Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
@@ -596,7 +596,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/social-posting-plan.ts | src/lib/social-posting-plan.ts | export type SocialPlan = {
 - Code src/lib/staff.test.ts | src/lib/staff.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/staff.ts | src/lib/staff.ts | export type StaffRole = 'owner' | 'admin' | 'viewer'
-- Code src/lib/stream-error.test.ts | src/lib/stream-error.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/stream-error.test.ts | src/lib/stream-error.test.ts | import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 - Code src/lib/stream-error.ts | src/lib/stream-error.ts | export function streamErrorMessage(err: unknown, context?: { feature?: string; userId?: string }): string {
 - Code src/lib/stripe-customer.test.ts | src/lib/stripe-customer.test.ts | import { beforeEach, describe, expect, it, vi } from 'vitest'
 - Code src/lib/stripe-customer.ts | src/lib/stripe-customer.ts | export async function getOrRecoverStripeCustomerId(userId: string): Promise<string | null> {
@@ -618,7 +618,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/telemetry.ts | src/lib/telemetry.ts | Set once per cold start from Railway / CI environment.
 - Code src/lib/toast.test.tsx | src/lib/toast.test.tsx | import { describe, expect, it } from 'vitest'
 - Code src/lib/toast.tsx | src/lib/toast.tsx | export function ToastProvider({ children }: { children: React.ReactNode }) {
-- Code src/lib/trace.test.ts | src/lib/trace.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/trace.test.ts | src/lib/trace.test.ts | import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 - Code src/lib/trace.ts | src/lib/trace.ts | export function recordTraceError(params: { feature: string; userId: string; model?: string; latencyMs?: number; error: string }): void {
 - Code src/lib/unsubscribe-token.test.ts | src/lib/unsubscribe-token.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/unsubscribe-token.ts | src/lib/unsubscribe-token.ts | export function unsubscribeUrl(userId: string): string {
@@ -768,7 +768,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (127)
+## Data and Migrations (128)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -896,8 +896,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/123_onboarding_video_webhook_events.sql | supabase/migrations/123_onboarding_video_webhook_events.sql | -- Epic A / Task A4:
 - Migration supabase/migrations/124_guide_chat_analytics.sql | supabase/migrations/124_guide_chat_analytics.sql | -- Guide chat analytics and feedback persistence
 - Migration supabase/migrations/125_admin_shared_workspaces.sql | supabase/migrations/125_admin_shared_workspaces.sql | create table if not exists public.admin_shared_workspaces (
+- Migration supabase/migrations/126_scan_failures_dead_letter.sql | supabase/migrations/126_scan_failures_dead_letter.sql | create table if not exists public.scan_failures (
 
-## Documentation (493)
+## Documentation (494)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1088,6 +1089,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | docs/development/migration-rollbacks/123_onboarding_video_webhook_events.md | 123_onboarding_video_webhook_events rollback
 - Doc docs/development/migration-rollbacks/124_guide_chat_analytics.md | docs/development/migration-rollbacks/124_guide_chat_analytics.md | 124_guide_chat_analytics rollback
 - Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
+- Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | 126_scan_failures_dead_letter rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation

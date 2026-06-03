@@ -5,6 +5,7 @@ import { detectRoles } from './detect-roles.js'
 import { scoreHit } from './score-hit.js'
 import { wasRecentlyScanned, getPreviousHitTitles } from './deduplicate.js'
 import { writeScanResult, updateCompanyScanTime, writeScanBlocked, writeScanError, checkAndAlertScanFailures } from './write-results.js'
+import { logger } from '../lib/logger.js'
 
 // Scans one company's career page end-to-end and writes a single scan_results row.
 // Returns { skipped?, blocked?, hits, matches, newHits, error? }
@@ -12,31 +13,31 @@ export async function scanCompany(supabase, company, userProfile) {
   const { id: companyId, user_id: userId, name, career_page_url } = company
 
   if (!career_page_url) {
-    console.log(`[scanner] ${name}: no career_page_url — skipping`)
+    logger.info('scanner: skipping missing career_page_url', { companyId, userId, companyName: name })
     return { skipped: true }
   }
 
   try {
     // 1. Skip if scanned recently
     if (await wasRecentlyScanned(supabase, companyId)) {
-      console.log(`[scanner] ${name}: scanned recently — skipping`)
+      logger.info('scanner: scanned recently, skipping', { companyId, userId, companyName: name })
       return { skipped: true }
     }
 
     // 2. robots.txt check
     if (!(await isAllowedByRobots(career_page_url))) {
-      console.log(`[scanner] ${name}: blocked by robots.txt`)
+      logger.warn('scanner: blocked by robots.txt', { companyId, userId, companyName: name, careerPageUrl: career_page_url })
       return { blocked: true }
     }
 
     // 3. Fetch + extract
-    console.log(`[scanner] ${name}: fetching ${career_page_url}`)
+    logger.info('scanner: fetching career page', { companyId, userId, companyName: name, careerPageUrl: career_page_url })
     const html = await fetchPage(career_page_url)
     const text = extractText(html)
 
     // 4. Detect candidate titles
     const candidates = detectRoles(text, userProfile)
-    console.log(`[scanner] ${name}: ${candidates.length} candidate(s)`)
+    logger.info('scanner: candidates detected', { companyId, userId, companyName: name, candidateCount: candidates.length })
 
     // 5. Score each candidate; flag ones not seen in the previous scan
     const previousTitles = await getPreviousHitTitles(supabase, companyId)
@@ -66,17 +67,17 @@ export async function scanCompany(supabase, company, userProfile) {
     checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
 
     const newMatchTitles = newHits.filter(h => h.is_match).map(h => h.title)
-    console.log(`[scanner] ${name}: done — ${matches.length} match(es), ${newHits.length} new`)
+    logger.info('scanner: scan complete', { companyId, userId, companyName: name, matchCount: matches.length, newHitCount: newHits.length })
     return { hits: scoredHits.length, matches: matches.length, newHits: newHits.length, newMatchTitles }
   } catch (error) {
     if (error instanceof BlockedError) {
-      console.log(`[scanner] ${name}: blocked by site`)
+      logger.warn('scanner: blocked by site', { companyId, userId, companyName: name, error: error.message })
       await writeScanBlocked(supabase, { companyId, userId, message: error.message })
       await updateCompanyScanTime(supabase, companyId)
       checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
       return { blocked: true }
     }
-    console.error(`[scanner] ${name}: failed — ${error.message}`)
+    logger.error('scanner: scan failed', { companyId, userId, companyName: name, error: error.message })
     await writeScanError(supabase, { companyId, userId, error })
     checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
     return { error: error.message }

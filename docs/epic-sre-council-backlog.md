@@ -2,6 +2,28 @@
 
 Issues surfaced by the Software & SRE Synthetic Council review. Grouped into sprints by risk and coupling. The three required changes and the one "stop doing" were shipped in commit ef2cd92 and are not listed here.
 
+## Execution Status (2026-06-03)
+
+### Sprint E1 — Observability Foundation
+- E1.1: complete. `streamErrorMessage` call sites pass feature/user context in AI routes.
+- E1.2: complete. `recordTraceError` is implemented and invoked on AI-route error paths.
+- E1.3: complete. Worker logging is structured via `worker/lib/logger.js` and top-volume jobs now emit structured events.
+
+### Sprint E2 — Test Coverage Floor
+- E2.1: complete. Utility tests exist in `src/lib/__tests__/stream-error.test.ts` and `src/lib/__tests__/trace.test.ts`.
+- E2.2: complete. Conversation cap coverage exists in `src/app/api/conversation/__tests__/route.test.ts`.
+- E2.3: complete. Chat retry E2E exists in `tests/e2e/chat-retry.spec.ts` and is executed in CI.
+
+### Sprint E3 — Reliability Hardening
+- E3.1: complete. Worker jobs execute through timeout-bounded `runJob` in `worker/index.js` with `job_timeout` logging.
+- E3.2: complete. Scan dead-letter persistence added via `supabase/migrations/126_scan_failures_dead_letter.sql` and `worker/lib/scan-dead-letter.js`, wired into scan jobs.
+- E3.3: complete. Playwright suites are first-class CI gates in `.github/workflows/ci.yml`.
+
+### Sprint E4 — Production Safety
+- E4.1: complete. Staging flow is active via `staging` branch CI coverage and `.github/workflows/sync-staging.yml`.
+- E4.2: complete. `llm_traces.success` migration is present in `supabase/migrations/074_llm_traces_add_success.sql` and writes are in `src/lib/trace.ts`.
+- E4.3: complete. Chat per-user rate limiting with 429 + `Retry-After` is in `src/app/api/chat/route.ts` and validated by tests in `src/lib/rate-limit.test.ts` and `src/app/api/chat/route.test.ts`.
+
 ---
 
 ## Sprint E1 — Observability Foundation

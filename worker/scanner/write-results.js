@@ -25,7 +25,7 @@ export async function updateCompanyScanTime(supabase, companyId) {
     .from('companies')
     .update({ last_checked_at: new Date().toISOString() })
     .eq('id', companyId)
-  if (error) console.error(`[write-results] Failed to update last_checked_at: ${error.message}`)
+  if (error) logger.error('write-results: failed to update last_checked_at', { companyId, error: error.message })
 }
 
 export async function writeScanBlocked(supabase, { companyId, userId, message }) {

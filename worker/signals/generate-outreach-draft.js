@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { logger } from '../lib/logger.js'
 
 let _client = null
 function getClient() {
@@ -58,7 +59,7 @@ JSON only. No markdown.`
     if (!parsed.subject || !parsed.body) return null
     return { subject: parsed.subject, body: parsed.body }
   } catch (err) {
-    console.error(`[generate-outreach-draft] failed for ${companyName}: ${err.message}`)
+    logger.error('generate-outreach-draft: failed', { companyName, error: err.message })
     return null
   }
 }
