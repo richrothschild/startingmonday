@@ -7,7 +7,6 @@ import { getActivationStatus } from '@/lib/activation'
 import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
 import { SuggestionCards } from '@/components/SuggestionCards'
-import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { SearchControlsPanel } from '@/components/SearchControlsPanel'
 import { CmdKButton } from '@/components/CmdKButton'
@@ -22,11 +21,11 @@ import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
 import { DashboardDisclosureSection } from './dashboard-disclosure-section'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
-import { DashboardPathWelcomeCard } from './dashboard-path-welcome-card'
 import { DashboardWeeklyPerformanceSection } from './dashboard-weekly-performance-section'
 import { DashboardPipelinePulse } from './dashboard-pipeline-pulse'
 import { DashboardStatusBanners } from './dashboard-status-banners'
 import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelligence-section'
+import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -774,70 +773,13 @@ export default async function DashboardPage({
 
         </DashboardDisclosureSection>
 
-        {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
-        {showNurtureWelcome && (
-          <DashboardPathWelcomeCard
-            id="nurture-welcome"
-            eyebrow="Your search starts here"
-            title="You don't have to have it all figured out today."
-            body="Do one focused action today. Consistency beats scattered effort."
-            prompt="One thing to do right now:"
-            ctaHref="/dashboard/companies/new"
-            ctaLabel="Add the first company you want to work for ->"
-            footer="You can come back for the rest. The system will be here."
-          />
-        )}
-
-        {/* Campaign path welcome � first 7 days, empty pipeline */}
-        {showCampaignWelcome && (
-          <DashboardPathWelcomeCard
-            id="campaign-welcome"
-            eyebrow="Campaign mode"
-            title="Your target list is the campaign."
-            body="Most executive roles are filled through relationships before posting. Start tracking target companies early."
-            prompt="Start here: add the companies you already have a relationship or contact at."
-            ctaHref="/dashboard/companies/new"
-            ctaLabel="Add your first target company ->"
-            footer="Aim for 10 to 15 companies. Add career URLs as you go."
-          />
-        )}
-
-        {/* Watcher path welcome � first 7 days, empty pipeline */}
-        {showWatcherWelcome && (
-          <DashboardPathWelcomeCard
-            id="watcher-welcome"
-            eyebrow="Market intelligence"
-            title="You don't have to be searching to stay ready."
-            body="Stay ready by tracking the right companies before you need to move."
-            prompt="Add the companies you would say yes to and let the platform do the watching."
-            ctaHref="/dashboard/companies/new"
-            ctaLabel="Add a company to watch ->"
-            footer="No pressure to act now. You will know when timing shifts."
-          />
-        )}
-
-        {/* Persistent Next Best Action Prompt */}
-        {stallNudge ? (
-          <div className="relative">
-            <NextBestActionPrompt action={stallNudge.action} href={stallNudge.href} description={stallNudge.headline + ' ' + stallNudge.body} source="stall_nudge" />
-            <form action={dismissStallNudge} className="absolute top-2 right-2">
-              <button
-                type="submit"
-                className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
-                aria-label="Dismiss"
-              >
-                ?
-              </button>
-            </form>
-          </div>
-        ) : (
-          <NextBestActionPrompt
-            action="Open your daily briefing"
-            href="/dashboard/briefing"
-            description="Start with your daily briefing to see signals, due actions, and your top priorities."
-            source="dashboard_default"
-          />
-        )}
+        <DashboardWelcomeNudgeSection
+          showNurtureWelcome={showNurtureWelcome}
+          showCampaignWelcome={showCampaignWelcome}
+          showWatcherWelcome={showWatcherWelcome}
+          stallNudge={stallNudge}
+          onDismissStallNudge={dismissStallNudge}
+        />
 
         <DashboardDisclosureSection
           id="advanced-modules"
