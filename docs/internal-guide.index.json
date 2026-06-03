@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T13:12:13.409Z",
+  "generatedAt": "2026-06-03T13:23:39.427Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T12:59:58.190Z"
+      "lastModifiedAt": "2026-06-03T13:12:13.420Z"
     },
     {
       "id": "feature:/login",
@@ -11734,6 +11734,20 @@
       "lastModifiedAt": "2026-06-02T22:14:25.231Z"
     },
     {
+      "id": "data:supabase/migrations/126_scan_failures_dead_letter.sql",
+      "title": "Migration supabase/migrations/126_scan_failures_dead_letter.sql",
+      "body": "create table if not exists public.scan_failures (",
+      "type": "data",
+      "ref": "supabase/migrations/126_scan_failures_dead_letter.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T13:22:36.420Z"
+    },
+    {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "title": "Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "body": "Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)",
@@ -15059,7 +15073,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T12:59:58.190Z"
+      "lastModifiedAt": "2026-06-03T13:12:13.420Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15112,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T12:59:58.190Z"
+      "lastModifiedAt": "2026-06-03T13:12:13.420Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
