@@ -51,6 +51,8 @@ export async function GET(request: NextRequest) {
 
   if (!post) return NextResponse.json({ error: 'Failed to prepare post' }, { status: 500 })
 
+  const dryRunMode = process.env.SOCIAL_DRY_RUN_MODE === 'true'
+
   // Skip if already posted
   if (post.is_posted) {
     return NextResponse.json({ ok: true, sent: false, reason: 'Already posted', pillar: post.pillar, dateStr })
@@ -68,7 +70,7 @@ export async function GET(request: NextRequest) {
   }
 
   const requiresApprovedQueue = (process.env.SOCIAL_REQUIRE_APPROVED_QUEUE ?? 'true') !== 'false'
-  if (requiresApprovedQueue && !isApprovedForPublish(post.notes)) {
+  if (!dryRunMode && requiresApprovedQueue && !isApprovedForPublish(post.notes)) {
     return NextResponse.json({
       ok: true,
       sent: false,
@@ -83,7 +85,7 @@ export async function GET(request: NextRequest) {
   const draftHash = hashDraftText((post.draft_text ?? '').trim())
   const emotionalAngle = getNoteToken(post.notes, 'emotional_angle')
 
-  if (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle) {
+  if (!dryRunMode && (!councilPass || !councilHash || councilHash !== draftHash || !emotionalAngle)) {
     return NextResponse.json({
       ok: true,
       sent: false,
@@ -135,18 +137,21 @@ export async function GET(request: NextRequest) {
     // Make.com returned non-JSON or empty body - URN not available, sync will be skipped
   }
 
-  await admin
-    .from('social_posts')
-    .update({
-      is_posted: true,
-      posted_at: new Date().toISOString(),
-      ...(linkedinPostUrn ? { linkedin_post_urn: linkedinPostUrn } : {}),
-    })
-    .eq('id', post.id)
+  if (!dryRunMode) {
+    await admin
+      .from('social_posts')
+      .update({
+        is_posted: true,
+        posted_at: new Date().toISOString(),
+        ...(linkedinPostUrn ? { linkedin_post_urn: linkedinPostUrn } : {}),
+      })
+      .eq('id', post.id)
+  }
 
   console.log(JSON.stringify({
     ts: new Date().toISOString(),
     event: 'social_auto_posted',
+    dryRunMode,
     pillar: plan.pillar,
     pillarLabel: plan.pillarLabel,
     audience: plan.audience,
@@ -159,6 +164,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     sent: true,
+    dryRunMode,
     pillar: plan.pillar,
     pillarLabel: plan.pillarLabel,
     audience: plan.audience,

@@ -3,6 +3,20 @@ import { validateCronRequest } from '@/lib/cron-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { syncGoogleCalendarIntegration } from '@/lib/google-calendar'
 
+function isGoogleCalendarSchemaError(error: unknown): boolean {
+  const code = typeof (error as { code?: unknown })?.code === 'string'
+    ? (error as { code: string }).code
+    : ''
+  const message = typeof (error as { message?: unknown })?.message === 'string'
+    ? (error as { message: string }).message.toLowerCase()
+    : ''
+
+  if (code === '42P01' || code === '42703') return true
+  return message.includes('google_calendar_integrations') && (
+    message.includes('does not exist') || message.includes('column')
+  )
+}
+
 export async function GET(request: NextRequest) {
   if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
@@ -16,6 +30,17 @@ export async function GET(request: NextRequest) {
     .eq('active', true)
 
   if (error) {
+    if (isGoogleCalendarSchemaError(error)) {
+      console.warn('Google Calendar sync skipped: schema unavailable', error)
+      return NextResponse.json({
+        synced: 0,
+        created: 0,
+        updated: 0,
+        errors: 0,
+        skipped: true,
+        reason: 'google_calendar_schema_unavailable',
+      })
+    }
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 

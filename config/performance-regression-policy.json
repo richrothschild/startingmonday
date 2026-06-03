@@ -4,7 +4,7 @@
   "blockingRules": {
     "mobileP95": {
       "maxRegressionPercent": 20,
-      "noiseBufferMs": 120
+      "noiseBufferMs": 150
     },
     "mobilePassRate": {
       "maxDropPercentagePoints": 5

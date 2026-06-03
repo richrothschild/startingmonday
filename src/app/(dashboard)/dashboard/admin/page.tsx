@@ -530,6 +530,7 @@ export default async function AdminPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
+            <Link href="/dashboard/admin/sales-enablement" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 transition-colors">Sales enablement</Link>
             <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
             <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
@@ -552,22 +553,46 @@ export default async function AdminPage() {
               <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
             </p>
           </div>
-          {staff.role === 'owner' && (
-            <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors shrink-0">
-              Manage team
+          <div className="flex items-center gap-2">
+            <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-white bg-slate-900 border border-slate-900 hover:bg-slate-800 px-4 py-2 rounded transition-colors shrink-0">
+              Open sales enablement
             </Link>
-          )}
+            {staff.role === 'owner' && (
+              <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors shrink-0">
+                Manage team
+              </Link>
+            )}
+          </div>
         </div>
 
         <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+            <a href="#control-rooms" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Control rooms</a>
             <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
             <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
             <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
             <a href="#role-path-ranking" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role-path ranking</a>
             <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
             <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+          </div>
+        </section>
+
+        <section id="control-rooms" className="bg-white border border-slate-200 rounded p-5 mb-6">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Control rooms</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px]">
+            <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-slate-900">Sales enablement</p>
+              <p className="text-[12px] text-slate-500 mt-1">Compare proposals, checkpoints, and weighted scorecards.</p>
+            </Link>
+            <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-slate-900">Revenue</p>
+              <p className="text-[12px] text-slate-500 mt-1">Conversion, trial health, and paid growth diagnostics.</p>
+            </Link>
+            <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-slate-900">Operations</p>
+              <p className="text-[12px] text-slate-500 mt-1">Reliability, release quality, and monitoring alerts.</p>
+            </Link>
           </div>
         </section>
 
@@ -901,12 +926,23 @@ export default async function AdminPage() {
 
         <section id="internal-pages" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
-            <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Team and permissions</Link>
-            <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Product ops</Link>
-            <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Operations</Link>
-            <Link href="/dashboard/admin/onboarding/video" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
-            <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-[13px]">
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Go to market</p>
+              <div className="grid grid-cols-1 gap-2">
+                <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Sales enablement control room</Link>
+                <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
+                <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Product ops</Link>
+              </div>
+            </div>
+            <div className="border border-slate-200 rounded p-4">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Platform operations</p>
+              <div className="grid grid-cols-1 gap-2">
+                <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Operations</Link>
+                <Link href="/dashboard/admin/onboarding/video" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
+                <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Team and permissions</Link>
+              </div>
+            </div>
           </div>
         </section>
 

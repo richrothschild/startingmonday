@@ -5,6 +5,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { STRATEGY_SYSTEM } from '@/lib/prompts'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 
 export async function POST(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'strategy_brief')
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(err => Sentry.captureException(err, { extra: { route: 'strategy-followup', userId } }))
       } catch (err) {
+        recordTraceError({ feature: 'strategy_followup', userId, error: err instanceof Error ? err.message : String(err) })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'strategy_followup', userId })))
         controller.close()
       }

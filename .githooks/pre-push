@@ -4,6 +4,17 @@ set -e
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
 
+echo "guide freshness checks..."
+if ! npm run guide:user:check; then
+	echo "user-guide is stale. run: npm run guide:user:sync && git add docs/user-guide.*"
+	exit 1
+fi
+
+if ! npm run guide:internal:check; then
+	echo "internal-guide is stale. run: npm run guide:internal:sync && git add docs/internal-guide.* docs/internal-system-summary.md"
+	exit 1
+fi
+
 echo "growth council gate..."
 npm run growth:council:strict
 

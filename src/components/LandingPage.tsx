@@ -111,6 +111,31 @@ const ROLE_PATH_GROUPS: RolePathGroup[] = [
 
 const ROLE_PATH_CTA_PREFIX = 'footer_role_path_'
 
+const EXECUTIVE_WHY = [
+  'Most executive roles are shaped before formal posting windows.',
+  'Timing and relationship cadence decide outcomes as much as credentials.',
+  'Without a weekly operating loop, even strong candidates become reactive.',
+]
+
+const EXECUTIVE_GETS = [
+  {
+    title: 'Signal intelligence',
+    detail: 'Early movement alerts across target companies.',
+  },
+  {
+    title: 'Relationship rhythm',
+    detail: 'A weekly action cadence so outreach stays intentional.',
+  },
+  {
+    title: 'Narrative control',
+    detail: 'Role-aligned positioning you can reuse across conversations.',
+  },
+  {
+    title: 'Interview readiness',
+    detail: 'Company-specific prep briefs in about a minute.',
+  },
+]
+
 function getRolePathChannel(href: string): Channel {
   if (href.startsWith('/for-search-firms')) return 'search_firms'
   if (href.startsWith('/for-coaches')) return 'coaches'
@@ -119,6 +144,17 @@ function getRolePathChannel(href: string): Channel {
 }
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPageProps) {
+  const quickRolePaths = ROLE_PATH_GROUPS
+    .flatMap(group => group.items)
+    .filter((item): item is RolePathItem & { href: string } => Boolean(item.href))
+    .sort((a, b) => {
+      const orderA = rolePathPriorityByCtaKey?.[a.ctaKey] ?? a.priority
+      const orderB = rolePathPriorityByCtaKey?.[b.ctaKey] ?? b.priority
+      if (orderA !== orderB) return orderA - orderB
+      return a.label.localeCompare(b.label)
+    })
+    .slice(0, 8)
+
   return (
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10">
@@ -154,16 +190,24 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               {hero.body}
             </p>
 
-            <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_transformation_contrast">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Before and after</p>
+            <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-3">
-                  <p className="text-slate-400 mb-1">Reactive executive</p>
-                  <p className="text-white [text-wrap:pretty]">Waits for public postings, sends bursts of outreach, and rebuilds story quality every interview cycle.</p>
+                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                  <p className="text-slate-400">What this is</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">An executive search operating system anchored by one weekly Momentum Signal.</p>
                 </div>
-                <div className="rounded-md border border-emerald-400/40 bg-emerald-950/30 px-3 py-3">
-                  <p className="text-emerald-200 mb-1">Strategic executive</p>
-                  <p className="text-slate-100 [text-wrap:pretty]">Runs an always-on career infrastructure: market pulse, relationship rhythm, and narrative readiness before the market asks.</p>
+                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                  <p className="text-slate-400">Who it is for</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">Senior technology leaders in active or near-term transition.</p>
+                </div>
+                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                  <p className="text-slate-400">Problem it solves</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
+                </div>
+                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                  <p className="text-slate-400">Why now</p>
+                  <p className="text-white mt-1 [text-wrap:pretty]">High-value roles are shaped before formal posting windows appear.</p>
                 </div>
               </div>
             </div>
@@ -172,88 +216,24 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
               Private by default
             </p>
-            <p className="text-sm text-slate-500 mb-8 leading-relaxed [text-wrap:pretty]">
-              Your search is completely private. We never share your identity, targets, or activity. No credit card. No employer access. No recruiter visibility.
+            <p className="text-sm text-slate-500 mb-2 leading-relaxed [text-wrap:pretty]">
+              Your search stays private. We never share your identity, targets, or activity with employers or recruiters.
             </p>
-
-            <div className="mb-8 rounded-lg border border-slate-700 bg-slate-800/70 p-5">
-              <p className="text-xs font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Pick your channel first</p>
-              <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
-                Choose the path that matches your context. Messaging, proof, and next actions adapt to your role.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {CHANNEL_ROUTE_SPECS.map((spec) => (
-                  <TrackLink
-                    key={spec.channel}
-                    href={spec.route}
-                    data-emi-cta={`hero_channel_${spec.channel}`}
-                    data-emi-to={spec.route}
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: spec.channel,
-                      cta_label: 'hero_channel_ia_card',
-                      source_page: '/',
-                    }}
-                    className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
-                  >
-                    <p className="text-[13px] font-semibold text-white">{spec.label}</p>
-                    <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
-                  </TrackLink>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div>
-                <Link
-                  href="/concierge?program=beta&from=landing"
-                  data-emi-cta="hero_apply_beta"
-                  data-emi-to="/concierge?program=beta&from=landing"
-                  className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
-                >
-                  Apply for confidential beta &rarr;
-                </Link>
-                <p className="text-[12px] text-slate-400 mt-2.5">We are selecting 10 beta leaders now. No subscription required during beta.</p>
-              </div>
-              <div>
-                <Link
-                  href="/demo?from=landing"
-                  data-emi-cta="hero_see_demo"
-                  data-emi-to="/demo?from=landing"
-                  className="inline-block text-[14px] font-bold text-white border border-slate-500 px-7 py-3.5 rounded hover:border-slate-300 transition-colors"
-                >
-                  See it in action &rarr;
-                </Link>
-                <p className="text-[12px] text-slate-400 mt-2.5">Live prep brief demo. No signup required.</p>
-              </div>
-            </div>
           </div>
         </section>
 
-        <section id="proof" data-emi-section="proof_block" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
+        <section id="executive-why" data-emi-section="executive_why_block" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-18 border-b border-slate-700">
           <div className="max-w-5xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Proof and credibility</p>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_transformation_testimonial_1">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Transformation outcome</p>
-                <p className="text-[13px] text-slate-200 leading-relaxed">
-                  "I stopped treating my career like a rescue project. In six weeks, I moved from reactive outreach to a weekly operating cadence with deliberate board-level conversations."
-                </p>
-                <p className="text-[12px] text-slate-400 mt-3">CIO candidate, enterprise SaaS transition</p>
-              </div>
-              <div className="rounded-lg border border-slate-700 bg-slate-900 p-5" data-emi-proof="landing_transformation_testimonial_2">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Transformation outcome</p>
-                <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
-                  "My narrative used to change every call. Now it is versioned, measurable, and aligned to each target company. I show up as the same executive every time."
-                </p>
-                <p className="text-[12px] text-slate-400 mb-4">VP to C-suite transition, PE-backed portfolio path</p>
-                <div className="flex flex-wrap gap-3 text-[12px]">
-                  <Link href="/method-and-evidence" data-emi-cta="proof_method_evidence" data-emi-to="/method-and-evidence" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Method and evidence</Link>
-                  <Link href="/evidence-room" data-emi-cta="proof_evidence_room" data-emi-to="/evidence-room" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Evidence room</Link>
-                  <Link href="/pricing" data-emi-cta="proof_pricing" data-emi-to="/pricing" className="underline decoration-slate-500 underline-offset-2 text-slate-200 hover:text-white">Career infrastructure pricing</Link>
-                </div>
-              </div>
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Why it matters to executives</p>
+            <div className="rounded-lg border border-slate-700 bg-slate-900 p-5">
+              <ul className="space-y-2.5">
+                {EXECUTIVE_WHY.map((item) => (
+                  <li key={item} className="text-[14px] text-slate-200 leading-relaxed flex items-start gap-2.5">
+                    <span className="text-orange-400 mt-0.5">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
             {hero.competitiveEdge && (
               <p className="text-sm text-orange-300 leading-relaxed mt-6 font-medium inline-flex items-start gap-1.5">
@@ -264,95 +244,96 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
           </div>
         </section>
 
-        <section id="how-it-works" data-emi-section="how_it_works_block" className="bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
+        <section id="what-you-get" data-emi-section="what_you_get_block" className="bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
           <div className="max-w-5xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">How it works</p>
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">What you get</p>
             <h2 className="text-[22px] font-bold text-slate-900 mb-9 max-w-xl leading-snug">
-              Three touchpoints. No wasted motion.
+              Four outcomes built for executive transition speed.
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl">
-              <div className="border-t-2 border-orange-500 pt-5">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Day 1</p>
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">Set your strategy baseline.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Set targets and narrative once. Keep search private by default.</p>
-              </div>
-              <div className="border-t-2 border-slate-200 pt-5">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Day 3</p>
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">Act on first signal movement.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Convert signal clusters into one high-value outreach with context.</p>
-              </div>
-              <div className="border-t-2 border-slate-200 pt-5">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Day 7</p>
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">Run weekly review.</p>
-                <p className="text-[13px] text-slate-500 leading-relaxed">Review stage movement, relationship follow-through, and your next best move.</p>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl">
+              {EXECUTIVE_GETS.map((item) => (
+                <div key={item.title} className="border-t-2 border-slate-200 pt-5">
+                  <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.title}</p>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{item.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="objections" data-emi-section="objection_block" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
+        <section id="next-step" data-emi-section="next_step_block" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-[20px] font-bold text-white mb-10 leading-snug">
-              You might be thinking: Here's exactly where we fit in.
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Choose your next step</p>
+            <h2 className="text-[22px] font-bold text-white mb-6 leading-snug">
+              Pick a channel, choose a role path, then run the demo.
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <details data-emi-objection="coach_already_handles_it" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-                <summary className="list-none cursor-pointer">
-                  <p className="text-[13px] font-bold text-orange-400 mb-2">If you work with a coach</p>
-                  <p className="text-[13px] text-white font-semibold mb-1">"My coach handles this."</p>
-                </summary>
-                <p className="text-[13px] text-slate-300 leading-relaxed mt-3">
-                  Exactly. We handle the infrastructure layer your coach builds on: daily signal triage, relationship cadence, and prep briefs before each key conversation.
-                </p>
-              </details>
-              <details data-emi-objection="already_have_tools" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-                <summary className="list-none cursor-pointer">
-                  <p className="text-[13px] font-bold text-orange-400 mb-2">If you use LinkedIn Premium or have a recruiter</p>
-                  <p className="text-[13px] text-white font-semibold mb-1">"I already have those tools."</p>
-                </summary>
-                <p className="text-[13px] text-slate-300 leading-relaxed mt-3">
-                  LinkedIn is a strong job board. Recruiters operate in formal processes. Starting Monday helps before either is active by surfacing early transition windows.
-                </p>
-              </details>
-              <details data-emi-objection="privacy_non_negotiable" className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-                <summary className="list-none cursor-pointer">
-                  <p className="text-[13px] font-bold text-orange-400 mb-2">Privacy is non-negotiable</p>
-                  <p className="text-[13px] text-white font-semibold mb-1">"Will my employer find out?"</p>
-                </summary>
-                <p className="text-[13px] text-slate-300 leading-relaxed mt-3">
-                  No. We do not sell leads, we do not share your activity, and your data remains private by default.
-                </p>
-              </details>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              {CHANNEL_ROUTE_SPECS.map((spec) => (
+                <TrackLink
+                  key={`next_${spec.channel}`}
+                  href={spec.route}
+                  event={EVENT_NAMES.channelEntryClicked}
+                  logToUserEvents
+                  properties={{
+                    channel: spec.channel,
+                    cta_label: 'next_step_channel_card',
+                    source_page: '/',
+                  }}
+                  className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
+                >
+                  <p className="text-[13px] font-semibold text-white">{spec.label}</p>
+                  <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
+                </TrackLink>
+              ))}
             </div>
-          </div>
-        </section>
-
-        <section id="start-now" data-emi-section="final_cta_block" className="bg-slate-900 px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-800">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-[34px] sm:text-[44px] font-bold text-slate-50 mb-4 leading-tight [text-wrap:balance]">
-              Build career infrastructure before your next transition demands it.
-            </h2>
-            <p className="text-[17px] text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed [text-wrap:pretty]">
-              Pricing starts at $49 per month, with annual plans that include two months free on every tier. This is not a one-time job-search tool, it is the operating layer most executives never had.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <Link
-                href="/pricing"
-                data-emi-cta="final_view_pricing"
-                data-emi-to="/pricing"
-                className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-8 py-3.5 rounded hover:bg-orange-600 transition-colors"
-              >
-                View plans and annual pricing &rarr;
-              </Link>
+            <div className="rounded-lg border border-slate-700 bg-slate-900 p-4 mb-6">
+              <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400 mb-3">Role paths</p>
+              <div className="flex flex-wrap gap-2.5">
+                {quickRolePaths.map((item) => (
+                  <TrackLink
+                    key={item.ctaKey}
+                    href={item.href}
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: getRolePathChannel(item.href),
+                      cta_label: `${ROLE_PATH_CTA_PREFIX}${item.ctaKey}`,
+                      source_page: '/',
+                    }}
+                    className="inline-flex items-center rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-200 transition-all duration-200 ease-out hover:text-white hover:border-orange-400/70"
+                  >
+                    {item.label}
+                  </TrackLink>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/demo?from=landing"
-                data-emi-cta="final_see_demo"
+                data-emi-cta="next_step_run_demo"
                 data-emi-to="/demo?from=landing"
-                className="inline-block text-[14px] font-bold text-white border border-slate-500 px-8 py-3.5 rounded hover:border-slate-300 transition-colors"
+                className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
               >
-                See demo first &rarr;
+                Run live demo
+              </Link>
+              <Link
+                href="/concierge?program=beta&from=landing"
+                data-emi-cta="next_step_apply_beta"
+                data-emi-to="/concierge?program=beta&from=landing"
+                className="inline-flex items-center justify-center text-[14px] font-bold text-white border border-slate-500 px-6 py-3 rounded hover:border-slate-300 transition-colors"
+              >
+                Apply for confidential beta
+              </Link>
+              <Link
+                href="/guide"
+                data-emi-cta="next_step_open_guide"
+                data-emi-to="/guide"
+                className="inline-flex items-center justify-center text-[14px] font-bold text-white border border-slate-500 px-6 py-3 rounded hover:border-slate-300 transition-colors"
+              >
+                Learn more: ask us any question
               </Link>
             </div>
+            <p className="text-[12px] text-slate-400 mt-3">Need details before deciding? Open the external guide and ask any question.</p>
             <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
           </div>
         </section>
@@ -371,65 +352,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
 
         <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
           <div className="max-w-5xl mx-auto">
-            <div className="rounded-xl border border-slate-700 bg-gradient-to-b from-slate-950/60 to-slate-950/30 px-4 sm:px-5 py-4 sm:py-5 mb-6">
-              <div className="mb-4 pb-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-                <div>
-                  <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400">Role paths</p>
-                  <p className="text-[13px] text-slate-300 mt-1">Start with your lane, then explore adjacent tracks.</p>
-                </div>
-                <p className="text-[11px] text-slate-500">17 pathways across partner and operator roles</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-                {ROLE_PATH_GROUPS.map((group) => (
-                  <div key={group.title} className="rounded-lg border border-slate-800 bg-slate-900/45 p-3">
-                    <p className="text-[12px] font-semibold text-slate-100 inline-flex items-center gap-2">
-                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-slate-600 bg-slate-950 px-1 text-[9px] tracking-[0.08em] text-slate-300">{group.iconToken}</span>
-                      {group.title}
-                    </p>
-                    <p className="text-[11px] text-slate-400 mt-0.5 mb-3">{group.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {[...group.items]
-                        .sort((a, b) => {
-                          const orderA = rolePathPriorityByCtaKey?.[a.ctaKey] ?? a.priority
-                          const orderB = rolePathPriorityByCtaKey?.[b.ctaKey] ?? b.priority
-                          if (orderA !== orderB) return orderA - orderB
-                          return a.label.localeCompare(b.label)
-                        })
-                        .map((item) => (
-                        item.href ? (
-                          <TrackLink
-                            key={item.label}
-                            href={item.href}
-                            event={EVENT_NAMES.channelEntryClicked}
-                            logToUserEvents
-                            properties={{
-                              channel: getRolePathChannel(item.href),
-                              cta_label: `${ROLE_PATH_CTA_PREFIX}${item.ctaKey}`,
-                              source_page: '/',
-                            }}
-                            className="inline-flex items-center rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-200 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:text-white hover:border-orange-400/70 hover:shadow-[0_6px_18px_rgba(249,115,22,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/50"
-                          >
-                            <span className="mr-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded border border-slate-600 bg-slate-900 px-1 text-[9px] tracking-[0.08em] text-slate-300">{item.iconToken}</span>
-                            {item.label}
-                          </TrackLink>
-                        ) : (
-                          <span
-                            key={item.label}
-                            className="inline-flex items-center gap-1 rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-300"
-                          >
-                            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded border border-slate-600 bg-slate-900 px-1 text-[9px] tracking-[0.08em] text-slate-300">{item.iconToken}</span>
-                            {item.label}
-                            <span className="text-[10px] uppercase tracking-[0.08em] text-slate-500">Soon</span>
-                          </span>
-                        )
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

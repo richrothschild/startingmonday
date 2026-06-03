@@ -49,6 +49,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
+  const dryRunMode = process.env.SOCIAL_DRY_RUN_MODE === 'true'
+  if (dryRunMode) {
+    return NextResponse.json({ ok: true, synced: 0, errors: 0, total: 0, reason: 'Dry-run mode enabled' })
+  }
+
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN
   if (!accessToken) {
     return NextResponse.json({ error: 'LINKEDIN_ACCESS_TOKEN not configured' }, { status: 500 })

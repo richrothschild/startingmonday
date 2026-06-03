@@ -26,10 +26,30 @@ import {
   extractEvidenceSnippets,
   extractPartnershipEntities,
 } from '../signals/signal-meta.js'
+import { getJobCheckpoint, saveJobCheckpoint, clearJobCheckpoint } from '../lib/job-checkpoint.js'
+import { enqueueHeavyJob, processHeavyJobs } from '../lib/heavy-job-queue.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
 const SIGNAL_LOCK_KEY = 7329841025n
+const USER_PAGE_SIZE = 500
+const MAX_USER_PAGES_PER_RUN = Number(process.env.SIGNAL_JOB_MAX_PAGES_PER_RUN ?? 8)
+const CHECKPOINT_JOB_NAME = 'signal-job'
+const SIGNAL_RETRY_MODE = 'signal_company_retry'
+
+async function fetchActiveUserPage(supabase, afterUserId = null) {
+  let query = supabase
+    .from('users')
+    .select('id, email, subscription_tier')
+    .in('subscription_status', ['active', 'trialing'])
+    .order('id')
+    .limit(USER_PAGE_SIZE)
+
+  if (afterUserId) query = query.gt('id', afterUserId)
+
+  const { data, error } = await query
+  return { users: data ?? [], error }
+}
 
 function buildSignalMetadata(article, result, override = {}) {
   const sourceKind = override.sourceKind ?? inferSourceKindFromUrl(override.sourceUrl ?? article?.link ?? null)
@@ -48,6 +68,75 @@ function buildSignalMetadata(article, result, override = {}) {
   }
 }
 
+async function retrySignalCompanyById(supabase, payload) {
+  const { companyId, userId } = payload ?? {}
+  if (!companyId || !userId) throw new Error('invalid_signal_retry_payload')
+
+  const [{ data: user, error: userErr }, { data: profile, error: profileErr }, { data: company, error: companyErr }] = await Promise.all([
+    supabase
+      .from('users')
+      .select('id, email, subscription_tier')
+      .eq('id', userId)
+      .in('subscription_status', ['active', 'trialing'])
+      .maybeSingle(),
+    supabase
+      .from('user_profiles')
+      .select('user_id, role_type')
+      .eq('user_id', userId)
+      .maybeSingle(),
+    supabase
+      .from('companies')
+      .select('id, name, user_id')
+      .eq('id', companyId)
+      .eq('user_id', userId)
+      .is('archived_at', null)
+      .maybeSingle(),
+  ])
+
+  if (userErr) throw new Error(`signal_retry_user_lookup_failed:${userErr.message}`)
+  if (profileErr) throw new Error(`signal_retry_profile_lookup_failed:${profileErr.message}`)
+  if (companyErr) throw new Error(`signal_retry_company_lookup_failed:${companyErr.message}`)
+  if (!user || !company) throw new Error('signal_retry_target_missing')
+
+  const roleType = profile?.role_type ?? null
+  const articles = await fetchCompanyNews(company.name)
+
+  for (const article of articles) {
+    const result = await classifySignal(company.name, article, roleType)
+    const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
+    const inferredPartnership = inferredPartners.length > 0
+    const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
+    if (!isStrongSignal) continue
+
+    const normalizedSignalType = inferredPartnership ? 'partnership' : result.signal_type
+    const normalizedSummary = inferredPartnership
+      ? `${company.name} appears to have a material partnership signal involving ${inferredPartners.join(', ')}.`
+      : result.signal_summary
+    if (!normalizedSignalType || !normalizedSummary) continue
+
+    const signalDate = article.pubDate
+      ? new Date(article.pubDate).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0]
+
+    await writeSignal(supabase, {
+      companyId: company.id,
+      userId: user.id,
+      signalType: normalizedSignalType,
+      signalSummary: normalizedSummary,
+      sourceUrl: article.link,
+      signalDate,
+      outreachAngle: result.outreach_angle ?? null,
+      ...buildSignalMetadata(article, result, {
+        signalType: normalizedSignalType,
+        partnerEntities: inferredPartners,
+        focusTags: inferredPartnership
+          ? inferFocusTags('partnership', result.focus_tags ?? [])
+          : undefined,
+      }),
+    })
+  }
+}
+
 export async function runSignalJob() {
   const supabase = getSupabase()
 
@@ -58,47 +147,61 @@ export async function runSignalJob() {
   }
 
   try {
-    const { data: users, error } = await supabase
-      .from('users')
-      .select('id, email, subscription_tier')
-      .in('subscription_status', ['active', 'trialing'])
-      .limit(1000)
+    const cycleKey = new Date().toISOString().slice(0, 10)
+    const checkpoint = await getJobCheckpoint(supabase, CHECKPOINT_JOB_NAME)
+    const hasMatchingCycle = checkpoint?.context?.cycleKey === cycleKey
+    let lastUserId = hasMatchingCycle
+      ? (checkpoint?.cursor?.lastUserId ?? null)
+      : null
 
-    if (error) {
-      logger.error('signal-job: failed to fetch users', { error: error.message, stack: error.stack })
-      return
+    if (lastUserId) {
+      logger.info('signal-job: resuming from checkpoint', { lastUserId, cycleKey })
     }
 
-    if (!users?.length) {
-      logger.info('signal-job: no active users')
-      return
-    }
-
-    const userIds = users.map(u => u.id)
-    const { data: profiles } = await supabase
-      .from('user_profiles')
-      .select('user_id, role_type, full_name, current_title, positioning_summary, target_titles')
-      .in('user_id', userIds)
-    const roleTypeByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.role_type]))
-    const profileByUserId  = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
-
-    // Bulk-fetch all companies for all active users in one query, then group by user.
-    // Avoids an N+1 query per user inside the loop.
-    const { data: allCompanies } = await supabase
-      .from('companies')
-      .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, is_public_company, activist_checked_at, insider_checked_at')
-      .in('user_id', userIds)
-      .is('archived_at', null)
-
-    const companiesByUser = (allCompanies ?? []).reduce((acc, c) => {
-      ;(acc[c.user_id] ??= []).push(c)
-      return acc
-    }, {})
-
+    let pagesProcessed = 0
+    let completedCycle = false
+    let usersProcessed = 0
     let companiesScanned = 0
     let signalsFound = 0
 
-    for (const user of users) {
+    while (pagesProcessed < MAX_USER_PAGES_PER_RUN) {
+      const { users, error } = await fetchActiveUserPage(supabase, lastUserId)
+
+      if (error) {
+        logger.error('signal-job: failed to fetch users', { error: error.message, stack: error.stack })
+        return
+      }
+
+      if (!users?.length) {
+        if (!lastUserId) logger.info('signal-job: no active users')
+        completedCycle = true
+        break
+      }
+
+      pagesProcessed += 1
+      usersProcessed += users.length
+
+      const userIds = users.map(u => u.id)
+      const { data: profiles } = await supabase
+        .from('user_profiles')
+        .select('user_id, role_type, full_name, current_title, positioning_summary, target_titles')
+        .in('user_id', userIds)
+      const roleTypeByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.role_type]))
+      const profileByUserId  = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
+
+      // Bulk-fetch companies for this user page to keep memory bounded.
+      const { data: allCompanies } = await supabase
+        .from('companies')
+        .select('id, name, crunchbase_id, company_url, linkedin_url, sector, notes, role_watch_description, user_id, sec_cik_padded, is_public_company, activist_checked_at, insider_checked_at')
+        .in('user_id', userIds)
+        .is('archived_at', null)
+
+      const companiesByUser = (allCompanies ?? []).reduce((acc, c) => {
+        ;(acc[c.user_id] ??= []).push(c)
+        return acc
+      }, {})
+
+      for (const user of users) {
       const roleType    = roleTypeByUserId[user.id] ?? null
       const userProfile = profileByUserId[user.id] ?? null
       const companies   = companiesByUser[user.id] ?? []
@@ -655,13 +758,72 @@ export async function runSignalJob() {
           }
         } catch (err) {
           logger.error('signal-job: error', { company: company.name, error: err.message, stack: err.stack })
+
+          await enqueueHeavyJob(supabase, {
+            jobType: CHECKPOINT_JOB_NAME,
+            payload: {
+              mode: SIGNAL_RETRY_MODE,
+              companyId: company.id,
+              userId: user.id,
+            },
+            idempotencyKey: `${company.id}:${user.id}:${cycleKey}`,
+            maxAttempts: 5,
+          })
         }
 
         await new Promise(r => setTimeout(r, DELAY_MS))
       }
+      }
+
+      lastUserId = users[users.length - 1]?.id ?? lastUserId
+
+      await saveJobCheckpoint(supabase, CHECKPOINT_JOB_NAME, {
+        cursor: {
+          lastUserId,
+          pagesProcessed,
+          usersProcessed,
+          companiesScanned,
+          signalsFound,
+        },
+        context: {
+          cycleKey,
+          updatedAt: new Date().toISOString(),
+        },
+      })
+
+      if (users.length < USER_PAGE_SIZE) {
+        completedCycle = true
+        break
+      }
     }
 
-    logger.info('signal-job: complete', { companiesScanned, signalsFound })
+    if (completedCycle) {
+      await clearJobCheckpoint(supabase, CHECKPOINT_JOB_NAME)
+    } else {
+      logger.warn('signal-job: page budget reached; resume will continue from checkpoint', {
+        pagesProcessed,
+        usersProcessed,
+        lastUserId,
+      })
+    }
+
+    const retryResult = await processHeavyJobs(supabase, {
+      jobType: CHECKPOINT_JOB_NAME,
+      limit: 10,
+      handler: async (job) => {
+        const payload = job?.payload ?? {}
+        if (payload.mode !== SIGNAL_RETRY_MODE) {
+          throw new Error('unsupported_signal_retry_payload')
+        }
+        await retrySignalCompanyById(supabase, payload)
+      },
+    })
+
+    if ((retryResult.processed ?? 0) > 0) {
+      logger.info('signal-job: retry queue processed', retryResult)
+    }
+
+    logger.info('signal-job: complete', { companiesScanned, signalsFound, usersProcessed, pagesProcessed })
   } finally {
     await supabase.rpc('advisory_unlock', { p_key: SIGNAL_LOCK_KEY })
   }

@@ -100,13 +100,13 @@ export function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-slate-200 shadow-[0_-4px_18px_rgba(15,23,42,0.06)] safe-area-pb">
+    <nav aria-label="Mobile navigation" className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-slate-200 shadow-[0_-4px_18px_rgba(15,23,42,0.06)] safe-area-pb">
       <div className="flex items-stretch">
         {NAV_ITEMS.map(item => {
           const active = isActive(item.href)
           return (
             <Link
-              key={item.href}
+              key={`${item.label}-${item.href}`}
               href={item.href}
               className={[
                 'flex-1 flex flex-col items-center justify-center gap-1.5 py-2 min-h-[56px] tap-highlight-transparent border-t-2',

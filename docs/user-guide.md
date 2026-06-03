@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-05-31T22:48:40.273Z
+Last generated: 2026-06-03T22:49:54.529Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,148 +11,155 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (141)
-- [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
-- [Terms](/terms) - Open /terms to use this feature area and related workflows.
-- [Security](/security) - Open /security to use this feature area and related workflows.
-- [Search firms](/search-firms) - Open /search-firms to use this feature area and related workflows.
-- [Search firms / Sample cfo brief](/search-firms/sample-cfo-brief) - Open /search-firms/sample-cfo-brief to use this feature area and related workflows.
-- [Search firms / Personas](/search-firms/personas) - Open /search-firms/personas to use this feature area and related workflows.
-- [Sales marketing plan](/sales-marketing-plan) - Open /sales-marketing-plan to use this feature area and related workflows.
-- [Research brief](/research-brief) - Open /research-brief to use this feature area and related workflows.
-- [References](/references) - Open /references to use this feature area and related workflows.
-- [Proof / Roi calculator](/proof/roi-calculator) - Open /proof/roi-calculator to use this feature area and related workflows.
-- [Privacy](/privacy) - Open /privacy to use this feature area and related workflows.
-- [Pricing](/pricing) - Open /pricing to use this feature area and related workflows.
-- [Pilot findings](/pilot-findings) - Open /pilot-findings to use this feature area and related workflows.
-- [Partners](/partners) - Open /partners to use this feature area and related workflows.
-- [Outplacement](/outplacement) - Open /outplacement to use this feature area and related workflows.
-- [Outplacement / Personas](/outplacement/personas) - Open /outplacement/personas to use this feature area and related workflows.
-- [Optimize](/optimize) - Open /optimize to use this feature area and related workflows.
-- [Onboarding](/onboarding) - Open /onboarding to use this feature area and related workflows.
-- [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
-- [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
-- [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
-- [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
-- [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
-- [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
-- [Guide](/guide) - Open /guide to use this feature area and related workflows.
-- [Founder note](/founder-note) - Open /founder-note to use this feature area and related workflows.
-- [For vp technology](/for-vp-technology) - Open /for-vp-technology to use this feature area and related workflows.
-- [For vp](/for-vp) - Open /for-vp to use this feature area and related workflows.
-- [For search firms](/for-search-firms) - Open /for-search-firms to use this feature area and related workflows.
-- [For relocation](/for-relocation) - Open /for-relocation to use this feature area and related workflows.
-- [For pe teams](/for-pe-teams) - Open /for-pe-teams to use this feature area and related workflows.
-- [For pe partners](/for-pe-partners) - Open /for-pe-partners to use this feature area and related workflows.
-- [For outplacement](/for-outplacement) - Open /for-outplacement to use this feature area and related workflows.
-- [For outplacement / Trust pack](/for-outplacement/trust-pack) - Open /for-outplacement/trust-pack to use this feature area and related workflows.
-- [For outplacement / Security overview](/for-outplacement/security-overview) - Open /for-outplacement/security-overview to use this feature area and related workflows.
-- [For outplacement / Runbook](/for-outplacement/runbook) - Open /for-outplacement/runbook to use this feature area and related workflows.
-- [For outplacement / Operating scorecard](/for-outplacement/operating-scorecard) - Open /for-outplacement/operating-scorecard to use this feature area and related workflows.
-- [For outplacement / Metric dictionary](/for-outplacement/metric-dictionary) - Open /for-outplacement/metric-dictionary to use this feature area and related workflows.
-- [For outplacement / Faq](/for-outplacement/faq) - Open /for-outplacement/faq to use this feature area and related workflows.
-- [For outplacement / Executive summary](/for-outplacement/executive-summary) - Open /for-outplacement/executive-summary to use this feature area and related workflows.
-- [For outplacement / Economics](/for-outplacement/economics) - Open /for-outplacement/economics to use this feature area and related workflows.
-- [For media partners](/for-media-partners) - Open /for-media-partners to use this feature area and related workflows.
-- [For fractional executives](/for-fractional-executives) - Open /for-fractional-executives to use this feature area and related workflows.
-- [For financial advisors](/for-financial-advisors) - Open /for-financial-advisors to use this feature area and related workflows.
-- [For data officer](/for-data-officer) - Open /for-data-officer to use this feature area and related workflows.
-- [For cpo](/for-cpo) - Open /for-cpo to use this feature area and related workflows.
-- [For coo](/for-coo) - Open /for-coo to use this feature area and related workflows.
-- [For coaches](/for-coaches) - Open /for-coaches to use this feature area and related workflows.
-- [For coaches / Trust pack](/for-coaches/trust-pack) - Open /for-coaches/trust-pack to use this feature area and related workflows.
-- [For coaches / Micro products](/for-coaches/micro-products) - Open /for-coaches/micro-products to use this feature area and related workflows.
-- [For coaches / Faq](/for-coaches/faq) - Open /for-coaches/faq to use this feature area and related workflows.
-- [For coaches / Economics](/for-coaches/economics) - Open /for-coaches/economics to use this feature area and related workflows.
-- [For coaches / Coach prep worksheet](/for-coaches/coach-prep-worksheet) - Open /for-coaches/coach-prep-worksheet to use this feature area and related workflows.
-- [For ciso](/for-ciso) - Open /for-ciso to use this feature area and related workflows.
-- [For cio associations](/for-cio-associations) - Open /for-cio-associations to use this feature area and related workflows.
-- [For cio](/for-cio) - Open /for-cio to use this feature area and related workflows.
-- [For cdo](/for-cdo) - Open /for-cdo to use this feature area and related workflows.
-- [Feedback](/feedback) - Open /feedback to use this feature area and related workflows.
-- [Executives](/executives) - Open /executives to use this feature area and related workflows.
-- [Executives / Personas](/executives/personas) - Open /executives/personas to use this feature area and related workflows.
-- [Executives / Passive](/executives/passive) - Open /executives/passive to use this feature area and related workflows.
-- [Executives / Active](/executives/active) - Open /executives/active to use this feature area and related workflows.
-- [Evidence room](/evidence-room) - Open /evidence-room to use this feature area and related workflows.
-- [Evaluate](/evaluate) - Open /evaluate to use this feature area and related workflows.
-- [Demo](/demo) - Open /demo to use this feature area and related workflows.
-- [Demo / Presenter](/demo/presenter) - Open /demo/presenter to use this feature area and related workflows.
-- [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
-- [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
-- [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
-- [Contributor](/contributor) - Open /contributor to use this feature area and related workflows.
-- [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
+## Features (148)
+- [Login](/login) - Open /login to use this feature area and related workflows.
+- [Signup](/signup) - Open /signup to use this feature area and related workflows.
+- [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
+- [Dashboard / Admin / B2b](/dashboard/admin/b2b) - Open /dashboard/admin/b2b to use this feature area and related workflows.
+- [Dashboard / Admin / Channel benchmarks](/dashboard/admin/channel-benchmarks) - Open /dashboard/admin/channel-benchmarks to use this feature area and related workflows.
+- [Dashboard / Admin / Coach outreach](/dashboard/admin/coach-outreach) - Open /dashboard/admin/coach-outreach to use this feature area and related workflows.
+- [Dashboard / Admin / Crm](/dashboard/admin/crm) - Open /dashboard/admin/crm to use this feature area and related workflows.
+- [Dashboard / Admin / Customers](/dashboard/admin/customers) - Open /dashboard/admin/customers to use this feature area and related workflows.
+- [Dashboard / Admin / Feedback](/dashboard/admin/feedback) - Open /dashboard/admin/feedback to use this feature area and related workflows.
+- [Dashboard / Admin / Guide](/dashboard/admin/guide) - Open /dashboard/admin/guide to use this feature area and related workflows.
+- [Dashboard / Admin / Intelligence](/dashboard/admin/intelligence) - Open /dashboard/admin/intelligence to use this feature area and related workflows.
+- [Dashboard / Admin / Intelligence / Qa](/dashboard/admin/intelligence/qa) - Open /dashboard/admin/intelligence/qa to use this feature area and related workflows.
+- [Dashboard / Admin / Internal guide](/dashboard/admin/internal-guide) - Open /dashboard/admin/internal-guide to use this feature area and related workflows.
+- [Dashboard / Admin / Linkedin company launch](/dashboard/admin/linkedin-company-launch) - Open /dashboard/admin/linkedin-company-launch to use this feature area and related workflows.
+- [Dashboard / Admin / Metrics](/dashboard/admin/metrics) - Open /dashboard/admin/metrics to use this feature area and related workflows.
+- [Dashboard / Admin / Onboarding / Qa](/dashboard/admin/onboarding/qa) - Open /dashboard/admin/onboarding/qa to use this feature area and related workflows.
+- [Dashboard / Admin / Onboarding / Video](/dashboard/admin/onboarding/video) - Open /dashboard/admin/onboarding/video to use this feature area and related workflows.
+- [Dashboard / Admin / Operations](/dashboard/admin/operations) - Open /dashboard/admin/operations to use this feature area and related workflows.
+- [Dashboard / Admin / Outplacement cohorts](/dashboard/admin/outplacement-cohorts) - Open /dashboard/admin/outplacement-cohorts to use this feature area and related workflows.
+- [Dashboard / Admin / Outplacement outreach](/dashboard/admin/outplacement-outreach) - Open /dashboard/admin/outplacement-outreach to use this feature area and related workflows.
+- [Dashboard / Admin / Outreach analytics](/dashboard/admin/outreach-analytics) - Open /dashboard/admin/outreach-analytics to use this feature area and related workflows.
+- [Dashboard / Admin / Outreach reliability](/dashboard/admin/outreach-reliability) - Open /dashboard/admin/outreach-reliability to use this feature area and related workflows.
+- [Dashboard / Admin](/dashboard/admin) - Open /dashboard/admin to use this feature area and related workflows.
+- [Dashboard / Admin / Product / Catalog](/dashboard/admin/product/catalog) - Open /dashboard/admin/product/catalog to use this feature area and related workflows.
+- [Dashboard / Admin / Product](/dashboard/admin/product) - Open /dashboard/admin/product to use this feature area and related workflows.
+- [Dashboard / Admin / Revenue](/dashboard/admin/revenue) - Open /dashboard/admin/revenue to use this feature area and related workflows.
+- [Dashboard / Admin / Sales enablement](/dashboard/admin/sales-enablement) - Open /dashboard/admin/sales-enablement to use this feature area and related workflows.
+- [Dashboard / Admin / Social](/dashboard/admin/social) - Open /dashboard/admin/social to use this feature area and related workflows.
+- [Dashboard / Admin / Speakers](/dashboard/admin/speakers) - Open /dashboard/admin/speakers to use this feature area and related workflows.
+- [Dashboard / Admin / Team](/dashboard/admin/team) - Open /dashboard/admin/team to use this feature area and related workflows.
+- [Dashboard / Admin / Traces](/dashboard/admin/traces) - Open /dashboard/admin/traces to use this feature area and related workflows.
+- [Dashboard / Admin / Traces / Rubric](/dashboard/admin/traces/rubric) - Open /dashboard/admin/traces/rubric to use this feature area and related workflows.
+- [Dashboard / Briefing](/dashboard/briefing) - Open /dashboard/briefing to use this feature area and related workflows.
+- [Dashboard / Calendar](/dashboard/calendar) - Open /dashboard/calendar to use this feature area and related workflows.
+- [Dashboard / Chat](/dashboard/chat) - Open /dashboard/chat to use this feature area and related workflows.
+- [Dashboard / Coach](/dashboard/coach) - Open /dashboard/coach to use this feature area and related workflows.
+- [Dashboard / Companies / New](/dashboard/companies/new) - Open /dashboard/companies/new to use this feature area and related workflows.
+- [Dashboard / Concierge](/dashboard/concierge) - Open /dashboard/concierge to use this feature area and related workflows.
+- [Dashboard / Contacts](/dashboard/contacts) - Open /dashboard/contacts to use this feature area and related workflows.
+- [Dashboard / Discover](/dashboard/discover) - Open /dashboard/discover to use this feature area and related workflows.
+- [Dashboard / Feedback](/dashboard/feedback) - Open /dashboard/feedback to use this feature area and related workflows.
+- [Dashboard / Help](/dashboard/help) - Open /dashboard/help to use this feature area and related workflows.
+- [Dashboard / Invite](/dashboard/invite) - Open /dashboard/invite to use this feature area and related workflows.
+- [Dashboard / Kanban](/dashboard/kanban) - Open /dashboard/kanban to use this feature area and related workflows.
+- [Dashboard / Offers](/dashboard/offers) - Open /dashboard/offers to use this feature area and related workflows.
+- [Dashboard / Outplacement](/dashboard/outplacement) - Open /dashboard/outplacement to use this feature area and related workflows.
+- [Dashboard / Outreach](/dashboard/outreach) - Open /dashboard/outreach to use this feature area and related workflows.
+- [Dashboard](/dashboard) - Open /dashboard to use this feature area and related workflows.
+- [Dashboard / Partner](/dashboard/partner) - Open /dashboard/partner to use this feature area and related workflows.
+- [Dashboard / Pilot outreach](/dashboard/pilot-outreach) - Open /dashboard/pilot-outreach to use this feature area and related workflows.
+- [Dashboard / Placed](/dashboard/placed) - Open /dashboard/placed to use this feature area and related workflows.
+- [Dashboard / Positioning](/dashboard/positioning) - Open /dashboard/positioning to use this feature area and related workflows.
+- [Dashboard / Post search](/dashboard/post-search) - Open /dashboard/post-search to use this feature area and related workflows.
+- [Dashboard / Profile](/dashboard/profile) - Open /dashboard/profile to use this feature area and related workflows.
+- [Dashboard / Profile / Tailor](/dashboard/profile/tailor) - Open /dashboard/profile/tailor to use this feature area and related workflows.
+- [Dashboard / Salary](/dashboard/salary) - Open /dashboard/salary to use this feature area and related workflows.
+- [Dashboard / Signals](/dashboard/signals) - Open /dashboard/signals to use this feature area and related workflows.
+- [Dashboard / Start](/dashboard/start) - Open /dashboard/start to use this feature area and related workflows.
+- [Dashboard / Strategy](/dashboard/strategy) - Open /dashboard/strategy to use this feature area and related workflows.
+- [Dashboard / Wrap up](/dashboard/wrap-up) - Open /dashboard/wrap-up to use this feature area and related workflows.
+- [Settings / Billing](/settings/billing) - Open /settings/billing to use this feature area and related workflows.
+- [Settings / Security](/settings/security) - Open /settings/security to use this feature area and related workflows.
+- [Settings / Team](/settings/team) - Open /settings/team to use this feature area and related workflows.
+- [About](/about) - Open /about to use this feature area and related workflows.
+- [Annual report 2026 / Executive search ai confidentiality](/annual-report-2026/executive-search-ai-confidentiality) - Open /annual-report-2026/executive-search-ai-confidentiality to use this feature area and related workflows.
+- [Annual report 2026](/annual-report-2026) - Open /annual-report-2026 to use this feature area and related workflows.
+- [Blog](/blog) - Open /blog to use this feature area and related workflows.
+- [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
 - [Coaches guide](/coaches-guide) - Open /coaches-guide to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
 - [Coaches / Personas](/coaches/personas) - Open /coaches/personas to use this feature area and related workflows.
-- [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
-- [Blog](/blog) - Open /blog to use this feature area and related workflows.
-- [Annual report 2026](/annual-report-2026) - Open /annual-report-2026 to use this feature area and related workflows.
-- [Annual report 2026 / Executive search ai confidentiality](/annual-report-2026/executive-search-ai-confidentiality) - Open /annual-report-2026/executive-search-ai-confidentiality to use this feature area and related workflows.
-- [About](/about) - Open /about to use this feature area and related workflows.
-- [Settings / Team](/settings/team) - Open /settings/team to use this feature area and related workflows.
-- [Settings / Security](/settings/security) - Open /settings/security to use this feature area and related workflows.
-- [Settings / Billing](/settings/billing) - Open /settings/billing to use this feature area and related workflows.
-- [Dashboard](/dashboard) - Open /dashboard to use this feature area and related workflows.
-- [Dashboard / Wrap up](/dashboard/wrap-up) - Open /dashboard/wrap-up to use this feature area and related workflows.
-- [Dashboard / Strategy](/dashboard/strategy) - Open /dashboard/strategy to use this feature area and related workflows.
-- [Dashboard / Start](/dashboard/start) - Open /dashboard/start to use this feature area and related workflows.
-- [Dashboard / Signals](/dashboard/signals) - Open /dashboard/signals to use this feature area and related workflows.
-- [Dashboard / Salary](/dashboard/salary) - Open /dashboard/salary to use this feature area and related workflows.
-- [Dashboard / Profile](/dashboard/profile) - Open /dashboard/profile to use this feature area and related workflows.
-- [Dashboard / Profile / Tailor](/dashboard/profile/tailor) - Open /dashboard/profile/tailor to use this feature area and related workflows.
-- [Dashboard / Post search](/dashboard/post-search) - Open /dashboard/post-search to use this feature area and related workflows.
-- [Dashboard / Positioning](/dashboard/positioning) - Open /dashboard/positioning to use this feature area and related workflows.
-- [Dashboard / Placed](/dashboard/placed) - Open /dashboard/placed to use this feature area and related workflows.
-- [Dashboard / Pilot outreach](/dashboard/pilot-outreach) - Open /dashboard/pilot-outreach to use this feature area and related workflows.
-- [Dashboard / Partner](/dashboard/partner) - Open /dashboard/partner to use this feature area and related workflows.
-- [Dashboard / Outreach](/dashboard/outreach) - Open /dashboard/outreach to use this feature area and related workflows.
-- [Dashboard / Outplacement](/dashboard/outplacement) - Open /dashboard/outplacement to use this feature area and related workflows.
-- [Dashboard / Offers](/dashboard/offers) - Open /dashboard/offers to use this feature area and related workflows.
-- [Dashboard / Kanban](/dashboard/kanban) - Open /dashboard/kanban to use this feature area and related workflows.
-- [Dashboard / Invite](/dashboard/invite) - Open /dashboard/invite to use this feature area and related workflows.
-- [Dashboard / Help](/dashboard/help) - Open /dashboard/help to use this feature area and related workflows.
-- [Dashboard / Feedback](/dashboard/feedback) - Open /dashboard/feedback to use this feature area and related workflows.
-- [Dashboard / Discover](/dashboard/discover) - Open /dashboard/discover to use this feature area and related workflows.
-- [Dashboard / Contacts](/dashboard/contacts) - Open /dashboard/contacts to use this feature area and related workflows.
-- [Dashboard / Concierge](/dashboard/concierge) - Open /dashboard/concierge to use this feature area and related workflows.
-- [Dashboard / Companies / New](/dashboard/companies/new) - Open /dashboard/companies/new to use this feature area and related workflows.
-- [Dashboard / Coach](/dashboard/coach) - Open /dashboard/coach to use this feature area and related workflows.
-- [Dashboard / Chat](/dashboard/chat) - Open /dashboard/chat to use this feature area and related workflows.
-- [Dashboard / Calendar](/dashboard/calendar) - Open /dashboard/calendar to use this feature area and related workflows.
-- [Dashboard / Briefing](/dashboard/briefing) - Open /dashboard/briefing to use this feature area and related workflows.
-- [Dashboard / Admin](/dashboard/admin) - Open /dashboard/admin to use this feature area and related workflows.
-- [Dashboard / Admin / Traces](/dashboard/admin/traces) - Open /dashboard/admin/traces to use this feature area and related workflows.
-- [Dashboard / Admin / Traces / Rubric](/dashboard/admin/traces/rubric) - Open /dashboard/admin/traces/rubric to use this feature area and related workflows.
-- [Dashboard / Admin / Team](/dashboard/admin/team) - Open /dashboard/admin/team to use this feature area and related workflows.
-- [Dashboard / Admin / Speakers](/dashboard/admin/speakers) - Open /dashboard/admin/speakers to use this feature area and related workflows.
-- [Dashboard / Admin / Social](/dashboard/admin/social) - Open /dashboard/admin/social to use this feature area and related workflows.
-- [Dashboard / Admin / Revenue](/dashboard/admin/revenue) - Open /dashboard/admin/revenue to use this feature area and related workflows.
-- [Dashboard / Admin / Product](/dashboard/admin/product) - Open /dashboard/admin/product to use this feature area and related workflows.
-- [Dashboard / Admin / Product / Catalog](/dashboard/admin/product/catalog) - Open /dashboard/admin/product/catalog to use this feature area and related workflows.
-- [Dashboard / Admin / Outreach reliability](/dashboard/admin/outreach-reliability) - Open /dashboard/admin/outreach-reliability to use this feature area and related workflows.
-- [Dashboard / Admin / Outreach analytics](/dashboard/admin/outreach-analytics) - Open /dashboard/admin/outreach-analytics to use this feature area and related workflows.
-- [Dashboard / Admin / Outplacement outreach](/dashboard/admin/outplacement-outreach) - Open /dashboard/admin/outplacement-outreach to use this feature area and related workflows.
-- [Dashboard / Admin / Outplacement cohorts](/dashboard/admin/outplacement-cohorts) - Open /dashboard/admin/outplacement-cohorts to use this feature area and related workflows.
-- [Dashboard / Admin / Operations](/dashboard/admin/operations) - Open /dashboard/admin/operations to use this feature area and related workflows.
-- [Dashboard / Admin / Onboarding / Video](/dashboard/admin/onboarding/video) - Open /dashboard/admin/onboarding/video to use this feature area and related workflows.
-- [Dashboard / Admin / Onboarding / Qa](/dashboard/admin/onboarding/qa) - Open /dashboard/admin/onboarding/qa to use this feature area and related workflows.
-- [Dashboard / Admin / Metrics](/dashboard/admin/metrics) - Open /dashboard/admin/metrics to use this feature area and related workflows.
-- [Dashboard / Admin / Linkedin company launch](/dashboard/admin/linkedin-company-launch) - Open /dashboard/admin/linkedin-company-launch to use this feature area and related workflows.
-- [Dashboard / Admin / Internal guide](/dashboard/admin/internal-guide) - Open /dashboard/admin/internal-guide to use this feature area and related workflows.
-- [Dashboard / Admin / Intelligence](/dashboard/admin/intelligence) - Open /dashboard/admin/intelligence to use this feature area and related workflows.
-- [Dashboard / Admin / Intelligence / Qa](/dashboard/admin/intelligence/qa) - Open /dashboard/admin/intelligence/qa to use this feature area and related workflows.
-- [Dashboard / Admin / Guide](/dashboard/admin/guide) - Open /dashboard/admin/guide to use this feature area and related workflows.
-- [Dashboard / Admin / Feedback](/dashboard/admin/feedback) - Open /dashboard/admin/feedback to use this feature area and related workflows.
-- [Dashboard / Admin / Customers](/dashboard/admin/customers) - Open /dashboard/admin/customers to use this feature area and related workflows.
-- [Dashboard / Admin / Crm](/dashboard/admin/crm) - Open /dashboard/admin/crm to use this feature area and related workflows.
-- [Dashboard / Admin / Coach outreach](/dashboard/admin/coach-outreach) - Open /dashboard/admin/coach-outreach to use this feature area and related workflows.
-- [Dashboard / Admin / Channel benchmarks](/dashboard/admin/channel-benchmarks) - Open /dashboard/admin/channel-benchmarks to use this feature area and related workflows.
-- [Dashboard / Admin / B2b](/dashboard/admin/b2b) - Open /dashboard/admin/b2b to use this feature area and related workflows.
-- [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
-- [Signup](/signup) - Open /signup to use this feature area and related workflows.
-- [Login](/login) - Open /login to use this feature area and related workflows.
+- [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
+- [Contributor](/contributor) - Open /contributor to use this feature area and related workflows.
+- [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
+- [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
+- [Demo / Executive brief](/demo/executive-brief) - Open /demo/executive-brief to use this feature area and related workflows.
+- [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
+- [Demo / Michael dashboard](/demo/michael-dashboard) - Open /demo/michael-dashboard to use this feature area and related workflows.
+- [Demo / Michael strategy brief](/demo/michael-strategy-brief) - Open /demo/michael-strategy-brief to use this feature area and related workflows.
+- [Demo](/demo) - Open /demo to use this feature area and related workflows.
+- [Demo / Presenter](/demo/presenter) - Open /demo/presenter to use this feature area and related workflows.
+- [Evaluate](/evaluate) - Open /evaluate to use this feature area and related workflows.
+- [Evidence room](/evidence-room) - Open /evidence-room to use this feature area and related workflows.
+- [Executives / Active](/executives/active) - Open /executives/active to use this feature area and related workflows.
+- [Executives](/executives) - Open /executives to use this feature area and related workflows.
+- [Executives / Passive](/executives/passive) - Open /executives/passive to use this feature area and related workflows.
+- [Executives / Personas](/executives/personas) - Open /executives/personas to use this feature area and related workflows.
+- [Feedback](/feedback) - Open /feedback to use this feature area and related workflows.
+- [For cdo](/for-cdo) - Open /for-cdo to use this feature area and related workflows.
+- [For cio associations](/for-cio-associations) - Open /for-cio-associations to use this feature area and related workflows.
+- [For cio](/for-cio) - Open /for-cio to use this feature area and related workflows.
+- [For ciso](/for-ciso) - Open /for-ciso to use this feature area and related workflows.
+- [For coaches / Coach prep worksheet](/for-coaches/coach-prep-worksheet) - Open /for-coaches/coach-prep-worksheet to use this feature area and related workflows.
+- [For coaches / Economics](/for-coaches/economics) - Open /for-coaches/economics to use this feature area and related workflows.
+- [For coaches / Faq](/for-coaches/faq) - Open /for-coaches/faq to use this feature area and related workflows.
+- [For coaches / Micro products](/for-coaches/micro-products) - Open /for-coaches/micro-products to use this feature area and related workflows.
+- [For coaches](/for-coaches) - Open /for-coaches to use this feature area and related workflows.
+- [For coaches / Trust pack](/for-coaches/trust-pack) - Open /for-coaches/trust-pack to use this feature area and related workflows.
+- [For coo](/for-coo) - Open /for-coo to use this feature area and related workflows.
+- [For cpo](/for-cpo) - Open /for-cpo to use this feature area and related workflows.
+- [For data officer](/for-data-officer) - Open /for-data-officer to use this feature area and related workflows.
+- [For financial advisors](/for-financial-advisors) - Open /for-financial-advisors to use this feature area and related workflows.
+- [For fractional executives](/for-fractional-executives) - Open /for-fractional-executives to use this feature area and related workflows.
+- [For media partners](/for-media-partners) - Open /for-media-partners to use this feature area and related workflows.
+- [For outplacement / Economics](/for-outplacement/economics) - Open /for-outplacement/economics to use this feature area and related workflows.
+- [For outplacement / Executive summary](/for-outplacement/executive-summary) - Open /for-outplacement/executive-summary to use this feature area and related workflows.
+- [For outplacement / Faq](/for-outplacement/faq) - Open /for-outplacement/faq to use this feature area and related workflows.
+- [For outplacement / Metric dictionary](/for-outplacement/metric-dictionary) - Open /for-outplacement/metric-dictionary to use this feature area and related workflows.
+- [For outplacement / Operating scorecard](/for-outplacement/operating-scorecard) - Open /for-outplacement/operating-scorecard to use this feature area and related workflows.
+- [For outplacement](/for-outplacement) - Open /for-outplacement to use this feature area and related workflows.
+- [For outplacement / Runbook](/for-outplacement/runbook) - Open /for-outplacement/runbook to use this feature area and related workflows.
+- [For outplacement / Security overview](/for-outplacement/security-overview) - Open /for-outplacement/security-overview to use this feature area and related workflows.
+- [For outplacement / Trust pack](/for-outplacement/trust-pack) - Open /for-outplacement/trust-pack to use this feature area and related workflows.
+- [For pe partners](/for-pe-partners) - Open /for-pe-partners to use this feature area and related workflows.
+- [For pe teams](/for-pe-teams) - Open /for-pe-teams to use this feature area and related workflows.
+- [For relocation](/for-relocation) - Open /for-relocation to use this feature area and related workflows.
+- [For search firms](/for-search-firms) - Open /for-search-firms to use this feature area and related workflows.
+- [For vp technology](/for-vp-technology) - Open /for-vp-technology to use this feature area and related workflows.
+- [For vp](/for-vp) - Open /for-vp to use this feature area and related workflows.
+- [Founder note](/founder-note) - Open /founder-note to use this feature area and related workflows.
+- [Guide](/guide) - Open /guide to use this feature area and related workflows.
+- [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
+- [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
+- [Mark review / Appendix](/mark-review/appendix) - Open /mark-review/appendix to use this feature area and related workflows.
+- [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
+- [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
+- [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mauricio kickoff](/mauricio-kickoff) - Open /mauricio-kickoff to use this feature area and related workflows.
+- [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
+- [Onboarding](/onboarding) - Open /onboarding to use this feature area and related workflows.
+- [Optimize](/optimize) - Open /optimize to use this feature area and related workflows.
+- [Outplacement](/outplacement) - Open /outplacement to use this feature area and related workflows.
+- [Outplacement / Personas](/outplacement/personas) - Open /outplacement/personas to use this feature area and related workflows.
+- [Partners / Mauricio kickoff](/partners/mauricio-kickoff) - Open /partners/mauricio-kickoff to use this feature area and related workflows.
+- [Partners](/partners) - Open /partners to use this feature area and related workflows.
+- [Pilot findings](/pilot-findings) - Open /pilot-findings to use this feature area and related workflows.
+- [Pricing](/pricing) - Open /pricing to use this feature area and related workflows.
+- [Privacy](/privacy) - Open /privacy to use this feature area and related workflows.
+- [Proof / Roi calculator](/proof/roi-calculator) - Open /proof/roi-calculator to use this feature area and related workflows.
+- [References](/references) - Open /references to use this feature area and related workflows.
+- [Research brief](/research-brief) - Open /research-brief to use this feature area and related workflows.
+- [Sales marketing plan](/sales-marketing-plan) - Open /sales-marketing-plan to use this feature area and related workflows.
+- [Search firms](/search-firms) - Open /search-firms to use this feature area and related workflows.
+- [Search firms / Personas](/search-firms/personas) - Open /search-firms/personas to use this feature area and related workflows.
+- [Search firms / Sample cfo brief](/search-firms/sample-cfo-brief) - Open /search-firms/sample-cfo-brief to use this feature area and related workflows.
+- [Security](/security) - Open /security to use this feature area and related workflows.
+- [Terms](/terms) - Open /terms to use this feature area and related workflows.
+- [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 
 ## How-To Playbooks
 - [How to use this guide](/guide) - - Search by keyword in this file or on the Guide UI at /guide. - Start with the section for your function area. - Follow endpoint references and runbooks for day-to-day operations.
@@ -170,248 +177,252 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (241)
-- [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/track/open](/api/track/open) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/team/seat/[id]](/api/team/seat/[id]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/team/invite](/api/team/invite) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/tailor](/api/tailor) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/tailor/strengthen](/api/tailor/strengthen) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/tailor/check](/api/tailor/check) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/suggestions](/api/suggestions) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/strategy](/api/strategy) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/strategy/followup](/api/strategy/followup) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/signals/classify](/api/signals/classify) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/profile/export](/api/profile/export) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]](/api/prep/[id]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/wins](/api/prep/[id]/wins) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/why-here](/api/prep/[id]/why-here) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/tech-stack](/api/prep/[id]/tech-stack) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/questions](/api/prep/[id]/questions) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/priorities](/api/prep/[id]/priorities) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/outreach](/api/prep/[id]/outreach) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/outreach/log](/api/prep/[id]/outreach/log) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/leadership](/api/prep/[id]/leadership) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/competitive](/api/prep/[id]/competitive) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/chat](/api/prep/[id]/chat) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/challenges](/api/prep/[id]/challenges) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/prep/[id]/background](/api/prep/[id]/background) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/preferences/briefing](/api/preferences/briefing) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/positioning/save](/api/positioning/save) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/positioning/chat](/api/positioning/chat) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/pilot-outreach](/api/pilot-outreach) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/partners](/api/partners) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/partners/report](/api/partners/report) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/partners/attribute](/api/partners/attribute) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/template](/api/outreach/template) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/suppression](/api/outreach/suppression) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/status](/api/outreach/status) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/send](/api/outreach/send) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/send/batch-status](/api/outreach/send/batch-status) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/draft](/api/outreach/draft) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/outreach/current-status](/api/outreach/current-status) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/optimize](/api/optimize) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/onboarding/intel](/api/onboarding/intel) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/onboarding/events](/api/onboarding/events) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/offer-synthesis](/api/offer-synthesis) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/notify/new-user](/api/notify/new-user) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/narrative/generate-positioning](/api/narrative/generate-positioning) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/narrative/generate-linkedin](/api/narrative/generate-linkedin) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/linkedin-import](/api/linkedin-import) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/linkedin-import/match](/api/linkedin-import/match) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/linkedin-import/extract](/api/linkedin-import/extract) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/linkedin-import/consent](/api/linkedin-import/consent) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/linkedin-import/audit](/api/linkedin-import/audit) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/invite](/api/invite) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/intelligence/token](/api/intelligence/token) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/intelligence/radar](/api/intelligence/radar) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/intelligence/companies](/api/intelligence/companies) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/ideas](/api/ideas) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/health](/api/health) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/guide/chat](/api/guide/chat) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/guide/chat/feedback](/api/guide/chat/feedback) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/google-calendar/disconnect](/api/google-calendar/disconnect) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/google-calendar/connect](/api/google-calendar/connect) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/google-calendar/callback](/api/google-calendar/callback) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/feedback](/api/feedback) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/feedback/items](/api/feedback/items) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/feedback/items/[id]/vote](/api/feedback/items/[id]/vote) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/drip/unsubscribe](/api/drip/unsubscribe) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/discover](/api/discover) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/demo-email](/api/demo-email) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/demo-brief](/api/demo-brief) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/demo-brief/tailored](/api/demo-brief/tailored) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/demo-brief/manager-tools](/api/demo-brief/manager-tools) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/weekly-digest](/api/cron/weekly-digest) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/ui-ux-weekly-review](/api/cron/ui-ux-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/stall-check](/api/cron/stall-check) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/scores](/api/cron/scores) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/scan-alert](/api/cron/scan-alert) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/outreach-tone-guard](/api/cron/outreach-tone-guard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/outreach-send-worker](/api/cron/outreach-send-worker) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/outreach-reconcile](/api/cron/outreach-reconcile) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/outreach-digest](/api/cron/outreach-digest) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/onboarding-video-worker](/api/cron/onboarding-video-worker) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/executive-research-refresh](/api/cron/executive-research-refresh) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/edgar-signals](/api/cron/edgar-signals) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/drip](/api/cron/drip) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/commitment-sunday](/api/cron/commitment-sunday) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/cron/commitment-friday](/api/cron/commitment-friday) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/conversation](/api/conversation) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/contacts](/api/contacts) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/contacts/[id]](/api/contacts/[id]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/concierge-waitlist](/api/concierge-waitlist) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/concierge/calls](/api/concierge/calls) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/companies](/api/companies) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/companies/reference/search](/api/companies/reference/search) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/companies/quick-add](/api/companies/quick-add) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/command-center](/api/coach/command-center) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/clients](/api/coach/clients) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/weekly-review](/api/coach/client/[clientId]/weekly-review) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/signals](/api/coach/client/[clientId]/signals) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/scorecards](/api/coach/client/[clientId]/scorecards) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/companies](/api/coach/client/[clientId]/companies) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/briefs](/api/coach/client/[clientId]/briefs) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/alerts](/api/coach/client/[clientId]/alerts) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/coach/client/[clientId]/actions](/api/coach/client/[clientId]/actions) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/client/coaches](/api/client/coaches) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/client/coach-access/[coachId]](/api/client/coach-access/[coachId]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/client/coach-access/[coachId]/activity](/api/client/coach-access/[coachId]/activity) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/chat](/api/chat) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/briefs/[id]/rate](/api/briefs/[id]/rate) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/briefs/save](/api/briefs/save) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/briefs/download](/api/briefs/download) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/briefing/send](/api/briefing/send) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/resume](/api/billing/resume) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/portal](/api/billing/portal) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/pause](/api/billing/pause) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/checkout](/api/billing/checkout) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/checkout/seats](/api/billing/checkout/seats) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/checkout/micro-product-bundle](/api/billing/checkout/micro-product-bundle) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/billing/checkout/micro-product](/api/billing/checkout/micro-product) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/verify-and-signup](/api/auth/verify-and-signup) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/verify-and-signin](/api/auth/verify-and-signin) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/verify-and-oauth](/api/auth/verify-and-oauth) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/verify-and-magic-link](/api/auth/verify-and-magic-link) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/set-password](/api/auth/set-password) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/oauth-start](/api/auth/oauth-start) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/auth/login-submit](/api/auth/login-submit) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/speakers](/api/admin/speakers) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/speakers/[id]](/api/admin/speakers/[id]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/speakers/export](/api/admin/speakers/export) - Programmatic endpoint available for platform behavior or integrations.
+## API and Automation (245)
+- [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/plan-changes](/api/admin/automation/billing/plan-changes) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/readiness](/api/admin/automation/billing/readiness) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/refund-workflow-triggers](/api/admin/automation/billing/refund-workflow-triggers) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/renewal-reminders](/api/admin/automation/billing/renewal-reminders) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/revenue-recognition-inputs](/api/admin/automation/billing/revenue-recognition-inputs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/billing/subscription-status-updates](/api/admin/automation/billing/subscription-status-updates) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/faq-responses](/api/admin/automation/customer-ops/faq-responses) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/health-checks](/api/admin/automation/customer-ops/health-checks) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/help-center-routing](/api/admin/automation/customer-ops/help-center-routing) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/inactivity-nudges](/api/admin/automation/customer-ops/inactivity-nudges) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/issue-triage](/api/admin/automation/customer-ops/issue-triage) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/renewal-reminders](/api/admin/automation/customer-ops/renewal-reminders) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/status-reporting](/api/admin/automation/customer-ops/status-reporting) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/customer-ops/usage-monitor](/api/admin/automation/customer-ops/usage-monitor) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/ci-checks](/api/admin/automation/engineering/ci-checks) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/deployment-validation](/api/admin/automation/engineering/deployment-validation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/error-monitoring](/api/admin/automation/engineering/error-monitoring) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/lint-typecheck](/api/admin/automation/engineering/lint-typecheck) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/release-notes](/api/admin/automation/engineering/release-notes) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/runtime-health-checks](/api/admin/automation/engineering/runtime-health-checks) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/scheduled-job-observability](/api/admin/automation/engineering/scheduled-job-observability) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/engineering/test-execution](/api/admin/automation/engineering/test-execution) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/meetings/book-remind](/api/admin/automation/meetings/book-remind) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/monitoring/alerts](/api/admin/automation/monitoring/alerts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/activation-reminders](/api/admin/automation/onboarding/activation-reminders) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/context-capture](/api/admin/automation/onboarding/context-capture) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/first-brief](/api/admin/automation/onboarding/first-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/first-milestone-tracking](/api/admin/automation/onboarding/first-milestone-tracking) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/identity-verify](/api/admin/automation/onboarding/identity-verify) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/intake](/api/admin/automation/onboarding/intake) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/video-queue/[runId]](/api/admin/automation/onboarding/video-queue/[runId]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/video-queue](/api/admin/automation/onboarding/video-queue) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/onboarding/workflow-assignment](/api/admin/automation/onboarding/workflow-assignment) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/book-from-replies](/api/admin/automation/outreach/book-from-replies) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/classify-replies](/api/admin/automation/outreach/classify-replies) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/enforce-suppression](/api/admin/automation/outreach/enforce-suppression) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/follow-up-timing](/api/admin/automation/outreach/follow-up-timing) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/initial-sequences](/api/admin/automation/outreach/initial-sequences) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/post-meeting-follow-up](/api/admin/automation/outreach/post-meeting-follow-up) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/reconcile-live-sends](/api/admin/automation/outreach/reconcile-live-sends) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/outreach/stalled-nudges](/api/admin/automation/outreach/stalled-nudges) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/arpu-conversion-dashboard](/api/admin/automation/reporting/arpu-conversion-dashboard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/benchmark-pipeline-run-logs](/api/admin/automation/reporting/benchmark-pipeline-run-logs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/cohort-roster-model](/api/admin/automation/reporting/cohort-roster-model) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/council-review-prep](/api/admin/automation/reporting/council-review-prep) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/daily-operating-snapshots](/api/admin/automation/reporting/daily-operating-snapshots) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/emi-validation-reruns](/api/admin/automation/reporting/emi-validation-reruns) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/exception-lists](/api/admin/automation/reporting/exception-lists) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/intelligence-qa-scorecard](/api/admin/automation/reporting/intelligence-qa-scorecard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/migration-playbook-comms](/api/admin/automation/reporting/migration-playbook-comms) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/monthly-business-review-packs](/api/admin/automation/reporting/monthly-business-review-packs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/onboarding-qa-scorecard](/api/admin/automation/reporting/onboarding-qa-scorecard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/outplacement-cohort-admin](/api/admin/automation/reporting/outplacement-cohort-admin) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/partner-kpi-schema](/api/admin/automation/reporting/partner-kpi-schema) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/partner-provisioning-import](/api/admin/automation/reporting/partner-provisioning-import) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/pilot-partner-validation](/api/admin/automation/reporting/pilot-partner-validation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/pmf-daily-dashboard](/api/admin/automation/reporting/pmf-daily-dashboard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/pmf-event-monitor](/api/admin/automation/reporting/pmf-event-monitor) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/prep-provenance-coverage](/api/admin/automation/reporting/prep-provenance-coverage) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/program-template-governance](/api/admin/automation/reporting/program-template-governance) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/program-template-packs](/api/admin/automation/reporting/program-template-packs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/provisioning-sla-qa](/api/admin/automation/reporting/provisioning-sla-qa) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/seat-lifecycle-automation](/api/admin/automation/reporting/seat-lifecycle-automation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/session-closure-monitor](/api/admin/automation/reporting/session-closure-monitor) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/sponsor-export-dispatch](/api/admin/automation/reporting/sponsor-export-dispatch) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/sponsor-export-pipeline](/api/admin/automation/reporting/sponsor-export-pipeline) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/sponsor-snapshot-cadence](/api/admin/automation/reporting/sponsor-snapshot-cadence) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/sprint-5-exit-metrics](/api/admin/automation/reporting/sprint-5-exit-metrics) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/template-adoption-scorecard](/api/admin/automation/reporting/template-adoption-scorecard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/trend-reports](/api/admin/automation/reporting/trend-reports) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/value-lane-pricing-entitlements](/api/admin/automation/reporting/value-lane-pricing-entitlements) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/weekly-kpi-summaries](/api/admin/automation/reporting/weekly-kpi-summaries) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/bookkeeping-entry-preparation](/api/admin/automation/revenue-ops/bookkeeping-entry-preparation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/exception-reporting](/api/admin/automation/revenue-ops/exception-reporting) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/mismatch-flagging](/api/admin/automation/revenue-ops/mismatch-flagging) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/payout-matching](/api/admin/automation/revenue-ops/payout-matching) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/revenue-classification](/api/admin/automation/revenue-ops/revenue-classification) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync](/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/b2b/material](/api/admin/b2b/material) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/contacts/enrich](/api/admin/contacts/enrich) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/executive-research/health](/api/admin/executive-research/health) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/health](/api/admin/health) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/internal-guide/chat](/api/admin/internal-guide/chat) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/leads/score-route](/api/admin/leads/score-route) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/outreach/reliability](/api/admin/outreach/reliability) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/sales-enablement/workspace](/api/admin/sales-enablement/workspace) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/signals/monitor](/api/admin/signals/monitor) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/[id]/council-check](/api/admin/social/[id]/council-check) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/[id]/mark-posted](/api/admin/social/[id]/mark-posted) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/social/[id]](/api/admin/social/[id]) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/social/[id]/schedule](/api/admin/social/[id]/schedule) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/[id]/mark-posted](/api/admin/social/[id]/mark-posted) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/[id]/council-check](/api/admin/social/[id]/council-check) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/today](/api/admin/social/today) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/sync-engagement](/api/admin/social/sync-engagement) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/schedule-publish](/api/admin/social/schedule-publish) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/morning](/api/admin/social/morning) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/social/handoff-approved](/api/admin/social/handoff-approved) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/social/digest](/api/admin/social/digest) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/signals/monitor](/api/admin/signals/monitor) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/outreach/reliability](/api/admin/outreach/reliability) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/leads/score-route](/api/admin/leads/score-route) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/internal-guide/chat](/api/admin/internal-guide/chat) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/health](/api/admin/health) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/executive-research/health](/api/admin/executive-research/health) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/contacts/enrich](/api/admin/contacts/enrich) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/b2b/material](/api/admin/b2b/material) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync](/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/revenue-classification](/api/admin/automation/revenue-ops/revenue-classification) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/payout-matching](/api/admin/automation/revenue-ops/payout-matching) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/mismatch-flagging](/api/admin/automation/revenue-ops/mismatch-flagging) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/exception-reporting](/api/admin/automation/revenue-ops/exception-reporting) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/revenue-ops/bookkeeping-entry-preparation](/api/admin/automation/revenue-ops/bookkeeping-entry-preparation) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/weekly-kpi-summaries](/api/admin/automation/reporting/weekly-kpi-summaries) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/value-lane-pricing-entitlements](/api/admin/automation/reporting/value-lane-pricing-entitlements) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/trend-reports](/api/admin/automation/reporting/trend-reports) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/template-adoption-scorecard](/api/admin/automation/reporting/template-adoption-scorecard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/sprint-5-exit-metrics](/api/admin/automation/reporting/sprint-5-exit-metrics) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/sponsor-snapshot-cadence](/api/admin/automation/reporting/sponsor-snapshot-cadence) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/sponsor-export-pipeline](/api/admin/automation/reporting/sponsor-export-pipeline) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/sponsor-export-dispatch](/api/admin/automation/reporting/sponsor-export-dispatch) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/session-closure-monitor](/api/admin/automation/reporting/session-closure-monitor) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/seat-lifecycle-automation](/api/admin/automation/reporting/seat-lifecycle-automation) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/provisioning-sla-qa](/api/admin/automation/reporting/provisioning-sla-qa) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/program-template-packs](/api/admin/automation/reporting/program-template-packs) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/program-template-governance](/api/admin/automation/reporting/program-template-governance) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/prep-provenance-coverage](/api/admin/automation/reporting/prep-provenance-coverage) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/pmf-event-monitor](/api/admin/automation/reporting/pmf-event-monitor) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/pmf-daily-dashboard](/api/admin/automation/reporting/pmf-daily-dashboard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/pilot-partner-validation](/api/admin/automation/reporting/pilot-partner-validation) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/partner-provisioning-import](/api/admin/automation/reporting/partner-provisioning-import) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/partner-kpi-schema](/api/admin/automation/reporting/partner-kpi-schema) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/outplacement-cohort-admin](/api/admin/automation/reporting/outplacement-cohort-admin) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/onboarding-qa-scorecard](/api/admin/automation/reporting/onboarding-qa-scorecard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/monthly-business-review-packs](/api/admin/automation/reporting/monthly-business-review-packs) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/migration-playbook-comms](/api/admin/automation/reporting/migration-playbook-comms) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/intelligence-qa-scorecard](/api/admin/automation/reporting/intelligence-qa-scorecard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/exception-lists](/api/admin/automation/reporting/exception-lists) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/emi-validation-reruns](/api/admin/automation/reporting/emi-validation-reruns) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/daily-operating-snapshots](/api/admin/automation/reporting/daily-operating-snapshots) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/council-review-prep](/api/admin/automation/reporting/council-review-prep) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/cohort-roster-model](/api/admin/automation/reporting/cohort-roster-model) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/benchmark-pipeline-run-logs](/api/admin/automation/reporting/benchmark-pipeline-run-logs) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/reporting/arpu-conversion-dashboard](/api/admin/automation/reporting/arpu-conversion-dashboard) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/stalled-nudges](/api/admin/automation/outreach/stalled-nudges) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/reconcile-live-sends](/api/admin/automation/outreach/reconcile-live-sends) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/post-meeting-follow-up](/api/admin/automation/outreach/post-meeting-follow-up) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/initial-sequences](/api/admin/automation/outreach/initial-sequences) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/follow-up-timing](/api/admin/automation/outreach/follow-up-timing) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/enforce-suppression](/api/admin/automation/outreach/enforce-suppression) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/classify-replies](/api/admin/automation/outreach/classify-replies) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/outreach/book-from-replies](/api/admin/automation/outreach/book-from-replies) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/workflow-assignment](/api/admin/automation/onboarding/workflow-assignment) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/video-queue](/api/admin/automation/onboarding/video-queue) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/video-queue/[runId]](/api/admin/automation/onboarding/video-queue/[runId]) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/intake](/api/admin/automation/onboarding/intake) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/identity-verify](/api/admin/automation/onboarding/identity-verify) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/first-milestone-tracking](/api/admin/automation/onboarding/first-milestone-tracking) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/first-brief](/api/admin/automation/onboarding/first-brief) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/context-capture](/api/admin/automation/onboarding/context-capture) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/onboarding/activation-reminders](/api/admin/automation/onboarding/activation-reminders) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/monitoring/alerts](/api/admin/automation/monitoring/alerts) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/meetings/book-remind](/api/admin/automation/meetings/book-remind) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/test-execution](/api/admin/automation/engineering/test-execution) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/scheduled-job-observability](/api/admin/automation/engineering/scheduled-job-observability) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/runtime-health-checks](/api/admin/automation/engineering/runtime-health-checks) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/release-notes](/api/admin/automation/engineering/release-notes) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/lint-typecheck](/api/admin/automation/engineering/lint-typecheck) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/error-monitoring](/api/admin/automation/engineering/error-monitoring) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/deployment-validation](/api/admin/automation/engineering/deployment-validation) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/engineering/ci-checks](/api/admin/automation/engineering/ci-checks) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/usage-monitor](/api/admin/automation/customer-ops/usage-monitor) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/status-reporting](/api/admin/automation/customer-ops/status-reporting) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/renewal-reminders](/api/admin/automation/customer-ops/renewal-reminders) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/issue-triage](/api/admin/automation/customer-ops/issue-triage) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/inactivity-nudges](/api/admin/automation/customer-ops/inactivity-nudges) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/help-center-routing](/api/admin/automation/customer-ops/help-center-routing) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/health-checks](/api/admin/automation/customer-ops/health-checks) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/customer-ops/faq-responses](/api/admin/automation/customer-ops/faq-responses) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/subscription-status-updates](/api/admin/automation/billing/subscription-status-updates) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/revenue-recognition-inputs](/api/admin/automation/billing/revenue-recognition-inputs) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/renewal-reminders](/api/admin/automation/billing/renewal-reminders) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/refund-workflow-triggers](/api/admin/automation/billing/refund-workflow-triggers) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/plan-changes](/api/admin/automation/billing/plan-changes) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
-- [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/handoff-approved](/api/admin/social/handoff-approved) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/mock-publish](/api/admin/social/mock-publish) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/morning](/api/admin/social/morning) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/schedule-publish](/api/admin/social/schedule-publish) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/sync-engagement](/api/admin/social/sync-engagement) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/social/today](/api/admin/social/today) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/speakers/[id]](/api/admin/speakers/[id]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/speakers/export](/api/admin/speakers/export) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/speakers](/api/admin/speakers) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/login-submit](/api/auth/login-submit) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/oauth-start](/api/auth/oauth-start) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/set-password](/api/auth/set-password) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/verify-and-magic-link](/api/auth/verify-and-magic-link) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/verify-and-oauth](/api/auth/verify-and-oauth) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/verify-and-signin](/api/auth/verify-and-signin) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/auth/verify-and-signup](/api/auth/verify-and-signup) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/checkout/micro-product-bundle](/api/billing/checkout/micro-product-bundle) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/checkout/micro-product](/api/billing/checkout/micro-product) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/checkout](/api/billing/checkout) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/checkout/seats](/api/billing/checkout/seats) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/pause](/api/billing/pause) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/portal](/api/billing/portal) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/billing/resume](/api/billing/resume) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/briefing/send](/api/briefing/send) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/briefs/[id]/rate](/api/briefs/[id]/rate) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/briefs/download](/api/briefs/download) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/briefs/save](/api/briefs/save) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/chat](/api/chat) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/client/coach-access/[coachId]/activity](/api/client/coach-access/[coachId]/activity) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/client/coach-access/[coachId]](/api/client/coach-access/[coachId]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/client/coaches](/api/client/coaches) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/actions](/api/coach/client/[clientId]/actions) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/alerts](/api/coach/client/[clientId]/alerts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/briefs](/api/coach/client/[clientId]/briefs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/companies](/api/coach/client/[clientId]/companies) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/scorecards](/api/coach/client/[clientId]/scorecards) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/signals](/api/coach/client/[clientId]/signals) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/weekly-review](/api/coach/client/[clientId]/weekly-review) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/clients](/api/coach/clients) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/command-center](/api/coach/command-center) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/companies/quick-add](/api/companies/quick-add) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/companies/reference/search](/api/companies/reference/search) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/companies](/api/companies) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/concierge-waitlist](/api/concierge-waitlist) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/concierge/calls](/api/concierge/calls) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/contacts/[id]](/api/contacts/[id]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/contacts](/api/contacts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/conversation](/api/conversation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/commitment-friday](/api/cron/commitment-friday) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/commitment-sunday](/api/cron/commitment-sunday) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/drip](/api/cron/drip) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/edgar-signals](/api/cron/edgar-signals) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/executive-research-refresh](/api/cron/executive-research-refresh) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/onboarding-video-worker](/api/cron/onboarding-video-worker) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/outreach-digest](/api/cron/outreach-digest) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/outreach-reconcile](/api/cron/outreach-reconcile) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/outreach-send-worker](/api/cron/outreach-send-worker) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/outreach-tone-guard](/api/cron/outreach-tone-guard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/scan-alert](/api/cron/scan-alert) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/scores](/api/cron/scores) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/stall-check](/api/cron/stall-check) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/ui-ux-weekly-review](/api/cron/ui-ux-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/weekly-digest](/api/cron/weekly-digest) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/demo-brief/executive-brief](/api/demo-brief/executive-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/demo-brief/manager-tools](/api/demo-brief/manager-tools) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/demo-brief](/api/demo-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/demo-brief/tailored](/api/demo-brief/tailored) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/demo-email](/api/demo-email) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/discover](/api/discover) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/drip/unsubscribe](/api/drip/unsubscribe) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/feedback/items/[id]/vote](/api/feedback/items/[id]/vote) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/feedback/items](/api/feedback/items) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/feedback](/api/feedback) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/google-calendar/callback](/api/google-calendar/callback) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/google-calendar/connect](/api/google-calendar/connect) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/google-calendar/disconnect](/api/google-calendar/disconnect) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/guide/chat/feedback](/api/guide/chat/feedback) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/guide/chat](/api/guide/chat) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/health](/api/health) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/ideas](/api/ideas) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/intelligence/companies](/api/intelligence/companies) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/intelligence/radar](/api/intelligence/radar) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/intelligence/token](/api/intelligence/token) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/invite](/api/invite) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/linkedin-import/audit](/api/linkedin-import/audit) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/linkedin-import/consent](/api/linkedin-import/consent) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/linkedin-import/extract](/api/linkedin-import/extract) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/linkedin-import/match](/api/linkedin-import/match) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/linkedin-import](/api/linkedin-import) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/narrative/generate-linkedin](/api/narrative/generate-linkedin) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/narrative/generate-positioning](/api/narrative/generate-positioning) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/notify/new-user](/api/notify/new-user) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/offer-synthesis](/api/offer-synthesis) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/onboarding/events](/api/onboarding/events) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/onboarding/intel](/api/onboarding/intel) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/optimize](/api/optimize) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/current-status](/api/outreach/current-status) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/draft](/api/outreach/draft) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/send/batch-status](/api/outreach/send/batch-status) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/send](/api/outreach/send) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/status](/api/outreach/status) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/suppression](/api/outreach/suppression) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/template](/api/outreach/template) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/partners/attribute](/api/partners/attribute) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/partners/report](/api/partners/report) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/partners](/api/partners) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/pilot-outreach](/api/pilot-outreach) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/positioning/chat](/api/positioning/chat) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/positioning/save](/api/positioning/save) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/preferences/briefing](/api/preferences/briefing) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/background](/api/prep/[id]/background) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/challenges](/api/prep/[id]/challenges) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/chat](/api/prep/[id]/chat) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/competitive](/api/prep/[id]/competitive) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/leadership](/api/prep/[id]/leadership) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/outreach/log](/api/prep/[id]/outreach/log) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/outreach](/api/prep/[id]/outreach) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/priorities](/api/prep/[id]/priorities) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/questions](/api/prep/[id]/questions) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]](/api/prep/[id]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/tech-stack](/api/prep/[id]/tech-stack) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/why-here](/api/prep/[id]/why-here) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/prep/[id]/wins](/api/prep/[id]/wins) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/profile/export](/api/profile/export) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/signals/classify](/api/signals/classify) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/strategy/followup](/api/strategy/followup) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/strategy](/api/strategy) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/suggestions](/api/suggestions) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/tailor/check](/api/tailor/check) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/tailor](/api/tailor) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/tailor/strengthen](/api/tailor/strengthen) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/team/invite](/api/team/invite) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/team/seat/[id]](/api/team/seat/[id]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/track/open](/api/track/open) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/webhooks/onboarding-video](/api/webhooks/onboarding-video) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/webhooks/resend](/api/webhooks/resend) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/webhooks/stripe](/api/webhooks/stripe) - Programmatic endpoint available for platform behavior or integrations.
 
 ## Starting Monday Articles (29)
 - [We Analyzed 300+ Executive Hiring Profiles. Here Is What Actually Gets Senior Leaders Interviewed.](/blog/executive-hiring-patterns-2026) - Most executive candidates still position around tenure and title. Hiring teams at the C-suite and VP level screen for transformation evidence, cross-functional influence, and business outcomes. Here is what the data says.

@@ -7,6 +7,7 @@ import { STRATEGY_SYSTEM, personaContext } from '@/lib/prompts'
 import { RESUME_CHARS } from '@/lib/ai-limits'
 import { isDemoUser, streamDemoText, DEMO_STRATEGY_BRIEF } from '@/lib/demo'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 import { encodeUserId } from '@/lib/watermark'
 import { type SupabaseClient } from '@supabase/supabase-js'
 
@@ -29,6 +30,7 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(err => Sentry.captureException(err, { extra: { route: 'strategy', userId } }))
       } catch (err) {
+        recordTraceError({ feature: 'strategy_brief', userId, error: err instanceof Error ? err.message : String(err) })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'strategy_brief', userId })))
         controller.close()
       }

@@ -22,16 +22,20 @@ declare global {
 
 type TurnstileWidgetProps = {
   onTokenChange: (token: string | null) => void
+  onStatusChange?: (status: 'loading' | 'ready' | 'error') => void
 }
 
 const SCRIPT_ID = 'cf-turnstile-script'
 const SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
-function ensureTurnstileScript(onLoad: () => void) {
+function ensureTurnstileScript(onLoad: () => void, onError: () => void) {
   const existing = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null
   if (existing) {
     if (window.turnstile) onLoad()
-    else existing.addEventListener('load', onLoad, { once: true })
+    else {
+      existing.addEventListener('load', onLoad, { once: true })
+      existing.addEventListener('error', onError, { once: true })
+    }
     return
   }
 
@@ -41,51 +45,72 @@ function ensureTurnstileScript(onLoad: () => void) {
   script.async = true
   script.defer = true
   script.addEventListener('load', onLoad, { once: true })
+  script.addEventListener('error', onError, { once: true })
   document.head.appendChild(script)
 }
 
-export default function TurnstileWidget({ onTokenChange }: TurnstileWidgetProps) {
+export default function TurnstileWidget({ onTokenChange, onStatusChange }: TurnstileWidgetProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const widgetIdRef = useRef<string | number | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   useEffect(() => {
+    let active = true
     onTokenChange(null)
+    onStatusChange?.('loading')
+
+    const fail = (message: string) => {
+      if (!active) return
+      onTokenChange(null)
+      setLoadError(message)
+      onStatusChange?.('error')
+    }
 
     if (!siteKey) {
-      setLoadError('Security check is unavailable. Please try again later.')
+      fail('Security check is unavailable. Please try again later.')
       return
     }
 
     const render = () => {
       if (!containerRef.current || !window.turnstile) {
-        setLoadError('Security check failed to load. Refresh and try again.')
+        fail('Security check failed to load. Refresh and try again.')
         return
       }
 
+      setLoadError(null)
       containerRef.current.innerHTML = ''
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey: siteKey,
         callback: (token: string) => onTokenChange(token),
         'expired-callback': () => onTokenChange(null),
         'error-callback': () => {
-          onTokenChange(null)
-          setLoadError('Security check failed. Please refresh and retry.')
+          fail('Security check failed. Please refresh and retry.')
         },
         theme: 'light',
       })
+      onStatusChange?.('ready')
     }
 
-    ensureTurnstileScript(render)
+    const scriptLoadTimeout = window.setTimeout(() => {
+      if (!window.turnstile) {
+        fail('Security check failed to load. Refresh and try again.')
+      }
+    }, 8000)
+
+    ensureTurnstileScript(render, () => {
+      fail('Security check failed to load. Refresh and try again.')
+    })
 
     return () => {
+      active = false
+      window.clearTimeout(scriptLoadTimeout)
       if (window.turnstile?.remove && widgetIdRef.current != null) {
         window.turnstile.remove(widgetIdRef.current)
       }
       widgetIdRef.current = null
     }
-  }, [onTokenChange, siteKey])
+  }, [onStatusChange, onTokenChange, siteKey])
 
   return (
     <div className="space-y-2">

@@ -41,7 +41,7 @@ export default function PresenterDemoPage() {
           </Link>
           <div className="flex items-center gap-3 sm:gap-4">
             <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">Live demo</Link>
-            <Link href="/demo/manager-tools" className="text-[13px] text-slate-400 hover:text-white transition-colors">Manager tools</Link>
+            <Link href="/demo/executive-brief" className="text-[13px] text-slate-400 hover:text-white transition-colors">Live example</Link>
             <Link href="/mark-demo" className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">No-gate demo</Link>
           </div>
         </div>
@@ -73,8 +73,8 @@ export default function PresenterDemoPage() {
               <Link href="/demo/presenter?full=1" className="inline-flex items-center justify-center rounded bg-slate-950 text-white px-4 py-2.5 text-[13px] font-semibold hover:bg-slate-800 transition-colors">
                 Get started now
               </Link>
-              <Link href="/demo/manager-tools" className="inline-flex items-center justify-center rounded border border-slate-200 bg-white text-slate-700 px-4 py-2.5 text-[13px] font-semibold hover:border-slate-400 transition-colors">
-                View manager tools example
+              <Link href="/demo/executive-brief" className="inline-flex items-center justify-center rounded border border-slate-200 bg-white text-slate-700 px-4 py-2.5 text-[13px] font-semibold hover:border-slate-400 transition-colors">
+                View live example
               </Link>
             </div>
           </div>

@@ -52,6 +52,7 @@ async function listFilesRecursive(dir: string): Promise<string[]> {
   while (stack.length > 0) {
     const current = stack.pop()!
     const entries = await fs.readdir(current, { withFileTypes: true }).catch(() => [])
+    entries.sort((left, right) => left.name.localeCompare(right.name))
     for (const entry of entries) {
       const fullPath = path.join(current, entry.name)
       if (entry.isDirectory()) {
@@ -168,8 +169,11 @@ async function buildGuidePayload() {
   const apiDir = path.join(ROOT, 'src', 'app', 'api')
 
   const appPageFiles = (await listFilesRecursive(appDir)).filter((file) => file.endsWith('/page.tsx') || file.endsWith('\\page.tsx'))
+    .sort((left, right) => left.localeCompare(right))
   const dashboardFiles = (await listFilesRecursive(dashboardDir)).filter((file) => file.endsWith('/page.tsx') || file.endsWith('\\page.tsx'))
+    .sort((left, right) => left.localeCompare(right))
   const apiFiles = (await listFilesRecursive(apiDir)).filter((file) => file.endsWith('/route.ts') || file.endsWith('\\route.ts'))
+    .sort((left, right) => left.localeCompare(right))
 
   const appRoutes = appPageFiles
     .map((file) => pageFileToRoute(file))

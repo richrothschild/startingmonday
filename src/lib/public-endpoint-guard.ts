@@ -13,6 +13,15 @@ type TurnstileVerificationResponse = {
   'error-codes'?: string[]
 }
 
+function logTurnstileGuard(
+  level: 'warn' | 'error',
+  event: string,
+  metadata: Record<string, unknown>,
+) {
+  const logger = level === 'error' ? console.error : console.warn
+  logger('[turnstile_guard]', JSON.stringify({ event, ...metadata }))
+}
+
 function isTurnstileEnforced(): boolean {
   const configured = process.env.TURNSTILE_ENFORCED?.trim()
   if (configured === '1') return true
@@ -51,9 +60,13 @@ export async function enforcePublicEndpointGuard(
   if (requireCaptcha && isTurnstileEnforced()) {
     const secret = process.env.TURNSTILE_SECRET_KEY?.trim()
     if (!secret) {
+      logTurnstileGuard('error', 'missing_secret', {
+        path: request.nextUrl.pathname,
+        ip,
+      })
       if (process.env.NODE_ENV === 'production') {
         return NextResponse.json(
-          { ok: false, error: 'Captcha is currently unavailable' },
+          { ok: false, error: 'Captcha is currently unavailable', code: 'CAPTCHA_UNAVAILABLE' },
           { status: 503 },
         )
       }
@@ -62,8 +75,12 @@ export async function enforcePublicEndpointGuard(
 
     const token = request.headers.get('x-captcha-token')?.trim() ?? ''
     if (!token) {
+      logTurnstileGuard('warn', 'missing_token', {
+        path: request.nextUrl.pathname,
+        ip,
+      })
       return NextResponse.json(
-        { ok: false, error: 'Captcha token is required' },
+        { ok: false, error: 'Captcha token is required', code: 'CAPTCHA_REQUIRED' },
         { status: 400 },
       )
     }
@@ -85,14 +102,31 @@ export async function enforcePublicEndpointGuard(
       if (response.ok) {
         const data = await response.json() as TurnstileVerificationResponse
         verified = data.success === true
+        if (!verified) {
+          logTurnstileGuard('warn', 'verification_failed', {
+            path: request.nextUrl.pathname,
+            ip,
+            errorCodes: data['error-codes'] ?? [],
+          })
+        }
+      } else {
+        logTurnstileGuard('error', 'siteverify_http_error', {
+          path: request.nextUrl.pathname,
+          ip,
+          status: response.status,
+        })
       }
     } catch {
+      logTurnstileGuard('error', 'siteverify_fetch_error', {
+        path: request.nextUrl.pathname,
+        ip,
+      })
       verified = false
     }
 
     if (!verified) {
       return NextResponse.json(
-        { ok: false, error: 'Captcha verification failed' },
+        { ok: false, error: 'Captcha verification failed', code: 'CAPTCHA_FAILED' },
         { status: 403 },
       )
     }

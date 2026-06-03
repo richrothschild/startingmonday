@@ -3,6 +3,7 @@ import { logger } from '../lib/logger.js'
 import { trackUsage } from '../lib/usage-tracker.js'
 import { createLimiter } from '../lib/concurrency.js'
 import { scanCompany } from '../scanner/scan-company.js'
+import { writeScanFailureDeadLetter } from '../lib/scan-dead-letter.js'
 import { notify } from '../lib/notify.js'
 
 const MAX_CONCURRENT_SCANS = 10
@@ -132,6 +133,13 @@ export async function runScanJob() {
             company_id: company.id,
             company_name: company.name,
             user_id: company.user_id,
+            error: msg,
+          })
+          await writeScanFailureDeadLetter(supabase, {
+            jobName: 'scan-job',
+            userId: company.user_id,
+            companyId: company.id,
+            companyName: company.name,
             error: msg,
           })
         }
