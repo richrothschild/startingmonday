@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T02:57:12.020Z",
+  "generatedAt": "2026-06-03T03:14:35.620Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
+      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
     },
     {
       "id": "feature:/login",
@@ -8432,7 +8432,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T02:22:21.237Z"
+      "lastModifiedAt": "2026-06-03T03:12:17.921Z"
     },
     {
       "id": "script:scripts/check-linkedin-ads-gate.mjs",
@@ -8835,7 +8835,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T02:20:49.818Z"
+      "lastModifiedAt": "2026-06-03T03:12:17.921Z"
     },
     {
       "id": "script:scripts/export-pmf-daily-dashboard.mjs",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.706Z"
+      "lastModifiedAt": "2026-06-03T03:12:17.920Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -9628,7 +9628,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.585Z"
+      "lastModifiedAt": "2026-06-03T03:12:17.921Z"
     },
     {
       "id": "infra:.github/workflows/emi-weekly-validation.yml",
@@ -9771,7 +9771,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:49:26.718Z"
+      "lastModifiedAt": "2026-06-03T03:12:32.222Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -9784,7 +9784,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.598Z"
+      "lastModifiedAt": "2026-06-03T03:12:17.920Z"
     },
     {
       "id": "infra:.github/workflows/production-synthetics.yml",
@@ -15059,7 +15059,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
+      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15098,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
+      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
