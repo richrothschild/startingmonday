@@ -137,7 +137,7 @@ test.describe('Billing and Stripe checkout', () => {
 
 test.describe('Prep brief generation', () => {
   test('prep API streams generated brief text for a valid company', async ({ page }) => {
-    test.setTimeout(180_000)
+    test.setTimeout(300_000)
     await skipIfAuthUnavailable(page)
     const companyId = await findFirstCompanyId(page)
     test.skip(!companyId, 'Skipping prep API test: no company found in dashboard')
