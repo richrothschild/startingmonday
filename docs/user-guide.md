@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-03T19:04:47.842Z
+Last generated: 2026-06-03T21:20:38.962Z
 
 This guide is generated from product routes, APIs, and published articles.
 

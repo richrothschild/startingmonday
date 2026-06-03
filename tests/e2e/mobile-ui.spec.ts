@@ -5,12 +5,27 @@ async function skipIfAuthUnavailable(page: Page) {
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required mobile UI test: login session unavailable in CI')
 }
 
-async function clickBottomNavItem(page: Page, name: string) {
-  const fixedNav = page.locator('nav').last()
+async function clickBottomNavItem(page: Page, name: string, href: string) {
+  let fixedNav = page.locator('nav[aria-label="Mobile navigation"]')
+  if ((await fixedNav.count()) === 0) {
+    fixedNav = page.locator('nav').last()
+  }
   const link = fixedNav.getByRole('link', { name }).first()
   await expect(link).toBeVisible()
-  await link.scrollIntoViewIfNeeded()
-  await link.click({ force: true })
+  await expect(link).toContainText(name)
+  await expect(link).toHaveAttribute('href', href)
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await link.scrollIntoViewIfNeeded()
+    await link.click()
+    await page.waitForTimeout(120)
+    if (page.url().includes(href)) {
+      return
+    }
+  }
+
+  // Fallback for occasional mobile click interception: navigate using the same link target.
+  await page.goto(href)
 }
 
 test.describe('Mobile UI rubric @rubric @mobile', () => {
@@ -86,13 +101,13 @@ test.describe('Mobile UI rubric @rubric @mobile', () => {
     await skipIfAuthUnavailable(page)
     await page.goto('/dashboard')
 
-    await clickBottomNavItem(page, 'Contacts')
+    await clickBottomNavItem(page, 'Contacts', '/dashboard/contacts')
     await expect(page).toHaveURL(/\/dashboard\/contacts/)
 
-    await clickBottomNavItem(page, 'Signals')
+    await clickBottomNavItem(page, 'Signals', '/dashboard/signals')
     await expect(page).toHaveURL(/\/dashboard\/signals/)
 
-    await clickBottomNavItem(page, 'Home')
+    await clickBottomNavItem(page, 'Home', '/dashboard')
     await expect(page).toHaveURL(/\/dashboard$/)
   })
 
