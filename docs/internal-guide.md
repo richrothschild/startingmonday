@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T03:14:35.620Z
+Last generated: 2026-06-03T12:45:58.037Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -596,7 +596,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/social-posting-plan.ts | src/lib/social-posting-plan.ts | export type SocialPlan = {
 - Code src/lib/staff.test.ts | src/lib/staff.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/staff.ts | src/lib/staff.ts | export type StaffRole = 'owner' | 'admin' | 'viewer'
-- Code src/lib/stream-error.test.ts | src/lib/stream-error.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/stream-error.test.ts | src/lib/stream-error.test.ts | import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 - Code src/lib/stream-error.ts | src/lib/stream-error.ts | export function streamErrorMessage(err: unknown, context?: { feature?: string; userId?: string }): string {
 - Code src/lib/stripe-customer.test.ts | src/lib/stripe-customer.test.ts | import { beforeEach, describe, expect, it, vi } from 'vitest'
 - Code src/lib/stripe-customer.ts | src/lib/stripe-customer.ts | export async function getOrRecoverStripeCustomerId(userId: string): Promise<string | null> {
@@ -618,7 +618,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/telemetry.ts | src/lib/telemetry.ts | Set once per cold start from Railway / CI environment.
 - Code src/lib/toast.test.tsx | src/lib/toast.test.tsx | import { describe, expect, it } from 'vitest'
 - Code src/lib/toast.tsx | src/lib/toast.tsx | export function ToastProvider({ children }: { children: React.ReactNode }) {
-- Code src/lib/trace.test.ts | src/lib/trace.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/trace.test.ts | src/lib/trace.test.ts | import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 - Code src/lib/trace.ts | src/lib/trace.ts | export function recordTraceError(params: { feature: string; userId: string; model?: string; latencyMs?: number; error: string }): void {
 - Code src/lib/unsubscribe-token.test.ts | src/lib/unsubscribe-token.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/unsubscribe-token.ts | src/lib/unsubscribe-token.ts | export function unsubscribeUrl(userId: string): string {

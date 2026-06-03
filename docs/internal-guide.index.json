@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T03:14:35.620Z",
+  "generatedAt": "2026-06-03T12:45:58.037Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T03:30:31.083Z"
     },
     {
       "id": "feature:/login",
@@ -3557,7 +3557,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-24T16:53:26.552Z"
+      "lastModifiedAt": "2026-06-03T03:36:23.206Z"
     },
     {
       "id": "api:/api/admin/contacts/enrich",
@@ -4662,7 +4662,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.566Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.391Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -5117,7 +5117,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-11T05:43:09.436Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.897Z"
     },
     {
       "id": "api:/api/outreach/send/batch-status",
@@ -5247,7 +5247,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.589Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.886Z"
     },
     {
       "id": "api:/api/positioning/save",
@@ -5494,7 +5494,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-28T02:05:48.191Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
     },
     {
       "id": "api:/api/search",
@@ -5533,7 +5533,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T11:33:40.071Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.885Z"
     },
     {
       "id": "api:/api/strategy",
@@ -5546,7 +5546,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T11:33:28.457Z"
+      "lastModifiedAt": "2026-06-03T03:36:11.876Z"
     },
     {
       "id": "api:/api/suggestions",
@@ -5559,7 +5559,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T17:42:59.938Z"
+      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
     },
     {
       "id": "api:/api/tailor/check",
@@ -6417,7 +6417,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T01:44:44.717Z"
+      "lastModifiedAt": "2026-06-03T03:30:21.135Z"
     },
     {
       "id": "code:src/lib/executive-job-search.ts",
@@ -6430,7 +6430,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T01:44:44.718Z"
+      "lastModifiedAt": "2026-06-03T03:30:21.135Z"
     },
     {
       "id": "code:src/lib/executive-research-library.ts",
@@ -7787,7 +7787,7 @@
     {
       "id": "code:src/lib/stream-error.test.ts",
       "title": "Code src/lib/stream-error.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'",
       "type": "code",
       "ref": "src/lib/stream-error.test.ts",
       "tags": [
@@ -7795,7 +7795,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-24T17:04:25.647Z"
+      "lastModifiedAt": "2026-06-03T03:36:34.025Z"
     },
     {
       "id": "code:src/lib/stream-error.ts",
@@ -8073,7 +8073,7 @@
     {
       "id": "code:src/lib/trace.test.ts",
       "title": "Code src/lib/trace.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'",
       "type": "code",
       "ref": "src/lib/trace.test.ts",
       "tags": [
@@ -8081,7 +8081,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-24T17:04:25.650Z"
+      "lastModifiedAt": "2026-06-03T03:36:42.520Z"
     },
     {
       "id": "code:src/lib/trace.ts",
@@ -15059,7 +15059,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T03:30:31.082Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15098,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:57:12.034Z"
+      "lastModifiedAt": "2026-06-03T03:30:31.083Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18023,7 +18023,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:00:34.774Z"
+      "lastModifiedAt": "2026-06-03T03:44:46.879Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
