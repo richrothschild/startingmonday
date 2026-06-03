@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T16:48:13.006Z",
+  "generatedAt": "2026-06-03T17:02:34.070Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
+      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
     },
     {
       "id": "feature:/login",
@@ -14297,6 +14297,19 @@
       "lastModifiedAt": "2026-06-03T14:00:56.291Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/127_stripe_webhook_events.md",
+      "title": "Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md",
+      "body": "127_stripe_webhook_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/127_stripe_webhook_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T17:01:55.045Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -15152,7 +15165,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
+      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15191,7 +15204,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
+      "lastModifiedAt": "2026-06-03T16:48:13.019Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
