@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T16:40:52.981Z",
+  "generatedAt": "2026-06-03T16:48:13.006Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "feature:/login",
@@ -2557,6 +2557,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-05-24T16:53:26.549Z"
+    },
+    {
+      "id": "api:/api/admin/automation/billing/readiness",
+      "title": "API /api/admin/automation/billing/readiness",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/automation/billing/readiness/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-03T16:47:40.848Z"
     },
     {
       "id": "api:/api/admin/automation/billing/refund-workflow-triggers",
@@ -5676,7 +5689,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T15:33:49.270Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "code:src/lib/__tests__/prep-context.test.ts",
@@ -5741,7 +5754,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T15:33:49.375Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "code:src/lib/__tests__/subscription.test.ts",
@@ -8354,7 +8367,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T16:40:20.643Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
@@ -8888,6 +8901,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-05-28T02:05:48.246Z"
+    },
+    {
+      "id": "script:scripts/fix-billing-placeholder-sql.mjs",
+      "title": "Script scripts/fix-billing-placeholder-sql.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/fix-billing-placeholder-sql.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T16:46:31.754Z"
     },
     {
       "id": "script:scripts/fix-outreach-signature-csv.mjs",
@@ -9602,7 +9628,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T14:00:56.280Z"
+      "lastModifiedAt": "2026-06-03T16:46:01.586Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -11785,7 +11811,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T15:33:49.380Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15126,7 +15152,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15165,7 +15191,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:35:33.825Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16595,7 +16621,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:34:12.772Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "doc:docs/sre/runbook-templates.md",
@@ -18090,7 +18116,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:35:10.133Z"
+      "lastModifiedAt": "2026-06-03T16:48:10.477Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

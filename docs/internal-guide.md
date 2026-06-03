@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T16:40:52.981Z
+Last generated: 2026-06-03T16:48:13.006Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -187,11 +187,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (244)
+## API Surface (245)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/plan-changes | src/app/api/admin/automation/billing/plan-changes/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/billing/readiness | src/app/api/admin/automation/billing/readiness/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/billing/refund-workflow-triggers | src/app/api/admin/automation/billing/refund-workflow-triggers/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/renewal-reminders | src/app/api/admin/automation/billing/renewal-reminders/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/revenue-recognition-inputs | src/app/api/admin/automation/billing/revenue-recognition-inputs/route.ts | export async function POST(request: NextRequest) {
@@ -627,7 +628,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (109)
+## Internal Scripts (110)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -683,6 +684,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/export-pmf-daily-dashboard.mjs | scripts/export-pmf-daily-dashboard.mjs | #!/usr/bin/env node
 - Script scripts/export-prep-brief-golden-set.mjs | scripts/export-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/export-report-pdfs.mjs | scripts/export-report-pdfs.mjs | Branded full-fidelity PDF for downloads.
+- Script scripts/fix-billing-placeholder-sql.mjs | scripts/fix-billing-placeholder-sql.mjs | #!/usr/bin/env node
 - Script scripts/fix-outreach-signature-csv.mjs | scripts/fix-outreach-signature-csv.mjs | import { readdir, readFile, writeFile } from 'node:fs/promises'
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
