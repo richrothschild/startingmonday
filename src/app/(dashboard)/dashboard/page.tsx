@@ -20,6 +20,7 @@ import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyM
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { DashboardDisclosureSection } from './dashboard-disclosure-section'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -81,9 +82,9 @@ type CompanyRow = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string }>
 }) {
-  const { q, stage, page: pageParam, profile_saved } = await searchParams
+  const { q, stage, page: pageParam, profile_saved, focus } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -711,6 +712,8 @@ export default async function DashboardPage({
             <a href="#start-here" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
             <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
             <a href="#pipeline-pulse" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
+            <a href="?focus=profile#profile-modules" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Profile modules</a>
+            <a href="?focus=advanced#advanced-modules" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Advanced modules</a>
           </div>
         </section>
 
@@ -866,12 +869,11 @@ export default async function DashboardPage({
           </div>
         )}
 
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Profile and intelligence modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
+        <DashboardDisclosureSection
+          id="profile-modules"
+          title="Profile and intelligence modules"
+          defaultOpen={focus === 'profile'}
+        >
 
         {/* Profile completeness score */}
         {profileScore < 100 && (
@@ -1043,8 +1045,7 @@ export default async function DashboardPage({
 
         <OpportunityRadar />
 
-          </div>
-        </details>
+        </DashboardDisclosureSection>
 
         {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
         {showNurtureWelcome && (
@@ -1132,12 +1133,11 @@ export default async function DashboardPage({
           />
         )}
 
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly performance and advanced modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
+        <DashboardDisclosureSection
+          id="advanced-modules"
+          title="Weekly performance and advanced modules"
+          defaultOpen={focus === 'advanced'}
+        >
 
         {/* Weekly commitment device */}
         {(() => {
@@ -1348,8 +1348,7 @@ export default async function DashboardPage({
           </section>
         )}
 
-          </div>
-        </details>
+        </DashboardDisclosureSection>
 
         {/* Pipeline */}
         <DashboardPipelineSection
