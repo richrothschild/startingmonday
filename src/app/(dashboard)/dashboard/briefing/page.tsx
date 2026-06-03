@@ -39,6 +39,18 @@ type GeneratedBriefing = {
   usedFallback: boolean
 }
 
+const BRIEFING_SIGNAL_LIMIT = 5
+const BRIEFING_MATCH_LIMIT = 3
+const BRIEFING_FOLLOW_UP_LIMIT = 3
+const BRIEFING_SUMMARY_CHAR_LIMIT = 280
+
+function trimBriefingText(value: string | null | undefined, maxLength = BRIEFING_SUMMARY_CHAR_LIMIT) {
+  const text = value?.trim()
+  if (!text) return ''
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, maxLength - 1).trimEnd()}...`
+}
+
 async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, tz: string) {
   const now = new Date()
   const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
@@ -78,7 +90,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .is('notified_at', null)
       .gte('signal_date', since7d.toISOString().split('T')[0])
       .order('signal_date', { ascending: false })
-      .limit(5),
+      .limit(BRIEFING_SIGNAL_LIMIT),
   ])
 
   const profile     = profileResult.data
@@ -100,13 +112,14 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       }
     })
     .filter(m => m.matchingRoles.length > 0)
+    .slice(0, BRIEFING_MATCH_LIMIT)
 
   const followUps = rawFollowUps.map(f => ({
     id: f.id,
     dueDate: f.due_date,
     action: f.action as string | null,
     contact: (f.contacts as unknown as { id: string; name: string; title: string | null } | null) ?? null,
-  }))
+  })).slice(0, BRIEFING_FOLLOW_UP_LIMIT)
 
   const signals = rawSignals.map(s => ({
     id: s.id,
@@ -134,7 +147,7 @@ async function generateBriefing(context: Awaited<ReturnType<typeof assembleBrief
 
   const matchesText = newMatches.length
     ? newMatches.map(m =>
-        `Company: ${m.companyName}\nMatching roles: ${m.matchingRoles.map(r => `${r.title} (score ${r.score}/100${r.isNew ? ', NEW' : ''})`).join('; ')}\nSummary: ${m.aiSummary}`
+        `Company: ${m.companyName}\nMatching roles: ${m.matchingRoles.slice(0, 3).map(r => `${r.title} (score ${r.score}/100${r.isNew ? ', NEW' : ''})`).join('; ')}\nSummary: ${trimBriefingText(m.aiSummary)}`
       ).join('\n\n')
     : 'No new matches.'
 
@@ -146,7 +159,7 @@ async function generateBriefing(context: Awaited<ReturnType<typeof assembleBrief
     : 'No overdue follow-ups.'
 
   const signalsText = signals.length
-    ? signals.map(s => `Company: ${s.companyName}\nType: ${s.signalType}\nWhat happened: ${s.summary}${s.outreachAngle ? `\nOpening: ${s.outreachAngle}` : ''}`).join('\n\n')
+    ? signals.map(s => `Company: ${s.companyName}\nType: ${s.signalType}\nWhat happened: ${trimBriefingText(s.summary)}${s.outreachAngle ? `\nOpening: ${trimBriefingText(s.outreachAngle, 180)}` : ''}`).join('\n\n')
     : 'No new signals.'
 
   const prompt = `You are writing a morning intelligence briefing for ${userName}, a senior technology executive in active job search.
@@ -167,12 +180,13 @@ ${followUpsText}
 Write a morning briefing as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Specific and factual - name the company or action. No generic phrases. If there are signals, lead with that.
 - "intro": 1-2 sentences. State what changed overnight and what matters today. No preamble.
-- "signalAlerts": array of { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) } - only if there are signals.
-- "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } - only for companies with matches.
-- "followUpSuggestions": array of { person, action, suggestion (one concrete sentence - what to do and how) } - only if there are follow-ups.
+- "signalAlerts": array of at most ${BRIEFING_SIGNAL_LIMIT} items, each { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) }.
+- "matchInsights": array of at most ${BRIEFING_MATCH_LIMIT} items, each { company, roles (string[] up to 3), insight (1-2 sentences, specific to this role and this person's background) }.
+- "followUpSuggestions": array of at most ${BRIEFING_FOLLOW_UP_LIMIT} items, each { person, action, suggestion (one concrete sentence - what to do and how) }.
 - "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichés.
 
 Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No filler phrases. Write as a trusted advisor, not a coach.
+Keep the full JSON under 1600 characters.
 Output valid JSON only, no markdown fences.`
 
   const message = await anthropic.messages.create({
