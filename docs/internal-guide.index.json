@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T15:15:20.021Z",
+  "generatedAt": "2026-06-03T16:48:13.006Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "feature:/login",
@@ -2557,6 +2557,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-05-24T16:53:26.549Z"
+    },
+    {
+      "id": "api:/api/admin/automation/billing/readiness",
+      "title": "API /api/admin/automation/billing/readiness",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/automation/billing/readiness/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-03T16:47:40.848Z"
     },
     {
       "id": "api:/api/admin/automation/billing/refund-workflow-triggers",
@@ -5676,7 +5689,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-28T02:05:48.192Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "code:src/lib/__tests__/prep-context.test.ts",
@@ -5741,7 +5754,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-25T14:50:19.351Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "code:src/lib/__tests__/subscription.test.ts",
@@ -8344,6 +8357,19 @@
       "lastModifiedAt": "2026-05-31T19:11:52.017Z"
     },
     {
+      "id": "script:scripts/check-billing-readiness.mjs",
+      "title": "Script scripts/check-billing-readiness.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-billing-readiness.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
+    },
+    {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
       "title": "Script scripts/check-clean-worktree-for-push.mjs",
       "body": "#!/usr/bin/env node",
@@ -8367,7 +8393,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-03T15:09:03.507Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
       "id": "script:scripts/check-dependency-policy.mjs",
@@ -8875,6 +8901,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-05-28T02:05:48.246Z"
+    },
+    {
+      "id": "script:scripts/fix-billing-placeholder-sql.mjs",
+      "title": "Script scripts/fix-billing-placeholder-sql.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/fix-billing-placeholder-sql.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T16:46:31.754Z"
     },
     {
       "id": "script:scripts/fix-outreach-signature-csv.mjs",
@@ -9589,7 +9628,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T14:00:56.280Z"
+      "lastModifiedAt": "2026-06-03T16:46:01.586Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -9602,7 +9641,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T15:15:08.426Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.771Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -11759,6 +11798,20 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-03T14:00:56.281Z"
+    },
+    {
+      "id": "data:supabase/migrations/127_stripe_webhook_events.sql",
+      "title": "Migration supabase/migrations/127_stripe_webhook_events.sql",
+      "body": "create table if not exists public.stripe_webhook_events (",
+      "type": "data",
+      "ref": "supabase/migrations/127_stripe_webhook_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15099,7 +15152,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15138,7 +15191,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:09:21.377Z"
+      "lastModifiedAt": "2026-06-03T16:40:52.995Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16568,7 +16621,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:00:46.493Z"
+      "lastModifiedAt": "2026-06-03T16:43:58.122Z"
     },
     {
       "id": "doc:docs/sre/runbook-templates.md",
@@ -16646,7 +16699,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T15:00:46.461Z"
+      "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
       "id": "doc:docs/sre/runbooks/postmortem-template.md",
@@ -18063,7 +18116,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T14:07:41.337Z"
+      "lastModifiedAt": "2026-06-03T16:48:10.477Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

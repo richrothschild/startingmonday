@@ -22,6 +22,60 @@ function createAdminClient() {
   )
 }
 
+function isStripeWebhookEventsTableMissing(message: string): boolean {
+  return /does not exist/i.test(message) || /could not find the table/i.test(message)
+}
+
+async function persistStripeWebhookReceipt(
+  supabase: ReturnType<typeof createAdminClient>,
+  event: Stripe.Event,
+  receivedAtIso: string,
+  rawPayload: string,
+) {
+  const { error } = await supabase
+    .from('stripe_webhook_events')
+    .upsert(
+      {
+        event_id: event.id,
+        event_type: event.type,
+        received_at: receivedAtIso,
+        payload: { raw_body: rawPayload },
+        processing_error: null,
+      },
+      { onConflict: 'event_id' },
+    )
+
+  if (!error) return
+  if (isStripeWebhookEventsTableMissing(error.message)) return
+
+  console.warn('[stripe-webhook] failed to persist receipt row', {
+    eventId: event.id,
+    error: error.message,
+  })
+}
+
+async function persistStripeWebhookProcessingResult(
+  supabase: ReturnType<typeof createAdminClient>,
+  eventId: string,
+  processingError: string | null,
+) {
+  const { error } = await supabase
+    .from('stripe_webhook_events')
+    .update({
+      processed_at: new Date().toISOString(),
+      processing_error: processingError,
+    })
+    .eq('event_id', eventId)
+
+  if (!error) return
+  if (isStripeWebhookEventsTableMissing(error.message)) return
+
+  console.warn('[stripe-webhook] failed to persist processing result', {
+    eventId,
+    error: error.message,
+  })
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.text()
   const sig = request.headers.get('stripe-signature')
@@ -37,6 +91,10 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = createAdminClient()
+  const receivedAtIso = new Date().toISOString()
+
+  // Non-blocking persistence for Stripe webhook backlog observability.
+  await persistStripeWebhookReceipt(supabase, event, receivedAtIso, body)
 
   // Idempotency: skip events we've already processed (handles Stripe retries)
   const { error: dupError } = await supabase
@@ -44,8 +102,12 @@ export async function POST(request: NextRequest) {
     .insert({ event_id: event.id })
   if (dupError) {
     // Unique violation = already processed
-    if (dupError.code === '23505') return NextResponse.json({ received: true })
+    if (dupError.code === '23505') {
+      await persistStripeWebhookProcessingResult(supabase, event.id, null)
+      return NextResponse.json({ received: true })
+    }
     // Any other insert error: fail so Stripe retries
+    await persistStripeWebhookProcessingResult(supabase, event.id, `idempotency_insert_failed: ${dupError.message}`)
     return NextResponse.json({ error: 'Database error' }, { status: 500 })
   }
 
@@ -304,8 +366,11 @@ export async function POST(request: NextRequest) {
 
   if (updateError) {
     // Tell Stripe the event wasn't processed so it retries
+    await persistStripeWebhookProcessingResult(supabase, event.id, updateError.message)
     return NextResponse.json({ error: 'Database update failed' }, { status: 500 })
   }
+
+  await persistStripeWebhookProcessingResult(supabase, event.id, null)
 
   return NextResponse.json({ received: true })
 }
