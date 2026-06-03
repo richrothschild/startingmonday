@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T02:00:37.500Z",
+  "generatedAt": "2026-06-03T02:27:34.848Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T01:46:12.105Z"
+      "lastModifiedAt": "2026-06-03T02:00:37.515Z"
     },
     {
       "id": "feature:/login",
@@ -8432,7 +8432,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-28T21:02:29.912Z"
+      "lastModifiedAt": "2026-06-03T02:22:21.237Z"
     },
     {
       "id": "script:scripts/check-linkedin-ads-gate.mjs",
@@ -8835,7 +8835,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-26T20:31:07.924Z"
+      "lastModifiedAt": "2026-06-03T02:20:49.818Z"
     },
     {
       "id": "script:scripts/export-pmf-daily-dashboard.mjs",
@@ -15059,7 +15059,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T01:46:12.105Z"
+      "lastModifiedAt": "2026-06-03T02:00:37.515Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15098,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T01:46:12.105Z"
+      "lastModifiedAt": "2026-06-03T02:00:37.515Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
