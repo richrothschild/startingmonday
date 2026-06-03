@@ -1,21 +1,105 @@
 {
-  "generatedAt": "2026-05-31T03:58:15.443Z",
-  "fileCount": 1431,
-  "findingCount": 3,
-  "overallScore": 98,
-  "grade": "A+",
+  "generatedAt": "2026-06-03T02:31:41.838Z",
+  "fileCount": 1466,
+  "findingCount": 15,
+  "overallScore": 93,
+  "grade": "A",
   "scores": {
     "correctness": 100,
     "security": 100,
-    "maintainability": 96,
+    "maintainability": 92,
     "performance": 100,
-    "testability": 100,
-    "observability": 100,
+    "testability": 72,
+    "observability": 88,
     "typeSafety": 86,
     "complexity": 100,
     "deliveryRisk": 100
   },
   "findings": [
+    {
+      "severity": "medium",
+      "area": "maintainability",
+      "points": 4,
+      "path": "src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx",
+      "issue": "Large file (565 lines)"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/admin/executive-research/health/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/admin/sales-enablement/workspace/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/admin/sales-enablement/workspace/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/admin/social/mock-publish/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/admin/social/mock-publish/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/auth/verify-and-magic-link/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/api/cron/executive-research-refresh/route.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "observability",
+      "points": 3,
+      "path": "src/app/api/executive-transition/emotion-state/score/route.ts",
+      "issue": "API route lacks explicit logging/exception capture signal"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/app/mark-review/content.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
+    {
+      "severity": "medium",
+      "area": "testability",
+      "points": 4,
+      "path": "src/lib/executive-research-library.ts",
+      "issue": "No obvious colocated or mirrored test file found"
+    },
     {
       "severity": "high",
       "area": "type-safety",
@@ -35,7 +119,7 @@
       "area": "maintainability",
       "points": 4,
       "path": "tests/e2e/synthetics.spec.ts",
-      "issue": "Large file (605 lines)"
+      "issue": "Large file (815 lines)"
     }
   ],
   "council": {
@@ -58,15 +142,113 @@
         "severity": "medium",
         "area": "maintainability",
         "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx",
+        "issue": "Large file (565 lines)"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/admin/executive-research/health/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/admin/sales-enablement/workspace/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/admin/social/mock-publish/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/api/cron/executive-research-refresh/route.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/app/mark-review/content.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "testability",
+        "points": 4,
+        "path": "src/lib/executive-research-library.ts",
+        "issue": "No obvious colocated or mirrored test file found"
+      },
+      {
+        "severity": "medium",
+        "area": "maintainability",
+        "points": 4,
         "path": "tests/e2e/synthetics.spec.ts",
-        "issue": "Large file (605 lines)"
+        "issue": "Large file (815 lines)"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/admin/sales-enablement/workspace/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/admin/social/mock-publish/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/auth/verify-and-magic-link/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
+      },
+      {
+        "severity": "medium",
+        "area": "observability",
+        "points": 3,
+        "path": "src/app/api/executive-transition/emotion-state/score/route.ts",
+        "issue": "API route lacks explicit logging/exception capture signal"
       }
     ],
     "areaCounts": {
-      "type-safety": 2,
-      "maintainability": 1
+      "maintainability": 2,
+      "testability": 7,
+      "observability": 4,
+      "type-safety": 2
     },
     "fixQueue": [
+      {
+        "file": "src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx",
+        "riskPoints": 8
+      },
+      {
+        "file": "src/app/api/admin/sales-enablement/workspace/route.ts",
+        "riskPoints": 7
+      },
+      {
+        "file": "src/app/api/admin/social/mock-publish/route.ts",
+        "riskPoints": 7
+      },
       {
         "file": "src/lib/onboarding-video-queue.ts",
         "riskPoints": 7
@@ -76,19 +258,43 @@
         "riskPoints": 7
       },
       {
+        "file": "src/app/api/admin/executive-research/health/route.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/api/cron/executive-research-refresh/route.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/app/mark-review/content.ts",
+        "riskPoints": 4
+      },
+      {
+        "file": "src/lib/executive-research-library.ts",
+        "riskPoints": 4
+      },
+      {
         "file": "tests/e2e/synthetics.spec.ts",
         "riskPoints": 4
+      },
+      {
+        "file": "src/app/api/auth/verify-and-magic-link/route.ts",
+        "riskPoints": 3
+      },
+      {
+        "file": "src/app/api/executive-transition/emotion-state/score/route.ts",
+        "riskPoints": 3
       }
     ]
   },
   "blindspotReview": {
     "parserCorruptionCount": 0,
     "parserCorruptionFiles": [],
-    "placeholderBaselineCount": 292,
+    "placeholderBaselineCount": 338,
     "largestSourceFiles": [
       {
         "path": "src/app/onboarding/onboarding-form.tsx",
-        "lines": 1500
+        "lines": 1598
       },
       {
         "path": "src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx",
@@ -100,11 +306,15 @@
       },
       {
         "path": "src/app/(dashboard)/dashboard/page.tsx",
-        "lines": 1371
+        "lines": 1377
       },
       {
         "path": "src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx",
         "lines": 1148
+      },
+      {
+        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
+        "lines": 1132
       },
       {
         "path": "src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx",
@@ -113,10 +323,6 @@
       {
         "path": "src/app/(dashboard)/dashboard/admin/social/social-client.tsx",
         "lines": 1060
-      },
-      {
-        "path": "src/app/(dashboard)/dashboard/admin/page.tsx",
-        "lines": 1039
       }
     ]
   }
