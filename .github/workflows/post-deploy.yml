@@ -228,7 +228,7 @@ jobs:
 
       - name: Upload post-deploy results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: post-deploy-synthetic-results
           path: |
