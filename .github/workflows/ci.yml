@@ -37,6 +37,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Billing readiness gate (strict)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          STRIPE_PRICE_PASSIVE: ${{ secrets.STRIPE_PRICE_PASSIVE }}
+          STRIPE_PRICE_PASSIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_PASSIVE_ANNUAL }}
+          STRIPE_PRICE_ACTIVE: ${{ secrets.STRIPE_PRICE_ACTIVE }}
+          STRIPE_PRICE_ACTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_ACTIVE_ANNUAL }}
+          STRIPE_PRICE_EXECUTIVE: ${{ secrets.STRIPE_PRICE_EXECUTIVE }}
+          STRIPE_PRICE_EXECUTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_EXECUTIVE_ANNUAL }}
+          STRIPE_PRICE_PARTNER_PASSIVE: ${{ secrets.STRIPE_PRICE_PARTNER_PASSIVE }}
+          STRIPE_PRICE_PARTNER_ACTIVE: ${{ secrets.STRIPE_PRICE_PARTNER_ACTIVE }}
+        run: npm run billing:readiness:strict
+
       - name: Guide freshness check
         run: npm run guide:user:check
 
