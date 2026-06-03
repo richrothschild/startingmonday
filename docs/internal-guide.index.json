@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T02:33:08.068Z",
+  "generatedAt": "2026-06-03T02:57:12.020Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T02:27:34.860Z"
+      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
     },
     {
       "id": "feature:/login",
@@ -9589,7 +9589,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.582Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.706Z"
     },
     {
       "id": "infra:.github/workflows/dependency-health.yml",
@@ -9641,7 +9641,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.586Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.708Z"
     },
     {
       "id": "infra:.github/workflows/executive-research-weekly.yml",
@@ -9654,7 +9654,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.587Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.709Z"
     },
     {
       "id": "infra:.github/workflows/fast-burn-alert.yml",
@@ -9680,7 +9680,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.589Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.711Z"
     },
     {
       "id": "infra:.github/workflows/guide-sync.yml",
@@ -9719,7 +9719,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.592Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.715Z"
     },
     {
       "id": "infra:.github/workflows/nightly-audit.yml",
@@ -9745,7 +9745,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.593Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.716Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -9758,7 +9758,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.596Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.717Z"
     },
     {
       "id": "infra:.github/workflows/post-deploy.yml",
@@ -9771,7 +9771,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.597Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.718Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -9797,7 +9797,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.599Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.719Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -9888,7 +9888,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.605Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.722Z"
     },
     {
       "id": "infra:.github/workflows/watermark-audit.yml",
@@ -9901,7 +9901,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.606Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.723Z"
     },
     {
       "id": "infra:.github/workflows/weekly-code-council-audit.yml",
@@ -9927,7 +9927,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T02:28:42.607Z"
+      "lastModifiedAt": "2026-06-03T02:49:26.725Z"
     },
     {
       "id": "infra:.github/workflows/weekly-mobile-ux.yml",
@@ -15059,7 +15059,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:27:34.861Z"
+      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15098,7 +15098,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T02:27:34.860Z"
+      "lastModifiedAt": "2026-06-03T02:33:08.081Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15761,7 +15761,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-01T14:43:43.878Z"
+      "lastModifiedAt": "2026-06-03T02:42:41.159Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
