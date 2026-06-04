@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-03T23:16:30.804Z
+Last generated: 2026-06-04T04:31:54.634Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -187,7 +187,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (245)
+## API Surface (246)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -370,7 +370,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/google-calendar/disconnect | src/app/api/google-calendar/disconnect/route.ts | export async function POST(request: NextRequest) {
 - API /api/guide/chat/feedback | src/app/api/guide/chat/feedback/route.ts | export async function POST(request: NextRequest) {
 - API /api/guide/chat | src/app/api/guide/chat/route.ts | export async function POST(request: NextRequest) {
-- API /api/health | src/app/api/health/route.ts | export async function GET() {
+- API /api/health | src/app/api/health/route.ts | export const dynamic = 'force-dynamic'
 - API /api/ideas | src/app/api/ideas/route.ts | no-requireAuth: public endpoint - idea submissions and browsing require no account
 - API /api/intelligence/companies | src/app/api/intelligence/companies/route.ts | export async function GET() {
 - API /api/intelligence/radar | src/app/api/intelligence/radar/route.ts | export async function GET(request: NextRequest) {
@@ -418,6 +418,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/profile/export | src/app/api/profile/export/route.ts | export async function GET(_request: NextRequest) {
 - API /api/profile/upload-linkedin | src/app/api/profile/upload-linkedin/route.ts | export async function POST(request: NextRequest) {
 - API /api/profile/upload-resume | src/app/api/profile/upload-resume/route.ts | export async function POST(request: NextRequest) {
+- API /api/readiness | src/app/api/readiness/route.ts | export const dynamic = 'force-dynamic'
 - API /api/salary-intelligence | src/app/api/salary-intelligence/route.ts | export async function POST(request: NextRequest) {
 - API /api/search | src/app/api/search/route.ts | export async function GET(req: NextRequest) {
 - API /api/signals/classify | src/app/api/signals/classify/route.ts | export async function POST(request: NextRequest) {
@@ -628,7 +629,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (110)
+## Internal Scripts (112)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -645,6 +646,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-billing-readiness.mjs | scripts/check-billing-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-clean-worktree-for-push.mjs | scripts/check-clean-worktree-for-push.mjs | #!/usr/bin/env node
 - Script scripts/check-data-integrity.mjs | scripts/check-data-integrity.mjs | ---------------------------------------------------------------------------
+- Script scripts/check-dead-letter-coverage.mjs | scripts/check-dead-letter-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-dependency-policy.mjs | scripts/check-dependency-policy.mjs | Stable release is greater than prerelease for same major/minor/patch.
 - Script scripts/check-docs-commands.mjs | scripts/check-docs-commands.mjs | import fs from 'node:fs'
 - Script scripts/check-email-council-gate.ts | scripts/check-email-council-gate.ts | import { readFile } from 'node:fs/promises'
@@ -720,6 +722,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/refresh-coach-outreach-queue.mjs | scripts/refresh-coach-outreach-queue.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/remediate-outreach-csv-tone.mjs | scripts/remediate-outreach-csv-tone.mjs | Rebuild global entries from updated in-memory file rows for next pass score.
 - Script scripts/resolve-ciks.mjs | scripts/resolve-ciks.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
+- Script scripts/run-launch-load-rehearsal.mjs | scripts/run-launch-load-rehearsal.mjs | #!/usr/bin/env node
 - Script scripts/run-mobile-key-routes-report.mjs | scripts/run-mobile-key-routes-report.mjs | #!/usr/bin/env node
 - Script scripts/run-performance-audit-pack.mjs | scripts/run-performance-audit-pack.mjs | #!/usr/bin/env node
 - Script scripts/sample-outreach-examples.mjs | scripts/sample-outreach-examples.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -772,7 +775,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (129)
+## Data and Migrations (130)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -902,8 +905,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/125_admin_shared_workspaces.sql | supabase/migrations/125_admin_shared_workspaces.sql | create table if not exists public.admin_shared_workspaces (
 - Migration supabase/migrations/126_scan_failures_dead_letter.sql | supabase/migrations/126_scan_failures_dead_letter.sql | create table if not exists public.scan_failures (
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
+- Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (506)
+## Documentation (510)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1283,12 +1287,16 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/sre/incident-severity-policy.md | docs/sre/incident-severity-policy.md | Incident Severity Policy (Team Size: 3-8 Engineers)
 - Doc docs/sre/inventory-api-routes.md | docs/sre/inventory-api-routes.md | Inventory API Routes
 - Doc docs/sre/inventory-pages.md | docs/sre/inventory-pages.md | Inventory Pages
+- Doc docs/sre/launch-capacity-and-load-rehearsal.md | docs/sre/launch-capacity-and-load-rehearsal.md | Launch Capacity And Load Rehearsal
+- Doc docs/sre/launch-week-incident-ownership-and-slos.md | docs/sre/launch-week-incident-ownership-and-slos.md | Launch Week Incident Ownership And Response SLOs
 - Doc docs/sre/on-call-rotation.md | docs/sre/on-call-rotation.md | On-Call Rotation and Escalation Runbook
 - Doc docs/sre/operating-package.md | docs/sre/operating-package.md | Starting Monday Reliability Operating Package
 - Doc docs/sre/reliability-audit-checklist.md | docs/sre/reliability-audit-checklist.md | Reliability Audit Checklist
 - Doc docs/sre/runbook-templates.md | docs/sre/runbook-templates.md | Runbook Templates
 - Doc docs/sre/runbooks/auth-failure.md | docs/sre/runbooks/auth-failure.md | Runbook: Auth Failure (P0)
+- Doc docs/sre/runbooks/backup-restore-drill.md | docs/sre/runbooks/backup-restore-drill.md | Backup And Restore Drill
 - Doc docs/sre/runbooks/billing-webhook-degradation.md | docs/sre/runbooks/billing-webhook-degradation.md | Runbook: Billing / Webhook Degradation (P0)
+- Doc docs/sre/runbooks/dead-letter-operations.md | docs/sre/runbooks/dead-letter-operations.md | Dead-Letter Operations
 - Doc docs/sre/runbooks/deployment-stalled.md | docs/sre/runbooks/deployment-stalled.md | Deployment Stalled Runbook
 - Doc docs/sre/runbooks/feedback-failure.md | docs/sre/runbooks/feedback-failure.md | Runbook: Feedback Submission Failure (P0)
 - Doc docs/sre/runbooks/follow-up-lifecycle-drift.md | docs/sre/runbooks/follow-up-lifecycle-drift.md | Runbook: Follow-Up Lifecycle Data Drift (P0)
