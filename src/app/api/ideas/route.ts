@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') ?? 'unknown'
-  if (!checkBurstLimit(ip)) {
+  if (!(await checkBurstLimit(ip))) {
     return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
   }
 

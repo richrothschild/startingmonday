@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T22:49:56.876Z",
+  "generatedAt": "2026-06-04T14:19:23.631Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T22:49:12.598Z"
+      "lastModifiedAt": "2026-06-04T12:09:44.253Z"
     },
     {
       "id": "feature:/login",
@@ -125,6 +125,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-05-28T15:44:30.044Z"
+    },
+    {
+      "id": "feature:/dashboard/admin/diagrams",
+      "title": "Feature Dashboard / Admin / Diagrams",
+      "body": "User-facing page route /dashboard/admin/diagrams.",
+      "type": "feature",
+      "ref": "/dashboard/admin/diagrams",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-04T05:35:39.198Z"
     },
     {
       "id": "feature:/dashboard/admin/feedback",
@@ -684,7 +698,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-03T22:49:01.014Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -2199,6 +2213,20 @@
       "lastModifiedAt": "2026-06-03T01:43:07.387Z"
     },
     {
+      "id": "feature:/mauricio-kickoff-execution",
+      "title": "Feature Mauricio kickoff execution",
+      "body": "User-facing page route /mauricio-kickoff-execution.",
+      "type": "feature",
+      "ref": "/mauricio-kickoff-execution",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-04T14:11:59.074Z"
+    },
+    {
       "id": "feature:/mauricio-kickoff",
       "title": "Feature Mauricio kickoff",
       "body": "User-facing page route /mauricio-kickoff.",
@@ -2210,7 +2238,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-02T22:14:25.219Z"
+      "lastModifiedAt": "2026-06-04T14:11:59.068Z"
     },
     {
       "id": "feature:/method-and-evidence",
@@ -3765,7 +3793,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T01:43:07.381Z"
+      "lastModifiedAt": "2026-06-04T12:16:35.316Z"
     },
     {
       "id": "api:/api/admin/social/morning",
@@ -3869,7 +3897,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-02T22:14:25.206Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "api:/api/auth/oauth-start",
@@ -4103,7 +4131,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-12T12:31:29.600Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "api:/api/client/coach-access/[coachId]/activity",
@@ -4615,7 +4643,7 @@
     {
       "id": "api:/api/demo-brief/manager-tools",
       "title": "API /api/demo-brief/manager-tools",
-      "body": "export { POST } from '../executive-brief/route'",
+      "body": "export async function POST(request: NextRequest) {",
       "type": "api",
       "ref": "src/app/api/demo-brief/manager-tools/route.ts",
       "tags": [
@@ -4623,7 +4651,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T01:44:20.909Z"
+      "lastModifiedAt": "2026-06-04T12:16:35.317Z"
     },
     {
       "id": "api:/api/demo-brief",
@@ -4805,7 +4833,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.568Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -4875,7 +4903,7 @@
     {
       "id": "api:/api/health",
       "title": "API /api/health",
-      "body": "export async function GET() {",
+      "body": "export const dynamic = 'force-dynamic'",
       "type": "api",
       "ref": "src/app/api/health/route.ts",
       "tags": [
@@ -4883,7 +4911,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T01:42:50.081Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z"
     },
     {
       "id": "api:/api/ideas",
@@ -4896,7 +4924,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-28T02:05:48.190Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "api:/api/intelligence/companies",
@@ -5013,7 +5041,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.576Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z"
     },
     {
       "id": "api:/api/narrative/generate-linkedin",
@@ -5091,7 +5119,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-05-31T19:11:52.581Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.844Z"
     },
     {
       "id": "api:/api/optimize",
@@ -5497,6 +5525,32 @@
       "lastModifiedAt": "2026-05-25T14:50:19.351Z"
     },
     {
+      "id": "api:/api/readiness",
+      "title": "API /api/readiness",
+      "body": "export const dynamic = 'force-dynamic'",
+      "type": "api",
+      "ref": "src/app/api/readiness/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-04T12:16:35.317Z"
+    },
+    {
+      "id": "api:/api/readiness",
+      "title": "API /api/readiness",
+      "body": "export const dynamic = 'force-dynamic'",
+      "type": "api",
+      "ref": "src/app/api/readiness/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-03T23:27:59.814Z"
+    },
+    {
       "id": "api:/api/salary-intelligence",
       "title": "API /api/salary-intelligence",
       "body": "export async function POST(request: NextRequest) {",
@@ -5507,7 +5561,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z"
     },
     {
       "id": "api:/api/search",
@@ -5572,7 +5626,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z"
     },
     {
       "id": "api:/api/tailor/check",
@@ -6066,7 +6120,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-06T01:59:53.074Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z"
     },
     {
       "id": "code:src/lib/career-mode.test.ts",
@@ -6665,6 +6719,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-18T12:49:14.932Z"
+    },
+    {
+      "id": "code:src/lib/mauricio-contact.ts",
+      "title": "Code src/lib/mauricio-contact.ts",
+      "body": "export function buildMauricioMailto(subject: string, body?: string) {",
+      "type": "code",
+      "ref": "src/lib/mauricio-contact.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-04T14:11:59.081Z"
     },
     {
       "id": "code:src/lib/micro-products.test.ts",
@@ -7483,7 +7550,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T01:43:07.393Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z"
     },
     {
       "id": "code:src/lib/rate-limit.test.ts",
@@ -7496,7 +7563,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z"
     },
     {
       "id": "code:src/lib/rate-limit.ts",
@@ -7509,7 +7576,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-03T14:00:56.281Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.824Z"
     },
     {
       "id": "code:src/lib/relationship-infrastructure.test.ts",
@@ -7587,7 +7654,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-06T01:58:39.466Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "code:src/lib/require-prep-access.test.ts",
@@ -7613,7 +7680,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-09T00:57:27.296Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z"
     },
     {
       "id": "code:src/lib/resources.test.ts",
@@ -7899,7 +7966,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-09T04:56:40.450Z"
+      "lastModifiedAt": "2026-06-04T12:16:35.319Z"
     },
     {
       "id": "code:src/lib/subscription.test.ts",
@@ -8396,6 +8463,32 @@
       "lastModifiedAt": "2026-06-03T15:28:04.772Z"
     },
     {
+      "id": "script:scripts/check-dead-letter-coverage.mjs",
+      "title": "Script scripts/check-dead-letter-coverage.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-dead-letter-coverage.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-04T04:45:56.846Z"
+    },
+    {
+      "id": "script:scripts/check-dead-letter-coverage.mjs",
+      "title": "Script scripts/check-dead-letter-coverage.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-dead-letter-coverage.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:27:15.882Z"
+    },
+    {
       "id": "script:scripts/check-dependency-policy.mjs",
       "title": "Script scripts/check-dependency-policy.mjs",
       "body": "Stable release is greater than prerelease for same major/minor/patch.",
@@ -8757,7 +8850,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-24T23:58:47.189Z"
+      "lastModifiedAt": "2026-06-04T12:16:35.319Z"
     },
     {
       "id": "script:scripts/depitch-queued-outreach.mjs",
@@ -9371,6 +9464,32 @@
       "lastModifiedAt": "2026-05-12T14:56:15.755Z"
     },
     {
+      "id": "script:scripts/run-launch-load-rehearsal.mjs",
+      "title": "Script scripts/run-launch-load-rehearsal.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/run-launch-load-rehearsal.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-04T04:45:56.846Z"
+    },
+    {
+      "id": "script:scripts/run-launch-load-rehearsal.mjs",
+      "title": "Script scripts/run-launch-load-rehearsal.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/run-launch-load-rehearsal.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:27:06.147Z"
+    },
+    {
       "id": "script:scripts/run-mobile-key-routes-report.mjs",
       "title": "Script scripts/run-mobile-key-routes-report.mjs",
       "body": "#!/usr/bin/env node",
@@ -9849,7 +9968,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T13:57:04.284Z"
+      "lastModifiedAt": "2026-06-04T04:45:56.846Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -11812,6 +11931,34 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-03T16:43:58.122Z"
+    },
+    {
+      "id": "data:supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "title": "Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "body": "create table if not exists public.job_checkpoints (",
+      "type": "data",
+      "ref": "supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z"
+    },
+    {
+      "id": "data:supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "title": "Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "body": "create table if not exists public.job_checkpoints (",
+      "type": "data",
+      "ref": "supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:24:16.515Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15308,7 +15455,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T22:49:12.598Z"
+      "lastModifiedAt": "2026-06-04T12:09:44.253Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15347,7 +15494,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T22:49:12.598Z"
+      "lastModifiedAt": "2026-06-04T12:09:44.253Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16361,7 +16508,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-01T14:43:43.884Z"
+      "lastModifiedAt": "2026-06-04T12:14:23.627Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -16741,6 +16888,58 @@
       "lastModifiedAt": "2026-05-19T00:43:03.848Z"
     },
     {
+      "id": "doc:docs/sre/launch-capacity-and-load-rehearsal.md",
+      "title": "Doc docs/sre/launch-capacity-and-load-rehearsal.md",
+      "body": "Launch Capacity And Load Rehearsal",
+      "type": "doc",
+      "ref": "docs/sre/launch-capacity-and-load-rehearsal.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-04T04:45:56.846Z"
+    },
+    {
+      "id": "doc:docs/sre/launch-week-incident-ownership-and-slos.md",
+      "title": "Doc docs/sre/launch-week-incident-ownership-and-slos.md",
+      "body": "Launch Week Incident Ownership And Response SLOs",
+      "type": "doc",
+      "ref": "docs/sre/launch-week-incident-ownership-and-slos.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-04T04:45:56.848Z"
+    },
+    {
+      "id": "doc:docs/sre/launch-capacity-and-load-rehearsal.md",
+      "title": "Doc docs/sre/launch-capacity-and-load-rehearsal.md",
+      "body": "Launch Capacity And Load Rehearsal",
+      "type": "doc",
+      "ref": "docs/sre/launch-capacity-and-load-rehearsal.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.466Z"
+    },
+    {
+      "id": "doc:docs/sre/launch-week-incident-ownership-and-slos.md",
+      "title": "Doc docs/sre/launch-week-incident-ownership-and-slos.md",
+      "body": "Launch Week Incident Ownership And Response SLOs",
+      "type": "doc",
+      "ref": "docs/sre/launch-week-incident-ownership-and-slos.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.704Z"
+    },
+    {
       "id": "doc:docs/sre/on-call-rotation.md",
       "title": "Doc docs/sre/on-call-rotation.md",
       "body": "On-Call Rotation and Escalation Runbook",
@@ -16806,6 +17005,32 @@
       "lastModifiedAt": "2026-05-19T01:21:48.719Z"
     },
     {
+      "id": "doc:docs/sre/runbooks/backup-restore-drill.md",
+      "title": "Doc docs/sre/runbooks/backup-restore-drill.md",
+      "body": "Backup And Restore Drill",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/backup-restore-drill.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-04T04:45:56.848Z"
+    },
+    {
+      "id": "doc:docs/sre/runbooks/backup-restore-drill.md",
+      "title": "Doc docs/sre/runbooks/backup-restore-drill.md",
+      "body": "Backup And Restore Drill",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/backup-restore-drill.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.608Z"
+    },
+    {
       "id": "doc:docs/sre/runbooks/billing-webhook-degradation.md",
       "title": "Doc docs/sre/runbooks/billing-webhook-degradation.md",
       "body": "Runbook: Billing / Webhook Degradation (P0)",
@@ -16817,6 +17042,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-19T01:21:48.719Z"
+    },
+    {
+      "id": "doc:docs/sre/runbooks/dead-letter-operations.md",
+      "title": "Doc docs/sre/runbooks/dead-letter-operations.md",
+      "body": "Dead-Letter Operations",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/dead-letter-operations.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-04T04:45:56.848Z"
+    },
+    {
+      "id": "doc:docs/sre/runbooks/dead-letter-operations.md",
+      "title": "Doc docs/sre/runbooks/dead-letter-operations.md",
+      "body": "Dead-Letter Operations",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/dead-letter-operations.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.661Z"
     },
     {
       "id": "doc:docs/sre/runbooks/deployment-stalled.md",
@@ -17103,6 +17354,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-09T04:43:05.282Z"
+    },
+    {
+      "id": "doc:docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
+      "title": "Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
+      "body": "Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)",
+      "type": "doc",
+      "ref": "docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-04T14:11:30.791Z"
     },
     {
       "id": "doc:docs/strategy/email-council-humanity-feedback-2026-05-26.md",
@@ -18142,7 +18406,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-01T14:43:43.926Z"
+      "lastModifiedAt": "2026-06-04T12:14:21.614Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -18272,7 +18536,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T22:49:54.533Z"
+      "lastModifiedAt": "2026-06-04T14:18:43.358Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

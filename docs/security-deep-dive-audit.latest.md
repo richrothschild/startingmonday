@@ -1,6 +1,6 @@
 # Security Deep-Dive Audit
 
-Generated: 2026-05-31T04:07:05.413Z
+Generated: 2026-06-04T12:14:23.625Z
 
 ## Dependency Vulnerabilities
 
@@ -18,7 +18,7 @@ Generated: 2026-05-31T04:07:05.413Z
 ## Static Security Signals
 
 - eval/new Function files: 0
-- dangerouslySetInnerHTML files: 1
+- dangerouslySetInnerHTML files: 0
 - hardcoded secret pattern hits: 0
 
 ### True Auth Gaps
@@ -31,7 +31,7 @@ Generated: 2026-05-31T04:07:05.413Z
 
 ### dangerouslySetInnerHTML Usage
 
-- src/components/JsonLd.tsx
+- none
 
 ### Hardcoded Secret Pattern Hits
 

@@ -381,6 +381,16 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
               </div>
             </div>
           </div>
+          <div className="mt-4 pt-4 border-t border-slate-100">
+            <p className="text-[12px] font-semibold text-slate-900 mb-2">Quick links</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <a href="/dashboard/admin/diagrams" className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left hover:border-orange-400 hover:bg-orange-50 transition-colors">
+                <p className="text-[12px] font-semibold text-slate-900">Architecture Diagrams</p>
+                <p className="text-[11px] text-slate-600 mt-1">10 Mermaid diagrams covering auth, onboarding, billing, signals, integrations, and SRE.</p>
+                <p className="text-[11px] text-orange-500 mt-1">View diagrams →</p>
+              </a>
+            </div>
+          </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded p-4 mb-6">

@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-03T22:49:54.529Z
+Last generated: 2026-06-04T14:18:43.354Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (148)
+## Features (150)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -20,6 +20,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Admin / Coach outreach](/dashboard/admin/coach-outreach) - Open /dashboard/admin/coach-outreach to use this feature area and related workflows.
 - [Dashboard / Admin / Crm](/dashboard/admin/crm) - Open /dashboard/admin/crm to use this feature area and related workflows.
 - [Dashboard / Admin / Customers](/dashboard/admin/customers) - Open /dashboard/admin/customers to use this feature area and related workflows.
+- [Dashboard / Admin / Diagrams](/dashboard/admin/diagrams) - Open /dashboard/admin/diagrams to use this feature area and related workflows.
 - [Dashboard / Admin / Feedback](/dashboard/admin/feedback) - Open /dashboard/admin/feedback to use this feature area and related workflows.
 - [Dashboard / Admin / Guide](/dashboard/admin/guide) - Open /dashboard/admin/guide to use this feature area and related workflows.
 - [Dashboard / Admin / Intelligence](/dashboard/admin/intelligence) - Open /dashboard/admin/intelligence to use this feature area and related workflows.
@@ -139,6 +140,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
 - [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
 - [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mauricio kickoff execution](/mauricio-kickoff-execution) - Open /mauricio-kickoff-execution to use this feature area and related workflows.
 - [Mauricio kickoff](/mauricio-kickoff) - Open /mauricio-kickoff to use this feature area and related workflows.
 - [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
 - [Onboarding](/onboarding) - Open /onboarding to use this feature area and related workflows.
@@ -177,7 +179,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (245)
+## API and Automation (246)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -408,6 +410,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/profile/export](/api/profile/export) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/readiness](/api/readiness) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/signals/classify](/api/signals/classify) - Programmatic endpoint available for platform behavior or integrations.

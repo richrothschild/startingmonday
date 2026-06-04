@@ -34,7 +34,7 @@ export async function requireFeatureAccess(
     }
   }
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return {
       ok: false,
       response: NextResponse.json(

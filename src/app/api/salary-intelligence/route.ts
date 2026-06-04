@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
   }
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
   }
   if (await isRateLimited(supabase, userId)) {

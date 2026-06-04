@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ companies: [], recruiters: [] })
   }
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
   }
   if (await isRateLimited(supabase, userId)) {

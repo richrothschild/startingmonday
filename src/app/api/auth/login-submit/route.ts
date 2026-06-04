@@ -29,7 +29,7 @@ function buildLoginRedirect(publicOrigin: string, nextPath: string, params: Reco
 
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request)
-  const { allowed } = checkRateLimit(`login_submit:${ip}`, 8)
+  const { allowed } = await checkRateLimit(`login_submit:${ip}`, 8)
 
   const publicOrigin = getPublicOrigin(request)
 

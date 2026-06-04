@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
   const { userId } = auth
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return Response.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
   }
   const supabase = await createClient()

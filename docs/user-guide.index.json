@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T22:49:54.529Z",
+  "generatedAt": "2026-06-04T14:18:43.354Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -174,6 +174,19 @@
     },
     {
       "id": "feature-9",
+      "title": "Dashboard / Admin / Diagrams",
+      "body": "Open /dashboard/admin/diagrams to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/dashboard/admin/diagrams",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-04T05:35:39.198Z",
+      "qualityWeight": 1.2
+    },
+    {
+      "id": "feature-10",
       "title": "Dashboard / Admin / Feedback",
       "body": "Open /dashboard/admin/feedback to use this feature area and related workflows.",
       "type": "feature",
@@ -186,7 +199,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-10",
+      "id": "feature-11",
       "title": "Dashboard / Admin / Guide",
       "body": "Open /dashboard/admin/guide to use this feature area and related workflows.",
       "type": "feature",
@@ -199,7 +212,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-11",
+      "id": "feature-12",
       "title": "Dashboard / Admin / Intelligence",
       "body": "Open /dashboard/admin/intelligence to use this feature area and related workflows.",
       "type": "feature",
@@ -212,7 +225,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-12",
+      "id": "feature-13",
       "title": "Dashboard / Admin / Intelligence / Qa",
       "body": "Open /dashboard/admin/intelligence/qa to use this feature area and related workflows.",
       "type": "feature",
@@ -225,7 +238,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-13",
+      "id": "feature-14",
       "title": "Dashboard / Admin / Internal guide",
       "body": "Open /dashboard/admin/internal-guide to use this feature area and related workflows.",
       "type": "feature",
@@ -238,7 +251,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-14",
+      "id": "feature-15",
       "title": "Dashboard / Admin / Linkedin company launch",
       "body": "Open /dashboard/admin/linkedin-company-launch to use this feature area and related workflows.",
       "type": "feature",
@@ -251,7 +264,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-15",
+      "id": "feature-16",
       "title": "Dashboard / Admin / Metrics",
       "body": "Open /dashboard/admin/metrics to use this feature area and related workflows.",
       "type": "feature",
@@ -264,7 +277,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-16",
+      "id": "feature-17",
       "title": "Dashboard / Admin / Onboarding / Qa",
       "body": "Open /dashboard/admin/onboarding/qa to use this feature area and related workflows.",
       "type": "feature",
@@ -277,7 +290,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-17",
+      "id": "feature-18",
       "title": "Dashboard / Admin / Onboarding / Video",
       "body": "Open /dashboard/admin/onboarding/video to use this feature area and related workflows.",
       "type": "feature",
@@ -290,7 +303,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-18",
+      "id": "feature-19",
       "title": "Dashboard / Admin / Operations",
       "body": "Open /dashboard/admin/operations to use this feature area and related workflows.",
       "type": "feature",
@@ -303,7 +316,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-19",
+      "id": "feature-20",
       "title": "Dashboard / Admin / Outplacement cohorts",
       "body": "Open /dashboard/admin/outplacement-cohorts to use this feature area and related workflows.",
       "type": "feature",
@@ -316,7 +329,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-20",
+      "id": "feature-21",
       "title": "Dashboard / Admin / Outplacement outreach",
       "body": "Open /dashboard/admin/outplacement-outreach to use this feature area and related workflows.",
       "type": "feature",
@@ -329,7 +342,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-21",
+      "id": "feature-22",
       "title": "Dashboard / Admin / Outreach analytics",
       "body": "Open /dashboard/admin/outreach-analytics to use this feature area and related workflows.",
       "type": "feature",
@@ -342,7 +355,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-22",
+      "id": "feature-23",
       "title": "Dashboard / Admin / Outreach reliability",
       "body": "Open /dashboard/admin/outreach-reliability to use this feature area and related workflows.",
       "type": "feature",
@@ -355,7 +368,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-23",
+      "id": "feature-24",
       "title": "Dashboard / Admin",
       "body": "Open /dashboard/admin to use this feature area and related workflows.",
       "type": "feature",
@@ -368,7 +381,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-24",
+      "id": "feature-25",
       "title": "Dashboard / Admin / Product / Catalog",
       "body": "Open /dashboard/admin/product/catalog to use this feature area and related workflows.",
       "type": "feature",
@@ -381,7 +394,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-25",
+      "id": "feature-26",
       "title": "Dashboard / Admin / Product",
       "body": "Open /dashboard/admin/product to use this feature area and related workflows.",
       "type": "feature",
@@ -394,7 +407,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-26",
+      "id": "feature-27",
       "title": "Dashboard / Admin / Revenue",
       "body": "Open /dashboard/admin/revenue to use this feature area and related workflows.",
       "type": "feature",
@@ -407,7 +420,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-27",
+      "id": "feature-28",
       "title": "Dashboard / Admin / Sales enablement",
       "body": "Open /dashboard/admin/sales-enablement to use this feature area and related workflows.",
       "type": "feature",
@@ -420,7 +433,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-28",
+      "id": "feature-29",
       "title": "Dashboard / Admin / Social",
       "body": "Open /dashboard/admin/social to use this feature area and related workflows.",
       "type": "feature",
@@ -433,7 +446,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-29",
+      "id": "feature-30",
       "title": "Dashboard / Admin / Speakers",
       "body": "Open /dashboard/admin/speakers to use this feature area and related workflows.",
       "type": "feature",
@@ -446,7 +459,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-30",
+      "id": "feature-31",
       "title": "Dashboard / Admin / Team",
       "body": "Open /dashboard/admin/team to use this feature area and related workflows.",
       "type": "feature",
@@ -459,7 +472,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-31",
+      "id": "feature-32",
       "title": "Dashboard / Admin / Traces",
       "body": "Open /dashboard/admin/traces to use this feature area and related workflows.",
       "type": "feature",
@@ -472,7 +485,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-32",
+      "id": "feature-33",
       "title": "Dashboard / Admin / Traces / Rubric",
       "body": "Open /dashboard/admin/traces/rubric to use this feature area and related workflows.",
       "type": "feature",
@@ -485,7 +498,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-33",
+      "id": "feature-34",
       "title": "Dashboard / Briefing",
       "body": "Open /dashboard/briefing to use this feature area and related workflows.",
       "type": "feature",
@@ -498,7 +511,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-34",
+      "id": "feature-35",
       "title": "Dashboard / Calendar",
       "body": "Open /dashboard/calendar to use this feature area and related workflows.",
       "type": "feature",
@@ -511,7 +524,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-35",
+      "id": "feature-36",
       "title": "Dashboard / Chat",
       "body": "Open /dashboard/chat to use this feature area and related workflows.",
       "type": "feature",
@@ -524,7 +537,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-36",
+      "id": "feature-37",
       "title": "Dashboard / Coach",
       "body": "Open /dashboard/coach to use this feature area and related workflows.",
       "type": "feature",
@@ -537,7 +550,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-37",
+      "id": "feature-38",
       "title": "Dashboard / Companies / New",
       "body": "Open /dashboard/companies/new to use this feature area and related workflows.",
       "type": "feature",
@@ -550,7 +563,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-38",
+      "id": "feature-39",
       "title": "Dashboard / Concierge",
       "body": "Open /dashboard/concierge to use this feature area and related workflows.",
       "type": "feature",
@@ -563,7 +576,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-39",
+      "id": "feature-40",
       "title": "Dashboard / Contacts",
       "body": "Open /dashboard/contacts to use this feature area and related workflows.",
       "type": "feature",
@@ -576,7 +589,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-40",
+      "id": "feature-41",
       "title": "Dashboard / Discover",
       "body": "Open /dashboard/discover to use this feature area and related workflows.",
       "type": "feature",
@@ -589,7 +602,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-41",
+      "id": "feature-42",
       "title": "Dashboard / Feedback",
       "body": "Open /dashboard/feedback to use this feature area and related workflows.",
       "type": "feature",
@@ -602,7 +615,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-42",
+      "id": "feature-43",
       "title": "Dashboard / Help",
       "body": "Open /dashboard/help to use this feature area and related workflows.",
       "type": "feature",
@@ -615,7 +628,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-43",
+      "id": "feature-44",
       "title": "Dashboard / Invite",
       "body": "Open /dashboard/invite to use this feature area and related workflows.",
       "type": "feature",
@@ -628,7 +641,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-44",
+      "id": "feature-45",
       "title": "Dashboard / Kanban",
       "body": "Open /dashboard/kanban to use this feature area and related workflows.",
       "type": "feature",
@@ -641,7 +654,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-45",
+      "id": "feature-46",
       "title": "Dashboard / Offers",
       "body": "Open /dashboard/offers to use this feature area and related workflows.",
       "type": "feature",
@@ -654,7 +667,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-46",
+      "id": "feature-47",
       "title": "Dashboard / Outplacement",
       "body": "Open /dashboard/outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -667,7 +680,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-47",
+      "id": "feature-48",
       "title": "Dashboard / Outreach",
       "body": "Open /dashboard/outreach to use this feature area and related workflows.",
       "type": "feature",
@@ -680,7 +693,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-48",
+      "id": "feature-49",
       "title": "Dashboard",
       "body": "Open /dashboard to use this feature area and related workflows.",
       "type": "feature",
@@ -689,11 +702,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-03T22:49:01.014Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.837Z",
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-49",
+      "id": "feature-50",
       "title": "Dashboard / Partner",
       "body": "Open /dashboard/partner to use this feature area and related workflows.",
       "type": "feature",
@@ -706,7 +719,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-50",
+      "id": "feature-51",
       "title": "Dashboard / Pilot outreach",
       "body": "Open /dashboard/pilot-outreach to use this feature area and related workflows.",
       "type": "feature",
@@ -719,7 +732,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-51",
+      "id": "feature-52",
       "title": "Dashboard / Placed",
       "body": "Open /dashboard/placed to use this feature area and related workflows.",
       "type": "feature",
@@ -732,7 +745,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-52",
+      "id": "feature-53",
       "title": "Dashboard / Positioning",
       "body": "Open /dashboard/positioning to use this feature area and related workflows.",
       "type": "feature",
@@ -745,7 +758,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-53",
+      "id": "feature-54",
       "title": "Dashboard / Post search",
       "body": "Open /dashboard/post-search to use this feature area and related workflows.",
       "type": "feature",
@@ -758,7 +771,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-54",
+      "id": "feature-55",
       "title": "Dashboard / Profile",
       "body": "Open /dashboard/profile to use this feature area and related workflows.",
       "type": "feature",
@@ -771,7 +784,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-55",
+      "id": "feature-56",
       "title": "Dashboard / Profile / Tailor",
       "body": "Open /dashboard/profile/tailor to use this feature area and related workflows.",
       "type": "feature",
@@ -784,7 +797,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-56",
+      "id": "feature-57",
       "title": "Dashboard / Salary",
       "body": "Open /dashboard/salary to use this feature area and related workflows.",
       "type": "feature",
@@ -797,7 +810,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-57",
+      "id": "feature-58",
       "title": "Dashboard / Signals",
       "body": "Open /dashboard/signals to use this feature area and related workflows.",
       "type": "feature",
@@ -810,7 +823,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-58",
+      "id": "feature-59",
       "title": "Dashboard / Start",
       "body": "Open /dashboard/start to use this feature area and related workflows.",
       "type": "feature",
@@ -823,7 +836,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-59",
+      "id": "feature-60",
       "title": "Dashboard / Strategy",
       "body": "Open /dashboard/strategy to use this feature area and related workflows.",
       "type": "feature",
@@ -836,7 +849,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-60",
+      "id": "feature-61",
       "title": "Dashboard / Wrap up",
       "body": "Open /dashboard/wrap-up to use this feature area and related workflows.",
       "type": "feature",
@@ -849,7 +862,7 @@
       "qualityWeight": 1.2
     },
     {
-      "id": "feature-61",
+      "id": "feature-62",
       "title": "Settings / Billing",
       "body": "Open /settings/billing to use this feature area and related workflows.",
       "type": "feature",
@@ -862,7 +875,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-62",
+      "id": "feature-63",
       "title": "Settings / Security",
       "body": "Open /settings/security to use this feature area and related workflows.",
       "type": "feature",
@@ -875,7 +888,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-63",
+      "id": "feature-64",
       "title": "Settings / Team",
       "body": "Open /settings/team to use this feature area and related workflows.",
       "type": "feature",
@@ -888,7 +901,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-64",
+      "id": "feature-65",
       "title": "About",
       "body": "Open /about to use this feature area and related workflows.",
       "type": "feature",
@@ -901,7 +914,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-65",
+      "id": "feature-66",
       "title": "Annual report 2026 / Executive search ai confidentiality",
       "body": "Open /annual-report-2026/executive-search-ai-confidentiality to use this feature area and related workflows.",
       "type": "feature",
@@ -914,7 +927,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-66",
+      "id": "feature-67",
       "title": "Annual report 2026",
       "body": "Open /annual-report-2026 to use this feature area and related workflows.",
       "type": "feature",
@@ -927,7 +940,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-67",
+      "id": "feature-68",
       "title": "Blog",
       "body": "Open /blog to use this feature area and related workflows.",
       "type": "feature",
@@ -940,7 +953,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-68",
+      "id": "feature-69",
       "title": "Career tools",
       "body": "Open /career-tools to use this feature area and related workflows.",
       "type": "feature",
@@ -953,7 +966,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-69",
+      "id": "feature-70",
       "title": "Coaches guide",
       "body": "Open /coaches-guide to use this feature area and related workflows.",
       "type": "feature",
@@ -966,7 +979,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-70",
+      "id": "feature-71",
       "title": "Coaches",
       "body": "Open /coaches to use this feature area and related workflows.",
       "type": "feature",
@@ -979,7 +992,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-71",
+      "id": "feature-72",
       "title": "Coaches / Personas",
       "body": "Open /coaches/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -992,7 +1005,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-72",
+      "id": "feature-73",
       "title": "Concierge",
       "body": "Open /concierge to use this feature area and related workflows.",
       "type": "feature",
@@ -1005,7 +1018,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-73",
+      "id": "feature-74",
       "title": "Contributor",
       "body": "Open /contributor to use this feature area and related workflows.",
       "type": "feature",
@@ -1018,7 +1031,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-74",
+      "id": "feature-75",
       "title": "Demo / Cio / Notes",
       "body": "Open /demo/cio/notes to use this feature area and related workflows.",
       "type": "feature",
@@ -1031,7 +1044,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-75",
+      "id": "feature-76",
       "title": "Demo / Cio",
       "body": "Open /demo/cio to use this feature area and related workflows.",
       "type": "feature",
@@ -1044,7 +1057,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-76",
+      "id": "feature-77",
       "title": "Demo / Executive brief",
       "body": "Open /demo/executive-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1057,7 +1070,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-77",
+      "id": "feature-78",
       "title": "Demo / Manager tools",
       "body": "Open /demo/manager-tools to use this feature area and related workflows.",
       "type": "feature",
@@ -1070,7 +1083,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-78",
+      "id": "feature-79",
       "title": "Demo / Michael dashboard",
       "body": "Open /demo/michael-dashboard to use this feature area and related workflows.",
       "type": "feature",
@@ -1083,7 +1096,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-79",
+      "id": "feature-80",
       "title": "Demo / Michael strategy brief",
       "body": "Open /demo/michael-strategy-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1096,7 +1109,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-80",
+      "id": "feature-81",
       "title": "Demo",
       "body": "Open /demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1109,7 +1122,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-81",
+      "id": "feature-82",
       "title": "Demo / Presenter",
       "body": "Open /demo/presenter to use this feature area and related workflows.",
       "type": "feature",
@@ -1122,7 +1135,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-82",
+      "id": "feature-83",
       "title": "Evaluate",
       "body": "Open /evaluate to use this feature area and related workflows.",
       "type": "feature",
@@ -1135,7 +1148,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-83",
+      "id": "feature-84",
       "title": "Evidence room",
       "body": "Open /evidence-room to use this feature area and related workflows.",
       "type": "feature",
@@ -1148,7 +1161,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-84",
+      "id": "feature-85",
       "title": "Executives / Active",
       "body": "Open /executives/active to use this feature area and related workflows.",
       "type": "feature",
@@ -1161,7 +1174,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-85",
+      "id": "feature-86",
       "title": "Executives",
       "body": "Open /executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1174,7 +1187,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-86",
+      "id": "feature-87",
       "title": "Executives / Passive",
       "body": "Open /executives/passive to use this feature area and related workflows.",
       "type": "feature",
@@ -1187,7 +1200,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-87",
+      "id": "feature-88",
       "title": "Executives / Personas",
       "body": "Open /executives/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1200,7 +1213,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-88",
+      "id": "feature-89",
       "title": "Feedback",
       "body": "Open /feedback to use this feature area and related workflows.",
       "type": "feature",
@@ -1213,7 +1226,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-89",
+      "id": "feature-90",
       "title": "For cdo",
       "body": "Open /for-cdo to use this feature area and related workflows.",
       "type": "feature",
@@ -1226,7 +1239,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-90",
+      "id": "feature-91",
       "title": "For cio associations",
       "body": "Open /for-cio-associations to use this feature area and related workflows.",
       "type": "feature",
@@ -1239,7 +1252,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-91",
+      "id": "feature-92",
       "title": "For cio",
       "body": "Open /for-cio to use this feature area and related workflows.",
       "type": "feature",
@@ -1252,7 +1265,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-92",
+      "id": "feature-93",
       "title": "For ciso",
       "body": "Open /for-ciso to use this feature area and related workflows.",
       "type": "feature",
@@ -1265,7 +1278,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-93",
+      "id": "feature-94",
       "title": "For coaches / Coach prep worksheet",
       "body": "Open /for-coaches/coach-prep-worksheet to use this feature area and related workflows.",
       "type": "feature",
@@ -1278,7 +1291,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-94",
+      "id": "feature-95",
       "title": "For coaches / Economics",
       "body": "Open /for-coaches/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1291,7 +1304,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-95",
+      "id": "feature-96",
       "title": "For coaches / Faq",
       "body": "Open /for-coaches/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1304,7 +1317,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-96",
+      "id": "feature-97",
       "title": "For coaches / Micro products",
       "body": "Open /for-coaches/micro-products to use this feature area and related workflows.",
       "type": "feature",
@@ -1317,7 +1330,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-97",
+      "id": "feature-98",
       "title": "For coaches",
       "body": "Open /for-coaches to use this feature area and related workflows.",
       "type": "feature",
@@ -1330,7 +1343,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-98",
+      "id": "feature-99",
       "title": "For coaches / Trust pack",
       "body": "Open /for-coaches/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1343,7 +1356,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-99",
+      "id": "feature-100",
       "title": "For coo",
       "body": "Open /for-coo to use this feature area and related workflows.",
       "type": "feature",
@@ -1356,7 +1369,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-100",
+      "id": "feature-101",
       "title": "For cpo",
       "body": "Open /for-cpo to use this feature area and related workflows.",
       "type": "feature",
@@ -1369,7 +1382,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-101",
+      "id": "feature-102",
       "title": "For data officer",
       "body": "Open /for-data-officer to use this feature area and related workflows.",
       "type": "feature",
@@ -1382,7 +1395,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-102",
+      "id": "feature-103",
       "title": "For financial advisors",
       "body": "Open /for-financial-advisors to use this feature area and related workflows.",
       "type": "feature",
@@ -1395,7 +1408,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-103",
+      "id": "feature-104",
       "title": "For fractional executives",
       "body": "Open /for-fractional-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1408,7 +1421,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-104",
+      "id": "feature-105",
       "title": "For media partners",
       "body": "Open /for-media-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1421,7 +1434,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-105",
+      "id": "feature-106",
       "title": "For outplacement / Economics",
       "body": "Open /for-outplacement/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1434,7 +1447,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-106",
+      "id": "feature-107",
       "title": "For outplacement / Executive summary",
       "body": "Open /for-outplacement/executive-summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1447,7 +1460,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-107",
+      "id": "feature-108",
       "title": "For outplacement / Faq",
       "body": "Open /for-outplacement/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1460,7 +1473,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-108",
+      "id": "feature-109",
       "title": "For outplacement / Metric dictionary",
       "body": "Open /for-outplacement/metric-dictionary to use this feature area and related workflows.",
       "type": "feature",
@@ -1473,7 +1486,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-109",
+      "id": "feature-110",
       "title": "For outplacement / Operating scorecard",
       "body": "Open /for-outplacement/operating-scorecard to use this feature area and related workflows.",
       "type": "feature",
@@ -1486,7 +1499,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-110",
+      "id": "feature-111",
       "title": "For outplacement",
       "body": "Open /for-outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1499,7 +1512,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-111",
+      "id": "feature-112",
       "title": "For outplacement / Runbook",
       "body": "Open /for-outplacement/runbook to use this feature area and related workflows.",
       "type": "feature",
@@ -1512,7 +1525,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-112",
+      "id": "feature-113",
       "title": "For outplacement / Security overview",
       "body": "Open /for-outplacement/security-overview to use this feature area and related workflows.",
       "type": "feature",
@@ -1525,7 +1538,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-113",
+      "id": "feature-114",
       "title": "For outplacement / Trust pack",
       "body": "Open /for-outplacement/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1538,7 +1551,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-114",
+      "id": "feature-115",
       "title": "For pe partners",
       "body": "Open /for-pe-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1551,7 +1564,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-115",
+      "id": "feature-116",
       "title": "For pe teams",
       "body": "Open /for-pe-teams to use this feature area and related workflows.",
       "type": "feature",
@@ -1564,7 +1577,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-116",
+      "id": "feature-117",
       "title": "For relocation",
       "body": "Open /for-relocation to use this feature area and related workflows.",
       "type": "feature",
@@ -1577,7 +1590,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-117",
+      "id": "feature-118",
       "title": "For search firms",
       "body": "Open /for-search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1590,7 +1603,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-118",
+      "id": "feature-119",
       "title": "For vp technology",
       "body": "Open /for-vp-technology to use this feature area and related workflows.",
       "type": "feature",
@@ -1603,7 +1616,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-119",
+      "id": "feature-120",
       "title": "For vp",
       "body": "Open /for-vp to use this feature area and related workflows.",
       "type": "feature",
@@ -1616,7 +1629,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-120",
+      "id": "feature-121",
       "title": "Founder note",
       "body": "Open /founder-note to use this feature area and related workflows.",
       "type": "feature",
@@ -1629,7 +1642,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-121",
+      "id": "feature-122",
       "title": "Guide",
       "body": "Open /guide to use this feature area and related workflows.",
       "type": "feature",
@@ -1642,7 +1655,7 @@
       "qualityWeight": 1.45
     },
     {
-      "id": "feature-122",
+      "id": "feature-123",
       "title": "Ideas",
       "body": "Open /ideas to use this feature area and related workflows.",
       "type": "feature",
@@ -1655,7 +1668,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-123",
+      "id": "feature-124",
       "title": "Mark demo",
       "body": "Open /mark-demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1668,7 +1681,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-124",
+      "id": "feature-125",
       "title": "Mark review / Appendix",
       "body": "Open /mark-review/appendix to use this feature area and related workflows.",
       "type": "feature",
@@ -1681,7 +1694,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-125",
+      "id": "feature-126",
       "title": "Mark review / Business plan",
       "body": "Open /mark-review/business-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -1694,7 +1707,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-126",
+      "id": "feature-127",
       "title": "Mark review",
       "body": "Open /mark-review to use this feature area and related workflows.",
       "type": "feature",
@@ -1707,7 +1720,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-127",
+      "id": "feature-128",
       "title": "Mark review / Summary",
       "body": "Open /mark-review/summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1720,7 +1733,20 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-128",
+      "id": "feature-129",
+      "title": "Mauricio kickoff execution",
+      "body": "Open /mauricio-kickoff-execution to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/mauricio-kickoff-execution",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-04T14:11:59.074Z",
+      "qualityWeight": 1
+    },
+    {
+      "id": "feature-130",
       "title": "Mauricio kickoff",
       "body": "Open /mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -1729,11 +1755,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-02T22:14:25.219Z",
+      "lastModifiedAt": "2026-06-04T14:11:59.068Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-129",
+      "id": "feature-131",
       "title": "Method and evidence",
       "body": "Open /method-and-evidence to use this feature area and related workflows.",
       "type": "feature",
@@ -1746,7 +1772,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-130",
+      "id": "feature-132",
       "title": "Onboarding",
       "body": "Open /onboarding to use this feature area and related workflows.",
       "type": "feature",
@@ -1759,7 +1785,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-131",
+      "id": "feature-133",
       "title": "Optimize",
       "body": "Open /optimize to use this feature area and related workflows.",
       "type": "feature",
@@ -1772,7 +1798,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-132",
+      "id": "feature-134",
       "title": "Outplacement",
       "body": "Open /outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1785,7 +1811,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-133",
+      "id": "feature-135",
       "title": "Outplacement / Personas",
       "body": "Open /outplacement/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1798,7 +1824,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-134",
+      "id": "feature-136",
       "title": "Partners / Mauricio kickoff",
       "body": "Open /partners/mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -1811,7 +1837,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-135",
+      "id": "feature-137",
       "title": "Partners",
       "body": "Open /partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1824,7 +1850,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-136",
+      "id": "feature-138",
       "title": "Pilot findings",
       "body": "Open /pilot-findings to use this feature area and related workflows.",
       "type": "feature",
@@ -1837,7 +1863,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-137",
+      "id": "feature-139",
       "title": "Pricing",
       "body": "Open /pricing to use this feature area and related workflows.",
       "type": "feature",
@@ -1850,7 +1876,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-138",
+      "id": "feature-140",
       "title": "Privacy",
       "body": "Open /privacy to use this feature area and related workflows.",
       "type": "feature",
@@ -1863,7 +1889,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-139",
+      "id": "feature-141",
       "title": "Proof / Roi calculator",
       "body": "Open /proof/roi-calculator to use this feature area and related workflows.",
       "type": "feature",
@@ -1876,7 +1902,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-140",
+      "id": "feature-142",
       "title": "References",
       "body": "Open /references to use this feature area and related workflows.",
       "type": "feature",
@@ -1889,7 +1915,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-141",
+      "id": "feature-143",
       "title": "Research brief",
       "body": "Open /research-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1902,7 +1928,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-142",
+      "id": "feature-144",
       "title": "Sales marketing plan",
       "body": "Open /sales-marketing-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -1915,7 +1941,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-143",
+      "id": "feature-145",
       "title": "Search firms",
       "body": "Open /search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1928,7 +1954,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-144",
+      "id": "feature-146",
       "title": "Search firms / Personas",
       "body": "Open /search-firms/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1941,7 +1967,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-145",
+      "id": "feature-147",
       "title": "Search firms / Sample cfo brief",
       "body": "Open /search-firms/sample-cfo-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1954,7 +1980,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-146",
+      "id": "feature-148",
       "title": "Security",
       "body": "Open /security to use this feature area and related workflows.",
       "type": "feature",
@@ -1967,7 +1993,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-147",
+      "id": "feature-149",
       "title": "Terms",
       "body": "Open /terms to use this feature area and related workflows.",
       "type": "feature",
@@ -1980,7 +2006,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-148",
+      "id": "feature-150",
       "title": "Unsubscribe / Confirmed",
       "body": "Open /unsubscribe/confirmed to use this feature area and related workflows.",
       "type": "feature",
@@ -3432,7 +3458,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T01:43:07.381Z",
+      "lastModifiedAt": "2026-06-04T12:16:35.316Z",
       "qualityWeight": 0.95
     },
     {
@@ -3536,7 +3562,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-02T22:14:25.206Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z",
       "qualityWeight": 0.95
     },
     {
@@ -3770,7 +3796,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-12T12:31:29.600Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z",
       "qualityWeight": 0.95
     },
     {
@@ -4290,7 +4316,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T01:44:20.909Z",
+      "lastModifiedAt": "2026-06-04T12:16:35.317Z",
       "qualityWeight": 0.95
     },
     {
@@ -4472,7 +4498,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.568Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z",
       "qualityWeight": 0.95
     },
     {
@@ -4550,7 +4576,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T01:42:50.081Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z",
       "qualityWeight": 0.95
     },
     {
@@ -4563,7 +4589,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-28T02:05:48.190Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.840Z",
       "qualityWeight": 0.95
     },
     {
@@ -4680,7 +4706,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.576Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z",
       "qualityWeight": 0.95
     },
     {
@@ -4758,7 +4784,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.581Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.844Z",
       "qualityWeight": 0.95
     },
     {
@@ -5166,6 +5192,19 @@
     },
     {
       "id": "api-231",
+      "title": "/api/readiness",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/readiness",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-06-04T12:16:35.317Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-232",
       "title": "/api/salary-intelligence",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5174,11 +5213,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-232",
+      "id": "api-233",
       "title": "/api/search",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5191,7 +5230,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-233",
+      "id": "api-234",
       "title": "/api/signals/classify",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5204,7 +5243,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-234",
+      "id": "api-235",
       "title": "/api/strategy/followup",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5217,7 +5256,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-235",
+      "id": "api-236",
       "title": "/api/strategy",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5230,7 +5269,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-236",
+      "id": "api-237",
       "title": "/api/suggestions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5239,11 +5278,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z",
+      "lastModifiedAt": "2026-06-04T04:45:56.845Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-237",
+      "id": "api-238",
       "title": "/api/tailor/check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5256,7 +5295,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-238",
+      "id": "api-239",
       "title": "/api/tailor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5269,7 +5308,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-239",
+      "id": "api-240",
       "title": "/api/tailor/strengthen",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5282,7 +5321,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-240",
+      "id": "api-241",
       "title": "/api/team/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5295,7 +5334,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-241",
+      "id": "api-242",
       "title": "/api/team/seat/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5308,7 +5347,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-242",
+      "id": "api-243",
       "title": "/api/track/open",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5321,7 +5360,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-243",
+      "id": "api-244",
       "title": "/api/webhooks/onboarding-video",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5334,7 +5373,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-244",
+      "id": "api-245",
       "title": "/api/webhooks/resend",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5347,7 +5386,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-245",
+      "id": "api-246",
       "title": "/api/webhooks/stripe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",

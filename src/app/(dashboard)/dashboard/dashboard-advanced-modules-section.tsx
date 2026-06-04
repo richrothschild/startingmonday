@@ -2,6 +2,7 @@ import { SuggestionCards } from '@/components/SuggestionCards'
 import { SearchControlsPanel } from '@/components/SearchControlsPanel'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelinePulse } from './dashboard-pipeline-pulse'
+import { DashboardProgressFeedSection } from './dashboard-progress-feed-section'
 import { DashboardWeeklyPerformanceSection } from './dashboard-weekly-performance-section'
 import type { WeekActivity } from '@/components/ActivityChart'
 import type { VelocityRow } from '@/components/PipelineVelocity'
@@ -90,6 +91,14 @@ export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesS
         initialFrequency={props.initialFrequency}
         initialBriefingTime={props.initialBriefingTime}
         isPaused={props.isPaused}
+      />
+
+      <DashboardProgressFeedSection
+        todayISO={props.todayISO}
+        followUps={props.followUps}
+        warmPaths={props.warmPaths}
+        patternAlerts={props.patternAlerts}
+        signals={props.signals}
       />
 
       <DashboardIntelSetupSections
