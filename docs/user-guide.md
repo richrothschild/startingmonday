@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-03T23:16:06.793Z
+Last generated: 2026-06-04T04:31:30.711Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -177,7 +177,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (245)
+## API and Automation (246)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -408,6 +408,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/profile/export](/api/profile/export) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/readiness](/api/readiness) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/signals/classify](/api/signals/classify) - Programmatic endpoint available for platform behavior or integrations.

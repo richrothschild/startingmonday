@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T23:16:06.793Z",
+  "generatedAt": "2026-06-04T04:31:30.711Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -3536,7 +3536,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-02T22:14:25.206Z",
+      "lastModifiedAt": "2026-06-03T23:24:55.293Z",
       "qualityWeight": 0.95
     },
     {
@@ -3770,7 +3770,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-12T12:31:29.600Z",
+      "lastModifiedAt": "2026-06-03T23:24:58.990Z",
       "qualityWeight": 0.95
     },
     {
@@ -4472,7 +4472,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.568Z",
+      "lastModifiedAt": "2026-06-03T23:25:10.146Z",
       "qualityWeight": 0.95
     },
     {
@@ -4550,7 +4550,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T01:42:50.081Z",
+      "lastModifiedAt": "2026-06-03T23:25:55.977Z",
       "qualityWeight": 0.95
     },
     {
@@ -4563,7 +4563,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-28T02:05:48.190Z",
+      "lastModifiedAt": "2026-06-03T23:25:13.282Z",
       "qualityWeight": 0.95
     },
     {
@@ -4680,7 +4680,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.576Z",
+      "lastModifiedAt": "2026-06-03T23:25:20.359Z",
       "qualityWeight": 0.95
     },
     {
@@ -4758,7 +4758,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-31T19:11:52.581Z",
+      "lastModifiedAt": "2026-06-03T23:25:17.257Z",
       "qualityWeight": 0.95
     },
     {
@@ -5166,6 +5166,19 @@
     },
     {
       "id": "api-231",
+      "title": "/api/readiness",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/readiness",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-06-03T23:27:59.814Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-232",
       "title": "/api/salary-intelligence",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5174,11 +5187,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z",
+      "lastModifiedAt": "2026-06-03T23:25:23.383Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-232",
+      "id": "api-233",
       "title": "/api/search",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5191,7 +5204,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-233",
+      "id": "api-234",
       "title": "/api/signals/classify",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5204,7 +5217,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-234",
+      "id": "api-235",
       "title": "/api/strategy/followup",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5217,7 +5230,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-235",
+      "id": "api-236",
       "title": "/api/strategy",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5230,7 +5243,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-236",
+      "id": "api-237",
       "title": "/api/suggestions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5239,11 +5252,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-03T03:35:59.392Z",
+      "lastModifiedAt": "2026-06-03T23:25:25.844Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-237",
+      "id": "api-238",
       "title": "/api/tailor/check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5256,7 +5269,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-238",
+      "id": "api-239",
       "title": "/api/tailor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5269,7 +5282,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-239",
+      "id": "api-240",
       "title": "/api/tailor/strengthen",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5282,7 +5295,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-240",
+      "id": "api-241",
       "title": "/api/team/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5295,7 +5308,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-241",
+      "id": "api-242",
       "title": "/api/team/seat/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5308,7 +5321,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-242",
+      "id": "api-243",
       "title": "/api/track/open",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5321,7 +5334,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-243",
+      "id": "api-244",
       "title": "/api/webhooks/onboarding-video",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5334,7 +5347,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-244",
+      "id": "api-245",
       "title": "/api/webhooks/resend",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5347,7 +5360,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-245",
+      "id": "api-246",
       "title": "/api/webhooks/stripe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
