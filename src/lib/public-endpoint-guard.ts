@@ -49,7 +49,7 @@ export async function enforcePublicEndpointGuard(
   } = options
   const ip = getClientIp(request)
 
-  const { allowed, retryAfter } = checkRateLimit(`${rateLimitKey}:${ip}`, maxPerMinute)
+  const { allowed, retryAfter } = await checkRateLimit(`${rateLimitKey}:${ip}`, maxPerMinute)
   if (!allowed) {
     return NextResponse.json(
       { ok: false, error: 'Too many requests' },

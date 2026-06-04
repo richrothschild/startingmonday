@@ -19,7 +19,7 @@ export async function requirePrepAccess(request: NextRequest): Promise<PrepAcces
   const { userId } = auth
   const supabase = await createClient()
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return {
       ok: false,
       response: new Response(
