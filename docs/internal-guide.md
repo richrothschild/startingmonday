@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-04T04:31:54.634Z
+Last generated: 2026-06-04T14:19:23.631Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (179)
+## Features (180)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -165,6 +165,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mauricio kickoff execution | /mauricio-kickoff-execution | User-facing page route /mauricio-kickoff-execution.
 - Feature Mauricio kickoff | /mauricio-kickoff | User-facing page route /mauricio-kickoff.
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
 - Feature Onboarding | /onboarding | User-facing page route /onboarding.
@@ -351,7 +352,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/ui-ux-weekly-review | src/app/api/cron/ui-ux-weekly-review/route.ts | export const runtime = 'nodejs'
 - API /api/cron/weekly-digest | src/app/api/cron/weekly-digest/route.ts | export async function GET(request: NextRequest) {
 - API /api/demo-brief/executive-brief | src/app/api/demo-brief/executive-brief/route.ts | Fictional demo candidate: senior enterprise IT leader, VP-level, targeting CIO/VP of IT.
-- API /api/demo-brief/manager-tools | src/app/api/demo-brief/manager-tools/route.ts | export { POST } from '../executive-brief/route'
+- API /api/demo-brief/manager-tools | src/app/api/demo-brief/manager-tools/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief | src/app/api/demo-brief/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
@@ -436,7 +437,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (192)
+## Codebase Modules (193)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -512,6 +513,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/lead-scoring-runner.ts | src/lib/lead-scoring-runner.ts | export type LeadScoringOptions = {
 - Code src/lib/lead-scoring.test.ts | src/lib/lead-scoring.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/lead-scoring.ts | src/lib/lead-scoring.ts | export type ScoreReason = {
+- Code src/lib/mauricio-contact.ts | src/lib/mauricio-contact.ts | export function buildMauricioMailto(subject: string, body?: string) {
 - Code src/lib/micro-products.test.ts | src/lib/micro-products.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/narrative-health.test.ts | src/lib/narrative-health.test.ts | import { describe, expect, it } from 'vitest'
@@ -908,7 +910,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (510)
+## Documentation (511)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1315,10 +1317,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
+- Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
 - Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)

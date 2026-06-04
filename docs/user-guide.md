@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-04T04:31:30.711Z
+Last generated: 2026-06-04T14:18:43.354Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (149)
+## Features (150)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -140,6 +140,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
 - [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
 - [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mauricio kickoff execution](/mauricio-kickoff-execution) - Open /mauricio-kickoff-execution to use this feature area and related workflows.
 - [Mauricio kickoff](/mauricio-kickoff) - Open /mauricio-kickoff to use this feature area and related workflows.
 - [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.
 - [Onboarding](/onboarding) - Open /onboarding to use this feature area and related workflows.

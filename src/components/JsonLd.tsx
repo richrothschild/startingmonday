@@ -3,10 +3,6 @@ export function JsonLd({ data }: { data: object }) {
   const safeJson = JSON.stringify(data).replace(/</g, '\\u003c')
 
   return (
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: safeJson }}
-    />
+    <script type="application/ld+json" suppressHydrationWarning>{safeJson}</script>
   )
 }
