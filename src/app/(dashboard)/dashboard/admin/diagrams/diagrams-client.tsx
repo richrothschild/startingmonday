@@ -1,19 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-
-type Diagram = {
-  slug: string
-  title: string
-  description: string
-  category: string
-  mermaidCode: string
-}
-
-type Category = {
-  label: string
-  diagrams: Diagram[]
-}
+import type { Diagram, DiagramCategory as Category } from './diagrams-data'
 
 function MermaidRenderer({ code, id }: { code: string; id: string }) {
   const ref = useRef<HTMLDivElement>(null)
