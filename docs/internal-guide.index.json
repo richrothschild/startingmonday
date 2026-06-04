@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-04T01:53:19.429Z",
+  "generatedAt": "2026-06-04T02:27:57.014Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-03T22:54:34.512Z"
+      "lastModifiedAt": "2026-06-04T01:53:19.444Z"
     },
     {
       "id": "feature:/login",
@@ -125,6 +125,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-05-29T22:58:55.083Z"
+    },
+    {
+      "id": "feature:/dashboard/admin/diagrams",
+      "title": "Feature Dashboard / Admin / Diagrams",
+      "body": "User-facing page route /dashboard/admin/diagrams.",
+      "type": "feature",
+      "ref": "/dashboard/admin/diagrams",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-04T02:27:11.496Z"
     },
     {
       "id": "feature:/dashboard/admin/feedback",
@@ -15308,7 +15322,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T22:54:34.511Z"
+      "lastModifiedAt": "2026-06-04T01:53:19.444Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15347,7 +15361,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-03T22:54:34.512Z"
+      "lastModifiedAt": "2026-06-04T01:53:19.444Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18259,7 +18273,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-04T01:52:57.962Z"
+      "lastModifiedAt": "2026-06-04T02:27:54.535Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

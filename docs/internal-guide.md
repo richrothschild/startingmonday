@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-04T01:53:19.429Z
+Last generated: 2026-06-04T02:27:57.014Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (178)
+## Features (179)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -16,6 +16,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Admin / Coach outreach | /dashboard/admin/coach-outreach | User-facing page route /dashboard/admin/coach-outreach.
 - Feature Dashboard / Admin / Crm | /dashboard/admin/crm | User-facing page route /dashboard/admin/crm.
 - Feature Dashboard / Admin / Customers | /dashboard/admin/customers | User-facing page route /dashboard/admin/customers.
+- Feature Dashboard / Admin / Diagrams | /dashboard/admin/diagrams | User-facing page route /dashboard/admin/diagrams.
 - Feature Dashboard / Admin / Feedback | /dashboard/admin/feedback | User-facing page route /dashboard/admin/feedback.
 - Feature Dashboard / Admin / Guide | /dashboard/admin/guide | User-facing page route /dashboard/admin/guide.
 - Feature Dashboard / Admin / Intelligence | /dashboard/admin/intelligence | User-facing page route /dashboard/admin/intelligence.
