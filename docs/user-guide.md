@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (148)
+## Features (149)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -20,6 +20,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Admin / Coach outreach](/dashboard/admin/coach-outreach) - Open /dashboard/admin/coach-outreach to use this feature area and related workflows.
 - [Dashboard / Admin / Crm](/dashboard/admin/crm) - Open /dashboard/admin/crm to use this feature area and related workflows.
 - [Dashboard / Admin / Customers](/dashboard/admin/customers) - Open /dashboard/admin/customers to use this feature area and related workflows.
+- [Dashboard / Admin / Diagrams](/dashboard/admin/diagrams) - Open /dashboard/admin/diagrams to use this feature area and related workflows.
 - [Dashboard / Admin / Feedback](/dashboard/admin/feedback) - Open /dashboard/admin/feedback to use this feature area and related workflows.
 - [Dashboard / Admin / Guide](/dashboard/admin/guide) - Open /dashboard/admin/guide to use this feature area and related workflows.
 - [Dashboard / Admin / Intelligence](/dashboard/admin/intelligence) - Open /dashboard/admin/intelligence to use this feature area and related workflows.

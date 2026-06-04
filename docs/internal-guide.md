@@ -7,7 +7,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (178)
+## Features (179)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -16,6 +16,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Admin / Coach outreach | /dashboard/admin/coach-outreach | User-facing page route /dashboard/admin/coach-outreach.
 - Feature Dashboard / Admin / Crm | /dashboard/admin/crm | User-facing page route /dashboard/admin/crm.
 - Feature Dashboard / Admin / Customers | /dashboard/admin/customers | User-facing page route /dashboard/admin/customers.
+- Feature Dashboard / Admin / Diagrams | /dashboard/admin/diagrams | User-facing page route /dashboard/admin/diagrams.
 - Feature Dashboard / Admin / Feedback | /dashboard/admin/feedback | User-facing page route /dashboard/admin/feedback.
 - Feature Dashboard / Admin / Guide | /dashboard/admin/guide | User-facing page route /dashboard/admin/guide.
 - Feature Dashboard / Admin / Intelligence | /dashboard/admin/intelligence | User-facing page route /dashboard/admin/intelligence.
@@ -1314,7 +1315,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
-- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
