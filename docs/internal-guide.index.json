@@ -5538,6 +5538,19 @@
       "lastModifiedAt": "2026-06-04T12:16:35.317Z"
     },
     {
+      "id": "api:/api/readiness",
+      "title": "API /api/readiness",
+      "body": "export const dynamic = 'force-dynamic'",
+      "type": "api",
+      "ref": "src/app/api/readiness/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-03T23:27:59.814Z"
+    },
+    {
       "id": "api:/api/salary-intelligence",
       "title": "API /api/salary-intelligence",
       "body": "export async function POST(request: NextRequest) {",
@@ -8463,6 +8476,19 @@
       "lastModifiedAt": "2026-06-04T04:45:56.846Z"
     },
     {
+      "id": "script:scripts/check-dead-letter-coverage.mjs",
+      "title": "Script scripts/check-dead-letter-coverage.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-dead-letter-coverage.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:27:15.882Z"
+    },
+    {
       "id": "script:scripts/check-dependency-policy.mjs",
       "title": "Script scripts/check-dependency-policy.mjs",
       "body": "Stable release is greater than prerelease for same major/minor/patch.",
@@ -9449,6 +9475,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-04T04:45:56.846Z"
+    },
+    {
+      "id": "script:scripts/run-launch-load-rehearsal.mjs",
+      "title": "Script scripts/run-launch-load-rehearsal.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/run-launch-load-rehearsal.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:27:06.147Z"
     },
     {
       "id": "script:scripts/run-mobile-key-routes-report.mjs",
@@ -11906,6 +11945,20 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-04T04:45:56.837Z"
+    },
+    {
+      "id": "data:supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "title": "Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "body": "create table if not exists public.job_checkpoints (",
+      "type": "data",
+      "ref": "supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-03T23:24:16.515Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -16861,6 +16914,32 @@
       "lastModifiedAt": "2026-06-04T04:45:56.848Z"
     },
     {
+      "id": "doc:docs/sre/launch-capacity-and-load-rehearsal.md",
+      "title": "Doc docs/sre/launch-capacity-and-load-rehearsal.md",
+      "body": "Launch Capacity And Load Rehearsal",
+      "type": "doc",
+      "ref": "docs/sre/launch-capacity-and-load-rehearsal.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.466Z"
+    },
+    {
+      "id": "doc:docs/sre/launch-week-incident-ownership-and-slos.md",
+      "title": "Doc docs/sre/launch-week-incident-ownership-and-slos.md",
+      "body": "Launch Week Incident Ownership And Response SLOs",
+      "type": "doc",
+      "ref": "docs/sre/launch-week-incident-ownership-and-slos.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.704Z"
+    },
+    {
       "id": "doc:docs/sre/on-call-rotation.md",
       "title": "Doc docs/sre/on-call-rotation.md",
       "body": "On-Call Rotation and Escalation Runbook",
@@ -16939,6 +17018,19 @@
       "lastModifiedAt": "2026-06-04T04:45:56.848Z"
     },
     {
+      "id": "doc:docs/sre/runbooks/backup-restore-drill.md",
+      "title": "Doc docs/sre/runbooks/backup-restore-drill.md",
+      "body": "Backup And Restore Drill",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/backup-restore-drill.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.608Z"
+    },
+    {
       "id": "doc:docs/sre/runbooks/billing-webhook-degradation.md",
       "title": "Doc docs/sre/runbooks/billing-webhook-degradation.md",
       "body": "Runbook: Billing / Webhook Degradation (P0)",
@@ -16963,6 +17055,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-04T04:45:56.848Z"
+    },
+    {
+      "id": "doc:docs/sre/runbooks/dead-letter-operations.md",
+      "title": "Doc docs/sre/runbooks/dead-letter-operations.md",
+      "body": "Dead-Letter Operations",
+      "type": "doc",
+      "ref": "docs/sre/runbooks/dead-letter-operations.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-03T23:27:40.661Z"
     },
     {
       "id": "doc:docs/sre/runbooks/deployment-stalled.md",
