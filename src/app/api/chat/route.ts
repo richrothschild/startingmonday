@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
 
   const { userId, supabase } = access
 
-  const { allowed, retryAfter } = checkRateLimit(userId)
+  const { allowed, retryAfter } = await checkRateLimit(userId)
   if (!allowed) {
     return NextResponse.json(
       { error: 'Too many requests - slow down and try again shortly' },
