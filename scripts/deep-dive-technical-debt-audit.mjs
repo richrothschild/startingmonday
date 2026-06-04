@@ -13,6 +13,12 @@ const ESLINT_CMD = path.join(ROOT, 'node_modules', '.bin', process.platform === 
 const SOURCE_DIRS = ['src', 'scripts', 'worker', 'tests']
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.mjs', '.cjs'])
 const IGNORE_DIRS = new Set(['node_modules', '.next', '.git', 'playwright-report', 'test-results', 'public', 'docs'])
+const PLACEHOLDER_PATTERNS = [
+  /placeholder coverage/i,
+  /marks module as covered for council traceability/i,
+  /expect\(\s*true\s*\)\.toBe\(\s*true\s*\)/i,
+]
+const TEST_FILE_RE = /\.(test|spec)\.[cm]?[jt]sx?$/
 
 function walk(dir) {
   if (!fs.existsSync(dir)) return []
@@ -82,6 +88,7 @@ function gatherFileMetrics() {
     const lines = source.split(/\r?\n/)
     metrics.push({
       path: rel(file),
+      source,
       lineCount: lines.length,
       todoCount: countMatches(/TODO|FIXME|HACK|XXX/g, source),
       placeholderCoverage: /placeholder coverage/.test(source),
@@ -90,6 +97,13 @@ function gatherFileMetrics() {
   }
 
   return metrics
+}
+
+function countPlaceholderTests(metrics) {
+  return metrics.filter((m) => {
+    if (!TEST_FILE_RE.test(m.path)) return false
+    return PLACEHOLDER_PATTERNS.some((re) => re.test(m.source))
+  }).length
 }
 
 function toMarkdown(result) {
@@ -134,6 +148,7 @@ function toMarkdown(result) {
 
 function main() {
   const metrics = gatherFileMetrics()
+  const placeholderCount = countPlaceholderTests(metrics)
 
   const typecheckRun = runStatus(TSC_CMD, ['--noEmit'])
   const lintRun = runStatus(ESLINT_CMD, ['.', '--quiet'])
@@ -163,7 +178,7 @@ function main() {
     },
     testDebt: {
       placeholderBaselineCount: readPlaceholderBaselineCount(),
-      currentPlaceholderFileCount: metrics.filter((m) => m.placeholderCoverage).length,
+      currentPlaceholderFileCount: placeholderCount,
     },
     hotspots: {
       topLargeFiles,

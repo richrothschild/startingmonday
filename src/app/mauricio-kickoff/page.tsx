@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { buildMauricioMailto } from '@/lib/mauricio-contact'
 
 type DayPlan = {
   day: string
@@ -222,6 +223,9 @@ function MetricTable({ title, rows }: { title: string; rows: MetricRow[] }) {
 }
 
 export default function MauricioKickoffPage() {
+  const askMauricioHref = buildMauricioMailto('Mauricio Kickoff Questions')
+  const requestMauricioHref = buildMauricioMailto('Mauricio Needs Request')
+
   return (
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
@@ -257,6 +261,14 @@ export default function MauricioKickoffPage() {
                 </span>
               ))}
             </div>
+            <div className="mt-5">
+              <Link
+                href="/mauricio-kickoff-execution"
+                className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-200 hover:bg-orange-500/20"
+              >
+                Open Mauricio execution tasks and why they matter
+              </Link>
+            </div>
           </div>
         </header>
 
@@ -275,16 +287,16 @@ export default function MauricioKickoffPage() {
                 Open external guide
               </a>
               <a
-                href="mailto:contact@startingmonday.app?subject=Mauricio%20Kickoff%20Questions"
+                href={askMauricioHref}
                 className="inline-flex items-center border border-slate-300 bg-white text-slate-700 text-[12px] font-semibold rounded px-3 py-2 hover:bg-slate-50 transition-colors"
               >
-                Ask questions
+                Email Mauricio with questions
               </a>
               <a
-                href="mailto:contact@startingmonday.app?subject=Mauricio%20Needs%20Request"
+                href={requestMauricioHref}
                 className="inline-flex items-center border border-emerald-300 bg-emerald-50 text-emerald-800 text-[12px] font-semibold rounded px-3 py-2 hover:bg-emerald-100 transition-colors"
               >
-                Tell us what you need
+                Email Mauricio with a request
               </a>
               <Link
                 href="/feedback"

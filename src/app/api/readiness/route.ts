@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { createClient } from '@/lib/supabase/server'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,6 +12,15 @@ type Check = {
 }
 
 export async function GET() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const staff = await getStaffMember(user.email ?? '')
+  if (!hasAdminHeaderAccess(staff)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const checks: Record<string, Check> = {
     env_supabase_url: { ok: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) },
     env_supabase_service_key: { ok: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY) },

@@ -1,4 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
 /**
  * Safe dry-run publish endpoint for production automation verification.
@@ -7,6 +9,15 @@ import { type NextRequest, NextResponse } from 'next/server'
  * /api/admin/social/mock-publish?token=...
  */
 export async function POST(request: NextRequest) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const staff = await getStaffMember(user.email ?? '')
+  if (!hasAdminHeaderAccess(staff)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const token = request.nextUrl.searchParams.get('token')
   const expected = process.env.SOCIAL_DRY_RUN_WEBHOOK_TOKEN
 
