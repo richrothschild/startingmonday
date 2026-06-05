@@ -315,6 +315,35 @@ jobs:
       - name: Run Lighthouse CI mobile budgets
         run: npm run perf:lighthouse:ci
 
+      - name: Notify Slack on Lighthouse failure
+        if: failure()
+        env:
+          SLACK_UI_ALERTS_WEBHOOK: ${{ secrets.SLACK_UI_ALERTS_WEBHOOK }}
+        run: |
+          if [ -z "$SLACK_UI_ALERTS_WEBHOOK" ]; then
+            echo "SLACK_UI_ALERTS_WEBHOOK is not set; skipping Slack notification."
+            exit 0
+          fi
+
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          BRANCH="${GITHUB_REF_NAME}"
+          REPO="${{ github.repository }}"
+          EVENT="${{ github.event_name }}"
+
+          payload=$(cat <<'JSON'
+          {
+            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
+          }
+          JSON
+          )
+
+          payload="${payload//REPO_PLACEHOLDER/$REPO}"
+          payload="${payload//BRANCH_PLACEHOLDER/$BRANCH}"
+          payload="${payload//EVENT_PLACEHOLDER/$EVENT}"
+          payload="${payload//RUN_URL_PLACEHOLDER/$RUN_URL}"
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_UI_ALERTS_WEBHOOK"
+
       - name: Upload Lighthouse artifacts
         if: always()
         uses: actions/upload-artifact@v6

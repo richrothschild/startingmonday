@@ -95,6 +95,17 @@ const FAQS: FAQ[] = [
   },
 ]
 
+const PROOF_HIGHLIGHTS = [
+  {
+    metric: '81% reached first interview in 30 days',
+    detail: 'Directional pilot signal from Jan-May 2026 cohort (n=27) for executive transition workflows.',
+  },
+  {
+    metric: 'Board and search-firm readiness in one workflow',
+    detail: 'Signal monitoring, narrative control, and prep briefs run in a single operating cadence.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -159,7 +170,6 @@ export default async function HomePage() {
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Starting Monday is private career infrastructure for senior technology leaders.',
           body: 'Move from reactive search behavior to consistent market presence with signal intelligence, relationship cadence, and interview-ready briefs.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
@@ -170,6 +180,7 @@ export default async function HomePage() {
         }}
         situations={SITUATIONS}
         faqs={FAQS}
+        proofHighlights={PROOF_HIGHLIGHTS}
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
       />

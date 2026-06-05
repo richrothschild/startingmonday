@@ -2,92 +2,83 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Executive Coach Prep Worksheet | Starting Monday',
+  title: 'Executive Coaching Session Operating Worksheet | Starting Monday',
   description:
-    'A complete one-page executive coach prep worksheet for before, during, and after high-stakes sessions. Includes pre-session diagnostics, live-session structure, and between-session operating plan.',
+    'Executive-grade coaching worksheet for high-stakes transition sessions. Align mandate, evidence, objections, and next actions in one operating format.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches/coach-prep-worksheet' },
   openGraph: {
-    title: 'Executive Coach Prep Worksheet | Starting Monday',
+    title: 'Executive Coaching Session Operating Worksheet | Starting Monday',
     description:
-      'A complete worksheet coaches can use to structure pre-session preparation, live session execution, and between-session follow-through.',
+      'A practical operating worksheet for coaches preparing executive clients for recruiter, board, and leadership conversations.',
     url: 'https://startingmonday.app/for-coaches/coach-prep-worksheet',
   },
 }
 
-const PREP_SECTIONS: Array<{ title: string; prompts: string[] }> = [
+type WorksheetSection = {
+  title: string
+  purpose: string
+  prompts: string[]
+}
+
+const WORKSHEET_SECTIONS: WorksheetSection[] = [
   {
-    title: '1) Session Context Snapshot',
+    title: '1) Mandate Context and Session Target',
+    purpose: 'Define the exact decision quality objective for this session.',
     prompts: [
-      'Client name / role / target mandate:',
-      'Session date and stage in search (early, active interview loop, final):',
-      'Primary conversation this prep supports (recruiter, board, hiring manager, networking):',
-      'What changed since last session (signals, process stage, confidence, urgency):',
-      'Single most important outcome for this session:',
+      'Target role or mandate this prep supports:',
+      'Conversation type (search firm, board, CEO, peer, HR):',
+      'Single outcome that must be true by session end:',
+      'What changed since the previous session that matters now:',
     ],
   },
   {
-    title: '2) Current Signal Read',
+    title: '2) Signal Interpretation (Not Signal Flood)',
+    purpose: 'Separate useful signal from distracting noise and set timing implications.',
     prompts: [
-      'Top 3 external signals that matter this week:',
-      'What each signal means for positioning or timing:',
-      'What is noise and should be ignored:',
-      'Most likely risk if client overreacts to current signal set:',
+      'Top 3 market or company signals this week:',
+      'What each signal changes in positioning or outreach timing:',
+      'What to ignore this week and why:',
+      'Risk if client overreacts to current noise:',
     ],
   },
   {
-    title: '3) Decision Quality Check',
+    title: '3) Narrative Precision by Audience',
+    purpose: 'Strengthen message quality for the specific audience in scope.',
     prompts: [
-      'Big decision client is avoiding right now:',
-      'Default behavior if you do nothing this week:',
-      'Cost of delay in the next 7 days:',
-      'Decision standard you will hold this session (what good looks like):',
+      'One-sentence executive positioning statement:',
+      'Two proof points with measurable business outcomes:',
+      'Most likely pushback and concise non-defensive response:',
+      'What language to remove because it weakens authority:',
     ],
   },
   {
-    title: '4) Message Readiness (Recruiter / Board / CEO)',
+    title: '4) Conversation Rehearsal Plan',
+    purpose: 'Rehearse one critical exchange to improve live performance quality.',
     prompts: [
-      'One sentence positioning line client must deliver cleanly:',
-      'Evidence line that proves credibility (specific, not generic):',
-      'Likely pushback and non-defensive response:',
-      'What to cut because it weakens signal-to-noise ratio:',
+      'High-stakes moment to rehearse:',
+      'Opening frame for the conversation:',
+      'Anchor evidence line and supporting detail:',
+      'Recovery line if conversation pressure increases:',
     ],
   },
   {
-    title: '5) Live Session Plan (45-60 min)',
+    title: '5) Seven-Day Operating Commitments',
+    purpose: 'Convert insight into observable execution before next session.',
     prompts: [
-      '0-5 min: orient to outcome and constraints:',
-      '5-20 min: review top signal and mandate implications:',
-      '20-40 min: rehearse one high-stakes exchange:',
-      '40-50 min: convert insights into actions with owners and dates:',
-      '50-60 min: confirm what gets sent in next 24 hours:',
-    ],
-  },
-  {
-    title: '6) Accountability Plan (Between Sessions)',
-    prompts: [
-      'Three actions due before next session (verb + owner + date):',
-      'One metric that proves momentum this week:',
-      'Red flag that triggers early check-in (not waiting until next session):',
-      'Cadence touchpoint (day/time) for quick status check:',
-    ],
-  },
-  {
-    title: '7) Post-Session Debrief (Coach)',
-    prompts: [
-      'What moved client behavior this session:',
-      'What still feels fragile or unresolved:',
-      'What you need to tighten in next session design:',
-      'Notes to carry forward so next session starts in strategy, not recap:',
+      'Three actions (verb + owner + date):',
+      'One metric proving momentum this week:',
+      'Early warning trigger requiring interim check-in:',
+      'Day/time for between-session accountability touchpoint:',
     ],
   },
 ]
 
-const READINESS_SCORE = [
+const SCORE_DIMENSIONS = [
   'Positioning clarity',
   'Evidence quality',
-  'Pushback handling',
+  'Pushback readiness',
   'Decision ownership',
-  'Follow-through reliability',
+  'Execution reliability',
 ]
 
 export default function CoachPrepWorksheetPage() {
@@ -99,27 +90,36 @@ export default function CoachPrepWorksheetPage() {
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/for-coaches" className="text-[13px] text-slate-400 hover:text-white transition-colors">
-            Back to for-coaches
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/for-coaches" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              Back to for-coaches
+            </Link>
+            <Link href="/" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+              Back home
+            </Link>
+          </div>
         </div>
       </nav>
 
       <header className="bg-slate-900 px-4 sm:px-6 pt-10 pb-12 print:bg-white print:pt-0 print:pb-6">
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3 print:text-slate-600">
-            Executive Coach Worksheet
+            Executive Coaching Operating Worksheet
           </p>
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.12] tracking-tight mb-4 print:text-slate-900">
-            One-Page Coach Prep Worksheet
+            Coach in strategy mode. Execute with measurable follow-through.
           </h1>
-          <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl print:text-slate-700">
-            Use this before every high-stakes client session to reduce context rebuild, sharpen decision quality,
-            and lock in between-session follow-through.
+          <p className="text-[15px] text-slate-300 leading-relaxed max-w-3xl print:text-slate-700">
+            This worksheet is built for executive-transition coaching, where session quality depends on mandate clarity,
+            narrative precision, and accountable seven-day execution.
           </p>
-          <p className="text-[12px] text-slate-400 mt-4 print:text-slate-500">
-            Tip: Save or print this page as PDF and reuse per client session.
-          </p>
+          <div className="mt-5 rounded-lg border border-slate-700 bg-slate-950/60 p-4 print:border-slate-200 print:bg-white">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 print:text-slate-600">BLUF</p>
+            <p className="text-[13px] text-slate-200 mt-2 leading-relaxed print:text-slate-700">
+              Use one worksheet per session. Define one strategic outcome, rehearse one high-stakes exchange, and leave
+              with actions that have owners and dates.
+            </p>
+          </div>
         </div>
       </header>
 
@@ -131,14 +131,15 @@ export default function CoachPrepWorksheetPage() {
             <p>Client: ________________________________</p>
             <p>Date: _________________________________</p>
             <p>Session number: ________________________</p>
-            <p className="sm:col-span-2">Primary objective for this session: ______________________________________________</p>
+            <p className="sm:col-span-2">Mandate in scope this week: ______________________________________________</p>
           </div>
         </section>
 
         <div className="space-y-7">
-          {PREP_SECTIONS.map((section) => (
+          {WORKSHEET_SECTIONS.map((section) => (
             <section key={section.title} className="border border-slate-200 rounded-2xl p-5 sm:p-6 bg-white">
-              <h2 className="text-[17px] font-semibold text-slate-900 mb-4">{section.title}</h2>
+              <h2 className="text-[17px] font-semibold text-slate-900 mb-1">{section.title}</h2>
+              <p className="text-[13px] text-slate-500 mb-4">{section.purpose}</p>
               <ul className="space-y-3 text-[13px] text-slate-700">
                 {section.prompts.map((prompt) => (
                   <li key={prompt}>
@@ -152,12 +153,12 @@ export default function CoachPrepWorksheetPage() {
         </div>
 
         <section className="border border-orange-200 rounded-2xl p-5 sm:p-6 bg-orange-50/40 mt-8">
-          <h2 className="text-[17px] font-semibold text-slate-900 mb-3">Readiness Scorecard (1-5)</h2>
+          <h2 className="text-[17px] font-semibold text-slate-900 mb-3">Session Quality Scorecard (1-5)</h2>
           <p className="text-[13px] text-slate-600 mb-4">
-            Score quickly after each session. Anything below 3 becomes a mandatory focus area in the next prep cycle.
+            Score quickly at close. Any dimension below 3 becomes a required focus area in the next prep cycle.
           </p>
           <div className="space-y-2 text-[13px] text-slate-700">
-            {READINESS_SCORE.map((item) => (
+            {SCORE_DIMENSIONS.map((item) => (
               <div key={item} className="flex items-center justify-between border border-orange-100 bg-white rounded-lg px-3 py-2">
                 <span>{item}</span>
                 <span>1 2 3 4 5</span>
@@ -165,19 +166,21 @@ export default function CoachPrepWorksheetPage() {
             ))}
           </div>
           <p className="mt-4 text-[13px] text-slate-700">Overall session quality score: ______ / 25</p>
-          <p className="mt-2 text-[13px] text-slate-700">Highest-priority improvement before next session: __________________________________</p>
-        </section>
-
-        <section className="border border-slate-200 rounded-2xl p-5 sm:p-6 bg-white mt-8">
-          <h2 className="text-[17px] font-semibold text-slate-900 mb-3">Coach Operating Standard (Quick Reminder)</h2>
-          <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
-            <li>1. Stay with one session outcome. Do not let the session become a general update.</li>
-            <li>2. Convert insight into observable action (owner + date + success check).</li>
-            <li>3. Protect signal quality. Specific evidence beats motivational language.</li>
-            <li>4. End every session with a 7-day plan and one metric that proves momentum.</li>
-          </ul>
+          <p className="mt-2 text-[13px] text-slate-700">Most important improvement before next session: _________________________________</p>
         </section>
       </main>
+
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 print:hidden">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </span>
+          <div className="flex items-center gap-4 text-[12px] text-slate-400">
+            <Link href="/for-coaches" className="hover:text-slate-300 transition-colors">for-coaches</Link>
+            <Link href="/" className="hover:text-slate-300 transition-colors">Back home</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

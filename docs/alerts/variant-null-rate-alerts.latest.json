@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-06-05T04:51:00.747Z",
+  "threshold_percent": 1,
+  "status": "PASS",
+  "breach_count": 0,
+  "evaluated_count": 0,
+  "breaches": []
+}
