@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T20:37:01.145Z",
+  "generatedAt": "2026-06-05T21:38:51.214Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T20:22:38.504Z"
+      "lastModifiedAt": "2026-06-05T20:39:46.622Z"
     },
     {
       "id": "feature:/login",
@@ -5458,7 +5458,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-05T20:36:48.009Z"
+      "lastModifiedAt": "2026-06-05T21:32:34.247Z"
     },
     {
       "id": "api:/api/prep/[id]/tech-stack",
@@ -11998,7 +11998,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-05T20:36:48.010Z"
+      "lastModifiedAt": "2026-06-05T20:38:27.024Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15508,7 +15508,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:22:38.504Z"
+      "lastModifiedAt": "2026-06-05T20:39:46.621Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15547,7 +15547,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:22:38.504Z"
+      "lastModifiedAt": "2026-06-05T20:39:46.622Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18771,7 +18771,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:36:58.697Z"
+      "lastModifiedAt": "2026-06-05T21:38:48.716Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
