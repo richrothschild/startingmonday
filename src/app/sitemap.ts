@@ -43,6 +43,7 @@ const ROLE_PAGES = [
   { path: '/for-cpo', priority: 0.65 },
   { path: '/for-data-officer', priority: 0.65 },
   { path: '/for-vp-technology', priority: 0.65 },
+  { path: '/for-executives', priority: 0.7 },
   { path: '/for-vp', priority: 0.65 },
 ].map(page => ({ ...page, changeFrequency: 'monthly' as const }))
 

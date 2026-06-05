@@ -5,6 +5,9 @@ import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
 import { BrandIcon } from '@/components/BrandIcon'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
+import { TrackedAccordionItem } from '@/components/TrackedAccordionItem'
+import { TrackLink } from '@/components/TrackLink'
+import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import {
   WHAT_CHANGES,
   SAMPLE_SIGNAL_ITEMS,
@@ -69,21 +72,50 @@ export default function ForCoachesPage() {
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
             Clients show up prepared. You coach at a higher level.
           </p>
+          <section className="mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
+            <div className="grid grid-cols-1 gap-3 max-w-xl">
+              <TrackedAccordionItem
+                title="What changes in week one"
+                summary="Clients operate in a visible cadence before each session."
+                detail="You can quickly spot stalls in follow-through, signal response, and prep depth without extra admin tracking."
+                href="/for-coaches#execution-rhythm"
+                channel="coaches"
+                route="/for-coaches"
+                blockId="week_one_change"
+              />
+              <TrackedAccordionItem
+                title="How to evaluate fit"
+                summary="Use a short preview with explicit pass/fail criteria."
+                detail="Test with live clients, review scorecard movement, and decide based on coaching outcomes rather than promises."
+                href="/for-coaches#why-coaches-buy"
+                channel="coaches"
+                route="/for-coaches"
+                blockId="fit_evaluation"
+              />
+            </div>
+          </section>
           <div className="mb-6">
-            <Link
+            <TrackLink
               href="/for-coaches/coach-prep-worksheet"
+              event={EVENT_NAMES.channelEntryClicked}
+              logToUserEvents
+              properties={{ channel: 'coaches', cta_label: 'coaches_top_prep_worksheet', source_page: '/for-coaches' }}
               className="inline-flex items-center rounded-lg border border-orange-400/50 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-200 hover:bg-orange-500/20 transition-colors"
             >
               Open the one-page coach prep worksheet
-            </Link>
+            </TrackLink>
           </div>
           <div className="mb-6">
-            <Link
+            <TrackLink
               href="/for-coaches/micro-products"
+              event={EVENT_NAMES.channelEntryClicked}
+              logToUserEvents
+              properties={{ channel: 'coaches', cta_label: 'coaches_top_micro_products', source_page: '/for-coaches' }}
               className="inline-flex items-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-[12px] font-semibold text-emerald-200 hover:bg-emerald-500/20 transition-colors"
             >
               Browse coach micro products
-            </Link>
+            </TrackLink>
           </div>
           <div className="border border-slate-700 rounded-2xl p-4 bg-slate-950/40 mb-6">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-400 mb-2">
@@ -307,22 +339,46 @@ export default function ForCoachesPage() {
             </h2>
             <CoachPreviewActions />
             <div className="flex flex-wrap gap-4 mt-6 text-[13px]">
-              <Link href="/for-coaches/faq" data-emi-cta="coaches_read_faq_bottom" data-emi-to="/for-coaches/faq" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              <TrackLink
+                href="/for-coaches/faq"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'coaches_read_faq_bottom', source_page: '/for-coaches' }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
+              >
                 <BrandIcon name="faq" className="h-4 w-4 text-orange-600" />
                 Read the coach FAQ
-              </Link>
-              <Link href="/for-coaches/faq#security" data-emi-cta="coaches_security_guide" data-emi-to="/for-coaches/faq#security" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              </TrackLink>
+              <TrackLink
+                href="/for-coaches/faq#security"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'coaches_security_guide', source_page: '/for-coaches' }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
+              >
                 <BrandIcon name="security" className="h-4 w-4 text-orange-600" />
                 Data security guide
-              </Link>
-              <Link href="/for-coaches/trust-pack" data-emi-cta="coaches_trust_pack" data-emi-to="/for-coaches/trust-pack" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              </TrackLink>
+              <TrackLink
+                href="/for-coaches/trust-pack"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'coaches_trust_pack', source_page: '/for-coaches' }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
+              >
                 <BrandIcon name="trust" className="h-4 w-4 text-orange-600" />
                 Coach trust pack
-              </Link>
-              <Link href="/for-coaches/economics" data-emi-cta="coaches_pricing_economics" data-emi-to="/for-coaches/economics" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors">
+              </TrackLink>
+              <TrackLink
+                href="/for-coaches/economics"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'coaches_pricing_economics', source_page: '/for-coaches' }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 transition-colors"
+              >
                 <BrandIcon name="pricing" className="h-4 w-4 text-orange-600" />
                 Pricing & economics
-              </Link>
+              </TrackLink>
             </div>
           </section>
 

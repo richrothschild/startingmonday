@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for CPOs - Chief Product Officer Search Campaign Infrastructure',
@@ -110,6 +109,7 @@ export default function ForCpoPage() {
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for Chief Product Officer searches</h1>
       <LandingPage
+        sourcePage="/for-cpo"
         hero={{
           eyebrow: 'The best CPO mandates are at companies where product is the strategy, not a function.',
           h1Lines: ['Find the company', 'that needs', 'what you build.'],

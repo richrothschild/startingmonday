@@ -14,8 +14,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'executives',
     label: 'Executives',
-    route: '/for-vp',
-    targetCanonicalRoute: '/for-vp',
+    route: '/for-executives',
+    targetCanonicalRoute: '/for-executives',
     primaryCtaLabel: 'Enter executive path',
     hero: 'Run a private, signal-first campaign before roles are posted.',
     trust: 'Private by default. No employer visibility.',
@@ -51,7 +51,7 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
 
 export const EXECUTIVE_PERSONA_ROUTES = {
   cio_cto_transition: '/for-cio',
-  vp_to_c_suite: '/for-vp',
+  vp_to_c_suite: '/for-executives',
   vp_technology: '/for-vp-technology',
   chief_data_officer: '/for-data-officer',
   chief_digital_officer: '/for-cdo',

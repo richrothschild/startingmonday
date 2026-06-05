@@ -3,13 +3,13 @@
 Generated at: 2026-06-05T16:04:21.900Z
 
 ## What exists
-- Feature pages: 180
+- Feature pages: 181
 - API routes: 246
-- Library modules: 193
-- Operational scripts: 112
+- Library modules: 195
+- Operational scripts: 115
 - Infra workflows: 30
 - Migrations/data artifacts: 130
-- Internal docs: 510
+- Internal docs: 530
 
 ## How it integrates
 - App routes render product/admin surfaces and call route handlers for actions and data flows.

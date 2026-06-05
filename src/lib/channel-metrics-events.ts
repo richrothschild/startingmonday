@@ -21,6 +21,7 @@ export type ChannelEntryClickedProps = {
   channel: Channel
   cta_label: string
   source_page: string
+  variant_key?: string
   session_id?: string
 }
 
@@ -29,6 +30,7 @@ export type PersonaRouteSelectedProps = {
   persona: string
   source_route: string
   target_route: string
+  variant_key?: string
   session_id?: string
 }
 

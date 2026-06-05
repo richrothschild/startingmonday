@@ -7,7 +7,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (180)
+## Features (181)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -139,6 +139,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature For coo | /for-coo | User-facing page route /for-coo.
 - Feature For cpo | /for-cpo | User-facing page route /for-cpo.
 - Feature For data officer | /for-data-officer | User-facing page route /for-data-officer.
+- Feature For executives | /for-executives | User-facing page route /for-executives.
 - Feature For financial advisors | /for-financial-advisors | User-facing page route /for-financial-advisors.
 - Feature For fractional executives | /for-fractional-executives | User-facing page route /for-fractional-executives.
 - Feature For media partners | /for-media-partners | User-facing page route /for-media-partners.
@@ -437,7 +438,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (193)
+## Codebase Modules (195)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -497,6 +498,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
+- Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
+- Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
@@ -632,7 +635,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (112)
+## Internal Scripts (115)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -674,6 +677,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
+- Script scripts/check-variant-null-rate-alerts.mjs | scripts/check-variant-null-rate-alerts.mjs | #!/usr/bin/env node
 - Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
 - Script scripts/code-synthetic-council-audit.mjs | scripts/code-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/dedupe-outreach-logs.mjs | scripts/dedupe-outreach-logs.mjs | import 'dotenv/config'
@@ -689,6 +693,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/export-pmf-daily-dashboard.mjs | scripts/export-pmf-daily-dashboard.mjs | #!/usr/bin/env node
 - Script scripts/export-prep-brief-golden-set.mjs | scripts/export-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/export-report-pdfs.mjs | scripts/export-report-pdfs.mjs | Branded full-fidelity PDF for downloads.
+- Script scripts/export-weekly-route-variant-readout.mjs | scripts/export-weekly-route-variant-readout.mjs | #!/usr/bin/env node
 - Script scripts/fix-billing-placeholder-sql.mjs | scripts/fix-billing-placeholder-sql.mjs | #!/usr/bin/env node
 - Script scripts/fix-outreach-signature-csv.mjs | scripts/fix-outreach-signature-csv.mjs | import { readdir, readFile, writeFile } from 'node:fs/promises'
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
@@ -706,6 +711,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/import-coach-outreach.mjs | scripts/import-coach-outreach.mjs | import { readFile } from "node:fs/promises"
 - Script scripts/import-coaches-comprehensive.mjs | scripts/import-coaches-comprehensive.mjs | import { readFile, readdir } from 'node:fs/promises'
 - Script scripts/internal-guide-sync.ts | scripts/internal-guide-sync.ts | import { createHash } from 'crypto'
+- Script scripts/jira/create-jira-issue.mjs | scripts/jira/create-jira-issue.mjs | #!/usr/bin/env node
 - Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
 - Script scripts/link-integrity-audit.mjs | scripts/link-integrity-audit.mjs | import fs from 'node:fs/promises'
 - Script scripts/lint-outreach-first-sentence.mjs | scripts/lint-outreach-first-sentence.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -910,7 +916,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (510)
+## Documentation (530)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -918,6 +924,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/adr/001-supabase-rls-tenant-isolation.md | docs/adr/001-supabase-rls-tenant-isolation.md | ADR 001: Supabase Row-Level Security for Tenant Isolation
 - Doc docs/adr/002-server-side-ai-streaming.md | docs/adr/002-server-side-ai-streaming.md | ADR 002: Server-Side AI Generation with HTTP Streaming
 - Doc docs/adr/003-railway-worker-for-background-jobs.md | docs/adr/003-railway-worker-for-background-jobs.md | ADR 003: Separate Railway Worker Service for Background Jobs
+- Doc docs/alerts/variant-null-rate-alerts.latest.md | docs/alerts/variant-null-rate-alerts.latest.md | Variant Null-Rate Alerts
 - Doc docs/ap-style-automation.md | docs/ap-style-automation.md | AP Style Automation and Tooling
 - Doc docs/ap-style-compliance-checklist.md | docs/ap-style-compliance-checklist.md | AP Style Compliance Checklist
 - Doc docs/ap-style-policy.md | docs/ap-style-policy.md | AP Style Compliance Policy
@@ -1317,11 +1324,14 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
+- Doc docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | Chris Brief: What Is Next + Last 24 Hours Summary
+- Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
 - Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)
@@ -1385,6 +1395,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
 - Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
+- Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
+- Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
 - Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
 - Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
@@ -1393,9 +1405,23 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
 - Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
 - Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
+- Doc docs/strategy/slack-channel-naming-pack-2026-06-04.md | docs/strategy/slack-channel-naming-pack-2026-06-04.md | Slack Channel Naming and Description Pack
+- Doc docs/strategy/slack-notification-policy-ui-2026-06-04.md | docs/strategy/slack-notification-policy-ui-2026-06-04.md | Slack Notification Policy for UI Delivery
 - Doc docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | Sprint 7 Carry-Forward Shortlist (2026-05-31)
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
+- Doc docs/strategy/ui-review-plan-from-notes-2026-06-04.md | docs/strategy/ui-review-plan-from-notes-2026-06-04.md | UI Review Plan from Notes (Plan-Mode Draft)
+- Doc docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | Week 2 Telemetry Schema and Route Coverage
+- Doc docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | Week 2 Mobile-First Conversion QA Pass
+- Doc docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | Week 2 Release Package and Decision Memo
+- Doc docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | Week 3 Segmented Conversion Readout
+- Doc docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | Week 3 Mobile QA and Release Readiness
+- Doc docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | Week 3 Release Memo and Sprint 4 Seed
+- Doc docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | Epic Closeout: SMK-115 Week 3 Experiment Scale
+- Doc docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | Week 4 Implementation Closeout
+- Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | Weekly Route x Variant Readout
+- Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md | docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md | Weekly Route x Variant Readout
+- Doc docs/strategy/week4/weekly-route-variant-readout.latest.md | docs/strategy/week4/weekly-route-variant-readout.latest.md | Weekly Route x Variant Readout
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2

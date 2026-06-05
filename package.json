@@ -61,6 +61,10 @@
         "growth:metrics:export:strict": "node scripts/export-growth-weekly-metrics.mjs --strict",
         "growth:metrics:gate": "node scripts/check-growth-metrics-gate.mjs",
         "growth:metrics:strict": "node scripts/check-growth-metrics-gate.mjs --strict",
+        "growth:route-variant:export": "node scripts/export-weekly-route-variant-readout.mjs",
+        "growth:route-variant:export:strict": "node scripts/export-weekly-route-variant-readout.mjs --strict",
+        "growth:variant-null-rate:check": "node scripts/check-variant-null-rate-alerts.mjs",
+        "growth:variant-null-rate:check:strict": "node scripts/check-variant-null-rate-alerts.mjs --strict",
         "pmf:dashboard:daily": "node scripts/export-pmf-daily-dashboard.mjs",
         "pmf:dashboard:daily:json": "node scripts/export-pmf-daily-dashboard.mjs --json",
         "pmf:monitor:daily": "node scripts/check-pmf-daily-monitor.mjs",
@@ -162,6 +166,7 @@
         "guide:internal:check": "npx tsx scripts/internal-guide-sync.ts --check",
         "guide:internal:force": "npx tsx scripts/internal-guide-sync.ts --force",
         "test:outreach-templates": "vitest run src/lib/outreach/template-engine.test.ts",
+        "test:experiment-coverage-guard": "vitest run src/lib/experiment-route-coverage-guard.test.ts",
         "test": "npm run guard:observability-imports && npm run test:placeholder-guard && vitest run",
         "test:watch": "vitest"
     },
