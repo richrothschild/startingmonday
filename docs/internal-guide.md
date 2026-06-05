@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T11:20:07.239Z
+Last generated: 2026-06-05T11:27:14.045Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -916,7 +916,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (529)
+## Documentation (530)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1330,6 +1330,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
+- Doc docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | Chris Brief: What Is Next + Last 24 Hours Summary
 - Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
