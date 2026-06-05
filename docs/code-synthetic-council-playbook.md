@@ -37,7 +37,7 @@ Optional machine-readable output:
 node scripts/code-synthetic-council-audit.mjs --json
 ```
 
-Strict mode (non-zero exit if overall score < 85):
+Strict mode (non-zero exit if overall score < 84):
 
 ```bash
 node scripts/code-synthetic-council-audit.mjs --strict
