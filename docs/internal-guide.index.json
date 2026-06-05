@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T13:50:44.186Z",
+  "generatedAt": "2026-06-05T14:33:47.871Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T11:27:14.058Z"
+      "lastModifiedAt": "2026-06-05T13:50:44.199Z"
     },
     {
       "id": "feature:/login",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T13:45:06.889Z"
+      "lastModifiedAt": "2026-06-05T14:32:05.118Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -15494,7 +15494,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T11:27:14.058Z"
+      "lastModifiedAt": "2026-06-05T13:50:44.199Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15533,7 +15533,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T11:27:14.058Z"
+      "lastModifiedAt": "2026-06-05T13:50:44.199Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17366,7 +17366,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T11:26:45.665Z"
+      "lastModifiedAt": "2026-06-05T14:32:05.118Z"
     },
     {
       "id": "doc:docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md",
@@ -18757,7 +18757,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T13:50:23.241Z"
+      "lastModifiedAt": "2026-06-05T14:33:23.701Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
