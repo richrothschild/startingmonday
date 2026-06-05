@@ -202,114 +202,106 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
               </p>
               <div className="grid grid-cols-1 gap-3">
-                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3">
-                  <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Opportunity Timing Gap Chart</p>
-                  <svg viewBox="0 0 320 190" className="w-full h-[180px]" role="img" aria-label="Opportunity timing gap chart preview">
-                    <rect x="0" y="0" width="320" height="190" rx="8" fill="#0b1428" />
-                    <line x1="24" y1="106" x2="300" y2="106" stroke="#334155" strokeWidth="2" />
-                    <circle cx="32" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="76" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="116" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="156" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="196" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="236" cy="106" r="3.5" fill="#64748b" />
-                    <circle cx="276" cy="106" r="3.5" fill="#64748b" />
+                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Opportunity Timing Gap Chart</p>
+                  <div className="overflow-x-auto pb-1">
+                    <svg viewBox="0 0 520 252" className="w-[680px] max-w-none h-[236px] sm:w-full sm:max-w-full sm:h-[246px]" role="img" aria-label="Opportunity timing gap chart preview">
+                    <rect x="0" y="0" width="520" height="252" rx="10" fill="#0b1428" />
 
-                    <g transform="translate(26 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Signal appears</text>
-                    </g>
-                    <g transform="translate(70 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Role shaped</text>
-                    </g>
-                    <g transform="translate(106 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Quiet outreach</text>
-                    </g>
-                    <g transform="translate(150 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Role opens</text>
-                    </g>
-                    <g transform="translate(190 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Interviews</text>
-                    </g>
-                    <g transform="translate(228 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Selection</text>
-                    </g>
-                    <g transform="translate(264 136) rotate(-34)">
-                      <text fill="#cbd5e1" fontSize="9">Start date</text>
-                    </g>
+                    <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
+                    <circle cx="44" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="116" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="188" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="260" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="332" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="404" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="476" cy="138" r="4.5" fill="#64748b" />
 
-                    <line x1="78" y1="44" x2="78" y2="98" stroke="#22c55e" strokeWidth="3" />
-                    <polygon points="78,106 72,96 84,96" fill="#22c55e" />
-                    <text x="20" y="26" fill="#86efac" fontSize="9.5" fontWeight="700">Starting Monday enters here</text>
+                    <text x="24" y="168" fill="#cbd5e1" fontSize="11">Signal</text>
+                    <text x="94" y="182" fill="#cbd5e1" fontSize="11">Shape</text>
+                    <text x="160" y="168" fill="#cbd5e1" fontSize="11">Outreach</text>
+                    <text x="242" y="182" fill="#cbd5e1" fontSize="11">Open</text>
+                    <text x="302" y="168" fill="#cbd5e1" fontSize="11">Interviews</text>
+                    <text x="384" y="182" fill="#cbd5e1" fontSize="11">Selection</text>
+                    <text x="450" y="168" fill="#cbd5e1" fontSize="11">Start</text>
 
-                    <line x1="194" y1="58" x2="194" y2="98" stroke="#f97316" strokeWidth="3" />
-                    <polygon points="194,106 188,96 200,96" fill="#f97316" />
-                    <text x="162" y="44" fill="#fdba74" fontSize="9.5" fontWeight="700">Typical candidates enter here</text>
+                    <text x="70" y="30" fill="#86efac" fontSize="12" fontWeight="700">Starting Monday enters here</text>
+                    <line x1="116" y1="42" x2="116" y2="122" stroke="#22c55e" strokeWidth="4" />
+                    <polygon points="116,133.5 109,121.5 123,121.5" fill="#22c55e" />
 
-                    <text x="16" y="178" fill="#cbd5e1" fontSize="10" fontWeight="600">Key takeaway: entering before roles open materially improves shortlist odds.</text>
+                    <text x="206" y="50" fill="#fdba74" fontSize="12" fontWeight="700">Typical candidates enter here</text>
+                    <line x1="260" y1="60" x2="260" y2="122" stroke="#f97316" strokeWidth="4" />
+                    <polygon points="260,133.5 253,121.5 267,121.5" fill="#f97316" />
+
+                    <text x="16" y="228" fill="#cbd5e1" fontSize="12" fontWeight="700">Key takeaway: entering before role open materially improves shortlist odds.</text>
                   </svg>
-                  <p className="text-[12px] sm:text-[13px] text-slate-100 mt-2 leading-relaxed font-semibold">
-                    <span className="text-slate-400 uppercase tracking-[0.08em] text-[10px] mr-1.5">Takeaway:</span>
-                    <span>Most executives enter too late. This system helps you engage sooner, while role scope is still being shaped.</span>
-                  </p>
+                  </div>
                 </article>
 
-                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3">
-                  <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Weekly Operating Rhythm Board</p>
-                  <svg viewBox="0 0 320 188" className="w-full h-[178px]" role="img" aria-label="Weekly operating rhythm board preview">
-                    <rect x="0" y="0" width="320" height="188" rx="8" fill="#0b1428" />
-                    <rect x="16" y="24" width="288" height="36" rx="6" fill="#0ea5e9" />
-                    <rect x="16" y="68" width="288" height="36" rx="6" fill="#22c55e" />
-                    <rect x="16" y="112" width="288" height="36" rx="6" fill="#f59e0b" />
-                    <text x="28" y="40" fill="#0b1428" fontSize="9.5" fontWeight="700">
-                      <tspan x="28" dy="0">MON-TUE: Prioritize target accounts</tspan>
-                      <tspan x="28" dy="12">and confirm role signals</tspan>
-                    </text>
-                    <text x="28" y="84" fill="#0b1428" fontSize="9.5" fontWeight="700">
-                      <tspan x="28" dy="0">WED: Send focused outreach with</tspan>
-                      <tspan x="28" dy="12">audience-specific narrative</tspan>
-                    </text>
-                    <text x="28" y="128" fill="#0b1428" fontSize="9.5" fontWeight="700">
-                      <tspan x="28" dy="0">THU-FRI: Prepare briefs and advance</tspan>
-                      <tspan x="28" dy="12">next-step conversations</tspan>
-                    </text>
-                    <text x="16" y="172" fill="#94a3b8" fontSize="10">Clear weekly actions replace reactive searching and lost momentum.</text>
-                  </svg>
-                  <p className="text-[12px] sm:text-[13px] text-slate-100 mt-2 leading-relaxed font-semibold">
-                    <span className="text-slate-400 uppercase tracking-[0.08em] text-[10px] mr-1.5">Takeaway:</span>
-                    <span>A structured weekly cadence reduces drift and keeps search momentum moving toward decision-ready conversations.</span>
-                  </p>
-                </article>
+                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Role Landing Probability Scatter</p>
+                  <div className="overflow-x-auto pb-1">
+                    <svg viewBox="0 0 520 292" className="w-[680px] max-w-none h-[260px] sm:w-full sm:max-w-full sm:h-[278px]" role="img" aria-label="Role landing probability scatter plot comparing Starting Monday and non-Starting Monday paths">
+                    <rect x="0" y="0" width="520" height="292" rx="10" fill="#0b1428" />
 
-                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3">
-                  <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Interview Brief Anatomy</p>
-                  <svg viewBox="0 0 320 182" className="w-full h-[172px]" role="img" aria-label="Interview brief anatomy preview">
-                    <rect x="0" y="0" width="320" height="182" rx="8" fill="#0b1428" />
-                    <rect x="20" y="24" width="280" height="132" rx="8" fill="#0f172a" stroke="#334155" />
-                    <line x1="20" y1="56" x2="300" y2="56" stroke="#334155" />
-                    <line x1="20" y1="88" x2="300" y2="88" stroke="#334155" />
-                    <line x1="20" y1="120" x2="300" y2="120" stroke="#334155" />
-                    <text x="32" y="44" fill="#e2e8f0" fontSize="11">Role Thesis</text>
-                    <text x="32" y="76" fill="#e2e8f0" fontSize="11">Likely Objections</text>
-                    <text x="32" y="108" fill="#e2e8f0" fontSize="11">Proof Points</text>
-                    <text x="32" y="140" fill="#e2e8f0" fontSize="11">Calibrated Questions</text>
-                    <defs>
-                      <linearGradient id="briefFlow" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#38bdf8" />
-                        <stop offset="50%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#22c55e" />
-                      </linearGradient>
-                    </defs>
-                    <line x1="250" y1="40" x2="250" y2="146" stroke="url(#briefFlow)" strokeWidth="4" strokeLinecap="round" />
-                    <circle cx="250" cy="40" r="7" fill="#38bdf8" />
-                    <circle cx="250" cy="72" r="7" fill="#60a5fa" />
-                    <circle cx="250" cy="104" r="7" fill="#f59e0b" />
-                    <circle cx="250" cy="136" r="7" fill="#22c55e" />
-                    <text x="20" y="172" fill="#94a3b8" fontSize="10">Flow from thesis to calibrated questions keeps interviews role-specific.</text>
+                    <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
+                    <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
+
+                    <rect x="56" y="138" width="436" height="76" fill="#2b1c2a" opacity="0.32" />
+                    <rect x="248" y="32" width="244" height="106" fill="#0f3a2f" opacity="0.26" />
+                    <line x1="56" y1="178" x2="492" y2="178" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="142" x2="492" y2="142" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="106" x2="492" y2="106" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="70" x2="492" y2="70" stroke="#1f2f4a" strokeWidth="1" />
+
+                    <text x="18" y="218" fill="#94a3b8" fontSize="10">0%</text>
+                    <text x="14" y="182" fill="#94a3b8" fontSize="10">25%</text>
+                    <text x="14" y="146" fill="#94a3b8" fontSize="10">50%</text>
+                    <text x="14" y="110" fill="#94a3b8" fontSize="10">75%</text>
+                    <text x="10" y="74" fill="#94a3b8" fontSize="10">100%</text>
+
+                    <text x="20" y="24" fill="#cbd5e1" fontSize="10" fontWeight="700">Probability of landing role</text>
+
+                    <line x1="84" y1="214" x2="84" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="138" y1="214" x2="138" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="194" y1="214" x2="194" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="248" y1="214" x2="248" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="302" y1="214" x2="302" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="356" y1="214" x2="356" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="410" y1="214" x2="410" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="468" y1="214" x2="468" y2="220" stroke="#475569" strokeWidth="1.5" />
+
+                    <text x="84" y="234" fill="#cbd5e1" fontSize="10" textAnchor="middle">Signal</text>
+                    <text x="138" y="248" fill="#cbd5e1" fontSize="10" textAnchor="middle">Shape</text>
+                    <text x="194" y="234" fill="#cbd5e1" fontSize="10" textAnchor="middle">Outreach</text>
+                    <text x="248" y="248" fill="#cbd5e1" fontSize="10" textAnchor="middle">Open</text>
+                    <text x="302" y="234" fill="#cbd5e1" fontSize="10" textAnchor="middle">Prep</text>
+                    <text x="356" y="248" fill="#cbd5e1" fontSize="10" textAnchor="middle">Interviews</text>
+                    <text x="410" y="234" fill="#cbd5e1" fontSize="10" textAnchor="middle">Selection</text>
+                    <text x="468" y="248" fill="#cbd5e1" fontSize="10" textAnchor="middle">Start</text>
+
+                    <circle cx="84" cy="198" r="5.6" fill="#64748b" />
+                    <circle cx="138" cy="190" r="5.6" fill="#64748b" />
+                    <circle cx="194" cy="178" r="5.6" fill="#64748b" />
+                    <circle cx="248" cy="164" r="5.6" fill="#64748b" />
+                    <circle cx="302" cy="154" r="5.6" fill="#64748b" />
+                    <circle cx="356" cy="144" r="5.6" fill="#64748b" />
+
+                    <circle cx="84" cy="188" r="6.5" fill="#38bdf8" />
+                    <circle cx="138" cy="170" r="6.5" fill="#38bdf8" />
+                    <circle cx="194" cy="150" r="6.5" fill="#38bdf8" />
+                    <circle cx="248" cy="128" r="6.5" fill="#38bdf8" />
+                    <circle cx="302" cy="106" r="6.5" fill="#38bdf8" />
+                    <circle cx="356" cy="84" r="6.5" fill="#38bdf8" />
+                    <circle cx="410" cy="62" r="6.5" fill="#38bdf8" />
+                    <circle cx="468" cy="40" r="6.5" fill="#38bdf8" />
+
+                    <polyline points="84,188 138,170 194,150 248,128 302,106 356,84 410,62 468,40" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
+                    <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
+
+                    <text x="16" y="274" fill="#cbd5e1" fontSize="12" fontWeight="700">Key takeaway: without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
                   </svg>
-                  <p className="text-[12px] sm:text-[13px] text-slate-100 mt-2 leading-relaxed font-semibold">
-                    <span className="text-slate-400 uppercase tracking-[0.08em] text-[10px] mr-1.5">Takeaway:</span>
-                    <span>Strong interview performance comes from one brief that aligns thesis, objections, proof, and calibrated questions.</span>
-                  </p>
+                  </div>
                 </article>
               </div>
               <Link

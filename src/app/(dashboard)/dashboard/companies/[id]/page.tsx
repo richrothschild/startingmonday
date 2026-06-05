@@ -70,30 +70,13 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const companySelectWithCompetitive = 'id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors'
-  const companySelectFallback = 'id, name, sector, stage, company_size, fit_score, notes, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors'
-
-  let companyHasCompetitiveContext = true
-  let companyResult = await supabase
+  const { data: rawCompany, error: companyError } = await supabase
     .from('companies')
-    .select(companySelectWithCompetitive)
+    .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
     .eq('id', id)
     .eq('user_id', user.id)
     .is('archived_at', null)
     .single()
-
-  if (isMissingCompetitiveContextColumn(companyResult.error)) {
-    companyHasCompetitiveContext = false
-    companyResult = await supabase
-      .from('companies')
-      .select(companySelectFallback)
-      .eq('id', id)
-      .eq('user_id', user.id)
-      .is('archived_at', null)
-      .single()
-  }
-
-  const { data: rawCompany, error: companyError } = companyResult
 
   const [{ data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: rawSignals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
     supabase
@@ -151,6 +134,9 @@ export default async function CompanyPage({
       .order('created_at', { ascending: false })
       .limit(20),
   ])
+
+  // Migration 129 added this column; keep the flag explicit for existing form branches.
+  const companyHasCompetitiveContext = true
 
   const company = rawCompany
     ? {
