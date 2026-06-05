@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T04:46:02.236Z
+Last generated: 2026-06-05T04:57:16.884Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -438,7 +438,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (194)
+## Codebase Modules (195)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -498,6 +498,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
+- Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
 - Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
@@ -634,7 +635,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (113)
+## Internal Scripts (115)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -676,6 +677,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
+- Script scripts/check-variant-null-rate-alerts.mjs | scripts/check-variant-null-rate-alerts.mjs | #!/usr/bin/env node
 - Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
 - Script scripts/code-synthetic-council-audit.mjs | scripts/code-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/dedupe-outreach-logs.mjs | scripts/dedupe-outreach-logs.mjs | import 'dotenv/config'
@@ -691,6 +693,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/export-pmf-daily-dashboard.mjs | scripts/export-pmf-daily-dashboard.mjs | #!/usr/bin/env node
 - Script scripts/export-prep-brief-golden-set.mjs | scripts/export-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/export-report-pdfs.mjs | scripts/export-report-pdfs.mjs | Branded full-fidelity PDF for downloads.
+- Script scripts/export-weekly-route-variant-readout.mjs | scripts/export-weekly-route-variant-readout.mjs | #!/usr/bin/env node
 - Script scripts/fix-billing-placeholder-sql.mjs | scripts/fix-billing-placeholder-sql.mjs | #!/usr/bin/env node
 - Script scripts/fix-outreach-signature-csv.mjs | scripts/fix-outreach-signature-csv.mjs | import { readdir, readFile, writeFile } from 'node:fs/promises'
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
@@ -913,7 +916,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (523)
+## Documentation (528)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -921,6 +924,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/adr/001-supabase-rls-tenant-isolation.md | docs/adr/001-supabase-rls-tenant-isolation.md | ADR 001: Supabase Row-Level Security for Tenant Isolation
 - Doc docs/adr/002-server-side-ai-streaming.md | docs/adr/002-server-side-ai-streaming.md | ADR 002: Server-Side AI Generation with HTTP Streaming
 - Doc docs/adr/003-railway-worker-for-background-jobs.md | docs/adr/003-railway-worker-for-background-jobs.md | ADR 003: Separate Railway Worker Service for Background Jobs
+- Doc docs/alerts/variant-null-rate-alerts.latest.md | docs/alerts/variant-null-rate-alerts.latest.md | Variant Null-Rate Alerts
 - Doc docs/ap-style-automation.md | docs/ap-style-automation.md | AP Style Automation and Tooling
 - Doc docs/ap-style-compliance-checklist.md | docs/ap-style-compliance-checklist.md | AP Style Compliance Checklist
 - Doc docs/ap-style-policy.md | docs/ap-style-policy.md | AP Style Compliance Policy
@@ -1412,6 +1416,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | Week 3 Segmented Conversion Readout
 - Doc docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | Week 3 Mobile QA and Release Readiness
 - Doc docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | Week 3 Release Memo and Sprint 4 Seed
+- Doc docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | Epic Closeout: SMK-115 Week 3 Experiment Scale
+- Doc docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | Week 4 Implementation Closeout
+- Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | Weekly Route x Variant Readout
+- Doc docs/strategy/week4/weekly-route-variant-readout.latest.md | docs/strategy/week4/weekly-route-variant-readout.latest.md | Weekly Route x Variant Readout
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2

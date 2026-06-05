@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:46:02.236Z",
+  "generatedAt": "2026-06-05T04:57:16.884Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
+      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
     },
     {
       "id": "feature:/login",
@@ -1678,7 +1678,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:14:18.477Z"
+      "lastModifiedAt": "2026-06-05T04:50:01.543Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1706,7 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:38:08.905Z"
+      "lastModifiedAt": "2026-06-05T04:47:46.672Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:14:18.482Z"
+      "lastModifiedAt": "2026-06-05T04:50:04.417Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:38:25.303Z"
+      "lastModifiedAt": "2026-06-05T04:47:46.672Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1832,7 +1832,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:14:18.484Z"
+      "lastModifiedAt": "2026-06-05T04:50:07.252Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -6514,6 +6514,19 @@
       "lastModifiedAt": "2026-05-31T19:11:52.617Z"
     },
     {
+      "id": "code:src/lib/experiment-route-coverage-guard.test.ts",
+      "title": "Code src/lib/experiment-route-coverage-guard.test.ts",
+      "body": "import fs from 'node:fs'",
+      "type": "code",
+      "ref": "src/lib/experiment-route-coverage-guard.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-05T04:51:12.955Z"
+    },
+    {
       "id": "code:src/lib/experiment-variants.ts",
       "title": "Code src/lib/experiment-variants.ts",
       "body": "export type VariantProps = Record<string, string | number | boolean | null>",
@@ -8802,6 +8815,19 @@
       "lastModifiedAt": "2026-05-25T14:50:19.349Z"
     },
     {
+      "id": "script:scripts/check-variant-null-rate-alerts.mjs",
+      "title": "Script scripts/check-variant-null-rate-alerts.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-variant-null-rate-alerts.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-05T04:50:41.841Z"
+    },
+    {
       "id": "script:scripts/closeout-prep-brief-evals.mjs",
       "title": "Script scripts/closeout-prep-brief-evals.mjs",
       "body": "#!/usr/bin/env node",
@@ -8995,6 +9021,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-05-28T02:05:48.246Z"
+    },
+    {
+      "id": "script:scripts/export-weekly-route-variant-readout.mjs",
+      "title": "Script scripts/export-weekly-route-variant-readout.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/export-weekly-route-variant-readout.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-05T04:51:15.917Z"
     },
     {
       "id": "script:scripts/fix-billing-placeholder-sql.mjs",
@@ -12037,6 +12076,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-12T20:58:16.593Z"
+    },
+    {
+      "id": "doc:docs/alerts/variant-null-rate-alerts.latest.md",
+      "title": "Doc docs/alerts/variant-null-rate-alerts.latest.md",
+      "body": "Variant Null-Rate Alerts",
+      "type": "doc",
+      "ref": "docs/alerts/variant-null-rate-alerts.latest.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:51:00.748Z"
     },
     {
       "id": "doc:docs/ap-style-automation.md",
@@ -15442,7 +15494,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
+      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15481,7 +15533,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
+      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18393,7 +18445,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:45:19.410Z"
+      "lastModifiedAt": "2026-06-05T04:47:46.672Z"
     },
     {
       "id": "doc:docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md",
@@ -18406,7 +18458,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:45:19.491Z"
+      "lastModifiedAt": "2026-06-05T04:47:46.672Z"
     },
     {
       "id": "doc:docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md",
@@ -18419,7 +18471,59 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:45:19.526Z"
+      "lastModifiedAt": "2026-06-05T04:47:46.672Z"
+    },
+    {
+      "id": "doc:docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md",
+      "title": "Doc docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md",
+      "body": "Epic Closeout: SMK-115 Week 3 Experiment Scale",
+      "type": "doc",
+      "ref": "docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:48:02.748Z"
+    },
+    {
+      "id": "doc:docs/strategy/week4/w4-implementation-closeout-2026-06-04.md",
+      "title": "Doc docs/strategy/week4/w4-implementation-closeout-2026-06-04.md",
+      "body": "Week 4 Implementation Closeout",
+      "type": "doc",
+      "ref": "docs/strategy/week4/w4-implementation-closeout-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:51:31.711Z"
+    },
+    {
+      "id": "doc:docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md",
+      "title": "Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md",
+      "body": "Weekly Route x Variant Readout",
+      "type": "doc",
+      "ref": "docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:51:20.520Z"
+    },
+    {
+      "id": "doc:docs/strategy/week4/weekly-route-variant-readout.latest.md",
+      "title": "Doc docs/strategy/week4/weekly-route-variant-readout.latest.md",
+      "body": "Weekly Route x Variant Readout",
+      "type": "doc",
+      "ref": "docs/strategy/week4/weekly-route-variant-readout.latest.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:51:20.521Z"
     },
     {
       "id": "doc:docs/synthetic-council-build-rubric-operations-guide.md",
@@ -18627,7 +18731,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:39:55.022Z"
+      "lastModifiedAt": "2026-06-05T04:57:14.395Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
