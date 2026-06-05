@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T20:21:13.304Z",
+  "generatedAt": "2026-06-05T20:38:41.399Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T20:20:56.130Z"
+      "lastModifiedAt": "2026-06-05T20:38:26.847Z"
     },
     {
       "id": "feature:/login",
@@ -5458,7 +5458,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T01:43:07.384Z"
+      "lastModifiedAt": "2026-06-05T20:38:27.023Z"
     },
     {
       "id": "api:/api/prep/[id]/tech-stack",
@@ -8851,7 +8851,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-24T17:38:14.875Z"
+      "lastModifiedAt": "2026-06-05T20:36:47.923Z"
     },
     {
       "id": "script:scripts/dedupe-outreach-logs.mjs",
@@ -11987,6 +11987,20 @@
       "lastModifiedAt": "2026-06-04T04:45:56.837Z"
     },
     {
+      "id": "data:supabase/migrations/129_add_competitive_context_to_companies.sql",
+      "title": "Migration supabase/migrations/129_add_competitive_context_to_companies.sql",
+      "body": "-- Ensure production schemas include the competitive field expected by dashboard + prep flows.",
+      "type": "data",
+      "ref": "supabase/migrations/129_add_competitive_context_to_companies.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-05T20:38:27.024Z"
+    },
+    {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "title": "Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "body": "Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)",
@@ -12374,7 +12388,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-24T16:15:00.036Z"
+      "lastModifiedAt": "2026-06-05T20:36:47.922Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-rubric.md",
@@ -15494,7 +15508,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:20:56.130Z"
+      "lastModifiedAt": "2026-06-05T20:38:26.847Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15533,7 +15547,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:20:56.130Z"
+      "lastModifiedAt": "2026-06-05T20:38:26.847Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18757,7 +18771,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T20:21:10.687Z"
+      "lastModifiedAt": "2026-06-05T20:38:38.973Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
