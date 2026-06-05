@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:35:07.063Z",
+  "generatedAt": "2026-06-05T04:39:57.511Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:34:31.776Z"
+      "lastModifiedAt": "2026-06-05T04:35:07.077Z"
     },
     {
       "id": "feature:/login",
@@ -1412,7 +1412,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:22:07.319Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.652Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -1706,7 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:14:18.481Z"
+      "lastModifiedAt": "2026-06-05T04:38:08.905Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:16:08.323Z"
+      "lastModifiedAt": "2026-06-05T04:38:25.303Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:19:11.527Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.652Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:19:07.177Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.652Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -6199,7 +6199,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-05T04:31:44.360Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.655Z"
     },
     {
       "id": "code:src/lib/check-api-guards-regression.test.ts",
@@ -6524,7 +6524,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-05T04:31:33.874Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.654Z"
     },
     {
       "id": "code:src/lib/form-utils.test.ts",
@@ -15442,7 +15442,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:34:31.776Z"
+      "lastModifiedAt": "2026-06-05T04:35:07.077Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15481,7 +15481,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:34:31.776Z"
+      "lastModifiedAt": "2026-06-05T04:35:07.077Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18354,7 +18354,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:32:48.736Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.654Z"
     },
     {
       "id": "doc:docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md",
@@ -18367,7 +18367,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:31:04.101Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.654Z"
     },
     {
       "id": "doc:docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md",
@@ -18380,7 +18380,20 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:32:51.875Z"
+      "lastModifiedAt": "2026-06-05T04:37:26.654Z"
+    },
+    {
+      "id": "doc:docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md",
+      "title": "Doc docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md",
+      "body": "Week 3 Segmented Conversion Readout",
+      "type": "doc",
+      "ref": "docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:39:44.290Z"
     },
     {
       "id": "doc:docs/synthetic-council-build-rubric-operations-guide.md",
@@ -18588,7 +18601,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:23:10.118Z"
+      "lastModifiedAt": "2026-06-05T04:39:55.022Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
