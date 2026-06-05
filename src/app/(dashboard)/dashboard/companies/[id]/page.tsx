@@ -135,6 +135,9 @@ export default async function CompanyPage({
       .limit(20),
   ])
 
+  // Migration 129 added this column; keep the flag explicit for existing form branches.
+  const companyHasCompetitiveContext = true
+
   const company = rawCompany
     ? {
         ...(rawCompany as Omit<CompanyDetailRow, 'competitive_context'> & { competitive_context?: string | null }),
