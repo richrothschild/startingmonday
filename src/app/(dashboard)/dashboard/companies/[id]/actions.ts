@@ -15,12 +15,6 @@ function normalizeUrl(raw: string | null): string | null {
   return /^https?:\/\//i.test(t) ? t : `https://${t}`
 }
 
-function isMissingCompetitiveContextColumn(error: { code?: string; message?: string } | null | undefined): boolean {
-  if (!error) return false
-  const msg = error.message?.toLowerCase() ?? ''
-  return error.code === '42703' || (msg.includes('competitive_context') && msg.includes('does not exist'))
-}
-
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -60,44 +54,11 @@ export async function updateCompany(id: string, formData: FormData) {
     .single()
   const prevStage = current?.stage ?? 'watching'
 
-  const fullUpdatePayload = {
-    name,
-    sector,
-    stage,
-    fit_score: fitScore,
-    company_url: companyUrl,
-    career_page_url: careerPageUrl,
-    linkedin_url: linkedinUrl,
-    crunchbase_id: crunchbaseId,
-    notes,
-    competitive_context: competitiveContext,
-    interview_notes: interviewNotes,
-    company_size: companySize,
-    role_watch_description: roleWatchDescription,
-    offer_role_title: offerRoleTitle,
-    offer_base: offerBase,
-    offer_bonus_pct: offerBonusPct,
-    offer_signing: offerSigning,
-    offer_equity: offerEquity,
-    offer_notes: offerNotes,
-    offer_decision_factors: offerDecisionFactors,
-  }
-
-  let { error } = await supabase
+  const { error } = await supabase
     .from('companies')
-    .update(fullUpdatePayload)
+    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, crunchbase_id: crunchbaseId, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
     .eq('id', id)
     .eq('user_id', user.id)
-
-  if (isMissingCompetitiveContextColumn(error)) {
-    const { competitive_context: _omitCompetitiveContext, ...fallbackPayload } = fullUpdatePayload
-    const retry = await supabase
-      .from('companies')
-      .update(fallbackPayload)
-      .eq('id', id)
-      .eq('user_id', user.id)
-    error = retry.error
-  }
 
   if (error?.code === '23505') redirect(`/dashboard/companies/${id}?error=duplicate`)
   if (error) throw error
