@@ -51,6 +51,7 @@ export interface LandingPageProps {
   showPersonaSelector?: boolean
   rolePathPriorityByCtaKey?: Record<string, number>
   proofHighlights?: ProofHighlight[]
+  sourcePage?: string
 }
 
 const CHANNEL_BEST_FOR: Record<string, string> = {
@@ -177,7 +178,7 @@ function getRolePathChannel(href: string): Channel {
   return 'executives'
 }
 
-export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights }: LandingPageProps) {
+export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/' }: LandingPageProps) {
   const quickRolePaths = ROLE_PATH_GROUPS
     .flatMap(group => group.items)
     .filter((item): item is RolePathItem & { href: string } => Boolean(item.href))
@@ -246,8 +247,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 properties={{
                   channel: 'executives',
                   cta_label: 'hero_apply_beta',
-                  variant_key: 'executive_proof_v1',
-                  source_page: '/',
+                  source_page: sourcePage,
                 }}
                 className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
               >
@@ -344,8 +344,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   properties={{
                     channel: spec.channel,
                     cta_label: 'next_step_channel_card',
-                    variant_key: 'executive_proof_v1',
-                    source_page: '/',
+                    source_page: sourcePage,
                   }}
                   className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
                 >
@@ -366,8 +365,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     properties={{
                       channel: getRolePathChannel(item.href),
                       cta_label: `${ROLE_PATH_CTA_PREFIX}${item.ctaKey}`,
-                      variant_key: 'executive_proof_v1',
-                      source_page: '/',
+                      source_page: sourcePage,
                     }}
                     className="inline-flex items-center rounded-md border border-slate-700/80 bg-slate-950/70 px-2.5 py-1.5 text-[12px] font-medium text-slate-200 transition-all duration-200 ease-out hover:text-white hover:border-orange-400/70"
                   >

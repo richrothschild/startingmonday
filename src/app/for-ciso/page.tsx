@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
@@ -112,6 +111,7 @@ export default function ForCisoPage() {
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for CISO searches</h1>
       <LandingPage
+        sourcePage="/for-ciso"
         hero={{
           eyebrow: 'The best CISO mandates open after a wake-up call.',
           h1Lines: ['Security is the', 'business risk.', 'Position yourself there.'],
