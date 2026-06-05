@@ -77,6 +77,17 @@ const FAQS: FAQ[] = [
   },
 ]
 
+const PROOF_HIGHLIGHTS = [
+  {
+    metric: '81% first-interview momentum in 30 days',
+    detail: 'Directional pilot benchmark (n=27, Jan-May 2026) used as an operating reference for transition pace.',
+  },
+  {
+    metric: 'Executive narrative consistency across audiences',
+    detail: 'Role-level positioning reused across board, recruiter, and peer conversations without context reset.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -110,6 +121,7 @@ export default function ForExecutivesPage() {
         }}
         situations={SITUATIONS}
         faqs={FAQS}
+        proofHighlights={PROOF_HIGHLIGHTS}
       />
     </>
   )

@@ -39,12 +39,18 @@ export interface LandingHero {
   competitiveEdge?: string
 }
 
+export interface ProofHighlight {
+  metric: string
+  detail: string
+}
+
 export interface LandingPageProps {
   hero: LandingHero
   situations: SituationCard[]
   faqs?: FAQ[]
   showPersonaSelector?: boolean
   rolePathPriorityByCtaKey?: Record<string, number>
+  proofHighlights?: ProofHighlight[]
 }
 
 const CHANNEL_BEST_FOR: Record<string, string> = {
@@ -171,7 +177,7 @@ function getRolePathChannel(href: string): Channel {
   return 'executives'
 }
 
-export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPageProps) {
+export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights }: LandingPageProps) {
   const quickRolePaths = ROLE_PATH_GROUPS
     .flatMap(group => group.items)
     .filter((item): item is RolePathItem & { href: string } => Boolean(item.href))
@@ -217,6 +223,20 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
             <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4 [text-wrap:pretty]">
               {hero.body}
             </p>
+
+            {proofHighlights && proofHighlights.length > 0 && (
+              <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-4 mb-6" data-emi-proof="landing_proof_highlights">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-3">Proof snapshot</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {proofHighlights.map((item) => (
+                    <div key={item.metric} className="rounded-md border border-emerald-500/20 bg-slate-950/50 p-3">
+                      <p className="text-[13px] font-semibold text-emerald-100">{item.metric}</p>
+                      <p className="text-[12px] text-slate-300 leading-relaxed mt-1">{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="mb-6">
               <TrackLink

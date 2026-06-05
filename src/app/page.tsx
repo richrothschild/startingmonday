@@ -95,6 +95,17 @@ const FAQS: FAQ[] = [
   },
 ]
 
+const PROOF_HIGHLIGHTS = [
+  {
+    metric: '81% reached first interview in 30 days',
+    detail: 'Directional pilot signal from Jan-May 2026 cohort (n=27) for executive transition workflows.',
+  },
+  {
+    metric: 'Board and search-firm readiness in one workflow',
+    detail: 'Signal monitoring, narrative control, and prep briefs run in a single operating cadence.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -169,6 +180,7 @@ export default async function HomePage() {
         }}
         situations={SITUATIONS}
         faqs={FAQS}
+        proofHighlights={PROOF_HIGHLIGHTS}
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
       />
