@@ -43,7 +43,7 @@ export default function CoachesChannelPage() {
             href="/coaches/personas"
             event={EVENT_NAMES.personaRouteSelected}
             logToUserEvents
-            properties={{ channel: 'coaches', persona: 'persona_hub', source_route: '/coaches', target_route: '/coaches/personas' }}
+            properties={{ channel: 'coaches', persona: 'persona_hub', source_route: '/coaches', target_route: '/coaches/personas', variant_key: 'coach_bluf_v1' }}
             className="inline-block bg-slate-100 text-slate-900 text-[14px] font-semibold px-5 py-3 rounded hover:bg-white transition-colors"
           >
             Explore coach personas
@@ -52,7 +52,7 @@ export default function CoachesChannelPage() {
             href="/for-coaches"
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
-            properties={{ channel: 'coaches', cta_label: 'Open coach journey', source_page: '/coaches' }}
+            properties={{ channel: 'coaches', cta_label: 'Open coach journey', source_page: '/coaches', variant_key: 'coach_bluf_v1' }}
             className="inline-block bg-orange-500 text-slate-900 text-[14px] font-semibold px-5 py-3 rounded hover:bg-orange-600 transition-colors"
           >
             Open coach journey
@@ -61,7 +61,7 @@ export default function CoachesChannelPage() {
             href="/partners#apply"
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
-            properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches' }}
+            properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_bluf_v1' }}
             className="inline-block border border-slate-600 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-300 transition-colors"
           >
             Start coach preview
