@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:23:12.536Z",
+  "generatedAt": "2026-06-05T04:34:31.761Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:20:18.482Z"
+      "lastModifiedAt": "2026-06-05T04:23:12.550Z"
     },
     {
       "id": "feature:/login",
@@ -6199,7 +6199,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-25T00:38:55.827Z"
+      "lastModifiedAt": "2026-06-05T04:31:44.360Z"
     },
     {
       "id": "code:src/lib/check-api-guards-regression.test.ts",
@@ -6512,6 +6512,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-31T19:11:52.617Z"
+    },
+    {
+      "id": "code:src/lib/experiment-variants.ts",
+      "title": "Code src/lib/experiment-variants.ts",
+      "body": "export type VariantProps = Record<string, string | number | boolean | null>",
+      "type": "code",
+      "ref": "src/lib/experiment-variants.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-05T04:31:33.874Z"
     },
     {
       "id": "code:src/lib/form-utils.test.ts",
@@ -15429,7 +15442,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:20:18.482Z"
+      "lastModifiedAt": "2026-06-05T04:23:12.550Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15468,7 +15481,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:20:18.482Z"
+      "lastModifiedAt": "2026-06-05T04:23:12.550Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18329,6 +18342,45 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-05T00:37:32.837Z"
+    },
+    {
+      "id": "doc:docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md",
+      "title": "Doc docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md",
+      "body": "Week 2 Telemetry Schema and Route Coverage",
+      "type": "doc",
+      "ref": "docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:32:48.736Z"
+    },
+    {
+      "id": "doc:docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md",
+      "title": "Doc docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md",
+      "body": "Week 2 Mobile-First Conversion QA Pass",
+      "type": "doc",
+      "ref": "docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:31:04.101Z"
+    },
+    {
+      "id": "doc:docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md",
+      "title": "Doc docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md",
+      "body": "Week 2 Release Package and Decision Memo",
+      "type": "doc",
+      "ref": "docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:32:51.875Z"
     },
     {
       "id": "doc:docs/synthetic-council-build-rubric-operations-guide.md",

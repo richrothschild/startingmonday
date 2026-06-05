@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePostHog } from 'posthog-js/react'
 import type { ComponentPropsWithoutRef } from 'react'
+import { withDeterministicVariant } from '@/lib/experiment-variants'
 
 type Props = ComponentPropsWithoutRef<typeof Link> & {
   event: string
@@ -13,8 +14,10 @@ export function TrackLink({ event, properties, onClick, children, logToUserEvent
   const ph = usePostHog()
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    const enrichedProperties = withDeterministicVariant(properties, ph?.get_distinct_id?.())
+
     try {
-      ph?.capture(event, properties ?? {})
+      ph?.capture(event, enrichedProperties)
     } catch {
       // never block navigation
     }
@@ -24,7 +27,7 @@ export function TrackLink({ event, properties, onClick, children, logToUserEvent
         void fetch('/api/events/channel-funnel', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event, properties: properties ?? {} }),
+          body: JSON.stringify({ event, properties: enrichedProperties }),
           keepalive: true,
         })
       } catch {

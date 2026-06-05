@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T04:23:12.536Z
+Last generated: 2026-06-05T04:34:31.761Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -438,7 +438,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (193)
+## Codebase Modules (194)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -498,6 +498,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
+- Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
@@ -912,7 +913,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (517)
+## Documentation (520)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1405,6 +1406,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
 - Doc docs/strategy/ui-review-plan-from-notes-2026-06-04.md | docs/strategy/ui-review-plan-from-notes-2026-06-04.md | UI Review Plan from Notes (Plan-Mode Draft)
+- Doc docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | Week 2 Telemetry Schema and Route Coverage
+- Doc docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | Week 2 Mobile-First Conversion QA Pass
+- Doc docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | Week 2 Release Package and Decision Memo
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2
