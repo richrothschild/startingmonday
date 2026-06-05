@@ -47,6 +47,12 @@ type CompanyDetailRow = {
   offer_decision_factors: string | null
 }
 
+function isMissingCompetitiveContextColumn(error: { code?: string; message?: string } | null | undefined): boolean {
+  if (!error) return false
+  const msg = error.message?.toLowerCase() ?? ''
+  return error.code === '42703' || (msg.includes('competitive_context') && msg.includes('does not exist'))
+}
+
 export default async function CompanyPage({
   params,
   searchParams,
@@ -64,14 +70,32 @@ export default async function CompanyPage({
 
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-  const [{ data: rawCompany, error: companyError }, { data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: rawSignals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
-    supabase
+  const companySelectWithCompetitive = 'id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors'
+  const companySelectFallback = 'id, name, sector, stage, company_size, fit_score, notes, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors'
+
+  let companyHasCompetitiveContext = true
+  let companyResult = await supabase
+    .from('companies')
+    .select(companySelectWithCompetitive)
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .is('archived_at', null)
+    .single()
+
+  if (isMissingCompetitiveContextColumn(companyResult.error)) {
+    companyHasCompetitiveContext = false
+    companyResult = await supabase
       .from('companies')
-      .select('id, name, sector, stage, company_size, fit_score, notes, competitive_context, interview_notes, company_url, career_page_url, linkedin_url, crunchbase_id, role_watch_description, offer_role_title, offer_base, offer_bonus_pct, offer_signing, offer_equity, offer_notes, offer_decision_factors')
+      .select(companySelectFallback)
       .eq('id', id)
       .eq('user_id', user.id)
       .is('archived_at', null)
-      .single(),
+      .single()
+  }
+
+  const { data: rawCompany, error: companyError } = companyResult
+
+  const [{ data: followUps }, { data: contacts }, { data: profile }, { data: rawScans }, { data: documents }, { data: rawSignals }, { count: prepBriefCount }, { data: rawInterviewLogs }] = await Promise.all([
     supabase
       .from('follow_ups')
       .select('id, action, due_date, contact_id')
@@ -128,7 +152,14 @@ export default async function CompanyPage({
       .limit(20),
   ])
 
-  const company = rawCompany as CompanyDetailRow | null
+  const company = rawCompany
+    ? {
+        ...(rawCompany as Omit<CompanyDetailRow, 'competitive_context'> & { competitive_context?: string | null }),
+        competitive_context: companyHasCompetitiveContext
+          ? ((rawCompany as { competitive_context?: string | null }).competitive_context ?? null)
+          : null,
+      } as CompanyDetailRow
+    : null
   const signals = (rawSignals ?? []) as unknown as SignalDetailRow[]
   const scans = (rawScans ?? []) as unknown as ScanResult[]
   const latestScan = scans[0] ?? null
@@ -409,17 +440,26 @@ export default async function CompanyPage({
                 <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>
               </div>
 
-              <div className="pt-1 border-t border-slate-100">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
-                <textarea
-                  name="competitive_context"
-                  rows={3}
-                  defaultValue={company.competitive_context ?? ''}
-                  placeholder="Known candidates, internal shortlist, search firm intel, who else they're considering..."
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
-                />
-                <p className="mt-1.5 text-[11px] text-slate-400">Private. Used to sharpen your Win Thesis and pushback prep.</p>
-              </div>
+              {companyHasCompetitiveContext ? (
+                <div className="pt-1 border-t border-slate-100">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
+                  <textarea
+                    name="competitive_context"
+                    rows={3}
+                    defaultValue={company.competitive_context ?? ''}
+                    placeholder="Known candidates, internal shortlist, search firm intel, who else they're considering..."
+                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                  />
+                  <p className="mt-1.5 text-[11px] text-slate-400">Private. Used to sharpen your Win Thesis and pushback prep.</p>
+                </div>
+              ) : (
+                <div className="pt-1 border-t border-slate-100">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
+                  <p className="text-[12px] text-slate-500 bg-slate-50 border border-slate-200 rounded px-3 py-2.5">
+                    Competitive field is temporarily unavailable while schema updates finish.
+                  </p>
+                </div>
+              )}
 
               <div className="pt-1 border-t border-slate-100">
                 <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Interview Notes</p>
