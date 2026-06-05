@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-04T14:19:23.631Z
+Last generated: 2026-06-05T02:38:23.479Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -632,7 +632,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (112)
+## Internal Scripts (113)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -706,6 +706,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/import-coach-outreach.mjs | scripts/import-coach-outreach.mjs | import { readFile } from "node:fs/promises"
 - Script scripts/import-coaches-comprehensive.mjs | scripts/import-coaches-comprehensive.mjs | import { readFile, readdir } from 'node:fs/promises'
 - Script scripts/internal-guide-sync.ts | scripts/internal-guide-sync.ts | import { createHash } from 'crypto'
+- Script scripts/jira/create-jira-issue.mjs | scripts/jira/create-jira-issue.mjs | #!/usr/bin/env node
 - Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
 - Script scripts/link-integrity-audit.mjs | scripts/link-integrity-audit.mjs | import fs from 'node:fs/promises'
 - Script scripts/lint-outreach-first-sentence.mjs | scripts/lint-outreach-first-sentence.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -910,7 +911,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (511)
+## Documentation (517)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1323,6 +1324,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
+- Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
 - Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)
@@ -1386,6 +1388,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
 - Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
+- Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
+- Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
 - Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
 - Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
@@ -1394,9 +1398,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
 - Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
 - Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
+- Doc docs/strategy/slack-channel-naming-pack-2026-06-04.md | docs/strategy/slack-channel-naming-pack-2026-06-04.md | Slack Channel Naming and Description Pack
+- Doc docs/strategy/slack-notification-policy-ui-2026-06-04.md | docs/strategy/slack-notification-policy-ui-2026-06-04.md | Slack Notification Policy for UI Delivery
 - Doc docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | Sprint 7 Carry-Forward Shortlist (2026-05-31)
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
+- Doc docs/strategy/ui-review-plan-from-notes-2026-06-04.md | docs/strategy/ui-review-plan-from-notes-2026-06-04.md | UI Review Plan from Notes (Plan-Mode Draft)
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2
