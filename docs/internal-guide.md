@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T16:04:21.900Z
+Last generated: 2026-06-05T20:03:33.217Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1217,6 +1217,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/06-product-intelligence.md | docs/onboarding/06-product-intelligence.md | Product Intelligence — What You Need to Know
 - Doc docs/onboarding/07-contributor-agreement.md | docs/onboarding/07-contributor-agreement.md | Starting Monday — Contributor Agreement
 - Doc docs/onboarding/08-day-one-checklist.md | docs/onboarding/08-day-one-checklist.md | Day One Checklist
+- Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Claude Setup Prompt — Get localhost:3000 Running
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
 - Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic
@@ -1324,7 +1325,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
-- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
