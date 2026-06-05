@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 
 const START_TIME = Date.now()
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const required = {
     NEXT_PUBLIC_SUPABASE_URL: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL),
@@ -13,12 +15,21 @@ export async function GET() {
   const missing = Object.entries(required).filter(([, ok]) => !ok).map(([key]) => key)
   const status = missing.length ? 'degraded' : 'ok'
 
-  return NextResponse.json({
-    status,
-    uptime: Math.floor((Date.now() - START_TIME) / 1000),
-    timestamp: new Date().toISOString(),
-    version: process.env.npm_package_version ?? 'unknown',
-    checks: required,
-    missing,
-  })
+  return NextResponse.json(
+    {
+      kind: 'liveness',
+      status,
+      live: true,
+      uptime: Math.floor((Date.now() - START_TIME) / 1000),
+      timestamp: new Date().toISOString(),
+      version: process.env.npm_package_version ?? 'unknown',
+      checks: required,
+      missing,
+    },
+    {
+      // Liveness should remain stable even when dependencies are degraded.
+      status: 200,
+      headers: { 'Cache-Control': 'no-store' },
+    },
+  )
 }

@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { checkRateLimit } from '@/lib/rate-limit'
 import { enforcePublicEndpointGuard, getClientIp } from '@/lib/public-endpoint-guard'
@@ -29,7 +29,7 @@ function buildLoginRedirect(publicOrigin: string, nextPath: string, params: Reco
 
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request)
-  const { allowed } = checkRateLimit(`login_submit:${ip}`, 8)
+  const { allowed } = await checkRateLimit(`login_submit:${ip}`, 8)
 
   const publicOrigin = getPublicOrigin(request)
 
@@ -55,56 +55,8 @@ export async function POST(request: NextRequest) {
   const supabase = await createClient()
 
   if (intent === 'magic') {
-    if (!email) {
-      return NextResponse.redirect(
-        buildLoginRedirect(publicOrigin, nextPath, { error: 'missing_credentials' })
-      )
-    }
-
-    const guardResponse = await enforcePublicEndpointGuard({
-      request,
-      rateLimitKey: 'magic-link-fallback',
-      maxPerMinute: 3,
-      requireCaptcha: true,
-    })
-    if (guardResponse) {
-      if (guardResponse.status === 429) {
-        return NextResponse.redirect(
-          buildLoginRedirect(publicOrigin, nextPath, { error: 'rate_limited' })
-        )
-      }
-
-      return NextResponse.redirect(
-        buildLoginRedirect(publicOrigin, nextPath, { error: 'captcha_required' })
-      )
-    }
-
-    const emailLimit = checkRateLimit(`magic-submit-email:${email}`, 3, 15 * 60_000)
-    if (!emailLimit.allowed) {
-      return NextResponse.redirect(
-        buildLoginRedirect(publicOrigin, nextPath, { error: 'rate_limited' })
-      )
-    }
-
-    const redirectTo = new URL('/auth/callback', publicOrigin)
-    redirectTo.searchParams.set('next', nextPath)
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: false,
-        emailRedirectTo: redirectTo.toString(),
-      },
-    })
-
-    if (error) {
-      return NextResponse.redirect(
-        buildLoginRedirect(publicOrigin, nextPath, { error: 'magic_failed' })
-      )
-    }
-
     return NextResponse.redirect(
-      buildLoginRedirect(publicOrigin, nextPath, { info: 'magic_sent' })
+      buildLoginRedirect(publicOrigin, nextPath, { error: 'magic_disabled' })
     )
   }
 
@@ -127,3 +79,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.redirect(new URL(nextPath, publicOrigin))
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

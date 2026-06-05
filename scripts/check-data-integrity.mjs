@@ -8,10 +8,13 @@
  * Checks performed:
  *   1. Closed-contact drift: contacts in closed/archived/rejected state
  *      that still have pending follow_ups
- *   2. Duplicate pending follow_ups: same contact has 3+ pending follow_ups
- *      (expected max is 2 in normal workflow)
+ *   2. Duplicate pending follow_ups: same contact_id + action + due_date
+ *      exceeds 5 pending follow_ups in a 30-minute window
  *   3. Invalid follow_up status: status values outside the allowed set
  *   4. Subscription drift: active subscriptions with expired current_period_end
+ *   5. Webhook backlog (Resend): accepted resend jobs without terminal webhook state
+ *      older than 5 minutes
+ *   6. Webhook backlog (Stripe): oldest unprocessed Stripe webhook event age > 5 minutes
  *
  * Usage:
  *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/check-data-integrity.mjs
@@ -46,7 +49,11 @@ async function checkClosedContactDrift() {
   // Contacts in terminal states that still have pending follow_ups
   const { data, error } = await supabase.rpc('check_closed_contact_follow_up_drift').maybeSingle()
 
-  if (error && error.message.includes('function') && error.message.includes('does not exist')) {
+  const rpcMissing =
+    error &&
+    (/does not exist/i.test(error.message) || /could not find the function/i.test(error.message))
+
+  if (rpcMissing) {
     // RPC not available — fall back to a two-query approach
     const { data: contacts, error: ce } = await supabase
       .from('contacts')
@@ -84,18 +91,30 @@ async function checkClosedContactDrift() {
 }
 
 async function checkDuplicatePendingFollowUps() {
-  // Contacts with 3+ pending follow_ups (max expected in normal workflow: 2)
+  // Alert-matrix rule: same contact_id + action + due_date > 5 in 30 minutes
+  const windowStartIso = new Date(Date.now() - 30 * 60 * 1000).toISOString()
+
   const { data, error } = await supabase
     .from('follow_ups')
-    .select('contact_id, user_id')
+    .select('id, contact_id, user_id, action, due_date, created_at')
     .eq('status', 'pending')
+    .gte('created_at', windowStartIso)
 
   if (error) throw new Error(`duplicate_pending_follow_ups query failed: ${error.message}`)
 
   const counts = new Map()
   for (const row of data ?? []) {
-    const key = row.contact_id
-    counts.set(key, (counts.get(key) ?? { count: 0, user_id: row.user_id, count: 0 }))
+    const key = `${row.contact_id ?? 'null'}::${row.action ?? 'unknown'}::${row.due_date ?? 'unknown'}`
+    counts.set(
+      key,
+      counts.get(key) ?? {
+        count: 0,
+        user_id: row.user_id,
+        contact_id: row.contact_id,
+        action: row.action,
+        due_date: row.due_date,
+      },
+    )
     const entry = counts.get(key)
     entry.count++
     entry.user_id = row.user_id
@@ -103,8 +122,15 @@ async function checkDuplicatePendingFollowUps() {
   }
 
   const affected = [...counts.entries()]
-    .filter(([, v]) => v.count >= 3)
-    .map(([contact_id, v]) => ({ contact_id, user_id: v.user_id, pending_count: v.count }))
+    .filter(([, v]) => v.count > 5)
+    .map(([, v]) => ({
+      contact_id: v.contact_id,
+      action: v.action,
+      due_date: v.due_date,
+      user_id: v.user_id,
+      pending_count: v.count,
+      window_minutes: 30,
+    }))
 
   return { name: 'duplicate_pending_follow_ups', count: affected.length, affected }
 }
@@ -143,7 +169,10 @@ async function checkSubscriptionDrift() {
 
   if (error) {
     // Table may not exist or column name may differ — treat as advisory
-    if (error.message.includes('does not exist')) {
+    const tableMissing =
+      /does not exist/i.test(error.message) || /could not find the table/i.test(error.message)
+
+    if (tableMissing) {
       return { name: 'subscription_drift', count: 0, affected: [], advisory: true }
     }
     throw new Error(`subscription_drift query failed: ${error.message}`)
@@ -159,6 +188,102 @@ async function checkSubscriptionDrift() {
   return { name: 'subscription_drift', count: affected.length, affected }
 }
 
+async function checkResendWebhookBacklog() {
+  // Alert-matrix rule: oldest unprocessed webhook age > 5 minutes
+  // Resend delivery pipeline represents webhook progression via outreach_send_jobs state.
+  const lagThresholdMinutes = 5
+  const lagThresholdIso = new Date(Date.now() - lagThresholdMinutes * 60 * 1000).toISOString()
+
+  const { data, error } = await supabase
+    .from('outreach_send_jobs')
+    .select('id, user_id, provider, state, accepted_at, created_at, provider_message_id')
+    .eq('provider', 'resend')
+    .eq('state', 'accepted')
+    .lt('accepted_at', lagThresholdIso)
+    .order('accepted_at', { ascending: true })
+    .limit(200)
+
+  if (error) {
+    const tableMissing =
+      /does not exist/i.test(error.message) || /could not find the table/i.test(error.message)
+
+    if (tableMissing) {
+      return { name: 'webhook_backlog_resend', count: 0, affected: [], advisory: true }
+    }
+
+    throw new Error(`webhook_backlog_resend query failed: ${error.message}`)
+  }
+
+  const nowMs = Date.now()
+  const affected = (data ?? []).map(r => {
+    const acceptedAtMs = new Date(r.accepted_at ?? r.created_at ?? new Date().toISOString()).getTime()
+    const lagMinutes = Math.max(0, Math.round(((nowMs - acceptedAtMs) / 60000) * 10) / 10)
+
+    return {
+      job_id: r.id,
+      user_id: r.user_id,
+      provider: r.provider,
+      state: r.state,
+      provider_message_id: r.provider_message_id,
+      accepted_at: r.accepted_at,
+      lag_minutes: lagMinutes,
+      threshold_minutes: lagThresholdMinutes,
+    }
+  })
+
+  return { name: 'webhook_backlog_resend', count: affected.length, affected }
+}
+
+async function checkStripeWebhookBacklog() {
+  // Stripe backlog requires an event-ingest table with processed_at + received_at.
+  // If unavailable, emit advisory instead of failing the whole detector.
+  const lagThresholdMinutes = 5
+  const lagThresholdIso = new Date(Date.now() - lagThresholdMinutes * 60 * 1000).toISOString()
+
+  const { data, error } = await supabase
+    .from('stripe_webhook_events')
+    .select('id, event_id, received_at, processed_at, created_at')
+    .is('processed_at', null)
+    .lt('received_at', lagThresholdIso)
+    .order('received_at', { ascending: true })
+    .limit(200)
+
+  if (error) {
+    const unsupportedSchema =
+      /does not exist/i.test(error.message) ||
+      /could not find the table/i.test(error.message) ||
+      /column/i.test(error.message)
+
+    if (unsupportedSchema) {
+      return {
+        name: 'webhook_backlog_stripe',
+        count: 0,
+        affected: [],
+        advisory: true,
+      }
+    }
+
+    throw new Error(`webhook_backlog_stripe query failed: ${error.message}`)
+  }
+
+  const nowMs = Date.now()
+  const affected = (data ?? []).map(r => {
+    const receivedAt = r.received_at ?? r.created_at ?? new Date().toISOString()
+    const receivedAtMs = new Date(receivedAt).getTime()
+    const lagMinutes = Math.max(0, Math.round(((nowMs - receivedAtMs) / 60000) * 10) / 10)
+
+    return {
+      event_row_id: r.id,
+      event_id: r.event_id,
+      received_at: r.received_at,
+      lag_minutes: lagMinutes,
+      threshold_minutes: lagThresholdMinutes,
+    }
+  })
+
+  return { name: 'webhook_backlog_stripe', count: affected.length, affected }
+}
+
 // ---------------------------------------------------------------------------
 // Run all checks
 // ---------------------------------------------------------------------------
@@ -172,6 +297,8 @@ async function run() {
     checkDuplicatePendingFollowUps,
     checkInvalidFollowUpStatus,
     checkSubscriptionDrift,
+    checkResendWebhookBacklog,
+    checkStripeWebhookBacklog,
   ]
 
   for (const check of checks) {

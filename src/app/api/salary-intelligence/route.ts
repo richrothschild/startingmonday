@@ -5,7 +5,7 @@ import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { isRateLimited } from '@/lib/api-usage'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { recordTrace } from '@/lib/trace'
+import { recordTrace, recordTraceError } from '@/lib/trace'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'upgrade_required' }, { status: 403 })
   }
 
-  if (!checkBurstLimit(userId)) {
+  if (!(await checkBurstLimit(userId))) {
     return NextResponse.json({ error: 'Too many requests. Wait a moment.' }, { status: 429 })
   }
   if (await isRateLimited(supabase, userId)) {
@@ -130,8 +130,7 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
 
     return NextResponse.json(result)
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err)
-    console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'salary_intelligence_error', error: msg, userId }))
+    recordTraceError({ feature: 'salary_intelligence', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json({ error: 'Failed to generate salary analysis' }, { status: 500 })
   }
 }

@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-const STRIPE_API_VERSION = '2026-04-22.dahlia' as const
+const STRIPE_API_VERSION = '2026-05-27.dahlia' as const
 
 let _stripe: Stripe | null = null
 export function getStripe(): Stripe {

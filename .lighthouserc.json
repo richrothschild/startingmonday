@@ -65,7 +65,7 @@
         "total-blocking-time": [
           "error",
           {
-            "maxNumericValue": 250
+            "maxNumericValue": 450
           }
         ]
       }

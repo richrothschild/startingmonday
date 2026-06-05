@@ -12,6 +12,8 @@ const THRESHOLDS = {
   scroll_depth_75_rate: { min: 0.3 },
 }
 
+const DEFAULT_MIN_PAGE_VIEWS = 100
+
 function parseArgs(argv) {
   const args = new Set(argv.slice(2))
   const strict = args.has('--strict')
@@ -35,9 +37,29 @@ function loadMetrics() {
   return { metricsPath, parsed }
 }
 
+function getMinPageViews() {
+  const raw = process.env.GROWTH_METRICS_MIN_PAGE_VIEWS?.trim()
+  if (!raw) return DEFAULT_MIN_PAGE_VIEWS
+  const parsed = Number.parseInt(raw, 10)
+  if (!Number.isFinite(parsed) || parsed < 0) return DEFAULT_MIN_PAGE_VIEWS
+  return parsed
+}
+
 function evaluate(metrics) {
   const failures = []
+  const warnings = []
   const checks = []
+
+  const pageViews = metrics?.raw_counts?.page_views
+  const hasPageViewCount = typeof pageViews === 'number' && Number.isFinite(pageViews)
+  const minPageViews = getMinPageViews()
+  const hasSufficientSample = !hasPageViewCount || pageViews >= minPageViews
+
+  if (hasPageViewCount && !hasSufficientSample) {
+    warnings.push(
+      `raw_counts.page_views=${pageViews} is below minimum sample ${minPageViews}; conversion and engagement thresholds were skipped for this window`
+    )
+  }
 
   if (metrics.source !== 'posthog') {
     failures.push('source must be posthog')
@@ -60,6 +82,12 @@ function evaluate(metrics) {
 
   for (const [metricName, threshold] of Object.entries(THRESHOLDS)) {
     const value = metrics[metricName]
+
+    if (!hasSufficientSample) {
+      checks.push({ metric: metricName, value: typeof value === 'number' ? value : null, status: 'SKIP', threshold })
+      continue
+    }
+
     if (typeof value !== 'number' || Number.isNaN(value)) {
       failures.push(`${metricName} is missing or non-numeric`)
       checks.push({ metric: metricName, value: null, status: 'FAIL', threshold })
@@ -80,14 +108,16 @@ function evaluate(metrics) {
   }
 
   const sectionDwell = metrics.section_dwell_median_ms
-  if (!sectionDwell || typeof sectionDwell !== 'object') {
-    failures.push('section_dwell_median_ms is missing')
-  } else {
-    const requiredSections = ['clarity_block', 'proof_block', 'how_it_works_block', 'objection_block', 'final_cta_block']
-    for (const section of requiredSections) {
-      const dwell = sectionDwell[section]
-      if (typeof dwell !== 'number' || dwell < 1500) {
-        failures.push(`section_dwell_median_ms.${section} must be >= 1500`)
+  if (hasSufficientSample) {
+    if (!sectionDwell || typeof sectionDwell !== 'object') {
+      failures.push('section_dwell_median_ms is missing')
+    } else {
+      const requiredSections = ['clarity_block', 'proof_block', 'how_it_works_block', 'objection_block', 'final_cta_block']
+      for (const section of requiredSections) {
+        const dwell = sectionDwell[section]
+        if (typeof dwell !== 'number' || dwell < 1500) {
+          failures.push(`section_dwell_median_ms.${section} must be >= 1500`)
+        }
       }
     }
   }
@@ -96,7 +126,13 @@ function evaluate(metrics) {
     checkedAt: new Date().toISOString(),
     status: failures.length === 0 ? 'PASS' : 'FAIL',
     checks,
+    warnings,
     failures,
+    sample: {
+      min_page_views: minPageViews,
+      page_views: hasPageViewCount ? pageViews : null,
+      sufficient: hasSufficientSample,
+    },
   }
 }
 
@@ -132,6 +168,15 @@ function writeOutputs(result) {
     }
   }
 
+  lines.push('', '## Warnings')
+  if (result.warnings.length === 0) {
+    lines.push('- none')
+  } else {
+    for (const warning of result.warnings) {
+      lines.push(`- ${warning}`)
+    }
+  }
+
   fs.writeFileSync(mdPath, `${lines.join('\n')}\n`)
 }
 
@@ -155,6 +200,11 @@ function main() {
     if (result.failures.length > 0) {
       for (const failure of result.failures) {
         console.log(`- ${failure}`)
+      }
+    }
+    if (result.warnings.length > 0) {
+      for (const warning of result.warnings) {
+        console.log(`- warning: ${warning}`)
       }
     }
   }

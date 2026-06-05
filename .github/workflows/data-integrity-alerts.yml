@@ -1,0 +1,271 @@
+name: Data Integrity Alerts
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  integrity-alerts:
+    name: Detect follow-up lifecycle anomalies
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Validate required secrets
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets['NEXT_PUBLIC_SUPABASE_URL'] }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets['SUPABASE_SERVICE_ROLE_KEY'] }}
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+        run: |
+          missing=0
+          for name in NEXT_PUBLIC_SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY SLACK_WEBHOOK_URL; do
+            if [ -z "$(printenv "$name")" ]; then
+              echo "Missing required secret: $name" >&2
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -eq 1 ]; then
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run data integrity detector
+        id: integrity
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets['NEXT_PUBLIC_SUPABASE_URL'] }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets['SUPABASE_SERVICE_ROLE_KEY'] }}
+        run: |
+          set +e
+          node scripts/check-data-integrity.mjs --json > integrity-report.json
+          status=$?
+          set -e
+
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+
+          if [ ! -f integrity-report.json ]; then
+            echo "integrity-report.json was not generated" >&2
+            exit 1
+          fi
+
+          jq -r '
+            def countFor($name): (([.results[]? | select(.name == $name) | .count][0]) // 0);
+            "clean=\(.clean // false)",
+            "total_anomalies=\(.total_anomalies // 0)",
+            "closed_contact_drift=\(countFor("closed_contact_drift"))",
+            "duplicate_pending_follow_ups=\(countFor("duplicate_pending_follow_ups"))",
+            "invalid_follow_up_status=\(countFor("invalid_follow_up_status"))",
+            "subscription_drift=\(countFor("subscription_drift"))",
+            "webhook_backlog_resend=\(countFor("webhook_backlog_resend"))",
+            "webhook_backlog_stripe=\(countFor("webhook_backlog_stripe"))",
+            "webhook_backlog=\((countFor("webhook_backlog_resend") + countFor("webhook_backlog_stripe")))"
+          ' integrity-report.json >> "$GITHUB_OUTPUT"
+
+          if [ "$status" -gt 1 ]; then
+            echo "Detector exited with unexpected status $status" >&2
+            exit "$status"
+          fi
+
+      - name: Upload integrity report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: data-integrity-report
+          path: integrity-report.json
+
+      - name: Restore drift persistence state
+        id: drift-state-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .github/tmp/data-integrity-state.json
+          key: data-integrity-drift-state-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            data-integrity-drift-state-${{ github.ref_name }}-
+
+      - name: Evaluate drift persistence window
+        id: drift-state
+        env:
+          CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
+          DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
+          INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
+          SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+          WEBHOOK_BACKLOG: ${{ steps.integrity.outputs.webhook_backlog }}
+        run: |
+          mkdir -p .github/tmp
+
+          state_file=.github/tmp/data-integrity-state.json
+          now_epoch=$(date +%s)
+          threshold_seconds=900
+
+          previous_start=""
+          if [ -f "$state_file" ]; then
+            previous_start=$(jq -r '.closed_contact_drift_started_at // empty' "$state_file")
+          fi
+
+          current_start=""
+          persisted_closed_drift="false"
+          elapsed_seconds=0
+
+          if [ "$CLOSED_CONTACT_DRIFT" != "0" ]; then
+            if [ -n "$previous_start" ]; then
+              current_start="$previous_start"
+            else
+              current_start="$now_epoch"
+            fi
+
+            elapsed_seconds=$((now_epoch - current_start))
+            if [ "$elapsed_seconds" -ge "$threshold_seconds" ]; then
+              persisted_closed_drift="true"
+            fi
+          fi
+
+          should_alert="false"
+          if [ "$persisted_closed_drift" = "true" ] || [ "$DUPLICATE_PENDING" != "0" ] || [ "$INVALID_STATUS" != "0" ] || [ "$SUBSCRIPTION_DRIFT" != "0" ] || [ "$WEBHOOK_BACKLOG" != "0" ]; then
+            should_alert="true"
+          fi
+
+          jq -n \
+            --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg startedAt "$current_start" \
+            --arg closedCount "$CLOSED_CONTACT_DRIFT" \
+            --arg persisted "$persisted_closed_drift" \
+            --arg elapsedSeconds "$elapsed_seconds" \
+            '{
+              updated_at: $now,
+              closed_contact_drift_started_at: (if $startedAt == "" then null else ($startedAt | tonumber) end),
+              closed_contact_drift_count: ($closedCount | tonumber),
+              closed_contact_drift_persisted: ($persisted == "true"),
+              closed_contact_drift_elapsed_seconds: ($elapsedSeconds | tonumber)
+            }' > "$state_file"
+
+          echo "persisted_closed_contact_drift=$persisted_closed_drift" >> "$GITHUB_OUTPUT"
+          echo "closed_contact_drift_elapsed_seconds=$elapsed_seconds" >> "$GITHUB_OUTPUT"
+          echo "should_alert=$should_alert" >> "$GITHUB_OUTPUT"
+
+      - name: Save drift persistence state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .github/tmp/data-integrity-state.json
+          key: data-integrity-drift-state-${{ github.ref_name }}-${{ github.run_id }}
+
+      - name: Send Slack alert on data integrity anomalies
+        if: steps.drift-state.outputs.should_alert == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ROUTE_LABEL: follow_ups:data-integrity
+          DEPLOY_SHA: ${{ github.sha }}
+          REGION: us-west
+          CORRELATION_ID_SAMPLE: gha-${{ github.run_id }}-${{ github.run_attempt }}
+          CLOSED_CONTACT_DRIFT: ${{ steps.integrity.outputs.closed_contact_drift }}
+          PERSISTED_CLOSED_DRIFT: ${{ steps.drift-state.outputs.persisted_closed_contact_drift }}
+          CLOSED_DRIFT_ELAPSED_SECONDS: ${{ steps.drift-state.outputs.closed_contact_drift_elapsed_seconds }}
+          DUPLICATE_PENDING: ${{ steps.integrity.outputs.duplicate_pending_follow_ups }}
+          INVALID_STATUS: ${{ steps.integrity.outputs.invalid_follow_up_status }}
+          SUBSCRIPTION_DRIFT: ${{ steps.integrity.outputs.subscription_drift }}
+          WEBHOOK_BACKLOG: ${{ steps.integrity.outputs.webhook_backlog }}
+          WEBHOOK_BACKLOG_RESEND: ${{ steps.integrity.outputs.webhook_backlog_resend }}
+          WEBHOOK_BACKLOG_STRIPE: ${{ steps.integrity.outputs.webhook_backlog_stripe }}
+          TOTAL_ANOMALIES: ${{ steps.integrity.outputs.total_anomalies }}
+        run: |
+          region="${REGION:-unknown}"
+
+          severity="Sev-3"
+          if [ "$PERSISTED_CLOSED_DRIFT" = "true" ] || [ "$WEBHOOK_BACKLOG" != "0" ]; then
+            severity="Sev-2"
+          fi
+
+          payload=$(jq -n \
+            --arg severity "$severity" \
+            --arg total "$TOTAL_ANOMALIES" \
+            --arg closed "$CLOSED_CONTACT_DRIFT" \
+            --arg duplicate "$DUPLICATE_PENDING" \
+            --arg invalid "$INVALID_STATUS" \
+            --arg subscription "$SUBSCRIPTION_DRIFT" \
+            --arg webhookBacklog "$WEBHOOK_BACKLOG" \
+            --arg webhookBacklogResend "$WEBHOOK_BACKLOG_RESEND" \
+            --arg webhookBacklogStripe "$WEBHOOK_BACKLOG_STRIPE" \
+            --arg closedPersisted "$PERSISTED_CLOSED_DRIFT" \
+            --arg elapsedSeconds "$CLOSED_DRIFT_ELAPSED_SECONDS" \
+            --arg route "$ROUTE_LABEL" \
+            --arg deploySha "$DEPLOY_SHA" \
+            --arg region "$region" \
+            --arg correlation "$CORRELATION_ID_SAMPLE" \
+            --arg runUrl "$RUN_URL" \
+            '{
+              text: "Data integrity anomaly detected",
+              blocks: [
+                {
+                  type: "header",
+                  text: {
+                    type: "plain_text",
+                    text: ("Data Integrity Alert - " + $severity)
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: ("*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n\n*Total anomalies:* " + $total + "\n*Closed-contact drift:* " + $closed + "\n*Closed drift persisted >=15m:* " + $closedPersisted + " (elapsed " + $elapsedSeconds + "s)\n*Duplicate pending follow-ups:* " + $duplicate + "\n*Invalid follow-up status:* " + $invalid + "\n*Subscription drift:* " + $subscription + "\n*Webhook backlog (total):* " + $webhookBacklog + "\n*Webhook backlog (Resend):* " + $webhookBacklogResend + "\n*Webhook backlog (Stripe):* " + $webhookBacklogStripe + "\n\nRunbook: docs/sre/runbooks/follow-up-lifecycle-drift.md\n<" + $runUrl + "|Open integrity workflow>")
+                  }
+                }
+              ]
+            }')
+
+          slackResponse=$(curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL")
+          if [ "$slackResponse" != "ok" ]; then
+            echo "Unexpected Slack webhook response: $slackResponse" >&2
+            exit 1
+          fi
+
+      - name: Fail on detector execution error
+        if: steps.integrity.outputs.exit_code != '0' && steps.integrity.outputs.total_anomalies == '0'
+        run: |
+          echo "Detector exited unexpectedly with status ${{ steps.integrity.outputs.exit_code }}" >&2
+          exit 1
+
+      - name: Send Slack alert on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets['SLACK_WEBHOOK_URL'] }}
+          ROUTE_LABEL: follow_ups:data-integrity
+          DEPLOY_SHA: ${{ github.sha }}
+          REGION: us-west
+          CORRELATION_ID_SAMPLE: gha-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          region="${REGION:-unknown}"
+
+          payload=$(jq -n \
+            --arg runUrl "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg route "$ROUTE_LABEL" \
+            --arg deploySha "$DEPLOY_SHA" \
+            --arg region "$region" \
+            --arg correlation "$CORRELATION_ID_SAMPLE" \
+            '{
+              text: "Data integrity alert workflow failed",
+              blocks: [
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: ("*Data Integrity Alert Workflow Failure*\nThe scheduled integrity detector failed before producing a stable result.\n\n*Route:* " + $route + "\n*Deploy SHA:* `" + $deploySha + "`\n*Region:* " + $region + "\n*Correlation sample:* `" + $correlation + "`\n<" + $runUrl + "|Open workflow run>")
+                  }
+                }
+              ]
+            }')
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"

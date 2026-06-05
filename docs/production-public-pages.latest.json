@@ -1,0 +1,29 @@
+{
+  "ts": "2026-05-31T04:06:48.769Z",
+  "checks": [
+    {
+      "url": "https://startingmonday.app/privacy",
+      "status": 200,
+      "ok": true,
+      "durationMs": 385
+    },
+    {
+      "url": "https://startingmonday.app/terms",
+      "status": 200,
+      "ok": true,
+      "durationMs": 123
+    },
+    {
+      "url": "https://startingmonday.app/login",
+      "status": 200,
+      "ok": true,
+      "durationMs": 143
+    },
+    {
+      "url": "https://startingmonday.app/pricing",
+      "status": 200,
+      "ok": true,
+      "durationMs": 63
+    }
+  ]
+}

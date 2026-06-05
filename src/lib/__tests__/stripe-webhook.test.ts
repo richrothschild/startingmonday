@@ -29,6 +29,7 @@ vi.mock('@supabase/supabase-js', () => ({
 
       const c = {
         insert: vi.fn().mockResolvedValue(resolveWith),
+        upsert: vi.fn().mockResolvedValue(resolveWith),
         update: vi.fn(),
         eq: vi.fn(),
         not: vi.fn(),
@@ -40,6 +41,7 @@ vi.mock('@supabase/supabase-js', () => ({
         catch: (rej: (e: unknown) => unknown) => Promise.resolve(resolveWith).catch(rej),
       }
       c.update.mockReturnValue(c)
+      c.upsert.mockReturnValue(c)
       c.eq.mockReturnValue(c)
       c.not.mockReturnValue(c)
       c.select.mockReturnValue(c)

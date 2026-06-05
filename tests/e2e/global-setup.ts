@@ -86,6 +86,11 @@ setup('authenticate', async ({ page }) => {
 
   const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
 
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+  await page.fill('#email', email)
+  await page.fill('#password', password)
+  await page.click('button[type="submit"]')
+
   // Try direct API sign-in first — works reliably across all environments.
   const apiAuthOk = await apiSignIn(page, baseURL, email, password)
 

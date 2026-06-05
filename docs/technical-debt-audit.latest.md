@@ -1,6 +1,6 @@
 # Technical Debt Deep-Dive Audit
 
-Generated: 2026-05-24T17:43:01.196Z
+Generated: 2026-06-04T12:14:21.609Z
 
 ## Build Health
 
@@ -10,44 +10,42 @@ Generated: 2026-05-24T17:43:01.196Z
 
 ## Test Debt
 
-- Placeholder baseline count: 292
-- Placeholder files currently present: 290
+- Placeholder baseline count: 334
+- Placeholder files currently present: 334
 
 ## Structural Hotspots
 
 | File | Lines | TODO/FIXME |
 | --- | ---: | ---: |
-| src/lib/supabase/database.types.ts | 1420 | 0 |
-| src/app/(dashboard)/dashboard/page.tsx | 1314 | 0 |
-| src/app/onboarding/onboarding-form.tsx | 1281 | 0 |
+| src/app/onboarding/onboarding-form.tsx | 1598 | 0 |
+| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1431 | 0 |
+| src/lib/supabase/database.types.ts | 1429 | 0 |
 | src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx | 1148 | 0 |
-| src/app/(dashboard)/dashboard/admin/page.tsx | 1085 | 0 |
+| src/app/(dashboard)/dashboard/admin/page.tsx | 1132 | 0 |
+| src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx | 1105 | 0 |
 | src/app/(dashboard)/dashboard/admin/social/social-client.tsx | 1060 | 0 |
-| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1039 | 0 |
-| src/components/LandingPage.tsx | 910 | 0 |
-| src/components/coach/client-data-view.tsx | 838 | 0 |
+| src/components/coach/client-data-view.tsx | 981 | 0 |
+| worker/jobs/signal-job.js | 831 | 0 |
 | src/components/ResumeTailor.tsx | 824 | 0 |
+| tests/e2e/synthetics.spec.ts | 815 | 0 |
 | src/app/demo/cio/CioPresentationClient.tsx | 789 | 0 |
 | src/app/demo/cio/CioDemoClient.tsx | 787 | 0 |
-| src/app/(dashboard)/dashboard/companies/[id]/page.tsx | 778 | 0 |
-| worker/jobs/signal-job.js | 669 | 0 |
+| src/app/(dashboard)/dashboard/companies/[id]/page.tsx | 736 | 0 |
+| src/app/(dashboard)/dashboard/outreach/outreach-data.ts | 710 | 0 |
+| src/app/(dashboard)/dashboard/page.tsx | 700 | 0 |
+| src/lib/outreach/send-queue.ts | 643 | 0 |
+| src/app/api/prep/[id]/route.ts | 642 | 0 |
 | scripts/refine-outreach-templates-by-council.mjs | 631 | 0 |
-| src/app/api/prep/[id]/route.ts | 599 | 0 |
-| src/app/for-outplacement/page.tsx | 598 | 0 |
-| scripts/backfill-edgar-exec-history.mjs | 588 | 0 |
-| src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx | 587 | 0 |
-| src/app/sales-marketing-plan/page.tsx | 581 | 0 |
+| src/lib/executive-job-search.ts | 595 | 0 |
 
 ## Dependency Drift
 
-- Outdated package count: 6
+- Outdated package count: 4
 
 | Package | Current | Wanted | Latest |
 | --- | --- | --- | --- |
-| @anthropic-ai/sdk | 0.91.1 | 0.91.1 | 0.98.0 |
+| @anthropic-ai/sdk | 0.91.1 | 0.91.1 | 0.100.1 |
 | @types/node | 20.19.41 | 20.19.41 | 25.9.1 |
-| eslint | 9.39.4 | 9.39.4 | 10.4.0 |
-| react | 19.2.4 | 19.2.4 | 19.2.6 |
-| react-dom | 19.2.4 | 19.2.4 | 19.2.6 |
+| eslint | 9.39.4 | 9.39.4 | 10.4.1 |
 | typescript | 5.9.3 | 5.9.3 | 6.0.3 |
 

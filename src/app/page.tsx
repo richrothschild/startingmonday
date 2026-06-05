@@ -95,6 +95,17 @@ const FAQS: FAQ[] = [
   },
 ]
 
+const PROOF_HIGHLIGHTS = [
+  {
+    metric: 'Faster first responses with weekly cadence',
+    detail: 'Members running weekly narrative + outreach cadence saw faster first-response rates than ad hoc applicants.',
+  },
+  {
+    metric: 'Board and search-firm readiness in one workflow',
+    detail: 'Signal monitoring, narrative control, and prep briefs run in a single operating cadence.',
+  },
+]
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -153,14 +164,14 @@ export default async function HomePage() {
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
-          eyebrow: 'Executive searches are shaped before the posting exists.\nThe window opens earlier than most candidates expect.',
-          h1Lines: ['Be ready before', 'the search opens.'],
+          eyebrow: 'You are not behind on talent.',
+          h1Lines: ['You are behind on timing, narrative, and prep.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Starting Monday is a private operating system for senior executive search.',
-          body: 'Keep your coach and recruiter. Add the execution layer: early signals, relationship cadence, and one-minute prep briefs.',
+          bodyPreamble: 'Built for C-suite executives and senior operators moving into C-level roles.',
+          body: 'Win with Starting Monday today.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
@@ -170,6 +181,7 @@ export default async function HomePage() {
         }}
         situations={SITUATIONS}
         faqs={FAQS}
+        proofHighlights={PROOF_HIGHLIGHTS}
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
       />

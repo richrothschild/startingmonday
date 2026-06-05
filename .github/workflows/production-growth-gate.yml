@@ -28,6 +28,12 @@ jobs:
       - name: Growth synthetic council strict gate
         run: npm run growth:council:strict
 
+      - name: Refresh growth metrics from PostHog
+        env:
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+        run: npm run growth:metrics:export:strict
+
       - name: Growth strict metrics gate
         run: npm run growth:metrics:strict
 

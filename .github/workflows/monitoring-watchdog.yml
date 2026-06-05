@@ -41,6 +41,7 @@ jobs:
             const workflows = [
               { id: 'ci.yml', name: 'CI', maxAgeMinutes: null, requireSuccess: false },
               { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90, requireSuccess: true, consecutiveFailureThreshold: 2 },
+              { id: 'data-integrity-alerts.yml', name: 'Data Integrity Alerts', maxAgeMinutes: 45, requireSuccess: true },
               { id: 'deployment-watchdog.yml', name: 'Deployment Watchdog', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90, requireSuccess: true },

@@ -1,6 +1,6 @@
 # Weekly Unified Audit
 
-Generated: 2026-05-25T13:33:43.575Z
+Generated: 2026-05-31T04:04:52.673Z
 
 ## Guard Regression
 
@@ -16,8 +16,8 @@ Generated: 2026-05-25T13:33:43.575Z
 
 ## Council
 
-- Score: 90 (A-)
-- Findings: 23
+- Score: 98 (A+)
+- Findings: 3
 - Parser-corruption files: 0
 - Placeholder baseline count: 292
 
@@ -32,10 +32,10 @@ Generated: 2026-05-25T13:33:43.575Z
 ## Technical Debt
 
 - Typecheck: pass
-- Lint: pass
+- Lint: fail
 - Parser-corruption files: 0
-- Placeholder files present: 290
-- Outdated dependencies: 6
+- Placeholder files present: 341
+- Outdated dependencies: 15
 
 ## Security
 

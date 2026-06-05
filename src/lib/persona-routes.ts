@@ -16,7 +16,7 @@ export const EXECUTIVE_PERSONAS: readonly PersonaSpec[] = [
     slug: 'vp-to-c-suite',
     label: 'VP to C-suite move',
     summary: 'Promotion-track narrative, signal timing, and executive-level prep progression.',
-    destination: '/for-vp',
+    destination: '/for-executives',
   },
   {
     slug: 'vp-technology',

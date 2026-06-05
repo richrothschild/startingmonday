@@ -1,9 +1,9 @@
-import { type NextRequest } from 'next/server'
+﻿import { type NextRequest } from 'next/server'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 import type Anthropic from '@anthropic-ai/sdk'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 type Context = {
   currentTitle?: string
@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
           }
         }
       } catch (err) {
+        recordTraceError({ feature: 'positioning_chat', userId, error: err instanceof Error ? err.message : String(err) })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'positioning_chat', userId })))
       } finally {
         controller.close()
@@ -81,3 +82,7 @@ export async function POST(request: NextRequest) {
 
   return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

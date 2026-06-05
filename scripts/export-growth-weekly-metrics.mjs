@@ -93,21 +93,46 @@ async function exportMetrics() {
     host,
     projectId,
     apiKey,
-    query: `SELECT count() FROM events WHERE event = 'emi_cta_click' AND properties.cta_id = 'hero_apply_beta' AND ${timeFilter}`,
+    query: `
+      SELECT count()
+      FROM events
+      WHERE event = 'emi_cta_click'
+        AND (
+          properties.cta_id IN ('hero_apply_beta', 'next_step_apply_beta', 'cio_prehero_start_trial')
+          OR lowerUTF8(toString(properties.to_path)) LIKE '/signup%'
+        )
+        AND ${timeFilter}
+    `,
   }))
 
   const formStarts = firstNumber(await runHogQL({
     host,
     projectId,
     apiKey,
-    query: `SELECT count() FROM events WHERE event = 'concierge_form_started' AND ${timeFilter}`,
+    query: `
+      SELECT count()
+      FROM events
+      WHERE (
+        event = 'concierge_form_started'
+        OR (event = 'emi_path_transition' AND lowerUTF8(toString(properties.to_path)) LIKE '/signup%')
+      )
+        AND ${timeFilter}
+    `,
   }))
 
   const formSubmits = firstNumber(await runHogQL({
     host,
     projectId,
     apiKey,
-    query: `SELECT count() FROM events WHERE event = 'concierge_form_submitted' AND ${timeFilter}`,
+    query: `
+      SELECT count()
+      FROM events
+      WHERE (
+        event = 'concierge_form_submitted'
+        OR event = 'signup_completed'
+      )
+        AND ${timeFilter}
+    `,
   }))
 
   const scroll25 = firstNumber(await runHogQL({
@@ -128,7 +153,15 @@ async function exportMetrics() {
     host,
     projectId,
     apiKey,
-    query: `SELECT quantile(0.5)(toFloat(properties.dwell_ms)) FROM events WHERE event = 'emi_section_dwell' AND ${timeFilter}`,
+    query: `
+      SELECT quantile(0.5)(session_dwell_ms)
+      FROM (
+        SELECT sum(toFloat(properties.dwell_ms)) AS session_dwell_ms
+        FROM events
+        WHERE event = 'emi_section_dwell' AND ${timeFilter}
+        GROUP BY toString(properties.session_id)
+      )
+    `,
   }))
 
   const sectionRows = await runHogQL({

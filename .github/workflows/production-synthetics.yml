@@ -26,9 +26,9 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -39,12 +39,24 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      - name: Validate Synthetic-10 credentials
+        env:
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+        run: |
+          if [ -z "$PLAYWRIGHT_SYNTH_SIGNUP_EMAIL" ] || [ -z "$PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD" ]; then
+            echo "Missing Synthetic-10 credentials. Configure PLAYWRIGHT_SYNTH_SIGNUP_EMAIL and PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD secrets."
+            exit 1
+          fi
+
       - name: Run synthetic tests
         id: synthetics
         env:
           PLAYWRIGHT_BASE_URL: https://startingmonday.app
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
         run: |
           npx playwright test --project=synthetics \
             --reporter=json 2>/dev/null > synthetic-results.json || true
@@ -114,7 +126,7 @@ jobs:
 
       - name: Upload synthetic results artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: synthetic-results
           path: synthetic-results.json
@@ -122,7 +134,7 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: synthetics-playwright-report
           path: playwright-report/

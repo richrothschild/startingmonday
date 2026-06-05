@@ -15,11 +15,12 @@ jobs:
   predeploy-gates:
     name: Predeploy gates (lint, typecheck, build, smoke)
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -35,6 +36,24 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Billing readiness gate (strict)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          STRIPE_PRICE_PASSIVE: ${{ secrets.STRIPE_PRICE_PASSIVE }}
+          STRIPE_PRICE_PASSIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_PASSIVE_ANNUAL }}
+          STRIPE_PRICE_ACTIVE: ${{ secrets.STRIPE_PRICE_ACTIVE }}
+          STRIPE_PRICE_ACTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_ACTIVE_ANNUAL }}
+          STRIPE_PRICE_EXECUTIVE: ${{ secrets.STRIPE_PRICE_EXECUTIVE }}
+          STRIPE_PRICE_EXECUTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_EXECUTIVE_ANNUAL }}
+          STRIPE_PRICE_PARTNER_PASSIVE: ${{ secrets.STRIPE_PRICE_PARTNER_PASSIVE }}
+          STRIPE_PRICE_PARTNER_ACTIVE: ${{ secrets.STRIPE_PRICE_PARTNER_ACTIVE }}
+        run: npm run billing:readiness:strict
 
       - name: Guide freshness check
         run: npm run guide:user:check
@@ -117,13 +136,14 @@ jobs:
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     # Run on all PRs and protected branches — blocks merge on failure.
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -135,38 +155,81 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Run E2E tests
-        run: npx playwright test
+        run: npm run test:e2e
         env:
           PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
 
-      - name: Publish Playwright report to GitHub Pages
-        if: always() && github.ref == 'refs/heads/staging'
-        uses: peaceiris/actions-gh-pages@v4
+  first-value-synthetic-gate:
+    name: First-value synthetic gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: playwright-report
-          keep_files: false
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Validate synthetic gate credentials
+        env:
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+        run: |
+          if [ -n "$PLAYWRIGHT_SYNTH_SIGNUP_EMAIL" ] && [ -n "$PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD" ]; then
+            echo "Using dedicated signup synthetic credentials"
+            exit 0
+          fi
+          echo "Missing dedicated Playwright signup credentials for first-value gate"
+          exit 1
+
+      - name: Run signup-to-first-value synthetic (blocking)
+        run: npx playwright test tests/e2e/synthetics.spec.ts --project=synthetics --grep "Synthetic-10"
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+
+      - name: Upload first-value synthetic artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: first-value-synthetic-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
 
   mobile-visual-regression:
     name: Mobile visual regression
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -186,7 +249,7 @@ jobs:
 
       - name: Upload mobile visual artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mobile-visual-report
           path: |
@@ -197,12 +260,13 @@ jobs:
   auth-ux-guard:
     name: Auth UX guard
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -220,7 +284,7 @@ jobs:
 
       - name: Upload auth UX artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: auth-ux-report
           path: |
@@ -231,12 +295,13 @@ jobs:
   lighthouse-mobile-budgets:
     name: Lighthouse mobile budgets
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -250,9 +315,38 @@ jobs:
       - name: Run Lighthouse CI mobile budgets
         run: npm run perf:lighthouse:ci
 
+      - name: Notify Slack on Lighthouse failure
+        if: failure()
+        env:
+          SLACK_UI_ALERTS_WEBHOOK: ${{ secrets.SLACK_UI_ALERTS_WEBHOOK }}
+        run: |
+          if [ -z "$SLACK_UI_ALERTS_WEBHOOK" ]; then
+            echo "SLACK_UI_ALERTS_WEBHOOK is not set; skipping Slack notification."
+            exit 0
+          fi
+
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          BRANCH="${GITHUB_REF_NAME}"
+          REPO="${{ github.repository }}"
+          EVENT="${{ github.event_name }}"
+
+          payload=$(cat <<'JSON'
+          {
+            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
+          }
+          JSON
+          )
+
+          payload="${payload//REPO_PLACEHOLDER/$REPO}"
+          payload="${payload//BRANCH_PLACEHOLDER/$BRANCH}"
+          payload="${payload//EVENT_PLACEHOLDER/$EVENT}"
+          payload="${payload//RUN_URL_PLACEHOLDER/$RUN_URL}"
+
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_UI_ALERTS_WEBHOOK"
+
       - name: Upload Lighthouse artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: lighthouse-mobile-report
           path: .lighthouseci/
@@ -261,9 +355,10 @@ jobs:
   pre-prod-gate:
     name: Pre-production synthetic gate
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     # Only gate on main/staging pushes that will trigger a deploy.
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
-    needs: [predeploy-gates]
+    needs: [predeploy-gates, first-value-synthetic-gate]
     permissions:
       actions: read
       contents: read
@@ -311,19 +406,26 @@ jobs:
   semgrep:
     name: Semgrep security scan
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # Non-blocking: findings are reviewed manually, not used as a deploy gate.
     continue-on-error: true
     # Run on PRs and main pushes; skip dependabot to avoid noise
     if: github.actor != 'dependabot[bot]'
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install Semgrep CLI
+        run: python3 -m pip install --upgrade semgrep
 
       - name: Run Semgrep (custom rules)
         continue-on-error: true
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: .semgrep.yml
+        run: semgrep scan --config .semgrep.yml --quiet
 
       - name: Upload Semgrep findings to Semgrep Cloud (optional)
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'

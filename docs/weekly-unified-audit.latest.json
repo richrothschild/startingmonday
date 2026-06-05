@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-05-25T13:33:43.575Z",
+  "generatedAt": "2026-06-01T01:29:49.811Z",
   "guardRegression": {
-    "status": "not_run"
+    "status": "pass"
   },
   "checks": {
-    "importGuardStatus": "not_run",
-    "councilStatus": "not_run",
-    "heroCouncilStatus": "not_run",
-    "debtStatus": "not_run",
-    "securityStatus": "not_run"
+    "importGuardStatus": "pass",
+    "councilStatus": "pass",
+    "heroCouncilStatus": "fail",
+    "debtStatus": "pass",
+    "securityStatus": "pass"
   },
   "council": {
-    "score": 90,
-    "grade": "A-",
-    "findings": 23,
+    "score": 96,
+    "grade": "A",
+    "findings": 8,
     "parserCorruptionCount": 0,
-    "placeholderBaselineCount": 292
+    "placeholderBaselineCount": 337
   },
   "heroCouncil": {
-    "releaseStatus": "pass",
-    "conversionScore": 95,
-    "clarityScore": 98,
-    "hardStopTriggered": false,
-    "hardStopMetricCount": 0
+    "releaseStatus": "fail",
+    "conversionScore": 93,
+    "clarityScore": 100,
+    "hardStopTriggered": true,
+    "hardStopMetricCount": 1
   },
   "debt": {
     "typecheckStatus": "pass",
     "lintStatus": "pass",
     "parserCorruptionCount": 0,
-    "placeholderCount": 290,
-    "outdatedCount": 6
+    "placeholderCount": 340,
+    "outdatedCount": 16
   },
   "security": {
     "criticalVulns": 0,

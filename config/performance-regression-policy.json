@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-31",
+  "blockingRules": {
+    "mobileP95": {
+      "maxRegressionPercent": 20,
+      "noiseBufferMs": 150
+    },
+    "mobilePassRate": {
+      "maxDropPercentagePoints": 5
+    },
+    "routeDuration": {
+      "maxRegressionPercent": 25,
+      "noiseBufferMs": 150
+    },
+    "smokeCriticalFailures": {
+      "allowIncreaseBy": 0
+    }
+  }
+}

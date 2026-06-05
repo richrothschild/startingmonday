@@ -1,9 +1,8 @@
-import { type NextRequest, NextResponse } from 'next/server'
+﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStripe } from '@/lib/stripe'
 import { APP_URL } from '@/lib/config'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
 
 function getSeatPriceId(plan: string): string {
   const envKey = `STRIPE_PRICE_PARTNER_${plan.toUpperCase()}`
@@ -109,3 +108,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ url: session.url })
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

@@ -1,0 +1,3 @@
+# markdownlint ignore patterns for generated guide artifacts
+docs/user-guide.md
+docs/internal-guide.md

@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { logger } from '../lib/logger.js';
 
 // Lazy client so the API key is read at call time, not module load time.
 let _client = null
@@ -55,7 +56,7 @@ Respond with JSON only:
     if (!jsonStr) throw new Error('No JSON found in response');
     return JSON.parse(jsonStr);
   } catch (err) {
-    console.error(`[score-hit] Scoring failed for "${hit.title}": ${err.message}`);
+    logger.error('score-hit: scoring failed', { title: hit.title, error: err.message });
     return { score: 0, is_match: false, summary: 'Scoring unavailable.' };
   }
 }

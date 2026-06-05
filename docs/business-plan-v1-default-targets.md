@@ -67,14 +67,20 @@ Use this exact layout each quarter; fill actuals monthly and roll up.
 
 | KPI | Green target range | Yellow band | Red band | Current quarter actual | Trend | Root cause if not green | Owner | Board decision needed |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Net new ARR growth (QoQ) | 18-35% | 10-17% | <10% | [fill in] | [fill in] | [fill in] | CEO | [fill in] |
-| Gross revenue retention | 88-95% | 82-87% | <82% | [fill in] | [fill in] | [fill in] | CS lead | [fill in] |
-| Net revenue retention | 100-115% | 94-99% | <94% | [fill in] | [fill in] | [fill in] | Revenue lead | [fill in] |
-| New logo close rate | 20-35% | 14-19% | <14% | [fill in] | [fill in] | [fill in] | Revenue lead | [fill in] |
-| Average sales cycle (days) | 21-45 | 46-60 | >60 | [fill in] | [fill in] | [fill in] | Revenue ops | [fill in] |
-| Gross margin % | 82-88% | 78-81% | <78% | [fill in] | [fill in] | [fill in] | Product/Eng lead | [fill in] |
-| CAC payback (months) | 3.0-5.5 | 5.6-6.5 | >6.5 | [fill in] | [fill in] | [fill in] | CEO + Revenue | [fill in] |
-| Net cash change (quarter) | Positive or within plan band | Slight miss vs plan | Material miss vs plan | [fill in] | [fill in] | [fill in] | CEO | [fill in] |
+| Net new ARR growth (QoQ) | 18-35% | 10-17% | <10% | Data gap - pending Q2 close | Flat | Financial close not complete | CEO | Hold growth spend until close posted (due 2026-06-14) |
+| Gross revenue retention | 88-95% | 82-87% | <82% | Data gap - pending Q2 close | Flat | Cohort reconciliation pending | CS lead | Keep retention program unchanged until validated (due 2026-06-14) |
+| Net revenue retention | 100-115% | 94-99% | <94% | Data gap - pending Q2 close | Flat | Expansion/churn rollup pending | Revenue lead | Freeze expansion forecast changes until close (due 2026-06-14) |
+| New logo close rate | 20-35% | 14-19% | <14% | Data gap - pending Q2 close | Flat | CRM stage audit pending | Revenue lead | Maintain current funnel plan; update after CRM audit (due 2026-06-14) |
+| Average sales cycle (days) | 21-45 | 46-60 | >60 | Data gap - pending Q2 close | Flat | Stage-age snapshot not finalized | Revenue ops | Keep pilot gating unchanged until cycle baseline posted (due 2026-06-14) |
+| Gross margin % | 82-88% | 78-81% | <78% | Data gap - pending Q2 close | Flat | COGS allocation review pending | Product/Eng lead | Defer margin-sensitive hiring until close packet (due 2026-06-14) |
+| CAC payback (months) | 3.0-5.5 | 5.6-6.5 | >6.5 | Data gap - pending Q2 close | Flat | Blended CAC rollup pending | CEO + Revenue | Keep paid channel spend capped until payback posted (due 2026-06-14) |
+| Net cash change (quarter) | Positive or within plan band | Slight miss vs plan | Material miss vs plan | Data gap - pending Q2 close | Flat | Cash reconciliation pending | CEO | Preserve current burn controls until close complete (due 2026-06-14) |
+
+Closeout sweep status (2026-05-31):
+
+- Available and validated: growth conversion exports in `docs/growth/weekly-metrics.latest.json` and `docs/growth-metrics-gate.latest.json`.
+- Missing for this scorecard: finance-approved quarter-close exports for ARR, retention, CAC payback, and net cash.
+- Decision: keep scorecard finance rows as explicit data gaps until finance close packet is published.
 
 Board cadence:
 
@@ -84,7 +90,7 @@ Board cadence:
 
 ## Immediate implementation checklist for next monthly review
 
-1. Fill all [fill in] fields with current actuals.
+1. Complete all scorecard fields with finance-approved Q2 close exports by 2026-06-14.
 2. Lock one number for each range as this quarter's commit target.
 3. Assign one accountable owner per KPI.
 4. Pre-define decisions for each red band event.

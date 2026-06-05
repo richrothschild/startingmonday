@@ -3,6 +3,7 @@ import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { OUTREACH_SYSTEM } from '@/lib/prompts'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 import { OutreachDraftBodySchema, firstZodError } from '@/lib/schemas'
 import { appendWatermarkToStream } from '@/lib/watermark'
 import { logEvent } from '@/lib/events'
@@ -139,6 +140,7 @@ ${STYLE_GUIDELINES}`
           }
         }
       } catch (err) {
+        recordTraceError({ feature: 'outreach_draft', userId, error: err instanceof Error ? err.message : String(err) })
         controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'outreach_draft', userId })))
       } finally {
         controller.close()

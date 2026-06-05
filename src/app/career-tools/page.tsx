@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday - For Career Tools and Manager Tools Listeners',
+  title: 'Starting Monday - For Career Tools Listeners',
   description: 'The search infrastructure built for C-suite job searches. If you are approaching the senior executive level - or already there - this is what the search looks like and what it takes to run it well.',
   alternates: { canonical: 'https://startingmonday.app/career-tools' },
   robots: { index: false },
@@ -61,7 +61,7 @@ export default function CareerToolsPage() {
         <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-              For Career Tools and Manager Tools listeners
+              For Career Tools listeners
             </p>
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               The job search changes when you reach the C-suite.

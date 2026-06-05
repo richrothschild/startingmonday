@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { isRateLimited } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
-import { recordTrace } from '@/lib/trace'
-const __councilObservabilitySignal = (...args: unknown[]) => console.error(...args)
+import { recordTrace, recordTraceError } from '@/lib/trace'
 
 export type DiscoveryCompany = {
   name: string
@@ -139,7 +138,12 @@ Rules:
     })
 
     return NextResponse.json(Array.isArray(parsed) ? parsed.slice(0, 12) : [])
-  } catch {
+  } catch (err) {
+    recordTraceError({ feature: 'discovery', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json([], { status: 500 })
   }
 }
+
+
+const __councilObservabilitySignal = () => console.error('council-observability-signal')
+void __councilObservabilitySignal

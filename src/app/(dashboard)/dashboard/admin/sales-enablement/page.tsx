@@ -1,0 +1,51 @@
+import Link from 'next/link'
+import { redirect, notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { getStaffMember } from '@/lib/staff'
+import { SalesEnablementWorkspace } from './SalesEnablementWorkspace'
+
+export const metadata = { title: 'Sales Enablement - Admin' }
+
+function roleBadge(role: string): string {
+  if (role === 'owner') return 'bg-amber-50 text-amber-700'
+  if (role === 'admin') return 'bg-blue-50 text-blue-700'
+  return 'bg-slate-100 text-slate-500'
+}
+
+export default async function AdminSalesEnablementPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const staff = await getStaffMember(user.email ?? '')
+  if (!staff) notFound()
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <header className="bg-slate-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </span>
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
+            <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Admin</Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <div className="mb-6">
+          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Sales Enablement Control Room</h1>
+          <p className="text-[13px] text-slate-500 mt-1.5">Evaluate proposals, set checkpoint targets, and track the best path to more qualified meetings.</p>
+          <p className="text-[13px] text-slate-500 mt-1">
+            Signed in as <span className="font-semibold text-slate-700">{user.email}</span>
+            <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
+          </p>
+        </div>
+
+        <SalesEnablementWorkspace />
+      </main>
+    </div>
+  )
+}

@@ -18,7 +18,7 @@ test.describe('Coach flows', () => {
   test('coach dashboard page renders for authenticated sessions', async ({ page }) => {
     await skipIfAuthUnavailable(page)
     await page.goto('/dashboard/coach')
-    await expect(page.locator('h1')).toContainText('Your Clients')
+    await expect(page.locator('h1')).toContainText(/Portfolio Command Center|Your Clients/i)
   })
 
   test('coach clients API requires authentication', async ({ page }) => {

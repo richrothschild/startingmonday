@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { SearchPersonaSchema } from '@/lib/executive-job-search'
 
 // Shared message type for chat and conversation routes
 export const MessageSchema = z.object({
@@ -70,7 +71,21 @@ export const BriefSaveBodySchema = z.object({
 
 export const PrepGenerateQuerySchema = z.object({
   posting_url: z.union([z.literal(''), z.string().url('Invalid posting URL')]).optional(),
-  interview_stage: z.enum(['recruiter_screen', 'hiring_manager', 'panel', 'final', 'executive']).nullable().optional(),
+  interview_stage: z
+    .enum([
+      'informal_meeting',
+      'first_interview',
+      'executive_interview',
+      'board_presentation',
+      'final_round',
+      'recruiter_screen',
+      'hiring_manager',
+      'panel',
+      'final',
+      'executive',
+    ])
+    .nullable()
+    .optional(),
   role_mode: z.enum(['cio', 'cto', 'ciso', 'vp_to_cxo']).nullable().optional(),
 })
 
@@ -134,7 +149,7 @@ export const TailorStrengthenBodySchema = z.object({
 
 export const OnboardingFormSchema = z.object({
   full_name: z.string().min(2, 'Full name is required'),
-  search_persona: z.enum(['csuite', 'vp', 'board', 'director']).refine(Boolean, {
+  search_persona: SearchPersonaSchema.refine(Boolean, {
     message: 'Please select your search level',
   }),
 })

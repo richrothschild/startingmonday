@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { streamErrorMessage } from '@/lib/stream-error'
+import { recordTraceError } from '@/lib/trace'
 import { fetchProspectNews } from '@/lib/prospect-news'
 
 const TYPE_CONTEXT: Record<string, string> = {
@@ -149,7 +150,8 @@ FORMAT RULES -- follow exactly:
           }
         } catch (err) {
           console.error('[admin.b2b-material] stream failed', err)
-          controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'b2b_material' })))
+          recordTraceError({ feature: 'b2b_material', userId: user.id, error: err instanceof Error ? err.message : String(err) })
+          controller.enqueue(encoder.encode(streamErrorMessage(err, { feature: 'b2b_material', userId: user.id })))
         } finally {
           controller.close()
         }

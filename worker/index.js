@@ -46,6 +46,75 @@ Sentry.init({
   tracesSampleRate: 0,
 })
 
+// ── Health server bootstrap (bind early) ────────────────────────────────────
+
+const PORT = process.env.PORT ?? 3010
+let bootPhase = 'starting'
+const bootStartedAt = Date.now()
+const jobStatus = {}
+const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
+const lastFailureNotifyAt = new Map()
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/health' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify({
+      status: 'ok',
+      phase: bootPhase,
+      uptime: Math.floor(process.uptime()),
+      bootMs: Date.now() - bootStartedAt,
+      jobs: jobStatus,
+      ts: new Date().toISOString(),
+    }))
+    return
+  }
+
+  // Immediate scan trigger — called by the main app when a company is added.
+  // Returns 202 immediately; scan runs async so the caller isn't blocked.
+  if (req.url === '/trigger-scan' && req.method === 'POST') {
+    const secret = process.env.WORKER_SECRET
+    if (!secret || req.headers['x-worker-secret'] !== secret) {
+      res.writeHead(401)
+      res.end()
+      return
+    }
+
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', () => {
+      res.writeHead(202)
+      res.end()
+
+      let parsed
+      try { parsed = JSON.parse(body) } catch { return }
+      const { companyId, userId } = parsed
+      if (!companyId || !userId) return
+
+      logger.info('trigger-scan: received', { companyId, userId })
+
+      const supabase = getSupabase()
+      Promise.all([
+        supabase.from('companies').select('*').eq('id', companyId).eq('user_id', userId).single(),
+        supabase.from('user_profiles').select('*').eq('user_id', userId).single(),
+      ]).then(([{ data: company }, { data: profile }]) => {
+        if (!company) return
+        return scanCompany(supabase, company, profile ?? {})
+      }).catch(err => {
+        logger.error('trigger-scan: failed', { companyId, error: err.message })
+        Sentry.captureException(err)
+      })
+    })
+    return
+  }
+
+  res.writeHead(404)
+  res.end()
+})
+
+server.listen(PORT, () => {
+  logger.info(`worker: health endpoint listening on :${PORT}`)
+})
+
 // ── Crash handlers ────────────────────────────────────────────────────────────
 // Log and capture unhandled errors so Sentry gets them before the process exits.
 // On Railway the container will restart automatically; locally you must restart manually.
@@ -81,10 +150,6 @@ process.on('unhandledRejection', (reason) => {
 })
 
 // ── Job runner ────────────────────────────────────────────────────────────────
-
-const jobStatus = {}
-const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
-const lastFailureNotifyAt = new Map()
 
 // Jobs that run longer than their timeout are forcibly rejected and logged as
 // { event: 'job_timeout' } so they surface in Railway log queries.
@@ -265,70 +330,16 @@ setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', 
 logger.info('worker: cron schedules registered', {
   jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
-
-// ── Health endpoint ───────────────────────────────────────────────────────────
-
-const PORT = process.env.PORT ?? 3010
-
-http.createServer((req, res) => {
-  if (req.url === '/health' && req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({
-      status: 'ok',
-      uptime: Math.floor(process.uptime()),
-      jobs: jobStatus,
-      ts: new Date().toISOString(),
-    }))
-    return
-  }
-
-  // Immediate scan trigger — called by the main app when a company is added.
-  // Returns 202 immediately; scan runs async so the caller isn't blocked.
-  if (req.url === '/trigger-scan' && req.method === 'POST') {
-    const secret = process.env.WORKER_SECRET
-    if (!secret || req.headers['x-worker-secret'] !== secret) {
-      res.writeHead(401)
-      res.end()
-      return
-    }
-
-    let body = ''
-    req.on('data', chunk => { body += chunk })
-    req.on('end', () => {
-      res.writeHead(202)
-      res.end()
-
-      let parsed
-      try { parsed = JSON.parse(body) } catch { return }
-      const { companyId, userId } = parsed
-      if (!companyId || !userId) return
-
-      logger.info('trigger-scan: received', { companyId, userId })
-
-      const supabase = getSupabase()
-      Promise.all([
-        supabase.from('companies').select('*').eq('id', companyId).eq('user_id', userId).single(),
-        supabase.from('user_profiles').select('*').eq('user_id', userId).single(),
-      ]).then(([{ data: company }, { data: profile }]) => {
-        if (!company) return
-        return scanCompany(supabase, company, profile ?? {})
-      }).catch(err => {
-        logger.error('trigger-scan: failed', { companyId, error: err.message })
-        Sentry.captureException(err)
-      })
-    })
-    return
-  }
-
-  res.writeHead(404)
-  res.end()
-}).listen(PORT, () => {
-  logger.info(`worker: health endpoint listening on :${PORT}`)
-})
+bootPhase = 'ready'
 
 // ── Graceful shutdown ─────────────────────────────────────────────────────────
 
 process.on('SIGTERM', () => {
   logger.info('worker: received SIGTERM — shutting down')
-  Sentry.flush(2000).finally(() => process.exit(0))
+  server.close(() => {
+    Sentry.flush(2000).finally(() => process.exit(0))
+  })
+  setTimeout(() => {
+    Sentry.flush(1000).finally(() => process.exit(0))
+  }, 5000)
 })

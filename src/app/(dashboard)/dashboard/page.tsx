@@ -4,11 +4,9 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
+import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
-import { SuggestionCards } from '@/components/SuggestionCards'
-import { NextBestActionPrompt } from '@/components/NextBestActionPrompt'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
-import { SearchControlsPanel } from '@/components/SearchControlsPanel'
 import { CmdKButton } from '@/components/CmdKButton'
 import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
 import { markPlaced } from './placed/actions'
@@ -17,8 +15,14 @@ import { ActivityChart, type WeekActivity } from '@/components/ActivityChart'
 import { PipelineVelocity, type VelocityRow } from '@/components/PipelineVelocity'
 import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
-import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelineSection } from './dashboard-pipeline-section'
+import { DashboardDisclosureSection } from './dashboard-disclosure-section'
+import { DashboardStatusBanners } from './dashboard-status-banners'
+import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelligence-section'
+import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
+import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
+import { DashboardTopShellSection } from './dashboard-top-shell-section'
+import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -80,9 +84,9 @@ type CompanyRow = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string }>
 }) {
-  const { q, stage, page: pageParam, profile_saved } = await searchParams
+  const { q, stage, page: pageParam, profile_saved, focus } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -99,6 +103,11 @@ export default async function DashboardPage({
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'dashboard_profile_error', code: profileError.code, message: profileError.message, userId: user.id }))
   } else if (!profile?.onboarding_completed_at) {
     redirect('/onboarding')
+  }
+
+  const careerMode = resolveCareerMode({ placedAt: profile?.placed_at, searchStatus: profile?.search_status })
+  if (careerMode === 'post_search') {
+    redirect('/dashboard/post-search')
   }
 
   const tz = profile?.briefing_timezone ?? 'UTC'
@@ -380,6 +389,7 @@ export default async function DashboardPage({
   const offerCompany = !profile?.placed_at
     ? allList.find(c => c.stage === 'offer') ?? null
     : null
+  const offerCompanies = allList.filter(c => c.stage === 'offer')
   const interviewingCompany = allList.find(c => c.stage === 'interviewing') ?? null
 
   const daysSinceOnboard = profile?.onboarding_completed_at
@@ -504,136 +514,19 @@ export default async function DashboardPage({
     const isPaid = userRow?.subscription_status === 'active'
     const tier = userRow?.subscription_tier ?? 'free'
     return (
-      <div className="min-h-screen bg-slate-100 font-sans">
-        <header className="bg-slate-900">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
-            <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
-              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
-            </span>
-            <div className="hidden sm:flex items-center gap-4 flex-1">
-              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
-              <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
-              <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Feedback</Link>
-              {canUseOutreachHub && (
-                <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Outreach</Link>
-              )}
-              <div className="ml-auto flex items-center gap-4 shrink-0">
-                <Link href="/dashboard" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Dashboard</Link>
-                <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
-                <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors">Billing</Link>
-                {isRothschildAdmin && (
-                  <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-300 hover:text-white transition-colors whitespace-nowrap border border-orange-500/40 bg-orange-500/10 px-3 py-1.5 rounded-full">Admin</Link>
-                )}
-                <LogoutButton label="Sign out" />
-              </div>
-            </div>
-            <div className="flex sm:hidden items-center gap-2 ml-auto">
-              <Link
-                href="/dashboard"
-                className="inline-flex min-h-[44px] items-center rounded-md border border-orange-500/40 bg-orange-500/10 px-3 text-[12px] font-semibold text-orange-300 hover:text-white"
-              >
-                Dashboard
-              </Link>
-              <LogoutButton label="Sign out" />
-            </div>
-          </div>
-        </header>
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-<div className="mb-8">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Career Intelligence</p>
-            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
-              {greeting}, {firstName}.
-            </h1>
-            <p className="text-[13px] text-slate-500 mt-1.5">{today}</p>
-          </div>
-
-          {/* Placement banner */}
-          <div className="bg-white border border-slate-200 rounded p-6 mb-6">
-            <p className="text-[13px] font-semibold text-slate-900 mb-1">
-              {placedCompany ? `You placed at ${placedCompany}.` : 'Your search is complete.'}
-            </p>
-            <p className="text-[13px] text-slate-500 leading-relaxed mb-4">
-              Your companies, contacts, and research history are all here. Your weekly intelligence digest is running -- you will hear from us every Monday.
-            </p>
-            {isPaid && tier !== 'passive' && tier !== 'free' ? (
-              <div className="flex items-start gap-3 p-4 bg-orange-50 border border-orange-100 rounded mb-4">
-                <div className="flex-1">
-                  <p className="text-[13px] font-semibold text-slate-900 mb-0.5">Stay sharp at $49/mo</p>
-                  <p className="text-[12px] text-slate-600 leading-relaxed">
-                    Switch to Intelligence for ongoing market monitoring without active search tools. Most executives search again within 3 years.
-                  </p>
-                </div>
-                <Link
-                  href="/settings/billing"
-                  className="shrink-0 text-[12px] font-semibold text-white bg-orange-500 hover:bg-orange-600 transition-colors px-4 py-2 rounded"
-                >
-                  Review options
-                </Link>
-              </div>
-            ) : !isPaid ? (
-              <Link
-                href="/settings/billing"
-                className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
-              >
-                Keep your intelligence running -- subscribe to Intelligence ($49/mo)
-              </Link>
-            ) : null}
-          </div>
-
-          {/* Company watchlist */}
-          <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-            <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-                Your Companies ({totalCount})
-              </span>
-              <Link href="/dashboard" className="text-[12px] text-slate-500 hover:text-slate-700 transition-colors">
-                Manage
-              </Link>
-            </div>
-            {allList.length === 0 ? (
-              <p className="px-6 py-8 text-[13px] text-slate-400">No companies in your list yet.</p>
-            ) : (
-              <ul className="divide-y divide-slate-50">
-                {allList.slice(0, 20).map(c => (
-                  <li key={c.name} className="px-6 py-3 flex items-center justify-between">
-                    <span className="text-[13px] text-slate-700">{c.name}</span>
-                    <span className="text-[11px] text-slate-400 capitalize">{c.stage}</span>
-                  </li>
-                ))}
-                {allList.length > 20 && (
-                  <li className="px-6 py-3 text-[12px] text-slate-400">
-                    +{allList.length - 20} more. <Link href="/dashboard" className="underline">View all</Link>
-                  </li>
-                )}
-              </ul>
-            )}
-          </div>
-
-          {/* Contacts and chat links */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Contacts</p>
-              <p className="text-[12px] text-slate-400 leading-relaxed">Your network at target companies.</p>
-            </Link>
-            <Link href="/dashboard/chat" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Career Advisor</p>
-              <p className="text-[12px] text-slate-400 leading-relaxed">Ask anything about your next move.</p>
-            </Link>
-            {canUseOutreachHub && (
-              <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
-                <p className="text-[13px] font-semibold text-slate-900 mb-1">Outreach Hub</p>
-                <p className="text-[12px] text-slate-400 leading-relaxed">Send queue, follow-ups, and personalized prospects.</p>
-              </Link>
-            )}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
-              Update your profile
-            </Link>
-          </div>
-        </main>
-      </div>
+      <DashboardPostPlacementView
+        greeting={greeting}
+        firstName={firstName}
+        today={today}
+        placedCompany={placedCompany}
+        isPaid={isPaid}
+        tier={tier}
+        totalCount={totalCount}
+        allList={allList}
+        canUseOutreachHub={canUseOutreachHub}
+        isRothschildAdmin={isRothschildAdmin}
+        profileNameOrEmail={profile?.full_name ?? user.email ?? ''}
+      />
     )
   }
 
@@ -687,663 +580,99 @@ export default async function DashboardPage({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-        {/* Welcome */}
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
-            {greeting}, {firstName}.
-          </h1>
-          <p className="text-[13px] text-slate-600 mt-1.5">{today}</p>
-          <p className="text-[13px] text-slate-500 mt-2 leading-relaxed max-w-[38ch]">
-            Start with the briefing, then work the next relationship and the next action.
-          </p>
-        </div>
-
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
-            <a href="#quick-access" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick access</a>
-            <a href="#start-here" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
-            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
-            <a href="#pipeline-pulse" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
-          </div>
-        </section>
-
-        <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">Quick access</h2>
-            <p className="text-[13px] text-slate-300">Jump to the places you use most.</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-              Briefing
-            </Link>
-            {canUseOutreachHub && (
-              <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-                Outreach
-              </Link>
-            )}
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
-                Admin
-              </Link>
-            )}
-          </div>
-        </section>
-
-        <section id="start-here" className="mb-6 bg-white border border-slate-200 rounded p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-          <div className="flex-1 min-w-0">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Start Here</h2>
-            <p className="text-[14px] font-semibold text-slate-900">Open your daily briefing first.</p>
-            <p className="text-[12px] text-slate-600 leading-relaxed mt-1">
-              {signalCount} new signals, {overdueCount} due today. Use the briefing to pick your top three actions.
-            </p>
-          </div>
-          <div className="flex flex-col w-full sm:w-auto sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <Link
-              href="/dashboard/briefing"
-              className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
-            >
-              Open briefing
-            </Link>
-            <Link
-              href="/dashboard/calendar"
-              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
-            >
-              View due today
-            </Link>
-            <Link
-              href="/guide"
-              className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
-            >
-              Open guide
-            </Link>
-          </div>
-        </section>
-
-        <DailyMomentumPlan
-          actions={dailyMomentumActions}
-          dateKey={todayISO}
-          status={momentumStatus}
+        <DashboardTopShellSection
+          greeting={greeting}
+          firstName={firstName}
+          today={today}
+          signalCount={signalCount}
+          overdueCount={overdueCount}
+          canUseOutreachHub={canUseOutreachHub}
+          isRothschildAdmin={isRothschildAdmin}
+          dailyMomentumActions={dailyMomentumActions}
+          todayISO={todayISO}
+          momentumStatus={momentumStatus}
+          profileSaved={!!profile_saved}
+          isTrialing={isTrialing}
+          trialDaysLeft={trialDaysLeft}
+          totalCount={totalCount}
+          offerCount={offerCompanies.length}
+          offerName={offerCompanies[0]?.name ?? null}
+          offerCompanyName={offerCompany?.name ?? null}
+          onMarkPlaced={markPlaced}
+          activationComplete={activation.isComplete}
+          activationCompletedCount={activation.completedCount}
         />
 
-        {/* Profile quick-save confirmation */}
-        {profile_saved && (
-          <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">
-            <span>Profile updated. Your briefs and coaching will reflect this now.</span>
-            <Link href="/dashboard/profile" className="font-semibold underline shrink-0">
-              Finish profile
-            </Link>
-          </div>
-        )}
+        <DashboardDisclosureSection
+          id="profile-modules"
+          title="Profile and intelligence modules"
+          defaultOpen={focus === 'profile'}
+        >
+        <DashboardProfileIntelligenceSection
+          profileScore={profileScore}
+          profileHref={profileHref}
+          nextProfileSection={nextProfileSection}
+          onSaveQuickProfile={saveQuickProfile}
+          quickProfileDefaults={{
+            fullName: profile?.full_name ?? '',
+            currentTitle: profile?.current_title ?? '',
+            positioningSummary: profile?.positioning_summary ?? '',
+          }}
+          stats={stats}
+          totalCount={totalCount}
+          contactCoverageCount={contactCountMap.size}
+          numIntelGaps={numIntelGaps}
+          companiesWithoutContact={companiesWithoutContact.map(c => ({ name: c.name }))}
+          prospectContactCount={prospectContactCount ?? 0}
+          companiesWithoutBrief={companiesWithoutBrief.map(c => ({ name: c.name }))}
+          opportunityRadar={<OpportunityRadar />}
+        />
 
-        {/* Trial banner */}
-        {isTrialing && (
-          <div className={`mb-6 px-5 py-3 rounded flex items-center justify-between gap-4 text-[13px] ${
-            trialDaysLeft <= 3
-              ? 'bg-red-50 border border-red-200 text-red-800'
-              : trialDaysLeft <= 7
-                ? 'bg-amber-50 border border-amber-200 text-amber-800'
-                : 'bg-slate-100 border border-slate-200 text-slate-600'
-          }`}>
-            <span>
-              {trialDaysLeft <= 0
-                ? 'Your trial has ended. The signal history on your companies is paused.'
-                : totalCount > 0
-                  ? `You have built a pipeline of ${totalCount} ${totalCount === 1 ? 'company' : 'companies'}. That signal history disappears in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
-                  : `Trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
-              }
-            </span>
-            <Link href="/settings/billing" className="font-semibold underline shrink-0">
-              Upgrade
-            </Link>
-          </div>
-        )}
+        </DashboardDisclosureSection>
 
-        {/* Offers in flight - shown whenever there's an active offer */}
-        {allList.some(c => c.stage === 'offer') && (
-          <div className="mb-6 px-5 py-3.5 rounded bg-green-50 border border-green-200 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0" />
-              <span className="text-[13px] font-semibold text-green-900">
-                {allList.filter(c => c.stage === 'offer').length === 1
-                  ? `${allList.find(c => c.stage === 'offer')!.name} - offer in hand`
-                  : `${allList.filter(c => c.stage === 'offer').length} offers in flight`}
-              </span>
-            </div>
-            <Link href="/dashboard/offers" className="text-[12px] font-semibold text-green-700 hover:text-green-900 shrink-0">
-              Compare &amp; negotiate ?
-            </Link>
-          </div>
-        )}
+        <DashboardWelcomeNudgeSection
+          showNurtureWelcome={showNurtureWelcome}
+          showCampaignWelcome={showCampaignWelcome}
+          showWatcherWelcome={showWatcherWelcome}
+          stallNudge={stallNudge}
+          onDismissStallNudge={dismissStallNudge}
+        />
 
-        {/* Placement prompt -- shown when an offer-stage company exists and not yet placed */}
-        {offerCompany && (
-          <div className="mb-6 bg-green-900 rounded px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-[14px] font-bold text-white">Did you accept the offer?</p>
-              <p className="text-[12px] text-green-300 mt-0.5">Mark your search complete and we will take care of the rest.</p>
-            </div>
-            <form action={markPlaced} className="flex items-center gap-2 shrink-0">
-              <input type="hidden" name="company" value={offerCompany.name} />
-              <button
-                type="submit"
-                className="bg-white text-slate-900 text-[13px] font-bold px-5 py-2 rounded cursor-pointer border-0 hover:bg-slate-100 transition-colors whitespace-nowrap"
-              >
-                Yes, I accepted
-              </button>
-              <Link href="/dashboard" className="text-[12px] text-green-400 hover:text-green-200 transition-colors whitespace-nowrap">
-                Not yet
-              </Link>
-            </form>
-          </div>
-        )}
-
-        {/* Activation progress */}
-        {!activation.isComplete && (
-          <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <div className="flex items-center gap-1 shrink-0">
-                {Array.from({ length: 6 }, (_, i) => (
-                  <div
-                    key={i}
-                    className={`h-1.5 w-5 rounded-full ${i < activation.completedCount ? 'bg-slate-900' : 'bg-slate-200'}`}
-                  />
-                ))}
-              </div>
-              <span className="text-[12px] text-slate-500 font-semibold shrink-0">
-                {activation.completedCount} of 6 steps complete
-              </span>
-            </div>
-            <Link href="/dashboard/start" className="text-[12px] font-semibold text-slate-900 hover:underline shrink-0">
-              Finish setup ?
-            </Link>
-          </div>
-        )}
-
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Profile and intelligence modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
-
-        {/* Profile completeness score */}
-        {profileScore < 100 && (
-          <Link
-            href={profileHref}
-            className="mb-6 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
-          >
-            <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-              profileScore >= 80 ? 'text-emerald-600' :
-              profileScore >= 40 ? 'text-amber-500' :
-              'text-slate-400'
-            }`}>
-              {profileScore}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900">
-                {profileScore >= 80 ? 'Profile nearly complete' :
-                 profileScore >= 40 ? 'Profile in progress' :
-                 'Complete your profile to unlock better briefs'}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-0.5">
-                Profile score &middot; {nextProfileSection ? `${nextProfileSection.label} is next` : 'All sections done'}
-              </div>
-            </div>
-            <span className="text-[12px] font-semibold text-slate-500 shrink-0">
-              {nextProfileSection ? `Complete ${nextProfileSection.label} ?` : 'View profile ?'}
-            </span>
-          </Link>
-        )}
-
-        {/* Quick profile shortcut - shown when profile is very thin */}
-        {profileScore < 40 && (
-          <section className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">
-              Quick start
-            </h2>
-            <p className="text-[13px] text-slate-300 mb-4">
-              3 fields. Unlocks your first prep brief in under 3 minutes.
-            </p>
-            <form action={saveQuickProfile} className="flex flex-col gap-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input
-                  name="full_name"
-                  type="text"
-                  required
-                  defaultValue={profile?.full_name ?? ''}
-                  placeholder="Your full name"
-                  className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
-                />
-                <input
-                  name="current_title"
-                  type="text"
-                  defaultValue={profile?.current_title ?? ''}
-                  placeholder="Current or most recent title"
-                  className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
-                />
-              </div>
-              <input
-                name="positioning_summary"
-                type="text"
-                defaultValue={profile?.positioning_summary ?? ''}
-                placeholder="One sentence: what you do and what you're targeting next"
-                className="w-full border border-slate-700 rounded px-3 py-2.5 text-[14px] text-white bg-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-500"
-              />
-              <div className="flex items-center gap-3">
-                <button
-                  type="submit"
-                  className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-5 py-2 rounded transition-colors cursor-pointer border-0"
-                >
-                  Save and continue
-                </button>
-                <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-200">
-                  Full profile ?
-                </Link>
-              </div>
-            </form>
-          </section>
-        )}
-
-        {/* Stats */}
-        <div id="momentum-overview" className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          {stats.map(({ value, label, alert, amber, href }) => {
-            const inner = (
-              <>
-                <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
-                  {value}
-                </div>
-                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">
-                  {label}
-                </div>
-              </>
-            )
-            return href ? (
-              <Link key={label} href={href} className="bg-white border border-slate-200 rounded p-3 sm:p-5 hover:border-slate-400 transition-colors">
-                {inner}
-              </Link>
-            ) : (
-              <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
-                {inner}
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Network health: surfaces coverage gaps when < 50% of companies have a contact */}
-        {totalCount >= 3 && contactCountMap.size < totalCount && (contactCountMap.size / totalCount) < 0.5 && (
-          <Link
-            href="/dashboard/contacts"
-            className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
-          >
-            <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-slate-900">
-                {contactCountMap.size} of {totalCount} companies have a contact
-              </p>
-              <p className="text-[12px] text-slate-400 mt-0.5">
-                Roles at this level fill through relationships. Add contacts at your top targets.
-              </p>
-            </div>
-            <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts ?</span>
-          </Link>
-        )}
-
-        {/* Proactive intelligence cards � pipeline gap summary */}
-        {totalCount >= 3 && numIntelGaps > 0 && (
-          <section id="attention-gaps" className="mb-6 sm:mb-8">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</h2>
-            <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
-              {companiesWithoutContact.length > 0 && (
-                <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutContact.length}</div>
-                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
-                    {companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact
-                  </div>
-                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
-                    {companiesWithoutContact.slice(0, 2).map(c => c.name).join(', ')}
-                    {companiesWithoutContact.length > 2 ? ` +${companiesWithoutContact.length - 2} more` : ''}
-                  </div>
-                  <span className="text-[11px] font-semibold text-slate-500">Add contacts &rarr;</span>
-                </Link>
-              )}
-              {(prospectContactCount ?? 0) > 0 && (
-                <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{prospectContactCount}</div>
-                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
-                    {prospectContactCount === 1 ? 'contact' : 'contacts'} not yet reached
-                  </div>
-                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
-                    People you know but have not yet connected with in this search.
-                  </div>
-                  <span className="text-[11px] font-semibold text-slate-500">Draft outreach &rarr;</span>
-                </Link>
-              )}
-              {companiesWithoutBrief.length > 0 && (
-                <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                  <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutBrief.length}</div>
-                  <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
-                    {companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief
-                  </div>
-                  <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
-                    {companiesWithoutBrief.slice(0, 2).map(c => c.name).join(', ')}
-                    {companiesWithoutBrief.length > 2 ? ` +${companiesWithoutBrief.length - 2} more` : ''}
-                  </div>
-                  <span className="text-[11px] font-semibold text-slate-500">Run prep briefs &rarr;</span>
-                </Link>
-              )}
-            </div>
-          </section>
-        )}
-
-        <OpportunityRadar />
-
-          </div>
-        </details>
-
-        {/* Nurture path welcome card � first 7 days, empty pipeline, between-roles user */}
-        {showNurtureWelcome && (
-          <section id="nurture-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Your search starts here</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to have it all figured out today.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Do one focused action today. Consistency beats scattered effort.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">One thing to do right now:</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add the first company you want to work for &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              You can come back for the rest. The system will be here.
-            </p>
-          </section>
-        )}
-
-        {/* Campaign path welcome � first 7 days, empty pipeline */}
-        {showCampaignWelcome && (
-          <section id="campaign-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Campaign mode</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">Your target list is the campaign.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Most executive roles are filled through relationships before posting. Start tracking target companies early.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Start here: add the companies you already have a relationship or contact at.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add your first target company &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              Aim for 10 to 15 companies. Add career URLs as you go.
-            </p>
-          </section>
-        )}
-
-        {/* Watcher path welcome � first 7 days, empty pipeline */}
-        {showWatcherWelcome && (
-          <section id="watcher-welcome" className="bg-slate-900 rounded-lg p-6 mb-6">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Market intelligence</h2>
-            <p className="text-[18px] font-bold text-white mb-3 leading-snug">You don&apos;t have to be searching to stay ready.</p>
-            <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
-              Stay ready by tracking the right companies before you need to move.
-            </p>
-            <p className="text-[13px] font-semibold text-slate-200 mb-4">Add the companies you would say yes to � and let the platform do the watching.</p>
-            <Link
-              href="/dashboard/companies/new"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-bold px-5 py-3 rounded transition-colors"
-            >
-              Add a company to watch &rarr;
-            </Link>
-            <p className="text-[12px] text-slate-500 mt-4">
-              No pressure to act now. You will know when timing shifts.
-            </p>
-          </section>
-        )}
-
-        {/* Persistent Next Best Action Prompt */}
-        {stallNudge ? (
-          <div className="relative">
-            <NextBestActionPrompt action={stallNudge.action} href={stallNudge.href} description={stallNudge.headline + ' ' + stallNudge.body} source="stall_nudge" />
-            <form action={dismissStallNudge} className="absolute top-2 right-2">
-              <button
-                type="submit"
-                className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
-                aria-label="Dismiss"
-              >
-                ?
-              </button>
-            </form>
-          </div>
-        ) : (
-          <NextBestActionPrompt
-            action="Open your daily briefing"
-            href="/dashboard/briefing"
-            description="Start with your daily briefing to see signals, due actions, and your top priorities."
-            source="dashboard_default"
-          />
-        )}
-
-        <details className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly performance and advanced modules</span>
-            <span className="text-[11px] text-slate-400">Open</span>
-          </summary>
-          <div className="px-5 py-5">
-
-        {/* Weekly commitment device */}
-        {(() => {
-          const goal = profile?.weekly_goal ?? null
-          const done = outreachThisWeek ?? 0
-          if (goal) {
-            const remaining = Math.max(0, goal - done)
-            return (
-              <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
-                <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-                  done >= goal ? 'text-green-600' : done > 0 ? 'text-amber-500' : 'text-slate-300'
-                }`}>
-                  {done}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold text-slate-900">
-                    {done >= goal
-                      ? 'Weekly goal hit. Strong week.'
-                      : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    Goal: {goal} per week � {done} done since Monday
-                  </div>
-                </div>
-                <form action={saveWeeklyGoal} className="shrink-0">
-                  <input type="hidden" name="weekly_goal" value={goal === 1 ? 1 : goal + 1} />
-                  <button type="submit" className="text-[11px] text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-2.5 py-1 cursor-pointer bg-transparent transition-colors">
-                    Goal: {goal} &uarr;
-                  </button>
-                </form>
-              </div>
-            )
-          }
-          return (
-            <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
-              <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">
-                A weekly target increases follow-through.
-              </p>
-              <form action={saveWeeklyGoal} className="flex items-center gap-3">
-                <select
-                  name="weekly_goal"
-                  aria-label="Weekly outreach goal"
-                  defaultValue="2"
-                  className="border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white focus:outline-none focus:border-slate-400"
-                >
-                  {[1, 2, 3, 4, 5].map(n => (
-                    <option key={n} value={n}>{n} per week</option>
-                  ))}
-                </select>
-                <button
-                  type="submit"
-                  className="bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
-                >
-                  Set goal
-                </button>
-              </form>
-            </div>
-          )
-        })()}
-
-        {/* Momentum Score - only renders after migration 022 is applied and worker has run */}
-        {momentumData?.momentum_score != null && (
-          <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
-            <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-              momentumData.momentum_score >= 70 ? 'text-green-600' :
-              momentumData.momentum_score >= 40 ? 'text-amber-500' :
-              'text-red-600'
-            }`}>
-              {momentumData.momentum_score}
-            </div>
-            <div>
-              <div className="text-[13px] font-semibold text-slate-900">
-                {momentumData.momentum_score >= 70 ? 'Strong cadence. Keep it moving.' :
-                 momentumData.momentum_score >= 40
-                   ? `Momentum is dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
-                   : 'Search at risk. This pace adds months to your timeline.'}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-0.5">
-                Momentum score
-                {momentumData.momentum_computed_at && (
-                  <> &middot; Updated {Math.floor((Date.now() - new Date(momentumData.momentum_computed_at).getTime()) / 86400000)}d ago</>
-                )}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-1.5">
-                Track your activity with{' '}
-                <a href="https://www.manager-tools.com/2016/09/job-search-tracking" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Manager Tools</a>
-                {' '}or{' '}
-                <a href="https://www.manager-tools.com/career-tools-basics" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">Career Tools</a>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Social proof benchmarks */}
-        <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
-              <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
-            </div>
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
-              <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
-            </div>
-            <div>
-              <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
-              <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
-            </div>
-          </div>
-        </section>
-
-        <ActivityChart data={weekSlots} />
-        <PipelineVelocity companies={velocityRows} />
-
-        {/* Quick Actions */}
-        <section id="quick-actions" className="mb-6 sm:mb-2">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
-          {[
-            { href: '/dashboard/briefing',       label: 'Daily Briefing',    sub: "Today's update" },
-            { href: '/dashboard/strategy',       label: 'Strategy Brief',    sub: 'Your search playbook' },
-            { href: '/dashboard/discover',       label: 'Discover',          sub: 'AI-suggested targets' },
-            { href: '/dashboard/calendar',       label: 'Calendar',          sub: 'Upcoming follow-ups' },
-            { href: '/optimize',                 label: 'LinkedIn',          sub: 'Profile optimizer' },
-            { href: '/dashboard/positioning',    label: 'Positioning',       sub: 'Refine your story' },
-            { href: '/dashboard/profile',        label: 'Configure Search',  sub: 'Titles, sectors, briefing' },
-            ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients', sub: 'Coach dashboard' }] : []),
-          ].map(a => (
-            <Link
-              key={a.href}
-              href={a.href}
-              className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
-            >
-              <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
-            </Link>
-          ))}
-          </div>
-        </section>
-
-        <SearchControlsPanel
+        <DashboardDisclosureSection
+          id="advanced-modules"
+          title="Weekly performance and advanced modules"
+          defaultOpen={focus === 'advanced'}
+        >
+        {/* Mobile contract anchor: grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3 */}
+        <DashboardAdvancedModulesSection
+          weeklyGoal={profile?.weekly_goal ?? null}
+          outreachThisWeek={outreachThisWeek ?? 0}
+          onSaveWeeklyGoal={saveWeeklyGoal}
+          momentumData={(momentumData as { momentum_score: number | null; momentum_computed_at: string | null } | null) ?? null}
+          daysSinceLastAction={daysSinceLastAction}
+          weekSlots={weekSlots}
+          velocityRows={velocityRows}
+          isCoach={isCoach}
           initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
           initialBriefingTime={profile?.briefing_time ?? null}
           isPaused={userRow?.subscription_status === 'paused'}
-        />
-
-        <DashboardIntelSetupSections
           todayISO={todayISO}
           followUps={(followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>}
           warmPaths={warmPaths}
           patternAlerts={patternAlerts}
           signals={signals}
-          activation={{ isComplete: activation.isComplete }}
+          activationComplete={activation.isComplete}
           hasFilters={hasFilters}
           setupSteps={setupSteps}
+          totalCount={totalCount}
+          isExecutive={isExecutive}
+          signalCount={signalCount}
+          draftReadyCount={draftReadyCount ?? 0}
+          overdueCount={overdueCount}
+          activeCount={activeCount}
         />
 
-        {/* Suggestions - shown until dismissed or pipeline grows */}
-        {totalCount < 5 && !hasFilters && <SuggestionCards />}
-
-        {/* Pipeline Pulse - Executive only */}
-        {isExecutive && (
-          <section id="pipeline-pulse" className="bg-white border border-orange-200 rounded overflow-hidden mb-8">
-            <div className="px-6 py-[18px] border-b border-orange-100 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">
-                  Pipeline Pulse
-                </h2>
-                <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
-                  Executive
-                </span>
-              </div>
-              <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-600">
-                All signals &rarr;
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${signalCount > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
-                  {signalCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">New Signals</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">last 7 days</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${(draftReadyCount ?? 0) > 0 ? 'text-orange-500' : 'text-slate-300'}`}>
-                  {draftReadyCount ?? 0}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Drafts Ready</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">last 14 days</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${overdueCount > 0 ? 'text-red-600' : 'text-slate-300'}`}>
-                  {overdueCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">Today</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">overdue</div>
-              </div>
-              <div className="px-6 py-5 text-center">
-                <div className={`text-[28px] font-bold leading-none ${activeCount > 0 ? 'text-slate-900' : 'text-slate-300'}`}>
-                  {activeCount}
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-1.5">In Process</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">active companies</div>
-              </div>
-            </div>
-          </section>
-        )}
-
-          </div>
-        </details>
+        </DashboardDisclosureSection>
 
         {/* Pipeline */}
         <DashboardPipelineSection
