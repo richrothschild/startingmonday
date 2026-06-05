@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:05:43.780Z",
+  "generatedAt": "2026-06-05T04:17:14.065Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:04:27.008Z"
+      "lastModifiedAt": "2026-06-05T04:05:43.794Z"
     },
     {
       "id": "feature:/login",
@@ -1328,7 +1328,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:02:18.153Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.180Z"
     },
     {
       "id": "feature:/blog/what-companies-want-chief-data-officer",
@@ -1412,7 +1412,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-25T01:12:32.248Z"
+      "lastModifiedAt": "2026-06-05T04:16:01.620Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -1734,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:03:46.104Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.181Z"
     },
     {
       "id": "feature:/for-coaches/economics",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T13:11:53.089Z"
+      "lastModifiedAt": "2026-06-05T04:16:08.323Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:02:36.254Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.180Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2112,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:02:42.811Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.181Z"
     },
     {
       "id": "feature:/founder-note",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:03:56.797Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.182Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -6173,7 +6173,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-05T04:02:05.311Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.180Z"
     },
     {
       "id": "code:src/lib/channel-metrics-events.test.ts",
@@ -7161,7 +7161,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-05T04:02:08.965Z"
+      "lastModifiedAt": "2026-06-05T04:06:22.180Z"
     },
     {
       "id": "code:src/lib/pixel-token.test.ts",
@@ -15429,7 +15429,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:04:27.008Z"
+      "lastModifiedAt": "2026-06-05T04:05:43.795Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15468,7 +15468,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:04:27.008Z"
+      "lastModifiedAt": "2026-06-05T04:05:43.794Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18536,7 +18536,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:05:25.847Z"
+      "lastModifiedAt": "2026-06-05T04:17:11.781Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

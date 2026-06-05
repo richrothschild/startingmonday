@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { TrackLink } from '@/components/TrackLink'
+import { TrackedAccordionItem } from '@/components/TrackedAccordionItem'
 import { ChannelMicroProductRail } from '@/components/micro-products/ChannelMicroProductRail'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
@@ -66,6 +67,39 @@ export default function CoachesChannelPage() {
             Start coach preview
           </TrackLink>
         </div>
+
+        <section className="mb-8">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
+          <div className="grid grid-cols-1 gap-3">
+            <TrackedAccordionItem
+              title="Where coaches get leverage"
+              summary="One shared execution view keeps client momentum visible between sessions."
+              detail="Signals, follow-ups, and prep readiness stay in one place so weekly coaching time remains strategic."
+              href="/for-coaches"
+              channel="coaches"
+              route="/coaches"
+              blockId="coach_leverage"
+            />
+            <TrackedAccordionItem
+              title="How risk is lowered"
+              summary="Start with a short pass/fail preview, not a full rollout decision."
+              detail="Run with 2-3 live clients for 30 days and keep only what improves prep depth and execution consistency."
+              href="/for-coaches/faq"
+              channel="coaches"
+              route="/coaches"
+              blockId="coach_risk_model"
+            />
+            <TrackedAccordionItem
+              title="What success looks like"
+              summary="Better-prepared sessions and less context rebuild overhead."
+              detail="The goal is not more tooling. It is clearer accountability and stronger outcomes in the same coaching time."
+              href="/for-coaches/coach-prep-worksheet"
+              channel="coaches"
+              route="/coaches"
+              blockId="coach_success_definition"
+            />
+          </div>
+        </section>
 
         <ChannelMicroProductRail channel="coaches" sourceRoute="/coaches" />
 

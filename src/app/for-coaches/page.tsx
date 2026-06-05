@@ -5,6 +5,7 @@ import { CoachPreviewActions } from './coach-preview-actions'
 import { SampleOutputSection } from './sample-output-section'
 import { BrandIcon } from '@/components/BrandIcon'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
+import { TrackedAccordionItem } from '@/components/TrackedAccordionItem'
 import {
   WHAT_CHANGES,
   SAMPLE_SIGNAL_ITEMS,
@@ -69,6 +70,29 @@ export default function ForCoachesPage() {
           <p className="text-[13px] text-slate-300 leading-relaxed max-w-lg mb-6">
             Clients show up prepared. You coach at a higher level.
           </p>
+          <section className="mb-6">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
+            <div className="grid grid-cols-1 gap-3 max-w-xl">
+              <TrackedAccordionItem
+                title="What changes in week one"
+                summary="Clients operate in a visible cadence before each session."
+                detail="You can quickly spot stalls in follow-through, signal response, and prep depth without extra admin tracking."
+                href="/for-coaches#execution-rhythm"
+                channel="coaches"
+                route="/for-coaches"
+                blockId="week_one_change"
+              />
+              <TrackedAccordionItem
+                title="How to evaluate fit"
+                summary="Use a short preview with explicit pass/fail criteria."
+                detail="Test with live clients, review scorecard movement, and decide based on coaching outcomes rather than promises."
+                href="/for-coaches#why-coaches-buy"
+                channel="coaches"
+                route="/for-coaches"
+                blockId="fit_evaluation"
+              />
+            </div>
+          </section>
           <div className="mb-6">
             <Link
               href="/for-coaches/coach-prep-worksheet"
