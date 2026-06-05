@@ -1,25 +1,15 @@
 'use client'
 import Link from 'next/link'
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { type SearchPersona, seededCompaniesFor, suggestionsForPersona } from './onboarding-helpers'
 import {
   type OnboardingChannel,
-  channelChecklistTitle,
   computeElapsedSeconds,
   estimateManualFieldReduction,
-  formatDurationShort,
   isTransitionFirstCohort,
-  onboardingMilestones,
 } from '@/lib/onboarding-speed'
-import {
-  buildExecutiveJobSearchScore,
-  formatExecutiveSearchBand,
-  interventionLabel,
-  type ExecutiveJobSearchIntake,
-  type ExecutiveRoleSegment,
-} from '@/lib/executive-job-search'
 
 type ImportResult = {
   full_name?: string | null
@@ -41,23 +31,6 @@ const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = 
 const STEP_COUNT = 7
 const QUICK_PATH_STEP_COUNT = 5
 
-const SEARCH_PERSONA_TO_ROLE_SEGMENT: Record<SearchPersona, ExecutiveRoleSegment> = {
-  csuite: 'CEO_PRESIDENT',
-  vp: 'COO_GM_BU',
-  director: 'COO_GM_BU',
-  board: 'BOARD_ADVISOR',
-}
-
-const SEGMENT_LABELS: Record<ExecutiveRoleSegment, string> = {
-  CEO_PRESIDENT: 'CEO / President',
-  COO_GM_BU: 'COO / GM / BU leader',
-  CFO: 'CFO',
-  CHRO_HR: 'CHRO / HR leader',
-  CIO_CTO_TECH: 'CIO / CTO / Technology leader',
-  CMO_CRO_COMMERCIAL: 'CMO / CRO / Commercial leader',
-  PR_COMMS_FUNDRAISING: 'PR / Communications / Fundraising leader',
-  BOARD_ADVISOR: 'Board / Advisor',
-}
 
 function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
   return (
@@ -126,57 +99,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   const transitionFirst = isTransitionFirstCohort(employmentStatus, searchTimeline)
 
-  const executiveIntake = useMemo<ExecutiveJobSearchIntake>(() => ({
-    full_name: fullName,
-    search_persona: (searchPersona || 'csuite') as SearchPersona,
-    current_title: currentTitle,
-    current_company: currentCompany,
-    positioning_summary: positioningSummary,
-    resume_text: resumeText,
-    beyond_resume: beyondResume,
-    target_titles: targetTitles.split(',').map((item) => item.trim()).filter(Boolean),
-    company_names: companyNames.filter((name) => name.trim()),
-    employment_status: employmentStatus,
-    search_timeline: searchTimeline,
-    search_driver: searchDriver,
-    role_segment: searchPersona ? SEARCH_PERSONA_TO_ROLE_SEGMENT[searchPersona] : null,
-    transition_type: null,
-    search_stage: null,
-    search_mode: null,
-    network_strength: companyNames.filter((name) => name.trim()).length >= 3 ? 'STRONG' : companyNames.filter((name) => name.trim()).length >= 1 ? 'MODERATE' : 'WEAK',
-    urgency_level: isPassive ? 'LOW' : 'MEDIUM',
-    board_visibility: searchPersona === 'board' ? 'CRITICAL' : searchPersona === 'csuite' ? 'HIGH' : 'MEDIUM',
-    geography_constraint: null,
-    family_constraint: null,
-    confidence_tier: null,
-  }), [
-    fullName,
-    searchPersona,
-    currentTitle,
-    currentCompany,
-    positioningSummary,
-    resumeText,
-    beyondResume,
-    targetTitles,
-    companyNames,
-    employmentStatus,
-    searchTimeline,
-    searchDriver,
-    isPassive,
-  ])
-
-  const executiveScore = useMemo(() => buildExecutiveJobSearchScore(executiveIntake), [executiveIntake])
-
-  const milestoneChecklist = onboardingMilestones({
-    searchPersona,
-    hasSituation: !!(employmentStatus && searchTimeline),
-    hasImportedProfile: importDone || !!(currentTitle.trim() && currentCompany.trim()),
-    companyCount: companyNames.filter((name) => name.trim()).length,
-    doneStepReached: step >= 6,
-    lowEnergyMode,
-  })
-  const completedMilestones = milestoneChecklist.filter((item) => item.done).length
-
   const manualFieldReduction = estimateManualFieldReduction({
     fullName,
     currentTitle,
@@ -186,6 +108,20 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     importedProfile: importDone,
     lowEnergyMode,
   })
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const ch = params.get('channel') as OnboardingChannel | null
+    if (ch && ['executives', 'coaches', 'outplacement', 'search_firms'].includes(ch)) {
+      setOnboardingChannel(ch)
+    }
+    const mode = params.get('mode')
+    const from = params.get('from')
+    if (mode === 'low_energy' || from === 'low-energy') {
+      setLowEnergyMode(true)
+      setAdvancedSetup(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
@@ -479,121 +415,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         {/* Wordmark */}
         <div className="text-center mb-10">
           <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400">Starting Monday</span>
-        </div>
-
-        <div className="mb-6 grid grid-cols-1 gap-3">
-          <div className="bg-white border border-slate-200 rounded-lg p-4">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Sprint 6 implementation timer</p>
-              <span className={`text-[11px] font-semibold px-2 py-1 rounded ${elapsedSeconds <= 600 ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
-                {formatDurationShort(elapsedSeconds)} elapsed
-              </span>
-            </div>
-            <p className="text-[12px] text-slate-500 leading-relaxed">
-              {transitionFirst
-                ? 'Transition-first path active. Goal: first value under 10 minutes.'
-                : 'Goal: complete setup quickly, then deepen profile from dashboard.'}
-            </p>
-            {elapsedSeconds >= 480 && step < 6 && (
-              <p className="text-[12px] text-amber-700 mt-2">Nudge: use low-energy mode or quick path to reach first value now.</p>
-            )}
-          </div>
-
-          <div className="bg-white border border-slate-200 rounded-lg p-4">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Executive search score</p>
-              <span className="text-[11px] font-semibold px-2 py-1 rounded bg-slate-100 text-slate-700">
-                {executiveScore.totalScore}/100
-              </span>
-            </div>
-            <p className="text-[15px] font-semibold text-slate-900">{formatExecutiveSearchBand(executiveScore.band)}</p>
-            <p className="text-[12px] text-slate-500 mt-1">
-              Segment: {SEGMENT_LABELS[executiveIntake.role_segment ?? 'CEO_PRESIDENT']} · Stage: {executiveIntake.search_stage ?? 'Target selection'}
-            </p>
-            <div className="mt-3 grid grid-cols-2 gap-2 text-[12px] text-slate-600">
-              <Metric label="Narrative" value={executiveScore.dimensionScores.narrativeClarity} />
-              <Metric label="Network" value={executiveScore.dimensionScores.outreachActivation} />
-              <Metric label="Decision" value={executiveScore.dimensionScores.decisionQuality} />
-              <Metric label="Readiness" value={executiveScore.dimensionScores.transitionReadiness} />
-            </div>
-            <div className="mt-3 rounded-md bg-slate-50 border border-slate-100 p-3">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">Recommended next intervention</p>
-              <p className="text-[13px] font-semibold text-slate-800 mt-1">{interventionLabel(executiveScore.recommendedInterventionKey)}</p>
-            </div>
-          </div>
-
-          <div className="bg-white border border-slate-200 rounded-lg p-4">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">Channel path</p>
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { value: 'executives', label: 'Executives' },
-                { value: 'coaches', label: 'Coaches' },
-                { value: 'outplacement', label: 'Outplacement' },
-                { value: 'search_firms', label: 'Search Firms' },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setOnboardingChannel(option.value as OnboardingChannel)}
-                  className={[
-                    'text-[12px] px-3 py-2 rounded border transition-colors cursor-pointer',
-                    onboardingChannel === option.value
-                      ? 'border-slate-900 bg-slate-900 text-white'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400',
-                  ].join(' ')}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-3 flex items-center justify-between">
-              <p className="text-[12px] text-slate-500">Low-energy mode reduces non-critical choices.</p>
-              <button
-                type="button"
-                onClick={() => {
-                  const nextValue = !lowEnergyMode
-                  setLowEnergyMode(nextValue)
-                  if (nextValue) setAdvancedSetup(false)
-                  if (nextValue) {
-                    fetch('/api/onboarding/events', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        eventName: 'onboarding_low_energy_enabled',
-                        properties: { step, channel: onboardingChannel },
-                      }),
-                    }).catch(() => {})
-                  }
-                }}
-                className={[
-                  'text-[12px] font-semibold px-3 py-1.5 rounded border transition-colors cursor-pointer',
-                  lowEnergyMode
-                    ? 'border-slate-900 bg-slate-900 text-white'
-                    : 'border-slate-300 bg-white text-slate-700 hover:border-slate-500',
-                ].join(' ')}
-              >
-                {lowEnergyMode ? 'Low-energy on' : 'Enable low-energy'}
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white border border-slate-200 rounded-lg p-4">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">{channelChecklistTitle(onboardingChannel)}</p>
-              <span className="text-[11px] text-slate-500">{completedMilestones}/{milestoneChecklist.length}</span>
-            </div>
-            <div className="grid grid-cols-1 gap-1.5">
-              {milestoneChecklist.map((item) => (
-                <div key={item.id} className="flex items-center justify-between text-[12px]">
-                  <span className={item.done ? 'text-slate-700' : 'text-slate-500'}>{item.label}</span>
-                  <span className={item.done ? 'text-green-600 font-semibold' : 'text-slate-400'}>{item.done ? 'Done' : 'Pending'}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-[11px] text-slate-400 mt-2">
-              Progressive defaults currently reduce manual setup by {manualFieldReduction.reductionRate.toFixed(0)}%.
-            </p>
-          </div>
         </div>
 
         {/* Step content */}
@@ -1187,14 +1008,6 @@ function StepDone({
   )
 }
 
-function Metric({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
-      <p className="text-[11px] uppercase tracking-[0.08em] text-slate-400">{label}</p>
-      <p className="text-[14px] font-semibold text-slate-900">{value}/5</p>
-    </div>
-  )
-}
 
 function StepName({
   value,
@@ -1248,7 +1061,7 @@ function StepLevel({
           This shapes how every brief and signal is written for you.
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {PERSONA_OPTIONS.map(opt => (
           <button
             key={opt.value}
@@ -1309,39 +1122,41 @@ function StepSituation({
         </p>
       </div>
       <div className="flex flex-col gap-4">
-        <div>
-          <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
-            Current situation
-          </label>
-          <select
-            value={status}
-            onChange={e => onStatus(e.target.value)}
-            title="Current situation"
-            className={selectCls}
-          >
-            <option value="">Select one</option>
-            <option value="employed_exploring">Employed and quietly exploring</option>
-            <option value="active_search">In active search</option>
-            <option value="consulting">Consulting or interim</option>
-            <option value="between_roles">Between roles</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
-            Timeline
-          </label>
-          <select
-            value={timeline}
-            onChange={e => onTimeline(e.target.value)}
-            title="Search timeline"
-            className={selectCls}
-          >
-            <option value="">Select one</option>
-            <option value="immediately">Need something immediately</option>
-            <option value="3_months">Within the next 3 months</option>
-            <option value="6_months">Within the next 6 months</option>
-            <option value="opportunistic">Only for the right opportunity</option>
-          </select>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+              Current situation
+            </label>
+            <select
+              value={status}
+              onChange={e => onStatus(e.target.value)}
+              title="Current situation"
+              className={selectCls}
+            >
+              <option value="">Select one</option>
+              <option value="employed_exploring">Employed, quietly exploring</option>
+              <option value="active_search">In active search</option>
+              <option value="consulting">Consulting or interim</option>
+              <option value="between_roles">Between roles</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+              Timeline
+            </label>
+            <select
+              value={timeline}
+              onChange={e => onTimeline(e.target.value)}
+              title="Search timeline"
+              className={selectCls}
+            >
+              <option value="">Select one</option>
+              <option value="immediately">Need something immediately</option>
+              <option value="3_months">Within 3 months</option>
+              <option value="6_months">Within 6 months</option>
+              <option value="opportunistic">Right opportunity only</option>
+            </select>
+          </div>
         </div>
         <div>
           <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
