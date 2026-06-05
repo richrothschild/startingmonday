@@ -120,3 +120,12 @@ ORDER BY source_route
 - Deterministic assignment is active in tracked CTA events via `src/lib/experiment-variants.ts` and `src/components/TrackLink.tsx`.
 - Additional high-intent route coverage in this cycle includes `/for-cio` and `/for-coaches` CTA surfaces.
 - Populate `TBD` values during the next weekly data pull.
+
+## Current Cycle Recommendation
+
+Decision: KEEP LIVE and monitor for first segmented weekly pull
+
+Reasoning:
+- Instrumentation and routing changes are deployed and passing guardrails.
+- Mobile quick rubric and route coverage checks passed for Week 3 surfaces.
+- First quantitative route x variant readout should be completed in the next weekly cadence using the query pack above.
