@@ -164,13 +164,13 @@ export default async function HomePage() {
       <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
-          eyebrow: 'Searches end. Careers do not.',
-          h1Lines: ['Run your transition like', 'the executive you are.'],
+          eyebrow: 'You are not behind on talent.',
+          h1Lines: ['You are behind on timing, narrative, and prep.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
-          body: 'Move from reactive search behavior to consistent market presence with signal intelligence, relationship cadence, and interview-ready briefs.',
+          body: 'Win with Starting Monday today.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
