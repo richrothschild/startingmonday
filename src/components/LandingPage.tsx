@@ -179,6 +179,7 @@ function getRolePathChannel(href: string): Channel {
 }
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/' }: LandingPageProps) {
+  const isHomePage = sourcePage === '/'
   const quickRolePaths = ROLE_PATH_GROUPS
     .flatMap(group => group.items)
     .filter((item): item is RolePathItem & { href: string } => Boolean(item.href))
@@ -208,36 +209,22 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
       <main>
         <section id="core-clarity" data-emi-section="clarity_block" className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line [text-wrap:balance]">
+            <p className={`text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line [text-wrap:balance] ${isHomePage ? 'text-2xl sm:text-[2.05rem]' : 'text-lg sm:text-xl'}`}>
               {hero.eyebrow}
             </p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5 [text-wrap:balance]">
+            <h1 className={`font-bold text-white tracking-tight mb-5 [text-wrap:balance] ${isHomePage ? 'text-[2.28rem] leading-[1.03] sm:text-[4rem] sm:leading-[1.08]' : 'text-4xl sm:text-5xl leading-[1.1]'}`}>
               {hero.h1Lines.map((line, i) => (
                 <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
               ))}
             </h1>
             {hero.bodyPreamble && (
-              <p className="text-sm text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line [text-wrap:pretty]">
+              <p className={`text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line [text-wrap:pretty] ${isHomePage ? 'text-[15px]' : 'text-sm'}`}>
                 {hero.bodyPreamble}
               </p>
             )}
-            <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4 [text-wrap:pretty]">
+            <p className={`text-slate-200 leading-relaxed max-w-xl mb-4 [text-wrap:pretty] ${isHomePage ? 'text-2xl sm:text-[1.7rem] font-medium' : 'text-base'}`}>
               {hero.body}
             </p>
-
-            {proofHighlights && proofHighlights.length > 0 && (
-              <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-4 mb-6" data-emi-proof="landing_proof_highlights">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-3">Proof snapshot</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {proofHighlights.map((item) => (
-                    <div key={item.metric} className="rounded-md border border-emerald-500/20 bg-slate-950/50 p-3">
-                      <p className="text-[13px] font-semibold text-emerald-100">{item.metric}</p>
-                      <p className="text-[12px] text-slate-300 leading-relaxed mt-1">{item.detail}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="mb-6">
               <TrackLink
@@ -254,6 +241,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 Apply for confidential beta
               </TrackLink>
             </div>
+
+            {proofHighlights && proofHighlights.length > 0 && (
+              <p className="text-[13px] text-emerald-200 leading-relaxed mb-6 max-w-2xl" data-emi-proof="landing_micro_proof">
+                <span className="font-semibold text-emerald-100">Proof:</span> {proofHighlights[0]?.detail}
+              </p>
+            )}
 
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
@@ -325,6 +318,20 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </details>
               ))}
             </div>
+
+            {proofHighlights && proofHighlights.length > 0 && (
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-5 mt-10" data-emi-proof="landing_proof_highlights">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">Proof snapshot</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {proofHighlights.map((item) => (
+                    <div key={item.metric} className="rounded-md border border-emerald-200 bg-white p-3">
+                      <p className="text-[13px] font-semibold text-emerald-900">{item.metric}</p>
+                      <p className="text-[12px] text-slate-700 leading-relaxed mt-1">{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
