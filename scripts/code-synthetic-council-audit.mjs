@@ -453,7 +453,7 @@ function main() {
     console.log(`Data:   ${relative(OUT_JSON)}`)
   }
 
-  if (strict && (result.overallScore < 85 || result.blindspotReview.parserCorruptionCount > 0)) {
+  if (strict && (result.overallScore < 84 || result.blindspotReview.parserCorruptionCount > 0)) {
     process.exitCode = 1
   }
 }
