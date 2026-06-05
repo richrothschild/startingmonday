@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T04:40:31.979Z
+Last generated: 2026-06-05T04:46:02.236Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -913,7 +913,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (521)
+## Documentation (523)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1410,6 +1410,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | Week 2 Mobile-First Conversion QA Pass
 - Doc docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | Week 2 Release Package and Decision Memo
 - Doc docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | docs/strategy/week3/w3-03-weekly-segmented-conversion-readout-2026-06-04.md | Week 3 Segmented Conversion Readout
+- Doc docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md | Week 3 Mobile QA and Release Readiness
+- Doc docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md | Week 3 Release Memo and Sprint 4 Seed
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
 - Doc docs/tech-debt-round2.md | docs/tech-debt-round2.md | Technical Debt — Round 2

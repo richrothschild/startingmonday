@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:40:31.979Z",
+  "generatedAt": "2026-06-05T04:46:02.236Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:39:57.524Z"
+      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
     },
     {
       "id": "feature:/login",
@@ -15442,7 +15442,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:39:57.524Z"
+      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15481,7 +15481,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:39:57.524Z"
+      "lastModifiedAt": "2026-06-05T04:40:31.992Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18393,7 +18393,33 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:39:44.290Z"
+      "lastModifiedAt": "2026-06-05T04:45:19.410Z"
+    },
+    {
+      "id": "doc:docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md",
+      "title": "Doc docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md",
+      "body": "Week 3 Mobile QA and Release Readiness",
+      "type": "doc",
+      "ref": "docs/strategy/week3/w3-04-mobile-qa-and-release-readiness-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:45:19.491Z"
+    },
+    {
+      "id": "doc:docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md",
+      "title": "Doc docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md",
+      "body": "Week 3 Release Memo and Sprint 4 Seed",
+      "type": "doc",
+      "ref": "docs/strategy/week3/w3-05-release-memo-and-sprint4-seed-2026-06-04.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T04:45:19.526Z"
     },
     {
       "id": "doc:docs/synthetic-council-build-rubric-operations-guide.md",
