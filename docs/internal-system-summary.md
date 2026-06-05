@@ -1,6 +1,6 @@
 # Starting Monday Internal System Summary
 
-Generated at: 2026-06-05T21:38:51.214Z
+Generated at: 2026-06-05T22:28:15.493Z
 
 ## What exists
 - Feature pages: 181
@@ -8,7 +8,7 @@ Generated at: 2026-06-05T21:38:51.214Z
 - Library modules: 195
 - Operational scripts: 115
 - Infra workflows: 30
-- Migrations/data artifacts: 131
+- Migrations/data artifacts: 132
 - Internal docs: 530
 
 ## How it integrates
