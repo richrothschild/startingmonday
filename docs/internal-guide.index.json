@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T11:14:20.240Z",
+  "generatedAt": "2026-06-05T11:20:07.239Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
+      "lastModifiedAt": "2026-06-05T11:14:20.253Z"
     },
     {
       "id": "feature:/login",
@@ -12088,7 +12088,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:51:00.748Z"
+      "lastModifiedAt": "2026-06-05T11:19:16.386Z"
     },
     {
       "id": "doc:docs/ap-style-automation.md",
@@ -15494,7 +15494,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
+      "lastModifiedAt": "2026-06-05T11:14:20.253Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15533,7 +15533,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
+      "lastModifiedAt": "2026-06-05T11:14:20.253Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18513,6 +18513,19 @@
       "lastModifiedAt": "2026-06-05T04:51:20.520Z"
     },
     {
+      "id": "doc:docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md",
+      "title": "Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md",
+      "body": "Weekly Route x Variant Readout",
+      "type": "doc",
+      "ref": "docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-05T11:19:15.768Z"
+    },
+    {
       "id": "doc:docs/strategy/week4/weekly-route-variant-readout.latest.md",
       "title": "Doc docs/strategy/week4/weekly-route-variant-readout.latest.md",
       "body": "Weekly Route x Variant Readout",
@@ -18523,7 +18536,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:51:20.521Z"
+      "lastModifiedAt": "2026-06-05T11:19:15.768Z"
     },
     {
       "id": "doc:docs/synthetic-council-build-rubric-operations-guide.md",

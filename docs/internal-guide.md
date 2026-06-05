@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T11:14:20.240Z
+Last generated: 2026-06-05T11:20:07.239Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -916,7 +916,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 
-## Documentation (528)
+## Documentation (529)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1419,6 +1419,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md | Epic Closeout: SMK-115 Week 3 Experiment Scale
 - Doc docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | docs/strategy/week4/w4-implementation-closeout-2026-06-04.md | Week 4 Implementation Closeout
 - Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md | Weekly Route x Variant Readout
+- Doc docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md | docs/strategy/week4/weekly-route-variant-readout-2026-06-05.md | Weekly Route x Variant Readout
 - Doc docs/strategy/week4/weekly-route-variant-readout.latest.md | docs/strategy/week4/weekly-route-variant-readout.latest.md | Weekly Route x Variant Readout
 - Doc docs/synthetic-council-build-rubric-operations-guide.md | docs/synthetic-council-build-rubric-operations-guide.md | Synthetic Council Build, Rubric, and Operating Guide
 - Doc docs/synthetic-council-one-page-leader-guide.md | docs/synthetic-council-one-page-leader-guide.md | Synthetic Council One-Page Leader Guide
