@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T04:57:16.884Z",
+  "generatedAt": "2026-06-05T11:14:20.240Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
+      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
     },
     {
       "id": "feature:/login",
@@ -138,7 +138,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-04T05:35:39.198Z"
+      "lastModifiedAt": "2026-06-05T11:12:43.133Z"
     },
     {
       "id": "feature:/dashboard/admin/feedback",
@@ -1678,7 +1678,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:50:01.543Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.193Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:50:04.417Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1832,7 +1832,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T04:50:07.252Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -6524,7 +6524,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-05T04:51:12.955Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "code:src/lib/experiment-variants.ts",
@@ -8825,7 +8825,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-05T04:50:41.841Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "script:scripts/closeout-prep-brief-evals.mjs",
@@ -9033,7 +9033,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-05T04:51:15.917Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "script:scripts/fix-billing-placeholder-sql.mjs",
@@ -15494,7 +15494,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
+      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15533,7 +15533,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:46:02.250Z"
+      "lastModifiedAt": "2026-06-05T11:13:27.183Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18484,7 +18484,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:48:02.748Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.193Z"
     },
     {
       "id": "doc:docs/strategy/week4/w4-implementation-closeout-2026-06-04.md",
@@ -18497,7 +18497,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:51:31.711Z"
+      "lastModifiedAt": "2026-06-05T11:10:50.194Z"
     },
     {
       "id": "doc:docs/strategy/week4/weekly-route-variant-readout-2026-06-04.md",
@@ -18731,7 +18731,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T04:57:14.395Z"
+      "lastModifiedAt": "2026-06-05T11:14:17.756Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
