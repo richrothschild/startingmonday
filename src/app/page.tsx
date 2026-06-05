@@ -97,8 +97,8 @@ const FAQS: FAQ[] = [
 
 const PROOF_HIGHLIGHTS = [
   {
-    metric: '81% reached first interview in 30 days',
-    detail: 'Directional pilot signal from Jan-May 2026 cohort (n=27) for executive transition workflows.',
+    metric: 'Faster first responses with weekly cadence',
+    detail: 'Members running weekly narrative + outreach cadence saw faster first-response rates than ad hoc applicants.',
   },
   {
     metric: 'Board and search-firm readiness in one workflow',
@@ -170,6 +170,7 @@ export default async function HomePage() {
           claimMethodHref: '/method-and-evidence',
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
+          bodyPreamble: 'Built for C-suite executives and senior operators moving into C-level roles.',
           body: 'Win with Starting Monday today.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
