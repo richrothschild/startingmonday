@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T02:38:23.479Z
+Last generated: 2026-06-05T04:04:26.995Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (180)
+## Features (181)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -139,6 +139,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature For coo | /for-coo | User-facing page route /for-coo.
 - Feature For cpo | /for-cpo | User-facing page route /for-cpo.
 - Feature For data officer | /for-data-officer | User-facing page route /for-data-officer.
+- Feature For executives | /for-executives | User-facing page route /for-executives.
 - Feature For financial advisors | /for-financial-advisors | User-facing page route /for-financial-advisors.
 - Feature For fractional executives | /for-fractional-executives | User-facing page route /for-fractional-executives.
 - Feature For media partners | /for-media-partners | User-facing page route /for-media-partners.

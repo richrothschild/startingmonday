@@ -1,9 +1,9 @@
 # Starting Monday Internal System Summary
 
-Generated at: 2026-06-05T02:38:23.479Z
+Generated at: 2026-06-05T04:04:26.995Z
 
 ## What exists
-- Feature pages: 180
+- Feature pages: 181
 - API routes: 246
 - Library modules: 193
 - Operational scripts: 113

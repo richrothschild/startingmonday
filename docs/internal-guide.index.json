@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T02:38:23.479Z",
+  "generatedAt": "2026-06-05T04:04:26.995Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-04T14:19:23.644Z"
+      "lastModifiedAt": "2026-06-05T02:38:23.492Z"
     },
     {
       "id": "feature:/login",
@@ -1328,7 +1328,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:13:57.362Z"
+      "lastModifiedAt": "2026-06-05T04:02:18.153Z"
     },
     {
       "id": "feature:/blog/what-companies-want-chief-data-officer",
@@ -1734,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-27T20:22:46.487Z"
+      "lastModifiedAt": "2026-06-05T04:03:46.104Z"
     },
     {
       "id": "feature:/for-coaches/economics",
@@ -1847,6 +1847,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-05-28T18:14:18.484Z"
+    },
+    {
+      "id": "feature:/for-executives",
+      "title": "Feature For executives",
+      "body": "User-facing page route /for-executives.",
+      "type": "feature",
+      "ref": "/for-executives",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-05T04:02:36.254Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2098,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:14:18.487Z"
+      "lastModifiedAt": "2026-06-05T04:02:42.811Z"
     },
     {
       "id": "feature:/founder-note",
@@ -2322,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-02T22:14:25.220Z"
+      "lastModifiedAt": "2026-06-05T04:03:56.797Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -6159,7 +6173,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-25T04:03:48.603Z"
+      "lastModifiedAt": "2026-06-05T04:02:05.311Z"
     },
     {
       "id": "code:src/lib/channel-metrics-events.test.ts",
@@ -7147,7 +7161,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-05-25T00:59:14.497Z"
+      "lastModifiedAt": "2026-06-05T04:02:08.965Z"
     },
     {
       "id": "code:src/lib/pixel-token.test.ts",
@@ -15415,7 +15429,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-04T14:19:23.644Z"
+      "lastModifiedAt": "2026-06-05T02:38:23.492Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15454,7 +15468,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-04T14:19:23.644Z"
+      "lastModifiedAt": "2026-06-05T02:38:23.492Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18522,7 +18536,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-04T14:18:43.358Z"
+      "lastModifiedAt": "2026-06-05T04:04:24.626Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

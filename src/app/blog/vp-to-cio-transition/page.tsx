@@ -136,7 +136,7 @@ export default function VpToCioTransitionPage() {
 
         <p>
           The{' '}
-          <Link href="/for-vp" className="text-slate-900 underline hover:text-slate-600 transition-colors">
+          <Link href="/for-executives" className="text-slate-900 underline hover:text-slate-600 transition-colors">
             prep brief
           </Link>{' '}
           assembles your win thesis, likely objections, and company-specific questions in sixty seconds. The

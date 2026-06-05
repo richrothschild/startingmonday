@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
+import { TrackedAccordionItem } from '@/components/TrackedAccordionItem'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import type { Channel } from '@/lib/channel-metrics-events'
@@ -87,7 +88,7 @@ const ROLE_PATH_GROUPS: RolePathGroup[] = [
     description: 'For VP and near-term C-suite moves',
     items: [
       { ctaKey: 'cio_cto_search', label: 'CIO and CTO search', href: '/for-cio', iconToken: 'CX', priority: 1 },
-      { ctaKey: 'vp_to_c_suite', label: 'VP to C-Suite', href: '/for-vp', iconToken: 'VP', priority: 2 },
+      { ctaKey: 'vp_to_c_suite', label: 'VP to C-Suite', href: '/for-executives', iconToken: 'VP', priority: 2 },
       { ctaKey: 'vp_of_technology', label: 'VP of Technology', href: '/for-vp-technology', iconToken: 'VT', priority: 3 },
       { ctaKey: 'cio', label: 'CIO', href: '/for-cio', iconToken: 'CI', priority: 4 },
       { ctaKey: 'cto', label: 'CTO', href: '/for-cio', iconToken: 'CT', priority: 5 },
@@ -135,6 +136,33 @@ const EXECUTIVE_GETS = [
     detail: 'Company-specific prep briefs in about a minute.',
   },
 ]
+
+const HOME_BLUF_SECTIONS = [
+  {
+    title: 'Front-of-line timing advantage',
+    summary: 'Learn about likely executive openings before formal posting windows appear.',
+    detail: 'We surface movement signals so you can engage earlier with stronger context and better timing.',
+    href: '/blog/cio-job-search-timeline',
+  },
+  {
+    title: 'Relationship cadence that compounds',
+    summary: 'Stay in touch with the right people at the right time without reactive scrambling.',
+    detail: 'A weekly rhythm keeps outreach intentional across search firms, coaches, HR partners, peers, and boards.',
+    href: '/blog/cio-board-presentation',
+  },
+  {
+    title: 'Strategy over grunt work',
+    summary: 'Spend more time on decision quality and less on manual search busywork.',
+    detail: 'Signal tracking, prep framing, and recurring operating routines remove low-value repetition from the search.',
+    href: '/blog/executive-coaching-job-search',
+  },
+  {
+    title: 'Narrative control by audience',
+    summary: 'Refine your narrative for each conversation context without reinventing it every time.',
+    detail: 'Positioning is adapted for role paths and audiences so conversations stay consistent and role-aligned.',
+    href: '/blog/cio-vs-cto-which-role',
+  },
+] as const
 
 function getRolePathChannel(href: string): Channel {
   if (href.startsWith('/for-search-firms')) return 'search_firms'
@@ -190,25 +218,40 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               {hero.body}
             </p>
 
+            <div className="mb-6">
+              <TrackLink
+                href="/concierge?program=beta&from=landing"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{
+                  channel: 'executives',
+                  cta_label: 'hero_apply_beta',
+                  source_page: '/',
+                }}
+                className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+              >
+                Apply for confidential beta
+              </TrackLink>
+            </div>
+
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px]">
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">What this is</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">An executive search operating system anchored by one weekly Momentum Signal.</p>
-                </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Who it is for</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">Senior technology leaders in active or near-term transition.</p>
-                </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Problem it solves</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">Searches stall from weak narrative quality, poor cadence, and late signals.</p>
-                </div>
-                <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
-                  <p className="text-slate-400">Why now</p>
-                  <p className="text-white mt-1 [text-wrap:pretty]">High-value roles are shaped before formal posting windows appear.</p>
-                </div>
+              <p className="text-[13px] text-slate-200 leading-relaxed mb-4 [text-wrap:pretty]">
+                Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
+              </p>
+              <div className="space-y-2.5">
+                {HOME_BLUF_SECTIONS.map((section) => (
+                  <TrackedAccordionItem
+                    key={section.title}
+                    title={section.title}
+                    summary={section.summary}
+                    detail={section.detail}
+                    href={section.href}
+                    channel="executives"
+                    route="/"
+                    blockId={`home_bluf_${section.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -252,10 +295,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl">
               {EXECUTIVE_GETS.map((item) => (
-                <div key={item.title} className="border-t-2 border-slate-200 pt-5">
-                  <p className="text-[14px] font-semibold text-slate-900 mb-2">{item.title}</p>
+                <details key={item.title} className="border-t-2 border-slate-200 pt-5">
+                  <summary className="cursor-pointer list-none text-[14px] font-semibold text-slate-900 mb-2 inline-flex items-center gap-2">
+                    <span>{item.title}</span>
+                    <span className="text-[11px] text-orange-600">Open</span>
+                  </summary>
                   <p className="text-[13px] text-slate-500 leading-relaxed">{item.detail}</p>
-                </div>
+                </details>
               ))}
             </div>
           </div>
@@ -265,7 +311,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
           <div className="max-w-5xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Choose your next step</p>
             <h2 className="text-[22px] font-bold text-white mb-6 leading-snug">
-              Pick a channel, choose a role path, then run the demo.
+              Pick a channel and role path, then take the next step.
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {CHANNEL_ROUTE_SPECS.map((spec) => (
@@ -309,14 +355,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
-                href="/demo?from=landing"
-                data-emi-cta="next_step_run_demo"
-                data-emi-to="/demo?from=landing"
-                className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
-              >
-                Run live demo
-              </Link>
-              <Link
                 href="/concierge?program=beta&from=landing"
                 data-emi-cta="next_step_apply_beta"
                 data-emi-to="/concierge?program=beta&from=landing"
@@ -324,16 +362,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               >
                 Apply for confidential beta
               </Link>
-              <Link
-                href="/guide"
-                data-emi-cta="next_step_open_guide"
-                data-emi-to="/guide"
-                className="inline-flex items-center justify-center text-[14px] font-bold text-white border border-slate-500 px-6 py-3 rounded hover:border-slate-300 transition-colors"
-              >
-                Learn more: ask us any question
-              </Link>
             </div>
-            <p className="text-[12px] text-slate-400 mt-3">Need details before deciding? Open the external guide and ask any question.</p>
             <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
           </div>
         </section>
@@ -370,7 +399,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey }: LandingPag
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design, no employer visibility, and no sale of user search activity.</p>
+            <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
             <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
           </div>
         </footer>

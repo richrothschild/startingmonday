@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-04T14:18:43.354Z
+Last generated: 2026-06-05T04:04:24.623Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (150)
+## Features (151)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -114,6 +114,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [For coo](/for-coo) - Open /for-coo to use this feature area and related workflows.
 - [For cpo](/for-cpo) - Open /for-cpo to use this feature area and related workflows.
 - [For data officer](/for-data-officer) - Open /for-data-officer to use this feature area and related workflows.
+- [For executives](/for-executives) - Open /for-executives to use this feature area and related workflows.
 - [For financial advisors](/for-financial-advisors) - Open /for-financial-advisors to use this feature area and related workflows.
 - [For fractional executives](/for-fractional-executives) - Open /for-fractional-executives to use this feature area and related workflows.
 - [For media partners](/for-media-partners) - Open /for-media-partners to use this feature area and related workflows.
