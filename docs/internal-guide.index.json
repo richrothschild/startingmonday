@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T20:15:26.437Z",
+  "generatedAt": "2026-06-06T20:25:33.023Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T17:59:25.988Z"
+      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
     },
     {
       "id": "feature:/login",
@@ -8502,7 +8502,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T20:14:09.290Z"
+      "lastModifiedAt": "2026-06-06T20:25:15.456Z"
     },
     {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
@@ -9841,7 +9841,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T20:14:14.110Z"
+      "lastModifiedAt": "2026-06-06T20:25:10.019Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -15602,7 +15602,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T17:59:25.988Z"
+      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15641,7 +15641,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T17:59:25.988Z"
+      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

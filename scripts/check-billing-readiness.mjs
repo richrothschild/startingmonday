@@ -40,6 +40,13 @@ function isPresent(value) {
   return typeof value === 'string' && value.trim().length > 0
 }
 
+function isMissingRelationError(error) {
+  if (!error || typeof error !== 'object') return false
+  const code = typeof error.code === 'string' ? error.code : ''
+  const msg = typeof error.message === 'string' ? error.message : ''
+  return code === 'PGRST205' || msg.includes('schema cache') || msg.includes('Could not find the table')
+}
+
 function checkEnvVars() {
   const checks = REQUIRED_ENV_VARS.map((name) => ({
     name,
@@ -73,6 +80,15 @@ async function checkStripeBackedRows() {
     supabase.from('micro_product_prices').select('id, micro_product_id, stripe_product_id, stripe_price_id, stripe_coupon_id, is_active, interval'),
     supabase.from('micro_product_bundles').select('id, slug, bundle_status, stripe_product_id, stripe_price_id, stripe_coupon_id'),
   ])
+
+  const relationErrors = [productsRes.error, pricesRes.error, bundlesRes.error].filter(isMissingRelationError)
+  if (relationErrors.length > 0) {
+    return {
+      skipped: true,
+      reason: `billing catalog tables unavailable (${relationErrors[0].message})`,
+      issues: [],
+    }
+  }
 
   for (const res of [productsRes, pricesRes, bundlesRes]) {
     if (res.error) {
