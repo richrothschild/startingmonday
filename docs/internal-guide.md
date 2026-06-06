@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T16:46:27.027Z
+Last generated: 2026-06-06T16:50:51.694Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1224,7 +1224,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/06-product-intelligence.md | docs/onboarding/06-product-intelligence.md | Product Intelligence — What You Need to Know
 - Doc docs/onboarding/07-contributor-agreement.md | docs/onboarding/07-contributor-agreement.md | Starting Monday — Contributor Agreement
 - Doc docs/onboarding/08-day-one-checklist.md | docs/onboarding/08-day-one-checklist.md | Day One Checklist
-- Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Local Setup Prompt (Claude Code)
+- Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Claude Setup Prompt — Get localhost:3000 Running
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
 - Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic
