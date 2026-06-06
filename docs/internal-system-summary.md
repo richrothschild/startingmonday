@@ -1,6 +1,6 @@
 # Starting Monday Internal System Summary
 
-Generated at: 2026-06-06T17:49:51.408Z
+Generated at: 2026-06-06T17:59:25.975Z
 
 ## What exists
 - Feature pages: 183
