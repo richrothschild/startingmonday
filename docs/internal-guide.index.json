@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T14:03:06.516Z",
+  "generatedAt": "2026-06-06T15:48:21.526Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
+      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T13:56:16.201Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.505Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -1188,7 +1188,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T13:55:17.262Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.503Z"
     },
     {
       "id": "feature:/blog/linkedin-executive-search-strategy",
@@ -1216,7 +1216,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T13:56:38.760Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.505Z"
     },
     {
       "id": "feature:/blog/pe-backed-cio",
@@ -1552,7 +1552,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T14:01:58.712Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.506Z"
     },
     {
       "id": "feature:/demo/presenter",
@@ -2294,7 +2294,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T13:54:36.112Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.503Z"
     },
     {
       "id": "feature:/onboarding",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T13:54:13.748Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.503Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -8856,6 +8856,19 @@
       "lastModifiedAt": "2026-05-25T14:50:19.349Z"
     },
     {
+      "id": "script:scripts/check-ux-ui-rubric-pages.mjs",
+      "title": "Script scripts/check-ux-ui-rubric-pages.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-ux-ui-rubric-pages.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-06T15:45:52.690Z"
+    },
+    {
       "id": "script:scripts/check-variant-null-rate-alerts.mjs",
       "title": "Script scripts/check-variant-null-rate-alerts.mjs",
       "body": "#!/usr/bin/env node",
@@ -9464,7 +9477,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-05-30T16:42:25.019Z"
+      "lastModifiedAt": "2026-06-06T15:45:52.712Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -9828,7 +9841,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-05T02:37:02.566Z"
+      "lastModifiedAt": "2026-06-06T15:47:09.544Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -9997,7 +10010,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-03T13:57:04.282Z"
+      "lastModifiedAt": "2026-06-06T15:47:12.124Z"
     },
     {
       "id": "infra:.github/workflows/pmf-daily-monitor.yml",
@@ -15563,7 +15576,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
+      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15602,7 +15615,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
+      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18865,7 +18878,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T13:59:11.865Z"
+      "lastModifiedAt": "2026-06-06T14:03:17.506Z"
     },
     {
       "id": "doc:docs/watermark-ops.md",
