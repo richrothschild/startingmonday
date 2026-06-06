@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T02:11:02.581Z
+Last generated: 2026-06-06T02:47:38.742Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (181)
+## Features (183)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -166,6 +166,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mauricio kickoff execution / Apollo read access | /mauricio-kickoff-execution/apollo-read-access | User-facing page route /mauricio-kickoff-execution/apollo-read-access.
+- Feature Mauricio kickoff execution / Customer email by channel | /mauricio-kickoff-execution/customer-email-by-channel | User-facing page route /mauricio-kickoff-execution/customer-email-by-channel.
 - Feature Mauricio kickoff execution | /mauricio-kickoff-execution | User-facing page route /mauricio-kickoff-execution.
 - Feature Mauricio kickoff | /mauricio-kickoff | User-facing page route /mauricio-kickoff.
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
