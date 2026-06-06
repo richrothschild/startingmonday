@@ -88,6 +88,8 @@
         "test:e2e:auth-ux": "playwright test tests/e2e/auth-ux.spec.ts --project=auth-ux",
         "test:e2e:mobile-routes": "node scripts/run-mobile-key-routes-report.mjs",
         "report:e2e:mobile-routes:coverage": "node scripts/generate-mobile-route-coverage-report.mjs",
+        "ux:rubric:pages": "node scripts/check-ux-ui-rubric-pages.mjs",
+        "ux:rubric:pages:json": "node scripts/check-ux-ui-rubric-pages.mjs --json",
         "test:e2e:mobile-sweep": "npm run test:e2e:mobile-ui && npm run test:e2e:mobile-routes",
         "test:e2e:report": "playwright show-report",
         "seed:demo": "npx tsx scripts/seed-demo.ts",

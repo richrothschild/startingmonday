@@ -1,0 +1,273 @@
+#!/usr/bin/env node
+import fs from 'node:fs'
+import path from 'node:path'
+
+const ROOT = process.cwd()
+const args = new Set(process.argv.slice(2))
+const asJson = args.has('--json')
+
+function toRelative(p) {
+	return p.replace(/\\/g, '/')
+}
+
+function read(relativePath) {
+	const fullPath = path.join(ROOT, relativePath)
+	if (!fs.existsSync(fullPath)) {
+		throw new Error(`Missing required file: ${relativePath}`)
+	}
+	return fs.readFileSync(fullPath, 'utf8')
+}
+
+function has(content, matcher) {
+	if (matcher instanceof RegExp) return matcher.test(content)
+	return content.includes(matcher)
+}
+
+/** @typedef {{ id: string, description: string, matcher: string | RegExp }} Rule */
+/** @typedef {{ id: string, route: string, files: string[], rules: Rule[] }} PageSpec */
+
+/** @type {PageSpec[]} */
+const SPECS = [
+	{
+		id: 'homepage',
+		route: '/',
+		files: ['src/app/page.tsx', 'src/components/LandingPage.tsx'],
+		rules: [
+			{
+				id: 'clarity-audience',
+				description: 'Above-fold copy names the target audience.',
+				matcher: 'C-suite executives and senior operators',
+			},
+			{
+				id: 'clarity-action-frame',
+				description: 'Hero action frame is preserved.',
+				matcher: 'Win with Starting Monday.',
+			},
+			{
+				id: 'conversion-primary-cta',
+				description: 'Primary homepage CTA remains Start Now.',
+				matcher: /<TrackLink[\s\S]*?>[\s\S]*Start Now[\s\S]*<\/TrackLink>/,
+			},
+			{
+				id: 'content-economy-chart-title',
+				description: 'Chart title removes format suffix words.',
+				matcher: 'Opportunity Timing Gap',
+			},
+			{
+				id: 'content-economy-no-key-takeaway-prefix',
+				description: 'Legacy "Key takeaway:" prefix remains removed.',
+				matcher: /Key takeaway:/i,
+			},
+			{
+				id: 'scannability-legend',
+				description: 'Role probability chart has side legend labels.',
+				matcher: /With SM|Typical/,
+			},
+		],
+	},
+	{
+		id: 'pricing',
+		route: '/pricing',
+		files: ['src/app/pricing/page.tsx', 'src/app/pricing/pricing-cards.tsx'],
+		rules: [
+			{
+				id: 'conversion-cta-copy',
+				description: 'Pricing cards keep Start free trial CTA copy.',
+				matcher: 'Start free trial',
+			},
+			{
+				id: 'conversion-card-alignment',
+				description: 'Pricing cards use flex-column stretch alignment.',
+				matcher: 'flex flex-col',
+			},
+			{
+				id: 'conversion-cta-bottom-alignment',
+				description: 'Pricing CTA remains bottom-aligned with mt-auto.',
+				matcher: 'mt-auto',
+			},
+			{
+				id: 'trust-near-pricing',
+				description: 'Pricing keeps employer-visibility privacy assurance.',
+				matcher: 'Your employer cannot see your account or your search activity.',
+			},
+		],
+	},
+	{
+		id: 'demo',
+		route: '/demo',
+		files: ['src/app/demo/page.tsx'],
+		rules: [
+			{
+				id: 'cognitive-load-preset-company',
+				description: 'Demo uses preset company to reduce input burden.',
+				matcher: "const DEMO_COMPANY = 'Salesforce'",
+			},
+			{
+				id: 'cognitive-load-run-limit',
+				description: 'Demo run limit remains capped at five.',
+				matcher: 'const MAX_RUNS = 5',
+			},
+			{
+				id: 'conversion-cta',
+				description: 'Demo includes Start free trial CTA.',
+				matcher: 'Start free trial',
+			},
+		],
+	},
+	{
+		id: 'blog-index',
+		route: '/blog',
+		files: ['src/app/blog/page.tsx', 'src/app/blog/blog-chat.tsx'],
+		rules: [
+			{
+				id: 'information-scent-demo-cta',
+				description: 'Blog index provides demo CTA.',
+				matcher: 'See a live prep brief',
+			},
+			{
+				id: 'blog-chat-enabled',
+				description: 'Blog index mounts Ask the blog helper.',
+				matcher: '<BlogChat posts={BLOG_POSTS} />',
+			},
+			{
+				id: 'blog-chat-label',
+				description: 'Blog helper keeps Ask the blog heading.',
+				matcher: 'Ask the blog',
+			},
+		],
+	},
+	{
+		id: 'blog-role-signals',
+		route: '/blog/how-we-estimate-early-role-signals',
+		files: ['src/app/blog/how-we-estimate-early-role-signals/page.tsx'],
+		rules: [
+			{
+				id: 'ip-protection-language',
+				description: 'Public post avoids exposing exact detection details.',
+				matcher: /without exposing the exact\s+detection methods we use/i,
+			},
+			{
+				id: 'gated-details-cta',
+				description: 'Detailed methodology remains gated to members.',
+				matcher: 'available to Starting Monday members',
+			},
+			{
+				id: 'conversion-cta',
+				description: 'Post includes signup CTA.',
+				matcher: 'Start free — 30 days, no card',
+			},
+		],
+	},
+	{
+		id: 'method-and-evidence',
+		route: '/method-and-evidence',
+		files: ['src/app/method-and-evidence/page.tsx'],
+		rules: [
+			{
+				id: 'dig-deeper-box',
+				description: 'Method page retains Dig deeper section.',
+				matcher: 'Dig deeper',
+			},
+			{
+				id: 'dig-deeper-links',
+				description: 'Method page links to references, evidence, and timing model.',
+				matcher: /href="\/references"[\s\S]*href="\/evidence-room"[\s\S]*href="\/blog\/how-we-estimate-early-role-signals"/,
+			},
+		],
+	},
+	{
+		id: 'signup',
+		route: '/signup',
+		files: ['src/app/(auth)/signup/page.tsx'],
+		rules: [
+			{
+				id: 'friction-jump-box-removed',
+				description: 'Signup no longer shows jump navigation box.',
+				matcher: /Jump to section/i,
+			},
+			{
+				id: 'conversion-h1',
+				description: 'Signup has a single clear H1 conversion heading.',
+				matcher: /<h1\b[\s\S]*?<\/h1>/,
+			},
+		],
+	},
+]
+
+const pageResults = []
+
+for (const spec of SPECS) {
+	const resolvedFiles = spec.files.map((file) => ({
+		file,
+		content: read(file),
+	}))
+
+	const checks = spec.rules.map((rule) => {
+		const matchedIn = resolvedFiles.find((entry) => has(entry.content, rule.matcher))
+
+		const isNegativeRule =
+			rule.id.includes('no-key-takeaway-prefix') ||
+			rule.id.includes('jump-box-removed')
+
+		const passed = isNegativeRule ? !matchedIn : Boolean(matchedIn)
+		const observed = matchedIn ? toRelative(matchedIn.file) : null
+
+		return {
+			id: rule.id,
+			description: rule.description,
+			passed,
+			observed,
+		}
+	})
+
+	const passCount = checks.filter((check) => check.passed).length
+	const pagePassed = passCount === checks.length
+	pageResults.push({
+		id: spec.id,
+		route: spec.route,
+		files: resolvedFiles.map((entry) => toRelative(entry.file)),
+		passCount,
+		totalChecks: checks.length,
+		passed: pagePassed,
+		checks,
+	})
+}
+
+const failedPages = pageResults.filter((result) => !result.passed)
+const summary = {
+	totalPages: pageResults.length,
+	passedPages: pageResults.length - failedPages.length,
+	failedPages: failedPages.length,
+}
+
+if (asJson) {
+	process.stdout.write(
+		JSON.stringify(
+			{
+				summary,
+				pages: pageResults,
+			},
+			null,
+			2
+		) + '\n'
+	)
+} else {
+	console.log('UX/UI rubric page gate')
+	console.log(`Pages: ${summary.passedPages}/${summary.totalPages} passing`)
+
+	for (const page of pageResults) {
+		const marker = page.passed ? 'PASS' : 'FAIL'
+		console.log(`\n[${marker}] ${page.route} (${page.passCount}/${page.totalChecks})`)
+		for (const check of page.checks) {
+			const status = check.passed ? '  - OK ' : '  - ERR'
+			const observed = check.observed ? ` [${check.observed}]` : ''
+			console.log(`${status} ${check.description}${observed}`)
+		}
+	}
+}
+
+if (failedPages.length > 0) {
+	process.exitCode = 1
+} else if (!asJson) {
+	console.log('\nAll UX/UI rubric page checks passed.')
+}

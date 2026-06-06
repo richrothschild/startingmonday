@@ -21,6 +21,9 @@ npm run growth:council:strict
 echo "growth metrics gate..."
 npm run growth:metrics:strict
 
+echo "ux/ui rubric page gate..."
+npm run ux:rubric:pages
+
 if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
 	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
 else
