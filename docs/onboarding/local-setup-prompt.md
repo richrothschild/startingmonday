@@ -1,17 +1,30 @@
-# Local Setup Prompt (Claude Code)
+# Claude Setup Prompt — Get localhost:3000 Running
 
-Before running this prompt, confirm you have access to the Doppler project and config:
+Before running this prompt, make sure you have been added to the Doppler
+`starting-monday` project. Ask Rich if you are unsure.
 
-- Project: startingmonday
-- Config: dev
+Then open Claude Code in your repo folder and paste the prompt below.
 
-Paste this into Claude Code from the repository root:
+---
 
+```
 I need to get the Starting Monday app running locally at localhost:3000. Please work through these steps with me:
-1. Check my Node.js version by running `node -v`. If it is below 20.9.0, stop and tell me to upgrade Node before continuing.
-2. Run `npm install` to make sure dependencies are installed.
-3. Check whether Doppler CLI is installed with `doppler --version`. If not found, tell me to install Doppler CLI from doppler.com/docs/cli and wait for confirmation.
-4. Run `doppler setup` and select project `startingmonday` and config `dev`.
-5. Verify Doppler connectivity using `doppler secrets download --no-file --format env` and confirm `NEXT_PUBLIC_SUPABASE_URL` and `ANTHROPIC_API_KEY` are present. If missing, stop and report.
-6. Start the app with `doppler run -- npm run dev` and report when http://localhost:3000 is ready.
-7. If errors occur, show the exact error output and help fix it.
+
+1. Check my Node.js version by running `node -v`. If it's below 20.9.0, stop and tell me to upgrade Node before we continue.
+
+2. Run `npm install` to make sure all dependencies are installed.
+
+3. Check whether the Doppler CLI is installed by running `doppler --version`. If the command is not found, tell me to install it from doppler.com/docs/cli and wait for me to confirm before continuing.
+
+4. Run `doppler setup` and prompt me to select project `starting-monday` and config `dev` if it asks.
+
+5. Verify Doppler is connected by running `doppler secrets download --no-file --format env` and confirming that `NEXT_PUBLIC_SUPABASE_URL` and `ANTHROPIC_API_KEY` appear in the output. If they are missing or the command fails, stop and tell me.
+
+6. Start the dev server with `doppler run -- npm run dev` and tell me when it is ready at http://localhost:3000.
+
+7. If there are any errors starting the server, show me the error output and help me fix it.
+```
+
+---
+
+Full setup guide and workflow reference: SMK-71 in Jira.
