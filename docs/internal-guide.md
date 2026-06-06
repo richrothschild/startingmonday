@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T02:47:38.742Z
+Last generated: 2026-06-06T03:39:13.831Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -478,10 +478,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/channel-metrics-events.ts | src/lib/channel-metrics-events.ts | export const CHANNELS = [
 - Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
 - Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export async function verifyCoachAccess(coachId: string, clientId: string) {
+- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export type CoachAccessLevel = 'read_only' | 'read_write'
 - Code src/lib/config.test.ts | src/lib/config.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/config.ts | src/lib/config.ts | App-wide configuration derived from environment variables.
-- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { beforeEach, describe, expect, it } from 'vitest'
 - Code src/lib/cron-auth.ts | src/lib/cron-auth.ts | export function validateCronRequest(request: NextRequest): boolean {
 - Code src/lib/database.types.test.ts | src/lib/database.types.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/database.types.ts | src/lib/database.types.ts | Database type definitions for feedback system
