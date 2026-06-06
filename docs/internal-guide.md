@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T15:48:21.526Z
+Last generated: 2026-06-06T16:10:44.659Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -756,7 +756,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (30)
+## Infrastructure and Workflows (31)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -775,6 +775,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
+- Workflow .github/workflows/promote-staging-to-main.yml | .github/workflows/promote-staging-to-main.yml | name: Promote staging to main
 - Workflow .github/workflows/security-weekly.yml | .github/workflows/security-weekly.yml | Every Monday at 08:00 UTC
 - Workflow .github/workflows/send-council-csv-to-slack.yml | .github/workflows/send-council-csv-to-slack.yml | name: Send Council CSV To Slack
 - Workflow .github/workflows/send-epic-summary-to-slack.yml | .github/workflows/send-epic-summary-to-slack.yml | name: Send Epic Summary To Slack
@@ -922,7 +923,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (531)
+## Documentation (532)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1223,6 +1224,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/06-product-intelligence.md | docs/onboarding/06-product-intelligence.md | Product Intelligence — What You Need to Know
 - Doc docs/onboarding/07-contributor-agreement.md | docs/onboarding/07-contributor-agreement.md | Starting Monday — Contributor Agreement
 - Doc docs/onboarding/08-day-one-checklist.md | docs/onboarding/08-day-one-checklist.md | Day One Checklist
+- Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Local Setup Prompt (Claude Code)
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
 - Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic

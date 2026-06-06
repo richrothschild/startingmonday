@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T15:48:21.526Z",
+  "generatedAt": "2026-06-06T16:10:44.659Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
+      "lastModifiedAt": "2026-06-06T15:48:21.539Z"
     },
     {
       "id": "feature:/login",
@@ -10065,6 +10065,19 @@
       "lastModifiedAt": "2026-06-04T04:45:56.846Z"
     },
     {
+      "id": "infra:.github/workflows/promote-staging-to-main.yml",
+      "title": "Workflow .github/workflows/promote-staging-to-main.yml",
+      "body": "name: Promote staging to main",
+      "type": "infra",
+      "ref": ".github/workflows/promote-staging-to-main.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-06T16:09:42.168Z"
+    },
+    {
       "id": "infra:.github/workflows/security-weekly.yml",
       "title": "Workflow .github/workflows/security-weekly.yml",
       "body": "Every Monday at 08:00 UTC",
@@ -15576,7 +15589,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
+      "lastModifiedAt": "2026-06-06T15:48:21.539Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15615,7 +15628,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T14:03:06.528Z"
+      "lastModifiedAt": "2026-06-06T15:48:21.539Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15967,6 +15980,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-12T04:11:01.292Z"
+    },
+    {
+      "id": "doc:docs/onboarding/local-setup-prompt.md",
+      "title": "Doc docs/onboarding/local-setup-prompt.md",
+      "body": "Local Setup Prompt (Claude Code)",
+      "type": "doc",
+      "ref": "docs/onboarding/local-setup-prompt.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-06T16:09:42.125Z"
     },
     {
       "id": "doc:docs/one-pager.md",
