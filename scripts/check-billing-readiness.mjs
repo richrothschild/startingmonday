@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 
 import { createClient } from '@supabase/supabase-js'
+import ws from 'ws'
+
+if (typeof globalThis.WebSocket === 'undefined') {
+  globalThis.WebSocket = ws
+}
 
 const asJson = process.argv.includes('--json')
 const strict = process.argv.includes('--strict')
