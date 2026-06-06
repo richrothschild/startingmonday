@@ -100,37 +100,37 @@ export function PricingCards() {
       </div>
 
       {/* Plan cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 items-stretch">
         {PLANS.map(plan => (
           <div
             key={plan.key}
-            className={`rounded-lg p-8 relative ${plan.featured ? 'border-2 border-slate-900' : 'border border-slate-200'}`}
+            className={`rounded-lg p-6 relative flex flex-col ${plan.featured ? 'border-2 border-slate-900' : 'border border-slate-200'}`}
           >
             {plan.featured && (
-              <span className="absolute top-4 right-4 text-[10px] font-bold tracking-[0.1em] uppercase bg-orange-500 text-white px-2.5 py-1 rounded">
+              <span className="absolute top-3 right-3 text-[10px] font-bold tracking-[0.1em] uppercase bg-orange-500 text-white px-2.5 py-1 rounded">
                 Most popular
               </span>
             )}
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">
               {plan.name}
             </p>
             <div className="mb-1">
-              <span className="text-[44px] font-bold text-slate-900 leading-none">
+              <span className="text-[40px] font-bold text-slate-900 leading-none">
                 ${annual ? plan.annual.toLocaleString() : plan.monthly}
               </span>
-              <span className="text-[15px] text-slate-500 ml-1">
+              <span className="text-[14px] text-slate-500 ml-1">
                 {annual ? '/yr' : '/mo'}
               </span>
             </div>
             {annual && (
-              <p className="text-[12px] text-slate-400 mb-4">${plan.annualMonthly}/mo billed annually</p>
+              <p className="text-[12px] text-slate-400 mb-3">${plan.annualMonthly}/mo billed annually</p>
             )}
-            <p className={`text-[14px] text-slate-500 leading-relaxed ${annual ? 'mb-5' : 'mb-7 mt-4'}`}>
+            <p className="text-[13px] text-slate-500 leading-relaxed mb-5 mt-2 min-h-[56px]">
               {plan.description}
             </p>
-            <ul className="flex flex-col gap-3 mb-8">
+            <ul className="flex flex-col gap-2.5 mb-6 flex-1">
               {plan.features.map(f => (
-                <li key={f} className="flex items-start gap-2.5 text-[13px] text-slate-700">
+                <li key={f} className="flex items-start gap-2 text-[13px] text-slate-700">
                   <Check />
                   {f}
                 </li>
@@ -140,7 +140,7 @@ export function PricingCards() {
               href="/signup?from=pricing"
               data-emi-cta={`pricing_plan_${plan.key}`}
               data-emi-to="/signup?from=pricing"
-              className={`block text-center text-[14px] font-semibold px-6 py-3 rounded transition-colors ${
+              className={`block text-center text-[13px] font-semibold px-6 py-3 rounded transition-colors mt-auto ${
                 plan.featured
                   ? 'bg-orange-500 text-white hover:bg-orange-600'
                   : 'bg-slate-900 text-white hover:bg-slate-700'

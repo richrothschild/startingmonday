@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T03:51:25.122Z
+Last generated: 2026-06-06T14:03:06.516Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -921,7 +921,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (530)
+## Documentation (531)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1445,6 +1445,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/user-guide.md | docs/user-guide.md | Starting Monday User Guide
 - Doc docs/user-success-template.md | docs/user-success-template.md | Starting Monday — User Success Story Template
 - Doc docs/ux-moments-audit.md | docs/ux-moments-audit.md | Starting Monday — UX Moments Audit
+- Doc docs/ux-ui-elite-site-rubrics.md | docs/ux-ui-elite-site-rubrics.md | Elite Site UX / UI Rubrics
 - Doc docs/watermark-ops.md | docs/watermark-ops.md | Watermark System — Internal Operations Guide
 - Doc docs/watermark-test-log.md | docs/watermark-test-log.md | Watermark Test Observation Log
 - Doc docs/watermarking.md | docs/watermarking.md | Starting Monday — Watermarking System

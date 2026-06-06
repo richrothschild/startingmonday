@@ -38,74 +38,39 @@ export default function EarlyRoleSignalsMethodPage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>
-          Our homepage now leads with <strong>"Be ready. Be early."</strong> This post explains the timing model behind that
-          promise: how we calculate early-signal windows, what data supports them, and where uncertainty remains.
+          Every product decision at Starting Monday is grounded in one question: what is the earliest reliable signal that
+          a C-suite search is forming? This post explains the evidence basis for that claim — without exposing the exact
+          detection methods we use.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What the claim means</h2>
 
         <p>
-          The claim does <strong>not</strong> mean every company publishes a role 1-3 weeks after an internal decision. Executive
-          hiring does not work that consistently. Instead, it means we frequently detect meaningful signal clusters and role-formation
-          evidence before broad-market posting channels catch up.
+          The claim does <strong>not</strong> mean every company publishes a role 1–3 weeks after an internal decision.
+          Executive hiring does not work that consistently. It means we frequently detect meaningful context before
+          broad-market posting channels catch up.
         </p>
 
         <p>
-          In practice, "broad-market posting" means LinkedIn and major boards. Company career pages, disclosure filings,
-          and official leadership announcements often surface earlier context.
+          In practice, &ldquo;broad-market posting&rdquo; means LinkedIn and major job boards. Observable company-level
+          changes often surface earlier context for executives paying attention.
         </p>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Our lag model</h2>
+        <h2 className="text-[22px] font-bold text-slate-900 pt-4">The timing model</h2>
 
         <p>
           We separate timing into three measurable intervals so we do not overstate precision:
+          internal trigger to first public signal, first signal to company career page posting, and career page to
+          broad-market distribution. The 1–3 week figure applies primarily to the third interval.
         </p>
 
-        <ol className="list-decimal pl-5 space-y-2">
-          <li><strong>Event-to-signal lag:</strong> internal trigger to first public evidence (for public companies, often an 8-K, press release, or call transcript).</li>
-          <li><strong>Signal-to-posting lag:</strong> first public signal to first role appearance on a company career page.</li>
-          <li><strong>Posting-to-broad-market lag:</strong> company career page appearance to broad distribution on LinkedIn and large job boards.</li>
-        </ol>
+        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Evidence basis</h2>
 
         <p>
-          The 1-3 week language is anchored mostly in interval #3 and supported context from intervals #1 and #2.
-        </p>
-
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Data we use</h2>
-
-        <h3 className="text-[18px] font-bold text-slate-900 pt-2">Tier 1 (highest confidence)</h3>
-
-        <ul className="list-disc pl-5 space-y-2">
-          <li>SEC Form 8-K guidance and filing rules for timing and trigger logic.</li>
-          <li>eCFR references for Exchange Act current-reporting mechanics.</li>
-          <li>Company investor-relations releases and official careers pages.</li>
-        </ul>
-
-        <h3 className="text-[18px] font-bold text-slate-900 pt-2">Tier 2 (contextual support)</h3>
-
-        <ul className="list-disc pl-5 space-y-2">
-          <li>HR process documentation explaining requisition approval and posting workflows.</li>
-          <li>Institutional recruiting guides and workflow references.</li>
-        </ul>
-
-        <h3 className="text-[18px] font-bold text-slate-900 pt-2">Tier 3 (benchmark only)</h3>
-
-        <ul className="list-disc pl-5 space-y-2">
-          <li>Industry benchmark articles on time-to-fill and executive-search duration.</li>
-          <li>Vendor and consultancy estimates used as directional ranges, not proof of our claim.</li>
-        </ul>
-
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Why we moved from 2-4 weeks to 1-3 weeks</h2>
-
-        <p>
-          The earlier 2-4 week language was directionally plausible, but less conservative than our current evidence posture.
-          We tightened to 1-3 weeks because it aligns better with observed posting-channel lag in our monitored sample and
-          avoids claiming more precision than external literature can reliably support.
-        </p>
-
-        <p>
-          We will continue to update this window as we expand verified observations. If the median shifts, we will update
-          the public claim and timestamp the revision.
+          Our claims are grounded in regulatory disclosure timelines, HR process documentation, and industry benchmarks
+          used directionally, not as precise predictions. We separate high-confidence sources from contextual support.
+          Primary sources are cited in the{' '}
+          <Link href="/references" className="text-slate-900 underline hover:text-slate-600">references page</Link>.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">Current limitations</h2>
@@ -114,38 +79,30 @@ export default function EarlyRoleSignalsMethodPage() {
           <li>Private companies disclose less, so event dates are harder to validate.</li>
           <li>Some executive searches never become public postings.</li>
           <li>Role confidentiality, geography, and industry materially change lag timing.</li>
-          <li>Public web benchmarks often measure requisition-to-fill, not decision-to-post.</li>
         </ul>
 
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">Primary sources</h2>
-
-        <ul className="list-disc pl-5 space-y-3 break-words">
-          <li>
-            SEC Compliance and Disclosure Interpretations, Form 8-K:
-            {' '}
-            <a className="text-slate-900 underline" href="https://www.sec.gov/rules-regulations/staff-guidance/compliance-disclosure-interpretations/exchange-act-form-8-k" target="_blank" rel="noopener noreferrer">sec.gov Form 8-K C&DIs</a>
-          </li>
-          <li>
-            eCFR 17 CFR 240.13a-11:
-            {' '}
-            <a className="text-slate-900 underline" href="https://www.ecfr.gov/current/title-17/chapter-II/part-240/section-240.13a-11" target="_blank" rel="noopener noreferrer">current reports on Form 8-K</a>
-          </li>
-          <li>
-            eCFR 17 CFR 249.308:
-            {' '}
-            <a className="text-slate-900 underline" href="https://www.ecfr.gov/current/title-17/chapter-II/part-249/section-249.308" target="_blank" rel="noopener noreferrer">Form 8-K form reference</a>
-          </li>
-        </ul>
-
-        <h2 className="text-[22px] font-bold text-slate-900 pt-4">How to interpret this as a candidate</h2>
+        <h2 className="text-[22px] font-bold text-slate-900 pt-4">How to use this as a candidate</h2>
 
         <p>
-          Treat timing as probability, not certainty. The practical advantage is not predicting an exact posting date. It is
-          knowing where to focus outreach while most candidates are still waiting for the listing.
+          Treat timing as probability, not certainty. The practical advantage is knowing where to focus outreach while
+          most candidates are still waiting for the listing.
         </p>
 
-        <p>
-          If you want the execution side, read{' '}
+        <div className="mt-8 p-5 bg-slate-50 border border-slate-200 rounded-lg">
+          <p className="text-[14px] font-semibold text-slate-900 mb-2">See the full signal model inside the platform</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
+            The detailed detection methodology, evidence tiers, and timing calibration data are available to Starting Monday members.
+          </p>
+          <Link
+            href="/signup?from=blog"
+            className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
+          >
+            Start free — 30 days, no card
+          </Link>
+        </div>
+
+        <p className="mt-8">
+          For the execution side, read{' '}
           <Link href="/blog/target-company-list" className="text-slate-900 underline hover:text-slate-600">
             how to build a target-company list
           </Link>

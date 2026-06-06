@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T03:51:25.122Z",
+  "generatedAt": "2026-06-06T14:03:06.516Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
+      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-30T16:20:22.190Z"
+      "lastModifiedAt": "2026-06-06T13:56:16.201Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -1188,7 +1188,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-13T19:18:44.491Z"
+      "lastModifiedAt": "2026-06-06T13:55:17.262Z"
     },
     {
       "id": "feature:/blog/linkedin-executive-search-strategy",
@@ -1216,7 +1216,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T18:13:57.358Z"
+      "lastModifiedAt": "2026-06-06T13:56:38.760Z"
     },
     {
       "id": "feature:/blog/pe-backed-cio",
@@ -1552,7 +1552,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T15:44:30.484Z"
+      "lastModifiedAt": "2026-06-06T14:01:58.712Z"
     },
     {
       "id": "feature:/demo/presenter",
@@ -2294,7 +2294,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-28T15:44:30.564Z"
+      "lastModifiedAt": "2026-06-06T13:54:36.112Z"
     },
     {
       "id": "feature:/onboarding",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-05T14:32:05.118Z"
+      "lastModifiedAt": "2026-06-06T13:54:13.748Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -4225,7 +4225,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:59.943Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.736Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/alerts",
@@ -4238,7 +4238,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:49:21.263Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.737Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/briefs",
@@ -4303,7 +4303,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:49:26.002Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.738Z"
     },
     {
       "id": "api:/api/coach/clients",
@@ -4329,7 +4329,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:28.329Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.735Z"
     },
     {
       "id": "api:/api/companies/quick-add",
@@ -5486,7 +5486,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:48:13.700Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.733Z"
     },
     {
       "id": "api:/api/prep/[id]/tech-stack",
@@ -5733,7 +5733,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:15.517Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.735Z"
     },
     {
       "id": "api:/api/webhooks/onboarding-video",
@@ -5759,7 +5759,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:06.044Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.735Z"
     },
     {
       "id": "api:/api/webhooks/stripe",
@@ -5772,7 +5772,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:09.674Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.735Z"
     },
     {
       "id": "code:src/lib/__tests__/prep-context.test.ts",
@@ -5941,7 +5941,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:34:54.558Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.733Z"
     },
     {
       "id": "code:src/lib/admin-automation-route.test.ts",
@@ -6253,7 +6253,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:36:27.809Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.738Z"
     },
     {
       "id": "code:src/lib/coach-access.ts",
@@ -6266,7 +6266,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:34:47.211Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.733Z"
     },
     {
       "id": "code:src/lib/config.test.ts",
@@ -6305,7 +6305,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:36:24.459Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.738Z"
     },
     {
       "id": "code:src/lib/cron-auth.ts",
@@ -6318,7 +6318,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:35:00.078Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.733Z"
     },
     {
       "id": "code:src/lib/database.types.test.ts",
@@ -7488,7 +7488,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T03:48:06.415Z"
+      "lastModifiedAt": "2026-06-06T04:02:20.742Z"
     },
     {
       "id": "code:src/lib/pricing.test.ts",
@@ -15563,7 +15563,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
+      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15602,7 +15602,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
+      "lastModifiedAt": "2026-06-06T03:51:25.148Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18826,7 +18826,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:51:22.635Z"
+      "lastModifiedAt": "2026-06-06T14:03:03.923Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -18853,6 +18853,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-05-12T00:58:01.214Z"
+    },
+    {
+      "id": "doc:docs/ux-ui-elite-site-rubrics.md",
+      "title": "Doc docs/ux-ui-elite-site-rubrics.md",
+      "body": "Elite Site UX / UI Rubrics",
+      "type": "doc",
+      "ref": "docs/ux-ui-elite-site-rubrics.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-06T13:59:11.865Z"
     },
     {
       "id": "doc:docs/watermark-ops.md",
