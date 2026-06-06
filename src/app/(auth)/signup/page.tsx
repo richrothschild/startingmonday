@@ -362,16 +362,6 @@ export default function SignupPage() {
                 )}
               </section>
 
-              <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-                <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-                  <a href="#signup-intro" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Why now</a>
-                  <a href="#social-signin" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Social sign-in</a>
-                  <a href="#email-signup" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email signup</a>
-                  <a href="#signup-trust" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Trust and privacy</a>
-                </div>
-              </section>
-
               <div className="bg-white border border-slate-200 rounded p-8">
 
                 <section id="social-signin" className="mb-5">
