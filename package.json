@@ -7,6 +7,7 @@
     },
     "scripts": {
         "dev": "next dev",
+        "dev:doppler": "doppler run -- npm run dev",
         "deps:check": "node scripts/check-dependency-policy.mjs",
         "build": "npm run prebuild:guard && next build",
         "report:pdfs": "node scripts/export-report-pdfs.mjs",
