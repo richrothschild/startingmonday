@@ -10,10 +10,11 @@ export async function runOutreachToneGuardJob(modeArg = 'weekly') {
   }
 
   const mode = modeArg === 'presend' ? 'presend' : 'weekly'
-  const url = `${APP_URL}/api/cron/outreach-tone-guard?secret=${encodeURIComponent(CRON_SECRET)}&mode=${mode}${mode === 'presend' ? '&remediate=1' : ''}`
+  const url = `${APP_URL}/api/cron/outreach-tone-guard?mode=${mode}${mode === 'presend' ? '&remediate=1' : ''}`
   const response = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': `startingmonday-worker/outreach-tone-guard-job/${mode}`,
     },
   })

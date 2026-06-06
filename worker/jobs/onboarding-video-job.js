@@ -9,10 +9,11 @@ export async function runOnboardingVideoJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/onboarding-video-worker?secret=${encodeURIComponent(CRON_SECRET)}&limit=10`
+  const url = `${APP_URL}/api/cron/onboarding-video-worker?limit=10`
   const response = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/onboarding-video-job',
     },
   })

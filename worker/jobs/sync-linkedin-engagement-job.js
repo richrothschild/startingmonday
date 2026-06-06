@@ -9,10 +9,11 @@ export async function runSyncLinkedInEngagementJob() {
     return
   }
 
-  const url = `${APP_URL}/api/admin/social/sync-engagement?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/admin/social/sync-engagement`
   const res = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/sync-linkedin-engagement',
     },
   })

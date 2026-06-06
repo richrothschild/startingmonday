@@ -9,10 +9,11 @@ export async function runIdeasMonthlyJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/ideas-monthly?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/cron/ideas-monthly`
   const response = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/ideas-monthly-job',
     },
   })

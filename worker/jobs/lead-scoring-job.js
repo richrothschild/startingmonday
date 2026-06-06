@@ -9,10 +9,11 @@ export async function runLeadScoringJob() {
     return
   }
 
-  const url = `${APP_URL}/api/admin/leads/score-route?secret=${encodeURIComponent(CRON_SECRET)}&limit=2000`
+  const url = `${APP_URL}/api/admin/leads/score-route?limit=2000`
   const res = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/lead-scoring-job',
     },
   })

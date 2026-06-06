@@ -9,10 +9,11 @@ export async function runOutreachReconcileJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/outreach-reconcile?secret=${encodeURIComponent(CRON_SECRET)}&days=14&limit=1000`
+  const url = `${APP_URL}/api/cron/outreach-reconcile?days=14&limit=1000`
   const res = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/outreach-reconcile-job',
     },
   })

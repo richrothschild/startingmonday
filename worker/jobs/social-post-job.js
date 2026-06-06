@@ -9,10 +9,11 @@ export async function runSocialPostJob() {
     return
   }
 
-  const url = `${APP_URL}/api/admin/social/morning?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/admin/social/morning`
   const res = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/social-post-job',
     },
   })

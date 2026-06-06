@@ -9,10 +9,11 @@ export async function runGoogleCalendarSyncJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/google-calendar-sync?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/cron/google-calendar-sync`
   const res = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/google-calendar-sync-job',
     },
   })

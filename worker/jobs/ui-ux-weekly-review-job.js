@@ -9,10 +9,11 @@ export async function runUiUxWeeklyReviewJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/ui-ux-weekly-review?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/cron/ui-ux-weekly-review`
   const response = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/ui-ux-weekly-review-job',
     },
   })

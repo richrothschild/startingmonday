@@ -9,10 +9,11 @@ export async function runLinkIntegrityWeeklyReviewJob() {
     return
   }
 
-  const url = `${APP_URL}/api/cron/link-integrity-weekly-review?secret=${encodeURIComponent(CRON_SECRET)}`
+  const url = `${APP_URL}/api/cron/link-integrity-weekly-review`
   const response = await fetch(url, {
     method: 'GET',
     headers: {
+      'x-cron-secret': CRON_SECRET,
       'User-Agent': 'startingmonday-worker/link-integrity-weekly-review-job',
     },
   })
