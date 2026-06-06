@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T02:11:02.581Z",
+  "generatedAt": "2026-06-06T02:47:38.742Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-05T22:28:15.508Z"
+      "lastModifiedAt": "2026-06-06T02:14:06.374Z"
     },
     {
       "id": "feature:/login",
@@ -2227,6 +2227,34 @@
       "lastModifiedAt": "2026-06-03T01:43:07.387Z"
     },
     {
+      "id": "feature:/mauricio-kickoff-execution/apollo-read-access",
+      "title": "Feature Mauricio kickoff execution / Apollo read access",
+      "body": "User-facing page route /mauricio-kickoff-execution/apollo-read-access.",
+      "type": "feature",
+      "ref": "/mauricio-kickoff-execution/apollo-read-access",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z"
+    },
+    {
+      "id": "feature:/mauricio-kickoff-execution/customer-email-by-channel",
+      "title": "Feature Mauricio kickoff execution / Customer email by channel",
+      "body": "User-facing page route /mauricio-kickoff-execution/customer-email-by-channel.",
+      "type": "feature",
+      "ref": "/mauricio-kickoff-execution/customer-email-by-channel",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z"
+    },
+    {
       "id": "feature:/mauricio-kickoff-execution",
       "title": "Feature Mauricio kickoff execution",
       "body": "User-facing page route /mauricio-kickoff-execution.",
@@ -2238,7 +2266,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T02:10:04.947Z"
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z"
     },
     {
       "id": "feature:/mauricio-kickoff",
@@ -15522,7 +15550,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T22:28:15.508Z"
+      "lastModifiedAt": "2026-06-06T02:14:06.373Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15561,7 +15589,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-05T22:28:15.508Z"
+      "lastModifiedAt": "2026-06-06T02:14:06.374Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18785,7 +18813,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T02:10:39.240Z"
+      "lastModifiedAt": "2026-06-06T02:47:14.720Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

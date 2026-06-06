@@ -72,6 +72,16 @@ const FOUNDER_NEEDS: FounderNeedRow[] = [
     owner: 'Founder + Mauricio',
     due: 'This week',
   },
+  {
+    request: 'Grant read-only Apollo workspace/file access for list QA and enrichment checks',
+    owner: 'Founder/Admin',
+    due: 'This week',
+  },
+  {
+    request: 'Provide weekly customer email report split by channel (email, LinkedIn, referral, other)',
+    owner: 'Founder/Admin',
+    due: 'This week',
+  },
 ]
 
 const OPERATING_LINKS = [
@@ -330,6 +340,29 @@ export default async function MauricioKickoffExecutionPage() {
           </div>
         </section>
 
+        <section className="bg-white border border-orange-200 rounded-xl p-5 mb-8">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Requested data viewers</p>
+          <p className="text-[13px] text-slate-600 mb-4">
+            Open the two pages below to review Apollo read-access files and weekly customer email outcomes by channel.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <Link
+              href="/mauricio-kickoff-execution/apollo-read-access"
+              className="inline-flex items-center justify-between rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-semibold text-slate-800 hover:bg-slate-100"
+            >
+              Apollo read-access viewer
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/mauricio-kickoff-execution/customer-email-by-channel"
+              className="inline-flex items-center justify-between rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-semibold text-slate-800 hover:bg-slate-100"
+            >
+              Customer email by channel viewer
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </section>
+
         <section className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-8">
           <div className="px-5 py-4 border-b border-slate-200 bg-slate-50">
             <h2 className="text-[13px] font-semibold text-slate-900">30-day task sequence</h2>
@@ -379,7 +412,7 @@ export default async function MauricioKickoffExecutionPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Day-30 decision gates</p>
             <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>10+ qualified meetings held.</span></li>
-              <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>At least 2 closed-paying customers from the sprint motion.</span></li>
+              <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>2 B2B customer trials.</span></li>
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>At least 1 coach pilot in signed or near-signed stage.</span></li>
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>Repeatable outbound and handoff SOPs accepted.</span></li>
             </ul>

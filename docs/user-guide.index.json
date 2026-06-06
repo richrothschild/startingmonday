@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T02:10:39.233Z",
+  "generatedAt": "2026-06-06T02:47:14.716Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -1747,6 +1747,32 @@
     },
     {
       "id": "feature-130",
+      "title": "Mauricio kickoff execution / Apollo read access",
+      "body": "Open /mauricio-kickoff-execution/apollo-read-access to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/mauricio-kickoff-execution/apollo-read-access",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z",
+      "qualityWeight": 1
+    },
+    {
+      "id": "feature-131",
+      "title": "Mauricio kickoff execution / Customer email by channel",
+      "body": "Open /mauricio-kickoff-execution/customer-email-by-channel to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/mauricio-kickoff-execution/customer-email-by-channel",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z",
+      "qualityWeight": 1
+    },
+    {
+      "id": "feature-132",
       "title": "Mauricio kickoff execution",
       "body": "Open /mauricio-kickoff-execution to use this feature area and related workflows.",
       "type": "feature",
@@ -1755,11 +1781,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T02:10:04.947Z",
+      "lastModifiedAt": "2026-06-06T02:46:30.891Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-131",
+      "id": "feature-133",
       "title": "Mauricio kickoff",
       "body": "Open /mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -1772,7 +1798,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-132",
+      "id": "feature-134",
       "title": "Method and evidence",
       "body": "Open /method-and-evidence to use this feature area and related workflows.",
       "type": "feature",
@@ -1785,7 +1811,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-133",
+      "id": "feature-135",
       "title": "Onboarding",
       "body": "Open /onboarding to use this feature area and related workflows.",
       "type": "feature",
@@ -1798,7 +1824,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-134",
+      "id": "feature-136",
       "title": "Optimize",
       "body": "Open /optimize to use this feature area and related workflows.",
       "type": "feature",
@@ -1811,7 +1837,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-135",
+      "id": "feature-137",
       "title": "Outplacement",
       "body": "Open /outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1824,7 +1850,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-136",
+      "id": "feature-138",
       "title": "Outplacement / Personas",
       "body": "Open /outplacement/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1837,7 +1863,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-137",
+      "id": "feature-139",
       "title": "Partners / Mauricio kickoff",
       "body": "Open /partners/mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -1850,7 +1876,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-138",
+      "id": "feature-140",
       "title": "Partners",
       "body": "Open /partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1863,7 +1889,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-139",
+      "id": "feature-141",
       "title": "Pilot findings",
       "body": "Open /pilot-findings to use this feature area and related workflows.",
       "type": "feature",
@@ -1876,7 +1902,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-140",
+      "id": "feature-142",
       "title": "Pricing",
       "body": "Open /pricing to use this feature area and related workflows.",
       "type": "feature",
@@ -1889,7 +1915,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-141",
+      "id": "feature-143",
       "title": "Privacy",
       "body": "Open /privacy to use this feature area and related workflows.",
       "type": "feature",
@@ -1902,7 +1928,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-142",
+      "id": "feature-144",
       "title": "Proof / Roi calculator",
       "body": "Open /proof/roi-calculator to use this feature area and related workflows.",
       "type": "feature",
@@ -1915,7 +1941,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-143",
+      "id": "feature-145",
       "title": "References",
       "body": "Open /references to use this feature area and related workflows.",
       "type": "feature",
@@ -1928,7 +1954,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-144",
+      "id": "feature-146",
       "title": "Research brief",
       "body": "Open /research-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1941,7 +1967,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-145",
+      "id": "feature-147",
       "title": "Sales marketing plan",
       "body": "Open /sales-marketing-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -1954,7 +1980,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-146",
+      "id": "feature-148",
       "title": "Search firms",
       "body": "Open /search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1967,7 +1993,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-147",
+      "id": "feature-149",
       "title": "Search firms / Personas",
       "body": "Open /search-firms/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1980,7 +2006,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-148",
+      "id": "feature-150",
       "title": "Search firms / Sample cfo brief",
       "body": "Open /search-firms/sample-cfo-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1993,7 +2019,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-149",
+      "id": "feature-151",
       "title": "Security",
       "body": "Open /security to use this feature area and related workflows.",
       "type": "feature",
@@ -2006,7 +2032,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-150",
+      "id": "feature-152",
       "title": "Terms",
       "body": "Open /terms to use this feature area and related workflows.",
       "type": "feature",
@@ -2019,7 +2045,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-151",
+      "id": "feature-153",
       "title": "Unsubscribe / Confirmed",
       "body": "Open /unsubscribe/confirmed to use this feature area and related workflows.",
       "type": "feature",
