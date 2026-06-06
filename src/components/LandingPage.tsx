@@ -181,7 +181,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </>
             )}
             <div className="mb-6 flex flex-col sm:flex-row gap-3">
-              <HowStartingMondayHelpsModal sourcePage={sourcePage} />
               <TrackLink
                 href="/concierge?program=beta&from=landing"
                 event={EVENT_NAMES.channelEntryClicked}
@@ -209,12 +208,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
               </p>
               <div className="grid grid-cols-1 gap-3">
-                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                <article className="p-3 sm:p-4">
                   <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Opportunity Timing Gap</p>
                   <div className="overflow-x-auto pb-1">
                     <svg viewBox="0 0 520 252" className="w-[680px] max-w-none h-[236px] sm:w-full sm:max-w-full sm:h-[246px]" role="img" aria-label="Opportunity timing gap chart preview">
-                    <rect x="0" y="0" width="520" height="252" rx="10" fill="#0b1428" />
-
                     <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
                     <circle cx="44" cy="138" r="4.5" fill="#64748b" />
                     <circle cx="116" cy="138" r="4.5" fill="#64748b" />
@@ -245,12 +242,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   </div>
                 </article>
 
-                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                <article className="p-3 sm:p-4">
                   <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Role Landing Probability</p>
                   <div className="overflow-x-auto pb-1">
                     <svg viewBox="0 0 600 292" className="w-[700px] max-w-none h-[260px] sm:w-full sm:max-w-full sm:h-[278px]" role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
-                    <rect x="0" y="0" width="600" height="292" rx="10" fill="#0b1428" />
-
                     <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
                     <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
 
