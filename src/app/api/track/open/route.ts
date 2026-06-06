@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { createHash } from 'crypto'
 import { parsePixelTokenLegacyForTelemetry, parsePixelTokenSigned } from '@/lib/pixel-token'
 
 // 1x1 transparent GIF
@@ -45,7 +46,7 @@ export async function GET(request: NextRequest) {
           sent_date: payload.d || null,
           open_ip: ip,
           user_agent: ua,
-          raw_token: token,
+          raw_token: token ? createHash('sha256').update(token).digest('hex') : null,
           token_signed: true,
         })
 

@@ -124,7 +124,6 @@ const HOME_BLUF_SECTIONS = [
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
   void rolePathPriorityByCtaKey
-  const heroLines = [hero.eyebrow, ...hero.h1Lines, hero.body]
 
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -153,11 +152,17 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           <div className="max-w-5xl mx-auto">
             {isHomePage ? (
               <div className="mb-6">
-                {heroLines.map((line) => (
-                  <p key={line} className="text-white text-[1.9rem] sm:text-[2.05rem] lg:text-[2.9rem] font-bold leading-[1.07] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
-                    {line}
-                  </p>
-                ))}
+                <p className="text-white text-[1.9rem] sm:text-[2.05rem] lg:text-[2.9rem] font-bold leading-[1.07] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.eyebrow}
+                </p>
+                <h1 className="text-white text-[1.9rem] sm:text-[2.05rem] lg:text-[2.9rem] font-bold leading-[1.07] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.h1Lines.map((line, i) => (
+                    <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
+                  ))}
+                </h1>
+                <p className="text-white text-[1.9rem] sm:text-[2.05rem] lg:text-[2.9rem] font-bold leading-[1.07] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.body}
+                </p>
               </div>
             ) : (
               <>

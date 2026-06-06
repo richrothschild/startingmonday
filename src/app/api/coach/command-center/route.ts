@@ -119,6 +119,7 @@ export async function GET(request: NextRequest) {
     const admin = createAdminClient()
     const adminAny = admin as any
     const now = new Date()
+    const since60d = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000).toISOString()
 
     const [profilesRes, companiesRes, followUpsRes, eventsRes] = await Promise.all([
       admin
@@ -140,8 +141,9 @@ export async function GET(request: NextRequest) {
         .from('user_events')
         .select('user_id, created_at')
         .in('user_id', clientIds)
+        .gte('created_at', since60d)
         .order('created_at', { ascending: false })
-        .limit(200000),
+        .limit(50000),
     ])
 
     const profiles = profilesRes.data ?? []

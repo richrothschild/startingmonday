@@ -10,39 +10,15 @@ import {
 } from '@/lib/prep-provenance'
 import { scorePrepBriefConfidence } from '@/lib/prep-confidence'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
-import { PREP_ROLE_MODES, type PrepRoleMode } from '@/lib/prep-role-modes'
+import { type PrepRoleMode } from '@/lib/prep-role-modes'
 import { BriefRating } from '@/components/BriefRating'
 import type { InterviewStage } from '@/lib/prompts'
-
-const STAGE_OPTIONS: { value: InterviewStage; label: string }[] = [
-  { value: 'informal_meeting',    label: 'Informal Meeting' },
-  { value: 'first_interview',     label: 'First Interview' },
-  { value: 'executive_interview', label: 'Executive Interview' },
-  { value: 'board_presentation',  label: 'Board Presentation' },
-  { value: 'final_round',         label: 'Final Round' },
-]
-
-const DEFAULT_INTERVIEW_STAGE: Record<string, InterviewStage> = {
-  watching:    'executive_interview',
-  researching: 'executive_interview',
-  applied:     'informal_meeting',
-  interviewing:'first_interview',
-  offer:       'final_round',
-}
-
-const ROLE_MODE_OPTIONS: { value: PrepRoleMode; label: string }[] = [
-  { value: 'cio', label: 'CIO' },
-  { value: 'cto', label: 'CTO' },
-  { value: 'ciso', label: 'CISO' },
-  { value: 'vp_to_cxo', label: 'VP to CXO' },
-]
-
-function inferInitialRoleMode(roleType: string | null): PrepRoleMode {
-  if (PREP_ROLE_MODES.includes((roleType ?? '').toLowerCase() as PrepRoleMode)) {
-    return roleType!.toLowerCase() as PrepRoleMode
-  }
-  return 'vp_to_cxo'
-}
+import {
+  DEFAULT_INTERVIEW_STAGE,
+  inferInitialRoleMode,
+  ROLE_MODE_OPTIONS,
+  STAGE_OPTIONS,
+} from './prep-config'
 
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/\*\*(.+?)\*\*/g)

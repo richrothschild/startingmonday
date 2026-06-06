@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T02:47:38.742Z
+Last generated: 2026-06-06T03:51:25.122Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -416,7 +416,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/prep/[id]/outreach | src/app/api/prep/[id]/outreach/route.ts | export async function POST(
 - API /api/prep/[id]/priorities | src/app/api/prep/[id]/priorities/route.ts | export async function GET(
 - API /api/prep/[id]/questions | src/app/api/prep/[id]/questions/route.ts | export async function GET(
-- API /api/prep/[id] | src/app/api/prep/[id]/route.ts | Block RFC-1918, loopback, link-local, and common cloud metadata endpoints
+- API /api/prep/[id] | src/app/api/prep/[id]/route.ts | export async function GET(
 - API /api/prep/[id]/tech-stack | src/app/api/prep/[id]/tech-stack/route.ts | export async function GET(
 - API /api/prep/[id]/why-here | src/app/api/prep/[id]/why-here/route.ts | export async function GET(
 - API /api/prep/[id]/wins | src/app/api/prep/[id]/wins/route.ts | export async function GET(
@@ -440,7 +440,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (195)
+## Codebase Modules (196)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -478,10 +478,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/channel-metrics-events.ts | src/lib/channel-metrics-events.ts | export const CHANNELS = [
 - Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
 - Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export async function verifyCoachAccess(coachId: string, clientId: string) {
+- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export type CoachAccessLevel = 'read_only' | 'read_write'
 - Code src/lib/config.test.ts | src/lib/config.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/config.ts | src/lib/config.ts | App-wide configuration derived from environment variables.
-- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { beforeEach, describe, expect, it } from 'vitest'
 - Code src/lib/cron-auth.ts | src/lib/cron-auth.ts | export function validateCronRequest(request: NextRequest): boolean {
 - Code src/lib/database.types.test.ts | src/lib/database.types.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/database.types.ts | src/lib/database.types.ts | Database type definitions for feedback system
@@ -572,6 +572,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/prep-provenance.ts | src/lib/prep-provenance.ts | export const PREP_PROVENANCE_VERSION = 1
 - Code src/lib/prep-role-modes.test.ts | src/lib/prep-role-modes.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/prep-role-modes.ts | src/lib/prep-role-modes.ts | export const PREP_ROLE_MODES = ['cio', 'cto', 'ciso', 'vp_to_cxo'] as const
+- Code src/lib/prep-route-utils.ts | src/lib/prep-route-utils.ts | export function isAllowedJobUrl(raw: string): boolean {
 - Code src/lib/pricing.test.ts | src/lib/pricing.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pricing.ts | src/lib/pricing.ts | Single source of truth for all pricing display values.
 - Code src/lib/program-template-governance.test.ts | src/lib/program-template-governance.test.ts | import { describe, expect, it } from 'vitest'

@@ -15,12 +15,6 @@ function normalizeUrl(raw: string | null): string | null {
   return /^https?:\/\//i.test(t) ? t : `https://${t}`
 }
 
-function isMissingCompetitiveContextColumn(error: { code?: string; message?: string } | null | undefined): boolean {
-  if (!error) return false
-  const msg = error.message?.toLowerCase() ?? ''
-  return error.code === '42703' || (msg.includes('competitive_context') && msg.includes('does not exist'))
-}
-
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -83,21 +77,11 @@ export async function updateCompany(id: string, formData: FormData) {
     offer_decision_factors: offerDecisionFactors,
   }
 
-  let { error } = await supabase
+  const { error } = await supabase
     .from('companies')
     .update(fullUpdatePayload)
     .eq('id', id)
     .eq('user_id', user.id)
-
-  if (isMissingCompetitiveContextColumn(error)) {
-    const { competitive_context: _omitCompetitiveContext, ...fallbackPayload } = fullUpdatePayload
-    const retry = await supabase
-      .from('companies')
-      .update(fallbackPayload)
-      .eq('id', id)
-      .eq('user_id', user.id)
-    error = retry.error
-  }
 
   if (error?.code === '23505') redirect(`/dashboard/companies/${id}?error=duplicate`)
   if (error) throw error

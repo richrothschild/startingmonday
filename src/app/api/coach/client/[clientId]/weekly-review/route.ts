@@ -43,9 +43,12 @@ export async function GET(
   const { clientId } = await params
   const { userId: coachId } = auth
 
-  const { hasAccess } = await verifyCoachAccess(coachId, clientId)
+  const { hasAccess, canWrite } = await verifyCoachAccess(coachId, clientId)
   if (!hasAccess) {
     return NextResponse.json({ error: 'Access denied to this client' }, { status: 403 })
+  }
+  if (!canWrite) {
+    return NextResponse.json({ error: 'Read-only coach access cannot modify weekly reviews' }, { status: 403 })
   }
 
   const supabase = await createClient()
@@ -91,9 +94,12 @@ export async function POST(
   const { clientId } = await params
   const { userId: coachId } = auth
 
-  const { hasAccess } = await verifyCoachAccess(coachId, clientId)
+  const { hasAccess, canWrite } = await verifyCoachAccess(coachId, clientId)
   if (!hasAccess) {
     return NextResponse.json({ error: 'Access denied to this client' }, { status: 403 })
+  }
+  if (!canWrite) {
+    return NextResponse.json({ error: 'Read-only coach access cannot modify weekly reviews' }, { status: 403 })
   }
 
   const payload = await request.json().catch(() => ({}))
