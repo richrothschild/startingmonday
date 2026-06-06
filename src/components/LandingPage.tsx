@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
+import { HowStartingMondayHelpsModal } from '@/components/HowStartingMondayHelpsModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import type { Channel } from '@/lib/channel-metrics-events'
@@ -179,7 +180,8 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </p>
               </>
             )}
-            <div className="mb-6">
+            <div className="mb-6 flex flex-col sm:flex-row gap-3">
+              <HowStartingMondayHelpsModal sourcePage={sourcePage} />
               <TrackLink
                 href="/concierge?program=beta&from=landing"
                 event={EVENT_NAMES.channelEntryClicked}
@@ -189,7 +191,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   cta_label: 'hero_apply_beta',
                   source_page: sourcePage,
                 }}
-                className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+                className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
               >
                 Start Now
               </TrackLink>
@@ -359,6 +361,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               ))}
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
+              <HowStartingMondayHelpsModal sourcePage={sourcePage} />
               <TrackLink
                 href="/concierge?program=beta&from=landing"
                 event={EVENT_NAMES.channelEntryClicked}
@@ -368,7 +371,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   cta_label: 'next_step_start_now',
                   source_page: sourcePage,
                 }}
-                className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+                className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
               >
                 Start Now
               </TrackLink>

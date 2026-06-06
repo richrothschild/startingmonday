@@ -1,11 +1,19 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T16:50:51.694Z
+Last generated: 2026-06-06T20:25:33.023Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
+
+## Explore workflow
+- Audience: staff-only users who need operational insight into the codebase.
+- Cadence: weekly scheduled refresh via .github/workflows/guide-sync.yml, plus manual reruns after major dashboard, worker, auth, or schema changes.
+- Playbook: docs/internal-explore-playbook.md
+- Prompt template: use the playbook prompt verbatim when possible.
+- Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
+- Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
 ## Features (183)
 - Feature Login | /login | User-facing page route /login.
@@ -923,7 +931,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (532)
+## Documentation (533)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1193,6 +1201,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/hero-dual-track-council.latest.md | docs/hero-dual-track-council.latest.md | Hero Dual-Track Council Audit
 - Doc docs/how-to-build-a-great-prep-brief.md | docs/how-to-build-a-great-prep-brief.md | How to Build a Great Prep Brief
 - Doc docs/intelligence-roadmap.md | docs/intelligence-roadmap.md | Starting Monday — Intelligence Scanner Roadmap
+- Doc docs/internal-explore-playbook.md | docs/internal-explore-playbook.md | Internal Explore Playbook
 - Doc docs/internal-guide.md | docs/internal-guide.md | Starting Monday Internal Guide
 - Doc docs/internal-onboarding-readme.md | docs/internal-onboarding-readme.md | Internal Onboarding README (Engineer)
 - Doc docs/internal-pages-ia-redesign.md | docs/internal-pages-ia-redesign.md | Internal Pages IA Redesign (Scale + Cognitive Load)

@@ -2,7 +2,7 @@ name: Guide Sync
 
 on:
   schedule:
-    - cron: '15 8 * * *'
+    - cron: '15 8 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -43,13 +43,14 @@ jobs:
       - name: Open PR when guide files changed
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: 'chore(guide): sync user guide artifacts'
+          commit-message: 'chore(guide): sync guide artifacts'
           title: 'chore(guide): scheduled guide sync'
           body: |
-            Automated guide sync from scheduled workflow.
+            Automated weekly guide sync from scheduled workflow.
 
             Includes:
             - regenerated user guide artifacts
+            - regenerated internal guide artifacts
             - latest retrieval evaluation report
           branch: chore/guide-sync-${{ github.run_id }}
           delete-branch: true

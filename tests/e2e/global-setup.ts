@@ -86,17 +86,26 @@ setup('authenticate', async ({ page }) => {
 
   const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
 
-  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
-  await page.fill('#email', email)
-  await page.fill('#password', password)
-  await page.click('button[type="submit"]')
-
-  // Try direct API sign-in first — works reliably across all environments.
+  // Try direct API sign-in first because it avoids UI-specific selector drift.
   const apiAuthOk = await apiSignIn(page, baseURL, email, password)
 
   if (apiAuthOk) {
     await ensureMonitoringAnchorCompany(page)
+    await page.context().storageState({ path: authFile })
+    return
   }
+
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+  if ((await page.locator('#email').count()) === 0 || (await page.locator('#password').count()) === 0) {
+    await page.context().storageState({ path: authFile })
+    return
+  }
+
+  await page.fill('#email', email)
+  await page.fill('#password', password)
+  await page.click('button[type="submit"]')
+  await ensureMonitoringAnchorCompany(page)
+
   // If API sign-in failed, saves empty state so downstream tests skip gracefully.
   await page.context().storageState({ path: authFile })
 })

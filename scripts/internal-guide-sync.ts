@@ -280,6 +280,19 @@ function entryLine(entry: InternalEntry): string {
   return `- ${entry.title} | ${entry.ref} | ${entry.body}`
 }
 
+function buildExploreWorkflowSection(): string[] {
+  return [
+    '## Explore workflow',
+    '- Audience: staff-only users who need operational insight into the codebase.',
+    '- Cadence: weekly scheduled refresh via .github/workflows/guide-sync.yml, plus manual reruns after major dashboard, worker, auth, or schema changes.',
+    '- Playbook: docs/internal-explore-playbook.md',
+    '- Prompt template: use the playbook prompt verbatim when possible.',
+    '- Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.',
+    '- Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.',
+    '',
+  ]
+}
+
 function buildMarkdown(entries: InternalEntry[], generatedAt: string): string {
   const sections = {
     architecture: entries.filter((entry) => entry.type === 'architecture'),
@@ -302,6 +315,7 @@ function buildMarkdown(entries: InternalEntry[], generatedAt: string): string {
     `## Architecture (${sections.architecture.length})`,
     ...sections.architecture.map(entryLine),
     '',
+    ...buildExploreWorkflowSection(),
     `## Features (${sections.features.length})`,
     ...sections.features.map(entryLine),
     '',
@@ -354,6 +368,7 @@ function buildSummary(entries: InternalEntry[], generatedAt: string): string {
     '- Library modules centralize shared retrieval/auth/analytics/domain logic.',
     '- Scripts and workflows provide CI gates, scheduled audits, and observability exports.',
     '- Migrations and RLS policies define data contracts and access semantics.',
+    '- Internal guide artifacts are refreshed automatically on a weekly scheduled workflow and on demand.',
     '',
     '## What it is not',
     '- Not a replacement for source code reviews when modifying critical paths.',
