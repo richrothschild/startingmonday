@@ -13,9 +13,12 @@ export async function GET(
   const { clientId } = await params
   const coachId = auth.userId
 
-  const { hasAccess } = await verifyCoachAccess(coachId, clientId)
+  const { hasAccess, canWrite } = await verifyCoachAccess(coachId, clientId)
   if (!hasAccess) {
     return NextResponse.json({ error: 'Access denied to this client' }, { status: 403 })
+  }
+  if (!canWrite) {
+    return NextResponse.json({ error: 'Read-only coach access cannot modify alerts' }, { status: 403 })
   }
 
   const supabase = await createClient()

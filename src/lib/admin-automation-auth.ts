@@ -3,7 +3,7 @@ import { timingSafeEqual } from 'crypto'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { getStaffMember } from '@/lib/staff'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
 const AUTOMATION_SERVICE_TOKEN_HEADER = 'x-automation-service-token'
 const AUTOMATION_SERVICE_USER_HEADER = 'x-automation-user-id'
@@ -77,6 +77,10 @@ export async function requireStaffAutomationAccess(request: NextRequest): Promis
 
   if (!staff) {
     return { ok: false, response: NextResponse.json({ error: 'Forbidden' }, { status: 403 }) }
+  }
+
+  if (!hasAdminHeaderAccess(staff)) {
+    return { ok: false, response: NextResponse.json({ error: 'Admin role required' }, { status: 403 }) }
   }
 
   return { ok: true, userId: auth.userId, supabase, userEmail }

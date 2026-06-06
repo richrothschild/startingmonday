@@ -47,12 +47,6 @@ type CompanyDetailRow = {
   offer_decision_factors: string | null
 }
 
-function isMissingCompetitiveContextColumn(error: { code?: string; message?: string } | null | undefined): boolean {
-  if (!error) return false
-  const msg = error.message?.toLowerCase() ?? ''
-  return error.code === '42703' || (msg.includes('competitive_context') && msg.includes('does not exist'))
-}
-
 export default async function CompanyPage({
   params,
   searchParams,
@@ -135,15 +129,10 @@ export default async function CompanyPage({
       .limit(20),
   ])
 
-  // Migration 129 added this column; keep the flag explicit for existing form branches.
-  const companyHasCompetitiveContext = true
-
   const company = rawCompany
     ? {
         ...(rawCompany as Omit<CompanyDetailRow, 'competitive_context'> & { competitive_context?: string | null }),
-        competitive_context: companyHasCompetitiveContext
-          ? ((rawCompany as { competitive_context?: string | null }).competitive_context ?? null)
-          : null,
+        competitive_context: (rawCompany as { competitive_context?: string | null }).competitive_context ?? null,
       } as CompanyDetailRow
     : null
   const signals = (rawSignals ?? []) as unknown as SignalDetailRow[]
@@ -426,26 +415,17 @@ export default async function CompanyPage({
                 <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>
               </div>
 
-              {companyHasCompetitiveContext ? (
-                <div className="pt-1 border-t border-slate-100">
-                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
-                  <textarea
-                    name="competitive_context"
-                    rows={3}
-                    defaultValue={company.competitive_context ?? ''}
-                    placeholder="Known candidates, internal shortlist, search firm intel, who else they're considering..."
-                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
-                  />
-                  <p className="mt-1.5 text-[11px] text-slate-400">Private. Used to sharpen your Win Thesis and pushback prep.</p>
-                </div>
-              ) : (
-                <div className="pt-1 border-t border-slate-100">
-                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
-                  <p className="text-[12px] text-slate-500 bg-slate-50 border border-slate-200 rounded px-3 py-2.5">
-                    Competitive field is temporarily unavailable while schema updates finish.
-                  </p>
-                </div>
-              )}
+              <div className="pt-1 border-t border-slate-100">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Competitive Field</p>
+                <textarea
+                  name="competitive_context"
+                  rows={3}
+                  defaultValue={company.competitive_context ?? ''}
+                  placeholder="Known candidates, internal shortlist, search firm intel, who else they're considering..."
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                />
+                <p className="mt-1.5 text-[11px] text-slate-400">Private. Used to sharpen your Win Thesis and pushback prep.</p>
+              </div>
 
               <div className="pt-1 border-t border-slate-100">
                 <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Interview Notes</p>

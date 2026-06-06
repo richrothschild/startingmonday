@@ -1,5 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 
+export type CoachAccessLevel = 'read_only' | 'read_write'
+
+export function hasCoachWriteAccess(level: string | null | undefined): boolean {
+  return (level ?? 'read_write') !== 'read_only'
+}
+
 export async function verifyCoachAccess(coachId: string, clientId: string) {
   const supabase = await createClient()
 
@@ -23,11 +29,12 @@ export async function verifyCoachAccess(coachId: string, clientId: string) {
     .maybeSingle()
 
   const enabled = permission ? permission.access_enabled : true
-  const level = permission?.access_level ?? seat.access_level ?? 'read_write'
+  const level = (permission?.access_level ?? seat.access_level ?? 'read_write') as CoachAccessLevel
 
   return {
     hasAccess: enabled,
     level,
+    canWrite: enabled && hasCoachWriteAccess(level),
   }
 }
 

@@ -22,12 +22,6 @@ import { apiError } from '@/lib/api-error'
 
 type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
 
-function isMissingCompetitiveContextColumn(error: { code?: string; message?: string } | null | undefined): boolean {
-  if (!error) return false
-  const msg = error.message?.toLowerCase() ?? ''
-  return error.code === '42703' || (msg.includes('competitive_context') && msg.includes('does not exist'))
-}
-
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string, model: string, traceOpts?: TraceOpts) {
   const encoder = new TextEncoder()
   const startMs = Date.now()
@@ -75,31 +69,13 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
 
 async function loadContext(supabase: Awaited<ReturnType<typeof createClient>>, companyId: string, userId: string) {
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const companySelectWithCompetitive = 'name, sector, stage, company_size, notes, competitive_context, interview_notes'
-  const companySelectFallback = 'name, sector, stage, company_size, notes, interview_notes'
-
-  let companyResult = await supabase
+  const companyResult = await supabase
     .from('companies')
-    .select(companySelectWithCompetitive)
+    .select('name, sector, stage, company_size, notes, competitive_context, interview_notes')
     .eq('id', companyId)
     .eq('user_id', userId)
     .single()
-
-  if (isMissingCompetitiveContextColumn(companyResult.error)) {
-    companyResult = await supabase
-      .from('companies')
-      .select(companySelectFallback)
-      .eq('id', companyId)
-      .eq('user_id', userId)
-      .single()
-  }
-
-  const company = companyResult.data
-    ? {
-        ...(companyResult.data as CompanyRow & { competitive_context?: string | null }),
-        competitive_context: (companyResult.data as { competitive_context?: string | null }).competitive_context ?? null,
-      }
-    : null
+  const company = (companyResult.data as CompanyRow | null) ?? null
 
   const [{ data: profile }, { data: scanResults }, { data: contacts }, { data: documents }, { data: interviewLogs }] = await Promise.all([
     supabase
