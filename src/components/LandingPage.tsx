@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
-import { TrackedAccordionItem } from '@/components/TrackedAccordionItem'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import type { Channel } from '@/lib/channel-metrics-events'
@@ -150,24 +149,36 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
       <main>
         <section id="core-clarity" data-emi-section="clarity_block" className="bg-slate-900 px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
-          <div className="max-w-3xl mx-auto">
-            <p className={`text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line [text-wrap:balance] ${isHomePage ? 'text-2xl sm:text-[2.05rem]' : 'text-lg sm:text-xl'}`}>
-              {hero.eyebrow}
-            </p>
-            <h1 className={`font-bold text-white tracking-tight mb-5 [text-wrap:balance] ${isHomePage ? 'text-[2.28rem] leading-[1.03] sm:text-[4rem] sm:leading-[1.08]' : 'text-4xl sm:text-5xl leading-[1.1]'}`}>
-              {hero.h1Lines.map((line, i) => (
-                <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
-              ))}
-            </h1>
-            <p className={`text-slate-200 leading-relaxed max-w-xl mb-4 [text-wrap:pretty] ${isHomePage ? 'text-2xl sm:text-[1.7rem] font-medium' : 'text-base'}`}>
-              {hero.body}
-            </p>
-            {hero.bodyPreamble && (
-              <p className={`text-slate-400 leading-relaxed max-w-xl mb-3 whitespace-pre-line [text-wrap:pretty] ${isHomePage ? 'text-[15px]' : 'text-sm'}`}>
-                {hero.bodyPreamble}
-              </p>
+          <div className="max-w-5xl mx-auto">
+            {isHomePage ? (
+              <div className="mb-6">
+                <p className="text-white text-[1.3rem] sm:text-[1.4rem] lg:text-[1.9rem] font-bold leading-[1.1] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.eyebrow}
+                </p>
+                <h1 className="text-white text-[1.6rem] sm:text-[1.75rem] lg:text-[2.4rem] font-bold leading-[1.08] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.h1Lines.map((line, i) => (
+                    <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
+                  ))}
+                </h1>
+                <p className="text-white text-[1.9rem] sm:text-[2.05rem] lg:text-[2.9rem] font-bold leading-[1.07] tracking-tight mb-3 sm:mb-4 sm:whitespace-nowrap">
+                  {hero.body}
+                </p>
+              </div>
+            ) : (
+              <>
+                <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed mb-5 sm:mb-7 whitespace-pre-line [text-wrap:balance]">
+                  {hero.eyebrow}
+                </p>
+                <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5 [text-wrap:balance]">
+                  {hero.h1Lines.map((line, i) => (
+                    <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
+                  ))}
+                </h1>
+                <p className="text-base text-slate-300 leading-relaxed max-w-xl mb-4 [text-wrap:pretty]">
+                  {hero.body}
+                </p>
+              </>
             )}
-
             <div className="mb-6">
               <TrackLink
                 href="/concierge?program=beta&from=landing"
@@ -185,30 +196,131 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             </div>
 
             {proofHighlights && proofHighlights.length > 0 && (
-              <p className="text-[12px] sm:text-[13px] text-emerald-200 leading-relaxed mb-6 whitespace-nowrap" data-emi-proof="landing_micro_proof">
-                <span className="font-semibold text-emerald-100">Proof:</span> {proofHighlights[0]?.detail}
+              <p className="text-[14px] sm:text-[15px] text-emerald-200 leading-relaxed mb-6 sm:whitespace-nowrap" data-emi-proof="landing_micro_proof">
+                <span className="font-semibold text-emerald-100">Proof:</span> Executives using Starting Monday stay organized, sharpen narrative-to-role fit, and walk into interviews with role-specific evidence.
               </p>
             )}
 
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">At a glance</p>
-              <p className="text-[13px] text-slate-200 leading-relaxed mb-4 [text-wrap:pretty]">
+              <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed mb-4 [text-wrap:pretty]">
                 Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
               </p>
-              <div className="space-y-2.5">
-                {HOME_BLUF_SECTIONS.map((section) => (
-                  <TrackedAccordionItem
-                    key={section.title}
-                    title={section.title}
-                    summary={section.summary}
-                    detail={section.detail}
-                    href={section.href}
-                    channel="executives"
-                    route="/"
-                    blockId={`home_bluf_${section.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
-                  />
-                ))}
+              <div className="grid grid-cols-1 gap-3">
+                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Opportunity Timing Gap</p>
+                  <div className="overflow-x-auto pb-1">
+                    <svg viewBox="0 0 520 252" className="w-[680px] max-w-none h-[236px] sm:w-full sm:max-w-full sm:h-[246px]" role="img" aria-label="Opportunity timing gap chart preview">
+                    <rect x="0" y="0" width="520" height="252" rx="10" fill="#0b1428" />
+
+                    <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
+                    <circle cx="44" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="116" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="188" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="260" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="332" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="404" cy="138" r="4.5" fill="#64748b" />
+                    <circle cx="476" cy="138" r="4.5" fill="#64748b" />
+
+                    <text x="24" y="168" fill="#cbd5e1" fontSize="13">Signal</text>
+                    <text x="94" y="182" fill="#cbd5e1" fontSize="13">Shape</text>
+                    <text x="160" y="168" fill="#cbd5e1" fontSize="13">Outreach</text>
+                    <text x="242" y="182" fill="#cbd5e1" fontSize="13">Open</text>
+                    <text x="302" y="168" fill="#cbd5e1" fontSize="13">Interviews</text>
+                    <text x="384" y="182" fill="#cbd5e1" fontSize="13">Selection</text>
+                    <text x="450" y="168" fill="#cbd5e1" fontSize="13">Start</text>
+
+                    <text x="70" y="30" fill="#86efac" fontSize="14" fontWeight="700">Starting Monday enters here</text>
+                    <line x1="116" y1="42" x2="116" y2="122" stroke="#22c55e" strokeWidth="4" />
+                    <polygon points="116,133.5 109,121.5 123,121.5" fill="#22c55e" />
+
+                    <text x="206" y="50" fill="#fdba74" fontSize="14" fontWeight="700">Typical candidates enter here</text>
+                    <line x1="260" y1="60" x2="260" y2="122" stroke="#f97316" strokeWidth="4" />
+                    <polygon points="260,133.5 253,121.5 267,121.5" fill="#f97316" />
+
+                    <text x="16" y="228" fill="#cbd5e1" fontSize="14" fontWeight="700">Entering before the role opens materially improves shortlist odds.</text>
+                  </svg>
+                  </div>
+                </article>
+
+                <article className="rounded-md border border-slate-700 bg-slate-900/70 p-3 sm:p-4">
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Role Landing Probability</p>
+                  <div className="overflow-x-auto pb-1">
+                    <svg viewBox="0 0 600 292" className="w-[700px] max-w-none h-[260px] sm:w-full sm:max-w-full sm:h-[278px]" role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
+                    <rect x="0" y="0" width="600" height="292" rx="10" fill="#0b1428" />
+
+                    <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
+                    <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
+
+                    <rect x="56" y="138" width="436" height="76" fill="#2b1c2a" opacity="0.32" />
+                    <rect x="248" y="32" width="244" height="106" fill="#0f3a2f" opacity="0.26" />
+                    <line x1="56" y1="178" x2="492" y2="178" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="142" x2="492" y2="142" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="106" x2="492" y2="106" stroke="#1f2f4a" strokeWidth="1" />
+                    <line x1="56" y1="70" x2="492" y2="70" stroke="#1f2f4a" strokeWidth="1" />
+
+                    <text x="18" y="218" fill="#94a3b8" fontSize="12">0%</text>
+                    <text x="14" y="182" fill="#94a3b8" fontSize="12">25%</text>
+                    <text x="14" y="146" fill="#94a3b8" fontSize="12">50%</text>
+                    <text x="14" y="110" fill="#94a3b8" fontSize="12">75%</text>
+                    <text x="10" y="74" fill="#94a3b8" fontSize="12">100%</text>
+
+                    <text x="20" y="24" fill="#cbd5e1" fontSize="12" fontWeight="700">Probability of landing role</text>
+
+                    <line x1="84" y1="214" x2="84" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="138" y1="214" x2="138" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="194" y1="214" x2="194" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="248" y1="214" x2="248" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="302" y1="214" x2="302" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="356" y1="214" x2="356" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="410" y1="214" x2="410" y2="220" stroke="#475569" strokeWidth="1.5" />
+                    <line x1="468" y1="214" x2="468" y2="220" stroke="#475569" strokeWidth="1.5" />
+
+                    <text x="84" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Signal</text>
+                    <text x="138" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Shape</text>
+                    <text x="194" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Outreach</text>
+                    <text x="248" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Open</text>
+                    <text x="302" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Prep</text>
+                    <text x="356" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Interviews</text>
+                    <text x="410" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Selection</text>
+                    <text x="468" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Start</text>
+
+                    <circle cx="84" cy="198" r="5.6" fill="#64748b" />
+                    <circle cx="138" cy="190" r="5.6" fill="#64748b" />
+                    <circle cx="194" cy="178" r="5.6" fill="#64748b" />
+                    <circle cx="248" cy="164" r="5.6" fill="#64748b" />
+                    <circle cx="302" cy="154" r="5.6" fill="#64748b" />
+                    <circle cx="356" cy="144" r="5.6" fill="#64748b" />
+
+                    <circle cx="84" cy="188" r="6.5" fill="#38bdf8" />
+                    <circle cx="138" cy="170" r="6.5" fill="#38bdf8" />
+                    <circle cx="194" cy="150" r="6.5" fill="#38bdf8" />
+                    <circle cx="248" cy="128" r="6.5" fill="#38bdf8" />
+                    <circle cx="302" cy="106" r="6.5" fill="#38bdf8" />
+                    <circle cx="356" cy="84" r="6.5" fill="#38bdf8" />
+                    <circle cx="410" cy="62" r="6.5" fill="#38bdf8" />
+                    <circle cx="468" cy="40" r="6.5" fill="#38bdf8" />
+
+                    <polyline points="84,188 138,170 194,150 248,128 302,106 356,84 410,62 468,40" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
+                    <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
+
+                    <text x="16" y="274" fill="#cbd5e1" fontSize="14" fontWeight="700">Without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
+
+                    <rect x="504" y="36" width="86" height="52" rx="6" fill="#0f1a2e" stroke="#1e3a5f" strokeWidth="1" />
+                    <circle cx="516" cy="52" r="5" fill="#38bdf8" />
+                    <text x="526" y="56" fill="#cbd5e1" fontSize="11">With SM</text>
+                    <circle cx="516" cy="74" r="5" fill="#64748b" />
+                    <text x="526" y="78" fill="#94a3b8" fontSize="11">Typical</text>
+                  </svg>
+                  </div>
+                </article>
               </div>
+              <Link
+                href="/demo/executive-brief"
+                className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors"
+              >
+                See how an interview brief works in 60 seconds →
+              </Link>
             </div>
 
             <p className="text-xs font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
@@ -218,60 +330,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <p className="text-sm text-slate-500 mb-2 leading-relaxed [text-wrap:pretty]">
               Your search stays private. We never share your identity, targets, or activity with employers or recruiters.
             </p>
-          </div>
-        </section>
-
-        <section id="executive-why" data-emi-section="executive_why_block" className="bg-slate-800 px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-700">
-          <div className="max-w-5xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-4">Why it matters to executives</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {EXECUTIVE_WHY.map((item) => (
-                <div key={item} className="rounded-lg border border-slate-700 bg-slate-900 px-4 py-4">
-                  <p className="text-[14px] text-slate-100 leading-relaxed font-medium">{item}</p>
-                </div>
-              ))}
-            </div>
-            {hero.competitiveEdge && (
-              <p className="text-sm text-orange-300 leading-relaxed mt-6 font-medium inline-flex items-start gap-1.5">
-                <BrandIcon name="performance" className="h-4 w-4 text-orange-400 mt-[1px] shrink-0" />
-                <span>{hero.competitiveEdge}</span>
-              </p>
-            )}
-          </div>
-        </section>
-
-        <section id="what-you-get" data-emi-section="what_you_get_block" className="bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-slate-100">
-          <div className="max-w-5xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">What you get</p>
-            <h2 className="text-[22px] font-bold text-slate-900 mb-2 max-w-3xl leading-snug">
-              Four execution advantages for senior search outcomes.
-            </h2>
-            <p className="text-[14px] text-slate-600 mb-8 max-w-3xl leading-relaxed">
-              Position for the right room, control the conversation, run a weekly system, and adapt from evidence.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-5xl">
-              {EXECUTIVE_GETS.map((item) => (
-                <div key={item.title} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                  <p className="text-[12px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Outcome</p>
-                  <p className="text-[18px] font-semibold text-slate-900 leading-snug mb-2">{item.title}</p>
-                  <p className="text-[14px] text-slate-600 leading-relaxed">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-
-            {proofHighlights && proofHighlights.length > 0 && (
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-5 mt-10" data-emi-proof="landing_proof_highlights">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">Proof snapshot</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {proofHighlights.map((item) => (
-                    <div key={item.metric} className="rounded-md border border-emerald-200 bg-white p-3">
-                      <p className="text-[13px] font-semibold text-emerald-900">{item.metric}</p>
-                      <p className="text-[12px] text-slate-700 leading-relaxed mt-1">{item.detail}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </section>
 

@@ -171,7 +171,7 @@ export default async function HomePage() {
           claimEvidenceLabel: 'Evidence room →',
           claimEvidenceHref: '/evidence-room',
           bodyPreamble: 'Built for C-suite executives and senior operators moving into C-level roles.',
-          body: 'Win with Starting Monday today.',
+          body: 'Win with Starting Monday.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',

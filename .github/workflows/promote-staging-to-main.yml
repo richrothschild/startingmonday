@@ -1,0 +1,66 @@
+name: Promote staging to main
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type PROMOTE to continue
+        required: true
+        type: string
+      note:
+        description: Optional release note
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    name: promote-staging-to-main
+    if: ${{ inputs.confirm == 'PROMOTE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Staging quality gates
+        run: |
+          npm run typecheck
+          npm run ux:rubric:pages
+          npm run test
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fast-forward main to staging
+        run: |
+          git fetch origin main staging
+          git checkout main
+          git reset --hard origin/main
+          git merge --ff-only origin/staging
+          git push origin main
+
+      - name: Summarize release
+        if: always()
+        run: |
+          echo "## Staging Promotion" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Source branch: staging" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Target branch: main" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Triggered by: ${{ github.actor }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Note: ${{ inputs.note || 'n/a' }}" >> "$GITHUB_STEP_SUMMARY"

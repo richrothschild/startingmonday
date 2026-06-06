@@ -54,9 +54,32 @@ export async function updateCompany(id: string, formData: FormData) {
     .single()
   const prevStage = current?.stage ?? 'watching'
 
+  const fullUpdatePayload = {
+    name,
+    sector,
+    stage,
+    fit_score: fitScore,
+    company_url: companyUrl,
+    career_page_url: careerPageUrl,
+    linkedin_url: linkedinUrl,
+    crunchbase_id: crunchbaseId,
+    notes,
+    competitive_context: competitiveContext,
+    interview_notes: interviewNotes,
+    company_size: companySize,
+    role_watch_description: roleWatchDescription,
+    offer_role_title: offerRoleTitle,
+    offer_base: offerBase,
+    offer_bonus_pct: offerBonusPct,
+    offer_signing: offerSigning,
+    offer_equity: offerEquity,
+    offer_notes: offerNotes,
+    offer_decision_factors: offerDecisionFactors,
+  }
+
   const { error } = await supabase
     .from('companies')
-    .update({ name, sector, stage, fit_score: fitScore, company_url: companyUrl, career_page_url: careerPageUrl, linkedin_url: linkedinUrl, crunchbase_id: crunchbaseId, notes, competitive_context: competitiveContext, interview_notes: interviewNotes, company_size: companySize, role_watch_description: roleWatchDescription, offer_role_title: offerRoleTitle, offer_base: offerBase, offer_bonus_pct: offerBonusPct, offer_signing: offerSigning, offer_equity: offerEquity, offer_notes: offerNotes, offer_decision_factors: offerDecisionFactors })
+    .update(fullUpdatePayload)
     .eq('id', id)
     .eq('user_id', user.id)
 

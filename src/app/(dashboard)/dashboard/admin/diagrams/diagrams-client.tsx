@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Diagram, DiagramCategory as Category } from './diagrams-data'
 
 function MermaidRenderer({ code, id }: { code: string; id: string }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const [svgDataUri, setSvgDataUri] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -12,10 +12,11 @@ function MermaidRenderer({ code, id }: { code: string; id: string }) {
     async function render() {
       try {
         const mermaid = (await import('mermaid')).default
-        mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' })
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'strict' })
         const { svg } = await mermaid.render(`mermaid-${id}`, code)
-        if (!cancelled && ref.current) {
-          ref.current.innerHTML = svg
+        if (!cancelled) {
+          setSvgDataUri(`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`)
+          setError(null)
         }
       } catch (e) {
         if (!cancelled) setError(String(e))
@@ -26,7 +27,8 @@ function MermaidRenderer({ code, id }: { code: string; id: string }) {
   }, [code, id])
 
   if (error) return <p className="text-[12px] text-red-500 p-4">Failed to render diagram: {error}</p>
-  return <div ref={ref} className="overflow-x-auto p-4" />
+  if (!svgDataUri) return <p className="text-[12px] text-slate-500 p-4">Rendering diagram...</p>
+  return <img src={svgDataUri} alt="Rendered diagram" className="max-w-full h-auto p-4" />
 }
 
 export function DiagramsClient({ categories }: { categories: Category[] }) {

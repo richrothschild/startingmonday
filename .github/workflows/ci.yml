@@ -12,6 +12,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ux-ui-rubric-contract:
+    name: ux-ui-rubric-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run UX/UI rubric page contract
+        run: npm run ux:rubric:pages
+
   predeploy-gates:
     name: Predeploy gates (lint, typecheck, build, smoke)
     runs-on: ubuntu-latest

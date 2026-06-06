@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { notFound, redirect } from 'next/navigation'
 import { buildMauricioMailto } from '@/lib/mauricio-contact'
+import { createClient } from '@/lib/supabase/server'
+import { getStaffMember } from '@/lib/staff'
 
 type TaskRow = {
   week: string
@@ -11,12 +14,108 @@ type TaskRow = {
   owner: string
 }
 
+type PriorityRow = {
+  title: string
+  doneDefinition: string
+}
+
+type FounderNeedRow = {
+  request: string
+  owner: string
+  due: string
+}
+
 export const metadata: Metadata = {
-  title: 'Mauricio Execution Tasks - Starting Monday',
-  description: 'Execution page for Mauricio with task-level outcomes, rationale, and scoring metrics.',
+  title: 'Mauricio BD Workspace - Starting Monday',
+  description: 'Private execution workspace for Mauricio: priorities, dependencies, operating links, and weekly review guardrails.',
   robots: { index: false, follow: false },
   alternates: { canonical: 'https://startingmonday.app/mauricio-kickoff-execution' },
 }
+
+const THIS_WEEK_PRIORITIES: PriorityRow[] = [
+  {
+    title: 'Lock ICP wedge and list criteria',
+    doneDefinition: 'One approved segment, exclusion rules, and 150 target contacts tagged by tier.',
+  },
+  {
+    title: 'Run first outbound wave',
+    doneDefinition: 'First 120 touches completed with response labels and next-step coding.',
+  },
+  {
+    title: 'Handoff warm leads in under 24h',
+    doneDefinition: 'Every qualified positive reply handed to founder using the agreed handoff template.',
+  },
+  {
+    title: 'Publish Friday scorecard',
+    doneDefinition: 'Weekly update sent with conversion funnel, blockers, and next-week experiments.',
+  },
+]
+
+const FOUNDER_NEEDS: FounderNeedRow[] = [
+  {
+    request: 'Approve ICP wedge and disqualification criteria',
+    owner: 'Founder',
+    due: 'Before first launch batch',
+  },
+  {
+    request: 'Approve message angle set A/B/C and forbidden claims list',
+    owner: 'Founder',
+    due: 'Before first outreach day',
+  },
+  {
+    request: 'Confirm founder response windows for warm handoffs',
+    owner: 'Founder',
+    due: 'Today',
+  },
+  {
+    request: 'Confirm source of truth (Airtable or CRM) and required fields',
+    owner: 'Founder + Mauricio',
+    due: 'This week',
+  },
+  {
+    request: 'Grant read-only Apollo workspace/file access for list QA and enrichment checks',
+    owner: 'Founder/Admin',
+    due: 'This week',
+  },
+  {
+    request: 'Provide weekly customer email report split by channel (email, LinkedIn, referral, other)',
+    owner: 'Founder/Admin',
+    due: 'This week',
+  },
+]
+
+const OPERATING_LINKS = [
+  {
+    label: 'Kickoff brief',
+    href: '/mauricio-kickoff',
+    helper: 'Working agreement, timeline, and checkpoint definitions.',
+  },
+  {
+    label: 'Sales and marketing plan',
+    href: '/sales-marketing-plan',
+    helper: 'Current GTM narrative and channel plan.',
+  },
+  {
+    label: 'Sales enablement control room',
+    href: '/dashboard/admin/sales-enablement',
+    helper: 'Internal definitions, ranking, and checkpoints.',
+  },
+  {
+    label: 'Coach outreach operations',
+    href: '/dashboard/admin/coach-outreach',
+    helper: 'Outreach workflow and template operations.',
+  },
+  {
+    label: 'Partner program page',
+    href: '/partners',
+    helper: 'Partner positioning and funnel context.',
+  },
+  {
+    label: 'Coaches guide',
+    href: '/coaches-guide',
+    helper: 'Messaging context for coach segment.',
+  },
+]
 
 const TASKS: TaskRow[] = [
   {
@@ -137,8 +236,26 @@ const WEEKLY_REVIEW = [
   'Highest-leverage experiments for next week',
 ]
 
-export default function MauricioKickoffExecutionPage() {
+export default async function MauricioKickoffExecutionPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const staff = await getStaffMember(user.email ?? '')
+  if (!staff) notFound()
+
   const emailMauricioHref = buildMauricioMailto('Mauricio Execution Follow-up')
+  const requestFounderHref = buildMauricioMailto(
+    'Founder input needed for Mauricio BD sprint',
+    [
+      'Please confirm the following so outreach can run without delay:',
+      '',
+      '1) ICP wedge and exclusion criteria',
+      '2) Approved message set and forbidden claims',
+      '3) Warm-handoff response windows',
+      '4) Source of truth and required tracking fields',
+    ].join('\n')
+  )
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -155,21 +272,96 @@ export default function MauricioKickoffExecutionPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <header className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Execution page</p>
-          <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">Mauricio tasks and why they matter</h1>
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">BD workspace</p>
+          <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">Mauricio execution workspace</h1>
           <p className="text-[14px] text-slate-600 max-w-4xl">
-            This is the operational task board for a fast-close 90-day revenue push focused on US executives and coaches.
-            Every task ties directly to pipeline quality, speed-to-close, or repeatability.
+            This page is the run surface for weekly execution, daily unblock requests, and reporting guardrails.
+            If it is not on this page, it is not in this sprint.
           </p>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap gap-2">
             <a
               href={emailMauricioHref}
               className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-700 hover:bg-orange-500/20"
             >
               Email Mauricio when needed
             </a>
+            <a
+              href={requestFounderHref}
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[12px] font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Send founder-input request
+            </a>
+            <Link
+              href="/feedback"
+              className="inline-flex items-center rounded border border-emerald-300 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-800 hover:bg-emerald-100"
+            >
+              Log execution feedback
+            </Link>
           </div>
         </header>
+
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
+          <div className="bg-white border border-slate-200 rounded-xl p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">This week priorities</p>
+            <ul className="space-y-2">
+              {THIS_WEEK_PRIORITIES.map((item) => (
+                <li key={item.title} className="border border-slate-100 rounded-lg px-3 py-2.5">
+                  <p className="text-[13px] font-semibold text-slate-900">{item.title}</p>
+                  <p className="text-[12px] text-slate-600 mt-1">Done when: {item.doneDefinition}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white border border-amber-200 rounded-xl p-5">
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-3">Inputs needed from founder</p>
+            <ul className="space-y-2">
+              {FOUNDER_NEEDS.map((item) => (
+                <li key={item.request} className="border border-amber-100 rounded-lg bg-amber-50/40 px-3 py-2.5">
+                  <p className="text-[13px] font-semibold text-slate-900">{item.request}</p>
+                  <p className="text-[12px] text-slate-600 mt-1">Owner: {item.owner} | Due: {item.due}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded-xl p-5 mb-8">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Operating links</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {OPERATING_LINKS.map((link) => (
+              <div key={link.href} className="border border-slate-100 rounded-lg px-3 py-2.5">
+                <Link href={link.href} className="text-[13px] font-semibold text-slate-900 hover:text-orange-600">
+                  {link.label}
+                </Link>
+                <p className="text-[12px] text-slate-600 mt-1">{link.helper}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-white border border-orange-200 rounded-xl p-5 mb-8">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Requested data viewers</p>
+          <p className="text-[13px] text-slate-600 mb-4">
+            Open the two pages below to review Apollo read-access files and weekly customer email outcomes by channel.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <Link
+              href="/mauricio-kickoff-execution/apollo-read-access"
+              className="inline-flex items-center justify-between rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-semibold text-slate-800 hover:bg-slate-100"
+            >
+              Apollo read-access viewer
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/mauricio-kickoff-execution/customer-email-by-channel"
+              className="inline-flex items-center justify-between rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-semibold text-slate-800 hover:bg-slate-100"
+            >
+              Customer email by channel viewer
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </section>
 
         <section className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-8">
           <div className="px-5 py-4 border-b border-slate-200 bg-slate-50">
@@ -220,7 +412,7 @@ export default function MauricioKickoffExecutionPage() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Day-30 decision gates</p>
             <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>10+ qualified meetings held.</span></li>
-              <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>At least 2 closed-paying customers from the sprint motion.</span></li>
+              <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>2 B2B customer trials.</span></li>
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>At least 1 coach pilot in signed or near-signed stage.</span></li>
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>Repeatable outbound and handoff SOPs accepted.</span></li>
             </ul>

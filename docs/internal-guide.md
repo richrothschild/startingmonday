@@ -1,13 +1,13 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-05T20:03:33.217Z
+Last generated: 2026-06-06T16:50:51.694Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (181)
+## Features (183)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -166,6 +166,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
 - Feature Mark review | /mark-review | User-facing page route /mark-review.
 - Feature Mark review / Summary | /mark-review/summary | User-facing page route /mark-review/summary.
+- Feature Mauricio kickoff execution / Apollo read access | /mauricio-kickoff-execution/apollo-read-access | User-facing page route /mauricio-kickoff-execution/apollo-read-access.
+- Feature Mauricio kickoff execution / Customer email by channel | /mauricio-kickoff-execution/customer-email-by-channel | User-facing page route /mauricio-kickoff-execution/customer-email-by-channel.
 - Feature Mauricio kickoff execution | /mauricio-kickoff-execution | User-facing page route /mauricio-kickoff-execution.
 - Feature Mauricio kickoff | /mauricio-kickoff | User-facing page route /mauricio-kickoff.
 - Feature Method and evidence | /method-and-evidence | User-facing page route /method-and-evidence.
@@ -414,7 +416,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/prep/[id]/outreach | src/app/api/prep/[id]/outreach/route.ts | export async function POST(
 - API /api/prep/[id]/priorities | src/app/api/prep/[id]/priorities/route.ts | export async function GET(
 - API /api/prep/[id]/questions | src/app/api/prep/[id]/questions/route.ts | export async function GET(
-- API /api/prep/[id] | src/app/api/prep/[id]/route.ts | Block RFC-1918, loopback, link-local, and common cloud metadata endpoints
+- API /api/prep/[id] | src/app/api/prep/[id]/route.ts | export async function GET(
 - API /api/prep/[id]/tech-stack | src/app/api/prep/[id]/tech-stack/route.ts | export async function GET(
 - API /api/prep/[id]/why-here | src/app/api/prep/[id]/why-here/route.ts | export async function GET(
 - API /api/prep/[id]/wins | src/app/api/prep/[id]/wins/route.ts | export async function GET(
@@ -438,7 +440,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (195)
+## Codebase Modules (196)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -476,10 +478,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/channel-metrics-events.ts | src/lib/channel-metrics-events.ts | export const CHANNELS = [
 - Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
 - Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export async function verifyCoachAccess(coachId: string, clientId: string) {
+- Code src/lib/coach-access.ts | src/lib/coach-access.ts | export type CoachAccessLevel = 'read_only' | 'read_write'
 - Code src/lib/config.test.ts | src/lib/config.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/config.ts | src/lib/config.ts | App-wide configuration derived from environment variables.
-- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { beforeEach, describe, expect, it } from 'vitest'
 - Code src/lib/cron-auth.ts | src/lib/cron-auth.ts | export function validateCronRequest(request: NextRequest): boolean {
 - Code src/lib/database.types.test.ts | src/lib/database.types.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/database.types.ts | src/lib/database.types.ts | Database type definitions for feedback system
@@ -570,6 +572,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/prep-provenance.ts | src/lib/prep-provenance.ts | export const PREP_PROVENANCE_VERSION = 1
 - Code src/lib/prep-role-modes.test.ts | src/lib/prep-role-modes.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/prep-role-modes.ts | src/lib/prep-role-modes.ts | export const PREP_ROLE_MODES = ['cio', 'cto', 'ciso', 'vp_to_cxo'] as const
+- Code src/lib/prep-route-utils.ts | src/lib/prep-route-utils.ts | export function isAllowedJobUrl(raw: string): boolean {
 - Code src/lib/pricing.test.ts | src/lib/pricing.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pricing.ts | src/lib/pricing.ts | Single source of truth for all pricing display values.
 - Code src/lib/program-template-governance.test.ts | src/lib/program-template-governance.test.ts | import { describe, expect, it } from 'vitest'
@@ -635,7 +638,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (115)
+## Internal Scripts (116)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -677,6 +680,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
+- Script scripts/check-ux-ui-rubric-pages.mjs | scripts/check-ux-ui-rubric-pages.mjs | #!/usr/bin/env node
 - Script scripts/check-variant-null-rate-alerts.mjs | scripts/check-variant-null-rate-alerts.mjs | #!/usr/bin/env node
 - Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
 - Script scripts/code-synthetic-council-audit.mjs | scripts/code-synthetic-council-audit.mjs | #!/usr/bin/env node
@@ -752,7 +756,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (30)
+## Infrastructure and Workflows (31)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -771,6 +775,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
+- Workflow .github/workflows/promote-staging-to-main.yml | .github/workflows/promote-staging-to-main.yml | name: Promote staging to main
 - Workflow .github/workflows/security-weekly.yml | .github/workflows/security-weekly.yml | Every Monday at 08:00 UTC
 - Workflow .github/workflows/send-council-csv-to-slack.yml | .github/workflows/send-council-csv-to-slack.yml | name: Send Council CSV To Slack
 - Workflow .github/workflows/send-epic-summary-to-slack.yml | .github/workflows/send-epic-summary-to-slack.yml | name: Send Epic Summary To Slack
@@ -784,7 +789,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (130)
+## Data and Migrations (132)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -915,8 +920,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/126_scan_failures_dead_letter.sql | supabase/migrations/126_scan_failures_dead_letter.sql | create table if not exists public.scan_failures (
 - Migration supabase/migrations/127_stripe_webhook_events.sql | supabase/migrations/127_stripe_webhook_events.sql | create table if not exists public.stripe_webhook_events (
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
+- Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
+- Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (530)
+## Documentation (532)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1325,6 +1332,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
@@ -1440,6 +1448,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/user-guide.md | docs/user-guide.md | Starting Monday User Guide
 - Doc docs/user-success-template.md | docs/user-success-template.md | Starting Monday — User Success Story Template
 - Doc docs/ux-moments-audit.md | docs/ux-moments-audit.md | Starting Monday — UX Moments Audit
+- Doc docs/ux-ui-elite-site-rubrics.md | docs/ux-ui-elite-site-rubrics.md | Elite Site UX / UI Rubrics
 - Doc docs/watermark-ops.md | docs/watermark-ops.md | Watermark System — Internal Operations Guide
 - Doc docs/watermark-test-log.md | docs/watermark-test-log.md | Watermark Test Observation Log
 - Doc docs/watermarking.md | docs/watermarking.md | Starting Monday — Watermarking System

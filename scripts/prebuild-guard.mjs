@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 
 const root = process.cwd()
 const srcDir = path.join(root, 'src')
@@ -43,6 +44,17 @@ if (filesWithEmDash.length > 0) {
   process.exitCode = 1
 }
 
+const rubricCheck = spawnSync(
+  process.execPath,
+  [path.join(root, 'scripts/check-ux-ui-rubric-pages.mjs')],
+  { stdio: 'inherit' }
+)
+
+if (rubricCheck.status !== 0) {
+  console.error('Error: UX/UI rubric page checks failed')
+  process.exitCode = 1
+}
+
 for (const relativePath of guideArtifacts) {
   const fullPath = path.join(root, relativePath)
   if (!fs.existsSync(fullPath)) {
@@ -66,4 +78,6 @@ for (const relativePath of guideArtifacts) {
   }
 }
 
-console.log('prebuild guard passed')
+if (!process.exitCode) {
+  console.log('prebuild guard passed')
+}

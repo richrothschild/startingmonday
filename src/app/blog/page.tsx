@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BLOG_POSTS } from '@/lib/blog-posts'
+import { BlogChat } from './blog-chat'
 
 export const metadata: Metadata = {
   title: 'Blog - Starting Monday',
@@ -152,6 +153,13 @@ export default function BlogIndexPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Blog chat */}
+      <section className="px-4 sm:px-6 pb-10 border-t border-slate-100">
+        <div className="max-w-3xl mx-auto pt-10">
+          <BlogChat posts={BLOG_POSTS} />
         </div>
       </section>
 

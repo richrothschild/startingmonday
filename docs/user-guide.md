@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-05T20:03:30.686Z
+Last generated: 2026-06-06T14:03:03.918Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (151)
+## Features (153)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -141,6 +141,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
 - [Mark review](/mark-review) - Open /mark-review to use this feature area and related workflows.
 - [Mark review / Summary](/mark-review/summary) - Open /mark-review/summary to use this feature area and related workflows.
+- [Mauricio kickoff execution / Apollo read access](/mauricio-kickoff-execution/apollo-read-access) - Open /mauricio-kickoff-execution/apollo-read-access to use this feature area and related workflows.
+- [Mauricio kickoff execution / Customer email by channel](/mauricio-kickoff-execution/customer-email-by-channel) - Open /mauricio-kickoff-execution/customer-email-by-channel to use this feature area and related workflows.
 - [Mauricio kickoff execution](/mauricio-kickoff-execution) - Open /mauricio-kickoff-execution to use this feature area and related workflows.
 - [Mauricio kickoff](/mauricio-kickoff) - Open /mauricio-kickoff to use this feature area and related workflows.
 - [Method and evidence](/method-and-evidence) - Open /method-and-evidence to use this feature area and related workflows.

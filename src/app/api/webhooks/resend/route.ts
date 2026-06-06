@@ -1,5 +1,6 @@
 ﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { timingSafeEqual } from 'crypto'
 import { updateOutreachJobStateFromWebhook } from '@/lib/outreach/send-queue'
 
 type WebhookPayload = {
@@ -56,10 +57,21 @@ function isUnsubscribeType(eventType: string): boolean {
   return eventType === 'email.unsubscribed' || eventType === 'unsubscribe.created'
 }
 
+function secretsMatch(actual: string, expected: string): boolean {
+  try {
+    const left = Buffer.from(actual)
+    const right = Buffer.from(expected)
+    if (left.length !== right.length) return false
+    return timingSafeEqual(left, right)
+  } catch {
+    return false
+  }
+}
+
 export async function POST(request: NextRequest) {
   const secret = request.headers.get('x-webhook-secret') ?? ''
   const expected = process.env.RESEND_WEBHOOK_SECRET ?? ''
-  if (!expected || secret !== expected) {
+  if (!expected || !secret || !secretsMatch(secret, expected)) {
     return NextResponse.json({ error: 'Invalid webhook secret' }, { status: 401 })
   }
 

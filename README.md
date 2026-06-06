@@ -41,6 +41,9 @@ npm install
 # Run dev server
 npm run dev       # http://localhost:3000
 
+# Run dev server with Doppler-managed secrets
+npm run dev:doppler
+
 # Type check
 npm run typecheck
 
@@ -58,6 +61,19 @@ node index.js
 
 Environment variables: see the Environment Variables section in [docs/architecture.md](docs/architecture.md).
 
+### Local Secrets via Doppler
+
+On Windows, install Doppler CLI and connect this repository to the `startingmonday` project and `dev` config:
+
+```bash
+winget install Doppler.doppler
+doppler login
+doppler setup --project startingmonday --config dev
+doppler secrets download --no-file --format env
+```
+
+If `doppler` is not recognized right after install, restart the terminal.
+
 ## Deployment
 
 Both services deploy to Railway automatically on push to `main`.
@@ -66,6 +82,26 @@ Both services deploy to Railway automatically on push to `main`.
 - **Worker**: `node worker/index.js`
 
 Health check: `GET /api/health` (returns uptime, timestamp, version)
+
+### Staging-First Release Flow
+
+Use branch flow:
+
+- `feature/*` -> merge to `staging` for preview and validation
+- `staging` -> promote to `main` only after staging passes
+
+Promotion options:
+
+- Manual git flow: merge `feature/*` into `staging`, push `staging`, validate staging environment, then merge `staging` to `main`.
+- GitHub Actions flow: run workflow `.github/workflows/promote-staging-to-main.yml` and enter `PROMOTE`.
+
+The promotion workflow enforces:
+
+- `npm run typecheck`
+- `npm run ux:rubric:pages`
+- `npm run test`
+
+before fast-forwarding `main` from `staging`.
 
 ## Monitoring
 

@@ -107,15 +107,14 @@ export default function MethodAndEvidencePage() {
         </section>
 
         <section className="mb-12 border border-slate-200 rounded-lg p-5 sm:p-6 bg-slate-900 text-white">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 mb-3">What this means for the website</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[14px] text-slate-300 leading-relaxed">
-            <p>Use the homepage to state the promise in plain language, then point to this page for the method.</p>
-            <p>Use the references page for citations, the evidence room for the public asset map, and the pilot page for analytical outcomes.</p>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/references" className="inline-block bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100 transition-colors">View references</Link>
-            <Link href="/evidence-room" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Open evidence room</Link>
-            <Link href="/blog/how-we-estimate-early-role-signals" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Method post</Link>
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 mb-3">Dig deeper</p>
+          <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
+            Explore the citations, pilot data, and timing-model methodology behind every product decision.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/references" className="inline-block bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100 transition-colors">References →</Link>
+            <Link href="/evidence-room" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Evidence room →</Link>
+            <Link href="/blog/how-we-estimate-early-role-signals" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Timing model →</Link>
           </div>
         </section>
       </main>
