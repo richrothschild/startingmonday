@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T03:39:13.831Z",
+  "generatedAt": "2026-06-06T03:51:25.122Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T02:48:58.234Z"
+      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
     },
     {
       "id": "feature:/login",
@@ -4238,7 +4238,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:36:03.778Z"
+      "lastModifiedAt": "2026-06-06T03:49:21.263Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/briefs",
@@ -4303,7 +4303,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:36:06.520Z"
+      "lastModifiedAt": "2026-06-06T03:49:26.002Z"
     },
     {
       "id": "api:/api/coach/clients",
@@ -5478,7 +5478,7 @@
     {
       "id": "api:/api/prep/[id]",
       "title": "API /api/prep/[id]",
-      "body": "Block RFC-1918, loopback, link-local, and common cloud metadata endpoints",
+      "body": "export async function GET(",
       "type": "api",
       "ref": "src/app/api/prep/[id]/route.ts",
       "tags": [
@@ -5486,7 +5486,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T03:35:34.867Z"
+      "lastModifiedAt": "2026-06-06T03:48:13.700Z"
     },
     {
       "id": "api:/api/prep/[id]/tech-stack",
@@ -7476,6 +7476,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-30T00:23:22.510Z"
+    },
+    {
+      "id": "code:src/lib/prep-route-utils.ts",
+      "title": "Code src/lib/prep-route-utils.ts",
+      "body": "export function isAllowedJobUrl(raw: string): boolean {",
+      "type": "code",
+      "ref": "src/lib/prep-route-utils.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-06T03:48:06.415Z"
     },
     {
       "id": "code:src/lib/pricing.test.ts",
@@ -15550,7 +15563,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T02:48:58.234Z"
+      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15589,7 +15602,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T02:48:58.234Z"
+      "lastModifiedAt": "2026-06-06T03:39:13.845Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16603,7 +16616,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:37:08.803Z"
+      "lastModifiedAt": "2026-06-06T03:49:59.412Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -18683,7 +18696,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:37:47.128Z"
+      "lastModifiedAt": "2026-06-06T03:50:32.111Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -18813,7 +18826,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T03:38:48.899Z"
+      "lastModifiedAt": "2026-06-06T03:51:22.635Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
