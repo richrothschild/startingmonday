@@ -61,6 +61,8 @@ const CHANNEL_BEST_FOR: Record<string, string> = {
   search_firms: 'Best for retained-search kickoff quality and shortlist speed',
 }
 
+const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
+
 type RolePathItem = {
   ctaKey: string
   label: string
@@ -124,6 +126,9 @@ const HOME_BLUF_SECTIONS = [
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
+  const isManagerToolsPage = sourcePage === '/managertools'
+  const heroPrimaryHref = isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/concierge?program=beta&from=landing'
+  const heroPrimaryLabel = isManagerToolsPage ? 'Start 90-day free access' : 'Start Now'
   void rolePathPriorityByCtaKey
 
   return (
@@ -134,16 +139,37 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 py-1.5 rounded hover:bg-orange-600 transition-colors"
-              aria-label="Sign up"
-            >
-              Sign Up
-            </Link>
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" aria-label="Log in">
-              Log in
-            </Link>
+            {isManagerToolsPage ? (
+              <>
+                <Link
+                  href="/login"
+                  className="inline-flex h-9 items-center justify-center rounded border border-slate-500 px-4 text-[13px] font-semibold text-slate-200 hover:border-slate-300 hover:text-white transition-colors"
+                  aria-label="Log in"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href={MANAGERTOOLS_SIGNUP_URL}
+                  className="inline-flex h-9 items-center justify-center rounded bg-orange-500 px-4 text-[13px] font-bold text-slate-900 hover:bg-orange-600 transition-colors"
+                  aria-label="Sign up"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/signup"
+                  className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 py-1.5 rounded hover:bg-orange-600 transition-colors"
+                  aria-label="Sign up"
+                >
+                  Sign Up
+                </Link>
+                <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" aria-label="Log in">
+                  Log in
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -182,17 +208,17 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             )}
             <div className="mb-6 flex flex-col sm:flex-row gap-3">
               <TrackLink
-                href="/concierge?program=beta&from=landing"
+                href={heroPrimaryHref}
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{
                   channel: 'executives',
-                  cta_label: 'hero_apply_beta',
+                  cta_label: isManagerToolsPage ? 'hero_manager_tools_signup' : 'hero_apply_beta',
                   source_page: sourcePage,
                 }}
                 className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
               >
-                Start Now
+                {heroPrimaryLabel}
               </TrackLink>
             </div>
 
@@ -332,45 +358,100 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
         <section id="next-step" data-emi-section="next_step_block" className="bg-slate-800 px-4 sm:px-6 py-14 sm:py-20 border-b border-slate-700">
           <div className="max-w-5xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Choose your next step</p>
-            <h2 className="text-[22px] font-bold text-white mb-6 leading-snug">
-              Pick a channel, then take the next step.
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-              {CHANNEL_ROUTE_SPECS.map((spec) => (
-                <TrackLink
-                  key={`next_${spec.channel}`}
-                  href={spec.route}
-                  event={EVENT_NAMES.channelEntryClicked}
-                  logToUserEvents
-                  properties={{
-                    channel: spec.channel,
-                    cta_label: 'next_step_channel_card',
-                    source_page: sourcePage,
-                  }}
-                  className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
-                >
-                  <p className="text-[13px] font-semibold text-white">{spec.label}</p>
-                  <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
-                </TrackLink>
-              ))}
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <HowStartingMondayHelpsModal sourcePage={sourcePage} />
-              <TrackLink
-                href="/concierge?program=beta&from=landing"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{
-                  channel: 'executives',
-                  cta_label: 'next_step_start_now',
-                  source_page: sourcePage,
-                }}
-                className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
-              >
-                Start Now
-              </TrackLink>
-            </div>
+            {isManagerToolsPage ? (
+              <>
+                <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Manager Tools next step</p>
+                <h2 className="text-[22px] font-bold text-white mb-6 leading-snug">
+                  For managers and executives in transition.
+                </h2>
+                <div className="grid grid-cols-1 gap-3 mb-6">
+                  <TrackLink
+                    href="/for-executives"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_manager_tools_audience',
+                      source_page: sourcePage,
+                    }}
+                    className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
+                  >
+                    <p className="text-[13px] font-semibold text-white">Managers and Executives</p>
+                    <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">Built for active or near-term leadership transitions in the Manager Tools community.</p>
+                  </TrackLink>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <TrackLink
+                    href={MANAGERTOOLS_SIGNUP_URL}
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_manager_tools_signup',
+                      source_page: sourcePage,
+                    }}
+                    className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+                  >
+                    Start 90-day free access
+                  </TrackLink>
+                  <TrackLink
+                    href="/feedback"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_manager_tools_feedback',
+                      source_page: sourcePage,
+                    }}
+                    className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
+                  >
+                    Submit feedback
+                  </TrackLink>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Choose your next step</p>
+                <h2 className="text-[22px] font-bold text-white mb-6 leading-snug">
+                  Pick a channel, then take the next step.
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                  {CHANNEL_ROUTE_SPECS.map((spec) => (
+                    <TrackLink
+                      key={`next_${spec.channel}`}
+                      href={spec.route}
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: spec.channel,
+                        cta_label: 'next_step_channel_card',
+                        source_page: sourcePage,
+                      }}
+                      className="block rounded-md border border-slate-700 bg-slate-900 px-4 py-3 hover:border-orange-500 transition-colors"
+                    >
+                      <p className="text-[13px] font-semibold text-white">{spec.label}</p>
+                      <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{CHANNEL_BEST_FOR[spec.channel]}</p>
+                    </TrackLink>
+                  ))}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <HowStartingMondayHelpsModal sourcePage={sourcePage} />
+                  <TrackLink
+                    href="/concierge?program=beta&from=landing"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_start_now',
+                      source_page: sourcePage,
+                    }}
+                    className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
+                  >
+                    Start Now
+                  </TrackLink>
+                </div>
+              </>
+            )}
             <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
           </div>
         </section>
@@ -389,11 +470,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
         <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
           <div className="max-w-5xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+            <div className={isManagerToolsPage ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
+              <span className={isManagerToolsPage ? 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
-              <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400">
+              <div className={isManagerToolsPage ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
                 <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
                 <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
                 <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
@@ -407,8 +488,16 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
-            <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+            {isManagerToolsPage ? (
+              <p className="text-[11px] text-slate-500 mt-5 text-center">
+                Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+              </p>
+            ) : (
+              <>
+                <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
+                <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+              </>
+            )}
           </div>
         </footer>
       </main>
