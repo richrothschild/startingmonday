@@ -103,6 +103,42 @@ The promotion workflow enforces:
 
 before fast-forwarding `main` from `staging`.
 
+### PR Autofix Workflow
+
+Use workflow `.github/workflows/pr-autofix.yml` to auto-remediate deterministic PR check failures.
+
+How to trigger:
+
+- Add label `autofix:mobile-visual` to run mobile visual snapshot autofix.
+- Add label `autofix:guide-sync` to run guide artifact sync autofix.
+- Or comment on a PR:
+  - `/autofix mobile-visual`
+  - `/autofix guide-sync`
+
+Who can trigger via comment:
+
+- Repository `OWNER`, `MEMBER`, or `COLLABORATOR`.
+
+What the bot is allowed to change:
+
+- Mobile visual mode:
+  - `tests/e2e/__screenshots__/*.png`
+- Guide sync mode:
+  - `docs/user-guide.*`
+  - `docs/internal-guide.*`
+  - `docs/internal-system-summary.md`
+
+What the bot will not auto-fix:
+
+- Failing type checks, lint, or functional test logic.
+- Security findings or dependency policy violations.
+- Any PR from a fork (it refuses branch writes for fork heads).
+
+Operational notes:
+
+- The workflow comments on the PR with `Autofix complete` or `Autofix skipped` and reason.
+- For `mobile-visual`, it verifies a failing `Mobile visual regression` check exists on the PR head SHA before running.
+
 ## Monitoring
 
 Production monitoring is implemented via a scheduled GitHub Actions workflow:
