@@ -93,8 +93,8 @@ utm_campaign=horstman-june2026
 ```
 
 ### Events to instrument before launch
-- [ ] Landing page view (`/managertools`)
-- [ ] CTA click → signup initiated
+- [x] Landing page view (`/managertools`) — event: `managertools_landing_view`
+- [x] CTA click → signup initiated — event: `signup_initiated` with `location` + campaign metadata
 - [ ] Signup completed (with source captured)
 - [ ] Target company added (Day 1 activation)
 - [ ] First prep brief generated (aha moment)
@@ -333,11 +333,16 @@ Run only if cohort volume supports statistically meaningful decisions.
 	- Posts 4-hour rollup summary with total, activation, trialing, and paid counts.
 - `/api/cron/managertools-day2-brief`
 	- Processes source `managertools` users in age band 24-72h and dedupes via `user_events` event `managertools_day2_brief_sent`.
+- `/api/cron/managertools-lifecycle`
+	- Handles cohort lifecycle emails (welcome, day-7 feedback, day-30 conversion) for source `managertools`.
+	- Dedupe events: `managertools_welcome_sent`, `managertools_day7_feedback_sent`, `managertools_day30_conversion_sent`.
+	- Default lifecycle campaign window: `MANAGERTOOLS_LIFECYCLE_WINDOW_DAYS` (default `45`).
 
 ### Dry-run support for safe validation
 - `managertools-day2-brief`: `?dry_run=1`
 - `managertools-signup-alerts`: `?dry_run=1`
 - `managertools-signup-summary`: `?dry_run=1`
+- `managertools-lifecycle`: `?dry_run=1`
 
 Dry-run behavior:
 - No Slack messages are sent.

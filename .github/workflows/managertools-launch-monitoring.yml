@@ -5,6 +5,7 @@ on:
     - cron: '*/15 * * * *'
     - cron: '5 */4 * * *'
     - cron: '20 * * * *'
+    - cron: '35 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -90,4 +91,31 @@ jobs:
         with:
           name: managertools-day2-brief
           path: managertools-day2-brief.latest.json
+          retention-days: 14
+
+  lifecycle-comms:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '35 * * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Manager Tools lifecycle communications
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/managertools-lifecycle"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee managertools-lifecycle.latest.json
+
+      - name: Upload lifecycle artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: managertools-lifecycle
+          path: managertools-lifecycle.latest.json
           retention-days: 14

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ManagerToolsSignupLink, ManagerToolsTrackingBeacon } from './manager-tools-tracking'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for the Manager Tools Community',
@@ -18,6 +19,7 @@ const SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_ca
 export default function ManagerToolsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
+      <ManagerToolsTrackingBeacon />
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
@@ -25,9 +27,9 @@ export default function ManagerToolsPage() {
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
             <Link href="/login" className="text-[13px] text-slate-300 hover:text-white transition-colors">Log in</Link>
-            <Link href={SIGNUP_URL} className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 py-1.5 rounded hover:bg-orange-600 transition-colors">
+            <ManagerToolsSignupLink href={SIGNUP_URL} location="nav" className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 py-1.5 rounded hover:bg-orange-600 transition-colors">
               Start free trial
-            </Link>
+            </ManagerToolsSignupLink>
           </div>
         </div>
       </nav>
@@ -110,12 +112,13 @@ export default function ManagerToolsPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-              <Link
+              <ManagerToolsSignupLink
                 href={SIGNUP_URL}
+                location="hero"
                 className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[15px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
               >
                 Start your free 30-day trial {'->'}
-              </Link>
+              </ManagerToolsSignupLink>
               <p className="text-[13px] text-slate-300">Your search stays private. We never share your identity, targets, or activity.</p>
             </div>
           </div>
