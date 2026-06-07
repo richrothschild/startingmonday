@@ -1,0 +1,63 @@
+name: Slack Manual Message
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Short title for the Slack message"
+        required: true
+        type: string
+      body:
+        description: "Slack message body (plain text with optional markdown)"
+        required: true
+        type: string
+
+jobs:
+  send-message:
+    name: Send manual Slack message
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate webhook secret exists
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is missing"
+            exit 1
+          fi
+
+      - name: Send Slack message
+        uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          payload: |
+            {
+              "text": "${{ inputs.title }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "${{ inputs.title }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ inputs.body }}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "Repo: ${{ github.repository }} | Branch: ${{ github.ref_name }} | Triggered by: ${{ github.actor }}"
+                    }
+                  ]
+                }
+              ]
+            }
