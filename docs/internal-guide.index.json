@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T13:18:54.003Z",
+  "generatedAt": "2026-06-07T13:26:54.245Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
+      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
     },
     {
       "id": "feature:/login",
@@ -10249,6 +10249,19 @@
       "lastModifiedAt": "2026-06-06T16:52:14.832Z"
     },
     {
+      "id": "infra:.github/workflows/slack-manual-message.yml",
+      "title": "Workflow .github/workflows/slack-manual-message.yml",
+      "body": "name: Slack Manual Message",
+      "type": "infra",
+      "ref": ".github/workflows/slack-manual-message.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T13:26:32.258Z"
+    },
+    {
       "id": "infra:.github/workflows/slack-simulated-failure.yml",
       "title": "Workflow .github/workflows/slack-simulated-failure.yml",
       "body": "name: Slack Simulated Failure Alert",
@@ -15747,7 +15760,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
+      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15786,7 +15799,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
+      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

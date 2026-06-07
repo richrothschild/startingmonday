@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T13:18:54.003Z
+Last generated: 2026-06-07T13:26:54.245Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -771,7 +771,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (33)
+## Infrastructure and Workflows (34)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -797,6 +797,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/send-council-csv-to-slack.yml | .github/workflows/send-council-csv-to-slack.yml | name: Send Council CSV To Slack
 - Workflow .github/workflows/send-epic-summary-to-slack.yml | .github/workflows/send-epic-summary-to-slack.yml | name: Send Epic Summary To Slack
 - Workflow .github/workflows/slack-alert-test.yml | .github/workflows/slack-alert-test.yml | name: Slack Alert Test
+- Workflow .github/workflows/slack-manual-message.yml | .github/workflows/slack-manual-message.yml | name: Slack Manual Message
 - Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
 - Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
 - Workflow .github/workflows/sync-staging.yml | .github/workflows/sync-staging.yml | Auto-merges main into staging whenever main is pushed.
