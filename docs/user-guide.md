@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-07T16:16:04.578Z
+Last generated: 2026-06-07T19:30:53.236Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (156)
+## Features (158)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -53,6 +53,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Concierge](/dashboard/concierge) - Open /dashboard/concierge to use this feature area and related workflows.
 - [Dashboard / Contacts](/dashboard/contacts) - Open /dashboard/contacts to use this feature area and related workflows.
 - [Dashboard / Discover](/dashboard/discover) - Open /dashboard/discover to use this feature area and related workflows.
+- [Dashboard / Executive brief](/dashboard/executive-brief) - Open /dashboard/executive-brief to use this feature area and related workflows.
 - [Dashboard / Feedback](/dashboard/feedback) - Open /dashboard/feedback to use this feature area and related workflows.
 - [Dashboard / Help](/dashboard/help) - Open /dashboard/help to use this feature area and related workflows.
 - [Dashboard / Invite](/dashboard/invite) - Open /dashboard/invite to use this feature area and related workflows.
@@ -98,6 +99,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Demo / Presenter](/demo/presenter) - Open /demo/presenter to use this feature area and related workflows.
 - [Evaluate](/evaluate) - Open /evaluate to use this feature area and related workflows.
 - [Evidence room](/evidence-room) - Open /evidence-room to use this feature area and related workflows.
+- [Executive brief](/executive-brief) - Open /executive-brief to use this feature area and related workflows.
 - [Executives / Active](/executives/active) - Open /executives/active to use this feature area and related workflows.
 - [Executives](/executives) - Open /executives to use this feature area and related workflows.
 - [Executives / Passive](/executives/passive) - Open /executives/passive to use this feature area and related workflows.
@@ -185,7 +187,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (250)
+## API and Automation (254)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -361,6 +363,10 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me](/api/executive-brief/grill-me) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me/sessions/[id]/respond](/api/executive-brief/grill-me/sessions/[id]/respond) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me/sessions](/api/executive-brief/grill-me/sessions) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/transcription](/api/executive-brief/transcription) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
