@@ -45,7 +45,13 @@ export async function GET(request: NextRequest) {
   if (!validateCronRequest(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
-  if (!OWNER_EMAIL) {
+
+  const mode = request.nextUrl.searchParams.get('mode')
+  const health = request.nextUrl.searchParams.get('health')
+  const dryRun = request.nextUrl.searchParams.get('dry_run')
+  const healthMode = mode === 'health' || health === '1' || dryRun === '1'
+
+  if (!healthMode && !OWNER_EMAIL) {
     return NextResponse.json({ error: 'OWNER_EMAIL or NOTIFY_EMAIL not configured' }, { status: 500 })
   }
 
@@ -90,8 +96,28 @@ export async function GET(request: NextRequest) {
   }
 
   if (!failing.length) {
-    return NextResponse.json({ checked: companies.length, alerted: 0 })
+    return NextResponse.json({
+      checked: companies.length,
+      alerted: 0,
+      mode: healthMode ? 'health' : 'live',
+    })
   }
+
+  if (healthMode) {
+    return NextResponse.json({
+      checked: companies.length,
+      alerted: 0,
+      mode: 'health',
+      wouldAlert: failing.length,
+      sample: failing.slice(0, 5).map((f) => ({
+        companyId: f.companyId,
+        name: f.name,
+        scanPattern: f.scans.map((s) => s.isError ? 'error' : 'empty').join(' -> '),
+      })),
+    })
+  }
+
+  const ownerEmail = OWNER_EMAIL as string
 
   const userIds = [...new Set(failing.map(f => f.userId))]
   const { data: users } = await admin
@@ -161,7 +187,7 @@ export async function GET(request: NextRequest) {
 </html>`
 
   const { error: sendError } = await sendEmail({
-    to: OWNER_EMAIL,
+    to: ownerEmail,
     subject: `[SM Alert] ${n} ${n === 1 ? 'company' : 'companies'} went dark - scan health`,
     html,
   })
@@ -170,7 +196,7 @@ export async function GET(request: NextRequest) {
     console.error(JSON.stringify({
       ts: new Date().toISOString(),
       event: 'scan_alert_email_failed',
-      to: OWNER_EMAIL,
+      to: ownerEmail,
       message: (sendError as { message?: string }).message ?? 'send failed',
       failingCompanyCount: n,
     }))
@@ -182,5 +208,5 @@ export async function GET(request: NextRequest) {
     await admin.from('companies').update({ scan_alert_sent_at: now }).eq('id', f.companyId)
   }
 
-  return NextResponse.json({ checked: companies.length, alerted: n })
+  return NextResponse.json({ checked: companies.length, alerted: n, mode: 'live' })
 }

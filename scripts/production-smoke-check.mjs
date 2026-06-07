@@ -17,14 +17,14 @@ function safeJsonParse(text) {
   }
 }
 
-async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes, critical = true }) {
+async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes, critical = true, headers }) {
   const url = `${trimSlash(BASE_URL)}${path}`
   const started = Date.now()
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
 
   try {
-    const res = await fetch(url, { signal: controller.signal })
+    const res = await fetch(url, { signal: controller.signal, headers: headers ?? {} })
     const body = await res.text()
     const durationMs = Date.now() - started
 
@@ -130,18 +130,14 @@ async function main() {
   ]
 
   if (CRON_SECRET) {
+    const cronHeaders = { 'x-cron-secret': CRON_SECRET }
     checks.push(
       {
-        name: 'Cron social digest',
-        path: `/api/admin/social/digest?secret=${encodeURIComponent(CRON_SECRET)}`,
+        name: 'Cron scan alert health',
+        path: '/api/cron/scan-alert?mode=health',
         expectStatus: 200,
-        expectJsonField: { key: 'ok', allowed: [true] },
-        critical: false,
-      },
-      {
-        name: 'Cron scan alert',
-        path: `/api/cron/scan-alert?secret=${encodeURIComponent(CRON_SECRET)}`,
-        expectStatus: 200,
+        expectJsonField: { key: 'mode', allowed: ['health'] },
+        headers: cronHeaders,
         critical: false,
       },
     )
