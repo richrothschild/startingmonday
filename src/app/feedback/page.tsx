@@ -3,9 +3,9 @@ import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 const PROMPT_STARTERS = [
-  'Starting Monday helped me focus on the right companies sooner.',
-  'The daily cadence made my search more consistent and less reactive.',
-  'I felt better prepared for executive conversations each week.',
+  'The signal timing helped me prioritize where to spend my outreach time.',
+  'The daily briefing is useful, but I want a clearer weekly priority summary.',
+  'The prep flow helped, and I would get more value with stronger contact tracking.',
 ]
 
 function FeedbackForm() {
@@ -14,19 +14,27 @@ function FeedbackForm() {
 
   const [text, setText] = useState('')
   const [state, setState] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!text.trim() || state === 'submitting') return
     setState('submitting')
+    setErrorMessage(null)
 
     const res = await fetch('/api/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, invite_code: inviteCode }),
     })
+    if (res.ok) {
+      setState('done')
+      return
+    }
 
-    setState(res.ok ? 'done' : 'error')
+    const payload = await res.json().catch(() => null)
+    setErrorMessage(payload?.error ?? 'Something went wrong. Please try again.')
+    setState('error')
   }
 
   function applyStarter(textValue: string) {
@@ -53,9 +61,9 @@ function FeedbackForm() {
           <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
             <h1 className="text-[30px] font-bold text-slate-900 mb-3 leading-tight">One sentence is enough.</h1>
             <p className="text-[17px] text-slate-600 leading-relaxed max-w-[58ch]">
-              If Starting Monday helped, share one sentence you would feel good sending to another manager or executive in search.
+              Share one sentence about what worked, what did not, or what would make Starting Monday more useful in your search.
             </p>
-            <p className="text-[14px] text-slate-500 mt-3">Clear and honest beats polished.</p>
+            <p className="text-[14px] text-slate-500 mt-3">Specific and honest beats polished.</p>
 
             <section className="mt-6 rounded-xl border border-slate-200 bg-slate-50/80 p-4">
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick starter (optional)</h2>
@@ -65,9 +73,9 @@ function FeedbackForm() {
                     key={starter}
                     type="button"
                     onClick={() => applyStarter(starter)}
-                    className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[12px] text-slate-700 hover:border-slate-400 hover:bg-slate-100 transition-colors"
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-left text-[12px] text-slate-700 hover:border-slate-400 hover:bg-slate-100 transition-colors"
                   >
-                    Use this
+                    {starter}
                   </button>
                 ))}
               </div>
@@ -76,7 +84,7 @@ function FeedbackForm() {
             <section className="mt-5 rounded-xl border border-slate-200 bg-slate-50/80 p-4">
               <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">How this is used</h2>
               <p className="text-[13px] text-slate-600 leading-relaxed">
-                We use short quotes to improve product messaging. We do not publish private details from your account unless you explicitly approve public use.
+                We use this feedback to shape roadmap priorities and improve product messaging. We do not publish private details from your account unless you explicitly approve public use.
               </p>
             </section>
 
@@ -100,7 +108,7 @@ function FeedbackForm() {
               </div>
 
               {state === 'error' && (
-                <p className="text-[12px] text-red-600 mb-3">Something went wrong. Please try again.</p>
+                <p className="text-[12px] text-red-600 mb-3">{errorMessage}</p>
               )}
 
               <button
