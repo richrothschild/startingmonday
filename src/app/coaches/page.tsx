@@ -5,7 +5,6 @@ import { CoachPreviewActions } from '../for-coaches/coach-preview-actions'
 import { COACH_PROOF_STRIPS, ROLE_BOUNDARY } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
-import { COACH_PERSONAS } from '@/lib/persona-routes'
 
 export const metadata: Metadata = {
   title: 'Coaches Channel | Starting Monday',
@@ -23,23 +22,38 @@ export const metadata: Metadata = {
 }
 
 const FAST_VALUE_POINTS = [
-  'Clients arrive better prepared for high-stakes conversations.',
-  'You see signal movement between sessions instead of rebuilding context.',
-  'The preview makes the value obvious before you commit to a rollout.',
+  'Session time is protected for strategy, not recap.',
+  'Between-session movement is visible to coach and client.',
+  'The preview gives fast evidence before any rollout decision.',
 ]
 
-const INSTANT_VALUE_CARDS = [
+const COST_OF_STAYING_THE_SAME = [
   {
-    title: 'Show value fast',
-    detail: 'A coach sees the prep brief, signal movement, and weekly rhythm in the first pass.',
+    title: 'Unprepared sessions burn high-value coaching time',
+    detail: 'When clients show up cold, your session starts with status rebuild instead of strategic decisions.',
   },
   {
-    title: 'Protect the coaching relationship',
-    detail: 'Starting Monday handles the operating layer while the coach keeps judgment and strategy.',
+    title: 'Strong advice still loses without execution structure',
+    detail: 'Without between-session discipline, momentum drops and good coaching gets blamed for weak follow-through.',
   },
   {
-    title: 'Make sign-up feel low risk',
-    detail: 'Use the preview, compare the fit with real clients, and decide from evidence.',
+    title: 'Invisible progress creates trust friction',
+    detail: 'If movement is unclear, confidence drops before outcomes arrive.',
+  },
+]
+
+const DOUBTS = [
+  {
+    title: '"I need to think about it."',
+    detail: 'Usually this means the value still feels abstract. Run a short preview with real clients and decide from observed change.',
+  },
+  {
+    title: '"My clients already have tools."',
+    detail: 'Starting Monday is not another CRM. It is the between-session operating layer for prep, signals, and follow-through.',
+  },
+  {
+    title: '"I am not sure clients will stick with it."',
+    detail: 'Belief comes after clients feel the workflow improving session quality, not before.',
   },
 ]
 
@@ -67,26 +81,19 @@ export default function CoachesChannelPage() {
           <div>
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-400">Coach gateway</p>
             <h1 className="max-w-3xl text-[34px] font-bold leading-[1.05] tracking-tight text-white sm:text-[48px]">
-              Executive coaches should feel the value before the demo ends.
+              Your client should arrive ready
+              <br className="hidden sm:block" />
+              before your call starts.
             </h1>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
-              Starting Monday gives coaching practices one private operating layer for client signals, prep briefs, and weekly follow-through so the next session feels sharper, not busier.
+              If they do not, strategy time turns into recap. Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
             </p>
             <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-400">
-              Coach-first by design. You keep the judgment and the relationship. The platform keeps the rhythm visible and the value easy to see.
+              Coach-first by design. You keep judgment and relationship ownership.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7">
               <CoachPreviewActions />
-              <TrackLink
-                href="/for-coaches"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'Open coach journey', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
-                className="inline-flex items-center justify-center rounded border border-slate-600 px-5 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-slate-300"
-              >
-                See the coach journey
-              </TrackLink>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-300">
@@ -104,7 +111,7 @@ export default function CoachesChannelPage() {
               </article>
             ))}
             <article className="rounded-2xl border border-orange-400/30 bg-orange-500/10 p-5 shadow-lg shadow-orange-950/20">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200">Instant value</p>
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200">Cost of staying the same</p>
               <ul className="space-y-2 text-[13px] leading-relaxed text-orange-50/90">
                 {FAST_VALUE_POINTS.map((point) => (
                   <li key={point}>• {point}</li>
@@ -118,9 +125,9 @@ export default function CoachesChannelPage() {
       <main className="bg-slate-50 text-slate-900">
         <section className="px-4 py-14 sm:px-6 sm:py-16">
           <div className="mx-auto max-w-6xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">What coaches feel right away</p>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Why this matters now</p>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {INSTANT_VALUE_CARDS.map((card) => (
+              {COST_OF_STAYING_THE_SAME.map((card) => (
                 <article key={card.title} className="rounded-2xl border border-slate-200 bg-white p-5">
                   <p className="mb-2 text-[14px] font-semibold text-slate-900">{card.title}</p>
                   <p className="text-[13px] leading-relaxed text-slate-600">{card.detail}</p>
@@ -132,7 +139,7 @@ export default function CoachesChannelPage() {
 
         <section className="px-4 pb-14 sm:px-6">
           <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-slate-900 p-6 text-white sm:p-8">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-300">Trust and role boundary</p>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-300">Clear role boundary</p>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <article className="rounded-2xl border border-slate-700 bg-slate-950/70 p-5">
                 <p className="mb-2 text-[12px] font-semibold text-slate-200">Platform owns</p>
@@ -155,21 +162,14 @@ export default function CoachesChannelPage() {
         </section>
 
         <section className="px-4 pb-14 sm:px-6">
-          <div className="mx-auto max-w-6xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Choose your path</p>
+          <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Common doubts</p>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {COACH_PERSONAS.map((persona) => (
-                <TrackLink
-                  key={persona.slug}
-                  href={persona.destination}
-                  event={EVENT_NAMES.personaRouteSelected}
-                  logToUserEvents
-                  properties={{ channel: 'coaches', persona: persona.slug, source_route: '/coaches', target_route: persona.destination }}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 transition-colors hover:border-orange-400"
-                >
-                  <p className="mb-2 text-[13px] font-semibold text-slate-900">{persona.label}</p>
-                  <p className="text-[13px] leading-relaxed text-slate-600">{persona.summary}</p>
-                </TrackLink>
+              {DOUBTS.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="mb-2 text-[13px] font-semibold text-slate-900">{item.title}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-600">{item.detail}</p>
+                </article>
               ))}
             </div>
           </div>
@@ -179,12 +179,14 @@ export default function CoachesChannelPage() {
           <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
-                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Sign-up pressure, without pressure</p>
+                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">One clear next step</p>
                 <h2 className="text-[24px] font-bold leading-tight text-slate-900 sm:text-[28px]">
-                  Let the preview do the selling.
+                  Start simple.
+                  <br className="hidden sm:block" />
+                  Prove value with clients.
                 </h2>
                 <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-600">
-                  If the value is obvious, the next step should be obvious too. Request the coach preview, compare it with the work you already do, and decide from the workflow itself.
+                  Use the preview with two to three real clients. Keep it only if session quality improves.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
@@ -198,13 +200,13 @@ export default function CoachesChannelPage() {
                   Request the coach preview
                 </TrackLink>
                 <TrackLink
-                  href="/for-coaches/trust-pack"
-                  event={EVENT_NAMES.channelEntryClicked}
+                  href="/coaches/personas"
+                  event={EVENT_NAMES.personaRouteSelected}
                   logToUserEvents
-                  properties={{ channel: 'coaches', cta_label: 'coach_trust_pack', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
+                  properties={{ channel: 'coaches', persona: 'persona_hub', source_route: '/coaches', target_route: '/coaches/personas', variant_key: 'coach_gateway_v3' }}
                   className="inline-flex items-center justify-center rounded border border-slate-300 px-5 py-3 text-[14px] font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
                 >
-                  Read the trust pack
+                  Choose coach path
                 </TrackLink>
               </div>
             </div>
