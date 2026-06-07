@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T00:09:45.970Z
+Last generated: 2026-06-07T00:24:10.697Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -201,7 +201,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (249)
+## API Surface (250)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -354,6 +354,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/link-integrity-weekly-review | src/app/api/cron/link-integrity-weekly-review/route.ts | export const runtime = 'nodejs'
 - API /api/cron/managertools-day2-brief | src/app/api/cron/managertools-day2-brief/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-lifecycle | src/app/api/cron/managertools-lifecycle/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/managertools-signup-alerts | src/app/api/cron/managertools-signup-alerts/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/managertools-signup-summary | src/app/api/cron/managertools-signup-summary/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/onboarding-video-worker | src/app/api/cron/onboarding-video-worker/route.ts | export const runtime = 'nodejs'

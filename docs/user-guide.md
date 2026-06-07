@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-07T00:09:21.140Z
+Last generated: 2026-06-07T00:24:08.480Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -183,7 +183,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (249)
+## API and Automation (250)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -336,6 +336,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/managertools-day2-brief](/api/cron/managertools-day2-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-lifecycle](/api/cron/managertools-lifecycle) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/managertools-signup-alerts](/api/cron/managertools-signup-alerts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/managertools-signup-summary](/api/cron/managertools-signup-summary) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/onboarding-video-worker](/api/cron/onboarding-video-worker) - Programmatic endpoint available for platform behavior or integrations.

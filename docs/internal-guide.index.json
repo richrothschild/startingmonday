@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:09:45.970Z",
+  "generatedAt": "2026-06-07T00:24:10.697Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T20:25:33.036Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.538Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T23:42:21.866Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.435Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T23:40:56.103Z"
+      "lastModifiedAt": "2026-06-07T00:22:30.788Z"
     },
     {
       "id": "feature:/mark-demo",
@@ -4564,7 +4564,20 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T23:40:05.660Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.435Z"
+    },
+    {
+      "id": "api:/api/cron/managertools-lifecycle",
+      "title": "API /api/cron/managertools-lifecycle",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/cron/managertools-lifecycle/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:22:20.247Z"
     },
     {
       "id": "api:/api/cron/managertools-signup-alerts",
@@ -4577,7 +4590,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:06:38.919Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.436Z"
     },
     {
       "id": "api:/api/cron/managertools-signup-summary",
@@ -4590,7 +4603,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:06:46.995Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.436Z"
     },
     {
       "id": "api:/api/cron/onboarding-video-worker",
@@ -10024,7 +10037,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:08:31.737Z"
+      "lastModifiedAt": "2026-06-07T00:22:36.204Z"
     },
     {
       "id": "infra:.github/workflows/monitoring-watchdog.yml",
@@ -15668,7 +15681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T20:25:33.036Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.537Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15707,7 +15720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T20:25:33.036Z"
+      "lastModifiedAt": "2026-06-07T00:12:32.538Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15837,7 +15850,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:06:54.112Z"
+      "lastModifiedAt": "2026-06-07T00:22:43.342Z"
     },
     {
       "id": "doc:docs/mark-horstman-site-audit.md",
@@ -18957,7 +18970,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:09:21.144Z"
+      "lastModifiedAt": "2026-06-07T00:24:08.484Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
