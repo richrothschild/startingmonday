@@ -68,6 +68,63 @@ At review time, owners must do one of:
 3. If binary files must be kept, store a paired Markdown summary with owner and review metadata.
 4. Never commit secrets, credentials, private keys, or personal data.
 
+## Google Drive Mirror Policy
+
+All governed docs are mirrored to the Starting Monday Google Workspace Shared Drive by automation.
+
+### Required secrets for sync automation
+
+1. `GDRIVE_SERVICE_ACCOUNT_JSON`
+2. `GDRIVE_SHARED_DRIVE_ID`
+3. `GDRIVE_ROOT_FOLDER_ID`
+
+### Exact folder mapping
+
+The sync job maps repository paths to Drive folders using this fixed mapping:
+
+| Repository path prefix | Drive folder |
+| --- | --- |
+| `docs/governance/` | `Governance/` |
+| `docs/templates/` | `Templates/` |
+| `docs/strategy/` | `Strategy/` |
+| `docs/operations/` | `Operations/` |
+| `docs/content/` | `Content/` |
+| `docs/growth/` | `Growth/` |
+| `docs/research/` | `Research/` |
+| `docs/alerts/` | `Alerts/` |
+| `docs/status/` | `Status/` |
+| any other `docs/` path | `General/` |
+
+Subfolders under each mapped area are preserved by relative path.
+
+### Archive routing rules
+
+A doc is routed to `Archive/` in Drive when one of these metadata rules is true:
+
+1. `Status: deprecated`
+2. `Status: archived`
+3. `Lifecycle candidate: archive`
+
+Archive destination pattern:
+
+`Archive/<MappedArea>/<RelativeSubfolders>/<filename>`
+
+### Exclusions from sync
+
+These files are excluded from Drive mirror updates:
+
+1. `internal-guide.*`
+2. `user-guide.*`
+3. `*.latest.md`
+4. `*.latest.json`
+
+### Automation source
+
+Sync automation lives in:
+
+1. `scripts/sync-docs-to-gdrive.mjs`
+2. `.github/workflows/docs-drive-sync.yml`
+
 ## Minimal PR Checklist
 
 Copy this into PRs that touch `docs/`:

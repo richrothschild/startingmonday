@@ -1,0 +1,70 @@
+name: Docs Drive Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Run in dry-run mode
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [staging, main]
+    paths:
+      - 'docs/**'
+      - 'scripts/sync-docs-to-gdrive.mjs'
+      - '.github/workflows/docs-drive-sync.yml'
+  schedule:
+    - cron: '17 6 * * *'
+
+concurrency:
+  group: docs-drive-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Mirror docs to Google Drive
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Validate Drive configuration
+        env:
+          GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          GDRIVE_SHARED_DRIVE_ID: ${{ secrets.GDRIVE_SHARED_DRIVE_ID }}
+          GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_ROOT_FOLDER_ID }}
+        run: |
+          if [ -z "$GDRIVE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "GDRIVE_SERVICE_ACCOUNT_JSON is missing"
+            exit 1
+          fi
+          if [ -z "$GDRIVE_SHARED_DRIVE_ID" ]; then
+            echo "GDRIVE_SHARED_DRIVE_ID is missing"
+            exit 1
+          fi
+          if [ -z "$GDRIVE_ROOT_FOLDER_ID" ]; then
+            echo "GDRIVE_ROOT_FOLDER_ID is missing"
+            exit 1
+          fi
+
+      - name: Sync docs to Drive
+        env:
+          GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          GDRIVE_SHARED_DRIVE_ID: ${{ secrets.GDRIVE_SHARED_DRIVE_ID }}
+          GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_ROOT_FOLDER_ID }}
+          DOCS_SYNC_INCLUDE_EXTENSIONS: .md,.txt,.csv,.json,.doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            node scripts/sync-docs-to-gdrive.mjs --dry-run --verbose
+          else
+            node scripts/sync-docs-to-gdrive.mjs --verbose
+          fi

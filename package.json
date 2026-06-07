@@ -168,6 +168,8 @@
         "guide:internal:sync": "npx tsx scripts/internal-guide-sync.ts",
         "guide:internal:check": "npx tsx scripts/internal-guide-sync.ts --check",
         "guide:internal:force": "npx tsx scripts/internal-guide-sync.ts --force",
+        "docs:drive:sync": "node scripts/sync-docs-to-gdrive.mjs",
+        "docs:drive:sync:dry-run": "node scripts/sync-docs-to-gdrive.mjs --dry-run",
         "test:outreach-templates": "vitest run src/lib/outreach/template-engine.test.ts",
         "test:experiment-coverage-guard": "vitest run src/lib/experiment-route-coverage-guard.test.ts",
         "test": "npm run guard:observability-imports && npm run test:placeholder-guard && vitest run",
