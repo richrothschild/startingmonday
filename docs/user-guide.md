@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-06T14:03:03.918Z
+Last generated: 2026-06-07T01:05:44.794Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (153)
+## Features (154)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -136,6 +136,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Founder note](/founder-note) - Open /founder-note to use this feature area and related workflows.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
+- [Managertools](/managertools) - Open /managertools to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
 - [Mark review / Appendix](/mark-review/appendix) - Open /mark-review/appendix to use this feature area and related workflows.
 - [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
@@ -182,7 +183,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (246)
+## API and Automation (250)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -334,6 +335,10 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-day2-brief](/api/cron/managertools-day2-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-lifecycle](/api/cron/managertools-lifecycle) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-signup-alerts](/api/cron/managertools-signup-alerts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-signup-summary](/api/cron/managertools-signup-summary) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/onboarding-video-worker](/api/cron/onboarding-video-worker) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/outreach-digest](/api/cron/outreach-digest) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/outreach-reconcile](/api/cron/outreach-reconcile) - Programmatic endpoint available for platform behavior or integrations.

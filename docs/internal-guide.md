@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T20:25:33.023Z
+Last generated: 2026-06-07T01:05:47.219Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (183)
+## Features (184)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -169,6 +169,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Founder note | /founder-note | User-facing page route /founder-note.
 - Feature Guide | /guide | User-facing page route /guide.
 - Feature Ideas | /ideas | User-facing page route /ideas.
+- Feature Managertools | /managertools | User-facing page route /managertools.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Mark review / Appendix | /mark-review/appendix | User-facing page route /mark-review/appendix.
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
@@ -200,7 +201,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (246)
+## API Surface (250)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -352,6 +353,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/link-integrity-weekly-review | src/app/api/cron/link-integrity-weekly-review/route.ts | export const runtime = 'nodejs'
+- API /api/cron/managertools-day2-brief | src/app/api/cron/managertools-day2-brief/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-lifecycle | src/app/api/cron/managertools-lifecycle/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-signup-alerts | src/app/api/cron/managertools-signup-alerts/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-signup-summary | src/app/api/cron/managertools-signup-summary/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/onboarding-video-worker | src/app/api/cron/onboarding-video-worker/route.ts | export const runtime = 'nodejs'
 - API /api/cron/outreach-digest | src/app/api/cron/outreach-digest/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/outreach-reconcile | src/app/api/cron/outreach-reconcile/route.ts | export async function GET(request: NextRequest) {
@@ -764,7 +769,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (31)
+## Infrastructure and Workflows (32)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -775,6 +780,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
 - Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
 - Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
+- Workflow .github/workflows/managertools-launch-monitoring.yml | .github/workflows/managertools-launch-monitoring.yml | name: Manager Tools Launch Monitoring
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
 - Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
 - Workflow .github/workflows/nightly-audit.yml | .github/workflows/nightly-audit.yml | name: Nightly Outreach Audit
@@ -931,7 +937,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (533)
+## Documentation (534)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1215,6 +1221,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/liz-coach-outreach-instructions.md | docs/liz-coach-outreach-instructions.md | Coach Outreach Playbook — Instructions for Liz
 - Doc docs/liz-executive-coach-linkedin-guide.md | docs/liz-executive-coach-linkedin-guide.md | Liz Daily Guide: Executive Coach Outreach on LinkedIn
 - Doc docs/main-landing-page-council-review.md | docs/main-landing-page-council-review.md | Main Landing Page Council Review
+- Doc docs/managertools-launch-execution.md | docs/managertools-launch-execution.md | Manager Tools Newsletter Launch — Execution Plan
 - Doc docs/mark-horstman-site-audit.md | docs/mark-horstman-site-audit.md | Starting Monday - Synthetic Mark Horstman Audit
 - Doc docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | Market Reassessment: Executives, Coaches, and Outplacement
 - Doc docs/marketing-plan.md | docs/marketing-plan.md | Starting Monday — Marketing Plan

@@ -1,0 +1,121 @@
+name: Manager Tools Launch Monitoring
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+    - cron: '5 */4 * * *'
+    - cron: '20 * * * *'
+    - cron: '35 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  per-user-alerts:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '*/15 * * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Manager Tools per-user alerts
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/managertools-signup-alerts"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee managertools-signup-alerts.latest.json
+
+      - name: Upload per-user alert artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: managertools-signup-alerts
+          path: managertools-signup-alerts.latest.json
+          retention-days: 14
+
+  high-volume-summary:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '5 */4 * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Manager Tools high-volume summary
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/managertools-signup-summary"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee managertools-signup-summary.latest.json
+
+      - name: Upload summary artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: managertools-signup-summary
+          path: managertools-signup-summary.latest.json
+          retention-days: 14
+
+  day2-brief-trigger:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '20 * * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Manager Tools day-2 brief automation
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/managertools-day2-brief"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee managertools-day2-brief.latest.json
+
+      - name: Upload day-2 artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: managertools-day2-brief
+          path: managertools-day2-brief.latest.json
+          retention-days: 14
+
+  lifecycle-comms:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '35 * * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Manager Tools lifecycle communications
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/managertools-lifecycle"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee managertools-lifecycle.latest.json
+
+      - name: Upload lifecycle artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: managertools-lifecycle
+          path: managertools-lifecycle.latest.json
+          retention-days: 14

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T20:25:33.023Z",
+  "generatedAt": "2026-06-07T01:05:47.219Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.843Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -1664,7 +1664,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.764Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.783Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2155,6 +2155,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-06T16:52:15.801Z"
+    },
+    {
+      "id": "feature:/managertools",
+      "title": "Feature Managertools",
+      "body": "User-facing page route /managertools.",
+      "type": "feature",
+      "ref": "/managertools",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/mark-demo",
@@ -4540,6 +4554,58 @@
       "lastModifiedAt": "2026-06-06T16:52:15.637Z"
     },
     {
+      "id": "api:/api/cron/managertools-day2-brief",
+      "title": "API /api/cron/managertools-day2-brief",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/cron/managertools-day2-brief/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:12:32.435Z"
+    },
+    {
+      "id": "api:/api/cron/managertools-lifecycle",
+      "title": "API /api/cron/managertools-lifecycle",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/cron/managertools-lifecycle/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:30:16.123Z"
+    },
+    {
+      "id": "api:/api/cron/managertools-signup-alerts",
+      "title": "API /api/cron/managertools-signup-alerts",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/cron/managertools-signup-alerts/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:12:32.436Z"
+    },
+    {
+      "id": "api:/api/cron/managertools-signup-summary",
+      "title": "API /api/cron/managertools-signup-summary",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/cron/managertools-signup-summary/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:12:32.436Z"
+    },
+    {
       "id": "api:/api/cron/onboarding-video-worker",
       "title": "API /api/cron/onboarding-video-worker",
       "body": "export const runtime = 'nodejs'",
@@ -4875,7 +4941,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.663Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -8502,7 +8568,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T20:25:15.456Z"
+      "lastModifiedAt": "2026-06-06T22:16:17.119Z"
     },
     {
       "id": "script:scripts/check-clean-worktree-for-push.mjs",
@@ -9841,7 +9907,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T20:25:10.019Z"
+      "lastModifiedAt": "2026-06-06T22:16:17.119Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -9959,6 +10025,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T19:57:44.618Z"
+    },
+    {
+      "id": "infra:.github/workflows/managertools-launch-monitoring.yml",
+      "title": "Workflow .github/workflows/managertools-launch-monitoring.yml",
+      "body": "name: Manager Tools Launch Monitoring",
+      "type": "infra",
+      "ref": ".github/workflows/managertools-launch-monitoring.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T00:30:16.124Z"
     },
     {
       "id": "infra:.github/workflows/monitoring-watchdog.yml",
@@ -15602,7 +15681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15641,7 +15720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T20:15:26.448Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15759,6 +15838,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.039Z"
+    },
+    {
+      "id": "doc:docs/managertools-launch-execution.md",
+      "title": "Doc docs/managertools-launch-execution.md",
+      "body": "Manager Tools Newsletter Launch — Execution Plan",
+      "type": "doc",
+      "ref": "docs/managertools-launch-execution.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T00:30:16.120Z"
     },
     {
       "id": "doc:docs/mark-horstman-site-audit.md",
@@ -18878,7 +18970,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:32.835Z"
+      "lastModifiedAt": "2026-06-07T01:05:44.797Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
