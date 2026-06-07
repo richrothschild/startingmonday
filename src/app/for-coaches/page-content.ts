@@ -9,53 +9,10 @@ export const WHAT_CHANGES = [
   },
 ]
 
-export const SAMPLE_SIGNAL_ITEMS = [
-  'CFO departure disclosed in an 8-K after market close',
-  'Two VP-level technology openings posted within 48 hours',
-  'Private equity operating partner added to the board this week',
-]
-
-export const FULL_SAMPLE_SIGNAL_BRIEF = {
-  company: 'Meridian Systems',
-  date: 'March 14, 2026',
-  signals: [
-    'CFO departure disclosed in an 8-K after market close',
-    'Two VP-level technology openings posted within 48 hours',
-    'Private equity operating partner added to the board this week',
-  ],
-  impact: 'Post-acquisition integration risk visible.',
-  recommendedAction: 'Send one reconnection note today and move status to Active Outreach.',
-  waitlistAction: 'Monitor for formal CFO mandate details.',
-}
-
-export const SAMPLE_PREP_BRIEF_POINTS = [
-  'Win thesis: stabilize a post-acquisition technology stack without slowing revenue operations.',
-  'Likely objection: concern that your turnaround depth outweighs product-led growth experience.',
-  'Peer-level question: how is the board measuring integration success across the first two operating reviews?',
-]
-
-export const FULL_SAMPLE_PREP_BRIEF = {
-  company: 'Meridian Systems',
-  role: 'EVP, Technology Integration',
-  search: 'PE-backed post-acquisition integration lead',
-  winThesis: 'Stabilize post-acquisition technology without slowing revenue operations.',
-  yourBackground: '12 years leading technology consolidation across four acquisitions.',
-  likelyObjections: [
-    'Is your turnaround depth balanced with product-led growth needs?',
-    'Can you balance pace with risk?',
-  ],
-  peerLevelQuestions: [
-    'How is the board measuring integration success this quarter?',
-    'What is the appetite for replacing vs consolidating inherited systems?',
-  ],
-  whatToLeaveOut: 'Do not lead with timeline detail. Lead with integration outcomes.',
-  preparedTalking: 'Two-minute summary ready before session.',
-}
-
-export const PROOF_METRICS = [
+export const COACH_PROOF_STRIPS = [
   {
     value: '81%',
-    label: 'of the Jan-May 2026 executive pilot cohort reached a first interview within 30 days',
+    label: 'of the Jan.-May 2026 pilot cohort reached a first interview within 30 days',
   },
   {
     value: '9 days',
@@ -64,21 +21,6 @@ export const PROOF_METRICS = [
   {
     value: '27',
     label: 'executives included in the current verified pilot evidence snapshot',
-  },
-]
-
-export const COACH_FIT = [
-  {
-    title: 'Career transition coaches',
-    detail: 'Best fit when clients need speed, accountability, and earlier signal visibility in the first 30-90 days.',
-  },
-  {
-    title: 'VP-to-CXO coaches',
-    detail: 'Best fit when clients need long-cycle narrative discipline and shared context across months, not just weeks.',
-  },
-  {
-    title: 'Search-affiliate coaches',
-    detail: 'Best fit when interview prep quality and pipeline visibility affect placement outcomes immediately.',
   },
 ]
 
@@ -105,7 +47,7 @@ export const COACH_SCOREBOARD = [
   },
 ]
 
-export const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and a simple way to easily stay on top of each client in one place.'
+export const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and a simple way to stay on top of each client in one place.'
 
 export const COUNCIL_BUY_SIGNALS = [
   {
@@ -119,9 +61,9 @@ export const COUNCIL_BUY_SIGNALS = [
   {
     title: 'Feelings to address directly',
     points: [
-      '"I am spending too much time on prep and admin, not strategy"',
-      '"My client is too busy, so important prep gets skipped"',
-      '"I do not want to coach half-blind between sessions"',
+      'I am spending too much time on prep and admin, not strategy',
+      'My client is too busy, so important prep gets skipped',
+      'I do not want to coach half-blind between sessions',
     ],
   },
   {
@@ -165,4 +107,40 @@ export const WEEKLY_REVIEW_TEMPLATE = [
   'What changed in signals since last week, and which two changes matter most?',
   'Which companies moved stage, and which are stalled?',
   'What one action must happen before next session to protect momentum?',
+]
+
+export const COACH_BUYER_PLANS = [
+  {
+    name: 'Starter Coach',
+    price: '$99/mo + $39 per active client seat',
+    fit: 'Best for solo coaches running a small number of active transitions.',
+  },
+  {
+    name: 'Studio Coach',
+    price: '$249/mo',
+    fit: 'Best for boutique coaches who want predictable spend for a small active client book.',
+  },
+  {
+    name: 'Team Coach',
+    price: '$599/mo',
+    fit: 'Best for firms with multiple active transitions that need shared visibility and workload control.',
+  },
+]
+
+export const COACH_RYTHM = [
+  {
+    title: 'Monday',
+    label: 'Review the pipeline',
+    detail: 'Update stages, remove stale paths, and choose the priority contact and company for the week.',
+  },
+  {
+    title: 'Every morning',
+    label: 'Act on overnight signals',
+    detail: 'Make one decision first: who to contact now based on fresh signal movement.',
+  },
+  {
+    title: 'Before each interview',
+    label: 'Run the prep brief',
+    detail: 'Generate win thesis, likely objections, and peer-level questions before the session starts.',
+  },
 ]

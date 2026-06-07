@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 import { CoachDeliverablePreviewTabs } from '@/components/micro-products/CoachDeliverablePreviewTabs'
 import { MicroProductCheckoutButton } from '@/components/micro-products/MicroProductCheckoutButton'
 import { COACH_MICRO_PRODUCTS, getCoachMicroProduct } from '../product-data'
@@ -68,6 +69,17 @@ export default async function CoachMicroProductDetailPage({ params }: { params: 
           <p className="text-[14px] text-slate-700 leading-relaxed">{product.promise}</p>
         </section>
 
+        <section className="mb-6">
+          <CoachValueNudge
+            eyebrow="Before checkout"
+            title="Use the product as a proof point, then decide whether the coach preview should be your next stop."
+            body="This page is for a single purchase decision. The preview is where you see the broader coach workflow and determine whether the full platform adds enough value."
+            sourcePage={`/for-coaches/micro-products/${product.slug}`}
+            secondaryHref="/for-coaches"
+            secondaryLabel="Open the coach preview"
+          />
+        </section>
+
         <section className="border border-slate-200 rounded-2xl p-6 bg-white mb-6">
           <h2 className="text-[18px] font-bold text-slate-900 mb-3">What you get immediately</h2>
           <CoachDeliverablePreviewTabs deliverables={product.deliverables} />
@@ -108,6 +120,17 @@ export default async function CoachMicroProductDetailPage({ params }: { params: 
               Get purchase help
             </Link>
           </div>
+        </section>
+
+        <section className="mt-6">
+          <CoachValueNudge
+            eyebrow="Prefer the full coach journey?"
+            title="If this one product is useful, the full preview shows how the rest of the coaching flow connects."
+            body="That makes the sign-up decision feel grounded in actual workflow value, not just a single feature purchase."
+            sourcePage={`/for-coaches/micro-products/${product.slug}`}
+            secondaryHref="/for-coaches/trust-pack"
+            secondaryLabel="Read the trust pack"
+          />
         </section>
       </main>
     </div>

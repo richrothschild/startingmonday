@@ -2,6 +2,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { checkRateLimit } from '@/lib/rate-limit'
 import { enforcePublicEndpointGuard, getClientIp } from '@/lib/public-endpoint-guard'
+import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 
 export const runtime = 'nodejs'
 
@@ -25,6 +26,13 @@ function buildLoginRedirect(publicOrigin: string, nextPath: string, params: Reco
     url.searchParams.set(key, value)
   }
   return url
+}
+
+function resolvePostLoginPath(nextPath: string, hasCoachDashboard: boolean): string {
+  // Respect explicit redirects. Only change the default onboarding path.
+  if (!hasCoachDashboard) return nextPath
+  if (nextPath !== '/dashboard/briefing') return nextPath
+  return '/dashboard/coach'
 }
 
 export async function POST(request: NextRequest) {
@@ -66,7 +74,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
     const invalidCredentials = /invalid login credentials/i.test(error.message)
@@ -77,7 +85,14 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  return NextResponse.redirect(new URL(nextPath, publicOrigin))
+  let redirectPath = nextPath
+  const userId = data.user?.id
+  if (userId) {
+    const subscription = await getUserSubscription(userId, supabase)
+    redirectPath = resolvePostLoginPath(nextPath, canAccessFeature(subscription, 'coach_dashboard'))
+  }
+
+  return NextResponse.redirect(new URL(redirectPath, publicOrigin))
 }
 
 

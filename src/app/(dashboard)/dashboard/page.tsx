@@ -24,6 +24,7 @@ import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-se
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
+import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -91,6 +92,11 @@ export default async function DashboardPage({
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+
+  const subscription = await getUserSubscription(user.id, supabase)
+  if (canAccessFeature(subscription, 'coach_dashboard')) {
+    redirect('/dashboard/coach')
+  }
 
   const { data: profileRaw, error: profileError } = await supabase
     .from('user_profiles')

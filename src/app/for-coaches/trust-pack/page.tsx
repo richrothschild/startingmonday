@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 
 export const metadata: Metadata = {
   title: 'Coach Trust Pack | Starting Monday',
@@ -55,6 +56,17 @@ export default function CoachTrustPackPage() {
             expose coach-client workflow data to recruiter-side channels.
           </p>
           <p className="text-[13px] text-slate-700 leading-relaxed mt-2">Trust and confidentiality: coach-client workflow data remains confidential by default.</p>
+        </section>
+
+        <section className="mb-6">
+          <CoachValueNudge
+            eyebrow="Trust and value together"
+            title="The trust pack should make the preview easier to say yes to."
+            body="If the trust model is clear, the next step is simple: see the preview, check the workflow fit, and decide whether the permission model matches your practice."
+            sourcePage="/for-coaches/trust-pack"
+            secondaryHref="/for-coaches"
+            secondaryLabel="Return to coach preview"
+          />
         </section>
 
         <section id="permissions" className="border border-slate-200 rounded-2xl p-6 bg-white mb-6">
