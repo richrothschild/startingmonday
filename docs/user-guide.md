@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-07T03:01:33.666Z
+Last generated: 2026-06-07T03:59:09.649Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (154)
+## Features (155)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -82,6 +82,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Blog](/blog) - Open /blog to use this feature area and related workflows.
 - [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
 - [Coaches guide](/coaches-guide) - Open /coaches-guide to use this feature area and related workflows.
+- [Coaches / Mock dashboard](/coaches/mock-dashboard) - Open /coaches/mock-dashboard to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
 - [Coaches / Personas](/coaches/personas) - Open /coaches/personas to use this feature area and related workflows.
 - [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
