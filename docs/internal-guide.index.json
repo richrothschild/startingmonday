@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T19:31:14.022Z",
+  "generatedAt": "2026-06-07T19:48:13.016Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T16:16:22.114Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "feature:/login",
@@ -10067,7 +10067,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T22:16:17.119Z"
+      "lastModifiedAt": "2026-06-07T19:47:07.677Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10132,7 +10132,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T14:11:34.796Z"
+      "lastModifiedAt": "2026-06-07T19:47:15.122Z"
     },
     {
       "id": "infra:.github/workflows/emi-weekly-validation.yml",
@@ -12774,7 +12774,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.945Z"
+      "lastModifiedAt": "2026-06-07T19:47:49.756Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -15946,7 +15946,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T16:16:22.114Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15985,7 +15985,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T16:16:22.114Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
