@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:24:10.697Z",
+  "generatedAt": "2026-06-07T00:51:30.523Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T00:12:32.538Z"
+      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:12:32.435Z"
+      "lastModifiedAt": "2026-06-07T00:30:16.122Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -1664,7 +1664,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.764Z"
+      "lastModifiedAt": "2026-06-07T00:50:48.321Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:22:30.788Z"
+      "lastModifiedAt": "2026-06-07T00:43:50.601Z"
     },
     {
       "id": "feature:/mark-demo",
@@ -4577,7 +4577,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:22:20.247Z"
+      "lastModifiedAt": "2026-06-07T00:30:16.123Z"
     },
     {
       "id": "api:/api/cron/managertools-signup-alerts",
@@ -10037,7 +10037,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:22:36.204Z"
+      "lastModifiedAt": "2026-06-07T00:30:16.124Z"
     },
     {
       "id": "infra:.github/workflows/monitoring-watchdog.yml",
@@ -15681,7 +15681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:12:32.537Z"
+      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15720,7 +15720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:12:32.538Z"
+      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15850,7 +15850,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:22:43.342Z"
+      "lastModifiedAt": "2026-06-07T00:30:16.120Z"
     },
     {
       "id": "doc:docs/mark-horstman-site-audit.md",
@@ -18970,7 +18970,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:24:08.484Z"
+      "lastModifiedAt": "2026-06-07T00:51:27.943Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
