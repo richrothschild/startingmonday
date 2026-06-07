@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { CoachPreviewActions } from '../for-coaches/coach-preview-actions'
 import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import { COACH_PERSONAS } from '@/lib/persona-routes'
 
 export const metadata: Metadata = {
   title: 'Coaches Channel | Starting Monday',
@@ -21,48 +21,22 @@ export const metadata: Metadata = {
   },
 }
 
-const COST_OF_STAYING_THE_SAME = [
+const OPERATING_ROWS = [
   {
-    title: 'Your best hour gets spent rebuilding context',
-    detail: 'When clients arrive unprepared, you burn premium coaching time on recap and reminders.',
+    friction: 'Sessions start with recap instead of decisions.',
+    change: 'Use one weekly prep brief before every session.',
+    proof: '81% reached a first interview within 30 days in the pilot cohort.',
   },
   {
-    title: 'Great coaching still looks weak without execution rhythm',
-    detail: 'Without a between-session system, momentum fades and your strongest guidance looks inconsistent.',
+    friction: 'Momentum drops between calls and coaching looks inconsistent.',
+    change: 'Track one shared list of commitments and overdue actions.',
+    proof: 'Median setup-to-first-qualified-outreach time was 9 days.',
   },
   {
-    title: 'Invisible movement creates avoidable trust risk',
-    detail: 'If progress is unclear week to week, confidence drops before outcomes have time to compound.',
+    friction: 'Stakeholders lose trust when progress is hard to see.',
+    change: 'Keep one visible weekly signal view for coach and client.',
+    proof: 'Current evidence snapshot includes 27 verified executives.',
   },
-]
-
-const DOUBTS = [
-  {
-    title: '"This is just a glorified prompt. I can do this myself."',
-    detail: 'You can write prompts. The gap is operating discipline between sessions. Antidote: use Starting Monday to track signal movement, standardize prep, and keep commitments visible week to week.',
-  },
-  {
-    title: '"My clients already have tools."',
-    detail: 'Most stacks still fail between sessions, where accountability drifts. Antidote: layer this as the operating system for prep briefs, signal tracking, and follow-through.',
-  },
-  {
-    title: '"I am not sure clients will stick with it."',
-    detail: 'Clients drop when the workflow feels like admin, not progress. Antidote: start with one weekly ritual that makes the next session visibly sharper, then scale after two weeks of movement.',
-  },
-]
-
-const PLATFORM_JTBD = [
-  'Surface between-session signal movement before each session.',
-  'Generate prep briefs so sessions start at decision level, not recap level.',
-  'Track commitments and overdue actions to prevent execution drift.',
-  'Give coach and client one shared view of progress and risk.',
-]
-
-const COACH_JTBD = [
-  'Set strategic direction and reframe the client narrative at key moments.',
-  'Choose where to intervene when momentum or confidence drops.',
-  'Hold accountability on the commitments that matter most this week.',
-  'Translate weekly signal changes into next-session priorities.',
 ]
 
 const BRIGHTER_FUTURE = [
@@ -70,6 +44,24 @@ const BRIGHTER_FUTURE = [
   'You coach the strategic moments while the platform handles operating follow-through.',
   'Progress is visible every week, so trust compounds instead of leaking.',
 ]
+
+const COACH_NEEDS_BY_SLUG: Record<string, { need: string; bestFit: string; cta: string }> = {
+  'independent-executive-coach': {
+    need: 'Tighten between-session accountability.',
+    bestFit: 'Best fit: solo coach',
+    cta: 'Open workflow',
+  },
+  'boutique-firm-coach': {
+    need: 'Standardize team delivery quality.',
+    bestFit: 'Best fit: boutique team',
+    cta: 'Open workflow',
+  },
+  'enterprise-sponsored-coach': {
+    need: 'Show sponsor-ready weekly progress.',
+    bestFit: 'Best fit: sponsored cohort',
+    cta: 'Open workflow',
+  },
+}
 
 export default function CoachesChannelPage() {
   return (
@@ -79,12 +71,18 @@ export default function CoachesChannelPage() {
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/coaches/personas" className="text-[13px] text-slate-400 transition-colors hover:text-white">
-              Personas
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
+            >
+              Start now
             </Link>
-            <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-400 transition-colors hover:text-white">
-              Trust pack
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
+            >
+              Login
             </Link>
           </div>
         </div>
@@ -95,29 +93,35 @@ export default function CoachesChannelPage() {
           <div>
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-400">Coach gateway</p>
             <h1 className="max-w-3xl text-[34px] font-bold leading-[1.05] tracking-tight text-white sm:text-[48px]">
-              Your next coaching session should start with decisions,
+              Your next session should start with decisions,
               <br className="hidden sm:block" />
-              not recap.
+              not updates.
             </h1>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
-              If they do not, strategy time turns into recap. Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
+              Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
             </p>
             <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-400">
               Coach-first by design. You keep judgment and relationship ownership.
             </p>
 
-            <div className="mt-7">
-              <CoachPreviewActions />
-            </div>
-            <div className="mt-3">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <TrackLink
+                href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v5' }}
+                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+              >
+                Request the coach preview
+              </TrackLink>
               <TrackLink
                 href="/coaches/mock-dashboard"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="text-[13px] font-semibold text-orange-300 transition-colors hover:text-orange-200"
+                className="text-[13px] font-semibold text-slate-300 underline underline-offset-2 transition-colors hover:text-white"
               >
-                See mock coach dashboard &rarr;
+                See mock coach dashboard
               </TrackLink>
             </div>
           </div>
@@ -134,53 +138,57 @@ export default function CoachesChannelPage() {
       </header>
 
       <main className="bg-slate-50 text-slate-900">
+        <section className="border-b border-slate-200 bg-white px-4 py-14 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Start from your need</p>
+            <h2 className="max-w-3xl text-[24px] font-bold leading-tight text-slate-900 sm:text-[28px]">
+              Pick what you need help with.
+            </h2>
+            <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
+              One click opens the fastest next step.
+            </p>
+
+            <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
+              {COACH_PERSONAS.map((persona) => {
+                const need = COACH_NEEDS_BY_SLUG[persona.slug]
+                return (
+                  <TrackLink
+                    key={persona.slug}
+                    href={persona.destination}
+                    event={EVENT_NAMES.personaRouteSelected}
+                    logToUserEvents
+                    properties={{ channel: 'coaches', persona: persona.slug, source_route: '/coaches', target_route: persona.destination }}
+                    className="flex h-full flex-col rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-orange-300 hover:bg-white"
+                  >
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">{persona.label}</p>
+                    <p className="text-[16px] font-semibold leading-snug text-slate-900">{need?.need ?? persona.label}</p>
+                    <p className="mt-2 text-[12px] font-medium text-slate-600">{need?.bestFit ?? 'Best fit'}</p>
+                    <p className="mt-auto pt-4 text-[12px] font-semibold text-orange-600">{need?.cta ?? 'Open route'}</p>
+                  </TrackLink>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
         <section className="px-4 py-14 sm:px-6 sm:py-16">
           <div className="mx-auto max-w-5xl">
-            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Where coaching quietly breaks down</p>
+            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Friction to outcomes</p>
             <div className="space-y-8">
-              {COST_OF_STAYING_THE_SAME.map((card) => (
-                <div key={card.title} className="grid gap-1 md:grid-cols-[280px_1fr]">
-                  <p className="text-[15px] font-semibold leading-snug text-slate-900">{card.title}</p>
-                  <p className="text-[14px] leading-relaxed text-slate-600">{card.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-y border-orange-100 bg-orange-50/60 px-4 py-14 sm:px-6">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-600">The antidote</p>
-            <h2 className="mb-8 text-[22px] font-bold leading-tight text-slate-900 sm:text-[26px]">One operating layer. Clear division of labor.</h2>
-            <div className="grid gap-10 md:grid-cols-2 md:divide-x md:divide-orange-200">
-              <div>
-                <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-500">Platform handles</p>
-                <ul className="space-y-3 text-[14px] leading-relaxed text-slate-700">
-                  {PLATFORM_JTBD.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="md:pl-10">
-                <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.12em] text-orange-600">Coach handles</p>
-                <ul className="space-y-3 text-[14px] leading-relaxed text-slate-700">
-                  {COACH_JTBD.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 py-14 sm:px-6">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">If you have doubts</p>
-            <div className="space-y-7">
-              {DOUBTS.map((item) => (
-                <div key={item.title} className="grid gap-1 md:grid-cols-[280px_1fr]">
-                  <p className="text-[14px] font-semibold italic text-slate-700">{item.title}</p>
-                  <p className="text-[14px] leading-relaxed text-slate-600">{item.detail}</p>
+              {OPERATING_ROWS.map((row) => (
+                <div key={row.friction} className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-5 md:grid-cols-3 md:gap-5">
+                  <div>
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Friction</p>
+                    <p className="text-[14px] leading-relaxed text-slate-800">{row.friction}</p>
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">What changes</p>
+                    <p className="text-[14px] leading-relaxed text-slate-700">{row.change}</p>
+                  </div>
+                  <div>
+                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Proof cue</p>
+                    <p className="text-[14px] leading-relaxed text-slate-700">{row.proof}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -221,6 +229,32 @@ export default function CoachesChannelPage() {
           </div>
         </section>
       </main>
+
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            </span>
+            <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400">
+              <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
+              <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
+              <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
+              <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
+              <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
+              <Link href="/for-coaches/trust-pack" className="hover:text-slate-300 transition-colors">Trust pack</Link>
+              <Link href="/optimize" className="hover:text-slate-300 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">LinkedIn</a>
+              <Link href="/security" className="hover:text-slate-300 transition-colors">Security</Link>
+              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
+          <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
