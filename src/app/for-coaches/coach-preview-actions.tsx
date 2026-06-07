@@ -11,14 +11,14 @@ const EVENT_PROPERTIES = {
 
 export function CoachPreviewActions() {
   return (
-    <div className="flex flex-col sm:flex-row gap-3">
+    <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
       <TrackLink
         href="/partners#apply"
         data-emi-cta="coaches_request_preview"
         data-emi-to="/partners#apply"
         event={EVENT_NAME}
         properties={EVENT_PROPERTIES}
-        className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-semibold px-6 py-3 rounded transition-colors text-center"
+        className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
       >
         Request the coach preview
       </TrackLink>
@@ -32,7 +32,7 @@ export function CoachPreviewActions() {
           audience: 'executive_coaches',
           destination: 'demo',
         }}
-        className="inline-block border border-slate-500 hover:border-slate-300 text-slate-100 text-[14px] px-6 py-3 rounded transition-colors text-center"
+        className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[13px] font-medium text-slate-300 transition-colors hover:border-slate-400 hover:text-white"
       >
         Watch the walkthrough
       </TrackLink>
