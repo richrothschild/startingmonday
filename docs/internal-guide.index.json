@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T02:57:57.508Z",
+  "generatedAt": "2026-06-07T03:01:50.806Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T01:05:47.234Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.226Z"
     },
     {
       "id": "feature:/login",
@@ -1412,7 +1412,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T03:01:05.032Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -1426,7 +1426,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.114Z"
     },
     {
       "id": "feature:/concierge",
@@ -1734,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.067Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.115Z"
     },
     {
       "id": "feature:/for-coaches/economics",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.066Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.116Z"
     },
     {
       "id": "feature:/for-coaches/faq",
@@ -1762,7 +1762,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.117Z"
     },
     {
       "id": "feature:/for-coaches/micro-products",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.067Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.118Z"
     },
     {
       "id": "feature:/for-coaches",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.120Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1804,7 +1804,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:53:39.067Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.121Z"
     },
     {
       "id": "feature:/for-coo",
@@ -2406,7 +2406,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:54:42.178Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.122Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -12535,7 +12535,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.111Z"
     },
     {
       "id": "doc:docs/coaches-landing-features.md",
@@ -12548,7 +12548,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T02:53:39.064Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.112Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-audit.latest.md",
@@ -15707,7 +15707,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T01:05:47.234Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.225Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15746,7 +15746,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T01:05:47.234Z"
+      "lastModifiedAt": "2026-06-07T02:59:15.226Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18996,7 +18996,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T02:57:37.729Z"
+      "lastModifiedAt": "2026-06-07T03:01:33.670Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
