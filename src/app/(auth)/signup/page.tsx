@@ -120,6 +120,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [situation, setSituation] = useState<string | null>(null)
   const [entrySource, setEntrySource] = useState<string | null>(null)
+  const [managerToolsOffer, setManagerToolsOffer] = useState(false)
   const [heardAbout, setHeardAbout] = useState<HeardAboutOption | ''>('')
   const [heardAboutOther, setHeardAboutOther] = useState('')
   const [heardAboutLocked, setHeardAboutLocked] = useState(false)
@@ -133,6 +134,7 @@ export default function SignupPage() {
     if (utmSource === 'managertools') {
       setHeardAbout('managertools')
       setHeardAboutLocked(true)
+      setManagerToolsOffer(true)
     }
   }, [])
   const [password, setPassword] = useState('')
@@ -152,6 +154,14 @@ export default function SignupPage() {
       return detail ? `other:${detail.slice(0, 120)}` : 'other'
     }
     return heardAbout
+  }
+
+  function isManagerToolsSource(source: string | null | undefined): boolean {
+    return (source ?? '').trim().toLowerCase() === 'managertools'
+  }
+
+  function managerToolsTrialEndsAt(): string {
+    return new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
   }
 
   function requireCaptchaToken(): string | null {
@@ -285,6 +295,7 @@ export default function SignupPage() {
         const fromSituation = params.get('from') || null
         const selfReportedSource = getSelfReportedSource()
         const signupSource = selfReportedSource ?? utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
+        const managerToolsSource = isManagerToolsSource(signupSource)
         await Promise.all([
           supabase.from('user_profiles').upsert(
             { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
@@ -295,6 +306,7 @@ export default function SignupPage() {
                 signup_source: signupSource,
                 acquisition_channel: utmMedium ?? (ref ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
                 referral_source: utmCampaign ?? utmSource ?? ref ?? selfReportedSource ?? null,
+                ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt() } : {}),
               }).eq('id', data.user.id)
             : Promise.resolve(),
           ref
@@ -375,7 +387,7 @@ export default function SignupPage() {
                   <>
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                      <p className="text-[12px] text-slate-400 mt-3">Create your account. 30 days free. No credit card.</p>
+                      <p className="text-[12px] text-slate-400 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">
                       <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
                       <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
@@ -388,7 +400,7 @@ export default function SignupPage() {
                 ) : (
                   <>
                     <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
-                    <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
+                    <p className="text-[13px] text-slate-500 mt-1.5">{managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                   </>
                 )}
                 {entrySource && ENTRY_HANDOFF[entrySource] && (

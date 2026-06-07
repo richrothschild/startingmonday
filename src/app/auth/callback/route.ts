@@ -72,6 +72,8 @@ export async function GET(request: NextRequest) {
       const selfReportedSource = searchParams.get('self_reported_source')
       const utmMedium = searchParams.get('utm_medium')
       const source = utmSource ?? selfReportedSource
+      const managerToolsSource = (source ?? '').trim().toLowerCase() === 'managertools'
+      const managerToolsTrialEndsAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
       const isNewUser = user.created_at
         ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
@@ -87,6 +89,7 @@ export async function GET(request: NextRequest) {
               signup_source: source,
               acquisition_channel: utmMedium ?? (refCode ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
               referral_source: source,
+              ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt } : {}),
             }).eq('id', userId)
           : Promise.resolve(),
         isNewUser
