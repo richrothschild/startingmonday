@@ -71,12 +71,18 @@ export default function CoachesChannelPage() {
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/coaches/personas" className="text-[13px] text-slate-400 transition-colors hover:text-white">
-              Personas
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
+            >
+              Start now
             </Link>
-            <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-400 transition-colors hover:text-white">
-              Trust pack
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
+            >
+              Login
             </Link>
           </div>
         </div>
@@ -223,6 +229,32 @@ export default function CoachesChannelPage() {
           </div>
         </section>
       </main>
+
+      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            </span>
+            <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400">
+              <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
+              <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
+              <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
+              <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
+              <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
+              <Link href="/for-coaches/trust-pack" className="hover:text-slate-300 transition-colors">Trust pack</Link>
+              <Link href="/optimize" className="hover:text-slate-300 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">LinkedIn</a>
+              <Link href="/security" className="hover:text-slate-300 transition-colors">Security</Link>
+              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
+          <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
