@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T13:00:37.469Z",
+  "generatedAt": "2026-06-07T13:18:54.003Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T12:55:51.296Z"
+      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
     },
     {
       "id": "feature:/login",
@@ -10145,6 +10145,19 @@
       "lastModifiedAt": "2026-06-06T16:52:14.830Z"
     },
     {
+      "id": "infra:.github/workflows/pr-autofix.yml",
+      "title": "Workflow .github/workflows/pr-autofix.yml",
+      "body": "Guide sync can be run proactively, no strict failed-check name requirement.",
+      "type": "infra",
+      "ref": ".github/workflows/pr-autofix.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T13:17:25.521Z"
+    },
+    {
       "id": "infra:.github/workflows/production-growth-gate.yml",
       "title": "Workflow .github/workflows/production-growth-gate.yml",
       "body": "name: Production Growth Gate",
@@ -15734,7 +15747,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T12:55:51.296Z"
+      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15773,7 +15786,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T12:55:51.296Z"
+      "lastModifiedAt": "2026-06-07T13:00:37.482Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

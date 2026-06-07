@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T13:00:37.469Z
+Last generated: 2026-06-07T13:18:54.003Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -771,7 +771,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (32)
+## Infrastructure and Workflows (33)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -789,6 +789,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: performance-release-gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
+- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Guide sync can be run proactively, no strict failed-check name requirement.
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
 - Workflow .github/workflows/promote-staging-to-main.yml | .github/workflows/promote-staging-to-main.yml | name: Promote staging to main
