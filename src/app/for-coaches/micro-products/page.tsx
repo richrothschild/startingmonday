@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachBundleCheckoutButton } from '@/components/micro-products/CoachBundleCheckoutButton'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 import { COACH_MICRO_PRODUCTS } from './product-data'
 
 export const metadata: Metadata = {
@@ -68,6 +69,17 @@ export default function CoachMicroProductsPage() {
           </p>
         </header>
 
+        <section className="mb-8">
+          <CoachValueNudge
+            eyebrow="Coach micro products"
+            title="Each product should feel like a quick win, not another tool to manage."
+            body="Browse the catalog, compare the bundles, and if the value feels immediate, jump back to the coach preview so the full workflow stays visible."
+            sourcePage="/for-coaches/micro-products"
+            secondaryHref="/for-coaches"
+            secondaryLabel="Open the coach preview"
+          />
+        </section>
+
         <section id="bundle-packs" className="border border-emerald-200 rounded-2xl p-6 bg-emerald-50/40 mb-8">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">Bundle packs</p>
           <h2 className="text-[24px] font-bold text-slate-900 leading-tight mb-3">Save more with 1-3 product bundles</h2>
@@ -109,6 +121,17 @@ export default function CoachMicroProductsPage() {
               </Link>
             </article>
           ))}
+        </section>
+
+        <section className="mt-8">
+          <CoachValueNudge
+            eyebrow="From catalog to decision"
+            title="If a micro product solves the pain, the preview shows where it fits in the bigger coach workflow."
+            body="That way the purchase is tied to a real coaching use case, not a one-off feature. Use the preview to decide whether you want the full operating layer too."
+            sourcePage="/for-coaches/micro-products"
+            secondaryHref="/for-coaches/trust-pack"
+            secondaryLabel="Read the trust pack"
+          />
         </section>
       </main>
     </div>

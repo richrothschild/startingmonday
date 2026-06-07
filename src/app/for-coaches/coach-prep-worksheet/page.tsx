@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 
 export const metadata: Metadata = {
   title: 'Executive Coaching Session Operating Worksheet | Starting Monday',
@@ -106,12 +107,16 @@ export default function CoachPrepWorksheetPage() {
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3 print:text-slate-600">
             Executive Coaching Operating Worksheet
           </p>
-          <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.12] tracking-tight mb-4 print:text-slate-900">
-            Coach in strategy mode. Execute with measurable follow-through.
+          <h1 className="mb-4 font-bold tracking-tight leading-[1.02] text-white print:text-slate-900">
+            <span className="block text-[26px] sm:text-[32px]">
+              Coach in strategy mode.
+            </span>
+            <span className="block text-[30px] sm:text-[38px]">
+              Execute with measurable follow-through.
+            </span>
           </h1>
-          <p className="text-[15px] text-slate-300 leading-relaxed max-w-3xl print:text-slate-700">
-            This worksheet is built for executive-transition coaching, where session quality depends on mandate clarity,
-            narrative precision, and accountable seven-day execution.
+          <p className="max-w-3xl text-[15px] leading-relaxed text-slate-300 print:text-slate-700">
+            Built for executive-transition coaching, where clear mandate, sharper narrative, and seven-day follow-through matter most.
           </p>
           <div className="mt-5 rounded-lg border border-slate-700 bg-slate-950/60 p-4 print:border-slate-200 print:bg-white">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 print:text-slate-600">BLUF</p>
@@ -124,6 +129,17 @@ export default function CoachPrepWorksheetPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+        <section className="mb-8 print:hidden">
+          <CoachValueNudge
+            eyebrow="Use this with the preview"
+            title="The worksheet makes more sense when the coach preview is already visible."
+            body="Use the preview to see the workflow, then use this worksheet to run one focused session with clearer mandate, better evidence, and a cleaner next step."
+            sourcePage="/for-coaches/coach-prep-worksheet"
+            secondaryHref="/for-coaches"
+            secondaryLabel="Open the coach preview"
+          />
+        </section>
+
         <section className="border border-slate-200 rounded-2xl p-5 sm:p-6 bg-slate-50 mb-8">
           <h2 className="text-[15px] font-semibold text-slate-900 mb-3">Session Header</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px] text-slate-700">
@@ -167,6 +183,17 @@ export default function CoachPrepWorksheetPage() {
           </div>
           <p className="mt-4 text-[13px] text-slate-700">Overall session quality score: ______ / 25</p>
           <p className="mt-2 text-[13px] text-slate-700">Most important improvement before next session: _________________________________</p>
+        </section>
+
+        <section className="mt-8 print:hidden">
+          <CoachValueNudge
+            eyebrow="Ready to move from worksheet to workflow"
+            title="If the worksheet feels useful, the next step is to see the live coach setup."
+            body="That keeps the value concrete: a cleaner session, clearer follow-through, and a low-risk preview before any broader rollout decision."
+            sourcePage="/for-coaches/coach-prep-worksheet"
+            secondaryHref="/for-coaches/trust-pack"
+            secondaryLabel="Read the trust pack"
+          />
         </section>
       </main>
 
