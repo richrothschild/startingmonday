@@ -126,9 +126,18 @@ const HOME_BLUF_SECTIONS = [
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
+  const isExecutivesPage = sourcePage === '/for-executives'
   const isManagerToolsPage = sourcePage === '/managertools'
-  const heroPrimaryHref = isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/concierge?program=beta&from=landing'
-  const heroPrimaryLabel = isManagerToolsPage ? 'Start 90-day free access' : 'Start Now'
+  const heroPrimaryHref = isManagerToolsPage
+    ? MANAGERTOOLS_SIGNUP_URL
+    : isExecutivesPage
+      ? '/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page'
+      : '/concierge?program=beta&from=landing'
+  const heroPrimaryLabel = isManagerToolsPage
+    ? 'Start 90-day free access'
+    : isExecutivesPage
+      ? 'Start 30-day free trial'
+      : 'Start Now'
   void rolePathPriorityByCtaKey
 
   return (
@@ -226,6 +235,17 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <p className="text-[14px] sm:text-[15px] text-emerald-200 leading-relaxed mb-6 sm:whitespace-nowrap" data-emi-proof="landing_micro_proof">
                 <span className="font-semibold text-emerald-100">Proof:</span> Executives using Starting Monday stay organized, sharpen narrative-to-role fit, and walk into interviews with role-specific evidence.
               </p>
+            )}
+
+            {isExecutivesPage && proofHighlights && proofHighlights.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6" data-emi-proof="executive_outcomes_grid">
+                {proofHighlights.map((item) => (
+                  <article key={item.metric} className="rounded-md border border-slate-700 bg-slate-900/70 p-4">
+                    <p className="text-[12px] font-semibold text-emerald-200 mb-2 leading-snug">{item.metric}</p>
+                    <p className="text-[12px] text-slate-300 leading-relaxed">{item.detail}</p>
+                  </article>
+                ))}
+              </div>
             )}
 
             <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-5 mb-6" data-emi-proof="landing_clarity_panel">
@@ -406,6 +426,58 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
                   >
                     Submit feedback
+                  </TrackLink>
+                </div>
+              </>
+            ) : isExecutivesPage ? (
+              <>
+                <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">Executive outcomes</p>
+                <h2 className="text-[22px] font-bold text-white mb-2 leading-snug">
+                  Build momentum in the first 30 days.
+                </h2>
+                <p className="text-[14px] text-slate-300 mb-6 max-w-3xl leading-relaxed">
+                  Use your trial to sharpen narrative quality, improve conversation conversion, and create a weekly operating cadence you can keep through offer-stage decisions.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
+                    <p className="text-[12px] font-semibold text-white">Week 1</p>
+                    <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">Mandate narrative, role filter, and priority relationship map.</p>
+                  </div>
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
+                    <p className="text-[12px] font-semibold text-white">Week 2</p>
+                    <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">Signal tracking and audience-specific prep for recruiter and board conversations.</p>
+                  </div>
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-4 py-3">
+                    <p className="text-[12px] font-semibold text-white">Week 3-4</p>
+                    <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">Consistent outreach rhythm and clearer conversion into high-quality next steps.</p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <TrackLink
+                    href="/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_executive_signup',
+                      source_page: sourcePage,
+                    }}
+                    className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
+                  >
+                    Start 30-day free trial
+                  </TrackLink>
+                  <TrackLink
+                    href="/demo/executive-brief"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'next_step_executive_demo',
+                      source_page: sourcePage,
+                    }}
+                    className="inline-flex items-center justify-center border border-orange-400 text-orange-300 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-500/10 transition-colors"
+                  >
+                    Preview executive brief
                   </TrackLink>
                 </div>
               </>

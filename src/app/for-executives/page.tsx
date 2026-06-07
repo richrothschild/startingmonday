@@ -79,12 +79,16 @@ const FAQS: FAQ[] = [
 
 const PROOF_HIGHLIGHTS = [
   {
-    metric: '81% first-interview momentum in 30 days',
-    detail: 'Directional pilot benchmark (n=27, Jan-May 2026) used as an operating reference for transition pace.',
+    metric: 'Build a board-ready narrative in week one',
+    detail: 'Translate your operating track record into a mandate-level story that works with recruiters, boards, and executive peers.',
   },
   {
-    metric: 'Executive narrative consistency across audiences',
-    detail: 'Role-level positioning reused across board, recruiter, and peer conversations without context reset.',
+    metric: 'Move from reactive to weekly execution control',
+    detail: 'Run a structured cadence for targeting, outreach, and follow-through so momentum compounds across conversations.',
+  },
+  {
+    metric: 'Enter conversations earlier with stronger context',
+    detail: 'Track role-shaping signals before public postings so you are known before the shortlist hardens.',
   },
 ]
 
@@ -111,17 +115,18 @@ export default function ForExecutivesPage() {
         hero={{
           eyebrow: 'C-suite and board-level roles are shaped before they are obvious.',
           h1Lines: ['Operate at executive altitude', 'before the market catches up.'],
-          body: 'Starting Monday helps you run a disciplined executive campaign with earlier signal timing, audience-specific narrative control, and preparation that holds in high-stakes conversations.',
+          body: 'Starting Monday gives you a repeatable operating system to win stronger executive conversations, protect role-fit quality, and shorten time to the right mandate.',
           steps: [
-            'Track mandate-forming companies and signals before formal posting windows open.',
-            'Sharpen your positioning for search firms, boards, and executive peers with role-aligned narratives.',
-            'Walk into each conversation with a clear win thesis, likely objections, and practical next actions.',
+            'Define a mandate-level narrative that makes your next seat obvious to decision-makers.',
+            'Prioritize the right companies and relationships before the process becomes crowded.',
+            'Run disciplined weekly execution that converts conversations into concrete next steps.',
           ],
           trialNote: 'Free for 30 days. No credit card. No employer visibility.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}
         proofHighlights={PROOF_HIGHLIGHTS}
+        sourcePage="/for-executives"
       />
     </>
   )
