@@ -107,6 +107,11 @@ before fast-forwarding `main` from `staging`.
 
 Use workflow `.github/workflows/pr-autofix.yml` to auto-remediate deterministic PR check failures.
 
+Summary:
+
+- What it does: runs safe, scoped autofixes for recurring CI failures (mobile visual baseline drift and guide artifact freshness drift) and pushes bot commits to the PR branch.
+- How it helps: reduces manual PR triage time, improves merge throughput, and keeps every remediation auditable through explicit bot commits and PR comments.
+
 How to trigger:
 
 - Add label `autofix:mobile-visual` to run mobile visual snapshot autofix.
