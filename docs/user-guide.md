@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-07T14:00:37.287Z
+Last generated: 2026-06-07T16:16:04.578Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (155)
+## Features (156)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -90,6 +90,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
 - [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
 - [Demo / Executive brief](/demo/executive-brief) - Open /demo/executive-brief to use this feature area and related workflows.
+- [Demo / Executive dashboard](/demo/executive-dashboard) - Open /demo/executive-dashboard to use this feature area and related workflows.
 - [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
 - [Demo / Michael dashboard](/demo/michael-dashboard) - Open /demo/michael-dashboard to use this feature area and related workflows.
 - [Demo / Michael strategy brief](/demo/michael-strategy-brief) - Open /demo/michael-strategy-brief to use this feature area and related workflows.
