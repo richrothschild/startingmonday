@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T16:16:22.101Z
+Last generated: 2026-06-07T19:48:13.016Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (186)
+## Features (188)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -57,6 +57,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Concierge | /dashboard/concierge | User-facing page route /dashboard/concierge.
 - Feature Dashboard / Contacts | /dashboard/contacts | User-facing page route /dashboard/contacts.
 - Feature Dashboard / Discover | /dashboard/discover | User-facing page route /dashboard/discover.
+- Feature Dashboard / Executive brief | /dashboard/executive-brief | User-facing page route /dashboard/executive-brief.
 - Feature Dashboard / Feedback | /dashboard/feedback | User-facing page route /dashboard/feedback.
 - Feature Dashboard / Help | /dashboard/help | User-facing page route /dashboard/help.
 - Feature Dashboard / Invite | /dashboard/invite | User-facing page route /dashboard/invite.
@@ -131,6 +132,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Demo / Presenter | /demo/presenter | User-facing page route /demo/presenter.
 - Feature Evaluate | /evaluate | User-facing page route /evaluate.
 - Feature Evidence room | /evidence-room | User-facing page route /evidence-room.
+- Feature Executive brief | /executive-brief | User-facing page route /executive-brief.
 - Feature Executives / Active | /executives/active | User-facing page route /executives/active.
 - Feature Executives | /executives | User-facing page route /executives.
 - Feature Executives / Passive | /executives/passive | User-facing page route /executives/passive.
@@ -203,7 +205,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (250)
+## API Surface (254)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -379,6 +381,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
 - API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
+- API /api/executive-brief/grill-me | src/app/api/executive-brief/grill-me/route.ts | export async function POST(request: NextRequest) {
+- API /api/executive-brief/grill-me/sessions/[id]/respond | src/app/api/executive-brief/grill-me/sessions/[id]/respond/route.ts | fallback below
+- API /api/executive-brief/grill-me/sessions | src/app/api/executive-brief/grill-me/sessions/route.ts | export async function GET(request: NextRequest) {
+- API /api/executive-brief/transcription | src/app/api/executive-brief/transcription/route.ts | export async function GET(request: NextRequest) {
 - API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
@@ -455,7 +461,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (197)
+## Codebase Modules (199)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -512,6 +518,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
 - Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
+- Code src/lib/executive-brief-knowledge.ts | src/lib/executive-brief-knowledge.ts | export type MentalModel = {
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
@@ -521,6 +528,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/google-calendar.ts | src/lib/google-calendar.ts | export type GoogleCalendarIntegrationRow = {
+- Code src/lib/grill-me-protocol.ts | src/lib/grill-me-protocol.ts | export const GrillMeSessionModeSchema = z.enum(['focused', 'stress', 'board'])
 - Code src/lib/guide-retrieval.test.ts | src/lib/guide-retrieval.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/guide-retrieval.ts | src/lib/guide-retrieval.ts | export type GuideEntry = {
 - Code src/lib/intelligence-quality.test.ts | src/lib/intelligence-quality.test.ts | import { describe, expect, it } from 'vitest'
@@ -810,7 +818,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (132)
+## Data and Migrations (133)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -943,8 +951,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
+- Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql | supabase/migrations/130_executive_brief_grill_me_protocol.sql | -- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.
 
-## Documentation (541)
+## Documentation (543)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1225,6 +1234,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/internal-system-summary.md | docs/internal-system-summary.md | Starting Monday Internal System Summary
 - Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
+- Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
+- Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
 - Doc docs/link-integrity-report-now.md | docs/link-integrity-report-now.md | Link Integrity Report
 - Doc docs/linkedin-contact-import-for-chris.md | docs/linkedin-contact-import-for-chris.md | LinkedIn Contact Import — Overview for Chris Goodwin

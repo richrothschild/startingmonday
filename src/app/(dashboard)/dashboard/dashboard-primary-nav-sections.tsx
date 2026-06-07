@@ -44,6 +44,9 @@ export function DashboardPrimaryNavSections({
           <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
             {isExecutiveMode ? 'Open briefing' : 'Briefing'}
           </Link>
+          <Link href="/dashboard/executive-brief" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+            {isExecutiveMode ? 'Executive brief' : 'Brief hub'}
+          </Link>
           {isExecutiveMode ? (
             <>
               <Link href="/dashboard/calendar" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
@@ -81,6 +84,12 @@ export function DashboardPrimaryNavSections({
             className="inline-flex min-h-[44px] items-center justify-center bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
           >
             Open briefing
+          </Link>
+          <Link
+            href="/dashboard/executive-brief"
+            className="inline-flex min-h-[44px] items-center justify-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors"
+          >
+            Executive brief
           </Link>
           <Link
             href="/dashboard/calendar"

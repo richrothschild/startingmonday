@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T16:16:22.101Z",
+  "generatedAt": "2026-06-07T19:48:13.016Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "feature:/login",
@@ -589,6 +589,20 @@
       "lastModifiedAt": "2026-06-06T16:52:15.450Z"
     },
     {
+      "id": "feature:/dashboard/executive-brief",
+      "title": "Feature Dashboard / Executive brief",
+      "body": "User-facing page route /dashboard/executive-brief.",
+      "type": "feature",
+      "ref": "/dashboard/executive-brief",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-07T19:30:42.409Z"
+    },
+    {
       "id": "feature:/dashboard/feedback",
       "title": "Feature Dashboard / Feedback",
       "body": "User-facing page route /dashboard/feedback.",
@@ -698,7 +712,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T16:08:36.172Z"
+      "lastModifiedAt": "2026-06-07T16:47:10.419Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -1524,7 +1538,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T16:08:36.172Z"
+      "lastModifiedAt": "2026-06-07T16:47:10.420Z"
     },
     {
       "id": "feature:/demo/manager-tools",
@@ -1623,6 +1637,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-06T16:52:15.761Z"
+    },
+    {
+      "id": "feature:/executive-brief",
+      "title": "Feature Executive brief",
+      "body": "User-facing page route /executive-brief.",
+      "type": "feature",
+      "ref": "/executive-brief",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-07T19:30:42.414Z"
     },
     {
       "id": "feature:/executives/active",
@@ -4894,6 +4922,58 @@
       "lastModifiedAt": "2026-06-06T16:52:15.657Z"
     },
     {
+      "id": "api:/api/executive-brief/grill-me",
+      "title": "API /api/executive-brief/grill-me",
+      "body": "export async function POST(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/executive-brief/grill-me/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T19:30:42.410Z"
+    },
+    {
+      "id": "api:/api/executive-brief/grill-me/sessions/[id]/respond",
+      "title": "API /api/executive-brief/grill-me/sessions/[id]/respond",
+      "body": "fallback below",
+      "type": "api",
+      "ref": "src/app/api/executive-brief/grill-me/sessions/[id]/respond/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T19:30:42.412Z"
+    },
+    {
+      "id": "api:/api/executive-brief/grill-me/sessions",
+      "title": "API /api/executive-brief/grill-me/sessions",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/executive-brief/grill-me/sessions/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T19:30:42.413Z"
+    },
+    {
+      "id": "api:/api/executive-brief/transcription",
+      "title": "API /api/executive-brief/transcription",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/executive-brief/transcription/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T19:30:42.413Z"
+    },
+    {
       "id": "api:/api/executive-transition/emotion-state/score",
       "title": "API /api/executive-transition/emotion-state/score",
       "body": "export async function POST(request: NextRequest) {",
@@ -6597,6 +6677,19 @@
       "lastModifiedAt": "2026-06-06T16:52:16.018Z"
     },
     {
+      "id": "code:src/lib/executive-brief-knowledge.ts",
+      "title": "Code src/lib/executive-brief-knowledge.ts",
+      "body": "export type MentalModel = {",
+      "type": "code",
+      "ref": "src/lib/executive-brief-knowledge.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-07T19:30:42.416Z"
+    },
+    {
       "id": "code:src/lib/executive-job-search.test.ts",
       "title": "Code src/lib/executive-job-search.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -6712,6 +6805,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.022Z"
+    },
+    {
+      "id": "code:src/lib/grill-me-protocol.ts",
+      "title": "Code src/lib/grill-me-protocol.ts",
+      "body": "export const GrillMeSessionModeSchema = z.enum(['focused', 'stress', 'board'])",
+      "type": "code",
+      "ref": "src/lib/grill-me-protocol.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-07T19:30:42.424Z"
     },
     {
       "id": "code:src/lib/guide-retrieval.test.ts",
@@ -9961,7 +10067,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T22:16:17.119Z"
+      "lastModifiedAt": "2026-06-07T19:47:07.677Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10026,7 +10132,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T14:11:34.796Z"
+      "lastModifiedAt": "2026-06-07T19:47:15.122Z"
     },
     {
       "id": "infra:.github/workflows/emi-weekly-validation.yml",
@@ -12254,6 +12360,20 @@
       "lastModifiedAt": "2026-06-06T16:52:32.864Z"
     },
     {
+      "id": "data:supabase/migrations/130_executive_brief_grill_me_protocol.sql",
+      "title": "Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql",
+      "body": "-- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.",
+      "type": "data",
+      "ref": "supabase/migrations/130_executive_brief_grill_me_protocol.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-07T19:30:42.427Z"
+    },
+    {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "title": "Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "body": "Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)",
@@ -12654,7 +12774,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.945Z"
+      "lastModifiedAt": "2026-06-07T19:47:49.756Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -15826,7 +15946,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15865,7 +15985,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
+      "lastModifiedAt": "2026-06-07T19:31:14.035Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15892,6 +16012,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-07T13:53:40.768Z"
+    },
+    {
+      "id": "doc:docs/knowledge/first-principles-repository.md",
+      "title": "Doc docs/knowledge/first-principles-repository.md",
+      "body": "First Principles Repository",
+      "type": "doc",
+      "ref": "docs/knowledge/first-principles-repository.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T19:30:42.404Z"
+    },
+    {
+      "id": "doc:docs/knowledge/mental-models-top-300.md",
+      "title": "Doc docs/knowledge/mental-models-top-300.md",
+      "body": "Top 300 Mental Models Repository",
+      "type": "doc",
+      "ref": "docs/knowledge/mental-models-top-300.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T19:30:42.405Z"
     },
     {
       "id": "doc:docs/landing-page-council-review.md",
@@ -19154,7 +19300,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T16:16:04.582Z"
+      "lastModifiedAt": "2026-06-07T19:30:53.240Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
