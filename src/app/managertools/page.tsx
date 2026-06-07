@@ -43,7 +43,7 @@ export default function ManagerToolsPage() {
           eyebrow: 'Manager Tools community: we are glad you are here.',
           h1Lines: ['Run your executive search with calm, consistent momentum.'],
           body: 'Built for Manager Tools members: better timing, clearer narrative, steady weekly execution. Use it, pressure-test it, and tell us what to improve.',
-          trialNote: 'Manager Tools members get 90 days free. No credit card. No employer visibility. Please submit your feedback so we can improve this cohort experience quickly.',
+          trialNote: 'Manager Tools members get 90 days free. No credit card. No employer visibility.\nPlease submit your feedback so we can improve this experience quickly.',
         }}
         situations={MANAGER_TOOLS_SITUATIONS}
         faqs={MANAGER_TOOLS_FAQS}

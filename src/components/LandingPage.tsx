@@ -128,6 +128,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
   const isHomePage = sourcePage === '/'
   const isExecutivesPage = sourcePage === '/for-executives'
   const isManagerToolsPage = sourcePage === '/managertools'
+  const useCenteredFooter = isManagerToolsPage || isExecutivesPage
   const heroPrimaryHref = isManagerToolsPage
     ? MANAGERTOOLS_SIGNUP_URL
     : isExecutivesPage
@@ -136,7 +137,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
   const heroPrimaryLabel = isManagerToolsPage
     ? 'Start 90-day free access'
     : isExecutivesPage
-      ? 'Start 30-day free trial'
+      ? 'Start your free trial'
       : 'Start Now'
   void rolePathPriorityByCtaKey
 
@@ -464,7 +465,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     }}
                     className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[14px] font-bold px-6 py-3 rounded hover:bg-orange-600 transition-colors"
                   >
-                    Start 30-day free trial
+                    Start your free trial
                   </TrackLink>
                   <TrackLink
                     href="/demo/executive-brief"
@@ -524,7 +525,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </div>
               </>
             )}
-            <p className="text-[12px] text-slate-400 mt-3">{hero.trialNote}</p>
+            <p className={isManagerToolsPage ? 'text-[12px] text-slate-400 mt-3 whitespace-pre-line' : 'text-[12px] text-slate-400 mt-3'}>{hero.trialNote}</p>
           </div>
         </section>
 
@@ -542,11 +543,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
         <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
           <div className="max-w-5xl mx-auto">
-            <div className={isManagerToolsPage ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
-              <span className={isManagerToolsPage ? 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
+            <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
+              <span className={useCenteredFooter ? 'text-[12px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
-              <div className={isManagerToolsPage ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
+              <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
                 <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
                 <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
                 <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
@@ -560,7 +561,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             </div>
 
-            {isManagerToolsPage ? (
+            {useCenteredFooter ? (
               <p className="text-[11px] text-slate-500 mt-5 text-center">
                 Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
               </p>
