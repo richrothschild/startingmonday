@@ -1,5 +1,12 @@
 # Performance Audit Pack
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Purpose: run a repeatable performance verification flow and produce a regression-only release gate decision.
 
 ## One-Command Gate

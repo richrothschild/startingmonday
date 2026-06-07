@@ -1,7 +1,15 @@
 # Sprint 8 Council Rerun: Advice And Scores
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-05-24
-Status: Complete rerun
 Scope: Councils used to create this epic, plus James Clear, Digital Products Experts Panel, and Executive Coach Products Experts Council.
 
 ## Evidence base used for rerun

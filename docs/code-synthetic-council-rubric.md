@@ -1,5 +1,12 @@
 # Code Synthetic Council Rubric (Full Spectrum)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 ## Scoring model
 
 - Scale: 0-100 per category.

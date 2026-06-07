@@ -1,5 +1,12 @@
 # The Executive Search Playbook
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 startingmonday.app | May 2026
 
 ---

@@ -1,8 +1,16 @@
 # Sprint 6 Onboarding Speed Scorecard
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-05-24
 Sprint: 6
-Status: Complete
 
 ## Scope delivered
 

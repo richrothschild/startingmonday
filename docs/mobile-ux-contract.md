@@ -1,7 +1,13 @@
 # Mobile UX Contract
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Updated: 2026-05-28
-Owner: Product + Engineering
 
 ## Purpose
 

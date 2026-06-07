@@ -1,5 +1,12 @@
 # Mobile UI Remediation Spec (Sprint 1)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 ## Objective
 Ship a mobile-first dashboard experience that is readable, tappable, and task-focused on iPhone and Android devices, while preserving existing desktop behavior.
 

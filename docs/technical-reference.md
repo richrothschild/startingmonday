@@ -1,4 +1,11 @@
 # Technical Reference — Starting Monday
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
 ### Version 1.0 — May 2026
 
 This document is the authoritative technical reference for the Starting Monday platform as deployed. It covers architecture, infrastructure, security, observability, test harness, deployment, and operational runbooks. It reflects the actual running system — not plans.

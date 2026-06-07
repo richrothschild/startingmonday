@@ -1,8 +1,13 @@
 # Starting Monday Working Business Plan (Execution Version)
 
-Date: 2026-05-31
-Status: In remediation
 Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
+Date: 2026-05-31
 Review date: 2026-06-14
 Canonical source: docs/business-plan-working.md
 

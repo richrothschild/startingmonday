@@ -1,5 +1,12 @@
 # Security Audit Runbook — Starting Monday
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 Use this document to run a full security audit. Work through each area in order. Areas 1 and 2 have the highest historical finding rate for this codebase.
 
 First audit completed: May 12, 2026. Findings documented in `docs/security-audit-findings-2026-05.md`.

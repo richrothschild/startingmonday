@@ -1,5 +1,14 @@
 # Sprint 7 Carry-Forward Shortlist (2026-05-31)
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Source reviewed: `origin/archive/sprint-6-rebased-2026-05-31`
 
 ## Priority Candidates To Evaluate

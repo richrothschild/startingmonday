@@ -1,5 +1,12 @@
 # Starting Monday Internal System Summary
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Generated at: 2026-06-07T13:26:54.245Z
 
 ## What exists
