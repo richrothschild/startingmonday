@@ -209,17 +209,17 @@ export async function GET(request: NextRequest) {
     const slackResult = await sendSlackMessage({ text: slackText })
 
     const emailError = (emailResult as { error?: { message?: string } } | null)?.error?.message
-    if (emailError) {
-      return NextResponse.json({ error: emailError }, { status: 502 })
-    }
+    const warnings: string[] = []
+    if (emailError) warnings.push(`email: ${emailError}`)
+    if (!slackResult.ok) warnings.push(`slack: ${slackResult.error}`)
 
     return NextResponse.json({
       ok: true,
       sent: {
-        email: true,
+        email: !emailError,
         slack: slackResult.ok,
       },
-      slackError: slackResult.ok ? null : slackResult.error,
+      warnings,
       summary: {
         total,
         excellent,

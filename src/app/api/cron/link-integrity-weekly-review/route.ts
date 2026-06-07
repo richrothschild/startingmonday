@@ -139,14 +139,21 @@ export async function GET(request: NextRequest) {
   const to = process.env.LINK_REVIEW_EMAIL_TO ?? getOwnerEmail() ?? 'rothschild@gmail.com'
 
   try {
-    await execFileAsync('node', [
-      'scripts/link-integrity-audit.mjs',
-      '--fix',
-      '--json',
-      'docs/link-integrity-weekly-report.json',
-      '--md',
-      'docs/link-integrity-weekly-report.md',
-    ], { cwd: root })
+    let auditWarning: string | null = null
+    try {
+      await execFileAsync('node', [
+        'scripts/link-integrity-audit.mjs',
+        '--fix',
+        '--json',
+        'docs/link-integrity-weekly-report.json',
+        '--md',
+        'docs/link-integrity-weekly-report.md',
+      ], { cwd: root })
+    } catch (error) {
+      // The audit script exits non-zero when broken links are found.
+      // That signal is expected and should not fail the weekly review route.
+      auditWarning = error instanceof Error ? error.message : 'Link audit exited non-zero'
+    }
 
     const reportText = await readFile(jsonPath, 'utf8')
     const report = JSON.parse(reportText) as LinkReport
@@ -156,16 +163,17 @@ export async function GET(request: NextRequest) {
 
     const emailResult = await sendEmail({ to, subject, html })
     const emailError = (emailResult as { error?: { message?: string } } | null)?.error?.message
-    if (emailError) {
-      return NextResponse.json({ error: emailError }, { status: 502 })
-    }
-
     const slackResult = await sendSlackMessage({ text: buildSlackSummary(report) })
+    const warnings: string[] = []
+
+    if (auditWarning) warnings.push(`audit: ${auditWarning}`)
+    if (emailError) warnings.push(`email: ${emailError}`)
+    if (!slackResult.ok) warnings.push(`slack: ${slackResult.error}`)
 
     return NextResponse.json({
       ok: true,
-      sent: { email: true, slack: slackResult.ok },
-      slackError: slackResult.ok ? null : slackResult.error,
+      sent: { email: !emailError, slack: slackResult.ok },
+      warnings,
       reportFiles: {
         json: path.relative(root, jsonPath),
         markdown: path.relative(root, mdPath),
