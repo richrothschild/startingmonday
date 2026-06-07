@@ -1,5 +1,12 @@
 # Starting Monday — Investor Brief
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 Confidential | May 2026
 
 ---

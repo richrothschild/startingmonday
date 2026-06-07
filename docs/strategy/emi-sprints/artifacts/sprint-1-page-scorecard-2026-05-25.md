@@ -1,5 +1,14 @@
 # Sprint 1 Page-by-Page Scorecard (A+ Pass/Fail)
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-05-25  
 Rubric source: docs/strategy/emi-sprints/artifacts/sprint-1-content-a-plus-rubric-sheet-2026-05-25.md
 H4 validation runbook: docs/strategy/emi-sprints/artifacts/sprint-1-telemetry-completeness-validation-runbook-2026-05-25.md

@@ -1,4 +1,11 @@
 # Manager Tools Newsletter Launch — Execution Plan
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
 **Trigger:** Mark Horstman mention in Manager Tools newsletter (target: Tuesday, June 9, 2026 morning PT)  
 **Goal:** Capture, identify, and convert Manager Tools referral traffic with zero leakage  
 **Option C:** Vanity URL (auto-tags source) + "How did you hear about us?" field (fallback capture)

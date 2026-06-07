@@ -1,5 +1,12 @@
 # Synthetic Council Vision Compendium for Product Roadmap
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 Internal document | May 2026
 
 Purpose: capture roadmap input from every member across the synthetic councils and convert it into actionable planning lenses.

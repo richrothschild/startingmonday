@@ -1,5 +1,12 @@
 # Performance Budget
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Updated: 2026-05-31
 Scope: release gating for production readiness.
 

@@ -1,5 +1,12 @@
 # Starting Monday Automation Strategy
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 ## Goal
 
 Make Starting Monday run with as little manual work as is practical while preserving trust, quality, and control. The system should handle the deterministic work automatically and route only exceptions, approvals, and high-trust decisions to humans.

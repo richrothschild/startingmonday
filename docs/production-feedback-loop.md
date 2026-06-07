@@ -1,5 +1,12 @@
 # Production Feedback Loop
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 Starting Monday runs a three-signal feedback loop from production into the improvement queue. The loop closes weekly. Nothing waits for a sprint cycle.
 
 ---

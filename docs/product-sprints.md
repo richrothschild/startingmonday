@@ -1,5 +1,12 @@
 # Starting Monday: Sprint Plan (Sprints 8-15)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 **Goal:** Move every product dimension from current grade to A or A- through targeted, sequenced sprints.  
 **Date created:** 2026-05-07  
 **Sequencing logic:** Impact-to-effort ratio, not arbitrary order. Fix the product before the channel.

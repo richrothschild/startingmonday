@@ -1,5 +1,12 @@
 # Starting Monday — Decision Log
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 A record of every major product bet: the assumption it rests on, the success metric, the kill criterion, and the review date. Reviewed quarterly. Decisions are not evaluated on outcomes alone — a good decision can have a bad outcome, and a bad decision can get lucky.
 
 ---

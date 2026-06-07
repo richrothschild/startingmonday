@@ -1,5 +1,14 @@
 # Week 3 Release Memo and Sprint 4 Seed
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-06-04
 Epic: SMK-115
 Ticket: SMK-118 (W3-05)

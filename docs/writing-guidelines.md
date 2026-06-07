@@ -1,5 +1,12 @@
 # Writing Guidelines — Resumes, Cover Letters, Messaging
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Apply these to every piece of outbound writing. AI-generated copy fails because it overuses a predictable set of rhetorical tricks. Avoid them.
 
 ---

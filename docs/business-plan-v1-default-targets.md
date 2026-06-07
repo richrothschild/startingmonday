@@ -1,5 +1,12 @@
 # Starting Monday Business Plan V1 (Default Target Ranges)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 Date: May 16, 2026
 Scope: Default operating ranges for immediate monthly review use
 Model type: Bootstrapped, US-only, software-led delivery

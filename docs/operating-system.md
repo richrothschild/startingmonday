@@ -1,5 +1,12 @@
 # Starting Monday — Internal Operating System
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 *The founder's operating system becomes the company's operating system. Write it down before it scales. Clarity now prevents drag later.*
 
 ---

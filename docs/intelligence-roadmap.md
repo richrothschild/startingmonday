@@ -1,4 +1,11 @@
 # Starting Monday — Intelligence Scanner Roadmap
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
 **Version 1.0 — May 10, 2026**
 **Status: Canonical. Living document. Update as sprints complete and scope evolves.**
 

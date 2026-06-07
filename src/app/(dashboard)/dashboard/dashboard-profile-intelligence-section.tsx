@@ -24,6 +24,7 @@ type DashboardProfileIntelligenceSectionProps = {
   prospectContactCount: number
   companiesWithoutBrief: Array<{ name: string }>
   opportunityRadar: React.ReactNode
+  isExecutiveMode: boolean
 }
 
 export function DashboardProfileIntelligenceSection({
@@ -40,11 +41,46 @@ export function DashboardProfileIntelligenceSection({
   prospectContactCount,
   companiesWithoutBrief,
   opportunityRadar,
+  isExecutiveMode,
 }: DashboardProfileIntelligenceSectionProps) {
   const showNetworkHealth =
     totalCount >= 3 &&
     contactCoverageCount < totalCount &&
     contactCoverageCount / totalCount < 0.5
+
+  const rankedAttentionCard = (() => {
+    if (companiesWithoutContact.length > 0) {
+      return {
+        href: '/dashboard/contacts/new',
+        count: companiesWithoutContact.length,
+        title: `${companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact`,
+        body: companiesWithoutContact.slice(0, 2).map((c) => c.name).join(', '),
+        cta: 'Add contacts ->',
+      }
+    }
+
+    if (prospectContactCount > 0) {
+      return {
+        href: '/dashboard/contacts',
+        count: prospectContactCount,
+        title: `${prospectContactCount === 1 ? 'contact' : 'contacts'} not yet reached`,
+        body: 'People you know but have not yet connected with in this search.',
+        cta: 'Draft outreach ->',
+      }
+    }
+
+    if (companiesWithoutBrief.length > 0) {
+      return {
+        href: '/dashboard',
+        count: companiesWithoutBrief.length,
+        title: `${companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief`,
+        body: companiesWithoutBrief.slice(0, 2).map((c) => c.name).join(', '),
+        cta: 'Run prep brief ->',
+      }
+    }
+
+    return null
+  })()
 
   return (
     <>
@@ -162,7 +198,23 @@ export function DashboardProfileIntelligenceSection({
         </Link>
       )}
 
-      {totalCount >= 3 && numIntelGaps > 0 && (
+      {totalCount >= 3 && numIntelGaps > 0 && isExecutiveMode && rankedAttentionCard && (
+        <section id="attention-gaps" className="mb-6 sm:mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Top attention gap</h2>
+          <Link href={rankedAttentionCard.href} className="bg-white border border-slate-200 rounded p-5 hover:border-slate-400 transition-colors block">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="text-[30px] font-bold text-slate-900 leading-none mb-1">{rankedAttentionCard.count}</div>
+                <div className="text-[14px] font-semibold text-slate-900 mb-1.5">{rankedAttentionCard.title}</div>
+                <div className="text-[12px] text-slate-500 leading-relaxed">{rankedAttentionCard.body}</div>
+              </div>
+              <span className="text-[12px] font-semibold text-slate-500 shrink-0">{rankedAttentionCard.cta}</span>
+            </div>
+          </Link>
+        </section>
+      )}
+
+      {totalCount >= 3 && numIntelGaps > 0 && !isExecutiveMode && (
         <section id="attention-gaps" className="mb-6 sm:mb-8">
           <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</h2>
           <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>

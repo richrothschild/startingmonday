@@ -1,7 +1,15 @@
 # Sprint 8 Governance Cadence
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-05-24
-Status: Active
 Purpose: Keep council score closure above 95 through a predictable operating rhythm.
 
 ## Governance objectives
@@ -14,7 +22,6 @@ Purpose: Keep council score closure above 95 through a predictable operating rhy
 
 ### Weekly operating review (Monday)
 
-Owner: Product Ops
 Attendees: Product Lead, Data Engineer, Frontend Lead, Trust and Compliance Lead, Growth Engineer
 Inputs:
 - docs/weekly-unified-audit.latest.md
@@ -29,7 +36,6 @@ Output checklist:
 
 ### Biweekly council delta review (Wednesday, every 2 weeks)
 
-Owner: Founder
 Attendees: Product Ops, GTM Lead, Trust and Compliance Lead
 Inputs:
 - member score deltas against Sprint 8 closure table

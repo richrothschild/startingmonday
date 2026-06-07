@@ -1,5 +1,12 @@
 # Starting Monday Automation Guide
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 This guide documents the full automation system built across Tickets 1-56, including architecture, APIs, operations, monitoring, alerting, and runbooks.
 
 Use this file as the source of truth for automation workflows, ownership, and operational response.

@@ -38,6 +38,7 @@ type Props = {
   warmPaths: WarmPath[]
   patternAlerts: SignalRow[]
   signals: SignalRow[]
+  isExecutiveMode: boolean
 }
 
 type FeedItem = {
@@ -56,7 +57,7 @@ function formatDateLabel(date: string) {
 }
 
 function buildFeedItems(props: Props): FeedItem[] {
-  const dueItems = props.followUps.slice(0, 3).map((followUp) => ({
+  const dueItems = props.followUps.slice(0, props.isExecutiveMode ? 1 : 3).map((followUp) => ({
     id: `follow-up-${followUp.id}`,
     badge: followUp.due_date === props.todayISO ? 'Due Today' : 'Follow-up',
     badgeClassName: followUp.due_date === props.todayISO
@@ -71,7 +72,7 @@ function buildFeedItems(props: Props): FeedItem[] {
     cta: 'Open calendar',
   }))
 
-  const warmPathItems = props.warmPaths.slice(0, 2).map((warmPath) => ({
+  const warmPathItems = props.warmPaths.slice(0, props.isExecutiveMode ? 1 : 2).map((warmPath) => ({
     id: `warm-path-${warmPath.contactId}-${warmPath.signal.id}`,
     badge: 'Warm Path',
     badgeClassName: 'bg-green-50 text-green-700',
@@ -82,7 +83,7 @@ function buildFeedItems(props: Props): FeedItem[] {
     cta: 'Draft outreach',
   }))
 
-  const patternItems = props.patternAlerts.slice(0, 2).map((signal) => {
+  const patternItems = props.patternAlerts.slice(0, props.isExecutiveMode ? 1 : 2).map((signal) => {
     const colonIndex = signal.signal_summary.indexOf(': ')
     const patternName = colonIndex > -1 ? signal.signal_summary.slice(0, colonIndex) : 'Pattern Alert'
     const patternBody = colonIndex > -1 ? signal.signal_summary.slice(colonIndex + 2) : signal.signal_summary
@@ -98,7 +99,7 @@ function buildFeedItems(props: Props): FeedItem[] {
     }
   })
 
-  const signalItems = props.signals.slice(0, 3).map((signal) => ({
+  const signalItems = props.signals.slice(0, props.isExecutiveMode ? 1 : 3).map((signal) => ({
     id: `signal-${signal.id}`,
     badge: signalLabel(signal.signal_type),
     badgeClassName: SIGNAL_COLORS[signal.signal_type] ?? 'bg-amber-50 text-amber-700',
@@ -109,7 +110,7 @@ function buildFeedItems(props: Props): FeedItem[] {
     cta: 'Open signals',
   }))
 
-  return [...dueItems, ...warmPathItems, ...patternItems, ...signalItems].slice(0, 6)
+  return [...dueItems, ...warmPathItems, ...patternItems, ...signalItems].slice(0, props.isExecutiveMode ? 3 : 6)
 }
 
 export function DashboardProgressFeedSection(props: Props) {

@@ -1,8 +1,14 @@
 # Release UX Sign-off Checklist
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 Purpose: block production releases where behavior works but UX quality is not production-grade.
 
-Owner: engineering + product/design reviewer.
 
 How to use:
 - Complete this checklist in the release PR description before merge.

@@ -1,7 +1,15 @@
 # Sprint 1 Content A+ Rubric Sheet (EMI)
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 Date: 2026-05-25  
-Owner: Content + Product Marketing + Growth + Analytics  
 Scope: Sprint 1 conversion pages only
 - src/app/page.tsx
 - src/app/pricing/page.tsx
