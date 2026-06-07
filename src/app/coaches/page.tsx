@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { CoachPreviewActions } from '../for-coaches/coach-preview-actions'
-import { COACH_PROOF_STRIPS, ROLE_BOUNDARY } from '../for-coaches/page-content'
+import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
@@ -21,40 +21,54 @@ export const metadata: Metadata = {
   },
 }
 
-const FAST_VALUE_POINTS = [
-  'Session time is protected for strategy, not recap.',
-  'Between-session movement is visible to coach and client.',
-  'The preview gives fast evidence before any rollout decision.',
-]
-
 const COST_OF_STAYING_THE_SAME = [
   {
-    title: 'Unprepared sessions burn high-value coaching time',
-    detail: 'When clients show up cold, your session starts with status rebuild instead of strategic decisions.',
+    title: 'Your best hour gets spent rebuilding context',
+    detail: 'When clients arrive unprepared, you burn premium coaching time on recap and reminders.',
   },
   {
-    title: 'Strong advice still loses without execution structure',
-    detail: 'Without between-session discipline, momentum drops and good coaching gets blamed for weak follow-through.',
+    title: 'Great coaching still looks weak without execution rhythm',
+    detail: 'Without a between-session system, momentum fades and your strongest guidance looks inconsistent.',
   },
   {
-    title: 'Invisible progress creates trust friction',
-    detail: 'If movement is unclear, confidence drops before outcomes arrive.',
+    title: 'Invisible movement creates avoidable trust risk',
+    detail: 'If progress is unclear week to week, confidence drops before outcomes have time to compound.',
   },
 ]
 
 const DOUBTS = [
   {
-    title: '"I need to think about it."',
-    detail: 'Usually this means the value still feels abstract. Run a short preview with real clients and decide from observed change.',
+    title: '"This is just a glorified prompt. I can do this myself."',
+    detail: 'You can write prompts. The gap is operating discipline between sessions. Antidote: use Starting Monday to track signal movement, standardize prep, and keep commitments visible week to week.',
   },
   {
     title: '"My clients already have tools."',
-    detail: 'Starting Monday is not another CRM. It is the between-session operating layer for prep, signals, and follow-through.',
+    detail: 'Most stacks still fail between sessions, where accountability drifts. Antidote: layer this as the operating system for prep briefs, signal tracking, and follow-through.',
   },
   {
     title: '"I am not sure clients will stick with it."',
-    detail: 'Belief comes after clients feel the workflow improving session quality, not before.',
+    detail: 'Clients drop when the workflow feels like admin, not progress. Antidote: start with one weekly ritual that makes the next session visibly sharper, then scale after two weeks of movement.',
   },
+]
+
+const PLATFORM_JTBD = [
+  'Surface between-session signal movement before each session.',
+  'Generate prep briefs so sessions start at decision level, not recap level.',
+  'Track commitments and overdue actions to prevent execution drift.',
+  'Give coach and client one shared view of progress and risk.',
+]
+
+const COACH_JTBD = [
+  'Set strategic direction and reframe the client narrative at key moments.',
+  'Choose where to intervene when momentum or confidence drops.',
+  'Hold accountability on the commitments that matter most this week.',
+  'Translate weekly signal changes into next-session priorities.',
+]
+
+const BRIGHTER_FUTURE = [
+  'Clients arrive with clarity, and sessions start at decision level.',
+  'You coach the strategic moments while the platform handles operating follow-through.',
+  'Progress is visible every week, so trust compounds instead of leaking.',
 ]
 
 export default function CoachesChannelPage() {
@@ -77,13 +91,13 @@ export default function CoachesChannelPage() {
       </nav>
 
       <header className="border-b border-slate-800 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.18),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_100%)] px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
           <div>
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-400">Coach gateway</p>
             <h1 className="max-w-3xl text-[34px] font-bold leading-[1.05] tracking-tight text-white sm:text-[48px]">
-              Your client should arrive ready
+              Your next coaching session should start with decisions,
               <br className="hidden sm:block" />
-              before your call starts.
+              not recap.
             </h1>
             <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
               If they do not, strategy time turns into recap. Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
@@ -95,120 +109,114 @@ export default function CoachesChannelPage() {
             <div className="mt-7">
               <CoachPreviewActions />
             </div>
-
-            <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-300">
-              <span className="rounded-full border border-slate-700 bg-slate-900/80 px-3 py-1.5">30-day preview</span>
-              <span className="rounded-full border border-slate-700 bg-slate-900/80 px-3 py-1.5">Private client access</span>
-              <span className="rounded-full border border-slate-700 bg-slate-900/80 px-3 py-1.5">Value in one page</span>
+            <div className="mt-3">
+              <TrackLink
+                href="/coaches/mock-dashboard"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
+                className="text-[13px] font-semibold text-orange-300 transition-colors hover:text-orange-200"
+              >
+                See mock coach dashboard &rarr;
+              </TrackLink>
             </div>
           </div>
 
-          <div className="grid gap-4">
+          <div className="flex flex-col justify-center gap-6 pt-2">
             {COACH_PROOF_STRIPS.map((item) => (
-              <article key={item.label} className="rounded-2xl border border-slate-700 bg-slate-950/70 p-5 shadow-lg shadow-black/10">
-                <p className="mb-1 text-[28px] font-bold leading-none text-white">{item.value}</p>
-                <p className="text-[13px] leading-relaxed text-slate-300">{item.label}</p>
-              </article>
+              <div key={item.label}>
+                <p className="text-[22px] font-bold leading-none text-white">{item.value}</p>
+                <p className="mt-1 text-[11px] leading-snug text-slate-500">{item.label}</p>
+              </div>
             ))}
-            <article className="rounded-2xl border border-orange-400/30 bg-orange-500/10 p-5 shadow-lg shadow-orange-950/20">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200">Cost of staying the same</p>
-              <ul className="space-y-2 text-[13px] leading-relaxed text-orange-50/90">
-                {FAST_VALUE_POINTS.map((point) => (
-                  <li key={point}>• {point}</li>
-                ))}
-              </ul>
-            </article>
           </div>
         </div>
       </header>
 
       <main className="bg-slate-50 text-slate-900">
         <section className="px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-6xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Why this matters now</p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Where coaching quietly breaks down</p>
+            <div className="space-y-8">
               {COST_OF_STAYING_THE_SAME.map((card) => (
-                <article key={card.title} className="rounded-2xl border border-slate-200 bg-white p-5">
-                  <p className="mb-2 text-[14px] font-semibold text-slate-900">{card.title}</p>
-                  <p className="text-[13px] leading-relaxed text-slate-600">{card.detail}</p>
-                </article>
+                <div key={card.title} className="grid gap-1 md:grid-cols-[280px_1fr]">
+                  <p className="text-[15px] font-semibold leading-snug text-slate-900">{card.title}</p>
+                  <p className="text-[14px] leading-relaxed text-slate-600">{card.detail}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="px-4 pb-14 sm:px-6">
-          <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-slate-900 p-6 text-white sm:p-8">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-300">Clear role boundary</p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <article className="rounded-2xl border border-slate-700 bg-slate-950/70 p-5">
-                <p className="mb-2 text-[12px] font-semibold text-slate-200">Platform owns</p>
-                <ul className="space-y-2 text-[13px] leading-relaxed text-slate-300">
-                  {ROLE_BOUNDARY.platform.map((line) => (
-                    <li key={line}>• {line}</li>
-                  ))}
-                </ul>
-              </article>
-              <article className="rounded-2xl border border-orange-400/30 bg-orange-500/10 p-5">
-                <p className="mb-2 text-[12px] font-semibold text-orange-100">Coach owns</p>
-                <ul className="space-y-2 text-[13px] leading-relaxed text-orange-50/90">
-                  {ROLE_BOUNDARY.coach.map((line) => (
-                    <li key={line}>• {line}</li>
-                  ))}
-                </ul>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 pb-14 sm:px-6">
-          <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Common doubts</p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {DOUBTS.map((item) => (
-                <article key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                  <p className="mb-2 text-[13px] font-semibold text-slate-900">{item.title}</p>
-                  <p className="text-[13px] leading-relaxed text-slate-600">{item.detail}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 pb-16 sm:px-6">
-          <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
-            <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <section className="border-y border-orange-100 bg-orange-50/60 px-4 py-14 sm:px-6">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-600">The antidote</p>
+            <h2 className="mb-8 text-[22px] font-bold leading-tight text-slate-900 sm:text-[26px]">One operating layer. Clear division of labor.</h2>
+            <div className="grid gap-10 md:grid-cols-2 md:divide-x md:divide-orange-200">
               <div>
-                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">One clear next step</p>
-                <h2 className="text-[24px] font-bold leading-tight text-slate-900 sm:text-[28px]">
-                  Start simple.
-                  <br className="hidden sm:block" />
-                  Prove value with clients.
-                </h2>
-                <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-600">
-                  Use the preview with two to three real clients. Keep it only if session quality improves.
-                </p>
+                <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-500">Platform handles</p>
+                <ul className="space-y-3 text-[14px] leading-relaxed text-slate-700">
+                  {PLATFORM_JTBD.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
               </div>
-              <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-                <TrackLink
-                  href="/partners#apply"
-                  event={EVENT_NAMES.channelEntryClicked}
-                  logToUserEvents
-                  properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
-                  className="inline-flex items-center justify-center rounded bg-orange-500 px-5 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
-                >
-                  Request the coach preview
-                </TrackLink>
-                <TrackLink
-                  href="/coaches/personas"
-                  event={EVENT_NAMES.personaRouteSelected}
-                  logToUserEvents
-                  properties={{ channel: 'coaches', persona: 'persona_hub', source_route: '/coaches', target_route: '/coaches/personas', variant_key: 'coach_gateway_v3' }}
-                  className="inline-flex items-center justify-center rounded border border-slate-300 px-5 py-3 text-[14px] font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
-                >
-                  Choose coach path
-                </TrackLink>
+              <div className="md:pl-10">
+                <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.12em] text-orange-600">Coach handles</p>
+                <ul className="space-y-3 text-[14px] leading-relaxed text-slate-700">
+                  {COACH_JTBD.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-14 sm:px-6">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">If you have doubts</p>
+            <div className="space-y-7">
+              {DOUBTS.map((item) => (
+                <div key={item.title} className="grid gap-1 md:grid-cols-[280px_1fr]">
+                  <p className="text-[14px] font-semibold italic text-slate-700">{item.title}</p>
+                  <p className="text-[14px] leading-relaxed text-slate-600">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 bg-slate-900 px-4 py-16 text-white sm:px-6">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-[26px] font-bold leading-snug text-white sm:text-[32px]">The next 30 days can feel different.</h2>
+            <ul className="mt-6 space-y-3">
+              {BRIGHTER_FUTURE.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-300">
+                  <span className="mt-0.5 text-orange-400">→</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <TrackLink
+                href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
+                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+              >
+                Request the coach preview
+              </TrackLink>
+              <TrackLink
+                href="/coaches/mock-dashboard"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
+                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-300 transition-colors hover:border-slate-400 hover:text-white"
+              >
+                See mock coach dashboard
+              </TrackLink>
             </div>
           </div>
         </section>
