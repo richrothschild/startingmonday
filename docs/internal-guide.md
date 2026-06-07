@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T14:00:53.036Z
+Last generated: 2026-06-07T16:16:22.101Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (185)
+## Features (186)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -123,6 +123,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
 - Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
 - Feature Demo / Executive brief | /demo/executive-brief | User-facing page route /demo/executive-brief.
+- Feature Demo / Executive dashboard | /demo/executive-dashboard | User-facing page route /demo/executive-dashboard.
 - Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
 - Feature Demo / Michael dashboard | /demo/michael-dashboard | User-facing page route /demo/michael-dashboard.
 - Feature Demo / Michael strategy brief | /demo/michael-strategy-brief | User-facing page route /demo/michael-strategy-brief.
@@ -653,7 +654,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (116)
+## Internal Scripts (117)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -763,6 +764,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/send-liz-linkedin-company-launch-email.mjs | scripts/send-liz-linkedin-company-launch-email.mjs | import { config } from 'dotenv'
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
 - Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
+- Script scripts/sync-docs-to-gdrive.mjs | scripts/sync-docs-to-gdrive.mjs | #!/usr/bin/env node
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
 - Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
 - Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
@@ -771,12 +773,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (34)
+## Infrastructure and Workflows (35)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
 - Workflow .github/workflows/deploy-alerts.yml | .github/workflows/deploy-alerts.yml | name: Deployment Alerts
 - Workflow .github/workflows/deployment-watchdog.yml | .github/workflows/deployment-watchdog.yml | name: Deployment Watchdog
+- Workflow .github/workflows/docs-drive-sync.yml | .github/workflows/docs-drive-sync.yml | name: Docs Drive Sync
 - Workflow .github/workflows/emi-weekly-validation.yml | .github/workflows/emi-weekly-validation.yml | name: EMI Weekly Validation
 - Workflow .github/workflows/executive-research-weekly.yml | .github/workflows/executive-research-weekly.yml | name: Executive Research Weekly Refresh
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
@@ -941,7 +944,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (540)
+## Documentation (541)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1159,6 +1162,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages
+- Doc docs/executive-dashboard-implementation-spec-2026-06-07.md | docs/executive-dashboard-implementation-spec-2026-06-07.md | Executive Dashboard Implementation Spec
 - Doc docs/executive-job-search/01-source-register.md | docs/executive-job-search/01-source-register.md | Executive Job Search Source Register
 - Doc docs/executive-job-search/02-behavior-ontology-v1.md | docs/executive-job-search/02-behavior-ontology-v1.md | Executive Job Search Behavior Ontology v1
 - Doc docs/executive-job-search/03-role-stage-matrix-v1.md | docs/executive-job-search/03-role-stage-matrix-v1.md | Executive Job Search Role x Stage Matrix v1

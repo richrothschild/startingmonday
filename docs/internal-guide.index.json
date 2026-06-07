@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T14:00:53.036Z",
+  "generatedAt": "2026-06-07T16:16:22.101Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T13:53:40.775Z"
+      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
     },
     {
       "id": "feature:/login",
@@ -698,7 +698,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T03:45:30.176Z"
+      "lastModifiedAt": "2026-06-07T16:08:36.172Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -1511,6 +1511,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-06T16:52:15.756Z"
+    },
+    {
+      "id": "feature:/demo/executive-dashboard",
+      "title": "Feature Demo / Executive dashboard",
+      "body": "User-facing page route /demo/executive-dashboard.",
+      "type": "feature",
+      "ref": "/demo/executive-dashboard",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-07T16:08:36.172Z"
     },
     {
       "id": "feature:/demo/manager-tools",
@@ -9833,6 +9847,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.368Z"
     },
     {
+      "id": "script:scripts/sync-docs-to-gdrive.mjs",
+      "title": "Script scripts/sync-docs-to-gdrive.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/sync-docs-to-gdrive.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-07T14:11:34.795Z"
+    },
+    {
       "id": "script:scripts/test-briefing.mjs",
       "title": "Script scripts/test-briefing.mjs",
       "body": "End-to-end test for WBS 1.5 — Daily Briefing Engine.",
@@ -9987,6 +10014,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:14.826Z"
+    },
+    {
+      "id": "infra:.github/workflows/docs-drive-sync.yml",
+      "title": "Workflow .github/workflows/docs-drive-sync.yml",
+      "body": "name: Docs Drive Sync",
+      "type": "infra",
+      "ref": ".github/workflows/docs-drive-sync.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-07T14:11:34.796Z"
     },
     {
       "id": "infra:.github/workflows/emi-weekly-validation.yml",
@@ -15035,6 +15075,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.009Z"
     },
     {
+      "id": "doc:docs/executive-dashboard-implementation-spec-2026-06-07.md",
+      "title": "Doc docs/executive-dashboard-implementation-spec-2026-06-07.md",
+      "body": "Executive Dashboard Implementation Spec",
+      "type": "doc",
+      "ref": "docs/executive-dashboard-implementation-spec-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T16:01:53.728Z"
+    },
+    {
       "id": "doc:docs/executive-job-search/01-source-register.md",
       "title": "Doc docs/executive-job-search/01-source-register.md",
       "body": "Executive Job Search Source Register",
@@ -15591,7 +15644,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:51:29.213Z"
+      "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
       "id": "doc:docs/growth-metrics-gate.latest.md",
@@ -15773,7 +15826,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:28:06.502Z"
+      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15812,7 +15865,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.775Z"
+      "lastModifiedAt": "2026-06-07T14:00:53.048Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18971,7 +19024,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:51:36.820Z"
+      "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
       "id": "doc:docs/templates/decision-record-template.md",
@@ -18984,7 +19037,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:51:36.804Z"
+      "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
       "id": "doc:docs/templates/doc-template.md",
@@ -18997,7 +19050,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:51:36.745Z"
+      "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
       "id": "doc:docs/terry-coach-forward-email.md",
@@ -19101,7 +19154,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T14:00:37.290Z"
+      "lastModifiedAt": "2026-06-07T16:16:04.582Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
