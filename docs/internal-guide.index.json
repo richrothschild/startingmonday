@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:51:30.523Z",
+  "generatedAt": "2026-06-07T00:54:10.157Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
+      "lastModifiedAt": "2026-06-07T00:51:30.539Z"
     },
     {
       "id": "feature:/login",
@@ -1664,7 +1664,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:50:48.321Z"
+      "lastModifiedAt": "2026-06-07T00:53:21.180Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -4941,7 +4941,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.663Z"
+      "lastModifiedAt": "2026-06-07T00:53:09.516Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -15681,7 +15681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
+      "lastModifiedAt": "2026-06-07T00:51:30.539Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15720,7 +15720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:24:10.709Z"
+      "lastModifiedAt": "2026-06-07T00:51:30.539Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18970,7 +18970,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:51:27.943Z"
+      "lastModifiedAt": "2026-06-07T00:54:07.572Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

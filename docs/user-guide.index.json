@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:51:27.938Z",
+  "generatedAt": "2026-06-07T00:54:07.568Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -1222,7 +1222,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T00:50:48.321Z",
+      "lastModifiedAt": "2026-06-07T00:53:21.180Z",
       "qualityWeight": 1
     },
     {
@@ -4602,7 +4602,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.663Z",
+      "lastModifiedAt": "2026-06-07T00:53:09.516Z",
       "qualityWeight": 0.95
     },
     {
