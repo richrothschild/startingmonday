@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T13:26:54.245Z",
+  "generatedAt": "2026-06-07T14:00:53.036Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.775Z"
     },
     {
       "id": "feature:/login",
@@ -1426,7 +1426,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T12:58:32.691Z"
+      "lastModifiedAt": "2026-06-07T13:27:03.268Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -6931,7 +6931,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-07T03:58:35.537Z"
+      "lastModifiedAt": "2026-06-07T13:27:03.269Z"
     },
     {
       "id": "code:src/lib/onboarding-speed.test.ts",
@@ -10155,7 +10155,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T13:17:25.521Z"
+      "lastModifiedAt": "2026-06-07T13:27:03.269Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -10259,7 +10259,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T13:26:32.258Z"
+      "lastModifiedAt": "2026-06-07T13:28:06.458Z"
     },
     {
       "id": "infra:.github/workflows/slack-simulated-failure.yml",
@@ -12380,7 +12380,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.939Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.705Z"
     },
     {
       "id": "doc:docs/article-submission-targets.md",
@@ -12406,7 +12406,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.940Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
     },
     {
       "id": "doc:docs/automation-strategy.md",
@@ -12419,7 +12419,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.940Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.714Z"
     },
     {
       "id": "doc:docs/backlog.md",
@@ -12432,7 +12432,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.941Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.719Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -12458,7 +12458,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.942Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.732Z"
     },
     {
       "id": "doc:docs/business-plan-working.md",
@@ -12471,7 +12471,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.942Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.728Z"
     },
     {
       "id": "doc:docs/business-plan.md",
@@ -12484,7 +12484,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:23:31.819Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.722Z"
     },
     {
       "id": "doc:docs/campaign-standard.md",
@@ -12497,7 +12497,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:18:11.035Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.738Z"
     },
     {
       "id": "doc:docs/chris-vscode-workspace-setup.md",
@@ -12627,7 +12627,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:32.817Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.743Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-rubric.md",
@@ -12640,7 +12640,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.946Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.747Z"
     },
     {
       "id": "doc:docs/confidential-search-guide.md",
@@ -13602,7 +13602,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.970Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.795Z"
     },
     {
       "id": "doc:docs/content/sprint-1-ia-spec-and-route-map-2026-05-24.md",
@@ -13615,7 +13615,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.971Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.797Z"
     },
     {
       "id": "doc:docs/content/sprint-1-score-measurement-contract-2026-05-24.md",
@@ -13628,7 +13628,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.971Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.800Z"
     },
     {
       "id": "doc:docs/content/sprint-2-channel-entry-experiment-plan-2026-05-24.md",
@@ -13641,7 +13641,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.971Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.802Z"
     },
     {
       "id": "doc:docs/content/sprint-3-persona-routing-qa-2026-05-24.md",
@@ -13654,7 +13654,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.971Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.804Z"
     },
     {
       "id": "doc:docs/content/sprint-4-micro-product-rollout-runbook-2026-05-24.md",
@@ -13667,7 +13667,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.972Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.808Z"
     },
     {
       "id": "doc:docs/content/sprint-5-intelligence-quality-scorecard-2026-05-24.md",
@@ -13680,7 +13680,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.972Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.810Z"
     },
     {
       "id": "doc:docs/content/sprint-6-onboarding-speed-scorecard-2026-05-24.md",
@@ -13693,7 +13693,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.972Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.812Z"
     },
     {
       "id": "doc:docs/content/sprint-8-council-rerun-advice-and-scores-2026-05-24.md",
@@ -13706,7 +13706,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.973Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.815Z"
     },
     {
       "id": "doc:docs/content/sprint-8-governance-cadence-2026-05-24.md",
@@ -13719,7 +13719,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.973Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.819Z"
     },
     {
       "id": "doc:docs/content/sprint-8-re-review-score-closure-2026-05-24.md",
@@ -13732,7 +13732,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.974Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.822Z"
     },
     {
       "id": "doc:docs/content/synthetic-council-structure.md",
@@ -14512,7 +14512,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.993Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.754Z"
     },
     {
       "id": "doc:docs/development/emi-artifacts-implementation-tickets.md",
@@ -15526,7 +15526,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:46:50.012Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.757Z"
     },
     {
       "id": "doc:docs/for-coaches-review-from-synthetic-council-may-2026.md",
@@ -15579,6 +15579,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.022Z"
+    },
+    {
+      "id": "doc:docs/governance/docs-governance.md",
+      "title": "Doc docs/governance/docs-governance.md",
+      "body": "Documentation Governance",
+      "type": "doc",
+      "ref": "docs/governance/docs-governance.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T13:51:29.213Z"
     },
     {
       "id": "doc:docs/growth-metrics-gate.latest.md",
@@ -15734,7 +15747,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.888Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.765Z"
     },
     {
       "id": "doc:docs/internal-explore-playbook.md",
@@ -15760,7 +15773,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
+      "lastModifiedAt": "2026-06-07T13:28:06.502Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15773,7 +15786,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.034Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.771Z"
     },
     {
       "id": "doc:docs/internal-pages-ia-redesign.md",
@@ -15786,7 +15799,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.035Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.773Z"
     },
     {
       "id": "doc:docs/internal-system-summary.md",
@@ -15799,7 +15812,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:18:54.016Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.775Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -15825,7 +15838,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:20:25.514Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.768Z"
     },
     {
       "id": "doc:docs/landing-page-council-review.md",
@@ -15929,7 +15942,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:30:16.120Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.780Z"
     },
     {
       "id": "doc:docs/mark-horstman-site-audit.md",
@@ -15968,7 +15981,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:24:48.076Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.783Z"
     },
     {
       "id": "doc:docs/mobile-reliability-plan.md",
@@ -15981,7 +15994,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.041Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.786Z"
     },
     {
       "id": "doc:docs/mobile-ui-remediation-spec.md",
@@ -15994,7 +16007,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.041Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.790Z"
     },
     {
       "id": "doc:docs/mobile-ui-rubric.md",
@@ -16020,7 +16033,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.043Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.792Z"
     },
     {
       "id": "doc:docs/nyt-submission-template.md",
@@ -16059,7 +16072,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:31:31.095Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.795Z"
     },
     {
       "id": "doc:docs/onboarding/01-claude-code-setup.md",
@@ -16189,7 +16202,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:20:55.733Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.797Z"
     },
     {
       "id": "doc:docs/operating-system.md",
@@ -16202,7 +16215,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.047Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.800Z"
     },
     {
       "id": "doc:docs/outplacement-a-plus-conversion-epic.md",
@@ -16254,7 +16267,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.049Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.824Z"
     },
     {
       "id": "doc:docs/outreach-trigger-field-reference.md",
@@ -16462,7 +16475,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.103Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.826Z"
     },
     {
       "id": "doc:docs/performance-budget.md",
@@ -16475,7 +16488,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.105Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.828Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.latest.md",
@@ -16540,7 +16553,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:30:37.752Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.830Z"
     },
     {
       "id": "doc:docs/product-architecture.md",
@@ -16553,7 +16566,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.893Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.836Z"
     },
     {
       "id": "doc:docs/product-ideas-backlog.md",
@@ -16566,7 +16579,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.937Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.838Z"
     },
     {
       "id": "doc:docs/product-journey-maps.md",
@@ -16579,7 +16592,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.899Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.845Z"
     },
     {
       "id": "doc:docs/product-obstacles.md",
@@ -16592,7 +16605,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.905Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.854Z"
     },
     {
       "id": "doc:docs/product-personas.md",
@@ -16605,7 +16618,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.912Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.859Z"
     },
     {
       "id": "doc:docs/product-requirements.md",
@@ -16618,7 +16631,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.918Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.873Z"
     },
     {
       "id": "doc:docs/product-roadmap-chris-review-deck.md",
@@ -16631,7 +16644,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.107Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.883Z"
     },
     {
       "id": "doc:docs/product-roadmap-council-vision-compendium.md",
@@ -16644,7 +16657,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.108Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.885Z"
     },
     {
       "id": "doc:docs/product-roadmap-dalio-duke-synthesis.md",
@@ -16657,7 +16670,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.108Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.888Z"
     },
     {
       "id": "doc:docs/product-roadmap.md",
@@ -16670,7 +16683,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T23:47:19.844Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.877Z"
     },
     {
       "id": "doc:docs/product-sprints.md",
@@ -16683,7 +16696,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.926Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.891Z"
     },
     {
       "id": "doc:docs/product-wbs.md",
@@ -16709,7 +16722,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.109Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.893Z"
     },
     {
       "id": "doc:docs/production-two-step-gate-signoff-2026-05-31.md",
@@ -16735,7 +16748,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.111Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.896Z"
     },
     {
       "id": "doc:docs/research/executive-search-ai-confidentiality-annual-report-2026-public-edition.md",
@@ -16774,7 +16787,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.942Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.902Z"
     },
     {
       "id": "doc:docs/salesnavigator.md",
@@ -16826,7 +16839,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.115Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.908Z"
     },
     {
       "id": "doc:docs/security-deep-dive-audit.latest.md",
@@ -16878,7 +16891,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.116Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.911Z"
     },
     {
       "id": "doc:docs/site-monitoring-runbook.md",
@@ -16891,7 +16904,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.117Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.916Z"
     },
     {
       "id": "doc:docs/site-monitoring-sprint-plan.md",
@@ -16904,7 +16917,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.117Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.923Z"
     },
     {
       "id": "doc:docs/site-review-from-new-council-members-may-2026.md",
@@ -17463,7 +17476,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.933Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.825Z"
     },
     {
       "id": "doc:docs/startingmonday_business_analysis.md",
@@ -17840,7 +17853,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.161Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.828Z"
     },
     {
       "id": "doc:docs/strategy/emi-sprints/artifacts/sprint-1-emi-positioning-brief.md",
@@ -17892,7 +17905,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.163Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.834Z"
     },
     {
       "id": "doc:docs/strategy/emi-sprints/artifacts/sprint-1-telemetry-completeness-validation-runbook-2026-05-25.md",
@@ -17905,7 +17918,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.163Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.840Z"
     },
     {
       "id": "doc:docs/strategy/emi-sprints/artifacts/sprint-1-template-audit-checklist.md",
@@ -18659,7 +18672,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.183Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.843Z"
     },
     {
       "id": "doc:docs/strategy/sprint-plan.md",
@@ -18776,7 +18789,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.187Z"
+      "lastModifiedAt": "2026-06-07T13:59:53.849Z"
     },
     {
       "id": "doc:docs/strategy/week3/w3-06-epic-closeout-smk-115-2026-06-04.md",
@@ -18945,7 +18958,46 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:46.006Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.930Z"
+    },
+    {
+      "id": "doc:docs/templates/archive-note-template.md",
+      "title": "Doc docs/templates/archive-note-template.md",
+      "body": "## Archive note",
+      "type": "doc",
+      "ref": "docs/templates/archive-note-template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T13:51:36.820Z"
+    },
+    {
+      "id": "doc:docs/templates/decision-record-template.md",
+      "title": "Doc docs/templates/decision-record-template.md",
+      "body": "Decision Record: <short decision title>",
+      "type": "doc",
+      "ref": "docs/templates/decision-record-template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T13:51:36.804Z"
+    },
+    {
+      "id": "doc:docs/templates/doc-template.md",
+      "title": "Doc docs/templates/doc-template.md",
+      "body": "<Document title>",
+      "type": "doc",
+      "ref": "docs/templates/doc-template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-07T13:51:36.745Z"
     },
     {
       "id": "doc:docs/terry-coach-forward-email.md",
@@ -18997,7 +19049,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:35:09.586Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.933Z"
     },
     {
       "id": "doc:docs/ui-ux-rerun-2026-05-26.md",
@@ -19049,7 +19101,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:00:29.269Z"
+      "lastModifiedAt": "2026-06-07T14:00:37.290Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -19179,7 +19231,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:46.013Z"
+      "lastModifiedAt": "2026-06-07T13:53:40.936Z"
     }
   ]
 }

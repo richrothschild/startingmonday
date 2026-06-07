@@ -1,13 +1,6 @@
 # Starting Monday Internal System Summary
 
-Owner: Documentation Operations
-Status: active
-Last reviewed: 2026-06-07
-Review cadence: monthly
-Source of truth: yes
-
-
-Generated at: 2026-06-07T13:26:54.245Z
+Generated at: 2026-06-07T14:00:53.036Z
 
 ## What exists
 - Feature pages: 185
@@ -16,7 +9,7 @@ Generated at: 2026-06-07T13:26:54.245Z
 - Operational scripts: 116
 - Infra workflows: 34
 - Migrations/data artifacts: 132
-- Internal docs: 536
+- Internal docs: 540
 
 ## How it integrates
 - App routes render product/admin surfaces and call route handlers for actions and data flows.

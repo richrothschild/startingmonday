@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T13:26:54.245Z
+Last generated: 2026-06-07T14:00:53.036Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -941,7 +941,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (536)
+## Documentation (540)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1201,6 +1201,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
+- Doc docs/governance/docs-governance.md | docs/governance/docs-governance.md | Documentation Governance
 - Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
 - Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
 - Doc docs/growth/synthetic-growth-council.md | docs/growth/synthetic-growth-council.md | Synthetic Growth Council Charter
@@ -1460,6 +1461,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/technical-debt-audit.latest.md | docs/technical-debt-audit.latest.md | Technical Debt Deep-Dive Audit
 - Doc docs/technical-debt-execution-backlog-2026-05-19.md | docs/technical-debt-execution-backlog-2026-05-19.md | Technical Debt Execution Backlog (May 19, 2026)
 - Doc docs/technical-reference.md | docs/technical-reference.md | Technical Reference — Starting Monday
+- Doc docs/templates/archive-note-template.md | docs/templates/archive-note-template.md | ## Archive note
+- Doc docs/templates/decision-record-template.md | docs/templates/decision-record-template.md | Decision Record: <short decision title>
+- Doc docs/templates/doc-template.md | docs/templates/doc-template.md | <Document title>
 - Doc docs/terry-coach-forward-email.md | docs/terry-coach-forward-email.md | Coach Forward Email
 - Doc docs/thought-leadership-authority-epic.md | docs/thought-leadership-authority-epic.md | Epic: 12-Week Thought Leadership Authority Build
 - Doc docs/tickets-online-guide-and-chat-2026-05-30.md | docs/tickets-online-guide-and-chat-2026-05-30.md | Tickets: Online User Guide + Guide Chat
