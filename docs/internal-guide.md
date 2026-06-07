@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T01:05:47.219Z
+Last generated: 2026-06-07T02:57:57.508Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -937,7 +937,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 
-## Documentation (534)
+## Documentation (536)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -966,6 +966,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/coach-outreach-pain-led-messaging-system.md | docs/coach-outreach-pain-led-messaging-system.md | Coach Outreach Pain-Led Messaging System
 - Doc docs/coach-peer-forward-note.md | docs/coach-peer-forward-note.md | Coach Peer Forward Note
 - Doc docs/coach-traction-sprint-14-day.md | docs/coach-traction-sprint-14-day.md | Coach Traction Sprint: 14 Days + 20 Outbound Messages
+- Doc docs/coaches-landing-change-list.md | docs/coaches-landing-change-list.md | Coaches Landing Page Change List
+- Doc docs/coaches-landing-features.md | docs/coaches-landing-features.md | Coaches Landing Page Features
 - Doc docs/code-synthetic-council-audit.latest.md | docs/code-synthetic-council-audit.latest.md | Code Synthetic Council Audit
 - Doc docs/code-synthetic-council-playbook.md | docs/code-synthetic-council-playbook.md | Code Synthetic Council Playbook
 - Doc docs/code-synthetic-council-rubric.md | docs/code-synthetic-council-rubric.md | Code Synthetic Council Rubric (Full Spectrum)
