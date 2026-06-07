@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:58:01.256Z",
+  "generatedAt": "2026-06-07T01:05:44.794Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -91,7 +91,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T00:55:53.906Z",
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
       "qualityWeight": 1
     },
     {
@@ -1222,7 +1222,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T00:53:21.180Z",
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
       "qualityWeight": 1
     },
     {
@@ -1404,7 +1404,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T00:57:10.270Z",
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
       "qualityWeight": 1
     },
     {
@@ -1690,7 +1690,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T00:43:50.601Z",
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
       "qualityWeight": 1
     },
     {
@@ -4602,7 +4602,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T00:53:09.516Z",
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
       "qualityWeight": 0.95
     },
     {

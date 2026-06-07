@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T00:58:03.782Z",
+  "generatedAt": "2026-06-07T01:05:47.219Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T00:56:37.822Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:55:53.906Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -1664,7 +1664,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:53:21.180Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:57:10.270Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T00:43:50.601Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "feature:/mark-demo",
@@ -4941,7 +4941,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T00:53:09.516Z"
+      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -15681,7 +15681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:56:37.822Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15720,7 +15720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:56:37.822Z"
+      "lastModifiedAt": "2026-06-07T00:58:03.797Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18970,7 +18970,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T00:58:01.261Z"
+      "lastModifiedAt": "2026-06-07T01:05:44.797Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
